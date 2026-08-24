@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const { loadTables, validateCard } = require("./validate-citations");
+const { seqFromCard } = require("./card-seq");
 
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^II-\d{3}\.json$/.test(f)).sort();
@@ -18,7 +19,9 @@ const typeEnum = schema.properties.card_type.enum;
 const castEnum = schema.properties.cast.items.enum;
 const antEnum = schema.properties.antagonist.enum;
 
-const cards = files.map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")));
+const cards = files
+  .map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")))
+  .sort((a, b) => seqFromCard(a) - seqFromCard(b) || String(a.card_id).localeCompare(String(b.card_id)));
 const errors = [];
 function err(id, msg) { errors.push(`${id}: ${msg}`); }
 

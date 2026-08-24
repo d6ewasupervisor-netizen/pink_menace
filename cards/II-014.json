@@ -54,11 +54,11 @@
       }
     }
   ],
-  "debrief": "You do not speed up for a tailgater. You keep a safe gap ahead so you can stop without being the meat in a chain. If he wants around, he can have the pass when there is one. Brake-checking is a fight. You are not here to fight.",
+  "debrief": "You do not speed up for a tailgater. Fog wants six seconds ahead, not the dry three. Bleed a little speed to rebuild that gap and let Hollis take the pass when a hole appears.",
   "source": {
     "psdp_skill": "Skill three: how close are you?",
     "dol_section": "5.2 Space",
-    "teaching_target": "Do not increase speed for a tailgater; maintain a safe gap ahead and allow a pass when it is legal."
+    "teaching_target": "Do not increase speed for a tailgater; in fog hold six seconds ahead and allow a pass when it is legal."
   },
   "cast": [
     "ali",

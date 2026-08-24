@@ -128,7 +128,7 @@ Never teach a rule abstractly. Attach it to one of these.
 
 Acts are gated. You do not reach The Ribbon until The Arterial is clean — same rule the PSDP gives parents on p.1: do not advance until the prior skill has been practiced many times.
 
-`dol_section` and `psdp_skill` on a card must match pack/07_DOL_SECTIONS.json and pack/08_PSDP_SKILLS.json exactly. The seed script rejects anything else. Do not complete a partial skill name. `stat_cited` ships with a page number or the field is omitted.
+`dol_section` and `psdp_skill` on a card must match pack/07_DOL_SECTIONS.json and pack/08_PSDP_SKILLS.json exactly. The seed script rejects anything else. Do not complete a partial skill name. `stat_cited` ships with a page number or the field is omitted. Act II play order is II-001…II-020, then II-029, II-030, then II-021…II-028.
 
 ## 8. VISUAL GRAMMAR (LOCKED)
 

@@ -1,0 +1,86 @@
+{
+  "card_id": "II-029",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Long Way Is Shorter",
+  "scene": "Willis dead-ends into a berm somebody pushed up and never came back for. The insulin has forty minutes of cold left and the reroute is behind you. Residential, both sides, driveways every fifty feet. Gracie is up on the dash. Reverse lights are the brightest thing this car makes, and every second of backing is a second the mirrors are doing the work your eyes should be doing.",
+  "decision": "You have to reverse direction. How?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Drive the block — right at the corner, right again, back onto Willis facing out",
+      "correct": true,
+      "result": "Four right turns, no reverse gear, no white lights. You come back onto Willis pointed at the arterial with the berm behind you. It cost ninety seconds and it cost nothing else.",
+      "state_delta": {
+        "time_cost": 2,
+        "noise": -1,
+        "light": -1
+      }
+    },
+    {
+      "id": "b",
+      "text": "U-turn right here — the street is empty and it takes four seconds",
+      "correct": false,
+      "result": "You swing it and the nose comes around across a double yellow you did not look down at. It works. It also would not have, three feet later, where the road narrows and the drainage grate sits. The yellow was there the whole time.",
+      "state_delta": {
+        "yaw": 2,
+        "time_cost": 0
+      }
+    },
+    {
+      "id": "c",
+      "text": "Back into the nearest driveway and come out the other way",
+      "correct": false,
+      "result": "It works, and it takes you twenty feet of reverse with the white lights on and the mirrors doing all of it. Not wrong. Just more backing than the corner would have cost you, on a street where backing is the expensive thing.",
+      "state_delta": {
+        "light": 2,
+        "time_cost": 1
+      }
+    },
+    {
+      "id": "d",
+      "text": "Three-point turn in the lane — forward, reverse, forward",
+      "correct": false,
+      "result": "You end up crosswise in a residential lane with the nose in one gutter and the tail in the other, reverse lights on, going nowhere for a beat and a half. Anything coming around the corner arrives at a car that is a wall.",
+      "state_delta": {
+        "light": 2,
+        "yaw": 1,
+        "time_cost": 2
+      }
+    }
+  ],
+  "debrief": "The safest way to turn a vehicle around is to drive around the block. Less backing is always better — backing is slower, blinder, and it is when you are least able to leave. Save the two-point and the three-point for when there is no block to drive.",
+  "source": {
+    "psdp_skill": "Skill seven: turning around",
+    "dol_section": "4.14 Turning",
+    "teaching_target": "Driving around the block is the safest turnaround; minimize backing. U-turns are prohibited across a double yellow line."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_TOPDOWN",
+    "subject": "orthographic overhead of a residential block, the Pink Menace stopped short of a dirt berm blocking the street end",
+    "foreground": "clean overhead lane geometry, painted double yellow centerline running the length of Willis, driveways spaced along both sides",
+    "midground": "the four-right-turn loop around the block readable as open roadway; the berm as a hard stop across the far end",
+    "background": "wet residential rooftops and bare trees, flat gray overcast, no shadows",
+    "read": "the double yellow centerline is unbroken beneath the car, and a complete open loop exists around the block — both facts legible at a glance",
+    "continuity": [
+      "pink_menace_exterior",
+      "L-001"
+    ],
+    "aspect": "1:1"
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "overcast",
+    "time_of_day": "midday",
+    "tone": "wry",
+    "failure_mode": "inexperience"
+  }
+}

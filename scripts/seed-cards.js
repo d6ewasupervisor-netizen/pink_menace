@@ -4,12 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { pool } = require("../src/db");
 const { loadTables, assertCard } = require("./validate-citations");
-
-function seqFromCardId(cardId) {
-  const [act, num] = String(cardId).split("-");
-  const actN = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7 }[act] || 0;
-  return actN * 1000 + Number(num || 0);
-}
+const { seqFromCard } = require("./card-seq");
 
 async function seedFile(filePath, tables) {
   const raw = JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -68,7 +63,7 @@ async function seedFile(filePath, tables) {
       raw.variation && raw.variation.location_type,
       raw.variation && raw.variation.weather,
       raw.variation && raw.variation.time_of_day,
-      seqFromCardId(raw.card_id),
+      seqFromCard(raw),
       JSON.stringify({
         cast: raw.cast || [],
         antagonist: raw.antagonist || null,

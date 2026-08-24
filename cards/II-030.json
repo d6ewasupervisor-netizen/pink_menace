@@ -1,0 +1,87 @@
+{
+  "card_id": "II-030",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Two Hundred Feet of Willis",
+  "scene": "The corner is gone too — a transformer came down across it in the night and the wires are still on the pole. No block to drive. Four driveways in reach: one across the street, one thirty feet up on your side against a blind hedge, one on your side with clean sight down Willis, one behind you past the crest. Insulin, thirty minutes.",
+  "decision": "No block. You are backing into a driveway. Which one?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Your side, the one with clear sight down Willis — signal, check behind, back in",
+      "correct": true,
+      "result": "You pull just past it, blinker on, nothing behind you, and reverse in with two hundred feet of empty road in the mirror the whole time. Shift to drive, check both ways, and roll out pointed the right direction.",
+      "state_delta": {
+        "time_cost": 2,
+        "light": 1
+      }
+    },
+    {
+      "id": "b",
+      "text": "The one across the street — it is the widest and the apron is flat",
+      "correct": false,
+      "result": "Backing into it means dragging the car across the oncoming lane and sitting in it, sideways, blind to the crest. The apron is flat and it does not matter. You are a gate across the only road.",
+      "state_delta": {
+        "light": 2,
+        "yaw": 1,
+        "damage": 1,
+        "time_cost": 3
+      }
+    },
+    {
+      "id": "c",
+      "text": "The near one at thirty feet — closest, least time exposed",
+      "correct": false,
+      "result": "The hedge eats Willis at about eighty feet. You are in reverse with a sightline shorter than your stopping distance, and the first thing you would know about anything coming is the sound of it.",
+      "state_delta": {
+        "light": 2,
+        "time_cost": 1
+      }
+    },
+    {
+      "id": "d",
+      "text": "Past the crest behind you — the driveway there is long and straight",
+      "correct": false,
+      "result": "You reverse up and over the crest to reach it, which means backing blind over the one piece of road you cannot see the far side of. The driveway is fine. Everything before the driveway is not.",
+      "state_delta": {
+        "light": 2,
+        "yaw": 2,
+        "time_cost": 3
+      }
+    }
+  ],
+  "debrief": "A two-point turn backs into a driveway on the same side of the street as your car, at a spot with at least two hundred feet of visible oncoming road. Pull just past it, signal, confirm nothing is behind you, then reverse. Shift to drive and check both directions before you pull out.",
+  "source": {
+    "psdp_skill": "Skill seven: turning around",
+    "dol_section": "4.14 Turning",
+    "teaching_target": "Two-point turn: same-side driveway, 200 feet of visible oncoming traffic, signal, confirm clear behind, back in, then check both directions before pulling out."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR",
+    "subject": "the driver's side mirror of the Pink Menace, filled with a long clear stretch of empty wet residential street behind the car",
+    "foreground": "the mirror housing and a slice of riveted steel door plating, sharply in focus",
+    "midground": "a paved driveway apron entering frame at the mirror's edge on the same side as the car",
+    "background": "Willis running straight and empty to a distant vanishing point, bare maples, flat gray overcast",
+    "read": "the road behind is visibly long, straight and unobstructed, and the driveway sits on the same side as the mirror",
+    "continuity": [
+      "pink_menace_exterior",
+      "L-001"
+    ],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "wind",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "inexperience"
+  }
+}

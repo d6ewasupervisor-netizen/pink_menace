@@ -52,11 +52,11 @@
       }
     }
   ],
-  "debrief": "Green tells you who has the intersection. Ice tells the tires they have nothing. Bleed speed before the box and keep the wheel quiet. The lamp will still be green when you get there.",
+  "debrief": "Green tells you who has the intersection. Ice wants six seconds of space and a walking pace — bleed before the box, no sudden anything. The lamp will still be green when you get there.",
   "source": {
     "psdp_skill": "Skill three: how close are you?",
     "dol_section": "5.6 Road and driving conditions (Slippery roads)",
-    "teaching_target": "Adjust speed for ice before the intersection; do not brake or turn suddenly on a low-grip surface, even on a green."
+    "teaching_target": "On ice, take six seconds of space and bleed speed before the box; do not brake or turn suddenly, even on a green."
   },
   "cast": [
     "ali"

@@ -53,11 +53,12 @@
       }
     }
   ],
-  "debrief": "Following distance is counted in seconds. At city speeds, three seconds to a mark on the road. If you can only see the hitch, you are already inside his stop. Write that gap on the clipboard.",
+  "debrief": "Following distance is counted in seconds. Dry pavement: three to a mark on the road. Rain, fog, and snow: six. Rear-end crashes are the most common kind; opening that gap is the single best thing a new driver can do. Write it on the clipboard.",
   "source": {
     "psdp_skill": "Skill three: how close are you?",
     "dol_section": "5.4 Time (Count seconds)",
-    "teaching_target": "Hold about three seconds of following time in town; if you cannot see pavement under the vehicle ahead, you are too close."
+    "teaching_target": "Three seconds is the dry-road following baseline; if you cannot see pavement under the vehicle ahead, you are too close.",
+    "stat_cited": "PSDP p.11: Rear-end collisions are the most common form of a car crash; increasing following distance is the single best thing a new driver can do to reduce crash risk."
   },
   "cast": [
     "ali"

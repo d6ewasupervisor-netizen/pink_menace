@@ -88,7 +88,7 @@ Do not let the generator choose slots. Build the slot list up front from the Zon
 | II-010 | ledger | Skill six: looking ahead | 4.2 Sharing with school buses | speed |
 | ... | | | | |
 
-Headings must be copied verbatim from pack/07_DOL_SECTIONS.json and pack/08_PSDP_SKILLS.json. Never invent a subtitle. Act II still has a coverage hole: Skill seven: turning around has no card yet.
+Headings must be copied verbatim from pack/07_DOL_SECTIONS.json and pack/08_PSDP_SKILLS.json. Never invent a subtitle. Act II play order inserts II-029 / II-030 (Skill seven: turning around) between II-020 and II-021 by `seq` without renaming the earlier IDs.
 
 Ten minutes building this table saves you from a deck that teaches right turns eleven times and roundabouts never.
 
