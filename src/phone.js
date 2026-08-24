@@ -25,6 +25,8 @@ function last4(e164) {
 }
 
 function phonePepper() {
+  // Must never equal sms-outbox OTP_PEPPER. One leak would then mint both
+  // login codes and pending-link hashes.
   const p = String(process.env.PHONE_PEPPER || "").trim();
   if (!p) {
     const err = new Error("PHONE_PEPPER is not set");

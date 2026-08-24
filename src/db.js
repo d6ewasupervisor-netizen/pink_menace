@@ -50,6 +50,9 @@ async function migrate() {
   await pool.query(`DROP TABLE IF EXISTS people CASCADE`);
   const sql = fs.readFileSync(path.join(__dirname, "schema.sql"), "utf8");
   await pool.query(sql);
+  await pool.query(`
+    ALTER TABLE runs ADD COLUMN IF NOT EXISTS callback_debts JSONB NOT NULL DEFAULT '[]'::jsonb
+  `);
   await pool.query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
 }
 

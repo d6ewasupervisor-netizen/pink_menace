@@ -22,7 +22,8 @@ async function nextUnansweredCard(runId) {
   const { rows } = await query(
     `SELECT c.card_id, c.seq, c.callback_of
        FROM cards c
-      WHERE NOT EXISTS (
+      WHERE c.callback_of IS NULL
+        AND NOT EXISTS (
               SELECT 1 FROM run_answers a
                WHERE a.run_id = $1 AND a.card_id = c.card_id
             )
@@ -31,6 +32,73 @@ async function nextUnansweredCard(runId) {
     [runId]
   );
   return rows[0] || null;
+}
+
+const CALLBACK_GAP = 2;
+
+function asDebts(raw) {
+  return Array.isArray(raw) ? raw.map((d) => ({ ...d })) : [];
+}
+
+async function ledgerForOrigin(client, runId, fromCard) {
+  const { rows } = await client.query(
+    `SELECT c.card_id
+       FROM cards c
+      WHERE c.callback_of = $1
+        AND NOT EXISTS (
+              SELECT 1 FROM run_answers a
+               WHERE a.run_id = $2 AND a.card_id = c.card_id
+            )
+      ORDER BY c.seq ASC, c.card_id ASC
+      LIMIT 1`,
+    [fromCard, runId]
+  );
+  return rows[0] ? rows[0].card_id : null;
+}
+
+async function pickNextCard(client, runId, debts) {
+  const list = asDebts(debts);
+  for (const d of list) {
+    if (Number(d.remaining) > 0) continue;
+    const id = await ledgerForOrigin(client, runId, d.from_card);
+    if (id) return { cardId: id, debts: list };
+  }
+  const { rows: main } = await client.query(
+    `SELECT c.card_id
+       FROM cards c
+      WHERE c.callback_of IS NULL
+        AND NOT EXISTS (
+              SELECT 1 FROM run_answers a
+               WHERE a.run_id = $1 AND a.card_id = c.card_id
+            )
+      ORDER BY c.seq ASC, c.card_id ASC
+      LIMIT 1`,
+    [runId]
+  );
+  if (main[0]) return { cardId: main[0].card_id, debts: list };
+  for (const d of list) {
+    const id = await ledgerForOrigin(client, runId, d.from_card);
+    if (id) return { cardId: id, debts: list };
+  }
+  return { cardId: null, debts: list };
+}
+
+function queueCallback(debts, fromCard) {
+  const list = asDebts(debts);
+  if (list.some((d) => d.from_card === fromCard)) return list;
+  list.push({ from_card: fromCard, remaining: CALLBACK_GAP });
+  return list;
+}
+
+function onMainAnswered(debts) {
+  return asDebts(debts).map((d) => ({
+    from_card: d.from_card,
+    remaining: Math.max(0, Number(d.remaining) - 1),
+  }));
+}
+
+function clearCallback(debts, fromCard) {
+  return asDebts(debts).filter((d) => d.from_card !== fromCard);
 }
 
 async function publicCard(cardId) {
@@ -75,6 +143,11 @@ module.exports = {
   pendingForPhone,
   nextUnansweredCard,
   publicCard,
+  pickNextCard,
+  queueCallback,
+  onMainAnswered,
+  clearCallback,
+  CALLBACK_GAP,
   dayNight,
   skillBand,
 };

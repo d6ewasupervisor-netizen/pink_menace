@@ -6,48 +6,44 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, nextUnansweredCard, dayNight } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback } = require("./game");
+
+// Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
+// A completed run starts a new one. We never rewind an in-progress run to card one.
+async function assignCurrent(run) {
+  if (run.current_card_id) return run;
+  const picked = await pickNextCard(pool, run.id, run.callback_debts);
+  if (picked.cardId) {
+    await query(
+      `UPDATE runs SET current_card_id = $1, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
+      [picked.cardId, run.id]
+    );
+    run.current_card_id = picked.cardId;
+    run.current_attempt_no = 1;
+  }
+  return run;
+}
 
 async function getOrCreateRun(studentId) {
   const { rows } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, state
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
        FROM runs
       WHERE student_id = $1 AND status = 'active'`,
     [studentId]
   );
-  if (rows[0]) {
-    if (!rows[0].current_card_id) {
-      const next = await nextUnansweredCard(rows[0].id);
-      if (next) {
-        await query(
-          `UPDATE runs SET current_card_id = $1, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
-          [next.card_id, rows[0].id]
-        );
-        rows[0].current_card_id = next.card_id;
-        rows[0].current_attempt_no = 1;
-      }
-    }
-    return rows[0];
-  }
+  if (rows[0]) return assignCurrent(rows[0]);
   const id = crypto.randomUUID();
   await query(
     `INSERT INTO runs (id, student_id, status, current_attempt_no)
      VALUES ($1, $2, 'active', 1)`,
     [id, studentId]
   );
-  const next = await nextUnansweredCard(id);
-  if (next) {
-    await query(
-      `UPDATE runs SET current_card_id = $1, updated_at = now() WHERE id = $2`,
-      [next.card_id, id]
-    );
-  }
   const created = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, state
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
        FROM runs WHERE id = $1`,
     [id]
   );
-  return created.rows[0];
+  return assignCurrent(created.rows[0]);
 }
 
 function mountRun(app) {
@@ -102,7 +98,7 @@ function mountRun(app) {
     try {
       await client.query("BEGIN");
       const runRes = await client.query(
-        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, state
+        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
            FROM runs
           WHERE student_id = $1 AND status = 'active'
           FOR UPDATE`,
@@ -153,12 +149,15 @@ function mountRun(app) {
       }
 
       let queued = Array.isArray(run.queued_callbacks) ? [...run.queued_callbacks] : [];
+      let debts = run.callback_debts;
+      if (card.callback_of) {
+        debts = clearCallback(debts, card.callback_of);
+      } else {
+        debts = onMainAnswered(debts);
+      }
       if (card.schedules_callback && !option.is_correct) {
-        const cb = await client.query(
-          `SELECT card_id FROM cards WHERE callback_of = $1 ORDER BY seq ASC LIMIT 1`,
-          [cardId]
-        );
-        if (cb.rows[0]) queued.push(cb.rows[0].card_id);
+        debts = queueCallback(debts, cardId);
+        if (!queued.includes(cardId)) queued.push(cardId);
       }
 
       const { rows: parents } = await client.query(
@@ -192,39 +191,24 @@ function mountRun(app) {
         ]
       );
 
-      let nextCardId = null;
-      if (queued.length) {
-        nextCardId = queued.shift();
-      } else {
-        const nxt = await client.query(
-          `SELECT c.card_id
-             FROM cards c
-            WHERE NOT EXISTS (
-                    SELECT 1 FROM run_answers a
-                     WHERE a.run_id = $1 AND a.card_id = c.card_id
-                  )
-            ORDER BY c.seq ASC, c.card_id ASC
-            LIMIT 1`,
-          [run.id]
-        );
-        nextCardId = nxt.rows[0] ? nxt.rows[0].card_id : null;
-      }
+      const picked = await pickNextCard(client, run.id, debts);
+      const nextCardId = picked.cardId;
 
       if (nextCardId) {
         await client.query(
           `UPDATE runs
               SET current_card_id = $1, current_attempt_no = 1, queued_callbacks = $2,
-                  state = $3::jsonb, updated_at = now()
-            WHERE id = $4`,
-          [nextCardId, queued, JSON.stringify(state), run.id]
+                  callback_debts = $3::jsonb, state = $4::jsonb, updated_at = now()
+            WHERE id = $5`,
+          [nextCardId, queued, JSON.stringify(picked.debts), JSON.stringify(state), run.id]
         );
       } else {
         await client.query(
           `UPDATE runs
               SET status = 'completed', current_card_id = NULL, queued_callbacks = $1,
-                  state = $2::jsonb, updated_at = now()
-            WHERE id = $3`,
-          [queued, JSON.stringify(state), run.id]
+                  callback_debts = $2::jsonb, state = $3::jsonb, updated_at = now()
+            WHERE id = $4`,
+          [queued, JSON.stringify(picked.debts), JSON.stringify(state), run.id]
         );
       }
 

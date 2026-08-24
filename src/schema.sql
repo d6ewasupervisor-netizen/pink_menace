@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS runs (
   current_card_id TEXT REFERENCES cards(card_id),
   current_attempt_no INTEGER NOT NULL DEFAULT 1,
   queued_callbacks TEXT[] NOT NULL DEFAULT '{}',
+  callback_debts JSONB NOT NULL DEFAULT '[]'::jsonb,
   state JSONB NOT NULL DEFAULT '{}'::jsonb,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()

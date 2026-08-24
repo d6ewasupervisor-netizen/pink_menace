@@ -63,6 +63,14 @@ function bindGate({ kind, onReady }) {
     return me;
   }
 
+  const pinForm = $("pin-form");
+  if (pinForm) {
+    pinForm.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      enterBtn.click();
+    });
+  }
+
   sendBtn.addEventListener("click", async () => {
     sendBtn.disabled = true;
     setMsg(msg, "");
@@ -70,6 +78,7 @@ function bindGate({ kind, onReady }) {
       const body = { phone: phone.value };
       if (kind === "parents") body.name = name.value;
       await api("/api/auth/otp/send", { method: "POST", body });
+      if (pinForm) show(pinForm, true);
       show(pinWrap, true);
       pin.focus();
     } catch (err) {
