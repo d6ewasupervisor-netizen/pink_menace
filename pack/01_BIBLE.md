@@ -1,0 +1,191 @@
+# PINK MENACE — WORLD BIBLE v1.1 (LOCKED)
+
+> Inject this file verbatim into every Layer 2 and Layer 3 call. Do not summarize it. Do not paraphrase it. If a generation contradicts this file, the generation is wrong.
+
+---
+
+## 1. PREMISE
+
+Fourteen months after the Cascadia Quarantine, Washington State is sealed at the Columbia and the Cascade passes. Nobody is coming.
+
+The critical detail: **the lights still work.** Grand Coulee and Chief Joseph never stopped — hydro doesn't need a crew the way a gas plant does. So the grid holds, traffic signals still cycle on their old timing plans, sign faces still reflect, and the road network is the last functioning system in the state.
+
+That is the spine of this entire game. **The rules of the road still apply because the road is the only thing still working.** Convoys move people, water, insulin, and fuel between shelters. A driver who cannot merge, signal, or hold a following distance is not a bad student — they are a liability who gets a column killed.
+
+Etiquette is tactics. Every single rule in the DOL guide has in-world teeth.
+
+## 2. THE INFECTED — "The Quiet" *(never called zombies in-fiction)*
+
+Three sensory rules. Everything mechanical derives from these.
+
+| Rule | Trigger | Curriculum it enforces |
+|---|---|---|
+| **Sound draws** | Hard braking, horn, over-rev, tire squeal, PA, door slam | Smooth braking/accelerating; steady speed; PSDP Skill 2 |
+| **Light draws** | High beams, hazards left running, brake lights held, dome light | Low-beam default; high-beam etiquette; DOL 2.5, 5.6 |
+| **Yaw draws** | Sharp steering at speed, panic swerve, skid | Gentle highway steering; skid recovery; PSDP Skill 13, DOL 2.10, 5.6 |
+
+**The Herd** migrates along road corridors — the pavement is the fastest route for them too. Herd position is a moving map hazard.
+
+**Radios are monitored and unreliable.** Convoys communicate with **turn signals, brake lights, headlight flashes, and hand signals** (DOL 2.5). Signal discipline is the convoy's only language. A missed signal is a missed sentence.
+
+## 3. PLAYABLE DRIVERS (3)
+
+Each has a different vehicle, different handling, different curriculum focus, and a different **fatal weakness** drawn from the PSDP crash-risk data. Rotate protagonist by act — the student must play all three.
+
+### 3.1 ALI OKONJO — callsign **KILO** *(canon, do not restyle)*
+- **Age 17.** Cranberry-red tightly coiled hair, braided at the crown, worn either as a long thick braid or a shoulder-length curl-out. Wire-rim round glasses. Gold hoop earrings, small gold nose ring. Warm brown skin. Faded pink hoodie with white raglan stripes, or a black oversize tee. Flat affect, dry, does not perform emotion.
+- **Vehicle: THE PINK MENACE.** Baja-converted VW Beetle. Faded matte pink with oxidation. Riveted raw-steel door and quarter-panel plating. Welded steel mesh cages over every window and the windshield. Black tube bull bar with a wide flat plow blade. Oversize knobby tires, chrome slot wheels. Interior: cracked pink dash, worn black leather wheel, analog gauge cluster, aftermarket nav tablet, rocker switch bank.
+- **Handling:** light, quick, short wheelbase, excellent visibility, **terrible crash tolerance.**
+- **Weakness: SPEED.** She's fast, she knows it, and she has never once been wrong until she is. Her arc is the speeding arc — PSDP p.12: speeding was a factor in 30% of fatal teen crashes.
+- **Passenger: GRACIE**, orange tabby cat, amber-green eyes, cream chest. Unrestrained cat = live distraction mechanic and the reason Ali comes back.
+
+### 3.2 DESMOND VAILE — callsign **DEAC**
+- **Age 54.** Former transit operator, 26 years, never a preventable. Dark brown skin, close-cut gray hair receding at the temples, short gray beard, deep-set tired eyes with reddened lids. Broad and tall-shouldered, moves slowly and deliberately. Speaks in dispatch cadence. Believes the schedule is a moral document.
+- **Glasses discipline (contrast with Ali):** half-frame reading glasses that live on a cord on his chest. He only puts them on to read. Ali's glasses are always on her face; Deac's are almost never on his. Never both characters in glasses in the same frame.
+- **Wardrobe:** faded charcoal transit operator's jacket, agency patch worn down to a ghost outline, over a **dulled amber hi-vis safety vest**, grimy and taped at one shoulder. Dark work trousers, steel-toe boots.
+- **Signature object: THE CLIPBOARD.** A metal clipboard with a hand-ruled log sheet — date, location, day/night, weather, skills, hours, initials. It is the PSDP supervised driving log, and it is diegetic. Deac is the reason you log your hours; his clipboard *is* the game's progress tracker on screen.
+- **Fatigue tell:** a dented steel thermos in the cup holder, always. Never depict the fatigue with anything more graphic than reddened eyes and a hand pressed flat to the sternum.
+- **Vehicle: THE LEDGER.** Ex-transit cutaway shuttle bus — a tall square passenger box on a van nose, roughly 24 feet. Faded green-and-white transit livery ghosting under gray primer. Plate steel skirting the lower body, expanded metal mesh over every side window, a bar cage over the windshield with a cut wiper slot. Roof cargo rack with lashed water cans and a folded aluminum ramp. Passenger-side wheelchair lift door, still functional, used as a loading bay. **Oversize convex west-coast mirrors on long arms, both sides** — the biggest silhouette anchor on the vehicle, and a direct visual statement of his teaching content. Above the windshield, a working **amber dot-matrix destination sign** he uses to talk to other convoys. That sign is his voice.
+- **Handling:** heavy, slow, enormous blind zones, huge stopping distance, high seating position (sees far).
+- **Weakness: FATIGUE.** He has been awake for the entire quarantine. Input lag, microsleep, the slow drift. DOL 3.1 — fatigue and drowsy driving.
+- **Curriculum focus:** blind zones, following distance, stopping distance, hand signals, sharing the road with large vehicles, school bus law.
+- **Passenger: MYA**, brown mackerel tabby, dark dorsal stripe, green eyes, heavier build. Sleeps on the dash. Blocks the mirror.
+
+### 3.3 YUNA PARK-REYES — callsign **ENCORE**
+- **Age 17.** Eleven months into an idol trainee contract at a Seattle studio house when the border closed. Light-medium skin, no glasses. **Asymmetric chin-length bob, jet black on top with a platinum under-layer** that flashes when she turns her head. A single thin braid at the right temple with a strip of **retroreflective tape** woven into it. Stage-trained posture — squared shoulders, chin level, never still. Talks over engine noise.
+- **Wardrobe:** cropped black windbreaker with **retroreflective piping down both sleeves**, black cargo pants, stage-worn high-tops with reflective heel tabs.
+- **Signature object: THE IN-EARS.** Dead wireless in-ear monitors around her neck — **one earpiece in, one dangling.** The distraction mechanic, worn on the body, visible in every frame she appears in. When she is driving well, both are out.
+- **Vehicle: ENCORE.** Stripped compact hatchback. Low, wide, wedge silhouette. Matte black with tape-patched panels. **Retroreflective chevron striping salvaged off highway signs and work-zone barrels** across both doors and the tailgate — under any headlight she lights up like a lit match. Gutted interior, exposed roll cage, one bucket seat plus a **mismatched rear bench welded in from another car** so she can carry people. Roof frame carrying **four chrome PA horn flares.** No armor. **No windshield mesh** — the other two have it; she chose visibility and speed over protection, and that choice is the character.
+- **Handling:** fastest, lightest, loudest. Zero armor.
+- **Weakness: DISTRACTION AND PASSENGERS.** She drives better with an audience and that is exactly the problem. PSDP p.12 — risky teen driving behavior increases with teen passengers; p.11 — texting raises collision risk 23x.
+- **The design point:** her superpower is the precise thing that kills teenagers. Her whole kit — the horns, the reflective tape, the bench seat — is built to draw attention in a world where sound and light draw *them*. Her arc is learning *when* to be loud; the PA pulling a herd off a stalled convoy is a sacrifice play, not a default.
+
+### 3.4 SIGNATURE ACCENTS — how the student knows whose act they're in
+
+The world is desaturated. Each driver owns exactly one accent, and the accent encodes their weakness.
+
+| Driver | Accent | Why it's theirs |
+|---|---|---|
+| **Ali** | Cranberry / faded pink — matte, oxidized, beaten | Speed is damage. Her color is worn down. |
+| **Deac** | Transit amber — hi-vis vest, destination sign, warning lamps | Amber means *slow down, hazard ahead*. He is the hazard he's warning you about. |
+| **Yuna** | Retroreflective silver-white — **a finish, not a hue** | It has no color until light hits it, then it flares. Light draws them. She is the most visible thing on the road. |
+
+Yuna's accent being a *reflectivity* rather than a color is deliberate: it keeps the desaturated palette intact, it reads instantly at night and barely at all in flat daylight, and it means her signature look is at its loudest exactly when it is most dangerous.
+
+Never give a non-driver character any of these three accents. Amber on a school bus or a slow-moving-vehicle triangle is the exception — that's the same warning language Deac speaks, and the echo is intentional.
+
+## 4. ANTAGONIST ROSTER — every teen-killer gets a face
+
+Sourced from PSDP p.5, p.12, p.33 and DOL ch.5. These are the bosses.
+
+| # | Name | Real risk | Behavior |
+|---|---|---|---|
+| A1 | **The Splitter** | Speeding | Tracks velocity only. Holds the limit and it never sees you. Exceed it and it locks on. |
+| A2 | **The Chorus** | Distraction | Bleeds voices through the radio — familiar ones. Every second of eyes-off is damage. |
+| A3 | **The Load** | Teen passengers | Not a creature. A pressure gauge. Each passenger raises noise, argument, and reaction time. |
+| A4 | **The Ejection** | No seat belt | Not a creature either. Flat, unrecoverable, one hit. 51% of teen drivers killed in 2022 were unbuckled. Never softened. |
+| A5 | **The Dark Hours** | Night driving | A curfew window, not a monster. Visibility collapses, glare rules change, everything gets 40% harder. |
+| A6 | **The Drift** | Fatigue / impairment | Slow degradation. Input lag, lane wander, missed signs. Deac's shadow. |
+| A7 | **Cold Roads** | Inexperience | Unfamiliar route penalty. Map fog. The only counter is logged practice hours. |
+
+## 5. RECURRING CAST — a face for every rule
+
+Never teach a rule abstractly. Attach it to one of these.
+
+| Name | Role | Curriculum anchor |
+|---|---|---|
+| **Reyna Solis & Bus 12** | Last shelter-route school bus driver | Stop arm, red vs amber lights, DOL 4.2 |
+| **Tobin**, age 7 | The kid who bolts from behind Bus 12 | Why the stop arm exists |
+| **Marisol** | Courier on a bicycle, fast, unafraid | Bike lanes, 3-foot pass, door zone, Dutch Reach, DOL 4.6 |
+| **Hollis** | Aggressive driver in a lifted truck | Tailgating, road rage, racing, DOL 3.1 |
+| **The Grange Convoy** | Farm equipment column out of the Palouse | Slow-moving vehicle triangle, rural passing, DOL 4.8 |
+| **Old Ninety** | Rogue semi, no known driver | Truck no-zones, 78% of fatalities are in the car, DOL 4.4 |
+| **Officer Dunn** | WSP remnant, still runs stops by the book | Getting pulled over, DOL 5.10 |
+| **Gravy** | Snowplow operator, Snoqualmie Pass | Never pass a plow, DOL 4.4 |
+| **The Ferry Line** | Edmonds–Kingston queue, still loading | Ferry procedure, DOL 4.20 |
+| **The Crossing** | Yakima rail crossing, signal still active | Trains, DOL 4.7 |
+
+## 6. FICTION GUARDRAILS
+
+- The infected are **the Quiet**. Never "zombies," never "walkers."
+- No firearms as a solution to a driving problem. The car is the tool.
+- No character is punished for asking a question or driving slowly.
+- Adults model correct behavior or are shown paying for not doing so — never both careless and unpunished (PSDP p.2: be a driving role model).
+- Humor is dry and situational. Never quippy-during-danger.
+- **Every rule stated in a card must be traceable to a cited DOL section or PSDP skill.** No invented traffic law. Ever.
+
+## 7. ZONE MAP — the campaign *is* the state curriculum, in order
+
+| Act | Zone | PSDP Skills | DOL Sections | Driver |
+|---|---|---|---|---|
+| I | **The Lot** — dead Fred Meyer parking lot, Renton | 1–4 | 2.4, 2.5, 2.6, 2.7, 2.8, 2.11, 2.12, 2.14 | Ali |
+| II | **The Grid** — quiet residential, Kent | 5–8 | 4.2, 4.6, 4.10–4.14, 4.18, 5.5 | Ali |
+| III | **The Arterial** — multi-lane, Aurora Ave | 9–10 | 4.13, 4.16, 5.2, 5.3 | Deac |
+| IV | **The Core** — downtown Seattle | 11–12 | 4.1, 4.2, 4.3, 4.6, 4.7, 4.17 | Yuna |
+| V | **The Ribbon** — I-5 / I-90 | 13–14 | 4.4, 5.1, 5.3, 5.4 | Deac |
+| VI | **The Backcountry** — Palouse, gravel, roundabouts | Rural, Roundabouts | 4.8, 4.15, 5.6 | Yuna |
+| VII | **The Dark Hours** — night, rain, fog, Snoqualmie snow | Other conditions | 3.1, 5.6, 5.7, 5.9, 5.10 | All three |
+
+Acts are gated. You do not reach The Ribbon until The Arterial is clean — same rule the PSDP gives parents on p.1: do not advance until the prior skill has been practiced many times.
+
+## 8. VISUAL GRAMMAR (LOCKED)
+
+### 8.1 Master style token
+> Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. **The only saturated color in frame is the signature accent of the driver whose card this is** — cranberry/pink for Ali, transit amber for Deac, retroreflective silver-white for Yuna. Everything else stays desaturated. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+One accent per frame. If two drivers appear in the same shot, the accent belongs to whoever is driving.
+
+### 8.2 Reference discipline — read this or you will get sunsets forever
+- `ref_ali1.jpg`, `ref_ali2.png` — **face, hair, glasses, jewelry.** Also the correct lighting model.
+- `ref_car_exterior.jpg` — **silhouette and build only.** The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
+- `ref_cockpit.jpg` — **interior layout and mesh screen only.** Same warning: not the lighting.
+- `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
+- `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
+
+### 8.3 Camera set (pick exactly one per card)
+
+| Token | Framing | Use for |
+|---|---|---|
+| `POV_COCKPIT` | Over the wheel, gauges bottom-left, mesh screen top, road through the grid | Decision moments while moving |
+| `POV_MIRROR` | Tight on rearview or driver's side mirror, subject in the glass, foreground blurred | Blind zones, following traffic, backing |
+| `POV_TOPDOWN` | Clean orthographic overhead, vehicles as shapes, lane geometry legible | Rules of geometry — turns, merges, roundabouts, parking |
+| `POV_CHASE` | Behind and slightly above the vehicle, road ahead visible | Zone establishing shots, convoy formation |
+| `POV_ROADSIDE` | Ground level, outside the car, human eye height | Pedestrians, cyclists, traffic stops, aftermath |
+| `POV_PORTRAIT` | Chest-up, subject centered, background compressed | Dossier and character cards |
+| `POV_OBJECT` | The sign, the light, the marking, isolated, shallow DOF | Rule cards |
+
+### 8.4 Aspect ratios
+Card art `3:4` portrait. Zone establishing `16:9`. Topdown diagrams `1:1`.
+
+## 9. CONTENT CEILING — implied, PG-13
+
+Consequence must land. It must also survive an image generator's safety filter, or you burn generations on refusals.
+
+**Permitted (the implication vocabulary):**
+- An empty child seat, straps still buckled
+- A driver's door standing open, dome light on, nobody in frame
+- One shoe on the centerline
+- Handprints and drag streaks on the **outside** of glass
+- A windshield fogged from the inside
+- Silhouettes at the treeline, out of focus, at a distance
+- A stopped car with its hazards still blinking and no occupant
+- Dried dark spatter on a door panel, small, non-anatomical
+- Injury on a living character: bandaging, a bloodied sleeve, a limp, a wince
+
+**Forbidden — do not generate, do not describe:**
+- Wounds, viscera, dismemberment, exposed anatomy
+- Bodies, human or animal, in any state
+- An infected in sharp focus at close range — they are always distant, blurred, or partial
+- Any harm to a child shown on screen
+- Any harm to Gracie or Mya shown on screen
+- Blood on a face or hands in close-up
+
+**The craft note:** implication outperforms depiction on retention anyway. An empty booster seat behind Bus 12 does more work than any wound, and it does it without a content filter argument.
+
+## 10. RETENTION ENGINE — the reason any of this sticks
+
+Three mandatory mechanisms. The generator must honor all three.
+
+1. **Callback consequence.** Every wrong answer schedules a `ledger` card later in the same act that shows the fallout — *same characters, same location, same weather.* The student meets their own mistake again with a face on it.
+2. **Face-locked rules.** No rule is ever taught in the abstract. Stop arm = Reyna and Tobin. Door zone = Marisol. No-zone = Old Ninety. The student recalls the person, and the rule comes attached.
+3. **Visual accumulation.** Locations recur across acts and visibly change — the Fred Meyer lot in Act I is empty and quiet; when you pass it in Act VII it is not. Continuity is the memory hook.

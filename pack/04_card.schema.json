@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tactag.app/schemas/pink-menace/card.schema.json",
+  "title": "Pink Menace Card",
+  "type": "object",
+  "required": [
+    "card_id", "act", "zone", "driver", "card_type", "title",
+    "scene", "source", "image_brief", "variation"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "pattern": "^(I|II|III|IV|V|VI|VII)-[0-9]{3}$",
+      "description": "Act numeral, dash, zero-padded sequence. e.g. II-014"
+    },
+    "act": { "enum": ["I", "II", "III", "IV", "V", "VI", "VII"] },
+    "zone": {
+      "enum": ["The Lot", "The Grid", "The Arterial", "The Core", "The Ribbon", "The Backcountry", "The Dark Hours"]
+    },
+    "driver": { "enum": ["ali", "deac", "yuna"] },
+    "card_type": {
+      "enum": ["scene", "hazard", "rule", "convoy", "wrench", "ledger", "dossier"]
+    },
+    "title": { "type": "string", "minLength": 3, "maxLength": 40 },
+    "scene": { "type": "string", "minLength": 150, "maxLength": 700 },
+    "decision": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Required for all types except dossier."
+    },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "description": "Omitted for dossier cards.",
+      "items": {
+        "type": "object",
+        "required": ["id", "text", "correct", "result", "state_delta"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-d]$" },
+          "text": { "type": "string", "maxLength": 160 },
+          "correct": { "type": "boolean" },
+          "result": { "type": "string", "minLength": 80, "maxLength": 400 },
+          "state_delta": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "noise": { "type": "integer", "minimum": -3, "maximum": 5 },
+              "light": { "type": "integer", "minimum": -3, "maximum": 5 },
+              "yaw": { "type": "integer", "minimum": -3, "maximum": 5 },
+              "fuel": { "type": "integer", "minimum": -5, "maximum": 2 },
+              "passenger_stress": { "type": "integer", "minimum": -3, "maximum": 5 },
+              "time_cost": { "type": "integer", "minimum": 0, "maximum": 60 },
+              "damage": { "type": "integer", "minimum": 0, "maximum": 5 },
+              "fatal": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "debrief": { "type": "string", "maxLength": 400 },
+    "source": {
+      "type": "object",
+      "required": ["psdp_skill", "dol_section", "teaching_target"],
+      "additionalProperties": false,
+      "properties": {
+        "psdp_skill": {
+          "type": "string",
+          "description": "Exact heading from the WA Parent's Supervised Driving Program, or 'n/a'."
+        },
+        "dol_section": {
+          "type": "string",
+          "description": "Exact numbered section from the WA Driver Guide, e.g. '4.2 Sharing with school buses'."
+        },
+        "teaching_target": { "type": "string", "maxLength": 200 },
+        "stat_cited": {
+          "type": "string",
+          "description": "Optional. Must be verbatim-traceable to PSDP or DOL. No invented figures."
+        }
+      }
+    },
+    "cast": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "ali", "deac", "yuna", "gracie", "mya",
+          "reyna_solis", "bus_12", "tobin", "marisol", "hollis",
+          "grange_convoy", "old_ninety", "officer_dunn", "gravy",
+          "ferry_line", "the_crossing"
+        ]
+      }
+    },
+    "antagonist": {
+      "enum": ["splitter", "chorus", "load", "ejection", "dark_hours", "drift", "cold_roads", "none"]
+    },
+    "callback_of": {
+      "type": ["string", "null"],
+      "description": "card_id this ledger card resolves. Null unless card_type is 'ledger'."
+    },
+    "schedules_callback": {
+      "type": "boolean",
+      "description": "True if a wrong answer here should queue a ledger card later in this act."
+    },
+    "image_brief": {
+      "type": "object",
+      "required": ["camera", "subject", "foreground", "midground", "background", "read"],
+      "additionalProperties": false,
+      "properties": {
+        "camera": {
+          "enum": ["POV_COCKPIT", "POV_MIRROR", "POV_TOPDOWN", "POV_CHASE", "POV_ROADSIDE", "POV_PORTRAIT", "POV_OBJECT"]
+        },
+        "subject": { "type": "string", "maxLength": 200 },
+        "foreground": { "type": "string", "maxLength": 200 },
+        "midground": { "type": "string", "maxLength": 200 },
+        "background": { "type": "string", "maxLength": 200 },
+        "read": {
+          "type": "string",
+          "maxLength": 250,
+          "description": "The single visual fact that teaches the card with the text muted."
+        },
+        "continuity": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Canonical bible assets that must render exactly."
+        },
+        "aspect": { "enum": ["3:4", "16:9", "1:1"], "default": "3:4" }
+      }
+    },
+    "variation": {
+      "type": "object",
+      "required": ["location_type", "weather", "time_of_day", "tone", "failure_mode"],
+      "additionalProperties": false,
+      "properties": {
+        "location_type": {
+          "enum": ["parking_lot", "residential", "arterial", "downtown", "highway", "rural", "gravel", "mountain_pass", "waterfront", "rail_crossing", "work_zone", "school_zone"]
+        },
+        "weather": { "enum": ["overcast", "rain", "heavy_rain", "fog", "snow", "ice", "clear_cold", "wind"] },
+        "time_of_day": { "enum": ["dawn", "morning", "midday", "afternoon", "dusk", "night", "deep_night"] },
+        "tone": { "enum": ["procedural", "tense", "quiet", "wry", "grim", "warm", "urgent"] },
+        "failure_mode": {
+          "enum": ["speed", "distraction", "passengers", "belt", "night", "fatigue", "inexperience", "impairment", "vehicle_failure", "weather", "none"]
+        },
+        "forced": {
+          "type": "string",
+          "description": "If an axis had to repeat, name it and why."
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "card_type": { "const": "dossier" } } },
+      "then": { "not": { "required": ["options"] } },
+      "else": { "required": ["decision", "options", "debrief"] }
+    }
+  ]
+}

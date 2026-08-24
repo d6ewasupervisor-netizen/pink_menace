@@ -1,0 +1,35 @@
+# PINK MENACE — The Quarantine Runs
+
+Card-corpus generation system for a Washington DOL / PSDP driving game. Quarantined Washington, not a wasteland: the grid still runs, so the rules of the road still have teeth.
+
+## Current gate
+
+Do not generate Act II at volume until:
+
+1. `06_WORKED_EXAMPLE.md` / `cards/II-007.json` feels worth playing (text + compiled image).
+2. Character locks from `pack/07_CHARACTER_LOCK_PROMPTS.md` exist in `refs/`.
+3. Twenty image tests have been run against bible §9 so the filter line is known on this account.
+
+## Pipeline
+
+```
+curriculum slot  →  L2 card generator  →  card.json
+                         + bible + ledger
+                                              ↓
+                                    L3 image compiler  →  GPT Image 2 prompt
+```
+
+Start at `pack/00_README.md`. Carry one card end to end from `pack/06_WORKED_EXAMPLE.md` before generating at volume. Generate **Act II** first.
+
+## Layout
+
+| Path | What |
+|---|---|
+| `pack/` | Locked bible, generator, compiler, schema, ledger, worked example, character-lock prompts |
+| `cards/` | Schema-valid card JSON |
+| `refs/` | Locked character and vehicle reference images |
+| `source/` | WA Driver Guide + Parent's Supervised Driving Program PDFs |
+
+## Title
+
+**PINK MENACE.** Campaign subtitle: **The Quarantine Runs.**
