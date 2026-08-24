@@ -4,7 +4,14 @@ const crypto = require("crypto");
 const { query } = require("./db");
 const { sessionDays } = require("./host");
 
-const COOKIE = "pm_session";
+function cookieSecure() {
+  if (process.env.COOKIE_SECURE === "0") return false;
+  return process.env.NODE_ENV !== "development";
+}
+
+function cookieName() {
+  return cookieSecure() ? "__Host-pm_session" : "pm_session";
+}
 
 function hashToken(token) {
   return crypto.createHash("sha256").update(String(token)).digest("hex");
@@ -12,23 +19,24 @@ function hashToken(token) {
 
 function cookieOptions() {
   const days = sessionDays();
-  return {
+  const opts = {
     httpOnly: true,
-    secure: process.env.COOKIE_SECURE === "0" ? false : process.env.NODE_ENV !== "development",
+    secure: cookieSecure(),
     sameSite: "lax",
     maxAge: days * 24 * 60 * 60 * 1000,
     path: "/",
   };
+  return opts;
 }
 
-async function createSession(personId, userAgent) {
+async function createSession(userId, userAgent) {
   const id = crypto.randomUUID();
   const token = crypto.randomBytes(32).toString("hex");
   const days = sessionDays();
   await query(
-    `INSERT INTO sessions (id, person_id, token_hash, expires_at, user_agent)
+    `INSERT INTO sessions (id, user_id, token_hash, expires_at, user_agent)
      VALUES ($1, $2, $3, now() + make_interval(days => $4::int), $5)`,
-    [id, personId, hashToken(token), days, String(userAgent || "").slice(0, 300)]
+    [id, userId, hashToken(token), days, String(userAgent || "").slice(0, 300)]
   );
   return token;
 }
@@ -36,10 +44,12 @@ async function createSession(personId, userAgent) {
 async function readSession(token) {
   if (!token || typeof token !== "string") return null;
   const { rows } = await query(
-    `SELECT s.id, s.person_id, s.expires_at, p.role, p.name, p.phone
+    `SELECT s.id, s.user_id, s.expires_at, s.user_agent, u.role, u.display_name, u.phone_e164
        FROM sessions s
-       JOIN people p ON p.id = s.person_id
-      WHERE s.token_hash = $1 AND s.expires_at > now()`,
+       JOIN users u ON u.id = s.user_id
+      WHERE s.token_hash = $1
+        AND s.expires_at > now()
+        AND s.revoked_at IS NULL`,
     [hashToken(token)]
   );
   const row = rows[0];
@@ -47,29 +57,42 @@ async function readSession(token) {
   await query(`UPDATE sessions SET last_seen_at = now() WHERE id = $1`, [row.id]);
   return {
     sessionId: row.id,
-    personId: row.person_id,
+    userId: row.user_id,
     role: row.role,
-    name: row.name,
-    phone: row.phone,
+    name: row.display_name,
+    phone: row.phone_e164,
     expiresAt: row.expires_at,
+    userAgent: row.user_agent,
   };
 }
 
 async function destroySession(token) {
   if (!token) return;
-  await query(`DELETE FROM sessions WHERE token_hash = $1`, [hashToken(token)]);
+  await query(`UPDATE sessions SET revoked_at = now() WHERE token_hash = $1 AND revoked_at IS NULL`, [
+    hashToken(token),
+  ]);
+}
+
+async function revokeSession(sessionId, userId) {
+  await query(
+    `UPDATE sessions SET revoked_at = now()
+      WHERE id = $1 AND user_id = $2 AND revoked_at IS NULL`,
+    [sessionId, userId]
+  );
 }
 
 function setSessionCookie(res, token) {
-  res.cookie(COOKIE, token, cookieOptions());
+  res.cookie(cookieName(), token, cookieOptions());
 }
 
 function clearSessionCookie(res) {
-  res.clearCookie(COOKIE, { ...cookieOptions(), maxAge: 0 });
+  res.clearCookie(cookieName(), { ...cookieOptions(), maxAge: 0 });
+  res.clearCookie("pm_session", { ...cookieOptions(), maxAge: 0 });
 }
 
 function getToken(req) {
-  return req.cookies && req.cookies[COOKIE];
+  const cookies = req.cookies || {};
+  return cookies["__Host-pm_session"] || cookies.pm_session || null;
 }
 
 async function requireRole(req, res, role) {
@@ -86,10 +109,11 @@ async function requireRole(req, res, role) {
 }
 
 module.exports = {
-  COOKIE,
+  cookieName,
   createSession,
   readSession,
   destroySession,
+  revokeSession,
   setSessionCookie,
   clearSessionCookie,
   getToken,

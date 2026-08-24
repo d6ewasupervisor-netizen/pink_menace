@@ -7,9 +7,9 @@ Card-corpus generation system for a Washington DOL / PSDP driving game. Quaranti
 | Host | Who |
 |---|---|
 | [ali.tactag.app](https://ali.tactag.app) | Students — game |
-| [parents.tactag.app](https://parents.tactag.app) | Parents — progress and student invites |
+| [parents.tactag.app](https://parents.tactag.app) | Parents — coverage and student links |
 
-SMS login (phone + one-time PIN) via TACTAG sms-outbox. Device session lasts 45 days. Parent and student accounts, links, and progress live in Railway Postgres.
+SMS login (phone + one-time PIN) via TACTAG sms-outbox. Device session lasts 45 days (httpOnly Secure cookie). Parent adds a student by name + number as a pending match only — no text is sent. Cards are seeded into Postgres; the Docker image does not include pack, cards, refs, or PDFs.
 
 Local: `npm start` with `DATABASE_URL` and sms-outbox env from `.env.example`. `APP_KIND=parents` serves the parent shell on localhost.
 

@@ -1,0 +1,16 @@
+.git
+.github
+.cursor
+.env
+.env.example
+node_modules
+pack
+cards
+refs
+source
+ceiling
+scripts
+generations
+*.md
+.dockerignore
+.gitignore

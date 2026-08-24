@@ -38,10 +38,26 @@
       <p id="gate-msg" class="msg"></p>
     </section>
 
+    <section id="confirm" class="panel hidden">
+      <p id="confirm-q" class="decision"></p>
+      <div class="actions">
+        <button id="confirm-yes" type="button">Yes</button>
+        <button id="confirm-no" class="ghost" type="button">No</button>
+      </div>
+    </section>
+
     <section id="app" class="hidden">
-      <div class="panel play">
-        <h2 id="who"></h2>
-        <p id="status">Act II</p>
+      <div id="run" class="panel">
+        <img id="shot" class="shot hidden" alt="">
+        <h2 id="title"></h2>
+        <p id="scene" class="scene"></p>
+        <p id="decision" class="decision"></p>
+        <div id="options" class="options"></div>
+        <p id="result" class="result hidden"></p>
+        <p id="debrief" class="result hidden"></p>
+        <div class="actions">
+          <button id="continue" class="hidden" type="button">Continue</button>
+        </div>
       </div>
     </section>
   </main>

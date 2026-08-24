@@ -29,6 +29,7 @@ async function migrate() {
   }
   const sql = fs.readFileSync(path.join(__dirname, "schema.sql"), "utf8");
   await pool.query(sql);
+  await pool.query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
 }
 
 module.exports = { pool, query, migrate };

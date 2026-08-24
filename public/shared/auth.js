@@ -51,12 +51,13 @@ function bindGate({ kind, onReady }) {
       return null;
     }
     if (signOut) signOut.classList.toggle("hidden", !me.signedIn);
+    const confirm = $("confirm");
     if (me.signedIn) {
       show(gate, false);
-      show(app, true);
       await onReady(me);
       return me;
     }
+    if (confirm) show(confirm, false);
     show(app, false);
     show(gate, true);
     return me;

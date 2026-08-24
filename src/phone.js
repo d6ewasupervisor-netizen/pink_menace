@@ -1,5 +1,7 @@
 "use strict";
 
+const crypto = require("crypto");
+
 const NAME_RE = /^[\p{L}\p{M}][\p{L}\p{M}\p{N} .'-]{0,79}$/u;
 
 function normalizePhone(input) {
@@ -17,4 +19,33 @@ function normalizeName(input) {
   return name;
 }
 
-module.exports = { normalizePhone, normalizeName };
+function last4(e164) {
+  const digits = String(e164 || "").replace(/\D/g, "");
+  return digits.slice(-4).padStart(4, "0");
+}
+
+function phonePepper() {
+  const p = String(process.env.PHONE_PEPPER || "").trim();
+  if (!p) {
+    const err = new Error("PHONE_PEPPER is not set");
+    err.status = 503;
+    throw err;
+  }
+  return p;
+}
+
+function phoneHmac(e164) {
+  return crypto.createHmac("sha256", phonePepper()).update(String(e164)).digest("hex");
+}
+
+function initials(name) {
+  return String(name || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 4)
+    .toUpperCase();
+}
+
+module.exports = { normalizePhone, normalizeName, last4, phoneHmac, phonePepper, initials };

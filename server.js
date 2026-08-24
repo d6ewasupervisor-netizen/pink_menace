@@ -3,7 +3,7 @@
 const path = require("path");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const { migrate } = require("./src/db");
+const { migrate, query } = require("./src/db");
 const { appKind } = require("./src/host");
 const { mountRoutes } = require("./src/routes");
 
@@ -39,6 +39,9 @@ const port = Number(process.env.PORT || 8080);
 
 migrate()
   .then(() => {
+    setInterval(() => {
+      query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`).catch(() => {});
+    }, 6 * 60 * 60 * 1000);
     app.listen(port, "0.0.0.0", () => {
       console.log(`pink-menace listening on ${port}`);
     });

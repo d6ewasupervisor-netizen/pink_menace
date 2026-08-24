@@ -44,6 +44,10 @@
 
     <section id="app" class="hidden">
       <div class="panel">
+        <div class="url-row">
+          <p id="game-url" class="url"></p>
+          <button id="copy-url" type="button">Copy</button>
+        </div>
         <div class="row two">
           <label>
             Student name
@@ -58,9 +62,10 @@
           <button id="add-student" type="button">Add student</button>
         </div>
         <p id="add-msg" class="msg"></p>
-        <p id="invite-url" class="url hidden"></p>
       </div>
+      <div id="pending" class="list"></div>
       <div id="students" class="list"></div>
+      <div id="devices" class="list"></div>
     </section>
   </main>
   <script src="/shared/auth.js"></script>

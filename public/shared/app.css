@@ -200,6 +200,9 @@ button:disabled {
   padding: 0.95rem 1rem;
   background: #151212;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
 }
 
 .card h2 {
@@ -252,3 +255,70 @@ button:disabled {
   margin: 0.45rem 0 0;
   color: var(--muted);
 }
+
+.url-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.url-row .url {
+  flex: 1;
+  margin: 0;
+  align-self: center;
+}
+
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+button.danger {
+  background: #6b2a32;
+}
+
+.scene, .decision, .result {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.scene { color: var(--ink); line-height: 1.45; font-size: 0.98rem; }
+.decision { color: var(--pink); font-weight: 600; }
+.result { color: var(--muted); }
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.options button {
+  width: 100%;
+  text-align: left;
+  min-height: var(--tap);
+  white-space: normal;
+}
+
+.shot {
+  width: 100%;
+  border-radius: var(--radius);
+  background: #100e0e;
+}
+
+.waiting {
+  margin: 0.35rem 0 0;
+  color: var(--cranberry-2);
+  font-weight: 600;
+}
+
+.band {
+  font-weight: 650;
+}
+
+@media print {
+  button, .top { display: none !important; }
+}
+
