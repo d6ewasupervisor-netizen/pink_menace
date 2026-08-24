@@ -13,37 +13,55 @@
       "text": "Stay behind the van until you can pass where the yellow breaks, even if that is slow",
       "correct": true,
       "result": "You wait. A block later the yellow breaks. You check, pass, and recover before the next solid. A car you did not have comes the other way in the gap you would have occupied. The van keeps being dead. You keep being in your lane.",
-      "state_delta": { "noise": -1, "time_cost": 6 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
     },
     {
       "id": "b",
       "text": "Go around now — nothing is coming and the van is the real hazard",
       "correct": false,
       "result": "You cross the solid. The other car was in the school-zone dip. Two plows of width, one lane, a freeze. You dive back and scrape the van. Paint on primer. The yellow was not decorative.",
-      "state_delta": { "noise": 3, "yaw": 2, "damage": 1, "time_cost": 8 }
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 8
+      }
     },
     {
       "id": "c",
       "text": "Straddle the yellow to peek, then decide",
       "correct": false,
       "result": "You are already in their lane to peek. Peeking is occupying. The dip car has to take the curb. You learned the sightline by stealing it.",
-      "state_delta": { "yaw": 1, "noise": 2, "time_cost": 5 }
+      "state_delta": {
+        "yaw": 1,
+        "noise": 2,
+        "time_cost": 5
+      }
     },
     {
       "id": "d",
       "text": "Use the parking lane on the right to sneak past without crossing yellow",
       "correct": false,
       "result": "The parking lane is a door zone of ghosts. A van door that was not quite latched opens into your mesh. You pass the delivery van and inherit a different one. Right was not free. It was unsearched.",
-      "state_delta": { "damage": 1, "noise": 2, "time_cost": 7 }
+      "state_delta": {
+        "damage": 1,
+        "noise": 2,
+        "time_cost": 7
+      }
     }
   ],
   "debrief": "A solid yellow on your side means do not pass. Empty and legal are not the same. Wait for the broken yellow and a sightline. The parked van is a delay. The solid line is a rule.",
   "source": {
-    "psdp_skill": "Skill five: seeing habits, part 1",
-    "dol_section": "4.13 Lane travel",
+    "psdp_skill": "Skill five: driving on a quiet street – part one",
+    "dol_section": "4.16 Road markings",
     "teaching_target": "Do not pass on a solid yellow line on your side; wait for a broken line and adequate sight distance."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -54,7 +72,9 @@
     "midground": "van, Beetle, the solid line as a hard boundary",
     "background": "empty playground, clear cold afternoon, long shadows, no oncoming visible yet",
     "read": "the only legal pass is where the yellow breaks — not here",
-    "continuity": ["pink_menace_exterior"],
+    "continuity": [
+      "pink_menace_exterior"
+    ],
     "aspect": "3:4"
   },
   "variation": {

@@ -116,10 +116,10 @@ Never teach a rule abstractly. Attach it to one of these.
 
 ## 7. ZONE MAP — the campaign *is* the state curriculum, in order
 
-| Act | Zone | PSDP Skills | DOL Sections | Driver |
+| Act | Zone | PSDP Skills (verbatim headings) | DOL Sections | Driver |
 |---|---|---|---|---|
-| I | **The Lot** — dead Fred Meyer parking lot, Renton | 1–4 | 2.4, 2.5, 2.6, 2.7, 2.8, 2.11, 2.12, 2.14 | Ali |
-| II | **The Grid** — quiet residential, Kent | 5–8 | 4.2, 4.6, 4.10–4.14, 4.18, 5.5 | Ali |
+| I | **The Lot** — dead Fred Meyer parking lot, Renton | Skill one through Skill four — copy the full heading from pack/08_PSDP_SKILLS.json; never invent a subtitle | 2.4, 2.5, 2.6, 2.7, 2.8, 2.11, 2.12, 2.14 | Ali |
+| II | **The Grid** — quiet residential, Kent | **Skill three: how close are you?**; **Skill five: driving on a quiet street – part one**; **Skill five: driving on a quiet street – part two**; **Skill six: looking ahead**; **Skill seven: turning around**; **Skill eight: parking – part one / part two** | 4.2, 4.6, 4.12–4.14, 4.16–4.18, 5.2, 5.4–5.6 | Ali |
 | III | **The Arterial** — multi-lane, Aurora Ave | 9–10 | 4.13, 4.16, 5.2, 5.3 | Deac |
 | IV | **The Core** — downtown Seattle | 11–12 | 4.1, 4.2, 4.3, 4.6, 4.7, 4.17 | Yuna |
 | V | **The Ribbon** — I-5 / I-90 | 13–14 | 4.4, 5.1, 5.3, 5.4 | Deac |
@@ -127,6 +127,8 @@ Never teach a rule abstractly. Attach it to one of these.
 | VII | **The Dark Hours** — night, rain, fog, Snoqualmie snow | Other conditions | 3.1, 5.6, 5.7, 5.9, 5.10 | All three |
 
 Acts are gated. You do not reach The Ribbon until The Arterial is clean — same rule the PSDP gives parents on p.1: do not advance until the prior skill has been practiced many times.
+
+`dol_section` and `psdp_skill` on a card must match pack/07_DOL_SECTIONS.json and pack/08_PSDP_SKILLS.json exactly. The seed script rejects anything else. Do not complete a partial skill name. `stat_cited` ships with a page number or the field is omitted.
 
 ## 8. VISUAL GRAMMAR (LOCKED)
 

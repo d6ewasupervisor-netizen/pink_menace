@@ -13,37 +13,57 @@
       "text": "Ease a little off the throttle to rebuild the gap ahead, and refuse to match him",
       "correct": true,
       "result": "You bleed three miles per hour, nothing dramatic. The gap ahead opens. Hollis fills it, then thinks about your bumper, then finally goes around when a hole appears. His pass is ugly and close. You let it be ugly. You still have a following distance to the gray nothing in front of you.",
-      "state_delta": { "noise": -1, "time_cost": 4 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
       "id": "b",
       "text": "Match his pressure and take the fog at his speed so he will back off",
       "correct": false,
       "result": "You give him the number. The fog does not. A parked car appears at twenty feet. You stand on it. Hollis stands on you. Three vehicles, one note, a chain that started because you let a tailgater set the limit.",
-      "state_delta": { "noise": 4, "yaw": 3, "damage": 1, "time_cost": 8 }
+      "state_delta": {
+        "noise": 4,
+        "yaw": 3,
+        "damage": 1,
+        "time_cost": 8
+      }
     },
     {
       "id": "c",
       "text": "Brake-check him once so he learns the gap",
       "correct": false,
       "result": "You dump the lamps in his face. He dumps his. The Menace hops. His bumper kisses the plating. Fog holds the sound like a room. He did not learn. He got closer, angrier, and louder.",
-      "state_delta": { "noise": 5, "light": 2, "damage": 1, "time_cost": 6 }
+      "state_delta": {
+        "noise": 5,
+        "light": 2,
+        "damage": 1,
+        "time_cost": 6
+      }
     },
     {
       "id": "d",
       "text": "Wave him around and drift right onto the fogged shoulder to make a lane",
       "correct": false,
       "result": "There is no shoulder, only a ditch. The knobbies find it. You yaw. Hollis takes the space you were occupying and never looks back. You spend a minute getting the plow back onto asphalt that you already had.",
-      "state_delta": { "yaw": 4, "noise": 2, "time_cost": 7 }
+      "state_delta": {
+        "yaw": 4,
+        "noise": 2,
+        "time_cost": 7
+      }
     }
   ],
   "debrief": "You do not speed up for a tailgater. You keep a safe gap ahead so you can stop without being the meat in a chain. If he wants around, he can have the pass when there is one. Brake-checking is a fight. You are not here to fight.",
   "source": {
-    "psdp_skill": "Skill seven: keeping a space cushion",
-    "dol_section": "4.10 Traffic laws",
+    "psdp_skill": "Skill three: how close are you?",
+    "dol_section": "5.2 Space",
     "teaching_target": "Do not increase speed for a tailgater; maintain a safe gap ahead and allow a pass when it is legal."
   },
-  "cast": ["ali", "hollis"],
+  "cast": [
+    "ali",
+    "hollis"
+  ],
   "antagonist": "splitter",
   "callback_of": null,
   "schedules_callback": false,
@@ -54,7 +74,10 @@
     "midground": "the Pink Menace's pink rear plating implied, no visible gap",
     "background": "fogged Kent arterial, morning, no horizon",
     "read": "there is no cushion behind and the driver in the glass wants your speed",
-    "continuity": ["pink_menace_interior", "hollis"],
+    "continuity": [
+      "pink_menace_interior",
+      "hollis"
+    ],
     "aspect": "3:4"
   },
   "variation": {

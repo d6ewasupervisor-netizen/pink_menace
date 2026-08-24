@@ -28,6 +28,8 @@ Inject this file plus the running state into every Layer 2 call.
 - **Answer position.** The correct option must be uniformly distributed across a/b/c/d. Track the running count; if any position exceeds 35% of cards in an act, force a rebalance.
 - **Distractor reuse.** No distractor may be reused verbatim anywhere in the deck.
 - **Antagonist spacing.** No antagonist appears in consecutive cards. `none` is a valid and frequent value — not every card needs a monster.
+- **Debrief close.** Cap the "X is not Y" construction at **one in five** debriefs in an act. Track `act_x_is_not_y` in ledger state. Rotate the last sentence among: consequence, named person, plain imperative, concrete image. Do not repeat a close-shape in the previous three.
+- **Metaphor families.** Grammar, music, and weather-as-mood metaphors may appear at most **twice per act**. Track `act_metaphor_families`.
 
 ## Ledger state object
 
@@ -55,6 +57,9 @@ Pass this into every generation. Update it after every card.
   "act_camera_counts": { "POV_COCKPIT": 4, "POV_MIRROR": 2, "POV_TOPDOWN": 3, "POV_OBJECT": 2, "POV_ROADSIDE": 1, "POV_CHASE": 1, "POV_PORTRAIT": 0 },
   "act_answer_positions": { "a": 3, "b": 4, "c": 4, "d": 2 },
   "act_failure_modes_hit": ["inexperience", "distraction", "speed"],
+  "act_x_is_not_y": 2,
+  "act_debrief_close_shapes": ["named_person", "imperative", "image"],
+  "act_metaphor_families": { "grammar": 0, "music": 0, "weather_as_mood": 1 },
   "cast_last_seen": { "marisol": 13, "reyna_solis": 9, "hollis": 6 },
   "used_distractors": ["Flash your high beams to warn them", "..."],
   "pending_callbacks": [
@@ -71,17 +76,19 @@ Do not let the generator choose slots. Build the slot list up front from the Zon
 
 | Slot | Type | PSDP | DOL | Failure mode |
 |---|---|---|---|---|
-| II-001 | dossier | — | — | none |
-| II-002 | scene | Skill 5 pt 1 | 4.10 Traffic laws | inexperience |
-| II-003 | rule | Skill 5 pt 1 | 4.12 Signs | none |
-| II-004 | scene | Skill 5 pt 2 | 4.14 Turning | inexperience |
-| II-005 | hazard | Skill 6 | 4.6 Bicyclists | distraction |
-| II-006 | convoy | Skill 5 pt 2 | 2.5 Hand signals | passengers |
-| II-007 | scene | Skill 6 | 4.2 School buses | speed |
-| II-008 | wrench | — | 2.5 Vehicle maintenance | vehicle_failure |
-| II-009 | scene | Skill 6 | 5.5 Focus | distraction |
-| II-010 | ledger | — | 4.2 School buses | speed |
+| II-001 | dossier | n/a | n/a | none |
+| II-002 | scene | Skill five: driving on a quiet street – part one | 4.17 Zones (School zone) | inexperience |
+| II-003 | rule | Skill five: driving on a quiet street – part one | 4.12 Signs | none |
+| II-004 | scene | Skill five: driving on a quiet street – part two | 4.14 Turning | inexperience |
+| II-005 | hazard | Skill six: looking ahead | 4.6 Sharing with bicyclists | distraction |
+| II-006 | convoy | Skill five: driving on a quiet street – part two | 2.5 Vehicle Maintenance (Hand signals) | passengers |
+| II-007 | scene | Skill six: looking ahead | 4.2 Sharing with school buses | speed |
+| II-008 | wrench | n/a | 2.5 Vehicle Maintenance | vehicle_failure |
+| II-009 | scene | Skill six: looking ahead | 5.5 Focus | distraction |
+| II-010 | ledger | Skill six: looking ahead | 4.2 Sharing with school buses | speed |
 | ... | | | | |
+
+Headings must be copied verbatim from pack/07_DOL_SECTIONS.json and pack/08_PSDP_SKILLS.json. Never invent a subtitle. Act II still has a coverage hole: Skill seven: turning around has no card yet.
 
 Ten minutes building this table saves you from a deck that teaches right turns eleven times and roundabouts never.
 

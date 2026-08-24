@@ -13,37 +13,54 @@
       "text": "Start the turn at the hedge so you can peek the sidewalk with the plow",
       "correct": false,
       "result": "The plow is in the crosswalk before you can see it. Marisol is not here this time. A kid on a scooter is. You freeze with steel in his path. He stops. You have taught the corner that cars occupy the sidewalk to see.",
-      "state_delta": { "yaw": 1, "passenger_stress": 2, "time_cost": 6 }
+      "state_delta": {
+        "yaw": 1,
+        "passenger_stress": 2,
+        "time_cost": 6
+      }
     },
     {
       "id": "b",
       "text": "Cut the corner tight to stay out of whoever is on the far side",
       "correct": false,
       "result": "You take the turn in their sidewalk. The knobbies climb the curb. The plow rings off a fire hydrant nobody has painted in a year. Tight was not smaller. Tight was on the wrong side of the geometry.",
-      "state_delta": { "noise": 3, "damage": 2, "yaw": 2, "time_cost": 8 }
+      "state_delta": {
+        "noise": 3,
+        "damage": 2,
+        "yaw": 2,
+        "time_cost": 8
+      }
     },
     {
       "id": "c",
       "text": "Skip the turn and go left around the block where you can see",
       "correct": false,
       "result": "You kill a blinker that had been telling the truth and take an unsignaled left at a T. The through car you did not have honks. You make the block. You also skipped the skill the corner was for.",
-      "state_delta": { "noise": 2, "time_cost": 5 }
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 5
+      }
     },
     {
       "id": "d",
       "text": "Stop at the sidewalk line, search around the hedge, then turn into the nearest right lane",
       "correct": true,
       "result": "You stop short of the sidewalk. The hedge still hides a slice. You creep until the slice is a view. Empty. You take the nearest right lane, wide enough that the plow does not climb the curb. The blinker dies when the wheel unwinds. Boring. Correct.",
-      "state_delta": { "noise": -1, "time_cost": 5 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
     }
   ],
   "debrief": "Right turns yield to the sidewalk and crosswalk first. If a hedge eats the sightline, stop and search before the nose occupies it. Finish in the nearest right lane. Cutting the corner puts you on the sidewalk you were trying to protect.",
   "source": {
-    "psdp_skill": "Skill eight: communicating",
+    "psdp_skill": "Skill five: driving on a quiet street – part two",
     "dol_section": "4.14 Turning",
     "teaching_target": "Before a right turn, search the sidewalk and crosswalk; do not start the turn until the path is visible; recover into the nearest right lane."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "cold_roads",
   "callback_of": null,
   "schedules_callback": false,
@@ -54,7 +71,9 @@
     "midground": "Ali's plow still short of the sidewalk line, wheels not yet cut",
     "background": "Kent houses, chain-link, hard dawn light, no other moving cars",
     "read": "the sidewalk is invisible behind the hedge, and the plow has not entered it yet — that is the decision",
-    "continuity": ["pink_menace_exterior"],
+    "continuity": [
+      "pink_menace_exterior"
+    ],
     "aspect": "3:4"
   },
   "variation": {

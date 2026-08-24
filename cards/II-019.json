@@ -13,37 +13,54 @@
       "text": "Take it at town speed — green means you have the intersection",
       "correct": false,
       "result": "You ask the tires for twenty-eight. They give you yaw. The Menace rotates a quarter turn in the crosswalk and slides under the green like a joke. You miss the pole. The crates do not miss the sidewall. The Quiet will hear the rest.",
-      "state_delta": { "yaw": 5, "noise": 3, "time_cost": 10 }
+      "state_delta": {
+        "yaw": 5,
+        "noise": 3,
+        "time_cost": 10
+      }
     },
     {
       "id": "b",
       "text": "Stab the brakes before the painted line to test the ice",
       "correct": false,
       "result": "The test is the crash. Locked knobbies, a plow that now points at a dark porch, and a green lamp still cycling for a car that is no longer in its lane. You learned the ice by using up the intersection.",
-      "state_delta": { "yaw": 4, "noise": 4, "time_cost": 9 }
+      "state_delta": {
+        "yaw": 4,
+        "noise": 4,
+        "time_cost": 9
+      }
     },
     {
       "id": "c",
       "text": "Bleed speed early, no brake in the ice, and roll the green at a walking pace",
       "correct": true,
       "result": "You lift a block out. No stab. The Menace settles into a crawl that looks foolish and is not. The green is still green when you take it straight, hands quiet. The crates stay put. The lamp did not make the ice optional.",
-      "state_delta": { "noise": -1, "time_cost": 6 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
     },
     {
       "id": "d",
       "text": "Stop fully and wait for the next green so you can start from zero on ice",
       "correct": false,
       "result": "You stop on ice under a green. Starting from zero on ice is a different failure. The tires spin, the plow walks left, and the next cycle finds you still in the box. You turned a through into a stall.",
-      "state_delta": { "yaw": 2, "noise": 2, "time_cost": 12 }
+      "state_delta": {
+        "yaw": 2,
+        "noise": 2,
+        "time_cost": 12
+      }
     }
   ],
-  "debrief": "Green does not cancel the surface. On ice, slow down before the hazard and avoid sudden brake or steer. A light tells you who has the right of way. It does not tell the tires they have grip.",
+  "debrief": "Green tells you who has the intersection. Ice tells the tires they have nothing. Bleed speed before the box and keep the wheel quiet. The lamp will still be green when you get there.",
   "source": {
-    "psdp_skill": "Skill seven: keeping a space cushion",
-    "dol_section": "4.10 Traffic laws",
+    "psdp_skill": "Skill three: how close are you?",
+    "dol_section": "5.6 Road and driving conditions (Slippery roads)",
     "teaching_target": "Adjust speed for ice before the intersection; do not brake or turn suddenly on a low-grip surface, even on a green."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "cold_roads",
   "callback_of": null,
   "schedules_callback": false,

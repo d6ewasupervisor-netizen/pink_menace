@@ -68,16 +68,16 @@
       "properties": {
         "psdp_skill": {
           "type": "string",
-          "description": "Exact heading from the WA Parent's Supervised Driving Program, or 'n/a'."
+          "description": "Exact heading from pack/08_PSDP_SKILLS.json (verbatim from the WA Parent's Supervised Driving Program), or 'n/a'. Never invent or complete a subtitle."
         },
         "dol_section": {
           "type": "string",
-          "description": "Exact numbered section from the WA Driver Guide, e.g. '4.2 Sharing with school buses'."
+          "description": "Exact numbered heading from pack/07_DOL_SECTIONS.json (WA Driver Guide body, not a TOC regex), e.g. '4.2 Sharing with school buses'."
         },
         "teaching_target": { "type": "string", "maxLength": 200 },
         "stat_cited": {
           "type": "string",
-          "description": "Optional. Must be verbatim-traceable to PSDP or DOL. No invented figures."
+          "description": "Optional. Verbatim figure from PSDP or DOL, and it must include a page number (e.g. 'PSDP p.12'). Omit the field if you cannot cite a page — never ship a number without one."
         }
       }
     },

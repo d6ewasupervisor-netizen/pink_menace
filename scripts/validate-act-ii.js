@@ -2,8 +2,11 @@
 
 const fs = require("fs");
 const path = require("path");
+const { loadTables, validateCard } = require("./validate-citations");
+
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^II-\d{3}\.json$/.test(f)).sort();
+const tables = loadTables();
 const schema = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "pack", "04_card.schema.json"), "utf8"));
 const locEnum = schema.properties.variation.properties.location_type.enum;
 const weatherEnum = schema.properties.variation.properties.weather.enum;
@@ -73,6 +76,7 @@ for (let i = 0; i < cards.length; i++) {
   if (i >= 2 && c.card_type === cards[i - 1].card_type && c.card_type === cards[i - 2].card_type) {
     err(id, "three same types in a row");
   }
+  for (const e of validateCard(c, tables)) err(id, e.replace(`${id}: `, ""));
 }
 
 const n = cards.filter((c) => c.card_type !== "dossier").length;

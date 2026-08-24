@@ -13,37 +13,54 @@
       "text": "Match him: left arm out and down, lift off, and open a gap ahead of the volunteer",
       "correct": true,
       "result": "You answer in kind. The Menace slows without the brake lamps dumping. The volunteer has to lift or eat your plow. He lifts. Deac's arm comes back in. The three of you roll the zone at twenty, dark and boring. That is a successful convoy.",
-      "state_delta": { "noise": -1, "time_cost": 4 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
       "id": "b",
       "text": "Flash your headlights twice so Deac knows you saw it",
       "correct": false,
       "result": "The flashes bounce off his expanded-metal rear and paint the playground. Deac's arm stays down because he was not asking for a receipt. At the treeline, two shapes that were sitting stand up and start to walk the fence toward the light.",
-      "state_delta": { "light": 4, "time_cost": 5 }
+      "state_delta": {
+        "light": 4,
+        "time_cost": 5
+      }
     },
     {
       "id": "c",
       "text": "Tap the brakes hard so the volunteer gets the message",
       "correct": false,
       "result": "Your lamps dump red into his windshield. He stands on his own brakes. Three vehicles, one wet school zone, a squeal. Deac's arm comes back in and the destination sign flickers one word you cannot read from here. You just talked over him.",
-      "state_delta": { "noise": 4, "light": 2, "time_cost": 6 }
+      "state_delta": {
+        "noise": 4,
+        "light": 2,
+        "time_cost": 6
+      }
     },
     {
       "id": "d",
       "text": "Pass him on the left and take the point — he is going too slow for the insulin",
       "correct": false,
       "result": "You pull out in a flashing school zone. His left arm is still in the air you are occupying. The Ledger's mirror almost takes your mesh. He never speeds up. You are now point on a road you have not searched, with a volunteer still glued to Deac, and no one behind you speaking the same language.",
-      "state_delta": { "noise": 2, "yaw": 2, "time_cost": 3 }
+      "state_delta": {
+        "noise": 2,
+        "yaw": 2,
+        "time_cost": 3
+      }
     }
   ],
-  "debrief": "Convoy language is lights and hands, not horns. Arm straight out then down means slow or stop. Answer with the same signal and a smooth lift — not a flash, not a panic brake. The driver ahead is the sentence. You are the period.",
+  "debrief": "Left arm out, fingers pointing at the ground, means slow or stop. Answer with the same arm and a smooth lift. Deac was talking. A flash and a panic brake talk over him.",
   "source": {
-    "psdp_skill": "Skill five: seeing habits, part 2",
-    "dol_section": "2.5 Hand signals",
+    "psdp_skill": "Skill five: driving on a quiet street – part two",
+    "dol_section": "2.5 Vehicle Maintenance (Hand signals)",
     "teaching_target": "Left arm out and down means slow or stop; answer a convoy signal with the same hand signal and a smooth deceleration."
   },
-  "cast": ["ali", "deac"],
+  "cast": [
+    "ali",
+    "deac"
+  ],
   "antagonist": "load",
   "callback_of": null,
   "schedules_callback": false,
@@ -54,7 +71,11 @@
     "midground": "the Ledger's tall box and west-coast mirror, Ali's Beetle in trail, a third pair of lamps tight on her bumper",
     "background": "overcast night, school-zone lamps flashing white, empty playground fence, no wrecks",
     "read": "the hand signal is the message, and the extra pair of lamps is the pressure",
-    "continuity": ["the_ledger", "pink_menace_exterior", "deac"],
+    "continuity": [
+      "the_ledger",
+      "pink_menace_exterior",
+      "deac"
+    ],
     "aspect": "3:4"
   },
   "variation": {

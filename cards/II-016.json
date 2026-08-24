@@ -4,57 +4,77 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "convoy",
-  "title": "Two Fingers, Then the Lot",
-  "scene": "Rain at midday in the Kent Station lot again, different stalls, same ghosts. Deac has the Ledger pointed at the exit, amber sign dark. He needs a left onto 1st and his left arm is already out the window, bent at the elbow, hand up — the old left-turn. You are second. A volunteer is third. If you signal with lamps you light the deck. If you say nothing, the volunteer will read your gap as an invitation to pass you on the left and take Deac's turn with him. The lot has no painted lanes that still matter. Hands do.",
-  "decision": "Deac's left arm is up for a left. How do you keep the volunteer from writing a fourth sentence?",
+  "title": "Straight Out the Window",
+  "scene": "Rain at midday in the Kent Station lot again, different stalls, same ghosts. Deac has the Ledger pointed at the exit, amber sign dark. He needs a left onto 1st. His left arm comes out the driver window and holds, straight, fingers pointing left into the rain — not bent, not up. You are second. A volunteer is third. If you signal with lamps you light the deck. If you say nothing, the volunteer will read your gap as a hole on Deac's left and take the turn with him. Hands are the only sentence that does not draw.",
+  "decision": "Deac's left arm is straight out. How do you keep the volunteer from writing over it?",
   "options": [
     {
       "id": "a",
       "text": "Flash twice and pull left so the volunteer knows to stay",
       "correct": false,
-      "result": "The flashes paint the deck. The volunteer reads it as go and comes around you into Deac's left. Three vehicles in an exit that holds two. Deac's arm stays up in a space that is no longer his.",
-      "state_delta": { "light": 3, "noise": 2, "time_cost": 6 }
+      "result": "The flashes paint the deck. The volunteer reads it as go and comes around you into Deac's left. Three vehicles in an exit that holds two. Deac's arm is still out in a space that is no longer his.",
+      "state_delta": {
+        "light": 3,
+        "noise": 2,
+        "time_cost": 6
+      }
     },
     {
       "id": "b",
-      "text": "Left arm up to match, hold your place, and do not open a hole on his left",
+      "text": "Left arm straight out to match, hold your place, and do not open a hole on his left",
       "correct": true,
-      "result": "You answer with the same arm. You stay glued to his right-rear, not his left. The volunteer has no hole that is not a curb. Deac takes the left. You take it after him. The volunteer waits because the sentence was complete.",
-      "state_delta": { "noise": -1, "time_cost": 4 }
+      "result": "You put the same arm out the same window. You stay glued to his right-rear, not his left. The volunteer has no hole that is not a curb. Deac takes the left. You take it after him. The volunteer waits because the line was complete.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
       "id": "c",
-      "text": "Pull ahead of Deac and take the left first so you can scout 1st",
+      "text": "Bend the arm up — that is the left-turn he meant",
       "correct": false,
-      "result": "You occupy the turn he was asking for. His arm is still up as you go. He has to drop it and wait. The volunteer follows you, not him. You just broke a convoy to be helpful.",
-      "state_delta": { "yaw": 1, "time_cost": 5 }
+      "result": "Your arm goes up. His stays flat. The volunteer copies you, not him, and starts a right that nobody called. Deac has to drop the turn. You taught the wrong sky to a man who was pointing at the street.",
+      "state_delta": {
+        "yaw": 1,
+        "time_cost": 5
+      }
     },
     {
       "id": "d",
       "text": "Horn once, short, so the volunteer freezes",
       "correct": false,
       "result": "The horn in a parking deck. Everyone freezes, including Deac. The Quiet using the far stairwell does not. You bought a second and spent the block.",
-      "state_delta": { "noise": 5, "time_cost": 5 }
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 5
+      }
     }
   ],
-  "debrief": "Left arm bent up at the elbow means a left turn. Match it, hold position, and do not open a pass on the turning side. Convoy gaps are grammar. A hole on the left is an invitation you did not mean.",
+  "debrief": "A left turn is the left arm straight out the driver-side window, fingers pointing left. Match Deac on that side and stay off his left. Bent up is a different turn. Put the arm where the column behind you can actually see it.",
   "source": {
-    "psdp_skill": "Skill eight: communicating",
-    "dol_section": "2.5 Hand signals",
-    "teaching_target": "Left arm bent upward means left turn; match convoy signals and do not leave a gap on the turning side."
+    "psdp_skill": "Skill five: driving on a quiet street – part two",
+    "dol_section": "2.5 Vehicle Maintenance (Hand signals)",
+    "teaching_target": "Left turn: left arm out the driver window, straight, fingers pointing left; match convoy signals and do not leave a gap on the turning side."
   },
-  "cast": ["ali", "deac"],
+  "cast": [
+    "ali",
+    "deac"
+  ],
   "antagonist": "load",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_CHASE",
-    "subject": "the Ledger at a parking-lot exit, Deac's left arm bent up at the elbow, Ali in trail, a third vehicle nosing left",
+    "subject": "the Ledger at a parking-lot exit, Deac's left arm straight out the driver window, fingers pointing left into rain",
     "foreground": "rain on the camera, a slice of faded stall paint",
     "midground": "west-coast mirrors, pink Beetle, volunteer van starting to cheat left",
     "background": "Kent Station deck, midday rain, unlit lamps, 1st Avenue implied beyond the exit",
-    "read": "the hand is a left-turn and the third vehicle is writing over it",
-    "continuity": ["the_ledger", "pink_menace_exterior", "deac"],
+    "read": "the arm is straight out to the left, not bent up, and the third vehicle is writing over it",
+    "continuity": [
+      "the_ledger",
+      "pink_menace_exterior",
+      "deac"
+    ],
     "aspect": "3:4"
   },
   "variation": {

@@ -65,9 +65,16 @@ Change the scene. Do not change the rule.
 6. DEBRIEF — 25 to 45 words, shown after resolution. This is the only place the
    rule is stated plainly. Name the rule, name the source, tie it to what just
    happened on screen. Voice: level, respectful, never disappointed.
+   Cap the "X is not Y" close at one in five debriefs in the act. Rotate the last
+   sentence among: consequence, named person, plain imperative, concrete image.
+   Grammar / music / weather-as-mood metaphors at most twice per act.
 
-7. SOURCE — `psdp_skill` and `dol_section`, exact. If you cannot cite it, you may
-   not teach it. Never invent a traffic law, a statute number, or a statistic.
+7. SOURCE — `psdp_skill` and `dol_section` must be copied **verbatim** from the
+   slot request, which itself must match pack/08_PSDP_SKILLS.json and
+   pack/07_DOL_SECTIONS.json. If the slot does not give you the full heading,
+   you may not invent the rest. Never complete "Skill five" into a subtitle.
+   Never invent a traffic law, a statute number, or a statistic. `stat_cited`
+   ships only with a page number; otherwise omit the field and cut the figure.
 
 8. IMAGE_BRIEF — the decision moment, frozen. See below. This is not optional and
    it is not decorative.
@@ -165,9 +172,9 @@ Single JSON object. Schema-valid. No fences. No preamble.
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "scene",
-  "psdp_skill": "Skill six: looking ahead",
-  "dol_section": "5.5 Focus — field of vision, path of travel, line of sight",
-  "teaching_target": "Scan 12-15 seconds down the road; IPDE identify step",
+  "psdp_skill": "Skill three: how close are you?",
+  "dol_section": "5.4 Time (Count seconds)",
+  "teaching_target": "City following distance is three seconds to a mark on the road",
   "ledger_state": { "...": "see 05_VARIATION_LEDGER.md" }
 }
 ```

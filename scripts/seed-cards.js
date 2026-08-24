@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const { pool } = require("../src/db");
+const { loadTables, assertCard } = require("./validate-citations");
 
 function seqFromCardId(cardId) {
   const [act, num] = String(cardId).split("-");
@@ -10,8 +11,12 @@ function seqFromCardId(cardId) {
   return actN * 1000 + Number(num || 0);
 }
 
-async function seedFile(filePath) {
+async function seedFile(filePath, tables) {
   const raw = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  if (!raw.card_id) {
+    throw new Error(`${path.basename(filePath)}: missing card_id (skip bundles)`);
+  }
+  assertCard(raw, tables);
   const pngPath = filePath.replace(/\.json$/i, ".png");
   const jpgPath = filePath.replace(/\.json$/i, ".jpg");
   let imageBytes = null;
@@ -68,6 +73,8 @@ async function seedFile(filePath) {
         cast: raw.cast || [],
         antagonist: raw.antagonist || null,
         image_brief: raw.image_brief || null,
+        source: raw.source || null,
+        variation: raw.variation || null,
       }),
     ]
   );
@@ -95,11 +102,15 @@ async function main() {
     throw new Error("DATABASE_URL is not set");
   }
   const dir = path.join(__dirname, "..", "cards");
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
+  const tables = loadTables();
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => /^(I|II|III|IV|V|VI|VII)-\d{3}\.json$/.test(f))
+    .sort();
   if (!files.length) throw new Error("no card json in cards/");
   const ids = [];
   for (const f of files) {
-    ids.push(await seedFile(path.join(dir, f)));
+    ids.push(await seedFile(path.join(dir, f), tables));
   }
   console.log("seeded", ids.join(", "));
   await pool.end();

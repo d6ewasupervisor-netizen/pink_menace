@@ -1,0 +1,128 @@
+[
+  {
+    "card_id": "II-002",
+    "old_psdp_skill": "Skill five: seeing habits, part 1",
+    "new_psdp_skill": "Skill five: driving on a quiet street – part one",
+    "old_dol_section": "4.10 Traffic laws",
+    "new_dol_section": "4.17 Zones (School zone)"
+  },
+  {
+    "card_id": "II-003",
+    "old_psdp_skill": "Skill five: seeing habits, part 1",
+    "new_psdp_skill": "Skill five: driving on a quiet street – part one",
+    "old_dol_section": "4.12 Signs",
+    "new_dol_section": "4.12 Signs"
+  },
+  {
+    "card_id": "II-004",
+    "old_psdp_skill": "Skill five: seeing habits, part 2",
+    "new_psdp_skill": "Skill five: driving on a quiet street – part two",
+    "old_dol_section": "4.14 Turning",
+    "new_dol_section": "4.14 Turning"
+  },
+  {
+    "card_id": "II-006",
+    "old_psdp_skill": "Skill five: seeing habits, part 2",
+    "new_psdp_skill": "Skill five: driving on a quiet street – part two",
+    "old_dol_section": "2.5 Hand signals",
+    "new_dol_section": "2.5 Vehicle Maintenance (Hand signals)"
+  },
+  {
+    "card_id": "II-008",
+    "old_psdp_skill": "n/a",
+    "new_psdp_skill": "n/a",
+    "old_dol_section": "2.5 Vehicle maintenance",
+    "new_dol_section": "2.5 Vehicle Maintenance"
+  },
+  {
+    "card_id": "II-012",
+    "old_psdp_skill": "Skill seven: keeping a space cushion",
+    "new_psdp_skill": "Skill three: how close are you?",
+    "old_dol_section": "4.10 Traffic laws",
+    "new_dol_section": "5.4 Time (Count seconds)"
+  },
+  {
+    "card_id": "II-014",
+    "old_psdp_skill": "Skill seven: keeping a space cushion",
+    "new_psdp_skill": "Skill three: how close are you?",
+    "old_dol_section": "4.10 Traffic laws",
+    "new_dol_section": "5.2 Space"
+  },
+  {
+    "card_id": "II-015",
+    "old_psdp_skill": "Skill eight: communicating",
+    "new_psdp_skill": "Skill five: driving on a quiet street – part two",
+    "old_dol_section": "4.14 Turning",
+    "new_dol_section": "4.14 Turning"
+  },
+  {
+    "card_id": "II-016",
+    "old_psdp_skill": "Skill eight: communicating",
+    "new_psdp_skill": "Skill five: driving on a quiet street – part two",
+    "old_dol_section": "2.5 Hand signals",
+    "new_dol_section": "2.5 Vehicle Maintenance (Hand signals)"
+  },
+  {
+    "card_id": "II-017",
+    "old_psdp_skill": "Skill five: seeing habits, part 1",
+    "new_psdp_skill": "Skill five: driving on a quiet street – part one",
+    "old_dol_section": "4.13 Lane travel",
+    "new_dol_section": "4.16 Road markings"
+  },
+  {
+    "card_id": "II-019",
+    "old_psdp_skill": "Skill seven: keeping a space cushion",
+    "new_psdp_skill": "Skill three: how close are you?",
+    "old_dol_section": "4.10 Traffic laws",
+    "new_dol_section": "5.6 Road and driving conditions (Slippery roads)"
+  },
+  {
+    "card_id": "II-020",
+    "old_psdp_skill": "n/a",
+    "new_psdp_skill": "n/a",
+    "old_dol_section": "2.5 Vehicle maintenance",
+    "new_dol_section": "2.5 Vehicle Maintenance (Headlights)"
+  },
+  {
+    "card_id": "II-021",
+    "old_psdp_skill": "Skill eight: communicating",
+    "new_psdp_skill": "Skill eight: parking – part one",
+    "old_dol_section": "4.18 Parking",
+    "new_dol_section": "4.18 Parking"
+  },
+  {
+    "card_id": "II-022",
+    "old_psdp_skill": "Skill eight: communicating",
+    "new_psdp_skill": "Skill five: driving on a quiet street – part two",
+    "old_dol_section": "2.5 Hand signals",
+    "new_dol_section": "2.5 Vehicle Maintenance (Hand signals)"
+  },
+  {
+    "card_id": "II-023",
+    "old_psdp_skill": "Skill seven: keeping a space cushion",
+    "new_psdp_skill": "Skill six: looking ahead",
+    "old_dol_section": "4.18 Parking",
+    "new_dol_section": "4.17 Zones (Work zone)"
+  },
+  {
+    "card_id": "II-024",
+    "old_psdp_skill": "Skill seven: keeping a space cushion",
+    "new_psdp_skill": "Skill five: driving on a quiet street – part two",
+    "old_dol_section": "4.10 Traffic laws",
+    "new_dol_section": "4.13 Common intersections"
+  },
+  {
+    "card_id": "II-027",
+    "old_psdp_skill": "Skill six: looking ahead",
+    "new_psdp_skill": "Skill six: looking ahead",
+    "old_dol_section": "4.10 Traffic laws",
+    "new_dol_section": "5.5 Focus"
+  },
+  {
+    "card_id": "II-028",
+    "old_psdp_skill": "n/a",
+    "new_psdp_skill": "n/a",
+    "old_dol_section": "2.7 Seat belts",
+    "new_dol_section": "2.6 Occupant Protection"
+  }
+]

@@ -8,3 +8,4 @@ generations/
 .railway/
 .env
 scripts/live-gate-report.json
+_audit_patch/

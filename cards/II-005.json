@@ -37,7 +37,7 @@
       "state_delta": { "noise": 4, "yaw": 2, "time_cost": 8 }
     }
   ],
-  "debrief": "Give bicyclists a full lane's worth of room when you share a space — at least three feet, more in rain. Mirrors first, then move left. A horn is not a greeting here. It is a dinner bell.",
+  "debrief": "Give bicyclists at least three feet when you share a space, more in rain. Mirrors first, then move left. Tap the horn and you have announced the lot to everything using it as a sit.",
   "source": {
     "psdp_skill": "Skill six: looking ahead",
     "dol_section": "4.6 Sharing with bicyclists",

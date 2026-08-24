@@ -37,7 +37,7 @@
       "state_delta": { "noise": 3, "yaw": 3, "damage": 1, "time_cost": 9 }
     }
   ],
-  "debrief": "An orange slow-moving-vehicle triangle means the machine is not doing traffic speed. Do not pass until you have a legal passing zone and a sightline. Cones and rain are not a passing zone. Patience is the pass.",
+  "debrief": "An orange slow-moving-vehicle triangle marks a machine that is doing farm speed. Wait for a legal passing zone and a sightline. Patience is the pass. The insulin will still be cold.",
   "source": {
     "psdp_skill": "Skill six: looking ahead",
     "dol_section": "4.12 Signs",

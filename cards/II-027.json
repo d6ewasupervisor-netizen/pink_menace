@@ -13,37 +13,53 @@
       "text": "Middle of the empty yard — you already know nothing uses it",
       "correct": false,
       "result": "The door opens. Not Marisol. A volunteer getting a tarp. You find him with the plow's right corner and a sound like a drum in the rain. You knew the 20. You did not look at the door.",
-      "state_delta": { "noise": 4, "damage": 1, "time_cost": 8 }
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 8
+      }
     },
     {
       "id": "b",
       "text": "Hedge, parked doors, crosswalk, lamps, then the middle, then again",
       "correct": true,
       "result": "Left hedge. Right bumpers. The inch-open door is a door. You cover and miss it. The crosswalk is empty and you treat it like it is not. The lamps fall behind you. The last crate stays a crate. That is looking ahead after you already knew the answer.",
-      "state_delta": { "noise": -1, "time_cost": 4 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
       "id": "c",
       "text": "Watch the speedo until it sits on 20, then you are legal",
       "correct": false,
       "result": "The number is perfect. The door is still a door. Legal and looking are not the same exam. You pass the first and fail the second with a corner of pink steel.",
-      "state_delta": { "noise": 3, "time_cost": 6 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 6
+      }
     },
     {
       "id": "d",
       "text": "Follow the wet tracks of whoever came through last so you do not have to search",
       "correct": false,
       "result": "The tracks go through a puddle that hides a curb. You take it. The person ahead was not searching either. Their line is not a plan.",
-      "state_delta": { "yaw": 2, "noise": 2, "time_cost": 5 }
+      "state_delta": {
+        "yaw": 2,
+        "noise": 2,
+        "time_cost": 5
+      }
     }
   ],
-  "debrief": "Looking ahead is a loop, not a memory. Even in a zone you have passed, search the edges — parked doors, hedges, the crosswalk — not the empty middle and not the speedo. Knowing the 20 is the start of the card, not the end.",
+  "debrief": "Looking ahead is a loop you run every block. Search the edges — parked doors, hedges, the crosswalk — even in a zone you already passed. The 20 on the speedo is the start of that loop.",
   "source": {
     "psdp_skill": "Skill six: looking ahead",
-    "dol_section": "4.10 Traffic laws",
+    "dol_section": "5.5 Focus",
     "teaching_target": "Keep a continuous search of edges and parked vehicles in a school zone; prior knowledge of the area does not replace the scan."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "cold_roads",
   "callback_of": null,
   "schedules_callback": false,
@@ -54,7 +70,9 @@
     "midground": "Ali's plow aimed at the empty yard, not at the door",
     "background": "flashing white lamps, empty playground, rain so heavy the 20 is only a rumor",
     "read": "the hazard is the inch-open door at the edge, and the driver's line is the empty middle",
-    "continuity": ["pink_menace_exterior"],
+    "continuity": [
+      "pink_menace_exterior"
+    ],
     "aspect": "3:4"
   },
   "variation": {

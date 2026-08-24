@@ -13,37 +13,52 @@
       "text": "Pull onto a driveway, shut down, swap the sealed beam, then roll on lows",
       "correct": false,
       "result": "You do the legal thing in the travel-adjacent. The hood is up in the rain. A volunteer comes around the curve and has to take your door line. You get the lamp on. You also spent five loud minutes being a pink island.",
-      "state_delta": { "noise": 2, "light": 1, "time_cost": 15 }
+      "state_delta": {
+        "noise": 2,
+        "light": 1,
+        "time_cost": 15
+      }
     },
     {
       "id": "b",
       "text": "Hit the highs so at least one side is bright enough to count as two",
       "correct": false,
       "result": "The rain blooms. You cannot see past the scatter. Every window on the block has you. The dead left is still dead. You made a lighting problem into a drawing problem.",
-      "state_delta": { "light": 5, "time_cost": 4 }
+      "state_delta": {
+        "light": 5,
+        "time_cost": 4
+      }
     },
     {
       "id": "c",
       "text": "Keep rolling — one lamp is enough if you stay under twenty",
       "correct": false,
       "result": "A courier in dark kit cannot see your left edge. They take it as a motorcycle. Your plow teaches them otherwise at a driveway. One lamp was not a vehicle. It was a rumor.",
-      "state_delta": { "noise": 3, "time_cost": 8 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
     },
     {
       "id": "d",
       "text": "Get off the street into a driveway well off the travel lane, then swap the beam on lows only",
       "correct": true,
       "result": "You take a driveway that is actually a driveway, not a shoulder. Key off. Two minutes, rain on the plating, sealed beam seated. Lows, both sides. You back out after a search. The Quiet never got a lighthouse. The next car can count you as a car.",
-      "state_delta": { "noise": -1, "time_cost": 10 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 10
+      }
     }
   ],
-  "debrief": "Two working headlights in rain. High beams in rain are scatter, not vision. Do the repair off the travel lane. A single lamp makes you look smaller than you are, and other people will aim at the hole.",
+  "debrief": "Two working headlights in rain. High beams in rain bloom on the drops and give you nothing but scatter. Do the repair off the travel lane. A single lamp makes you look smaller than you are.",
   "source": {
     "psdp_skill": "n/a",
-    "dol_section": "2.5 Vehicle maintenance",
+    "dol_section": "2.5 Vehicle Maintenance (Headlights)",
     "teaching_target": "Headlights must work in pairs in rain and dark; repair off the roadway; do not use high beams in heavy rain."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -54,7 +69,9 @@
     "midground": "residential street, morning rain, no other lamps",
     "background": "Kent houses, blinds drawn, overcast so low it is almost indoor",
     "read": "one eye is open and one is not — that is not a legal front",
-    "continuity": ["pink_menace_exterior"],
+    "continuity": [
+      "pink_menace_exterior"
+    ],
     "aspect": "3:4"
   },
   "variation": {

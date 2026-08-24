@@ -13,37 +13,55 @@
       "text": "Hold twenty-eight — nothing has used this crosswalk in a year",
       "correct": false,
       "result": "A courier on a dark bike comes out of the hedge line at the faded crosswalk without a lamp. You hit the brakes late on cold dry asphalt. The plow dips, the tires chirp, and the bike swerves around your left headlight. The sound carries. Two blocks down, something in a doorway turns its head.",
-      "state_delta": { "noise": 3, "yaw": 2, "time_cost": 5 }
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 5
+      }
     },
     {
       "id": "b",
       "text": "Kill the lamps with a high-beam flash so you can see the yard",
       "correct": false,
       "result": "The flash punches a white hole in the dawn. The school-zone lamps keep cycling. Every window on the block answers you. You did not slow. A shape that was sitting at the chain-link stands up and starts walking toward the light.",
-      "state_delta": { "light": 4, "noise": 1, "time_cost": 4 }
+      "state_delta": {
+        "light": 4,
+        "noise": 1,
+        "time_cost": 4
+      }
     },
     {
       "id": "c",
       "text": "Drop to twenty and search the parked cars and hedge before the crosswalk",
       "correct": true,
       "result": "Twenty. Eyes left hedge, right parked bumpers, center faded lines. A kid's bike is on its side in the gutter, still, no rider. You roll the crosswalk at a walking pace and the zone lamps fall behind you. The Menace does not like twenty. The street does.",
-      "state_delta": { "noise": -1, "time_cost": 3 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
     },
     {
       "id": "d",
       "text": "Cut through the empty lot to skip the zone entirely",
       "correct": false,
       "result": "The lot is frost-slick and rutted. The knobbies hop a concrete stop and the plow rings off it like a bell. You saved a block and spent it in noise. The school-zone lamps keep flashing for whoever is actually using the street.",
-      "state_delta": { "noise": 4, "damage": 1, "yaw": 2, "time_cost": 6 }
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "yaw": 2,
+        "time_cost": 6
+      }
     }
   ],
   "debrief": "When school-zone lights are flashing, the posted school speed is in force whether or not you can see children. Search the edges first — parked cars and hedges hide the thing that steps out. Skill five starts with the search, not the empty middle.",
   "source": {
-    "psdp_skill": "Skill five: seeing habits, part 1",
-    "dol_section": "4.10 Traffic laws",
+    "psdp_skill": "Skill five: driving on a quiet street – part one",
+    "dol_section": "4.17 Zones (School zone)",
     "teaching_target": "Flashing school-zone lamps put the posted school speed in force; search parked cars and edges, not the empty center."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "cold_roads",
   "callback_of": null,
   "schedules_callback": false,
@@ -54,7 +72,9 @@
     "midground": "empty playground fence and a hedge line meeting a faded crosswalk",
     "background": "cold clear dawn, long blue shadows, dry Kent collector, no people in the yard",
     "read": "the lamps are flashing and the 20 is under the wheels — the empty yard is a trap for the eyes",
-    "continuity": ["pink_menace_interior"],
+    "continuity": [
+      "pink_menace_interior"
+    ],
     "aspect": "3:4"
   },
   "variation": {

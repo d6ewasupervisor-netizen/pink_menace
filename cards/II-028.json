@@ -13,38 +13,53 @@
       "text": "Go — you will clip it at the next stop, and the fog is already eating time",
       "correct": false,
       "result": "You do not get a next stop. A volunteer comes out of the fog already braking. You dump yours. The cheap belt that was not on does not hold. The game does not show the rest. It does not have to.",
-      "state_delta": { "yaw": 3, "damage": 5, "fatal": true, "time_cost": 0 }
+      "state_delta": {
+        "yaw": 3,
+        "damage": 5,
+        "fatal": true,
+        "time_cost": 0
+      }
     },
     {
       "id": "b",
       "text": "Clip it at rolling speed so you do not lose the gap",
       "correct": false,
       "result": "One hand off, eyes in your lap, mill lip under the tires. You miss the latch. The volunteer is already in your fog. You correct the wheel late. A belt in the hand is not a belt in the latch.",
-      "state_delta": { "yaw": 2, "time_cost": 4 }
+      "state_delta": {
+        "yaw": 2,
+        "time_cost": 4
+      }
     },
     {
       "id": "c",
       "text": "Stop fully off the mill, clip, tug the belt, then take the next street",
       "correct": true,
       "result": "You refuse the last-second. Gravel. Click. Tug. The aftermarket latch takes. You roll out of the fog with a belt on and a Grid behind you. The Arterial can be someone else's act. You still have a body in the seat to hand it to.",
-      "state_delta": { "noise": -1, "time_cost": 3 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
     },
     {
       "id": "d",
       "text": "Loop it over your shoulder without the latch so at least it looks done",
       "correct": false,
-      "result": "It looks done. It is a sash. The first hard brake turns it into a rope that does not hold. Looking legal is not the 51 percent. Latched is.",
-      "state_delta": { "yaw": 2, "time_cost": 2 }
+      "result": "The sash does no work when the first hard brake arrives. The webbing slides through. You are out of the seat the cheap belt was supposed to keep. The latch was the whole point.",
+      "state_delta": {
+        "yaw": 2,
+        "time_cost": 2
+      }
     }
   ],
-  "debrief": "Belt on, latched, tugged, before the vehicle moves. Not at the next stop. Not over the shoulder. More than half of teen drivers killed in 2022 were unbuckled. The Grid does not end with a clever exit. It ends with a click.",
+  "debrief": "Belt on, latched, tugged, before the vehicle moves. Not at the next stop. Not over the shoulder. The Grid ends on that click.",
   "source": {
     "psdp_skill": "n/a",
-    "dol_section": "2.7 Seat belts",
-    "teaching_target": "Fasten and tug the seat belt before moving; a belt over the shoulder that is not latched is not a belt.",
-    "stat_cited": "51% of teen drivers killed in 2022 were unbuckled (PSDP)."
+    "dol_section": "2.6 Occupant Protection",
+    "teaching_target": "Fasten and tug the seat belt before moving; a belt over the shoulder that is not latched is not a belt."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "ejection",
   "callback_of": null,
   "schedules_callback": false,
@@ -55,7 +70,9 @@
     "midground": "the belt webbing hanging, latch visible and open",
     "background": "the collector opening up beyond the zone, midday fog, no sun, no other vehicle yet",
     "read": "the belt is not latched and the bigger road is already starting",
-    "continuity": ["pink_menace_exterior"],
+    "continuity": [
+      "pink_menace_exterior"
+    ],
     "aspect": "3:4"
   },
   "variation": {

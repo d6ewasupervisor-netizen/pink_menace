@@ -13,37 +13,53 @@
       "text": "Queue behind them with hazards on so the next car sees a line",
       "correct": false,
       "result": "Hazards in a trench. The next car does see you. So does everything that hunts lamps. You are now a parked convoy in a work zone that forbade stopping. The pickup never asked you to join the repair.",
-      "state_delta": { "light": 4, "time_cost": 10 }
+      "state_delta": {
+        "light": 4,
+        "time_cost": 10
+      }
     },
     {
       "id": "b",
       "text": "Squeeze past them in the trench because you cannot stop",
       "correct": false,
       "result": "The knobbies drop off the mill. You high-center on the lip. Now there are two dead vehicles in a one-lane zone. The rain does the rest of the talking.",
-      "state_delta": { "damage": 3, "noise": 3, "yaw": 2, "time_cost": 20 }
+      "state_delta": {
+        "damage": 3,
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 20
+      }
     },
     {
       "id": "c",
       "text": "Stop short of their scene, then wait in their lane until they move",
       "correct": false,
       "result": "You are polite and you are a blockage. A volunteer comes the other way in a lane that was supposed to be yours. Four people, one trench, no grammar.",
-      "state_delta": { "time_cost": 12, "noise": 1 }
+      "state_delta": {
+        "time_cost": 12,
+        "noise": 1
+      }
     },
     {
       "id": "d",
       "text": "Do not stop in the zone: take the first legal turnout before the mill, then a different street",
       "correct": true,
       "result": "You refuse the queue. A driveway before the cones is a driveway. You reverse into it, wait for a hole that is not their hood, and take the next street south. The mill keeps being a mill. You keep being traffic instead of a second accident.",
-      "state_delta": { "noise": -1, "time_cost": 8 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 8
+      }
     }
   ],
   "debrief": "Do not stop in a live work lane to rubberneck or to join someone else's breakdown. If the lane is blocked, leave the zone at the first legal turnout and reroute. Hazards in a trench are a beacon. Your job is to remain a moving vehicle.",
   "source": {
-    "psdp_skill": "Skill seven: keeping a space cushion",
-    "dol_section": "4.18 Parking",
+    "psdp_skill": "Skill six: looking ahead",
+    "dol_section": "4.17 Zones (Work zone)",
     "teaching_target": "Never stop or park in a live work-zone travel lane; leave the zone and reroute if the lane is blocked."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -54,7 +70,9 @@
     "midground": "cone line, trench on the right, no shoulder",
     "background": "Kent afternoon rain, a DO NOT STOP sign already behind you, gray nothing ahead",
     "read": "the only lane is already occupied by a stopped repair — joining it is the error",
-    "continuity": ["pink_menace_interior"],
+    "continuity": [
+      "pink_menace_interior"
+    ],
     "aspect": "3:4"
   },
   "variation": {
