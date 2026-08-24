@@ -2,7 +2,7 @@
 
 const crypto = require("crypto");
 const { query } = require("./db");
-const { appKind, gameUrl, parentsUrl, sessionDays } = require("./host");
+const { appKind, gameUrl, parentsUrl, sessionDays, autofillHost } = require("./host");
 const { normalizePhone, normalizeName, phoneHmac, last4 } = require("./phone");
 const sms = require("./sms");
 const auth = require("./auth");
@@ -120,7 +120,7 @@ function mountAuth(app) {
       const allowPhone = otpGuard.phoneAllowed(phone);
       if (allowIp && allowPhone) {
         try {
-          await sms.sendOtp(phone);
+          await sms.sendOtp(phone, autofillHost(req));
         } catch {
           // Swallow send failures so this endpoint cannot oracle enrollment or opt-out.
         }

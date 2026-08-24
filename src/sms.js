@@ -32,8 +32,10 @@ async function outboxFetch(path, body) {
   return { res, data };
 }
 
-async function sendOtp(to) {
-  const { res, data } = await outboxFetch("/otp/send", { to });
+async function sendOtp(to, autofillHost) {
+  const payload = { to };
+  if (autofillHost) payload.autofill_host = autofillHost;
+  const { res, data } = await outboxFetch("/otp/send", payload);
   if (!res.ok) {
     const err = new Error((data && data.error) || `otp/send ${res.status}`);
     err.status = res.status;

@@ -1,0 +1,2252 @@
+[
+  {
+    "card_id": "II-001",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "dossier",
+    "title": "Kent, Before First Light",
+    "scene": "You idle at the curb on a Kent side street that still has its paint. The Menace ticks as it cools. Cranberry braid over one shoulder, wire rims catching the overcast, Gracie already on the dash with her paws in the defrost. Insulin crates sweat in the well behind the seats. The Grid is residential, two lanes, stop signs that still mean stop. Signals still cycle. That is the whole job today: move the cold through streets that look empty and are not.",
+    "debrief": "Act II is quiet Kent, not the lot. Search, signs, turns, bikes, buses, space, and focus — in that order. The lights still work. Drive like they do.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "n/a",
+      "teaching_target": "Establish The Grid: residential Kent, Ali driving, insulin run, rules of the road still in force."
+    },
+    "cast": [
+      "ali",
+      "gracie"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_PORTRAIT",
+      "subject": "Ali Okonjo in the driver's seat of the Pink Menace, braid over the left shoulder, wire-rim glasses, gold hoop and small nose ring, flat affect",
+      "foreground": "worn black leather wheel rim and cracked pink dash, Gracie the orange tabby sitting in the defrost with cream chest visible",
+      "midground": "welded steel mesh over the windshield, analog gauges, aftermarket nav tablet dark",
+      "background": "overcast Kent residential street through the mesh, bare maples, single-story houses, no sun",
+      "read": "this is Ali's cab and Ali's color — cranberry hair is the only saturated thing in a gray morning",
+      "continuity": [
+        "pink_menace_interior",
+        "ali_face",
+        "gracie"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "residential",
+      "weather": "overcast",
+      "time_of_day": "morning",
+      "tone": "quiet",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "II-002",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "scene",
+    "title": "White Lights, Empty Yard",
+    "scene": "The school-zone lamps are still lit on a Kent collector at dawn, white and cold, flashing over a dry playground that has not held a recess in fourteen months. Your speedo sits on twenty-eight. The painted 20 is faded but it is there. Nothing moves on the sidewalk. The insulin is still cold. The Menace wants the next block. Your eyes want the empty yard instead of the parked cars and the hedge line where a yard used to dump kids into the crosswalk.",
+    "decision": "The lamps are flashing and the yard looks dead. Where do you put the speed?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hold twenty-eight — nothing has used this crosswalk in a year",
+        "correct": false,
+        "result": "A courier on a dark bike comes out of the hedge line at the faded crosswalk without a lamp. You hit the brakes late on cold dry asphalt. The plow dips, the tires chirp, and the bike swerves around your left headlight. The sound carries. Two blocks down, something in a doorway turns its head.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "b",
+        "text": "Kill the lamps with a high-beam flash so you can see the yard",
+        "correct": false,
+        "result": "The flash punches a white hole in the dawn. The school-zone lamps keep cycling. Every window on the block answers you. You did not slow. A shape that was sitting at the chain-link stands up and starts walking toward the light.",
+        "state_delta": {
+          "light": 4,
+          "noise": 1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "c",
+        "text": "Drop to twenty and search the parked cars and hedge before the crosswalk",
+        "correct": true,
+        "result": "Twenty. Eyes left hedge, right parked bumpers, center faded lines. A kid's bike is on its side in the gutter, still, no rider. You roll the crosswalk at a walking pace and the zone lamps fall behind you. The Menace does not like twenty. The street does.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 3
+        }
+      },
+      {
+        "id": "d",
+        "text": "Cut through the empty lot to skip the zone entirely",
+        "correct": false,
+        "result": "The lot is frost-slick and rutted. The knobbies hop a concrete stop and the plow rings off it like a bell. You saved a block and spent it in noise. The school-zone lamps keep flashing for whoever is actually using the street.",
+        "state_delta": {
+          "noise": 4,
+          "damage": 1,
+          "yaw": 2,
+          "time_cost": 6
+        }
+      }
+    ],
+    "debrief": "When school-zone lights are flashing, the posted school speed is in force whether or not you can see children. Search the edges first — parked cars and hedges hide the thing that steps out. Skill five starts with the search, not the empty middle.",
+    "source": {
+      "psdp_skill": "Skill five: seeing habits, part 1",
+      "dol_section": "4.10 Traffic laws",
+      "teaching_target": "Flashing school-zone lamps put the posted school speed in force; search parked cars and edges, not the empty center."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "cold_roads",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "flashing white school-zone lamps over a faded 20 painted in the lane",
+      "foreground": "worn black leather wheel and welded mesh across the top of the windshield",
+      "midground": "empty playground fence and a hedge line meeting a faded crosswalk",
+      "background": "cold clear dawn, long blue shadows, dry Kent collector, no people in the yard",
+      "read": "the lamps are flashing and the 20 is under the wheels — the empty yard is a trap for the eyes",
+      "continuity": [
+        "pink_menace_interior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "school_zone",
+      "weather": "clear_cold",
+      "time_of_day": "dawn",
+      "tone": "procedural",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "II-003",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "rule",
+    "title": "Red Octagon, White Fog",
+    "scene": "Fog sits on a Kent work zone at midday, thick enough that the cones appear one at a time. A portable stop sign is planted in your lane where the flagger would have stood. The face is red, eight sides, white border, white STOP. No flagger. No oncoming headlights yet. The cone line pinches you down to a crawl. The insulin clock is still kind. Your left foot wants to hover instead of plant.",
+    "decision": "The portable stop is in your lane and the fog has the other approach. What do you do at the sign?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Full stop, count three, search both ways, then roll when the fog-lane is clear",
+        "correct": true,
+        "result": "You plant it. The Menace settles. Count one, two, three. A gray primer pickup slides out of the fog from the right at walking speed, never seeing you until you are already stopped. You let it pass, then take the gap. The sign did the flagger's job.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Rolling stop — tap the pedal and keep the crawl so you do not get stuck in the cones",
+        "correct": false,
+        "result": "You never quite reach zero. The primer pickup is already in the pinch. Your plow and his bumper occupy the same two feet of fog. A horn you did not mean to hit. Both of you freeze. The cones shake. Something at the far end of the zone turns toward the sound.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 1,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Treat it as yield and go if you cannot see anyone",
+        "correct": false,
+        "result": "You take the empty-looking hole. The pickup's left headlight fills your mesh at ten feet. Both of you dump speed. His tires bark on damp millings. You sit in the intersection with two engines and a sign that already told you the answer.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Stop past the sign so you can see around the fog before committing",
+        "correct": false,
+        "result": "You roll the nose past the octagon to get a look. Now you are in the conflict box with no legal stop left to make. The pickup has to swerve around your plow. A cone goes over. Plastic on steel, sharp, and the fog carries it.",
+        "state_delta": {
+          "noise": 3,
+          "damage": 1,
+          "time_cost": 6
+        }
+      }
+    ],
+    "debrief": "A stop sign means stop — wheels still, at the sign or limit line, even when the sign is portable and the road looks empty. Fog is not a yield. If you cannot see the other approach, that is more reason to stop, not less.",
+    "source": {
+      "psdp_skill": "Skill five: seeing habits, part 1",
+      "dol_section": "4.12 Signs",
+      "teaching_target": "Stop means a complete stop at the sign or limit line; a portable work-zone stop has the same force as a post."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_OBJECT",
+      "subject": "a portable red octagonal STOP sign planted in a fogged lane between orange cones",
+      "foreground": "the sign face filling the frame, white border and white STOP legible, droplets on the sheeting",
+      "midground": "cone pinch and milled asphalt disappearing into midday fog",
+      "background": "no flagger, no sky, a gray wall of fog where the other approach should be",
+      "read": "the sign is STOP, not yield, and the other road is invisible — that is the whole card",
+      "continuity": [],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "work_zone",
+      "weather": "fog",
+      "time_of_day": "midday",
+      "tone": "wry",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "II-004",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "scene",
+    "title": "Wind on Central",
+    "scene": "The work cones are behind you. Central Avenue in Kent, two lanes each way, a protected left pocket painted and still honest. Wind shoves the Menace a half-lane toward the curb every time a gap opens. Oncoming is a primer SUV at distance and a lifted truck closer, closing. Your blinker has been on. The pocket is short. The insulin does not care about your gap. The oncoming does.",
+    "decision": "You are in the left pocket with the blinker on. When do you take the turn?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Cut the wheels now and creep into the intersection so you can go the instant it opens",
+        "correct": false,
+        "result": "Wheels already left. The lifted truck never planned to stop. His bumper kisses your rear quarter and walks the Menace one foot into the oncoming lane. The SUV's horn is late. You are pointed at a collision you pre-steered yourself into.",
+        "state_delta": {
+          "yaw": 3,
+          "damage": 2,
+          "noise": 3,
+          "time_cost": 10
+        }
+      },
+      {
+        "id": "b",
+        "text": "Go now — the SUV is still far and the truck will brake for you",
+        "correct": false,
+        "result": "You take it. The truck does not brake. You are broadside in his closing speed with a plow that will not win. You dump the turn and abort back into the pocket, tires howling, wind shoving the tail. The SUV has to lift. Everyone on this block heard you decide.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 3,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Cancel the blinker and go right around the block instead",
+        "correct": false,
+        "result": "You kill the signal mid-pocket. The truck reads that as you staying put, then you yank right across his nose toward the through lane. He hits the horn. You make the block. You also taught the next driver that your blinker is optional.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Wheels straight, wait for the SUV and the truck both to clear, then turn",
+        "correct": true,
+        "result": "You hold the pocket. Wheels straight. The truck blows through. The SUV follows. The next gap is real. You turn on the blinker that was already telling the truth. Wind shoves the tail; you let it and unwind. No horn. No yaw. The crates do not slide.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 6
+        }
+      }
+    ],
+    "debrief": "For a left turn, wait until the whole gap is yours. Wheels stay straight until you commit so a rear-end does not push you into oncoming. A blinker is a sentence. Do not unsay it in the pocket.",
+    "source": {
+      "psdp_skill": "Skill five: seeing habits, part 2",
+      "dol_section": "4.14 Turning",
+      "teaching_target": "Complete left turns only when oncoming is clear; keep wheels straight in the pocket until the turn is committed."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "cold_roads",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_TOPDOWN",
+      "subject": "the Pink Menace sitting in a short painted left-turn pocket on a four-lane Kent arterial",
+      "foreground": "pocket lines and the Menace's pink roof and plow, wheels visibly straight",
+      "midground": "oncoming lifted truck closing, primer SUV behind it, empty opposing pocket",
+      "background": "wind-bent maples, wide Kent arterial, afternoon gray, no wrecks",
+      "read": "the car is in the pocket with wheels straight and two oncoming vehicles still occupying the gap",
+      "continuity": [
+        "pink_menace_exterior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "wind",
+      "time_of_day": "afternoon",
+      "tone": "tense",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "II-005",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "hazard",
+    "title": "Marisol in the Lot",
+    "scene": "Rain hammers the old Kent Station lot, a sheet off the mesh, the stalls faded to ghosts. You are rolling a lane of painted arrows toward the exit onto 1st. In the right convex, a bicycle: bare head, dark jacket, fast, unafraid. Marisol. She is using the lot as a cut-through the way she always has. She is on your right rear quarter, closing to pass you on the inside toward the same exit. Your window is up. Your door is a weapon if you forget she is there.",
+    "decision": "Marisol is in your right mirror, coming up the inside toward the same exit. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hold your line and let her find a way around — the lot is yours",
+        "correct": false,
+        "result": "You occupy the arrow. She has to squeeze between your door and a cart corral. Her bar-end kisses the steel plating with a sound like a dropped wrench. She stays up. She also puts a hand out, not a wave. You taught a courier that cars do not look.",
+        "state_delta": {
+          "noise": 2,
+          "passenger_stress": 1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Slow, stay left of the arrows, and give her the whole right side through the exit",
+        "correct": true,
+        "result": "You lift and drift left inside the stall paint. She takes the right at speed, three clear feet of wet asphalt, and is through the exit before you. Two fingers off the bars without looking back. The rain covers the rest. You roll out after her at a walking pace.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 3
+        }
+      },
+      {
+        "id": "c",
+        "text": "Tap the horn so she knows you see her",
+        "correct": false,
+        "result": "The horn cracks off the storefront and the parking deck. Marisol flinches and the front wheel tucks. She saves it. Every Quiet thing using this lot as a sit has your range now. She looks at you once, jaw set, and takes the exit anyway.",
+        "state_delta": {
+          "noise": 5,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Speed up to beat her to the exit and clear the conflict",
+        "correct": false,
+        "result": "You get there first by a car length. She is still on your right rear when you start the turn onto 1st. Your rear quarter walks through the space her front wheel needs. She bails onto the sidewalk and the bike hits a cart corral. Steel, loud, done.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 8
+        }
+      }
+    ],
+    "debrief": "Give bicyclists a full lane's worth of room when you share a space — at least three feet, more in rain. Mirrors first, then move left. A horn is not a greeting here. It is a dinner bell.",
+    "source": {
+      "psdp_skill": "Skill six: looking ahead",
+      "dol_section": "4.6 Sharing with bicyclists",
+      "teaching_target": "Pass bicyclists with at least three feet of space; check the right mirror before moving right or occupying a shared exit."
+    },
+    "cast": [
+      "ali",
+      "marisol"
+    ],
+    "antagonist": "chorus",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_MIRROR",
+      "subject": "Marisol on a bicycle in the right-side convex, closing on the Pink Menace's rear quarter",
+      "foreground": "wet convex mirror housing and a slice of riveted steel door",
+      "midground": "faded parking-lot arrows, cart corral, her front wheel in the three-foot gap that does not yet exist",
+      "background": "heavy rain, Kent Station lot, gray storefront, dusk, lamps unlit",
+      "read": "she is in the door zone of a moving car, and the exit is one lane wide",
+      "continuity": [
+        "pink_menace_exterior",
+        "marisol"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "parking_lot",
+      "weather": "heavy_rain",
+      "time_of_day": "dusk",
+      "tone": "urgent",
+      "failure_mode": "distraction"
+    }
+  },
+  {
+    "card_id": "II-006",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "convoy",
+    "title": "Deac's Left Arm",
+    "scene": "Night has dropped on a Kent school zone that still flashes for no one. You are second in a two-vehicle run: the Ledger ahead, amber destination sign dark, west-coast mirrors wide as doors. Deac's left arm comes out the driver's window, straight out, then down — the old transit slow. Radios are trash. This is the sentence. A third set of lamps sits on your bumper, too close, some volunteer who joined without asking. Gracie is boxed. Your job is not to be clever. Your job is to answer him without lighting the block.",
+    "decision": "Deac's left arm is out and down. The volunteer behind you is tight. How do you answer?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Match him: left arm out and down, lift off, and open a gap ahead of the volunteer",
+        "correct": true,
+        "result": "You answer in kind. The Menace slows without the brake lamps dumping. The volunteer has to lift or eat your plow. He lifts. Deac's arm comes back in. The three of you roll the zone at twenty, dark and boring. That is a successful convoy.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Flash your headlights twice so Deac knows you saw it",
+        "correct": false,
+        "result": "The flashes bounce off his expanded-metal rear and paint the playground. Deac's arm stays down because he was not asking for a receipt. At the treeline, two shapes that were sitting stand up and start to walk the fence toward the light.",
+        "state_delta": {
+          "light": 4,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "c",
+        "text": "Tap the brakes hard so the volunteer gets the message",
+        "correct": false,
+        "result": "Your lamps dump red into his windshield. He stands on his own brakes. Three vehicles, one wet school zone, a squeal. Deac's arm comes back in and the destination sign flickers one word you cannot read from here. You just talked over him.",
+        "state_delta": {
+          "noise": 4,
+          "light": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "d",
+        "text": "Pass him on the left and take the point — he is going too slow for the insulin",
+        "correct": false,
+        "result": "You pull out in a flashing school zone. His left arm is still in the air you are occupying. The Ledger's mirror almost takes your mesh. He never speeds up. You are now point on a road you have not searched, with a volunteer still glued to Deac, and no one behind you speaking the same language.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 2,
+          "time_cost": 3
+        }
+      }
+    ],
+    "debrief": "Convoy language is lights and hands, not horns. Arm straight out then down means slow or stop. Answer with the same signal and a smooth lift — not a flash, not a panic brake. The driver ahead is the sentence. You are the period.",
+    "source": {
+      "psdp_skill": "Skill five: seeing habits, part 2",
+      "dol_section": "2.5 Hand signals",
+      "teaching_target": "Left arm out and down means slow or stop; answer a convoy signal with the same hand signal and a smooth deceleration."
+    },
+    "cast": [
+      "ali",
+      "deac"
+    ],
+    "antagonist": "load",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_ROADSIDE",
+      "subject": "Deac's left arm extended from the Ledger's window, straight out then dropping, against a flashing school-zone lamp",
+      "foreground": "wet curb and a slice of the Pink Menace's plow at the bottom of frame",
+      "midground": "the Ledger's tall box and west-coast mirror, Ali's Beetle in trail, a third pair of lamps tight on her bumper",
+      "background": "overcast night, school-zone lamps flashing white, empty playground fence, no wrecks",
+      "read": "the hand signal is the message, and the extra pair of lamps is the pressure",
+      "continuity": [
+        "the_ledger",
+        "pink_menace_exterior",
+        "deac"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "school_zone",
+      "weather": "overcast",
+      "time_of_day": "night",
+      "tone": "warm",
+      "failure_mode": "passengers"
+    }
+  },
+  {
+    "card_id": "II-007",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "scene",
+    "title": "Bus 12, Amber",
+    "scene": "Fourth Ave South, Kent, and the rain has been going since Renton. Half a block up, Bus 12 rolls at maybe fifteen. Reyna runs the last shelter route and she runs it on time. The amber lamps come on above her rear window. Gracie stands up in the passenger footwell. You are carrying insulin that has been out of cold for ninety minutes, and there is a clear lane to Reyna's left.",
+    "decision": "The amber lamps are on and the left lane is open. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Take the left lane and get past her before the reds come on",
+        "correct": false,
+        "result": "You are alongside the front bumper when the reds fire and the stop arm swings into your door line. The plow catches it. Steel on steel, and the sound goes out across four blocks of flat wet street. Reyna does not blow the horn. She does not have to.",
+        "state_delta": {
+          "noise": 4,
+          "damage": 1,
+          "yaw": 1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Ease off and start slowing now, staying behind her",
+        "correct": true,
+        "result": "You lift and let the gap open to four car lengths. The reds come on, the arm swings out, and a kid in a yellow shell comes around the front of the bus at a dead sprint without looking once. He is across before you have finished counting him. Reyna gives you two fingers off the wheel.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "c",
+        "text": "Hold your speed and stay behind — you'll stop when the reds come on",
+        "correct": false,
+        "result": "You are still at twenty-eight when the reds fire. Hard on the brakes, wet asphalt, and the Menace squats and squeals to a stop with the plow eight feet off her bumper. You stopped legally. You also just rang a bell on a quiet street, and something moves at the treeline four blocks down.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 3
+        }
+      },
+      {
+        "id": "d",
+        "text": "Flash your headlights so Reyna knows you're behind her",
+        "correct": false,
+        "result": "The flash bounces off the wet street and every window on the block. Reyna's hand comes out the window, flat, palm down — cut it. The reds fire anyway, and you brake late because you were watching her hand instead of her lamps.",
+        "state_delta": {
+          "light": 4,
+          "noise": 1,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Amber lamps mean the bus is preparing to stop — that is your cue to slow, not your last chance to pass. Red lamps plus the extended stop arm require a full stop from both directions until the arm retracts. Tobin does not check for you. He is seven.",
+    "source": {
+      "psdp_skill": "Skill six: looking ahead",
+      "dol_section": "4.2 Sharing with school buses",
+      "teaching_target": "Amber lamps signal an approaching stop; red lamps and extended stop arm require a full stop from both directions."
+    },
+    "cast": [
+      "ali",
+      "gracie",
+      "reyna_solis",
+      "bus_12",
+      "tobin"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": true,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "the rear of Bus 12 half a block ahead, amber lamps lit above the rear window",
+      "foreground": "the worn black leather steering wheel rim across the bottom of frame and welded steel mesh across the top of the windshield",
+      "midground": "wet two-lane residential street, an open and empty left lane, water beading and running on the glass",
+      "background": "flat gray overcast, bare maples, single-story Kent houses receding, wipers mid-sweep",
+      "read": "the two amber lamps are lit and the red lamps directly beside them are dark — the distinction must be unmistakable at a glance",
+      "continuity": [
+        "pink_menace_interior",
+        "bus_12"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "residential",
+      "weather": "rain",
+      "time_of_day": "afternoon",
+      "tone": "tense",
+      "failure_mode": "speed"
+    }
+  },
+  {
+    "card_id": "II-008",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "wrench",
+    "title": "Oil on Milled Asphalt",
+    "scene": "The oil light is a dull orange you have been ignoring since the lot. Fog again, a Kent mill-and-fill that never got its top lift, cones still in a lazy line. You feel the note change — not a knock, a dry rattle under the rear. A dark fan of oil is already on the milled surface behind you in the mirror, too even to be rain. The insulin is still in the window. The engine is not. Nobody is coming to tow the Menace. The Quiet will, if you sit in the travel lane and cook it.",
+    "decision": "The oil light is on and you are laying a fan on the millings. Where do you put the car?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Keep rolling to the next side street so you do not stop in the work zone",
+        "correct": false,
+        "result": "Two more blocks. The rattle becomes a bang. The Menace dies in the pinch between cones with no shoulder. You are a pink wreck in a fogged lane. Something at the millings' edge already has your heat.",
+        "state_delta": {
+          "noise": 4,
+          "damage": 4,
+          "fuel": -2,
+          "time_cost": 20
+        }
+      },
+      {
+        "id": "b",
+        "text": "Rev it to climb the oil pressure back before you decide",
+        "correct": false,
+        "result": "The note screams and then stops. You have a seized engine and a still-rolling car. You coast into a cone and the plow rings. Fog holds the sound. The light was not a suggestion.",
+        "state_delta": {
+          "noise": 5,
+          "damage": 5,
+          "fuel": -3,
+          "time_cost": 25
+        }
+      },
+      {
+        "id": "c",
+        "text": "Signal, get off the millings onto the gravel shoulder, shut it down, then check",
+        "correct": true,
+        "result": "Blinker. Gravel. Key off. The rattle dies with the engine. Under the rear, a split line, not a hole in the pan. You have tape and a bottle in the wing. Ten quiet minutes. The fog does not care. The engine will start once. That is enough to finish the run.",
+        "state_delta": {
+          "noise": -2,
+          "time_cost": 12,
+          "fuel": -1
+        }
+      },
+      {
+        "id": "d",
+        "text": "Stop in the lane, pop the deck, and look while it is still hot",
+        "correct": false,
+        "result": "You are standing in a fogged work lane with the deck up and a hot engine ticking. A volunteer comes through the cone line on your closed side and has to swerve. His horn. Your hood is a sail. You learn nothing you could not have learned on the shoulder, and now two vehicles are advertising.",
+        "state_delta": {
+          "noise": 3,
+          "light": 1,
+          "time_cost": 9
+        }
+      }
+    ],
+    "debrief": "An oil warning is a stop-and-check, not a keep-going. Get out of the travel lane first, then shut down. Driving a dry engine turns a repair into a dead vehicle in the road — and a dead vehicle in this world is a beacon.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "2.5 Vehicle maintenance",
+      "teaching_target": "Heed oil and temperature warnings immediately; leave the travel lane, shut down, then inspect."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_OBJECT",
+      "subject": "the Pink Menace's analog oil-pressure gauge needle on the peg and a dull orange oil lamp lit",
+      "foreground": "cracked pink dash, the gauge glass, a smear of old dirt on the bezel",
+      "midground": "fogged windshield mesh, cone line smeared, no sky",
+      "background": "milled Kent work-zone asphalt, morning fog, gravel shoulder just visible at the right edge",
+      "read": "the oil lamp is on and there is a shoulder — the lane is not where this gets solved",
+      "continuity": [
+        "pink_menace_interior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "work_zone",
+      "weather": "fog",
+      "time_of_day": "morning",
+      "tone": "wry",
+      "failure_mode": "vehicle_failure"
+    }
+  },
+  {
+    "card_id": "II-009",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "scene",
+    "title": "A Voice You Know",
+    "scene": "The radio bleeds at dawn on a Kent collector that thinks it is an arterial. Wind again. You did not turn the radio on. It came up by itself, a trick the aftermarket tablet has been pulling since the lot — a scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right, mid-block enough to be easy to miss if you are in the glass. Both hands should be on the wheel. One of them is not.",
+    "decision": "The tablet is talking in a voice you know and a pedestrian is in the crosswalk. Where do your eyes go?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Look down long enough to kill the tablet, then look back up",
+        "correct": false,
+        "result": "Two seconds in the glass. The hood is already at your right headlight when you come back. You stand on the pedal. The Menace squats. The pedestrian does not run. They do not have to. You stopped a plow's width short, loud, and the tablet is still talking.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Answer the voice — if it is someone on the net they may have a better route",
+        "correct": false,
+        "result": "You unkey and talk into a tablet that is not a radio. The pedestrian is gone under the mesh before you finish the sentence. You missed them completely. The voice was never going to answer. That is the whole trick.",
+        "state_delta": {
+          "noise": 1,
+          "passenger_stress": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Speed up through the intersection so you are past the distraction sooner",
+        "correct": false,
+        "result": "You take the four-way hot. The pedestrian stops and the hood turns. You miss them by luck and a lot of wind. The tablet keeps talking. Speed did not buy attention. It spent the margin you needed.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 1,
+          "time_cost": 2
+        }
+      },
+      {
+        "id": "d",
+        "text": "Eyes up, both hands on the wheel, cover the brake, ignore the tablet until you are through",
+        "correct": true,
+        "result": "You leave the glass alone. Hands at ten and two, or whatever your braid allows. The hood clears your right fender while you are still moving at a crawl. The tablet talks to itself and then dies. The intersection is just an intersection. That is the win.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      }
+    ],
+    "debrief": "Eyes off the road — even to silence a distraction — is how the crash happens. Drive first. Park the tablet's noise until the intersection is behind you. Familiar voices are the trap. The pedestrian in the crosswalk is the test.",
+    "source": {
+      "psdp_skill": "Skill six: looking ahead",
+      "dol_section": "5.5 Focus",
+      "teaching_target": "Do not take your eyes off the road to manage a device; drive through the hazard, then deal with the distraction."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "chorus",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_CHASE",
+      "subject": "the Pink Menace approaching a four-way, a hooded pedestrian already in the right-hand crosswalk",
+      "foreground": "wind-moved weeds at the camera, a slice of wet curb",
+      "midground": "Ali's head starting to dip toward the dash tablet, both not yet on the wheel",
+      "background": "Kent collector at dawn, hard wind, gray sky, no other moving cars",
+      "read": "the driver's eyes are leaving the pedestrian for a screen",
+      "continuity": [
+        "pink_menace_exterior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "wind",
+      "time_of_day": "dawn",
+      "tone": "quiet",
+      "failure_mode": "distraction"
+    }
+  },
+  {
+    "card_id": "II-010",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "ledger",
+    "title": "The Arm Still Out",
+    "scene": "Bus 12 is back on Fourth Ave South at Willis, same rain, same crown in the wheel tracks, same bare maples. Reyna has the reds on and the stop arm is out — bent a few degrees off true from a plow that did not wait. Tobin is already in the street this time, yellow shell, not looking. At the treeline four blocks down, something that heard steel on steel last time has not left. You are behind her again with a clear left lane that is not clear at all. The insulin can wait. He cannot.",
+    "decision": "Reds are on, the arm is out, and Tobin is in the lane. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Stay stopped behind her until the arm folds and she rolls, even if the left lane is empty",
+        "correct": true,
+        "result": "You sit. Rain on the mesh. Tobin crosses without a glance, then a second kid you did not have last time. The thing at the treeline does not come. Reyna folds the bent arm, finds you in her glass, and does not wave. She does not have to. You are still here. That is the apology.",
+        "state_delta": {
+          "noise": -2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "Take the left lane now — the arm is already out, so the kids have to be done",
+        "correct": false,
+        "result": "You pull out on reds. Tobin is still in your left headlight. You stand on it. The Menace stops with the plow in the crosswalk he is using. Reyna sees the whole thing in the west-coast glass she does not have. She has a school bus mirror and a bent arm and a face you will carry.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 12
+        }
+      },
+      {
+        "id": "c",
+        "text": "Creep past the arm on the right shoulder to get out of the thing at the treeline's sightline",
+        "correct": false,
+        "result": "The gravel shoulder puts you around the bent arm and into the space kids use. A backpack scrapes the plating. You are past the bus and still in the rain, and the treeline has you in profile, moving. You did not get quieter. You got closer.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Tap the horn once so Tobin looks up",
+        "correct": false,
+        "result": "The horn on a stopped bus street. Tobin looks. So does everything else. The treeline starts walking. Reyna's head turns in the glass, not grateful. You made him look and you rang the block doing it.",
+        "state_delta": {
+          "noise": 5,
+          "light": 1,
+          "time_cost": 6
+        }
+      }
+    ],
+    "debrief": "Red lamps and an extended stop arm still mean a full stop from both directions until the arm retracts — even when you have been here before, even when the arm is bent because of you. The kid does not check. The street remembers the noise. You do not get to pass it twice.",
+    "source": {
+      "psdp_skill": "Skill six: looking ahead",
+      "dol_section": "4.2 Sharing with school buses",
+      "teaching_target": "Red lamps and an extended stop arm require a full stop from both directions until the arm retracts; never pass a stopped school bus."
+    },
+    "cast": [
+      "ali",
+      "reyna_solis",
+      "bus_12",
+      "tobin"
+    ],
+    "antagonist": "splitter",
+    "callback_of": "II-007",
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_MIRROR",
+      "subject": "Bus 12 stopped ahead, red lamps lit, stop arm extended and slightly bent, Tobin in a yellow shell already in the street",
+      "foreground": "wet interior rearview and a smear of rain on the mesh, Ali's wire rims a blur at the edge",
+      "midground": "the same two-lane Kent arterial, standing water in the wheel tracks, empty-looking left lane",
+      "background": "bare maples, chain-link, flat gray rain, a distant out-of-focus figure at the treeline four blocks down",
+      "read": "reds and the bent arm are on, and a child is already in the lane you wanted last time",
+      "continuity": [
+        "pink_menace_interior",
+        "bus_12",
+        "L-001"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "residential",
+      "weather": "rain",
+      "time_of_day": "afternoon",
+      "tone": "grim",
+      "failure_mode": "speed",
+      "forced": "location+weather+time locked to II-007 callback; camera changed to POV_MIRROR"
+    }
+  },
+  {
+    "card_id": "II-011",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "dossier",
+    "title": "The Log in the Well",
+    "scene": "You unfold a metal clipboard that is not yours. Deac left it in the well at the lot with a note in dispatch cadence: date, location, day or night, weather, skills, hours, initials. The Grid does not count as practice unless you write it down. Clear cold midday in a Kent lot, stalls faded, the Menace ticking. You have already used a school zone, a stop, a left, a bike, a bus, a hand, a light, a voice. The clipboard is how the hours become legal. It is also how you notice you have not done space yet.",
+    "debrief": "Supervised hours are a log, not a feeling. Date, location, day or night, weather, skill, time, initials. If it is not on the sheet, the Grid did not happen.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "n/a",
+      "teaching_target": "The PSDP log is diegetic: hours only count when written. Space cushion is the next unpaid skill."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_PORTRAIT",
+      "subject": "Ali's hands on a metal clipboard with a hand-ruled log sheet, wire rims and cranberry braid at the top of frame",
+      "foreground": "the clipboard clip and a pencil stub, columns for date, location, weather, skills, hours, initials",
+      "midground": "cracked pink dash and the well where the board was sitting",
+      "background": "a Kent parking lot through the mesh, clear cold midday, empty stalls, no sun flare",
+      "read": "the log is the progress tracker — blank lines are skills not yet driven",
+      "continuity": [
+        "pink_menace_interior",
+        "ali_face",
+        "deac_clipboard"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "parking_lot",
+      "weather": "clear_cold",
+      "time_of_day": "midday",
+      "tone": "warm",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "II-012",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "scene",
+    "title": "Three Seconds, Not One",
+    "scene": "A volunteer van is glued to a Kent school-zone exit at dusk, overcast, lamps already flashing for a shift that will not come. You are behind him. He is behind a dead sedan that is actually just parked badly. Your following gap is a bumper. The clipboard said space. The van's brake lamps are already dirty. If he dumps them, you will eat his trailer hitch with a plow that rings. The insulin is stable. Your right foot is not. You can see his tires. You should be able to see pavement.",
+    "decision": "You can only see his hitch. How much road do you put back?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Stay on him so nobody cuts in — this zone is too narrow for a real gap",
+        "correct": false,
+        "result": "He dumps the brakes for a cat. You dump yours for him. The plow kisses the hitch. Not a crash. A note. The school-zone lamps keep flashing over a sound that did not need to happen.",
+        "state_delta": {
+          "noise": 3,
+          "damage": 1,
+          "yaw": 1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Lift until you can count three seconds off a mark on the pavement, then hold that",
+        "correct": true,
+        "result": "You let him go. A faded crack in the asphalt passes his bumper; you count one-one-thousand, two, three, then take the throttle back. You can see his tires and the road under them. When he does dump it, you are already covering. No note. No kiss.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 3
+        }
+      },
+      {
+        "id": "c",
+        "text": "Pass him in the zone so you are not the one eating the hitch",
+        "correct": false,
+        "result": "You pull out flashing. He drifts right from surprise. You make the pass and inherit the parked sedan as your new hitch. The lamps saw the whole thing. So did whatever uses this fence after dusk.",
+        "state_delta": {
+          "noise": 2,
+          "light": 1,
+          "time_cost": 3
+        }
+      },
+      {
+        "id": "d",
+        "text": "Close up and flash him once to tell him to move",
+        "correct": false,
+        "result": "The flash fills his glass. He brakes from the insult. You are closer than when you started. He never had a place to go. You just asked a following-distance problem to become a light problem.",
+        "state_delta": {
+          "light": 3,
+          "noise": 1,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Following distance is time, not politeness. At city speeds you want about three seconds to a mark on the road. If you can only see the hitch, you are already in his stop. Space is the skill the clipboard was pointing at.",
+    "source": {
+      "psdp_skill": "Skill seven: keeping a space cushion",
+      "dol_section": "4.10 Traffic laws",
+      "teaching_target": "Hold about three seconds of following time in town; if you cannot see pavement under the vehicle ahead, you are too close."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "load",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "a volunteer van's trailer hitch filling the windshield mesh, no visible pavement between plow and hitch",
+      "foreground": "worn wheel rim and the top of the plow blade as a pink bar at the bottom of glass",
+      "midground": "dirty brake lamps, school-zone flashing lamps, a badly parked sedan beyond the van",
+      "background": "overcast Kent dusk, fence, no children, wet-looking asphalt that is actually just dark",
+      "read": "there is no road visible between you and the hitch — that is the error",
+      "continuity": [
+        "pink_menace_interior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "school_zone",
+      "weather": "overcast",
+      "time_of_day": "dusk",
+      "tone": "urgent",
+      "failure_mode": "passengers"
+    }
+  },
+  {
+    "card_id": "II-013",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "rule",
+    "title": "The Triangle Is the Sentence",
+    "scene": "Heavy rain at night on a Kent mill that still thinks it is a work zone. In the cone line, a farm tractor from somebody's last run south, no Grange, just one machine, orange SMV triangle dirty but lit by your lamps. It is doing twelve. You are doing thirty because the insulin clock got loud in your head. The triangle is the sign. Pass on a two-lane with no sightline and you are in his blind and oncoming's. The cones make it worse. Your left blinker already wants out.",
+    "decision": "The slow-moving triangle is ahead in the cones. Do you pass?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Pass now — twelve is not a speed and the insulin is not a suggestion",
+        "correct": false,
+        "result": "You pull out in the rain. The tractor occupies more width than it looks. Oncoming is a pair of lamps you did not have. You dive back in and clip a cone. The triangle fills your glass. You saved nothing and spent a lot of noise.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 3,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "Flash him to pull into the cones so you can go",
+        "correct": false,
+        "result": "The flash hits the triangle and comes back at you twice as bright. He has nowhere to pull. He brakes. You almost eat the hitch of a machine that cannot get out of your way because you asked it to.",
+        "state_delta": {
+          "light": 4,
+          "noise": 1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "c",
+        "text": "Stay behind, drop to his twelve, and wait for a marked passing zone with sight",
+        "correct": true,
+        "result": "You lift to twelve. The triangle stays a triangle, not a wall. The cone line ends. A painted passing zone appears with a sightline you can actually see. You take it then, clean, and leave him a hole. The insulin is still cold. Twelve cost you a minute. A pass in the rain would have cost the run.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "d",
+        "text": "Go around on the gravel because the lane is his",
+        "correct": false,
+        "result": "The gravel is a ditch in the rain. The knobbies climb and the plow drops. You are beside him in a trench with no legal lane. He never saw you. The first thing he knows is your roof in his left mirror and a sound like a drum.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 3,
+          "damage": 1,
+          "time_cost": 9
+        }
+      }
+    ],
+    "debrief": "An orange slow-moving-vehicle triangle means the machine is not doing traffic speed. Do not pass until you have a legal passing zone and a sightline. Cones and rain are not a passing zone. Patience is the pass.",
+    "source": {
+      "psdp_skill": "Skill six: looking ahead",
+      "dol_section": "4.12 Signs",
+      "teaching_target": "The orange SMV triangle marks a slow vehicle; pass only where passing is legal and sight distance is enough."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_OBJECT",
+      "subject": "a dirty orange slow-moving-vehicle triangle centered in rain, lit by headlights, filling the frame",
+      "foreground": "water on the sign sheeting, the triangle's red-orange border",
+      "midground": "tractor width implied, cone line left and right",
+      "background": "night work zone, heavy rain, no sky, no oncoming yet",
+      "read": "the triangle is the sign face — this is not a vehicle you pass on impulse",
+      "continuity": [],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "work_zone",
+      "weather": "heavy_rain",
+      "time_of_day": "night",
+      "tone": "tense",
+      "failure_mode": "speed"
+    }
+  },
+  {
+    "card_id": "II-014",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "hazard",
+    "title": "Hollis in the Glass",
+    "scene": "Fog on a Kent collector that widens enough to pretend it is an arterial. Morning. In the interior glass, a lifted truck with aftermarket lamps sits a bumper off your plow's ghost. Hollis. He has been there for six blocks. He wants you faster than the fog. Your speedo is already at the number on the sign. If you dump speed he will eat you. If you give him the number he wants, the fog will. The left lane is a rumor in this weather. Gracie is boxed. Your mirrors are the whole conversation.",
+    "decision": "Hollis is a bumper off you in the fog. How do you keep the space?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Ease a little off the throttle to rebuild the gap ahead, and refuse to match him",
+        "correct": true,
+        "result": "You bleed three miles per hour, nothing dramatic. The gap ahead opens. Hollis fills it, then thinks about your bumper, then finally goes around when a hole appears. His pass is ugly and close. You let it be ugly. You still have a following distance to the gray nothing in front of you.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Match his pressure and take the fog at his speed so he will back off",
+        "correct": false,
+        "result": "You give him the number. The fog does not. A parked car appears at twenty feet. You stand on it. Hollis stands on you. Three vehicles, one note, a chain that started because you let a tailgater set the limit.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 3,
+          "damage": 1,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Brake-check him once so he learns the gap",
+        "correct": false,
+        "result": "You dump the lamps in his face. He dumps his. The Menace hops. His bumper kisses the plating. Fog holds the sound like a room. He did not learn. He got closer, angrier, and louder.",
+        "state_delta": {
+          "noise": 5,
+          "light": 2,
+          "damage": 1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "d",
+        "text": "Wave him around and drift right onto the fogged shoulder to make a lane",
+        "correct": false,
+        "result": "There is no shoulder, only a ditch. The knobbies find it. You yaw. Hollis takes the space you were occupying and never looks back. You spend a minute getting the plow back onto asphalt that you already had.",
+        "state_delta": {
+          "yaw": 4,
+          "noise": 2,
+          "time_cost": 7
+        }
+      }
+    ],
+    "debrief": "You do not speed up for a tailgater. You keep a safe gap ahead so you can stop without being the meat in a chain. If he wants around, he can have the pass when there is one. Brake-checking is a fight. You are not here to fight.",
+    "source": {
+      "psdp_skill": "Skill seven: keeping a space cushion",
+      "dol_section": "4.10 Traffic laws",
+      "teaching_target": "Do not increase speed for a tailgater; maintain a safe gap ahead and allow a pass when it is legal."
+    },
+    "cast": [
+      "ali",
+      "hollis"
+    ],
+    "antagonist": "splitter",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_MIRROR",
+      "subject": "Hollis's lifted truck grille and aftermarket lamps filling the interior rearview, a bumper-width of fog between you",
+      "foreground": "wet rearview glass, Ali's braid a dark smear at the edge",
+      "midground": "the Pink Menace's pink rear plating implied, no visible gap",
+      "background": "fogged Kent arterial, morning, no horizon",
+      "read": "there is no cushion behind and the driver in the glass wants your speed",
+      "continuity": [
+        "pink_menace_interior",
+        "hollis"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "fog",
+      "time_of_day": "morning",
+      "tone": "wry",
+      "failure_mode": "speed"
+    }
+  },
+  {
+    "card_id": "II-015",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "scene",
+    "title": "Right, After the Hedge",
+    "scene": "Wind at dawn on a Kent residential that dead-ends into a T. You need the right. A hedge on the corner eats the sidewalk sightline. Your blinker has been on for a block because Deac's voice in your head still counts cadence. A cyclist you cannot yet see will be on that sidewalk if this is that kind of morning. The DOL wants you past the hedge's blind before you commit the nose. The Menace's plow makes every early turn longer than it looks.",
+    "decision": "The hedge hides the right sidewalk. When do you start the turn?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Start the turn at the hedge so you can peek the sidewalk with the plow",
+        "correct": false,
+        "result": "The plow is in the crosswalk before you can see it. Marisol is not here this time. A kid on a scooter is. You freeze with steel in his path. He stops. You have taught the corner that cars occupy the sidewalk to see.",
+        "state_delta": {
+          "yaw": 1,
+          "passenger_stress": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Cut the corner tight to stay out of whoever is on the far side",
+        "correct": false,
+        "result": "You take the turn in their sidewalk. The knobbies climb the curb. The plow rings off a fire hydrant nobody has painted in a year. Tight was not smaller. Tight was on the wrong side of the geometry.",
+        "state_delta": {
+          "noise": 3,
+          "damage": 2,
+          "yaw": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Skip the turn and go left around the block where you can see",
+        "correct": false,
+        "result": "You kill a blinker that had been telling the truth and take an unsignaled left at a T. The through car you did not have honks. You make the block. You also skipped the skill the corner was for.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Stop at the sidewalk line, search around the hedge, then turn into the nearest right lane",
+        "correct": true,
+        "result": "You stop short of the sidewalk. The hedge still hides a slice. You creep until the slice is a view. Empty. You take the nearest right lane, wide enough that the plow does not climb the curb. The blinker dies when the wheel unwinds. Boring. Correct.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Right turns yield to the sidewalk and crosswalk first. If a hedge eats the sightline, stop and search before the nose occupies it. Finish in the nearest right lane. Cutting the corner puts you on the sidewalk you were trying to protect.",
+    "source": {
+      "psdp_skill": "Skill eight: communicating",
+      "dol_section": "4.14 Turning",
+      "teaching_target": "Before a right turn, search the sidewalk and crosswalk; do not start the turn until the path is visible; recover into the nearest right lane."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "cold_roads",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_ROADSIDE",
+      "subject": "the Pink Menace at a residential T, right blinker on, a tall hedge eating the sidewalk sightline",
+      "foreground": "hedge leaves moving in the dawn wind, a faded crosswalk at the camera's feet",
+      "midground": "Ali's plow still short of the sidewalk line, wheels not yet cut",
+      "background": "Kent houses, chain-link, hard dawn light, no other moving cars",
+      "read": "the sidewalk is invisible behind the hedge, and the plow has not entered it yet — that is the decision",
+      "continuity": [
+        "pink_menace_exterior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "residential",
+      "weather": "wind",
+      "time_of_day": "dawn",
+      "tone": "procedural",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "II-016",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "convoy",
+    "title": "Two Fingers, Then the Lot",
+    "scene": "Rain at midday in the Kent Station lot again, different stalls, same ghosts. Deac has the Ledger pointed at the exit, amber sign dark. He needs a left onto 1st and his left arm is already out the window, bent at the elbow, hand up — the old left-turn. You are second. A volunteer is third. If you signal with lamps you light the deck. If you say nothing, the volunteer will read your gap as an invitation to pass you on the left and take Deac's turn with him. The lot has no painted lanes that still matter. Hands do.",
+    "decision": "Deac's left arm is up for a left. How do you keep the volunteer from writing a fourth sentence?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Flash twice and pull left so the volunteer knows to stay",
+        "correct": false,
+        "result": "The flashes paint the deck. The volunteer reads it as go and comes around you into Deac's left. Three vehicles in an exit that holds two. Deac's arm stays up in a space that is no longer his.",
+        "state_delta": {
+          "light": 3,
+          "noise": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Left arm up to match, hold your place, and do not open a hole on his left",
+        "correct": true,
+        "result": "You answer with the same arm. You stay glued to his right-rear, not his left. The volunteer has no hole that is not a curb. Deac takes the left. You take it after him. The volunteer waits because the sentence was complete.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "c",
+        "text": "Pull ahead of Deac and take the left first so you can scout 1st",
+        "correct": false,
+        "result": "You occupy the turn he was asking for. His arm is still up as you go. He has to drop it and wait. The volunteer follows you, not him. You just broke a convoy to be helpful.",
+        "state_delta": {
+          "yaw": 1,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Horn once, short, so the volunteer freezes",
+        "correct": false,
+        "result": "The horn in a parking deck. Everyone freezes, including Deac. The Quiet using the far stairwell does not. You bought a second and spent the block.",
+        "state_delta": {
+          "noise": 5,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Left arm bent up at the elbow means a left turn. Match it, hold position, and do not open a pass on the turning side. Convoy gaps are grammar. A hole on the left is an invitation you did not mean.",
+    "source": {
+      "psdp_skill": "Skill eight: communicating",
+      "dol_section": "2.5 Hand signals",
+      "teaching_target": "Left arm bent upward means left turn; match convoy signals and do not leave a gap on the turning side."
+    },
+    "cast": [
+      "ali",
+      "deac"
+    ],
+    "antagonist": "load",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_CHASE",
+      "subject": "the Ledger at a parking-lot exit, Deac's left arm bent up at the elbow, Ali in trail, a third vehicle nosing left",
+      "foreground": "rain on the camera, a slice of faded stall paint",
+      "midground": "west-coast mirrors, pink Beetle, volunteer van starting to cheat left",
+      "background": "Kent Station deck, midday rain, unlit lamps, 1st Avenue implied beyond the exit",
+      "read": "the hand is a left-turn and the third vehicle is writing over it",
+      "continuity": [
+        "the_ledger",
+        "pink_menace_exterior",
+        "deac"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "parking_lot",
+      "weather": "rain",
+      "time_of_day": "midday",
+      "tone": "quiet",
+      "failure_mode": "passengers"
+    }
+  },
+  {
+    "card_id": "II-017",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "rule",
+    "title": "The Yellow Line Still Means It",
+    "scene": "Clear cold afternoon. A Kent school zone with a solid yellow in your lane and a broken yellow for them. You want around a parked delivery van that has been dead since the first week. The van sits legal enough. Passing would put you over the solid. The playground is empty. The line is not. Hollis is not in this one. Nobody is coming the other way that you can see. That is the whole trick of a solid yellow: the thing you cannot see yet owns that paint.",
+    "decision": "A dead van is blocking your speed and the yellow under you is solid. Do you go around?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Stay behind the van until you can pass where the yellow breaks, even if that is slow",
+        "correct": true,
+        "result": "You wait. A block later the yellow breaks. You check, pass, and recover before the next solid. A car you did not have comes the other way in the gap you would have occupied. The van keeps being dead. You keep being in your lane.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Go around now — nothing is coming and the van is the real hazard",
+        "correct": false,
+        "result": "You cross the solid. The other car was in the school-zone dip. Two plows of width, one lane, a freeze. You dive back and scrape the van. Paint on primer. The yellow was not decorative.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "damage": 1,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Straddle the yellow to peek, then decide",
+        "correct": false,
+        "result": "You are already in their lane to peek. Peeking is occupying. The dip car has to take the curb. You learned the sightline by stealing it.",
+        "state_delta": {
+          "yaw": 1,
+          "noise": 2,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Use the parking lane on the right to sneak past without crossing yellow",
+        "correct": false,
+        "result": "The parking lane is a door zone of ghosts. A van door that was not quite latched opens into your mesh. You pass the delivery van and inherit a different one. Right was not free. It was unsearched.",
+        "state_delta": {
+          "damage": 1,
+          "noise": 2,
+          "time_cost": 7
+        }
+      }
+    ],
+    "debrief": "A solid yellow on your side means do not pass. Empty and legal are not the same. Wait for the broken yellow and a sightline. The parked van is a delay. The solid line is a rule.",
+    "source": {
+      "psdp_skill": "Skill five: seeing habits, part 1",
+      "dol_section": "4.13 Lane travel",
+      "teaching_target": "Do not pass on a solid yellow line on your side; wait for a broken line and adequate sight distance."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_TOPDOWN",
+      "subject": "the Pink Menace stopped behind a dead delivery van, a solid yellow line running past both, broken yellow beginning a block ahead",
+      "foreground": "school-zone pavement markings and a faded 20",
+      "midground": "van, Beetle, the solid line as a hard boundary",
+      "background": "empty playground, clear cold afternoon, long shadows, no oncoming visible yet",
+      "read": "the only legal pass is where the yellow breaks — not here",
+      "continuity": [
+        "pink_menace_exterior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "school_zone",
+      "weather": "clear_cold",
+      "time_of_day": "afternoon",
+      "tone": "grim",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "II-018",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "dossier",
+    "title": "Gracie, Unboxed",
+    "scene": "You unclip the carrier in a Kent mill-and-fill at dusk, overcast, cones leaning like they are tired. Gracie hits the dash like she owns the defrost. Orange tabby, cream chest, amber-green eyes, already in the way of the right convex. This is the passenger problem with a face. She will stand up at the wrong bus. She will walk a keyboard you do not have. The Grid still has eight cards of space and night and ice in it. If she is loose, she is a lap. If she is boxed, she is a sound you can ignore. You have to choose before the next roll, not during it.",
+    "debrief": "Unrestrained passengers — including a cat — are a distraction with mass. Box her for the dense cards. The dash is not a seat. Eyes that go to her are eyes that leave the millings.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "5.5 Focus",
+      "teaching_target": "Restrain passengers and pets; a moving animal in the cab is a distraction event, not flavor."
+    },
+    "cast": [
+      "ali",
+      "gracie"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_PORTRAIT",
+      "subject": "Gracie the orange tabby sitting in the defrost, cream chest, amber-green eyes, one paw on the top of the cracked pink dash",
+      "foreground": "the carrier door hanging open, a clip undone",
+      "midground": "Ali's wire rims and cranberry braid out of focus behind the cat, not looking at the road",
+      "background": "work-zone cones through the mesh at dusk, overcast, no sun",
+      "read": "the cat is on the dash and the driver's eyes are on the cat",
+      "continuity": [
+        "gracie",
+        "pink_menace_interior",
+        "ali_face"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "work_zone",
+      "weather": "overcast",
+      "time_of_day": "dusk",
+      "tone": "warm",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "II-019",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "hazard",
+    "title": "Black Ice, Same Paint",
+    "scene": "Night on a Kent collector that iced after a melt. The paint still looks wet. It is not. Your knobbies are honest until they are not. A four-way with a working signal, stale green. You are the only moving thing. The instinct is to take the green like you own it. The ice wants a smaller number and no sudden anything. The insulin crates will slide if you ask the tires for a story they cannot tell. There is no sand truck. There is you, a green lamp, and a surface that will not say its name until you brake.",
+    "decision": "The lamp is green and the paint looks only wet. How do you take the intersection?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Take it at town speed — green means you have the intersection",
+        "correct": false,
+        "result": "You ask the tires for twenty-eight. They give you yaw. The Menace rotates a quarter turn in the crosswalk and slides under the green like a joke. You miss the pole. The crates do not miss the sidewall. The Quiet will hear the rest.",
+        "state_delta": {
+          "yaw": 5,
+          "noise": 3,
+          "time_cost": 10
+        }
+      },
+      {
+        "id": "b",
+        "text": "Stab the brakes before the painted line to test the ice",
+        "correct": false,
+        "result": "The test is the crash. Locked knobbies, a plow that now points at a dark porch, and a green lamp still cycling for a car that is no longer in its lane. You learned the ice by using up the intersection.",
+        "state_delta": {
+          "yaw": 4,
+          "noise": 4,
+          "time_cost": 9
+        }
+      },
+      {
+        "id": "c",
+        "text": "Bleed speed early, no brake in the ice, and roll the green at a walking pace",
+        "correct": true,
+        "result": "You lift a block out. No stab. The Menace settles into a crawl that looks foolish and is not. The green is still green when you take it straight, hands quiet. The crates stay put. The lamp did not make the ice optional.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "d",
+        "text": "Stop fully and wait for the next green so you can start from zero on ice",
+        "correct": false,
+        "result": "You stop on ice under a green. Starting from zero on ice is a different failure. The tires spin, the plow walks left, and the next cycle finds you still in the box. You turned a through into a stall.",
+        "state_delta": {
+          "yaw": 2,
+          "noise": 2,
+          "time_cost": 12
+        }
+      }
+    ],
+    "debrief": "Green does not cancel the surface. On ice, slow down before the hazard and avoid sudden brake or steer. A light tells you who has the right of way. It does not tell the tires they have grip.",
+    "source": {
+      "psdp_skill": "Skill seven: keeping a space cushion",
+      "dol_section": "4.10 Traffic laws",
+      "teaching_target": "Adjust speed for ice before the intersection; do not brake or turn suddenly on a low-grip surface, even on a green."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "cold_roads",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_OBJECT",
+      "subject": "a traffic signal showing green over a glossy black intersection that looks wet and is ice",
+      "foreground": "the signal face, one green lens lit, the others dark",
+      "midground": "painted crosswalk shining, no sand, no tracks yet",
+      "background": "Kent night, empty collector, a dark porch, no other lamps moving",
+      "read": "the lamp is green and the pavement is glass — those two facts are the card",
+      "continuity": [],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "ice",
+      "time_of_day": "night",
+      "tone": "urgent",
+      "failure_mode": "weather"
+    }
+  },
+  {
+    "card_id": "II-020",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "wrench",
+    "title": "One Lamp, Not Two",
+    "scene": "Heavy rain on a Kent residential at morning, the kind that turns every surface into a mirror. Your left headlamp has been dying for a mile — a yellow wink, then a hole. The right is still a proper low beam. High beams would fill the rain and give you nothing but scatter, and they would give the Quiet a lighthouse. You have a spare sealed beam in the wing that takes two hands and a shoulder. You also have a running lane. The legal requirement is two lamps at night or in rain. The tactical requirement is not to stand in the street to be correct.",
+    "decision": "The left lamp is dead in the rain. What do you do before the next mile?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Pull onto a driveway, shut down, swap the sealed beam, then roll on lows",
+        "correct": false,
+        "result": "You do the legal thing in the travel-adjacent. The hood is up in the rain. A volunteer comes around the curve and has to take your door line. You get the lamp on. You also spent five loud minutes being a pink island.",
+        "state_delta": {
+          "noise": 2,
+          "light": 1,
+          "time_cost": 15
+        }
+      },
+      {
+        "id": "b",
+        "text": "Hit the highs so at least one side is bright enough to count as two",
+        "correct": false,
+        "result": "The rain blooms. You cannot see past the scatter. Every window on the block has you. The dead left is still dead. You made a lighting problem into a drawing problem.",
+        "state_delta": {
+          "light": 5,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "c",
+        "text": "Keep rolling — one lamp is enough if you stay under twenty",
+        "correct": false,
+        "result": "A courier in dark kit cannot see your left edge. They take it as a motorcycle. Your plow teaches them otherwise at a driveway. One lamp was not a vehicle. It was a rumor.",
+        "state_delta": {
+          "noise": 3,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "d",
+        "text": "Get off the street into a driveway well off the travel lane, then swap the beam on lows only",
+        "correct": true,
+        "result": "You take a driveway that is actually a driveway, not a shoulder. Key off. Two minutes, rain on the plating, sealed beam seated. Lows, both sides. You back out after a search. The Quiet never got a lighthouse. The next car can count you as a car.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 10
+        }
+      }
+    ],
+    "debrief": "Two working headlights in rain. High beams in rain are scatter, not vision. Do the repair off the travel lane. A single lamp makes you look smaller than you are, and other people will aim at the hole.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "2.5 Vehicle maintenance",
+      "teaching_target": "Headlights must work in pairs in rain and dark; repair off the roadway; do not use high beams in heavy rain."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_MIRROR",
+      "subject": "the Pink Menace's front seen in a dark shop window: right low beam lit, left lamp dark, rain needles in the light",
+      "foreground": "wet glass reflection, a smear of pink plating",
+      "midground": "residential street, morning rain, no other lamps",
+      "background": "Kent houses, blinds drawn, overcast so low it is almost indoor",
+      "read": "one eye is open and one is not — that is not a legal front",
+      "continuity": [
+        "pink_menace_exterior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "residential",
+      "weather": "heavy_rain",
+      "time_of_day": "morning",
+      "tone": "tense",
+      "failure_mode": "vehicle_failure"
+    }
+  },
+  {
+    "card_id": "II-021",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "scene",
+    "title": "Fog in the Stalls",
+    "scene": "Fog at dawn in a Kent lot, stalls so faded you are guessing with the wheel. You nosed in because the drop was at the shutter. Now you have to back out to leave. A row of dead cars on both sides. Your rear mesh is a cage, not a window. The convexes are honest if you use them. A bicycle wheel you cannot see from the seat will be in the backup path if this is Marisol's morning. It is not her, not yet. It is a cart corral that moved in the night. Backing is the skill people skip because going forward feels like progress.",
+    "decision": "You are nosed in, in fog, and you have to leave. How do you back out?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Throw it in reverse and go — the lot was empty when you pulled in",
+        "correct": false,
+        "result": "The corral is not where it was. The plow is the wrong end for this. The rear plating hits steel and rings. You still cannot see what you hit until you get out. Fog holds the note.",
+        "state_delta": {
+          "noise": 4,
+          "damage": 1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Both convexes, look behind, creep reverse, stop if anything appears, then finish the out",
+        "correct": true,
+        "result": "Right glass, left glass, a look through the mesh that shows you almost nothing, then an inching reverse. The corral is there. You stop, wheel, and miss it by a foot. Fog. Boring. You are in the aisle pointed at the exit, which is the whole point of backing.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "c",
+        "text": "Cut a Y-turn in the stall so you can leave forward",
+        "correct": false,
+        "result": "There is not a Y-turn's worth of stall. You climb a parking bumper and the plow rings. Forward felt better. Geometry disagreed.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "damage": 1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Get out and walk the path, then back out without checking again",
+        "correct": false,
+        "result": "You walk it. Clear. You get in and reverse on memory. In the ten seconds you were in the seat, a volunteer rolled a pallet into your path. Memory is not a mirror.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 8
+        }
+      }
+    ],
+    "debrief": "Backing is searching, then creeping. Mirrors and a look behind, every time, even in a lot you just used. Walking the path helps; it does not replace the last look. If you cannot see, you do not go.",
+    "source": {
+      "psdp_skill": "Skill eight: communicating",
+      "dol_section": "4.18 Parking",
+      "teaching_target": "Before backing, search mirrors and behind the vehicle; back slowly and be ready to stop; do not rely on a walk-around done in the past tense."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "cold_roads",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_ROADSIDE",
+      "subject": "the Pink Menace nosed into a faded stall, reverse implied, fog swallowing the aisle behind the rear mesh",
+      "foreground": "a cart corral that has drifted into the backup path, one wheel over the stall line",
+      "midground": "dead cars left and right, Ali's west-coast-less Beetle mirrors small and wet",
+      "background": "Kent lot at dawn, fog, shuttered storefront, no sun",
+      "read": "the backup path is blocked by something the driver cannot see from the seat",
+      "continuity": [
+        "pink_menace_exterior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "parking_lot",
+      "weather": "fog",
+      "time_of_day": "dawn",
+      "tone": "wry",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "II-022",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "convoy",
+    "title": "Wind on the Right Arm",
+    "scene": "Wind at midday through a Kent school zone, lamps dark this time, posted 20 still posted. You are third behind a volunteer and the Ledger. Deac's right arm comes out, up, bent — a right turn he cannot put on the destination sign because the sign is for other columns, not for you. The volunteer in the middle does not answer. His right blinker never happens. If you stay dumb, you will follow him through Deac's turn and stack three vehicles in a driveway that holds one. The wind is trying to take Deac's arm. It does not. He holds it.",
+    "decision": "Deac is signaling a right with his arm. The volunteer is not. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Match the right-arm signal, cover, and do not follow the volunteer if he misses the turn",
+        "correct": true,
+        "result": "Your right arm is a joke in a Beetle window, but you do it anyway, plus the blinker. The volunteer rolls straight. You do not. You take Deac's right after a gap. Two vehicles in a driveway that holds two. The volunteer can have the school zone. He did not read.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Stay glued to the volunteer — he is the one in front of you",
+        "correct": false,
+        "result": "You follow the man who missed the sentence. Deac turns. You and the volunteer continue. Now the column is split and you are point on a road Deac did not want. The insulin is in the wrong driveway.",
+        "state_delta": {
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Horn so the volunteer looks up and copies Deac",
+        "correct": false,
+        "result": "The horn in a school zone. The volunteer jumps and hits his brakes. Deac's arm is still out in a turn he now has to abort. You taught nobody. You rang a playground.",
+        "state_delta": {
+          "noise": 5,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "d",
+        "text": "Pass both on the left and take the right first to hold the driveway",
+        "correct": false,
+        "result": "You occupy Deac's turn from the wrong side of a school zone. He has to wait on you. The volunteer follows you because movement is easier than grammar. You are point. You did not earn it.",
+        "state_delta": {
+          "yaw": 2,
+          "noise": 2,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Right arm up, bent at the elbow, means right turn. Believe the lead vehicle's signal, not the confused middle. If the car ahead misses the turn, you still make the one that was called. Horns are not a tutor.",
+    "source": {
+      "psdp_skill": "Skill eight: communicating",
+      "dol_section": "2.5 Hand signals",
+      "teaching_target": "Right arm bent upward means right turn; follow the signaled maneuver of the lead vehicle, not a middle vehicle that fails to copy it."
+    },
+    "cast": [
+      "ali",
+      "deac"
+    ],
+    "antagonist": "load",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_CHASE",
+      "subject": "Deac's right arm bent up from the Ledger, a volunteer van rolling straight, the Pink Menace third",
+      "foreground": "wind-bent grass at a school-zone curb",
+      "midground": "three vehicles, a driveway on the right that is the actual destination",
+      "background": "Kent school fence, midday, dark lamps, empty yard",
+      "read": "the lead vehicle is turning and the middle vehicle is not — the student is third",
+      "continuity": [
+        "the_ledger",
+        "pink_menace_exterior",
+        "deac"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "school_zone",
+      "weather": "wind",
+      "time_of_day": "midday",
+      "tone": "procedural",
+      "failure_mode": "passengers"
+    }
+  },
+  {
+    "card_id": "II-023",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "rule",
+    "title": "Do Not Block the Mill",
+    "scene": "Rain on a Kent mill-and-fill in the afternoon, one lane open, the other a trench. A pickup is already stopped in the open lane with its hood up, two people standing in the travel path like the mill is a driveway. There is no shoulder that is not a drop. Your instinct is to queue behind them and wait, which makes you the third body in a lane that still has a through. The sign at the start of the zone said DO NOT STOP. It meant it. You need a hole that is not their repair.",
+    "decision": "They are stopped in the only live lane. Where do you put the Menace?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Queue behind them with hazards on so the next car sees a line",
+        "correct": false,
+        "result": "Hazards in a trench. The next car does see you. So does everything that hunts lamps. You are now a parked convoy in a work zone that forbade stopping. The pickup never asked you to join the repair.",
+        "state_delta": {
+          "light": 4,
+          "time_cost": 10
+        }
+      },
+      {
+        "id": "b",
+        "text": "Squeeze past them in the trench because you cannot stop",
+        "correct": false,
+        "result": "The knobbies drop off the mill. You high-center on the lip. Now there are two dead vehicles in a one-lane zone. The rain does the rest of the talking.",
+        "state_delta": {
+          "damage": 3,
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 20
+        }
+      },
+      {
+        "id": "c",
+        "text": "Stop short of their scene, then wait in their lane until they move",
+        "correct": false,
+        "result": "You are polite and you are a blockage. A volunteer comes the other way in a lane that was supposed to be yours. Four people, one trench, no grammar.",
+        "state_delta": {
+          "time_cost": 12,
+          "noise": 1
+        }
+      },
+      {
+        "id": "d",
+        "text": "Do not stop in the zone: take the first legal turnout before the mill, then a different street",
+        "correct": true,
+        "result": "You refuse the queue. A driveway before the cones is a driveway. You reverse into it, wait for a hole that is not their hood, and take the next street south. The mill keeps being a mill. You keep being traffic instead of a second accident.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 8
+        }
+      }
+    ],
+    "debrief": "Do not stop in a live work lane to rubberneck or to join someone else's breakdown. If the lane is blocked, leave the zone at the first legal turnout and reroute. Hazards in a trench are a beacon. Your job is to remain a moving vehicle.",
+    "source": {
+      "psdp_skill": "Skill seven: keeping a space cushion",
+      "dol_section": "4.18 Parking",
+      "teaching_target": "Never stop or park in a live work-zone travel lane; leave the zone and reroute if the lane is blocked."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "a pickup stopped in the only milled live lane, hood up, two people standing in the travel path, rain on the mesh",
+      "foreground": "worn wheel and wipers mid-sweep",
+      "midground": "cone line, trench on the right, no shoulder",
+      "background": "Kent afternoon rain, a DO NOT STOP sign already behind you, gray nothing ahead",
+      "read": "the only lane is already occupied by a stopped repair — joining it is the error",
+      "continuity": [
+        "pink_menace_interior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "work_zone",
+      "weather": "rain",
+      "time_of_day": "afternoon",
+      "tone": "quiet",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "II-024",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "scene",
+    "title": "Four Ways, One Hole",
+    "scene": "Clear cold dusk on a Kent four-way that still has all four stops. You arrive second. A primer sedan is already stopped on your right, a beat longer than you. Nobody else. The insulin is a minute from the shelter drop. The sedan's driver is not moving. They may be looking at a paper. They may be waiting for you to steal it. First in is first through. Your right is not a permission slip if they were there first. The Menace's idle is a drum if you rev it. You do not.",
+    "decision": "You rolled up second. The sedan on your right is first and still sitting. Who takes the hole?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Take it — they froze, and the drop will not wait",
+        "correct": false,
+        "result": "You go. They go. The two of you occupy the same paint. A freeze, a horn, a miss by a plow's width. First-in was not a suggestion. You made it a coin flip.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Wave them through even if you think you were first",
+        "correct": false,
+        "result": "You wave. They wave. Nobody goes. Then you both go. Courtesy without a rule is two people guessing. The intersection stays a mess for a third car that did not exist until it did.",
+        "state_delta": {
+          "time_cost": 8,
+          "noise": 1
+        }
+      },
+      {
+        "id": "c",
+        "text": "Inch into the box to claim it so they have to wait",
+        "correct": false,
+        "result": "Your plow is in the conflict. They have to go around it or sit. They sit, then panic-go. You taught the four-way that steel is right-of-way. It is not.",
+        "state_delta": {
+          "yaw": 1,
+          "noise": 2,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Stay stopped. They were first. When they take it, you take the next hole",
+        "correct": true,
+        "result": "You wait. They were looking at a paper. They look up, take the hole, and leave you a clean four-way. You take it. No horn. The drop is one minute later and still a drop.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "At an all-way stop, the first vehicle to arrive goes first. If two arrive together, yield to the right. Waving and inching are not in the book. Waiting is. A frozen driver is still first-in until they move or you can tell they will not.",
+    "source": {
+      "psdp_skill": "Skill seven: keeping a space cushion",
+      "dol_section": "4.10 Traffic laws",
+      "teaching_target": "All-way stop: first to arrive goes first; if simultaneous, yield to the right; do not occupy the box to force the issue."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_TOPDOWN",
+      "subject": "a four-way with four stop signs, the Pink Menace at the south stop, a primer sedan already sitting at the east stop",
+      "foreground": "painted stop lines, empty crosswalks",
+      "midground": "two vehicles, no third, dusk long shadows",
+      "background": "Kent residential arterial, clear cold sky going blue, no wrecks",
+      "read": "the sedan's stop line was occupied first — the Beetle is second",
+      "continuity": [
+        "pink_menace_exterior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "clear_cold",
+      "time_of_day": "dusk",
+      "tone": "grim",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "II-025",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "dossier",
+    "title": "Kent After the Lamps",
+    "scene": "You sit at a curb on a Kent residential that has gone overcast-night, not the Dark Hours yet, just the ordinary dark the Grid always had. Signals still cycle. A stale green somewhere to the west paints the wet. Ali in the glass: braid, wire rims, the pink hoodie gone gray in this light. The clipboard in the well has hours on it now. School zones. Stops. Turns. Bikes. A bus you may have passed. Space. Ice. A mill you refused to join. The Quiet uses the same paint at night. The rules do not get optional when the color drains. Tomorrow is more of this, then it is not — then it is someone else's act.",
+    "debrief": "Night in The Grid is still The Grid. Lights work. Search harder. The Dark Hours are a later zone. Do not import highway night rules onto these two-lane stops just because the sky went out.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "n/a",
+      "teaching_target": "Night does not suspend residential rules; Act II remains search, space, and communication until the zone is clean."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "dark_hours",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_PORTRAIT",
+      "subject": "Ali Okonjo in profile in the cab at night, wire rims catching a stale green from a distant signal, cranberry braid the only warm color",
+      "foreground": "welded mesh as a grid over her face, a faint reflection of analog gauges",
+      "midground": "the cracked pink dash gone almost brown in the dark",
+      "background": "Kent residential night, overcast, wet street, one cycling signal out of focus, no other cars",
+      "read": "this is still Ali's Grid at night — the mesh and the green are the world still working",
+      "continuity": [
+        "ali_face",
+        "pink_menace_interior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "residential",
+      "weather": "overcast",
+      "time_of_day": "night",
+      "tone": "warm",
+      "failure_mode": "night"
+    }
+  },
+  {
+    "card_id": "II-026",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "hazard",
+    "title": "Door Zone, Ice",
+    "scene": "Ice in the Kent Station lot at morning, the stalls a rink. You stopped along a row of dead cars to make the last drop on foot. Marisol is coming up the painted aisle in the right glass, slow because ice, still unafraid. Your door is the next thing she will occupy if you open it like a person who is late. The Dutch Reach exists because of this exact geometry: far hand, look, then open. Your left hand wants the handle because you have always opened a door with that hand. The insulin crate is in your right. That is the trap.",
+    "decision": "Marisol is in the right glass and you need the door. How do you get out?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Far hand to the handle, look in the glass, then open a crack and look again",
+        "correct": true,
+        "result": "Right hand across. Your torso turns. The glass has her. You wait. She passes with three feet of ice and does not look at you. You open after. The crate follows. Nobody on the ice had to choose between a door and a wheel.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Open it now — she has time to stop on ice",
+        "correct": false,
+        "result": "The door occupies her line. Ice does not let her stop. The bar-end takes the steel and she goes down. Quiet lot, loud metal. She gets up. You will see her in every glass for a week.",
+        "state_delta": {
+          "noise": 4,
+          "time_cost": 10
+        }
+      },
+      {
+        "id": "c",
+        "text": "Crack the window and tell her to go around",
+        "correct": false,
+        "result": "She cannot hear you through wind and ice and a moving bike. She is already in the door when you finish the sentence. Talking is not a look.",
+        "state_delta": {
+          "noise": 1,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Get out the passenger side to avoid her entirely",
+        "correct": false,
+        "result": "The crates are in the way. You climb. The passenger door opens into a cart corral on ice. You fall. She passes a car that is now a spectacle. You avoided a door zone by inventing a worse one.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 1,
+          "time_cost": 8
+        }
+      }
+    ],
+    "debrief": "The door zone is the strip a bicyclist dies in. Dutch Reach: far hand, which turns your body toward the mirror, then look, then open. Ice makes her stopping distance a fantasy. Your wait is the three feet.",
+    "source": {
+      "psdp_skill": "Skill six: looking ahead",
+      "dol_section": "4.6 Sharing with bicyclists",
+      "teaching_target": "Before opening a door, check the mirror and blind area for bicyclists; use the far-hand reach so your body turns to look."
+    },
+    "cast": [
+      "ali",
+      "marisol"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_MIRROR",
+      "subject": "Marisol approaching in the right-side glass, ice on the aisle, the Pink Menace's door still closed",
+      "foreground": "interior door handle and riveted steel, Ali's left hand already hovering",
+      "midground": "her front wheel in the strip the door will occupy",
+      "background": "Kent Station lot, morning ice, dead cars, pale sky",
+      "read": "the door has not opened yet and her wheel is already in the arc",
+      "continuity": [
+        "pink_menace_interior",
+        "marisol"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "parking_lot",
+      "weather": "ice",
+      "time_of_day": "morning",
+      "tone": "urgent",
+      "failure_mode": "distraction"
+    }
+  },
+  {
+    "card_id": "II-027",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "scene",
+    "title": "Rain on the 20",
+    "scene": "Heavy rain at dawn, a Kent school zone you have already used in better weather. The lamps are flashing again. The painted 20 is a black river. You know the number. Knowing is not looking. A parked car on the right has its door an inch off latched — you will not see that if your eyes stay in the middle of the empty yard. Skill six is not a motto. It is the next twelve seconds of hedge, bumper, glass, lamp, repeat. The insulin is the last crate. The Menace wants to be done. Done is how people skip the search they already passed on a quiz.",
+    "decision": "You have done this zone before. Where are your eyes for the next twelve seconds?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Middle of the empty yard — you already know nothing uses it",
+        "correct": false,
+        "result": "The door opens. Not Marisol. A volunteer getting a tarp. You find him with the plow's right corner and a sound like a drum in the rain. You knew the 20. You did not look at the door.",
+        "state_delta": {
+          "noise": 4,
+          "damage": 1,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "Hedge, parked doors, crosswalk, lamps, then the middle, then again",
+        "correct": true,
+        "result": "Left hedge. Right bumpers. The inch-open door is a door. You cover and miss it. The crosswalk is empty and you treat it like it is not. The lamps fall behind you. The last crate stays a crate. That is looking ahead after you already knew the answer.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "c",
+        "text": "Watch the speedo until it sits on 20, then you are legal",
+        "correct": false,
+        "result": "The number is perfect. The door is still a door. Legal and looking are not the same exam. You pass the first and fail the second with a corner of pink steel.",
+        "state_delta": {
+          "noise": 3,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "d",
+        "text": "Follow the wet tracks of whoever came through last so you do not have to search",
+        "correct": false,
+        "result": "The tracks go through a puddle that hides a curb. You take it. The person ahead was not searching either. Their line is not a plan.",
+        "state_delta": {
+          "yaw": 2,
+          "noise": 2,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Looking ahead is a loop, not a memory. Even in a zone you have passed, search the edges — parked doors, hedges, the crosswalk — not the empty middle and not the speedo. Knowing the 20 is the start of the card, not the end.",
+    "source": {
+      "psdp_skill": "Skill six: looking ahead",
+      "dol_section": "4.10 Traffic laws",
+      "teaching_target": "Keep a continuous search of edges and parked vehicles in a school zone; prior knowledge of the area does not replace the scan."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "cold_roads",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_ROADSIDE",
+      "subject": "a parked car in a flashing school zone with its door an inch unlatched, the Pink Menace approaching in heavy dawn rain",
+      "foreground": "wet hedge leaves, a faded crosswalk",
+      "midground": "Ali's plow aimed at the empty yard, not at the door",
+      "background": "flashing white lamps, empty playground, rain so heavy the 20 is only a rumor",
+      "read": "the hazard is the inch-open door at the edge, and the driver's line is the empty middle",
+      "continuity": [
+        "pink_menace_exterior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "school_zone",
+      "weather": "heavy_rain",
+      "time_of_day": "dawn",
+      "tone": "tense",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "II-028",
+    "act": "II",
+    "zone": "The Grid",
+    "driver": "ali",
+    "card_type": "wrench",
+    "title": "The Click Before the Arterial",
+    "scene": "Fog at midday on the last Kent mill, cones ending, the collector about to become somebody else's problem. You reach for the shifter and the belt is not there. It was, this morning. It is not now. The Ejection is not a creature. It is a statistic with a buckle. The Grid is done if you roll onto the bigger road unclipped. Deac would not start a log line without it. The Menace's cheap aftermarket belt is a pain in the mesh. That is not a reason. The fog would hide a short slide. The belt is the difference between a slide and an ending. You can hear the shelter radio from here. You cannot hear a second chance.",
+    "decision": "The belt is off and the mill is ending. What happens before you take the next street?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Go — you will clip it at the next stop, and the fog is already eating time",
+        "correct": false,
+        "result": "You do not get a next stop. A volunteer comes out of the fog already braking. You dump yours. The cheap belt that was not on does not hold. The game does not show the rest. It does not have to.",
+        "state_delta": {
+          "yaw": 3,
+          "damage": 5,
+          "fatal": true,
+          "time_cost": 0
+        }
+      },
+      {
+        "id": "b",
+        "text": "Clip it at rolling speed so you do not lose the gap",
+        "correct": false,
+        "result": "One hand off, eyes in your lap, mill lip under the tires. You miss the latch. The volunteer is already in your fog. You correct the wheel late. A belt in the hand is not a belt in the latch.",
+        "state_delta": {
+          "yaw": 2,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "c",
+        "text": "Stop fully off the mill, clip, tug the belt, then take the next street",
+        "correct": true,
+        "result": "You refuse the last-second. Gravel. Click. Tug. The aftermarket latch takes. You roll out of the fog with a belt on and a Grid behind you. The Arterial can be someone else's act. You still have a body in the seat to hand it to.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 3
+        }
+      },
+      {
+        "id": "d",
+        "text": "Loop it over your shoulder without the latch so at least it looks done",
+        "correct": false,
+        "result": "It looks done. It is a sash. The first hard brake turns it into a rope that does not hold. Looking legal is not the 51 percent. Latched is.",
+        "state_delta": {
+          "yaw": 2,
+          "time_cost": 2
+        }
+      }
+    ],
+    "debrief": "Belt on, latched, tugged, before the vehicle moves. Not at the next stop. Not over the shoulder. More than half of teen drivers killed in 2022 were unbuckled. The Grid does not end with a clever exit. It ends with a click.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "2.7 Seat belts",
+      "teaching_target": "Fasten and tug the seat belt before moving; a belt over the shoulder that is not latched is not a belt.",
+      "stat_cited": "51% of teen drivers killed in 2022 were unbuckled (PSDP)."
+    },
+    "cast": [
+      "ali"
+    ],
+    "antagonist": "ejection",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_CHASE",
+      "subject": "the Pink Menace at the last cone of a fogged mill, Ali's left hand on an unlatched aftermarket belt rather than the wheel",
+      "foreground": "cone, milled lip, fog",
+      "midground": "the belt webbing hanging, latch visible and open",
+      "background": "the collector opening up beyond the zone, midday fog, no sun, no other vehicle yet",
+      "read": "the belt is not latched and the bigger road is already starting",
+      "continuity": [
+        "pink_menace_exterior"
+      ],
+      "aspect": "3:4"
+    },
+    "variation": {
+      "location_type": "work_zone",
+      "weather": "fog",
+      "time_of_day": "midday",
+      "tone": "wry",
+      "failure_mode": "belt"
+    }
+  }
+]

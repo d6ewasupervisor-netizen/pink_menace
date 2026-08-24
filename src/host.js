@@ -29,4 +29,8 @@ function sessionDays() {
   return Number.isFinite(n) && n > 0 ? n : 45;
 }
 
-module.exports = { hostname, appKind, gameUrl, parentsUrl, sessionDays };
+function autofillHost(req) {
+  return appKind(req) === "parents" ? "parents.tactag.app" : "ali.tactag.app";
+}
+
+module.exports = { hostname, appKind, gameUrl, parentsUrl, sessionDays, autofillHost };

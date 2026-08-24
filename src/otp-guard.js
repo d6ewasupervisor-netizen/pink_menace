@@ -3,6 +3,7 @@
 const { query } = require("./db");
 
 const PAD_MS = 400;
+// Debt: pad waits on Twilio. Enqueue the send and return OTP_OK immediately.
 const SENDS_PER_PHONE_MS = 15 * 60 * 1000;
 const SENDS_PER_PHONE = 3;
 const SENDS_PER_IP = 10;
