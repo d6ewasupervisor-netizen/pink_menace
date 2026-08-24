@@ -1,0 +1,19 @@
+{
+  "name": "pink-menace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PINK MENACE — The Quarantine Runs. Game at ali.tactag.app, parent progress at parents.tactag.app.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.16.3"
+  }
+}

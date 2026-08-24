@@ -2,6 +2,17 @@
 
 Card-corpus generation system for a Washington DOL / PSDP driving game. Quarantined Washington, not a wasteland: the grid still runs, so the rules of the road still have teeth.
 
+## Live hosts
+
+| Host | Who |
+|---|---|
+| [ali.tactag.app](https://ali.tactag.app) | Students — game |
+| [parents.tactag.app](https://parents.tactag.app) | Parents — progress and student invites |
+
+SMS login (phone + one-time PIN) via TACTAG sms-outbox. Device session lasts 45 days. Parent and student accounts, links, and progress live in Railway Postgres.
+
+Local: `npm start` with `DATABASE_URL` and sms-outbox env from `.env.example`. `APP_KIND=parents` serves the parent shell on localhost.
+
 ## Current gate
 
 Do not generate Act II at volume until:

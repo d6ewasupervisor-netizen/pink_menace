@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#9a3d4d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>PINK MENACE · Parents</title>
+  <link rel="stylesheet" href="/shared/app.css">
+</head>
+<body>
+  <main class="shell wide">
+    <div class="top">
+      <div class="brand">
+        <h1>PINK MENACE</h1>
+        <p>Parents</p>
+      </div>
+      <button id="sign-out" class="ghost hidden" type="button">Sign out</button>
+    </div>
+
+    <section id="gate" class="panel">
+      <label>
+        Name
+        <input id="name" type="text" autocomplete="name" maxlength="80">
+      </label>
+      <label>
+        Phone
+        <input id="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20">
+      </label>
+      <div class="actions">
+        <button id="send-pin" type="button">Send PIN</button>
+      </div>
+      <div id="pin-wrap" class="hidden">
+        <label>
+          PIN
+          <input id="pin" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]*">
+        </label>
+        <div class="actions">
+          <button id="enter" type="button">Enter</button>
+        </div>
+      </div>
+      <p id="gate-msg" class="msg"></p>
+    </section>
+
+    <section id="app" class="hidden">
+      <div class="panel">
+        <div class="row two">
+          <label>
+            Student name
+            <input id="student-name" type="text" maxlength="80">
+          </label>
+          <label>
+            Student phone
+            <input id="student-phone" type="tel" inputmode="tel" maxlength="20">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="add-student" type="button">Add student</button>
+        </div>
+        <p id="add-msg" class="msg"></p>
+        <p id="invite-url" class="url hidden"></p>
+      </div>
+      <div id="students" class="list"></div>
+    </section>
+  </main>
+  <script src="/shared/auth.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
