@@ -39,7 +39,7 @@ async function migrate() {
   if (oldSessions.rowCount) {
     await pool.query(`DROP TABLE IF EXISTS sessions CASCADE`);
     await pool.query(`DROP TABLE IF EXISTS parent_students CASCADE`);
-    await pool.query(`DROP TABLE IF EXISTS people CASCADE`);
+  }
   const oldLinks = await pool.query(`
     SELECT 1 FROM information_schema.columns
      WHERE table_schema = 'public' AND table_name = 'parent_students' AND column_name = 'invite_sms_status'
@@ -47,6 +47,7 @@ async function migrate() {
   if (oldLinks.rowCount) {
     await pool.query(`DROP TABLE IF EXISTS parent_students CASCADE`);
   }
+  await pool.query(`DROP TABLE IF EXISTS people CASCADE`);
   const sql = fs.readFileSync(path.join(__dirname, "schema.sql"), "utf8");
   await pool.query(sql);
   await pool.query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
