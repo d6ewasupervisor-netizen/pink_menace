@@ -1,0 +1,67 @@
+{
+  "card_id": "II-016",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "convoy",
+  "title": "Two Fingers, Then the Lot",
+  "scene": "Rain at midday in the Kent Station lot again, different stalls, same ghosts. Deac has the Ledger pointed at the exit, amber sign dark. He needs a left onto 1st and his left arm is already out the window, bent at the elbow, hand up — the old left-turn. You are second. A volunteer is third. If you signal with lamps you light the deck. If you say nothing, the volunteer will read your gap as an invitation to pass you on the left and take Deac's turn with him. The lot has no painted lanes that still matter. Hands do.",
+  "decision": "Deac's left arm is up for a left. How do you keep the volunteer from writing a fourth sentence?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Flash twice and pull left so the volunteer knows to stay",
+      "correct": false,
+      "result": "The flashes paint the deck. The volunteer reads it as go and comes around you into Deac's left. Three vehicles in an exit that holds two. Deac's arm stays up in a space that is no longer his.",
+      "state_delta": { "light": 3, "noise": 2, "time_cost": 6 }
+    },
+    {
+      "id": "b",
+      "text": "Left arm up to match, hold your place, and do not open a hole on his left",
+      "correct": true,
+      "result": "You answer with the same arm. You stay glued to his right-rear, not his left. The volunteer has no hole that is not a curb. Deac takes the left. You take it after him. The volunteer waits because the sentence was complete.",
+      "state_delta": { "noise": -1, "time_cost": 4 }
+    },
+    {
+      "id": "c",
+      "text": "Pull ahead of Deac and take the left first so you can scout 1st",
+      "correct": false,
+      "result": "You occupy the turn he was asking for. His arm is still up as you go. He has to drop it and wait. The volunteer follows you, not him. You just broke a convoy to be helpful.",
+      "state_delta": { "yaw": 1, "time_cost": 5 }
+    },
+    {
+      "id": "d",
+      "text": "Horn once, short, so the volunteer freezes",
+      "correct": false,
+      "result": "The horn in a parking deck. Everyone freezes, including Deac. The Quiet using the far stairwell does not. You bought a second and spent the block.",
+      "state_delta": { "noise": 5, "time_cost": 5 }
+    }
+  ],
+  "debrief": "Left arm bent up at the elbow means a left turn. Match it, hold position, and do not open a pass on the turning side. Convoy gaps are grammar. A hole on the left is an invitation you did not mean.",
+  "source": {
+    "psdp_skill": "Skill eight: communicating",
+    "dol_section": "2.5 Hand signals",
+    "teaching_target": "Left arm bent upward means left turn; match convoy signals and do not leave a gap on the turning side."
+  },
+  "cast": ["ali", "deac"],
+  "antagonist": "load",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_CHASE",
+    "subject": "the Ledger at a parking-lot exit, Deac's left arm bent up at the elbow, Ali in trail, a third vehicle nosing left",
+    "foreground": "rain on the camera, a slice of faded stall paint",
+    "midground": "west-coast mirrors, pink Beetle, volunteer van starting to cheat left",
+    "background": "Kent Station deck, midday rain, unlit lamps, 1st Avenue implied beyond the exit",
+    "read": "the hand is a left-turn and the third vehicle is writing over it",
+    "continuity": ["the_ledger", "pink_menace_exterior", "deac"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "rain",
+    "time_of_day": "midday",
+    "tone": "quiet",
+    "failure_mode": "passengers"
+  }
+}

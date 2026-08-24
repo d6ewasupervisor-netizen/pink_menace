@@ -211,6 +211,21 @@ Rule for the writer: registered locations may **change across acts** (that is th
 
 > A wet two-lane residential arterial running flat and straight. Cracked asphalt with standing water in the wheel tracks and a shallow crown. Bare maples on both verges, no leaves. Low single-story houses set back behind chain-link, sagging gutters, blinds drawn. Cracked concrete sidewalk on the east side only; the west side is gravel shoulder. Overhead power lines on wood poles. Flat gray overcast, no shadows. **Nothing is fallen, blocking, wrecked, or burning. The road is clear.**
 
+### L-003 · Kent Station lot
+*First appearance: II-005. Act II base state.*
+
+> A faded retail parking lot at Kent Station, stall paint ghosted, cart corrals rust-streaked and sometimes drifted off their pads. Low storefronts and a parking deck, roll-down shutters, unlit lamps. Wet or iced asphalt depending on the card's weather. Empty enough to cut through, never empty of geometry. **Nothing is burning, collapsed, or occupied by a wreck that was not placed by the card.**
+
+### L-004 · Central Avenue, Kent
+*First appearance: II-004. Act II base state.*
+
+> A four-lane Kent collector with a short painted left-turn pocket, maples on the verge, no median barrier. Wind moves the trees. Surface is ordinary asphalt, not highway. **No wrecks, no fallen trees, no blocked lanes except paint.**
+
+### L-005 · Kent school-zone collector
+*First appearance: II-002. Act II base state.*
+
+> A two-lane collector with flashing school-zone lamps, a faded 20 in the lane, a chain-link playground on one side and parked cars plus a hedge line on the other. Crosswalk paint is worn but present. **The yard is empty of children unless a card names one. Nothing is wrecked or burning.**
+
 ### L-002 · The Lot — dead Fred Meyer, Renton
 *Act I base state.*
 

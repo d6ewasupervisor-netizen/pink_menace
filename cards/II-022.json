@@ -1,0 +1,67 @@
+{
+  "card_id": "II-022",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "convoy",
+  "title": "Wind on the Right Arm",
+  "scene": "Wind at midday through a Kent school zone, lamps dark this time, posted 20 still posted. You are third behind a volunteer and the Ledger. Deac's right arm comes out, up, bent — a right turn he cannot put on the destination sign because the sign is for other columns, not for you. The volunteer in the middle does not answer. His right blinker never happens. If you stay dumb, you will follow him through Deac's turn and stack three vehicles in a driveway that holds one. The wind is trying to take Deac's arm. It does not. He holds it.",
+  "decision": "Deac is signaling a right with his arm. The volunteer is not. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Match the right-arm signal, cover, and do not follow the volunteer if he misses the turn",
+      "correct": true,
+      "result": "Your right arm is a joke in a Beetle window, but you do it anyway, plus the blinker. The volunteer rolls straight. You do not. You take Deac's right after a gap. Two vehicles in a driveway that holds two. The volunteer can have the school zone. He did not read.",
+      "state_delta": { "noise": -1, "time_cost": 4 }
+    },
+    {
+      "id": "b",
+      "text": "Stay glued to the volunteer — he is the one in front of you",
+      "correct": false,
+      "result": "You follow the man who missed the sentence. Deac turns. You and the volunteer continue. Now the column is split and you are point on a road Deac did not want. The insulin is in the wrong driveway.",
+      "state_delta": { "time_cost": 8 }
+    },
+    {
+      "id": "c",
+      "text": "Horn so the volunteer looks up and copies Deac",
+      "correct": false,
+      "result": "The horn in a school zone. The volunteer jumps and hits his brakes. Deac's arm is still out in a turn he now has to abort. You taught nobody. You rang a playground.",
+      "state_delta": { "noise": 5, "time_cost": 6 }
+    },
+    {
+      "id": "d",
+      "text": "Pass both on the left and take the right first to hold the driveway",
+      "correct": false,
+      "result": "You occupy Deac's turn from the wrong side of a school zone. He has to wait on you. The volunteer follows you because movement is easier than grammar. You are point. You did not earn it.",
+      "state_delta": { "yaw": 2, "noise": 2, "time_cost": 5 }
+    }
+  ],
+  "debrief": "Right arm up, bent at the elbow, means right turn. Believe the lead vehicle's signal, not the confused middle. If the car ahead misses the turn, you still make the one that was called. Horns are not a tutor.",
+  "source": {
+    "psdp_skill": "Skill eight: communicating",
+    "dol_section": "2.5 Hand signals",
+    "teaching_target": "Right arm bent upward means right turn; follow the signaled maneuver of the lead vehicle, not a middle vehicle that fails to copy it."
+  },
+  "cast": ["ali", "deac"],
+  "antagonist": "load",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_CHASE",
+    "subject": "Deac's right arm bent up from the Ledger, a volunteer van rolling straight, the Pink Menace third",
+    "foreground": "wind-bent grass at a school-zone curb",
+    "midground": "three vehicles, a driveway on the right that is the actual destination",
+    "background": "Kent school fence, midday, dark lamps, empty yard",
+    "read": "the lead vehicle is turning and the middle vehicle is not — the student is third",
+    "continuity": ["the_ledger", "pink_menace_exterior", "deac"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "school_zone",
+    "weather": "wind",
+    "time_of_day": "midday",
+    "tone": "procedural",
+    "failure_mode": "passengers"
+  }
+}

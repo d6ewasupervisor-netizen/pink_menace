@@ -1,0 +1,67 @@
+{
+  "card_id": "II-021",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Fog in the Stalls",
+  "scene": "Fog at dawn in a Kent lot, stalls so faded you are guessing with the wheel. You nosed in because the drop was at the shutter. Now you have to back out to leave. A row of dead cars on both sides. Your rear mesh is a cage, not a window. The convexes are honest if you use them. A bicycle wheel you cannot see from the seat will be in the backup path if this is Marisol's morning. It is not her, not yet. It is a cart corral that moved in the night. Backing is the skill people skip because going forward feels like progress.",
+  "decision": "You are nosed in, in fog, and you have to leave. How do you back out?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Throw it in reverse and go — the lot was empty when you pulled in",
+      "correct": false,
+      "result": "The corral is not where it was. The plow is the wrong end for this. The rear plating hits steel and rings. You still cannot see what you hit until you get out. Fog holds the note.",
+      "state_delta": { "noise": 4, "damage": 1, "time_cost": 6 }
+    },
+    {
+      "id": "b",
+      "text": "Both convexes, look behind, creep reverse, stop if anything appears, then finish the out",
+      "correct": true,
+      "result": "Right glass, left glass, a look through the mesh that shows you almost nothing, then an inching reverse. The corral is there. You stop, wheel, and miss it by a foot. Fog. Boring. You are in the aisle pointed at the exit, which is the whole point of backing.",
+      "state_delta": { "noise": -1, "time_cost": 5 }
+    },
+    {
+      "id": "c",
+      "text": "Cut a Y-turn in the stall so you can leave forward",
+      "correct": false,
+      "result": "There is not a Y-turn's worth of stall. You climb a parking bumper and the plow rings. Forward felt better. Geometry disagreed.",
+      "state_delta": { "noise": 3, "yaw": 2, "damage": 1, "time_cost": 7 }
+    },
+    {
+      "id": "d",
+      "text": "Get out and walk the path, then back out without checking again",
+      "correct": false,
+      "result": "You walk it. Clear. You get in and reverse on memory. In the ten seconds you were in the seat, a volunteer rolled a pallet into your path. Memory is not a mirror.",
+      "state_delta": { "noise": 2, "time_cost": 8 }
+    }
+  ],
+  "debrief": "Backing is searching, then creeping. Mirrors and a look behind, every time, even in a lot you just used. Walking the path helps; it does not replace the last look. If you cannot see, you do not go.",
+  "source": {
+    "psdp_skill": "Skill eight: communicating",
+    "dol_section": "4.18 Parking",
+    "teaching_target": "Before backing, search mirrors and behind the vehicle; back slowly and be ready to stop; do not rely on a walk-around done in the past tense."
+  },
+  "cast": ["ali"],
+  "antagonist": "cold_roads",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "subject": "the Pink Menace nosed into a faded stall, reverse implied, fog swallowing the aisle behind the rear mesh",
+    "foreground": "a cart corral that has drifted into the backup path, one wheel over the stall line",
+    "midground": "dead cars left and right, Ali's west-coast-less Beetle mirrors small and wet",
+    "background": "Kent lot at dawn, fog, shuttered storefront, no sun",
+    "read": "the backup path is blocked by something the driver cannot see from the seat",
+    "continuity": ["pink_menace_exterior"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "fog",
+    "time_of_day": "dawn",
+    "tone": "wry",
+    "failure_mode": "inexperience"
+  }
+}

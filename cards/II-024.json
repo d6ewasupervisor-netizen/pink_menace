@@ -1,0 +1,67 @@
+{
+  "card_id": "II-024",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Four Ways, One Hole",
+  "scene": "Clear cold dusk on a Kent four-way that still has all four stops. You arrive second. A primer sedan is already stopped on your right, a beat longer than you. Nobody else. The insulin is a minute from the shelter drop. The sedan's driver is not moving. They may be looking at a paper. They may be waiting for you to steal it. First in is first through. Your right is not a permission slip if they were there first. The Menace's idle is a drum if you rev it. You do not.",
+  "decision": "You rolled up second. The sedan on your right is first and still sitting. Who takes the hole?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Take it — they froze, and the drop will not wait",
+      "correct": false,
+      "result": "You go. They go. The two of you occupy the same paint. A freeze, a horn, a miss by a plow's width. First-in was not a suggestion. You made it a coin flip.",
+      "state_delta": { "noise": 3, "yaw": 2, "time_cost": 6 }
+    },
+    {
+      "id": "b",
+      "text": "Wave them through even if you think you were first",
+      "correct": false,
+      "result": "You wave. They wave. Nobody goes. Then you both go. Courtesy without a rule is two people guessing. The intersection stays a mess for a third car that did not exist until it did.",
+      "state_delta": { "time_cost": 8, "noise": 1 }
+    },
+    {
+      "id": "c",
+      "text": "Inch into the box to claim it so they have to wait",
+      "correct": false,
+      "result": "Your plow is in the conflict. They have to go around it or sit. They sit, then panic-go. You taught the four-way that steel is right-of-way. It is not.",
+      "state_delta": { "yaw": 1, "noise": 2, "time_cost": 5 }
+    },
+    {
+      "id": "d",
+      "text": "Stay stopped. They were first. When they take it, you take the next hole",
+      "correct": true,
+      "result": "You wait. They were looking at a paper. They look up, take the hole, and leave you a clean four-way. You take it. No horn. The drop is one minute later and still a drop.",
+      "state_delta": { "noise": -1, "time_cost": 5 }
+    }
+  ],
+  "debrief": "At an all-way stop, the first vehicle to arrive goes first. If two arrive together, yield to the right. Waving and inching are not in the book. Waiting is. A frozen driver is still first-in until they move or you can tell they will not.",
+  "source": {
+    "psdp_skill": "Skill seven: keeping a space cushion",
+    "dol_section": "4.10 Traffic laws",
+    "teaching_target": "All-way stop: first to arrive goes first; if simultaneous, yield to the right; do not occupy the box to force the issue."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_TOPDOWN",
+    "subject": "a four-way with four stop signs, the Pink Menace at the south stop, a primer sedan already sitting at the east stop",
+    "foreground": "painted stop lines, empty crosswalks",
+    "midground": "two vehicles, no third, dusk long shadows",
+    "background": "Kent residential arterial, clear cold sky going blue, no wrecks",
+    "read": "the sedan's stop line was occupied first — the Beetle is second",
+    "continuity": ["pink_menace_exterior"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "clear_cold",
+    "time_of_day": "dusk",
+    "tone": "grim",
+    "failure_mode": "inexperience"
+  }
+}

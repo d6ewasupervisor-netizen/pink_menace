@@ -1,0 +1,36 @@
+{
+  "card_id": "II-011",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "The Log in the Well",
+  "scene": "You unfold a metal clipboard that is not yours. Deac left it in the well at the lot with a note in dispatch cadence: date, location, day or night, weather, skills, hours, initials. The Grid does not count as practice unless you write it down. Clear cold midday in a Kent lot, stalls faded, the Menace ticking. You have already used a school zone, a stop, a left, a bike, a bus, a hand, a light, a voice. The clipboard is how the hours become legal. It is also how you notice you have not done space yet.",
+  "debrief": "Supervised hours are a log, not a feeling. Date, location, day or night, weather, skill, time, initials. If it is not on the sheet, the Grid did not happen.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "The PSDP log is diegetic: hours only count when written. Space cushion is the next unpaid skill."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "Ali's hands on a metal clipboard with a hand-ruled log sheet, wire rims and cranberry braid at the top of frame",
+    "foreground": "the clipboard clip and a pencil stub, columns for date, location, weather, skills, hours, initials",
+    "midground": "cracked pink dash and the well where the board was sitting",
+    "background": "a Kent parking lot through the mesh, clear cold midday, empty stalls, no sun flare",
+    "read": "the log is the progress tracker — blank lines are skills not yet driven",
+    "continuity": ["pink_menace_interior", "ali_face", "deac_clipboard"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "clear_cold",
+    "time_of_day": "midday",
+    "tone": "warm",
+    "failure_mode": "none"
+  }
+}

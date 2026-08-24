@@ -1,0 +1,36 @@
+{
+  "card_id": "II-018",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "Gracie, Unboxed",
+  "scene": "You unclip the carrier in a Kent mill-and-fill at dusk, overcast, cones leaning like they are tired. Gracie hits the dash like she owns the defrost. Orange tabby, cream chest, amber-green eyes, already in the way of the right convex. This is the passenger problem with a face. She will stand up at the wrong bus. She will walk a keyboard you do not have. The Grid still has eight cards of space and night and ice in it. If she is loose, she is a lap. If she is boxed, she is a sound you can ignore. You have to choose before the next roll, not during it.",
+  "debrief": "Unrestrained passengers — including a cat — are a distraction with mass. Box her for the dense cards. The dash is not a seat. Eyes that go to her are eyes that leave the millings.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "5.5 Focus",
+    "teaching_target": "Restrain passengers and pets; a moving animal in the cab is a distraction event, not flavor."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "Gracie the orange tabby sitting in the defrost, cream chest, amber-green eyes, one paw on the top of the cracked pink dash",
+    "foreground": "the carrier door hanging open, a clip undone",
+    "midground": "Ali's wire rims and cranberry braid out of focus behind the cat, not looking at the road",
+    "background": "work-zone cones through the mesh at dusk, overcast, no sun",
+    "read": "the cat is on the dash and the driver's eyes are on the cat",
+    "continuity": ["gracie", "pink_menace_interior", "ali_face"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "work_zone",
+    "weather": "overcast",
+    "time_of_day": "dusk",
+    "tone": "warm",
+    "failure_mode": "none"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "card_id": "II-025",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "Kent After the Lamps",
+  "scene": "You sit at a curb on a Kent residential that has gone overcast-night, not the Dark Hours yet, just the ordinary dark the Grid always had. Signals still cycle. A stale green somewhere to the west paints the wet. Ali in the glass: braid, wire rims, the pink hoodie gone gray in this light. The clipboard in the well has hours on it now. School zones. Stops. Turns. Bikes. A bus you may have passed. Space. Ice. A mill you refused to join. The Quiet uses the same paint at night. The rules do not get optional when the color drains. Tomorrow is more of this, then it is not — then it is someone else's act.",
+  "debrief": "Night in The Grid is still The Grid. Lights work. Search harder. The Dark Hours are a later zone. Do not import highway night rules onto these two-lane stops just because the sky went out.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Night does not suspend residential rules; Act II remains search, space, and communication until the zone is clean."
+  },
+  "cast": ["ali"],
+  "antagonist": "dark_hours",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "Ali Okonjo in profile in the cab at night, wire rims catching a stale green from a distant signal, cranberry braid the only warm color",
+    "foreground": "welded mesh as a grid over her face, a faint reflection of analog gauges",
+    "midground": "the cracked pink dash gone almost brown in the dark",
+    "background": "Kent residential night, overcast, wet street, one cycling signal out of focus, no other cars",
+    "read": "this is still Ali's Grid at night — the mesh and the green are the world still working",
+    "continuity": ["ali_face", "pink_menace_interior"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "overcast",
+    "time_of_day": "night",
+    "tone": "warm",
+    "failure_mode": "night"
+  }
+}

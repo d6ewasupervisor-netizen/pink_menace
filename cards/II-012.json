@@ -1,0 +1,67 @@
+{
+  "card_id": "II-012",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Three Seconds, Not One",
+  "scene": "A volunteer van is glued to a Kent school-zone exit at dusk, overcast, lamps already flashing for a shift that will not come. You are behind him. He is behind a dead sedan that is actually just parked badly. Your following gap is a bumper. The clipboard said space. The van's brake lamps are already dirty. If he dumps them, you will eat his trailer hitch with a plow that rings. The insulin is stable. Your right foot is not. You can see his tires. You should be able to see pavement.",
+  "decision": "You can only see his hitch. How much road do you put back?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Stay on him so nobody cuts in — this zone is too narrow for a real gap",
+      "correct": false,
+      "result": "He dumps the brakes for a cat. You dump yours for him. The plow kisses the hitch. Not a crash. A note. The school-zone lamps keep flashing over a sound that did not need to happen.",
+      "state_delta": { "noise": 3, "damage": 1, "yaw": 1, "time_cost": 4 }
+    },
+    {
+      "id": "b",
+      "text": "Lift until you can count three seconds off a mark on the pavement, then hold that",
+      "correct": true,
+      "result": "You let him go. A faded crack in the asphalt passes his bumper; you count one-one-thousand, two, three, then take the throttle back. You can see his tires and the road under them. When he does dump it, you are already covering. No note. No kiss.",
+      "state_delta": { "noise": -1, "time_cost": 3 }
+    },
+    {
+      "id": "c",
+      "text": "Pass him in the zone so you are not the one eating the hitch",
+      "correct": false,
+      "result": "You pull out flashing. He drifts right from surprise. You make the pass and inherit the parked sedan as your new hitch. The lamps saw the whole thing. So did whatever uses this fence after dusk.",
+      "state_delta": { "noise": 2, "light": 1, "time_cost": 3 }
+    },
+    {
+      "id": "d",
+      "text": "Close up and flash him once to tell him to move",
+      "correct": false,
+      "result": "The flash fills his glass. He brakes from the insult. You are closer than when you started. He never had a place to go. You just asked a following-distance problem to become a light problem.",
+      "state_delta": { "light": 3, "noise": 1, "time_cost": 5 }
+    }
+  ],
+  "debrief": "Following distance is time, not politeness. At city speeds you want about three seconds to a mark on the road. If you can only see the hitch, you are already in his stop. Space is the skill the clipboard was pointing at.",
+  "source": {
+    "psdp_skill": "Skill seven: keeping a space cushion",
+    "dol_section": "4.10 Traffic laws",
+    "teaching_target": "Hold about three seconds of following time in town; if you cannot see pavement under the vehicle ahead, you are too close."
+  },
+  "cast": ["ali"],
+  "antagonist": "load",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "a volunteer van's trailer hitch filling the windshield mesh, no visible pavement between plow and hitch",
+    "foreground": "worn wheel rim and the top of the plow blade as a pink bar at the bottom of glass",
+    "midground": "dirty brake lamps, school-zone flashing lamps, a badly parked sedan beyond the van",
+    "background": "overcast Kent dusk, fence, no children, wet-looking asphalt that is actually just dark",
+    "read": "there is no road visible between you and the hitch — that is the error",
+    "continuity": ["pink_menace_interior"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "school_zone",
+    "weather": "overcast",
+    "time_of_day": "dusk",
+    "tone": "urgent",
+    "failure_mode": "passengers"
+  }
+}

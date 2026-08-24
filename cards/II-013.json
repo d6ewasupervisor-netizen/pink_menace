@@ -1,0 +1,67 @@
+{
+  "card_id": "II-013",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "The Triangle Is the Sentence",
+  "scene": "Heavy rain at night on a Kent mill that still thinks it is a work zone. In the cone line, a farm tractor from somebody's last run south, no Grange, just one machine, orange SMV triangle dirty but lit by your lamps. It is doing twelve. You are doing thirty because the insulin clock got loud in your head. The triangle is the sign. Pass on a two-lane with no sightline and you are in his blind and oncoming's. The cones make it worse. Your left blinker already wants out.",
+  "decision": "The slow-moving triangle is ahead in the cones. Do you pass?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Pass now — twelve is not a speed and the insulin is not a suggestion",
+      "correct": false,
+      "result": "You pull out in the rain. The tractor occupies more width than it looks. Oncoming is a pair of lamps you did not have. You dive back in and clip a cone. The triangle fills your glass. You saved nothing and spent a lot of noise.",
+      "state_delta": { "noise": 4, "yaw": 3, "time_cost": 8 }
+    },
+    {
+      "id": "b",
+      "text": "Flash him to pull into the cones so you can go",
+      "correct": false,
+      "result": "The flash hits the triangle and comes back at you twice as bright. He has nowhere to pull. He brakes. You almost eat the hitch of a machine that cannot get out of your way because you asked it to.",
+      "state_delta": { "light": 4, "noise": 1, "time_cost": 6 }
+    },
+    {
+      "id": "c",
+      "text": "Stay behind, drop to his twelve, and wait for a marked passing zone with sight",
+      "correct": true,
+      "result": "You lift to twelve. The triangle stays a triangle, not a wall. The cone line ends. A painted passing zone appears with a sightline you can actually see. You take it then, clean, and leave him a hole. The insulin is still cold. Twelve cost you a minute. A pass in the rain would have cost the run.",
+      "state_delta": { "noise": -1, "time_cost": 8 }
+    },
+    {
+      "id": "d",
+      "text": "Go around on the gravel because the lane is his",
+      "correct": false,
+      "result": "The gravel is a ditch in the rain. The knobbies climb and the plow drops. You are beside him in a trench with no legal lane. He never saw you. The first thing he knows is your roof in his left mirror and a sound like a drum.",
+      "state_delta": { "noise": 3, "yaw": 3, "damage": 1, "time_cost": 9 }
+    }
+  ],
+  "debrief": "An orange slow-moving-vehicle triangle means the machine is not doing traffic speed. Do not pass until you have a legal passing zone and a sightline. Cones and rain are not a passing zone. Patience is the pass.",
+  "source": {
+    "psdp_skill": "Skill six: looking ahead",
+    "dol_section": "4.12 Signs",
+    "teaching_target": "The orange SMV triangle marks a slow vehicle; pass only where passing is legal and sight distance is enough."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "a dirty orange slow-moving-vehicle triangle centered in rain, lit by headlights, filling the frame",
+    "foreground": "water on the sign sheeting, the triangle's red-orange border",
+    "midground": "tractor width implied, cone line left and right",
+    "background": "night work zone, heavy rain, no sky, no oncoming yet",
+    "read": "the triangle is the sign face — this is not a vehicle you pass on impulse",
+    "continuity": [],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "work_zone",
+    "weather": "heavy_rain",
+    "time_of_day": "night",
+    "tone": "tense",
+    "failure_mode": "speed"
+  }
+}

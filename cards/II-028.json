@@ -1,0 +1,68 @@
+{
+  "card_id": "II-028",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "wrench",
+  "title": "The Click Before the Arterial",
+  "scene": "Fog at midday on the last Kent mill, cones ending, the collector about to become somebody else's problem. You reach for the shifter and the belt is not there. It was, this morning. It is not now. The Ejection is not a creature. It is a statistic with a buckle. The Grid is done if you roll onto the bigger road unclipped. Deac would not start a log line without it. The Menace's cheap aftermarket belt is a pain in the mesh. That is not a reason. The fog would hide a short slide. The belt is the difference between a slide and an ending. You can hear the shelter radio from here. You cannot hear a second chance.",
+  "decision": "The belt is off and the mill is ending. What happens before you take the next street?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Go — you will clip it at the next stop, and the fog is already eating time",
+      "correct": false,
+      "result": "You do not get a next stop. A volunteer comes out of the fog already braking. You dump yours. The cheap belt that was not on does not hold. The game does not show the rest. It does not have to.",
+      "state_delta": { "yaw": 3, "damage": 5, "fatal": true, "time_cost": 0 }
+    },
+    {
+      "id": "b",
+      "text": "Clip it at rolling speed so you do not lose the gap",
+      "correct": false,
+      "result": "One hand off, eyes in your lap, mill lip under the tires. You miss the latch. The volunteer is already in your fog. You correct the wheel late. A belt in the hand is not a belt in the latch.",
+      "state_delta": { "yaw": 2, "time_cost": 4 }
+    },
+    {
+      "id": "c",
+      "text": "Stop fully off the mill, clip, tug the belt, then take the next street",
+      "correct": true,
+      "result": "You refuse the last-second. Gravel. Click. Tug. The aftermarket latch takes. You roll out of the fog with a belt on and a Grid behind you. The Arterial can be someone else's act. You still have a body in the seat to hand it to.",
+      "state_delta": { "noise": -1, "time_cost": 3 }
+    },
+    {
+      "id": "d",
+      "text": "Loop it over your shoulder without the latch so at least it looks done",
+      "correct": false,
+      "result": "It looks done. It is a sash. The first hard brake turns it into a rope that does not hold. Looking legal is not the 51 percent. Latched is.",
+      "state_delta": { "yaw": 2, "time_cost": 2 }
+    }
+  ],
+  "debrief": "Belt on, latched, tugged, before the vehicle moves. Not at the next stop. Not over the shoulder. More than half of teen drivers killed in 2022 were unbuckled. The Grid does not end with a clever exit. It ends with a click.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "2.7 Seat belts",
+    "teaching_target": "Fasten and tug the seat belt before moving; a belt over the shoulder that is not latched is not a belt.",
+    "stat_cited": "51% of teen drivers killed in 2022 were unbuckled (PSDP)."
+  },
+  "cast": ["ali"],
+  "antagonist": "ejection",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_CHASE",
+    "subject": "the Pink Menace at the last cone of a fogged mill, Ali's left hand on an unlatched aftermarket belt rather than the wheel",
+    "foreground": "cone, milled lip, fog",
+    "midground": "the belt webbing hanging, latch visible and open",
+    "background": "the collector opening up beyond the zone, midday fog, no sun, no other vehicle yet",
+    "read": "the belt is not latched and the bigger road is already starting",
+    "continuity": ["pink_menace_exterior"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "work_zone",
+    "weather": "fog",
+    "time_of_day": "midday",
+    "tone": "wry",
+    "failure_mode": "belt"
+  }
+}

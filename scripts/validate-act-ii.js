@@ -1,0 +1,86 @@
+"use strict";
+
+const fs = require("fs");
+const path = require("path");
+const dir = path.join(__dirname, "..", "cards");
+const files = fs.readdirSync(dir).filter((f) => /^II-\d{3}\.json$/.test(f)).sort();
+const schema = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "pack", "04_card.schema.json"), "utf8"));
+const locEnum = schema.properties.variation.properties.location_type.enum;
+const weatherEnum = schema.properties.variation.properties.weather.enum;
+const timeEnum = schema.properties.variation.properties.time_of_day.enum;
+const camEnum = schema.properties.image_brief.properties.camera.enum;
+const toneEnum = schema.properties.variation.properties.tone.enum;
+const failEnum = schema.properties.variation.properties.failure_mode.enum;
+const typeEnum = schema.properties.card_type.enum;
+const castEnum = schema.properties.cast.items.enum;
+const antEnum = schema.properties.antagonist.enum;
+
+const cards = files.map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")));
+const errors = [];
+function err(id, msg) { errors.push(`${id}: ${msg}`); }
+
+const answers = { a: 0, b: 0, c: 0, d: 0 };
+const cameras = {};
+const openings = [];
+const recast = ["gracie", "reyna_solis", "tobin", "marisol", "hollis", "deac", "bus_12"];
+
+for (let i = 0; i < cards.length; i++) {
+  const c = cards[i];
+  const id = c.card_id;
+  if (c.act !== "II" || c.zone !== "The Grid" || c.driver !== "ali") err(id, "act/zone/driver");
+  if (!typeEnum.includes(c.card_type)) err(id, "card_type");
+  if (c.scene.length < 150 || c.scene.length > 700) err(id, `scene len ${c.scene.length}`);
+  if (c.card_type !== "dossier") {
+    if (!c.decision || !c.options || !c.debrief) err(id, "missing decision/options/debrief");
+    const correct = (c.options || []).filter((o) => o.correct);
+    if (correct.length !== 1) err(id, `correct count ${correct.length}`);
+    for (const o of c.options || []) {
+      if (o.text.length > 160) err(id, `option ${o.id} text`);
+      if (o.result.length < 80 || o.result.length > 400) err(id, `option ${o.id} result ${o.result.length}`);
+    }
+    const cid = correct[0] && correct[0].id;
+    if (cid) answers[cid] = (answers[cid] || 0) + 1;
+  }
+  if (!locEnum.includes(c.variation.location_type)) err(id, "location");
+  if (!weatherEnum.includes(c.variation.weather)) err(id, "weather");
+  if (!timeEnum.includes(c.variation.time_of_day)) err(id, "time");
+  if (!toneEnum.includes(c.variation.tone)) err(id, "tone");
+  if (!failEnum.includes(c.variation.failure_mode)) err(id, "failure");
+  if (!camEnum.includes(c.image_brief.camera)) err(id, "camera");
+  cameras[c.image_brief.camera] = (cameras[c.image_brief.camera] || 0) + 1;
+  if (c.antagonist && !antEnum.includes(c.antagonist)) err(id, "antagonist");
+  for (const x of c.cast || []) if (!castEnum.includes(x)) err(id, `cast ${x}`);
+  openings.push(c.scene.trim().split(/\s+/).slice(0, 3).join(" "));
+  if (i > 0 && c.image_brief.camera === cards[i - 1].image_brief.camera) err(id, "camera twice in a row");
+  if (i > 0 && openings[i] === openings[i - 1]) err(id, "opening repeat");
+  const triple = `${c.variation.location_type}|${c.variation.weather}|${c.variation.time_of_day}`;
+  for (let j = Math.max(0, i - 5); j < i; j++) {
+    const p = cards[j];
+    const pt = `${p.variation.location_type}|${p.variation.weather}|${p.variation.time_of_day}`;
+    if (pt === triple && !(c.variation.forced && p.card_id === "II-007" && id === "II-010")) {
+      err(id, `triple repeat vs ${p.card_id}`);
+    }
+  }
+  for (const name of recast) {
+    if (!(c.cast || []).includes(name)) continue;
+    for (let j = Math.max(0, i - 3); j < i; j++) {
+      if ((cards[j].cast || []).includes(name) && !(id === "II-010" && name !== "deac")) {
+        if (id === "II-010") continue;
+        err(id, `cast ${name} within 4 of ${cards[j].card_id}`);
+      }
+    }
+  }
+  if (i >= 2 && c.card_type === cards[i - 1].card_type && c.card_type === cards[i - 2].card_type) {
+    err(id, "three same types in a row");
+  }
+}
+
+const n = cards.filter((c) => c.card_type !== "dossier").length;
+console.log("cards", cards.length, "decision", n);
+console.log("answers", answers);
+console.log("cameras", cameras);
+if (errors.length) {
+  console.error(errors.join("\n"));
+  process.exit(1);
+}
+console.log("ok");

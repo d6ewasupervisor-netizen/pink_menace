@@ -1,0 +1,67 @@
+{
+  "card_id": "II-003",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "Red Octagon, White Fog",
+  "scene": "Fog sits on a Kent work zone at midday, thick enough that the cones appear one at a time. A portable stop sign is planted in your lane where the flagger would have stood. The face is red, eight sides, white border, white STOP. No flagger. No oncoming headlights yet. The cone line pinches you down to a crawl. The insulin clock is still kind. Your left foot wants to hover instead of plant.",
+  "decision": "The portable stop is in your lane and the fog has the other approach. What do you do at the sign?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Full stop, count three, search both ways, then roll when the fog-lane is clear",
+      "correct": true,
+      "result": "You plant it. The Menace settles. Count one, two, three. A gray primer pickup slides out of the fog from the right at walking speed, never seeing you until you are already stopped. You let it pass, then take the gap. The sign did the flagger's job.",
+      "state_delta": { "noise": -1, "time_cost": 4 }
+    },
+    {
+      "id": "b",
+      "text": "Rolling stop — tap the pedal and keep the crawl so you do not get stuck in the cones",
+      "correct": false,
+      "result": "You never quite reach zero. The primer pickup is already in the pinch. Your plow and his bumper occupy the same two feet of fog. A horn you did not mean to hit. Both of you freeze. The cones shake. Something at the far end of the zone turns toward the sound.",
+      "state_delta": { "noise": 4, "yaw": 1, "time_cost": 8 }
+    },
+    {
+      "id": "c",
+      "text": "Treat it as yield and go if you cannot see anyone",
+      "correct": false,
+      "result": "You take the empty-looking hole. The pickup's left headlight fills your mesh at ten feet. Both of you dump speed. His tires bark on damp millings. You sit in the intersection with two engines and a sign that already told you the answer.",
+      "state_delta": { "noise": 3, "yaw": 2, "time_cost": 7 }
+    },
+    {
+      "id": "d",
+      "text": "Stop past the sign so you can see around the fog before committing",
+      "correct": false,
+      "result": "You roll the nose past the octagon to get a look. Now you are in the conflict box with no legal stop left to make. The pickup has to swerve around your plow. A cone goes over. Plastic on steel, sharp, and the fog carries it.",
+      "state_delta": { "noise": 3, "damage": 1, "time_cost": 6 }
+    }
+  ],
+  "debrief": "A stop sign means stop — wheels still, at the sign or limit line, even when the sign is portable and the road looks empty. Fog is not a yield. If you cannot see the other approach, that is more reason to stop, not less.",
+  "source": {
+    "psdp_skill": "Skill five: seeing habits, part 1",
+    "dol_section": "4.12 Signs",
+    "teaching_target": "Stop means a complete stop at the sign or limit line; a portable work-zone stop has the same force as a post."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "a portable red octagonal STOP sign planted in a fogged lane between orange cones",
+    "foreground": "the sign face filling the frame, white border and white STOP legible, droplets on the sheeting",
+    "midground": "cone pinch and milled asphalt disappearing into midday fog",
+    "background": "no flagger, no sky, a gray wall of fog where the other approach should be",
+    "read": "the sign is STOP, not yield, and the other road is invisible — that is the whole card",
+    "continuity": [],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "work_zone",
+    "weather": "fog",
+    "time_of_day": "midday",
+    "tone": "wry",
+    "failure_mode": "none"
+  }
+}

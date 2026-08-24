@@ -1,0 +1,67 @@
+{
+  "card_id": "II-004",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Wind on Central",
+  "scene": "The work cones are behind you. Central Avenue in Kent, two lanes each way, a protected left pocket painted and still honest. Wind shoves the Menace a half-lane toward the curb every time a gap opens. Oncoming is a primer SUV at distance and a lifted truck closer, closing. Your blinker has been on. The pocket is short. The insulin does not care about your gap. The oncoming does.",
+  "decision": "You are in the left pocket with the blinker on. When do you take the turn?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Cut the wheels now and creep into the intersection so you can go the instant it opens",
+      "correct": false,
+      "result": "Wheels already left. The lifted truck never planned to stop. His bumper kisses your rear quarter and walks the Menace one foot into the oncoming lane. The SUV's horn is late. You are pointed at a collision you pre-steered yourself into.",
+      "state_delta": { "yaw": 3, "damage": 2, "noise": 3, "time_cost": 10 }
+    },
+    {
+      "id": "b",
+      "text": "Go now — the SUV is still far and the truck will brake for you",
+      "correct": false,
+      "result": "You take it. The truck does not brake. You are broadside in his closing speed with a plow that will not win. You dump the turn and abort back into the pocket, tires howling, wind shoving the tail. The SUV has to lift. Everyone on this block heard you decide.",
+      "state_delta": { "noise": 4, "yaw": 3, "time_cost": 8 }
+    },
+    {
+      "id": "c",
+      "text": "Cancel the blinker and go right around the block instead",
+      "correct": false,
+      "result": "You kill the signal mid-pocket. The truck reads that as you staying put, then you yank right across his nose toward the through lane. He hits the horn. You make the block. You also taught the next driver that your blinker is optional.",
+      "state_delta": { "noise": 3, "yaw": 2, "time_cost": 5 }
+    },
+    {
+      "id": "d",
+      "text": "Wheels straight, wait for the SUV and the truck both to clear, then turn",
+      "correct": true,
+      "result": "You hold the pocket. Wheels straight. The truck blows through. The SUV follows. The next gap is real. You turn on the blinker that was already telling the truth. Wind shoves the tail; you let it and unwind. No horn. No yaw. The crates do not slide.",
+      "state_delta": { "noise": -1, "time_cost": 6 }
+    }
+  ],
+  "debrief": "For a left turn, wait until the whole gap is yours. Wheels stay straight until you commit so a rear-end does not push you into oncoming. A blinker is a sentence. Do not unsay it in the pocket.",
+  "source": {
+    "psdp_skill": "Skill five: seeing habits, part 2",
+    "dol_section": "4.14 Turning",
+    "teaching_target": "Complete left turns only when oncoming is clear; keep wheels straight in the pocket until the turn is committed."
+  },
+  "cast": ["ali"],
+  "antagonist": "cold_roads",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_TOPDOWN",
+    "subject": "the Pink Menace sitting in a short painted left-turn pocket on a four-lane Kent arterial",
+    "foreground": "pocket lines and the Menace's pink roof and plow, wheels visibly straight",
+    "midground": "oncoming lifted truck closing, primer SUV behind it, empty opposing pocket",
+    "background": "wind-bent maples, wide Kent arterial, afternoon gray, no wrecks",
+    "read": "the car is in the pocket with wheels straight and two oncoming vehicles still occupying the gap",
+    "continuity": ["pink_menace_exterior"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "wind",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "inexperience"
+  }
+}

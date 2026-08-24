@@ -1,0 +1,36 @@
+{
+  "card_id": "II-001",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "Kent, Before First Light",
+  "scene": "You idle at the curb on a Kent side street that still has its paint. The Menace ticks as it cools. Cranberry braid over one shoulder, wire rims catching the overcast, Gracie already on the dash with her paws in the defrost. Insulin crates sweat in the well behind the seats. The Grid is residential, two lanes, stop signs that still mean stop. Signals still cycle. That is the whole job today: move the cold through streets that look empty and are not.",
+  "debrief": "Act II is quiet Kent, not the lot. Search, signs, turns, bikes, buses, space, and focus — in that order. The lights still work. Drive like they do.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Establish The Grid: residential Kent, Ali driving, insulin run, rules of the road still in force."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "Ali Okonjo in the driver's seat of the Pink Menace, braid over the left shoulder, wire-rim glasses, gold hoop and small nose ring, flat affect",
+    "foreground": "worn black leather wheel rim and cracked pink dash, Gracie the orange tabby sitting in the defrost with cream chest visible",
+    "midground": "welded steel mesh over the windshield, analog gauges, aftermarket nav tablet dark",
+    "background": "overcast Kent residential street through the mesh, bare maples, single-story houses, no sun",
+    "read": "this is Ali's cab and Ali's color — cranberry hair is the only saturated thing in a gray morning",
+    "continuity": ["pink_menace_interior", "ali_face", "gracie"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

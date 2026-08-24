@@ -1,0 +1,67 @@
+{
+  "card_id": "II-005",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Marisol in the Lot",
+  "scene": "Rain hammers the old Kent Station lot, a sheet off the mesh, the stalls faded to ghosts. You are rolling a lane of painted arrows toward the exit onto 1st. In the right convex, a bicycle: bare head, dark jacket, fast, unafraid. Marisol. She is using the lot as a cut-through the way she always has. She is on your right rear quarter, closing to pass you on the inside toward the same exit. Your window is up. Your door is a weapon if you forget she is there.",
+  "decision": "Marisol is in your right mirror, coming up the inside toward the same exit. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold your line and let her find a way around — the lot is yours",
+      "correct": false,
+      "result": "You occupy the arrow. She has to squeeze between your door and a cart corral. Her bar-end kisses the steel plating with a sound like a dropped wrench. She stays up. She also puts a hand out, not a wave. You taught a courier that cars do not look.",
+      "state_delta": { "noise": 2, "passenger_stress": 1, "time_cost": 4 }
+    },
+    {
+      "id": "b",
+      "text": "Slow, stay left of the arrows, and give her the whole right side through the exit",
+      "correct": true,
+      "result": "You lift and drift left inside the stall paint. She takes the right at speed, three clear feet of wet asphalt, and is through the exit before you. Two fingers off the bars without looking back. The rain covers the rest. You roll out after her at a walking pace.",
+      "state_delta": { "noise": -1, "time_cost": 3 }
+    },
+    {
+      "id": "c",
+      "text": "Tap the horn so she knows you see her",
+      "correct": false,
+      "result": "The horn cracks off the storefront and the parking deck. Marisol flinches and the front wheel tucks. She saves it. Every Quiet thing using this lot as a sit has your range now. She looks at you once, jaw set, and takes the exit anyway.",
+      "state_delta": { "noise": 5, "time_cost": 5 }
+    },
+    {
+      "id": "d",
+      "text": "Speed up to beat her to the exit and clear the conflict",
+      "correct": false,
+      "result": "You get there first by a car length. She is still on your right rear when you start the turn onto 1st. Your rear quarter walks through the space her front wheel needs. She bails onto the sidewalk and the bike hits a cart corral. Steel, loud, done.",
+      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 8 }
+    }
+  ],
+  "debrief": "Give bicyclists a full lane's worth of room when you share a space — at least three feet, more in rain. Mirrors first, then move left. A horn is not a greeting here. It is a dinner bell.",
+  "source": {
+    "psdp_skill": "Skill six: looking ahead",
+    "dol_section": "4.6 Sharing with bicyclists",
+    "teaching_target": "Pass bicyclists with at least three feet of space; check the right mirror before moving right or occupying a shared exit."
+  },
+  "cast": ["ali", "marisol"],
+  "antagonist": "chorus",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR",
+    "subject": "Marisol on a bicycle in the right-side convex, closing on the Pink Menace's rear quarter",
+    "foreground": "wet convex mirror housing and a slice of riveted steel door",
+    "midground": "faded parking-lot arrows, cart corral, her front wheel in the three-foot gap that does not yet exist",
+    "background": "heavy rain, Kent Station lot, gray storefront, dusk, lamps unlit",
+    "read": "she is in the door zone of a moving car, and the exit is one lane wide",
+    "continuity": ["pink_menace_exterior", "marisol"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "heavy_rain",
+    "time_of_day": "dusk",
+    "tone": "urgent",
+    "failure_mode": "distraction"
+  }
+}

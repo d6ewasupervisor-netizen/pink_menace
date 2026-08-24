@@ -7,3 +7,4 @@ node_modules/
 generations/
 .railway/
 .env
+scripts/live-gate-report.json

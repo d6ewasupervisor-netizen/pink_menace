@@ -1,0 +1,68 @@
+{
+  "card_id": "II-010",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "ledger",
+  "title": "The Arm Still Out",
+  "scene": "Bus 12 is back on Fourth Ave South at Willis, same rain, same crown in the wheel tracks, same bare maples. Reyna has the reds on and the stop arm is out — bent a few degrees off true from a plow that did not wait. Tobin is already in the street this time, yellow shell, not looking. At the treeline four blocks down, something that heard steel on steel last time has not left. You are behind her again with a clear left lane that is not clear at all. The insulin can wait. He cannot.",
+  "decision": "Reds are on, the arm is out, and Tobin is in the lane. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Stay stopped behind her until the arm folds and she rolls, even if the left lane is empty",
+      "correct": true,
+      "result": "You sit. Rain on the mesh. Tobin crosses without a glance, then a second kid you did not have last time. The thing at the treeline does not come. Reyna folds the bent arm, finds you in her glass, and does not wave. She does not have to. You are still here. That is the apology.",
+      "state_delta": { "noise": -2, "time_cost": 8 }
+    },
+    {
+      "id": "b",
+      "text": "Take the left lane now — the arm is already out, so the kids have to be done",
+      "correct": false,
+      "result": "You pull out on reds. Tobin is still in your left headlight. You stand on it. The Menace stops with the plow in the crosswalk he is using. Reyna sees the whole thing in the west-coast glass she does not have. She has a school bus mirror and a bent arm and a face you will carry.",
+      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 12 }
+    },
+    {
+      "id": "c",
+      "text": "Creep past the arm on the right shoulder to get out of the thing at the treeline's sightline",
+      "correct": false,
+      "result": "The gravel shoulder puts you around the bent arm and into the space kids use. A backpack scrapes the plating. You are past the bus and still in the rain, and the treeline has you in profile, moving. You did not get quieter. You got closer.",
+      "state_delta": { "noise": 2, "yaw": 1, "time_cost": 7 }
+    },
+    {
+      "id": "d",
+      "text": "Tap the horn once so Tobin looks up",
+      "correct": false,
+      "result": "The horn on a stopped bus street. Tobin looks. So does everything else. The treeline starts walking. Reyna's head turns in the glass, not grateful. You made him look and you rang the block doing it.",
+      "state_delta": { "noise": 5, "light": 1, "time_cost": 6 }
+    }
+  ],
+  "debrief": "Red lamps and an extended stop arm still mean a full stop from both directions until the arm retracts — even when you have been here before, even when the arm is bent because of you. The kid does not check. The street remembers the noise. You do not get to pass it twice.",
+  "source": {
+    "psdp_skill": "Skill six: looking ahead",
+    "dol_section": "4.2 Sharing with school buses",
+    "teaching_target": "Red lamps and an extended stop arm require a full stop from both directions until the arm retracts; never pass a stopped school bus."
+  },
+  "cast": ["ali", "reyna_solis", "bus_12", "tobin"],
+  "antagonist": "splitter",
+  "callback_of": "II-007",
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR",
+    "subject": "Bus 12 stopped ahead, red lamps lit, stop arm extended and slightly bent, Tobin in a yellow shell already in the street",
+    "foreground": "wet interior rearview and a smear of rain on the mesh, Ali's wire rims a blur at the edge",
+    "midground": "the same two-lane Kent arterial, standing water in the wheel tracks, empty-looking left lane",
+    "background": "bare maples, chain-link, flat gray rain, a distant out-of-focus figure at the treeline four blocks down",
+    "read": "reds and the bent arm are on, and a child is already in the lane you wanted last time",
+    "continuity": ["pink_menace_interior", "bus_12", "L-001"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "rain",
+    "time_of_day": "afternoon",
+    "tone": "grim",
+    "failure_mode": "speed",
+    "forced": "location+weather+time locked to II-007 callback; camera changed to POV_MIRROR"
+  }
+}

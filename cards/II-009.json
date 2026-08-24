@@ -1,0 +1,67 @@
+{
+  "card_id": "II-009",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "A Voice You Know",
+  "scene": "The radio bleeds at dawn on a Kent collector that thinks it is an arterial. Wind again. You did not turn the radio on. It came up by itself, a trick the aftermarket tablet has been pulling since the lot — a scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right, mid-block enough to be easy to miss if you are in the glass. Both hands should be on the wheel. One of them is not.",
+  "decision": "The tablet is talking in a voice you know and a pedestrian is in the crosswalk. Where do your eyes go?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Look down long enough to kill the tablet, then look back up",
+      "correct": false,
+      "result": "Two seconds in the glass. The hood is already at your right headlight when you come back. You stand on the pedal. The Menace squats. The pedestrian does not run. They do not have to. You stopped a plow's width short, loud, and the tablet is still talking.",
+      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 6 }
+    },
+    {
+      "id": "b",
+      "text": "Answer the voice — if it is someone on the net they may have a better route",
+      "correct": false,
+      "result": "You unkey and talk into a tablet that is not a radio. The pedestrian is gone under the mesh before you finish the sentence. You missed them completely. The voice was never going to answer. That is the whole trick.",
+      "state_delta": { "noise": 1, "passenger_stress": 2, "time_cost": 8 }
+    },
+    {
+      "id": "c",
+      "text": "Speed up through the intersection so you are past the distraction sooner",
+      "correct": false,
+      "result": "You take the four-way hot. The pedestrian stops and the hood turns. You miss them by luck and a lot of wind. The tablet keeps talking. Speed did not buy attention. It spent the margin you needed.",
+      "state_delta": { "noise": 2, "yaw": 1, "time_cost": 2 }
+    },
+    {
+      "id": "d",
+      "text": "Eyes up, both hands on the wheel, cover the brake, ignore the tablet until you are through",
+      "correct": true,
+      "result": "You leave the glass alone. Hands at ten and two, or whatever your braid allows. The hood clears your right fender while you are still moving at a crawl. The tablet talks to itself and then dies. The intersection is just an intersection. That is the win.",
+      "state_delta": { "noise": -1, "time_cost": 4 }
+    }
+  ],
+  "debrief": "Eyes off the road — even to silence a distraction — is how the crash happens. Drive first. Park the tablet's noise until the intersection is behind you. Familiar voices are the trap. The pedestrian in the crosswalk is the test.",
+  "source": {
+    "psdp_skill": "Skill six: looking ahead",
+    "dol_section": "5.5 Focus",
+    "teaching_target": "Do not take your eyes off the road to manage a device; drive through the hazard, then deal with the distraction."
+  },
+  "cast": ["ali"],
+  "antagonist": "chorus",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_CHASE",
+    "subject": "the Pink Menace approaching a four-way, a hooded pedestrian already in the right-hand crosswalk",
+    "foreground": "wind-moved weeds at the camera, a slice of wet curb",
+    "midground": "Ali's head starting to dip toward the dash tablet, both not yet on the wheel",
+    "background": "Kent collector at dawn, hard wind, gray sky, no other moving cars",
+    "read": "the driver's eyes are leaving the pedestrian for a screen",
+    "continuity": ["pink_menace_exterior"],
+    "aspect": "3:4"
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "wind",
+    "time_of_day": "dawn",
+    "tone": "quiet",
+    "failure_mode": "distraction"
+  }
+}
