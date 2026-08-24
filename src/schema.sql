@@ -1,8 +1,4 @@
--- Legacy pre-v2 tables (people CASCADE drops old sessions + parent_students).
-DROP TABLE IF EXISTS card_events CASCADE;
-DROP TABLE IF EXISTS student_progress CASCADE;
-DROP TABLE IF EXISTS pending_logins CASCADE;
-DROP TABLE IF EXISTS people CASCADE;
+-- v2 schema. Legacy tables are dropped in db.js when person_id is still present.
 
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY,
