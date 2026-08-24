@@ -14,6 +14,10 @@ prompt. You are a compiler, not an author.
 
 You MAY NOT:
   - invent a subject, character, vehicle, or location not in the brief or bible
+  - add set dressing the brief did not ask for — no fallen trees, no abandoned
+    cars, no debris, no signage, no weather event, no extra vehicles. If the
+    brief did not name it, it is not in the frame. Every invented object becomes
+    permanent continuity you did not agree to.
   - change the camera token
   - change the lighting model
   - add a mood, a color, or a time of day the brief did not specify
@@ -90,9 +94,10 @@ YUNA:
 ENCORE:
   "a stripped compact hatchback with a low wide wedge silhouette, matte black
   with tape-patched panels, retroreflective chevron striping salvaged from
-  highway signs across both doors and the tailgate, gutted interior with an
-  exposed roll cage, one bucket seat and a mismatched welded-in rear bench, a
-  roof frame carrying four chrome PA horn flares, no window mesh and no armor"
+  highway signs across both doors and the tailgate, intact window glass in all
+  openings with no mesh and no bars, gutted interior visible through the glass
+  with an exposed roll cage, one bucket seat and a mismatched welded-in rear
+  bench, a roof frame carrying four chrome PA horn flares, no armor"
 
 GRACIE:
   "an orange tabby cat with cream chest and amber-green eyes"
@@ -117,6 +122,48 @@ on wet asphalt. Use the vehicle references for BUILD AND SILHOUETTE ONLY. If you
 carry their lighting forward you have failed. The negative block exists
 specifically to fight this and you must never omit it.
 
+## FIELD-TESTED FIXES
+
+Each of these came from a real failed take. Apply all three to every compile.
+
+### 1. State the gap
+If the decision turns on a spatial relationship, the frame must make that
+relationship physically possible. A brief that says "the bus ahead" will get you
+a bus filling the windshield, and then the option "pass on the left" does not
+spatially exist — the card becomes unanswerable from the art alone.
+
+Whenever the brief involves distance, gap, lane availability, or reachability,
+compile it as an explicit measured statement:
+
+  "the rear of the bus is approximately half a block ahead, occupying the upper
+  middle third of the frame, with a clear open lane visible to its left and
+  enough road between camera and bus to read as a decision, not an impact"
+
+Never "ahead." Always a distance, a frame fraction, and what must remain visible.
+
+### 2. Negate the opposite signal state
+Image models default to the cliché version of any signal. Ask for a school bus
+and you will get flashing reds, because that is what a school bus looks like in
+training data. If the card teaches a signal state, you must name the lit state
+AND explicitly negate every other state on the same fixture, in both the positive
+prompt and the negative block:
+
+  positive: "the two amber warning lamps are lit; the red lamps beside them are
+             dark and unlit; the stop arm is folded flat against the body; the
+             brake lights are dark"
+  negative: "no flashing red lights, no extended stop arm, no illuminated brake
+             lights"
+
+This applies to traffic signals, brake lights, turn signals, headlights, railway
+crossings, and emergency lights. Any card whose `read` is a signal state must
+carry a state-negation clause or it will fail more takes than it passes.
+
+### 3. Pull the location card
+Before compiling, check bible §11 for the location. If it is registered, paste
+its locked description verbatim and add nothing. If it is not registered, compile
+it, then register whatever you rendered so the next card in that location matches.
+A location gets described once and then never again re-imagined.
+
 ## OUTPUT
 
 One paragraph of prompt text, then the negative block, then the ratio. Nothing
@@ -129,16 +176,20 @@ else. No commentary. No alternatives.
 
 | Card contains | Attach |
 |---|---|
-| Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only if you need the braid-over-shoulder hair variant; do not mix frame shapes. |
-| Pink Menace exterior | `ref_car_exterior.jpg` — build and silhouette only, never the lighting |
-| Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` — interior layout and mesh only, never the lighting |
+| Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
+| Pink Menace exterior | `ref_car_exterior.jpg` |
+| Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
-| Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |
 | Yuna | `ref_yuna_sheet.png`, `ref_yuna.png` |
-| Ledger | `ref_ledger_sheet.png` (cockpit pending) |
-| Encore | `ref_encore_sheet.png` (cockpit pending) |
-| Convoy | `ref_convoy.png` |
+| The Ledger exterior | `ref_ledger_sheet.png` |
+| Ledger cockpit / Deac `POV_COCKPIT` | `ref_ledger_cockpit.png` |
+| Encore exterior | `ref_encore_sheet.png` |
+| Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` |
+| Two or more vehicles in frame | `ref_convoy.png` |
+| Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
 
-Do not let the model improvise unlocked characters card by card — that is how the last pass drifted.
+Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
+
+**Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.

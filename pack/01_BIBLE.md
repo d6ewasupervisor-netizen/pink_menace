@@ -1,4 +1,4 @@
-# PINK MENACE — WORLD BIBLE v1.1 (LOCKED)
+# PINK MENACE — WORLD BIBLE v1.2 (LOCKED)
 
 > Inject this file verbatim into every Layer 2 and Layer 3 call. Do not summarize it. Do not paraphrase it. If a generation contradicts this file, the generation is wrong.
 
@@ -161,24 +161,32 @@ Card art `3:4` portrait. Zone establishing `16:9`. Topdown diagrams `1:1`.
 
 Consequence must land. It must also survive an image generator's safety filter, or you burn generations on refusals.
 
-**Permitted (the implication vocabulary):**
-- An empty child seat, straps still buckled
-- A driver's door standing open, dome light on, nobody in frame
-- One shoe on the centerline
-- Handprints and drag streaks on the **outside** of glass
-- A windshield fogged from the inside
-- Silhouettes at the treeline, out of focus, at a distance
-- A stopped car with its hazards still blinking and no occupant
-- Dried dark spatter on a door panel, small, non-anatomical
-- Injury on a living character: bandaging, a bloodied sleeve, a limp, a wince
+**Permitted (the implication vocabulary):** — *this account, Aug 24 2026, see `08_CEILING_TESTS.md`*
+- An empty child seat, straps still buckled *(T1 PASS)*
+- A driver's door standing open, dome light on, nobody in frame *(T2 PASS)*
+- One shoe on the centerline *(T3 PASS)*
+- Handprints and drag streaks on glass *(T4 PASS; model prefers the inside of the glass)*
+- A windshield fogged from the inside *(T7 PASS)*
+- Silhouettes at the treeline, out of focus, at a distance *(T6 PASS if they stay small; do not place them on the pavement)*
+- Dried dark spatter on a door panel, small, non-anatomical *(T8 PASS)*
+- Dried dark streaking on the **inside** of a windshield, wiper-cleared arc *(T14 PASS)*
+- Injury on a living character **below the collarbone**: gauze with a dark stain *(T9 PASS)*; a torn sleeve and a favored arm *(T10 SOFT on blood — drop the stain, keep the tear and posture)*
+- Collision aftermath with no people, doors open, glass on the road *(T17 PASS)*
+- An empty driver's seat, belt cut or hanging, spidered glass *(T19 PASS)*
+- The Quiet as an unresolvable mass at mid-distance or vanishing point, through a windshield, out of focus, no faces *(T16 PASS, T20 PASS)*
 
 **Forbidden — do not generate, do not describe:**
 - Wounds, viscera, dismemberment, exposed anatomy
 - Bodies, human or animal, in any state
-- An infected in sharp focus at close range — they are always distant, blurred, or partial
+- Blood or gauze on a **face** *(T18 REFUSE)*
+- Bloodied clothing in a character portrait *(T10 SOFT — treat as refuse)*
+- An infected at side-window / arm's-reach distance *(T15 SOFT — pulls them into the cab)*
 - Any harm to a child shown on screen
 - Any harm to Gracie or Mya shown on screen
-- Blood on a face or hands in close-up
+
+**The Quiet — standing rule after T15/T20:** they are negative space unless the shot is a windshield at mid-distance or farther, figures unresolvable. Never request torn clothing, a face, or a side-window crop. What the characters look at, the reaction in the mirror, the empty road behind. Restraint beats depiction on this material, and on this account it is also the line that holds.
+
+**SOFT watch:** a stopped car with hazards will render as a moving car with parking lights *(T5)*. A "wrong gait" figure will render as a person standing still *(T12)*. A hand on the *outside* of glass will render as the occupant's own hand *(T13)*. Name the opposite state. Do not assume the brief survived.
 
 **The craft note:** implication outperforms depiction on retention anyway. An empty booster seat behind Bus 12 does more work than any wound, and it does it without a content filter argument.
 
@@ -189,3 +197,35 @@ Three mandatory mechanisms. The generator must honor all three.
 1. **Callback consequence.** Every wrong answer schedules a `ledger` card later in the same act that shows the fallout — *same characters, same location, same weather.* The student meets their own mistake again with a face on it.
 2. **Face-locked rules.** No rule is ever taught in the abstract. Stop arm = Reyna and Tobin. Door zone = Marisol. No-zone = Old Ninety. The student recalls the person, and the rule comes attached.
 3. **Visual accumulation.** Locations recur across acts and visibly change — the Fred Meyer lot in Act I is empty and quiet; when you pass it in Act VII it is not. Continuity is the memory hook.
+
+## 11. LOCATION REGISTRY
+
+A location is described **once**. After that it is pasted verbatim, forever. This section exists because an image compile invented a fallen tree on a Kent street, and an invented object in a recurring location is either a continuity break in every later card or a permanent set piece nobody chose.
+
+Rule for the compiler: check this registry before compiling. Registered → paste verbatim, add nothing. Not registered → compile it, then register exactly what rendered.
+
+Rule for the writer: registered locations may **change across acts** (that is the visual accumulation mechanism in §10). Changes are versioned, not overwritten — add an act-scoped variant, never edit the base.
+
+### L-001 · Kent, 4th Ave S at Willis
+*First appearance: II-007. Act II base state.*
+
+> A wet two-lane residential arterial running flat and straight. Cracked asphalt with standing water in the wheel tracks and a shallow crown. Bare maples on both verges, no leaves. Low single-story houses set back behind chain-link, sagging gutters, blinds drawn. Cracked concrete sidewalk on the east side only; the west side is gravel shoulder. Overhead power lines on wood poles. Flat gray overcast, no shadows. **Nothing is fallen, blocking, wrecked, or burning. The road is clear.**
+
+### L-002 · The Lot — dead Fred Meyer, Renton
+*Act I base state.*
+
+> A large empty retail parking lot, faded painted stalls, weeds through the seams, cart corrals empty and rust-streaked. A long low storefront at the north end, roll-down shutters closed, sign faces removed leaving pale rectangles. Light poles standing, none lit. Wet asphalt, flat gray overcast. Empty, quiet, undamaged.
+
+*Act VII variant (L-002-VII):* same geometry, at night, light poles now lit on emergency circuit, and it is not empty. Do not describe what is in it beyond distant out-of-focus silhouettes per §9.
+
+### Registry template
+
+```
+### L-0NN · <name>
+*First appearance: <card_id>. Act <N> base state.*
+
+> <90-140 words: road geometry, surface, verges, structures, vegetation,
+> sky, light. Ends with an explicit statement of what is NOT there.>
+```
+
+That last sentence is not optional. Naming the absence is what stops the model filling it.
