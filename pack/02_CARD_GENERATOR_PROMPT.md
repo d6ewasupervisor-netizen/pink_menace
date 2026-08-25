@@ -90,6 +90,9 @@ not a portrait, not a montage. The frame the student's eyes would be seeing.
 
 Fields:
   camera        — exactly one token from bible §8.3
+  camera_is_the_lesson — true only when the camera position is the teaching
+                  content (e.g. a following-driver view of a left-arm signal).
+                  Exempts the card from the 25% cap and from window-of-6 counts.
   subject       — the ONE thing the eye lands on first
   foreground    — what frames the shot (wheel rim, mirror housing, mesh, door pillar)
   midground     — the hazard or decision object
@@ -100,6 +103,10 @@ Fields:
                   locations recurring from earlier cards)
 
 Rules:
+  - Identity-free by default. Decision cards prefer `POV_COCKPIT`, `POV_MIRROR`,
+    `POV_OBJECT`, or geometric `POV_TOPDOWN`. Ali is behind the camera.
+  - Face-critical frames (`POV_PORTRAIT`, close `POV_ROADSIDE`) are ≤ 10% of an
+    act — three cards in thirty. Never accept a first take on those.
   - Never `POV_PORTRAIT` on a decision card. Portraits are for dossiers only.
   - Rules of geometry (turns, merges, roundabouts, parking, lane position) default
     to `POV_TOPDOWN`. Geometry does not read from a windshield.
@@ -107,6 +114,8 @@ Rules:
   - Sign, signal, and marking recognition defaults to `POV_OBJECT`.
   - Do not put text, words, numbers, or UI in the frame unless the card is
     teaching a sign face or a gauge reading.
+  - Set `camera_is_the_lesson` when moving the camera would falsify the rule
+    being taught. Do not use it to dodge the cap.
 
 ## CONTENT CEILING
 
@@ -121,6 +130,10 @@ The ledger state lists what has already been used. You must:
   - Never repeat the same (location_type + weather + time_of_day) triple within
     six cards.
   - Never use the same camera token twice in a row.
+  - No camera token on more than 25% of **non-exempt** cards in the act.
+    `camera_is_the_lesson` cards leave the denominator.
+  - No camera token more than twice in any window of six cards (lesson cameras
+    omitted from that count).
   - Never open two consecutive cards with the same sentence shape.
   - Never use the same recurring cast member within four cards.
   - If the slot forces a repeat, change the axis you CAN change and note it in

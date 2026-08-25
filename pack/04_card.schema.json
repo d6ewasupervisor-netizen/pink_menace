@@ -111,6 +111,10 @@
         "camera": {
           "enum": ["POV_COCKPIT", "POV_MIRROR", "POV_TOPDOWN", "POV_CHASE", "POV_ROADSIDE", "POV_PORTRAIT", "POV_OBJECT"]
         },
+        "camera_is_the_lesson": {
+          "type": "boolean",
+          "description": "True when the camera position is itself the teaching content. Exempt from the 25% act cap and from window-of-6 token counts; consecutive-token rule still applies."
+        },
         "subject": { "type": "string", "maxLength": 200 },
         "foreground": { "type": "string", "maxLength": 200 },
         "midground": { "type": "string", "maxLength": 200 },

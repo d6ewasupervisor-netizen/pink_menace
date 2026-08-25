@@ -33,6 +33,10 @@ You MUST:
   - resolve the camera token to its framing description from bible §8.3
   - name every continuity asset with its full canonical description from the
     bible, every time, in full — never "Ali" alone, never "the car" alone
+  - for vehicles, name the base the model already knows, then the four-item
+    feature requirement — never lead with the conversion
+  - on identity-free cameras (POV_COCKPIT, POV_MIRROR, POV_OBJECT, geometric
+    POV_TOPDOWN), do not describe a driver's face. Cockpit shows no driver.
   - end with the negative block
   - state the aspect ratio
 
@@ -59,10 +63,13 @@ ALI:
   calm flat expression"
 
 PINK MENACE:
-  "a Baja-converted VW Beetle in faded matte pink with oxidation, riveted raw
-  steel plating over the door and rear quarter panel, welded steel mesh cages
-  over every window and the windshield, a black tube bull bar with a wide flat
-  plow blade, oversize knobby tires on chrome slot wheels"
+  "a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders,
+  sloping rear engine cover, domed roof — faded matte pink with oxidation.
+  All four of the following must be clearly visible and unmistakable: welded
+  steel mesh cages over the windows, a black tube bull bar carrying a wide
+  flat plow blade at the front, riveted raw-steel plating over the driver's
+  door and rear quarter panel, and oversize knobby tires on chrome slot
+  wheels"
 
 PINK MENACE INTERIOR:
   "a cracked faded pink dashboard, worn black leather steering wheel with a
@@ -78,13 +85,13 @@ DEAC:
   one shoulder, half-frame reading glasses hanging on a cord against his chest"
 
 THE LEDGER:
-  "an ex-transit cutaway shuttle bus, a tall square passenger box on a van nose,
-  faded green and white transit livery ghosting under gray primer, plate steel
-  skirting the lower body panels, expanded metal mesh over every side window, a
-  welded bar cage over the windshield with a cut wiper slot, a roof cargo rack
-  with lashed water cans and a folded aluminum ramp, oversize convex west-coast
-  mirrors on long arms on both sides, an amber dot-matrix destination sign above
-  the windshield"
+  "a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette
+  — a tall square passenger box on a van cab, faded green and white transit
+  livery ghosting under gray primer. All four of the following must be clearly
+  visible and unmistakable: the tall square box on a van nose, oversize convex
+  west-coast mirrors on long arms on both sides, an amber dot-matrix
+  destination sign above the windshield, and a welded bar cage over the
+  windshield with a cut wiper slot"
 
 YUNA:
   "a 17-year-old woman with light-medium skin and no glasses, an asymmetric
@@ -95,12 +102,12 @@ YUNA:
   earpiece in and one dangling"
 
 ENCORE:
-  "a stripped compact hatchback with a low wide wedge silhouette, matte black
-  with tape-patched panels, retroreflective chevron striping salvaged from
-  highway signs across both doors and the tailgate, intact window glass in all
-  openings with no mesh and no bars, gutted interior visible through the glass
-  with an exposed roll cage, one bucket seat and a mismatched welded-in rear
-  bench, a roof frame carrying four chrome PA horn flares, no armor"
+  "a classic compact hatchback, unmistakably a hatchback in silhouette — low,
+  wide, wedge-shaped — matte black with tape-patched panels. All four of the
+  following must be clearly visible and unmistakable: the low wide wedge,
+  four chrome PA horn flares on a roof frame (horns, not spotlights),
+  retroreflective chevron striping across the doors and tailgate, and intact
+  window glass in all openings with no mesh and no bars"
 
 GRACIE:
   "an orange tabby cat with cream chest and amber-green eyes"
@@ -168,6 +175,20 @@ its locked description verbatim and add nothing. If it is not registered, compil
 it, then register whatever you rendered so the next card in that location matches.
 A location gets described once and then never again re-imagined.
 
+## IDENTITY EXPOSURE — pack/12
+
+Identity only has to be consistent where identity is visible. Attachment is
+soft conditioning, not lock. Do not spend prompt weight on a face that is not
+in frame.
+
+- Face-critical (POV_PORTRAIT, close POV_ROADSIDE): expand Ali / Deac / Yuna
+  in full. These are the frames that get eight takes.
+- Vehicle-critical (POV_CHASE, distant roadside, exterior topdown): name the
+  base vehicle the model already knows, then the four-item requirement clause.
+- Identity-free (POV_COCKPIT, POV_MIRROR, POV_OBJECT, geometric POV_TOPDOWN):
+  no driver face. Cockpit is over the wheel, looking out. Mirror and object
+  shots teach geometry or a signal, not a person.
+
 ## OUTPUT
 
 One paragraph of prompt text, then the negative block, then the ratio. Nothing
@@ -198,3 +219,15 @@ else. No commentary. No alternatives.
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 
 **Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.
+
+## Operator QA — ten seconds, reject on any miss (pack/12)
+
+Do not accept "close enough"; drift compounds across an act.
+
+- **Ali (face-critical only):** round wire-rim glasses · cranberry-red hair · braided at the crown · gold hoops · flat affect, not smiling
+- **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
+- **Ledger:** box on van nose · big convex mirrors both sides · amber destination sign · windshield bar cage
+- **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
+- **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
+
+If you mute the card text and the image no longer teaches, the image failed regardless of how on-model it is.

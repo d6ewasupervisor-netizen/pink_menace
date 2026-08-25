@@ -1,4 +1,4 @@
-# PINK MENACE — WORLD BIBLE v1.2 (LOCKED)
+# PINK MENACE — WORLD BIBLE v1.3 (LOCKED)
 
 > Inject this file verbatim into every Layer 2 and Layer 3 call. Do not summarize it. Do not paraphrase it. If a generation contradicts this file, the generation is wrong.
 
@@ -157,8 +157,13 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 | `POV_PORTRAIT` | Chest-up, subject centered, background compressed | Dossier and character cards |
 | `POV_OBJECT` | The sign, the light, the marking, isolated, shallow DOF | Rule cards |
 
+`image_brief.camera_is_the_lesson: true` when the camera *is* the lesson (following-driver view of a left-arm signal). Those cards drop out of the 25% cap and the window-of-6 count. Never the same token twice in a row, exempt or not. Full rule in pack/12 and pack/05.
+
 ### 8.4 Aspect ratios
 Card art `3:4` portrait. Zone establishing `16:9`. Topdown diagrams `1:1`.
+
+### 8.5 Identity exposure
+Identity only has to be consistent where identity is visible. Face-critical frames ≤ 10% of an act; vehicle-critical ≤ 25%; the rest are identity-free cameras with nothing to drift. Compile vehicles as the base the model already knows, then a four-item requirement clause. Do not fight attachment into lock card by card. Pack/12.
 
 ## 9. CONTENT CEILING — implied, PG-13
 

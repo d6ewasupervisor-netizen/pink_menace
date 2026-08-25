@@ -27,9 +27,11 @@ Three layers, and the order matters.
 
 **Layer 3 — `03_IMAGE_COMPILER_PROMPT.md`.** Takes `card.image_brief` and compiles it into a GPT Image 2 prompt using only locked tokens plus the scene delta. It cannot invent subjects. It cannot change lighting. It picks from a fixed camera set.
 
-`05_VARIATION_LEDGER.md` is the anti-monotony engine — forced rotation across eight axes with a running no-repeat state you pass back into L2 on every call.
+`05_VARIATION_LEDGER.md` is the anti-monotony engine — forced rotation across eight axes with a running no-repeat state you pass back into L2 on every call. Camera cap and clustering are enforced by `npm run validate-cards` (pack/12).
 
 `06_WORKED_EXAMPLE.md` is one card carried end to end so you can see the output shape before you generate 150 of them.
+
+`12_IDENTITY_AND_CAMERA_POLICY.md` is the shot-design rule adopted after the Act II art pass: identity budget, vehicle feature checklist, amended camera cap.
 
 ---
 
@@ -38,9 +40,10 @@ Three layers, and the order matters.
 1. Lock Deac, Yuna, the Ledger, and Encore from `07_CHARACTER_LOCK_PROMPTS.md` before any card that features them. Ali and the Menace already have refs.
 2. Build the slot list from `01_BIBLE.md` §7 (Zone Map). Every slot = one PSDP skill + one DOL section + one card type.
 3. Generate **Act II first**, not Act I. Act I is parking-lot fundamentals and the hardest act to make fun — lock the voice on The Grid before you write Skill One. Within an act, walk the slot list in order so callbacks can resolve.
-4. After each card, append its axis values to the ledger state and pass the updated state into the next call.
-5. Batch image compilation **after** a full zone is written, so recurring locations stay visually consistent within an act.
-6. Chunk size 100 for any bulk pass. Run twenty §9 ceiling tests before committing a full act.
+4. **Do not write Act III until someone has played Act II.** Thirty live cards, working auth, a callback engine, and a parent dashboard are still a pile of untested assumptions about what a sixteen-year-old will do. One playthrough answers whether she reads the scene or skims to the options, whether the debrief lands or gets tapped past, and whether the II-007 miss → II-010 callback registers as *her* mistake coming back. If the callback does not land, Act III's design changes before you write it.
+5. After each card, append its axis values to the ledger state and pass the updated state into the next call.
+6. Batch image compilation **after** a full zone is written, so recurring locations stay visually consistent within an act.
+7. Chunk size 100 for any bulk pass. Run twenty §9 ceiling tests before committing a full act.
 
 ## Regeneration rule
 

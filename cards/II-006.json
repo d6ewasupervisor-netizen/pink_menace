@@ -66,6 +66,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_MIRROR",
+    "camera_is_the_lesson": true,
     "subject": "Deac's left arm out the Ledger's driver window as seen from behind, arm out and angled down, fingers pointing at the ground",
     "foreground": "wet following-driver glass, a smear of rain, the Ledger's left rear quarter filling the frame",
     "midground": "open driver window, west-coast mirror, the arm the column can actually see",

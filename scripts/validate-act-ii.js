@@ -5,6 +5,7 @@ const path = require("path");
 const { loadTables, validateCard } = require("./validate-citations");
 const { seqFromCard } = require("./card-seq");
 const { resolveCard } = require("./resolve-refs");
+const { checkCameraLedger } = require("./camera-ledger");
 
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^II-\d{3}\.json$/.test(f)).sort();
@@ -27,7 +28,6 @@ const errors = [];
 function err(id, msg) { errors.push(`${id}: ${msg}`); }
 
 const answers = { a: 0, b: 0, c: 0, d: 0 };
-const cameras = {};
 const openings = [];
 const recast = ["gracie", "reyna_solis", "tobin", "marisol", "hollis", "deac", "bus_12"];
 
@@ -54,11 +54,9 @@ for (let i = 0; i < cards.length; i++) {
   if (!toneEnum.includes(c.variation.tone)) err(id, "tone");
   if (!failEnum.includes(c.variation.failure_mode)) err(id, "failure");
   if (!camEnum.includes(c.image_brief.camera)) err(id, "camera");
-  cameras[c.image_brief.camera] = (cameras[c.image_brief.camera] || 0) + 1;
   if (c.antagonist && !antEnum.includes(c.antagonist)) err(id, "antagonist");
   for (const x of c.cast || []) if (!castEnum.includes(x)) err(id, `cast ${x}`);
   openings.push(c.scene.trim().split(/\s+/).slice(0, 3).join(" "));
-  if (i > 0 && c.image_brief.camera === cards[i - 1].image_brief.camera) err(id, "camera twice in a row");
   if (i > 0 && openings[i] === openings[i - 1]) err(id, "opening repeat");
   const triple = `${c.variation.location_type}|${c.variation.weather}|${c.variation.time_of_day}`;
   for (let j = Math.max(0, i - 5); j < i; j++) {
@@ -85,9 +83,21 @@ for (let i = 0; i < cards.length; i++) {
 }
 
 const n = cards.filter((c) => c.card_type !== "dossier").length;
+const cameraLedger = checkCameraLedger(cards);
+for (const e of cameraLedger.errors) errors.push(e);
+const portraits = cards.filter((c) => c.image_brief && c.image_brief.camera === "POV_PORTRAIT").length;
+const faceBudget = Math.ceil(cards.length * 0.1);
 console.log("cards", cards.length, "decision", n);
 console.log("answers", answers);
-console.log("cameras", cameras);
+console.log("cameras", cameraLedger.cameras);
+console.log(
+  "camera cap (non-exempt)",
+  cameraLedger.nonExemptCounts,
+  `denom ${cameraLedger.nonExemptDenom}`,
+  "exempt",
+  cameraLedger.exemptIds
+);
+console.log("face-critical portraits", portraits, "budget ≤", faceBudget, "(Act II shipped as-is; do not regenerate)");
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
