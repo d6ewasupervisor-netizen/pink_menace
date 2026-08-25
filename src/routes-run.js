@@ -90,10 +90,10 @@ function mountRun(app) {
     const session = await auth.requireRole(req, res, "student");
     if (!session) return;
     const cardId = String((req.body && req.body.card_id) || "");
-    const optionId = String((req.body && req.body.option_id) || "");
+    let optionId = String((req.body && req.body.option_id) || "");
     const ms = Number(req.body && req.body.ms_to_answer);
     const msToAnswer = Number.isFinite(ms) ? Math.max(0, Math.min(ms, 3_600_000)) : null;
-    if (!cardId || !optionId) return jsonError(res, 400, "Missing answer.");
+    if (!cardId) return jsonError(res, 400, "Missing answer.");
     const client = await pool.connect();
     try {
       await client.query("BEGIN");
@@ -109,25 +109,41 @@ function mountRun(app) {
         await client.query("ROLLBACK");
         return jsonError(res, 409, "This is not the current card.");
       }
-      const optRes = await client.query(
-        `SELECT option_id, is_correct, result, state_delta
-           FROM card_options
-          WHERE card_id = $1 AND option_id = $2`,
-        [cardId, optionId]
-      );
-      const option = optRes.rows[0];
-      if (!option) {
-        await client.query("ROLLBACK");
-        return jsonError(res, 400, "Unknown option.");
-      }
       const cardRes = await client.query(
-        `SELECT card_id, debrief, schedules_callback, callback_of, psdp_skill, dol_section,
+        `SELECT card_id, card_type, debrief, schedules_callback, callback_of, psdp_skill, dol_section,
                 act, zone, location_type, weather, time_of_day
            FROM cards
           WHERE card_id = $1`,
         [cardId]
       );
       const card = cardRes.rows[0];
+      if (!card) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 400, "Unknown card.");
+      }
+      if (card.card_type === "dossier" && (!optionId || optionId === "continue")) {
+        optionId = "continue";
+      }
+      if (!optionId) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 400, "Missing answer.");
+      }
+      let option = null;
+      if (card.card_type === "dossier" && optionId === "continue") {
+        option = { option_id: "continue", is_correct: true, result: "", state_delta: {} };
+      } else {
+        const optRes = await client.query(
+          `SELECT option_id, is_correct, result, state_delta
+             FROM card_options
+            WHERE card_id = $1 AND option_id = $2`,
+          [cardId, optionId]
+        );
+        option = optRes.rows[0];
+      }
+      if (!option) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 400, "Unknown option.");
+      }
       const answerId = crypto.randomUUID();
       try {
         await client.query(

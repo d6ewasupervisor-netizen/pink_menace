@@ -17,7 +17,7 @@ app.get("/health", (req, res) => {
   res.json({ ok: true, service: "pink-menace", kind: appKind(req) });
 });
 
-app.use("/shared", express.static(path.join(__dirname, "public", "shared"), { maxAge: "1h" }));
+app.use("/shared", express.static(path.join(__dirname, "public", "shared"), { maxAge: 0 }));
 
 mountRoutes(app);
 

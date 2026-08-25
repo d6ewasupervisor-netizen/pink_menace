@@ -103,7 +103,7 @@ function clearCallback(debts, fromCard) {
 
 async function publicCard(cardId) {
   const { rows: cards } = await query(
-    `SELECT card_id, title, scene, decision
+    `SELECT card_id, title, scene, decision, card_type
        FROM cards
       WHERE card_id = $1`,
     [cardId]
@@ -119,6 +119,7 @@ async function publicCard(cardId) {
   );
   return {
     card_id: card.card_id,
+    card_type: card.card_type,
     title: card.title,
     scene: card.scene,
     decision: card.decision,

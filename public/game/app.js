@@ -37,7 +37,9 @@ function renderCard(card) {
   shownAt = Date.now();
   document.getElementById("title").textContent = card.title || "";
   document.getElementById("scene").textContent = card.scene || "";
-  document.getElementById("decision").textContent = card.decision || "";
+  const decision = document.getElementById("decision");
+  decision.textContent = card.decision || "";
+  decision.classList.toggle("hidden", !card.decision);
   const shot = document.getElementById("shot");
   if (card.image_url) {
     shot.src = card.image_url + "?t=" + encodeURIComponent(card.card_id);
@@ -51,16 +53,23 @@ function renderCard(card) {
   const cont = document.getElementById("continue");
   result.classList.add("hidden");
   debrief.classList.add("hidden");
-  cont.classList.add("hidden");
   const opts = document.getElementById("options");
   opts.replaceChildren();
-  opts.classList.remove("hidden");
-  for (const o of card.options || []) {
+  const options = card.options || [];
+  opts.classList.toggle("hidden", !options.length);
+  for (const o of options) {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.textContent = o.option_text;
     btn.addEventListener("click", () => submitAnswer(o.option_id));
     opts.appendChild(btn);
+  }
+  if (!options.length) {
+    cont.classList.remove("hidden");
+    cont.onclick = () => submitAnswer("continue");
+  } else {
+    cont.classList.add("hidden");
+    cont.onclick = null;
   }
 }
 
@@ -71,8 +80,8 @@ function showOutcome(data) {
   const debrief = document.getElementById("debrief");
   result.textContent = data.result || "";
   debrief.textContent = data.debrief || "";
-  result.classList.remove("hidden");
-  debrief.classList.remove("hidden");
+  result.classList.toggle("hidden", !data.result);
+  debrief.classList.toggle("hidden", !data.debrief);
   const cont = document.getElementById("continue");
   cont.classList.remove("hidden");
   const answeredId = currentCardId;
