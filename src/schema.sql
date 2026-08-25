@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS run_answers (
   option_id TEXT NOT NULL,
   was_correct BOOLEAN NOT NULL,
   ms_to_answer INTEGER,
+  ms_on_outcome INTEGER,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (run_id, card_id, attempt_no)
 );

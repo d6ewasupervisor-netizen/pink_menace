@@ -27,7 +27,8 @@ app.use("/api", (_req, res) => {
 
 app.use((req, res, next) => {
   const dir = appKind(req) === "parents" ? "parents" : "game";
-  express.static(path.join(__dirname, "public", dir), { index: false, maxAge: "1h" })(req, res, next);
+  const maxAge = dir === "game" ? 0 : "1h";
+  express.static(path.join(__dirname, "public", dir), { index: false, maxAge })(req, res, next);
 });
 
 app.get("*", (req, res) => {

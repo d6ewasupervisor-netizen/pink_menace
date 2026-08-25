@@ -53,6 +53,9 @@ async function migrate() {
   await pool.query(`
     ALTER TABLE runs ADD COLUMN IF NOT EXISTS callback_debts JSONB NOT NULL DEFAULT '[]'::jsonb
   `);
+  await pool.query(`
+    ALTER TABLE run_answers ADD COLUMN IF NOT EXISTS ms_on_outcome INTEGER
+  `);
   await pool.query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
 }
 

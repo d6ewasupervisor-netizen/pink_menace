@@ -7,6 +7,8 @@ const { seqFromCard } = require("./card-seq");
 const { resolveCard } = require("./resolve-refs");
 const { checkCameraLedger } = require("./camera-ledger");
 
+// Compiler rule, not a prose rule. Scene/debrief may say "driver-side window"
+// because that is the language the guide uses. Do not "fix" card text to match.
 const ROLE_RELATIVE_RE = /\b(?:driver['’]?s[ -](?:side|window|door)|driver-(?:side|window|door)|driver (?:side|window|door)|passenger['’]?s?[ -]side|passenger-side|near[ -]side|off[ -]side)\b/i;
 
 const dir = path.join(__dirname, "..", "cards");

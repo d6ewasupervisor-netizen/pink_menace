@@ -5,6 +5,7 @@ const confirmQ = document.getElementById("confirm-q");
 const appEl = document.getElementById("app");
 let pendingQueue = [];
 let shownAt = 0;
+let outcomeAt = 0;
 let currentCardId = null;
 
 function showConfirm() {
@@ -64,6 +65,7 @@ function renderCard(card) {
 }
 
 function showOutcome(data) {
+  outcomeAt = Date.now();
   document.getElementById("options").classList.add("hidden");
   const result = document.getElementById("result");
   const debrief = document.getElementById("debrief");
@@ -73,7 +75,19 @@ function showOutcome(data) {
   debrief.classList.remove("hidden");
   const cont = document.getElementById("continue");
   cont.classList.remove("hidden");
-  cont.onclick = () => {
+  const answeredId = currentCardId;
+  cont.onclick = async () => {
+    try {
+      await PM.api("/api/run/continue", {
+        method: "POST",
+        body: {
+          card_id: answeredId,
+          ms_on_outcome: Date.now() - outcomeAt,
+        },
+      });
+    } catch {
+      // dwell is optional; never block the next card
+    }
     if (data.next && data.next.done) {
       document.getElementById("title").textContent = "";
       document.getElementById("scene").textContent = "";
@@ -94,6 +108,7 @@ async function submitAnswer(optionId) {
   const data = await PM.api("/api/run/answer", {
     method: "POST",
     body: {
+      // Scene + decision + options dwell. Median under ~6s means the scene was not read.
       card_id: currentCardId,
       option_id: optionId,
       ms_to_answer: Date.now() - shownAt,

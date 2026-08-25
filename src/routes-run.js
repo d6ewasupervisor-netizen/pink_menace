@@ -234,6 +234,38 @@ function mountRun(app) {
       client.release();
     }
   });
+
+  app.post("/api/run/continue", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    const cardId = String((req.body && req.body.card_id) || "");
+    const ms = Number(req.body && req.body.ms_on_outcome);
+    const msOnOutcome = Number.isFinite(ms) ? Math.max(0, Math.min(ms, 3_600_000)) : null;
+    if (!cardId) return jsonError(res, 400, "Missing card.");
+    try {
+      const runRes = await query(
+        `SELECT id FROM runs WHERE student_id = $1 AND status IN ('active', 'completed')
+         ORDER BY updated_at DESC LIMIT 1`,
+        [session.userId]
+      );
+      const run = runRes.rows[0];
+      if (!run) return jsonError(res, 409, "No run.");
+      await query(
+        `UPDATE run_answers a
+            SET ms_on_outcome = $1
+          WHERE a.run_id = $2 AND a.card_id = $3 AND a.ms_on_outcome IS NULL
+            AND a.attempt_no = (
+              SELECT MAX(b.attempt_no) FROM run_answers b
+               WHERE b.run_id = $2 AND b.card_id = $3
+            )`,
+        [msOnOutcome, run.id, cardId]
+      );
+      return res.json({ ok: true });
+    } catch (err) {
+      return jsonError(res, 500, "Could not save continue.");
+    }
+  });
 }
 
 module.exports = { mountRun };
