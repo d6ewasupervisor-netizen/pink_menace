@@ -95,12 +95,12 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_MIRROR",
-    "subject": "the driver's side mirror of the Pink Menace, filled with a long clear stretch of empty wet residential street behind the car",
+    "subject": "the mirror on the left side of the vehicle, seen from inside the cabin, filled with a long clear stretch of empty wet residential street behind the car",
     "foreground": "the mirror housing and a slice of riveted steel door plating, sharply in focus",
     "midground": "a paved driveway apron entering frame at the mirror's edge on the same side as the car",
     "background": "Willis running straight and empty to a distant vanishing point, bare maples, flat gray overcast",
     "read": "the road behind is visibly long, straight and unobstructed, and the driveway sits on the same side as the mirror",
-    "continuity": ["pink_menace_exterior", "L-001"],
+    "continuity": ["pink_menace_interior", "pink_menace_exterior", "L-001"],
     "aspect": "3:4"
   },
   "variation": {

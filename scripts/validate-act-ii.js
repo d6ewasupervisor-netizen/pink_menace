@@ -7,6 +7,8 @@ const { seqFromCard } = require("./card-seq");
 const { resolveCard } = require("./resolve-refs");
 const { checkCameraLedger } = require("./camera-ledger");
 
+const ROLE_RELATIVE_RE = /\b(?:driver['’]?s[ -](?:side|window|door)|driver-(?:side|window|door)|driver (?:side|window|door)|passenger['’]?s?[ -]side|passenger-side|near[ -]side|off[ -]side)\b/i;
+
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^II-\d{3}\.json$/.test(f)).sort();
 const tables = loadTables();
@@ -54,6 +56,14 @@ for (let i = 0; i < cards.length; i++) {
   if (!toneEnum.includes(c.variation.tone)) err(id, "tone");
   if (!failEnum.includes(c.variation.failure_mode)) err(id, "failure");
   if (!camEnum.includes(c.image_brief.camera)) err(id, "camera");
+  for (const [k, v] of Object.entries(c.image_brief || {})) {
+    const texts = Array.isArray(v) ? v : [v];
+    for (const t of texts) {
+      if (typeof t === "string" && ROLE_RELATIVE_RE.test(t)) {
+        err(id, `image_brief.${k} uses a role-relative spatial term`);
+      }
+    }
+  }
   if (c.antagonist && !antEnum.includes(c.antagonist)) err(id, "antagonist");
   for (const x of c.cast || []) if (!castEnum.includes(x)) err(id, `cast ${x}`);
   openings.push(c.scene.trim().split(/\s+/).slice(0, 3).join(" "));

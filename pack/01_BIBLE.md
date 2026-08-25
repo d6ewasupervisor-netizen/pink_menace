@@ -150,7 +150,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 | Token | Framing | Use for |
 |---|---|---|
 | `POV_COCKPIT` | Over the wheel, gauges bottom-left, mesh screen top, road through the grid | Decision moments while moving |
-| `POV_MIRROR` | Tight on rearview or driver's side mirror, subject in the glass, foreground blurred | Blind zones, following traffic, backing |
+| `POV_MIRROR` | Tight on the rearview or the mirror on the left side of the vehicle, subject in the glass, foreground blurred | Blind zones, following traffic, backing |
 | `POV_TOPDOWN` | Clean orthographic overhead, vehicles as shapes, lane geometry legible | Rules of geometry — turns, merges, roundabouts, parking |
 | `POV_CHASE` | Behind and slightly above the vehicle, road ahead visible | Zone establishing shots, convoy formation |
 | `POV_ROADSIDE` | Ground level, outside the car, human eye height | Pedestrians, cyclists, traffic stops, aftermath |

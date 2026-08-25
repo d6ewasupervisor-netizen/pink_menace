@@ -116,6 +116,10 @@ Rules:
     teaching a sign face or a gauge reading.
   - Set `camera_is_the_lesson` when moving the camera would falsify the rule
     being taught. Do not use it to dodge the cap.
+  - Never write role-relative spatial terms in `image_brief`: driver's side,
+    driver-side, passenger-side, near side, off side, driver's window, driver's
+    door. Frame-relative only, plus an explicit left-hand-drive statement if a
+    vehicle is in frame.
 
 ## CONTENT CEILING
 

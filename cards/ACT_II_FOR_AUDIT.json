@@ -456,11 +456,11 @@
     "image_brief": {
       "camera": "POV_MIRROR",
       "camera_is_the_lesson": true,
-      "subject": "Deac's left arm out the Ledger's driver window as seen from behind, arm out and angled down, fingers pointing at the ground",
-      "foreground": "wet following-driver glass, a smear of rain, the Ledger's left rear quarter filling the frame",
-      "midground": "open driver window, west-coast mirror, the arm the column can actually see",
+      "subject": "Deac's left arm extending from the window on the LEFT side of the frame, seen from directly behind the Ledger, arm out and angled down, fingers pointing at the ground",
+      "foreground": "wet following-vehicle glass, a smear of rain, the Ledger's left rear quarter filling the frame",
+      "midground": "open window on the left side of the frame; the right side of the vehicle is closed and no arm appears there",
       "background": "overcast night, flashing white school-zone lamps, empty playground fence",
-      "read": "the arm is out and down — stop — on the driver side a following vehicle can see",
+      "read": "the arm is out and down — stop — extending from the window on the left side of the frame",
       "continuity": [
         "the_ledger",
         "pink_menace_exterior",
@@ -1295,11 +1295,11 @@
     "image_brief": {
       "camera": "POV_MIRROR",
       "camera_is_the_lesson": true,
-      "subject": "Deac's left arm out the Ledger's driver window as seen from behind, arm straight out horizontally, fingers pointing level left",
-      "foreground": "wet following-driver glass, rain, the Ledger's left rear quarter",
-      "midground": "open driver window, west-coast mirror, a volunteer van starting to cheat left of the line",
-      "background": "Kent Station deck, midday rain, unlit lamps",
-      "read": "the arm is straight out to the left — not bent up — on the driver side the column can see",
+      "subject": "Deac's left arm extending from the window on the LEFT side of the frame, seen from directly behind the Ledger, arm straight out horizontally, fingers pointing level left",
+      "foreground": "wet following-vehicle glass, rain, the Ledger's left rear quarter",
+      "midground": "open window on the left side of the frame; the right side of the vehicle is closed and no arm appears there",
+      "background": "Kent Station deck, midday rain, unlit lamps, a volunteer van cheating left of the line",
+      "read": "the arm is straight out to the left — not bent up — extending from the window on the left side of the frame",
       "continuity": [
         "the_ledger",
         "pink_menace_exterior",
@@ -1768,12 +1768,13 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_MIRROR",
-      "subject": "the driver's side mirror of the Pink Menace, filled with a long clear stretch of empty wet residential street behind the car",
+      "subject": "the mirror on the left side of the vehicle, seen from inside the cabin, filled with a long clear stretch of empty wet residential street behind the car",
       "foreground": "the mirror housing and a slice of riveted steel door plating, sharply in focus",
       "midground": "a paved driveway apron entering frame at the mirror's edge on the same side as the car",
       "background": "Willis running straight and empty to a distant vanishing point, bare maples, flat gray overcast",
       "read": "the road behind is visibly long, straight and unobstructed, and the driveway sits on the same side as the mirror",
       "continuity": [
+        "pink_menace_interior",
         "pink_menace_exterior",
         "L-001"
       ],
@@ -1939,11 +1940,11 @@
     "image_brief": {
       "camera": "POV_MIRROR",
       "camera_is_the_lesson": true,
-      "subject": "Deac's left arm out the Ledger's driver window as seen from behind, bent sharply at the elbow, forearm vertical, fingers pointing at the sky",
-      "foreground": "wet following-driver glass, wind-blown rain, the Ledger's left rear quarter",
-      "midground": "open driver window, west-coast mirror, a volunteer van rolling straight past a driveway on the right",
-      "background": "Kent school fence, midday, dark lamps, empty yard",
-      "read": "the arm is bent up, fingers to the sky — right turn — on the driver side a following vehicle can see",
+      "subject": "Deac's left arm extending from the window on the LEFT side of the frame, seen from directly behind the Ledger, bent sharply at the elbow, forearm vertical, fingers pointing at the sky",
+      "foreground": "wet following-vehicle glass, wind-blown rain, the Ledger's left rear quarter",
+      "midground": "open window on the left side of the frame; the right side of the vehicle is closed and no arm appears there",
+      "background": "Kent school fence, midday, dark lamps, empty yard, a volunteer van rolling past a driveway on the right",
+      "read": "the arm is bent up, fingers to the sky — right turn — extending from the window on the left side of the frame",
       "continuity": [
         "the_ledger",
         "pink_menace_exterior",

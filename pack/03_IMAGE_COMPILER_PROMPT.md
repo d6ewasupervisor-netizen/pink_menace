@@ -27,6 +27,9 @@ You MAY NOT:
   - add text, logos, watermarks, HUD, or UI unless the brief's `read` requires
     a sign face or gauge
   - depict anything in bible §9 FORBIDDEN
+  - emit role-relative spatial terms: driver's side, driver-side, passenger
+    side, passenger-side, near side, off side, driver's window, driver's door.
+    An image model has no anchor for which side that is.
 
 You MUST:
   - open with the master style token from bible §8.1, verbatim
@@ -37,6 +40,9 @@ You MUST:
     feature requirement — never lead with the conversion
   - on identity-free cameras (POV_COCKPIT, POV_MIRROR, POV_OBJECT, geometric
     POV_TOPDOWN), do not describe a driver's face. Cockpit shows no driver.
+  - convert every role-relative spatial term to frame-relative language plus
+    an explicit drive-side statement before compiling. Do not pass them through.
+  - append the left-hand-drive clause to every compile that includes a vehicle
   - end with the negative block
   - state the aspect ratio
 
@@ -67,9 +73,9 @@ PINK MENACE:
   sloping rear engine cover, domed roof — faded matte pink with oxidation.
   All four of the following must be clearly visible and unmistakable: welded
   steel mesh cages over the windows, a black tube bull bar carrying a wide
-  flat plow blade at the front, riveted raw-steel plating over the driver's
-  door and rear quarter panel, and oversize knobby tires on chrome slot
-  wheels"
+  flat plow blade at the front, riveted raw-steel plating over the door on
+  the left side of the vehicle and the rear quarter panel, and oversize
+  knobby tires on chrome slot wheels"
 
 PINK MENACE INTERIOR:
   "a cracked faded pink dashboard, worn black leather steering wheel with a
@@ -175,6 +181,45 @@ its locked description verbatim and add nothing. If it is not registered, compil
 it, then register whatever you rendered so the next card in that location matches.
 A location gets described once and then never again re-imagined.
 
+## THE DRIVE-SIDE PROBLEM
+
+An image model has no anchor for "driver's side." Given a shot with no visible
+steering wheel, it will place the driver wherever the composition pulls — and
+roughly half the time that is right-hand drive. This shipped a British
+hand-signal plate into the one card family built to fix a hand-signal error.
+
+**Two rules, both absolute.**
+
+### 1. Never use role-relative spatial terms
+Banned in every compiled prompt: *driver's side, driver-side, passenger side,
+passenger-side, near side, off side, driver's window, driver's door.*
+
+Convert every one to **frame-relative** language and state what the viewer is
+looking at:
+
+  BAD:  "the driver's side mirror"
+  GOOD: "the mirror on the left side of the vehicle, seen from inside the cabin"
+
+  BAD:  "the driver's arm out the driver-side window"
+  GOOD: "the arm extending from the window on the LEFT side of the frame"
+
+If a brief uses a role-relative term, resolve it before compiling. Do not pass
+it through. `npm run validate-cards` rejects these strings in any `image_brief`
+field.
+
+### 2. Append the drive-side clause to every compile carrying a vehicle
+
+> Left-hand-drive vehicle: the steering wheel is on the left side of the cabin,
+> and the driver sits on the left. United States road configuration — traffic
+> drives on the right-hand side of the road.
+
+And add to the negative block:
+
+> No right-hand drive, no steering wheel on the right side of the cabin, no
+> driving on the left side of the road.
+
+Cheap, mechanical, and it removes an entire class of silent geometry error.
+
 ## IDENTITY EXPOSURE — pack/12
 
 Identity only has to be consistent where identity is visible. Attachment is
@@ -214,7 +259,7 @@ else. No commentary. No alternatives.
 | Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` |
 | Two or more vehicles in frame | `ref_convoy.png` |
 | Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
-| Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_MIRROR`: the arm from behind, the side a following driver can see. |
+| Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_MIRROR`: the arm from behind, extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 

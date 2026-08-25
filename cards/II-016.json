@@ -66,11 +66,11 @@
   "image_brief": {
     "camera": "POV_MIRROR",
     "camera_is_the_lesson": true,
-    "subject": "Deac's left arm out the Ledger's driver window as seen from behind, arm straight out horizontally, fingers pointing level left",
-    "foreground": "wet following-driver glass, rain, the Ledger's left rear quarter",
-    "midground": "open driver window, west-coast mirror, a volunteer van starting to cheat left of the line",
-    "background": "Kent Station deck, midday rain, unlit lamps",
-    "read": "the arm is straight out to the left — not bent up — on the driver side the column can see",
+    "subject": "Deac's left arm extending from the window on the LEFT side of the frame, seen from directly behind the Ledger, arm straight out horizontally, fingers pointing level left",
+    "foreground": "wet following-vehicle glass, rain, the Ledger's left rear quarter",
+    "midground": "open window on the left side of the frame; the right side of the vehicle is closed and no arm appears there",
+    "background": "Kent Station deck, midday rain, unlit lamps, a volunteer van cheating left of the line",
+    "read": "the arm is straight out to the left — not bent up — extending from the window on the left side of the frame",
     "continuity": [
       "the_ledger",
       "pink_menace_exterior",
