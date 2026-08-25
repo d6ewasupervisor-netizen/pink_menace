@@ -64,16 +64,17 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_CHASE",
-    "subject": "the Ledger at a parking-lot exit, Deac's left arm straight out the driver window, fingers pointing left into rain",
-    "foreground": "rain on the camera, a slice of faded stall paint",
-    "midground": "west-coast mirrors, pink Beetle, volunteer van starting to cheat left",
-    "background": "Kent Station deck, midday rain, unlit lamps, 1st Avenue implied beyond the exit",
-    "read": "the arm is straight out to the left, not bent up, and the third vehicle is writing over it",
+    "camera": "POV_MIRROR",
+    "subject": "Deac's left arm out the Ledger's driver window as seen from behind, arm straight out horizontally, fingers pointing level left",
+    "foreground": "wet following-driver glass, rain, the Ledger's left rear quarter",
+    "midground": "open driver window, west-coast mirror, a volunteer van starting to cheat left of the line",
+    "background": "Kent Station deck, midday rain, unlit lamps",
+    "read": "the arm is straight out to the left — not bent up — on the driver side the column can see",
     "continuity": [
       "the_ledger",
       "pink_menace_exterior",
-      "deac"
+      "deac",
+      "hand_signals"
     ],
     "aspect": "3:4"
   },

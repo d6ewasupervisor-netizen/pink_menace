@@ -143,6 +143,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 - `ref_cockpit.jpg` — **interior layout and mesh screen only.** Same warning: not the lighting.
 - `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
+- `ref_hand_signals.png` — three-panel left-arm plate (left / stop / right). Limb geometry is not improvised.
 
 ### 8.3 Camera set (pick exactly one per card)
 

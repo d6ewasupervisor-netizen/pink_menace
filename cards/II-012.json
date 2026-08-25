@@ -68,11 +68,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a volunteer van's trailer hitch filling the windshield mesh, no visible pavement between plow and hitch",
+    "subject": "a volunteer van's trailer hitch occupying the lower center of the windshield mesh; the trailer's rear filling the upper frame; no pavement visible between the cars",
     "foreground": "worn wheel rim and the top of the plow blade as a pink bar at the bottom of glass",
-    "midground": "dirty brake lamps, school-zone flashing lamps, a badly parked sedan beyond the van",
-    "background": "overcast Kent dusk, fence, no children, wet-looking asphalt that is actually just dark",
-    "read": "there is no road visible between you and the hitch — that is the error",
+    "midground": "the hitch in lower center, dirty trailer doors filling the upper third, no gap of road",
+    "background": "almost none — the van is the frame; a smear of flashing school-zone white at the extreme edges",
+    "read": "the hitch occupies the lower center of the glass and there is no road between you and it",
     "continuity": [
       "pink_menace_interior"
     ],

@@ -1,0 +1,28 @@
+{
+  "locks": {
+    "ali": ["ref_ali2.png"],
+    "ali_face": ["ref_ali2.png"],
+    "pink_menace_exterior": ["ref_car_exterior.jpg"],
+    "pink_menace_interior": ["ref_cockpit.jpg"],
+    "gracie": ["ref_gracie.jpg"],
+    "mya": ["ref_mya.jpg"],
+    "deac": ["ref_deac_sheet.png", "ref_deac.png"],
+    "deac_clipboard": ["ref_deac.png"],
+    "yuna": ["ref_yuna_sheet.png", "ref_yuna.png"],
+    "the_ledger": ["ref_ledger_sheet.png"],
+    "ledger_cockpit": ["ref_ledger_cockpit.png"],
+    "encore": ["ref_encore_sheet.png"],
+    "encore_cockpit": ["ref_encore_cockpit.png"],
+    "convoy": ["ref_convoy.png"],
+    "dutch_reach": ["ref_dutch_reach.png", "ref_dutch_reach_topdown.png"],
+    "hand_signals": ["ref_hand_signals.png"]
+  },
+  "no_file": [
+    "marisol",
+    "hollis",
+    "bus_12",
+    "tobin",
+    "reyna_solis"
+  ],
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
+}

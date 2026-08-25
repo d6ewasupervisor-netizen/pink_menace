@@ -65,16 +65,17 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_ROADSIDE",
-    "subject": "Deac's left arm extended from the Ledger's window, straight out then dropping, against a flashing school-zone lamp",
-    "foreground": "wet curb and a slice of the Pink Menace's plow at the bottom of frame",
-    "midground": "the Ledger's tall box and west-coast mirror, Ali's Beetle in trail, a third pair of lamps tight on her bumper",
-    "background": "overcast night, school-zone lamps flashing white, empty playground fence, no wrecks",
-    "read": "the hand signal is the message, and the extra pair of lamps is the pressure",
+    "camera": "POV_MIRROR",
+    "subject": "Deac's left arm out the Ledger's driver window as seen from behind, arm out and angled down, fingers pointing at the ground",
+    "foreground": "wet following-driver glass, a smear of rain, the Ledger's left rear quarter filling the frame",
+    "midground": "open driver window, west-coast mirror, the arm the column can actually see",
+    "background": "overcast night, flashing white school-zone lamps, empty playground fence",
+    "read": "the arm is out and down — stop — on the driver side a following vehicle can see",
     "continuity": [
       "the_ledger",
       "pink_menace_exterior",
-      "deac"
+      "deac",
+      "hand_signals"
     ],
     "aspect": "3:4"
   },

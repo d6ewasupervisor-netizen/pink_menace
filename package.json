@@ -8,7 +8,7 @@
     "start": "node server.js",
     "dev": "node server.js",
     "seed": "node scripts/seed-cards.js",
-    "validate-cards": "node scripts/validate-citations.js && node scripts/validate-act-ii.js"
+    "validate-cards": "node scripts/validate-citations.js && node scripts/validate-act-ii.js && node scripts/compile-images.js"
   },
   "engines": {
     "node": ">=18"

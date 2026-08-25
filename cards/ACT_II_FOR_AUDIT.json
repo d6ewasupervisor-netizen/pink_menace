@@ -367,10 +367,10 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_MIRROR",
-      "subject": "Marisol on a bicycle in the right-side convex, closing on the Pink Menace's rear quarter",
-      "foreground": "wet convex mirror housing and a slice of riveted steel door",
-      "midground": "faded parking-lot arrows, cart corral, her front wheel in the three-foot gap that does not yet exist",
+      "camera": "POV_ROADSIDE",
+      "subject": "Marisol on a bicycle on the Pink Menace's right rear quarter, closing toward the same lot exit",
+      "foreground": "wet faded stall paint and a rust-streaked cart corral",
+      "midground": "her front wheel in the three-foot gap that does not yet exist beside the riveted steel door",
       "background": "heavy rain, Kent Station lot, gray storefront, dusk, lamps unlit",
       "read": "she is in the door zone of a moving car, and the exit is one lane wide",
       "continuity": [
@@ -454,16 +454,17 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_ROADSIDE",
-      "subject": "Deac's left arm extended from the Ledger's window, straight out then dropping, against a flashing school-zone lamp",
-      "foreground": "wet curb and a slice of the Pink Menace's plow at the bottom of frame",
-      "midground": "the Ledger's tall box and west-coast mirror, Ali's Beetle in trail, a third pair of lamps tight on her bumper",
-      "background": "overcast night, school-zone lamps flashing white, empty playground fence, no wrecks",
-      "read": "the hand signal is the message, and the extra pair of lamps is the pressure",
+      "camera": "POV_MIRROR",
+      "subject": "Deac's left arm out the Ledger's driver window as seen from behind, arm out and angled down, fingers pointing at the ground",
+      "foreground": "wet following-driver glass, a smear of rain, the Ledger's left rear quarter filling the frame",
+      "midground": "open driver window, west-coast mirror, the arm the column can actually see",
+      "background": "overcast night, flashing white school-zone lamps, empty playground fence",
+      "read": "the arm is out and down — stop — on the driver side a following vehicle can see",
       "continuity": [
         "the_ledger",
         "pink_menace_exterior",
-        "deac"
+        "deac",
+        "hand_signals"
       ],
       "aspect": "3:4"
     },
@@ -813,11 +814,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_MIRROR",
-      "subject": "Bus 12 stopped ahead, red lamps lit, stop arm extended and slightly bent, Tobin in a yellow shell already in the street",
+      "subject": "Bus 12 stopped ahead, red lamps lit, stop arm extended and slightly bent, empty crosswalk, a dropped backpack on the wet paint",
       "foreground": "wet interior rearview and a smear of rain on the mesh, Ali's wire rims a blur at the edge",
-      "midground": "the same two-lane Kent arterial, standing water in the wheel tracks, empty-looking left lane",
+      "midground": "the same two-lane Kent arterial, standing water in the wheel tracks, empty-looking left lane, backpack on the crosswalk",
       "background": "bare maples, chain-link, flat gray rain, a distant out-of-focus figure at the treeline four blocks down",
-      "read": "reds and the bent arm are on, and a child is already in the lane you wanted last time",
+      "read": "reds and the bent arm are on; the backpack is in the lane you wanted last time — no child in frame",
       "continuity": [
         "pink_menace_interior",
         "bus_12",
@@ -946,11 +947,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_COCKPIT",
-      "subject": "a volunteer van's trailer hitch filling the windshield mesh, no visible pavement between plow and hitch",
+      "subject": "a volunteer van's trailer hitch occupying the lower center of the windshield mesh; the trailer's rear filling the upper frame; no pavement visible between the cars",
       "foreground": "worn wheel rim and the top of the plow blade as a pink bar at the bottom of glass",
-      "midground": "dirty brake lamps, school-zone flashing lamps, a badly parked sedan beyond the van",
-      "background": "overcast Kent dusk, fence, no children, wet-looking asphalt that is actually just dark",
-      "read": "there is no road visible between you and the hitch — that is the error",
+      "midground": "the hitch in lower center, dirty trailer doors filling the upper third, no gap of road",
+      "background": "almost none — the van is the frame; a smear of flashing school-zone white at the extreme edges",
+      "read": "the hitch occupies the lower center of the glass and there is no road between you and it",
       "continuity": [
         "pink_menace_interior"
       ],
@@ -1291,16 +1292,17 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_CHASE",
-      "subject": "the Ledger at a parking-lot exit, Deac's left arm straight out the driver window, fingers pointing left into rain",
-      "foreground": "rain on the camera, a slice of faded stall paint",
-      "midground": "west-coast mirrors, pink Beetle, volunteer van starting to cheat left",
-      "background": "Kent Station deck, midday rain, unlit lamps, 1st Avenue implied beyond the exit",
-      "read": "the arm is straight out to the left, not bent up, and the third vehicle is writing over it",
+      "camera": "POV_MIRROR",
+      "subject": "Deac's left arm out the Ledger's driver window as seen from behind, arm straight out horizontally, fingers pointing level left",
+      "foreground": "wet following-driver glass, rain, the Ledger's left rear quarter",
+      "midground": "open driver window, west-coast mirror, a volunteer van starting to cheat left of the line",
+      "background": "Kent Station deck, midday rain, unlit lamps",
+      "read": "the arm is straight out to the left — not bent up — on the driver side the column can see",
       "continuity": [
         "the_ledger",
         "pink_menace_exterior",
-        "deac"
+        "deac",
+        "hand_signals"
       ],
       "aspect": "3:4"
     },
@@ -1933,16 +1935,17 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_CHASE",
-      "subject": "Deac's left arm out the Ledger's driver window, bent at the elbow, fingers pointing at the sky, rain on the sleeve",
-      "foreground": "wind-bent grass at a school-zone curb",
-      "midground": "three vehicles, a driveway on the right that is the actual destination, volunteer van rolling straight",
+      "camera": "POV_MIRROR",
+      "subject": "Deac's left arm out the Ledger's driver window as seen from behind, bent sharply at the elbow, forearm vertical, fingers pointing at the sky",
+      "foreground": "wet following-driver glass, wind-blown rain, the Ledger's left rear quarter",
+      "midground": "open driver window, west-coast mirror, a volunteer van rolling straight past a driveway on the right",
       "background": "Kent school fence, midday, dark lamps, empty yard",
-      "read": "the signal is the left arm bent up — not a right arm — and the middle vehicle is ignoring it",
+      "read": "the arm is bent up, fingers to the sky — right turn — on the driver side a following vehicle can see",
       "continuity": [
         "the_ledger",
         "pink_menace_exterior",
-        "deac"
+        "deac",
+        "hand_signals"
       ],
       "aspect": "3:4"
     },
@@ -2239,6 +2242,7 @@
       "read": "the door has not opened yet and her wheel is already in the arc",
       "continuity": [
         "pink_menace_interior",
+        "dutch_reach",
         "marisol"
       ],
       "aspect": "3:4"

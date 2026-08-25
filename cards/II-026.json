@@ -54,7 +54,7 @@
     "midground": "her front wheel in the strip the door will occupy",
     "background": "Kent Station lot, morning ice, dead cars, pale sky",
     "read": "the door has not opened yet and her wheel is already in the arc",
-    "continuity": ["pink_menace_interior", "marisol"],
+    "continuity": ["pink_menace_interior", "dutch_reach", "marisol"],
     "aspect": "3:4"
   },
   "variation": {

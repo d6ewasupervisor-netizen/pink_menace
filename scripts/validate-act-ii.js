@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { loadTables, validateCard } = require("./validate-citations");
 const { seqFromCard } = require("./card-seq");
+const { resolveCard } = require("./resolve-refs");
 
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^II-\d{3}\.json$/.test(f)).sort();
@@ -80,6 +81,7 @@ for (let i = 0; i < cards.length; i++) {
     err(id, "three same types in a row");
   }
   for (const e of validateCard(c, tables)) err(id, e.replace(`${id}: `, ""));
+  for (const e of resolveCard(c).errors) err(id, e.replace(`${id}: `, ""));
 }
 
 const n = cards.filter((c) => c.card_type !== "dossier").length;

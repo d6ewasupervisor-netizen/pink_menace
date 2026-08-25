@@ -13,6 +13,9 @@ prompt. You are a compiler, not an author.
 ## HARD CONSTRAINTS
 
 You MAY NOT:
+  - compile a card whose `image_brief.continuity` names a lock asset unless every
+    mapped ref file in pack/09_REF_MAP.json is on disk and attached. Missing
+    refs abort the compile. A silent skip is a failed compile.
   - invent a subject, character, vehicle, or location not in the brief or bible
   - add set dressing the brief did not ask for — no fallen trees, no abandoned
     cars, no debris, no signage, no weather event, no extra vehicles. If the
@@ -133,13 +136,14 @@ a bus filling the windshield, and then the option "pass on the left" does not
 spatially exist — the card becomes unanswerable from the art alone.
 
 Whenever the brief involves distance, gap, lane availability, or reachability,
-compile it as an explicit measured statement:
+compile it as an explicit measured statement — including the inverted case,
+where the decision requires the subject to be **too close**:
 
-  "the rear of the bus is approximately half a block ahead, occupying the upper
-  middle third of the frame, with a clear open lane visible to its left and
-  enough road between camera and bus to read as a decision, not an impact"
+  "the trailer hitch occupies the lower center of the windshield; no pavement
+  is visible between the cars; the trailer's rear fills the upper frame"
 
-Never "ahead." Always a distance, a frame fraction, and what must remain visible.
+Never "ahead." Always a distance, a frame fraction, and what must remain visible
+(or, when the card teaches closeness, what must be absent).
 
 ### 2. Negate the opposite signal state
 Image models default to the cliché version of any signal. Ask for a school bus
@@ -189,6 +193,7 @@ else. No commentary. No alternatives.
 | Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` |
 | Two or more vehicles in frame | `ref_convoy.png` |
 | Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
+| Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_MIRROR`: the arm from behind, the side a following driver can see. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 

@@ -49,11 +49,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_MIRROR",
-    "subject": "Bus 12 stopped ahead, red lamps lit, stop arm extended and slightly bent, Tobin in a yellow shell already in the street",
+    "subject": "Bus 12 stopped ahead, red lamps lit, stop arm extended and slightly bent, empty crosswalk, a dropped backpack on the wet paint",
     "foreground": "wet interior rearview and a smear of rain on the mesh, Ali's wire rims a blur at the edge",
-    "midground": "the same two-lane Kent arterial, standing water in the wheel tracks, empty-looking left lane",
+    "midground": "the same two-lane Kent arterial, standing water in the wheel tracks, empty-looking left lane, backpack on the crosswalk",
     "background": "bare maples, chain-link, flat gray rain, a distant out-of-focus figure at the treeline four blocks down",
-    "read": "reds and the bent arm are on, and a child is already in the lane you wanted last time",
+    "read": "reds and the bent arm are on; the backpack is in the lane you wanted last time — no child in frame",
     "continuity": ["pink_menace_interior", "bus_12", "L-001"],
     "aspect": "3:4"
   },

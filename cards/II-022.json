@@ -62,16 +62,17 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_CHASE",
-    "subject": "Deac's left arm out the Ledger's driver window, bent at the elbow, fingers pointing at the sky, rain on the sleeve",
-    "foreground": "wind-bent grass at a school-zone curb",
-    "midground": "three vehicles, a driveway on the right that is the actual destination, volunteer van rolling straight",
+    "camera": "POV_MIRROR",
+    "subject": "Deac's left arm out the Ledger's driver window as seen from behind, bent sharply at the elbow, forearm vertical, fingers pointing at the sky",
+    "foreground": "wet following-driver glass, wind-blown rain, the Ledger's left rear quarter",
+    "midground": "open driver window, west-coast mirror, a volunteer van rolling straight past a driveway on the right",
     "background": "Kent school fence, midday, dark lamps, empty yard",
-    "read": "the signal is the left arm bent up — not a right arm — and the middle vehicle is ignoring it",
+    "read": "the arm is bent up, fingers to the sky — right turn — on the driver side a following vehicle can see",
     "continuity": [
       "the_ledger",
       "pink_menace_exterior",
-      "deac"
+      "deac",
+      "hand_signals"
     ],
     "aspect": "3:4"
   },
