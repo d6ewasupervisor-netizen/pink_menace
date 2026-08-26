@@ -24,6 +24,8 @@ let advanceTimer = 0;
 let meters = { noise: 0, light: 0, yaw: 0, cargo: 100 };
 let liveCard = null;
 let answering = false;
+let timedSubmit = false;
+const CAUGHT_KEY = "pm.caught";
 
 function liveState() {
   try {
@@ -66,6 +68,11 @@ function showScreen(name) {
   if (name === "home") {
     clearPlay();
     PMFeel.stopBed();
+    PMFeel.paintFear({ tier: 0, presence: 0, handprints: false });
+    const ign = document.getElementById("ignition");
+    if (ign) ign.classList.add("hidden");
+    const col = document.getElementById("collapse");
+    if (col) col.classList.add("hidden");
   }
 }
 
@@ -152,6 +159,8 @@ function clearPlay() {
   hazardTimer = 0;
   advanceTimer = 0;
   answering = false;
+  timedSubmit = false;
+  PMFeel.clearCues();
   PMFeel.setVignette(1);
   const clock = document.getElementById("hazard-clock");
   if (clock) clock.classList.add("hidden");
@@ -159,15 +168,21 @@ function clearPlay() {
 
 function applyMeters(state, how) {
   const next = state || meters;
+  const hadPrints = Boolean(meters.handprints);
   meters = {
     noise: Number(next.noise) || 0,
     light: Number(next.light) || 0,
     yaw: Number(next.yaw) || 0,
     cargo: next.cargo == null ? meters.cargo : next.cargo,
+    presence: Number(next.presence) || 0,
+    tier: Number(next.tier) || 0,
+    handprints: Boolean(next.handprints),
   };
   if (how === "spike") PMFeel.spikeMeters(null, meters);
   else if (how === "ease") PMFeel.easeMeters(meters);
   else PMFeel.paintMeters(meters);
+  PMFeel.paintFear(meters);
+  if (meters.handprints && !hadPrints) PMFeel.sting("palm");
 }
 
 function setDebrief(text, collapsed) {
@@ -226,6 +241,9 @@ function revealChoices(card, opts) {
   if (card.decision) decision.classList.remove("hidden");
   const n = fillOptions(card, opts);
   document.getElementById("options").classList.toggle("hidden", !n);
+  if (!opts.review && !opts.pending && card.card_type === "hazard") {
+    PMFeel.fireCue(PMFeel.cueFor(card));
+  }
   if (!opts.review && !opts.pending && card.card_type === "hazard" && card.timeout_option_id && n) {
     startHazardWindow(card);
   }
@@ -248,6 +266,7 @@ function startHazardWindow(card) {
     if (left <= 0) {
       window.clearInterval(hazardTimer);
       hazardTimer = 0;
+      timedSubmit = true;
       submitAnswer(card.timeout_option_id);
     }
   }, 50);
@@ -375,6 +394,12 @@ function playOutcome(data, card) {
   outcomeAt = Date.now();
   const correct = Boolean(data && data.was_correct);
   const nextMeters = data.state || meters;
+  if (data && data.collapse) {
+    applyMeters(nextMeters, "paint");
+    document.getElementById("options").classList.add("hidden");
+    PMFeel.playCollapse(data.dispatch, () => queueAdvance(card.card_id));
+    return;
+  }
   if (correct) {
     applyMeters(nextMeters, "ease");
     applyOutcome(data, { collapseDebrief: true });
@@ -390,21 +415,47 @@ function playOutcome(data, card) {
   }
 }
 
+function sessionCaught() {
+  try {
+    return sessionStorage.getItem(CAUGHT_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markCaught() {
+  try {
+    sessionStorage.setItem(CAUGHT_KEY, "1");
+  } catch {
+    // private mode
+  }
+}
+
 function renderLive(card) {
   showScreen("live");
   setHeader({ title: card.title, saved: card.saved, back: Boolean(card.previous_card_id) });
-  shownAt = Date.now();
   runEl.classList.remove("slide-in");
   void runEl.offsetWidth;
   runEl.classList.add("slide-in");
-  PMFeel.startBed(card.weather);
-  fillCard(card, { pending: Boolean(card.pending_outcome), review: false });
-  saveLive({
-    card_id: card.card_id,
-    phase: card.pending_outcome ? "result" : "live",
-    scroll: 0,
+  const begin = () => {
+    shownAt = Date.now();
+    PMFeel.startBed(card.weather);
+    fillCard(card, { pending: Boolean(card.pending_outcome), review: false });
+    saveLive({
+      card_id: card.card_id,
+      phase: card.pending_outcome ? "result" : "live",
+      scroll: 0,
+    });
+    restoreScroll(card.card_id);
+  };
+  if (sessionCaught()) {
+    begin();
+    return;
+  }
+  PMFeel.showIgnition(() => {
+    markCaught();
+    begin();
   });
-  restoreScroll(card.card_id);
 }
 
 function renderReview(card) {
@@ -466,12 +517,15 @@ async function submitAnswer(optionId) {
   hazardTimer = 0;
   const clock = document.getElementById("hazard-clock");
   if (clock) clock.classList.add("hidden");
+  const timed = timedSubmit;
+  timedSubmit = false;
   const data = await PM.api("/api/run/answer", {
     method: "POST",
     body: {
       card_id: currentCardId,
       option_id: optionId,
       ms_to_answer: Date.now() - shownAt,
+      timed_out: timed,
     },
   });
   saveLive({ card_id: currentCardId, phase: "result", scroll: runEl.scrollTop });
@@ -496,6 +550,7 @@ runEl.addEventListener("scroll", () => {
 });
 
 runEl.addEventListener("pointerdown", (ev) => {
+  if (ev.target.closest("#ignition") || ev.target.closest("#collapse")) return;
   PMFeel.ensureAudio();
   if (mode !== "live" || answering) return;
   if (ev.target.closest("button")) return;

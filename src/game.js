@@ -1,6 +1,7 @@
 "use strict";
 
 const { query } = require("./db");
+const { publicFear } = require("./presence");
 
 async function purgeExpiredPending() {
   await query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
@@ -150,6 +151,7 @@ function publicState(state) {
     light: Number(s.light) || 0,
     yaw: Number(s.yaw) || 0,
     cargo: cargoFrom(s),
+    ...publicFear(s),
   };
 }
 

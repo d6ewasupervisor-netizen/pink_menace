@@ -33,6 +33,8 @@ Three layers, and the order matters.
 
 `12_IDENTITY_AND_CAMERA_POLICY.md` is the shot-design rule adopted after the Act II art pass: identity budget, vehicle feature checklist, amended camera cap.
 
+`16_FEAR_AND_SOUND.md` is the fear overlay and audio-first cue spec. Presence is a sum of existing `state_delta` values, never a score. Horror sits on the frame, not the card art. Hearing is not required to drive; RCW 46.37.480 is verified and still does not go on a card until a card is written to teach chosen distraction. T1/T2 overlays ship in the live loop and do not wait on cockpit chrome.
+
 ---
 
 ## Run order

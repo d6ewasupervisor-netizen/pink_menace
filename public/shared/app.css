@@ -528,7 +528,7 @@ button.danger {
   to { transform: scale(1.04) translateX(3%); }
 }
 
-.wx-rain, .wx-fog, .vignette, .hazard-clock {
+.wx-rain, .wx-fog, .vignette, .hazard-clock, .fear-root {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -632,6 +632,130 @@ button.danger {
 }
 .dash.ease .meters i, .dash.ease .cargo i { transition: width 0.9s ease; }
 .dash.spike .meters i { background: var(--cranberry-2); }
+.dash.dead .meters i, .dash.dead .cargo i {
+  width: 0% !important;
+  opacity: 0.2;
+  transition: width 0.85s ease, opacity 0.85s ease;
+}
+
+.fear-sil, .fear-gait, .fear-fog, .fear-prints, .fear-mirror {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.1s ease;
+}
+.fear-sil {
+  background:
+    radial-gradient(ellipse 5px 12px at 44% 38%, #0a0909 0 70%, transparent 72%),
+    radial-gradient(ellipse 4px 10px at 49% 37%, #0c0b0b 0 70%, transparent 72%),
+    radial-gradient(ellipse 5px 11px at 54% 38%, #090808 0 70%, transparent 72%),
+    radial-gradient(ellipse 3px 9px at 58% 39%, #0b0a0a 0 70%, transparent 72%);
+  filter: blur(0.6px);
+}
+.fear-gait {
+  background:
+    radial-gradient(ellipse 6px 6px at 57% 33%, #080707 0 70%, transparent 72%),
+    radial-gradient(ellipse 8px 24px at 54% 48%, #0a0909 0 68%, transparent 72%);
+  transform: rotate(-11deg);
+  transform-origin: 54% 62%;
+  filter: blur(0.5px);
+}
+.fear-fog {
+  background: linear-gradient(to top, rgba(168, 174, 180, 0.28), transparent 42%);
+}
+.fear-prints {
+  background:
+    radial-gradient(ellipse 22px 26px at 7% 40%, rgba(42, 32, 28, 0.62) 0 38%, transparent 68%),
+    radial-gradient(ellipse 16px 20px at 11% 52%, rgba(38, 28, 24, 0.5) 0 40%, transparent 70%),
+    radial-gradient(ellipse 18px 22px at 9% 63%, rgba(34, 26, 22, 0.42) 0 36%, transparent 68%),
+    radial-gradient(ellipse 20px 24px at 93% 44%, rgba(40, 30, 26, 0.55) 0 38%, transparent 68%),
+    radial-gradient(ellipse 14px 18px at 89% 58%, rgba(36, 28, 24, 0.45) 0 40%, transparent 70%);
+  mix-blend-mode: multiply;
+}
+.fear-mirror {
+  background: radial-gradient(ellipse 32% 11% at 50% 7%, rgba(6, 5, 5, 0.55), transparent 72%);
+}
+.fear-root.tier-1 .fear-sil { opacity: 0.55; }
+.fear-root.tier-2 .fear-sil,
+.fear-root.tier-3 .fear-sil { opacity: 0.7; }
+.fear-root.tier-2 .fear-gait,
+.fear-root.tier-3 .fear-gait { opacity: 0.8; }
+.fear-root.tier-2 .fear-fog { opacity: 0.45; }
+.fear-root.tier-3 .fear-fog { opacity: 0.65; }
+.fear-root.tier-2 .fear-mirror { opacity: 0.55; }
+.fear-root.tier-3 .fear-mirror { opacity: 0.8; }
+.fear-root.prints .fear-prints { opacity: 0.92; }
+.fear-root.cue-now .fear-sil { opacity: 0.85; }
+.fear-root.cue-now .fear-mirror { opacity: 0.7; }
+.fear-root.collapsing .fear-prints { opacity: 1; }
+.fear-root.collapsing .fear-mirror {
+  opacity: 1;
+  background: radial-gradient(ellipse 48% 18% at 50% 8%, #050404 55%, transparent 74%);
+}
+.fear-root.collapsing .fear-gait { opacity: 1; }
+
+.ignition {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #0a0808;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.ignition-face {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  border: 2px solid #3a2e2c;
+  position: relative;
+  background: radial-gradient(circle at 50% 55%, #1a1414, #0c0a0a);
+}
+#ignition-needle {
+  position: absolute;
+  left: 50%;
+  bottom: 48%;
+  width: 2px;
+  height: 38%;
+  margin-left: -1px;
+  background: var(--cranberry-2);
+  transform-origin: bottom center;
+  transform: rotate(-80deg);
+}
+#ignition-needle.spin { animation: ignite-spin 1.4s ease-out forwards; }
+#ignition-needle.held { transform: rotate(12deg); animation: none; }
+@keyframes ignite-spin {
+  from { transform: rotate(-80deg); }
+  to { transform: rotate(12deg); }
+}
+#ignition-catch {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  min-height: var(--tap);
+  padding: 0.75rem 1.2rem;
+}
+
+.collapse {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+#collapse-copy {
+  margin: 0;
+  max-width: 22rem;
+  color: #c4b8ae;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
 
 #run.hit {
   animation: hit-shake 0.4s ease-out;
@@ -656,8 +780,11 @@ button.danger {
 #debrief.closed .debrief-rest { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .shot-ken, .wx-rain, .wx-fog, #run.hit, #run.slide-in {
+  .shot-ken, .wx-rain, .wx-fog, #run.hit, #run.slide-in, #ignition-needle.spin {
     animation: none !important;
+  }
+  .fear-sil, .fear-gait, .fear-fog, .fear-prints, .fear-mirror {
+    transition: none;
   }
 }
 

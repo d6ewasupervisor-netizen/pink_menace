@@ -7,6 +7,7 @@ const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
 const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST, publicState } = require("./game");
+const { applyFear } = require("./presence");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
 // A completed run starts a new one. We never rewind an in-progress run to card one.
@@ -303,11 +304,18 @@ function mountRun(app) {
       }
 
       const delta = option.state_delta || {};
-      const state = { ...(run.state || {}) };
+      const timedOut = Boolean(req.body && req.body.timed_out) && optionId !== "continue";
+      let state = { ...(run.state || {}) };
       for (const [k, v] of Object.entries(delta)) {
+        if (k === "presence" || k === "handprints" || k === "drew") continue;
         if (typeof v === "number") state[k] = (Number(state[k]) || 0) + v;
         else state[k] = v;
       }
+      const fear = applyFear(state, delta, {
+        correct: option.is_correct && card.card_type !== "dossier",
+        timedOut,
+      });
+      state = fear.state;
 
       let queued = Array.isArray(run.queued_callbacks) ? [...run.queued_callbacks] : [];
       let debts = run.callback_debts;
@@ -382,6 +390,8 @@ function mountRun(app) {
         result: option.result,
         state_delta: delta,
         state: publicState(state),
+        collapse: Boolean(fear.collapse),
+        dispatch: fear.dispatch || null,
         debrief: card.debrief,
         next: next || { done: true },
       });

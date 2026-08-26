@@ -146,6 +146,7 @@ const PMFeel = (() => {
   }
 
   function stopBed() {
+    stopCrank();
     if (audio.idle) {
       try {
         audio.idle.osc.stop();
@@ -235,11 +236,311 @@ const PMFeel = (() => {
     ken.classList.toggle("still", reduced());
   }
 
-  function setVignette(t) {
+  const SIGHT_KEY = "pm.driveBySight";
+  const LEAD_MS = 1600;
+  let hazardLeft = 1;
+  let presenceAmt = 0;
+  let cueTimer = 0;
+  let crankNodes = null;
+  let holdTimer = 0;
+
+  function driveBySight() {
+    try {
+      return localStorage.getItem(SIGHT_KEY) === "1";
+    } catch {
+      return false;
+    }
+  }
+
+  function setDriveBySight(on) {
+    try {
+      if (on) localStorage.setItem(SIGHT_KEY, "1");
+    } catch {
+      // private mode
+    }
+  }
+
+  function paintVignette() {
     const v = document.getElementById("vignette");
     if (!v) return;
-    const p = Math.max(0, Math.min(1, t));
-    v.style.setProperty("--vig", String(0.15 + (1 - p) * 0.7));
+    const fromHazard = 1 - Math.max(0, Math.min(1, hazardLeft));
+    const t = Math.max(fromHazard, presenceAmt);
+    v.style.setProperty("--vig", String(0.12 + t * 0.72));
+  }
+
+  function setVignette(t) {
+    hazardLeft = Math.max(0, Math.min(1, t));
+    paintVignette();
+  }
+
+  function paintFear(state) {
+    const root = document.getElementById("fear-root");
+    if (!root) return;
+    const tier = Math.max(0, Math.min(4, Number(state && state.tier) || 0));
+    const prints = Boolean(state && state.handprints) || tier >= 3;
+    root.className = "fear-root tier-" + Math.min(tier, 3) + (prints ? " prints" : "");
+    presenceAmt = Math.min(1, (Number(state && state.presence) || 0) / 22);
+    paintVignette();
+  }
+
+  function clearCues() {
+    window.clearTimeout(cueTimer);
+    cueTimer = 0;
+    const root = document.getElementById("fear-root");
+    if (root) root.classList.remove("cue-now");
+  }
+
+  function playCueAudio(kind) {
+    const ctx = ensureAudio();
+    if (!ctx || !audio.enabled) return;
+    if (ctx.state === "suspended") ctx.resume().catch(() => {});
+    const now = ctx.currentTime;
+    if (kind === "steps") {
+      [0, 0.22, 0.48].forEach((at, i) => {
+        const src = ctx.createBufferSource();
+        src.buffer = noiseBuffer(ctx, 0.12);
+        const bp = ctx.createBiquadFilter();
+        bp.type = "bandpass";
+        bp.frequency.value = 900 - i * 80;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, now + at);
+        g.gain.exponentialRampToValueAtTime(0.05, now + at + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + at + 0.11);
+        src.connect(bp);
+        bp.connect(g);
+        g.connect(ctx.destination);
+        src.start(now + at);
+        src.stop(now + at + 0.12);
+      });
+      return;
+    }
+    if (kind === "horn") {
+      [0, 0.28].forEach((at, i) => {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = i ? 311 : 392;
+        g.gain.setValueAtTime(0.0001, now + at);
+        g.gain.exponentialRampToValueAtTime(0.06, now + at + 0.03);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + at + 0.22);
+        osc.connect(g);
+        g.connect(ctx.destination);
+        osc.start(now + at);
+        osc.stop(now + at + 0.24);
+      });
+      return;
+    }
+    if (kind === "scrape") {
+      const src = ctx.createBufferSource();
+      src.buffer = noiseBuffer(ctx, 0.4);
+      const hp = ctx.createBiquadFilter();
+      hp.type = "highpass";
+      hp.frequency.value = 240;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.04, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.38);
+      src.connect(hp);
+      hp.connect(g);
+      g.connect(ctx.destination);
+      src.start(now);
+      src.stop(now + 0.4);
+      return;
+    }
+    if (kind === "siren") {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(620, now);
+      osc.frequency.linearRampToValueAtTime(820, now + 0.35);
+      osc.frequency.linearRampToValueAtTime(620, now + 0.7);
+      g.gain.setValueAtTime(0.0001, now);
+      g.gain.exponentialRampToValueAtTime(0.045, now + 0.04);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.72);
+      osc.connect(g);
+      g.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.74);
+      return;
+    }
+    if (kind === "palm") {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = 70;
+      g.gain.setValueAtTime(0.08, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+      osc.connect(g);
+      g.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.2);
+    }
+  }
+
+  function fireCue(kind) {
+    clearCues();
+    if (!kind) return;
+    playCueAudio(kind);
+    const root = document.getElementById("fear-root");
+    const show = () => {
+      if (root) root.classList.add("cue-now");
+    };
+    if (driveBySight() || reduced()) show();
+    else cueTimer = window.setTimeout(show, LEAD_MS);
+  }
+
+  function cueFor(card) {
+    if (!card || card.card_type !== "hazard") return null;
+    const id = card.card_id;
+    if (id === "II-005" || id === "II-026") return "steps";
+    if (id === "II-014") return "horn";
+    if (id === "II-019") return "scrape";
+    if (id === "II-030") return "siren";
+    if (isRain(card.weather)) return "steps";
+    return "horn";
+  }
+
+  function stopCrank() {
+    if (!crankNodes) return;
+    try {
+      crankNodes.osc.stop();
+    } catch {
+      // already stopped
+    }
+    try {
+      crankNodes.src.stop();
+    } catch {
+      // already stopped
+    }
+    crankNodes = null;
+  }
+
+  function startCrank() {
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    audio.enabled = true;
+    if (ctx.state === "suspended") ctx.resume().catch(() => {});
+    stopCrank();
+    const osc = ctx.createOscillator();
+    const og = ctx.createGain();
+    osc.type = "sawtooth";
+    osc.frequency.setValueAtTime(40, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(88, ctx.currentTime + 1.4);
+    og.gain.value = 0.05;
+    osc.connect(og);
+    og.connect(ctx.destination);
+    osc.start();
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer(ctx, 0.35);
+    src.loop = true;
+    const ng = ctx.createGain();
+    ng.gain.value = 0.03;
+    src.connect(ng);
+    ng.connect(ctx.destination);
+    src.start();
+    crankNodes = { osc, src };
+    const needle = document.getElementById("ignition-needle");
+    if (needle) needle.classList.add("spin");
+  }
+
+  function catchEngine() {
+    stopCrank();
+    const needle = document.getElementById("ignition-needle");
+    if (needle) {
+      needle.classList.remove("spin");
+      needle.classList.add("held");
+    }
+    const ctx = audio.ctx;
+    if (!ctx) return;
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(90, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(68, ctx.currentTime + 0.4);
+    g.gain.setValueAtTime(0.06, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.028, ctx.currentTime + 0.45);
+    osc.connect(g);
+    g.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.46);
+  }
+
+  function showIgnition(onCatch) {
+    const panel = document.getElementById("ignition");
+    const btn = document.getElementById("ignition-catch");
+    if (!panel || !btn) {
+      onCatch && onCatch();
+      return;
+    }
+    panel.classList.remove("hidden");
+    const needle = document.getElementById("ignition-needle");
+    if (needle) needle.classList.remove("held", "spin");
+    startCrank();
+    let done = false;
+    const finish = (sight) => {
+      if (done) return;
+      done = true;
+      window.clearTimeout(holdTimer);
+      holdTimer = 0;
+      if (sight) setDriveBySight(true);
+      catchEngine();
+      panel.classList.add("hidden");
+      btn.onpointerdown = null;
+      btn.onpointerup = null;
+      btn.onpointerleave = null;
+      btn.onclick = null;
+      onCatch && onCatch();
+    };
+    btn.onclick = (ev) => {
+      ev.preventDefault();
+    };
+    btn.onpointerdown = (ev) => {
+      ev.preventDefault();
+      startCrank();
+      holdTimer = window.setTimeout(() => finish(true), 900);
+    };
+    btn.onpointerup = () => {
+      if (done) return;
+      window.clearTimeout(holdTimer);
+      holdTimer = 0;
+      finish(false);
+    };
+    btn.onpointerleave = () => {
+      window.clearTimeout(holdTimer);
+      holdTimer = 0;
+    };
+  }
+
+  function playCollapse(dispatch, then) {
+    const panel = document.getElementById("collapse");
+    const copy = document.getElementById("collapse-copy");
+    const dash = document.getElementById("dash");
+    const root = document.getElementById("fear-root");
+    let closed = false;
+    if (copy) copy.textContent = dispatch || "";
+    if (root) root.classList.add("collapsing");
+    if (dash) dash.classList.add("dead");
+    playCueAudio("palm");
+    window.setTimeout(() => {
+      if (closed) return;
+      if (panel) panel.classList.remove("hidden");
+      stopBed();
+    }, 900);
+    const close = () => {
+      if (closed) return;
+      closed = true;
+      if (panel) {
+        panel.onclick = null;
+        panel.classList.add("hidden");
+      }
+      if (root) root.classList.remove("collapsing");
+      if (dash) dash.classList.remove("dead");
+      if (copy) copy.textContent = "";
+      then && then();
+    };
+    window.setTimeout(() => {
+      if (panel) panel.onclick = close;
+    }, 1400);
+    window.setTimeout(close, 7000);
   }
 
   function typeScene(full, onFirst, onDone) {
@@ -302,6 +603,14 @@ const PMFeel = (() => {
     setWeather,
     setKen,
     setVignette,
+    paintFear,
+    fireCue,
+    cueFor,
+    clearCues,
+    showIgnition,
+    playCollapse,
+    driveBySight,
+    sting: playCueAudio,
     typeScene,
     ensureAudio,
   };
