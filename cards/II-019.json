@@ -64,6 +64,8 @@
   "antagonist": "cold_roads",
   "callback_of": null,
   "schedules_callback": false,
+  "timeout_option_id": "a",
+  "timeout_ms": 9000,
   "image_brief": {
     "camera": "POV_OBJECT",
     "subject": "a traffic signal showing green over a glossy black intersection that looks wet and is ice",

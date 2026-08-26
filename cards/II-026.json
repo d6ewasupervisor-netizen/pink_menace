@@ -63,6 +63,8 @@
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
+  "timeout_option_id": "b",
+  "timeout_ms": 7000,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
     "subject": "Marisol approaching in the right-side glass, ice on the aisle, the Pink Menace's door still closed",

@@ -76,7 +76,12 @@ for (let i = 0; i < cards.length; i++) {
       }
     }
   }
-  if (c.antagonist && !antEnum.includes(c.antagonist)) err(id, "antagonist");
+  if (c.card_type === "hazard") {
+    const tid = c.timeout_option_id;
+    if (!tid || !(c.options || []).some((o) => o.id === tid)) {
+      err(id, "hazard missing timeout_option_id");
+    }
+  }
   for (const x of c.cast || []) if (!castEnum.includes(x)) err(id, `cast ${x}`);
   openings.push(c.scene.trim().split(/\s+/).slice(0, 3).join(" "));
   if (i > 0 && openings[i] === openings[i - 1]) err(id, "opening repeat");

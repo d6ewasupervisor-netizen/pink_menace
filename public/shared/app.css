@@ -472,18 +472,193 @@ button.danger {
   color: var(--ink);
 }
 
-.shot {
-  display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: min(42vh, 22rem);
-  aspect-ratio: 2 / 3;
-  object-fit: contain;
-  object-position: center;
+.shot-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 18rem;
   margin-inline: auto;
+  aspect-ratio: 2 / 3;
+  max-height: min(42vh, 22rem);
+  overflow: hidden;
   border-radius: var(--radius);
   background: #100e0e;
+}
+
+.shot-ken {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+}
+
+.shot-wrap .shot {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+  display: block;
+}
+
+.shot-ken.ken-cockpit { animation: ken-cockpit 18s ease-in-out infinite alternate; }
+.shot-ken.ken-mirror { animation: ken-in 16s ease-in-out infinite alternate; }
+.shot-ken.ken-chase { animation: ken-chase 20s ease-in-out infinite alternate; }
+.shot-ken.ken-diagram { animation: ken-in 22s ease-in-out infinite alternate; }
+.shot-ken.ken-roadside { animation: ken-pan 22s ease-in-out infinite alternate; }
+.shot-ken.ken-portrait { animation: ken-in 18s ease-in-out infinite alternate; }
+.shot-ken.ken-object { animation: ken-in 14s ease-in-out infinite alternate; }
+.shot-ken.ken-topdown { animation: ken-in 24s ease-in-out infinite alternate; }
+.shot-ken.still { animation: none; }
+
+@keyframes ken-cockpit {
+  from { transform: scale(1) translateY(2%); }
+  to { transform: scale(1.08) translateY(-3%); }
+}
+@keyframes ken-in {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+@keyframes ken-chase {
+  from { transform: scale(1) translateY(1%); }
+  to { transform: scale(1.07) translateY(-4%); }
+}
+@keyframes ken-pan {
+  from { transform: scale(1.04) translateX(-3%); }
+  to { transform: scale(1.04) translateX(3%); }
+}
+
+.wx-rain, .wx-fog, .vignette, .hazard-clock {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.wx-rain {
+  background-image: repeating-linear-gradient(
+    105deg,
+    transparent 0 11px,
+    rgba(210, 220, 230, 0.18) 12px,
+    transparent 13px
+  );
+  animation: rain-fall 0.45s linear infinite;
+  mix-blend-mode: screen;
+}
+
+.wx-fog {
+  background: radial-gradient(ellipse at 50% 40%, rgba(180, 188, 196, 0.18), rgba(90, 98, 108, 0.42));
+  animation: fog-breath 4.5s ease-in-out infinite;
+}
+
+@keyframes rain-fall {
+  from { background-position: 0 0; }
+  to { background-position: 18px 48px; }
+}
+@keyframes fog-breath {
+  from { opacity: 0.55; }
+  to { opacity: 0.95; }
+}
+
+.vignette {
+  box-shadow: inset 0 0 calc(2rem + 6rem * var(--vig, 0.15)) rgba(0, 0, 0, calc(0.25 + 0.55 * var(--vig, 0.15)));
+}
+
+.hazard-clock {
+  top: auto;
+  height: 4px;
+  background: #2a2220;
+}
+.hazard-clock i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--cranberry-2);
+  transform-origin: left center;
+}
+
+.dash {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.cargo {
+  height: 0.35rem;
+  border-radius: 99px;
+  background: #2a2220;
+  overflow: hidden;
+}
+.cargo i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--pink);
+  transition: width 0.6s ease;
+}
+
+.meters {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.meters li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.meters span {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.meters b {
+  display: block;
+  height: 0.4rem;
+  border-radius: 99px;
+  background: #2a2220;
+  overflow: hidden;
+  font-weight: 400;
+}
+.meters i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--cranberry);
+  transition: width 0.2s linear;
+}
+.dash.ease .meters i, .dash.ease .cargo i { transition: width 0.9s ease; }
+.dash.spike .meters i { background: var(--cranberry-2); }
+
+#run.hit {
+  animation: hit-shake 0.4s ease-out;
+}
+@keyframes hit-shake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-6px, 2px); }
+  40% { transform: translate(5px, -2px); }
+  60% { transform: translate(-3px, 1px); }
+  80% { transform: translate(2px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+#run.slide-in {
+  animation: card-in 0.45s ease-out;
+}
+@keyframes card-in {
+  from { opacity: 0; transform: translateX(1.25rem); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+#debrief.closed .debrief-rest { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .shot-ken, .wx-rain, .wx-fog, #run.hit, #run.slide-in {
+    animation: none !important;
+  }
 }
 
 .waiting {

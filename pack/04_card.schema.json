@@ -103,6 +103,17 @@
       "type": "boolean",
       "description": "True if a wrong answer here should queue a ledger card later in this act."
     },
+    "timeout_option_id": {
+      "type": "string",
+      "pattern": "^[a-d]$",
+      "description": "Required on hazard cards. The option the world takes if the timed window closes."
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "minimum": 4000,
+      "maximum": 20000,
+      "description": "Hazard decision window. Default 8000."
+    },
     "image_brief": {
       "type": "object",
       "required": ["camera", "subject", "foreground", "midground", "background", "read"],
@@ -192,6 +203,10 @@
       "if": { "properties": { "card_type": { "const": "dossier" } } },
       "then": { "not": { "required": ["options"] } },
       "else": { "required": ["decision", "options", "debrief"] }
+    },
+    {
+      "if": { "properties": { "card_type": { "const": "hazard" } } },
+      "then": { "required": ["timeout_option_id"] }
     }
   ]
 }

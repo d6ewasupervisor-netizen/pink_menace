@@ -64,6 +64,8 @@
   "antagonist": "chorus",
   "callback_of": null,
   "schedules_callback": false,
+  "timeout_option_id": "a",
+  "timeout_ms": 8000,
   "image_brief": {
     "camera": "POV_ROADSIDE",
     "subject": "Marisol on a bicycle on the Pink Menace's right rear quarter, closing toward the same lot exit",

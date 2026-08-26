@@ -70,6 +70,8 @@ async function seedFile(filePath, tables) {
         image_brief: raw.image_brief || null,
         source: raw.source || null,
         variation: raw.variation || null,
+        timeout_option_id: raw.timeout_option_id || null,
+        timeout_ms: raw.timeout_ms || null,
       }),
     ]
   );

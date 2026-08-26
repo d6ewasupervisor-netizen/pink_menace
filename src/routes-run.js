@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST, publicState } = require("./game");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
 // A completed run starts a new one. We never rewind an in-progress run to card one.
@@ -102,6 +102,7 @@ function mountRun(app) {
           review: false,
           saved: progress.saved,
           previous_card_id: await previousAnswered(run.id, pending.card_id),
+          state: publicState(run.state),
           ...card,
         });
       }
@@ -119,6 +120,7 @@ function mountRun(app) {
         review: false,
         saved: progress.saved,
         previous_card_id: await previousAnswered(run.id, run.current_card_id),
+        state: publicState(run.state),
         ...card,
       });
     } catch (err) {
@@ -153,6 +155,7 @@ function mountRun(app) {
         saved: progress.saved,
         resume: progress.resume,
         previous_card_id: await previousAnswered(run.id, cardId),
+        state: publicState(run.state),
         ...card,
       });
     } catch (err) {
@@ -378,6 +381,7 @@ function mountRun(app) {
         was_correct: option.is_correct,
         result: option.result,
         state_delta: delta,
+        state: publicState(state),
         debrief: card.debrief,
         next: next || { done: true },
       });

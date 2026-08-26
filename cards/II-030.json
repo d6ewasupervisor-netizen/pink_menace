@@ -64,6 +64,8 @@
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
+  "timeout_option_id": "c",
+  "timeout_ms": 8000,
   "image_brief": {
     "camera": "POV_MIRROR_REAR",
     "subject": "the interior rearview filled with a long clear stretch of empty wet residential street behind the car",

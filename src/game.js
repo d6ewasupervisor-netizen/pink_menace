@@ -135,9 +135,27 @@ function imageUrl(cardId) {
   return "/api/run/image?card_id=" + encodeURIComponent(cardId);
 }
 
+function cargoFrom(state) {
+  const s = state || {};
+  const time = Number(s.time_cost) || 0;
+  const noise = Math.max(0, Number(s.noise) || 0);
+  const light = Math.max(0, Number(s.light) || 0);
+  return Math.max(0, Math.min(100, 100 - time - noise - Math.round(light / 2)));
+}
+
+function publicState(state) {
+  const s = state || {};
+  return {
+    noise: Number(s.noise) || 0,
+    light: Number(s.light) || 0,
+    yaw: Number(s.yaw) || 0,
+    cargo: cargoFrom(s),
+  };
+}
+
 async function publicCard(cardId) {
   const { rows: cards } = await query(
-    `SELECT card_id, title, scene, decision, card_type, act, zone, seq
+    `SELECT card_id, title, scene, decision, card_type, act, zone, seq, weather, extra
        FROM cards
       WHERE card_id = $1`,
     [cardId]
@@ -151,6 +169,8 @@ async function publicCard(cardId) {
       ORDER BY option_id ASC`,
     [cardId]
   );
+  const extra = card.extra || {};
+  const brief = extra.image_brief || {};
   return {
     card_id: card.card_id,
     card_type: card.card_type,
@@ -159,6 +179,10 @@ async function publicCard(cardId) {
     decision: card.decision,
     act: card.act,
     zone: card.zone,
+    weather: card.weather || (extra.variation && extra.variation.weather) || null,
+    camera: brief.camera || null,
+    timeout_option_id: extra.timeout_option_id || null,
+    timeout_ms: Number(extra.timeout_ms) || 8000,
     image_url: imageUrl(card.card_id),
     options: options.map((o) => ({ option_id: o.option_id, option_text: o.option_text })),
     tappable: true,
@@ -356,4 +380,6 @@ module.exports = {
   skillBand,
   CAST,
   ACT_ZONES,
+  cargoFrom,
+  publicState,
 };
