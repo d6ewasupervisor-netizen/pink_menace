@@ -239,6 +239,11 @@ Rule for the writer: registered locations may **change across acts** (that is th
 
 > A two-lane collector with flashing school-zone lamps, a faded 20 in the lane, a chain-link playground on one side and parked cars plus a hedge line on the other. Crosswalk paint is worn but present. **The yard is empty of children unless a card names one. Nothing is wrecked or burning.**
 
+### L-006 · Mill cut, one live lane
+*First appearance: II-023. Act II. Not Kent Station, not a Kent arterial — a rock-cut mill.*
+
+> A single live travel lane through a wet rock cut, afternoon rain. The closed half is a trench behind cones. Vertical wet rock wall on one side, no shoulder that is not a drop. A stopped pickup occupies the live lane, hood up, two figures in the travel path. Overhead gray, no Kent storefronts, no school fence, no ocean. **Do not relocate this mill onto a Kent collector. Nothing is burning or collapsed.**
+
 ### L-002 · The Lot — dead Fred Meyer, Renton
 *Act I base state.*
 

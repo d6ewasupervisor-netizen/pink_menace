@@ -164,13 +164,13 @@ function mountRun(app) {
     }
   });
 
-  app.get("/api/run/image", async (req, res) => {
+  async function sendRunImage(req, res, requestedRaw) {
     if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
     const session = await auth.requireRole(req, res, "student");
     if (!session) return;
     try {
       const run = await getRunForHome(session.userId);
-      const requested = String(req.query.card_id || "");
+      const requested = String(requestedRaw || "").replace(/\.(png|jpe?g|webp)$/i, "");
       const pending = await pendingOutcome(run.id);
       let cardId = requested || (pending && pending.card_id) || run.current_card_id;
       if (!cardId) return res.status(404).end();
@@ -189,6 +189,14 @@ function mountRun(app) {
     } catch (err) {
       return jsonError(res, 500, "Could not load image.");
     }
+  }
+
+  app.get("/api/run/image/:cardId", async (req, res) => {
+    return sendRunImage(req, res, req.params.cardId);
+  });
+
+  app.get("/api/run/image", async (req, res) => {
+    return sendRunImage(req, res, req.query.card_id);
   });
 
   app.get("/api/run/cast/:id", async (req, res) => {

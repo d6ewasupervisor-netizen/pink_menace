@@ -6,12 +6,12 @@
   "card_type": "ledger",
   "title": "The Arm Still Out",
   "hook": "Reds on, stop arm out. Tobin is already in the street.",
-  "scene": "Bus 12 is back on Fourth Ave South at Willis, same rain, same crown in the wheel tracks, same bare maples. Reyna has the reds on and the stop arm is out — bent a few degrees off true from a plow that did not wait. Tobin is already in the street this time, yellow shell, not looking. At the treeline four blocks down, something that heard steel on steel last time has not left. You are behind her again with a clear left lane that is not clear at all. The insulin can wait. He cannot.",
+  "scene": "Bus 12 is back on Fourth Ave South at Willis, same rain, same crown in the wheel tracks, same bare maples. Reyna has the reds on and the stop arm is out — bent a few degrees off true from a plow that did not wait. Tobin is already in the street this time, yellow shell, not looking. At the treeline four blocks down, something that heard steel on steel last time has not left. This time you are the oncoming car: same reds, same arm, a lane that looks open and is not yours. The insulin can wait. He cannot.",
   "decision": "Reds are on, the arm is out, and Tobin is in the lane. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Stay stopped behind her until the arm folds and she rolls, even if the left lane is empty",
+      "text": "Stay stopped until the arm folds, even though you are not behind her",
       "correct": true,
       "result": "You sit. Rain on the mesh. Tobin crosses without a glance, then a second kid you did not have last time. The thing at the treeline does not come. Reyna folds the bent arm, finds you in her glass, and does not wave. She does not have to. You are still here. That is the apology.",
       "state_delta": {
@@ -21,7 +21,7 @@
     },
     {
       "id": "b",
-      "text": "Take the left lane now — the arm is already out, so the kids have to be done",
+      "text": "Keep rolling — you are oncoming, so the reds are hers",
       "correct": false,
       "result": "You pull out on reds. Tobin is still in your left headlight. You stand on it. The Menace stops with the plow in the crosswalk he is using. Reyna sees the whole thing in the west-coast glass she does not have. She has a school bus mirror and a bent arm and a face you will carry.",
       "state_delta": {
@@ -72,7 +72,7 @@
     "camera": "POV_ROADSIDE",
     "subject": "Bus 12 stopped in the near lane, red lamps lit, stop arm extended and slightly bent, a dropped backpack on the wet crosswalk paint",
     "foreground": "wet curb and standing water in the wheel tracks at camera height",
-    "midground": "the Pink Menace stopped behind the bus in the same lane, plow toward the bus, empty-looking left lane beside them",
+    "midground": "the Pink Menace stopped facing the bus from the opposite direction, plow toward the bus",
     "background": "bare maples, chain-link, flat gray rain, a distant out-of-focus figure at the treeline four blocks down",
     "read": "reds and the bent arm are on; the backpack is in the lane you wanted last time — no child in frame",
     "continuity": [

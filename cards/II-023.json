@@ -72,7 +72,8 @@
     "background": "Kent afternoon rain, a DO NOT STOP sign already behind you, gray nothing ahead",
     "read": "the only lane is already occupied by a stopped repair — joining it is the error",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "L-006"
     ],
     "aspect": "2:3",
     "geometry": {

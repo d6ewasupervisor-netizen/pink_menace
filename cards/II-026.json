@@ -6,8 +6,8 @@
   "card_type": "hazard",
   "title": "Door Zone, Ice",
   "hook": "Ice in the lot. Marisol occupies the aisle your door wants.",
-  "scene": "Ice in the Kent Station lot at morning, the stalls a rink. You stopped along a row of dead cars to make the last drop on foot. Marisol is coming up the painted aisle in the right glass, slow because ice, still unafraid. Your door is the next thing she will occupy if you open it like a person who is late. The Dutch Reach exists because of this exact geometry: far hand, look, then open. Your left hand wants the handle because you have always opened a door with that hand. The insulin crate is in your right. That is the trap.",
-  "decision": "Marisol is in the right glass and you need the door. How do you get out?",
+  "scene": "Ice in the Kent Station lot at morning, the stalls a rink. You stopped along a row of dead cars to make the last drop on foot. Marisol is coming up the painted aisle in the left glass, from behind, slow because ice, still unafraid. Your door is the next thing she will occupy if you open it like a person who is late. The Dutch Reach exists because of this exact geometry: far hand, look, then open. Your left hand wants the handle because you have always opened a door with that hand. The insulin crate is in your right. That is the trap.",
+  "decision": "Marisol is in the left glass and you need the door. How do you get out?",
   "options": [
     {
       "id": "a",
@@ -68,14 +68,16 @@
   "timeout_ms": 7000,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
-    "subject": "Marisol approaching in the right-side glass, ice on the aisle, the Pink Menace's door still closed",
-    "foreground": "interior door handle and riveted steel, Ali's left hand already hovering",
-    "midground": "her front wheel in the strip the door will occupy",
+    "camera_is_the_lesson": true,
+    "subject": "inside the cabin looking left at the closed door; the door mirror fills the upper left of frame; in its glass, a woman on a bicycle approaches from behind, close, one car length back, in the narrow ice aisle beside parked cars",
+    "foreground": "crossing the frame from the right, a 17-year-old woman's RIGHT arm in a faded pink hoodie sleeve, reaching across her own body, her hand resting on the door latch, the door still fully closed",
+    "midground": "welded steel mesh over the door window glass; icy lot surface outside; the cyclist is only readable in the mirror, not through the window ahead",
     "background": "Kent Station lot, morning ice, dead cars, pale sky",
-    "read": "the door has not opened yet and her wheel is already in the arc",
+    "read": "the far hand on the latch and the rider already in the mirror — the door has not opened, and the reason it hasn't is visible in the glass",
     "continuity": [
       "pink_menace_interior",
       "dutch_reach",
+      "ali",
       "marisol"
     ],
     "aspect": "2:3",

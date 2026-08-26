@@ -340,7 +340,8 @@ function fillCard(card, opts) {
   const shot = document.getElementById("shot");
   const wrap = document.getElementById("shot-wrap");
   if (card.image_url) {
-    shot.src = card.image_url + "&t=" + encodeURIComponent(card.card_id);
+    shot.removeAttribute("src");
+    shot.src = card.image_url;
     wrap.classList.remove("hidden");
   } else {
     shot.removeAttribute("src");
