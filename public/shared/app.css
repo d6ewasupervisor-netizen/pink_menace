@@ -333,6 +333,19 @@ button.danger {
   overflow: auto;
 }
 
+.choice-dock {
+  position: sticky;
+  bottom: 0;
+  z-index: 6;
+  margin: 0.15rem -1.1rem -1.1rem;
+  padding: 0.65rem 1.1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
 .play-header {
   display: flex;
   align-items: center;
@@ -691,10 +704,7 @@ button.danger {
 }
 
 .fear-contacts, .fear-gait, .fear-prints, .fear-mirror, .fear-eyeshine {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 1.1s ease;
+  display: none;
 }
 .fear-mirror {
   background: radial-gradient(ellipse 38% 14% at 50% 7%, rgba(6, 5, 5, 0.62), transparent 74%);
@@ -909,8 +919,10 @@ button.danger {
   z-index: 55;
   background: #000;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1.4rem;
   padding: 2rem;
 }
 #collapse-copy {
@@ -919,6 +931,10 @@ button.danger {
   color: #c4b8ae;
   font-size: 1.05rem;
   line-height: 1.55;
+  text-align: center;
+}
+#collapse-continue {
+  min-width: 10rem;
 }
 
 #run.hit {
@@ -997,6 +1013,10 @@ button.danger {
     --tap: 2.75rem;
   }
   .panel { padding: 0.85rem; gap: 0.7rem; }
+  .choice-dock {
+    margin: 0.15rem -0.85rem -0.85rem;
+    padding: 0.55rem 0.85rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+  }
   .shot-wrap {
     max-width: min(100%, 16.5rem);
     max-height: min(36vh, 18rem);

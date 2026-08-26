@@ -311,7 +311,7 @@ function startHazardWindow(card) {
   window.clearInterval(hazardTimer);
   const clock = document.getElementById("hazard-clock");
   const fill = document.getElementById("hazard-fill");
-  const ms = Number(card.timeout_ms) || 8000;
+  const ms = Number(card.timeout_ms) || 24000;
   const started = Date.now();
   const gen = playGen;
   if (clock) clock.classList.remove("hidden");

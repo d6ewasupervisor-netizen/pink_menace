@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#9a3d4d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>PINK MENACE</title>
-      <link rel="stylesheet" href="/shared/app.css?v=p22">
+      <link rel="stylesheet" href="/shared/app.css?v=p23">
 </head>
 <body>
   <main class="shell">
@@ -98,12 +98,14 @@
         <button type="button" id="hook" class="hook hidden"></button>
         <p id="scene" class="scene hidden"></p>
         <p id="decision" class="decision"></p>
-        <div id="options" class="options"></div>
-        <p id="result" class="result hidden"></p>
-        <p id="debrief" class="result hidden"></p>
-        <div class="actions">
-          <button id="continue" class="hidden" type="button">Continue</button>
-          <button id="resume-live" class="hidden" type="button">Resume</button>
+        <div id="choice-dock" class="choice-dock">
+          <div id="options" class="options"></div>
+          <p id="result" class="result hidden"></p>
+          <p id="debrief" class="result hidden"></p>
+          <div class="actions">
+            <button id="continue" class="hidden" type="button">Continue</button>
+            <button id="resume-live" class="hidden" type="button">Resume</button>
+          </div>
         </div>
         <div id="ignition" class="ignition hidden">
           <div class="ignition-dash" aria-hidden="true">
@@ -120,12 +122,13 @@
         </div>
         <div id="collapse" class="collapse hidden">
           <p id="collapse-copy"></p>
+          <button type="button" id="collapse-continue">Continue</button>
         </div>
       </div>
     </section>
   </main>
-  <script src="/shared/auth.js?v=p22"></script>
-  <script src="/feel.js?v=p22"></script>
-  <script src="/app.js?v=p22"></script>
+  <script src="/shared/auth.js?v=p23"></script>
+  <script src="/feel.js?v=p23"></script>
+  <script src="/app.js?v=p23"></script>
 </body>
 </html>

@@ -117,8 +117,8 @@
     "timeout_ms": {
       "type": "integer",
       "minimum": 4000,
-      "maximum": 20000,
-      "description": "Hazard decision window. Default 8000."
+      "maximum": 30000,
+      "description": "Hazard decision window. Default 24000."
     },
     "image_brief": {
       "type": "object",

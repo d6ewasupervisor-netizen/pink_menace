@@ -65,7 +65,7 @@
   "callback_of": null,
   "schedules_callback": false,
   "timeout_option_id": "b",
-  "timeout_ms": 7000,
+  "timeout_ms": 21000,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
     "camera_is_the_lesson": true,

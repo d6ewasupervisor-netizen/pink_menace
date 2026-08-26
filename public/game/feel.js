@@ -641,10 +641,12 @@ const PMFeel = (() => {
   function playCollapse(dispatch, then) {
     const panel = document.getElementById("collapse");
     const copy = document.getElementById("collapse-copy");
+    const go = document.getElementById("collapse-continue");
     const dash = document.getElementById("dash");
     const root = document.getElementById("fear-root");
     let closed = false;
     if (copy) copy.textContent = dispatch || "";
+    if (go) go.classList.add("hidden");
     if (root) root.classList.add("collapsing");
     if (dash) dash.classList.add("dead");
     playCueAudio("palm");
@@ -660,13 +662,25 @@ const PMFeel = (() => {
         panel.onclick = null;
         panel.classList.add("hidden");
       }
+      if (go) {
+        go.onclick = null;
+        go.classList.add("hidden");
+      }
       if (root) root.classList.remove("collapsing");
       if (dash) dash.classList.remove("dead");
       if (copy) copy.textContent = "";
       then && then();
     };
     window.setTimeout(() => {
+      if (closed) return;
       if (panel) panel.onclick = close;
+      if (go) {
+        go.classList.remove("hidden");
+        go.onclick = (ev) => {
+          ev.stopPropagation();
+          close();
+        };
+      }
     }, 1200);
   }
 

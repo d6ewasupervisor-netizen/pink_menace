@@ -243,7 +243,7 @@ async function publicCard(cardId) {
     night: nightOf(timeOfDay),
     camera: brief.camera || null,
     timeout_option_id: extra.timeout_option_id || null,
-    timeout_ms: Number(extra.timeout_ms) || 8000,
+    timeout_ms: Number(extra.timeout_ms) || 24000,
     image_url: imageUrl(card.card_id),
     options: options.map((o) => ({ option_id: o.option_id, option_text: o.option_text })),
     tappable: true,
