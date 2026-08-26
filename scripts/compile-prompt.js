@@ -26,7 +26,7 @@ const FRAMING = {
   POV_DIAGRAM:
     "Camera is high and slightly oblique — fifteen to twenty degrees off vertical, looking along the ego vehicle's direction of travel so the rear of the Beetle is nearer the camera and the plow is the far, leading end. Tight crop: only the lane geometry the card turns on. No extra side streets, parked cars, or curb clutter the brief did not name. Real wet pavement, real painted lines. The Pink Menace is the actual faded-pink VW Beetle with mesh cages, knobby tires, and the wide flat plow at the leading end. Other vehicles are real cars, desaturated gray or primer. Painted pavement arrows only where the brief names them, and they agree with travel direction — no floating UI arrows, no legend, no callouts.",
   POV_CHASE:
-    "Camera is behind the subject vehicle, road ahead visible. The brief specifies whether this is dead astern or offset to a flank, and whether the camera is outside or in a following cab.",
+    "Camera is behind the subject vehicle, traveling the same direction. The subject's rear is the nearest and dominant mass; the body recedes away from the camera. Dead astern or offset to a flank as the brief specifies. The camera may be outside or in a following cab looking forward through glass. Never oncoming. The subject's front, grille, and headlights are not in frame.",
   POV_ROADSIDE:
     "Camera is ground level, outside the car, human eye height.",
   POV_PORTRAIT:
@@ -46,6 +46,12 @@ const DIAGRAM_NEGATIVE =
 
 const LHD_NEGATIVE =
   "No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road.";
+
+const CHASE_CLAUSE =
+  "Chase camera: camera vehicle and subject travel the same direction. The rear of the subject — back doors, rear bumper — is nearest the camera and occupies a large fraction of the frame. The body recedes away from the camera toward the top of the frame. The subject's front, grille, windshield, and headlights are not visible from this position.";
+
+const CHASE_NEGATIVE =
+  "No front grille, no headlights facing the camera, no oncoming vehicles, no vehicle facing the camera, no nose-to-nose traffic, no subject coming toward the lens.";
 
 const SIGN_CLAUSE =
   "Traffic signs are single-faced. Any sign in frame is legible only if it faces the camera's direction of travel. Signs governing a cross or opposing approach show their blank reverse side. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.";
@@ -94,7 +100,16 @@ function assemblePrompt(card) {
 
   if (describesRoadway(card) && brief.geometry) {
     parts.push(LHD);
-    parts.push(geometryPromptClause(brief.geometry));
+    if (cam === "POV_CHASE") {
+      parts.push(CHASE_CLAUSE);
+      const geo = brief.geometry;
+      parts.push(
+        "United States road configuration, traffic drives on the right. Same-direction traffic occupies the right half of the roadway. " +
+          `The subject is traveling ${headingPhrase(geo.ego_heading)}. Any oncoming traffic is ${geo.oncoming_position}. No vehicle faces the wrong way in its lane.`
+      );
+    } else {
+      parts.push(geometryPromptClause(brief.geometry));
+    }
     parts.push(SIGN_CLAUSE);
   } else if (cam !== "POV_OBJECT" && cam !== "POV_PORTRAIT") {
     parts.push(LHD);
@@ -105,6 +120,7 @@ function assemblePrompt(card) {
   }
 
   const negs = [cam === "POV_DIAGRAM" ? DIAGRAM_NEGATIVE : NEGATIVE, LHD_NEGATIVE];
+  if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
   parts.push(negs.join(" "));
 
