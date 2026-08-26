@@ -108,6 +108,8 @@ CREATE TABLE IF NOT EXISTS run_answers (
   UNIQUE (run_id, card_id, attempt_no)
 );
 
+-- One resolution per card per run. Callback debt may queue a different card;
+-- it must never rewrite a card that already has a row.
 CREATE UNIQUE INDEX IF NOT EXISTS run_answers_one_per_card ON run_answers (run_id, card_id);
 
 CREATE TABLE IF NOT EXISTS coverage_log (

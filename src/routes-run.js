@@ -243,7 +243,19 @@ function mountRun(app) {
         [session.userId]
       );
       const run = runRes.rows[0];
-      if (!run || run.current_card_id !== cardId) {
+      if (!run) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 409, "This is not the current card.");
+      }
+      const already = await client.query(
+        `SELECT 1 FROM run_answers WHERE run_id = $1 AND card_id = $2 LIMIT 1`,
+        [run.id, cardId]
+      );
+      if (already.rowCount) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 409, "Already answered.");
+      }
+      if (run.current_card_id !== cardId) {
         await client.query("ROLLBACK");
         return jsonError(res, 409, "This is not the current card.");
       }
@@ -281,14 +293,6 @@ function mountRun(app) {
       if (!option) {
         await client.query("ROLLBACK");
         return jsonError(res, 400, "Unknown option.");
-      }
-      const already = await client.query(
-        `SELECT 1 FROM run_answers WHERE run_id = $1 AND card_id = $2 LIMIT 1`,
-        [run.id, cardId]
-      );
-      if (already.rowCount) {
-        await client.query("ROLLBACK");
-        return jsonError(res, 409, "Already answered.");
       }
       const answerId = crypto.randomUUID();
       try {
