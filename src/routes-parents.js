@@ -79,7 +79,26 @@ async function coverageFor(studentId) {
   const allDol = [...new Set(catalog.map((c) => c.dol_section).filter(Boolean))];
   const remaining = allDol.filter((d) => !covered.includes(d));
 
-  return { acts: actList, skills, dol: { covered, remaining } };
+  const { rows: firstTry } = await query(
+    `SELECT COUNT(*) FILTER (WHERE was_correct)::int AS clean,
+            COUNT(*)::int AS n
+       FROM (
+         SELECT DISTINCT ON (a.card_id) a.was_correct
+           FROM run_answers a
+           JOIN runs r ON r.id = a.run_id
+          WHERE r.student_id = $1
+          ORDER BY a.card_id, a.created_at ASC
+       ) t`,
+    [studentId]
+  );
+  const ft = firstTry[0] || { clean: 0, n: 0 };
+
+  return {
+    acts: actList,
+    skills,
+    dol: { covered, remaining },
+    first_try: { clean: ft.clean || 0, total: ft.n || 0 },
+  };
 }
 
 function mountParents(app) {

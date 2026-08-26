@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Bus 12, Amber",
+  "hook": "Bus 12's ambers just came on. The left lane is open.",
   "scene": "Fourth Ave South, Kent, and the rain has been going since Renton. Half a block up, Bus 12 rolls at maybe fifteen. Reyna runs the last shelter route and she runs it on time. The amber lamps come on above her rear window. Gracie stands up in the passenger footwell. You are carrying insulin that has been out of cold for ninety minutes, and there is a clear lane to Reyna's left.",
   "decision": "The amber lamps are on and the left lane is open. What do you do?",
   "options": [

@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "hazard",
   "title": "Marisol in the Lot",
+  "hook": "A bike is closing your right rear toward the same exit.",
   "scene": "Rain hammers the old Kent Station lot, a sheet off the mesh, the stalls faded to ghosts. You are rolling a lane of painted arrows toward the exit onto 1st. In the right convex, a bicycle: bare head, dark jacket, fast, unafraid. Marisol. She is using the lot as a cut-through the way she always has. She is on your right rear quarter, closing to pass you on the inside toward the same exit. Your window is up. Your door is a weapon if you forget she is there.",
   "decision": "Marisol is in your right mirror, coming up the inside toward the same exit. What do you do?",
   "options": [

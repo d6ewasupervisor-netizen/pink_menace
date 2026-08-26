@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "hazard",
   "title": "Door Zone, Ice",
+  "hook": "Ice in the lot. Marisol occupies the aisle your door wants.",
   "scene": "Ice in the Kent Station lot at morning, the stalls a rink. You stopped along a row of dead cars to make the last drop on foot. Marisol is coming up the painted aisle in the right glass, slow because ice, still unafraid. Your door is the next thing she will occupy if you open it like a person who is late. The Dutch Reach exists because of this exact geometry: far hand, look, then open. Your left hand wants the handle because you have always opened a door with that hand. The insulin crate is in your right. That is the trap.",
   "decision": "Marisol is in the right glass and you need the door. How do you get out?",
   "options": [

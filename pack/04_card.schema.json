@@ -4,7 +4,7 @@
   "title": "Pink Menace Card",
   "type": "object",
   "required": [
-    "card_id", "act", "zone", "driver", "card_type", "title",
+    "card_id", "act", "zone", "driver", "card_type", "title", "hook",
     "scene", "source", "image_brief", "variation"
   ],
   "additionalProperties": false,
@@ -23,6 +23,12 @@
       "enum": ["scene", "hazard", "rule", "convoy", "wrench", "ledger", "dossier"]
     },
     "title": { "type": "string", "minLength": 3, "maxLength": 40 },
+    "hook": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 90,
+      "description": "One present-tense line, ≤12 words. The situation. Default display with the image and options; full scene sits behind a tap on this line."
+    },
     "scene": { "type": "string", "minLength": 150, "maxLength": 700 },
     "decision": {
       "type": "string",

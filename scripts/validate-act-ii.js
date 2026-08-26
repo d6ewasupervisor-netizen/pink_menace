@@ -43,6 +43,10 @@ for (let i = 0; i < cards.length; i++) {
   if (c.act !== "II" || c.zone !== "The Grid" || c.driver !== "ali") err(id, "act/zone/driver");
   if (!typeEnum.includes(c.card_type)) err(id, "card_type");
   if (c.scene.length < 150 || c.scene.length > 700) err(id, `scene len ${c.scene.length}`);
+  const hookWords = String(c.hook || "").trim().split(/\s+/).filter(Boolean);
+  if (!c.hook || hookWords.length < 1 || hookWords.length > 12) {
+    err(id, `hook words ${hookWords.length}`);
+  }
   if (c.card_type !== "dossier") {
     if (!c.decision || !c.options || !c.debrief) err(id, "missing decision/options/debrief");
     const correct = (c.options || []).filter((o) => o.correct);

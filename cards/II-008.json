@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "wrench",
   "title": "Oil on Milled Asphalt",
+  "hook": "Oil light's on. A dark fan sits in the mirror.",
   "scene": "The oil light is a dull orange you have been ignoring since the lot. Fog again, a Kent mill-and-fill that never got its top lift, cones still in a lazy line. You feel the note change — not a knock, a dry rattle under the rear. A dark fan of oil is already on the milled surface behind you in the mirror, too even to be rain. The insulin is still in the window. The engine is not. Nobody is coming to tow the Menace. The Quiet will, if you sit in the travel lane and cook it.",
   "decision": "The oil light is on and you are laying a fan on the millings. Where do you put the car?",
   "options": [

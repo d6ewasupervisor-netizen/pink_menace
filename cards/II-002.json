@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "White Lights, Empty Yard",
+  "hook": "School-zone lamps flash over a yard empty for months.",
   "scene": "The school-zone lamps are still lit on a Kent collector at dawn, white and cold, flashing over a dry playground that has not held a recess in fourteen months. Your speedo sits on twenty-eight. The painted 20 is faded but it is there. Nothing moves on the sidewalk. The insulin is still cold. The Menace wants the next block. Your eyes want the empty yard instead of the parked cars and the hedge line where a yard used to dump kids into the crosswalk.",
   "decision": "The lamps are flashing and the yard looks dead. Where do you put the speed?",
   "options": [

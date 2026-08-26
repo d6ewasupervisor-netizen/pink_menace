@@ -6,14 +6,14 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST, publicState } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST, publicState, cargoDead, cargoFailDispatch, skipSeqFor } = require("./game");
 const { applyFear } = require("./presence");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
 // A completed run starts a new one. We never rewind an in-progress run to card one.
 async function assignCurrent(run) {
   if (run.current_card_id) return run;
-  const picked = await pickNextCard(pool, run.id, run.callback_debts);
+  const picked = await pickNextCard(pool, run.id, run.callback_debts, run.start_seq);
   if (picked.cardId) {
     await query(
       `UPDATE runs SET current_card_id = $1, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
@@ -27,7 +27,7 @@ async function assignCurrent(run) {
 
 async function getOrCreateRun(studentId) {
   const { rows } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
        FROM runs
       WHERE student_id = $1 AND status = 'active'`,
     [studentId]
@@ -40,7 +40,7 @@ async function getOrCreateRun(studentId) {
     [id, studentId]
   );
   const created = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
        FROM runs WHERE id = $1`,
     [id]
   );
@@ -49,14 +49,14 @@ async function getOrCreateRun(studentId) {
 
 async function getRunForHome(studentId) {
   const { rows: active } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
        FROM runs
       WHERE student_id = $1 AND status = 'active'`,
     [studentId]
   );
   if (active[0]) return assignCurrent(active[0]);
   const { rows: last } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
        FROM runs
       WHERE student_id = $1
       ORDER BY updated_at DESC
@@ -194,6 +194,7 @@ function mountRun(app) {
   const CAST_CARDS = {
     ali: "II-001",
     gracie: "II-018",
+    deac: "II-006",
   };
 
   app.get("/api/run/cast/:id", async (req, res) => {
@@ -206,7 +207,7 @@ function mountRun(app) {
       const run = await getRunForHome(session.userId);
       const progress = await progressFor(run);
       const member = progress.cast.find((c) => c.id === id);
-      if (!member || !member.unlocked) return res.status(404).end();
+      if ((!member || !member.unlocked) && req.query.bark !== "1") return res.status(404).end();
       const cardId = CAST_CARDS[id];
       if (!cardId) return res.status(404).end();
       const { rows } = await query(
@@ -236,7 +237,7 @@ function mountRun(app) {
     try {
       await client.query("BEGIN");
       const runRes = await client.query(
-        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
+        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
            FROM runs
           WHERE student_id = $1 AND status = 'active'
           FOR UPDATE`,
@@ -261,7 +262,7 @@ function mountRun(app) {
       }
       const cardRes = await client.query(
         `SELECT card_id, card_type, debrief, schedules_callback, callback_of, psdp_skill, dol_section,
-                act, zone, location_type, weather, time_of_day
+                act, zone, location_type, weather, time_of_day, driver
            FROM cards
           WHERE card_id = $1`,
         [cardId]
@@ -364,25 +365,69 @@ function mountRun(app) {
         ]
       );
 
-      const picked = await pickNextCard(client, run.id, debts);
-      const nextCardId = picked.cardId;
+      const { rows: allOpts } = await client.query(
+        `SELECT option_id, option_text, result, state_delta
+           FROM card_options WHERE card_id = $1 ORDER BY option_id ASC`,
+        [cardId]
+      );
+      const alts = allOpts
+        .filter((o) => o.option_id !== optionId)
+        .map((o) => ({
+          option_id: o.option_id,
+          option_text: o.option_text,
+          result: o.result,
+          state_delta: o.state_delta || {},
+        }));
 
-      if (nextCardId) {
-        await client.query(
-          `UPDATE runs
-              SET current_card_id = $1, current_attempt_no = 1, queued_callbacks = $2,
-                  callback_debts = $3::jsonb, state = $4::jsonb, updated_at = now()
-            WHERE id = $5`,
-          [nextCardId, queued, JSON.stringify(picked.debts), JSON.stringify(state), run.id]
+      const failed = cargoDead(state, delta);
+      let nextCardId = null;
+      if (failed) {
+        const counted = await client.query(
+          `SELECT COUNT(*)::int AS n FROM run_answers WHERE run_id = $1`,
+          [run.id]
         );
-      } else {
+        const startSeq = await skipSeqFor(client, (counted.rows[0] && counted.rows[0].n) - 1);
         await client.query(
           `UPDATE runs
-              SET status = 'completed', current_card_id = NULL, queued_callbacks = $1,
+              SET status = 'failed', current_card_id = NULL, queued_callbacks = $1,
                   callback_debts = $2::jsonb, state = $3::jsonb, updated_at = now()
             WHERE id = $4`,
-          [queued, JSON.stringify(picked.debts), JSON.stringify(state), run.id]
+          [queued, JSON.stringify(debts), JSON.stringify(state), run.id]
         );
+        const freshId = crypto.randomUUID();
+        await client.query(
+          `INSERT INTO runs (id, student_id, status, current_attempt_no, start_seq)
+           VALUES ($1, $2, 'active', 1, $3)`,
+          [freshId, session.userId, startSeq]
+        );
+        const picked = await pickNextCard(client, freshId, [], startSeq);
+        nextCardId = picked.cardId;
+        if (nextCardId) {
+          await client.query(
+            `UPDATE runs SET current_card_id = $1, updated_at = now() WHERE id = $2`,
+            [nextCardId, freshId]
+          );
+        }
+      } else {
+        const picked = await pickNextCard(client, run.id, debts, run.start_seq);
+        nextCardId = picked.cardId;
+        if (nextCardId) {
+          await client.query(
+            `UPDATE runs
+                SET current_card_id = $1, current_attempt_no = 1, queued_callbacks = $2,
+                    callback_debts = $3::jsonb, state = $4::jsonb, updated_at = now()
+              WHERE id = $5`,
+            [nextCardId, queued, JSON.stringify(picked.debts), JSON.stringify(state), run.id]
+          );
+        } else {
+          await client.query(
+            `UPDATE runs
+                SET status = 'completed', current_card_id = NULL, queued_callbacks = $1,
+                    callback_debts = $2::jsonb, state = $3::jsonb, updated_at = now()
+              WHERE id = $4`,
+            [queued, JSON.stringify(picked.debts), JSON.stringify(state), run.id]
+          );
+        }
       }
 
       await client.query("COMMIT");
@@ -394,9 +439,12 @@ function mountRun(app) {
         result: option.result,
         state_delta: delta,
         state: publicState(state),
-        collapse: Boolean(fear.collapse),
-        dispatch: fear.dispatch || null,
+        collapse: Boolean(fear.collapse) || failed,
+        failed,
+        dispatch: failed ? cargoFailDispatch() : fear.dispatch || null,
         debrief: card.debrief,
+        driver: card.driver || "ali",
+        alts,
         next: next || { done: true },
       });
     } catch (err) {
@@ -421,7 +469,7 @@ function mountRun(app) {
     if (!cardId) return jsonError(res, 400, "Missing card.");
     try {
       const runRes = await query(
-        `SELECT id FROM runs WHERE student_id = $1 AND status IN ('active', 'completed')
+        `SELECT id FROM runs WHERE student_id = $1
          ORDER BY updated_at DESC LIMIT 1`,
         [session.userId]
       );
@@ -430,16 +478,45 @@ function mountRun(app) {
       await query(
         `UPDATE run_answers a
             SET ms_on_outcome = $1
-          WHERE a.run_id = $2 AND a.card_id = $3 AND a.ms_on_outcome IS NULL
-            AND a.attempt_no = (
-              SELECT MAX(b.attempt_no) FROM run_answers b
-               WHERE b.run_id = $2 AND b.card_id = $3
-            )`,
-        [msOnOutcome, run.id, cardId]
+          WHERE a.id = (
+            SELECT a2.id FROM run_answers a2
+              JOIN runs r ON r.id = a2.run_id
+             WHERE r.student_id = $2 AND a2.card_id = $3 AND a2.ms_on_outcome IS NULL
+             ORDER BY a2.created_at DESC
+             LIMIT 1
+          )`,
+        [msOnOutcome, session.userId, cardId]
       );
       return res.json({ ok: true });
     } catch (err) {
       return jsonError(res, 500, "Could not save continue.");
+    }
+  });
+
+  app.post("/api/run/peek", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    const cardId = String((req.body && req.body.card_id) || "");
+    const optionId = String((req.body && req.body.option_id) || "");
+    if (!cardId || !optionId) return jsonError(res, 400, "Missing peek.");
+    try {
+      const run = await getRunForHome(session.userId);
+      const { rows: resolved } = await query(
+        `SELECT 1 FROM run_answers a
+           JOIN runs r ON r.id = a.run_id
+          WHERE r.student_id = $1 AND a.card_id = $2
+          LIMIT 1`,
+        [session.userId, cardId]
+      );
+      if (!resolved[0]) return jsonError(res, 409, "Not resolved.");
+      await query(
+        `INSERT INTO run_peeks (id, run_id, card_id, option_id) VALUES ($1, $2, $3, $4)`,
+        [crypto.randomUUID(), run.id, cardId, optionId]
+      );
+      return res.json({ ok: true });
+    } catch (err) {
+      return jsonError(res, 500, "Could not save peek.");
     }
   });
 }

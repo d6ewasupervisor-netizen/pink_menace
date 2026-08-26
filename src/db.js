@@ -57,6 +57,33 @@ async function migrate() {
     ALTER TABLE run_answers ADD COLUMN IF NOT EXISTS ms_on_outcome INTEGER
   `);
   await pool.query(`
+    ALTER TABLE runs ADD COLUMN IF NOT EXISTS start_seq INTEGER NOT NULL DEFAULT 0
+  `);
+  await pool.query(`
+    DO $$
+    DECLARE r RECORD;
+    BEGIN
+      FOR r IN
+        SELECT conname FROM pg_constraint
+         WHERE conrelid = 'runs'::regclass AND contype = 'c'
+           AND pg_get_constraintdef(oid) ILIKE '%status%'
+      LOOP
+        EXECUTE 'ALTER TABLE runs DROP CONSTRAINT ' || quote_ident(r.conname);
+      END LOOP;
+      ALTER TABLE runs ADD CONSTRAINT runs_status_check
+        CHECK (status IN ('active', 'completed', 'failed'));
+    END $$;
+  `);
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS run_peeks (
+      id UUID PRIMARY KEY,
+      run_id UUID NOT NULL REFERENCES runs(id) ON DELETE CASCADE,
+      card_id TEXT NOT NULL REFERENCES cards(card_id),
+      option_id TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `);
+  await pool.query(`
     DELETE FROM run_answers a
      USING run_answers b
      WHERE a.run_id = b.run_id

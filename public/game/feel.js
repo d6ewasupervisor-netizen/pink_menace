@@ -236,6 +236,112 @@ const PMFeel = (() => {
     ken.classList.toggle("still", reduced());
   }
 
+  function setDriver(id) {
+    document.documentElement.dataset.driver = id || "ali";
+  }
+
+  function applyGrade() {
+    try {
+      const on = new URLSearchParams(window.location.search).get("grade") === "1";
+      document.documentElement.classList.toggle("grade-on", on);
+    } catch {
+      // ignore
+    }
+  }
+
+  const BARKS = {
+    ali_wrong: [
+      "Yeah. Heard it too.",
+      "That's the one that draws.",
+      "Okay. We live with that.",
+      "Noted. Keep rolling.",
+      "Loud. They're going to like that.",
+      "I felt that in the crates.",
+    ],
+    ali_hazard: [
+      "Gracie. Sit.",
+      "Quiet. That's the trick.",
+      "Hold that line.",
+      "Good. Don't advertise it.",
+      "That's the gap. Take it.",
+      "Soft on the lamps.",
+    ],
+    ali_ok: [
+      "Copy.",
+      "That's the one.",
+      "Keep it boring.",
+      "Still cold. Keep going.",
+      "Paint's still paint.",
+      "Don't get cute now.",
+    ],
+    deac_timeout: [
+      "Schedule's still the schedule.",
+      "The world didn't wait.",
+      "Cadence, Kilo.",
+      "You froze. It didn't.",
+      "Time's a lane. You left it.",
+      "Move or get moved.",
+    ],
+    yuna_noise: [
+      "Okay, that was me. That one was me.",
+      "I heard myself. Sorry.",
+      "That one rang.",
+      "I know. I heard it too.",
+      "Won't do that twice.",
+      "Yeah. That was loud.",
+    ],
+  };
+  const usedBarks = {};
+
+  function pickBark(kind) {
+    const pool = BARKS[kind] || [];
+    if (!pool.length) return "";
+    if (!usedBarks[kind]) usedBarks[kind] = [];
+    const left = pool.filter((l) => !usedBarks[kind].includes(l));
+    const line = (left.length ? left : pool)[Math.floor(Math.random() * (left.length ? left.length : pool.length))];
+    usedBarks[kind] = left.length ? usedBarks[kind].concat(line) : [line];
+    return line;
+  }
+
+  function barkFor(opts) {
+    const o = opts || {};
+    if (o.timedOut) return { who: "deac", line: pickBark("deac_timeout"), tap: false };
+    if (o.correct && o.hazard) return { who: "ali", line: pickBark("ali_hazard"), tap: false };
+    if (o.correct) return { who: "deac", line: "", tap: true };
+    if (Number(o.noise) > 0) return { who: "yuna", line: pickBark("yuna_noise"), tap: false };
+    return { who: "ali", line: pickBark("ali_wrong"), tap: false };
+  }
+
+  let barkTimer = 0;
+  function showBark(spec) {
+    const el = document.getElementById("bark");
+    const face = document.getElementById("bark-face");
+    const line = document.getElementById("bark-line");
+    if (!el) return;
+    window.clearTimeout(barkTimer);
+    const s = spec || {};
+    if (face) {
+      if (s.who === "ali" || s.who === "deac") {
+        face.src = "/api/run/cast/" + encodeURIComponent(s.who) + "?bark=1";
+        face.classList.remove("hidden");
+      } else {
+        face.removeAttribute("src");
+      }
+    }
+    if (line) line.textContent = s.line || (s.tap ? "" : "");
+    el.className = "bark" + (s.tap ? " tap" : "");
+    el.classList.remove("hidden");
+    barkTimer = window.setTimeout(() => {
+      el.classList.add("hidden");
+    }, 1800);
+  }
+
+  function hideBark() {
+    window.clearTimeout(barkTimer);
+    const el = document.getElementById("bark");
+    if (el) el.classList.add("hidden");
+  }
+
   const SIGHT_KEY = "pm.driveBySight";
   const LEAD_MS = 1600;
   let hazardLeft = 1;
@@ -278,7 +384,12 @@ const PMFeel = (() => {
     if (!root) return;
     const tier = Math.max(0, Math.min(4, Number(state && state.tier) || 0));
     const prints = Boolean(state && state.handprints) || tier >= 3;
-    root.className = "fear-root tier-" + Math.min(tier, 3) + (prints ? " prints" : "");
+    const night = Boolean(state && state.night);
+    root.className =
+      "fear-root tier-" +
+      Math.min(tier, 3) +
+      (prints ? " prints" : "") +
+      (night ? " night" : "");
     presenceAmt = Math.min(1, (Number(state && state.presence) || 0) / 22);
     paintVignette();
   }
@@ -438,17 +549,16 @@ const PMFeel = (() => {
     ng.connect(ctx.destination);
     src.start();
     crankNodes = { osc, src };
-    const needle = document.getElementById("ignition-needle");
-    if (needle) needle.classList.add("spin");
   }
 
   function catchEngine() {
     stopCrank();
-    const needle = document.getElementById("ignition-needle");
-    if (needle) {
-      needle.classList.remove("spin");
-      needle.classList.add("held");
-    }
+    ["ignition-needle", "ignition-needle-2"].forEach((id) => {
+      const n = document.getElementById(id);
+      if (!n) return;
+      n.classList.remove("spin");
+      n.classList.add("held");
+    });
     const ctx = audio.ctx;
     if (!ctx) return;
     const osc = ctx.createOscillator();
@@ -471,42 +581,57 @@ const PMFeel = (() => {
       onCatch && onCatch();
       return;
     }
-    panel.classList.remove("hidden");
-    const needle = document.getElementById("ignition-needle");
-    if (needle) needle.classList.remove("held", "spin");
-    startCrank();
+    panel.classList.remove("hidden", "cranking", "caught");
+    const needles = ["ignition-needle", "ignition-needle-2"].map((id) => document.getElementById(id));
+    needles.forEach((n) => n && n.classList.remove("held", "spin"));
     let done = false;
+    let downAt = 0;
+    const resetCrank = () => {
+      window.clearTimeout(holdTimer);
+      holdTimer = 0;
+      stopCrank();
+      panel.classList.remove("cranking");
+      needles.forEach((n) => n && n.classList.remove("spin", "held"));
+    };
     const finish = (sight) => {
       if (done) return;
       done = true;
       window.clearTimeout(holdTimer);
       holdTimer = 0;
       if (sight) setDriveBySight(true);
+      panel.classList.remove("cranking");
+      panel.classList.add("caught");
       catchEngine();
-      panel.classList.add("hidden");
-      btn.onpointerdown = null;
-      btn.onpointerup = null;
-      btn.onpointerleave = null;
-      btn.onclick = null;
-      onCatch && onCatch();
+      window.setTimeout(() => {
+        panel.classList.add("hidden");
+        panel.classList.remove("caught", "cranking");
+        btn.onpointerdown = null;
+        btn.onpointerup = null;
+        btn.onpointerleave = null;
+        btn.onclick = null;
+        onCatch && onCatch();
+      }, 420);
     };
-    btn.onclick = (ev) => {
-      ev.preventDefault();
-    };
+    btn.onclick = (ev) => ev.preventDefault();
     btn.onpointerdown = (ev) => {
       ev.preventDefault();
+      downAt = Date.now();
+      panel.classList.add("cranking");
       startCrank();
-      holdTimer = window.setTimeout(() => finish(true), 900);
+      needles.forEach((n) => n && n.classList.add("spin"));
+      holdTimer = window.setTimeout(() => finish(true), 1800);
     };
     btn.onpointerup = () => {
       if (done) return;
+      const held = Date.now() - downAt;
       window.clearTimeout(holdTimer);
       holdTimer = 0;
-      finish(false);
+      if (held >= 1100) finish(false);
+      else resetCrank();
     };
     btn.onpointerleave = () => {
-      window.clearTimeout(holdTimer);
-      holdTimer = 0;
+      if (done) return;
+      resetCrank();
     };
   }
 
@@ -539,8 +664,7 @@ const PMFeel = (() => {
     };
     window.setTimeout(() => {
       if (panel) panel.onclick = close;
-    }, 1400);
-    window.setTimeout(close, 7000);
+    }, 1200);
   }
 
   function typeScene(full, onFirst, onDone) {
@@ -602,6 +726,8 @@ const PMFeel = (() => {
     shake,
     setWeather,
     setKen,
+    setDriver,
+    applyGrade,
     setVignette,
     paintFear,
     fireCue,
@@ -613,5 +739,8 @@ const PMFeel = (() => {
     sting: playCueAudio,
     typeScene,
     ensureAudio,
+    barkFor,
+    showBark,
+    hideBark,
   };
 })();

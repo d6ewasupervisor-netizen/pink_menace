@@ -94,6 +94,10 @@ function renderStudents(items) {
     const dol = cov.dol || { covered: [], remaining: [] };
     card.append(el("p", "meta", "DOL covered: " + (dol.covered.join("; ") || "—")));
     card.append(el("p", "meta", "DOL remaining: " + (dol.remaining.join("; ") || "—")));
+    const ft = cov.first_try || {};
+    if (ft.total) {
+      card.append(el("p", "meta", "First try: " + ft.clean + " of " + ft.total));
+    }
     const log = el("button", "ghost", "Print log");
     log.addEventListener("click", () => {
       window.open("/api/parents/students/" + st.id + "/log", "_blank");

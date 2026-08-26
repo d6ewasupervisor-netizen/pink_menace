@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "A Voice You Know",
+  "hook": "The radio bleeds by itself. Someone is already in the crosswalk.",
   "scene": "The radio bleeds at dawn on a Kent collector that thinks it is an arterial. Wind again. You did not turn the radio on. It came up by itself, a trick the aftermarket tablet has been pulling since the lot — a scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right, mid-block enough to be easy to miss if you are in the glass. Both hands should be on the wheel. One of them is not.",
   "decision": "The tablet is talking in a voice you know and a pedestrian is in the crosswalk. Where do your eyes go?",
   "options": [

@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "wrench",
   "title": "One Lamp, Not Two",
+  "hook": "Left headlamp is dead in the rain. The right still holds.",
   "scene": "Heavy rain on a Kent residential at morning, the kind that turns every surface into a mirror. Your left headlamp has been dying for a mile — a yellow wink, then a hole. The right is still a proper low beam. High beams would fill the rain and give you nothing but scatter, and they would give the Quiet a lighthouse. You have a spare sealed beam in the wing that takes two hands and a shoulder. You also have a running lane. The legal requirement is two lamps at night or in rain. The tactical requirement is not to stand in the street to be correct.",
   "decision": "The left lamp is dead in the rain. What do you do before the next mile?",
   "options": [

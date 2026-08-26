@@ -57,8 +57,9 @@ async function ledgerForOrigin(client, runId, fromCard) {
   return rows[0] ? rows[0].card_id : null;
 }
 
-async function pickNextCard(client, runId, debts) {
+async function pickNextCard(client, runId, debts, startSeq) {
   const list = asDebts(debts);
+  const skip = Number(startSeq) || 0;
   for (const d of list) {
     if (Number(d.remaining) > 0) continue;
     const id = await ledgerForOrigin(client, runId, d.from_card);
@@ -68,13 +69,14 @@ async function pickNextCard(client, runId, debts) {
     `SELECT c.card_id
        FROM cards c
       WHERE c.callback_of IS NULL
+        AND c.seq > $2
         AND NOT EXISTS (
               SELECT 1 FROM run_answers a
                WHERE a.run_id = $1 AND a.card_id = c.card_id
             )
       ORDER BY c.seq ASC, c.card_id ASC
       LIMIT 1`,
-    [runId]
+    [runId, skip]
   );
   if (main[0]) return { cardId: main[0].card_id, debts: list };
   for (const d of list) {
@@ -144,6 +146,42 @@ function cargoFrom(state) {
   return Math.max(0, Math.min(100, 100 - time - noise - Math.round(light / 2)));
 }
 
+function cargoDead(state, delta) {
+  return cargoFrom(state) <= 0 || Boolean(delta && delta.fatal);
+}
+
+function checkpointKeep(answersBefore) {
+  return Math.floor(Math.max(0, Number(answersBefore) || 0) / 5) * 5;
+}
+
+async function skipSeqFor(client, answersBefore) {
+  const keep = checkpointKeep(answersBefore);
+  if (keep <= 0) return 0;
+  const { rows } = await client.query(
+    `SELECT seq FROM cards ORDER BY seq ASC, card_id ASC OFFSET $1 LIMIT 1`,
+    [keep - 1]
+  );
+  return rows[0] ? Number(rows[0].seq) : 0;
+}
+
+function nightOf(timeOfDay) {
+  return timeOfDay === "dusk" || timeOfDay === "night" || timeOfDay === "deep_night";
+}
+
+function hookOf(card) {
+  const extra = (card && card.extra) || {};
+  const authored = extra.hook || (card && card.hook);
+  if (authored) return String(authored).trim();
+  const t = String((card && card.scene) || "").trim();
+  const sentence = (t.match(/^[\s\S]*?[.!?](?:\s|$)/) || [t])[0].trim();
+  const words = sentence.split(/\s+/).filter(Boolean);
+  return words.slice(0, 12).join(" ");
+}
+
+function cargoFailDispatch() {
+  return "KILO. Ledger. The cold ran out. They're on you. You are dark. Copy.";
+}
+
 function publicState(state) {
   const s = state || {};
   return {
@@ -157,7 +195,7 @@ function publicState(state) {
 
 async function publicCard(cardId) {
   const { rows: cards } = await query(
-    `SELECT card_id, title, scene, decision, card_type, act, zone, seq, weather, extra
+    `SELECT card_id, title, scene, decision, card_type, act, zone, seq, weather, extra, driver, time_of_day
        FROM cards
       WHERE card_id = $1`,
     [cardId]
@@ -173,15 +211,21 @@ async function publicCard(cardId) {
   );
   const extra = card.extra || {};
   const brief = extra.image_brief || {};
+  const variation = extra.variation || {};
+  const timeOfDay = card.time_of_day || variation.time_of_day || null;
   return {
     card_id: card.card_id,
     card_type: card.card_type,
     title: card.title,
+    hook: hookOf(card),
     scene: card.scene,
     decision: card.decision,
     act: card.act,
     zone: card.zone,
-    weather: card.weather || (extra.variation && extra.variation.weather) || null,
+    driver: card.driver || extra.driver || "ali",
+    weather: card.weather || variation.weather || null,
+    time_of_day: timeOfDay,
+    night: nightOf(timeOfDay),
     camera: brief.camera || null,
     timeout_option_id: extra.timeout_option_id || null,
     timeout_ms: Number(extra.timeout_ms) || 8000,
@@ -195,7 +239,7 @@ async function reviewCard(cardId, attempt) {
   const live = await publicCard(cardId);
   if (!live) return null;
   const { rows: fullOpts } = await query(
-    `SELECT option_id, option_text, result, is_correct
+    `SELECT option_id, option_text, result, is_correct, state_delta
        FROM card_options
       WHERE card_id = $1
       ORDER BY option_id ASC`,
@@ -203,14 +247,23 @@ async function reviewCard(cardId, attempt) {
   );
   const { rows: cards } = await query(`SELECT debrief FROM cards WHERE card_id = $1`, [cardId]);
   const chosen = attempt && attempt.option_id;
+  const full = fullOpts.length ? fullOpts : live.options;
   return {
     ...live,
     tappable: false,
-    options: (fullOpts.length ? fullOpts : live.options).map((o) => ({
+    options: full.map((o) => ({
       option_id: o.option_id,
       option_text: o.option_text,
       chosen: o.option_id === chosen,
     })),
+    alts: full
+      .filter((o) => o.option_id && o.option_id !== chosen && o.result)
+      .map((o) => ({
+        option_id: o.option_id,
+        option_text: o.option_text,
+        result: o.result,
+        state_delta: o.state_delta || {},
+      })),
     outcome: {
       option_id: chosen || null,
       was_correct: Boolean(attempt && attempt.was_correct),
@@ -239,11 +292,12 @@ async function progressFor(run) {
       ORDER BY seq ASC, card_id ASC`
   );
   const { rows: answers } = await query(
-    `SELECT card_id, option_id, was_correct, created_at
-       FROM run_answers
-      WHERE run_id = $1
-      ORDER BY created_at ASC`,
-    [run.id]
+    `SELECT DISTINCT ON (a.card_id) a.card_id, a.option_id, a.was_correct, a.created_at
+       FROM run_answers a
+       JOIN runs r ON r.id = a.run_id
+      WHERE r.student_id = $1
+      ORDER BY a.card_id, a.created_at ASC`,
+    [run.student_id]
   );
   const byCard = new Map();
   for (const a of answers) {
@@ -383,5 +437,11 @@ module.exports = {
   CAST,
   ACT_ZONES,
   cargoFrom,
+  cargoDead,
+  cargoFailDispatch,
+  checkpointKeep,
+  skipSeqFor,
   publicState,
+  hookOf,
+  nightOf,
 };

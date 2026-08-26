@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "rule",
   "title": "Do Not Block the Mill",
+  "hook": "A pickup is dead in the only live lane.",
   "scene": "Rain on a Kent mill-and-fill in the afternoon, one lane open, the other a trench. A pickup is already stopped in the open lane with its hood up, two people standing in the travel path like the mill is a driveway. There is no shoulder that is not a drop. Your instinct is to queue behind them and wait, which makes you the third body in a lane that still has a through. The sign at the start of the zone said DO NOT STOP. It meant it. You need a hole that is not their repair.",
   "decision": "They are stopped in the only live lane. Where do you put the Menace?",
   "options": [

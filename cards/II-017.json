@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "rule",
   "title": "The Yellow Line Still Means It",
+  "hook": "A dead van. Passing would put you over the solid yellow.",
   "scene": "Clear cold afternoon. A Kent school zone with a solid yellow in your lane and a broken yellow for them. You want around a parked delivery van that has been dead since the first week. The van sits legal enough. Passing would put you over the solid. The playground is empty. The line is not. Hollis is not in this one. Nobody is coming the other way that you can see. That is the whole trick of a solid yellow: the thing you cannot see yet owns that paint.",
   "decision": "A dead van is blocking your speed and the yellow under you is solid. Do you go around?",
   "options": [

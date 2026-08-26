@@ -83,9 +83,10 @@ CREATE TABLE IF NOT EXISTS card_options (
 CREATE TABLE IF NOT EXISTS runs (
   id UUID PRIMARY KEY,
   student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  status TEXT NOT NULL CHECK (status IN ('active', 'completed')),
+  status TEXT NOT NULL CHECK (status IN ('active', 'completed', 'failed')),
   current_card_id TEXT REFERENCES cards(card_id),
   current_attempt_no INTEGER NOT NULL DEFAULT 1,
+  start_seq INTEGER NOT NULL DEFAULT 0,
   queued_callbacks TEXT[] NOT NULL DEFAULT '{}',
   callback_debts JSONB NOT NULL DEFAULT '[]'::jsonb,
   state JSONB NOT NULL DEFAULT '{}'::jsonb,

@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "convoy",
   "title": "Deac's Left Arm",
+  "hook": "Deac's arm goes straight, then down. Someone is on your bumper.",
   "scene": "Night has dropped on a Kent school zone that still flashes for no one. You are second in a two-vehicle run: the Ledger ahead, amber destination sign dark, west-coast mirrors wide as doors. Deac's left arm comes out the driver's window, straight out, then down — the old transit slow. Radios are trash. This is the sentence. A third set of lamps sits on your bumper, too close, some volunteer who joined without asking. Gracie is boxed. Your job is not to be clever. Your job is to answer him without lighting the block.",
   "decision": "Deac's left arm is out and down. The volunteer behind you is tight. How do you answer?",
   "options": [

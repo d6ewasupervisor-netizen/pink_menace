@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "ledger",
   "title": "The Arm Still Out",
+  "hook": "Reds on, stop arm out. Tobin is already in the street.",
   "scene": "Bus 12 is back on Fourth Ave South at Willis, same rain, same crown in the wheel tracks, same bare maples. Reyna has the reds on and the stop arm is out — bent a few degrees off true from a plow that did not wait. Tobin is already in the street this time, yellow shell, not looking. At the treeline four blocks down, something that heard steel on steel last time has not left. You are behind her again with a clear left lane that is not clear at all. The insulin can wait. He cannot.",
   "decision": "Reds are on, the arm is out, and Tobin is in the lane. What do you do?",
   "options": [

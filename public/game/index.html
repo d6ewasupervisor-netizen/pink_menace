@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#9a3d4d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>PINK MENACE</title>
-      <link rel="stylesheet" href="/shared/app.css?v=p16">
+      <link rel="stylesheet" href="/shared/app.css?v=p17">
 </head>
 <body>
   <main class="shell">
@@ -81,16 +81,21 @@
           <div id="wx-fog" class="wx-fog hidden"></div>
           <div id="vignette" class="vignette"></div>
           <div id="fear-root" class="fear-root tier-0" aria-hidden="true">
-            <div class="fear-sil"></div>
-            <div class="fear-gait"></div>
-            <div class="fear-fog"></div>
-            <div class="fear-prints"></div>
             <div class="fear-mirror"></div>
+            <div class="fear-contacts"></div>
+            <div class="fear-gait"></div>
+            <div class="fear-prints"></div>
+            <div class="fear-eyeshine"></div>
           </div>
           <div id="hazard-clock" class="hazard-clock hidden"><i id="hazard-fill"></i></div>
+          <div id="bark" class="bark hidden">
+            <img id="bark-face" alt="">
+            <p id="bark-line"></p>
+          </div>
         </div>
         <h2 id="title"></h2>
-        <p id="scene" class="scene"></p>
+        <button type="button" id="hook" class="hook hidden"></button>
+        <p id="scene" class="scene hidden"></p>
         <p id="decision" class="decision"></p>
         <div id="options" class="options"></div>
         <p id="result" class="result hidden"></p>
@@ -100,8 +105,17 @@
           <button id="resume-live" class="hidden" type="button">Resume</button>
         </div>
         <div id="ignition" class="ignition hidden">
-          <div class="ignition-face" aria-hidden="true"><b id="ignition-needle"></b></div>
-          <button type="button" id="ignition-catch" aria-label="Tap when the engine catches. Press and hold to drive by sight.">tap when it catches</button>
+          <div class="ignition-dash" aria-hidden="true">
+            <span class="ign-lamp"></span>
+            <span class="ign-lamp"></span>
+            <span class="ign-lamp"></span>
+            <span class="ign-lamp"></span>
+            <div class="ignition-gauges">
+              <div class="ignition-face"><b id="ignition-needle"></b></div>
+              <div class="ignition-face"><b id="ignition-needle-2"></b></div>
+            </div>
+          </div>
+          <button type="button" id="ignition-catch" aria-label="Hold to crank">hold to crank</button>
         </div>
         <div id="collapse" class="collapse hidden">
           <p id="collapse-copy"></p>
@@ -110,7 +124,7 @@
     </section>
   </main>
   <script src="/shared/auth.js"></script>
-  <script src="/feel.js?v=p16"></script>
-  <script src="/app.js?v=p16"></script>
+  <script src="/feel.js?v=p17"></script>
+  <script src="/app.js?v=p17"></script>
 </body>
 </html>

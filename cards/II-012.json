@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Three Seconds, Not One",
+  "hook": "You can see his hitch. You should be seeing pavement.",
   "scene": "A volunteer van is glued to a Kent school-zone exit at dusk, overcast, lamps already flashing for a shift that will not come. You are behind him. He is behind a dead sedan that is actually just parked badly. Your following gap is a bumper. The clipboard said space. The van's brake lamps are already dirty. If he dumps them, you will eat his trailer hitch with a plow that rings. The insulin is stable. Your right foot is not. You can see his tires. You should be able to see pavement.",
   "decision": "You can only see his hitch. How much road do you put back?",
   "options": [

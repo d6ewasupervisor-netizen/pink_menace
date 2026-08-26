@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "hazard",
   "title": "Black Ice, Same Paint",
+  "hook": "The paint looks wet. It is ice. The light is green.",
   "scene": "Night on a Kent collector that iced after a melt. The paint still looks wet. It is not. Your knobbies are honest until they are not. A four-way with a working signal, stale green. You are the only moving thing. The instinct is to take the green like you own it. The ice wants a smaller number and no sudden anything. The insulin crates will slide if you ask the tires for a story they cannot tell. There is no sand truck. There is you, a green lamp, and a surface that will not say its name until you brake.",
   "decision": "The lamp is green and the paint looks only wet. How do you take the intersection?",
   "options": [

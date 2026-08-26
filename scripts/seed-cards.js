@@ -72,6 +72,7 @@ async function seedFile(filePath, tables) {
         variation: raw.variation || null,
         timeout_option_id: raw.timeout_option_id || null,
         timeout_ms: raw.timeout_ms || null,
+        hook: raw.hook || null,
       }),
     ]
   );

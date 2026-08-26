@@ -162,11 +162,14 @@ function clearPlay() {
   timedSubmit = false;
   PMFeel.clearCues();
   PMFeel.setVignette(1);
+  PMFeel.hideBark();
+  const wrap = document.getElementById("shot-wrap");
+  if (wrap) wrap.classList.remove("arming");
   const clock = document.getElementById("hazard-clock");
   if (clock) clock.classList.add("hidden");
 }
 
-function applyMeters(state, how) {
+function applyMeters(state, how, extras) {
   const next = state || meters;
   const hadPrints = Boolean(meters.handprints);
   meters = {
@@ -177,6 +180,7 @@ function applyMeters(state, how) {
     presence: Number(next.presence) || 0,
     tier: Number(next.tier) || 0,
     handprints: Boolean(next.handprints),
+    night: extras && extras.night != null ? Boolean(extras.night) : Boolean(meters.night),
   };
   if (how === "spike") PMFeel.spikeMeters(null, meters);
   else if (how === "ease") PMFeel.easeMeters(meters);
@@ -245,8 +249,41 @@ function revealChoices(card, opts) {
     PMFeel.fireCue(PMFeel.cueFor(card));
   }
   if (!opts.review && !opts.pending && card.card_type === "hazard" && card.timeout_option_id && n) {
-    startHazardWindow(card);
+    armHazardWindow(card);
   }
+}
+
+function armHazardWindow(card) {
+  window.clearInterval(hazardTimer);
+  window.clearTimeout(advanceTimer);
+  const wrap = document.getElementById("shot-wrap");
+  const clock = document.getElementById("hazard-clock");
+  const fill = document.getElementById("hazard-fill");
+  const gen = playGen;
+  const grace = 1750;
+  const wind = 800;
+  PMFeel.setVignette(1);
+  if (clock) {
+    clock.classList.add("hidden");
+    clock.classList.remove("arming");
+  }
+  if (fill) fill.style.transform = "scaleX(1)";
+  advanceTimer = window.setTimeout(() => {
+    if (gen !== playGen || answering) return;
+    if (wrap) wrap.classList.add("arming");
+    if (clock) {
+      clock.classList.remove("hidden");
+      clock.classList.add("arming");
+    }
+    if (fill) fill.style.transform = "scaleX(0)";
+    PMFeel.setVignette(0.72);
+    advanceTimer = window.setTimeout(() => {
+      if (gen !== playGen || answering) return;
+      if (wrap) wrap.classList.remove("arming");
+      if (clock) clock.classList.remove("arming");
+      startHazardWindow(card);
+    }, wind);
+  }, grace);
 }
 
 function startHazardWindow(card) {
@@ -257,12 +294,13 @@ function startHazardWindow(card) {
   const started = Date.now();
   const gen = playGen;
   if (clock) clock.classList.remove("hidden");
-  PMFeel.setVignette(1);
+  if (fill) fill.style.transform = "scaleX(1)";
+  PMFeel.setVignette(0.72);
   hazardTimer = window.setInterval(() => {
     if (gen !== playGen || answering) return;
     const left = Math.max(0, 1 - (Date.now() - started) / ms);
     if (fill) fill.style.transform = "scaleX(" + left + ")";
-    PMFeel.setVignette(left);
+    PMFeel.setVignette(left * 0.72);
     if (left <= 0) {
       window.clearInterval(hazardTimer);
       hazardTimer = 0;
@@ -293,23 +331,43 @@ function fillCard(card, opts) {
   }
   PMFeel.setKen(card.camera);
   PMFeel.setWeather(card.weather);
-  applyMeters(card.state || meters, "paint");
+  PMFeel.setDriver(card.driver);
+  PMFeel.applyGrade();
+  applyMeters(card.state || meters, "paint", { night: Boolean(card.night) });
   const result = document.getElementById("result");
   const debrief = document.getElementById("debrief");
   result.classList.add("hidden");
   debrief.classList.add("hidden");
   debrief.onclick = null;
+  const hookEl = document.getElementById("hook");
+  const sceneEl = document.getElementById("scene");
+  const hook = card.hook || PMFeel.firstSentence(card.scene);
+  if (hookEl) {
+    hookEl.textContent = hook;
+    hookEl.classList.toggle("hidden", !hook);
+    hookEl.onclick = () => {
+      if (!sceneEl) return;
+      sceneEl.classList.toggle("hidden");
+    };
+  }
+  if (sceneEl) {
+    sceneEl.textContent = card.scene || "";
+    sceneEl.classList.add("hidden");
+  }
+  if (wrap) wrap.classList.remove("arming");
+  PMFeel.hideBark();
   const cont = document.getElementById("continue");
   const resumeLive = document.getElementById("resume-live");
   document.getElementById("options").classList.add("hidden");
   document.getElementById("options").replaceChildren();
 
   if (opts.review) {
-    document.getElementById("scene").textContent = card.scene || "";
+    if (sceneEl) sceneEl.classList.remove("hidden");
     if (card.decision) decision.classList.remove("hidden");
     fillOptions(card, opts);
     document.getElementById("options").classList.toggle("hidden", !(card.options || []).length);
     applyOutcome(card.outcome, { collapseDebrief: false });
+    bindAlts(card.alts || [], card);
     cont.classList.add("hidden");
     cont.onclick = null;
     resumeLive.classList.remove("hidden");
@@ -323,30 +381,20 @@ function fillCard(card, opts) {
   cont.onclick = null;
 
   if (opts.pending) {
-    document.getElementById("scene").textContent = card.scene || "";
+    if (sceneEl) sceneEl.classList.remove("hidden");
     if (card.decision) decision.classList.remove("hidden");
     fillOptions(card, opts);
     document.getElementById("options").classList.add("hidden");
-    playOutcome({ ...(card.outcome || {}), state: card.state }, card);
+    playOutcome({ ...(card.outcome || {}), state: card.state, alts: card.alts }, card);
     return;
   }
 
-  const gen = playGen;
-  const scene = card.scene || "";
-  stopType = PMFeel.typeScene(
-    scene,
-    () => {
-      if (gen !== playGen) return;
-      revealChoices(card, opts);
-    },
-    () => {
-      if (gen !== playGen) return;
-      stopType = null;
-      if (!(card.options || []).length) {
-        advanceTimer = window.setTimeout(() => submitAnswer("continue"), 900);
-      }
-    }
-  );
+  revealChoices(card, opts);
+  if (!(card.options || []).length) {
+    cont.classList.remove("hidden");
+    cont.textContent = "Continue";
+    cont.onclick = () => submitAnswer("continue");
+  }
 }
 
 function restoreScroll(cardId) {
@@ -375,44 +423,112 @@ async function finishContinue(cardId) {
   await openLive();
 }
 
-function queueAdvance(cardId) {
-  const gen = playGen;
-  const wait = 2600;
-  advanceTimer = window.setTimeout(async () => {
-    if (gen !== playGen) return;
+function holdContinue(cardId, after) {
+  const cont = document.getElementById("continue");
+  cont.classList.remove("hidden");
+  cont.textContent = "Continue";
+  cont.onclick = async () => {
+    cont.onclick = null;
+    cont.classList.add("hidden");
+    if (after) {
+      after();
+      return;
+    }
     try {
       await finishContinue(cardId);
     } catch {
-      const cont = document.getElementById("continue");
       cont.classList.remove("hidden");
       cont.onclick = () => finishContinue(cardId);
     }
-  }, wait);
+  };
+}
+
+function bindAlts(alts, card) {
+  const box = document.getElementById("options");
+  if (!box) return;
+  box.replaceChildren();
+  if (!(alts || []).length) {
+    box.classList.add("hidden");
+    return;
+  }
+  box.classList.remove("hidden");
+  for (const o of alts) {
+    const node = document.createElement("button");
+    node.type = "button";
+    node.className = "opt peek";
+    node.textContent = o.option_text;
+    node.addEventListener("click", () => playAlt(o, card));
+    box.appendChild(node);
+  }
+}
+
+function playAlt(opt, card) {
+  const result = document.getElementById("result");
+  const chosen = result ? result.textContent : "";
+  if (result) {
+    result.textContent = opt.result || "";
+    result.classList.remove("hidden");
+  }
+  PMFeel.shake();
+  PMFeel.hitWrong();
+  applyMeters(
+    {
+      ...meters,
+      noise: meters.noise + (Number(opt.state_delta && opt.state_delta.noise) || 0),
+      light: meters.light + (Number(opt.state_delta && opt.state_delta.light) || 0),
+      yaw: meters.yaw + (Number(opt.state_delta && opt.state_delta.yaw) || 0),
+    },
+    "spike"
+  );
+  PM.api("/api/run/peek", {
+    method: "POST",
+    body: { card_id: card.card_id, option_id: opt.option_id },
+  }).catch(() => {});
+  window.setTimeout(() => {
+    if (result) result.textContent = chosen;
+  }, 2200);
 }
 
 function playOutcome(data, card) {
   outcomeAt = Date.now();
   const correct = Boolean(data && data.was_correct);
   const nextMeters = data.state || meters;
-  if (data && data.collapse) {
+  const failed = Boolean(data && data.failed);
+  const collapse = Boolean(data && data.collapse) || failed;
+  if (collapse) {
     applyMeters(nextMeters, "paint");
     document.getElementById("options").classList.add("hidden");
-    PMFeel.playCollapse(data.dispatch, () => queueAdvance(card.card_id));
+    applyOutcome(data, { collapseDebrief: true });
+    PMFeel.showBark(
+      PMFeel.barkFor({
+        correct,
+        timedOut: Boolean(data && data.timed_out),
+        hazard: liveCard && liveCard.card_type === "hazard",
+        noise: data.state_delta && data.state_delta.noise,
+      })
+    );
+    PMFeel.playCollapse(data.dispatch, () => holdContinue(card.card_id));
     return;
   }
   if (correct) {
     applyMeters(nextMeters, "ease");
     applyOutcome(data, { collapseDebrief: true });
-    queueAdvance(card.card_id);
   } else {
     PMFeel.shake();
     PMFeel.hitWrong();
     applyMeters(nextMeters, "spike");
-    window.setTimeout(() => {
-      applyOutcome(data, { collapseDebrief: true });
-      queueAdvance(card.card_id);
-    }, 400);
+    applyOutcome(data, { collapseDebrief: true });
   }
+  PMFeel.showBark(
+    PMFeel.barkFor({
+      correct,
+      timedOut: Boolean(data && data.timed_out),
+      hazard: liveCard && liveCard.card_type === "hazard",
+      noise: data.state_delta && data.state_delta.noise,
+    })
+  );
+  bindAlts((data && data.alts) || [], card);
+  holdContinue(card.card_id);
 }
 
 function sessionCaught() {
@@ -529,7 +645,7 @@ async function submitAnswer(optionId) {
     },
   });
   saveLive({ card_id: currentCardId, phase: "result", scroll: runEl.scrollTop });
-  playOutcome(data, { card_id: currentCardId });
+  playOutcome({ ...data, timed_out: timed }, { card_id: currentCardId });
 }
 
 async function bootApp() {
@@ -552,12 +668,6 @@ runEl.addEventListener("scroll", () => {
 runEl.addEventListener("pointerdown", (ev) => {
   if (ev.target.closest("#ignition") || ev.target.closest("#collapse")) return;
   PMFeel.ensureAudio();
-  if (mode !== "live" || answering) return;
-  if (ev.target.closest("button")) return;
-  if (stopType) {
-    stopType(true);
-    stopType = null;
-  }
 });
 
 document.getElementById("hdr-home").addEventListener("click", () => {
@@ -575,6 +685,8 @@ document.getElementById("sign-out").addEventListener("click", () => {
 });
 document.getElementById("confirm-yes").addEventListener("click", () => answerLink(true));
 document.getElementById("confirm-no").addEventListener("click", () => answerLink(false));
+
+PMFeel.applyGrade();
 
 PM.bindGate({
   kind: "game",

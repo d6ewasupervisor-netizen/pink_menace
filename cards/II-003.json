@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "rule",
   "title": "Red Octagon, White Fog",
+  "hook": "Fog on the mill. A portable STOP sits in your lane.",
   "scene": "Fog sits on a Kent work zone at midday, thick enough that the cones appear one at a time. A portable stop sign is planted in your lane where the flagger would have stood. The face is red, eight sides, white border, white STOP. No flagger. No oncoming headlights yet. The cone line pinches you down to a crawl. The insulin clock is still kind. Your left foot wants to hover instead of plant.",
   "decision": "The portable stop is in your lane and the fog has the other approach. What do you do at the sign?",
   "options": [

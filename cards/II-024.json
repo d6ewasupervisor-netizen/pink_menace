@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Four Ways, One Hole",
+  "hook": "Four-way. The sedan on your right was there first.",
   "scene": "Clear cold dusk on a Kent four-way that still has all four stops. You arrive second. A primer sedan is already stopped on your right, a beat longer than you. Nobody else. The insulin is a minute from the shelter drop. The sedan's driver is not moving. They may be looking at a paper. They may be waiting for you to steal it. First in is first through. Your right is not a permission slip if they were there first. The Menace's idle is a drum if you rev it. You do not.",
   "decision": "You rolled up second. The sedan on your right is first and still sitting. Who takes the hole?",
   "options": [

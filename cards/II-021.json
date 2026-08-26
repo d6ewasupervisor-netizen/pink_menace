@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Fog in the Stalls",
+  "hook": "Nosed in, fog in the stalls. You have to back out.",
   "scene": "Fog at dawn in a Kent lot, stalls so faded you are guessing with the wheel. You nosed in because the drop was at the shutter. Now you have to back out to leave. A row of dead cars on both sides. Your rear mesh is a cage, not a window. The convexes are honest if you use them. A bicycle wheel you cannot see from the seat will be in the backup path if this is Marisol's morning. It is not her, not yet. It is a cart corral that moved in the night. Backing is the skill people skip because going forward feels like progress.",
   "decision": "You are nosed in, in fog, and you have to leave. How do you back out?",
   "options": [

@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Wind on Central",
+  "hook": "Left pocket, blinker on. Oncoming is closing in the wind.",
   "scene": "The work cones are behind you. Central Avenue in Kent, two lanes each way, a protected left pocket painted and still honest. Wind shoves the Menace a half-lane toward the curb every time a gap opens. Oncoming is a primer SUV at distance and a lifted truck closer, closing. Your blinker has been on. The pocket is short. The insulin does not care about your gap. The oncoming does.",
   "decision": "You are in the left pocket with the blinker on. When do you take the turn?",
   "options": [

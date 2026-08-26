@@ -5,6 +5,7 @@
   "driver": "ali",
   "card_type": "rule",
   "title": "The Triangle Is the Sentence",
+  "hook": "Orange triangle ahead in the cones. You are doing thirty.",
   "scene": "Heavy rain at night on a Kent mill that still thinks it is a work zone. In the cone line, a farm tractor from somebody's last run south, no Grange, just one machine, orange SMV triangle dirty but lit by your lamps. It is doing twelve. You are doing thirty because the insulin clock got loud in your head. The triangle is the sign. Pass on a two-lane with no sightline and you are in his blind and oncoming's. The cones make it worse. Your left blinker already wants out.",
   "decision": "The slow-moving triangle is ahead in the cones. Do you pass?",
   "options": [
