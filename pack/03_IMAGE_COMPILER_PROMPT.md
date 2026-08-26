@@ -312,6 +312,8 @@ aesthetically. Lane law cannot survive that.
   lane. Geometry block is mandatory so traffic direction is stated, not
   invented. Attach ref_car_exterior.jpg for build only — never carry its
   golden-hour salt flat. No faces. No infographic. No vector cars.
+  Same-direction vehicles occupy the right half of the roadway and face
+  the same way; never nose-to-nose in one lane, never in the oncoming half.
 
 POV_TOPDOWN is illegal.
 

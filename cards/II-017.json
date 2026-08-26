@@ -67,11 +67,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "oblique overhead: faded matte-pink VW Beetle queued behind a dead primer van, both facing away, plow at the van's rear toward top of frame",
-    "foreground": "school-zone pavement, a faded painted 20, wet or cold-dry asphalt",
-    "midground": "two parallel yellows: SOLID and continuous nearer her for the full frame; BROKEN dashes with clear gaps on the far side — that difference is the focus",
-    "background": "empty playground fence, clear cold afternoon, long blue shadows, no oncoming visible yet",
-    "read": "the only legal pass is where the yellow breaks — solid yellow on this side, not here",
+    "subject": "oblique overhead of a two-lane US street: a faded matte-pink Baja VW Beetle queued in the RIGHT-HAND travel lane behind a dead primer-gray delivery van, both occupying the right half of the roadway, both traveling away from camera toward the top of the frame. The Beetle is nearer the bottom of the frame (rear mesh toward camera, plow pointing up-frame). The van is ahead of it in the SAME lane, also rear toward camera — windshield, grille, and headlights of the van are NOT visible. An entire empty oncoming lane sits between the yellow centerline and the left curb. Neither vehicle is left of the yellow. They are not nose-to-nose.",
+    "foreground": "school-zone pavement in the RIGHT-HAND lane under the Beetle, a faded painted 20 in that same lane, wet or cold-dry asphalt, rear of the Beetle",
+    "midground": "two parallel yellows down the center: SOLID and continuous on the Beetle's side (right of the pair) for the full frame; BROKEN dashes with clear gaps on the far/oncoming side. Right-hand lane: van then Beetle, same heading. Left-hand lane: empty pavement from yellow to left curb — a full lane of space.",
+    "background": "empty playground fence beyond the LEFT curb (beside the empty oncoming lane, not beside the cars), clear cold afternoon, long blue shadows, no oncoming vehicle visible",
+    "read": "both vehicles sit right of the yellow, same direction; the solid yellow on this side forbids passing here",
     "continuity": [
       "pink_menace_exterior"
     ],
