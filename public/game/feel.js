@@ -586,6 +586,8 @@ const PMFeel = (() => {
     needles.forEach((n) => n && n.classList.remove("held", "spin"));
     let done = false;
     let downAt = 0;
+    const CATCH_MS = 1100;
+    const SIGHT_MS = 5000;
     const resetCrank = () => {
       window.clearTimeout(holdTimer);
       holdTimer = 0;
@@ -619,14 +621,15 @@ const PMFeel = (() => {
       panel.classList.add("cranking");
       startCrank();
       needles.forEach((n) => n && n.classList.add("spin"));
-      holdTimer = window.setTimeout(() => finish(true), 1800);
+      holdTimer = window.setTimeout(() => finish(true), SIGHT_MS);
     };
     btn.onpointerup = () => {
       if (done) return;
       const held = Date.now() - downAt;
       window.clearTimeout(holdTimer);
       holdTimer = 0;
-      if (held >= 1100) finish(false);
+      if (held >= SIGHT_MS) finish(true);
+      else if (held >= CATCH_MS) finish(false);
       else resetCrank();
     };
     btn.onpointerleave = () => {
