@@ -72,7 +72,14 @@
     "background": "Kent night, empty collector, a dark porch, no other lamps moving",
     "read": "the lamp is green and the pavement is glass — those two facts are the card",
     "continuity": [],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade is not in frame; implied travel is toward the signal and into the intersection",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
   },
   "variation": {
     "location_type": "arterial",

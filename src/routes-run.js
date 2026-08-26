@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST } = require("./game");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
 // A completed run starts a new one. We never rewind an in-progress run to card one.
@@ -46,21 +46,117 @@ async function getOrCreateRun(studentId) {
   return assignCurrent(created.rows[0]);
 }
 
+async function getRunForHome(studentId) {
+  const { rows: active } = await query(
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
+       FROM runs
+      WHERE student_id = $1 AND status = 'active'`,
+    [studentId]
+  );
+  if (active[0]) return assignCurrent(active[0]);
+  const { rows: last } = await query(
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state
+       FROM runs
+      WHERE student_id = $1
+      ORDER BY updated_at DESC
+      LIMIT 1`,
+    [studentId]
+  );
+  if (last[0]) return last[0];
+  return getOrCreateRun(studentId);
+}
+
 function mountRun(app) {
+  app.get("/api/run/home", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    try {
+      const run = await getRunForHome(session.userId);
+      const progress = await progressFor(run);
+      return res.json({ ok: true, run_id: run.id, ...progress });
+    } catch (err) {
+      return jsonError(res, 500, "Could not load home.");
+    }
+  });
+
   app.get("/api/run/current", async (req, res) => {
     if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
     const session = await auth.requireRole(req, res, "student");
     if (!session) return;
     try {
+      const home = await getRunForHome(session.userId);
+      if (home && home.status === "completed") {
+        return res.json({ ok: true, done: true, next: { done: true } });
+      }
       const run = await getOrCreateRun(session.userId);
+      const pending = await pendingOutcome(run.id);
+      if (pending) {
+        const card = await reviewCard(pending.card_id, pending);
+        if (!card) return jsonError(res, 500, "Could not load card.");
+        const progress = await progressFor(run);
+        return res.json({
+          ok: true,
+          run_id: run.id,
+          pending_outcome: true,
+          review: false,
+          saved: progress.saved,
+          previous_card_id: await previousAnswered(run.id, pending.card_id),
+          ...card,
+        });
+      }
       if (!run.current_card_id) {
         return res.json({ ok: true, done: true, next: { done: true } });
       }
       const card = await publicCard(run.current_card_id);
       if (!card) return res.json({ ok: true, done: true, next: { done: true } });
-      return res.json({ ok: true, run_id: run.id, attempt_no: run.current_attempt_no, ...card });
+      const progress = await progressFor(run);
+      return res.json({
+        ok: true,
+        run_id: run.id,
+        attempt_no: run.current_attempt_no,
+        pending_outcome: false,
+        review: false,
+        saved: progress.saved,
+        previous_card_id: await previousAnswered(run.id, run.current_card_id),
+        ...card,
+      });
     } catch (err) {
       return jsonError(res, 500, "Could not load card.");
+    }
+  });
+
+  app.get("/api/run/review/:cardId", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    const cardId = String(req.params.cardId || "");
+    try {
+      const run = await getRunForHome(session.userId);
+      const { rows } = await query(
+        `SELECT card_id, option_id, was_correct
+           FROM run_answers
+          WHERE run_id = $1 AND card_id = $2
+          ORDER BY attempt_no ASC
+          LIMIT 1`,
+        [run.id, cardId]
+      );
+      if (!rows[0]) return jsonError(res, 404, "Not resolved.");
+      const card = await reviewCard(cardId, rows[0]);
+      if (!card) return jsonError(res, 404, "Unknown card.");
+      const progress = await progressFor(run);
+      return res.json({
+        ok: true,
+        run_id: run.id,
+        review: true,
+        pending_outcome: false,
+        saved: progress.saved,
+        resume: progress.resume,
+        previous_card_id: await previousAnswered(run.id, cardId),
+        ...card,
+      });
+    } catch (err) {
+      return jsonError(res, 500, "Could not load review.");
     }
   });
 
@@ -69,11 +165,17 @@ function mountRun(app) {
     const session = await auth.requireRole(req, res, "student");
     if (!session) return;
     try {
-      const run = await getOrCreateRun(session.userId);
-      if (!run.current_card_id) return res.status(404).end();
+      const run = await getRunForHome(session.userId);
+      const requested = String(req.query.card_id || "");
+      const pending = await pendingOutcome(run.id);
+      let cardId = requested || (pending && pending.card_id) || run.current_card_id;
+      if (!cardId) return res.status(404).end();
+      if (requested && !(await canViewImage(run, requested)) && !(pending && pending.card_id === requested)) {
+        return res.status(404).end();
+      }
       const { rows } = await query(
         `SELECT image_bytes, image_mime FROM cards WHERE card_id = $1`,
-        [run.current_card_id]
+        [cardId]
       );
       const row = rows[0];
       if (!row || !row.image_bytes) return res.status(404).end();
@@ -82,6 +184,38 @@ function mountRun(app) {
       return res.send(row.image_bytes);
     } catch (err) {
       return jsonError(res, 500, "Could not load image.");
+    }
+  });
+
+  const CAST_CARDS = {
+    ali: "II-001",
+    gracie: "II-018",
+  };
+
+  app.get("/api/run/cast/:id", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    const id = String(req.params.id || "");
+    if (!CAST.some((c) => c.id === id)) return res.status(404).end();
+    try {
+      const run = await getRunForHome(session.userId);
+      const progress = await progressFor(run);
+      const member = progress.cast.find((c) => c.id === id);
+      if (!member || !member.unlocked) return res.status(404).end();
+      const cardId = CAST_CARDS[id];
+      if (!cardId) return res.status(404).end();
+      const { rows } = await query(
+        `SELECT image_bytes, image_mime FROM cards WHERE card_id = $1`,
+        [cardId]
+      );
+      const row = rows[0];
+      if (!row || !row.image_bytes) return res.status(404).end();
+      res.setHeader("content-type", row.image_mime || "image/jpeg");
+      res.setHeader("cache-control", "private, max-age=86400");
+      return res.send(row.image_bytes);
+    } catch (err) {
+      return jsonError(res, 500, "Could not load portrait.");
     }
   });
 
@@ -143,6 +277,14 @@ function mountRun(app) {
       if (!option) {
         await client.query("ROLLBACK");
         return jsonError(res, 400, "Unknown option.");
+      }
+      const already = await client.query(
+        `SELECT 1 FROM run_answers WHERE run_id = $1 AND card_id = $2 LIMIT 1`,
+        [run.id, cardId]
+      );
+      if (already.rowCount) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 409, "Already answered.");
       }
       const answerId = crypto.randomUUID();
       try {

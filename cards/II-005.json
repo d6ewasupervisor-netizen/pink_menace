@@ -13,28 +13,42 @@
       "text": "Hold your line and let her find a way around — the lot is yours",
       "correct": false,
       "result": "You occupy the arrow. She has to squeeze between your door and a cart corral. Her bar-end kisses the steel plating with a sound like a dropped wrench. She stays up. She also puts a hand out, not a wave. You taught a courier that cars do not look.",
-      "state_delta": { "noise": 2, "passenger_stress": 1, "time_cost": 4 }
+      "state_delta": {
+        "noise": 2,
+        "passenger_stress": 1,
+        "time_cost": 4
+      }
     },
     {
       "id": "b",
       "text": "Slow, stay left of the arrows, and give her the whole right side through the exit",
       "correct": true,
       "result": "You lift and drift left inside the stall paint. She takes the right at speed, three clear feet of wet asphalt, and is through the exit before you. Two fingers off the bars without looking back. The rain covers the rest. You roll out after her at a walking pace.",
-      "state_delta": { "noise": -1, "time_cost": 3 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
     },
     {
       "id": "c",
       "text": "Tap the horn so she knows you see her",
       "correct": false,
       "result": "The horn cracks off the storefront and the parking deck. Marisol flinches and the front wheel tucks. She saves it. Every Quiet thing using this lot as a sit has your range now. She looks at you once, jaw set, and takes the exit anyway.",
-      "state_delta": { "noise": 5, "time_cost": 5 }
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 5
+      }
     },
     {
       "id": "d",
       "text": "Speed up to beat her to the exit and clear the conflict",
       "correct": false,
       "result": "You get there first by a car length. She is still on your right rear when you start the turn onto 1st. Your rear quarter walks through the space her front wheel needs. She bails onto the sidewalk and the bike hits a cart corral. Steel, loud, done.",
-      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 8 }
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 8
+      }
     }
   ],
   "debrief": "Give bicyclists at least three feet when you share a space, more in rain. Mirrors first, then move left. Tap the horn and you have announced the lot to everything using it as a sit.",
@@ -43,7 +57,10 @@
     "dol_section": "4.6 Sharing with bicyclists",
     "teaching_target": "Pass bicyclists with at least three feet of space; check the right mirror before moving right or occupying a shared exit."
   },
-  "cast": ["ali", "marisol"],
+  "cast": [
+    "ali",
+    "marisol"
+  ],
   "antagonist": "chorus",
   "callback_of": null,
   "schedules_callback": false,
@@ -54,8 +71,18 @@
     "midground": "her front wheel in the three-foot gap that does not yet exist beside the riveted steel door",
     "background": "heavy rain, Kent Station lot, gray storefront, dusk, lamps unlit",
     "read": "she is in the door zone of a moving car, and the exit is one lane wide",
-    "continuity": ["pink_menace_exterior", "marisol"],
-    "aspect": "3:4"
+    "continuity": [
+      "pink_menace_exterior",
+      "marisol"
+    ],
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "right half of the parking aisle for its direction of travel",
+      "ego_nose_in_frame": "the plow blade points toward the left of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside"
+    }
   },
   "variation": {
     "location_type": "parking_lot",

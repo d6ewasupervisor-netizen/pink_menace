@@ -144,23 +144,28 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 - `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
 - `ref_hand_signals.png` — three-panel left-arm plate (left / stop / right). Limb geometry is not improvised.
+- `ref_diagram_style.png` — optional overhead look lock. Diagram compiles attach `ref_car_exterior.jpg` for the Menace's build. Lighting is still overcast PNW, never the salt-flat sunset.
 
 ### 8.3 Camera set (pick exactly one per card)
 
 | Token | Framing | Use for |
 |---|---|---|
-| `POV_COCKPIT` | Over the wheel, gauges bottom-left, mesh screen top, road through the grid | Decision moments while moving |
-| `POV_MIRROR` | Tight on the rearview or the mirror on the left side of the vehicle, subject in the glass, foreground blurred | Blind zones, following traffic, backing |
-| `POV_TOPDOWN` | Clean orthographic overhead, vehicles as shapes, lane geometry legible | Rules of geometry — turns, merges, roundabouts, parking |
-| `POV_CHASE` | Behind and slightly above the vehicle, road ahead visible | Zone establishing shots, convoy formation |
+| `POV_COCKPIT` | Over the wheel, gauges bottom-left, mesh screen top, road through the grid | Decision moments while moving; hazard ahead or oncoming |
+| `POV_MIRROR_REAR` | Interior rearview, wide, upper frame. Glass shows the road **behind**. Windshield dark, defocused, or cropped out. | Following distance, tailgating, anything about a vehicle **behind**. Prefer this over the door mirror. |
+| `POV_MIRROR_DOOR` | Left-side door mirror, subject in the glass, vehicle flank in foreground | Blind zones, lane changes, backing sightlines |
+| `POV_TOPDOWN_PHOTO` | Photoreal aerial | Establishing shots only — **never** a lane rule |
+| `POV_DIAGRAM` | High overhead photograph of the real vehicles on real pavement. Lane lines as paint. The Menace is the Beetle with the plow at the leading end. | Lane position, turns, right-of-way, passing, merging, parking, road markings |
+| `POV_CHASE` | Behind and slightly above the vehicle, road ahead visible | Zone establishing shots, convoy formation, following-driver view of a lead vehicle's left-arm signal |
 | `POV_ROADSIDE` | Ground level, outside the car, human eye height | Pedestrians, cyclists, traffic stops, aftermath |
 | `POV_PORTRAIT` | Chest-up, subject centered, background compressed | Dossier and character cards |
 | `POV_OBJECT` | The sign, the light, the marking, isolated, shallow DOF | Rule cards |
 
+`POV_TOPDOWN` and `POV_MIRROR` are illegal. Camera follows `hazard_position`: behind → `POV_MIRROR_REAR` (never a forward camera); ahead_same_direction → forward cameras, never a rearview; oncoming → `POV_COCKPIT` or `POV_DIAGRAM`; beside → `POV_DIAGRAM`, `POV_ROADSIDE`, or `POV_MIRROR_DOOR`. Every road frame carries an `image_brief.geometry` block. The plow is the orientation anchor. Diagram cards are the same photoreal world as the rest of the deck, shot from overhead — attach `pink_menace_exterior` for build. No faces.
+
 `image_brief.camera_is_the_lesson: true` when the camera *is* the lesson (following-driver view of a left-arm signal). Those cards drop out of the 25% cap and the window-of-6 count. Never the same token twice in a row, exempt or not. Full rule in pack/12 and pack/05.
 
 ### 8.4 Aspect ratios
-Card art `3:4` portrait. Zone establishing `16:9`. Topdown diagrams `1:1`.
+Card art `3:4` portrait. Zone establishing `16:9`. `POV_DIAGRAM` `3:4`.
 
 ### 8.5 Identity exposure
 Identity only has to be consistent where identity is visible. Face-critical frames ≤ 10% of an act; vehicle-critical ≤ 25%; the rest are identity-free cameras with nothing to drift. Compile vehicles as the base the model already knows, then a four-item requirement clause. Do not fight attachment into lock card by card. Pack/12.

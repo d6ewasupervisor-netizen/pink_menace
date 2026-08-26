@@ -12,7 +12,10 @@
     "dol_section": "5.5 Focus",
     "teaching_target": "Restrain passengers and pets; a moving animal in the cab is a distraction event, not flavor."
   },
-  "cast": ["ali", "gracie"],
+  "cast": [
+    "ali",
+    "gracie"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -23,7 +26,11 @@
     "midground": "Ali's wire rims and cranberry braid out of focus behind the cat, not looking at the road",
     "background": "work-zone cones through the mesh at dusk, overcast, no sun",
     "read": "the cat is on the dash and the driver's eyes are on the cat",
-    "continuity": ["gracie", "pink_menace_interior", "ali_face"],
+    "continuity": [
+      "gracie",
+      "pink_menace_interior",
+      "ali_face"
+    ],
     "aspect": "3:4"
   },
   "variation": {

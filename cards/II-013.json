@@ -13,28 +13,44 @@
       "text": "Pass now — twelve is not a speed and the insulin is not a suggestion",
       "correct": false,
       "result": "You pull out in the rain. The tractor occupies more width than it looks. Oncoming is a pair of lamps you did not have. You dive back in and clip a cone. The triangle fills your glass. You saved nothing and spent a lot of noise.",
-      "state_delta": { "noise": 4, "yaw": 3, "time_cost": 8 }
+      "state_delta": {
+        "noise": 4,
+        "yaw": 3,
+        "time_cost": 8
+      }
     },
     {
       "id": "b",
       "text": "Flash him to pull into the cones so you can go",
       "correct": false,
       "result": "The flash hits the triangle and comes back at you twice as bright. He has nowhere to pull. He brakes. You almost eat the hitch of a machine that cannot get out of your way because you asked it to.",
-      "state_delta": { "light": 4, "noise": 1, "time_cost": 6 }
+      "state_delta": {
+        "light": 4,
+        "noise": 1,
+        "time_cost": 6
+      }
     },
     {
       "id": "c",
       "text": "Stay behind, drop to his twelve, and wait for a marked passing zone with sight",
       "correct": true,
       "result": "You lift to twelve. The triangle stays a triangle, not a wall. The cone line ends. A painted passing zone appears with a sightline you can actually see. You take it then, clean, and leave him a hole. The insulin is still cold. Twelve cost you a minute. A pass in the rain would have cost the run.",
-      "state_delta": { "noise": -1, "time_cost": 8 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 8
+      }
     },
     {
       "id": "d",
       "text": "Go around on the gravel because the lane is his",
       "correct": false,
       "result": "The gravel is a ditch in the rain. The knobbies climb and the plow drops. You are beside him in a trench with no legal lane. He never saw you. The first thing he knows is your roof in his left mirror and a sound like a drum.",
-      "state_delta": { "noise": 3, "yaw": 3, "damage": 1, "time_cost": 9 }
+      "state_delta": {
+        "noise": 3,
+        "yaw": 3,
+        "damage": 1,
+        "time_cost": 9
+      }
     }
   ],
   "debrief": "An orange slow-moving-vehicle triangle marks a machine that is doing farm speed. Wait for a legal passing zone and a sightline. Patience is the pass. The insulin will still be cold.",
@@ -43,7 +59,9 @@
     "dol_section": "4.12 Signs",
     "teaching_target": "The orange SMV triangle marks a slow vehicle; pass only where passing is legal and sight distance is enough."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,

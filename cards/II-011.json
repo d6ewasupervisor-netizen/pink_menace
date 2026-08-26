@@ -12,7 +12,9 @@
     "dol_section": "n/a",
     "teaching_target": "The PSDP log is diegetic: hours only count when written. Space cushion is the next unpaid skill."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -23,7 +25,11 @@
     "midground": "cracked pink dash and the well where the board was sitting",
     "background": "a Kent parking lot through the mesh, clear cold midday, empty stalls, no sun flare",
     "read": "the log is the progress tracker — blank lines are skills not yet driven",
-    "continuity": ["pink_menace_interior", "ali_face", "deac_clipboard"],
+    "continuity": [
+      "pink_menace_interior",
+      "ali_face",
+      "deac_clipboard"
+    ],
     "aspect": "3:4"
   },
   "variation": {

@@ -109,7 +109,18 @@
       "additionalProperties": false,
       "properties": {
         "camera": {
-          "enum": ["POV_COCKPIT", "POV_MIRROR", "POV_TOPDOWN", "POV_CHASE", "POV_ROADSIDE", "POV_PORTRAIT", "POV_OBJECT"]
+          "enum": [
+            "POV_COCKPIT",
+            "POV_MIRROR_REAR",
+            "POV_MIRROR_DOOR",
+            "POV_TOPDOWN_PHOTO",
+            "POV_DIAGRAM",
+            "POV_CHASE",
+            "POV_ROADSIDE",
+            "POV_PORTRAIT",
+            "POV_OBJECT"
+          ],
+          "description": "POV_TOPDOWN and POV_MIRROR are illegal. Photoreal aerials are POV_TOPDOWN_PHOTO (establishing only). Lane law uses POV_DIAGRAM. Following traffic uses POV_MIRROR_REAR; blind zones use POV_MIRROR_DOOR."
         },
         "camera_is_the_lesson": {
           "type": "boolean",
@@ -127,9 +138,32 @@
         "continuity": {
           "type": "array",
           "items": { "type": "string" },
-          "description": "Canonical bible assets that must render exactly."
+          "description": "Canonical bible assets that must render exactly. POV_DIAGRAM attaches pink_menace_exterior for build. No faces."
         },
-        "aspect": { "enum": ["3:4", "16:9", "1:1"], "default": "3:4" }
+        "aspect": { "enum": ["3:4", "16:9", "1:1"], "default": "3:4" },
+        "geometry": {
+          "type": "object",
+          "description": "Required whenever a roadway appears in frame. The plow is the orientation anchor.",
+          "required": [
+            "ego_heading",
+            "ego_lane_side",
+            "ego_nose_in_frame",
+            "oncoming_position",
+            "hazard_position"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ego_heading": {
+              "enum": ["away_from_camera", "toward_camera", "left_to_right", "right_to_left"]
+            },
+            "ego_lane_side": { "type": "string", "minLength": 8, "maxLength": 120 },
+            "ego_nose_in_frame": { "type": "string", "minLength": 8, "maxLength": 160 },
+            "oncoming_position": { "type": "string", "minLength": 4, "maxLength": 160 },
+            "hazard_position": {
+              "enum": ["ahead_same_direction", "behind", "oncoming", "beside", "none"]
+            }
+          }
+        }
       }
     },
     "variation": {

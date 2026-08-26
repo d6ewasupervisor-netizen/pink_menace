@@ -68,17 +68,24 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR",
-    "subject": "Hollis's lifted truck grille and aftermarket lamps filling the interior rearview, a bumper-width of fog between you",
-    "foreground": "wet rearview glass, Ali's braid a dark smear at the edge",
-    "midground": "the Pink Menace's pink rear plating implied, no visible gap",
-    "background": "fogged Kent arterial, morning, no horizon",
-    "read": "there is no cushion behind and the driver in the glass wants your speed",
+    "camera": "POV_MIRROR_REAR",
+    "subject": "Hollis's lifted truck headlights filling the interior rearview, a bumper-width of fog between you",
+    "foreground": "wet rearview glass filling the upper frame; cracked faded pink dashboard and a slice of welded steel mesh below, dark and out of focus",
+    "midground": "in the glass: two headlights diffused by fog into large soft discs, the body barely resolvable behind them",
+    "background": "fogged Kent arterial behind the vehicle, no horizon, windshield view not the subject",
+    "read": "the following vehicle's headlights are unmistakably large and close within the mirror glass",
     "continuity": [
       "pink_menace_interior",
       "hollis"
     ],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade is not in frame; the vehicle is traveling forward, away from the headlights in the glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "behind"
+    }
   },
   "variation": {
     "location_type": "arterial",

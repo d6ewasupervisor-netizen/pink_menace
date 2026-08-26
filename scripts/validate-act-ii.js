@@ -6,6 +6,8 @@ const { loadTables, validateCard } = require("./validate-citations");
 const { seqFromCard } = require("./card-seq");
 const { resolveCard } = require("./resolve-refs");
 const { checkCameraLedger } = require("./camera-ledger");
+const { validateGeometry, LEGAL_CAMERAS } = require("./geometry");
+const { assemblePrompt } = require("./compile-prompt");
 
 // Compiler rule, not a prose rule. Scene/debrief may say "driver-side window"
 // because that is the language the guide uses. Do not "fix" card text to match.
@@ -57,7 +59,15 @@ for (let i = 0; i < cards.length; i++) {
   if (!timeEnum.includes(c.variation.time_of_day)) err(id, "time");
   if (!toneEnum.includes(c.variation.tone)) err(id, "tone");
   if (!failEnum.includes(c.variation.failure_mode)) err(id, "failure");
-  if (!camEnum.includes(c.image_brief.camera)) err(id, "camera");
+  if (!camEnum.includes(c.image_brief.camera) || !LEGAL_CAMERAS.includes(c.image_brief.camera)) {
+    err(id, "camera");
+  }
+  for (const e of validateGeometry(c)) err(id, e.replace(`${id}: `, ""));
+  try {
+    assemblePrompt(c);
+  } catch (e) {
+    err(id, e.message.replace(`${id}: `, ""));
+  }
   for (const [k, v] of Object.entries(c.image_brief || {})) {
     const texts = Array.isArray(v) ? v : [v];
     for (const t of texts) {

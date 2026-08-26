@@ -66,16 +66,23 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_TOPDOWN",
-    "subject": "the Pink Menace stopped behind a dead delivery van, a solid yellow line running past both, broken yellow beginning a block ahead",
-    "foreground": "school-zone pavement markings and a faded 20",
-    "midground": "van, Beetle, the solid line as a hard boundary",
-    "background": "empty playground, clear cold afternoon, long shadows, no oncoming visible yet",
-    "read": "the only legal pass is where the yellow breaks — not here",
+    "camera": "POV_DIAGRAM",
+    "subject": "oblique overhead: faded matte-pink VW Beetle queued behind a dead primer van, both facing away, plow at the van's rear toward top of frame",
+    "foreground": "school-zone pavement, a faded painted 20, wet or cold-dry asphalt",
+    "midground": "two parallel yellows: SOLID and continuous nearer her for the full frame; BROKEN dashes with clear gaps on the far side — that difference is the focus",
+    "background": "empty playground fence, clear cold afternoon, long blue shadows, no oncoming visible yet",
+    "read": "the only legal pass is where the yellow breaks — solid yellow on this side, not here",
     "continuity": [
       "pink_menace_exterior"
     ],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction"
+    }
   },
   "variation": {
     "location_type": "school_zone",

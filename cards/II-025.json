@@ -12,7 +12,9 @@
     "dol_section": "n/a",
     "teaching_target": "Night does not suspend residential rules; Act II remains search, space, and communication until the zone is clean."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "dark_hours",
   "callback_of": null,
   "schedules_callback": false,
@@ -23,7 +25,10 @@
     "midground": "the cracked pink dash gone almost brown in the dark",
     "background": "Kent residential night, overcast, wet street, one cycling signal out of focus, no other cars",
     "read": "this is still Ali's Grid at night — the mesh and the green are the world still working",
-    "continuity": ["ali_face", "pink_menace_interior"],
+    "continuity": [
+      "ali_face",
+      "pink_menace_interior"
+    ],
     "aspect": "3:4"
   },
   "variation": {

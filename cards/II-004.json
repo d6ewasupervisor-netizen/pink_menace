@@ -66,16 +66,23 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_TOPDOWN",
-    "subject": "the Pink Menace sitting in a short painted left-turn pocket on a four-lane Kent arterial",
-    "foreground": "pocket lines and the Menace's pink roof and plow, wheels visibly straight",
-    "midground": "oncoming lifted truck closing, primer SUV behind it, empty opposing pocket",
-    "background": "wind-bent maples, wide Kent arterial, afternoon gray, no wrecks",
-    "read": "the car is in the pocket with wheels straight and two oncoming vehicles still occupying the gap",
+    "camera": "POV_DIAGRAM",
+    "subject": "oblique overhead of a four-lane Kent arterial: faded matte-pink VW Beetle in a short left-turn pocket, rear nearer camera, plow at far top, wheels straight",
+    "foreground": "wet pocket lines, a faded white LEFT-TURN arrow in her bay, worn yellow centerline; through-lane arrow beside her pointing up-frame",
+    "midground": "two primer-gray oncoming cars in her left half of the roadway, facing her, still occupying the gap; empty opposing pocket",
+    "background": "overcast Kent arterial, wind-bent maples at the edges, wet asphalt, no wrecks",
+    "read": "left-turn pocket, wheels straight, oncoming still in the gap — turn geometry and right-of-way in one glance",
     "continuity": [
       "pink_menace_exterior"
     ],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+      "oncoming_position": "left of the ego vehicle across the centerline",
+      "hazard_position": "oncoming"
+    }
   },
   "variation": {
     "location_type": "arterial",

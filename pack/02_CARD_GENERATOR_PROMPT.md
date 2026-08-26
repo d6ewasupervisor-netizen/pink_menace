@@ -89,10 +89,12 @@ The brief captures the instant BEFORE the decision resolves. Not the aftermath,
 not a portrait, not a montage. The frame the student's eyes would be seeing.
 
 Fields:
-  camera        — exactly one token from bible §8.3
+  camera        — exactly one token from bible §8.3. Never POV_TOPDOWN or POV_MIRROR.
   camera_is_the_lesson — true only when the camera position is the teaching
                   content (e.g. a following-driver view of a left-arm signal).
                   Exempts the card from the 25% cap and from window-of-6 counts.
+  geometry      — required whenever a roadway appears. ego_heading, ego_lane_side,
+                  ego_nose_in_frame (the plow), oncoming_position, hazard_position.
   subject       — the ONE thing the eye lands on first
   foreground    — what frames the shot (wheel rim, mirror housing, mesh, door pillar)
   midground     — the hazard or decision object
@@ -103,14 +105,18 @@ Fields:
                   locations recurring from earlier cards)
 
 Rules:
-  - Identity-free by default. Decision cards prefer `POV_COCKPIT`, `POV_MIRROR`,
-    `POV_OBJECT`, or geometric `POV_TOPDOWN`. Ali is behind the camera.
+  - Identity-free by default. Decision cards prefer `POV_COCKPIT`, `POV_MIRROR_REAR`,
+    `POV_OBJECT`, or `POV_DIAGRAM`. Ali is behind the camera.
   - Face-critical frames (`POV_PORTRAIT`, close `POV_ROADSIDE`) are ≤ 10% of an
     act — three cards in thirty. Never accept a first take on those.
   - Never `POV_PORTRAIT` on a decision card. Portraits are for dossiers only.
-  - Rules of geometry (turns, merges, roundabouts, parking, lane position) default
-    to `POV_TOPDOWN`. Geometry does not read from a windshield.
-  - Anything about seeing or not seeing defaults to `POV_MIRROR`.
+  - Rules of geometry (turns, merges, roundabouts, parking, lane position,
+    right-of-way, passing, road markings) default to `POV_DIAGRAM`. Photoreal
+    aerials (`POV_TOPDOWN_PHOTO`) are establishing only. `POV_TOPDOWN` is illegal.
+  - A vehicle behind the ego vehicle is `POV_MIRROR_REAR`, never a forward camera.
+    Blind zones and door glass are `POV_MIRROR_DOOR`. Bare `POV_MIRROR` is illegal.
+  - Every road frame includes `image_brief.geometry` (heading, lane side, plow
+    direction in frame, oncoming position, hazard position). The plow is the front.
   - Sign, signal, and marking recognition defaults to `POV_OBJECT`.
   - Do not put text, words, numbers, or UI in the frame unless the card is
     teaching a sign face or a gauge reading.

@@ -62,7 +62,7 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR",
+    "camera": "POV_CHASE",
     "camera_is_the_lesson": true,
     "subject": "Deac's left arm extending from the window on the LEFT side of the frame, seen from directly behind the Ledger, bent sharply at the elbow, forearm vertical, fingers pointing at the sky",
     "foreground": "wet following-vehicle glass, wind-blown rain, the Ledger's left rear quarter",
@@ -75,7 +75,14 @@
       "deac",
       "hand_signals"
     ],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the Ledger's nose points toward the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
   },
   "variation": {
     "location_type": "school_zone",

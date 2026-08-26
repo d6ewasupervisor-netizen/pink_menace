@@ -76,7 +76,14 @@
     "continuity": [
       "pink_menace_interior"
     ],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade is a pink bar at the bottom of the glass, pointing toward the hitch",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction"
+    }
   },
   "variation": {
     "location_type": "school_zone",

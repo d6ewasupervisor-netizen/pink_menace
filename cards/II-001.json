@@ -12,7 +12,10 @@
     "dol_section": "n/a",
     "teaching_target": "Establish The Grid: residential Kent, Ali driving, insulin run, rules of the road still in force."
   },
-  "cast": ["ali", "gracie"],
+  "cast": [
+    "ali",
+    "gracie"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -23,7 +26,11 @@
     "midground": "welded steel mesh over the windshield, analog gauges, aftermarket nav tablet dark",
     "background": "overcast Kent residential street through the mesh, bare maples, single-story houses, no sun",
     "read": "this is Ali's cab and Ali's color — cranberry hair is the only saturated thing in a gray morning",
-    "continuity": ["pink_menace_interior", "ali_face", "gracie"],
+    "continuity": [
+      "pink_menace_interior",
+      "ali_face",
+      "gracie"
+    ],
     "aspect": "3:4"
   },
   "variation": {

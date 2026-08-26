@@ -13,10 +13,25 @@ function isLocation(token) {
 
 function resolveCard(raw) {
   const id = raw.card_id || "(missing card_id)";
-  const tokens = (raw.image_brief && raw.image_brief.continuity) || [];
+  const tokens = [...((raw.image_brief && raw.image_brief.continuity) || [])];
+  const cam = raw.image_brief && raw.image_brief.camera;
+  if (cam === "POV_DIAGRAM" && !tokens.includes("pink_menace_exterior")) {
+    tokens.push("pink_menace_exterior");
+  }
   const errors = [];
   const attachments = [];
   const seen = new Set();
+
+  if (cam === "POV_DIAGRAM") {
+    const lockTokens = tokens.filter(
+      (t) => t !== "diagram_style" && t !== "pink_menace_exterior" && !isLocation(t) && !MAP.no_file.includes(t)
+    );
+    if (lockTokens.length) {
+      errors.push(
+        `${id}: POV_DIAGRAM cannot attach character refs (${lockTokens.join(", ")})`
+      );
+    }
+  }
 
   for (const token of tokens) {
     if (isLocation(token) || MAP.no_file.includes(token)) continue;

@@ -38,11 +38,19 @@ You MUST:
     bible, every time, in full — never "Ali" alone, never "the car" alone
   - for vehicles, name the base the model already knows, then the four-item
     feature requirement — never lead with the conversion
-  - on identity-free cameras (POV_COCKPIT, POV_MIRROR, POV_OBJECT, geometric
-    POV_TOPDOWN), do not describe a driver's face. Cockpit shows no driver.
+  - on identity-free cameras (POV_COCKPIT, POV_MIRROR_REAR, POV_MIRROR_DOOR,
+    POV_OBJECT, POV_DIAGRAM), do not describe a driver's face. Cockpit shows
+    no driver. Diagrams are the same photoreal world, overhead — no faces.
+  - abort POV_TOPDOWN and POV_MIRROR — both are illegal. Resolve to the
+    sub-tokens in bible §8.3.
+  - abort hazard_position behind on any forward camera. Behind is POV_MIRROR_REAR.
   - convert every role-relative spatial term to frame-relative language plus
     an explicit drive-side statement before compiling. Do not pass them through.
   - append the left-hand-drive clause to every compile that includes a vehicle
+  - append the geometry clause to every road frame
+  - append the mirror clause and mirror negatives to POV_MIRROR_REAR and
+    POV_MIRROR_DOOR
+  - attach ref_car_exterior.jpg to every POV_DIAGRAM for build only; no faces
   - end with the negative block
   - state the aspect ratio
 
@@ -220,6 +228,76 @@ And add to the negative block:
 
 Cheap, mechanical, and it removes an entire class of silent geometry error.
 
+## ROAD GEOMETRY — required on every road frame
+
+The compiler describes what is in frame and must also describe which way
+anything is going. A spatial fact the prompt never stated is resolved by
+composition instead of by traffic law.
+
+Every image_brief that contains a roadway must carry a `geometry` block.
+Append this clause, filled from that block, to every road compile:
+
+> United States road configuration, traffic drives on the right. The pink
+> vehicle is traveling **[ego_heading]** and occupies the **right half of
+> the roadway** for its direction of travel. Its front — identified by the
+> black tube bull bar and wide flat plow blade — points **[ego_nose_in_frame]**.
+> Any oncoming traffic is **[oncoming_position]**. No vehicle faces the wrong
+> way in its lane.
+
+The plow is the orientation anchor. Always state where it points in frame.
+
+### Camera is derived from hazard_position — not chosen freely
+
+| hazard_position | Required camera |
+|---|---|
+| behind | POV_MIRROR_REAR — never a forward camera |
+| ahead_same_direction | POV_COCKPIT (or another forward camera; never a rearview) |
+| oncoming | POV_COCKPIT, oncoming lane left of frame; or POV_DIAGRAM |
+| beside | POV_DIAGRAM, POV_ROADSIDE, or POV_MIRROR_DOOR |
+| geometry of a maneuver | POV_DIAGRAM |
+
+A forward camera can never depict a following vehicle. Abort the compile.
+
+### POV_DIAGRAM vs POV_TOPDOWN_PHOTO
+
+Photoreal aerials invent intersections and resolve traffic direction
+aesthetically. Lane law cannot survive that.
+
+- POV_TOPDOWN_PHOTO — photoreal aerial. Establishing shots only. Rare. No lane rule.
+- POV_DIAGRAM — the same photoreal game world as every other card. Camera
+  high and slightly oblique (15–20° off vertical), looking along travel so
+  the rear is nearer and the plow is the far leading end. Tight crop on the
+  lane geometry the card turns on — extra curbs and side streets are how
+  facing goes wrong. Real wet pavement, real paint. The Menace is the actual
+  faded-pink VW Beetle with mesh, plow, riveted plate, knobbies. Other
+  vehicles are real desaturated cars, each facing a legal direction in its
+  lane. Geometry block is mandatory so traffic direction is stated, not
+  invented. Attach ref_car_exterior.jpg for build only — never carry its
+  golden-hour salt flat. No faces. No infographic. No vector cars.
+
+POV_TOPDOWN is illegal.
+
+## MIRROR SUB-TOKENS
+
+POV_MIRROR is illegal. Resolve to one of:
+
+- POV_MIRROR_REAR — interior rearview, wide, upper frame, road BEHIND in
+  the glass. Following distance, tailgating. Prefer this.
+- POV_MIRROR_DOOR — left-side door mirror, subject in the glass, flank in
+  the foreground. Blind zones, lane changes, backing sightlines.
+
+Mandatory clause on any mirror compile:
+
+> The image inside the mirror glass is a reflection of the road BEHIND the
+> vehicle. Do not show the road ahead inside the mirror. The view forward
+> through the windshield is not the subject and must be dark, defocused, or
+> outside the frame.
+
+Mirror negatives:
+
+> No view of the road ahead inside the mirror, no windshield view as the
+> main subject, no mirror reflecting the interior of the cabin.
+
 ## IDENTITY EXPOSURE — pack/12
 
 Identity only has to be consistent where identity is visible. Attachment is
@@ -228,11 +306,12 @@ in frame.
 
 - Face-critical (POV_PORTRAIT, close POV_ROADSIDE): expand Ali / Deac / Yuna
   in full. These are the frames that get eight takes.
-- Vehicle-critical (POV_CHASE, distant roadside, exterior topdown): name the
+- Vehicle-critical (POV_CHASE, distant roadside, POV_TOPDOWN_PHOTO): name the
   base vehicle the model already knows, then the four-item requirement clause.
-- Identity-free (POV_COCKPIT, POV_MIRROR, POV_OBJECT, geometric POV_TOPDOWN):
-  no driver face. Cockpit is over the wheel, looking out. Mirror and object
-  shots teach geometry or a signal, not a person.
+- Identity-free (POV_COCKPIT, POV_MIRROR_REAR, POV_MIRROR_DOOR, POV_OBJECT,
+  POV_DIAGRAM): no driver face. Cockpit is over the wheel, looking out.
+  Diagrams are overhead photographs of the vehicles, not silhouettes.
+  Mirror and object shots teach geometry or a signal, not a person.
 
 ## OUTPUT
 
@@ -259,7 +338,8 @@ else. No commentary. No alternatives.
 | Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` |
 | Two or more vehicles in frame | `ref_convoy.png` |
 | Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
-| Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_MIRROR`: the arm from behind, extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
+| Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_CHASE`: from directly behind, the arm extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
+| `POV_DIAGRAM` | `ref_car_exterior.jpg` for Beetle build and plow. Overcast PNW lighting — never the salt-flat sunset. No faces. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 

@@ -64,17 +64,24 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_TOPDOWN",
-    "subject": "orthographic overhead of a residential block, the Pink Menace stopped short of a dirt berm blocking the street end",
-    "foreground": "clean overhead lane geometry, painted double yellow centerline running the length of Willis, driveways spaced along both sides",
-    "midground": "the four-right-turn loop around the block readable as open roadway; the berm as a hard stop across the far end",
-    "background": "wet residential rooftops and bare trees, flat gray overcast, no shadows",
-    "read": "the double yellow centerline is unbroken beneath the car, and a complete open loop exists around the block — both facts legible at a glance",
+    "camera": "POV_DIAGRAM",
+    "subject": "four-story oblique down Willis: faded pink Beetle near camera in the right lane, plow up-frame, dirt mound blocking the street fifty yards ahead",
+    "foreground": "rear of the Beetle nearer camera, right-hand lane, double yellow on her left",
+    "midground": "packed dirt blocks the street curb to curb; a cross street enters from the right, both curb returns open",
+    "background": "wet Kent houses and bare trees, flat gray overcast, no other movers",
+    "read": "the street ahead is impassable, and the cross-street corner is the only way through",
     "continuity": [
       "pink_menace_exterior",
       "L-001"
     ],
-    "aspect": "1:1"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade points toward the top of the frame, toward the berm",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
   },
   "variation": {
     "location_type": "residential",

@@ -108,6 +108,8 @@ CREATE TABLE IF NOT EXISTS run_answers (
   UNIQUE (run_id, card_id, attempt_no)
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS run_answers_one_per_card ON run_answers (run_id, card_id);
+
 CREATE TABLE IF NOT EXISTS coverage_log (
   id UUID PRIMARY KEY,
   student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,

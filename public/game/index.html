@@ -6,17 +6,23 @@
   <meta name="theme-color" content="#9a3d4d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>PINK MENACE</title>
-  <link rel="stylesheet" href="/shared/app.css?v=dossier">
+  <link rel="stylesheet" href="/shared/app.css?v=nav">
 </head>
 <body>
   <main class="shell">
-    <div class="top">
+    <div class="top" id="gate-top">
       <div class="brand">
         <h1>PINK MENACE</h1>
         <p>The Quarantine Runs</p>
       </div>
-      <button id="sign-out" class="ghost hidden" type="button">Sign out</button>
     </div>
+
+    <header id="play-header" class="play-header hidden">
+      <button type="button" id="hdr-back" class="hdr-btn" aria-label="Back">‹</button>
+      <p id="hdr-title" class="hdr-title">PINK MENACE</p>
+      <button type="button" id="hdr-home" class="hdr-btn" aria-label="Home">⌂</button>
+      <p id="hdr-saved" class="hdr-saved"></p>
+    </header>
 
     <section id="gate" class="panel">
       <label>
@@ -49,7 +55,16 @@
     </section>
 
     <section id="app" class="hidden">
-      <div id="run" class="panel">
+      <div id="home" class="home hidden">
+        <button id="resume" class="resume" type="button"></button>
+        <div id="acts" class="act-list"></div>
+        <h2 class="home-h">The Log</h2>
+        <div id="log" class="list"></div>
+        <h2 class="home-h">The Cast</h2>
+        <div id="cast" class="cast-list"></div>
+        <button id="sign-out" class="ghost sign-out" type="button">Sign out</button>
+      </div>
+      <div id="run" class="panel hidden">
         <img id="shot" class="shot hidden" alt="">
         <h2 id="title"></h2>
         <p id="scene" class="scene"></p>
@@ -59,6 +74,7 @@
         <p id="debrief" class="result hidden"></p>
         <div class="actions">
           <button id="continue" class="hidden" type="button">Continue</button>
+          <button id="resume-live" class="hidden" type="button">Resume</button>
         </div>
       </div>
     </section>

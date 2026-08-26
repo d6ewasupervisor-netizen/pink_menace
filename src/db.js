@@ -56,6 +56,17 @@ async function migrate() {
   await pool.query(`
     ALTER TABLE run_answers ADD COLUMN IF NOT EXISTS ms_on_outcome INTEGER
   `);
+  await pool.query(`
+    DELETE FROM run_answers a
+     USING run_answers b
+     WHERE a.run_id = b.run_id
+       AND a.card_id = b.card_id
+       AND a.ctid < b.ctid
+  `);
+  await pool.query(`
+    CREATE UNIQUE INDEX IF NOT EXISTS run_answers_one_per_card
+      ON run_answers (run_id, card_id)
+  `);
   await pool.query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
 }
 

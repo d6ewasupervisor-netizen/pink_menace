@@ -74,7 +74,14 @@
     "continuity": [
       "pink_menace_exterior"
     ],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the parking aisle for its direction of travel",
+      "ego_nose_in_frame": "the plow blade points into the stall, toward the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
   },
   "variation": {
     "location_type": "parking_lot",

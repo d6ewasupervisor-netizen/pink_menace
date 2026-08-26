@@ -3,6 +3,8 @@
 const fs = require("fs");
 const path = require("path");
 const { resolveCard, assertCompileReady } = require("./resolve-refs");
+const { assemblePrompt } = require("./compile-prompt");
+const { validateGeometry } = require("./geometry");
 
 const dir = path.join(__dirname, "..", "cards");
 const only = process.argv.includes("--card")
@@ -31,12 +33,25 @@ for (const f of files) {
     errors.push(err.message);
     continue;
   }
+  const geoErrs = validateGeometry(raw);
+  if (geoErrs.length) {
+    errors.push(...geoErrs);
+    continue;
+  }
+  let prompt;
+  try {
+    prompt = assemblePrompt(raw);
+  } catch (err) {
+    errors.push(err.message);
+    continue;
+  }
   rows.push({
     card_id: raw.card_id,
     camera: raw.image_brief && raw.image_brief.camera,
     camera_is_the_lesson: Boolean(raw.image_brief && raw.image_brief.camera_is_the_lesson),
     aspect: (raw.image_brief && raw.image_brief.aspect) || "3:4",
     attachments: resolved.attachments.map((p) => path.basename(p)),
+    ...(only ? { prompt } : {}),
   });
 }
 

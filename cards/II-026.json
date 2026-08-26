@@ -13,28 +13,41 @@
       "text": "Far hand to the handle, look in the glass, then open a crack and look again",
       "correct": true,
       "result": "Right hand across. Your torso turns. The glass has her. You wait. She passes with three feet of ice and does not look at you. You open after. The crate follows. Nobody on the ice had to choose between a door and a wheel.",
-      "state_delta": { "noise": -1, "time_cost": 4 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
       "id": "b",
       "text": "Open it now — she has time to stop on ice",
       "correct": false,
       "result": "The door occupies her line. Ice does not let her stop. The bar-end takes the steel and she goes down. Quiet lot, loud metal. She gets up. You will see her in every glass for a week.",
-      "state_delta": { "noise": 4, "time_cost": 10 }
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 10
+      }
     },
     {
       "id": "c",
       "text": "Crack the window and tell her to go around",
       "correct": false,
       "result": "She cannot hear you through wind and ice and a moving bike. She is already in the door when you finish the sentence. Talking is not a look.",
-      "state_delta": { "noise": 1, "time_cost": 5 }
+      "state_delta": {
+        "noise": 1,
+        "time_cost": 5
+      }
     },
     {
       "id": "d",
       "text": "Get out the passenger side to avoid her entirely",
       "correct": false,
       "result": "The crates are in the way. You climb. The passenger door opens into a cart corral on ice. You fall. She passes a car that is now a spectacle. You avoided a door zone by inventing a worse one.",
-      "state_delta": { "noise": 2, "yaw": 1, "time_cost": 8 }
+      "state_delta": {
+        "noise": 2,
+        "yaw": 1,
+        "time_cost": 8
+      }
     }
   ],
   "debrief": "The door zone is the strip a bicyclist dies in. Dutch Reach: far hand, which turns your body toward the mirror, then look, then open. Ice makes her stopping distance a fantasy. Your wait is the three feet.",
@@ -43,19 +56,33 @@
     "dol_section": "4.6 Sharing with bicyclists",
     "teaching_target": "Before opening a door, check the mirror and blind area for bicyclists; use the far-hand reach so your body turns to look."
   },
-  "cast": ["ali", "marisol"],
+  "cast": [
+    "ali",
+    "marisol"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR",
+    "camera": "POV_MIRROR_DOOR",
     "subject": "Marisol approaching in the right-side glass, ice on the aisle, the Pink Menace's door still closed",
     "foreground": "interior door handle and riveted steel, Ali's left hand already hovering",
     "midground": "her front wheel in the strip the door will occupy",
     "background": "Kent Station lot, morning ice, dead cars, pale sky",
     "read": "the door has not opened yet and her wheel is already in the arc",
-    "continuity": ["pink_menace_interior", "dutch_reach", "marisol"],
-    "aspect": "3:4"
+    "continuity": [
+      "pink_menace_interior",
+      "dutch_reach",
+      "marisol"
+    ],
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the parking aisle for its direction of travel",
+      "ego_nose_in_frame": "the plow blade is not in the glass; the vehicle is parked, nose into the stall",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside"
+    }
   },
   "variation": {
     "location_type": "parking_lot",

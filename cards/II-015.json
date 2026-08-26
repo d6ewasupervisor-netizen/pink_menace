@@ -65,16 +65,23 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_ROADSIDE",
-    "subject": "the Pink Menace at a residential T, right blinker on, a tall hedge eating the sidewalk sightline",
-    "foreground": "hedge leaves moving in the dawn wind, a faded crosswalk at the camera's feet",
-    "midground": "Ali's plow still short of the sidewalk line, wheels not yet cut",
-    "background": "Kent houses, chain-link, hard dawn light, no other moving cars",
-    "read": "the sidewalk is invisible behind the hedge, and the plow has not entered it yet — that is the decision",
+    "camera": "POV_DIAGRAM",
+    "subject": "high overhead of a residential T: the faded matte-pink VW Beetle on the stem, right blinker implied, plow still short of the sidewalk, a tall live hedge eating the right-corner sightline",
+    "foreground": "faded crosswalk paint across the top of the stem; the sidewalk line the plow has not crossed",
+    "midground": "the nearest right-lane recovery path empty and wide enough for the Beetle; hedge leaves moving in the dawn wind",
+    "background": "Kent houses and chain-link, hard dawn overcast, wet pavement, no other moving cars",
+    "read": "right-turn path still short of the sidewalk; the hedge hides the crosswalk — turn geometry before the nose occupies it",
     "continuity": [
       "pink_menace_exterior"
     ],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside"
+    }
   },
   "variation": {
     "location_type": "residential",

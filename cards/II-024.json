@@ -64,16 +64,23 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_TOPDOWN",
-    "subject": "a four-way with four stop signs, the Pink Menace at the south stop, a primer sedan already sitting at the east stop",
-    "foreground": "painted stop lines, empty crosswalks",
-    "midground": "two vehicles, no third, dusk long shadows",
-    "background": "Kent residential arterial, clear cold sky going blue, no wrecks",
-    "read": "the sedan's stop line was occupied first — the Beetle is second",
+    "camera": "POV_DIAGRAM",
+    "subject": "oblique four-way: faded pink Beetle still short of the south stop line, primer sedan already occupying the east stop line on her right",
+    "foreground": "painted stop lines, empty crosswalks, wet asphalt one stop brighter than night",
+    "midground": "sedan arrived first — nose over its line; Beetle still behind hers; sedan fully visible, not lost in shadow",
+    "background": "Kent residential four-way, clear cold dusk going blue but readable, no wrecks",
+    "read": "right-of-way is the sedan's: its stop line was occupied first — the Beetle is second",
     "continuity": [
       "pink_menace_exterior"
     ],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside"
+    }
   },
   "variation": {
     "location_type": "arterial",

@@ -98,10 +98,19 @@ async function main() {
   }
   const dir = path.join(__dirname, "..", "cards");
   const tables = loadTables();
+  const wanted = new Set(
+    process.argv.slice(2).map((id) => id.replace(/\.json$/i, "").toUpperCase())
+  );
   const files = fs
     .readdirSync(dir)
     .filter((f) => /^(I|II|III|IV|V|VI|VII)-\d{3}\.json$/.test(f))
+    .filter((f) => !wanted.size || wanted.has(f.replace(/\.json$/i, "").toUpperCase()))
     .sort();
+  if (wanted.size && files.length !== wanted.size) {
+    const got = new Set(files.map((f) => f.replace(/\.json$/i, "").toUpperCase()));
+    const missing = [...wanted].filter((id) => !got.has(id));
+    throw new Error(`unknown card id(s): ${missing.join(", ")}`);
+  }
   if (!files.length) throw new Error("no card json in cards/");
   const ids = [];
   for (const f of files) {

@@ -38,7 +38,7 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_TOPDOWN",
+    "camera": "POV_DIAGRAM",
     "subject": "orthographic overhead of a residential block, the Pink Menace stopped short of a dirt berm blocking the street end",
     "foreground": "clean overhead lane geometry, painted double yellow centerline running the length of Willis, driveways spaced along both sides",
     "midground": "the four-right-turn loop around the block readable as open roadway; the berm as a hard stop across the far end",
@@ -94,7 +94,7 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR",
+    "camera": "POV_MIRROR_REAR",
     "subject": "the mirror on the left side of the vehicle, seen from inside the cabin, filled with a long clear stretch of empty wet residential street behind the car",
     "foreground": "the mirror housing and a slice of riveted steel door plating, sharply in focus",
     "midground": "a paved driveway apron entering frame at the mirror's edge on the same side as the car",

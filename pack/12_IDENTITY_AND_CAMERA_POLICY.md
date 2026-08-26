@@ -8,7 +8,7 @@ Two ledger amendments and one shot-design rule, adopted after the Act II art pas
 
 Attaching reference sheets gives the model soft conditioning, not identity lock. There is no setting that fixes this and no prompt phrasing that reliably beats it. Fighting it card by card is unbounded work with no finish line.
 
-The Act II data already contains the answer. The four frames that read cleanest — II-003, II-013, II-029, II-030 — are the four with **no locked subject in frame**: a sign, a sign, a topdown, a mirror. They did not need a reference, so they could not drift.
+The Act II data already contains the answer. The frames that read cleanest are diagrams, isolated objects, and interior rearviews: a sign, a sign, a schematic, a mirror. They did not need a photoreal character reference, so they could not drift. `POV_DIAGRAM` is the default for lane law; `POV_TOPDOWN_PHOTO` is establishing only.
 
 **The rule: identity only has to be consistent where identity is visible.**
 
@@ -19,8 +19,8 @@ Ali is the player character. In a driving game she is behind the camera for most
 | Exposure class | Cameras | Budget | Handling |
 |---|---|---|---|
 | **Face-critical** — Ali, Deac, or Yuna recognizable | `POV_PORTRAIT`, `POV_ROADSIDE` at close range | **≤ 10% of act** (3 cards in 30) | 8 takes, hand-curate 1. Never accept a first take. |
-| **Vehicle-critical** — the Menace, Ledger, or Encore identifiable | `POV_CHASE`, `POV_ROADSIDE` at distance, exterior `POV_TOPDOWN` | ≤ 25% | 4 takes, curate. Feature checklist mandatory (§2). |
-| **Identity-free** | `POV_COCKPIT`, `POV_MIRROR`, `POV_OBJECT`, geometric `POV_TOPDOWN` | remainder | 1–2 takes. Drift cannot occur; there is nothing to drift. |
+| **Vehicle-critical** — the Menace, Ledger, or Encore identifiable | `POV_CHASE`, `POV_ROADSIDE` at distance, `POV_TOPDOWN_PHOTO` | ≤ 25% | 4 takes, curate. Feature checklist mandatory (§2). |
+| **Identity-free** | `POV_COCKPIT`, `POV_MIRROR_REAR`, `POV_MIRROR_DOOR`, `POV_OBJECT`, `POV_DIAGRAM` | remainder | 1–2 takes. No faces in frame. Diagrams are overhead photographs of the Menace; attach `ref_car_exterior.jpg` for build. |
 
 `POV_COCKPIT` shows no driver at all — it is over the wheel, looking out. That is the single most drift-proof camera in the set and it is also the most narratively correct one for a decision moment. Use it freely.
 
@@ -53,7 +53,7 @@ That last line is the one that matters. If you mute the card text and the image 
 ## 4. Amended camera cap
 
 **Old rule:** no camera token exceeds 25% of an act.
-**Problem:** three hand-signal cards belong on `POV_MIRROR` for a diegetic reason — the signal is left-arm precisely because that is what a following driver sees. A rule that forces a card off its correct camera is a bad rule.
+**Problem:** three hand-signal cards belong on a following-driver view for a diegetic reason — the signal is left-arm precisely because that is what a following driver sees. A rule that forces a card off its correct camera is a bad rule. Those cards are `POV_CHASE` with `camera_is_the_lesson`.
 
 **New rule:**
 
@@ -62,6 +62,6 @@ That last line is the one that matters. If you mute the card text and the image 
 - The consecutive rule still applies to **all** cards, exempt or not — never the same token twice in a row.
 - New hard rule, replacing the cap as the real anti-monotony guard: **no more than 2 uses of any token in any window of 6 cards.** Clustering is what reads as monotonous. A token spread evenly at 27% does not.
 
-Act II at 8/30 `POV_MIRROR` with three exempt = 5/27 non-exempt, **18.5%. In compliance. Do not steal a mirror from anything.**
+Hand-signal cards belong on a following-driver view (`POV_CHASE`, `camera_is_the_lesson`). Following-distance cards belong on `POV_MIRROR_REAR`. Do not steal a rearview from a hazard-behind card to satisfy a percentage.
 
 Add both checks to `npm run validate-cards` so the ledger is enforced by the validator rather than by review.

@@ -65,18 +65,25 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR",
-    "subject": "the mirror on the left side of the vehicle, seen from inside the cabin, filled with a long clear stretch of empty wet residential street behind the car",
-    "foreground": "the mirror housing and a slice of riveted steel door plating, sharply in focus",
-    "midground": "a paved driveway apron entering frame at the mirror's edge on the same side as the car",
-    "background": "Willis running straight and empty to a distant vanishing point, bare maples, flat gray overcast",
+    "camera": "POV_MIRROR_REAR",
+    "subject": "the interior rearview filled with a long clear stretch of empty wet residential street behind the car",
+    "foreground": "wide weathered rearview filling the upper frame; cracked pink dash and mesh below, dark and out of focus",
+    "midground": "in the glass: Willis running straight and empty behind, a paved driveway apron on the same side as the car",
+    "background": "bare maples receding, flat gray overcast, windshield view not the subject",
     "read": "the road behind is visibly long, straight and unobstructed, and the driveway sits on the same side as the mirror",
     "continuity": [
       "pink_menace_interior",
       "pink_menace_exterior",
       "L-001"
     ],
-    "aspect": "3:4"
+    "aspect": "3:4",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade is not in frame; the vehicle is traveling forward, away from the empty road in the glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
   },
   "variation": {
     "location_type": "residential",
