@@ -125,6 +125,21 @@ const CAST = [
   { id: "hollis", name: "Hollis", line: "The truck in the glass." },
 ];
 
+const CAST_CARDS = {
+  ali: "II-001",
+  deac: "II-006",
+  gracie: "II-018",
+  reyna_solis: "II-010",
+  marisol: "II-005",
+  hollis: "II-014",
+};
+
+function portraitCardId(castId, catalog) {
+  if (CAST_CARDS[castId]) return CAST_CARDS[castId];
+  const hit = (catalog || []).find((c) => ((c.extra || {}).cast || []).includes(castId));
+  return hit ? hit.card_id : null;
+}
+
 function sceneFragment(scene) {
   const t = String(scene || "").replace(/\s+/g, " ").trim();
   const sentence = t.split(/(?<=\.)\s/)[0] || t;
@@ -380,7 +395,9 @@ async function progressFor(run) {
     cast: CAST.map((c) => ({
       ...c,
       unlocked: unlocked.has(c.id),
-      portrait_url: unlocked.has(c.id) ? "/api/run/cast/" + encodeURIComponent(c.id) : null,
+      portrait_url: unlocked.has(c.id) && portraitCardId(c.id, catalog)
+        ? "/api/run/cast/" + encodeURIComponent(c.id)
+        : null,
     })),
     done,
     restartable: answers.length > 0 || done,
@@ -443,6 +460,8 @@ module.exports = {
   dayNight,
   skillBand,
   CAST,
+  CAST_CARDS,
+  portraitCardId,
   ACT_ZONES,
   cargoFrom,
   cargoDead,

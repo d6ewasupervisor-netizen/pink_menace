@@ -152,6 +152,7 @@ function renderHome(data) {
       const img = document.createElement("img");
       img.src = c.portrait_url;
       img.alt = "";
+      img.addEventListener("error", () => img.replaceWith(el("div", "cast-ph", "")));
       row.append(img);
     } else {
       row.append(el("div", "cast-ph", ""));

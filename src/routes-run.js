@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST, publicState, cargoDead, cargoFailDispatch, skipSeqFor } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor } = require("./game");
 const { applyFear } = require("./presence");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
@@ -191,12 +191,6 @@ function mountRun(app) {
     }
   });
 
-  const CAST_CARDS = {
-    ali: "II-001",
-    gracie: "II-018",
-    deac: "II-006",
-  };
-
   app.get("/api/run/cast/:id", async (req, res) => {
     if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
     const session = await auth.requireRole(req, res, "student");
@@ -208,7 +202,7 @@ function mountRun(app) {
       const progress = await progressFor(run);
       const member = progress.cast.find((c) => c.id === id);
       if ((!member || !member.unlocked) && req.query.bark !== "1") return res.status(404).end();
-      const cardId = CAST_CARDS[id];
+      const cardId = portraitCardId(id);
       if (!cardId) return res.status(404).end();
       const { rows } = await query(
         `SELECT image_bytes, image_mime FROM cards WHERE card_id = $1`,
