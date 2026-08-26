@@ -64,18 +64,18 @@
   "image_brief": {
     "camera": "POV_CHASE",
     "camera_is_the_lesson": true,
-    "subject": "Deac's left arm extending from the window on the LEFT side of the frame, seen from directly behind the Ledger, bent sharply at the elbow, forearm vertical, fingers pointing at the sky",
-    "foreground": "wet following-vehicle glass, wind-blown rain, the Ledger's left rear quarter",
-    "midground": "open window on the left side of the frame; the right side of the vehicle is closed and no arm appears there",
-    "background": "Kent school fence, midday, dark lamps, empty yard, a volunteer van rolling past a driveway on the right",
-    "read": "the arm is bent up, fingers to the sky — right turn — extending from the window on the left side of the frame",
+    "subject": "the Ledger seen from behind and to its LEFT at a thirty degree angle so the entire left flank and front cab are visible",
+    "foreground": "inside a following vehicle looking forward and slightly right through rain-beaded windshield mesh",
+    "midground": "open cab window on the left of the bus; a man's left arm bent up, fingers to the sky, attached to a visible shoulder and torso inside the cab",
+    "background": "wet four-lane road, Kent school fence, midday, dark lamps, empty yard, bare trees, flat gray overcast, a volunteer van rolling past a driveway on the right",
+    "read": "the bent-up left arm at the cab window is unmistakable and is the compositional focus",
     "continuity": [
       "the_ledger",
       "pink_menace_exterior",
       "deac",
       "hand_signals"
     ],
-    "aspect": "3:4",
+    "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right half of the roadway (US)",

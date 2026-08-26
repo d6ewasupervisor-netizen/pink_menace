@@ -155,7 +155,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 | `POV_MIRROR_DOOR` | Left-side door mirror, subject in the glass, vehicle flank in foreground | Blind zones, lane changes, backing sightlines |
 | `POV_TOPDOWN_PHOTO` | Photoreal aerial | Establishing shots only — **never** a lane rule |
 | `POV_DIAGRAM` | High overhead photograph of the real vehicles on real pavement. Lane lines as paint. The Menace is the Beetle with the plow at the leading end. | Lane position, turns, right-of-way, passing, merging, parking, road markings |
-| `POV_CHASE` | Behind and slightly above the vehicle, road ahead visible | Zone establishing shots, convoy formation, following-driver view of a lead vehicle's left-arm signal |
+| `POV_CHASE` | Behind the subject vehicle, road ahead visible. Dead astern or offset to a flank; outside or in a following cab — the brief says which. | Zone establishing shots, convoy formation, following-driver view of a lead vehicle's left-arm signal |
 | `POV_ROADSIDE` | Ground level, outside the car, human eye height | Pedestrians, cyclists, traffic stops, aftermath |
 | `POV_PORTRAIT` | Chest-up, subject centered, background compressed | Dossier and character cards |
 | `POV_OBJECT` | The sign, the light, the marking, isolated, shallow DOF | Rule cards |
@@ -165,7 +165,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 `image_brief.camera_is_the_lesson: true` when the camera *is* the lesson (following-driver view of a left-arm signal). Those cards drop out of the 25% cap and the window-of-6 count. Never the same token twice in a row, exempt or not. Full rule in pack/12 and pack/05.
 
 ### 8.4 Aspect ratios
-Card art `3:4` portrait. Zone establishing `16:9`. `POV_DIAGRAM` `3:4`.
+Card art `2:3` portrait (1024×1536). Zone establishing `16:9`. `POV_DIAGRAM` `2:3`. Do not compile or crop to `3:4` — that eats the top and bottom of the frame, which is where plows, stop bars, and berms sit.
 
 ### 8.5 Identity exposure
 Identity only has to be consistent where identity is visible. Face-critical frames ≤ 10% of an act; vehicle-critical ≤ 25%; the rest are identity-free cameras with nothing to drift. Compile vehicles as the base the model already knows, then a four-item requirement clause. Do not fight attachment into lock card by card. Pack/12.

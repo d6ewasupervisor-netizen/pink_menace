@@ -65,15 +65,15 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "oblique four-way: faded pink Beetle still short of the south stop line, primer sedan already occupying the east stop line on her right",
-    "foreground": "painted stop lines, empty crosswalks, wet asphalt one stop brighter than night",
-    "midground": "sedan arrived first — nose over its line; Beetle still behind hers; sedan fully visible, not lost in shadow",
+    "subject": "oblique four-way: faded pink Beetle still short of the south stop line; primer sedan stopped on the east approach, fully behind its stop line, not in the box",
+    "foreground": "painted stop lines, empty crosswalks, empty intersection box, wet asphalt readable at dusk",
+    "midground": "sedan waiting on her right, nose at its stop bar; Beetle still behind hers; no vehicle on any crosswalk",
     "background": "Kent residential four-way, clear cold dusk going blue but readable, no wrecks",
     "read": "right-of-way is the sedan's: its stop line was occupied first — the Beetle is second",
     "continuity": [
       "pink_menace_exterior"
     ],
-    "aspect": "3:4",
+    "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right half of the roadway (US)",

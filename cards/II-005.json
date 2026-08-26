@@ -75,7 +75,7 @@
       "pink_menace_exterior",
       "marisol"
     ],
-    "aspect": "3:4",
+    "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",
       "ego_lane_side": "right half of the parking aisle for its direction of travel",

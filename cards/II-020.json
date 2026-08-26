@@ -72,7 +72,7 @@
     "continuity": [
       "pink_menace_exterior"
     ],
-    "aspect": "3:4",
+    "aspect": "2:3",
     "geometry": {
       "ego_heading": "right_to_left",
       "ego_lane_side": "right half of the roadway (US)",

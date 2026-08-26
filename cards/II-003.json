@@ -72,7 +72,7 @@
     "background": "no flagger, no sky, a gray wall of fog where the other approach should be",
     "read": "the sign is STOP, not yield, and the other road is invisible — that is the whole card",
     "continuity": [],
-    "aspect": "3:4",
+    "aspect": "2:3",
     "geometry": {
       "ego_heading": "toward_camera",
       "ego_lane_side": "right half of the roadway (US)",

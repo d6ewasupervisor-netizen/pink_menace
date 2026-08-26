@@ -27,7 +27,7 @@ Every prompt below already carries the master style token and the negative block
 
 > Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is transit amber. Chest-up portrait, subject centered, background compressed. Subject: a broad tall-shouldered 54-year-old man with dark brown skin, close-cut gray hair receding at the temples, a short gray beard, deep-set tired eyes with reddened lids, wearing a faded charcoal transit operator's jacket with a worn-off patch over a dulled amber high-visibility safety vest grimy and taped at one shoulder, half-frame reading glasses hanging on a cord against his chest. He holds a metal clipboard against his chest with a hand-ruled log sheet clipped to it, ruled columns visible but text illegible. Behind him, far out of focus, the gray flank of a large boxy vehicle and wet pavement. Fine grain, slight vignetting, no HDR, no glow, no lens flare.
 >
-> *[negative block]* · Aspect ratio 3:4
+> *[negative block]* · Aspect ratio 2:3
 
 ## D3 — THE LEDGER four-view
 
@@ -40,7 +40,7 @@ Every prompt below already carries the master style token and the negative block
 
 > Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field. Overcast Pacific Northwest daylight through the windshield — soft, diffuse, low-contrast, gray-blue. Desaturated palette; the only saturated color is transit amber. Camera inside the vehicle, over the wheel, looking forward. A large flat commercial steering wheel across the bottom of frame, worn smooth at ten and two. A tall upright dashboard with square analog gauges, a bank of labeled toggle switches, a mounted metal clipboard with a hand-ruled log sheet, and a dented steel thermos in the cup holder. Through the windshield, a welded bar cage in a coarse grid with a cut slot for the wipers, and beyond it wet empty four-lane road under flat gray sky. High seating position, hood line low and far below. The huge convex west-coast mirror visible at the left edge of frame. Fine grain, slight vignetting, no HDR, no glow, no lens flare.
 >
-> *[negative block]* · Aspect ratio 3:4
+> *[negative block]* · Aspect ratio 2:3
 
 ---
 
@@ -55,7 +55,7 @@ Every prompt below already carries the master style token and the negative block
 
 > Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Chest-up portrait, subject centered, background compressed. Subject: a 17-year-old woman with light-medium skin and no glasses, an asymmetric chin-length bob, jet black on top with a platinum under-layer, a single thin braid at her right temple with retroreflective silver tape woven into it, wearing a cropped black windbreaker with retroreflective silver piping down both sleeves, squared stage-trained posture, dead in-ear monitors around her neck with one earpiece in and one dangling. Head turned slightly, mid-motion, caught between one thing and the next. Behind her, far out of focus, wet pavement and the low dark shape of a car. Fine grain, slight vignetting, no HDR, no glow, no lens flare.
 >
-> *[negative block]* · Aspect ratio 3:4
+> *[negative block]* · Aspect ratio 2:3
 
 ## Y3 — ENCORE four-view
 
@@ -68,7 +68,7 @@ Every prompt below already carries the master style token and the negative block
 
 > Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field. Overcast Pacific Northwest daylight through the windshield — soft, diffuse, low-contrast, gray-blue. Desaturated palette; the only bright element is retroreflective silver-white. Camera inside the vehicle, over the wheel, looking forward. A small suede-wrapped racing steering wheel across the bottom of frame. Stripped dashboard, bare metal, exposed wiring loomed and taped, a single aftermarket tachometer, a toggle-switch panel with one large guarded red switch clearly separate from the others. Welded roll cage tubing crossing the A-pillars. Bare clean windshield with no mesh — wide open view. Beyond the glass, wet empty city street under flat gray sky. A dead wireless handheld microphone clipped to the cage tube at the right edge of frame. Fine grain, slight vignetting, no HDR, no glow, no lens flare.
 >
-> *[negative block]* · Aspect ratio 3:4
+> *[negative block]* · Aspect ratio 2:3
 
 ---
 

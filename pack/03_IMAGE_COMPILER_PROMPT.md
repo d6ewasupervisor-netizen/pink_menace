@@ -52,7 +52,9 @@ You MUST:
     POV_MIRROR_DOOR
   - attach ref_car_exterior.jpg to every POV_DIAGRAM for build only; no faces
   - end with the negative block
-  - state the aspect ratio
+  - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
+  - on any road frame, append the single-faced sign clause
+  - if the brief names a hand or arm, require a visible attached shoulder and torso in the same frame, or drop the body part and show only the object. Never a detached limb.
 
 ## ASSEMBLY ORDER
 
@@ -136,7 +138,8 @@ MYA:
   wounds, no blood on skin, no bodies. No infected in sharp focus or close range.
   No text, no captions, no watermarks, no UI overlay. No crowds. No firearms.
   No anime, no illustration, no painterly rendering, no 3D render look — this is
-  a photograph."
+  a photograph. No detached limbs, no arms or hands without a visible attached
+  shoulder and torso, no limb growing out of a vehicle body panel."
 
 ## THE SUNSET PROBLEM
 
@@ -148,7 +151,7 @@ specifically to fight this and you must never omit it.
 
 ## FIELD-TESTED FIXES
 
-Each of these came from a real failed take. Apply all three to every compile.
+Each of these came from a real failed take. Apply all of them to every compile.
 
 ### 1. State the gap
 If the decision turns on a spatial relationship, the frame must make that
@@ -188,6 +191,41 @@ Before compiling, check bible §11 for the location. If it is registered, paste
 its locked description verbatim and add nothing. If it is not registered, compile
 it, then register whatever you rendered so the next card in that location matches.
 A location gets described once and then never again re-imagined.
+
+### 4. Traffic signs are single-faced
+Real signs are one-sided. A sign governing a cross or opposing approach shows
+its blank aluminum back from the ego vehicle's position. A frame with several
+legible sign faces teaches nothing about who stops — they become wallpaper.
+
+  "Traffic signs are single-faced. Any sign in frame is legible only if it faces
+  the camera's direction of travel. Signs governing a cross or opposing approach
+  show their blank reverse side. Exactly one sign face may be legible in any
+  frame; if a second would be, turn it or crop it. Never depict a double-sided
+  sign."
+
+This applies past stop signs — yields, one-ways, speed limits, no-parking.
+Append the clause to every road compile.
+
+### 5. No detached body parts
+Any brief asking for "a hand" or "an arm" without the rest of the body in frame
+produces a limb growing out of sheet metal. The hand-signal plate works because
+an arm out a car window is a heavily photographed, structurally normal
+configuration. An arm out the side of a box van is not.
+
+  Either the person is properly framed with a visible body, or only the object
+  is in frame. Never a detached body part.
+
+### 6. Hand-assembly is an approved production path
+Some frames are layout problems, not generation problems. A vehicle in a
+specific lane, with specific markings, and traffic in specific positions, is a
+composition a model will not reliably converge on.
+
+Document it as a supported path: generate the plates (road, vehicles, markings)
+and assemble. For repositioning an object, mask **both** the vacated spot and
+the target in one pass so the fill and the placement happen together — shifting
+pixels alone leaves a hole.
+
+When a geometry card fails twice, stop regenerating and composite.
 
 ## THE DRIVE-SIDE PROBLEM
 

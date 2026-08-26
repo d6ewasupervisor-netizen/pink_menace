@@ -78,7 +78,7 @@
       "pink_menace_interior",
       "hollis"
     ],
-    "aspect": "3:4",
+    "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right half of the roadway (US)",

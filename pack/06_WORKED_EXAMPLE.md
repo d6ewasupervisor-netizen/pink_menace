@@ -80,7 +80,7 @@ Proof the pipeline produces something worth playing. Read this before you genera
     "background": "flat gray overcast, bare maples, single-story Kent houses receding, wipers mid-sweep",
     "read": "the two amber lamps are lit and the red lamps directly beside them are dark — the distinction must be unmistakable at a glance",
     "continuity": ["pink_menace_interior", "bus_12"],
-    "aspect": "3:4"
+    "aspect": "2:3"
   },
   "variation": {
     "location_type": "residential",
@@ -102,7 +102,7 @@ Attach `ref_cockpit.jpg`. Compiled prompt:
 >
 > No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no bodies. No infected in sharp focus or close range. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph.
 >
-> Aspect ratio 3:4.
+> Aspect ratio 2:3.
 
 ## Step 4 — the callback this queues
 

@@ -473,10 +473,15 @@ button.danger {
 }
 
 .shot {
-  width: 100%;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
   max-height: min(42vh, 22rem);
+  aspect-ratio: 2 / 3;
   object-fit: contain;
-  object-position: center top;
+  object-position: center;
+  margin-inline: auto;
   border-radius: var(--radius);
   background: #100e0e;
 }

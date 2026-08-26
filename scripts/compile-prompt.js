@@ -26,26 +26,29 @@ const FRAMING = {
   POV_DIAGRAM:
     "Camera is high and slightly oblique — fifteen to twenty degrees off vertical, looking along the ego vehicle's direction of travel so the rear of the Beetle is nearer the camera and the plow is the far, leading end. Tight crop: only the lane geometry the card turns on. No extra side streets, parked cars, or curb clutter the brief did not name. Real wet pavement, real painted lines. The Pink Menace is the actual faded-pink VW Beetle with mesh cages, knobby tires, and the wide flat plow at the leading end. Other vehicles are real cars, desaturated gray or primer. Painted pavement arrows only where the brief names them, and they agree with travel direction — no floating UI arrows, no legend, no callouts.",
   POV_CHASE:
-    "Camera is behind and slightly above the vehicle, road ahead visible.",
+    "Camera is behind the subject vehicle, road ahead visible. The brief specifies whether this is dead astern or offset to a flank, and whether the camera is outside or in a following cab.",
   POV_ROADSIDE:
     "Camera is ground level, outside the car, human eye height.",
   POV_PORTRAIT:
     "Chest-up, subject centered, background compressed.",
   POV_OBJECT:
-    "The sign, the light, or the marking, isolated, shallow depth of field.",
+    "The sign, the light, the marking, or the object the card turns on, isolated, shallow depth of field.",
 };
 
 const LHD =
   "Left-hand-drive vehicle: the steering wheel is on the left side of the cabin.";
 
 const NEGATIVE =
-  "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no bodies. No infected in sharp focus or close range. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph.";
+  "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no bodies. No infected in sharp focus or close range. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel.";
 
 const DIAGRAM_NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No stick figures, no vector icons, no infographic, no textbook schematic, no flat cartoon cars, no board-game tokens, no UI overlay, no legend, no floating arrows that are not painted on the pavement. No text, no captions, no watermarks. No vehicle facing the wrong way in its lane. The Pink Menace must not face the camera — no headlights or plow toward the viewer. Rear mesh nearer the camera; plow at the far leading end. No gore, no crowds, no firearms. This is a photograph.";
 
 const LHD_NEGATIVE =
   "No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road.";
+
+const SIGN_CLAUSE =
+  "Traffic signs are single-faced. Any sign in frame is legible only if it faces the camera's direction of travel. Signs governing a cross or opposing approach show their blank reverse side. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.";
 
 function headingPhrase(heading) {
   switch (heading) {
@@ -92,6 +95,7 @@ function assemblePrompt(card) {
   if (describesRoadway(card) && brief.geometry) {
     parts.push(LHD);
     parts.push(geometryPromptClause(brief.geometry));
+    parts.push(SIGN_CLAUSE);
   } else if (cam !== "POV_OBJECT" && cam !== "POV_PORTRAIT") {
     parts.push(LHD);
   }
@@ -104,7 +108,7 @@ function assemblePrompt(card) {
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
   parts.push(negs.join(" "));
 
-  const aspect = brief.aspect || "3:4";
+  const aspect = brief.aspect || "2:3";
   parts.push(`Aspect ratio ${aspect}.`);
   return parts.join(" ");
 }

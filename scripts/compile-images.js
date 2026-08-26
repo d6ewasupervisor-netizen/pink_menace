@@ -49,7 +49,7 @@ for (const f of files) {
     card_id: raw.card_id,
     camera: raw.image_brief && raw.image_brief.camera,
     camera_is_the_lesson: Boolean(raw.image_brief && raw.image_brief.camera_is_the_lesson),
-    aspect: (raw.image_brief && raw.image_brief.aspect) || "3:4",
+    aspect: (raw.image_brief && raw.image_brief.aspect) || "2:3",
     attachments: resolved.attachments.map((p) => path.basename(p)),
     ...(only ? { prompt } : {}),
   });

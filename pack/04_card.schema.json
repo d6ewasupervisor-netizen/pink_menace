@@ -140,7 +140,7 @@
           "items": { "type": "string" },
           "description": "Canonical bible assets that must render exactly. POV_DIAGRAM attaches pink_menace_exterior for build. No faces."
         },
-        "aspect": { "enum": ["3:4", "16:9", "1:1"], "default": "3:4" },
+        "aspect": { "enum": ["2:3", "16:9", "1:1"], "default": "2:3" },
         "geometry": {
           "type": "object",
           "description": "Required whenever a roadway appears in frame. The plow is the orientation anchor.",

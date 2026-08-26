@@ -64,23 +64,16 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_CHASE",
-    "subject": "the Pink Menace at the last cone of a fogged mill, Ali's left hand on an unlatched aftermarket belt rather than the wheel",
-    "foreground": "cone, milled lip, fog",
-    "midground": "the belt webbing hanging, latch visible and open",
-    "background": "the collector opening up beyond the zone, midday fog, no sun, no other vehicle yet",
-    "read": "the belt is not latched and the bigger road is already starting",
+    "camera": "POV_OBJECT",
+    "subject": "inside the Pink Menace cabin from the right-hand seat, looking across at the empty seat on the left",
+    "foreground": "unlatched aftermarket seat belt hanging slack down the door pillar, metal tongue on the seat cushion",
+    "midground": "empty left seat, cracked faded pink door card, riveted raw steel, steering wheel on the left; nobody in frame",
+    "background": "through the window, a wet empty residential block under flat gray overcast, out of focus",
+    "read": "the belt is visibly unlatched and hanging loose beside an empty seat",
     "continuity": [
-      "pink_menace_exterior"
+      "pink_menace_interior"
     ],
-    "aspect": "3:4",
-    "geometry": {
-      "ego_heading": "away_from_camera",
-      "ego_lane_side": "right half of the roadway (US)",
-      "ego_nose_in_frame": "the plow blade points toward the top of the frame",
-      "oncoming_position": "none in frame",
-      "hazard_position": "none"
-    }
+    "aspect": "2:3"
   },
   "variation": {
     "location_type": "work_zone",
