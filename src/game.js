@@ -292,17 +292,24 @@ async function progressFor(run) {
       ORDER BY seq ASC, card_id ASC`
   );
   const { rows: answers } = await query(
-    `SELECT DISTINCT ON (a.card_id) a.card_id, a.option_id, a.was_correct, a.created_at
+    `SELECT card_id, option_id, was_correct, created_at
+       FROM run_answers
+      WHERE run_id = $1
+      ORDER BY created_at ASC`,
+    [run.id]
+  );
+  const { rows: ever } = await query(
+    `SELECT DISTINCT a.card_id
        FROM run_answers a
        JOIN runs r ON r.id = a.run_id
-      WHERE r.student_id = $1
-      ORDER BY a.card_id, a.created_at ASC`,
+      WHERE r.student_id = $1`,
     [run.student_id]
   );
   const byCard = new Map();
   for (const a of answers) {
     if (!byCard.has(a.card_id)) byCard.set(a.card_id, a);
   }
+  const everSet = new Set(ever.map((r) => r.card_id));
   const actCards = {};
   for (const c of catalog) {
     if (!actCards[c.act]) actCards[c.act] = [];
@@ -324,7 +331,7 @@ async function progressFor(run) {
 
   const unlocked = new Set();
   for (const c of catalog) {
-    if (!byCard.has(c.card_id)) continue;
+    if (!everSet.has(c.card_id)) continue;
     const extra = c.extra || {};
     for (const id of extra.cast || []) unlocked.add(id);
   }
@@ -376,6 +383,7 @@ async function progressFor(run) {
       portrait_url: unlocked.has(c.id) ? "/api/run/cast/" + encodeURIComponent(c.id) : null,
     })),
     done,
+    restartable: answers.length > 0 || done,
   };
 }
 

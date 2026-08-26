@@ -88,13 +88,29 @@ function renderHome(data) {
   showScreen("home");
   setHeader({ title: "PINK MENACE", saved: data.saved, back: false });
   const resume = document.getElementById("resume");
-  if (data.resume && data.resume.label) {
+  const over = document.getElementById("start-over");
+  if (data.done && data.restartable) {
+    resume.textContent = "Start over";
+    resume.classList.remove("hidden");
+    resume.onclick = () => startOver();
+    over.classList.add("hidden");
+    over.onclick = null;
+  } else if (data.resume && data.resume.label) {
     resume.textContent = data.resume.label;
     resume.classList.remove("hidden");
     resume.onclick = () => openLive();
+    if (data.restartable) {
+      over.classList.remove("hidden");
+      over.onclick = () => startOver();
+    } else {
+      over.classList.add("hidden");
+      over.onclick = null;
+    }
   } else {
     resume.classList.add("hidden");
     resume.onclick = null;
+    over.classList.add("hidden");
+    over.onclick = null;
   }
 
   const acts = document.getElementById("acts");
@@ -464,7 +480,6 @@ function bindAlts(alts, card) {
 
 function playAlt(opt, card) {
   const result = document.getElementById("result");
-  const chosen = result ? result.textContent : "";
   if (result) {
     result.textContent = opt.result || "";
     result.classList.remove("hidden");
@@ -484,9 +499,6 @@ function playAlt(opt, card) {
     method: "POST",
     body: { card_id: card.card_id, option_id: opt.option_id },
   }).catch(() => {});
-  window.setTimeout(() => {
-    if (result) result.textContent = chosen;
-  }, 2200);
 }
 
 function playOutcome(data, card) {
@@ -584,6 +596,17 @@ function renderReview(card) {
 async function loadHome() {
   const data = await PM.api("/api/run/home");
   renderHome(data);
+}
+
+async function startOver() {
+  clearLive();
+  meters = { noise: 0, light: 0, yaw: 0, cargo: 100, presence: 0, tier: 0, handprints: false };
+  try {
+    await PM.api("/api/run/restart", { method: "POST", body: {} });
+  } catch {
+    return;
+  }
+  await openLive();
 }
 
 async function openLive() {

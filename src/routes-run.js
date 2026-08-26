@@ -519,6 +519,24 @@ function mountRun(app) {
       return jsonError(res, 500, "Could not save peek.");
     }
   });
+
+  app.post("/api/run/restart", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    try {
+      await query(
+        `UPDATE runs
+            SET status = 'abandoned', current_card_id = NULL, updated_at = now()
+          WHERE student_id = $1 AND status = 'active'`,
+        [session.userId]
+      );
+      const run = await getOrCreateRun(session.userId);
+      return res.json({ ok: true, run_id: run.id });
+    } catch (err) {
+      return jsonError(res, 500, "Could not start over.");
+    }
+  });
 }
 
 module.exports = { mountRun };

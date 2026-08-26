@@ -71,7 +71,7 @@ async function migrate() {
         EXECUTE 'ALTER TABLE runs DROP CONSTRAINT ' || quote_ident(r.conname);
       END LOOP;
       ALTER TABLE runs ADD CONSTRAINT runs_status_check
-        CHECK (status IN ('active', 'completed', 'failed'));
+        CHECK (status IN ('active', 'completed', 'failed', 'abandoned'));
     END $$;
   `);
   await pool.query(`

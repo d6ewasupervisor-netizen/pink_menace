@@ -390,6 +390,10 @@ button.danger {
   text-align: left;
 }
 
+.start-over {
+  width: 100%;
+}
+
 .home {
   display: flex;
   flex-direction: column;

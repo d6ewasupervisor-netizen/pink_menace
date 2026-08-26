@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS card_options (
 CREATE TABLE IF NOT EXISTS runs (
   id UUID PRIMARY KEY,
   student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  status TEXT NOT NULL CHECK (status IN ('active', 'completed', 'failed')),
+  status TEXT NOT NULL CHECK (status IN ('active', 'completed', 'failed', 'abandoned')),
   current_card_id TEXT REFERENCES cards(card_id),
   current_attempt_no INTEGER NOT NULL DEFAULT 1,
   start_seq INTEGER NOT NULL DEFAULT 0,
