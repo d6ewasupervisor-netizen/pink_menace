@@ -69,11 +69,11 @@
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
     "camera_is_the_lesson": true,
-    "subject": "inside the cabin looking left at the closed door; the door mirror fills the upper left of frame; in its glass, a woman on a bicycle approaches from behind, close, one car length back, in the narrow ice aisle beside parked cars",
-    "foreground": "crossing the frame from the right, a 17-year-old woman's RIGHT arm in a faded pink hoodie sleeve, reaching across her own body, her hand resting on the door latch, the door still fully closed",
-    "midground": "welded steel mesh over the door window glass; icy lot surface outside; the cyclist is only readable in the mirror, not through the window ahead",
+    "subject": "Ali Okonjo sits in the LEFT seat behind a visible worn black steering wheel. Camera is inside the cabin, just to her RIGHT and slightly behind her right shoulder, looking left-forward so the wheel, her torso, and the LEFT door are all in frame. She is a 17-year-old woman with warm brown skin, cranberry-red coiled hair braided at the crown, round wire-rim glasses, faded pink hoodie with white raglan stripes — she is the seated driver, not the cyclist. Her RIGHT arm reaches across her chest to the LEFT door latch. Her torso is twisted slightly left. Her head is turned further left, looking back through the LEFT window and door mirror for a bicycle. The door is on her left, still closed. Welded mesh on the door glass",
+    "foreground": "steering wheel in front of her on the LEFT of the cabin; her RIGHT hand on the LEFT interior latch, far-hand reach; her LEFT hand is not on the handle",
+    "midground": "in the LEFT door mirror, a different woman on a bicycle approaching from behind, one car length back, dark jacket, no glasses, no pink hoodie, no cranberry hair — not Ali. Icy lot aisle. The cyclist is only in the mirror",
     "background": "Kent Station lot, morning ice, dead cars, pale sky",
-    "read": "the far hand on the latch and the rider already in the mirror — the door has not opened, and the reason it hasn't is visible in the glass",
+    "read": "the driver is behind the wheel; the far hand is on the left latch; the head is turned left to catch the bike in the glass",
     "continuity": [
       "pink_menace_interior",
       "dutch_reach",
