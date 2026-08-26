@@ -1,10 +1,33 @@
 "use strict";
 
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
+const { spawnSync } = require("child_process");
 const { pool } = require("../src/db");
 const { loadTables, assertCard } = require("./validate-citations");
 const { seqFromCard } = require("./card-seq");
+
+const ENCODE_STILL = path.join(__dirname, "encode-still.py");
+
+function encodeStill(pngPath) {
+  const dest = path.join(os.tmpdir(), path.basename(pngPath, path.extname(pngPath)) + ".webp");
+  const run = spawnSync("python", [ENCODE_STILL, pngPath, dest], {
+    windowsHide: true,
+    encoding: "utf8",
+  });
+  if (run.status !== 0 || !fs.existsSync(dest)) {
+    const err = (run.stderr || run.stdout || "").trim();
+    throw new Error(`webp encode failed for ${path.basename(pngPath)}${err ? ": " + err : ""}`);
+  }
+  const bytes = fs.readFileSync(dest);
+  try {
+    fs.unlinkSync(dest);
+  } catch {
+    // tmp
+  }
+  return bytes;
+}
 
 async function seedFile(filePath, tables) {
   const raw = JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -17,8 +40,8 @@ async function seedFile(filePath, tables) {
   let imageBytes = null;
   let imageMime = null;
   if (fs.existsSync(pngPath)) {
-    imageBytes = fs.readFileSync(pngPath);
-    imageMime = "image/png";
+    imageBytes = encodeStill(pngPath);
+    imageMime = "image/webp";
   } else if (fs.existsSync(jpgPath)) {
     imageBytes = fs.readFileSync(jpgPath);
     imageMime = "image/jpeg";

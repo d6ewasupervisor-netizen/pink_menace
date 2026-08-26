@@ -150,9 +150,13 @@ function renderHome(data) {
     const row = el("article", "cast-item" + (c.unlocked ? "" : " locked"));
     if (c.unlocked && c.portrait_url) {
       const img = document.createElement("img");
-      img.src = c.portrait_url;
       img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.width = 56;
+      img.height = 56;
       img.addEventListener("error", () => img.replaceWith(el("div", "cast-ph", "")));
+      img.src = c.portrait_url;
       row.append(img);
     } else {
       row.append(el("div", "cast-ph", ""));
@@ -340,9 +344,11 @@ function fillCard(card, opts) {
   const shot = document.getElementById("shot");
   const wrap = document.getElementById("shot-wrap");
   if (card.image_url) {
+    shot.onload = null;
+    shot.onerror = null;
     shot.removeAttribute("src");
-    shot.src = card.image_url;
     wrap.classList.remove("hidden");
+    PM.loadImage(shot, card.image_url);
   } else {
     shot.removeAttribute("src");
     wrap.classList.add("hidden");

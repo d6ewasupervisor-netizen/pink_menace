@@ -1,22 +1,87 @@
 "use strict";
 
+let waits = 0;
+let showTimer = 0;
+
+function bufferRoot() {
+  let el = document.getElementById("buffer");
+  if (el) return el;
+  el = document.createElement("div");
+  el.id = "buffer";
+  el.className = "buffer hidden";
+  el.setAttribute("role", "status");
+  el.setAttribute("aria-live", "polite");
+  el.setAttribute("aria-busy", "false");
+  const img = document.createElement("img");
+  img.src = "/shared/buffering.webp";
+  img.alt = "";
+  img.width = 128;
+  img.height = 128;
+  img.decoding = "async";
+  const label = document.createElement("p");
+  label.textContent = "Buffering";
+  el.append(img, label);
+  document.body.append(el);
+  return el;
+}
+
+function paintBuffer() {
+  const el = bufferRoot();
+  const on = waits > 0;
+  el.classList.toggle("hidden", !on);
+  el.setAttribute("aria-busy", on ? "true" : "false");
+}
+
+function waitBegin() {
+  waits += 1;
+  bufferRoot();
+  if (waits === 1 && !showTimer) {
+    showTimer = window.setTimeout(() => {
+      showTimer = 0;
+      paintBuffer();
+    }, 140);
+  }
+}
+
+function waitEnd() {
+  waits = Math.max(0, waits - 1);
+  if (waits === 0) {
+    if (showTimer) {
+      window.clearTimeout(showTimer);
+      showTimer = 0;
+    }
+    paintBuffer();
+  }
+}
+
+async function waitFor(job) {
+  waitBegin();
+  try {
+    return await job;
+  } finally {
+    waitEnd();
+  }
+}
+
 async function api(path, options) {
   const opts = options || {};
-  const res = await fetch(path, {
-    method: opts.method || "GET",
-    headers: { "content-type": "application/json", ...(opts.headers || {}) },
-    body: opts.body ? JSON.stringify(opts.body) : undefined,
-    credentials: "same-origin",
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    const err = new Error(data.error || "Request failed.");
-    err.status = res.status;
-    err.rule = data.rule || null;
-    err.data = data;
-    throw err;
-  }
-  return data;
+  return waitFor((async () => {
+    const res = await fetch(path, {
+      method: opts.method || "GET",
+      headers: { "content-type": "application/json", ...(opts.headers || {}) },
+      body: opts.body ? JSON.stringify(opts.body) : undefined,
+      credentials: "same-origin",
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const err = new Error(data.error || "Request failed.");
+      err.status = res.status;
+      err.rule = data.rule || null;
+      err.data = data;
+      throw err;
+    }
+    return data;
+  })());
 }
 
 function $(id) {
@@ -128,4 +193,22 @@ function bindGate({ kind, onReady }) {
   return refresh();
 }
 
-window.PM = { api, $, show, setMsg, bindGate };
+function loadImage(img, url) {
+  return waitFor(new Promise((resolve) => {
+    if (!img || !url) {
+      resolve();
+      return;
+    }
+    const done = () => {
+      img.onload = null;
+      img.onerror = null;
+      resolve();
+    };
+    img.decoding = "async";
+    img.onload = done;
+    img.onerror = done;
+    img.src = url;
+  }));
+}
+
+window.PM = { api, $, show, setMsg, bindGate, waitBegin, waitEnd, waitFor, loadImage };

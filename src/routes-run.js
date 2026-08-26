@@ -183,8 +183,8 @@ function mountRun(app) {
       );
       const row = rows[0];
       if (!row || !row.image_bytes) return res.status(404).end();
-      res.setHeader("content-type", row.image_mime || "image/jpeg");
-      res.setHeader("cache-control", "private, no-store");
+      res.setHeader("content-type", row.image_mime || "image/webp");
+      res.setHeader("cache-control", "private, max-age=604800");
       return res.send(row.image_bytes);
     } catch (err) {
       return jsonError(res, 500, "Could not load image.");
@@ -218,8 +218,8 @@ function mountRun(app) {
       );
       const row = rows[0];
       if (!row || !row.image_bytes) return res.status(404).end();
-      res.setHeader("content-type", row.image_mime || "image/jpeg");
-      res.setHeader("cache-control", "private, max-age=86400");
+      res.setHeader("content-type", row.image_mime || "image/webp");
+      res.setHeader("cache-control", "private, max-age=604800");
       return res.send(row.image_bytes);
     } catch (err) {
       return jsonError(res, 500, "Could not load portrait.");
