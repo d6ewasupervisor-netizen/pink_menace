@@ -2062,10 +2062,10 @@
     "image_brief": {
       "camera": "POV_DIAGRAM",
       "subject": "bird's-eye of a Kent lot: the faded matte-pink Baja VW Beetle nosed into a stall, rear mesh nearer the camera, wide flat plow pointing into the stall toward the top of the frame",
-      "foreground": "the backup aisle immediately behind the rear bumper is empty wet asphalt — no cart on the tail",
-      "midground": "rows of dead faded cars filling stalls on both sides of the aisle and both sides of the Beetle — a full lot, not three vehicles; further down the same aisle toward the bottom of the frame, a steel shopping-cart corral (cart return) drifted off its pad",
+      "foreground": "the aisle immediately behind the rear bumper is empty wet asphalt — no corral, no cart on the tail",
+      "midground": "rows of dead faded cars filling stalls on both sides; IN FRONT of the Beetle, past the plow toward the store at the top of the frame, a steel shopping-cart corral (cart return) drifted into the aisle ahead of the nose",
       "background": "dawn fog over faded stall lines, shuttered storefront at the top, one streetlamp, no sun",
-      "read": "from above you can see the whole reverse path: empty behind the mesh, corral down-aisle",
+      "read": "the corral is ahead of the plow, not behind the mesh",
       "continuity": [
         "pink_menace_exterior"
       ],
