@@ -716,9 +716,13 @@ async function openLive() {
 }
 
 async function openReview(cardId) {
-  const data = await PM.api("/api/run/review/" + encodeURIComponent(cardId));
-  previousCardId = data.previous_card_id || null;
-  renderReview(data);
+  try {
+    const data = await PM.api("/api/run/review/" + encodeURIComponent(cardId));
+    previousCardId = data.previous_card_id || null;
+    renderReview(data);
+  } catch {
+    // stay on home if a log card cannot load
+  }
 }
 
 function showConfirm() {

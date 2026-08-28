@@ -440,6 +440,8 @@ async function pendingOutcome(runId) {
 }
 
 async function progressFor(run) {
+  const studentId = run && run.student_id;
+  if (!studentId) throw new Error("progressFor requires run.student_id");
   const { rows: catalog } = await query(
     `SELECT card_id, act, zone, title, scene, seq, extra
        FROM cards
@@ -458,7 +460,7 @@ async function progressFor(run) {
        JOIN runs r ON r.id = a.run_id
       WHERE r.student_id = $1
       ORDER BY a.card_id, a.created_at ASC`,
-    [run.student_id]
+    [studentId]
   );
   const byCard = new Map();
   for (const a of answers) {
@@ -571,16 +573,18 @@ async function previousAnswered(runId, fromCardId) {
 }
 
 async function previousAnsweredForStudent(studentId, fromCardId) {
-  const { rows } = await query(
-    `SELECT DISTINCT a.card_id, c.seq
+  const { rows: catalog } = await query(
+    `SELECT card_id, seq FROM cards ORDER BY seq ASC, card_id ASC`
+  );
+  const { rows: answered } = await query(
+    `SELECT DISTINCT a.card_id
        FROM run_answers a
        JOIN runs r ON r.id = a.run_id
-       JOIN cards c ON c.card_id = a.card_id
-      WHERE r.student_id = $1
-      ORDER BY c.seq ASC, c.card_id ASC`,
+      WHERE r.student_id = $1`,
     [studentId]
   );
-  const ids = rows.map((r) => r.card_id);
+  const seen = new Set(answered.map((r) => r.card_id));
+  const ids = catalog.filter((c) => seen.has(c.card_id)).map((c) => c.card_id);
   if (!fromCardId) return ids.length ? ids[ids.length - 1] : null;
   const i = ids.indexOf(fromCardId);
   if (i > 0) return ids[i - 1];

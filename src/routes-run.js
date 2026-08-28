@@ -148,19 +148,29 @@ function mountRun(app) {
       if (!attempt) return jsonError(res, 404, "Not resolved.");
       const card = await reviewCard(cardId, attempt);
       if (!card) return jsonError(res, 404, "Unknown card.");
-      const progress = await progressFor(run);
+      let saved = "";
+      let resume = null;
+      try {
+        const progress = await progressFor(run);
+        saved = progress.saved;
+        resume = progress.resume;
+      } catch (progErr) {
+        console.error("review progressFor", progErr);
+      }
+      const previous_card_id = await previousAnsweredForStudent(session.userId, cardId);
       return res.json({
         ok: true,
         run_id: run.id,
         review: true,
         pending_outcome: false,
-        saved: progress.saved,
-        resume: progress.resume,
-        previous_card_id: await previousAnsweredForStudent(session.userId, cardId),
+        saved,
+        resume,
+        previous_card_id,
         state: publicState(run.state),
         ...card,
       });
     } catch (err) {
+      console.error("review failed", cardId, err);
       return jsonError(res, 500, "Could not load review.");
     }
   });
