@@ -371,19 +371,15 @@ function fillCard(card, opts) {
   debrief.onclick = null;
   const hookEl = document.getElementById("hook");
   const sceneEl = document.getElementById("scene");
+  const cont = document.getElementById("continue");
+  const resumeLive = document.getElementById("resume-live");
   const hook = card.hook || PMFeel.firstSentence(card.scene);
   const isDossier = card.card_type === "dossier";
   if (isDossier && !opts.review && !opts.pending) {
     if (hookEl) hookEl.classList.add("hidden");
     if (sceneEl) {
-      sceneEl.textContent = "";
+      sceneEl.textContent = card.scene || "";
       sceneEl.classList.remove("hidden");
-      cancelTypeScene = PMFeel.typeScene(card.scene || "", null, () => {
-        cancelTypeScene = null;
-        cont.classList.remove("hidden");
-        cont.textContent = "Continue";
-        cont.onclick = () => submitAnswer("continue");
-      });
     }
   } else {
     if (hookEl) {
@@ -401,8 +397,6 @@ function fillCard(card, opts) {
   }
   if (wrap) wrap.classList.remove("arming");
   PMFeel.hideBark();
-  const cont = document.getElementById("continue");
-  const resumeLive = document.getElementById("resume-live");
   document.getElementById("options").classList.add("hidden");
   document.getElementById("options").replaceChildren();
 
@@ -435,7 +429,7 @@ function fillCard(card, opts) {
   }
 
   revealChoices(card, opts);
-  if (!(card.options || []).length && !(isDossier && !opts.review && !opts.pending)) {
+  if (!(card.options || []).length) {
     cont.classList.remove("hidden");
     cont.textContent = "Continue";
     cont.onclick = () => submitAnswer("continue");
