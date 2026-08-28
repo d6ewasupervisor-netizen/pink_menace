@@ -25,6 +25,7 @@ let meters = { noise: 0, light: 0, yaw: 0, cargo: 100 };
 let liveCard = null;
 let answering = false;
 let timedSubmit = false;
+let cancelTypeScene = null;
 let recapTimer = 0;
 let recapAdvancing = false;
 const CAUGHT_KEY = "pm.caught";
@@ -93,7 +94,7 @@ function renderHome(data) {
   const over = document.getElementById("start-over");
   const lockedDoor = document.getElementById("locked-door");
   const lockedTitle = document.getElementById("locked-door-title");
-  if (data.locked_next) {
+  if (data.locked_next && lockedDoor && lockedTitle) {
     lockedDoor.classList.remove("hidden");
     lockedTitle.textContent = "Act " + data.locked_next.act + " · " + data.locked_next.zone;
     resume.classList.add("hidden");

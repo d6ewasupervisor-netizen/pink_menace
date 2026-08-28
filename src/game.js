@@ -256,7 +256,8 @@ async function recapBeat(cardId, optionId) {
   };
 }
 
-function lockedNextAct(catalog, everSet) {
+function lockedNextAct(catalog, run) {
+  if (!run || run.status !== "completed") return null;
   const actCards = {};
   for (const c of catalog) {
     if (!actCards[c.act]) actCards[c.act] = [];
@@ -265,9 +266,6 @@ function lockedNextAct(catalog, everSet) {
   const seeded = ACT_ZONES.filter((z) => (actCards[z.act] || []).length > 0);
   if (!seeded.length) return null;
   const last = seeded[seeded.length - 1];
-  const cards = actCards[last.act] || [];
-  const complete = cards.length > 0 && cards.every((c) => everSet.has(c.card_id));
-  if (!complete) return null;
   const idx = ACT_ZONES.findIndex((z) => z.act === last.act);
   if (idx < 0 || idx >= ACT_ZONES.length - 1) return null;
   const next = ACT_ZONES[idx + 1];
@@ -519,7 +517,7 @@ async function progressFor(run) {
     };
   });
 
-  const lockedNext = lockedNextAct(catalog, everSet);
+  const lockedNext = lockedNextAct(catalog, run);
 
   return {
     saved,
