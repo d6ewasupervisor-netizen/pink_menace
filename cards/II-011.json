@@ -20,12 +20,12 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_PORTRAIT",
-    "subject": "Ali's hands on a metal clipboard with a hand-ruled log sheet, wire rims and cranberry braid at the top of frame",
-    "foreground": "the clipboard clip and a pencil stub, columns for date, location, weather, skills, hours, initials",
-    "midground": "cracked pink dash and the well where the board was sitting",
-    "background": "a Kent parking lot through the mesh, clear cold midday, empty stalls, no sun flare",
-    "read": "the log is the progress tracker — blank lines are skills not yet driven",
+    "camera": "POV_COCKPIT",
+    "subject": "Ali standing outside in the lot, facing the windshield, holding a metal clipboard so only its blank brushed-steel back faces the camera",
+    "foreground": "worn black steering wheel and cracked faded pink dash; welded steel mesh across the glass",
+    "midground": "Ali through the mesh, chest-up, clipboard held against her torso with the paper hidden against her body, clip silhouette at the top, no writing visible",
+    "background": "a Kent parking lot, clear cold midday, faded empty stalls, no sun flare",
+    "read": "she is outside the car; the log is hidden — only the metal back of the clipboard reads",
     "continuity": [
       "pink_menace_interior",
       "ali_face",
