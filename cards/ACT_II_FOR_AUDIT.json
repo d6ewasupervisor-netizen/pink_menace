@@ -1776,11 +1776,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_ROADSIDE",
-      "subject": "the Pink Menace's front seen in a dark shop window: right low beam lit, left lamp dark, rain needles in the light",
-      "foreground": "wet glass reflection, a smear of pink plating",
+      "subject": "the Pink Menace's front in rain: a wide flat plow on the black bull bar; the headlamp on the car's left fender is dark; the headlamp on the car's right fender is a lit low beam",
+      "foreground": "wet glass, rain needles, the plow blade catching the one live lamp",
       "midground": "residential street, morning rain, no other lamps",
       "background": "Kent houses, blinds drawn, overcast so low it is almost indoor",
-      "read": "one eye is open and one is not — that is not a legal front",
+      "read": "the live lamp is the car's right; the left is a hole — that is not a legal front",
       "continuity": [
         "pink_menace_exterior"
       ],
