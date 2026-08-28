@@ -6,7 +6,7 @@
   "card_type": "rule",
   "title": "Do Not Block the Mill",
   "hook": "A pickup is dead in the only live lane.",
-  "scene": "Rain on a Kent mill-and-fill in the afternoon, one lane open, the other a trench. A pickup is already stopped in the open lane with its hood up, two people standing in the travel path like the mill is a driveway. There is no shoulder that is not a drop. Your instinct is to queue behind them and wait, which makes you the third body in a lane that still has a through. The sign at the start of the zone said DO NOT STOP. It meant it. You need a hole that is not their repair.",
+  "scene": "Rain on a mill cut in the afternoon — not Kent Station, a rock-cut with one lane open and the other a trench. A pickup is already stopped in the open lane with its hood up, two people standing in the travel path like the mill is a driveway. There is no shoulder that is not a drop. Your instinct is to queue behind them and wait, which makes you the third body in a lane that still has a through. The sign at the start of the zone said DO NOT STOP. It meant it. You need a hole that is not their repair.",
   "decision": "They are stopped in the only live lane. Where do you put the Menace?",
   "options": [
     {
@@ -68,8 +68,8 @@
     "camera": "POV_COCKPIT",
     "subject": "a pickup stopped in the only milled live lane, hood up, two people standing in the travel path, rain on the mesh",
     "foreground": "worn wheel and wipers mid-sweep",
-    "midground": "cone line, trench on the right, no shoulder",
-    "background": "Kent afternoon rain, a DO NOT STOP sign already behind you, gray nothing ahead",
+    "midground": "cone line, trench on the right, wet vertical rock wall, no shoulder",
+    "background": "L-006 mill cut, afternoon rain, a DO NOT STOP sign already behind you, gray rock and sky ahead, no Kent storefronts",
     "read": "the only lane is already occupied by a stopped repair — joining it is the error",
     "continuity": [
       "pink_menace_interior",

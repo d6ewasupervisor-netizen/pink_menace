@@ -47,6 +47,8 @@ Three layers, and the order matters.
 6. Batch image compilation **after** a full zone is written, so recurring locations stay visually consistent within an act.
 7. Chunk size 100 for any bulk pass. Run twenty §9 ceiling tests before committing a full act.
 
+`19_ACT_II_ART_AUDIT.md` is the human art pass for Act II — frame-by-frame read against card text, with rebuild prompts for failures.
+
 ## Regeneration rule
 
 If a card comes back flat, regenerate the **card**, not the image. A bad image is almost always a symptom of a vague decision moment. Fix upstream.

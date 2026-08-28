@@ -66,9 +66,9 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "subject": "a parked car in a flashing school zone with its door an inch unlatched, the Pink Menace approaching in heavy dawn rain",
-    "foreground": "wet hedge leaves, a faded crosswalk",
-    "midground": "Ali's plow aimed at the empty yard, not at the door",
+    "subject": "a parked car in a flashing school zone with its left-side door visibly ajar — open a hand's width, interior dome light spilling onto wet pavement — the Pink Menace approaching in heavy dawn rain",
+    "foreground": "wet hedge leaves, a faded crosswalk, the cracked-open door and its wedge of light at the right edge",
+    "midground": "Ali's plow aimed at the empty yard, not at the door; the ajar door must read as ajar, not closed",
     "background": "flashing white lamps, empty playground, rain so heavy the 20 is only a rumor",
     "read": "the hazard is the inch-open door at the edge, and the driver's line is the empty middle",
     "continuity": [

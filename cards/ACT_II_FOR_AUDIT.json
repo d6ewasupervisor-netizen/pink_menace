@@ -6,6 +6,7 @@
     "driver": "ali",
     "card_type": "dossier",
     "title": "Kent, Before First Light",
+    "hook": "Insulin crates in the well. The Grid still has paint.",
     "scene": "You idle at the curb on a Kent side street that still has its paint. The Menace ticks as it cools. Cranberry braid over one shoulder, wire rims catching the overcast, Gracie already on the dash with her paws in the defrost. Insulin crates sweat in the well behind the seats. The Grid is residential, two lanes, stop signs that still mean stop. Signals still cycle. That is the whole job today: move the cold through streets that look empty and are not.",
     "debrief": "Act II is quiet Kent, not the lot. Search, signs, turns, bikes, buses, space, and focus — in that order. The lights still work. Drive like they do.",
     "source": {
@@ -49,6 +50,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "White Lights, Empty Yard",
+    "hook": "School-zone lamps flash over a yard empty for months.",
     "scene": "The school-zone lamps are still lit on a Kent collector at dawn, white and cold, flashing over a dry playground that has not held a recess in fourteen months. Your speedo sits on twenty-eight. The painted 20 is faded but it is there. Nothing moves on the sidewalk. The insulin is still cold. The Menace wants the next block. Your eyes want the empty yard instead of the parked cars and the hedge line where a yard used to dump kids into the crosswalk.",
     "decision": "The lamps are flashing and the yard looks dead. Where do you put the speed?",
     "options": [
@@ -119,7 +121,14 @@
       "continuity": [
         "pink_menace_interior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
     },
     "variation": {
       "location_type": "school_zone",
@@ -136,6 +145,7 @@
     "driver": "ali",
     "card_type": "rule",
     "title": "Red Octagon, White Fog",
+    "hook": "Fog on the mill. A portable STOP sits in your lane.",
     "scene": "Fog sits on a Kent work zone at midday, thick enough that the cones appear one at a time. A portable stop sign is planted in your lane where the flagger would have stood. The face is red, eight sides, white border, white STOP. No flagger. No oncoming headlights yet. The cone line pinches you down to a crawl. The insulin clock is still kind. Your left foot wants to hover instead of plant.",
     "decision": "The portable stop is in your lane and the fog has the other approach. What do you do at the sign?",
     "options": [
@@ -203,7 +213,14 @@
       "background": "no flagger, no sky, a gray wall of fog where the other approach should be",
       "read": "the sign is STOP, not yield, and the other road is invisible — that is the whole card",
       "continuity": [],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "toward_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade is not in frame; implied travel is toward the sign face",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
     },
     "variation": {
       "location_type": "work_zone",
@@ -220,6 +237,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "Wind on Central",
+    "hook": "Left pocket, blinker on. Oncoming is closing in the wind.",
     "scene": "The work cones are behind you. Central Avenue in Kent, two lanes each way, a protected left pocket painted and still honest. Wind shoves the Menace a half-lane toward the curb every time a gap opens. Oncoming is a primer SUV at distance and a lifted truck closer, closing. Your blinker has been on. The pocket is short. The insulin does not care about your gap. The oncoming does.",
     "decision": "You are in the left pocket with the blinker on. When do you take the turn?",
     "options": [
@@ -281,16 +299,23 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_TOPDOWN",
-      "subject": "the Pink Menace sitting in a short painted left-turn pocket on a four-lane Kent arterial",
-      "foreground": "pocket lines and the Menace's pink roof and plow, wheels visibly straight",
-      "midground": "oncoming lifted truck closing, primer SUV behind it, empty opposing pocket",
-      "background": "wind-bent maples, wide Kent arterial, afternoon gray, no wrecks",
-      "read": "the car is in the pocket with wheels straight and two oncoming vehicles still occupying the gap",
+      "camera": "POV_DIAGRAM",
+      "subject": "oblique overhead of a four-lane Kent arterial: faded matte-pink VW Beetle in a short left-turn pocket, rear nearer camera, plow at far top, wheels straight",
+      "foreground": "wet pocket lines, a faded white LEFT-TURN arrow in her bay, worn yellow centerline; through-lane arrow beside her pointing up-frame",
+      "midground": "two primer-gray oncoming cars in her left half of the roadway, facing her, still occupying the gap; empty opposing pocket",
+      "background": "overcast Kent arterial, wind-bent maples at the edges, wet asphalt, no wrecks",
+      "read": "left-turn pocket, wheels straight, oncoming still in the gap — turn geometry and right-of-way in one glance",
       "continuity": [
         "pink_menace_exterior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+        "oncoming_position": "left of the ego vehicle across the centerline",
+        "hazard_position": "oncoming"
+      }
     },
     "variation": {
       "location_type": "arterial",
@@ -307,6 +332,7 @@
     "driver": "ali",
     "card_type": "hazard",
     "title": "Marisol in the Lot",
+    "hook": "A bike is closing your right rear toward the same exit.",
     "scene": "Rain hammers the old Kent Station lot, a sheet off the mesh, the stalls faded to ghosts. You are rolling a lane of painted arrows toward the exit onto 1st. In the right convex, a bicycle: bare head, dark jacket, fast, unafraid. Marisol. She is using the lot as a cut-through the way she always has. She is on your right rear quarter, closing to pass you on the inside toward the same exit. Your window is up. Your door is a weapon if you forget she is there.",
     "decision": "Marisol is in your right mirror, coming up the inside toward the same exit. What do you do?",
     "options": [
@@ -366,6 +392,8 @@
     "antagonist": "chorus",
     "callback_of": null,
     "schedules_callback": false,
+    "timeout_option_id": "a",
+    "timeout_ms": 24000,
     "image_brief": {
       "camera": "POV_ROADSIDE",
       "subject": "Marisol on a bicycle on the Pink Menace's right rear quarter, closing toward the same lot exit",
@@ -377,7 +405,14 @@
         "pink_menace_exterior",
         "marisol"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "left_to_right",
+        "ego_lane_side": "right half of the parking aisle for its direction of travel",
+        "ego_nose_in_frame": "the plow blade points toward the left of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "beside"
+      }
     },
     "variation": {
       "location_type": "parking_lot",
@@ -394,6 +429,7 @@
     "driver": "ali",
     "card_type": "convoy",
     "title": "Deac's Left Arm",
+    "hook": "Deac's arm goes straight, then down. Someone is on your bumper.",
     "scene": "Night has dropped on a Kent school zone that still flashes for no one. You are second in a two-vehicle run: the Ledger ahead, amber destination sign dark, west-coast mirrors wide as doors. Deac's left arm comes out the driver's window, straight out, then down — the old transit slow. Radios are trash. This is the sentence. A third set of lamps sits on your bumper, too close, some volunteer who joined without asking. Gracie is boxed. Your job is not to be clever. Your job is to answer him without lighting the block.",
     "decision": "Deac's left arm is out and down. The volunteer behind you is tight. How do you answer?",
     "options": [
@@ -454,7 +490,7 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_MIRROR",
+      "camera": "POV_CHASE",
       "camera_is_the_lesson": true,
       "subject": "Deac's left arm extending from the window on the LEFT side of the frame, seen from directly behind the Ledger, arm out and angled down, fingers pointing at the ground",
       "foreground": "wet following-vehicle glass, a smear of rain, the Ledger's left rear quarter filling the frame",
@@ -467,7 +503,14 @@
         "deac",
         "hand_signals"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the Ledger's nose points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
     },
     "variation": {
       "location_type": "school_zone",
@@ -484,6 +527,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "Bus 12, Amber",
+    "hook": "Bus 12's ambers just came on. The left lane is open.",
     "scene": "Fourth Ave South, Kent, and the rain has been going since Renton. Half a block up, Bus 12 rolls at maybe fifteen. Reyna runs the last shelter route and she runs it on time. The amber lamps come on above her rear window. Gracie stands up in the passenger footwell. You are carrying insulin that has been out of cold for ninety minutes, and there is a clear lane to Reyna's left.",
     "decision": "The amber lamps are on and the left lane is open. What do you do?",
     "options": [
@@ -559,7 +603,14 @@
         "pink_menace_interior",
         "bus_12"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
     },
     "variation": {
       "location_type": "residential",
@@ -576,6 +627,7 @@
     "driver": "ali",
     "card_type": "wrench",
     "title": "Oil on Milled Asphalt",
+    "hook": "Oil light's on. A dark fan sits in the mirror.",
     "scene": "The oil light is a dull orange you have been ignoring since the lot. Fog again, a Kent mill-and-fill that never got its top lift, cones still in a lazy line. You feel the note change — not a knock, a dry rattle under the rear. A dark fan of oil is already on the milled surface behind you in the mirror, too even to be rain. The insulin is still in the window. The engine is not. Nobody is coming to tow the Menace. The Quiet will, if you sit in the travel lane and cook it.",
     "decision": "The oil light is on and you are laying a fan on the millings. Where do you put the car?",
     "options": [
@@ -665,6 +717,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "A Voice You Know",
+    "hook": "The radio bleeds by itself. Someone is already in the crosswalk.",
     "scene": "The radio bleeds at dawn on a Kent collector that thinks it is an arterial. Wind again. You did not turn the radio on. It came up by itself, a trick the aftermarket tablet has been pulling since the lot — a scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right, mid-block enough to be easy to miss if you are in the glass. Both hands should be on the wheel. One of them is not.",
     "decision": "The tablet is talking in a voice you know and a pedestrian is in the crosswalk. Where do your eyes go?",
     "options": [
@@ -725,16 +778,24 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_CHASE",
-      "subject": "the Pink Menace approaching a four-way, a hooded pedestrian already in the right-hand crosswalk",
-      "foreground": "wind-moved weeds at the camera, a slice of wet curb",
-      "midground": "Ali's head starting to dip toward the dash tablet, both not yet on the wheel",
-      "background": "Kent collector at dawn, hard wind, gray sky, no other moving cars",
-      "read": "the driver's eyes are leaving the pedestrian for a screen",
+      "camera": "POV_COCKPIT",
+      "camera_is_the_lesson": true,
+      "subject": "through the windshield mesh, a pedestrian in dark rain clothes mid-crosswalk directly ahead, roughly forty feet, clearly in the vehicle's path",
+      "foreground": "worn black steering wheel across the bottom; on the cracked faded pink dash at lower right, an aftermarket navigation tablet LIT with gray-white static, the only bright object inside the cab",
+      "midground": "welded steel mesh across the windshield; both the pedestrian and the lit tablet compete in the same glance",
+      "background": "a Kent two-lane collector at dawn, wet asphalt, chain-link, bare maples, low houses, flat gray sky — landlocked, no ocean, no waterfront, no beach",
+      "read": "the pedestrian ahead and the lit screen below compete for the same pair of eyes, and both must be unmistakable",
       "continuity": [
-        "pink_menace_exterior"
+        "pink_menace_interior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
     },
     "variation": {
       "location_type": "arterial",
@@ -751,12 +812,13 @@
     "driver": "ali",
     "card_type": "ledger",
     "title": "The Arm Still Out",
-    "scene": "Bus 12 is back on Fourth Ave South at Willis, same rain, same crown in the wheel tracks, same bare maples. Reyna has the reds on and the stop arm is out — bent a few degrees off true from a plow that did not wait. Tobin is already in the street this time, yellow shell, not looking. At the treeline four blocks down, something that heard steel on steel last time has not left. You are behind her again with a clear left lane that is not clear at all. The insulin can wait. He cannot.",
+    "hook": "Reds on, stop arm out. Tobin is already in the street.",
+    "scene": "Bus 12 is back on Fourth Ave South at Willis, same rain, same crown in the wheel tracks, same bare maples. Reyna has the reds on and the stop arm is out — bent a few degrees off true from a plow that did not wait. Tobin is already in the street this time, yellow shell, not looking. At the treeline four blocks down, something that heard steel on steel last time has not left. This time you are the oncoming car: same reds, same arm, a lane that looks open and is not yours. The insulin can wait. He cannot.",
     "decision": "Reds are on, the arm is out, and Tobin is in the lane. What do you do?",
     "options": [
       {
         "id": "a",
-        "text": "Stay stopped behind her until the arm folds and she rolls, even if the left lane is empty",
+        "text": "Stay stopped until the arm folds, even though you are not behind her",
         "correct": true,
         "result": "You sit. Rain on the mesh. Tobin crosses without a glance, then a second kid you did not have last time. The thing at the treeline does not come. Reyna folds the bent arm, finds you in her glass, and does not wave. She does not have to. You are still here. That is the apology.",
         "state_delta": {
@@ -766,7 +828,7 @@
       },
       {
         "id": "b",
-        "text": "Take the left lane now — the arm is already out, so the kids have to be done",
+        "text": "Keep rolling — you are oncoming, so the reds are hers",
         "correct": false,
         "result": "You pull out on reds. Tobin is still in your left headlight. You stand on it. The Menace stops with the plow in the crosswalk he is using. Reyna sees the whole thing in the west-coast glass she does not have. She has a school bus mirror and a bent arm and a face you will carry.",
         "state_delta": {
@@ -814,18 +876,25 @@
     "callback_of": "II-007",
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_MIRROR",
-      "subject": "Bus 12 stopped ahead, red lamps lit, stop arm extended and slightly bent, empty crosswalk, a dropped backpack on the wet paint",
-      "foreground": "wet interior rearview and a smear of rain on the mesh, Ali's wire rims a blur at the edge",
-      "midground": "the same two-lane Kent arterial, standing water in the wheel tracks, empty-looking left lane, backpack on the crosswalk",
+      "camera": "POV_ROADSIDE",
+      "subject": "Bus 12 stopped in the near lane, red lamps lit, stop arm extended and slightly bent, a dropped backpack on the wet crosswalk paint",
+      "foreground": "wet curb and standing water in the wheel tracks at camera height",
+      "midground": "the Pink Menace stopped facing the bus from the opposite direction, plow toward the bus",
       "background": "bare maples, chain-link, flat gray rain, a distant out-of-focus figure at the treeline four blocks down",
       "read": "reds and the bent arm are on; the backpack is in the lane you wanted last time — no child in frame",
       "continuity": [
-        "pink_menace_interior",
+        "pink_menace_exterior",
         "bus_12",
         "L-001"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the bus and the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
     },
     "variation": {
       "location_type": "residential",
@@ -833,7 +902,7 @@
       "time_of_day": "afternoon",
       "tone": "grim",
       "failure_mode": "speed",
-      "forced": "location+weather+time locked to II-007 callback; camera changed to POV_MIRROR"
+      "forced": "location+weather+time locked to II-007 callback; camera POV_ROADSIDE so the bus ahead is not compiled into a rearview"
     }
   },
   {
@@ -843,6 +912,7 @@
     "driver": "ali",
     "card_type": "dossier",
     "title": "The Log in the Well",
+    "hook": "Deac's clipboard is in the well. Write the hours down.",
     "scene": "You unfold a metal clipboard that is not yours. Deac left it in the well at the lot with a note in dispatch cadence: date, location, day or night, weather, skills, hours, initials. The Grid does not count as practice unless you write it down. Clear cold midday in a Kent lot, stalls faded, the Menace ticking. You have already used a school zone, a stop, a left, a bike, a bus, a hand, a light, a voice. The clipboard is how the hours become legal. It is also how you notice you have not done space yet.",
     "debrief": "Supervised hours are a log, not a feeling. Date, location, day or night, weather, skill, time, initials. If it is not on the sheet, the Grid did not happen.",
     "source": {
@@ -885,6 +955,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "Three Seconds, Not One",
+    "hook": "You can see his hitch. You should be seeing pavement.",
     "scene": "A volunteer van is glued to a Kent school-zone exit at dusk, overcast, lamps already flashing for a shift that will not come. You are behind him. He is behind a dead sedan that is actually just parked badly. Your following gap is a bumper. The clipboard said space. The van's brake lamps are already dirty. If he dumps them, you will eat his trailer hitch with a plow that rings. The insulin is stable. Your right foot is not. You can see his tires. You should be able to see pavement.",
     "decision": "You can only see his hitch. How much road do you put back?",
     "options": [
@@ -956,7 +1027,14 @@
       "continuity": [
         "pink_menace_interior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade is a pink bar at the bottom of the glass, pointing toward the hitch",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
     },
     "variation": {
       "location_type": "school_zone",
@@ -973,6 +1051,7 @@
     "driver": "ali",
     "card_type": "rule",
     "title": "The Triangle Is the Sentence",
+    "hook": "Orange triangle ahead in the cones. You are doing thirty.",
     "scene": "Heavy rain at night on a Kent mill that still thinks it is a work zone. In the cone line, a farm tractor from somebody's last run south, no Grange, just one machine, orange SMV triangle dirty but lit by your lamps. It is doing twelve. You are doing thirty because the insulin clock got loud in your head. The triangle is the sign. Pass on a two-lane with no sightline and you are in his blind and oncoming's. The cones make it worse. Your left blinker already wants out.",
     "decision": "The slow-moving triangle is ahead in the cones. Do you pass?",
     "options": [
@@ -1058,6 +1137,7 @@
     "driver": "ali",
     "card_type": "hazard",
     "title": "Hollis in the Glass",
+    "hook": "Hollis sits a bumper off your plow in the fog.",
     "scene": "Fog on a Kent collector that widens enough to pretend it is an arterial. Morning. In the interior glass, a lifted truck with aftermarket lamps sits a bumper off your plow's ghost. Hollis. He has been there for six blocks. He wants you faster than the fog. Your speedo is already at the number on the sign. If you dump speed he will eat you. If you give him the number he wants, the fog will. The left lane is a rumor in this weather. Gracie is boxed. Your mirrors are the whole conversation.",
     "decision": "Hollis is a bumper off you in the fog. How do you keep the space?",
     "options": [
@@ -1120,18 +1200,27 @@
     "antagonist": "splitter",
     "callback_of": null,
     "schedules_callback": false,
+    "timeout_option_id": "b",
+    "timeout_ms": 21000,
     "image_brief": {
-      "camera": "POV_MIRROR",
-      "subject": "Hollis's lifted truck grille and aftermarket lamps filling the interior rearview, a bumper-width of fog between you",
-      "foreground": "wet rearview glass, Ali's braid a dark smear at the edge",
-      "midground": "the Pink Menace's pink rear plating implied, no visible gap",
-      "background": "fogged Kent arterial, morning, no horizon",
-      "read": "there is no cushion behind and the driver in the glass wants your speed",
+      "camera": "POV_MIRROR_REAR",
+      "subject": "Hollis's lifted truck headlights filling the interior rearview, a bumper-width of fog between you",
+      "foreground": "wet rearview glass filling the upper frame; cracked faded pink dashboard and a slice of welded steel mesh below, dark and out of focus",
+      "midground": "in the glass: two headlights diffused by fog into large soft discs, the body barely resolvable behind them",
+      "background": "fogged Kent arterial behind the vehicle, no horizon, windshield view not the subject",
+      "read": "the following vehicle's headlights are unmistakably large and close within the mirror glass",
       "continuity": [
         "pink_menace_interior",
         "hollis"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade is not in frame; the vehicle is traveling forward, away from the headlights in the glass",
+        "oncoming_position": "none in frame",
+        "hazard_position": "behind"
+      }
     },
     "variation": {
       "location_type": "arterial",
@@ -1148,6 +1237,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "Right, After the Hedge",
+    "hook": "You need the right. A hedge eats the sidewalk sightline.",
     "scene": "Wind at dawn on a Kent residential that dead-ends into a T. You need the right. A hedge on the corner eats the sidewalk sightline. Your blinker has been on for a block because Deac's voice in your head still counts cadence. A cyclist you cannot yet see will be on that sidewalk if this is that kind of morning. The DOL wants you past the hedge's blind before you commit the nose. The Menace's plow makes every early turn longer than it looks.",
     "decision": "The hedge hides the right sidewalk. When do you start the turn?",
     "options": [
@@ -1208,16 +1298,23 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_ROADSIDE",
-      "subject": "the Pink Menace at a residential T, right blinker on, a tall hedge eating the sidewalk sightline",
-      "foreground": "hedge leaves moving in the dawn wind, a faded crosswalk at the camera's feet",
-      "midground": "Ali's plow still short of the sidewalk line, wheels not yet cut",
-      "background": "Kent houses, chain-link, hard dawn light, no other moving cars",
-      "read": "the sidewalk is invisible behind the hedge, and the plow has not entered it yet — that is the decision",
+      "camera": "POV_DIAGRAM",
+      "subject": "high overhead of a residential T: the faded matte-pink VW Beetle on the stem, right blinker implied, plow still short of the sidewalk, a tall live hedge eating the right-corner sightline",
+      "foreground": "faded crosswalk paint across the top of the stem; the sidewalk line the plow has not crossed",
+      "midground": "the nearest right-lane recovery path empty and wide enough for the Beetle; hedge leaves moving in the dawn wind",
+      "background": "Kent houses and chain-link, hard dawn overcast, wet pavement, no other moving cars",
+      "read": "right-turn path still short of the sidewalk; the hedge hides the crosswalk — turn geometry before the nose occupies it",
       "continuity": [
         "pink_menace_exterior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "beside"
+      }
     },
     "variation": {
       "location_type": "residential",
@@ -1234,6 +1331,7 @@
     "driver": "ali",
     "card_type": "convoy",
     "title": "Straight Out the Window",
+    "hook": "Deac's arm holds straight left. The volunteer is third.",
     "scene": "Rain at midday in the Kent Station lot again, different stalls, same ghosts. Deac has the Ledger pointed at the exit, amber sign dark. He needs a left onto 1st. His left arm comes out the driver window and holds, straight, fingers pointing left into the rain — not bent, not up. You are second. A volunteer is third. If you signal with lamps you light the deck. If you say nothing, the volunteer will read your gap as a hole on Deac's left and take the turn with him. Hands are the only sentence that does not draw.",
     "decision": "Deac's left arm is straight out. How do you keep the volunteer from writing over it?",
     "options": [
@@ -1293,7 +1391,7 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_MIRROR",
+      "camera": "POV_CHASE",
       "camera_is_the_lesson": true,
       "subject": "Deac's left arm extending from the window on the LEFT side of the frame, seen from directly behind the Ledger, arm straight out horizontally, fingers pointing level left",
       "foreground": "wet following-vehicle glass, rain, the Ledger's left rear quarter",
@@ -1306,7 +1404,14 @@
         "deac",
         "hand_signals"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the Ledger's nose points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
     },
     "variation": {
       "location_type": "parking_lot",
@@ -1323,7 +1428,8 @@
     "driver": "ali",
     "card_type": "rule",
     "title": "The Yellow Line Still Means It",
-    "scene": "Clear cold afternoon. A Kent school zone with a solid yellow in your lane and a broken yellow for them. You want around a parked delivery van that has been dead since the first week. The van sits legal enough. Passing would put you over the solid. The playground is empty. The line is not. Hollis is not in this one. Nobody is coming the other way that you can see. That is the whole trick of a solid yellow: the thing you cannot see yet owns that paint.",
+    "hook": "A dead van. Passing would put you over the solid yellow.",
+    "scene": "Clear cold afternoon. A Kent school zone with a solid yellow centerline. You want around a parked delivery van that has been dead since the first week. The van sits legal enough. Passing would put you over the solid. The playground is empty. The line is not. Hollis is not in this one. Nobody is coming the other way that you can see. That is the whole trick of a solid yellow: the thing you cannot see yet owns that paint.",
     "decision": "A dead van is blocking your speed and the yellow under you is solid. Do you go around?",
     "options": [
       {
@@ -1384,16 +1490,23 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_TOPDOWN",
-      "subject": "the Pink Menace stopped behind a dead delivery van, a solid yellow line running past both, broken yellow beginning a block ahead",
-      "foreground": "school-zone pavement markings and a faded 20",
-      "midground": "van, Beetle, the solid line as a hard boundary",
-      "background": "empty playground, clear cold afternoon, long shadows, no oncoming visible yet",
-      "read": "the only legal pass is where the yellow breaks — not here",
+      "camera": "POV_DIAGRAM",
+      "subject": "oblique overhead of a two-lane US street: a faded matte-pink Baja VW Beetle queued in the RIGHT-HAND travel lane behind a dead primer-gray delivery van, both occupying the right half of the roadway, both traveling away from camera toward the top of the frame. The Beetle is nearer the bottom of the frame (rear mesh toward camera, plow pointing up-frame). The van is ahead of it in the SAME lane, also rear toward camera — windshield, grille, and headlights of the van are NOT visible. An entire empty oncoming lane sits between the yellow centerline and the left curb. Neither vehicle is left of the yellow. They are not nose-to-nose.",
+      "foreground": "school-zone pavement in the RIGHT-HAND lane under the Beetle, a faded painted 20 in that same lane, wet or cold-dry asphalt, rear of the Beetle",
+      "midground": "two parallel yellows down the center: SOLID and continuous on the Beetle's side (right of the pair) for the full frame; BROKEN dashes with clear gaps on the far/oncoming side. Right-hand lane: van then Beetle, same heading. Left-hand lane: empty pavement from yellow to left curb — a full lane of space.",
+      "background": "empty playground fence beyond the LEFT curb (beside the empty oncoming lane, not beside the cars), clear cold afternoon, long blue shadows, no oncoming vehicle visible",
+      "read": "both vehicles sit right of the yellow, same direction; the solid yellow on this side forbids passing here",
       "continuity": [
         "pink_menace_exterior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
     },
     "variation": {
       "location_type": "school_zone",
@@ -1408,9 +1521,56 @@
     "act": "II",
     "zone": "The Grid",
     "driver": "ali",
-    "card_type": "dossier",
+    "card_type": "scene",
     "title": "Gracie, Unboxed",
+    "hook": "Gracie hits the dash. Choose before the next roll.",
     "scene": "You unclip the carrier in a Kent mill-and-fill at dusk, overcast, cones leaning like they are tired. Gracie hits the dash like she owns the defrost. Orange tabby, cream chest, amber-green eyes, already in the way of the right convex. This is the passenger problem with a face. She will stand up at the wrong bus. She will walk a keyboard you do not have. The Grid still has eight cards of space and night and ice in it. If she is loose, she is a lap. If she is boxed, she is a sound you can ignore. You have to choose before the next roll, not during it.",
+    "decision": "Gracie is on the dash. What do you do before you roll?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Clip her back in the carrier and stow it before you take the mill",
+        "correct": true,
+        "result": "You box her. The clip bites. She complains once and then she is a sound in the well, not a face on the glass. The cones stay cones. Your eyes stay on the millings, not on a cream chest that wants the defrost.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Leave her. She will settle once the Menace starts rolling",
+        "correct": false,
+        "result": "She does not settle. She stands into the right convex as you enter the mill. Your eyes go to her. The cone line does not wait. A paddle kisses the plow with a note you will hear in the well for a block.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "c",
+        "text": "Pull her into your lap so she is off the glass",
+        "correct": false,
+        "result": "Mass in your legs. She kneads. Your right foot is a negotiation. A mill does not care that you have a cat. You wander an inch and the cone line teaches you the width of a lap.",
+        "state_delta": {
+          "yaw": 2,
+          "noise": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "d",
+        "text": "Let her walk the dash. You can watch her and the cones at once",
+        "correct": false,
+        "result": "You cannot. She takes the defrost. Your eyes leave the mill. The next cone is closer than the last one looked. Two jobs, one pair of eyes, and the mill does not pause for cream fur.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 1,
+          "time_cost": 5
+        }
+      }
+    ],
     "debrief": "Unrestrained passengers — including a cat — are a distraction with mass. Box her for the dense cards. Eyes that go to the dash leave the millings.",
     "source": {
       "psdp_skill": "n/a",
@@ -1453,6 +1613,7 @@
     "driver": "ali",
     "card_type": "hazard",
     "title": "Black Ice, Same Paint",
+    "hook": "The paint looks wet. It is ice. The light is green.",
     "scene": "Night on a Kent collector that iced after a melt. The paint still looks wet. It is not. Your knobbies are honest until they are not. A four-way with a working signal, stale green. You are the only moving thing. The instinct is to take the green like you own it. The ice wants a smaller number and no sudden anything. The insulin crates will slide if you ask the tires for a story they cannot tell. There is no sand truck. There is you, a green lamp, and a surface that will not say its name until you brake.",
     "decision": "The lamp is green and the paint looks only wet. How do you take the intersection?",
     "options": [
@@ -1512,6 +1673,8 @@
     "antagonist": "cold_roads",
     "callback_of": null,
     "schedules_callback": false,
+    "timeout_option_id": "a",
+    "timeout_ms": 27000,
     "image_brief": {
       "camera": "POV_OBJECT",
       "subject": "a traffic signal showing green over a glossy black intersection that looks wet and is ice",
@@ -1520,7 +1683,14 @@
       "background": "Kent night, empty collector, a dark porch, no other lamps moving",
       "read": "the lamp is green and the pavement is glass — those two facts are the card",
       "continuity": [],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade is not in frame; implied travel is toward the signal and into the intersection",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
     },
     "variation": {
       "location_type": "arterial",
@@ -1537,6 +1707,7 @@
     "driver": "ali",
     "card_type": "wrench",
     "title": "One Lamp, Not Two",
+    "hook": "Left headlamp is dead in the rain. The right still holds.",
     "scene": "Heavy rain on a Kent residential at morning, the kind that turns every surface into a mirror. Your left headlamp has been dying for a mile — a yellow wink, then a hole. The right is still a proper low beam. High beams would fill the rain and give you nothing but scatter, and they would give the Quiet a lighthouse. You have a spare sealed beam in the wing that takes two hands and a shoulder. You also have a running lane. The legal requirement is two lamps at night or in rain. The tactical requirement is not to stand in the street to be correct.",
     "decision": "The left lamp is dead in the rain. What do you do before the next mile?",
     "options": [
@@ -1595,7 +1766,7 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_MIRROR",
+      "camera": "POV_ROADSIDE",
       "subject": "the Pink Menace's front seen in a dark shop window: right low beam lit, left lamp dark, rain needles in the light",
       "foreground": "wet glass reflection, a smear of pink plating",
       "midground": "residential street, morning rain, no other lamps",
@@ -1604,7 +1775,14 @@
       "continuity": [
         "pink_menace_exterior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "right_to_left",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the left of the frame, toward the dark shop glass",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
     },
     "variation": {
       "location_type": "residential",
@@ -1621,6 +1799,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "The Long Way Is Shorter",
+    "hook": "Willis dead-ends into a berm. Reverse lights do the talking.",
     "scene": "Willis dead-ends into a berm somebody pushed up and never came back for. The insulin has forty minutes of cold left and the reroute is behind you. Residential, both sides, driveways every fifty feet. Gracie is up on the dash. Reverse lights are the brightest thing this car makes, and every second of backing is a second the mirrors are doing the work your eyes should be doing.",
     "decision": "You have to reverse direction. How?",
     "options": [
@@ -1680,17 +1859,24 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_TOPDOWN",
-      "subject": "orthographic overhead of a residential block, the Pink Menace stopped short of a dirt berm blocking the street end",
-      "foreground": "clean overhead lane geometry, painted double yellow centerline running the length of Willis, driveways spaced along both sides",
-      "midground": "the four-right-turn loop around the block readable as open roadway; the berm as a hard stop across the far end",
-      "background": "wet residential rooftops and bare trees, flat gray overcast, no shadows",
-      "read": "the double yellow centerline is unbroken beneath the car, and a complete open loop exists around the block — both facts legible at a glance",
+      "camera": "POV_DIAGRAM",
+      "subject": "four-story oblique down Willis: faded pink Beetle near camera in the right lane, plow up-frame, dirt mound blocking the street fifty yards ahead",
+      "foreground": "rear of the Beetle nearer camera, right-hand lane, double yellow on her left",
+      "midground": "packed dirt blocks the street curb to curb; a cross street enters from the right, both curb returns open",
+      "background": "wet Kent houses and bare trees, flat gray overcast, no other movers",
+      "read": "the street ahead is impassable, and the cross-street corner is the only way through",
       "continuity": [
         "pink_menace_exterior",
         "L-001"
       ],
-      "aspect": "1:1"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame, toward the berm",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
     },
     "variation": {
       "location_type": "residential",
@@ -1707,6 +1893,7 @@
     "driver": "ali",
     "card_type": "hazard",
     "title": "Two Hundred Feet of Willis",
+    "hook": "The corner is gone. Four driveways. Insulin, thirty minutes.",
     "scene": "The corner is gone too — a transformer came down across it in the night and the wires are still on the pole. No block to drive. Four driveways in reach: one across the street, one thirty feet up on your side against a blind hedge, one on your side with clean sight down Willis, one behind you past the crest. Insulin, thirty minutes.",
     "decision": "No block. You are backing into a driveway. Which one?",
     "options": [
@@ -1766,19 +1953,28 @@
     "antagonist": "none",
     "callback_of": null,
     "schedules_callback": false,
+    "timeout_option_id": "c",
+    "timeout_ms": 24000,
     "image_brief": {
-      "camera": "POV_MIRROR",
-      "subject": "the mirror on the left side of the vehicle, seen from inside the cabin, filled with a long clear stretch of empty wet residential street behind the car",
-      "foreground": "the mirror housing and a slice of riveted steel door plating, sharply in focus",
-      "midground": "a paved driveway apron entering frame at the mirror's edge on the same side as the car",
-      "background": "Willis running straight and empty to a distant vanishing point, bare maples, flat gray overcast",
+      "camera": "POV_MIRROR_REAR",
+      "subject": "the interior rearview filled with a long clear stretch of empty wet residential street behind the car",
+      "foreground": "wide weathered rearview filling the upper frame; cracked pink dash and mesh below, dark and out of focus",
+      "midground": "in the glass: Willis running straight and empty behind, a paved driveway apron on the same side as the car",
+      "background": "bare maples receding, flat gray overcast, windshield view not the subject",
       "read": "the road behind is visibly long, straight and unobstructed, and the driveway sits on the same side as the mirror",
       "continuity": [
         "pink_menace_interior",
         "pink_menace_exterior",
         "L-001"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade is not in frame; the vehicle is traveling forward, away from the empty road in the glass",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
     },
     "variation": {
       "location_type": "residential",
@@ -1795,6 +1991,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "Fog in the Stalls",
+    "hook": "Nosed in, fog in the stalls. You have to back out.",
     "scene": "Fog at dawn in a Kent lot, stalls so faded you are guessing with the wheel. You nosed in because the drop was at the shutter. Now you have to back out to leave. A row of dead cars on both sides. Your rear mesh is a cage, not a window. The convexes are honest if you use them. A bicycle wheel you cannot see from the seat will be in the backup path if this is Marisol's morning. It is not her, not yet. It is a cart corral that moved in the night. Backing is the skill people skip because going forward feels like progress.",
     "decision": "You are nosed in, in fog, and you have to leave. How do you back out?",
     "options": [
@@ -1864,7 +2061,14 @@
       "continuity": [
         "pink_menace_exterior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the parking aisle for its direction of travel",
+        "ego_nose_in_frame": "the plow blade points into the stall, toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
     },
     "variation": {
       "location_type": "parking_lot",
@@ -1881,6 +2085,7 @@
     "driver": "ali",
     "card_type": "convoy",
     "title": "Fingers to the Sky",
+    "hook": "Deac's left arm bends up. The volunteer rolls straight.",
     "scene": "Wind at midday through a Kent school zone, lamps dark this time, posted 20 still posted. You are third behind a volunteer and the Ledger. Deac's left arm comes out his driver window and bends at the elbow until the fingers point at the sky — rain hitting the sleeve, on the side the column can see. He cannot put this on the destination sign. The volunteer in the middle does not answer. His blinker never happens. If you follow the middle car you will miss the driveway on the right. If you put an arm out the passenger window, nobody behind you will see it.",
     "decision": "Deac's left arm is bent up in the rain. The volunteer is rolling straight. What do you do?",
     "options": [
@@ -1938,20 +2143,27 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_MIRROR",
+      "camera": "POV_CHASE",
       "camera_is_the_lesson": true,
-      "subject": "Deac's left arm extending from the window on the LEFT side of the frame, seen from directly behind the Ledger, bent sharply at the elbow, forearm vertical, fingers pointing at the sky",
-      "foreground": "wet following-vehicle glass, wind-blown rain, the Ledger's left rear quarter",
-      "midground": "open window on the left side of the frame; the right side of the vehicle is closed and no arm appears there",
-      "background": "Kent school fence, midday, dark lamps, empty yard, a volunteer van rolling past a driveway on the right",
-      "read": "the arm is bent up, fingers to the sky — right turn — extending from the window on the left side of the frame",
+      "subject": "the ex-transit cutaway shuttle bus traveling the same direction as the camera, seen from behind and to its left. The rear of the box — back doors and rear bumper — is the nearest part of the vehicle, occupying the right half of the frame, body receding away toward the upper left. Along the far end of the visible left flank, an open cab window on the LEFT side of the frame. A man's left arm extends from that window: upper arm horizontal, bent sharply at the elbow so the forearm rises vertical, fingers pointing at the sky, attached to a visible shoulder inside the cab. The bus's front, grille, and headlights are not visible from this position",
+      "foreground": "inside a following vehicle looking forward through rain-beaded windshield mesh; the Ledger's rear box and bumper fill the right half of frame, nearest the camera",
+      "midground": "open window on the LEFT side of the receding bus; a man's left arm, upper arm horizontal, bent sharply at the elbow, forearm vertical, fingers to the sky, attached to a visible shoulder and torso inside the cab. The right side of the vehicle is closed and no arm appears there",
+      "background": "wet four-lane road, Kent school fence, midday, dark lamps, empty yard, bare trees, flat gray overcast, a volunteer van further ahead to the right, same direction, only its rear visible, rolling past a driveway",
+      "read": "the rear of the Ledger is the dominant nearest mass; the L-shaped bent-up left arm at the cab window is unmistakable",
       "continuity": [
         "the_ledger",
         "pink_menace_exterior",
         "deac",
         "hand_signals"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the Ledger's nose points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
     },
     "variation": {
       "location_type": "school_zone",
@@ -1968,7 +2180,8 @@
     "driver": "ali",
     "card_type": "rule",
     "title": "Do Not Block the Mill",
-    "scene": "Rain on a Kent mill-and-fill in the afternoon, one lane open, the other a trench. A pickup is already stopped in the open lane with its hood up, two people standing in the travel path like the mill is a driveway. There is no shoulder that is not a drop. Your instinct is to queue behind them and wait, which makes you the third body in a lane that still has a through. The sign at the start of the zone said DO NOT STOP. It meant it. You need a hole that is not their repair.",
+    "hook": "A pickup is dead in the only live lane.",
+    "scene": "Rain on a mill cut in the afternoon — not Kent Station, a rock-cut with one lane open and the other a trench. A pickup is already stopped in the open lane with its hood up, two people standing in the travel path like the mill is a driveway. There is no shoulder that is not a drop. Your instinct is to queue behind them and wait, which makes you the third body in a lane that still has a through. The sign at the start of the zone said DO NOT STOP. It meant it. You need a hole that is not their repair.",
     "decision": "They are stopped in the only live lane. Where do you put the Menace?",
     "options": [
       {
@@ -2030,13 +2243,21 @@
       "camera": "POV_COCKPIT",
       "subject": "a pickup stopped in the only milled live lane, hood up, two people standing in the travel path, rain on the mesh",
       "foreground": "worn wheel and wipers mid-sweep",
-      "midground": "cone line, trench on the right, no shoulder",
-      "background": "Kent afternoon rain, a DO NOT STOP sign already behind you, gray nothing ahead",
+      "midground": "cone line, trench on the right, wet vertical rock wall, no shoulder",
+      "background": "L-006 mill cut, afternoon rain, a DO NOT STOP sign already behind you, gray rock and sky ahead, no Kent storefronts",
       "read": "the only lane is already occupied by a stopped repair — joining it is the error",
       "continuity": [
-        "pink_menace_interior"
+        "pink_menace_interior",
+        "L-006"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
     },
     "variation": {
       "location_type": "work_zone",
@@ -2053,6 +2274,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "Four Ways, One Hole",
+    "hook": "Four-way. The sedan on your right was there first.",
     "scene": "Clear cold dusk on a Kent four-way that still has all four stops. You arrive second. A primer sedan is already stopped on your right, a beat longer than you. Nobody else. The insulin is a minute from the shelter drop. The sedan's driver is not moving. They may be looking at a paper. They may be waiting for you to steal it. First in is first through. Your right is not a permission slip if they were there first. The Menace's idle is a drum if you rev it. You do not.",
     "decision": "You rolled up second. The sedan on your right is first and still sitting. Who takes the hole?",
     "options": [
@@ -2112,16 +2334,23 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_TOPDOWN",
-      "subject": "a four-way with four stop signs, the Pink Menace at the south stop, a primer sedan already sitting at the east stop",
-      "foreground": "painted stop lines, empty crosswalks",
-      "midground": "two vehicles, no third, dusk long shadows",
-      "background": "Kent residential arterial, clear cold sky going blue, no wrecks",
-      "read": "the sedan's stop line was occupied first — the Beetle is second",
+      "camera": "POV_DIAGRAM",
+      "subject": "oblique four-way: faded pink Beetle still short of the south stop line; primer sedan stopped on the east approach, fully behind its stop line, not in the box",
+      "foreground": "painted stop lines, empty crosswalks, empty intersection box, wet asphalt readable at dusk",
+      "midground": "sedan waiting on her right, nose at its stop bar; Beetle still behind hers; no vehicle on any crosswalk",
+      "background": "Kent residential four-way, clear cold dusk going blue but readable, no wrecks",
+      "read": "right-of-way is the sedan's: its stop line was occupied first — the Beetle is second",
       "continuity": [
         "pink_menace_exterior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "beside"
+      }
     },
     "variation": {
       "location_type": "arterial",
@@ -2138,6 +2367,7 @@
     "driver": "ali",
     "card_type": "dossier",
     "title": "Kent After the Lamps",
+    "hook": "Ordinary dark on a Kent curb. The rules do not get optional.",
     "scene": "You sit at a curb on a Kent residential that has gone overcast-night, not the Dark Hours yet, just the ordinary dark the Grid always had. Signals still cycle. A stale green somewhere to the west paints the wet. Ali in the glass: braid, wire rims, the pink hoodie gone gray in this light. The clipboard in the well has hours on it now. School zones. Stops. Turns. Bikes. A bus you may have passed. Space. Ice. A mill you refused to join. The Quiet uses the same paint at night. The rules do not get optional when the color drains. Tomorrow is more of this, then it is not — then it is someone else's act.",
     "debrief": "Night in The Grid is still The Grid. Lights work. Search harder. The Dark Hours are a later zone. Do not import highway night rules onto these two-lane stops just because the sky went out.",
     "source": {
@@ -2179,8 +2409,9 @@
     "driver": "ali",
     "card_type": "hazard",
     "title": "Door Zone, Ice",
-    "scene": "Ice in the Kent Station lot at morning, the stalls a rink. You stopped along a row of dead cars to make the last drop on foot. Marisol is coming up the painted aisle in the right glass, slow because ice, still unafraid. Your door is the next thing she will occupy if you open it like a person who is late. The Dutch Reach exists because of this exact geometry: far hand, look, then open. Your left hand wants the handle because you have always opened a door with that hand. The insulin crate is in your right. That is the trap.",
-    "decision": "Marisol is in the right glass and you need the door. How do you get out?",
+    "hook": "Ice in the lot. Marisol occupies the aisle your door wants.",
+    "scene": "Ice in the Kent Station lot at morning, the stalls a rink. You stopped along a row of dead cars to make the last drop on foot. Marisol is coming up the painted aisle in the left glass, from behind, slow because ice, still unafraid. Your door is the next thing she will occupy if you open it like a person who is late. The Dutch Reach exists because of this exact geometry: far hand, look, then open. Your left hand wants the handle because you have always opened a door with that hand. The insulin crate is in your right. That is the trap.",
+    "decision": "Marisol is in the left glass and you need the door. How do you get out?",
     "options": [
       {
         "id": "a",
@@ -2237,19 +2468,30 @@
     "antagonist": "none",
     "callback_of": null,
     "schedules_callback": false,
+    "timeout_option_id": "b",
+    "timeout_ms": 21000,
     "image_brief": {
-      "camera": "POV_MIRROR",
-      "subject": "Marisol approaching in the right-side glass, ice on the aisle, the Pink Menace's door still closed",
-      "foreground": "interior door handle and riveted steel, Ali's left hand already hovering",
-      "midground": "her front wheel in the strip the door will occupy",
+      "camera": "POV_MIRROR_DOOR",
+      "camera_is_the_lesson": true,
+      "subject": "Ali Okonjo sits in the LEFT seat behind a visible worn black steering wheel. Camera is inside the cabin, just to her RIGHT and slightly behind her right shoulder, looking left-forward so the wheel, her torso, and the LEFT door are all in frame. She is a 17-year-old woman with warm brown skin, cranberry-red coiled hair braided at the crown, round wire-rim glasses, faded pink hoodie with white raglan stripes — she is the seated driver, not the cyclist. Her RIGHT arm reaches across her chest to the LEFT door latch. Her torso is twisted slightly left. Her head is turned further left, looking back through the LEFT window and door mirror for a bicycle. The door is on her left, still closed. Welded mesh on the door glass",
+      "foreground": "steering wheel in front of her on the LEFT of the cabin; her RIGHT hand on the LEFT interior latch, far-hand reach; her LEFT hand is not on the handle",
+      "midground": "in the LEFT door mirror, a different woman on a bicycle approaching from behind, one car length back, dark jacket, no glasses, no pink hoodie, no cranberry hair — not Ali. Icy lot aisle. The cyclist is only in the mirror",
       "background": "Kent Station lot, morning ice, dead cars, pale sky",
-      "read": "the door has not opened yet and her wheel is already in the arc",
+      "read": "the far hand on the latch and the rider already in the mirror — the door has not opened, and the reason it has not is visible in the glass",
       "continuity": [
         "pink_menace_interior",
         "dutch_reach",
+        "ali",
         "marisol"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the parking aisle for its direction of travel",
+        "ego_nose_in_frame": "the plow blade is not in the glass; the vehicle is parked, nose into the stall",
+        "oncoming_position": "none in frame",
+        "hazard_position": "beside"
+      }
     },
     "variation": {
       "location_type": "parking_lot",
@@ -2266,6 +2508,7 @@
     "driver": "ali",
     "card_type": "scene",
     "title": "Rain on the 20",
+    "hook": "School zone, heavy rain. The painted 20 is a black river.",
     "scene": "Heavy rain at dawn, a Kent school zone you have already used in better weather. The lamps are flashing again. The painted 20 is a black river. You know the number. Knowing is not looking. A parked car on the right has its door an inch off latched — you will not see that if your eyes stay in the middle of the empty yard. Skill six is not a motto. It is the next twelve seconds of hedge, bumper, glass, lamp, repeat. The insulin is the last crate. The Menace wants to be done. Done is how people skip the search they already passed on a quiz.",
     "decision": "You have done this zone before. Where are your eyes for the next twelve seconds?",
     "options": [
@@ -2326,15 +2569,22 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_ROADSIDE",
-      "subject": "a parked car in a flashing school zone with its door an inch unlatched, the Pink Menace approaching in heavy dawn rain",
-      "foreground": "wet hedge leaves, a faded crosswalk",
-      "midground": "Ali's plow aimed at the empty yard, not at the door",
+      "subject": "a parked car in a flashing school zone with its left-side door visibly ajar — open a hand's width, interior dome light spilling onto wet pavement — the Pink Menace approaching in heavy dawn rain",
+      "foreground": "wet hedge leaves, a faded crosswalk, the cracked-open door and its wedge of light at the right edge",
+      "midground": "Ali's plow aimed at the empty yard, not at the door; the ajar door must read as ajar, not closed",
       "background": "flashing white lamps, empty playground, rain so heavy the 20 is only a rumor",
       "read": "the hazard is the inch-open door at the edge, and the driver's line is the empty middle",
       "continuity": [
         "pink_menace_exterior"
       ],
-      "aspect": "2:3"
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right half of the roadway (US)",
+        "ego_nose_in_frame": "the plow blade points toward the top of the frame, aimed at the empty yard",
+        "oncoming_position": "none in frame",
+        "hazard_position": "beside"
+      }
     },
     "variation": {
       "location_type": "school_zone",
@@ -2351,6 +2601,7 @@
     "driver": "ali",
     "card_type": "wrench",
     "title": "The Click Before the Arterial",
+    "hook": "The belt is off. The mill is about to become an arterial.",
     "scene": "Fog at midday on the last Kent mill, cones ending, the collector about to become somebody else's problem. You reach for the shifter and the belt is not there. It was, this morning. It is not now. The Ejection is not a creature. It is a statistic with a buckle. The Grid is done if you roll onto the bigger road unclipped. Deac would not start a log line without it. The Menace's cheap aftermarket belt is a pain in the mesh. That is not a reason. The fog would hide a short slide. The belt is the difference between a slide and an ending. You can hear the shelter radio from here. You cannot hear a second chance.",
     "decision": "The belt is off and the mill is ending. What happens before you take the next street?",
     "options": [
@@ -2410,14 +2661,14 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_CHASE",
-      "subject": "the Pink Menace at the last cone of a fogged mill, Ali's left hand on an unlatched aftermarket belt rather than the wheel",
-      "foreground": "cone, milled lip, fog",
-      "midground": "the belt webbing hanging, latch visible and open",
-      "background": "the collector opening up beyond the zone, midday fog, no sun, no other vehicle yet",
-      "read": "the belt is not latched and the bigger road is already starting",
+      "camera": "POV_OBJECT",
+      "subject": "inside the Pink Menace cabin from the right-hand seat, looking across at the empty seat on the left",
+      "foreground": "unlatched aftermarket seat belt hanging slack down the door pillar, metal tongue on the seat cushion",
+      "midground": "empty left seat, cracked faded pink door card, riveted raw steel, steering wheel on the left; nobody in frame",
+      "background": "through the window, a wet empty residential block under flat gray overcast, out of focus",
+      "read": "the belt is visibly unlatched and hanging loose beside an empty seat",
       "continuity": [
-        "pink_menace_exterior"
+        "pink_menace_interior"
       ],
       "aspect": "2:3"
     },
