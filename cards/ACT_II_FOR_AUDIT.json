@@ -1965,14 +1965,13 @@
     "timeout_option_id": "c",
     "timeout_ms": 24000,
     "image_brief": {
-      "camera": "POV_MIRROR_REAR",
-      "subject": "the interior rearview filled with a long clear stretch of empty wet residential street behind the car",
-      "foreground": "wide weathered rearview filling the upper frame; cracked pink dash and mesh below, dark and out of focus",
-      "midground": "in the glass: Willis running straight and empty behind, a paved driveway apron on the same side as the car",
-      "background": "bare maples receding, flat gray overcast, windshield view not the subject",
-      "read": "the road behind is visibly long, straight and unobstructed, and the driveway sits on the same side as the mirror",
+      "camera": "POV_DIAGRAM",
+      "subject": "high overhead of Willis: the faded matte-pink Baja VW Beetle in the right-hand lane, rear mesh nearer the camera, wide flat plow pointing at a dead corner; four driveway aprons in reach",
+      "foreground": "a long empty stretch of wet residential street behind the Beetle, a paved driveway on the RIGHT curb with clean sight down that stretch; a low crest further behind with a fourth driveway past it",
+      "midground": "on the RIGHT curb about thirty feet toward the corner, a driveway eaten by a tall live hedge; on the LEFT curb, a wide flat driveway across the street",
+      "background": "the corner ahead is blocked — a fallen transformer and slack wires on the pole, no through-road, Kent houses, bare maples, flat gray morning",
+      "read": "the same-side open apron has two hundred feet of empty Willis; the hedge apron, the far-side apron, and the crest apron do not",
       "continuity": [
-        "pink_menace_interior",
         "pink_menace_exterior",
         "L-001"
       ],
@@ -1980,7 +1979,7 @@
       "geometry": {
         "ego_heading": "away_from_camera",
         "ego_lane_side": "right half of the roadway (US)",
-        "ego_nose_in_frame": "the plow blade is not in frame; the vehicle is traveling forward, away from the empty road in the glass",
+        "ego_nose_in_frame": "the plow blade points toward the blocked corner at the top of the frame",
         "oncoming_position": "none in frame",
         "hazard_position": "none"
       }
