@@ -25,7 +25,8 @@ let meters = { noise: 0, light: 0, yaw: 0, cargo: 100 };
 let liveCard = null;
 let answering = false;
 let timedSubmit = false;
-let cancelTypeScene = null;
+let recapTimer = 0;
+let recapAdvancing = false;
 const CAUGHT_KEY = "pm.caught";
 
 function liveState() {
@@ -90,13 +91,25 @@ function renderHome(data) {
   setHeader({ title: "PINK MENACE", saved: data.saved, back: false });
   const resume = document.getElementById("resume");
   const over = document.getElementById("start-over");
-  if (data.done && data.restartable) {
+  const lockedDoor = document.getElementById("locked-door");
+  const lockedTitle = document.getElementById("locked-door-title");
+  if (data.locked_next) {
+    lockedDoor.classList.remove("hidden");
+    lockedTitle.textContent = "Act " + data.locked_next.act + " · " + data.locked_next.zone;
+    resume.classList.add("hidden");
+    resume.onclick = null;
+    over.classList.add("hidden");
+    over.onclick = null;
+  } else {
+    lockedDoor.classList.add("hidden");
+  }
+  if (!data.locked_next && data.done && data.restartable) {
     resume.textContent = "Start over";
     resume.classList.remove("hidden");
     resume.onclick = () => startOver();
     over.classList.add("hidden");
     over.onclick = null;
-  } else if (data.resume && data.resume.label) {
+  } else if (!data.locked_next && data.resume && data.resume.label) {
     resume.textContent = data.resume.label;
     resume.classList.remove("hidden");
     resume.onclick = () => openLive();
@@ -178,8 +191,11 @@ function clearPlay() {
   }
   window.clearInterval(hazardTimer);
   window.clearTimeout(advanceTimer);
+  window.clearTimeout(recapTimer);
   hazardTimer = 0;
   advanceTimer = 0;
+  recapTimer = 0;
+  recapAdvancing = false;
   answering = false;
   timedSubmit = false;
   if (cancelTypeScene) {
@@ -194,6 +210,8 @@ function clearPlay() {
   if (wrap) wrap.classList.remove("arming");
   const clock = document.getElementById("hazard-clock");
   if (clock) clock.classList.add("hidden");
+  runEl.classList.remove("recap-skip");
+  runEl.onclick = null;
 }
 
 function applyMeters(state, how, extras) {
@@ -414,6 +432,17 @@ function fillCard(card, opts) {
     return;
   }
 
+  if (opts.recap || card.recap) {
+    if (sceneEl) sceneEl.classList.remove("hidden");
+    if (card.decision) decision.classList.remove("hidden");
+    fillOptions(card, { review: true, pending: false });
+    document.getElementById("options").classList.toggle("hidden", !(card.options || []).length);
+    applyOutcome(card.outcome, { collapseDebrief: false });
+    runEl.classList.add("recap-skip");
+    startRecapBeat(card);
+    return;
+  }
+
   resumeLive.classList.add("hidden");
   resumeLive.onclick = null;
   cont.classList.add("hidden");
@@ -582,6 +611,48 @@ function markCaught() {
   }
 }
 
+async function advanceRecap(card) {
+  if (recapAdvancing) return;
+  recapAdvancing = true;
+  window.clearTimeout(recapTimer);
+  recapTimer = 0;
+  runEl.classList.remove("recap-skip");
+  try {
+    const data = await PM.api("/api/run/recap-advance", {
+      method: "POST",
+      body: { card_id: card.card_id },
+    });
+    if (data.state) applyMeters(data.state, "paint");
+    const next = data.next || {};
+    if (next.done || !next.card_id) {
+      await loadHome();
+      return;
+    }
+    previousCardId = card.card_id;
+    renderLive({ ...next, saved: card.saved, state: data.state || card.state, pending_outcome: false, review: false });
+  } catch {
+    recapAdvancing = false;
+    startRecapBeat(card);
+  }
+}
+
+function startRecapBeat(card) {
+  recapAdvancing = false;
+  window.clearTimeout(recapTimer);
+  const ms = Number(card.auto_advance_ms) || 2000;
+  const gen = playGen;
+  const go = () => {
+    if (gen !== playGen || recapAdvancing) return;
+    advanceRecap(card);
+  };
+  recapTimer = window.setTimeout(go, ms);
+  runEl.onclick = (ev) => {
+    if (!runEl.classList.contains("recap-skip")) return;
+    if (ev.target.closest("button, a, input, textarea, select")) return;
+    go();
+  };
+}
+
 function renderLive(card) {
   showScreen("live");
   setHeader({ title: card.title, saved: card.saved, back: Boolean(card.previous_card_id) });
@@ -599,7 +670,7 @@ function renderLive(card) {
     });
     restoreScroll(card.card_id);
   };
-  if (sessionCaught()) {
+  if (card.recap || sessionCaught()) {
     begin();
     return;
   }

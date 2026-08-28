@@ -441,6 +441,17 @@ button.danger {
 
 .act-row.current { border-color: var(--cranberry); }
 .act-row.locked, .cast-item.locked { opacity: 0.45; }
+.locked-door {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, rgba(20, 16, 14, 0.92), rgba(36, 28, 22, 0.88));
+}
+.locked-door .act-name { margin: 0 0 4px; font-weight: 600; }
+.locked-door .meta { margin: 0; opacity: 0.65; }
+.opt.chosen { border-color: var(--cranberry); background: rgba(154, 61, 77, 0.14); }
+.recap-skip { cursor: pointer; }
 
 .act-name {
   margin: 0;

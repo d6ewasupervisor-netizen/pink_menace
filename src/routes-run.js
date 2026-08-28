@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
 const { applyFear } = require("./presence");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
@@ -25,9 +25,17 @@ async function assignCurrent(run) {
   return run;
 }
 
+async function cardForRun(run) {
+  const step = replayStep(run);
+  if (step && step.mode === "recap" && step.card_id === run.current_card_id) {
+    return recapBeat(step.card_id, step.option_id);
+  }
+  return publicCard(run.current_card_id);
+}
+
 async function getOrCreateRun(studentId) {
   const { rows } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
        FROM runs
       WHERE student_id = $1 AND status = 'active'`,
     [studentId]
@@ -40,7 +48,7 @@ async function getOrCreateRun(studentId) {
     [id, studentId]
   );
   const created = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
        FROM runs WHERE id = $1`,
     [id]
   );
@@ -49,14 +57,14 @@ async function getOrCreateRun(studentId) {
 
 async function getRunForHome(studentId) {
   const { rows: active } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
        FROM runs
       WHERE student_id = $1 AND status = 'active'`,
     [studentId]
   );
   if (active[0]) return assignCurrent(active[0]);
   const { rows: last } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
        FROM runs
       WHERE student_id = $1
       ORDER BY updated_at DESC
@@ -110,7 +118,7 @@ function mountRun(app) {
       if (!run.current_card_id) {
         return res.json({ ok: true, done: true, next: { done: true } });
       }
-      const card = await publicCard(run.current_card_id);
+      const card = await cardForRun(run);
       if (!card) return res.json({ ok: true, done: true, next: { done: true } });
       const progress = await progressFor(run);
       return res.json({
@@ -239,7 +247,7 @@ function mountRun(app) {
     try {
       await client.query("BEGIN");
       const runRes = await client.query(
-        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq
+        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
            FROM runs
           WHERE student_id = $1 AND status = 'active'
           FOR UPDATE`,
@@ -261,6 +269,11 @@ function mountRun(app) {
       if (run.current_card_id !== cardId) {
         await client.query("ROLLBACK");
         return jsonError(res, 409, "This is not the current card.");
+      }
+      const replay = replayStep(run);
+      if (replay && replay.mode === "recap" && replay.card_id === cardId) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 409, "Recap beat — tap to continue.");
       }
       const cardRes = await client.query(
         `SELECT card_id, card_type, debrief, schedules_callback, callback_of, psdp_skill, dol_section,
@@ -382,13 +395,16 @@ function mountRun(app) {
         }));
 
       const failed = cargoDead(state, delta);
+      const inReplay = Boolean(replayStep(run));
       let nextCardId = null;
       if (failed) {
         const counted = await client.query(
           `SELECT COUNT(*)::int AS n FROM run_answers WHERE run_id = $1`,
           [run.id]
         );
-        const startSeq = await skipSeqFor(client, (counted.rows[0] && counted.rows[0].n) - 1);
+        const answersBefore = (counted.rows[0] && counted.rows[0].n) - 1;
+        const startSeq = await skipSeqFor(client, answersBefore);
+        const replayPlan = await buildReplayPlan(client, run.id, answersBefore);
         await client.query(
           `UPDATE runs
               SET status = 'failed', current_card_id = NULL, queued_callbacks = $1,
@@ -398,16 +414,53 @@ function mountRun(app) {
         );
         const freshId = crypto.randomUUID();
         await client.query(
-          `INSERT INTO runs (id, student_id, status, current_attempt_no, start_seq)
-           VALUES ($1, $2, 'active', 1, $3)`,
-          [freshId, session.userId, startSeq]
+          `INSERT INTO runs (
+             id, student_id, status, current_attempt_no, start_seq,
+             queued_callbacks, callback_debts, state, replay_plan, replay_index
+           ) VALUES ($1, $2, 'active', 1, $3, $4, $5::jsonb, $6::jsonb, $7::jsonb, 0)`,
+          [
+            freshId,
+            session.userId,
+            startSeq,
+            queued,
+            JSON.stringify(debts),
+            JSON.stringify(state),
+            JSON.stringify(replayPlan),
+          ]
         );
-        const picked = await pickNextCard(client, freshId, [], startSeq);
-        nextCardId = picked.cardId;
-        if (nextCardId) {
+        if (replayPlan.length) {
+          nextCardId = replayPlan[0].card_id;
           await client.query(
             `UPDATE runs SET current_card_id = $1, updated_at = now() WHERE id = $2`,
             [nextCardId, freshId]
+          );
+        } else {
+          const picked = await pickNextCard(client, freshId, debts, startSeq);
+          nextCardId = picked.cardId;
+          if (nextCardId) {
+            await client.query(
+              `UPDATE runs SET current_card_id = $1, callback_debts = $2::jsonb, updated_at = now() WHERE id = $3`,
+              [nextCardId, JSON.stringify(picked.debts), freshId]
+            );
+          }
+        }
+      } else if (inReplay) {
+        await client.query(
+          `UPDATE runs
+              SET queued_callbacks = $1, callback_debts = $2::jsonb, state = $3::jsonb, updated_at = now()
+            WHERE id = $4`,
+          [queued, JSON.stringify(debts), JSON.stringify(state), run.id]
+        );
+        const advanced = await advanceReplayPlan(client, run.id, {
+          ...run,
+          callback_debts: debts,
+          start_seq: run.start_seq,
+        });
+        nextCardId = advanced.cardId;
+        if (advanced.debts) {
+          await client.query(
+            `UPDATE runs SET callback_debts = $1::jsonb, updated_at = now() WHERE id = $2`,
+            [JSON.stringify(advanced.debts), run.id]
           );
         }
       } else {
@@ -434,7 +487,23 @@ function mountRun(app) {
 
       await client.query("COMMIT");
 
-      const next = nextCardId ? await publicCard(nextCardId) : { done: true };
+      let next = nextCardId ? { card_id: nextCardId } : { done: true };
+      if (nextCardId) {
+        const activeRes = await query(
+          `SELECT id, current_card_id, replay_plan, replay_index, callback_debts, start_seq
+             FROM runs
+            WHERE student_id = $1 AND status = 'active'
+            ORDER BY updated_at DESC
+            LIMIT 1`,
+          [session.userId]
+        );
+        const active = activeRes.rows[0];
+        if (active && active.current_card_id === nextCardId) {
+          next = (await cardForRun(active)) || { done: true };
+        } else {
+          next = (await publicCard(nextCardId)) || { done: true };
+        }
+      }
       return res.json({
         ok: true,
         was_correct: option.is_correct,
@@ -519,6 +588,69 @@ function mountRun(app) {
       return res.json({ ok: true });
     } catch (err) {
       return jsonError(res, 500, "Could not save peek.");
+    }
+  });
+
+  app.post("/api/run/recap-advance", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    const cardId = String((req.body && req.body.card_id) || "");
+    if (!cardId) return jsonError(res, 400, "Missing card.");
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+      const runRes = await client.query(
+        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
+           FROM runs
+          WHERE student_id = $1 AND status = 'active'
+          FOR UPDATE`,
+        [session.userId]
+      );
+      const run = runRes.rows[0];
+      if (!run || run.current_card_id !== cardId) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 409, "This is not the current card.");
+      }
+      const step = replayStep(run);
+      if (!step || step.mode !== "recap" || step.card_id !== cardId) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 409, "Not a recap beat.");
+      }
+      const dup = await client.query(
+        `SELECT 1 FROM run_answers WHERE run_id = $1 AND card_id = $2 LIMIT 1`,
+        [run.id, cardId]
+      );
+      if (!dup.rowCount) {
+        await client.query(
+          `INSERT INTO run_answers (id, run_id, card_id, attempt_no, option_id, was_correct, ms_to_answer)
+           VALUES ($1, $2, $3, $4, $5, true, 0)`,
+          [crypto.randomUUID(), run.id, cardId, run.current_attempt_no, step.option_id || "continue"]
+        );
+      }
+      const advanced = await advanceReplayPlan(client, run.id, run);
+      await client.query("COMMIT");
+      let next = { done: true };
+      if (advanced.cardId) {
+        const activeRes = await query(
+          `SELECT id, current_card_id, replay_plan, replay_index, callback_debts, start_seq, state
+             FROM runs WHERE id = $1`,
+          [run.id]
+        );
+        const active = activeRes.rows[0];
+        next = (await cardForRun(active)) || (await publicCard(advanced.cardId)) || { done: true };
+        return res.json({ ok: true, next, state: publicState(active && active.state) });
+      }
+      return res.json({ ok: true, next, state: publicState(run.state) });
+    } catch (err) {
+      try {
+        await client.query("ROLLBACK");
+      } catch {
+        // ignore
+      }
+      return jsonError(res, 500, "Could not advance recap.");
+    } finally {
+      client.release();
     }
   });
 

@@ -169,6 +169,147 @@ function checkpointKeep(answersBefore) {
   return Math.floor(Math.max(0, Number(answersBefore) || 0) / 5) * 5;
 }
 
+function asReplayPlan(raw) {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .map((step) => ({
+      card_id: String(step.card_id || ""),
+      mode: step.mode === "recap" ? "recap" : "retry",
+      option_id: step.option_id ? String(step.option_id) : null,
+      was_correct: Boolean(step.was_correct),
+    }))
+    .filter((step) => step.card_id);
+}
+
+function replayStep(run) {
+  const plan = asReplayPlan(run && run.replay_plan);
+  const idx = Number(run && run.replay_index) || 0;
+  return plan[idx] || null;
+}
+
+async function buildReplayPlan(client, failedRunId, answersBefore) {
+  const keep = checkpointKeep(answersBefore);
+  const { rows: catalog } = await client.query(
+    `SELECT card_id, seq
+       FROM cards
+      WHERE callback_of IS NULL
+      ORDER BY seq ASC, card_id ASC`
+  );
+  if (!catalog.length || keep >= catalog.length) return [];
+  const windowEnd = Math.min(Math.max(0, Number(answersBefore) || 0), catalog.length - 1);
+  if (windowEnd < keep) return [];
+
+  const { rows: answers } = await client.query(
+    `SELECT a.card_id, a.option_id, a.was_correct
+       FROM run_answers a
+       JOIN cards c ON c.card_id = a.card_id
+      WHERE a.run_id = $1 AND c.callback_of IS NULL
+      ORDER BY c.seq ASC, c.card_id ASC`,
+    [failedRunId]
+  );
+  const byCard = new Map(answers.map((a) => [a.card_id, a]));
+  const plan = [];
+  for (const card of catalog.slice(keep, windowEnd + 1)) {
+    const ans = byCard.get(card.card_id);
+    if (!ans) continue;
+    if (ans.was_correct) {
+      plan.push({
+        card_id: card.card_id,
+        mode: "recap",
+        option_id: ans.option_id,
+        was_correct: true,
+      });
+    } else {
+      plan.push({ card_id: card.card_id, mode: "retry" });
+    }
+  }
+  return plan;
+}
+
+async function recapBeat(cardId, optionId) {
+  const live = await publicCard(cardId);
+  if (!live) return null;
+  const { rows: fullOpts } = await query(
+    `SELECT option_id, option_text, result, is_correct
+       FROM card_options
+      WHERE card_id = $1
+      ORDER BY option_id ASC`,
+    [cardId]
+  );
+  const chosen = optionId || null;
+  const picked = fullOpts.find((o) => o.option_id === chosen) || {};
+  return {
+    ...live,
+    recap: true,
+    auto_advance_ms: 2000,
+    tappable: false,
+    options: fullOpts.map((o) => ({
+      option_id: o.option_id,
+      option_text: o.option_text,
+      chosen: o.option_id === chosen,
+    })),
+    outcome: {
+      option_id: chosen,
+      was_correct: true,
+      result: picked.result || "",
+    },
+  };
+}
+
+function lockedNextAct(catalog, everSet) {
+  const actCards = {};
+  for (const c of catalog) {
+    if (!actCards[c.act]) actCards[c.act] = [];
+    actCards[c.act].push(c);
+  }
+  const seeded = ACT_ZONES.filter((z) => (actCards[z.act] || []).length > 0);
+  if (!seeded.length) return null;
+  const last = seeded[seeded.length - 1];
+  const cards = actCards[last.act] || [];
+  const complete = cards.length > 0 && cards.every((c) => everSet.has(c.card_id));
+  if (!complete) return null;
+  const idx = ACT_ZONES.findIndex((z) => z.act === last.act);
+  if (idx < 0 || idx >= ACT_ZONES.length - 1) return null;
+  const next = ACT_ZONES[idx + 1];
+  if ((actCards[next.act] || []).length > 0) return null;
+  return { act: next.act, zone: next.zone };
+}
+
+async function advanceReplayPlan(client, runId, run) {
+  const plan = asReplayPlan(run.replay_plan);
+  const nextIndex = (Number(run.replay_index) || 0) + 1;
+  if (nextIndex < plan.length) {
+    const step = plan[nextIndex];
+    await client.query(
+      `UPDATE runs
+          SET replay_index = $1, current_card_id = $2, current_attempt_no = 1, updated_at = now()
+        WHERE id = $3`,
+      [nextIndex, step.card_id, runId]
+    );
+    return { cardId: step.card_id, done: false, cleared: false };
+  }
+  await client.query(
+    `UPDATE runs
+        SET replay_plan = '[]'::jsonb, replay_index = 0, updated_at = now()
+      WHERE id = $1`,
+    [runId]
+  );
+  const cleared = { ...run, replay_plan: [], replay_index: 0 };
+  const picked = await pickNextCard(client, runId, cleared.callback_debts, cleared.start_seq);
+  if (picked.cardId) {
+    await client.query(
+      `UPDATE runs SET current_card_id = $1, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
+      [picked.cardId, runId]
+    );
+    return { cardId: picked.cardId, done: false, cleared: true, debts: picked.debts };
+  }
+  await client.query(
+    `UPDATE runs SET status = 'completed', current_card_id = NULL, updated_at = now() WHERE id = $1`,
+    [runId]
+  );
+  return { cardId: null, done: true, cleared: true };
+}
+
 async function skipSeqFor(client, answersBefore) {
   const keep = checkpointKeep(answersBefore);
   if (keep <= 0) return 0;
@@ -378,6 +519,8 @@ async function progressFor(run) {
     };
   });
 
+  const lockedNext = lockedNextAct(catalog, everSet);
+
   return {
     saved,
     resume: done
@@ -400,7 +543,8 @@ async function progressFor(run) {
         : null,
     })),
     done,
-    restartable: answers.length > 0 || done,
+    locked_next: lockedNext,
+    restartable: (answers.length > 0 || done) && !lockedNext,
   };
 }
 
@@ -468,6 +612,12 @@ module.exports = {
   cargoFailDispatch,
   checkpointKeep,
   skipSeqFor,
+  buildReplayPlan,
+  recapBeat,
+  replayStep,
+  asReplayPlan,
+  advanceReplayPlan,
+  lockedNextAct,
   publicState,
   hookOf,
   nightOf,
