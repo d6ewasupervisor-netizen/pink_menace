@@ -67,14 +67,23 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_OBJECT",
-    "subject": "a dirty orange slow-moving-vehicle triangle centered in rain, lit by headlights, filling the frame",
-    "foreground": "water on the sign sheeting, the triangle's red-orange border",
-    "midground": "tractor width implied, cone line left and right",
-    "background": "night work zone, heavy rain, no sky, no oncoming yet",
-    "read": "the triangle is the sign face — this is not a vehicle you pass on impulse",
-    "continuity": [],
-    "aspect": "2:3"
+    "camera": "POV_COCKPIT",
+    "subject": "the rear of a worn farm tractor filling the windshield mesh; a dirty orange slow-moving-vehicle triangle is bolted to the tractor's back, centered, lit by the headlights",
+    "foreground": "worn black steering wheel and cracked faded pink dash; rain on the glass; welded steel mesh",
+    "midground": "the tractor's rear tires and hitch; the SMV triangle fastened to the machine, not on the ground; orange work-zone cones left and right of the lane",
+    "background": "a two-lane Kent mill road at night, heavy rain, a dark mill building, no oncoming lamps yet",
+    "read": "the orange triangle is fastened to the tractor — this machine is doing farm speed",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the roadway (US)",
+      "ego_nose_in_frame": "the plow blade points toward the tractor",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction"
+    }
   },
   "variation": {
     "location_type": "work_zone",
