@@ -2061,11 +2061,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_ROADSIDE",
-      "subject": "the Pink Menace nosed into a faded stall, rear toward the aisle: welded steel MESH cages the rear window — a cage, not glass — wet convex door mirrors on both flanks",
-      "foreground": "a steel shopping-cart corral drifted into the backup aisle, one corral wheel over the stall line, fog hiding how close it is to the rear mesh",
-      "midground": "dead cars left and right of the stall, knobby tires, riveted door plate, the plow buried in the stall ahead and not the subject",
+      "subject": "zoomed-out aisle view: the Pink Menace nosed into a faded stall, rear toward camera, welded steel MESH on the rear window — a cage, not glass — empty pavement immediately behind the bumper",
+      "foreground": "wet faded stall lines and open aisle; no cart touching the car",
+      "midground": "dead cars left and right; further down the same backup aisle, a steel shopping-cart corral (cart return) drifted off its pad, still in the path if you reverse far enough",
       "background": "Kent lot at dawn, heavy fog, shuttered storefront, a streetlamp, no sun",
-      "read": "the rear is a mesh cage; the corral sits in the path the driver cannot see from the seat",
+      "read": "the aisle is long enough to read; the corral is down-aisle, not on the tail",
       "continuity": [
         "pink_menace_exterior"
       ],
