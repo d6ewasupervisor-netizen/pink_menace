@@ -453,24 +453,29 @@ async function progressFor(run) {
     [run.id]
   );
   const { rows: ever } = await query(
-    `SELECT DISTINCT a.card_id
+    `SELECT DISTINCT ON (a.card_id) a.card_id, a.was_correct
        FROM run_answers a
        JOIN runs r ON r.id = a.run_id
-      WHERE r.student_id = $1`,
+      WHERE r.student_id = $1
+      ORDER BY a.card_id, a.created_at ASC`,
     [run.student_id]
   );
   const byCard = new Map();
   for (const a of answers) {
     if (!byCard.has(a.card_id)) byCard.set(a.card_id, a);
   }
+  const byEver = new Map(ever.map((r) => [r.card_id, r]));
   const everSet = new Set(ever.map((r) => r.card_id));
   const actCards = {};
   for (const c of catalog) {
     if (!actCards[c.act]) actCards[c.act] = [];
     actCards[c.act].push(c);
   }
+  const seededActs = ACT_ZONES.filter((z) => (actCards[z.act] || []).length > 0);
+  const lastSeededAct = seededActs.length ? seededActs[seededActs.length - 1].act : "II";
+  const runFinished = run.status === "completed";
   const current = catalog.find((c) => c.card_id === run.current_card_id) || null;
-  const currentAct = (current && current.act) || (catalog[catalog.length - 1] && catalog[catalog.length - 1].act) || "II";
+  const currentAct = current ? current.act : runFinished ? lastSeededAct : lastSeededAct;
   const list = actCards[currentAct] || [];
   const idx = current ? list.findIndex((c) => c.card_id === current.card_id) + 1 : list.length;
   const total = list.length;
@@ -491,9 +496,9 @@ async function progressFor(run) {
   }
 
   const log = catalog
-    .filter((c) => byCard.has(c.card_id))
+    .filter((c) => byEver.has(c.card_id))
     .map((c) => {
-      const a = byCard.get(c.card_id);
+      const a = byEver.get(c.card_id);
       return {
         card_id: c.card_id,
         title: c.title,
@@ -504,16 +509,18 @@ async function progressFor(run) {
 
   const acts = ACT_ZONES.map((row) => {
     const cards = actCards[row.act] || [];
-    const practiced = cards.filter((c) => byCard.has(c.card_id)).length;
-    const isCurrent = row.act === currentAct && !done;
+    const practiced = cards.filter((c) => everSet.has(c.card_id)).length;
+    const isCurrent = row.act === currentAct && !done && run.status === "active";
+    const complete =
+      cards.length > 0 && (practiced >= cards.length || (runFinished && row.act === lastSeededAct));
     return {
       act: row.act,
       zone: row.zone,
       total: cards.length,
       practiced,
       current: isCurrent,
-      locked: cards.length === 0 || (row.act !== currentAct && practiced === 0),
-      complete: cards.length > 0 && practiced >= cards.length,
+      locked: cards.length === 0 || (row.act !== currentAct && practiced === 0 && !complete),
+      complete,
     };
   });
 
@@ -563,12 +570,48 @@ async function previousAnswered(runId, fromCardId) {
   return null;
 }
 
-async function canViewImage(run, cardId) {
+async function previousAnsweredForStudent(studentId, fromCardId) {
+  const { rows } = await query(
+    `SELECT DISTINCT a.card_id, c.seq
+       FROM run_answers a
+       JOIN runs r ON r.id = a.run_id
+       JOIN cards c ON c.card_id = a.card_id
+      WHERE r.student_id = $1
+      ORDER BY c.seq ASC, c.card_id ASC`,
+    [studentId]
+  );
+  const ids = rows.map((r) => r.card_id);
+  if (!fromCardId) return ids.length ? ids[ids.length - 1] : null;
+  const i = ids.indexOf(fromCardId);
+  if (i > 0) return ids[i - 1];
+  if (i === -1 && ids.length) return ids[ids.length - 1];
+  return null;
+}
+
+async function firstAnswerForStudent(studentId, cardId) {
+  const { rows } = await query(
+    `SELECT a.card_id, a.option_id, a.was_correct
+       FROM run_answers a
+       JOIN runs r ON r.id = a.run_id
+      WHERE r.student_id = $1 AND a.card_id = $2
+      ORDER BY a.created_at ASC
+      LIMIT 1`,
+    [studentId, cardId]
+  );
+  return rows[0] || null;
+}
+
+async function canViewImage(run, cardId, studentId) {
   if (!cardId) return false;
   if (run.current_card_id === cardId) return true;
+  const sid = studentId || run.student_id;
   const { rows } = await query(
-    `SELECT 1 FROM run_answers WHERE run_id = $1 AND card_id = $2 LIMIT 1`,
-    [run.id, cardId]
+    `SELECT 1
+       FROM run_answers a
+       JOIN runs r ON r.id = a.run_id
+      WHERE r.student_id = $1 AND a.card_id = $2
+      LIMIT 1`,
+    [sid, cardId]
   );
   return rows.length > 0;
 }
@@ -593,6 +636,8 @@ module.exports = {
   pendingOutcome,
   progressFor,
   previousAnswered,
+  previousAnsweredForStudent,
+  firstAnswerForStudent,
   canViewImage,
   pickNextCard,
   queueCallback,

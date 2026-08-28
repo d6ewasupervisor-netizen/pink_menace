@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, previousAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
 const { applyFear } = require("./presence");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
@@ -144,16 +144,9 @@ function mountRun(app) {
     const cardId = String(req.params.cardId || "");
     try {
       const run = await getRunForHome(session.userId);
-      const { rows } = await query(
-        `SELECT card_id, option_id, was_correct
-           FROM run_answers
-          WHERE run_id = $1 AND card_id = $2
-          ORDER BY attempt_no ASC
-          LIMIT 1`,
-        [run.id, cardId]
-      );
-      if (!rows[0]) return jsonError(res, 404, "Not resolved.");
-      const card = await reviewCard(cardId, rows[0]);
+      const attempt = await firstAnswerForStudent(session.userId, cardId);
+      if (!attempt) return jsonError(res, 404, "Not resolved.");
+      const card = await reviewCard(cardId, attempt);
       if (!card) return jsonError(res, 404, "Unknown card.");
       const progress = await progressFor(run);
       return res.json({
@@ -163,7 +156,7 @@ function mountRun(app) {
         pending_outcome: false,
         saved: progress.saved,
         resume: progress.resume,
-        previous_card_id: await previousAnswered(run.id, cardId),
+        previous_card_id: await previousAnsweredForStudent(session.userId, cardId),
         state: publicState(run.state),
         ...card,
       });
@@ -182,7 +175,7 @@ function mountRun(app) {
       const pending = await pendingOutcome(run.id);
       let cardId = requested || (pending && pending.card_id) || run.current_card_id;
       if (!cardId) return res.status(404).end();
-      if (requested && !(await canViewImage(run, requested)) && !(pending && pending.card_id === requested)) {
+      if (requested && !(await canViewImage(run, requested, session.userId)) && !(pending && pending.card_id === requested)) {
         return res.status(404).end();
       }
       const { rows } = await query(

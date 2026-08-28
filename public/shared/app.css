@@ -440,6 +440,8 @@ button.danger {
 }
 
 .act-row.current { border-color: var(--cranberry); }
+.act-row.complete { border-color: var(--ok); opacity: 1; }
+.act-row.complete .act-name { color: var(--ink); }
 .act-row.locked, .cast-item.locked { opacity: 0.45; }
 .locked-door {
   border: 1px solid var(--line);

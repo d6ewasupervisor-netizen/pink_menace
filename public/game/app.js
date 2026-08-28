@@ -131,7 +131,8 @@ function renderHome(data) {
   const acts = document.getElementById("acts");
   acts.replaceChildren();
   for (const a of data.acts || []) {
-    const row = el("article", "act-row" + (a.current ? " current" : "") + (a.locked ? " locked" : ""));
+    if (data.locked_next && a.act === data.locked_next.act) continue;
+    const row = el("article", "act-row" + (a.current ? " current" : "") + (a.locked ? " locked" : "") + (a.complete ? " complete" : ""));
     const label = el("p", "act-name", "Act " + a.act + " · " + a.zone);
     row.append(label);
     if (a.locked) {
