@@ -8,6 +8,7 @@
     "start": "node server.js",
     "dev": "node server.js",
     "seed": "node scripts/seed-cards.js",
+    "playtest-prep": "node scripts/playtest-prep.js",
     "validate-cards": "node scripts/validate-citations.js && node scripts/validate-act-ii.js && node scripts/compile-images.js",
     "playthrough": "node scripts/playthrough-readout.js"
   },

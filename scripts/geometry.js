@@ -118,6 +118,10 @@ const MIRROR_NEGATIVES =
   "No view of the road ahead inside the mirror, no windshield view as the main subject, " +
   "no mirror reflecting the interior of the cabin.";
 
+const DUTCH_REACH_NEGATIVES =
+  "No man, no male driver, no male cyclist, no bare arm without the pink sleeve, " +
+  "no cyclist visible through the window ahead.";
+
 function validateGeometry(card) {
   const id = (card && card.card_id) || "(missing card_id)";
   const errors = [];
@@ -187,5 +191,6 @@ module.exports = {
   geometryClause,
   MIRROR_CLAUSE,
   MIRROR_NEGATIVES,
+  DUTCH_REACH_NEGATIVES,
   validateGeometry,
 };

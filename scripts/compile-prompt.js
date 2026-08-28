@@ -4,6 +4,7 @@ const {
   geometryClause,
   MIRROR_CLAUSE,
   MIRROR_NEGATIVES,
+  DUTCH_REACH_NEGATIVES,
   cameraOf,
   describesRoadway,
 } = require("./geometry");
@@ -122,6 +123,10 @@ function assemblePrompt(card) {
   const negs = [cam === "POV_DIAGRAM" ? DIAGRAM_NEGATIVE : NEGATIVE, LHD_NEGATIVE];
   if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
+  const continuity = (brief.continuity || []);
+  if (cam === "POV_MIRROR_DOOR" && continuity.includes("dutch_reach")) {
+    negs.push(DUTCH_REACH_NEGATIVES);
+  }
   parts.push(negs.join(" "));
 
   const aspect = brief.aspect || "2:3";

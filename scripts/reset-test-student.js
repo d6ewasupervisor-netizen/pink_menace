@@ -1,5 +1,8 @@
 "use strict";
+
 const { Client } = require("pg");
+
+const STUDENT = process.env.STUDENT_PHONE || "+15099199471";
 
 async function main() {
   const c = new Client({
@@ -16,27 +19,19 @@ async function main() {
   const cards = await c.query(`SELECT card_id FROM cards ORDER BY seq`);
   console.log("cards", cards.rows.map((r) => r.card_id).join(","));
   await c.query(
-    `DELETE FROM parent_students ps
-      USING users p, users s
-      WHERE ps.parent_id = p.id AND ps.student_id = s.id
-        AND p.phone_e164 = $1 AND s.phone_e164 = $2`,
-    ["+15095727660", "+15099199471"]
-  );
-  await c.query(
     `DELETE FROM run_answers a
       USING runs r, users u
       WHERE a.run_id = r.id AND r.student_id = u.id AND u.phone_e164 = $1`,
-    ["+15099199471"]
+    [STUDENT]
   );
-  await c.query(
-    `DELETE FROM runs r USING users u WHERE r.student_id = u.id AND u.phone_e164 = $1`,
-    ["+15099199471"]
-  );
+  await c.query(`DELETE FROM runs r USING users u WHERE r.student_id = u.id AND u.phone_e164 = $1`, [
+    STUDENT,
+  ]);
   await c.query(
     `DELETE FROM coverage_log cl USING users u WHERE cl.student_id = u.id AND u.phone_e164 = $1`,
-    ["+15099199471"]
+    [STUDENT]
   );
-  console.log("reset student run and unlink");
+  console.log("reset student runs (parent link kept — use playtest-prep.js for fresh II-001)");
   await c.end();
 }
 

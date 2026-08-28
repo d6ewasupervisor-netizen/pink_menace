@@ -22,7 +22,7 @@ Four defects in one frame: the arm and leg at the latch belong to a **middle-age
 Rebuild as the mirror, with the technique itself in frame — this card family has locked refs (`ref_dutch_reach*.png`, Ali refs); attach them:
 
 > [style + LHD clause] Camera inside the cabin at the driver's position, looking left at the door. The left door mirror fills the upper left of frame; **in its glass, a woman on a bicycle approaches from behind**, close, one car length back, in the narrow lane beside the parked vehicles. Crossing the frame from the right, **a 17-year-old woman's arm in a faded pink hoodie sleeve — her RIGHT arm, reaching across her own body** — her hand resting on the door latch, the door still fully closed. Welded mesh over the door window glass. Icy lot surface outside. The read: the far hand on the latch and the rider already in the mirror — the door has not opened, and the reason it hasn't is visible in the glass.
-> Negatives add: no man, no male driver, no bare window glass, no cyclist visible through the window ahead.
+> Negatives add: no man, no male driver, no male cyclist, no bare arm without the pink sleeve, no cyclist visible through the window ahead.
 
 That frame teaches the Dutch Reach *and* shows why, in one image — stronger than what it replaces.
 
