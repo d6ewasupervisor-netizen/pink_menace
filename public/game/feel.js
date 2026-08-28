@@ -342,6 +342,75 @@ const PMFeel = (() => {
     if (el) el.classList.add("hidden");
   }
 
+  const REWARD_COUNT = 40;
+  const CORRECT_MSGS = [
+    "Nice call.",
+    "Clean read.",
+    "That's the move.",
+    "You saw it.",
+    "Good driving.",
+  ];
+  const WRONG_MSGS = [
+    "Not quite — look again.",
+    "Keep searching.",
+    "The Grid still has rules.",
+    "Try another read.",
+    "Almost — one more look.",
+  ];
+  let rewardPick = 0;
+
+  function pickRewardImage() {
+    rewardPick = (rewardPick % REWARD_COUNT) + 1;
+    return "/rewards/correct_answer__" + String(rewardPick).padStart(2, "0") + ".png";
+  }
+
+  function pickRewardMsg(correct) {
+    const pool = correct ? CORRECT_MSGS : WRONG_MSGS;
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  let rewardTimer = 0;
+  function hideReward() {
+    window.clearTimeout(rewardTimer);
+    const el = document.getElementById("reward");
+    if (el) {
+      el.onclick = null;
+      el.classList.add("hidden");
+    }
+    const img = document.getElementById("reward-img");
+    if (img) {
+      img.removeAttribute("src");
+      img.classList.add("hidden");
+    }
+  }
+
+  function showReward(correct, then) {
+    const el = document.getElementById("reward");
+    const img = document.getElementById("reward-img");
+    const msg = document.getElementById("reward-msg");
+    if (!el || !msg) {
+      then && then();
+      return;
+    }
+    hideReward();
+    msg.textContent = pickRewardMsg(correct);
+    el.className = "reward" + (correct ? "" : " wrong");
+    if (correct && img) {
+      img.src = pickRewardImage();
+      img.classList.remove("hidden");
+    } else if (img) {
+      img.removeAttribute("src");
+      img.classList.add("hidden");
+    }
+    el.classList.remove("hidden");
+    const done = () => {
+      hideReward();
+      then && then();
+    };
+    el.onclick = done;
+    rewardTimer = window.setTimeout(done, correct ? 2800 : 2200);
+  }
+
   const SIGHT_KEY = "pm.driveBySight";
   const LEAD_MS = 1600;
   let hazardLeft = 1;
@@ -759,5 +828,7 @@ const PMFeel = (() => {
     barkFor,
     showBark,
     hideBark,
+    showReward,
+    hideReward,
   };
 })();

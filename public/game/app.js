@@ -25,6 +25,7 @@ let meters = { noise: 0, light: 0, yaw: 0, cargo: 100 };
 let liveCard = null;
 let answering = false;
 let timedSubmit = false;
+let cancelTypeScene = null;
 const CAUGHT_KEY = "pm.caught";
 
 function liveState() {
@@ -181,6 +182,11 @@ function clearPlay() {
   advanceTimer = 0;
   answering = false;
   timedSubmit = false;
+  if (cancelTypeScene) {
+    cancelTypeScene(true);
+    cancelTypeScene = null;
+  }
+  PMFeel.hideReward();
   PMFeel.clearCues();
   PMFeel.setVignette(1);
   PMFeel.hideBark();
@@ -366,17 +372,32 @@ function fillCard(card, opts) {
   const hookEl = document.getElementById("hook");
   const sceneEl = document.getElementById("scene");
   const hook = card.hook || PMFeel.firstSentence(card.scene);
-  if (hookEl) {
-    hookEl.textContent = hook;
-    hookEl.classList.toggle("hidden", !hook);
-    hookEl.onclick = () => {
-      if (!sceneEl) return;
-      sceneEl.classList.toggle("hidden");
-    };
-  }
-  if (sceneEl) {
-    sceneEl.textContent = card.scene || "";
-    sceneEl.classList.add("hidden");
+  const isDossier = card.card_type === "dossier";
+  if (isDossier && !opts.review && !opts.pending) {
+    if (hookEl) hookEl.classList.add("hidden");
+    if (sceneEl) {
+      sceneEl.textContent = "";
+      sceneEl.classList.remove("hidden");
+      cancelTypeScene = PMFeel.typeScene(card.scene || "", null, () => {
+        cancelTypeScene = null;
+        cont.classList.remove("hidden");
+        cont.textContent = "Continue";
+        cont.onclick = () => submitAnswer("continue");
+      });
+    }
+  } else {
+    if (hookEl) {
+      hookEl.textContent = hook;
+      hookEl.classList.toggle("hidden", !hook);
+      hookEl.onclick = () => {
+        if (!sceneEl) return;
+        sceneEl.classList.toggle("hidden");
+      };
+    }
+    if (sceneEl) {
+      sceneEl.textContent = card.scene || "";
+      sceneEl.classList.add("hidden");
+    }
   }
   if (wrap) wrap.classList.remove("arming");
   PMFeel.hideBark();
@@ -414,7 +435,7 @@ function fillCard(card, opts) {
   }
 
   revealChoices(card, opts);
-  if (!(card.options || []).length) {
+  if (!(card.options || []).length && !(isDossier && !opts.review && !opts.pending)) {
     cont.classList.remove("hidden");
     cont.textContent = "Continue";
     cont.onclick = () => submitAnswer("continue");
@@ -515,40 +536,40 @@ function playOutcome(data, card) {
   const nextMeters = data.state || meters;
   const failed = Boolean(data && data.failed);
   const collapse = Boolean(data && data.collapse) || failed;
-  if (collapse) {
-    applyMeters(nextMeters, "paint");
-    document.getElementById("options").classList.add("hidden");
-    applyOutcome(data, { collapseDebrief: true });
-    PMFeel.showBark(
-      PMFeel.barkFor({
-        correct,
-        timedOut: Boolean(data && data.timed_out),
-        hazard: liveCard && liveCard.card_type === "hazard",
-        noise: data.state_delta && data.state_delta.noise,
-      })
-    );
-    PMFeel.playCollapse(data.dispatch, () => holdContinue(card.card_id));
+  const isDossier = liveCard && liveCard.card_type === "dossier";
+  const finish = () => {
+    if (collapse) {
+      applyMeters(nextMeters, "paint");
+      document.getElementById("options").classList.add("hidden");
+      applyOutcome(data, { collapseDebrief: true });
+      PMFeel.showBark(
+        PMFeel.barkFor({
+          correct,
+          timedOut: Boolean(data && data.timed_out),
+          hazard: liveCard && liveCard.card_type === "hazard",
+          noise: data.state_delta && data.state_delta.noise,
+        })
+      );
+      PMFeel.playCollapse(data.dispatch, () => holdContinue(card.card_id));
+      return;
+    }
+    if (correct) {
+      applyMeters(nextMeters, "ease");
+      applyOutcome(data, { collapseDebrief: true });
+    } else {
+      PMFeel.shake();
+      PMFeel.hitWrong();
+      applyMeters(nextMeters, "spike");
+      applyOutcome(data, { collapseDebrief: true });
+    }
+    bindAlts((data && data.alts) || [], card);
+    holdContinue(card.card_id);
+  };
+  if (!isDossier && !collapse) {
+    PMFeel.showReward(correct, finish);
     return;
   }
-  if (correct) {
-    applyMeters(nextMeters, "ease");
-    applyOutcome(data, { collapseDebrief: true });
-  } else {
-    PMFeel.shake();
-    PMFeel.hitWrong();
-    applyMeters(nextMeters, "spike");
-    applyOutcome(data, { collapseDebrief: true });
-  }
-  PMFeel.showBark(
-    PMFeel.barkFor({
-      correct,
-      timedOut: Boolean(data && data.timed_out),
-      hazard: liveCard && liveCard.card_type === "hazard",
-      noise: data.state_delta && data.state_delta.noise,
-    })
-  );
-  bindAlts((data && data.alts) || [], card);
-  holdContinue(card.card_id);
+  finish();
 }
 
 function sessionCaught() {
