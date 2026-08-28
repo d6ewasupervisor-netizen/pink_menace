@@ -928,11 +928,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_COCKPIT",
-      "subject": "Ali standing outside in the lot, facing the windshield, holding a metal clipboard so only its blank brushed-steel back faces the camera",
-      "foreground": "worn black steering wheel and cracked faded pink dash; welded steel mesh across the glass",
-      "midground": "Ali through the mesh, chest-up, clipboard held against her torso with the paper hidden against her body, clip silhouette at the top, no writing visible",
-      "background": "a Kent parking lot, clear cold midday, faded empty stalls, no sun flare",
-      "read": "she is outside the car; the log is hidden — only the metal back of the clipboard reads",
+      "subject": "Ali standing outside in the lot, looking down, filling out a metal clipboard — paper facing her, only the blank brushed-steel back toward the camera",
+      "foreground": "worn black steering wheel and cracked faded pink dash; aftermarket tablet LIT as a digital radio with station name and FM channel readout; welded steel mesh across the glass",
+      "midground": "Ali through the mesh, chest-up, black oversize tee and charcoal work jacket, cranberry hair in a loose shoulder-length curl-out with no crown braids, pen in her right hand writing, clipboard tilted toward her so the log is hidden",
+      "background": "a Kent parking lot, one low gray commercial building behind her, faded empty stalls, clear cold midday, no sun flare, no readable signage",
+      "read": "she is outside writing the hours; you only see the metal back of the board; the tablet radio is on",
       "continuity": [
         "pink_menace_interior",
         "ali_face",

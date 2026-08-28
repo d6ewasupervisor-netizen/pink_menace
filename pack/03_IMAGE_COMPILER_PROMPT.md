@@ -73,10 +73,11 @@ You MUST:
 ## CANONICAL EXPANSIONS — paste these in full, never abbreviate
 
 ALI:
-  "a 17-year-old woman with warm brown skin, cranberry-red tightly coiled hair
-  braided at the crown, round wire-rim glasses, small gold hoop earrings and a
-  small gold nose ring, wearing a faded pink hoodie with white raglan stripes,
-  calm flat expression"
+  "a 17-year-old woman with warm brown skin, cranberry-red tightly coiled hair,
+  round wire-rim glasses, small gold hoop earrings and a small gold nose ring,
+  calm flat expression. Face, glasses, and jewelry are locked. Hairdo and
+  clothes follow the brief — hoodie, black tee, or work jacket; crown braids
+  or a loose curl-out. Never default her into a pink jumpsuit."
 
 PINK MENACE:
   "a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders,
