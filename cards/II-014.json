@@ -5,8 +5,8 @@
   "driver": "ali",
   "card_type": "hazard",
   "title": "Hollis in the Glass",
-  "hook": "Hollis sits a bumper off your plow in the fog.",
-  "scene": "Fog on a Kent collector that widens enough to pretend it is an arterial. Morning. In the interior glass, a lifted truck with aftermarket lamps sits a bumper off your plow's ghost. Hollis. He has been there for six blocks. He wants you faster than the fog. Your speedo is already at the number on the sign. If you dump speed he will eat you. If you give him the number he wants, the fog will. The left lane is a rumor in this weather. Gracie is boxed. Your mirrors are the whole conversation.",
+  "hook": "Hollis sits a bumper off your rear in the fog.",
+  "scene": "Fog on a Kent collector that widens enough to pretend it is an arterial. Morning. In the interior glass, a lifted truck with aftermarket lamps sits a bumper off your rear. Hollis. He has been there for six blocks. He wants you faster than the fog. Your speedo is already at the number on the sign. If you dump speed he will eat you. If you give him the number he wants, the fog will. The left lane is a rumor in this weather. Gracie is boxed. Your mirrors are the whole conversation.",
   "decision": "Hollis is a bumper off you in the fog. How do you keep the space?",
   "options": [
     {
