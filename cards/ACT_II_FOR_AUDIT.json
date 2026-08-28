@@ -301,7 +301,7 @@
     "image_brief": {
       "camera": "POV_DIAGRAM",
       "subject": "oblique overhead of a four-lane Kent arterial: faded matte-pink VW Beetle in a short left-turn pocket, rear nearer camera, plow at far top, wheels straight",
-      "foreground": "wet pocket lines, a faded white LEFT-TURN arrow in her bay, worn yellow centerline; through-lane arrow beside her pointing up-frame",
+      "foreground": "wet pocket lines, a faded white LEFT-TURN arrow in her bay, worn yellow centerline; a SOLID unbroken white line on the right edge of the pocket (not dashed); through-lane arrow beside her pointing up-frame",
       "midground": "two primer-gray oncoming cars in her left half of the roadway, facing her, still occupying the gap; empty opposing pocket",
       "background": "overcast Kent arterial, wind-bent maples at the edges, wet asphalt, no wrecks",
       "read": "left-turn pocket, wheels straight, oncoming still in the gap — turn geometry and right-of-way in one glance",
@@ -332,9 +332,9 @@
     "driver": "ali",
     "card_type": "hazard",
     "title": "Marisol in the Lot",
-    "hook": "A bike is closing your right rear toward the same exit.",
-    "scene": "Rain hammers the old Kent Station lot, a sheet off the mesh, the stalls faded to ghosts. You are rolling a lane of painted arrows toward the exit onto 1st. In the right convex, a bicycle: bare head, dark jacket, fast, unafraid. Marisol. She is using the lot as a cut-through the way she always has. She is on your right rear quarter, closing to pass you on the inside toward the same exit. Your window is up. Your door is a weapon if you forget she is there.",
-    "decision": "Marisol is in your right mirror, coming up the inside toward the same exit. What do you do?",
+    "hook": "A bike is closing on your left, driver's side, toward the same exit.",
+    "scene": "Rain hammers the old Kent Station lot, a sheet off the mesh, the stalls faded to ghosts. You are rolling a lane of painted arrows toward the exit onto 1st. In the left convex, a bicycle: bare head, dark jacket, fast, unafraid. Marisol. She is using the lot as a cut-through the way she always has. She is on your left rear quarter — the driver's side — closing to pass you on the inside toward the same exit. Your window is up. Your door is a weapon if you forget she is there.",
+    "decision": "Marisol is in your left mirror, coming up the driver's side toward the same exit. What do you do?",
     "options": [
       {
         "id": "a",
@@ -349,9 +349,9 @@
       },
       {
         "id": "b",
-        "text": "Slow, stay left of the arrows, and give her the whole right side through the exit",
+        "text": "Slow, stay right of the arrows, and give her the whole left side through the exit",
         "correct": true,
-        "result": "You lift and drift left inside the stall paint. She takes the right at speed, three clear feet of wet asphalt, and is through the exit before you. Two fingers off the bars without looking back. The rain covers the rest. You roll out after her at a walking pace.",
+        "result": "You lift and drift right inside the stall paint. She takes the left at speed, three clear feet of wet asphalt, and is through the exit before you. Two fingers off the bars without looking back. The rain covers the rest. You roll out after her at a walking pace.",
         "state_delta": {
           "noise": -1,
           "time_cost": 3
@@ -371,7 +371,7 @@
         "id": "d",
         "text": "Speed up to beat her to the exit and clear the conflict",
         "correct": false,
-        "result": "You get there first by a car length. She is still on your right rear when you start the turn onto 1st. Your rear quarter walks through the space her front wheel needs. She bails onto the sidewalk and the bike hits a cart corral. Steel, loud, done.",
+        "result": "You get there first by a car length. She is still on your left rear when you start the turn onto 1st. Your rear quarter walks through the space her front wheel needs. She bails onto the sidewalk and the bike hits a cart corral. Steel, loud, done.",
         "state_delta": {
           "noise": 4,
           "yaw": 2,
@@ -379,11 +379,11 @@
         }
       }
     ],
-    "debrief": "Give bicyclists at least three feet when you share a space, more in rain. Mirrors first, then move left. Tap the horn and you have announced the lot to everything using it as a sit.",
+    "debrief": "Give bicyclists at least three feet when you share a space, more in rain. Mirrors first, then give up the driver's side. Tap the horn and you have announced the lot to everything using it as a sit.",
     "source": {
       "psdp_skill": "Skill six: looking ahead",
       "dol_section": "4.6 Sharing with bicyclists",
-      "teaching_target": "Pass bicyclists with at least three feet of space; check the right mirror before moving right or occupying a shared exit."
+      "teaching_target": "Pass bicyclists with at least three feet of space; check the left mirror before occupying a shared exit on the driver's side."
     },
     "cast": [
       "ali",
@@ -396,18 +396,18 @@
     "timeout_ms": 24000,
     "image_brief": {
       "camera": "POV_ROADSIDE",
-      "subject": "Marisol on a bicycle on the Pink Menace's right rear quarter, closing toward the same lot exit",
-      "foreground": "wet faded stall paint and a rust-streaked cart corral",
-      "midground": "her front wheel in the three-foot gap that does not yet exist beside the riveted steel door",
-      "background": "heavy rain, Kent Station lot, gray storefront, dusk, lamps unlit",
-      "read": "she is in the door zone of a moving car, and the exit is one lane wide",
+      "subject": "a woman on a bicycle riding PARALLEL to a faded matte-pink Baja VW Beetle, same direction of travel, at the car's LEFT rear quarter — the left flank of the car, the left door with riveted steel plating. She is slightly behind the door, closing to pass. Bare head, wet dark hair, dark jacket, no helmet, no delivery backpack. The bike is not aimed at the car. Both are heading toward the lot exit.",
+      "foreground": "wet faded stall paint and a rust-streaked cart corral on the far side of the aisle",
+      "midground": "her front wheel in the narrow wet gap beside the LEFT door; three feet that do not yet exist; she and the car share one heading",
+      "background": "heavy rain, Kent Station lot, gray storefront, dusk",
+      "read": "she is riding parallel in the left door zone of a moving car, same direction, and the exit is one lane wide",
       "continuity": [
         "pink_menace_exterior",
         "marisol"
       ],
       "aspect": "2:3",
       "geometry": {
-        "ego_heading": "left_to_right",
+        "ego_heading": "right_to_left",
         "ego_lane_side": "right half of the parking aisle for its direction of travel",
         "ego_nose_in_frame": "the plow blade points toward the left of the frame",
         "oncoming_position": "none in frame",
@@ -1019,9 +1019,9 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_COCKPIT",
-      "subject": "a volunteer van's trailer hitch occupying the lower center of the windshield mesh; the trailer's rear filling the upper frame; no pavement visible between the cars",
-      "foreground": "worn wheel rim and the top of the plow blade as a pink bar at the bottom of glass",
-      "midground": "the hitch in lower center, dirty trailer doors filling the upper third, no gap of road",
+      "subject": "the rear of a dark volunteer van filling the windshield mesh; a trailer hitch is bolted to the VAN'S rear bumper only, occupying the lower center of the glass; no pavement visible between the cars",
+      "foreground": "worn black steering wheel and faded pink dash; the Menace hood is a thin pink bar at the very bottom of the glass with a flat plow blade — no hitch, no coupler, no ball mount on the hood",
+      "midground": "the van's hitch on the van's bumper in lower center, dirty van doors filling the upper third, no gap of road",
       "background": "almost none — the van is the frame; a smear of flashing school-zone white at the extreme edges",
       "read": "the hitch occupies the lower center of the glass and there is no road between you and it",
       "continuity": [

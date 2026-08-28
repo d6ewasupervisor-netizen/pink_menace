@@ -150,7 +150,7 @@ function sceneFragment(scene) {
 }
 
 function imageUrl(cardId) {
-  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a4";
+  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a5";
 }
 
 function cargoFrom(state) {
