@@ -66,12 +66,12 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_ROADSIDE",
-    "subject": "zoomed-out aisle view: the Pink Menace nosed into a faded stall, rear toward camera, welded steel MESH on the rear window — a cage, not glass — empty pavement immediately behind the bumper",
-    "foreground": "wet faded stall lines and open aisle; no cart touching the car",
-    "midground": "dead cars left and right; further down the same backup aisle, a steel shopping-cart corral (cart return) drifted off its pad, still in the path if you reverse far enough",
-    "background": "Kent lot at dawn, heavy fog, shuttered storefront, a streetlamp, no sun",
-    "read": "the aisle is long enough to read; the corral is down-aisle, not on the tail",
+    "camera": "POV_DIAGRAM",
+    "subject": "bird's-eye of a Kent lot: the faded matte-pink Baja VW Beetle nosed into a stall, rear mesh nearer the camera, wide flat plow pointing into the stall toward the top of the frame",
+    "foreground": "the backup aisle immediately behind the rear bumper is empty wet asphalt — no cart on the tail",
+    "midground": "dead cars in stalls left and right; further down the same aisle toward the bottom of the frame, a steel shopping-cart corral (cart return) drifted off its pad",
+    "background": "dawn fog over faded stall lines, shuttered storefront at the top, one streetlamp, no sun",
+    "read": "from above you can see the whole reverse path: empty behind the mesh, corral down-aisle",
     "continuity": [
       "pink_menace_exterior"
     ],
