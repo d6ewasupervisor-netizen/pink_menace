@@ -69,9 +69,9 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a volunteer van's trailer hitch occupying the lower center of the windshield mesh; the trailer's rear filling the upper frame; no pavement visible between the cars",
-    "foreground": "worn wheel rim and the top of the plow blade as a pink bar at the bottom of glass",
-    "midground": "the hitch in lower center, dirty trailer doors filling the upper third, no gap of road",
+    "subject": "the rear of a dark volunteer van filling the windshield mesh; a trailer hitch is bolted to the VAN'S rear bumper only, occupying the lower center of the glass; no pavement visible between the cars",
+    "foreground": "worn black steering wheel and faded pink dash; the Menace hood is a thin pink bar at the very bottom of the glass with a flat plow blade — no hitch, no coupler, no ball mount on the hood",
+    "midground": "the van's hitch on the van's bumper in lower center, dirty van doors filling the upper third, no gap of road",
     "background": "almost none — the van is the frame; a smear of flashing school-zone white at the extreme edges",
     "read": "the hitch occupies the lower center of the glass and there is no road between you and it",
     "continuity": [
