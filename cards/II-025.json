@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_PORTRAIT",
-    "subject": "Ali Okonjo in profile in the cab at night, wire rims catching a stale green from a distant signal, cranberry braid the only warm color",
-    "foreground": "welded mesh as a grid over her face, a faint reflection of analog gauges",
-    "midground": "the cracked pink dash gone almost brown in the dark",
-    "background": "Kent residential night, overcast, wet street, one cycling signal out of focus, no other cars",
-    "read": "this is still Ali's Grid at night — the mesh and the green are the world still working",
+    "subject": "Ali in profile in the cab at night, seen in the windshield glass: wire rims, cranberry braid the only warm color, faded hoodie gone gray in this light",
+    "foreground": "welded windshield mesh as a grid; a faint reflection of analog gauges in the glass; cracked dash gone almost brown",
+    "midground": "she sits at a Kent curb, looking out; a stale green from a distant cycling signal catches the rims",
+    "background": "ordinary overcast-night residential, wet empty street, one out-of-focus signal, no other cars, not the Dark Hours",
+    "read": "Ali is in the glass at a night curb — mesh, stale green, the hoodie no longer pink",
     "continuity": [
       "ali_face",
       "pink_menace_interior"
