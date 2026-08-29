@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, previousAnswered, previousAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
 const { applyFear } = require("./presence");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
@@ -104,13 +104,15 @@ function mountRun(app) {
         const card = await reviewCard(pending.card_id, pending);
         if (!card) return jsonError(res, 500, "Could not load card.");
         const progress = await progressFor(run);
+        const neighbors = await neighborsAnsweredForStudent(session.userId, pending.card_id);
         return res.json({
           ok: true,
           run_id: run.id,
           pending_outcome: true,
           review: false,
           saved: progress.saved,
-          previous_card_id: await previousAnswered(run.id, pending.card_id),
+          previous_card_id: neighbors.previous_card_id,
+          next_card_id: neighbors.next_card_id,
           state: publicState(run.state),
           ...card,
         });
@@ -121,6 +123,7 @@ function mountRun(app) {
       const card = await cardForRun(run);
       if (!card) return res.json({ ok: true, done: true, next: { done: true } });
       const progress = await progressFor(run);
+      const neighbors = await neighborsAnsweredForStudent(session.userId, run.current_card_id);
       return res.json({
         ok: true,
         run_id: run.id,
@@ -128,7 +131,8 @@ function mountRun(app) {
         pending_outcome: false,
         review: false,
         saved: progress.saved,
-        previous_card_id: await previousAnswered(run.id, run.current_card_id),
+        previous_card_id: neighbors.previous_card_id,
+        next_card_id: neighbors.next_card_id,
         state: publicState(run.state),
         ...card,
       });
@@ -157,7 +161,7 @@ function mountRun(app) {
       } catch (progErr) {
         console.error("review progressFor", progErr);
       }
-      const previous_card_id = await previousAnsweredForStudent(session.userId, cardId);
+      const neighbors = await neighborsAnsweredForStudent(session.userId, cardId);
       return res.json({
         ok: true,
         run_id: run.id,
@@ -165,7 +169,8 @@ function mountRun(app) {
         pending_outcome: false,
         saved,
         resume,
-        previous_card_id,
+        previous_card_id: neighbors.previous_card_id,
+        next_card_id: neighbors.next_card_id,
         state: publicState(run.state),
         ...card,
       });

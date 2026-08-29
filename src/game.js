@@ -572,9 +572,9 @@ async function previousAnswered(runId, fromCardId) {
   return null;
 }
 
-async function previousAnsweredForStudent(studentId, fromCardId) {
+async function answeredIdsForStudent(studentId) {
   const { rows: catalog } = await query(
-    `SELECT card_id, seq FROM cards ORDER BY seq ASC, card_id ASC`
+    `SELECT card_id FROM cards ORDER BY seq ASC, card_id ASC`
   );
   const { rows: answered } = await query(
     `SELECT DISTINCT a.card_id
@@ -584,12 +584,22 @@ async function previousAnsweredForStudent(studentId, fromCardId) {
     [studentId]
   );
   const seen = new Set(answered.map((r) => r.card_id));
-  const ids = catalog.filter((c) => seen.has(c.card_id)).map((c) => c.card_id);
-  if (!fromCardId) return ids.length ? ids[ids.length - 1] : null;
-  const i = ids.indexOf(fromCardId);
-  if (i > 0) return ids[i - 1];
-  if (i === -1 && ids.length) return ids[ids.length - 1];
-  return null;
+  return catalog.filter((c) => seen.has(c.card_id)).map((c) => c.card_id);
+}
+
+async function neighborsAnsweredForStudent(studentId, fromCardId) {
+  const ids = await answeredIdsForStudent(studentId);
+  if (!ids.length) return { previous_card_id: null, next_card_id: null };
+  const i = fromCardId ? ids.indexOf(fromCardId) : -1;
+  return {
+    previous_card_id: i > 0 ? ids[i - 1] : i === -1 ? ids[ids.length - 1] : null,
+    next_card_id: i >= 0 && i < ids.length - 1 ? ids[i + 1] : null,
+  };
+}
+
+async function previousAnsweredForStudent(studentId, fromCardId) {
+  const { previous_card_id } = await neighborsAnsweredForStudent(studentId, fromCardId);
+  return previous_card_id;
 }
 
 async function firstAnswerForStudent(studentId, cardId) {
@@ -641,6 +651,7 @@ module.exports = {
   progressFor,
   previousAnswered,
   previousAnsweredForStudent,
+  neighborsAnsweredForStudent,
   firstAnswerForStudent,
   canViewImage,
   pickNextCard,

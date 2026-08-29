@@ -7,7 +7,6 @@ const homeEl = document.getElementById("home");
 const runEl = document.getElementById("run");
 const headerEl = document.getElementById("play-header");
 const gateTop = document.getElementById("gate-top");
-const HOUR = 60 * 60 * 1000;
 const LIVE_KEY = "pm.live";
 
 let pendingQueue = [];
@@ -15,6 +14,7 @@ let shownAt = 0;
 let outcomeAt = 0;
 let currentCardId = null;
 let previousCardId = null;
+let nextCardId = null;
 let mode = "home";
 let homeData = null;
 let playGen = 0;
@@ -48,10 +48,6 @@ function clearLive() {
   sessionStorage.removeItem(LIVE_KEY);
 }
 
-function hourAway(state) {
-  return Boolean(state && state.t && Date.now() - state.t > HOUR);
-}
-
 function setHeader({ title, saved, back }) {
   document.getElementById("hdr-title").textContent = title || "PINK MENACE";
   document.getElementById("hdr-saved").textContent = saved || "";
@@ -63,11 +59,13 @@ function setHeader({ title, saved, back }) {
 function showScreen(name) {
   mode = name;
   const on = Boolean(appEl && !appEl.classList.contains("hidden"));
+  document.documentElement.classList.toggle("playing", on);
   if (!on) return;
   headerEl.classList.remove("hidden");
   gateTop.classList.add("hidden");
   homeEl.classList.toggle("hidden", name !== "home");
   runEl.classList.toggle("hidden", name === "home");
+  runEl.classList.toggle("reviewing", name === "review");
   if (name === "home") {
     clearPlay();
     PMFeel.stopBed();
@@ -86,10 +84,11 @@ function el(tag, cls, text) {
   return n;
 }
 
-function renderHome(data) {
+function renderHome(data, opts) {
   homeData = data;
   showScreen("home");
   setHeader({ title: "PINK MENACE", saved: data.saved, back: false });
+  const focusId = opts && opts.focusCardId;
   const resume = document.getElementById("resume");
   const over = document.getElementById("start-over");
   const lockedDoor = document.getElementById("locked-door");
@@ -151,8 +150,9 @@ function renderHome(data) {
     log.append(el("p", "meta", "Nothing resolved yet."));
   }
   for (const item of data.log || []) {
-    const row = el("button", "log-item", null);
+    const row = el("button", "log-item" + (focusId === item.card_id ? " current" : ""), null);
     row.type = "button";
+    row.dataset.cardId = item.card_id;
     row.append(el("strong", null, item.title));
     row.append(el("span", "meta", item.scene_fragment || ""));
     row.append(el("span", item.clean ? "mark clean" : "mark", item.clean ? "Clean" : "Debt"));
@@ -182,6 +182,17 @@ function renderHome(data) {
     col.append(el("p", "meta", c.unlocked ? c.line : "Locked"));
     row.append(col);
     cast.append(row);
+  }
+
+  const focusRow = focusId && log.querySelector('[data-card-id="' + focusId + '"]');
+  const resumeBtn = document.getElementById("resume");
+  const focusTarget = focusRow || (focusId && resumeBtn && !resumeBtn.classList.contains("hidden") ? resumeBtn : null);
+  if (focusTarget) {
+    requestAnimationFrame(() => {
+      focusTarget.scrollIntoView({ block: "center", inline: "nearest" });
+    });
+  } else {
+    homeEl.scrollTop = 0;
   }
 }
 
@@ -362,6 +373,7 @@ function fillCard(card, opts) {
   liveCard = card;
   currentCardId = card.card_id;
   previousCardId = card.previous_card_id || null;
+  nextCardId = card.next_card_id || null;
   answering = false;
   document.getElementById("title").textContent = card.title || "";
   const decision = document.getElementById("decision");
@@ -374,7 +386,7 @@ function fillCard(card, opts) {
     shot.onerror = null;
     shot.removeAttribute("src");
     wrap.classList.remove("hidden");
-    PM.loadImage(shot, card.image_url);
+    PM.loadImage(shot, card.image_url).then(() => pinCardTop());
   } else {
     shot.removeAttribute("src");
     wrap.classList.add("hidden");
@@ -465,19 +477,12 @@ function fillCard(card, opts) {
     cont.textContent = "Continue";
     cont.onclick = () => submitAnswer("continue");
   }
+  pinCardTop();
 }
 
-function restoreScroll(cardId) {
-  const st = liveState();
-  if (!st || st.card_id !== cardId) {
-    runEl.scrollTop = 0;
-    return;
-  }
-  if (hourAway(st)) {
-    runEl.scrollTop = 0;
-    return;
-  }
-  runEl.scrollTop = Number(st.scroll) || 0;
+function pinCardTop() {
+  runEl.scrollTop = 0;
+  window.scrollTo(0, 0);
 }
 
 async function finishContinue(cardId) {
@@ -657,7 +662,7 @@ function startRecapBeat(card) {
 
 function renderLive(card) {
   showScreen("live");
-  setHeader({ title: card.title, saved: card.saved, back: Boolean(card.previous_card_id) });
+  setHeader({ title: card.title, saved: card.saved, back: true });
   runEl.classList.remove("slide-in");
   void runEl.offsetWidth;
   runEl.classList.add("slide-in");
@@ -670,7 +675,7 @@ function renderLive(card) {
       phase: card.pending_outcome ? "result" : "live",
       scroll: 0,
     });
-    restoreScroll(card.card_id);
+    pinCardTop();
   };
   if (card.recap || sessionCaught()) {
     begin();
@@ -684,14 +689,14 @@ function renderLive(card) {
 
 function renderReview(card) {
   showScreen("review");
-  setHeader({ title: card.title, saved: card.saved, back: Boolean(card.previous_card_id) });
+  setHeader({ title: card.title, saved: card.saved, back: true });
   fillCard(card, { review: true, pending: false });
-  runEl.scrollTop = 0;
+  pinCardTop();
 }
 
-async function loadHome() {
+async function loadHome(focusCardId) {
   const data = await PM.api("/api/run/home");
-  renderHome(data);
+  renderHome(data, { focusCardId: focusCardId || null });
 }
 
 async function startOver() {
@@ -712,6 +717,7 @@ async function openLive() {
     return;
   }
   previousCardId = data.previous_card_id || null;
+  nextCardId = data.next_card_id || null;
   renderLive(data);
 }
 
@@ -719,10 +725,22 @@ async function openReview(cardId) {
   try {
     const data = await PM.api("/api/run/review/" + encodeURIComponent(cardId));
     previousCardId = data.previous_card_id || null;
+    nextCardId = data.next_card_id || null;
     renderReview(data);
   } catch {
     // stay on home if a log card cannot load
   }
+}
+
+function canSwipeCards() {
+  if (mode !== "review") return false;
+  return Boolean(previousCardId || nextCardId);
+}
+
+function goNeighbor(dir) {
+  const id = dir === "next" ? nextCardId : previousCardId;
+  if (!id) return;
+  openReview(id);
 }
 
 function showConfirm() {
@@ -798,8 +816,44 @@ document.getElementById("hdr-home").addEventListener("click", () => {
 });
 
 document.getElementById("hdr-back").addEventListener("click", () => {
-  if (!previousCardId) return;
-  openReview(previousCardId);
+  if (mode === "home") return;
+  loadHome(currentCardId);
+});
+
+let swipeStart = null;
+runEl.addEventListener("touchstart", (ev) => {
+  if (!canSwipeCards() || ev.touches.length !== 1) {
+    swipeStart = null;
+    return;
+  }
+  if (ev.target.closest("button, a, input, textarea, select, #ignition, #collapse, #reward")) {
+    swipeStart = null;
+    return;
+  }
+  swipeStart = { x: ev.touches[0].clientX, y: ev.touches[0].clientY };
+}, { passive: true });
+runEl.addEventListener("touchend", (ev) => {
+  if (!swipeStart || !canSwipeCards()) {
+    swipeStart = null;
+    return;
+  }
+  const t = ev.changedTouches[0];
+  const dx = t.clientX - swipeStart.x;
+  const dy = t.clientY - swipeStart.y;
+  swipeStart = null;
+  if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+  goNeighbor(dx < 0 ? "next" : "prev");
+}, { passive: true });
+
+document.addEventListener("keydown", (ev) => {
+  if (!canSwipeCards()) return;
+  if (ev.key === "ArrowLeft") {
+    ev.preventDefault();
+    goNeighbor("prev");
+  } else if (ev.key === "ArrowRight") {
+    ev.preventDefault();
+    goNeighbor("next");
+  }
 });
 
 document.getElementById("sign-out").addEventListener("click", () => {

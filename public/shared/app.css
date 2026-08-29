@@ -327,10 +327,31 @@ button.danger {
   flex-direction: column;
 }
 
+html.playing #app {
+  overflow: hidden;
+}
+
 #run {
   flex: 1;
   min-height: 0;
   overflow: auto;
+}
+
+html.playing,
+html.playing body {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+html.playing .shell {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#run.reviewing .choice-dock {
+  position: static;
+  margin: 0.15rem 0 0;
 }
 
 .choice-dock {
@@ -477,6 +498,7 @@ button.danger {
 }
 
 .log-item .mark.clean { color: var(--ok); }
+.log-item.current { border-color: var(--cranberry); }
 
 .cast-item {
   display: flex;
