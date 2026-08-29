@@ -2248,14 +2248,14 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_COCKPIT",
-      "subject": "a pickup stopped in the only milled live lane, hood up, two people standing in the travel path, rain on the mesh",
-      "foreground": "worn wheel and wipers mid-sweep",
-      "midground": "cone line, trench on the right, wet vertical rock wall, no shoulder",
-      "background": "L-006 mill cut, afternoon rain, a DO NOT STOP sign already behind you, gray rock and sky ahead, no Kent storefronts",
-      "read": "the only lane is already occupied by a stopped repair — joining it is the error",
+      "camera": "POV_DIAGRAM",
+      "subject": "high overhead of a mill cut: the faded matte-pink Baja VW Beetle in the only live lane, rear nearer the camera, plow pointing up-frame; ahead of it a dead pickup in the SAME lane, SAME heading — tailgate toward the camera, hood up at the far end, not facing the Beetle",
+      "foreground": "wet milled asphalt, the Menace's rear mesh and knobbies, no shoulder",
+      "midground": "the pickup occupying the open lane, two people at its raised hood, orange cones; the other half of the roadway is a trench / drop",
+      "background": "afternoon rain, wet vertical rock wall, gray mill cut, no Kent storefronts, no oncoming grille",
+      "read": "both vehicles travel the same way; the pickup is dead ahead in the only live lane",
       "continuity": [
-        "pink_menace_interior",
+        "pink_menace_exterior",
         "L-006"
       ],
       "aspect": "2:3",
