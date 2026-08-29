@@ -553,6 +553,7 @@ html.playing .shell {
   margin-inline: auto;
   aspect-ratio: 2 / 3;
   max-height: min(42vh, 22rem);
+  flex-shrink: 0;
   overflow: hidden;
   border-radius: var(--radius);
   background: #100e0e;
@@ -680,6 +681,7 @@ html.playing .shell {
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
+  flex-shrink: 0;
 }
 
 .cargo {
