@@ -2576,11 +2576,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_ROADSIDE",
-      "subject": "a parked car in a flashing school zone with its left-side door visibly ajar — open a hand's width, interior dome light spilling onto wet pavement — the Pink Menace approaching in heavy dawn rain",
-      "foreground": "wet hedge leaves, a faded crosswalk, the cracked-open door and its wedge of light at the right edge",
-      "midground": "Ali's plow aimed at the empty yard, not at the door; the ajar door must read as ajar, not closed",
-      "background": "flashing white lamps, empty playground, rain so heavy the 20 is only a rumor",
-      "read": "the hazard is the inch-open door at the edge, and the driver's line is the empty middle",
+      "subject": "heavy rain in a Kent school zone: a flashing school-zone sign on a pole at the roadside (beacons lit), a faded painted 20 on the wet asphalt",
+      "foreground": "a dark parked car fully in the parking lane on the RIGHT of the roadway — wheels on asphalt, not on the sidewalk — its left-side door ajar a hand's width, dome light on the pavement",
+      "midground": "the Pink Menace in the live lane, same heading, plow aimed at the empty yard not at the door; a faded crosswalk; wet hedge on the right curb",
+      "background": "flashing school-zone beacons, empty playground behind a fence, dawn rain, no car on the sidewalk",
+      "read": "the flashers mark the zone; the parked car sits in the street with a door cracked, not up on the curb",
       "continuity": [
         "pink_menace_exterior"
       ],
@@ -2669,11 +2669,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_OBJECT",
-      "subject": "inside the Pink Menace cabin from the right-hand seat, looking across at the empty seat on the left",
-      "foreground": "unlatched aftermarket seat belt hanging slack down the door pillar, metal tongue on the seat cushion",
-      "midground": "empty left seat, cracked faded pink door card, riveted raw steel, steering wheel on the left; nobody in frame",
-      "background": "through the window, a wet empty residential block under flat gray overcast, out of focus",
-      "read": "the belt is visibly unlatched and hanging loose beside an empty seat",
+      "subject": "driver's-eye view looking DOWN at the lap in a left-hand-drive cab: faded jeans, pink hoodie hem, an unlatched aftermarket lap belt lying slack across the thighs, metal tongue not in the buckle",
+      "foreground": "the unsecured belt webbing and tongue on the lap; the empty buckle at the hip",
+      "midground": "worn black wheel rim at the left edge of frame, cracked faded pink dash just above the lap",
+      "background": "fogged mill road through mesh, out of focus, midday gray",
+      "read": "the belt is off — tongue and buckle are apart in the driver's lap",
       "continuity": [
         "pink_menace_interior"
       ],
