@@ -169,6 +169,37 @@ function checkpointKeep(answersBefore) {
   return Math.floor(Math.max(0, Number(answersBefore) || 0) / 5) * 5;
 }
 
+function applyDelta(state, delta) {
+  const next = { ...(state || {}) };
+  const d = delta || {};
+  for (const [k, v] of Object.entries(d)) {
+    if (k === "presence" || k === "handprints" || k === "drew" || k === "fatal") {
+      next[k] = v;
+      continue;
+    }
+    if (typeof v === "number") next[k] = (Number(next[k]) || 0) + v;
+    else next[k] = v;
+  }
+  return next;
+}
+
+async function checkpointState(client, failedRunId, keep) {
+  if (keep <= 0) return {};
+  const { rows } = await client.query(
+    `SELECT o.state_delta
+       FROM run_answers a
+       JOIN cards c ON c.card_id = a.card_id
+       JOIN card_options o ON o.card_id = a.card_id AND o.option_id = a.option_id
+      WHERE a.run_id = $1 AND c.callback_of IS NULL
+      ORDER BY c.seq ASC, c.card_id ASC
+      LIMIT $2`,
+    [failedRunId, keep]
+  );
+  let state = {};
+  for (const r of rows) state = applyDelta(state, r.state_delta);
+  return state;
+}
+
 function asReplayPlan(raw) {
   if (!Array.isArray(raw)) return [];
   return raw
@@ -670,6 +701,8 @@ module.exports = {
   cargoFailDispatch,
   checkpointKeep,
   skipSeqFor,
+  checkpointState,
+  applyDelta,
   buildReplayPlan,
   recapBeat,
   replayStep,

@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, checkpointState, applyDelta, checkpointKeep, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
 const { applyFear } = require("./presence");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
@@ -413,6 +413,7 @@ function mountRun(app) {
         const answersBefore = (counted.rows[0] && counted.rows[0].n) - 1;
         const startSeq = await skipSeqFor(client, answersBefore);
         const replayPlan = await buildReplayPlan(client, run.id, answersBefore);
+        const restartState = await checkpointState(client, run.id, checkpointKeep(answersBefore));
         await client.query(
           `UPDATE runs
               SET status = 'failed', current_card_id = NULL, queued_callbacks = $1,
@@ -432,7 +433,7 @@ function mountRun(app) {
             startSeq,
             queued,
             JSON.stringify(debts),
-            JSON.stringify(state),
+            JSON.stringify(restartState),
             JSON.stringify(replayPlan),
           ]
         );
@@ -636,6 +637,16 @@ function mountRun(app) {
           [crypto.randomUUID(), run.id, cardId, run.current_attempt_no, step.option_id || "continue"]
         );
       }
+      const { rows: recapOpt } = await client.query(
+        `SELECT state_delta FROM card_options WHERE card_id = $1 AND option_id = $2`,
+        [cardId, step.option_id || "continue"]
+      );
+      const recapState = applyDelta(run.state, recapOpt[0] && recapOpt[0].state_delta);
+      await client.query(`UPDATE runs SET state = $1::jsonb, updated_at = now() WHERE id = $2`, [
+        JSON.stringify(recapState),
+        run.id,
+      ]);
+      run.state = recapState;
       const advanced = await advanceReplayPlan(client, run.id, run);
       await client.query("COMMIT");
       let next = { done: true };
