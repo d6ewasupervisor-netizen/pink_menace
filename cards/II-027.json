@@ -68,7 +68,7 @@
     "camera": "POV_ROADSIDE",
     "subject": "heavy rain in a Kent school zone: a flashing school-zone sign on a pole at the roadside (beacons lit), a faded painted 20 on the wet asphalt",
     "foreground": "a dark parked car fully in the parking lane on the RIGHT of the roadway — wheels on asphalt, not on the sidewalk — its left-side door ajar a hand's width, dome light on the pavement",
-    "midground": "the Pink Menace in the live lane, same heading, plow aimed at the empty yard not at the door; a faded crosswalk; wet hedge on the right curb",
+    "midground": "the Pink Menace in the live lane coming toward the camera, plow and headlights facing the viewer, not aimed at the door; a faded crosswalk; wet hedge on the right curb",
     "background": "flashing school-zone beacons, empty playground behind a fence, dawn rain, no car on the sidewalk",
     "read": "the flashers mark the zone; the parked car sits in the street with a door cracked, not up on the curb",
     "continuity": [
@@ -76,9 +76,9 @@
     ],
     "aspect": "2:3",
     "geometry": {
-      "ego_heading": "away_from_camera",
+      "ego_heading": "toward_camera",
       "ego_lane_side": "right half of the roadway (US)",
-      "ego_nose_in_frame": "the plow blade points toward the top of the frame, aimed at the empty yard",
+      "ego_nose_in_frame": "the plow blade and headlights point toward the camera / bottom of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "beside"
     }
