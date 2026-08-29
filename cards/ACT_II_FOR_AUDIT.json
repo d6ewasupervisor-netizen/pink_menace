@@ -2479,16 +2479,15 @@
     "timeout_option_id": "b",
     "timeout_ms": 21000,
     "image_brief": {
-      "camera": "POV_MIRROR_DOOR",
+      "camera": "POV_ROADSIDE",
       "camera_is_the_lesson": true,
-      "subject": "Ali Okonjo sits in the LEFT seat behind a visible worn black steering wheel. Camera is inside the cabin, just to her RIGHT and slightly behind her right shoulder, looking left-forward so the wheel, her torso, and the LEFT door are all in frame. She is a 17-year-old woman with warm brown skin, cranberry-red coiled hair braided at the crown, round wire-rim glasses, faded pink hoodie with white raglan stripes — she is the seated driver, not the cyclist. Her RIGHT arm reaches across her chest to the LEFT door latch. Her torso is twisted slightly left. Her head is turned further left, looking back through the LEFT window and door mirror for a bicycle. The door is on her left, still closed. Welded mesh on the door glass",
-      "foreground": "steering wheel in front of her on the LEFT of the cabin; her RIGHT hand on the LEFT interior latch, far-hand reach; her LEFT hand is not on the handle",
-      "midground": "in the LEFT door mirror, a different woman on a bicycle approaching from behind, one car length back, dark jacket, no glasses, no pink hoodie, no cranberry hair — not Ali. Icy lot aisle. The cyclist is only in the mirror",
-      "background": "Kent Station lot, morning ice, dead cars, pale sky",
-      "read": "the far hand on the latch and the rider already in the mirror — the door has not opened, and the reason it has not is visible in the glass",
+      "subject": "camera OUTSIDE the LEFT door of a left-hand-drive Beetle, looking in: the LEFT door and window sit between the camera and Ali. She sits in the LEFT seat behind the wheel. An EMPTY passenger seat is to her right, between her and the RIGHT door",
+      "foreground": "the LEFT door skin and window mesh — the door is between the viewer and her body; hands not required in frame",
+      "midground": "Ali in the LEFT seat, torso twisted toward this door, shoulders turned as if the far hand were on the latch, looking into the LEFT door mirror; in that glass a different woman on a bicycle approaching from behind, dark jacket, not Ali",
+      "background": "empty right-hand seat, then the RIGHT door; icy Kent Station lot, morning, dead cars",
+      "read": "her body is turned to the LEFT glass; the empty seat is on her right; the rider is in the mirror",
       "continuity": [
-        "pink_menace_interior",
-        "dutch_reach",
+        "pink_menace_exterior",
         "ali",
         "marisol"
       ],
