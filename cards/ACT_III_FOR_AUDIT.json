@@ -1101,7 +1101,7 @@
     ],
     "antagonist": "none",
     "callback_of": null,
-    "schedules_callback": true,
+    "schedules_callback": false,
     "image_brief": {
       "camera": "POV_COCKPIT",
       "subject": "dead left arrow, live circular green, oncoming lamps still in the hole you want",
