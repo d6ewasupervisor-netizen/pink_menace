@@ -35,7 +35,9 @@ Three layers, and the order matters.
 
 `16_FEAR_AND_SOUND.md` is the fear overlay and audio-first cue spec. Presence is a sum of existing `state_delta` values, never a score. Horror sits on the frame, not the card art. Hearing is not required to drive; RCW 46.37.480 is verified and still does not go on a card until a card is written to teach chosen distraction. T1/T2 overlays ship in the live loop and do not wait on cockpit chrome.
 
-`21_THE_MANIFEST.md` is the stake-legibility spec. Cargo and `time_cost` were already tracked; the player could not see them. Clipboard, cooler tag, per-result `−N MIN`, two Reyna check-ins, and both endings are copy and UI. **A mechanic the player doesn't perceive doesn't exist.** The test for every system from here on is not "does it work" — it's "did she see it work."
+`21_THE_MANIFEST.md` is the stake-legibility spec. Cargo and `time_cost` were already tracked; the player could not see them. Clipboard, cooler tag, per-result `−N MIN`, two Reyna check-ins, and both endings are copy and UI. After cold hits zero the tag reads `COLD: 0 · WARMING N MIN` — a live tag never shows a number that isn't true. **A mechanic the player doesn't perceive doesn't exist.** The test for every system from here on is not "does it work" — it's "did she see it work."
+
+`22_III_001_RIDE_ALONG.md` is Deac's twelve-line watch-layer handoff for III-001. Hand-written. Not generated.
 
 ---
 

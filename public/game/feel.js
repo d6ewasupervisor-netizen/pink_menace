@@ -61,11 +61,16 @@ const PMFeel = (() => {
     set("m-yaw", s.yaw);
     const tag = document.getElementById("cooler-tag");
     const min = document.getElementById("cooler-min");
-    const cold = Math.max(0, Math.round(s.cold != null ? Number(s.cold) : s.cargo != null ? Number(s.cargo) * 0.9 : 90));
-    if (min) min.textContent = cold + " MIN";
+    const cold = Math.max(0, Math.round(Number(s.cold) || 0));
+    const warming = Math.max(0, Math.round(Number(s.warming) || 0));
+    const warmingLive = s.phase === "warming" || (cold <= 0 && (warming > 0 || Number(s.time_cost) >= 90));
+    if (min) {
+      min.textContent = warmingLive ? "0 · WARMING " + warming + " MIN" : cold + " MIN";
+    }
     if (tag) {
-      tag.classList.toggle("low", cold <= 15);
-      tag.classList.toggle("dead", cold <= 0);
+      tag.classList.toggle("warming", warmingLive);
+      tag.classList.toggle("low", warmingLive ? warming <= 8 : cold <= 15);
+      tag.classList.toggle("dead", warmingLive && warming <= 0);
     }
   }
 

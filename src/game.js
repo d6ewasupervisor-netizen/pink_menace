@@ -2,7 +2,7 @@
 
 const { query } = require("./db");
 const { publicFear } = require("./presence");
-const { coldFrom, cargoFailDispatch } = require("./manifest");
+const { coldFrom, warmingFrom, cargoFailDispatch } = require("./manifest");
 
 async function purgeExpiredPending() {
   await query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
@@ -366,13 +366,18 @@ function hookOf(card) {
 
 function publicState(state) {
   const s = state || {};
+  const cargo = cargoFrom(s);
+  const cold = coldFrom(s);
+  const warming = warmingFrom(s, cargo);
   return {
     noise: Number(s.noise) || 0,
     light: Number(s.light) || 0,
     yaw: Number(s.yaw) || 0,
-    cargo: cargoFrom(s),
+    cargo,
     time_cost: Number(s.time_cost) || 0,
-    cold: coldFrom(s),
+    cold,
+    warming,
+    phase: cold > 0 ? "cold" : "warming",
     ...publicFear(s),
   };
 }

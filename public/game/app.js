@@ -21,7 +21,7 @@ let playGen = 0;
 let stopType = null;
 let hazardTimer = 0;
 let advanceTimer = 0;
-let meters = { noise: 0, light: 0, yaw: 0, cargo: 100, time_cost: 0, cold: 90 };
+let meters = { noise: 0, light: 0, yaw: 0, cargo: 100, time_cost: 0, cold: 90, warming: 0, phase: "cold" };
 let liveCard = null;
 let answering = false;
 let timedSubmit = false;
@@ -241,6 +241,8 @@ function applyMeters(state, how, extras) {
     cargo: next.cargo == null ? meters.cargo : next.cargo,
     time_cost: next.time_cost == null ? meters.time_cost : Number(next.time_cost) || 0,
     cold: next.cold == null ? meters.cold : Number(next.cold) || 0,
+    warming: next.warming == null ? meters.warming : Number(next.warming) || 0,
+    phase: next.phase || (Number(next.cold) > 0 ? "cold" : "warming"),
     presence: Number(next.presence) || 0,
     tier: Number(next.tier) || 0,
     handprints: Boolean(next.handprints),
@@ -737,7 +739,7 @@ async function loadHome(focusCardId) {
 
 async function startOver() {
   clearLive();
-  meters = { noise: 0, light: 0, yaw: 0, cargo: 100, time_cost: 0, cold: 90, presence: 0, tier: 0, handprints: false };
+  meters = { noise: 0, light: 0, yaw: 0, cargo: 100, time_cost: 0, cold: 90, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false };
   try {
     await PM.api("/api/run/restart", { method: "POST", body: {} });
   } catch {

@@ -85,6 +85,11 @@ function coldFrom(state) {
   return Math.max(0, COLD_PACK - time);
 }
 
+function warmingFrom(state, cargo) {
+  if (coldFrom(state) > 0) return 0;
+  return Math.max(0, Math.round(Number(cargo) || 0));
+}
+
 function timeCostOf(delta) {
   return Math.max(0, Number(delta && delta.time_cost) || 0);
 }
@@ -92,7 +97,7 @@ function timeCostOf(delta) {
 function radioCheckin(prevState, nextState) {
   const before = coldFrom(prevState);
   const after = coldFrom(nextState);
-  if (before > 15 && after <= 15) {
+  if (before > 0 && after <= 0) {
     return { who: "reyna_solis", line: "Cold pack's sweating. How far out? — R." };
   }
   if (before > 30 && after <= 30) {
@@ -130,10 +135,11 @@ function cargoFailDispatch(charges) {
   return parts.join(" ");
 }
 
-function deliveryBeat(cold) {
-  const n = Math.max(0, Math.round(Number(cold) || 0));
+function deliveryBeat(stateOrCold) {
+  const state = stateOrCold && typeof stateOrCold === "object" ? stateOrCold : { time_cost: COLD_PACK - (Number(stateOrCold) || 0) };
+  const n = coldFrom(state);
+  if (n <= 0) return "Delivered warm. June took it anyway.";
   if (n >= 10) return "Delivered. " + n + " minutes to spare.";
-  if (n <= 0) return "Delivered. June didn't ask what took so long.";
   if (n === 1) return "Delivered. 1 minute. June didn't ask what took so long.";
   return "Delivered. " + n + " minutes. June didn't ask what took so long.";
 }
@@ -154,6 +160,7 @@ function manifestFor(act, driverName) {
 module.exports = {
   COLD_PACK,
   coldFrom,
+  warmingFrom,
   timeCostOf,
   radioCheckin,
   cargoFailDispatch,

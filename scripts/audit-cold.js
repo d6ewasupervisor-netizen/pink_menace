@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const { seqFromCard } = require("./card-seq");
-const { COLD_PACK, coldFrom } = require("../src/manifest");
+const { COLD_PACK, coldFrom, warmingFrom } = require("../src/manifest");
 
 const dir = path.join(__dirname, "..", "cards");
 const cards = fs
@@ -16,9 +16,15 @@ const cards = fs
 let state = {};
 for (const c of cards) {
   const remaining = coldFrom(state);
+  const time = Number(state.time_cost) || 0;
+  const noise = Math.max(0, Number(state.noise) || 0);
+  const light = Math.max(0, Number(state.light) || 0);
+  const cargo = Math.max(0, Math.min(100, 100 - time - noise - Math.round(light / 2)));
+  const warming = warmingFrom(state, cargo);
+  const tag = remaining > 0 ? "COLD " + remaining : "WARMING " + warming;
   const correct = (c.options || []).find((o) => o.correct);
   const cost = correct && correct.state_delta ? Number(correct.state_delta.time_cost) || 0 : 0;
-  console.log(c.card_id + "\tarrive " + remaining + "\t+" + cost);
+  console.log(c.card_id + "\t" + tag + "\t+" + cost);
   if (correct && correct.state_delta) {
     const d = correct.state_delta;
     for (const [k, v] of Object.entries(d)) {

@@ -8,7 +8,7 @@ const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
 const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, checkpointState, applyDelta, checkpointKeep, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
 const { applyFear } = require("./presence");
-const { radioCheckin, deliveryBeat, manifestFor, timeCostOf, coldFrom } = require("./manifest");
+const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
 // A completed run starts a new one. We never rewind an in-progress run to card one.
@@ -563,7 +563,7 @@ function mountRun(app) {
         failed,
         dispatch: failDispatch || fear.dispatch || null,
         radio,
-        delivery: done ? deliveryBeat(coldFrom(state)) : null,
+        delivery: done ? deliveryBeat(state) : null,
         debrief: card.debrief,
         driver: card.driver || "ali",
         alts,
@@ -716,7 +716,7 @@ function mountRun(app) {
         state: publicState(run.state),
         time_cost: timeCostOf(recapDelta),
         radio,
-        delivery: deliveryBeat(coldFrom(run.state)),
+        delivery: deliveryBeat(run.state),
       });
     } catch (err) {
       try {

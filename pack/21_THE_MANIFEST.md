@@ -34,14 +34,14 @@ COLD: 62 MIN
 - **Every result shows its price**: a `−6 MIN` float beside the meter spike when the outcome lands. This is the single most clarifying change in the whole spec — she finally sees what each choice *cost*, which is the connection between decisions and the clock that the fiction has been asserting without evidence.
 - Correct answers that still cost time show it too. Time passing on good choices is honest and it's the Deac thesis: the schedule doesn't care that you drove well.
 
-Display math (do not change the economy): remaining = `90 − accumulated time_cost`. Fail is still `cargoFrom`. Scene minutes follow the widget at that point on the correct path, never the other way around.
+Display math (do not change the economy): remaining = `90 − accumulated time_cost`. When remaining hits zero the pack is still worth delivering, just worth less. The tag goes to `COLD: 0 · WARMING N MIN`, where N is remaining cargo slack — that countdown is the one that kills the run. A live tag never shows a lone `0 MIN`. Fail is still `cargoFrom`. Scene minutes follow the widget at that point on the correct path, never the other way around.
 
 ## 3. THRESHOLDS — the world checks in twice
 
-At 30 and 15 minutes remaining, a one-line radio beat (bark format, no interruption):
+Two radio beats, bark format, no interruption. Never more than two:
 
-- 30: *"Delridge, checking. June's asking. — R."*
-- 15: *"Cold pack's sweating. How far out? — R."*
+- 30 remaining: *"Delridge, checking. June's asking. — R."*
+- The turn (cold hits zero): *"Cold pack's sweating. How far out? — R."*
 
 Two lines, escalating, from a voice she'll meet (Reyna runs the shelter route). Never more than two per run — the clock should pressure, not nag.
 
@@ -49,7 +49,7 @@ Two lines, escalating, from a voice she'll meet (Reyna runs the shelter route). 
 
 **Delivery (act complete):** a short beat, not a stat screen. The shelter door, the cooler handed over, and one line that carries the margin diegetically:
 
-> *Delivered. 41 minutes to spare.* — or — *Delivered. 3 minutes. June didn't ask what took so long.*
+> *Delivered. 41 minutes to spare.* — or — *Delivered. 3 minutes. June didn't ask what took so long.* — or — *Delivered warm. June took it anyway.*
 
 Minutes-to-spare is the replay hook that isn't a score: it's cargo state, not accuracy, so it breaks neither the no-score rule on her dashboard nor the coverage-only rule on the parent side. If she starts chasing her margin, the game has taught time management without ever grading her.
 

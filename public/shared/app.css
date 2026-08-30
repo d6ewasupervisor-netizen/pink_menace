@@ -723,6 +723,14 @@ html.playing .shell {
   background: #c9a06a;
   border-color: #8a4a28;
 }
+.cooler-tag.warming {
+  background: #c4a060;
+  border-color: #8a5a20;
+}
+.cooler-tag.warming.low {
+  background: #b88848;
+  border-color: #7a3a18;
+}
 .cooler-tag.dead {
   background: #8a6a5a;
   color: #2a1814;
