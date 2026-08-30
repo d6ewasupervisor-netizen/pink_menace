@@ -4,45 +4,45 @@
   "zone": "The Arterial",
   "driver": "deac",
   "card_type": "rule",
-  "title": "The Diamond Is Not Yours",
-  "hook": "A diamond sits on the left. The sign says two.",
-  "scene": "Fog at dusk on 167, a diamond on the pavement and a sign that does not need words if you already know the paint. HOV. Two or more, or a motorcycle, or a bus that earned it. The Ledger is one tired man and a cat. The left looks empty and fast. Solid white fences it. The schedule wants the empty. The paint wants a number you do not have.",
-  "decision": "The diamond lane is empty and fenced with solid white. Do you take it?",
+  "title": "Not a Passing Lane",
+  "hook": "The diamond is empty. The box in your lane is slow.",
+  "scene": "Fog at dusk on 167. A box is doing thirty in the general lane. To the left, a diamond on the pavement and a solid white fence, empty and fast. The schedule wants the hole. You are a bus. You could live in that lane. What you cannot do is dart in, pass, and dart out. That is a passing lane you invented.",
+  "decision": "The diamond is empty and he is slow. Do you use it to pass?",
   "options": [
     {
       "id": "a",
-      "text": "Take it — a bus is basically transit and the lane is wasted empty",
+      "text": "Dart into the diamond, pass, come back before the next ramp",
       "correct": false,
-      "result": "You cross the solid. You are not a carpool and you are not the coach that earned it. A remnant in a cap is in the next ramp. The diamond was not a suggestion.",
+      "result": "You use a carpool lane as a slingshot. Solid white, in and out. The remnant in the cap does not care that you are a bus. Carpool lanes are not passing lanes.",
       "state_delta": { "noise": 2, "time_cost": 6 }
     },
     {
       "id": "b",
-      "text": "Leave it. Stay in the general lane. Solid white is the fence.",
+      "text": "Hold the general lane. If you pass, pass in a general lane.",
       "correct": true,
-      "result": "You stay out. The empty stays empty. The general lane is slower and legal. The schedule takes the minutes. The paint keeps its number.",
+      "result": "You stay. The diamond stays empty. When a general lane opens you take a real pass or you don't. The box keeps being thirty. You keep being legal.",
       "state_delta": { "noise": -1, "time_cost": 3 }
     },
     {
       "id": "c",
-      "text": "Take it only to the next ramp, then drop back before anyone cares",
+      "text": "Straddle the solid white until he notices and moves over",
       "correct": false,
-      "result": "A short theft is still a theft of a restricted lane. You crossed the solid. The remnant in the cap does not grade on duration.",
-      "state_delta": { "noise": 1, "time_cost": 5 }
+      "result": "You occupy the fence. He never moves. Both lanes lose you. The diamond was not a shoulder and the solid was not a suggestion.",
+      "state_delta": { "noise": 3, "yaw": 1, "time_cost": 5 }
     },
     {
       "id": "d",
-      "text": "Use it only to pass, then come back before the next ramp",
+      "text": "Take the rumble on the right and go around him there",
       "correct": false,
-      "result": "Carpool lanes are not passing lanes. You still crossed the solid. The empty was not a gift.",
-      "state_delta": { "noise": 2, "time_cost": 4 }
+      "result": "The rumble is a drain in the fog. You put a bus in the junk to avoid a rule. He never knew you tried.",
+      "state_delta": { "noise": 4, "yaw": 2, "damage": 1, "time_cost": 4 }
     }
   ],
-  "debrief": "HOV paint and a diamond mark a lane you enter only if you meet the posted occupancy. Solid white is the fence. A bus with one driver is still one.",
+  "debrief": "Carpool lanes are not passing lanes. A bus may travel in HOV. Darting in to pass one vehicle and coming back is not travel. Pass in a general lane, or don't.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.16 Road markings (HOV / Carpool lane)",
-    "teaching_target": "Do not enter an HOV lane unless you meet the occupancy; solid white separates it from general lanes."
+    "teaching_target": "HOV / carpool lanes are not passing lanes; do not enter one only to pass and return."
   },
   "cast": ["deac"],
   "antagonist": "none",
@@ -50,11 +50,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_OBJECT",
-    "subject": "painted diamond on wet pavement, solid white fence, no readable occupancy numbers",
-    "foreground": "fog in the lamp, a strip of skip-dash in the general lane",
-    "midground": "the diamond and the solid white, empty restricted lane beyond",
-    "background": "167 dusk, fog, a general-lane stack",
-    "read": "the diamond and the solid white mark a lane the Ledger has not earned",
+    "subject": "painted diamond and solid white fence on wet pavement, a slow box in the general lane, no readable occupancy numbers",
+    "foreground": "fog in the lamp, skip-dash of the general lane",
+    "midground": "the empty diamond lane beside the box you would have to leave to enter it",
+    "background": "167 dusk, fog, general-lane stack",
+    "read": "the empty diamond sits beside a slow vehicle — a pass that is not a pass",
     "continuity": ["the_ledger"],
     "aspect": "2:3",
     "geometry": {
@@ -62,7 +62,7 @@
       "ego_lane_side": "right-hand general lane beside an HOV lane",
       "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame",
       "oncoming_position": "none in frame",
-      "hazard_position": "none"
+      "hazard_position": "ahead_same_direction"
     }
   },
   "variation": {

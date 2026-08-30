@@ -99,12 +99,19 @@ function camerasForHazard(hazard) {
   }
 }
 
-function geometryClause(geo) {
+function geometryClause(geo, driver) {
   if (!geo) return "";
+  const front =
+    driver === "deac"
+      ? "Its front — identified by the van nose and the leading edge of the tall square box — points "
+      : "Its front — identified by the black tube bull bar and wide flat plow blade — points ";
+  const vehicle = driver === "deac" ? "The gray cutaway shuttle" : "The pink vehicle";
   return (
-    "United States road configuration, traffic drives on the right. The pink vehicle is traveling " +
+    "United States road configuration, traffic drives on the right. " +
+    `${vehicle} is traveling ` +
     `**${geo.ego_heading}** and occupies the **right half of the roadway** for its direction of travel. ` +
-    `Its front — identified by the black tube bull bar and wide flat plow blade — points **${geo.ego_nose_in_frame}**. ` +
+    front +
+    `**${geo.ego_nose_in_frame}**. ` +
     `Any oncoming traffic is **${geo.oncoming_position}**. No vehicle faces the wrong way in its lane.`
   );
 }

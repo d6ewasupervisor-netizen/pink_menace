@@ -87,10 +87,20 @@ async function pickNextCard(client, runId, debts, startSeq) {
   return { cardId: null, debts: list };
 }
 
+/** Misses that share a later ledger. III-020 is the 167 straight for both. */
+const LEDGER_ORIGIN = {
+  "III-027": "III-016",
+};
+
+function ledgerOrigin(fromCard) {
+  return LEDGER_ORIGIN[fromCard] || fromCard;
+}
+
 function queueCallback(debts, fromCard) {
   const list = asDebts(debts);
-  if (list.some((d) => d.from_card === fromCard)) return list;
-  list.push({ from_card: fromCard, remaining: CALLBACK_GAP });
+  const origin = ledgerOrigin(fromCard);
+  if (list.some((d) => d.from_card === origin)) return list;
+  list.push({ from_card: origin, remaining: CALLBACK_GAP });
   return list;
 }
 
@@ -701,6 +711,7 @@ module.exports = {
   portraitCardId,
   ACT_ZONES,
   cargoFrom,
+  ledgerOrigin,
   cargoDead,
   cargoFailDispatch,
   checkpointKeep,

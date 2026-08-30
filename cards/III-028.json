@@ -4,45 +4,45 @@
   "zone": "The Arterial",
   "driver": "deac",
   "card_type": "wrench",
-  "title": "The Needle and the Detour",
-  "hook": "The needle sits on a lie. The detour adds miles.",
-  "scene": "Snow on an afternoon arterial, a closed bridge ahead, the detour painted on a board you can read from the high seat. The fuel needle has been optimistic since Renton. The Ledger drinks. A detour that looks like twenty minutes on a map is forty in snow with this motor. You can gamble the needle or you can take the short ugly top-off you passed two blocks back.",
-  "decision": "The detour is long and the needle is a rumor. What do you do?",
+  "title": "The Right Dual Is Soft",
+  "hook": "The right dual is soft. Snow is already on the paint.",
+  "scene": "Snow on an afternoon arterial. The Ledger has been wandering a half-inch toward the rumble for the last mile and it is not the Drift this time — the right dual is soft and the tread on that tire is a rumor. Two thirty-seconds is the floor. You can keep rolling on a wish or you can put the bus on a pad and know. The schedule wants the next light. The dual wants air.",
+  "decision": "The right dual is soft and the tread looks thin. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Take the detour now — turning around wastes more than the risk",
+      "text": "Keep rolling — a dual can run soft and the snow is only starting",
       "correct": false,
-      "result": "You take the long snow. The needle tells the truth halfway. You become a bus on a shoulder that is not a station. The cargo clock does not care that you were optimistic.",
-      "state_delta": { "fuel": -5, "time_cost": 20 }
+      "result": "You argue with rubber. The wander becomes a slide at the next brake. A dual that is soft in snow does not wait for the Drift to take the credit.",
+      "state_delta": { "yaw": 3, "noise": 2, "time_cost": 12 }
     },
     {
       "id": "b",
-      "text": "Turn back two blocks and top off before you accept the extra miles",
+      "text": "Hazards, legal pad, check tread and pressure before you take more snow",
       "correct": true,
-      "result": "You eat the ugly U and the short line. The needle becomes a number. The detour is still long. You finish it. Late on the log. Rolling at the end.",
-      "state_delta": { "fuel": 2, "time_cost": 9 }
+      "result": "You put the bus on a pad. Tread is at the wear bars on the outer. Pressure is low. You air it from the can on the rack and you do not take the next hill on a wish. Late on the log. Rolling on purpose.",
+      "state_delta": { "noise": -1, "time_cost": 9 }
     },
     {
       "id": "c",
-      "text": "Coast in neutral to make the detour on what you have",
+      "text": "Kick it once and if it sounds hard enough, go",
       "correct": false,
-      "result": "You lose the motor's brake in snow. The needle does not reward you. The next light does.",
-      "state_delta": { "yaw": 2, "fuel": -3, "time_cost": 12 }
+      "result": "A kick is not a gauge. It sounds like a tire. It is still soft. The next curve writes the rest.",
+      "state_delta": { "yaw": 2, "time_cost": 8 }
     },
     {
       "id": "d",
-      "text": "Ignore the board and try the bridge — closed signs lie since the first week",
+      "text": "Overfill it by eye from the can so it cannot go soft again",
       "correct": false,
-      "result": "The bridge is actually closed. You add a dead end to a low tank. Now you have no detour and no fuel.",
-      "state_delta": { "fuel": -4, "time_cost": 15 }
+      "result": "You guess high. The dual is a drum. Handling gets worse, not better. The door sticker was the number. You did not read it.",
+      "state_delta": { "yaw": 2, "damage": 1, "time_cost": 10 }
     }
   ],
-  "debrief": "Believe the detour and doubt a hopeful needle. Fuel first, then the extra miles. A bus that stops on the shoulder spends more than a top-off.",
+  "debrief": "Tread under two thirty-seconds slides on wet and snow. Pressure is on the door sticker, not in your foot. Stop and know. A dual that wanders is already telling you.",
   "source": {
     "psdp_skill": "n/a",
-    "dol_section": "2.5 Vehicle Maintenance",
-    "teaching_target": "Do not enter a long detour on a hopeful fuel gauge; top off before you accept extra miles."
+    "dol_section": "2.5 Vehicle Maintenance (Tires)",
+    "teaching_target": "Check tire tread (not less than 2/32 in) and inflation before driving on snow; do not keep rolling on a soft dual."
   },
   "cast": ["deac"],
   "antagonist": "none",
@@ -50,13 +50,20 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_OBJECT",
-    "subject": "analog fuel needle low against a stained gauge, no readable brand marks",
-    "foreground": "cracked plastic bezel and a strip of amber vest",
-    "midground": "the needle and an empty thermos edge, snow light on the glass",
-    "background": "defocused snow, a detour board out of focus, no readable words",
-    "read": "the needle is already a rumor and the detour is still ahead",
-    "continuity": ["ledger_cockpit"],
-    "aspect": "2:3"
+    "subject": "Ledger right dual at curb height, tread worn toward the bars, sidewall slightly slumped, snow on the paint",
+    "foreground": "wet snow on asphalt and a strip of gray primer skirt",
+    "midground": "the slumped dual and the worn tread, no brand marks readable",
+    "background": "defocused snow and curb, afternoon, no people",
+    "read": "the outer dual is soft and the tread is a rumor",
+    "continuity": ["the_ledger"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "parked on a legal pad off the right of the roadway",
+      "ego_nose_in_frame": "the van nose is out of frame to the right; the dual fills the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
   },
   "variation": {
     "location_type": "arterial",

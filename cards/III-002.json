@@ -24,7 +24,7 @@
     "midground": "bar cage with a wiper-slot cut, analog gauges, amber vest hem at the left edge of frame",
     "background": "overcast Kent arterial through the cage at dawn, two lanes, wet paint",
     "read": "the cat is sitting in the only good look at the right-side glass",
-    "continuity": ["ledger_cockpit", "mya", "deac_clipboard"],
+    "continuity": ["ledger_cockpit", "mya"],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

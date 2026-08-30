@@ -47,7 +47,7 @@
   "cast": ["deac"],
   "antagonist": "chorus",
   "callback_of": null,
-  "schedules_callback": false,
+  "schedules_callback": true,
   "timeout_option_id": "a",
   "timeout_ms": 6000,
   "image_brief": {
