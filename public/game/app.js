@@ -136,7 +136,11 @@ function renderHome(data, opts) {
   acts.replaceChildren();
   for (const a of data.acts || []) {
     if (data.locked_next && a.act === data.locked_next.act) continue;
-    const row = el("article", "act-row" + (a.current ? " current" : "") + (a.locked ? " locked" : "") + (a.complete ? " complete" : ""));
+    const row = el(
+      a.locked ? "article" : "button",
+      "act-row" + (a.current ? " current" : "") + (a.locked ? " locked" : "") + (a.complete ? " complete" : "")
+    );
+    if (!a.locked) row.type = "button";
     const label = el("p", "act-name", "Act " + a.act + " · " + a.zone);
     row.append(label);
     if (a.locked) {
@@ -145,6 +149,9 @@ function renderHome(data, opts) {
       row.append(el("p", "meta", a.practiced + " of " + a.total));
     } else if (a.complete) {
       row.append(el("p", "meta", "Done"));
+    }
+    if (!a.locked) {
+      row.addEventListener("click", () => openAct(a));
     }
     acts.append(row);
   }
@@ -832,6 +839,19 @@ async function startOver() {
     return;
   }
   await openLive();
+}
+
+function openAct(a) {
+  if (!a || a.locked) return;
+  if (a.complete && a.first_card_id) {
+    openReview(a.first_card_id);
+    return;
+  }
+  if (a.current) {
+    openLive();
+    return;
+  }
+  if (a.open_card_id) openReview(a.open_card_id);
 }
 
 async function openLive() {

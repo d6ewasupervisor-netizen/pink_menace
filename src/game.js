@@ -586,6 +586,8 @@ async function progressFor(run) {
     const practiced = cards.filter((c) => everSet.has(c.card_id)).length;
     const isCurrent = row.act === currentAct && !done && run.status === "active";
     const complete = cards.length > 0 && practiced >= cards.length;
+    const firstId = cards[0] && cards[0].card_id;
+    const leftover = cards.find((c) => !everSet.has(c.card_id));
     return {
       act: row.act,
       zone: row.zone,
@@ -594,6 +596,12 @@ async function progressFor(run) {
       current: isCurrent,
       locked: cards.length === 0 || (row.act !== currentAct && practiced === 0 && !complete),
       complete,
+      first_card_id: firstId || null,
+      open_card_id: isCurrent && !complete && run.current_card_id
+        ? run.current_card_id
+        : leftover
+          ? leftover.card_id
+          : firstId || null,
     };
   });
 
