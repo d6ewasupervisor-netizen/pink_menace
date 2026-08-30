@@ -26,6 +26,8 @@ let liveCard = null;
 let stopChoiceGate = null;
 let answering = false;
 let timedSubmit = false;
+let runPointerDown = false;
+let choicesLiveAt = 0;
 let cancelTypeScene = null;
 let recapTimer = 0;
 let recapAdvancing = false;
@@ -243,6 +245,8 @@ function clearPlay() {
   recapAdvancing = false;
   answering = false;
   timedSubmit = false;
+  runPointerDown = false;
+  choicesLiveAt = 0;
   if (cancelTypeScene) {
     cancelTypeScene(true);
     cancelTypeScene = null;
@@ -326,11 +330,10 @@ function fillOptions(card, opts) {
   const tappable = card.tappable !== false && !opts.review && !opts.pending;
   for (const o of options) {
     const node = document.createElement(tappable ? "button" : "div");
+    node.className = "opt" + (o.chosen ? " chosen" : "");
     if (tappable) {
       node.type = "button";
       node.addEventListener("click", () => submitAnswer(o.option_id));
-    } else {
-      node.className = "opt" + (o.chosen ? " chosen" : "");
     }
     node.textContent = o.option_text;
     box.appendChild(node);
@@ -374,9 +377,25 @@ function stillSettled() {
   return shot.complete;
 }
 
+function shotHasSize() {
+  const wrap = document.getElementById("shot-wrap");
+  if (!wrap || wrap.classList.contains("hidden")) return true;
+  return wrap.getBoundingClientRect().height > 80;
+}
+
+function choiceDockInView() {
+  const dock = document.getElementById("choice-dock");
+  if (!dock || !runEl || !runEl.classList.contains("choices-ready")) return false;
+  const runBox = runEl.getBoundingClientRect();
+  const box = dock.getBoundingClientRect();
+  return box.top < runBox.bottom - 8 && box.bottom > runBox.top + 8;
+}
+
 function scenarioIsRead() {
+  if (runPointerDown) return false;
   if (sceneWaitingOnHook()) return false;
   if (!stillSettled()) return false;
+  if (!shotHasSize()) return false;
   const mark = scenarioReadMark();
   if (!mark || !runEl) return true;
   const runBox = runEl.getBoundingClientRect();
@@ -404,6 +423,7 @@ function armChoiceGate(card, opts) {
       stopChoiceGate = null;
     }
     showChoiceDock();
+    choicesLiveAt = Date.now() + 450;
     revealChoices(card, opts);
     if (!(card.options || []).length) {
       const cont = document.getElementById("continue");
@@ -461,14 +481,18 @@ function startHazardWindow(card) {
   const clock = document.getElementById("hazard-clock");
   const fill = document.getElementById("hazard-fill");
   const ms = Number(card.timeout_ms) || 24000;
-  const started = Date.now();
+  let elapsed = 0;
+  let last = Date.now();
   const gen = playGen;
   if (clock) clock.classList.remove("hidden");
   if (fill) fill.style.transform = "scaleX(1)";
   PMFeel.setVignette(0.72);
   hazardTimer = window.setInterval(() => {
     if (gen !== playGen || answering) return;
-    const left = Math.max(0, 1 - (Date.now() - started) / ms);
+    const now = Date.now();
+    if (choiceDockInView() && !runPointerDown) elapsed += now - last;
+    last = now;
+    const left = Math.max(0, 1 - elapsed / ms);
     if (fill) fill.style.transform = "scaleX(" + left + ")";
     PMFeel.setVignette(left * 0.72);
     if (left <= 0) {
@@ -913,6 +937,7 @@ async function answerLink(accept) {
 
 async function submitAnswer(optionId) {
   if (answering) return;
+  if (!timedSubmit && Date.now() < choicesLiveAt) return;
   answering = true;
   window.clearInterval(hazardTimer);
   hazardTimer = 0;
@@ -951,8 +976,16 @@ runEl.addEventListener("scroll", () => {
 });
 
 runEl.addEventListener("pointerdown", (ev) => {
+  runPointerDown = true;
   if (ev.target.closest("#ignition") || ev.target.closest("#collapse") || ev.target.closest("#manifest") || ev.target.closest("#delivery")) return;
   PMFeel.ensureAudio();
+});
+window.addEventListener("pointerup", () => {
+  runPointerDown = false;
+  if (stopChoiceGate) runEl.dispatchEvent(new Event("scroll"));
+});
+window.addEventListener("pointercancel", () => {
+  runPointerDown = false;
 });
 
 document.getElementById("hdr-home").addEventListener("click", () => {

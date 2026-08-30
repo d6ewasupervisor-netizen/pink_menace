@@ -656,7 +656,7 @@ button.act-row {
   to { transform: scale(1.04) translateX(3%); }
 }
 
-.wx-rain, .wx-fog, .vignette, .hazard-clock, .fear-root {
+.wx-rain, .wx-fog, .vignette, .fear-root {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -711,9 +711,12 @@ button.act-row {
 }
 
 .hazard-clock {
-  top: auto;
+  position: relative;
   height: 4px;
+  margin: 0 0 0.55rem;
   background: #2a2220;
+  pointer-events: none;
+  flex-shrink: 0;
 }
 .hazard-clock i {
   display: block;
