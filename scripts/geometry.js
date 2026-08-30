@@ -85,7 +85,7 @@ function isGeometryRead(read) {
 function camerasForHazard(hazard) {
   switch (hazard) {
     case "behind":
-      return ["POV_MIRROR_REAR"];
+      return ["POV_MIRROR_REAR", "POV_MIRROR_DOOR"];
     case "ahead_same_direction":
       return LEGAL_CAMERAS.filter((c) => c !== "POV_MIRROR_REAR" && c !== "POV_MIRROR_DOOR");
     case "oncoming":

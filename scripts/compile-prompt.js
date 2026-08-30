@@ -27,7 +27,7 @@ const FRAMING = {
   POV_COCKPIT_LEDGER:
     "Camera is inside the high-seat cabin, over the large commercial wheel, looking forward through the windshield. Square analog gauges bottom-left, a welded bar cage with a cut wiper slot across the glass, road through the grid. No driver face in frame.",
   POV_DIAGRAM_LEDGER:
-    "Camera is high and slightly oblique — fifteen to twenty degrees off vertical, looking along the ego vehicle's direction of travel so the rear of the cutaway shuttle is nearer the camera and the van nose is the far, leading end. Tight crop: only the lane geometry the card turns on. No extra side streets, parked cars, or curb clutter the brief did not name. Real wet pavement, real painted lines. The Ledger is the actual ex-transit cutaway: tall square passenger box on a van nose, gray primer over faded green-and-white, oversize convex west-coast mirrors on long arms, amber destination sign with no readable text, bar cage over the windshield. Other vehicles are real cars, desaturated gray or primer. Painted pavement arrows only where the brief names them, and they agree with travel direction — no floating UI arrows, no legend, no callouts.",
+    "Camera is high and slightly oblique — fifteen to twenty degrees off vertical, looking along the ego vehicle's direction of travel so the rear of the cutaway shuttle is nearer the camera and the van nose is the far, leading end. Tight crop: only the lane geometry the card turns on. No extra side streets, parked cars, or curb clutter the brief did not name. Real wet pavement, real painted lines. The Ledger is the actual ex-transit cutaway: tall square passenger box on a van nose, gray primer over faded green-and-white, oversize convex west-coast mirrors on long arms, amber destination sign with no readable text, bar cage over the windshield. Other vehicles are ordinary cars or trucks, desaturated gray or primer, never a second cutaway shuttle. Painted pavement arrows only where the brief names them, and they agree with travel direction — no floating UI arrows, no legend, no callouts.",
   POV_MIRROR_REAR:
     "Camera is inside the cabin, looking up and forward at the interior rearview mirror, which is wide, weathered, and fills the upper portion of the frame. The windshield view is dark, defocused, or cropped out.",
   POV_MIRROR_DOOR:
@@ -54,6 +54,9 @@ const NEGATIVE =
 
 const DIAGRAM_NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No stick figures, no vector icons, no infographic, no textbook schematic, no flat cartoon cars, no board-game tokens, no UI overlay, no legend, no floating arrows that are not painted on the pavement. No text, no captions, no watermarks. No vehicle facing the wrong way in its lane. No two vehicles in the same lane facing each other. No vehicle occupying the left (oncoming) half of the roadway. The Pink Menace must not face the camera — no headlights or plow toward the viewer. Rear mesh nearer the camera; plow at the far leading end. Same-direction traffic shows rears, never oncoming grilles. No gore, no crowds, no firearms. This is a photograph.";
+
+const OTHER_VEHICLE_CLAUSE_LEDGER =
+  "Any vehicle other than the Ledger must be visually distinct from it. When the ego vehicle is the Ledger, no other vehicle in frame may be a transit-style box: no cutaway shuttle body, no amber dot-matrix destination sign, no roof cargo rack, no west-coast mirror arms. Those four marks belong only to the Ledger. Other traffic uses plainly different silhouettes — a panel van, a stake-bed, a flatbed, a sedan — with factory door mirrors only. No pink Beetle, no plow blade, on any vehicle.";
 
 const LEDGER_DIAGRAM_NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No stick figures, no vector icons, no infographic, no textbook schematic, no flat cartoon cars, no board-game tokens, no UI overlay, no legend, no floating arrows that are not painted on the pavement. No text, no captions, no watermarks. No vehicle facing the wrong way in its lane. No two vehicles in the same lane facing each other. No vehicle occupying the left (oncoming) half of the roadway. The Ledger must not face the camera — no headlights or van nose toward the viewer. Rear of the square box nearer the camera; van nose at the far leading end. Same-direction traffic shows rears, never oncoming grilles. No pink Beetle, no plow blade. No gore, no crowds, no firearms. This is a photograph.";
@@ -117,6 +120,9 @@ function assemblePrompt(card) {
       "Ego vehicle: a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette — a tall square passenger box on a van cab, faded green and white transit livery ghosting under gray primer. All four of the following must be clearly visible and unmistakable: the tall square box on a van nose, oversize convex west-coast mirrors on long arms on both sides, an amber dot-matrix destination sign above the windshield with no readable text, and a welded bar cage over the windshield with a cut wiper slot."
     );
   }
+  if (deac && cam !== "POV_PORTRAIT") {
+    parts.push(OTHER_VEHICLE_CLAUSE_LEDGER);
+  }
 
   if (brief.subject) parts.push(brief.subject.replace(/\.*$/, "."));
   if (brief.foreground) parts.push(brief.foreground.replace(/\.*$/, "."));
@@ -172,4 +178,4 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD };
+module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };

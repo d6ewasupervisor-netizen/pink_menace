@@ -53,9 +53,9 @@
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
     "camera_is_the_lesson": true,
-    "subject": "white panel van filling the right convex glass, same heading, no lamps, close",
-    "foreground": "round west-coast mirror housing and a strip of gray primer flank",
-    "midground": "the van in the glass, occupying the right-side room beside the Ledger",
+    "subject": "modern white cargo van filling the right convex glass, same heading, no lamps, close — factory door mirrors only, no roof rack, no amber sign, no cutaway shuttle body",
+    "foreground": "round west-coast mirror housing and a strip of gray primer flank (the Ledger's glass, not the van's)",
+    "midground": "the cargo van in the glass, occupying the right-side room beside the Ledger",
     "background": "clear cold afternoon, West Valley arterial, long shadows",
     "read": "the van is already in the right-side room the seat cannot see",
     "continuity": ["the_ledger"],

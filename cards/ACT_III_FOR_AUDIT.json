@@ -310,9 +310,9 @@
     "image_brief": {
       "camera": "POV_MIRROR_DOOR",
       "camera_is_the_lesson": true,
-      "subject": "white panel van filling the right convex glass, same heading, no lamps, close",
-      "foreground": "round west-coast mirror housing and a strip of gray primer flank",
-      "midground": "the van in the glass, occupying the right-side room beside the Ledger",
+      "subject": "modern white cargo van filling the right convex glass, same heading, no lamps, close — factory door mirrors only, no roof rack, no amber sign, no cutaway shuttle body",
+      "foreground": "round west-coast mirror housing and a strip of gray primer flank (the Ledger's glass, not the van's)",
+      "midground": "the cargo van in the glass, occupying the right-side room beside the Ledger",
       "background": "clear cold afternoon, West Valley arterial, long shadows",
       "read": "the van is already in the right-side room the seat cannot see",
       "continuity": [
@@ -343,7 +343,7 @@
     "card_type": "convoy",
     "title": "A Hundred Feet of Amber",
     "hook": "Amber letters crawl. The column has not seen you yet.",
-    "scene": "Wind at dusk on 167, a three-vehicle stack you did not ask for. Your destination sign is dark. You need the left in a hundred feet. Radios are trash. The Ledger talks with amber. If you wink the stalk at the last second, the box behind you will eat your rear doors.",
+    "scene": "Wind at dusk on 167, a three-vehicle stack you did not ask for. You need the left in a hundred feet. Radios are trash. The Ledger talks with amber — your sign, your stalk. If you wink the stalk at the last second, the box behind you will eat your rear doors.",
     "decision": "You need the left in a hundred feet. How do you tell the column?",
     "options": [
       {
@@ -401,21 +401,21 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_CHASE",
-      "subject": "the Ledger's rear, amber destination sign lit, left stalk blinking, a box truck tight behind",
-      "foreground": "following cab A-pillar and a strip of windshield",
-      "midground": "the Ledger's rear doors and oversize west-coast arms, amber sign facing the camera",
-      "background": "dusk, wind, 167 concrete, stacked lamps",
-      "read": "the sign and the left stalk are already on while the bus is still in its lane",
+      "camera": "POV_OBJECT",
+      "subject": "left turn stalk blinking amber, destination-sign toggle already thrown, the stacked column visible in the glass behind",
+      "foreground": "commercial column, blinking left stalk, and the thrown sign switch — Deac's cab, no driver face",
+      "midground": "interior rearview and a slice of the left west-coast, both holding the same day-cab box truck behind — factory mirrors only, no amber destination sign, no roof rack, no cutaway shuttle body",
+      "background": "defocused dusk 167 through the cage, not the subject",
+      "read": "the stalk and the sign switch are already talking; the column in the glass has not given the hole",
       "continuity": [
-        "the_ledger"
+        "ledger_cockpit"
       ],
       "aspect": "2:3",
       "geometry": {
         "ego_heading": "away_from_camera",
         "ego_lane_side": "right travel lane of a multi-lane highway",
-        "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
-        "oncoming_position": "none in this heading",
+        "ego_nose_in_frame": "not in the mirror; travel is away, reflected traffic is behind",
+        "oncoming_position": "none in the glass",
         "hazard_position": "none"
       }
     },
@@ -1477,9 +1477,9 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_MIRROR_REAR",
-      "subject": "box truck cab and windshield still beside the Ledger in the glass, not yet a full front",
+      "subject": "day-cab cube truck, short cargo box, still beside the Ledger in the glass, not yet a full front — factory mirrors only, no amber destination sign, no roof rack, no west-coast arms, no cutaway shuttle body",
       "foreground": "rearview housing, rain on the glass",
-      "midground": "the box's face incomplete in the reflection — you are not clear",
+      "midground": "the cube truck's face incomplete in the reflection — you are not clear",
       "background": "defocused Central at night, rain",
       "read": "the passed vehicle's whole front is not yet in the glass",
       "continuity": [
@@ -1952,9 +1952,9 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_OBJECT",
-      "subject": "painted diamond and solid white fence on wet pavement, a slow box in the general lane, no readable occupancy numbers",
+      "subject": "painted diamond and solid white fence on wet pavement, a slow flatbed pickup in the general lane, no readable occupancy numbers",
       "foreground": "fog in the lamp, skip-dash of the general lane",
-      "midground": "the empty diamond lane beside the box you would have to leave to enter it",
+      "midground": "the empty diamond lane beside the flatbed you would have to leave to enter it",
       "background": "167 dusk, fog, general-lane stack",
       "read": "the empty diamond sits beside a slow vehicle — a pass that is not a pass",
       "continuity": [

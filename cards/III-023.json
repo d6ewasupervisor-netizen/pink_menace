@@ -50,9 +50,9 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_OBJECT",
-    "subject": "painted diamond and solid white fence on wet pavement, a slow box in the general lane, no readable occupancy numbers",
+    "subject": "painted diamond and solid white fence on wet pavement, a slow flatbed pickup in the general lane, no readable occupancy numbers",
     "foreground": "fog in the lamp, skip-dash of the general lane",
-    "midground": "the empty diamond lane beside the box you would have to leave to enter it",
+    "midground": "the empty diamond lane beside the flatbed you would have to leave to enter it",
     "background": "167 dusk, fog, general-lane stack",
     "read": "the empty diamond sits beside a slow vehicle — a pass that is not a pass",
     "continuity": ["the_ledger"],

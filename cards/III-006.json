@@ -6,7 +6,7 @@
   "card_type": "convoy",
   "title": "A Hundred Feet of Amber",
   "hook": "Amber letters crawl. The column has not seen you yet.",
-  "scene": "Wind at dusk on 167, a three-vehicle stack you did not ask for. Your destination sign is dark. You need the left in a hundred feet. Radios are trash. The Ledger talks with amber. If you wink the stalk at the last second, the box behind you will eat your rear doors.",
+  "scene": "Wind at dusk on 167, a three-vehicle stack you did not ask for. You need the left in a hundred feet. Radios are trash. The Ledger talks with amber — your sign, your stalk. If you wink the stalk at the last second, the box behind you will eat your rear doors.",
   "decision": "You need the left in a hundred feet. How do you tell the column?",
   "options": [
     {
@@ -49,19 +49,19 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_CHASE",
-    "subject": "the Ledger's rear, amber destination sign lit, left stalk blinking, a box truck tight behind",
-    "foreground": "following cab A-pillar and a strip of windshield",
-    "midground": "the Ledger's rear doors and oversize west-coast arms, amber sign facing the camera",
-    "background": "dusk, wind, 167 concrete, stacked lamps",
-    "read": "the sign and the left stalk are already on while the bus is still in its lane",
-    "continuity": ["the_ledger"],
+    "camera": "POV_OBJECT",
+    "subject": "left turn stalk blinking amber, destination-sign toggle already thrown, the stacked column visible in the glass behind",
+    "foreground": "commercial column, blinking left stalk, and the thrown sign switch — Deac's cab, no driver face",
+    "midground": "interior rearview and a slice of the left west-coast, both holding the same day-cab box truck behind — factory mirrors only, no amber destination sign, no roof rack, no cutaway shuttle body",
+    "background": "defocused dusk 167 through the cage, not the subject",
+    "read": "the stalk and the sign switch are already talking; the column in the glass has not given the hole",
+    "continuity": ["ledger_cockpit"],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of a multi-lane highway",
-      "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
-      "oncoming_position": "none in this heading",
+      "ego_nose_in_frame": "not in the mirror; travel is away, reflected traffic is behind",
+      "oncoming_position": "none in the glass",
       "hazard_position": "none"
     }
   },

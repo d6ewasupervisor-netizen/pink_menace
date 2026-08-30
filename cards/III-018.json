@@ -50,9 +50,9 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_MIRROR_REAR",
-    "subject": "box truck cab and windshield still beside the Ledger in the glass, not yet a full front",
+    "subject": "day-cab cube truck, short cargo box, still beside the Ledger in the glass, not yet a full front — factory mirrors only, no amber destination sign, no roof rack, no west-coast arms, no cutaway shuttle body",
     "foreground": "rearview housing, rain on the glass",
-    "midground": "the box's face incomplete in the reflection — you are not clear",
+    "midground": "the cube truck's face incomplete in the reflection — you are not clear",
     "background": "defocused Central at night, rain",
     "read": "the passed vehicle's whole front is not yet in the glass",
     "continuity": ["ledger_cockpit"],
