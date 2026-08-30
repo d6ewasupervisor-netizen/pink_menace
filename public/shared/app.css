@@ -684,18 +684,65 @@ html.playing .shell {
   flex-shrink: 0;
 }
 
-.cargo {
-  height: 0.35rem;
-  border-radius: 99px;
-  background: #2a2220;
-  overflow: hidden;
+.cooler-tag {
+  align-self: flex-end;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.28rem 0.7rem 0.28rem 0.85rem;
+  background: #d6c48a;
+  color: #1c1610;
+  border: 1px solid #8a7340;
+  border-radius: 2px 2px 0.55rem 2px;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  box-shadow: inset 0 1px 0 rgba(255, 245, 210, 0.45);
 }
-.cargo i {
-  display: block;
-  height: 100%;
-  width: 100%;
-  background: var(--pink);
-  transition: width 0.6s ease;
+.cooler-tag::before {
+  content: "";
+  position: absolute;
+  left: 0.28rem;
+  top: 50%;
+  width: 0.34rem;
+  height: 0.34rem;
+  margin-top: -0.17rem;
+  border-radius: 50%;
+  background: #121010;
+  box-shadow: inset 0 0 0 1px #8a7340;
+}
+.cooler-label {
+  color: #5a4a22;
+}
+#cooler-min {
+  letter-spacing: 0.12em;
+}
+.cooler-tag.low {
+  background: #c9a06a;
+  border-color: #8a4a28;
+}
+.cooler-tag.dead {
+  background: #8a6a5a;
+  color: #2a1814;
+  opacity: 0.72;
+}
+.cooler-float {
+  position: absolute;
+  right: 0.15rem;
+  top: -0.15rem;
+  color: var(--cranberry-2);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+  animation: cold-float 1.15s ease-out forwards;
+}
+.cooler-float.hidden { display: none; }
+@keyframes cold-float {
+  0% { opacity: 0; transform: translateY(0.35rem); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-1.1rem); }
 }
 
 .meters {
@@ -732,13 +779,14 @@ html.playing .shell {
   background: var(--accent);
   transition: width 0.2s linear;
 }
-.dash.ease .meters i, .dash.ease .cargo i { transition: width 0.9s ease; }
+.dash.ease .meters i { transition: width 0.9s ease; }
 .dash.spike .meters i { background: var(--accent-2); }
-.dash.dead .meters i, .dash.dead .cargo i {
+.dash.dead .meters i {
   width: 0% !important;
   opacity: 0.2;
   transition: width 0.85s ease, opacity 0.85s ease;
 }
+.dash.dead .cooler-tag { background: #8a6a5a; opacity: 0.55; }
 
 .fear-contacts, .fear-gait, .fear-prints, .fear-mirror, .fear-eyeshine {
   display: none;
@@ -908,6 +956,102 @@ html.playing .shell {
   to { opacity: 1; }
 }
 
+.manifest {
+  position: fixed;
+  inset: 0;
+  z-index: 52;
+  background: #0a0808;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.clipboard {
+  width: min(22rem, 92vw);
+  background: #5c5c5e;
+  border-radius: 0.2rem 0.2rem 0.35rem 0.35rem;
+  padding: 0.85rem 0.7rem 0.7rem;
+  box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.55);
+}
+.clipboard-clip {
+  width: 3.2rem;
+  height: 0.7rem;
+  margin: -1.15rem auto 0.55rem;
+  background: linear-gradient(#c8c4bc, #8a8680);
+  border-radius: 0.15rem 0.15rem 0.35rem 0.35rem;
+  box-shadow: 0 2px 0 #4a4844;
+}
+.log-sheet {
+  background: #e7d8b8;
+  color: #2a2218;
+  padding: 1.1rem 1rem 0.85rem;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 1.55rem,
+    rgba(90, 70, 40, 0.18) 1.55rem,
+    rgba(90, 70, 40, 0.18) 1.6rem
+  );
+  box-shadow: inset 0 0 0 1px rgba(70, 50, 20, 0.18);
+}
+.log-row, .manifest-sign {
+  display: grid;
+  grid-template-columns: 8.2rem 1fr;
+  gap: 0.4rem;
+  align-items: baseline;
+  margin: 0;
+  min-height: 1.6rem;
+  font-size: 0.78rem;
+}
+.log-row span, .manifest-sign span {
+  color: #6a5840;
+  letter-spacing: 0.08em;
+  font-weight: 650;
+}
+.log-row b, .manifest-sign b {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1c1610;
+}
+.manifest-sign {
+  width: 100%;
+  margin-top: 0.55rem;
+  padding: 0.15rem 0 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid rgba(70, 50, 20, 0.28);
+  text-align: left;
+  color: inherit;
+  min-height: 2.8rem;
+}
+.manifest-sign b {
+  border-bottom: 1px solid #2a2218;
+  min-height: 1.4rem;
+  padding-bottom: 0.1rem;
+}
+.delivery {
+  position: fixed;
+  inset: 0;
+  z-index: 54;
+  background: #0a0808;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  padding: 2rem;
+}
+#delivery-copy {
+  margin: 0;
+  max-width: 22rem;
+  color: #c4b8ae;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  text-align: center;
+}
+#delivery-continue { min-width: 10rem; }
+
 .ignition {
   position: fixed;
   inset: 0;
@@ -1043,7 +1187,7 @@ html.playing .shell {
 @media (prefers-reduced-motion: reduce) {
   .shot-ken, .wx-rain, .wx-fog, #run.hit, #run.slide-in,
   #ignition-needle.spin, #ignition-needle-2.spin,
-  .fear-contacts, .bark, .hazard-clock.arming i, .ign-lamp,
+  .fear-contacts, .bark, .hazard-clock.arming i, .ign-lamp, .cooler-float,
   .buffer img {
     animation: none !important;
   }

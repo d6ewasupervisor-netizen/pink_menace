@@ -2,6 +2,7 @@
 
 const { query } = require("./db");
 const { publicFear } = require("./presence");
+const { coldFrom, cargoFailDispatch } = require("./manifest");
 
 async function purgeExpiredPending() {
   await query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
@@ -363,10 +364,6 @@ function hookOf(card) {
   return words.slice(0, 12).join(" ");
 }
 
-function cargoFailDispatch() {
-  return "KILO. Ledger. The cold ran out. They're on you. You are dark. Copy.";
-}
-
 function publicState(state) {
   const s = state || {};
   return {
@@ -374,6 +371,8 @@ function publicState(state) {
     light: Number(s.light) || 0,
     yaw: Number(s.yaw) || 0,
     cargo: cargoFrom(s),
+    time_cost: Number(s.time_cost) || 0,
+    cold: coldFrom(s),
     ...publicFear(s),
   };
 }

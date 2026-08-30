@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#9a3d4d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>PINK MENACE</title>
-      <link rel="stylesheet" href="/shared/app.css?v=p31">
+      <link rel="stylesheet" href="/shared/app.css?v=p32">
 </head>
 <body>
   <main class="shell">
@@ -71,7 +71,11 @@
       </div>
       <div id="run" class="panel hidden">
         <div id="dash" class="dash">
-          <div class="cargo" aria-hidden="true"><i id="cargo-fill"></i></div>
+          <div id="cooler-tag" class="cooler-tag" aria-live="polite">
+            <span class="cooler-label">COLD</span>
+            <span id="cooler-min">90 MIN</span>
+            <span id="cooler-float" class="cooler-float hidden"></span>
+          </div>
           <ul class="meters">
             <li><span>noise</span><b><i id="m-noise"></i></b></li>
             <li><span>light</span><b><i id="m-light"></i></b></li>
@@ -111,6 +115,25 @@
             <button id="resume-live" class="hidden" type="button">Resume</button>
           </div>
         </div>
+        <div id="manifest" class="manifest hidden">
+          <div class="clipboard">
+            <div class="clipboard-clip" aria-hidden="true"></div>
+            <div class="log-sheet">
+              <p class="log-row"><span>RUN</span><b id="man-run"></b></p>
+              <p class="log-row"><span>CARGO</span><b id="man-cargo"></b></p>
+              <p class="log-row"><span>COLD REMAINING</span><b id="man-cold"></b></p>
+              <p class="log-row"><span>FOR</span><b id="man-for"></b></p>
+              <button type="button" id="manifest-sign" class="manifest-sign">
+                <span>DRIVER</span>
+                <b id="manifest-sig"></b>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="delivery" class="delivery hidden" role="dialog" aria-live="polite">
+          <p id="delivery-copy"></p>
+          <button type="button" id="delivery-continue">Continue</button>
+        </div>
         <div id="ignition" class="ignition hidden">
           <div class="ignition-dash" aria-hidden="true">
             <span class="ign-lamp"></span>
@@ -138,7 +161,7 @@
     </section>
   </main>
   <script src="/shared/auth.js?v=p30"></script>
-  <script src="/feel.js?v=p30"></script>
-  <script src="/app.js?v=p30"></script>
+  <script src="/feel.js?v=p32"></script>
+  <script src="/app.js?v=p32"></script>
 </body>
 </html>

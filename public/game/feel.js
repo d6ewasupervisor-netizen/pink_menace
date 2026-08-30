@@ -59,8 +59,27 @@ const PMFeel = (() => {
     set("m-noise", s.noise);
     set("m-light", s.light);
     set("m-yaw", s.yaw);
-    const cargo = document.getElementById("cargo-fill");
-    if (cargo) cargo.style.width = Math.max(0, Math.min(100, Number(s.cargo) || 0)) + "%";
+    const tag = document.getElementById("cooler-tag");
+    const min = document.getElementById("cooler-min");
+    const cold = Math.max(0, Math.round(s.cold != null ? Number(s.cold) : s.cargo != null ? Number(s.cargo) * 0.9 : 90));
+    if (min) min.textContent = cold + " MIN";
+    if (tag) {
+      tag.classList.toggle("low", cold <= 15);
+      tag.classList.toggle("dead", cold <= 0);
+    }
+  }
+
+  function floatTimeCost(n) {
+    const el = document.getElementById("cooler-float");
+    if (!el) return;
+    const cost = Math.max(0, Math.round(Number(n) || 0));
+    if (!cost) {
+      el.classList.add("hidden");
+      return;
+    }
+    el.textContent = "−" + cost + " MIN";
+    el.classList.remove("hidden");
+    el.replaceWith(el.cloneNode(true));
   }
 
   function spikeMeters(prev, next) {
@@ -260,6 +279,7 @@ const PMFeel = (() => {
     ],
     ali_hazard: [
       "Gracie. Sit.",
+      "Off the cooler, Gracie.",
       "Quiet. That's the trick.",
       "Hold that line.",
       "Good. Don't advertise it.",
@@ -321,7 +341,7 @@ const PMFeel = (() => {
     window.clearTimeout(barkTimer);
     const s = spec || {};
     if (face) {
-      if (s.who === "ali" || s.who === "deac") {
+      if (s.who === "ali" || s.who === "deac" || s.who === "reyna_solis") {
         face.src = "/api/run/cast/" + encodeURIComponent(s.who) + "?bark=1";
         face.classList.remove("hidden");
       } else {
@@ -643,6 +663,61 @@ const PMFeel = (() => {
     osc.stop(ctx.currentTime + 0.46);
   }
 
+  function showManifest(data, onSign) {
+    const panel = document.getElementById("manifest");
+    const btn = document.getElementById("manifest-sign");
+    if (!panel || !btn) {
+      onSign && onSign();
+      return;
+    }
+    const set = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text || "";
+    };
+    const row = data || {};
+    set("man-run", row.run || "");
+    set("man-cargo", row.cargo || "");
+    set("man-cold", (row.cold != null ? row.cold : 90) + " MIN");
+    set("man-for", row.for || "");
+    set("manifest-sig", row.driver || "________");
+    panel.classList.remove("hidden");
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      btn.onclick = null;
+      panel.classList.add("hidden");
+      onSign && onSign();
+    };
+    btn.onclick = (ev) => {
+      ev.preventDefault();
+      finish();
+    };
+  }
+
+  function showDelivery(copy, then) {
+    const panel = document.getElementById("delivery");
+    const line = document.getElementById("delivery-copy");
+    const go = document.getElementById("delivery-continue");
+    if (!panel) {
+      then && then();
+      return;
+    }
+    if (line) line.textContent = copy || "Delivered.";
+    panel.classList.remove("hidden");
+    const close = () => {
+      panel.classList.add("hidden");
+      if (go) go.onclick = null;
+      panel.onclick = null;
+      then && then();
+    };
+    if (go) go.onclick = (ev) => {
+      ev.stopPropagation();
+      close();
+    };
+    panel.onclick = close;
+  }
+
   function showIgnition(onCatch) {
     const panel = document.getElementById("ignition");
     const btn = document.getElementById("ignition-catch");
@@ -804,6 +879,7 @@ const PMFeel = (() => {
     splitDebrief,
     kenClass,
     paintMeters,
+    floatTimeCost,
     spikeMeters,
     easeMeters,
     startBed,
@@ -819,6 +895,8 @@ const PMFeel = (() => {
     fireCue,
     cueFor,
     clearCues,
+    showManifest,
+    showDelivery,
     showIgnition,
     playCollapse,
     driveBySight,

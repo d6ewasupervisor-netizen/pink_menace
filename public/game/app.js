@@ -21,7 +21,7 @@ let playGen = 0;
 let stopType = null;
 let hazardTimer = 0;
 let advanceTimer = 0;
-let meters = { noise: 0, light: 0, yaw: 0, cargo: 100 };
+let meters = { noise: 0, light: 0, yaw: 0, cargo: 100, time_cost: 0, cold: 90 };
 let liveCard = null;
 let answering = false;
 let timedSubmit = false;
@@ -72,6 +72,10 @@ function showScreen(name) {
     PMFeel.paintFear({ tier: 0, presence: 0, handprints: false });
     const ign = document.getElementById("ignition");
     if (ign) ign.classList.add("hidden");
+    const man = document.getElementById("manifest");
+    if (man) man.classList.add("hidden");
+    const del = document.getElementById("delivery");
+    if (del) del.classList.add("hidden");
     const col = document.getElementById("collapse");
     if (col) col.classList.add("hidden");
   }
@@ -235,6 +239,8 @@ function applyMeters(state, how, extras) {
     light: Number(next.light) || 0,
     yaw: Number(next.yaw) || 0,
     cargo: next.cargo == null ? meters.cargo : next.cargo,
+    time_cost: next.time_cost == null ? meters.time_cost : Number(next.time_cost) || 0,
+    cold: next.cold == null ? meters.cold : Number(next.cold) || 0,
     presence: Number(next.presence) || 0,
     tier: Number(next.tier) || 0,
     handprints: Boolean(next.handprints),
@@ -429,6 +435,8 @@ function fillCard(card, opts) {
   }
   if (wrap) wrap.classList.remove("arming");
   PMFeel.hideBark();
+  const coldFloat = document.getElementById("cooler-float");
+  if (coldFloat) coldFloat.classList.add("hidden");
   document.getElementById("options").classList.add("hidden");
   document.getElementById("options").replaceChildren();
 
@@ -554,6 +562,7 @@ function playAlt(opt, card) {
     },
     "spike"
   );
+  PMFeel.floatTimeCost(opt.state_delta && opt.state_delta.time_cost);
   PM.api("/api/run/peek", {
     method: "POST",
     body: { card_id: card.card_id, option_id: opt.option_id },
@@ -568,8 +577,10 @@ function playOutcome(data, card) {
   const collapse = Boolean(data && data.collapse) || failed;
   const isDossier = liveCard && liveCard.card_type === "dossier";
   const finish = () => {
+    const cost = data.time_cost != null ? data.time_cost : data.state_delta && data.state_delta.time_cost;
     if (collapse) {
       applyMeters(nextMeters, "paint");
+      PMFeel.floatTimeCost(cost);
       document.getElementById("options").classList.add("hidden");
       applyOutcome(data, { collapseDebrief: true });
       PMFeel.showBark(
@@ -592,7 +603,17 @@ function playOutcome(data, card) {
       applyMeters(nextMeters, "spike");
       applyOutcome(data, { collapseDebrief: true });
     }
+    PMFeel.floatTimeCost(cost);
+    if (data.radio && data.radio.line) {
+      PMFeel.showBark({ who: data.radio.who || "reyna_solis", line: data.radio.line, tap: false });
+    }
     bindAlts((data && data.alts) || [], card);
+    if (data.delivery) {
+      holdContinue(card.card_id, () => {
+        PMFeel.showDelivery(data.delivery, () => loadHome());
+      });
+      return;
+    }
     holdContinue(card.card_id);
   };
   if (!isDossier && !collapse) {
@@ -630,8 +651,16 @@ async function advanceRecap(card) {
       body: { card_id: card.card_id },
     });
     if (data.state) applyMeters(data.state, "paint");
+    PMFeel.floatTimeCost(data.time_cost);
+    if (data.radio && data.radio.line) {
+      PMFeel.showBark({ who: data.radio.who || "reyna_solis", line: data.radio.line, tap: false });
+    }
     const next = data.next || {};
     if (next.done || !next.card_id) {
+      if (data.delivery) {
+        PMFeel.showDelivery(data.delivery, () => loadHome());
+        return;
+      }
       await loadHome();
       return;
     }
@@ -677,14 +706,21 @@ function renderLive(card) {
     });
     pinCardTop();
   };
-  if (card.recap || sessionCaught()) {
-    begin();
+  const crankThen = () => {
+    if (sessionCaught()) {
+      begin();
+      return;
+    }
+    PMFeel.showIgnition(() => {
+      markCaught();
+      begin();
+    });
+  };
+  if (card.manifest && card.manifest.show) {
+    PMFeel.showManifest(card.manifest, crankThen);
     return;
   }
-  PMFeel.showIgnition(() => {
-    markCaught();
-    begin();
-  });
+  crankThen();
 }
 
 function renderReview(card) {
@@ -701,7 +737,7 @@ async function loadHome(focusCardId) {
 
 async function startOver() {
   clearLive();
-  meters = { noise: 0, light: 0, yaw: 0, cargo: 100, presence: 0, tier: 0, handprints: false };
+  meters = { noise: 0, light: 0, yaw: 0, cargo: 100, time_cost: 0, cold: 90, presence: 0, tier: 0, handprints: false };
   try {
     await PM.api("/api/run/restart", { method: "POST", body: {} });
   } catch {
@@ -807,7 +843,7 @@ runEl.addEventListener("scroll", () => {
 });
 
 runEl.addEventListener("pointerdown", (ev) => {
-  if (ev.target.closest("#ignition") || ev.target.closest("#collapse")) return;
+  if (ev.target.closest("#ignition") || ev.target.closest("#collapse") || ev.target.closest("#manifest") || ev.target.closest("#delivery")) return;
   PMFeel.ensureAudio();
 });
 
@@ -826,7 +862,7 @@ runEl.addEventListener("touchstart", (ev) => {
     swipeStart = null;
     return;
   }
-  if (ev.target.closest("button, a, input, textarea, select, #ignition, #collapse, #reward")) {
+  if (ev.target.closest("button, a, input, textarea, select, #ignition, #collapse, #reward, #manifest, #delivery")) {
     swipeStart = null;
     return;
   }

@@ -8,6 +8,7 @@ const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
 const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, checkpointState, applyDelta, checkpointKeep, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
 const { applyFear } = require("./presence");
+const { radioCheckin, deliveryBeat, manifestFor, timeCostOf, coldFrom } = require("./manifest");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
 // A completed run starts a new one. We never rewind an in-progress run to card one.
@@ -31,6 +32,34 @@ async function cardForRun(run) {
     return recapBeat(step.card_id, step.option_id);
   }
   return publicCard(run.current_card_id);
+}
+
+async function answeredCount(runId) {
+  const { rows } = await query(`SELECT COUNT(*)::int AS n FROM run_answers WHERE run_id = $1`, [runId]);
+  return (rows[0] && rows[0].n) || 0;
+}
+
+async function failCharges(client, runId) {
+  const { rows } = await client.query(
+    `SELECT a.card_id, COALESCE((o.state_delta->>'time_cost')::int, 0) AS time_cost
+       FROM run_answers a
+       LEFT JOIN card_options o ON o.card_id = a.card_id AND o.option_id = a.option_id
+      WHERE a.run_id = $1
+      ORDER BY a.created_at ASC`,
+    [runId]
+  );
+  return rows.map((r) => ({ card_id: r.card_id, minutes: r.time_cost }));
+}
+
+function withManifest(payload, run, card, session, answersN) {
+  const act = (card && card.act) || "II";
+  return {
+    ...payload,
+    manifest: {
+      ...manifestFor(act, session && session.name),
+      show: answersN === 0 && !payload.pending_outcome && !payload.recap && !(card && card.recap),
+    },
+  };
 }
 
 async function getOrCreateRun(studentId) {
@@ -105,7 +134,8 @@ function mountRun(app) {
         if (!card) return jsonError(res, 500, "Could not load card.");
         const progress = await progressFor(run);
         const neighbors = await neighborsAnsweredForStudent(session.userId, pending.card_id);
-        return res.json({
+        const n = await answeredCount(run.id);
+        return res.json(withManifest({
           ok: true,
           run_id: run.id,
           pending_outcome: true,
@@ -115,7 +145,7 @@ function mountRun(app) {
           next_card_id: neighbors.next_card_id,
           state: publicState(run.state),
           ...card,
-        });
+        }, run, card, session, n));
       }
       if (!run.current_card_id) {
         return res.json({ ok: true, done: true, next: { done: true } });
@@ -124,7 +154,8 @@ function mountRun(app) {
       if (!card) return res.json({ ok: true, done: true, next: { done: true } });
       const progress = await progressFor(run);
       const neighbors = await neighborsAnsweredForStudent(session.userId, run.current_card_id);
-      return res.json({
+      const n = await answeredCount(run.id);
+      return res.json(withManifest({
         ok: true,
         run_id: run.id,
         attempt_no: run.current_attempt_no,
@@ -135,7 +166,7 @@ function mountRun(app) {
         next_card_id: neighbors.next_card_id,
         state: publicState(run.state),
         ...card,
-      });
+      }, run, card, session, n));
     } catch (err) {
       return jsonError(res, 500, "Could not load card.");
     }
@@ -333,7 +364,8 @@ function mountRun(app) {
 
       const delta = option.state_delta || {};
       const timedOut = Boolean(req.body && req.body.timed_out) && optionId !== "continue";
-      let state = { ...(run.state || {}) };
+      const prevState = { ...(run.state || {}) };
+      let state = { ...prevState };
       for (const [k, v] of Object.entries(delta)) {
         if (k === "presence" || k === "handprints" || k === "drew") continue;
         if (typeof v === "number") state[k] = (Number(state[k]) || 0) + v;
@@ -403,7 +435,13 @@ function mountRun(app) {
         }));
 
       const failed = cargoDead(state, delta);
+      const radio = failed ? null : radioCheckin(prevState, state);
       const inReplay = Boolean(replayStep(run));
+      let failDispatch = null;
+      if (failed) {
+        const charges = await failCharges(client, run.id);
+        failDispatch = cargoFailDispatch(charges);
+      }
       let nextCardId = null;
       if (failed) {
         const counted = await client.query(
@@ -513,15 +551,19 @@ function mountRun(app) {
           next = (await publicCard(nextCardId)) || { done: true };
         }
       }
+      const done = Boolean(next && next.done) && !failed;
       return res.json({
         ok: true,
         was_correct: option.is_correct,
         result: option.result,
         state_delta: delta,
+        time_cost: timeCostOf(delta),
         state: publicState(state),
         collapse: Boolean(fear.collapse) || failed,
         failed,
-        dispatch: failed ? cargoFailDispatch() : fear.dispatch || null,
+        dispatch: failDispatch || fear.dispatch || null,
+        radio,
+        delivery: done ? deliveryBeat(coldFrom(state)) : null,
         debrief: card.debrief,
         driver: card.driver || "ali",
         alts,
@@ -641,7 +683,9 @@ function mountRun(app) {
         `SELECT state_delta FROM card_options WHERE card_id = $1 AND option_id = $2`,
         [cardId, step.option_id || "continue"]
       );
-      const recapState = applyDelta(run.state, recapOpt[0] && recapOpt[0].state_delta);
+      const recapDelta = (recapOpt[0] && recapOpt[0].state_delta) || {};
+      const recapState = applyDelta(run.state, recapDelta);
+      const radio = radioCheckin(run.state, recapState);
       await client.query(`UPDATE runs SET state = $1::jsonb, updated_at = now() WHERE id = $2`, [
         JSON.stringify(recapState),
         run.id,
@@ -658,9 +702,22 @@ function mountRun(app) {
         );
         const active = activeRes.rows[0];
         next = (await cardForRun(active)) || (await publicCard(advanced.cardId)) || { done: true };
-        return res.json({ ok: true, next, state: publicState(active && active.state) });
+        return res.json({
+          ok: true,
+          next,
+          state: publicState(active && active.state),
+          time_cost: timeCostOf(recapDelta),
+          radio,
+        });
       }
-      return res.json({ ok: true, next, state: publicState(run.state) });
+      return res.json({
+        ok: true,
+        next,
+        state: publicState(run.state),
+        time_cost: timeCostOf(recapDelta),
+        radio,
+        delivery: deliveryBeat(coldFrom(run.state)),
+      });
     } catch (err) {
       try {
         await client.query("ROLLBACK");
