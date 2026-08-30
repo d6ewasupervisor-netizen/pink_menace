@@ -735,15 +735,7 @@ const PMFeel = (() => {
     needles.forEach((n) => n && n.classList.remove("held", "spin"));
     let done = false;
     let downAt = 0;
-    const CATCH_MS = 1100;
     const SIGHT_MS = 5000;
-    const resetCrank = () => {
-      window.clearTimeout(holdTimer);
-      holdTimer = 0;
-      stopCrank();
-      panel.classList.remove("cranking");
-      needles.forEach((n) => n && n.classList.remove("spin", "held"));
-    };
     const finish = (sight) => {
       if (done) return;
       done = true;
@@ -758,32 +750,36 @@ const PMFeel = (() => {
         panel.classList.remove("caught", "cranking");
         btn.onpointerdown = null;
         btn.onpointerup = null;
-        btn.onpointerleave = null;
         btn.onclick = null;
+        panel.onclick = null;
         onCatch && onCatch();
       }, 420);
     };
-    btn.onclick = (ev) => ev.preventDefault();
+    const catchNow = (sight) => finish(Boolean(sight));
+    btn.onclick = (ev) => {
+      ev.preventDefault();
+      catchNow(false);
+    };
+    panel.onclick = (ev) => {
+      if (ev.target === btn) return;
+      catchNow(false);
+    };
     btn.onpointerdown = (ev) => {
       ev.preventDefault();
       downAt = Date.now();
       panel.classList.add("cranking");
       startCrank();
       needles.forEach((n) => n && n.classList.add("spin"));
-      holdTimer = window.setTimeout(() => finish(true), SIGHT_MS);
+      holdTimer = window.setTimeout(() => catchNow(true), SIGHT_MS);
     };
-    btn.onpointerup = () => {
+    btn.onpointerup = (ev) => {
+      ev.preventDefault();
       if (done) return;
       const held = Date.now() - downAt;
       window.clearTimeout(holdTimer);
       holdTimer = 0;
-      if (held >= SIGHT_MS) finish(true);
-      else if (held >= CATCH_MS) finish(false);
-      else resetCrank();
-    };
-    btn.onpointerleave = () => {
-      if (done) return;
-      resetCrank();
+      if (held >= SIGHT_MS) catchNow(true);
+      else catchNow(false);
     };
   }
 

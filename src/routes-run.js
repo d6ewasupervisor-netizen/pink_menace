@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, checkpointState, applyDelta, checkpointKeep, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, checkpointState, applyDelta, checkpointKeep, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan, reopenIfMoreCards } = require("./game");
 const { applyFear } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
@@ -70,6 +70,18 @@ async function getOrCreateRun(studentId) {
     [studentId]
   );
   if (rows[0]) return assignCurrent(rows[0]);
+  const { rows: done } = await query(
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
+       FROM runs
+      WHERE student_id = $1 AND status = 'completed'
+      ORDER BY updated_at DESC
+      LIMIT 1`,
+    [studentId]
+  );
+  if (done[0]) {
+    const reopened = await reopenIfMoreCards(done[0]);
+    if (reopened.status === "active") return assignCurrent(reopened);
+  }
   const id = crypto.randomUUID();
   await query(
     `INSERT INTO runs (id, student_id, status, current_attempt_no)
@@ -100,7 +112,7 @@ async function getRunForHome(studentId) {
       LIMIT 1`,
     [studentId]
   );
-  if (last[0]) return last[0];
+  if (last[0]) return reopenIfMoreCards(last[0]);
   return getOrCreateRun(studentId);
 }
 

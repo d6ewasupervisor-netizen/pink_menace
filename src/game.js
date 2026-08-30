@@ -1,6 +1,6 @@
 "use strict";
 
-const { query } = require("./db");
+const { query, pool } = require("./db");
 const { publicFear } = require("./presence");
 const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET } = require("./manifest");
 
@@ -298,21 +298,46 @@ async function recapBeat(cardId, optionId) {
   };
 }
 
-function lockedNextAct(catalog, run) {
+function lockedNextAct(catalog, run, answeredIds) {
   if (!run || run.status !== "completed") return null;
   const actCards = {};
   for (const c of catalog) {
     if (!actCards[c.act]) actCards[c.act] = [];
     actCards[c.act].push(c);
   }
-  const seeded = ACT_ZONES.filter((z) => (actCards[z.act] || []).length > 0);
-  if (!seeded.length) return null;
-  const last = seeded[seeded.length - 1];
-  const idx = ACT_ZONES.findIndex((z) => z.act === last.act);
+  const seen = new Set(answeredIds || []);
+  let lastDone = null;
+  for (const z of ACT_ZONES) {
+    const cards = actCards[z.act] || [];
+    if (!cards.length) {
+      return lastDone ? { act: z.act, zone: z.zone } : null;
+    }
+    const finished = cards.every((c) => seen.has(c.card_id));
+    if (finished) lastDone = z;
+    else break;
+  }
+  if (!lastDone) return null;
+  const idx = ACT_ZONES.findIndex((z) => z.act === lastDone.act);
   if (idx < 0 || idx >= ACT_ZONES.length - 1) return null;
   const next = ACT_ZONES[idx + 1];
   if ((actCards[next.act] || []).length > 0) return null;
   return { act: next.act, zone: next.zone };
+}
+
+async function reopenIfMoreCards(run) {
+  if (!run || run.status !== "completed") return run;
+  const picked = await pickNextCard(pool, run.id, run.callback_debts, run.start_seq);
+  if (!picked.cardId) return run;
+  await query(
+    `UPDATE runs
+        SET status = 'active', current_card_id = $1, current_attempt_no = 1, updated_at = now()
+      WHERE id = $2`,
+    [picked.cardId, run.id]
+  );
+  run.status = "active";
+  run.current_card_id = picked.cardId;
+  run.current_attempt_no = 1;
+  return run;
 }
 
 async function advanceReplayPlan(client, runId, run) {
@@ -558,8 +583,7 @@ async function progressFor(run) {
     const cards = actCards[row.act] || [];
     const practiced = cards.filter((c) => everSet.has(c.card_id)).length;
     const isCurrent = row.act === currentAct && !done && run.status === "active";
-    const complete =
-      cards.length > 0 && (practiced >= cards.length || (runFinished && row.act === lastSeededAct));
+    const complete = cards.length > 0 && practiced >= cards.length;
     return {
       act: row.act,
       zone: row.zone,
@@ -571,7 +595,11 @@ async function progressFor(run) {
     };
   });
 
-  const lockedNext = lockedNextAct(catalog, run);
+  const lockedNext = lockedNextAct(
+    catalog,
+    run,
+    answers.map((a) => a.card_id)
+  );
 
   return {
     saved,
@@ -724,6 +752,7 @@ module.exports = {
   asReplayPlan,
   advanceReplayPlan,
   lockedNextAct,
+  reopenIfMoreCards,
   publicState,
   hookOf,
   nightOf,
