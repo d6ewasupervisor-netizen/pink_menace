@@ -311,10 +311,10 @@
       "camera": "POV_MIRROR_DOOR",
       "camera_is_the_lesson": true,
       "subject": "from the seat looking right across the empty jump seat, through the right window, into the right door-mounted side mirror; a modern white cargo van fills that glass, same heading, no lamps, close — factory door mirrors only, no roof rack, no amber sign, no cutaway shuttle body",
-      "foreground": "empty jump seat and the doghouse between the seats, right window frame, the long-arm right door mirror",
-      "midground": "the cargo van in the right door-mirror glass, tight on the Ledger's right flank",
-      "background": "clear cold afternoon through the right glass, West Valley, long shadows; a strip of windshield at the left of frame",
-      "read": "from inside the cab the right door mirror already has a white van in it",
+      "foreground": "empty jump seat and the doghouse between the seats, passenger door window frame, the long-arm right door mirror large in frame",
+      "midground": "the cargo van filling the right door-mirror glass, a thin sliver of the Ledger's own gray flank on the inner edge of that glass",
+      "background": "clear cold afternoon through the right window, West Valley, long shadows; a strip of windshield at the left of frame",
+      "read": "from inside the cab the right door mirror already has a white van filling the glass",
       "continuity": [
         "the_ledger"
       ],
