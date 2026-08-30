@@ -7,5 +7,6 @@ node_modules/
 generations/
 .railway/
 .env
+.walk-token
 scripts/live-gate-report.json
 _audit_patch/
