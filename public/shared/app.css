@@ -117,10 +117,11 @@ img, svg, video { max-width: 100%; height: auto; }
 }
 
 .panel {
+  --panel-pad: 1.1rem;
   background: var(--bg-2);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.1rem;
+  padding: var(--panel-pad);
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
@@ -503,6 +504,30 @@ html.playing .shell {
 .log-item .mark.clean { color: var(--ok); }
 .log-item.current { border-color: var(--cranberry); }
 
+.log-act {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.15rem 0.45rem 0.55rem;
+  background: #121010;
+}
+
+.log-act > summary {
+  cursor: pointer;
+  padding: 0.7rem 0.55rem 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.log-act[open] > summary {
+  color: var(--ink);
+}
+
 .cast-item {
   display: flex;
   gap: 0.75rem;
@@ -551,15 +576,29 @@ html.playing .shell {
 
 .shot-wrap {
   position: relative;
-  width: 100%;
-  max-width: 18rem;
-  margin-inline: auto;
+  width: calc(100% + 2 * var(--panel-pad, 1.1rem));
+  max-width: none;
+  margin: 0 calc(-1 * var(--panel-pad, 1.1rem));
   aspect-ratio: 2 / 3;
-  max-height: min(42vh, 22rem);
+  max-height: none;
   flex-shrink: 0;
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: 0;
   background: #100e0e;
+  cursor: zoom-in;
+}
+
+.shot-wrap.fs {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  width: 100%;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  aspect-ratio: auto;
+  background: #050404;
+  cursor: zoom-out;
 }
 
 .shot-ken {
@@ -1248,20 +1287,19 @@ html.playing .shell {
     --pad-r: max(0.85rem, env(safe-area-inset-right, 0px));
     --tap: 2.75rem;
   }
-  .panel { padding: 0.85rem; gap: 0.7rem; }
+  .panel { --panel-pad: 0.85rem; padding: var(--panel-pad); gap: 0.7rem; }
   .choice-dock {
     margin: 0.15rem 0 0;
     padding: 0.3rem 0 calc(0.45rem + env(safe-area-inset-bottom, 0px));
   }
   .shot-wrap {
-    max-width: min(100%, 16.5rem);
-    max-height: min(36vh, 18rem);
+    max-width: none;
+    max-height: none;
   }
   .options .opt, .options button { padding: 0.6rem 0.85rem; }
 }
 
 @media (max-height: 700px) {
-  .shot-wrap { max-height: min(30vh, 16rem); }
   .shell { gap: 0.85rem; }
   .play-header { height: 48px; min-height: 48px; max-height: 48px; }
 }

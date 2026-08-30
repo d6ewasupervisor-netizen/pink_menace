@@ -5,13 +5,13 @@
   "driver": "deac",
   "card_type": "scene",
   "title": "Sweep Before You Change",
-  "hook": "Fog hides the right. Sweep before you move.",
-  "scene": "Fog sits on the right glass in a work zone at midday. Cones pinch the right lane shut. You need left. The Ledger has blind spots a Beetle never had — a whole van-length of nothing the seat cannot see, and a side mirror that shrinks what is in it if you only look once. The thermos is still empty. Your eyes want the opening, not the sweep.",
+  "hook": "Cones shut the right. You need left.",
+  "scene": "Midday fog, work zone. Cones pinch the right lane shut, so you need the left. On this bus the inside mirror is a postage stamp. The look that matters is the big side mirror on the left door, then over your left shoulder. Fog on the windshield is why one glance is not enough.",
   "decision": "You need the left lane. What do you look at, and in what order?",
   "options": [
     {
       "id": "a",
-      "text": "Glance the left glass once and go — you already know the right is cones",
+      "text": "Glance left once and go — the right is cones so the left must be empty",
       "correct": false,
       "result": "You take the left on one look. A motorcycle you never owned is in the blind spot the side mirror would have shown. He stands on it. You stand on it. The cones get a new story.",
       "state_delta": {
@@ -33,7 +33,7 @@
     },
     {
       "id": "c",
-      "text": "Left glass, right glass, side mirror, over the shoulder, then the gap",
+      "text": "Left glass, left door mirror, over the left shoulder, then the gap",
       "correct": true,
       "result": "You run the sweep. The side mirror has a motorcycle in it that the inside mirror missed. You wait one more gap. When you take it, he is already past you.",
       "state_delta": {
@@ -53,7 +53,7 @@
       }
     }
   ],
-  "debrief": "The Ledger has blind spots you cannot see unless you sweep them. Glass, side mirror, shoulder, then the gap. Deac runs that sweep every time the Ledger changes lanes.",
+  "debrief": "The Ledger has blind spots you cannot see unless you sweep them. Left glass, left door mirror, shoulder, then the gap. Deac runs that sweep every time the Ledger changes lanes.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "5.5 Focus",
@@ -66,13 +66,13 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR_REAR",
-    "camera_is_the_lesson": false,
-    "subject": "interior rearview showing the right-rear quarter and cone line, fog in the glass",
-    "foreground": "weathered rearview housing and a strip of bar cage",
-    "midground": "fogged reflection of stacked headlamps in the lane you still occupy, cone line along the right edge of the glass",
-    "background": "defocused windshield, midday fog, work-zone amber",
-    "read": "stacked lamps behind are only visible as a reflection; the road ahead is not the subject",
+    "camera": "POV_COCKPIT",
+    "camera_is_the_lesson": true,
+    "subject": "from the driver's seat looking left at the big side mirror on the left door, fog in that glass",
+    "foreground": "worn transit wheel at the bottom, left window pillar, the long-arm left door mirror filling the left of frame",
+    "midground": "reflection in the left door mirror of the lane you want, fog, no motorcycle or a small bike just visible",
+    "background": "fogged windshield ahead, orange cones killing the right lane",
+    "read": "the check for a left change is the left door mirror from the seat, not the tiny inside mirror",
     "continuity": [
       "ledger_cockpit"
     ],
@@ -82,7 +82,7 @@
       "ego_lane_side": "right travel lane pinched by cones",
       "ego_nose_in_frame": "not in the mirror; travel is away, reflected traffic is behind",
       "oncoming_position": "none in the mirror glass",
-      "hazard_position": "behind"
+      "hazard_position": "ahead_same_direction"
     }
   },
   "variation": {

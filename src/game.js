@@ -573,6 +573,8 @@ async function progressFor(run) {
       const a = byEver.get(c.card_id);
       return {
         card_id: c.card_id,
+        act: c.act,
+        zone: c.zone,
         title: c.title,
         scene_fragment: sceneFragment(c.scene),
         clean: Boolean(a.was_correct),

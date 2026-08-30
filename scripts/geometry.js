@@ -121,6 +121,11 @@ const MIRROR_CLAUSE =
   "Do not show the road ahead inside the mirror. The view forward through the windshield is not the subject " +
   "and must be dark, defocused, or outside the frame.";
 
+const DOOR_MIRROR_CLAUSE =
+  "Camera stays inside the cab. The door-mirror glass shows what is beside and behind, not the road ahead. " +
+  "Foreground is the seat, the window frame, and the door-mirror housing. " +
+  "Do not stand outside the vehicle. Do not shoot the mirror from behind the box.";
+
 const MIRROR_NEGATIVES =
   "No view of the road ahead inside the mirror, no windshield view as the main subject, " +
   "no mirror reflecting the interior of the cabin.";
@@ -197,6 +202,7 @@ module.exports = {
   camerasForHazard,
   geometryClause,
   MIRROR_CLAUSE,
+  DOOR_MIRROR_CLAUSE,
   MIRROR_NEGATIVES,
   DUTCH_REACH_NEGATIVES,
   validateGeometry,

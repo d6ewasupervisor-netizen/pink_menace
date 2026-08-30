@@ -3,6 +3,7 @@
 const {
   geometryClause,
   MIRROR_CLAUSE,
+  DOOR_MIRROR_CLAUSE,
   MIRROR_NEGATIVES,
   DUTCH_REACH_NEGATIVES,
   cameraOf,
@@ -25,13 +26,13 @@ const FRAMING = {
   POV_COCKPIT:
     "Camera is inside the cabin, over the wheel, looking forward through the windshield. Gauges bottom-left, welded steel mesh across the top of the glass, road through the grid.",
   POV_COCKPIT_LEDGER:
-    "Camera is inside the high-seat cabin, over the large commercial wheel, looking forward through the windshield. Square analog gauges bottom-left, a welded bar cage with a cut wiper slot across the glass, road through the grid. No driver face in frame.",
+    "Camera is inside the high-seat cabin, no driver face in frame. Default is over the large commercial wheel looking forward through the windshield: square analog gauges bottom-left, a welded bar cage with a cut wiper slot across the glass, road through the grid. When the brief names the left door mirror: sit in the seat and look left at the big side mirror on the left door; the windshield and any cones stay in the right of frame.",
   POV_DIAGRAM_LEDGER:
     "Camera is high and slightly oblique — fifteen to twenty degrees off vertical, looking along the ego vehicle's direction of travel so the rear of the cutaway shuttle is nearer the camera and the van nose is the far, leading end. Tight crop: only the lane geometry the card turns on. No extra side streets, parked cars, or curb clutter the brief did not name. Real wet pavement, real painted lines. The Ledger is the actual ex-transit cutaway: tall square passenger box on a van nose, gray primer over faded green-and-white, oversize side mirrors on long arms, amber destination sign with no readable text, bar cage over the windshield. Other vehicles are ordinary cars or trucks, desaturated gray or primer, never a second cutaway shuttle. Painted pavement arrows only where the brief names them, and they agree with travel direction — no floating UI arrows, no legend, no callouts.",
   POV_MIRROR_REAR:
     "Camera is inside the cabin, looking up and forward at the interior rearview mirror, which is wide, weathered, and fills the upper portion of the frame. The windshield view is dark, defocused, or cropped out.",
   POV_MIRROR_DOOR:
-    "Camera is on a door-mounted side mirror: subject in the glass, vehicle flank in the foreground. Use the right-side mirror when the brief names the right-side blind spot; otherwise the left-side glass.",
+    "Camera is inside the cab, in the driver's seat. When the brief names the right-side blind spot: look right across the passenger seat, through the right window, into the right door-mounted side mirror. Otherwise look left into the left door-mounted side mirror. The subject is in that glass. Do not stand outside the vehicle. Do not shoot the mirror from behind the box.",
   POV_TOPDOWN_PHOTO:
     "Photoreal aerial establishing shot. No lane rule is being taught. Do not invent traffic direction that contradicts the geometry block.",
   POV_DIAGRAM:
@@ -115,7 +116,7 @@ function assemblePrompt(card) {
 
   parts.push(framing);
 
-  if (deac && (cam === "POV_CHASE" || cam === "POV_ROADSIDE" || cam === "POV_DIAGRAM" || cam === "POV_MIRROR_DOOR")) {
+  if (deac && (cam === "POV_CHASE" || cam === "POV_ROADSIDE" || cam === "POV_DIAGRAM")) {
     parts.push(
       "Ego vehicle: a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette — a tall square passenger box on a van cab, faded green and white transit livery ghosting under gray primer. All four of the following must be clearly visible and unmistakable: the tall square box on a van nose, oversize side mirrors on long arms on both sides, an amber dot-matrix destination sign above the windshield with no readable text, and a welded bar cage over the windshield with a cut wiper slot."
     );
@@ -157,8 +158,11 @@ function assemblePrompt(card) {
     parts.push(LHD);
   }
 
-  if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") {
+  if (cam === "POV_MIRROR_REAR") {
     parts.push(MIRROR_CLAUSE);
+  }
+  if (cam === "POV_MIRROR_DOOR") {
+    parts.push(DOOR_MIRROR_CLAUSE);
   }
 
   const negs = [

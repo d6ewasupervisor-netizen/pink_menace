@@ -153,16 +153,36 @@ function renderHome(data, opts) {
   log.replaceChildren();
   if (!(data.log || []).length) {
     log.append(el("p", "meta", "Nothing resolved yet."));
-  }
-  for (const item of data.log || []) {
-    const row = el("button", "log-item" + (focusId === item.card_id ? " current" : ""), null);
-    row.type = "button";
-    row.dataset.cardId = item.card_id;
-    row.append(el("strong", null, item.title));
-    row.append(el("span", "meta", item.scene_fragment || ""));
-    row.append(el("span", item.clean ? "mark clean" : "mark", item.clean ? "Clean" : "Debt"));
-    row.addEventListener("click", () => openReview(item.card_id));
-    log.append(row);
+  } else {
+    const groups = new Map();
+    for (const item of data.log) {
+      const act = item.act || String(item.card_id || "").split("-")[0];
+      if (!groups.has(act)) groups.set(act, []);
+      groups.get(act).push(item);
+    }
+    const currentAct = ((data.acts || []).find((a) => a.current) || {}).act;
+    const lastAct = [...groups.keys()].pop();
+    for (const [act, items] of groups) {
+      const zone = ((data.acts || []).find((a) => a.act === act) || {}).zone || items[0].zone || "";
+      const details = el("details", "log-act");
+      if (act === currentAct || (!currentAct && act === lastAct) || items.some((i) => i.card_id === focusId)) {
+        details.open = true;
+      }
+      const sum = document.createElement("summary");
+      sum.textContent = "Act " + act + (zone ? " · " + zone : "");
+      details.append(sum);
+      for (const item of items) {
+        const row = el("button", "log-item" + (focusId === item.card_id ? " current" : ""), null);
+        row.type = "button";
+        row.dataset.cardId = item.card_id;
+        row.append(el("strong", null, item.title));
+        row.append(el("span", "meta", item.scene_fragment || ""));
+        row.append(el("span", item.clean ? "mark clean" : "mark", item.clean ? "Clean" : "Debt"));
+        row.addEventListener("click", () => openReview(item.card_id));
+        details.append(row);
+      }
+      log.append(details);
+    }
   }
 
   const cast = document.getElementById("cast");
@@ -225,7 +245,7 @@ function clearPlay() {
   PMFeel.setVignette(1);
   PMFeel.hideBark();
   const wrap = document.getElementById("shot-wrap");
-  if (wrap) wrap.classList.remove("arming");
+  if (wrap) wrap.classList.remove("arming", "fs");
   const clock = document.getElementById("hazard-clock");
   if (clock) clock.classList.add("hidden");
   runEl.classList.remove("recap-skip", "choices-ready");
@@ -470,7 +490,7 @@ function fillCard(card, opts) {
     shot.onload = null;
     shot.onerror = null;
     shot.removeAttribute("src");
-    wrap.classList.remove("hidden");
+    wrap.classList.remove("hidden", "fs");
     PM.loadImage(shot, card.image_url).then(() => pinCardTop());
   } else {
     shot.removeAttribute("src");
@@ -492,28 +512,14 @@ function fillCard(card, opts) {
   const resumeLive = document.getElementById("resume-live");
   const hook = card.hook || PMFeel.firstSentence(card.scene);
   const isDossier = card.card_type === "dossier";
-  if (isDossier && !opts.review && !opts.pending) {
-    if (hookEl) hookEl.classList.add("hidden");
-    if (sceneEl) {
-      sceneEl.textContent = card.scene || "";
-      sceneEl.classList.remove("hidden");
-    }
-  } else {
-    if (hookEl) {
-      hookEl.textContent = hook;
-      hookEl.classList.toggle("hidden", !hook);
-      hookEl.onclick = () => {
-        if (!sceneEl) return;
-        sceneEl.classList.toggle("hidden");
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          if (stopChoiceGate) runEl.dispatchEvent(new Event("scroll"));
-        }));
-      };
-    }
-    if (sceneEl) {
-      sceneEl.textContent = card.scene || "";
-      sceneEl.classList.add("hidden");
-    }
+  if (hookEl) {
+    hookEl.textContent = hook;
+    hookEl.classList.toggle("hidden", isDossier || !hook);
+    hookEl.onclick = null;
+  }
+  if (sceneEl) {
+    sceneEl.textContent = card.scene || "";
+    sceneEl.classList.remove("hidden");
   }
   if (wrap) wrap.classList.remove("arming");
   PMFeel.hideBark();
@@ -944,7 +950,7 @@ runEl.addEventListener("touchstart", (ev) => {
     swipeStart = null;
     return;
   }
-  if (ev.target.closest("button, a, input, textarea, select, #ignition, #collapse, #reward, #manifest, #delivery")) {
+  if (ev.target.closest("button, a, input, textarea, select, #ignition, #collapse, #reward, #manifest, #delivery, #shot-wrap.fs")) {
     swipeStart = null;
     return;
   }
@@ -963,7 +969,18 @@ runEl.addEventListener("touchend", (ev) => {
   goNeighbor(dx < 0 ? "next" : "prev");
 }, { passive: true });
 
+document.getElementById("shot-wrap").addEventListener("click", (ev) => {
+  const wrap = ev.currentTarget;
+  if (wrap.classList.contains("hidden")) return;
+  if (ev.target.closest("button, a, #bark")) return;
+  wrap.classList.toggle("fs");
+});
+
 document.addEventListener("keydown", (ev) => {
+  if (ev.key === "Escape") {
+    const wrap = document.getElementById("shot-wrap");
+    if (wrap) wrap.classList.remove("fs");
+  }
   if (!canSwipeCards()) return;
   if (ev.key === "ArrowLeft") {
     ev.preventDefault();

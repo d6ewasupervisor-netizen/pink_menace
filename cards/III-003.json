@@ -5,9 +5,9 @@
   "driver": "deac",
   "card_type": "scene",
   "title": "Stay Right Until You Pass",
-  "hook": "Two lanes south. A sedan is camping left.",
-  "scene": "Central Avenue, two lanes south, rain on a Kent morning. A primer sedan is doing twenty-eight in the left. Your lane is the right. The left looks empty ahead of him. The thermos ticks once in the cup. The schedule wants you around him. The Ledger is long and the next light is already a rumor.",
-  "decision": "The left lane is open ahead of a slow sedan. Where do you put this bus?",
+  "hook": "Two lanes south. He's sitting in the left.",
+  "scene": "Central Avenue, two lanes south, rain on a Kent morning. You are in the right. A primer sedan is doing twenty-eight in the left. A pickup is already using that left to get around him. The empty ahead of the sedan is not a place to sit. The schedule would love it anyway. The left is for passing, then coming back.",
+  "decision": "The left has a slow sedan and a pickup passing him. Where do you put this bus?",
   "options": [
     {
       "id": "a",
@@ -65,11 +65,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "ex-transit cutaway in the right southbound lane, primer sedan in the left lane ahead, dashed white between",
-    "foreground": "wet asphalt and skip-dashed white lane line",
-    "midground": "the Ledger occupying only the right travel lane, van nose pointed south",
-    "background": "rain, Kent commercial strip, a pickup stacked behind in the left",
-    "read": "through vehicle is in the right; the left is occupied by a slower car others need for passing",
+    "subject": "ex-transit cutaway in the right southbound lane only, primer sedan ahead in the left lane, a pickup in the left beside the bus passing the sedan",
+    "foreground": "wet asphalt and skip-dashed white lane line, rain",
+    "midground": "the Ledger occupying only the right travel lane, van nose pointed south, pickup in the left using it as a pass",
+    "background": "rain, Kent commercial strip, no extra side streets",
+    "read": "the bus stays in the right; the left is already a passing lane with a sedan and a pickup",
     "continuity": [
       "diagram_style",
       "the_ledger"
