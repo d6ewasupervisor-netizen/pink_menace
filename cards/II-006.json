@@ -6,7 +6,7 @@
   "card_type": "convoy",
   "title": "Deac's Left Arm",
   "hook": "Deac's arm goes straight, then down. Someone is on your bumper.",
-  "scene": "Night has dropped on a Kent school zone that still flashes for no one. You are second in a two-vehicle run: the Ledger ahead, amber destination sign dark, west-coast mirrors wide as doors. Deac's left arm comes out the driver's window, straight out, then down — the old transit slow. Radios are trash. This is the sentence. A third set of lamps sits on your bumper, too close, some volunteer who joined without asking. Gracie is boxed. Your job is not to be clever. Your job is to answer him without lighting the block.",
+  "scene": "Night has dropped on a Kent school zone that still flashes for no one. You are second in a two-vehicle run: the Ledger ahead, amber destination sign dark, the big west-coast mirrors on his doors. Deac's left arm comes out the driver's window, straight out, then down — the old transit slow. Radios are trash. That is how he talks. A third set of lamps sits on your bumper, too close, some volunteer who joined without asking. Gracie is boxed. Your job is not to be clever. Your job is to answer him without lighting the block.",
   "decision": "Deac's left arm is out and down. The volunteer behind you is tight. How do you answer?",
   "options": [
     {
@@ -52,7 +52,7 @@
       }
     }
   ],
-  "debrief": "Left arm out, fingers pointing at the ground, means slow or stop. Answer with the same arm and a smooth lift. Deac was talking. A flash and a panic brake talk over him.",
+  "debrief": "Left arm out, fingers pointing at the ground, means slow or stop. Answer with the same arm and a smooth lift. Deac asked for slow, not a receipt.",
   "source": {
     "psdp_skill": "Skill five: driving on a quiet street – part two",
     "dol_section": "2.5 Vehicle Maintenance (Hand signals)",

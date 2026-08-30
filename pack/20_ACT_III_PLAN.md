@@ -31,10 +31,10 @@ Everything below is already designed and paid for; Act III is where it deploys.
 | Vehicle / cockpit | Menace: light, quick, fragile | **The Ledger**: heavy, slow, huge blind zones, high seat, west-coast mirrors |
 | Accent | Cranberry | **Transit amber** — UI, meters, timer ring all change color |
 | Weakness / antagonist | Speed / the Splitter | **Fatigue / The Drift** — input-lag pressure, a different kind of dread |
-| Zone | Residential Grid | **The Arterial** — multi-lane, speed, merging traffic |
+| Zone | Residential Grid | **Central** — multi-lane, speed, merging traffic |
 | Signature mechanic | Noise discipline | **Mirrors and blind zones** — the Ledger can't see what the Menace could |
 | Opening | Cold start | **Ride-along debut** (watch layer §1): Deac drives the first three cards, talks, makes one deliberate mistake, hands over the wheel |
-| New faces | — | **Old Ninety** (the rogue semi, no-zones) debuts; Hollis recurs at arterial speed |
+| New faces | — | **Old Ninety** (the rogue semi, no-zones) debuts; Hollis recurs at speed on Central |
 
 The ride-along opening is deliberately placed here: new driver = the natural demonstrate-first moment, and it's her mode.
 
@@ -44,7 +44,7 @@ The ride-along opening is deliberately placed here: new driver = the natural dem
 
 # §C — SLOT TABLE (30 slots)
 
-Driver: `deac` throughout. Zone: `The Arterial`. PSDP anchor: **Skill nine: multi-lane roads** (verbatim from the guide). DOL sections marked **[V]** are already in `pack/07_DOL_SECTIONS.json` from the Act II patch; sections marked **[VERIFY]** must be exact-matched against the guide TOC before seeding — the validator will reject them otherwise, which is the system working.
+Driver: `deac` throughout. Zone: `Central`. PSDP anchor: **Skill nine: multi-lane roads** (verbatim from the guide). DOL sections marked **[V]** are already in `pack/07_DOL_SECTIONS.json` from the Act II patch; sections marked **[VERIFY]** must be exact-matched against the guide TOC before seeding — the validator will reject them otherwise, which is the system working.
 
 | Slot | Type | Teaching target | Source anchor | Fail mode | Cast/notes |
 |---|---|---|---|---|---|
@@ -56,7 +56,7 @@ Driver: `deac` throughout. Zone: `The Arterial`. PSDP anchor: **Skill nine: mult
 | III-006 | convoy | Signal early: signal distance before a lane change | 2.5 Vehicle Maintenance (Turn signals) [V] | none | Amber language card |
 | III-007 | scene | The gap you accept: minimum safe gap to merge into | 5.2 Space [V] | inexperience | |
 | III-008 | rule | Lane markings on a multi-lane: white broken vs solid white | 4.16 Road markings [V] | none | POV_OBJECT |
-| III-009 | hazard | Hollis tailgating at arterial speed — increase YOUR front gap | 5.2 Space [V] | speed | Hollis recurs; six-second echo |
+| III-009 | hazard | Hollis tailgating at speed on Central — increase YOUR front gap | 5.2 Space [V] | speed | Hollis recurs; six-second echo |
 | III-010 | ledger | Callback slot (armed by III-005 or III-009 miss) | — | — | Same street, same weather |
 | III-011 | scene | Old Ninety debuts: the no-zones of a large truck | Sharing with trucks [VERIFY] | inexperience | POV_MIRROR_REAR: you're in his mirror or you're nowhere |
 | III-012 | rule | Never linger beside a truck; pass and clear | Sharing with trucks [VERIFY] | none | POV_DIAGRAM |
@@ -71,11 +71,11 @@ Driver: `deac` throughout. Zone: `The Arterial`. PSDP anchor: **Skill nine: mult
 | III-021 | scene | Transit stop: bus pulling out, yield to the merging bus | Sharing with transit [VERIFY] | inexperience | Reyna cameo off-route |
 | III-022 | hazard | Emergency vehicle behind in traffic: move right, stop | 5.10 / emergency vehicles [VERIFY] | distraction | Officer Dunn debuts; siren = audio-first cue |
 | III-023 | rule | HOV / restricted lane markings | 4.16 Road markings [V] | none | POV_OBJECT |
-| III-024 | scene | Speed for conditions vs posted: rain at arterial speed | 5.6 Road and driving conditions [V] | weather | Six-second rule restated at speed |
+| III-024 | scene | Speed for conditions vs posted: rain at speed on Central | 5.6 Road and driving conditions [V] | weather | Six-second rule restated at speed |
 | III-025 | dossier | The Drift, named: what Deac sees at the edge of his vision | — | none | Presence-tier T1 baked into the art |
 | III-026 | scene | Blocked lane ahead: early merge vs late merge, and why the zipper exists | Skill nine [+ VERIFY merge heading] | inexperience | POV_DIAGRAM |
 | III-027 | hazard | The Chorus at speed: screen lights up mid-lane-change | 5.5 Focus [V] | distraction | Callback to II-009's tablet |
-| III-028 | wrench | Fuel discipline: the arterial detour math | — | vehicle_failure | Cargo-clock pressure card |
+| III-028 | wrench | Fuel discipline: the Central detour math | — | vehicle_failure | Cargo-clock pressure card |
 | III-029 | scene | Choosing when NOT to pass: the pass that gains nothing | Skill nine | speed | Deac's thesis card |
 | III-030 | cliffhanger/dossier | The Core visible ahead; downtown skyline; act out on a presence image | — | none | Locked door to Act IV; Yuna teased on the radio |
 

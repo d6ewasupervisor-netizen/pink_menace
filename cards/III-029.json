@@ -1,12 +1,12 @@
 {
   "card_id": "III-029",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "scene",
   "title": "The Pass That Gains Nothing",
   "hook": "The pass would gain a length. The left is a wish.",
-  "scene": "Heavy rain at dusk, two lanes, a box doing the same number you are. The left is empty for a breath. A pass would put you one length ahead and back in the same rain. Skill nine said do not pass unless you need to. Deac's thesis is shorter: if it gains nothing, it is only risk. The schedule will not notice a length. The Quiet might notice the extra noise.",
+  "scene": "Heavy rain at dusk, two lanes, a box doing the same number you are. The left is empty for a breath. A pass would put you one length ahead and back in the same rain. If it gains nothing, it is only risk. The schedule will not notice a length. The Quiet might notice the extra noise.",
   "decision": "The left is open and he is doing your speed. Do you pass?",
   "options": [
     {
@@ -14,37 +14,52 @@
       "text": "Pass now — empty left is permission and the schedule likes motion",
       "correct": false,
       "result": "You take a pass that buys a length. Recovering, you write spray across his glass. He lifts. You are one length richer and louder. The light ahead makes you even again.",
-      "state_delta": { "noise": 3, "time_cost": 6 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 6
+      }
     },
     {
       "id": "b",
       "text": "Sit on his bumper until he notices and moves over",
       "correct": false,
-      "result": "You become Hollis with a bus. He does not move. You spend the arterial as a threat. Nothing is gained except a enemy.",
-      "state_delta": { "noise": 4, "time_cost": 5 }
+      "result": "You become Hollis with a bus. He does not move. You spend Central as a threat. Nothing is gained except an enemy.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 5
+      }
     },
     {
       "id": "c",
       "text": "Flash him once so he yields the right, then take it without a pass",
       "correct": false,
       "result": "The flash is a demand. He brakes. You almost eat a box you did not need to pass. Permission you invented.",
-      "state_delta": { "light": 3, "noise": 1, "time_cost": 4 }
+      "state_delta": {
+        "light": 3,
+        "noise": 1,
+        "time_cost": 4
+      }
     },
     {
       "id": "d",
       "text": "Hold the right. Keep the gap. Let the empty left stay empty",
       "correct": true,
       "result": "You stay. He stays. The left stays a lane for someone who needs it. You arrive the same minute you would have. That is the thesis: do not spend a pass you cannot cash.",
-      "state_delta": { "noise": -1, "time_cost": 5 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
     }
   ],
-  "debrief": "Do not pass just because the left is empty. Pass to turn, to clear a hazard, to exit — not to own a length. If it gains nothing, hold.",
+  "debrief": "Do not pass just because the left is empty. Pass to turn, to clear a hazard, to exit — not to own a length. Hold the right if the pass buys you nothing.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part two",
     "dol_section": "4.10 Traffic laws",
     "teaching_target": "Do not change lanes or pass unnecessarily; keep right and only pass when the pass does useful work."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "splitter",
   "callback_of": null,
   "schedules_callback": false,
@@ -53,9 +68,11 @@
     "subject": "Ledger in the right, a box ahead at the same speed, empty left lane, rain at dusk",
     "foreground": "following glass and rain",
     "midground": "the Ledger's rear and the empty left that is not being used",
-    "background": "heavy rain, dusk, arterial lamps",
+    "background": "heavy rain, dusk, lamps on Central",
     "read": "the left is empty and the two vehicles are already doing the same speed",
-    "continuity": ["the_ledger"],
+    "continuity": [
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

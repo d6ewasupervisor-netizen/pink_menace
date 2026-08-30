@@ -1,61 +1,78 @@
 {
   "card_id": "III-017",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "wrench",
-  "title": "The Convex Lies Down",
-  "hook": "The convex hangs. The right-side room is gone.",
-  "scene": "Heavy rain at dusk in a mill-and-fill. A cone you did not own kissed the right west-coast arm. The convex now looks at the sky. Mya is a loaf on the dash, useless for this. The Ledger just lost a room. You can keep rolling on a guess or you can make the glass tell the truth again.",
-  "decision": "The right convex is pointed at the weather. What do you do?",
+  "title": "The Side Mirror Points Up",
+  "hook": "The right side mirror is pointing at the sky.",
+  "scene": "Heavy rain at dusk in a work zone. A cone you did not own kissed the right mirror arm. The side mirror now looks at the sky. Mya is a loaf on the dash, useless for this. The Ledger just lost the look at its right. You can keep rolling on a guess or you can make the glass tell the truth again.",
+  "decision": "The right side mirror is pointed at the weather. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Keep rolling — you still have the flat glass and the shoulder check",
+      "text": "Keep rolling — you still have the inside mirror and the shoulder check",
       "correct": false,
-      "result": "You guess the right-side room. A work van is in it. You find him with the skirting. The flat glass never had that angle.",
-      "state_delta": { "noise": 4, "damage": 1, "time_cost": 9 }
+      "result": "You guess the right-side blind spot. A work van is in it. You find him with the side of the bus. The inside mirror never had that angle.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 9
+      }
     },
     {
       "id": "b",
       "text": "Cover the dead glass with your hand so it stops lying",
       "correct": false,
       "result": "You drive one-handed in a work zone. The lie is gone. So is a hand. The next cone is closer than your remaining glass.",
-      "state_delta": { "yaw": 2, "time_cost": 6 }
+      "state_delta": {
+        "yaw": 2,
+        "time_cost": 6
+      }
     },
     {
       "id": "c",
-      "text": "Hazards, legal pad, reset the arm until the convex sees the room again",
+      "text": "Hazards, legal pad, reset the arm until the side mirror sees the lane again",
       "correct": true,
-      "result": "You put the bus on a pad and put the glass back on the lane. Two minutes in the rain. The room returns. You do not buy a sideswipe with a schedule.",
-      "state_delta": { "noise": -1, "time_cost": 7 }
+      "result": "You put the bus on a pad and put the glass back on the lane. Two minutes in the rain. The right-side blind spot returns as a picture. You do not buy a sideswipe with a schedule.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 7
+      }
     },
     {
       "id": "d",
-      "text": "Switch to the left rooms only and refuse all right-side changes",
+      "text": "Switch to the left only and refuse all right-side changes",
       "correct": false,
       "result": "The next merge is a right. You refuse it and become a rolling roadblock in a closed pattern. The work crew has to wave you through a lie you would not fix.",
-      "state_delta": { "time_cost": 12 }
+      "state_delta": {
+        "time_cost": 12
+      }
     }
   ],
-  "debrief": "A mirror that does not see the lane is a maintenance problem, not a personality. Stop and set it. Guessing the right-side room is how you collect a van.",
+  "debrief": "A mirror that does not see the lane is a maintenance problem. Guessing the right-side blind spot is how you collect a van. Stop and set the arm before you take another gap.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "2.5 Vehicle Maintenance",
-    "teaching_target": "A knocked convex must be reset before you keep changing lanes; do not drive on a blind right."
+    "teaching_target": "A knocked side mirror must be reset before you keep changing lanes; do not drive on a blind right."
   },
-  "cast": ["deac", "mya"],
+  "cast": [
+    "deac",
+    "mya"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
-    "subject": "round convex pointed at rain sky instead of the right-side lane, arm bent from a cone",
-    "foreground": "west-coast arm and a strip of wet primer",
+    "subject": "round side mirror pointed at rain sky instead of the right-side lane, arm bent from a cone",
+    "foreground": "door-mirror arm and a strip of wet primer",
     "midground": "the useless sky in the glass, cone line along the asphalt you cannot see",
-    "background": "heavy rain, dusk, mill-and-fill amber",
-    "read": "the convex is looking at weather, not at the room beside the bus",
-    "continuity": ["the_ledger"],
+    "background": "heavy rain, dusk, work-zone amber",
+    "read": "the side mirror is looking at weather, not at the lane beside the bus",
+    "continuity": [
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

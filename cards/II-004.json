@@ -54,7 +54,7 @@
       }
     }
   ],
-  "debrief": "For a left turn, wait until the whole gap is yours. Wheels stay straight until you commit so a rear-end does not push you into oncoming. Leave the blinker on until the wheel unwinds.",
+  "debrief": "For a left turn, wait until the whole gap is yours. Wheels stay straight until you commit so a rear-end does not push you into oncoming. Wheels straight in the pocket, blinker still on, both oncoming vehicles already past.",
   "source": {
     "psdp_skill": "Skill five: driving on a quiet street – part two",
     "dol_section": "4.14 Turning",
@@ -68,10 +68,10 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "oblique overhead of a four-lane Kent arterial: faded matte-pink VW Beetle in a short left-turn pocket, rear nearer camera, plow at far top, wheels straight",
+    "subject": "oblique overhead of four-lane Central in Kent: faded matte-pink VW Beetle in a short left-turn pocket, rear nearer camera, plow at far top, wheels straight",
     "foreground": "wet pocket lines, a faded white LEFT-TURN arrow in her bay, worn yellow centerline; a SOLID unbroken white line on the right edge of the pocket (not dashed); through-lane arrow beside her pointing up-frame",
     "midground": "two primer-gray oncoming cars in her left half of the roadway, facing her, still occupying the gap; empty opposing pocket",
-    "background": "overcast Kent arterial, wind-bent maples at the edges, wet asphalt, no wrecks",
+    "background": "overcast Central, wind-bent maples at the edges, wet asphalt, no wrecks",
     "read": "left-turn pocket, wheels straight, oncoming still in the gap — turn geometry and right-of-way in one glance",
     "continuity": [
       "pink_menace_exterior"

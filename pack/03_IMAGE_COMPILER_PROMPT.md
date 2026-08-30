@@ -109,8 +109,8 @@ THE LEDGER:
   "a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette
   — a tall square passenger box on a van cab, faded green and white transit
   livery ghosting under gray primer. All four of the following must be clearly
-  visible and unmistakable: the tall square box on a van nose, oversize convex
-  west-coast mirrors on long arms on both sides, an amber dot-matrix
+  visible and unmistakable: the tall square box on a van nose, oversize
+  side mirrors on long arms on both sides, an amber dot-matrix
   destination sign above the windshield, and a welded bar cage over the
   windshield with a cut wiper slot"
 
@@ -396,7 +396,7 @@ Do not accept "close enough"; drift compounds across an act.
 
 - **Ali (face-critical only):** round wire-rim glasses · cranberry-red hair · braided at the crown · gold hoops · flat affect, not smiling
 - **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
-- **Ledger:** box on van nose · big convex mirrors both sides · amber destination sign · windshield bar cage
+- **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 - **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
 - **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
 

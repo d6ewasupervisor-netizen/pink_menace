@@ -1,50 +1,65 @@
 {
   "card_id": "III-003",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "scene",
-  "title": "The Right Is Through",
-  "hook": "Two southbound lanes. A sedan is camping left.",
-  "scene": "Central Avenue, two lanes south, rain on a Kent morning. A primer sedan is doing twenty-eight in the left. Your lane is the right. The left looks empty ahead of him. The thermos ticks once in the cup. Schedule wants the hole. The Ledger is long and the next light is already a rumor.",
+  "title": "Stay Right Until You Pass",
+  "hook": "Two lanes south. A sedan is camping left.",
+  "scene": "Central Avenue, two lanes south, rain on a Kent morning. A primer sedan is doing twenty-eight in the left. Your lane is the right. The left looks empty ahead of him. The thermos ticks once in the cup. The schedule wants you around him. The Ledger is long and the next light is already a rumor.",
   "decision": "The left lane is open ahead of a slow sedan. Where do you put this bus?",
   "options": [
     {
       "id": "a",
       "text": "Move left now and sit in the empty — through traffic can use either",
       "correct": false,
-      "result": "You take the left and become the new slow. A pickup that was using that lane as a pass has to stand on it. Horn. The sedan never moved. You spent his margin to sit pretty.",
-      "state_delta": { "noise": 3, "time_cost": 6 }
+      "result": "You take the left and become the new slow. A pickup that was using that lane as a pass has to stand on it. Horn. The sedan never moved. You spent his margin so you could sit pretty.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 6
+      }
     },
     {
       "id": "b",
       "text": "Hold the right. Pass only if he stays slow and the left is clear",
       "correct": true,
       "result": "You stay right. He stays twenty-eight. When the left is empty and you need him, you take it, clear him, and come back. The pickup behind never has to lift. Through traffic stayed through.",
-      "state_delta": { "noise": -1, "time_cost": 4 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
       "id": "c",
       "text": "Straddle both — the Ledger is wide enough that the sedan will yield",
       "correct": false,
       "result": "You occupy the dashed line. He brakes. The pickup goes for the shoulder. You own two lanes and nobody can pass you, including you.",
-      "state_delta": { "noise": 2, "yaw": 1, "time_cost": 7 }
+      "state_delta": {
+        "noise": 2,
+        "yaw": 1,
+        "time_cost": 7
+      }
     },
     {
       "id": "d",
       "text": "Drop to twenty and wait for him to notice and move over",
       "correct": false,
-      "result": "You become a rolling roadblock in the right. He never looks. The stack behind you grows. You taught the arterial that the Ledger is the problem.",
-      "state_delta": { "noise": 1, "time_cost": 8 }
+      "result": "You become a rolling roadblock in the right. He never looks. The stack behind you grows. You taught Central that the Ledger is the problem.",
+      "state_delta": {
+        "noise": 1,
+        "time_cost": 8
+      }
     }
   ],
-  "debrief": "When several lanes go the same way, through traffic keeps right except to pass. Sitting in the left because it looks empty makes you the thing other people have to pass.",
+  "debrief": "When several lanes go the same way, keep right except to pass. You saved the left for the people who actually need it.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.10 Traffic laws",
     "teaching_target": "Keep right except to pass on a multi-lane road; the left is for passing, not cruising."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -55,7 +70,10 @@
     "midground": "the Ledger occupying only the right travel lane, van nose pointed south",
     "background": "rain, Kent commercial strip, a pickup stacked behind in the left",
     "read": "through vehicle is in the right; the left is occupied by a slower car others need for passing",
-    "continuity": ["diagram_style", "the_ledger"],
+    "continuity": [
+      "diagram_style",
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

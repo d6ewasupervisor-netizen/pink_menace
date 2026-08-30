@@ -6,14 +6,14 @@
   "card_type": "scene",
   "title": "A Voice You Know",
   "hook": "The radio bleeds by itself. Someone is already in the crosswalk.",
-  "scene": "The radio bleeds at dawn on a Kent collector that thinks it is an arterial. Wind again. You did not turn the radio on. It came up by itself, a trick the aftermarket tablet has been pulling since the lot — a scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right, mid-block enough to be easy to miss if you are in the glass. Both hands should be on the wheel. One of them is not.",
+  "scene": "The radio bleeds at dawn on a Kent two-lane. Wind again. You did not turn the radio on. It came up by itself, a trick the aftermarket tablet has been pulling since the lot — a scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right, mid-block enough to be easy to miss if you are looking down. Both hands should be on the wheel. One of them is not.",
   "decision": "The tablet is talking in a voice you know and a pedestrian is in the crosswalk. Where do your eyes go?",
   "options": [
     {
       "id": "a",
       "text": "Look down long enough to kill the tablet, then look back up",
       "correct": false,
-      "result": "Two seconds in the glass. The hood is already at your right headlight when you come back. You stand on the pedal. The Menace squats. The pedestrian does not run. They do not have to. You stopped a plow's width short, loud, and the tablet is still talking.",
+      "result": "Two seconds on the tablet. The hood is already at your right headlight when you come back. You stand on the pedal. The Menace squats. The pedestrian does not run. They do not have to. You stopped a plow's width short, loud, and the tablet is still talking.",
       "state_delta": {
         "noise": 4,
         "yaw": 2,
@@ -46,14 +46,14 @@
       "id": "d",
       "text": "Eyes up, both hands on the wheel, cover the brake, ignore the tablet until you are through",
       "correct": true,
-      "result": "You leave the glass alone. Hands at ten and two, or whatever your braid allows. The hood clears your right fender while you are still moving at a crawl. The tablet talks to itself and then dies. The intersection is just an intersection. That is the win.",
+      "result": "You leave the tablet alone. Hands at ten and two, or whatever your braid allows. The hood clears your right fender while you are still moving at a crawl. The tablet talks to itself and then dies. The hood is already on the far curb.",
       "state_delta": {
         "noise": -1,
         "time_cost": 4
       }
     }
   ],
-  "debrief": "Eyes off the road — even to silence a distraction — is how the crash happens. Drive first. Park the tablet's noise until the intersection is behind you. Familiar voices are the trap. The pedestrian in the crosswalk is the test.",
+  "debrief": "Eyes off the road — even to silence a distraction — is how the crash happens. Drive first. Park the tablet until the intersection is behind you. You missed the hood the second you looked down.",
   "source": {
     "psdp_skill": "Skill six: looking ahead",
     "dol_section": "5.5 Focus",
@@ -71,7 +71,7 @@
     "subject": "through the windshield mesh, a pedestrian in dark rain clothes mid-crosswalk directly ahead, roughly forty feet, clearly in the vehicle's path",
     "foreground": "worn black steering wheel across the bottom; on the cracked faded pink dash at lower right, an aftermarket tablet LIT as a digital radio — station name and FM channel readout clearly legible, the only bright object inside the cab",
     "midground": "welded steel mesh across the windshield; both the pedestrian and the lit tablet compete in the same glance",
-    "background": "a Kent two-lane collector at dawn, wet asphalt, chain-link, bare maples, low houses, flat gray sky — landlocked, no ocean, no waterfront, no beach",
+    "background": "a Kent two-lane at dawn, wet asphalt, chain-link, bare maples, low houses, flat gray sky — landlocked, no ocean, no waterfront, no beach",
     "read": "the pedestrian ahead and the lit screen below compete for the same pair of eyes, and both must be unmistakable",
     "continuity": [
       "pink_menace_interior"

@@ -1,61 +1,78 @@
 {
   "card_id": "III-014",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "scene",
   "title": "Arrow, Then Circle",
   "hook": "The arrow dies. The circle is still green.",
-  "scene": "Clear cold dawn, high seat, a Kent arterial left-turn pocket. A green arrow has been feeding you. It dies. The circular green stays. Oncoming still has a path. The Ledger's nose is already in the intersection because you trusted the arrow. Permissive is not protected. The yellow line you want is still across a live lane.",
+  "scene": "Clear cold dawn, high seat, a left-turn pocket on Central. A green arrow has been feeding you. It dies. The circular green stays. Oncoming still has a path. The Ledger's nose is already in the intersection because you trusted the arrow. The yellow line you want is still across a live lane.",
   "decision": "The arrow is gone and the circle is green. Do you finish the left?",
   "options": [
     {
       "id": "a",
       "text": "Go now — you were in the intersection on the arrow, so you own it",
       "correct": false,
-      "result": "You take the permissive as if it were still protected. Oncoming is a pair of lamps you did not yield to. You make them lift. The pocket was not a promise.",
-      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 8 }
+      "result": "You take the circular green as if the arrow were still up. Oncoming is a pair of lamps you did not yield to. You make them lift. The pocket never promised you that turn.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 8
+      }
     },
     {
       "id": "b",
       "text": "Sit in the pocket until another arrow — circular green is a trap",
       "correct": false,
       "result": "You become a bus in a pocket through two cycles. The stack behind you starts using the through lanes. You taught the light that Deac does not know the difference.",
-      "state_delta": { "time_cost": 12 }
+      "state_delta": {
+        "time_cost": 12
+      }
     },
     {
       "id": "c",
       "text": "Yield to oncoming, then take the closest lane right of their yellow when it is clear",
       "correct": true,
       "result": "You wait. Oncoming clears. You steer to the first lane right of their yellow, not the far one. The arrow was a gift. The circle is a yield.",
-      "state_delta": { "noise": -1, "time_cost": 6 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
     },
     {
       "id": "d",
       "text": "Swing wide into the far lane so you are out of oncoming's way faster",
       "correct": false,
       "result": "You exit into the far lane. A through car already owns it. You traded a yield for a sideswipe.",
-      "state_delta": { "noise": 3, "yaw": 2, "time_cost": 7 }
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 7
+      }
     }
   ],
-  "debrief": "A green arrow is protected. A circular green is permissive — yield to oncoming, then finish in the closest lane to the right of the yellow. The arrow dying is the lesson, not a dare.",
+  "debrief": "A green arrow means the other direction is stopped for you. A circular green means yield, then finish in the closest lane to the right of the yellow. The arrow going dark is the yield starting.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part two",
     "dol_section": "4.11 Traffic light signals",
     "teaching_target": "Protected left on a green arrow; permissive circular green requires a yield, then the nearest lane right of the yellow."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "dead left arrow, live circular green, oncoming lamps still in the hole you want",
+    "subject": "dead left arrow, live circular green, oncoming lamps still in the gap you want",
     "foreground": "high-seat wheel and cage, left stalk still on",
     "midground": "the intersection and the yellow you would steer to, oncoming not yet clear",
-    "background": "clear cold dawn, Kent arterial, empty sidewalks",
+    "background": "clear cold dawn, Central Avenue, empty sidewalks",
     "read": "the arrow is dark; the circle is green; oncoming still has a path",
-    "continuity": ["ledger_cockpit"],
+    "continuity": [
+      "ledger_cockpit"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

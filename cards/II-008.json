@@ -4,16 +4,16 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "wrench",
-  "title": "Oil on Milled Asphalt",
+  "title": "Oil on Torn-Up Road",
   "hook": "Oil light's on. A dark fan sits in the mirror.",
-  "scene": "The oil light is a dull orange you have been ignoring since the lot. Fog again, a Kent mill-and-fill that never got its top lift, cones still in a lazy line. You feel the note change — not a knock, a dry rattle under the rear. A dark fan of oil is already on the milled surface behind you in the mirror, too even to be rain. The insulin is still in the window. The engine is not. Nobody is coming to tow the Menace. The Quiet will, if you sit in the travel lane and cook it.",
-  "decision": "The oil light is on and you are laying a fan on the millings. Where do you put the car?",
+  "scene": "The oil light is a dull orange you have been ignoring since the lot. Fog again, a Kent work zone that never got new pavement, cones still in a lazy line. You feel the note change — not a knock, a dry rattle under the rear. A dark fan of oil is already on the torn-up road behind you in the mirror, too even to be rain. The insulin is still in the window. The engine is not. Nobody is coming to tow the Menace. The Quiet will, if you sit in the travel lane and cook it.",
+  "decision": "The oil light is on and you are laying a fan on the torn-up road. Where do you put the car?",
   "options": [
     {
       "id": "a",
       "text": "Keep rolling to the next side street so you do not stop in the work zone",
       "correct": false,
-      "result": "Two more blocks. The rattle becomes a bang. The Menace dies in the pinch between cones with no shoulder. You are a pink wreck in a fogged lane. Something at the millings' edge already has your heat.",
+      "result": "Two more blocks. The rattle becomes a bang. The Menace dies in the pinch between cones with no shoulder. You are a pink wreck in a fogged lane. Something at the torn-up edge already has your heat.",
       "state_delta": {
         "noise": 4,
         "damage": 4,
@@ -35,7 +35,7 @@
     },
     {
       "id": "c",
-      "text": "Signal, get off the millings onto the gravel shoulder, shut it down, then check",
+      "text": "Signal, get off the torn-up road onto the gravel shoulder, shut it down, then check",
       "correct": true,
       "result": "Blinker. Gravel. Key off. The rattle dies with the engine. Under the rear, a split line, not a hole in the pan. You have tape and a bottle in the wing. Ten quiet minutes. The fog does not care. The engine will start once. That is enough to finish the run.",
       "state_delta": {
@@ -56,7 +56,7 @@
       }
     }
   ],
-  "debrief": "An oil warning means get out of the travel lane, then shut down, then look. Keep rolling and you turn a split line into a dead vehicle sitting in the road — a beacon with a pink roof.",
+  "debrief": "An oil warning means get out of the travel lane, then shut down, then look. Keep rolling and you turn a split line into a dead vehicle sitting in the road. A pink roof in the fog, engine ticking, no oil pressure.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "2.5 Vehicle Maintenance",
@@ -73,7 +73,7 @@
     "subject": "the Pink Menace's analog oil-pressure gauge needle on the peg and a dull orange oil lamp lit",
     "foreground": "cracked pink dash, the gauge glass, a smear of old dirt on the bezel",
     "midground": "fogged windshield mesh, cone line smeared, no sky",
-    "background": "milled Kent work-zone asphalt, morning fog, gravel shoulder just visible at the right edge",
+    "background": "torn-up Kent work-zone asphalt, morning fog, gravel shoulder just visible at the right edge",
     "read": "the oil lamp is on and there is a shoulder — the lane is not where this gets solved",
     "continuity": [
       "pink_menace_interior"

@@ -1,50 +1,66 @@
 {
   "card_id": "III-010",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "ledger",
   "title": "The Panel Again",
-  "hook": "Same white panel. Same room. He remembered you.",
-  "scene": "Clear cold afternoon on West Valley, same paint, same sun angle. The white panel van is in the right-side room again, closer, lamps still off. Last time you drifted into him. This time he is already hugging the Ledger like a grudge. The blinker wants left. The convex is honest. He is not a surprise anymore. He is a debt.",
-  "decision": "The van is in the right-side room and you still need left. What do you do with the debt?",
+  "hook": "Same white van. Same blind spot. He remembered you.",
+  "scene": "Clear cold afternoon on West Valley, same paint, same sun angle. The white panel van is in the right-side blind spot again — the room beside the bus — closer, lamps still off. Last time you drifted into him. This time he is already hugging the Ledger like a grudge. The blinker wants left. The side mirror is honest. He already knows this move.",
+  "decision": "The van is in the right-side blind spot and you still need left. What do you do with the debt?",
   "options": [
     {
       "id": "a",
-      "text": "Hold, let him declare, and take a hole you have swept twice",
+      "text": "Hold, let him declare, and take a gap you have swept twice",
       "correct": true,
-      "result": "You hold. He finally shows a lamp and drops back. The hole you take is empty. He does not get a second kiss of steel. That is the apology.",
-      "state_delta": { "noise": -2, "time_cost": 6 }
+      "result": "You hold. He finally shows a lamp and drops back. The gap you take is empty. He does not get a second kiss of steel. That is the apology.",
+      "state_delta": {
+        "noise": -2,
+        "time_cost": 6
+      }
     },
     {
       "id": "b",
-      "text": "Finish the left fast so he cannot stay in your room",
+      "text": "Finish the left fast so he cannot stay on your flank",
       "correct": false,
       "result": "You snatch the left. He comes with you again. Same steel, same afternoon. He was waiting for the same move.",
-      "state_delta": { "noise": 4, "damage": 1, "time_cost": 8 }
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 8
+      }
     },
     {
       "id": "c",
       "text": "Drift right and pin him to the curb so he cannot follow",
       "correct": false,
       "result": "You use the bus as a wall. He has nowhere. The curb takes his wheel. You collected the debt with his quarter panel.",
-      "state_delta": { "noise": 5, "damage": 1, "time_cost": 9 }
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
+      }
     },
     {
       "id": "d",
       "text": "Stop in the lane and wait until he goes around",
       "correct": false,
       "result": "You plant a bus on West Valley. He goes around into the left you wanted. Everyone behind you gets a new problem.",
-      "state_delta": { "noise": 3, "time_cost": 10 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 10
+      }
     }
   ],
-  "debrief": "A miss in the right-side room comes back on the same street. Sweep, hold, then move. He does not owe you a hole because you already hit him once.",
+  "debrief": "A miss in the right-side blind spot comes back on the same street. Sweep, hold, then move. The same van is still there, lamps still off, waiting for the same drift.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "5.2 Space",
-    "teaching_target": "Revisit the blind-zone lane change: cancel and hold until the adjacent room is empty."
+    "teaching_target": "Revisit the blind-zone lane change: cancel and hold until the adjacent blind spot is empty."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": "III-005",
   "schedules_callback": false,
@@ -52,10 +68,12 @@
     "camera": "POV_ROADSIDE",
     "subject": "white panel van tight on the Ledger's right flank, same heading, lamps off, afternoon sun",
     "foreground": "cold curb and a strip of skip-dashed white",
-    "midground": "the Ledger and the van sharing one room, west-coast arm between them",
+    "midground": "the Ledger and the van sharing one flank, door-mirror arm between them",
     "background": "West Valley, clear cold, long shadows, same strip as before",
-    "read": "the van is already in the right-side room; this is the same afternoon, not a new one",
-    "continuity": ["the_ledger"],
+    "read": "the van is already in the right-side blind spot; this is the same afternoon, not a new one",
+    "continuity": [
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",

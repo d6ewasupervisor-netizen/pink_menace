@@ -1,50 +1,65 @@
 {
   "card_id": "III-007",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "scene",
-  "title": "If You Cannot Count It",
-  "hook": "The hole looks like a hole. Count it anyway.",
-  "scene": "Heavy rain at night on Meeker. You need the left. A gap opens between a pickup and a dark SUV. It looks like a Ledger-shaped hole. Your foot agrees. The ride-along is still in your hands: if you cannot count it, it is not a hole. The thermos does not argue. The schedule does.",
+  "title": "Count the Gap First",
+  "hook": "The gap looks big enough. Count it anyway.",
+  "scene": "Heavy rain at night on Meeker. You need the left. A gap opens between a pickup and a dark SUV. It looks Ledger-shaped. Your foot agrees. The ride-along is still in your hands: if you cannot count it, keep waiting. The thermos does not argue. The schedule does.",
   "decision": "A gap just opened in the left. Do you take it?",
   "options": [
     {
       "id": "a",
       "text": "Hold until you can count a full Ledger plus a breath, then take it",
       "correct": true,
-      "result": "You wait. The SUV closes what looked like a hole. The next gap is longer. You count it, take it, and nobody has to lift. Late on the log. Alive in the lane.",
-      "state_delta": { "noise": -1, "time_cost": 6 }
+      "result": "You wait. The SUV closes what looked like a gap. The next opening is longer. You count it, take it, and nobody has to lift. Late on the log. Alive in the lane.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
     },
     {
       "id": "b",
       "text": "Take it now — rain makes people generous and the pickup already lifted",
       "correct": false,
       "result": "You put the nose in. The SUV did not lift. You make him. Horn, spray, the Ledger's shoulder in his. That was the late merge you already watched.",
-      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 9 }
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 9
+      }
     },
     {
       "id": "c",
       "text": "Nose in and force the zipper — they will make room for a bus",
       "correct": false,
       "result": "You write your length into a gap that was a car. He stands on it. You stand on it. Two lanes become one argument.",
-      "state_delta": { "noise": 5, "yaw": 2, "time_cost": 8 }
+      "state_delta": {
+        "noise": 5,
+        "yaw": 2,
+        "time_cost": 8
+      }
     },
     {
       "id": "d",
       "text": "Match the pickup's speed in the right and wait for him to wave you in",
       "correct": false,
-      "result": "He never waves. You sit beside him in the rain until the light. You did not count a hole. You waited for permission the arterial does not give.",
-      "state_delta": { "time_cost": 10 }
+      "result": "He never waves. You sit beside him in the rain until the light. You did not count a gap. You waited for permission Central does not give.",
+      "state_delta": {
+        "time_cost": 10
+      }
     }
   ],
-  "debrief": "Merge only into a gap you can count — your length, plus room so nobody has to swerve or stand on it. A hole you cannot count is a wish.",
+  "debrief": "Merge only into a gap you can count — your length, plus room so nobody has to swerve or stand on it. You missed a wreck by waiting one extra breath.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "5.2 Space",
     "teaching_target": "Accept only a merge gap large enough that other drivers need not swerve, slow, or stop."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -55,7 +70,9 @@
     "midground": "the gap, already shrinking, skip-dashed white at the left edge",
     "background": "Meeker at night, heavy rain, sodium lamps",
     "read": "the open space in the left is shorter than the bus you are sitting in",
-    "continuity": ["ledger_cockpit"],
+    "continuity": [
+      "ledger_cockpit"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

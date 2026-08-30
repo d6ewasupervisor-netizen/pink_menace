@@ -1,34 +1,40 @@
 {
   "card_id": "III-030",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "dossier",
   "title": "The Core From Here",
   "hook": "The Core sits ahead. Someone new is on the radio.",
-  "scene": "Clear cold night, the Ledger on a legal pad at the north end of the arterial. Downtown is a dark geometry with a few stubborn lamps — the Core, locked from here. Mya has finally moved off the glass. The radio, which has been trash for two acts, carries a young voice that is not Reyna and not dispatch: a count-in, then a laugh, then static. Yuna, not yet a face. The door to Act IV is visible and shut. The log has a line left for tomorrow.",
-  "debrief": "Act III ends on the arterial with the Core in sight. The next driver is already talking. The door is locked on purpose. Finish the log.",
+  "scene": "Clear cold night, the Ledger on a legal pad at the north end of Central. Downtown is a dark geometry with a few stubborn lamps — the Core, locked from here. Mya has finally moved off the glass. The radio, which has been trash for two acts, carries a young voice — a count-in, then a laugh, then static. Yuna, not yet a face. The door to Act IV is visible and shut. The log has a line left for tomorrow.",
+  "debrief": "Act III ends on Central with the Core in sight. The next driver is already talking. The door is locked on purpose. The skyline is dark and the sign is dark with it.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
     "teaching_target": "Cliffhanger: the Core is visible, Act IV is locked, Yuna is teased on the radio."
   },
-  "cast": ["deac", "mya", "yuna"],
+  "cast": [
+    "deac",
+    "mya",
+    "yuna"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE",
     "subject": "Ledger parked on a pad, downtown skyline dark with a few lamps, no readable signs",
-    "foreground": "cold gravel pad and a strip of arterial paint",
-    "midground": "the Ledger's square box and west-coast arms, destination sign dark",
+    "foreground": "cold gravel pad and a strip of Central paint",
+    "midground": "the Ledger's square box and oversize door-mirror arms, destination sign dark",
     "background": "the Core as a dark downtown geometry, clear cold night, one radio glow in the cab",
     "read": "the city is ahead and shut; the bus has stopped on purpose",
-    "continuity": ["the_ledger"],
+    "continuity": [
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",
-      "ego_lane_side": "legal pad off the right of the northbound arterial",
+      "ego_lane_side": "legal pad off the right of northbound Central",
       "ego_nose_in_frame": "the van nose points toward the right, toward the skyline",
       "oncoming_position": "none in frame",
       "hazard_position": "none"

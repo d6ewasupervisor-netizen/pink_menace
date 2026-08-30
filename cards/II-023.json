@@ -4,16 +4,16 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "rule",
-  "title": "Do Not Block the Mill",
-  "hook": "A pickup is dead in the only live lane.",
-  "scene": "Rain on a mill cut in the afternoon — not Kent Station, a rock-cut with one lane open and the other a trench. A pickup is already stopped in the open lane with its hood up, two people standing in the travel path like the mill is a driveway. There is no shoulder that is not a drop. Your instinct is to queue behind them and wait, which makes you the third body in a lane that still has a through. The sign at the start of the zone said DO NOT STOP. It meant it. You need a hole that is not their repair.",
+  "title": "Do Not Stop in the Cut",
+  "hook": "A pickup sits dead in the only live lane.",
+  "scene": "Afternoon rain on a slide cut — not Kent Station, a wet rock wall with one lane open and the other a trench behind cones. A pickup is already stopped in the open lane with its hood up, two people standing at the hood in the travel path. There is no shoulder that is not a drop. Your instinct is to wait behind them, which makes you the third body in a lane that still has a through. The sign at the start of the zone said DO NOT STOP. It meant it. You need an opening that is not their repair.",
   "decision": "They are stopped in the only live lane. Where do you put the Menace?",
   "options": [
     {
       "id": "a",
-      "text": "Queue behind them with hazards on so the next car sees a line",
+      "text": "Wait behind them with hazards on so the next car sees a line",
       "correct": false,
-      "result": "Hazards in a trench. The next car does see you. So does everything that hunts lamps. You are now a parked convoy in a work zone that forbade stopping. The pickup never asked you to join the repair.",
+      "result": "Hazards in a trench. The next car does see you. So does everything that hunts lamps. You are now a parked line in a work zone that forbade stopping. The pickup never asked you to join the repair.",
       "state_delta": {
         "light": 4,
         "time_cost": 10
@@ -23,7 +23,7 @@
       "id": "b",
       "text": "Squeeze past them in the trench because you cannot stop",
       "correct": false,
-      "result": "The knobbies drop off the mill. You high-center on the lip. Now there are two dead vehicles in a one-lane zone. The rain does the rest of the talking.",
+      "result": "The tires drop off the cut. You high-center on the lip. Now there are two dead vehicles in a one-lane zone, and you are the second one.",
       "state_delta": {
         "damage": 3,
         "noise": 3,
@@ -35,7 +35,7 @@
       "id": "c",
       "text": "Stop short of their scene, then wait in their lane until they move",
       "correct": false,
-      "result": "You are polite and you are a blockage. A volunteer comes the other way in a lane that was supposed to be yours. Four people, one trench, no grammar.",
+      "result": "You are polite and you are a blockage. A volunteer comes the other way in a lane that was supposed to be yours. Four people, one trench, no way through.",
       "state_delta": {
         "time_cost": 12,
         "noise": 1
@@ -43,16 +43,16 @@
     },
     {
       "id": "d",
-      "text": "Do not stop in the zone: take the first legal turnout before the mill, then a different street",
+      "text": "Do not stop in the zone: take the first legal turnout before the cut, then a different street",
       "correct": true,
-      "result": "You refuse the queue. A driveway before the cones is a driveway. You reverse into it, wait for a hole that is not their hood, and take the next street south. The mill keeps being a mill. You keep being traffic instead of a second accident.",
+      "result": "You refuse the line. A driveway before the cones is a driveway. You reverse into it, wait for an opening that is not their hood, and take the next street south. Two people stay at the pickup. You are already gone.",
       "state_delta": {
         "noise": -1,
         "time_cost": 8
       }
     }
   ],
-  "debrief": "Do not stop in a live work lane to rubberneck or to join someone else's breakdown. If the lane is blocked, leave the zone at the first legal turnout and reroute. Hazards in a trench are a beacon. Your job is to remain a moving vehicle.",
+  "debrief": "Do not stop in a live work lane to stare or to join someone else's breakdown. If the lane is blocked, leave the zone at the first legal turnout and go another way. Ali leaves the cut at the first driveway.",
   "source": {
     "psdp_skill": "Skill six: looking ahead",
     "dol_section": "4.17 Zones (Work zone)",
@@ -66,10 +66,10 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "high overhead of a mill cut: the faded matte-pink Baja VW Beetle in the only live lane, rear nearer the camera, plow pointing up-frame; ahead of it a dead pickup in the SAME lane, SAME heading — tailgate toward the camera, hood up at the far end, not facing the Beetle",
-    "foreground": "wet milled asphalt, the Menace's rear mesh and knobbies, no shoulder",
+    "subject": "high overhead of a slide cut: the faded matte-pink Baja VW Beetle in the only live lane, rear nearer the camera, plow pointing up-frame; ahead of it a dead pickup in the SAME lane, SAME heading — tailgate toward the camera, hood up at the far end, not facing the Beetle",
+    "foreground": "wet asphalt, the Menace's rear mesh and tires, no shoulder",
     "midground": "the pickup occupying the open lane, two people at its raised hood, orange cones; the other half of the roadway is a trench / drop",
-    "background": "afternoon rain, wet vertical rock wall, gray mill cut, no Kent storefronts, no oncoming grille",
+    "background": "afternoon rain, wet vertical rock wall, gray rock cut, no Kent storefronts, no oncoming grille",
     "read": "both vehicles travel the same way; the pickup is dead ahead in the only live lane",
     "continuity": [
       "pink_menace_exterior",

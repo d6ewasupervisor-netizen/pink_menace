@@ -12,6 +12,10 @@ You have been given the WORLD BIBLE above. It is locked. Every character name,
 vehicle, location, camera token, and content rule in it is binding. If your output
 contradicts the bible, your output is wrong.
 
+Voice follows pack/23_THE_SPOKEN_DICTIONARY.md. Never use a word from its swap
+column. The test is not "is this common" — it is whether a sixteen-year-old in
+Kent can tell what the word means from the sentence she is reading.
+
 ## YOUR JOB
 
 You receive one CURRICULUM SLOT and the current VARIATION LEDGER STATE.
@@ -65,8 +69,10 @@ Change the scene. Do not change the rule.
 6. DEBRIEF — 25 to 45 words, shown after resolution. This is the only place the
    rule is stated plainly. Name the rule, name the source, tie it to what just
    happened on screen. Voice: level, respectful, never disappointed.
-   Cap the "X is not Y" close at one in five debriefs in the act. Rotate the last
-   sentence among: consequence, named person, plain imperative, concrete image.
+   Cap the "X is not Y" close at one in five debriefs in the act. No more than
+   one aphoristic closer per five cards. Rotate the last sentence among:
+   consequence, named person, plain imperative, concrete image. Never repeat a
+   close-shape twice running. No metaphor where a plain statement works.
    Grammar / music / weather-as-mood metaphors at most twice per act.
 
 7. SOURCE — `psdp_skill` and `dol_section` must be copied **verbatim** from the

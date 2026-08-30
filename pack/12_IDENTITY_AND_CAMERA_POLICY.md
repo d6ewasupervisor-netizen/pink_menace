@@ -36,7 +36,7 @@ Silhouette drift responds better to an explicit feature list than to a reference
 
 > All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the driver's door and rear quarter panel, and oversize knobby tires on chrome slot wheels.
 
-Same pattern for the Ledger (tall square box on a van nose, oversize convex west-coast mirrors on long arms, amber dot-matrix destination sign, bar cage with cut wiper slot) and Encore (low wide wedge, four chrome PA horn flares on a roof frame, retroreflective chevron striping, intact glass and no mesh).
+Same pattern for the Ledger (tall square box on a van nose, oversize side mirrors on long arms, amber dot-matrix destination sign, bar cage with cut wiper slot) and Encore (low wide wedge, four chrome PA horn flares on a roof frame, retroreflective chevron striping, intact glass and no mesh).
 
 ## 3. Per-image QA rubric — ten seconds per card
 
@@ -44,7 +44,7 @@ Reject and regenerate on any miss. Do not accept "close enough"; drift compounds
 
 **Ali (face-critical only):** round wire-rim glasses present · cranberry-red hair · braided at the crown · gold hoops · flat affect, not smiling
 **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
-**Ledger:** box on van nose · big convex mirrors both sides · amber destination sign · windshield bar cage
+**Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
 **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
 

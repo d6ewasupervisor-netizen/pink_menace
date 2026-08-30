@@ -1,66 +1,84 @@
 {
   "card_id": "III-028",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "wrench",
-  "title": "The Right Dual Is Soft",
-  "hook": "The right dual is soft. Snow is already on the paint.",
-  "scene": "Snow on an afternoon arterial. The Ledger has been wandering a half-inch toward the rumble for the last mile and it is not the Drift this time — the right dual is soft and the tread on that tire is a rumor. Two thirty-seconds is the floor. You can keep rolling on a wish or you can put the bus on a pad and know. The schedule wants the next light. The dual wants air.",
-  "decision": "The right dual is soft and the tread looks thin. What do you do?",
+  "title": "The Right Rear Tire Is Soft",
+  "hook": "The right rear tire is soft. Snow is already on the paint.",
+  "scene": "Snow on Central this afternoon. The Ledger has been wandering a half-inch toward the rumble for the last mile and this time the wander is rubber — the right rear tire is soft and the tread on that tire is a rumor. Two thirty-seconds is the floor. You can keep rolling on a wish or you can put the bus on a pad and know. The schedule wants the next light. The tire wants air.",
+  "decision": "The right rear tire is soft and the tread looks thin. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Keep rolling — a dual can run soft and the snow is only starting",
+      "text": "Keep rolling — a rear tire can run soft and the snow is only starting",
       "correct": false,
-      "result": "You argue with rubber. The wander becomes a slide at the next brake. A dual that is soft in snow does not wait for the Drift to take the credit.",
-      "state_delta": { "yaw": 3, "noise": 2, "time_cost": 12 }
+      "result": "You argue with rubber. The wander becomes a slide at the next brake. A right rear tire that is soft in snow does not wait for the Drift to take the credit.",
+      "state_delta": {
+        "yaw": 3,
+        "noise": 2,
+        "time_cost": 12
+      }
     },
     {
       "id": "b",
       "text": "Hazards, legal pad, check tread and pressure before you take more snow",
       "correct": true,
       "result": "You put the bus on a pad. Tread is at the wear bars on the outer. Pressure is low. You air it from the can on the rack and you do not take the next hill on a wish. Late on the log. Rolling on purpose.",
-      "state_delta": { "noise": -1, "time_cost": 9 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 9
+      }
     },
     {
       "id": "c",
       "text": "Kick it once and if it sounds hard enough, go",
       "correct": false,
-      "result": "A kick is not a gauge. It sounds like a tire. It is still soft. The next curve writes the rest.",
-      "state_delta": { "yaw": 2, "time_cost": 8 }
+      "result": "A kick sounds like a tire. It is still soft. The next curve writes the rest. The door sticker was the number you skipped.",
+      "state_delta": {
+        "yaw": 2,
+        "time_cost": 8
+      }
     },
     {
       "id": "d",
       "text": "Overfill it by eye from the can so it cannot go soft again",
       "correct": false,
-      "result": "You guess high. The dual is a drum. Handling gets worse, not better. The door sticker was the number. You did not read it.",
-      "state_delta": { "yaw": 2, "damage": 1, "time_cost": 10 }
+      "result": "You guess high. The tire is a drum. Handling gets worse, not better. The door sticker was the number. You did not read it.",
+      "state_delta": {
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 10
+      }
     }
   ],
-  "debrief": "Tread under two thirty-seconds slides on wet and snow. Pressure is on the door sticker, not in your foot. Stop and know. A dual that wanders is already telling you.",
+  "debrief": "Tread under two thirty-seconds slides on wet and snow. Pressure is on the door sticker, not in your foot. Deac airs it from the can before he takes another hill.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "2.5 Vehicle Maintenance (Tires)",
-    "teaching_target": "Check tire tread (not less than 2/32 in) and inflation before driving on snow; do not keep rolling on a soft dual."
+    "teaching_target": "Check tire tread (not less than 2/32 in) and inflation before driving on snow; do not keep rolling on a soft right rear tire."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_OBJECT",
-    "subject": "Ledger right dual at curb height, tread worn toward the bars, sidewall slightly slumped, snow on the paint",
+    "subject": "Ledger right rear tire at curb height, tread worn toward the bars, sidewall slightly slumped, snow on the paint",
     "foreground": "wet snow on asphalt and a strip of gray primer skirt",
-    "midground": "the slumped dual and the worn tread, no brand marks readable",
+    "midground": "the slumped right rear tire and the worn tread, no brand marks readable",
     "background": "defocused snow and curb, afternoon, no people",
-    "read": "the outer dual is soft and the tread is a rumor",
-    "continuity": ["the_ledger"],
+    "read": "the outer right rear tire is soft and the tread is a rumor",
+    "continuity": [
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",
       "ego_lane_side": "parked on a legal pad off the right of the roadway",
-      "ego_nose_in_frame": "the van nose is out of frame to the right; the dual fills the frame",
+      "ego_nose_in_frame": "the van nose is out of frame to the right; the tire fills the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "none"
     }

@@ -45,7 +45,7 @@ Each has a different vehicle, different handling, different curriculum focus, an
 - **Wardrobe:** faded charcoal transit operator's jacket, agency patch worn down to a ghost outline, over a **dulled amber hi-vis safety vest**, grimy and taped at one shoulder. Dark work trousers, steel-toe boots.
 - **Signature object: THE CLIPBOARD.** A metal clipboard with a hand-ruled log sheet — date, location, day/night, weather, skills, hours, initials. It is the PSDP supervised driving log, and it is diegetic. Deac is the reason you log your hours; his clipboard *is* the game's progress tracker on screen.
 - **Fatigue tell:** a dented steel thermos in the cup holder, always. Never depict the fatigue with anything more graphic than reddened eyes and a hand pressed flat to the sternum.
-- **Vehicle: THE LEDGER.** Ex-transit cutaway shuttle bus — a tall square passenger box on a van nose, roughly 24 feet. Faded green-and-white transit livery ghosting under gray primer. Plate steel skirting the lower body, expanded metal mesh over every side window, a bar cage over the windshield with a cut wiper slot. Roof cargo rack with lashed water cans and a folded aluminum ramp. Passenger-side wheelchair lift door, still functional, used as a loading bay. **Oversize convex west-coast mirrors on long arms, both sides** — the biggest silhouette anchor on the vehicle, and a direct visual statement of his teaching content. Above the windshield, a working **amber dot-matrix destination sign** he uses to talk to other convoys. That sign is his voice.
+- **Vehicle: THE LEDGER.** Ex-transit cutaway shuttle bus — a tall square passenger box on a van nose, roughly 24 feet. Faded green-and-white transit livery ghosting under gray primer. Plate steel along the lower body, expanded metal mesh over every side window, a bar cage over the windshield with a cut wiper slot. Roof cargo rack with lashed water cans and a folded aluminum ramp. Passenger-side wheelchair lift door, still functional, used as a loading bay. **Oversize side mirrors on long arms, both sides** — the biggest silhouette anchor on the vehicle, and a direct visual statement of his teaching content. Above the windshield, a working **amber dot-matrix destination sign** he uses to talk to other convoys. That sign is his voice. Voice for player copy: `23_THE_SPOKEN_DICTIONARY.md`. A west-coast mirror may be named only when the sentence carries the meaning (*the big west-coast mirror on his door*).
 - **Handling:** heavy, slow, enormous blind zones, huge stopping distance, high seating position (sees far).
 - **Weakness: FATIGUE.** He has been awake for the entire quarantine. Input lag, microsleep, the slow drift. DOL 3.1 — fatigue and drowsy driving.
 - **Curriculum focus:** blind zones, following distance, stopping distance, hand signals, sharing the road with large vehicles, school bus law.
@@ -120,13 +120,13 @@ Never teach a rule abstractly. Attach it to one of these.
 |---|---|---|---|---|
 | I | **The Lot** — dead Fred Meyer parking lot, Renton | Skill one through Skill four — copy the full heading from pack/08_PSDP_SKILLS.json; never invent a subtitle | 2.4, 2.5, 2.6, 2.7, 2.8, 2.11, 2.12, 2.14 | Ali |
 | II | **The Grid** — quiet residential, Kent | **Skill three: how close are you?**; **Skill five: driving on a quiet street – part one**; **Skill five: driving on a quiet street – part two**; **Skill six: looking ahead**; **Skill seven: turning around**; **Skill eight: parking – part one / part two** | 4.2, 4.6, 4.12–4.14, 4.16–4.18, 5.2, 5.4–5.6 | Ali |
-| III | **The Arterial** — multi-lane, Aurora Ave | 9–10 | 4.13, 4.16, 5.2, 5.3 | Deac |
+| III | **Central** — multi-lane, Central Ave, Kent | 9–10 | 4.13, 4.16, 5.2, 5.3 | Deac |
 | IV | **The Core** — downtown Seattle | 11–12 | 4.1, 4.2, 4.3, 4.6, 4.7, 4.17 | Yuna |
 | V | **The Ribbon** — I-5 / I-90 | 13–14 | 4.4, 5.1, 5.3, 5.4 | Deac |
 | VI | **The Backcountry** — Palouse, gravel, roundabouts | Rural, Roundabouts | 4.8, 4.15, 5.6 | Yuna |
 | VII | **The Dark Hours** — night, rain, fog, Snoqualmie snow | Other conditions | 3.1, 5.6, 5.7, 5.9, 5.10 | All three |
 
-Acts are gated. You do not reach The Ribbon until The Arterial is clean — same rule the PSDP gives parents on p.1: do not advance until the prior skill has been practiced many times.
+Acts are gated. You do not reach The Ribbon until Central is clean — same rule the PSDP gives parents on p.1: do not advance until the prior skill has been practiced many times.
 
 `dol_section` and `psdp_skill` on a card must match pack/07_DOL_SECTIONS.json and pack/08_PSDP_SKILLS.json exactly. The seed script rejects anything else. Do not complete a partial skill name. `stat_cited` ships with a page number or the field is omitted. Act II play order is II-001…II-020, then II-029, II-030, then II-021…II-028.
 
@@ -222,7 +222,7 @@ Rule for the writer: registered locations may **change across acts** (that is th
 ### L-001 · Kent, 4th Ave S at Willis
 *First appearance: II-007. Act II base state.*
 
-> A wet two-lane residential arterial running flat and straight. Cracked asphalt with standing water in the wheel tracks and a shallow crown. Bare maples on both verges, no leaves. Low single-story houses set back behind chain-link, sagging gutters, blinds drawn. Cracked concrete sidewalk on the east side only; the west side is gravel shoulder. Overhead power lines on wood poles. Flat gray overcast, no shadows. **Nothing is fallen, blocking, wrecked, or burning. The road is clear.**
+> A wet two-lane residential street running flat and straight. Cracked asphalt with standing water in the wheel tracks and a shallow crown. Bare maples on both verges, no leaves. Low single-story houses set back behind chain-link, sagging gutters, blinds drawn. Cracked concrete sidewalk on the east side only; the west side is gravel shoulder. Overhead power lines on wood poles. Flat gray overcast, no shadows. **Nothing is fallen, blocking, wrecked, or burning. The road is clear.**
 
 ### L-003 · Kent Station lot
 *First appearance: II-005. Act II base state.*
@@ -232,17 +232,17 @@ Rule for the writer: registered locations may **change across acts** (that is th
 ### L-004 · Central Avenue, Kent
 *First appearance: II-004. Act II base state.*
 
-> A four-lane Kent collector with a short painted left-turn pocket, maples on the verge, no median barrier. Wind moves the trees. Surface is ordinary asphalt, not highway. **No wrecks, no fallen trees, no blocked lanes except paint.**
+> A four-lane Kent street with a short painted left-turn pocket, maples on the verge, no median barrier. Wind moves the trees. Surface is ordinary asphalt, not highway. **No wrecks, no fallen trees, no blocked lanes except paint.**
 
-### L-005 · Kent school-zone collector
+### L-005 · Kent school-zone street
 *First appearance: II-002. Act II base state.*
 
-> A two-lane collector with flashing school-zone lamps, a faded 20 in the lane, a chain-link playground on one side and parked cars plus a hedge line on the other. Crosswalk paint is worn but present. **The yard is empty of children unless a card names one. Nothing is wrecked or burning.**
+> A two-lane neighborhood street with flashing school-zone lamps, a faded 20 in the lane, a chain-link playground on one side and parked cars plus a hedge line on the other. Crosswalk paint is worn but present. **The yard is empty of children unless a card names one. Nothing is wrecked or burning.**
 
-### L-006 · Mill cut, one live lane
-*First appearance: II-023. Act II. Not Kent Station, not a Kent arterial — a rock-cut mill.*
+### L-006 · Slide cut, one live lane
+*First appearance: II-023. Act II. Not Kent Station, not Central — a rock cut with one lane open.*
 
-> A single live travel lane through a wet rock cut, afternoon rain. The closed half is a trench behind cones. Vertical wet rock wall on one side, no shoulder that is not a drop. A stopped pickup occupies the live lane, hood up, two figures in the travel path. Overhead gray, no Kent storefronts, no school fence, no ocean. **Do not relocate this mill onto a Kent collector. Nothing is burning or collapsed.**
+> A single live travel lane through a wet rock cut, afternoon rain. The closed half is a trench behind cones. Vertical wet rock wall on one side, no shoulder that is not a drop. A stopped pickup occupies the live lane, hood up, two figures in the travel path. Overhead gray, no Kent storefronts, no school fence, no ocean. **Do not relocate this cut onto a Kent side street. Nothing is burning or collapsed.**
 
 ### L-002 · The Lot — dead Fred Meyer, Renton
 *Act I base state.*

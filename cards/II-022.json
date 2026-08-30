@@ -4,7 +4,7 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "convoy",
-  "title": "Fingers to the Sky",
+  "title": "Bent Arm, Right Turn",
   "hook": "Deac's left arm bends up. The volunteer rolls straight.",
   "scene": "Wind at midday through a Kent school zone, lamps dark this time, posted 20 still posted. You are third behind a volunteer and the Ledger. Deac's left arm comes out his driver window and bends at the elbow until the fingers point at the sky — rain hitting the sleeve, on the side the column can see. He cannot put this on the destination sign. The volunteer in the middle does not answer. His blinker never happens. If you follow the middle car you will miss the driveway on the right. If you put an arm out the passenger window, nobody behind you will see it.",
   "decision": "Deac's left arm is bent up in the rain. The volunteer is rolling straight. What do you do?",
@@ -49,7 +49,7 @@
       }
     }
   ],
-  "debrief": "Every hand signal is the left arm, out the driver window. Bent up, fingers to the sky, is a right turn. Deac put that arm into the weather so the convoy behind him could see it. Copy the arm you can see.",
+  "debrief": "Every hand signal is the left arm, out the driver window. Bent up, fingers to the sky, is a right turn. Copy the arm you can see. You took the right after the volunteer rolled straight.",
   "source": {
     "psdp_skill": "Skill five: driving on a quiet street – part two",
     "dol_section": "2.5 Vehicle Maintenance (Hand signals)",
@@ -66,7 +66,7 @@
     "camera": "POV_CHASE",
     "camera_is_the_lesson": true,
     "subject": "a three-vehicle column on a wet Kent school-zone road, all traveling away from the camera: the faded matte-pink Baja VW Beetle nearest the bottom, a volunteer van in the MIDDLE, the Ledger shuttle furthest ahead",
-    "foreground": "the Pink Menace's rear — mesh cage, knobby tires, plow on the far leading end — in the right-hand lane",
+    "foreground": "the Pink Menace's rear — mesh cage, tires, plow on the far leading end — in the right-hand lane",
     "midground": "a dark volunteer van or box truck BETWEEN the Menace and the Ledger, same lane, same heading, only its rear visible, no blinker, rolling straight",
     "background": "the Ledger furthest ahead, rear and left flank; a man's left arm out the LEFT window, bent at the elbow, fingers to the sky; wet school zone, dark lamps, bare trees, rain",
     "read": "three vehicles in one column — Menace, volunteer, Ledger — the bent-up left arm is on the lead bus",

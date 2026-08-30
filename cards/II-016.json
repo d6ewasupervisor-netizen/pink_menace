@@ -4,14 +4,14 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "convoy",
-  "title": "Straight Out the Window",
-  "hook": "Deac's arm holds straight left. The volunteer is third.",
-  "scene": "Rain at midday in the Kent Station lot again, different stalls, same ghosts. Deac has the Ledger pointed at the exit, amber sign dark. He needs a left onto 1st. His left arm comes out the driver window and holds, straight, fingers pointing left into the rain — not bent, not up. You are second. A volunteer is third. If you signal with lamps you light the deck. If you say nothing, the volunteer will read your gap as a hole on Deac's left and take the turn with him. Hands are the only sentence that does not draw.",
-  "decision": "Deac's left arm is straight out. How do you keep the volunteer from writing over it?",
+  "title": "The Arm Points Left",
+  "hook": "Deac's arm is straight left. The volunteer is third.",
+  "scene": "Rain at midday in the Kent Station lot again, different stalls, same wet deck. Deac has the Ledger pointed at the exit, amber sign dark. He needs a left onto 1st. His left arm comes out the driver window and holds, straight, fingers pointing left into the rain — not bent, not up. You are second. A volunteer is third. If you signal with lamps you light the deck. If you say nothing, the volunteer will read the gap on Deac's left as an opening and take the turn with him. Hands are the only signal that does not light the lot.",
+  "decision": "Deac's left arm is straight out. How do you keep the volunteer off his left?",
   "options": [
     {
       "id": "a",
-      "text": "Flash twice and pull left so the volunteer knows to stay",
+      "text": "Flash twice and pull left so the volunteer stays put",
       "correct": false,
       "result": "The flashes paint the deck. The volunteer reads it as go and comes around you into Deac's left. Three vehicles in an exit that holds two. Deac's arm is still out in a space that is no longer his.",
       "state_delta": {
@@ -22,9 +22,9 @@
     },
     {
       "id": "b",
-      "text": "Left arm straight out to match, hold your place, and do not open a hole on his left",
+      "text": "Left arm straight out to match, hold your place, and do not open a gap on his left",
       "correct": true,
-      "result": "You put the same arm out the same window. You stay glued to his right-rear, not his left. The volunteer has no hole that is not a curb. Deac takes the left. You take it after him. The volunteer waits because the line was complete.",
+      "result": "You put the same arm out the same window. You stay glued to his right-rear, not his left. The volunteer has no gap that is not a curb. Deac takes the left. You take it after him. The volunteer waits because the line was complete.",
       "state_delta": {
         "noise": -1,
         "time_cost": 4
@@ -51,7 +51,7 @@
       }
     }
   ],
-  "debrief": "A left turn is the left arm straight out the driver-side window, fingers pointing left. Match Deac on that side and stay off his left. Bent up is a different turn. Put the arm where the column behind you can actually see it.",
+  "debrief": "A left turn is the left arm straight out the driver-side window, fingers pointing left. Match Deac on that side and stay off his left. You took the left after him, not beside him.",
   "source": {
     "psdp_skill": "Skill five: driving on a quiet street – part two",
     "dol_section": "2.5 Vehicle Maintenance (Hand signals)",

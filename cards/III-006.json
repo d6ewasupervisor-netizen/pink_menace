@@ -1,7 +1,7 @@
 {
   "card_id": "III-006",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "convoy",
   "title": "A Hundred Feet of Amber",
@@ -14,37 +14,52 @@
       "text": "Move first, then signal — they will see the bus and understand",
       "correct": false,
       "result": "You start the change. The box behind had no sentence. He stands on it. You stand on it. The sign stays dark. You spent his brakes to keep your schedule.",
-      "state_delta": { "noise": 4, "yaw": 1, "time_cost": 8 }
+      "state_delta": {
+        "noise": 4,
+        "yaw": 1,
+        "time_cost": 8
+      }
     },
     {
       "id": "b",
       "text": "Flash the highs twice — faster than a blinker and they cannot miss it",
       "correct": false,
-      "result": "The flash hits his glass and comes back. He thinks you are warning him of something ahead. He slows in your hole. You still have not said left.",
-      "state_delta": { "light": 3, "time_cost": 6 }
+      "result": "The flash hits his glass and comes back. He thinks you are warning him of something ahead. He slows in your gap. You still have not said left.",
+      "state_delta": {
+        "light": 3,
+        "time_cost": 6
+      }
     },
     {
       "id": "c",
       "text": "Leave the sign dark and use the stalk at the last skip-dash",
       "correct": false,
       "result": "The stalk talks for ten feet. He is already in your door. Late is the same as silent on a bus this long.",
-      "state_delta": { "noise": 3, "time_cost": 7 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 7
+      }
     },
     {
       "id": "d",
-      "text": "Sign left, stalk on, hold a hundred feet, then take a swept hole",
+      "text": "Sign left, stalk on, hold a hundred feet, then take a swept gap",
       "correct": true,
-      "result": "Amber crawls LEFT. The stalk agrees. You hold the lane until the box lifts. The hole you take is one he already gave you. That is a sentence.",
-      "state_delta": { "noise": -1, "time_cost": 5 }
+      "result": "Amber crawls LEFT. The stalk agrees. You hold the lane until the box lifts. The gap you take is one he already gave you. That is a sentence.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
     }
   ],
-  "debrief": "Signal a hundred feet before you move. The destination sign is the same sentence for a column that cannot hear you. Late amber is a surprise, not a signal.",
+  "debrief": "Signal a hundred feet before you move. The destination sign is the same sentence for a column that cannot hear you. Late amber still hits them as a surprise.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "2.5 Vehicle Maintenance (Turn signals)",
     "teaching_target": "Signal at least 100 feet before a lane change; give the column time to answer."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -52,10 +67,12 @@
     "camera": "POV_OBJECT",
     "subject": "left turn stalk blinking amber, destination-sign toggle already thrown, the stacked column visible in the glass behind",
     "foreground": "commercial column, blinking left stalk, and the thrown sign switch — Deac's cab, no driver face",
-    "midground": "interior rearview and a slice of the left west-coast, both holding the same day-cab box truck behind — factory mirrors only, no amber destination sign, no roof rack, no cutaway shuttle body",
+    "midground": "interior rearview and a slice of the left door mirror, both holding the same day-cab box truck behind — factory mirrors only, no amber destination sign, no roof rack, no cutaway shuttle body",
     "background": "defocused dusk 167 through the cage, not the subject",
-    "read": "the stalk and the sign switch are already talking; the column in the glass has not given the hole",
-    "continuity": ["ledger_cockpit"],
+    "read": "the stalk and the sign switch are already talking; the column in the glass has not given the gap",
+    "continuity": [
+      "ledger_cockpit"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

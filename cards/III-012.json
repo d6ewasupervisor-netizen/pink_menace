@@ -1,12 +1,12 @@
 {
   "card_id": "III-012",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "rule",
   "title": "Do Not Live Beside",
   "hook": "The no-zones are drawn on the asphalt. Do not sit in them.",
-  "scene": "Rain at dusk, still 167, the same trailer length painted in your head. Passing a truck is a trip, not a lane. If you linger at the drive axle you are in a room he uses to turn. The Ledger knows this from the other side. Tonight you are the car.",
+  "scene": "Rain at dusk, still 167, the same trailer length painted in your head. Passing a truck takes the whole trailer, then the cab, then room to come back. If you linger at the drive axle you are in a space he uses to turn. The Ledger knows this from the other side. Tonight you are the car.",
   "decision": "You have started a pass on a trailer. When are you done?",
   "options": [
     {
@@ -14,37 +14,52 @@
       "text": "When your nose is past his — that is enough to claim the lane",
       "correct": false,
       "result": "You recover early. Your rear doors are still at his drive axle. He starts the right he signaled a mile ago. You are the lingering car.",
-      "state_delta": { "noise": 3, "yaw": 2, "time_cost": 7 }
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 7
+      }
     },
     {
       "id": "b",
       "text": "When you see his whole front in your glass and the bus is clear, then recover",
       "correct": true,
       "result": "You stay in the pass until the trailer is a trailer in the glass, not a wall at your shoulder. You recover once. He keeps his turn. You keep your doors.",
-      "state_delta": { "noise": -1, "time_cost": 4 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
       "id": "c",
       "text": "Match his speed beside the cab so he sees you and can wave you past",
       "correct": false,
       "result": "You become a passenger on his left. He cannot wave a bus through a no-zone. He needs that space to live.",
-      "state_delta": { "noise": 2, "time_cost": 8 }
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 8
+      }
     },
     {
       "id": "d",
       "text": "Cut in as soon as you see pavement in front of him — leave him a car length",
       "correct": false,
       "result": "You give a loaded trailer a car length at highway speed. He cannot stop. You just borrowed his stopping distance.",
-      "state_delta": { "noise": 4, "time_cost": 6 }
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 6
+      }
     }
   ],
-  "debrief": "Do not linger beside a truck. Pass, then recover only when the whole front of his vehicle is in your mirror and you have left him stopping room.",
+  "debrief": "Do not linger beside a truck. Pass, then recover only when the whole front of his vehicle is in your mirror and you have left him stopping room. Deac would not live beside a trailer he used to drive.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.4 Sharing with large vehicles",
     "teaching_target": "Never linger beside a large vehicle; complete the pass and leave stopping room before merging back."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -55,7 +70,10 @@
     "midground": "the Ledger even with the trailer's drive axle, van nose not yet past the cab",
     "background": "dusk rain, 167, guardrail",
     "read": "the bus is still beside the trailer, not clear of it",
-    "continuity": ["diagram_style", "the_ledger"],
+    "continuity": [
+      "diagram_style",
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

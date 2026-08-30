@@ -4,9 +4,9 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "rule",
-  "title": "The Triangle Is the Sentence",
+  "title": "Orange Triangle Ahead",
   "hook": "Orange triangle ahead in the cones. You are doing thirty.",
-  "scene": "Heavy rain at night on a Kent mill that still thinks it is a work zone. In the cone line, a farm tractor from somebody's last run south, no Grange, just one machine, orange SMV triangle dirty but lit by your lamps. It is doing twelve. You are doing thirty because the insulin clock got loud in your head. The triangle is the sign. Pass on a two-lane with no sightline and you are in his blind and oncoming's. The cones make it worse. Your left blinker already wants out.",
+  "scene": "Heavy rain at night on a Kent work zone, cones still in the lane. In the cone line, a farm tractor from somebody's last run south, no Grange, just one machine, orange slow-vehicle triangle dirty but lit by your lamps. It is doing twelve. You are doing thirty because the insulin clock got loud in your head. The triangle is the sign. Pass on a two-lane with no sightline and you are in his blind spot and oncoming's. The cones make it worse. Your left blinker already wants out.",
   "decision": "The slow-moving triangle is ahead in the cones. Do you pass?",
   "options": [
     {
@@ -35,7 +35,7 @@
       "id": "c",
       "text": "Stay behind, drop to his twelve, and wait for a marked passing zone with sight",
       "correct": true,
-      "result": "You lift to twelve. The triangle stays a triangle, not a wall. The cone line ends. A painted passing zone appears with a sightline you can actually see. You take it then, clean, and leave him a hole. The insulin is still cold. Twelve cost you a minute. A pass in the rain would have cost the run.",
+      "result": "You lift to twelve. The cone line ends. A painted passing zone appears with a sightline you can actually see. You take it then, clean, and leave him a gap. The insulin is still cold. Twelve cost you a minute. A pass in the rain would have cost the run.",
       "state_delta": {
         "noise": -1,
         "time_cost": 8
@@ -45,7 +45,7 @@
       "id": "d",
       "text": "Go around on the gravel because the lane is his",
       "correct": false,
-      "result": "The gravel is a ditch in the rain. The knobbies climb and the plow drops. You are beside him in a trench with no legal lane. He never saw you. The first thing he knows is your roof in his left mirror and a sound like a drum.",
+      "result": "The gravel is a ditch in the rain. The tires climb and the plow drops. You are beside him in a trench with no legal lane. He never saw you. The first thing he knows is your roof in his left mirror and a sound like a drum.",
       "state_delta": {
         "noise": 3,
         "yaw": 3,
@@ -54,11 +54,11 @@
       }
     }
   ],
-  "debrief": "An orange slow-moving-vehicle triangle marks a machine that is doing farm speed. Wait for a legal passing zone and a sightline. Patience is the pass. The insulin will still be cold.",
+  "debrief": "An orange triangle marks a machine doing farm speed. Pass only where the paint allows it and you can see. Twelve cost you a minute.",
   "source": {
     "psdp_skill": "Skill six: looking ahead",
     "dol_section": "4.12 Signs",
-    "teaching_target": "The orange SMV triangle marks a slow vehicle; pass only where passing is legal and sight distance is enough."
+    "teaching_target": "The orange triangle marks a slow vehicle; pass only where passing is legal and sight distance is enough."
   },
   "cast": [
     "ali"
@@ -71,7 +71,7 @@
     "subject": "the rear of a worn farm tractor filling the windshield mesh; a dirty orange slow-moving-vehicle triangle is bolted to the tractor's back, centered, lit by the headlights",
     "foreground": "worn black steering wheel and cracked faded pink dash; rain on the glass; welded steel mesh",
     "midground": "the tractor's rear tires and hitch; the SMV triangle fastened to the machine, not on the ground; orange work-zone cones left and right of the lane",
-    "background": "a two-lane Kent mill road at night, heavy rain, a dark mill building, no oncoming lamps yet",
+    "background": "a two-lane Kent work zone at night, heavy rain, a dark shop building, no oncoming lamps yet",
     "read": "the orange triangle is fastened to the tractor — this machine is doing farm speed",
     "continuity": [
       "pink_menace_interior"

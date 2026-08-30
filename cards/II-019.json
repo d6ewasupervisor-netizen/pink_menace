@@ -4,9 +4,9 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "hazard",
-  "title": "Black Ice, Same Paint",
+  "title": "Green Light, Black Ice",
   "hook": "The paint looks wet. It is ice. The light is green.",
-  "scene": "Night on a Kent collector that iced after a melt. The paint still looks wet. It is not. Your knobbies are honest until they are not. A four-way with a working signal, stale green. You are the only moving thing. The instinct is to take the green like you own it. The ice wants a smaller number and no sudden anything. The insulin crates will slide if you ask the tires for a story they cannot tell. There is no sand truck. There is you, a green lamp, and a surface that will not say its name until you brake.",
+  "scene": "Night on a Kent two-lane that iced after a melt. The paint still looks wet. It is not. Your tires are honest until they are not. A four-way with a working signal, stale green. You are the only moving thing. The instinct is to take the green like you own it. The ice wants a smaller number and no sudden anything. The insulin crates will slide if you ask the tires for more than they can give. There is no sand truck. There is you, a green lamp, and a surface that will not say its name until you brake.",
   "decision": "The lamp is green and the paint looks only wet. How do you take the intersection?",
   "options": [
     {
@@ -24,7 +24,7 @@
       "id": "b",
       "text": "Stab the brakes before the painted line to test the ice",
       "correct": false,
-      "result": "The test is the crash. Locked knobbies, a plow that now points at a dark porch, and a green lamp still cycling for a car that is no longer in its lane. You learned the ice by using up the intersection.",
+      "result": "The test is the crash. Locked tires, a plow that now points at a dark porch, and a green lamp still cycling for a car that is no longer in its lane. You learned the ice by using up the intersection.",
       "state_delta": {
         "yaw": 4,
         "noise": 4,
@@ -53,7 +53,7 @@
       }
     }
   ],
-  "debrief": "Green tells you who has the intersection. Ice wants six seconds of space and a walking pace — bleed before the box, no sudden anything. The lamp will still be green when you get there.",
+  "debrief": "Green tells you who has the intersection. Ice wants six seconds of space and a walking pace — bleed before the box, no sudden anything. The green lamp is still there when you roll through.",
   "source": {
     "psdp_skill": "Skill three: how close are you?",
     "dol_section": "5.6 Road and driving conditions (Slippery roads)",
@@ -72,7 +72,7 @@
     "subject": "a traffic signal showing green over a glossy black intersection that looks wet and is ice",
     "foreground": "the signal face, one green lens lit, the others dark",
     "midground": "painted crosswalk shining, no sand, no tracks yet",
-    "background": "Kent night, empty collector, a dark porch, no other lamps moving",
+    "background": "Kent night, empty two-lane, a dark porch, no other lamps moving",
     "read": "the lamp is green and the pavement is glass — those two facts are the card",
     "continuity": [],
     "aspect": "2:3",

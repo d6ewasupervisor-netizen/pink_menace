@@ -5,7 +5,7 @@
   "driver": "ali",
   "card_type": "rule",
   "title": "Red Octagon, White Fog",
-  "hook": "Fog on the mill. A portable STOP sits in your lane.",
+  "hook": "Fog on torn-up road. A portable STOP sits in your lane.",
   "scene": "Fog sits on a Kent work zone at midday, thick enough that the cones appear one at a time. A portable stop sign is planted in your lane where the flagger would have stood. The face is red, eight sides, white border, white STOP. No flagger. No oncoming headlights yet. The cone line pinches you down to a crawl. The insulin clock is still kind. Your left foot wants to hover instead of plant.",
   "decision": "The portable stop is in your lane and the fog has the other approach. What do you do at the sign?",
   "options": [
@@ -34,7 +34,7 @@
       "id": "c",
       "text": "Treat it as yield and go if you cannot see anyone",
       "correct": false,
-      "result": "You take the empty-looking hole. The pickup's left headlight fills your mesh at ten feet. Both of you dump speed. His tires bark on damp millings. You sit in the intersection with two engines and a sign that already told you the answer.",
+      "result": "You take the empty-looking gap. The pickup's left headlight fills your mesh at ten feet. Both of you dump speed. His tires bark on damp torn-up road. You sit in the intersection with two engines and a sign that already told you the answer.",
       "state_delta": {
         "noise": 3,
         "yaw": 2,
@@ -53,7 +53,7 @@
       }
     }
   ],
-  "debrief": "A stop sign means stop — wheels still, at the sign or limit line, even when the sign is portable and the road looks empty. Fog is not a yield. If you cannot see the other approach, that is more reason to stop, not less.",
+  "debrief": "A stop sign means stop — wheels still, at the sign or limit line, even when the sign is portable and the road looks empty. Fog does not turn that into a yield. Stop at the sign, then search.",
   "source": {
     "psdp_skill": "Skill five: driving on a quiet street – part one",
     "dol_section": "4.12 Signs",
@@ -69,7 +69,7 @@
     "camera": "POV_OBJECT",
     "subject": "a portable red octagonal STOP sign planted in a fogged lane between orange cones",
     "foreground": "the sign face filling the frame, white border and white STOP legible, droplets on the sheeting",
-    "midground": "cone pinch and milled asphalt disappearing into midday fog",
+    "midground": "cone pinch and torn-up asphalt disappearing into midday fog",
     "background": "no flagger, no sky, a gray wall of fog where the other approach should be",
     "read": "the sign is STOP, not yield, and the other road is invisible — that is the whole card",
     "continuity": [],

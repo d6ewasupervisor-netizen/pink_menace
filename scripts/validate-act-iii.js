@@ -9,6 +9,7 @@ const { checkCameraLedger } = require("./camera-ledger");
 const { validateGeometry, LEGAL_CAMERAS } = require("./geometry");
 const { assemblePrompt } = require("./compile-prompt");
 const { validateAuthoringSeat } = require("./authoring-seat");
+const { checkSpoken, checkClosers } = require("./validate-spoken");
 
 const ROLE_RELATIVE_RE = /\b(?:driver['’]?s[ -](?:side|window|door)|driver-(?:side|window|door)|driver (?:side|window|door)|passenger['’]?s?[ -]side|passenger-side|near[ -]side|off[ -]side)\b/i;
 
@@ -45,7 +46,7 @@ function forcedTripleOk(prev, cur) {
 for (let i = 0; i < cards.length; i++) {
   const c = cards[i];
   const id = c.card_id;
-  if (c.act !== "III" || c.zone !== "The Arterial" || c.driver !== "deac") err(id, "act/zone/driver");
+  if (c.act !== "III" || c.zone !== "Central" || c.driver !== "deac") err(id, "act/zone/driver");
   if (!typeEnum.includes(c.card_type)) err(id, "card_type");
   if (c.scene.length < 150 || c.scene.length > 700) err(id, `scene len ${c.scene.length}`);
   const hookWords = String(c.hook || "").trim().split(/\s+/).filter(Boolean);
@@ -116,11 +117,13 @@ for (let i = 0; i < cards.length; i++) {
   for (const e of validateCard(c, tables)) err(id, e.replace(`${id}: `, ""));
   for (const e of resolveCard(c).errors) err(id, e.replace(`${id}: `, ""));
   for (const e of validateAuthoringSeat(c)) err(id, e.replace(`${id}: `, ""));
+  for (const e of checkSpoken(c)) err(id, e.replace(`${id}: `, ""));
 }
 
 const n = cards.filter((c) => c.card_type !== "dossier").length;
 const cameraLedger = checkCameraLedger(cards);
 for (const e of cameraLedger.errors) errors.push(e);
+for (const e of checkClosers(cards)) errors.push(e);
 const portraits = cards.filter((c) => c.image_brief && c.image_brief.camera === "POV_PORTRAIT").length;
 const faceBudget = Math.ceil(cards.length * 0.1);
 const decision = cards.filter((c) => c.card_type !== "dossier");

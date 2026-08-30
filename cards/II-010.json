@@ -13,7 +13,7 @@
       "id": "a",
       "text": "Stay stopped until the arm folds, even though you are not behind her",
       "correct": true,
-      "result": "You sit. Rain on the mesh. Tobin crosses without a glance, then a second kid you did not have last time. The thing at the treeline does not come. Reyna folds the bent arm, finds you in her glass, and does not wave. She does not have to. You are still here. That is the apology.",
+      "result": "You sit. Rain on the mesh. Tobin crosses without a glance, then a second kid you did not have last time. The thing at the treeline does not come. Reyna folds the bent arm, finds you in her mirror, and does not wave. She does not have to. You are still here. That is the apology.",
       "state_delta": {
         "noise": -2,
         "time_cost": 8
@@ -23,7 +23,7 @@
       "id": "b",
       "text": "Keep rolling — you are oncoming, so the reds are hers",
       "correct": false,
-      "result": "You pull out on reds. Tobin is still in your left headlight. You stand on it. The Menace stops with the plow in the crosswalk he is using. Reyna sees the whole thing in the west-coast glass she does not have. She has a school bus mirror and a bent arm and a face you will carry.",
+      "result": "You pull out on reds. Tobin is still in your left headlight. You stand on it. The Menace stops with the plow in the crosswalk he is using. Reyna sees the whole thing in her big school-bus mirror. She has a bent arm and a face you will carry.",
       "state_delta": {
         "noise": 4,
         "yaw": 2,
@@ -45,7 +45,7 @@
       "id": "d",
       "text": "Tap the horn once so Tobin looks up",
       "correct": false,
-      "result": "The horn on a stopped bus street. Tobin looks. So does everything else. The treeline starts walking. Reyna's head turns in the glass, not grateful. You made him look and you rang the block doing it.",
+      "result": "The horn on a stopped bus street. Tobin looks. So does everything else. The treeline starts walking. Reyna's head turns in the mirror, not grateful. You made him look and you rang the block doing it.",
       "state_delta": {
         "noise": 5,
         "light": 1,
@@ -53,7 +53,7 @@
       }
     }
   ],
-  "debrief": "Red lamps and an extended stop arm still mean a full stop from both directions until the arm retracts — even when you have been here before, even when the arm is bent because of you. The kid does not check. The street remembers the noise. You do not get to pass it twice.",
+  "debrief": "Red lamps and an extended stop arm still mean a full stop from both directions until the arm comes back in — even when you have been here before, even when the arm is bent because of you. Reyna is still watching that bent arm.",
   "source": {
     "psdp_skill": "Skill six: looking ahead",
     "dol_section": "4.2 Sharing with school buses",

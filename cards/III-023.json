@@ -1,50 +1,67 @@
 {
   "card_id": "III-023",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "rule",
-  "title": "Not a Passing Lane",
+  "title": "Hold the General Lane",
   "hook": "The diamond is empty. The box in your lane is slow.",
-  "scene": "Fog at dusk on 167. A box is doing thirty in the general lane. To the left, a diamond on the pavement and a solid white fence, empty and fast. The schedule wants the hole. You are a bus. You could live in that lane. What you cannot do is dart in, pass, and dart out. That is a passing lane you invented.",
+  "scene": "Fog at dusk on 167. A box is doing thirty in the general lane. To the left, a diamond on the pavement and a solid white fence, empty and fast. The schedule wants the opening. You are a bus. You could live in that lane. What you cannot do is dart in, pass, and dart out. That is a passing lane you invented.",
   "decision": "The diamond is empty and he is slow. Do you use it to pass?",
   "options": [
     {
       "id": "a",
       "text": "Dart into the diamond, pass, come back before the next ramp",
       "correct": false,
-      "result": "You use a carpool lane as a slingshot. Solid white, in and out. The remnant in the cap does not care that you are a bus. Carpool lanes are not passing lanes.",
-      "state_delta": { "noise": 2, "time_cost": 6 }
+      "result": "You use a carpool lane as a slingshot. Solid white, in and out. The remnant in the cap does not care that you are a bus. You stole a pass from a lane that was never yours to dart through.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 6
+      }
     },
     {
       "id": "b",
       "text": "Hold the general lane. If you pass, pass in a general lane.",
       "correct": true,
-      "result": "You stay. The diamond stays empty. When a general lane opens you take a real pass or you don't. The box keeps being thirty. You keep being legal.",
-      "state_delta": { "noise": -1, "time_cost": 3 }
+      "result": "You stay. The diamond stays empty. When a general lane opens you take a real pass or you don't. The box stays at thirty. You stay legal.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
     },
     {
       "id": "c",
       "text": "Straddle the solid white until he notices and moves over",
       "correct": false,
-      "result": "You occupy the fence. He never moves. Both lanes lose you. The diamond was not a shoulder and the solid was not a suggestion.",
-      "state_delta": { "noise": 3, "yaw": 1, "time_cost": 5 }
+      "result": "You occupy the fence. He never moves. Both lanes lose you. The diamond was never a shoulder and the solid was never an invitation.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 5
+      }
     },
     {
       "id": "d",
       "text": "Take the rumble on the right and go around him there",
       "correct": false,
       "result": "The rumble is a drain in the fog. You put a bus in the junk to avoid a rule. He never knew you tried.",
-      "state_delta": { "noise": 4, "yaw": 2, "damage": 1, "time_cost": 4 }
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 4
+      }
     }
   ],
-  "debrief": "Carpool lanes are not passing lanes. A bus may travel in HOV. Darting in to pass one vehicle and coming back is not travel. Pass in a general lane, or don't.",
+  "debrief": "A bus may travel in a carpool lane. Darting in to pass one vehicle and coming back is a steal. You missed a ticket by staying in the general lane.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.16 Road markings (HOV / Carpool lane)",
     "teaching_target": "HOV / carpool lanes are not passing lanes; do not enter one only to pass and return."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -52,10 +69,12 @@
     "camera": "POV_OBJECT",
     "subject": "painted diamond and solid white fence on wet pavement to the left; a loaded dump truck filling the general lane ahead, brake lamps on, no gap past it, no readable occupancy numbers",
     "foreground": "a strip of Ledger van hood at the bottom, still in the general lane, fog beading on the paint",
-    "midground": "the dump's high tailgate as a wall in your lane; the empty diamond fenced by solid white beside it — factory mirrors only on the dump, no cutaway body, no amber destination sign, no roof rack, no west-coast arms",
+    "midground": "the dump's high tailgate as a wall in your lane; the empty diamond fenced by solid white beside it — factory mirrors only on the dump, no cutaway body, no amber destination sign, no roof rack, no oversize door-mirror arms",
     "background": "167 dusk, fog eating the road ahead of the dump, general-lane stack tight behind you",
     "read": "the diamond is empty and the dump is a wall — a pass you would have to steal",
-    "continuity": ["the_ledger"],
+    "continuity": [
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

@@ -1,50 +1,66 @@
 {
   "card_id": "III-024",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "scene",
-  "title": "Posted Is Not the Number",
+  "title": "Slow for the Water",
   "hook": "Posted forty-five. Rain. The six seconds got longer.",
-  "scene": "Rain at night on West Valley, posted forty-five, water in the wheel tracks. The Grid taught six seconds on a quiet street. At arterial speed the same seconds are more asphalt. A pickup ahead is doing the number on the sign. Your tires are doing a rumor. The Splitter loves the posted number. The road wants less.",
+  "scene": "Rain at night on West Valley, posted forty-five, water in the wheel tracks. The Grid taught six seconds on a quiet street. At Central's speed the same seconds are more asphalt. A pickup ahead is doing the number on the sign. Your tires are doing a rumor. The Splitter loves the posted number. The road wants less.",
   "decision": "The sign says forty-five and the asphalt is a river. What speed do you keep?",
   "options": [
     {
       "id": "a",
       "text": "Hold forty-five — posted is posted and the pickup is the proof",
       "correct": false,
-      "result": "You match him. The next brake is a wish. The Ledger's duals write a story in the standing water. Posted was the maximum, not the assignment.",
-      "state_delta": { "noise": 3, "yaw": 3, "time_cost": 8 }
+      "result": "You match him. The next brake is a wish. The Ledger's right rear tires write a story in the standing water. Posted was the maximum. The water set a lower one.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 3,
+        "time_cost": 8
+      }
     },
     {
       "id": "b",
       "text": "Drop to twenty and become the new problem",
       "correct": false,
       "result": "You become a roadblock in a live lane. The pickup goes around you in the rain. You traded a hydroplane for a sideswipe you invited.",
-      "state_delta": { "noise": 2, "time_cost": 10 }
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 10
+      }
     },
     {
       "id": "c",
       "text": "Lift off until the six-second gap is real again, even if that is under posted",
       "correct": true,
       "result": "You give the water the seconds. The pickup pulls away. You can still see his tires meet the road. When the rain eases you take the number back. The sign never asked you to float.",
-      "state_delta": { "noise": -1, "time_cost": 7 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 7
+      }
     },
     {
       "id": "d",
       "text": "Move left and hold forty-five in the drier tracks",
       "correct": false,
       "result": "The left tracks are also a river. You added a lane change on ice-that-is-rain. The number did not get safer because you switched paint.",
-      "state_delta": { "yaw": 2, "noise": 2, "time_cost": 6 }
+      "state_delta": {
+        "yaw": 2,
+        "noise": 2,
+        "time_cost": 6
+      }
     }
   ],
-  "debrief": "Posted is a ceiling, not a demand. On wet asphalt, slow until your following time is real again. Arriving late is better than not arriving.",
+  "debrief": "On wet asphalt, slow until your following time is real again. Deac would rather be late than float.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "5.6 Road and driving conditions (Slippery roads)",
     "teaching_target": "Reduce speed below posted on wet roads so following time stays usable; posted is a maximum."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "cold_roads",
   "callback_of": null,
   "schedules_callback": false,
@@ -52,10 +68,12 @@
     "camera": "POV_ROADSIDE",
     "subject": "Ledger in standing water, pickup ahead too close, rain at night, no sign face readable",
     "foreground": "wet curb and a sheet of water in the wheel track",
-    "midground": "the Ledger's duals in the river, the pickup's rear a short gap ahead",
+    "midground": "the Ledger's right rear tires in the river, the pickup's rear a short gap ahead",
     "background": "West Valley at night, rain, sodium",
     "read": "the gap ahead is too short for this water at this speed",
-    "continuity": ["the_ledger"],
+    "continuity": [
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",

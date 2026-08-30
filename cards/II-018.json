@@ -4,16 +4,16 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Gracie, Unboxed",
-  "hook": "Gracie hits the dash. Choose before the next roll.",
-  "scene": "You unclip the carrier in a Kent mill-and-fill at dusk, overcast, cones leaning like they are tired. Gracie hits the dash like she owns the defrost. Orange tabby, cream chest, amber-green eyes, already in the way of the right convex. This is the passenger problem with a face. She will stand up at the wrong bus. She will walk a keyboard you do not have. The Grid still has eight cards of space and night and ice in it. If she is loose, she is a lap. If she is boxed, she is a sound you can ignore. You have to choose before the next roll, not during it.",
+  "title": "Box Her Before You Roll",
+  "hook": "Gracie is on the dash. Box her before you roll.",
+  "scene": "You unclip the carrier in a Kent work zone at dusk, overcast, cones leaning like they are tired. Gracie hits the dash like she owns the defrost. Orange tabby, cream chest, amber-green eyes, already in the way of the right side mirror. This is the passenger problem with a face. She will stand up at the wrong bus. She will walk a keyboard you do not have. The Grid still has eight cards of space and night and ice in it. If she is loose, she is a lap. If she is boxed, she is a sound you can ignore. You have to choose before the next roll, not during it.",
   "decision": "Gracie is on the dash. What do you do before you roll?",
   "options": [
     {
       "id": "a",
-      "text": "Clip her back in the carrier and stow it before you take the mill",
+      "text": "Clip her back in the carrier and stow it before you roll",
       "correct": true,
-      "result": "You box her. The clip bites. She complains once and then she is a sound in the well, not a face on the glass. The cones stay cones. Your eyes stay on the millings, not on a cream chest that wants the defrost.",
+      "result": "You box her. The clip bites. She complains once and then she is a sound on the floor next to the seat, not a face on the glass. Your eyes stay on the torn-up road, not on a cream chest that wants the defrost.",
       "state_delta": {
         "noise": -1,
         "time_cost": 4
@@ -23,7 +23,7 @@
       "id": "b",
       "text": "Leave her. She will settle once the Menace starts rolling",
       "correct": false,
-      "result": "She does not settle. She stands into the right convex as you enter the mill. Your eyes go to her. The cone line does not wait. A paddle kisses the plow with a note you will hear in the well for a block.",
+      "result": "She does not settle. She stands into the right side mirror as you enter the work zone. Your eyes go to her. The cone line does not wait. A cone kisses the plow with a note you will hear next to the seat for a block.",
       "state_delta": {
         "noise": 3,
         "yaw": 2,
@@ -34,7 +34,7 @@
       "id": "c",
       "text": "Pull her into your lap so she is off the glass",
       "correct": false,
-      "result": "Mass in your legs. She kneads. Your right foot is a negotiation. A mill does not care that you have a cat. You wander an inch and the cone line teaches you the width of a lap.",
+      "result": "Mass in your legs. She kneads. Your right foot is a negotiation. A work zone does not care that you have a cat. You wander an inch and the cone line teaches you the width of a lap.",
       "state_delta": {
         "yaw": 2,
         "noise": 2,
@@ -45,7 +45,7 @@
       "id": "d",
       "text": "Let her walk the dash. You can watch her and the cones at once",
       "correct": false,
-      "result": "You cannot. She takes the defrost. Your eyes leave the mill. The next cone is closer than the last one looked. Two jobs, one pair of eyes, and the mill does not pause for cream fur.",
+      "result": "You cannot. She takes the defrost. Your eyes leave the cones. The next cone is closer than the last one looked. Two jobs, one pair of eyes, and the work zone does not pause for cream fur.",
       "state_delta": {
         "noise": 2,
         "yaw": 1,
@@ -53,7 +53,7 @@
       }
     }
   ],
-  "debrief": "Unrestrained passengers — including a cat — are a distraction with mass. Box her for the dense cards. Eyes that go to the dash leave the millings.",
+  "debrief": "Unrestrained passengers — including a cat — are a distraction with mass. Eyes that go to the dash leave the cones. Clip her in, then roll.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "5.5 Focus",

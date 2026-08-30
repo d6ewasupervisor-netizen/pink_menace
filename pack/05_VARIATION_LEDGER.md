@@ -43,7 +43,7 @@ Do not fight attachment into identity lock card by card. There is no finish line
 - **Answer position.** The correct option must be uniformly distributed across a/b/c/d. Track the running count; if any position exceeds 35% of cards in an act, force a rebalance.
 - **Distractor reuse.** No distractor may be reused verbatim anywhere in the deck.
 - **Antagonist spacing.** No antagonist appears in consecutive cards. `none` is a valid and frequent value — not every card needs a monster.
-- **Debrief close.** Cap the "X is not Y" construction at **one in five** debriefs in an act. Track `act_x_is_not_y` in ledger state. Rotate the last sentence among: consequence, named person, plain imperative, concrete image. Do not repeat a close-shape in the previous three.
+- **Debrief close.** Cap the "X is not Y" construction at **one in five** debriefs in an act. Track `act_x_is_not_y` in ledger state. Cap all aphoristic closers at one per five cards (`act_aphorism`). Rotate the last sentence among: consequence, named person, plain imperative, concrete image. Do not repeat a close-shape in the previous three. Voice authority: `23_THE_SPOKEN_DICTIONARY.md` §5.
 - **Metaphor families.** Grammar, music, and weather-as-mood metaphors may appear at most **twice per act**. Track `act_metaphor_families`.
 
 ## Ledger state object

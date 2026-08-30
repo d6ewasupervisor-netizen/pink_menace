@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "White Lights, Empty Yard",
   "hook": "School-zone lamps flash over a yard empty for months.",
-  "scene": "The school-zone lamps are still lit on a Kent collector at dawn, white and cold, flashing over a dry playground that has not held a recess in fourteen months. Your speedo sits on twenty-eight. The painted 20 is faded but it is there. Nothing moves on the sidewalk. The insulin is still cold. The Menace wants the next block. Your eyes want the empty yard instead of the parked cars and the hedge line where a yard used to dump kids into the crosswalk.",
+  "scene": "The school-zone lamps are still lit on a Kent side street at dawn, white and cold, flashing over a dry playground that has not held a recess in fourteen months. Your speedo sits on twenty-eight. The painted 20 is faded but it is there. Nothing moves on the sidewalk. The insulin is still cold. The Menace wants the next block. Your eyes want the empty yard instead of the parked cars and the hedge line where a yard used to dump kids into the crosswalk.",
   "decision": "The lamps are flashing and the yard looks dead. Where do you put the speed?",
   "options": [
     {
@@ -24,7 +24,7 @@
       "id": "b",
       "text": "Kill the lamps with a high-beam flash so you can see the yard",
       "correct": false,
-      "result": "The flash punches a white hole in the dawn. The school-zone lamps keep cycling. Every window on the block answers you. You did not slow. A shape that was sitting at the chain-link stands up and starts walking toward the light.",
+      "result": "The flash punches white into the dawn. The school-zone lamps keep cycling. Every window on the block answers you. You did not slow. A shape that was sitting at the chain-link stands up and starts walking toward the light.",
       "state_delta": {
         "light": 4,
         "noise": 1,
@@ -45,7 +45,7 @@
       "id": "d",
       "text": "Cut through the empty lot to skip the zone entirely",
       "correct": false,
-      "result": "The lot is frost-slick and rutted. The knobbies hop a concrete stop and the plow rings off it like a bell. You saved a block and spent it in noise. The school-zone lamps keep flashing for whoever is actually using the street.",
+      "result": "The lot is frost-slick and rutted. The tires hop a concrete stop and the plow rings off it like a bell. You saved a block and spent it in noise. The school-zone lamps keep flashing for whoever is actually using the street.",
       "state_delta": {
         "noise": 4,
         "damage": 1,
@@ -54,7 +54,7 @@
       }
     }
   ],
-  "debrief": "When school-zone lights are flashing, the posted school speed is in force whether or not you can see children. Search the edges first — parked cars and hedges hide the thing that steps out. Skill five starts with the search, not the empty middle.",
+  "debrief": "When school-zone lights are flashing, the posted school speed is in force whether or not you can see children. Search the edges first — parked cars and hedges hide the thing that steps out. Ali holds twenty before the empty middle.",
   "source": {
     "psdp_skill": "Skill five: driving on a quiet street – part one",
     "dol_section": "4.17 Zones (School zone)",
@@ -71,7 +71,7 @@
     "subject": "flashing white school-zone lamps over a faded 20 painted in the lane",
     "foreground": "worn black leather wheel and welded mesh across the top of the windshield",
     "midground": "empty playground fence and a hedge line meeting a faded crosswalk",
-    "background": "cold clear dawn, long blue shadows, dry Kent collector, no people in the yard",
+    "background": "cold clear dawn, long blue shadows, dry Kent side street, no people in the yard",
     "read": "the lamps are flashing and the 20 is under the wheels — the empty yard is a trap for the eyes",
     "continuity": [
       "pink_menace_interior"

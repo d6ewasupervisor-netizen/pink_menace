@@ -4,14 +4,14 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "dossier",
-  "title": "The Log in the Well",
-  "hook": "Deac's clipboard is in the well. Write the hours down.",
-  "scene": "You unfold a metal clipboard that is not yours. Deac left it in the well at the lot with a note in dispatch cadence: date, location, day or night, weather, skills, hours, initials. The Grid does not count as practice unless you write it down. Clear cold midday in a Kent lot, stalls faded, the Menace ticking. You have already used a school zone, a stop, a left, a bike, a bus, a hand, a light, a voice. The clipboard is how the hours become legal. It is also how you notice you have not done space yet.",
-  "debrief": "Supervised hours are a log, not a feeling. Date, location, day or night, weather, skill, time, initials. If it is not on the sheet, the Grid did not happen.",
+  "title": "Write the Hours Down",
+  "hook": "Deac's clipboard is on the floor. Write the hours down.",
+  "scene": "You unfold a metal clipboard that is not yours. Deac left it on the floor at the lot with a note in dispatch cadence: date, location, day or night, weather, skills, hours, initials. The Grid does not count as practice unless you write it down. Clear cold midday in a Kent lot, stalls faded, the Menace ticking. You have already used a school zone, a stop, a left, a bike, a bus, a hand, a light, a voice. The clipboard is how the hours become legal. It is also how you notice you have not done space yet.",
+  "debrief": "Supervised hours live on the log: date, location, day or night, weather, skill, time, initials. Keep the hours on the sheet.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "The PSDP log is diegetic: hours only count when written. Space cushion is the next unpaid skill."
+    "teaching_target": "Hours only count when written down. Space cushion is the next unpaid skill."
   },
   "cast": [
     "ali"

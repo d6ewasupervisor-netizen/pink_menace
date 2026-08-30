@@ -296,15 +296,13 @@ const PMFeel = (() => {
       "That's the one.",
       "Keep it boring.",
       "Still cold. Keep going.",
-      "Paint's still paint.",
       "Don't get cute now.",
     ],
     deac_timeout: [
       "Schedule's still the schedule.",
       "The world didn't wait.",
-      "Cadence, Kilo.",
       "You froze. It didn't.",
-      "Time's a lane. You left it.",
+      "You lost the minutes.",
       "Move or get moved.",
     ],
     yuna_noise: [
@@ -378,7 +376,7 @@ const PMFeel = (() => {
   const WRONG_MSGS = [
     "Not quite — look again.",
     "Keep searching.",
-    "The Grid still has rules.",
+    "Look again.",
     "Try another read.",
     "Almost — one more look.",
   ];

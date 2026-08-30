@@ -1,12 +1,12 @@
 {
   "card_id": "III-016",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "hazard",
   "title": "The Hood Line Walks",
   "hook": "The hood line walks toward the rumble. Your eyes were gone.",
-  "scene": "Overcast afternoon, a long straight on 167, nothing to do with your hands but hold. The thermos is empty. The hood line has walked an inch toward the rumble and you did not tell it to. That is the Drift with a lowercase d until you name it. A clean stop would reset it. There is no legal shoulder that is not a story. The timeout is the walk.",
+  "scene": "Overcast afternoon, a long straight on 167, nothing to do with your hands but hold. The thermos is empty. The hood line has walked an inch toward the rumble and you did not tell it to. That is the Drift with a lowercase d until you name it. A clean stop would reset it. There is no legal shoulder that will not become a story. The timeout is the walk.",
   "decision": "The hood line is walking and you felt the skip. What do you do?",
   "options": [
     {
@@ -14,37 +14,54 @@
       "text": "Shake it off and hold speed — the straight will end and you will be fine",
       "correct": false,
       "result": "You argue with a nervous system. The walk becomes a tire on the rumble. The stack behind you gets a new shape of bus.",
-      "state_delta": { "noise": 3, "yaw": 3, "time_cost": 8 }
+      "state_delta": {
+        "noise": 3,
+        "yaw": 3,
+        "time_cost": 8
+      }
     },
     {
       "id": "b",
       "text": "Crack a window and talk — conversation is as good as a stop",
       "correct": false,
-      "result": "You talk to an empty jump seat. The walk continues. Conversation is not sleep. The rumble finds you anyway.",
-      "state_delta": { "noise": 2, "yaw": 2, "time_cost": 7 }
+      "result": "You talk to an empty jump seat. The walk continues. Conversation does not put sleep back in your eyes. The rumble finds you anyway.",
+      "state_delta": {
+        "noise": 2,
+        "yaw": 2,
+        "time_cost": 7
+      }
     },
     {
       "id": "c",
       "text": "Speed up so the air keeps you honest",
       "correct": false,
       "result": "You add speed to a microsleep. The Drift does not care about your schedule. It cares that you are still moving.",
-      "state_delta": { "noise": 2, "yaw": 2, "time_cost": 6 }
+      "state_delta": {
+        "noise": 2,
+        "yaw": 2,
+        "time_cost": 6
+      }
     },
     {
       "id": "d",
       "text": "Signal, find a legal pad, key off, twenty minutes. The log can wait.",
       "correct": true,
-      "result": "You take the next ramp pad, hazards, key off. Twenty minutes that are not driving. The hood line is a hood line when you start again. Two clean stops reset him. This is one.",
-      "state_delta": { "noise": -2, "time_cost": 8 }
+      "result": "You take the next ramp pad, hazards, key off. Twenty minutes with the key off. The hood line is a hood line when you start again. Two clean stops reset him. This is one.",
+      "state_delta": {
+        "noise": -2,
+        "time_cost": 8
+      }
     }
   ],
-  "debrief": "Lane drift, heavy eyes, missing a stretch of road — pull off and rest. Fatigue is impairment. The schedule does not get a vote.",
+  "debrief": "Lane drift, heavy eyes, missing a stretch of road — pull off and rest. Deac owes the log a stop, not another mile.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "3.1 Impaired driving (Fatigue and drowsy driving)",
     "teaching_target": "Treat lane drift and a missing stretch of road as fatigue; stop and rest rather than push through."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "drift",
   "callback_of": null,
   "schedules_callback": true,
@@ -57,7 +74,9 @@
     "midground": "the rumble strip closer than it should be, no vehicle forcing the drift",
     "background": "overcast 167 afternoon, long straight, no exit yet",
     "read": "the bus has walked toward the rumble with no one in the way",
-    "continuity": ["ledger_cockpit"],
+    "continuity": [
+      "ledger_cockpit"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

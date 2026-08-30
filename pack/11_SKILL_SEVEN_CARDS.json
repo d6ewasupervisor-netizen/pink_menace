@@ -12,7 +12,7 @@
   "options": [
     { "id": "a", "text": "Drive the block — right at the corner, right again, back onto Willis facing out",
       "correct": true,
-      "result": "Four right turns, no reverse gear, no white lights. You come back onto Willis pointed at the arterial with the berm behind you. It cost ninety seconds and it cost nothing else.",
+      "result": "Four right turns, no reverse gear, no white lights. You come back onto Willis pointed at Central with the berm behind you. It cost ninety seconds and it cost nothing else.",
       "state_delta": { "time_cost": 2, "noise": -1, "light": -1 } },
     { "id": "b", "text": "U-turn right here — the street is empty and it takes four seconds",
       "correct": false,

@@ -4,10 +4,10 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "wrench",
-  "title": "The Click Before the Arterial",
-  "hook": "The belt is off. The mill is about to become an arterial.",
-  "scene": "Fog at midday on the last Kent mill, cones ending, the collector about to become somebody else's problem. You reach for the shifter and the belt is not there. It was, this morning. It is not now. The Ejection is not a creature. It is a statistic with a buckle. The Grid is done if you roll onto the bigger road unclipped. Deac would not start a log line without it. The Menace's cheap aftermarket belt is a pain in the mesh. That is not a reason. The fog would hide a short slide. The belt is the difference between a slide and an ending. You can hear the shelter radio from here. You cannot hear a second chance.",
-  "decision": "The belt is off and the mill is ending. What happens before you take the next street?",
+  "title": "Clip, Tug, Then Roll",
+  "hook": "The belt is off. Clip it before you roll.",
+  "scene": "Fog at midday at the edge of The Grid. Cones ending. Central is next — a Kent street, four lanes, not this quiet paint. You reach for the shifter and the belt is not there. It was, this morning. It is not now. Deac would not start a log line without it. The Menace's cheap aftermarket belt is a pain in the mesh. That is not a reason to leave it off. You can hear the shelter radio from here. Clip it before you roll onto Central.",
+  "decision": "The belt is off and The Grid is ending. What happens before you take the next street?",
   "options": [
     {
       "id": "a",
@@ -25,7 +25,7 @@
       "id": "b",
       "text": "Clip it at rolling speed so you do not lose the gap",
       "correct": false,
-      "result": "One hand off, eyes in your lap, mill lip under the tires. You miss the latch. The volunteer is already in your fog. You correct the wheel late. A belt in the hand is not a belt in the latch.",
+      "result": "One hand off, eyes in your lap, torn-up lip under the tires. You miss the latch. The volunteer is already in your fog. You correct the wheel late. The belt never clicked.",
       "state_delta": {
         "yaw": 2,
         "time_cost": 4
@@ -33,9 +33,9 @@
     },
     {
       "id": "c",
-      "text": "Stop fully off the mill, clip, tug the belt, then take the next street",
+      "text": "Stop fully off the travel lane, clip, tug the belt, then roll",
       "correct": true,
-      "result": "You refuse the last-second. Gravel. Click. Tug. The aftermarket latch takes. You roll out of the fog with a belt on and a Grid behind you. The Arterial can be someone else's act. You still have a body in the seat to hand it to.",
+      "result": "You refuse the last-second. Gravel. Click. Tug. The aftermarket latch takes. You roll out of the fog with a belt on and The Grid behind you. Central is the next place. You still have a body in the seat to hand it to.",
       "state_delta": {
         "noise": -1,
         "time_cost": 3
@@ -52,7 +52,7 @@
       }
     }
   ],
-  "debrief": "Belt on, latched, tugged, before the vehicle moves. Not at the next stop. Not over the shoulder. The Grid ends on that click.",
+  "debrief": "Belt on, latched, tugged, before the vehicle moves. Not at the next stop. Not over the shoulder. Clip it, tug it, then roll.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "2.6 Occupant Protection",
@@ -69,7 +69,7 @@
     "subject": "driver's-eye view looking DOWN at the lap in a left-hand-drive cab: knees together, steering wheel centered over both thighs, faded jeans, pink hoodie hem, an unlatched aftermarket lap belt lying slack across the thighs, metal tongue not in the buckle",
     "foreground": "the unsecured belt webbing and tongue on the lap; the empty buckle at the hip",
     "midground": "worn black wheel rim at the left edge of frame, cracked faded pink dash just above the lap",
-    "background": "fogged mill road through mesh, out of focus, midday gray",
+    "background": "fogged Kent work zone through mesh, out of focus, midday gray",
     "read": "the belt is off — tongue and buckle are apart in the driver's lap",
     "continuity": [
       "pink_menace_interior"

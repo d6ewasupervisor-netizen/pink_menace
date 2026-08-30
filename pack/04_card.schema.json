@@ -16,7 +16,7 @@
     },
     "act": { "enum": ["I", "II", "III", "IV", "V", "VI", "VII"] },
     "zone": {
-      "enum": ["The Lot", "The Grid", "The Arterial", "The Core", "The Ribbon", "The Backcountry", "The Dark Hours"]
+      "enum": ["The Lot", "The Grid", "Central", "The Core", "The Ribbon", "The Backcountry", "The Dark Hours"]
     },
     "driver": { "enum": ["ali", "deac", "yuna"] },
     "card_type": {

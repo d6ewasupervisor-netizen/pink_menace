@@ -4,16 +4,16 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "rule",
-  "title": "The Yellow Line Still Means It",
-  "hook": "A dead van. Passing would put you over the solid yellow.",
-  "scene": "Clear cold afternoon. A Kent school zone with a solid yellow on your side. You want around a parked delivery van that has been dead since the first week. The van sits legal enough. Passing would put you over the solid. The playground is empty. The line is not. Hollis is not in this one. Nobody is coming the other way that you can see. That is the whole trick of a solid yellow: the thing you cannot see yet owns that paint.",
+  "title": "Solid Yellow, Do Not Pass",
+  "hook": "A dead van sits ahead. The yellow on your side is solid.",
+  "scene": "Clear cold afternoon. A Kent school zone with a solid yellow on your side. You want around a parked delivery van that has been dead since the first week. The van sits legal enough. Passing would put you over the solid. The playground is empty. The line is not. Hollis is not in this one. Nobody is coming the other way that you can see. That is the trick of a solid yellow: the thing you cannot see yet still owns that paint.",
   "decision": "A dead van is blocking your speed and the yellow under you is solid. Do you go around?",
   "options": [
     {
       "id": "a",
       "text": "Stay behind the van until you can pass where the yellow breaks, even if that is slow",
       "correct": true,
-      "result": "You wait. A block later the yellow breaks. You check, pass, and recover before the next solid. A car you did not have comes the other way in the gap you would have occupied. The van keeps being dead. You keep being in your lane.",
+      "result": "You wait. A block later the yellow breaks. You check, pass, and recover before the next solid. A car you did not have comes the other way in the gap you would have occupied. The van stays dead. You stay in your lane.",
       "state_delta": {
         "noise": -1,
         "time_cost": 6
@@ -54,7 +54,7 @@
       }
     }
   ],
-  "debrief": "A solid yellow on your side means do not pass. Empty and legal are not the same. Wait for the broken yellow and a sightline. The parked van is a delay. The solid line is a rule.",
+  "debrief": "A solid yellow on your side means do not pass. Wait for the broken yellow and a sightline. The parked van is a delay. Ali waits until the yellow breaks.",
   "source": {
     "psdp_skill": "Skill five: driving on a quiet street – part one",
     "dol_section": "4.16 Road markings",
@@ -68,7 +68,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "oblique overhead of a two-lane US street: a faded matte-pink Baja VW Beetle queued in the RIGHT-HAND travel lane behind a dead primer-gray delivery van, both occupying the right half of the roadway, both traveling away from camera toward the top of the frame. The Beetle is nearer the bottom of the frame (rear mesh toward camera, plow pointing up-frame). The van is ahead of it in the SAME lane, also rear toward camera — windshield, grille, and headlights of the van are NOT visible. An entire empty oncoming lane sits between the yellow centerline and the left curb. Neither vehicle is left of the yellow. They are not nose-to-nose.",
+    "subject": "oblique overhead of a two-lane US street: a faded matte-pink Baja VW Beetle waiting in the RIGHT-HAND travel lane behind a dead primer-gray delivery van, both occupying the right half of the roadway, both traveling away from camera toward the top of the frame. The Beetle is nearer the bottom of the frame (rear mesh toward camera, plow pointing up-frame). The van is ahead of it in the SAME lane, also rear toward camera — windshield, grille, and headlights of the van are NOT visible. An entire empty oncoming lane sits between the yellow centerline and the left curb. Neither vehicle is left of the yellow. They are not nose-to-nose.",
     "foreground": "school-zone pavement in the RIGHT-HAND lane under the Beetle, a faded painted 20 in that same lane, wet or cold-dry asphalt, rear of the Beetle",
     "midground": "two parallel SOLID yellows down the center, continuous for the full frame. Right-hand lane: dead van then Beetle, same heading. Left-hand lane: empty pavement from yellow to left curb — a full lane of space.",
     "background": "empty playground fence beyond the LEFT curb (beside the empty oncoming lane, not beside the cars), clear cold afternoon, long blue shadows, no oncoming vehicle visible",

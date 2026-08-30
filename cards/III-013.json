@@ -1,19 +1,21 @@
 {
   "card_id": "III-013",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "dossier",
   "title": "Twenty-Six, None Preventable",
   "hook": "Twenty-six years. The schedule is louder now.",
-  "scene": "Fog on a downtown ramp at night, the Ledger idling in a legal pocket. Glasses on a cord. Clipboard on the thigh. Twenty-six years and he never wrote a preventable. The schedule used to be a promise to the people in the back. Now it is a number that wants the late merge you already refused. The thermos is still empty. That is not a boast. That is the cost of the number.",
-  "debrief": "Deac's record is a habit, not a trophy. The schedule still matters. It does not get to spend someone else's margin. Two clean stops reset him. This idle is one.",
+  "scene": "Fog on a downtown ramp at night, the Ledger idling in a legal pocket. Glasses on a cord. Clipboard on the thigh. Twenty-six years and he never wrote a preventable. The schedule used to be a promise to the people in the back. Now it is a number that wants the late gap you already refused. The thermos is still empty. That is the cost of the number.",
+  "debrief": "Deac's record is a habit he paid for in empty thermoses. The schedule still matters. It does not get to spend someone else's margin. Two clean stops reset him. Leave the late gap for someone else's log.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Deac beat: twenty-six years without a preventable; the schedule is not permission to take a late hole."
+    "teaching_target": "Deac beat: twenty-six years without a preventable; the schedule is not permission to take a late gap."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -23,8 +25,12 @@
     "foreground": "dented thermos and the wheel rim",
     "midground": "his face and the ghost agency patch, no smile",
     "background": "fog, downtown ramp lamps through the cage, night",
-    "read": "tired, still, the log is on his body — this is the man who will not take a late hole",
-    "continuity": ["deac", "deac_clipboard", "ledger_cockpit"],
+    "read": "tired, still, the log is on his body — this is the man who will not take a late gap",
+    "continuity": [
+      "deac",
+      "deac_clipboard",
+      "ledger_cockpit"
+    ],
     "aspect": "2:3"
   },
   "variation": {

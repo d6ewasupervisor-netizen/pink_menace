@@ -4,9 +4,9 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Fog in the Stalls",
+  "title": "Back Out of the Fog",
   "hook": "Nosed in, fog in the stalls. You have to back out.",
-  "scene": "Fog at dawn in a Kent lot, stalls so faded you are guessing with the wheel. You nosed in because the drop was at the shutter. Now you have to back out to leave. A row of dead cars on both sides. Your rear mesh is a cage, not a window. The convexes are honest if you use them. A bicycle wheel you cannot see from the seat will be in the backup path if this is Marisol's morning. It is not her, not yet. It is a cart corral that moved in the night. Backing is the skill people skip because going forward feels like progress.",
+  "scene": "Fog at dawn in a Kent lot, stalls so faded you are guessing with the wheel. You nosed in because the drop was at the shutter. Now you have to back out to leave. A row of dead cars on both sides. Your rear mesh is a cage, not a window. The side mirrors are honest if you use them. A bicycle wheel you cannot see from the seat will be in the backup path if this is Marisol's morning. It is not her, not yet. It is a cart corral that moved in the night. Backing is the skill people skip because going forward feels like progress.",
   "decision": "You are nosed in, in fog, and you have to leave. How do you back out?",
   "options": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "id": "b",
-      "text": "Both convexes, look behind, creep reverse, stop if anything appears, then finish the out",
+      "text": "Both side mirrors, look behind, creep reverse, stop if anything appears, then finish the out",
       "correct": true,
       "result": "Right glass, left glass, a look through the mesh that shows you almost nothing, then an inching reverse. The corral is there. You stop, wheel, and miss it by a foot. Fog. Boring. You are in the aisle pointed at the exit, which is the whole point of backing.",
       "state_delta": {
@@ -53,7 +53,7 @@
       }
     }
   ],
-  "debrief": "Backing is searching, then creeping. Mirrors and a look behind, every time, even in a lot you just used. Walking the path helps; it does not replace the last look. If you cannot see, you do not go.",
+  "debrief": "Backing is searching, then creeping. Mirrors and a look behind, every time, even in a lot you just used. Walking the path helps; it does not replace the last look. The aisle is empty and you are pointed at the exit.",
   "source": {
     "psdp_skill": "Skill eight: parking – part one",
     "dol_section": "4.18 Parking",

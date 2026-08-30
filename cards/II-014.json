@@ -6,14 +6,14 @@
   "card_type": "hazard",
   "title": "Hollis in the Glass",
   "hook": "Hollis sits a bumper off your rear in the fog.",
-  "scene": "Fog on a Kent collector that widens enough to pretend it is an arterial. Morning. In the interior glass, a lifted truck with aftermarket lamps sits a bumper off your rear. Hollis. He has been there for six blocks. He wants you faster than the fog. Your speedo is already at the number on the sign. If you dump speed he will eat you. If you give him the number he wants, the fog will. The left lane is a rumor in this weather. Gracie is boxed. Your mirrors are the whole conversation.",
+  "scene": "Fog on a Kent four-lane in the morning. In the inside mirror, a lifted truck with aftermarket lamps sits a bumper off your rear. Hollis. He has been there for six blocks. He wants you faster than the fog. Your speedo is already at the number on the sign. If you dump speed he will eat you. If you give him the number he wants, the fog will. The left lane is a rumor in this weather. Gracie is boxed. Your mirrors are the whole conversation.",
   "decision": "Hollis is a bumper off you in the fog. How do you keep the space?",
   "options": [
     {
       "id": "a",
       "text": "Ease a little off the throttle to rebuild the gap ahead, and refuse to match him",
       "correct": true,
-      "result": "You bleed three miles per hour, nothing dramatic. The gap ahead opens. Hollis fills it, then thinks about your bumper, then finally goes around when a hole appears. His pass is ugly and close. You let it be ugly. You still have a following distance to the gray nothing in front of you.",
+      "result": "You bleed three miles per hour, nothing dramatic. The gap ahead opens. Hollis fills it, then thinks about your bumper, then finally goes around when a gap appears. His pass is ugly and close. You let it be ugly. You still have a following distance to the gray nothing in front of you.",
       "state_delta": {
         "noise": -1,
         "time_cost": 4
@@ -35,7 +35,7 @@
       "id": "c",
       "text": "Brake-check him once so he learns the gap",
       "correct": false,
-      "result": "You dump the lamps in his face. He dumps his. The Menace hops. His bumper kisses the plating. Fog holds the sound like a room. He did not learn. He got closer, angrier, and louder.",
+      "result": "You dump the lamps in his face. He dumps his. The Menace hops. His bumper kisses the plating. Fog holds the sound. He did not learn. He got closer, angrier, and louder.",
       "state_delta": {
         "noise": 5,
         "light": 2,
@@ -47,7 +47,7 @@
       "id": "d",
       "text": "Wave him around and drift right onto the fogged shoulder to make a lane",
       "correct": false,
-      "result": "There is no shoulder, only a ditch. The knobbies find it. You yaw. Hollis takes the space you were occupying and never looks back. You spend a minute getting the plow back onto asphalt that you already had.",
+      "result": "There is no shoulder, only a ditch. The tires find it. You yaw. Hollis takes the space you were occupying and never looks back. You spend a minute getting the plow back onto asphalt that you already had.",
       "state_delta": {
         "yaw": 4,
         "noise": 2,
@@ -55,7 +55,7 @@
       }
     }
   ],
-  "debrief": "You do not speed up for a tailgater. Fog wants six seconds ahead, not the dry three. Bleed a little speed to rebuild that gap and let Hollis take the pass when a hole appears.",
+  "debrief": "You do not speed up for a tailgater. Fog wants six seconds ahead, not the dry three. Bleed a little speed to rebuild that gap. Hollis can take the pass when a gap opens.",
   "source": {
     "psdp_skill": "Skill three: how close are you?",
     "dol_section": "5.2 Space",
@@ -75,7 +75,7 @@
     "subject": "Hollis's lifted truck headlights filling the interior rearview, a bumper-width of fog between you",
     "foreground": "wet rearview glass filling the upper frame; cracked faded pink dashboard and a slice of welded steel mesh below, dark and out of focus",
     "midground": "in the glass: two headlights diffused by fog into large soft discs, the body barely resolvable behind them",
-    "background": "fogged Kent arterial behind the vehicle, no horizon, windshield view not the subject",
+    "background": "fogged Kent main road behind the vehicle, no horizon, windshield view not the subject",
     "read": "the following vehicle's headlights are unmistakably large and close within the mirror glass",
     "continuity": [
       "pink_menace_interior",

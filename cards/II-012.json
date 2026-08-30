@@ -54,7 +54,7 @@
       }
     }
   ],
-  "debrief": "Following distance is counted in seconds. Dry pavement: three to a mark on the road. Rain, fog, and snow: six. Rear-end crashes are the most common kind; opening that gap is the single best thing a new driver can do. Write it on the clipboard.",
+  "debrief": "Following distance is counted in seconds. Dry pavement: three to a mark on the road. Rain, fog, and snow: six. Rear-end crashes are the most common kind. Opening that gap is the best thing a new driver can do. A mark on the pavement, then one, two, three.",
   "source": {
     "psdp_skill": "Skill three: how close are you?",
     "dol_section": "5.4 Time (Count seconds)",

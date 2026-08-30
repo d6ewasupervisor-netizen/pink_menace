@@ -12,7 +12,7 @@ const MANIFESTS = {
     for: "June — Delridge shelter",
   },
   III: {
-    run: "The Arterial — Kent",
+    run: "Central — Kent",
     cargo: "Deac's cargo",
     for: "the next drop",
   },
@@ -39,7 +39,7 @@ const FAIL_PLACE = {
   "II-020": "the rain",
   "II-021": "the corral",
   "II-022": "the driveway",
-  "II-023": "the mill",
+  "II-023": "the cut",
   "II-024": "the four-way",
   "II-026": "the door",
   "II-027": "the lamps",

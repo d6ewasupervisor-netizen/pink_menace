@@ -1,7 +1,7 @@
 {
   "card_id": "III-020",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "ledger",
   "title": "The Straight Again",
@@ -14,37 +14,54 @@
       "text": "Hold the wheel harder and finish the straight — you know it now",
       "correct": false,
       "result": "Knowing the mile does not put sleep in your eyes. You walk it into the rumble for real. The stack behind you writes a new shape.",
-      "state_delta": { "noise": 4, "yaw": 3, "time_cost": 9 }
+      "state_delta": {
+        "noise": 4,
+        "yaw": 3,
+        "time_cost": 9
+      }
     },
     {
       "id": "b",
       "text": "Open a window and slap the dash until the line comes back",
       "correct": false,
-      "result": "You make noise in a tired cab. The line does not come back. Mya would have, if she were here. You are not a cat.",
-      "state_delta": { "noise": 3, "yaw": 2, "time_cost": 7 }
+      "result": "You make noise in a tired cab. The line does not come back. Mya would have, if she were here. Slapping the dash does not put sleep in your eyes.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 7
+      }
     },
     {
       "id": "c",
       "text": "Take the pad. Hazards. Key off. Twenty minutes you already owed.",
       "correct": true,
       "result": "You take the ugly pad. Key off. The log waits. When you start again the hood line is a hood line. That is the only apology the straight accepts.",
-      "state_delta": { "noise": -2, "time_cost": 8 }
+      "state_delta": {
+        "noise": -2,
+        "time_cost": 8
+      }
     },
     {
       "id": "d",
       "text": "Hand the wheel to whoever is in the jump — anyone awake is better",
       "correct": false,
       "result": "The jump is empty. You reach for a person who is not there and the rumble takes the rest.",
-      "state_delta": { "yaw": 3, "noise": 2, "time_cost": 6 }
+      "state_delta": {
+        "yaw": 3,
+        "noise": 2,
+        "time_cost": 6
+      }
     }
   ],
-  "debrief": "The same straight comes back when you push through. Fatigue is still impairment the second time. Stop. The log will be there.",
+  "debrief": "The same straight comes back when you push through. Deac already owed this pad twenty minutes.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "3.1 Impaired driving (Fatigue and drowsy driving)",
     "teaching_target": "A repeated lane-drift on the same stretch means stop and rest; do not tough out a second microsleep."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "drift",
   "callback_of": "III-016",
   "schedules_callback": false,
@@ -52,14 +69,16 @@
     "camera": "POV_ROADSIDE",
     "subject": "Ledger drifted onto the rumble of a long overcast straight, no other vehicle forcing it",
     "foreground": "rumble strip and cold grass at eye height",
-    "midground": "the Ledger's right duals on the rumble, van nose still pointed up the highway",
+    "midground": "the Ledger's right rear tires on the rumble, van nose still pointed up the highway",
     "background": "167 afternoon, overcast, the same mile",
     "read": "the bus walked onto the rumble with nothing in the way — again",
-    "continuity": ["the_ledger"],
+    "continuity": [
+      "the_ledger"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",
-      "ego_lane_side": "right travel lane, right duals on the rumble",
+      "ego_lane_side": "right travel lane, right rear tires on the rumble",
       "ego_nose_in_frame": "the van nose points toward the right of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "none"

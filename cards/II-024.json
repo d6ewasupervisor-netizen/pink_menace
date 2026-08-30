@@ -4,10 +4,10 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Four Ways, One Hole",
-  "hook": "Four-way. The sedan on your right was there first.",
-  "scene": "Clear cold dusk on a Kent four-way that still has all four stops. You arrive second. A primer sedan is already stopped on your right, a beat longer than you. Nobody else. The insulin is a minute from the shelter drop. The sedan's driver is not moving. They may be looking at a paper. They may be waiting for you to steal it. First in is first through. Your right is not a permission slip if they were there first. The Menace's idle is a drum if you rev it. You do not.",
-  "decision": "You rolled up second. The sedan on your right is first and still sitting. Who takes the hole?",
+  "title": "First In at the Four-Way",
+  "hook": "Four-way stop. The sedan on your right was there first.",
+  "scene": "Clear cold dusk on a Kent four-way that still has all four stops. You arrive second. A primer sedan is already stopped on your right, a beat longer than you. Nobody else. The insulin is a minute from the shelter drop. The sedan's driver is not moving. They may be looking at a paper. They may be waiting for you to steal the opening. First in is first through. Your right is not a permission slip if they were there first. The Menace's idle is a drum if you rev it. You do not.",
+  "decision": "You rolled up second. The sedan on your right is first and still sitting. Who goes through first?",
   "options": [
     {
       "id": "a",
@@ -43,16 +43,16 @@
     },
     {
       "id": "d",
-      "text": "Stay stopped. They were first. When they take it, you take the next hole",
+      "text": "Stay stopped. They were first. When they take it, you go next",
       "correct": true,
-      "result": "You wait. They were looking at a paper. They look up, take the hole, and leave you a clean four-way. You take it. No horn. The drop is one minute later and still a drop.",
+      "result": "You wait. They were looking at a paper. They look up, take the opening, and leave you a clean four-way. You take it. No horn. The drop is one minute later and still a drop.",
       "state_delta": {
         "noise": -1,
         "time_cost": 5
       }
     }
   ],
-  "debrief": "At an all-way stop, the first vehicle to arrive goes first. If two arrive together, yield to the right. Wait out a frozen driver until they move. Waving is how two people enter the box at once.",
+  "debrief": "At an all-way stop, the first vehicle to arrive goes first. If two arrive together, yield to the right. Waving is how two people enter the box at once. Wait out a frozen driver until they move.",
   "source": {
     "psdp_skill": "Skill five: driving on a quiet street – part two",
     "dol_section": "4.13 Common intersections",

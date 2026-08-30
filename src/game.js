@@ -118,7 +118,7 @@ function clearCallback(debts, fromCard) {
 const ACT_ZONES = [
   { act: "I", zone: "The Lot" },
   { act: "II", zone: "The Grid" },
-  { act: "III", zone: "The Arterial" },
+  { act: "III", zone: "Central" },
   { act: "IV", zone: "The Core" },
   { act: "V", zone: "The Ribbon" },
   { act: "VI", zone: "The Backcountry" },
@@ -128,7 +128,7 @@ const ACT_ZONES = [
 const CAST = [
   { id: "ali", name: "Ali", line: "Cranberry braid. The Menace. The Grid is hers." },
   { id: "deac", name: "Deac", line: "The Ledger. He still counts cadence." },
-  { id: "yuna", name: "Yuna", line: "Encore. The horns, not the lights." },
+  { id: "yuna", name: "Yuna", line: "Encore. She talks with the horns." },
   { id: "gracie", name: "Gracie", line: "Orange tabby. Dash. Cream chest." },
   { id: "mya", name: "Mya", line: "Mackerel tabby. Heavy. Green eyes." },
   { id: "reyna_solis", name: "Reyna", line: "Bus 12. The bent arm." },

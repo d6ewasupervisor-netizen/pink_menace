@@ -5,8 +5,8 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Right, After the Hedge",
-  "hook": "You need the right. A hedge eats the sidewalk sightline.",
-  "scene": "Wind at dawn on a Kent residential that dead-ends into a T. You need the right. A hedge on the corner eats the sidewalk sightline. Your blinker has been on for a block because Deac's voice in your head still counts cadence. A cyclist you cannot yet see will be on that sidewalk if this is that kind of morning. The DOL wants you past the hedge's blind before you commit the nose. The Menace's plow makes every early turn longer than it looks.",
+  "hook": "You need the right. A hedge hides the sidewalk.",
+  "scene": "Wind at dawn on a Kent residential that dead-ends into a T. You need the right. A hedge on the corner hides the sidewalk. Your blinker has been on for a block because Deac's voice in your head still counts cadence. A cyclist you cannot yet see will be on that sidewalk if this is that kind of morning. You need to see past the hedge before you commit the nose. The Menace's plow makes every early turn longer than it looks.",
   "decision": "The hedge hides the right sidewalk. When do you start the turn?",
   "options": [
     {
@@ -24,7 +24,7 @@
       "id": "b",
       "text": "Cut the corner tight to stay out of whoever is on the far side",
       "correct": false,
-      "result": "You take the turn in their sidewalk. The knobbies climb the curb. The plow rings off a fire hydrant nobody has painted in a year. Tight was not smaller. Tight was on the wrong side of the geometry.",
+      "result": "You take the turn in their sidewalk. The tires climb the curb. The plow rings off a fire hydrant nobody has painted in a year. Tight was not smaller. Tight was on the wrong side of the geometry.",
       "state_delta": {
         "noise": 3,
         "damage": 2,
@@ -53,7 +53,7 @@
       }
     }
   ],
-  "debrief": "Right turns yield to the sidewalk and crosswalk first. If a hedge eats the sightline, stop and search before the nose occupies it. Finish in the nearest right lane. Cutting the corner puts you on the sidewalk you were trying to protect.",
+  "debrief": "Right turns yield to the sidewalk and crosswalk first. If a hedge hides the sightline, search before the nose occupies it. Stop at the sidewalk line, then take the nearest right lane.",
   "source": {
     "psdp_skill": "Skill five: driving on a quiet street – part two",
     "dol_section": "4.14 Turning",

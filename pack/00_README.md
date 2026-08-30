@@ -39,6 +39,8 @@ Three layers, and the order matters.
 
 `22_III_001_RIDE_ALONG.md` is Deac's twelve-line watch-layer handoff for III-001. Hand-written. Not generated.
 
+`23_THE_SPOKEN_DICTIONARY.md` is the voice authority. Cards, chrome, barks, manifest, ride-along, compile prompts, and the bible draw from it. If a word is in the swap column, it does not print. Act III's zone name is **Central**.
+
 ---
 
 ## Run order

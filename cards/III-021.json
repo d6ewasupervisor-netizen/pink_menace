@@ -1,7 +1,7 @@
 {
   "card_id": "III-021",
   "act": "III",
-  "zone": "The Arterial",
+  "zone": "Central",
   "driver": "deac",
   "card_type": "scene",
   "title": "Reyna Off-Route",
@@ -14,37 +14,53 @@
       "text": "Hold speed — she can wait, you are already in the through lane",
       "correct": false,
       "result": "You keep the lane she needs. She stands on it or she clips you. She stands. You taught a transit driver that through traffic does not yield.",
-      "state_delta": { "noise": 3, "time_cost": 6 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 6
+      }
     },
     {
       "id": "b",
       "text": "Pass her on the left before she commits — get it over with",
       "correct": false,
-      "result": "You go for the left as her nose comes out. She is already in the room. Two boxes, one hole. Downtown hears it.",
-      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 8 }
+      "result": "You go for the left as her nose comes out. She is already in the lane. Two boxes, one gap. Downtown hears it.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 8
+      }
     },
     {
       "id": "c",
       "text": "Horn once so she knows you see her, then keep your speed",
       "correct": false,
       "result": "The horn on a cold downtown edge. She flinches and stops half out. You still did not give her the lane. You just announced the block.",
-      "state_delta": { "noise": 5, "time_cost": 5 }
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 5
+      }
     },
     {
       "id": "d",
       "text": "Lift, give her the lane, and take her back once she is through",
       "correct": true,
       "result": "You lift. She takes the lane she already asked for. You roll in behind her. Two fingers off the wheel, not a wave. Off-route or not, she still runs on time.",
-      "state_delta": { "noise": -1, "time_cost": 5 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
     }
   ],
-  "debrief": "Yield to a transit vehicle in your direction that has signaled and is pulling back on. The stop is her work. The lane is the courtesy the law already named.",
+  "debrief": "Yield to a transit vehicle in your direction that has signaled and is pulling back on. The stop is her work. Leave her the lane she already asked for.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.3 Sharing with transit buses",
     "teaching_target": "Yield to a transit bus in your direction that has signaled and is reentering the roadway."
   },
-  "cast": ["deac", "reyna_solis"],
+  "cast": [
+    "deac",
+    "reyna_solis"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -55,11 +71,13 @@
     "midground": "the coach's nose and the gap she needs, skip-dash at her flank",
     "background": "clear cold downtown edge, morning, empty shelter glass",
     "read": "her stalk is on and the coach is already coming back into your lane",
-    "continuity": ["ledger_cockpit"],
+    "continuity": [
+      "ledger_cockpit"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right travel lane of a two-lane-each-way downtown arterial",
+      "ego_lane_side": "right travel lane of a two-lane-each-way downtown stretch",
       "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
       "oncoming_position": "opposite side, distant",
       "hazard_position": "ahead_same_direction"
