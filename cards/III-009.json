@@ -1,0 +1,77 @@
+{
+  "card_id": "III-009",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "hazard",
+  "title": "Hollis at Arterial Speed",
+  "hook": "Hollis fills the glass. Your front gap is the fix.",
+  "scene": "Ice on a Kent morning, 256th doing arterial speed. Hollis is in the lifted truck again, filling the interior glass, close enough that his plow is a suggestion. If you brake for the light you cannot see yet, he writes you into the doghouse. The six-second habit from the Grid still works. You just have to spend it ahead, not behind.",
+  "decision": "Hollis is on your bumper at speed. What do you change?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Brake-check him once so he finds a legal following distance",
+      "correct": false,
+      "result": "You tap. He does not have ice tires. He has a lift and a wish. His plow kisses your rear doors. The arterial hears it.",
+      "state_delta": { "noise": 5, "damage": 1, "time_cost": 8 }
+    },
+    {
+      "id": "b",
+      "text": "Open your own front gap and hold speed so you can roll instead of stand on it",
+      "correct": true,
+      "result": "You lift a breath off the truck ahead. The next light goes yellow. You roll it out instead of planting. Hollis has to lift with you or eat you. He lifts. You never touched him.",
+      "state_delta": { "noise": -1, "time_cost": 5 }
+    },
+    {
+      "id": "c",
+      "text": "Move left now and let him have this lane",
+      "correct": false,
+      "result": "You take a hole you did not sweep because he is loud. A sedan is in the left room. You make three problems out of one bumper.",
+      "state_delta": { "noise": 3, "yaw": 2, "time_cost": 7 }
+    },
+    {
+      "id": "d",
+      "text": "Match him and close the front — if you are a box he cannot hit you as hard",
+      "correct": false,
+      "result": "You close the front. The light you could not see is red. You and Hollis and the truck ahead become one piece of ice.",
+      "state_delta": { "noise": 4, "yaw": 3, "time_cost": 9 }
+    }
+  ],
+  "debrief": "When someone tailgates, increase YOUR following distance so you can avoid a panic stop. You cannot fix his bumper. You can refuse to be the middle of a chain.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part one",
+    "dol_section": "5.2 Space",
+    "teaching_target": "If tailgated, increase the gap ahead so you can brake gradually; do not brake-check."
+  },
+  "cast": ["deac", "hollis"],
+  "antagonist": "splitter",
+  "callback_of": null,
+  "schedules_callback": true,
+  "timeout_option_id": "d",
+  "timeout_ms": 10000,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "subject": "lifted truck grille filling the interior rearview, too close, ice film on the glass",
+    "foreground": "weathered rearview housing",
+    "midground": "Hollis's plow and lamps, no legal gap, same heading",
+    "background": "defocused windshield, Kent morning, ice",
+    "read": "he is closer than a stop at this speed; the road ahead is not the subject",
+    "continuity": ["ledger_cockpit"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two eastbound lanes",
+      "ego_nose_in_frame": "not in the mirror; reflected traffic is behind",
+      "oncoming_position": "none in the glass",
+      "hazard_position": "behind"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "ice",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "speed"
+  }
+}

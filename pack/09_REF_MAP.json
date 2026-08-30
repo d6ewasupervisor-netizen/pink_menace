@@ -23,7 +23,9 @@
     "hollis",
     "bus_12",
     "tobin",
-    "reyna_solis"
+    "reyna_solis",
+    "old_ninety",
+    "officer_dunn"
   ],
   "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
 }

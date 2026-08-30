@@ -528,7 +528,7 @@
     "card_type": "scene",
     "title": "Bus 12, Amber",
     "hook": "Bus 12's ambers just came on. The left lane is open.",
-    "scene": "Fourth Ave South, Kent, and the rain has been going since Renton. Half a block up, Bus 12 rolls at maybe fifteen. Reyna runs the last shelter route and she runs it on time. The amber lamps come on above her rear window. Gracie stands up in the passenger footwell. You are carrying insulin that has seventy minutes of cold left, and there is a clear lane to Reyna's left.",
+    "scene": "Fourth Ave South, Kent, and the rain has been going since Renton. Half a block up, Bus 12 rolls at maybe fifteen. Reyna runs the last shelter route and she runs it on time. The amber lamps come on above her rear window. Gracie stands up in the passenger footwell. You are carrying insulin that has a hundred and ten minutes of cold left, and there is a clear lane to Reyna's left.",
     "decision": "The amber lamps are on and the left lane is open. What do you do?",
     "options": [
       {
@@ -1809,7 +1809,7 @@
     "card_type": "scene",
     "title": "The Long Way Is Shorter",
     "hook": "Willis dead-ends into a berm. Reverse lights do the talking.",
-    "scene": "Willis dead-ends into a berm somebody pushed up and never came back for. The insulin is out of cold — the pack is warming, ten minutes — and the reroute is behind you. Residential, both sides, driveways every fifty feet. Gracie is up on the dash. Reverse lights are the brightest thing this car makes, and every second of backing is a second the mirrors are doing the work your eyes should be doing.",
+    "scene": "Willis dead-ends into a berm somebody pushed up and never came back for. The insulin still has forty minutes of cold, and the reroute is behind you. Residential, both sides, driveways every fifty feet. Gracie is up on the dash. Reverse lights are the brightest thing this car makes, and every second of backing is a second the mirrors are doing the work your eyes should be doing.",
     "decision": "You have to reverse direction. How?",
     "options": [
       {
@@ -1902,8 +1902,8 @@
     "driver": "ali",
     "card_type": "hazard",
     "title": "Two Hundred Feet of Willis",
-    "hook": "The corner is gone. Four driveways. Pack warming, eight.",
-    "scene": "The corner is gone too — a transformer came down across it in the night and the wires are still on the pole. No block to drive. Four driveways in reach: one across the street, one thirty feet up on your side against a blind hedge, one on your side with clean sight down Willis, one behind you past the crest. The pack is warming, eight minutes.",
+    "hook": "The corner is gone. Four driveways. Thirty-eight of cold.",
+    "scene": "The corner is gone too — a transformer came down across it in the night and the wires are still on the pole. No block to drive. Four driveways in reach: one across the street, one thirty feet up on your side against a blind hedge, one on your side with clean sight down Willis, one behind you past the crest. The pack still has thirty-eight minutes of cold.",
     "decision": "No block. You are backing into a driveway. Which one?",
     "options": [
       {

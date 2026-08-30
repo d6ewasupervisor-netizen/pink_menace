@@ -1,0 +1,75 @@
+{
+  "card_id": "III-023",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "rule",
+  "title": "The Diamond Is Not Yours",
+  "hook": "A diamond sits on the left. The sign says two.",
+  "scene": "Fog at dusk on 167, a diamond on the pavement and a sign that does not need words if you already know the paint. HOV. Two or more, or a motorcycle, or a bus that earned it. The Ledger is one tired man and a cat. The left looks empty and fast. Solid white fences it. The schedule wants the empty. The paint wants a number you do not have.",
+  "decision": "The diamond lane is empty and fenced with solid white. Do you take it?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Take it — a bus is basically transit and the lane is wasted empty",
+      "correct": false,
+      "result": "You cross the solid. You are not a carpool and you are not the coach that earned it. A remnant in a cap is in the next ramp. The diamond was not a suggestion.",
+      "state_delta": { "noise": 2, "time_cost": 6 }
+    },
+    {
+      "id": "b",
+      "text": "Leave it. Stay in the general lane. Solid white is the fence.",
+      "correct": true,
+      "result": "You stay out. The empty stays empty. The general lane is slower and legal. The schedule takes the minutes. The paint keeps its number.",
+      "state_delta": { "noise": -1, "time_cost": 3 }
+    },
+    {
+      "id": "c",
+      "text": "Take it only to the next ramp, then drop back before anyone cares",
+      "correct": false,
+      "result": "A short theft is still a theft of a restricted lane. You crossed the solid. The remnant in the cap does not grade on duration.",
+      "state_delta": { "noise": 1, "time_cost": 5 }
+    },
+    {
+      "id": "d",
+      "text": "Use it only to pass, then come back before the next ramp",
+      "correct": false,
+      "result": "Carpool lanes are not passing lanes. You still crossed the solid. The empty was not a gift.",
+      "state_delta": { "noise": 2, "time_cost": 4 }
+    }
+  ],
+  "debrief": "HOV paint and a diamond mark a lane you enter only if you meet the posted occupancy. Solid white is the fence. A bus with one driver is still one.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part one",
+    "dol_section": "4.16 Road markings (HOV / Carpool lane)",
+    "teaching_target": "Do not enter an HOV lane unless you meet the occupancy; solid white separates it from general lanes."
+  },
+  "cast": ["deac"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "painted diamond on wet pavement, solid white fence, no readable occupancy numbers",
+    "foreground": "fog in the lamp, a strip of skip-dash in the general lane",
+    "midground": "the diamond and the solid white, empty restricted lane beyond",
+    "background": "167 dusk, fog, a general-lane stack",
+    "read": "the diamond and the solid white mark a lane the Ledger has not earned",
+    "continuity": ["the_ledger"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right-hand general lane beside an HOV lane",
+      "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "fog",
+    "time_of_day": "dusk",
+    "tone": "procedural",
+    "failure_mode": "none"
+  }
+}

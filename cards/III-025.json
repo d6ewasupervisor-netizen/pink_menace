@@ -1,0 +1,37 @@
+{
+  "card_id": "III-025",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "dossier",
+  "title": "What He Sees at the Edge",
+  "hook": "The edge of his vision is not empty anymore.",
+  "scene": "Ice, deep night, the Ledger in a legal pocket off Aurora. Deac's eyes are on the cage and also not. At the edge of the glass, a presence that is not a vehicle — T1, a smear that could be fatigue and could be the Quiet learning the arterial. He does not look at it. Looking is how the Chorus gets in. He names it instead, under his breath, so the student in the jump can hear: the Drift. Not a lecture. A thing that already has his lane.",
+  "debrief": "The Drift is fatigue given a face. He manages it with stops and a thermos, not with stares. If you look at the edge, you have already left the road.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Name the Drift as Deac's fatigue antagonist; do not stare at the presence at the edge of vision."
+  },
+  "cast": ["deac"],
+  "antagonist": "drift",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "Deac in the high seat, eyes on the cage, a smear of presence at the far right edge of the glass, not a face",
+    "foreground": "thermos and clipboard, ice on the wheel",
+    "midground": "his reddened eyes and the taped vest, no smile",
+    "background": "Aurora deep night, ice, the smear staying at the edge",
+    "read": "he will not look at the edge; the edge is already looking at the lane",
+    "continuity": ["deac", "ledger_cockpit"],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "ice",
+    "time_of_day": "deep_night",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

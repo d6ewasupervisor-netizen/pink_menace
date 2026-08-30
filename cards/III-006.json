@@ -1,0 +1,75 @@
+{
+  "card_id": "III-006",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "convoy",
+  "title": "A Hundred Feet of Amber",
+  "hook": "Amber letters crawl. The column has not seen you yet.",
+  "scene": "Wind at dusk on 167, a three-vehicle stack you did not ask for. Your destination sign is dark. You need the left in a hundred feet. Radios are trash. The Ledger talks with amber. If you wink the stalk at the last second, the box behind you will eat your rear doors.",
+  "decision": "You need the left in a hundred feet. How do you tell the column?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Move first, then signal — they will see the bus and understand",
+      "correct": false,
+      "result": "You start the change. The box behind had no sentence. He stands on it. You stand on it. The sign stays dark. You spent his brakes to keep your schedule.",
+      "state_delta": { "noise": 4, "yaw": 1, "time_cost": 8 }
+    },
+    {
+      "id": "b",
+      "text": "Flash the highs twice — faster than a blinker and they cannot miss it",
+      "correct": false,
+      "result": "The flash hits his glass and comes back. He thinks you are warning him of something ahead. He slows in your hole. You still have not said left.",
+      "state_delta": { "light": 3, "time_cost": 6 }
+    },
+    {
+      "id": "c",
+      "text": "Leave the sign dark and use the stalk at the last skip-dash",
+      "correct": false,
+      "result": "The stalk talks for ten feet. He is already in your door. Late is the same as silent on a bus this long.",
+      "state_delta": { "noise": 3, "time_cost": 7 }
+    },
+    {
+      "id": "d",
+      "text": "Sign left, stalk on, hold a hundred feet, then take a swept hole",
+      "correct": true,
+      "result": "Amber crawls LEFT. The stalk agrees. You hold the lane until the box lifts. The hole you take is one he already gave you. That is a sentence.",
+      "state_delta": { "noise": -1, "time_cost": 5 }
+    }
+  ],
+  "debrief": "Signal a hundred feet before you move. The destination sign is the same sentence for a column that cannot hear you. Late amber is a surprise, not a signal.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part one",
+    "dol_section": "2.5 Vehicle Maintenance (Turn signals)",
+    "teaching_target": "Signal at least 100 feet before a lane change; give the column time to answer."
+  },
+  "cast": ["deac"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_CHASE",
+    "subject": "the Ledger's rear, amber destination sign lit, left stalk blinking, a box truck tight behind",
+    "foreground": "following cab A-pillar and a strip of windshield",
+    "midground": "the Ledger's rear doors and oversize west-coast arms, amber sign facing the camera",
+    "background": "dusk, wind, 167 concrete, stacked lamps",
+    "read": "the sign and the left stalk are already on while the bus is still in its lane",
+    "continuity": ["the_ledger"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of a multi-lane highway",
+      "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
+      "oncoming_position": "none in this heading",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "wind",
+    "time_of_day": "dusk",
+    "tone": "wry",
+    "failure_mode": "none"
+  }
+}

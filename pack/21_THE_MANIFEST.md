@@ -13,7 +13,7 @@ The ignition beat gains one screen: the log sheet, in the established hand-ruled
 ```
 RUN            The Grid — Kent
 CARGO          Insulin, cold-packed
-COLD REMAINING 90 MIN
+COLD REMAINING 130 MIN
 FOR            June — Delridge shelter
 DRIVER         ________ (her name, from the account)
 ```
@@ -34,7 +34,7 @@ COLD: 62 MIN
 - **Every result shows its price**: a `−6 MIN` float beside the meter spike when the outcome lands. This is the single most clarifying change in the whole spec — she finally sees what each choice *cost*, which is the connection between decisions and the clock that the fiction has been asserting without evidence.
 - Correct answers that still cost time show it too. Time passing on good choices is honest and it's the Deac thesis: the schedule doesn't care that you drove well.
 
-Display math (do not change the economy): remaining = `90 − accumulated time_cost`. When remaining hits zero the pack is still worth delivering, just worth less. The tag goes to `COLD: 0 · WARMING N MIN`, where N is remaining cargo slack — that countdown is the one that kills the run. A live tag never shows a lone `0 MIN`. Fail is still `cargoFrom`. Scene minutes follow the widget at that point on the correct path, never the other way around.
+Display math: remaining = `COLD_PACK − accumulated time_cost` (`COLD_PACK` is 130 — the correct-path Act II sum is 127, so a clean run still has minutes at the door). When remaining hits zero the pack is still worth delivering, just worth less. The tag goes to `COLD: 0 · WARMING N MIN`, where N is remaining cargo slack (`CARGO_BUDGET` is 140). That countdown is the one that kills the run. A live tag never shows a lone `0 MIN`. Fail is still `cargoFrom`. Scene minutes follow the widget at that point on the correct path, never the other way around. Costs do not move; if a clean run cannot finish, the budget number is short.
 
 ## 3. THRESHOLDS — the world checks in twice
 

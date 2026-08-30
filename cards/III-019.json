@@ -1,0 +1,75 @@
+{
+  "card_id": "III-019",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "convoy",
+  "title": "The Sign Talks First",
+  "hook": "The sign lights SLOW. Someone is in your doors.",
+  "scene": "Snow at deep night, a volunteer box on your bumper who joined without asking. You need to dump speed for a dead pickup in the right. The stalk will talk to him late. The destination sign talks to a column. Radios are still trash. Amber is the language. If you only use the brake lamps, he eats your rear doors and you invent passengers.",
+  "decision": "You need to slow and the volunteer is tight. How do you tell him?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Sign SLOW, left arm down if the lamps are buried, then lift off",
+      "correct": true,
+      "result": "Amber crawls SLOW. Your left arm goes out and down for the man who cannot see a sign through snow. He lifts. You dump speed without writing him into the doors. The pickup stays a pickup.",
+      "state_delta": { "noise": -1, "passenger_stress": -1, "time_cost": 4 }
+    },
+    {
+      "id": "b",
+      "text": "Stand on the brakes — the lamps are the sentence",
+      "correct": false,
+      "result": "The lamps dump. He does not. Your rear doors become his windshield. You just made passengers out of a volunteer and a schedule.",
+      "state_delta": { "noise": 5, "passenger_stress": 3, "damage": 1, "time_cost": 7 }
+    },
+    {
+      "id": "c",
+      "text": "Wave him around on the left before you slow",
+      "correct": false,
+      "result": "You wave a stranger into a snow lane you have not swept. He goes. The dead pickup was not the only object. You spent him.",
+      "state_delta": { "noise": 3, "passenger_stress": 2, "time_cost": 6 }
+    },
+    {
+      "id": "d",
+      "text": "Leave the sign dark so you do not draw the Quiet, and hope he reads the stalk",
+      "correct": false,
+      "result": "The stalk talks for ten feet of snow. He never had a sentence. Hope is not a signal.",
+      "state_delta": { "noise": 4, "passenger_stress": 2, "time_cost": 5 }
+    }
+  ],
+  "debrief": "Tell the column before you dump speed. The destination sign is the sentence; the left arm down is the backup when snow buries the lamps. Brake lamps alone are a surprise.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "2.5 Vehicle Maintenance (Hand signals)",
+    "teaching_target": "Communicate a slow-down to following traffic with the sign and, if needed, the left-arm-down signal."
+  },
+  "cast": ["deac"],
+  "antagonist": "load",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_CHASE",
+    "subject": "Ledger rear, amber destination sign lit, left arm out and down, volunteer box tight behind",
+    "foreground": "following glass and falling snow",
+    "midground": "rear doors, west-coast arms, the sign facing the camera, a torso in the left window with the left arm out and down",
+    "background": "deep night, snow, a dead pickup ahead in the right",
+    "read": "the sign and the left arm are already talking while the brake lamps are still dark",
+    "continuity": ["the_ledger", "hand_signals"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of a two-lane-each-way highway",
+      "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
+      "oncoming_position": "none in this heading",
+      "hazard_position": "ahead_same_direction"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "snow",
+    "time_of_day": "night",
+    "tone": "warm",
+    "failure_mode": "passengers"
+  }
+}

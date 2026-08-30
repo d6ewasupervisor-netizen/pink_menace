@@ -1,0 +1,75 @@
+{
+  "card_id": "III-026",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "scene",
+  "title": "Both Lanes Until the Teeth",
+  "hook": "Both lanes still run. The sign says the right will die.",
+  "scene": "Overcast dawn, a mill-and-fill that ate the right in a quarter mile. Both lanes still move. The early-merge instinct wants the left now, to be polite, to be first. The zipper wants both lanes used until the merge paint, then one-for-one. You already took a late hole once on purpose so she could watch the cost. This is the legal late. Different sentence.",
+  "decision": "The right dies ahead. When do you merge left?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Stay in the right until the merge paint, then take turns with the left",
+      "correct": true,
+      "result": "You use the lane until it ends. At the teeth you take one, give one. The stack is shorter than the polite line that started a mile early. The sign meant it.",
+      "state_delta": { "noise": -1, "time_cost": 6 }
+    },
+    {
+      "id": "b",
+      "text": "Move left now so you are not the person who cuts at the end",
+      "correct": false,
+      "result": "You join the polite line. The right stays empty and angry. Someone late uses it and you resent them for doing the zipper. You taught the zone the wrong courtesy.",
+      "state_delta": { "noise": 2, "time_cost": 9 }
+    },
+    {
+      "id": "c",
+      "text": "Straddle both until the last cone so nobody can beat you",
+      "correct": false,
+      "result": "You occupy two lanes in a work zone. Nobody zippers. You are the blockage the sign was trying to prevent.",
+      "state_delta": { "noise": 4, "yaw": 1, "time_cost": 8 }
+    },
+    {
+      "id": "d",
+      "text": "Stop at the first warning sign and wait for a flagger to assign a lane",
+      "correct": false,
+      "result": "There is no flagger. You plant a bus at a sign. The zipper happens without you, around you, angry.",
+      "state_delta": { "noise": 3, "time_cost": 10 }
+    }
+  ],
+  "debrief": "For a lane closure, use both lanes until the merge point, then take turns — the zipper. Early merging out of courtesy makes a longer line and a nastier end.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part one",
+    "dol_section": "5.3 Merging",
+    "teaching_target": "Zipper merge: stay in your lane until the designated merge, then alternate."
+  },
+  "cast": ["deac"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "subject": "two same-direction lanes still full, right lane ending at merge paint, Ledger still in the right",
+    "foreground": "wet work-zone asphalt and skip-dash",
+    "midground": "the merge teeth, one vehicle from each lane taking a turn",
+    "background": "overcast dawn, cones, mill-and-fill",
+    "read": "both lanes are still in use up to the merge; the zipper is the pattern at the teeth",
+    "continuity": ["diagram_style", "the_ledger"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two northbound lanes, approaching a right-lane end",
+      "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+      "oncoming_position": "none in this work pattern",
+      "hazard_position": "ahead_same_direction"
+    }
+  },
+  "variation": {
+    "location_type": "work_zone",
+    "weather": "overcast",
+    "time_of_day": "dawn",
+    "tone": "procedural",
+    "failure_mode": "inexperience"
+  }
+}

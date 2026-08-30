@@ -1,6 +1,9 @@
 "use strict";
 
-const COLD_PACK = 90;
+// Correct-path Act II time_cost sums to 127. Pack must finish with slack in hand.
+const COLD_PACK = 130;
+const WARMING_SLACK = 10;
+const CARGO_BUDGET = COLD_PACK + WARMING_SLACK;
 
 const MANIFESTS = {
   II: {
@@ -159,6 +162,8 @@ function manifestFor(act, driverName) {
 
 module.exports = {
   COLD_PACK,
+  WARMING_SLACK,
+  CARGO_BUDGET,
   coldFrom,
   warmingFrom,
   timeCostOf,

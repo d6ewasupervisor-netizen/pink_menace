@@ -1,0 +1,44 @@
+{
+  "card_id": "III-002",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "dossier",
+  "title": "Mya Has the Glass",
+  "hook": "Mya owns the glass. The log is still open.",
+  "scene": "The Ledger's cab is a high seat and a thermos that has been empty since yesterday. Mya is a brown mackerel loaf on the dash, dark stripe, green eyes, one paw in the west-coast glass. The clipboard is clipped to the doghouse. Amber vest, taped shoulder. Ali is still in the jump seat from the ride-along. Your hands are on the wheel now. The arterial is already moving.",
+  "debrief": "This is Deac's cab: west-coast mirrors, thermos, log, cat on the dash. If you cannot see past Mya, move her. The glass is the job.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Establish the Ledger cab: high seat, west-coast mirrors, Mya blocking glass, clipboard as the log."
+  },
+  "cast": ["deac", "mya", "ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "brown mackerel tabby loafed on the dash with one paw in the round west-coast mirror glass",
+    "foreground": "worn transit wheel rim, dented steel thermos in the cup, metal clipboard clipped to the doghouse",
+    "midground": "bar cage with a wiper-slot cut, analog gauges, amber vest hem at the left edge of frame",
+    "background": "overcast Kent arterial through the cage at dawn, two lanes, wet paint",
+    "read": "the cat is sitting in the only good look at the right-side glass",
+    "continuity": ["ledger_cockpit", "mya", "deac_clipboard"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of a two-lane-each-way arterial",
+      "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+      "oncoming_position": "left half of the roadway, opposite direction, distant",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "overcast",
+    "time_of_day": "dawn",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

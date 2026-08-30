@@ -2,7 +2,7 @@
 
 const { query } = require("./db");
 const { publicFear } = require("./presence");
-const { coldFrom, warmingFrom, cargoFailDispatch } = require("./manifest");
+const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET } = require("./manifest");
 
 async function purgeExpiredPending() {
   await query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
@@ -159,7 +159,7 @@ function cargoFrom(state) {
   const time = Number(s.time_cost) || 0;
   const noise = Math.max(0, Number(s.noise) || 0);
   const light = Math.max(0, Number(s.light) || 0);
-  return Math.max(0, Math.min(100, 100 - time - noise - Math.round(light / 2)));
+  return Math.max(0, Math.min(CARGO_BUDGET, CARGO_BUDGET - time - noise - Math.round(light / 2)));
 }
 
 function cargoDead(state, delta) {

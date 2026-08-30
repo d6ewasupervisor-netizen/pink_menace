@@ -1,0 +1,76 @@
+{
+  "card_id": "III-011",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "scene",
+  "title": "Old Ninety's Glass",
+  "hook": "Old Ninety's trailer. If you cannot see his mirrors, he cannot.",
+  "scene": "Overcast midday on 167. A rogue semi with no door marks and a dirty number that used to be ninety fills the rear glass, then the left. Old Ninety. You are beside a trailer that has rooms a Ledger understands. If you cannot see his west-coasts, you are nowhere. The schedule wants you past him. Nowhere wants you first.",
+  "decision": "You are coming up on Old Ninety's left rear quarter. Where do you sit?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold beside the trailer — his length is a windbreak and the left is empty",
+      "correct": false,
+      "result": "You cruise the no-zone. He starts a right that needs your lane. You are the car in the statistic. He never had you in the glass.",
+      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 8 }
+    },
+    {
+      "id": "b",
+      "text": "Tuck under his tail — if you cannot see him he cannot hit you",
+      "correct": false,
+      "result": "You sit in the hole behind a loaded trailer. He cannot see you and he cannot stop for you. The next brake is yours.",
+      "state_delta": { "noise": 2, "time_cost": 7 }
+    },
+    {
+      "id": "c",
+      "text": "Pass on the shoulder — the rumble is safer than his left",
+      "correct": false,
+      "result": "The shoulder is a drain and a sign post. You put a bus in the junk. He never knew you tried.",
+      "state_delta": { "noise": 3, "yaw": 3, "damage": 1, "time_cost": 9 }
+    },
+    {
+      "id": "d",
+      "text": "Drop back until both his mirrors show you, or commit the pass and clear",
+      "correct": true,
+      "result": "You fall back until two dirty west-coasts hold a Ledger. Then you pass once, all the way, and you do not linger. He keeps his rooms. You keep your steel.",
+      "state_delta": { "noise": -1, "time_cost": 5 }
+    }
+  ],
+  "debrief": "If you cannot see a truck's mirrors, the driver cannot see you. Do not live beside the trailer. Be in his glass, or be gone.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part one",
+    "dol_section": "4.4 Sharing with large vehicles",
+    "teaching_target": "Stay out of a truck's blind zones; if you cannot see the driver's mirrors, you are invisible."
+  },
+  "cast": ["deac", "old_ninety"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "camera_is_the_lesson": true,
+    "subject": "dirty west-coast mirrors on a rogue semi, no Ledger reflected in them, trailer filling the glass",
+    "foreground": "Ledger rearview housing",
+    "midground": "Old Ninety's left-side glass empty of you, trailer ribs, no door marks",
+    "background": "defocused 167, overcast midday",
+    "read": "his mirrors do not have you in them; you are in a room he cannot see",
+    "continuity": ["ledger_cockpit"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "left travel lane of two northbound highway lanes",
+      "ego_nose_in_frame": "not in the mirror; the reflection is the truck beside and behind",
+      "oncoming_position": "none in the glass",
+      "hazard_position": "behind"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "midday",
+    "tone": "tense",
+    "failure_mode": "inexperience"
+  }
+}

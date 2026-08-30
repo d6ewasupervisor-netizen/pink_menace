@@ -1,0 +1,75 @@
+{
+  "card_id": "III-015",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "scene",
+  "title": "The Pocket Is Not a Lane",
+  "hook": "The pocket is for turns. The stack wants a pass.",
+  "scene": "Wind on a Kent morning. A two-way left-turn lane down the middle, arrows both ways, the same idea as the Grid's dead-van pocket except this one is legal if you are actually turning. A primer sedan is using it as a travel lane to beat the light. Your left is coming up in two blocks. The pocket will take you. It will not take you for a mile.",
+  "decision": "The two-way pocket is empty for a long stretch. How do you use it?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Enter only when you are ready to turn, and do not travel farther than you need",
+      "correct": true,
+      "result": "You wait until the turn is real. You take the pocket for a short bite, yield to the other direction, and finish. The sedan is still touring it like a lane when oncoming wants it.",
+      "state_delta": { "noise": -1, "time_cost": 5 }
+    },
+    {
+      "id": "b",
+      "text": "Use it as a passing lane — that is what the dashes are for",
+      "correct": false,
+      "result": "You pass in a lane that belongs to both directions. Oncoming enters it to turn. Two noses, one paint. The dashes were not a pass.",
+      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 8 }
+    },
+    {
+      "id": "c",
+      "text": "Ride it for the next mile so you are already in position at every left",
+      "correct": false,
+      "result": "You travel the center. Three driveways and a car coming the other way all have a claim. Three hundred feet was the limit. You spent it like a highway.",
+      "state_delta": { "noise": 3, "time_cost": 7 }
+    },
+    {
+      "id": "d",
+      "text": "Straddle the yellow and the pocket so nobody can surprise you",
+      "correct": false,
+      "result": "You occupy two rooms. Through traffic has to guess. The pocket is no longer a pocket. It is a problem with your name on it.",
+      "state_delta": { "noise": 2, "yaw": 1, "time_cost": 6 }
+    }
+  ],
+  "debrief": "A two-way left-turn lane is for turning, not traveling or passing. Enter it to turn, watch the other direction, and do not tour it.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part two",
+    "dol_section": "4.16 Road markings",
+    "teaching_target": "Use a two-way left-turn lane only to turn; do not travel or pass in it."
+  },
+  "cast": ["deac"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "subject": "shared center lane with left-turn arrows both ways, Ledger still in the through lane, primer sedan already touring the pocket",
+    "foreground": "double yellow and skip-dash fencing the center pocket",
+    "midground": "the empty pocket stretching a block, arrows pointing both directions",
+    "background": "wind, Kent morning, commercial driveways",
+    "read": "the center pocket is a turn lane with arrows both ways, not a travel lane",
+    "continuity": ["diagram_style", "the_ledger"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right through lane of a five-lane undivided arterial",
+      "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+      "oncoming_position": "far side of the center pocket, opposite direction",
+      "hazard_position": "ahead_same_direction"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "wind",
+    "time_of_day": "morning",
+    "tone": "wry",
+    "failure_mode": "inexperience"
+  }
+}

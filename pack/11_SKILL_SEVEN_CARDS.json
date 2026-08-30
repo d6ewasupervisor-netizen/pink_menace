@@ -7,7 +7,7 @@
   "card_type": "scene",
   "seq_hint": "insert between II-020 and II-021",
   "title": "The Long Way Is Shorter",
-  "scene": "Willis dead-ends into a berm somebody pushed up and never came back for. The insulin is out of cold — the pack is warming, ten minutes — and the reroute is behind you. Residential, both sides, driveways every fifty feet. Gracie is up on the dash. Reverse lights are the brightest thing this car makes, and every second of backing is a second the mirrors are doing the work your eyes should be doing.",
+  "scene": "Willis dead-ends into a berm somebody pushed up and never came back for. The insulin still has forty minutes of cold, and the reroute is behind you. Residential, both sides, driveways every fifty feet. Gracie is up on the dash. Reverse lights are the brightest thing this car makes, and every second of backing is a second the mirrors are doing the work your eyes should be doing.",
   "decision": "You have to reverse direction. How?",
   "options": [
     { "id": "a", "text": "Drive the block — right at the corner, right again, back onto Willis facing out",
@@ -63,7 +63,7 @@
   "card_type": "hazard",
   "seq_hint": "insert immediately after II-029",
   "title": "Two Hundred Feet of Willis",
-  "scene": "The corner is gone too — a transformer came down across it in the night and the wires are still on the pole. No block to drive. Four driveways in reach: one across the street, one thirty feet up on your side against a blind hedge, one on your side with clean sight down Willis, one behind you past the crest. The pack is warming, eight minutes.",
+  "scene": "The corner is gone too — a transformer came down across it in the night and the wires are still on the pole. No block to drive. Four driveways in reach: one across the street, one thirty feet up on your side against a blind hedge, one on your side with clean sight down Willis, one behind you past the crest. The pack still has thirty-eight minutes of cold.",
   "decision": "No block. You are backing into a driveway. Which one?",
   "options": [
     { "id": "a", "text": "Your side, the one with clear sight down Willis — signal, check behind, back in",

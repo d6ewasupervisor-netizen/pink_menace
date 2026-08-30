@@ -1,0 +1,78 @@
+{
+  "card_id": "III-005",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "hazard",
+  "title": "The Right-Side Room",
+  "hook": "A white panel sits in the convex. You are already signaling.",
+  "scene": "Clear cold afternoon on West Valley. You signaled left a breath ago. In the right convex, a white panel van is parked in the room the Ledger cannot see from the seat — close, same heading, no lamps. If you drift right to make the left feel bigger, you write him into the skirting. The blinker is already talking.",
+  "decision": "The convex has a van in the right-side room and you are mid-change. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Cancel, hold the lane, let him show or fall back, then take a clean hole",
+      "correct": true,
+      "result": "You kill the blinker and hold. He appears in the flat glass a second later, then drops. The next hole is empty. You take it without writing him into the steel.",
+      "state_delta": { "noise": -1, "time_cost": 4 }
+    },
+    {
+      "id": "b",
+      "text": "Finish the left — he is on the right, so the left is yours",
+      "correct": false,
+      "result": "You commit left. The van was using you as a windbreak and comes with you. Steel on steel. He never had lamps. You never had the room.",
+      "state_delta": { "noise": 4, "damage": 1, "yaw": 2, "time_cost": 8 }
+    },
+    {
+      "id": "c",
+      "text": "Drift right first to square up, then take the left",
+      "correct": false,
+      "result": "You drift into the room to get a better angle. The convex was already telling you the room was occupied. The panel takes the skirting. That was the timeout.",
+      "state_delta": { "noise": 3, "damage": 1, "time_cost": 7 }
+    },
+    {
+      "id": "d",
+      "text": "Tap the horn so he knows to get out of the convex",
+      "correct": false,
+      "result": "The horn on an arterial. He flinches into you. You both stop in a live lane. Everything behind has to lift.",
+      "state_delta": { "noise": 5, "time_cost": 6 }
+    }
+  ],
+  "debrief": "If you cannot see him in the glass, assume he is in the room. Cancel, hold, then take a hole you have swept. The convex is a check, not a suggestion.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part one",
+    "dol_section": "5.2 Space",
+    "teaching_target": "Recheck the blind zone during a lane change; do not drift into a vehicle the convex already showed."
+  },
+  "cast": ["deac"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": true,
+  "timeout_option_id": "c",
+  "timeout_ms": 8000,
+  "image_brief": {
+    "camera": "POV_MIRROR_DOOR",
+    "camera_is_the_lesson": true,
+    "subject": "white panel van filling the right convex glass, same heading, no lamps, close",
+    "foreground": "round west-coast mirror housing and a strip of gray primer flank",
+    "midground": "the van in the glass, occupying the right-side room beside the Ledger",
+    "background": "clear cold afternoon, West Valley arterial, long shadows",
+    "read": "the van is already in the right-side room the seat cannot see",
+    "continuity": ["the_ledger"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "left travel lane of two northbound lanes, mid-change",
+      "ego_nose_in_frame": "not in this glass; the reflection is the right flank and the van beside",
+      "oncoming_position": "none in this glass",
+      "hazard_position": "beside"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "clear_cold",
+    "time_of_day": "afternoon",
+    "tone": "urgent",
+    "failure_mode": "inexperience"
+  }
+}

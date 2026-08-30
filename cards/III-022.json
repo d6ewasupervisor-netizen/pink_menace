@@ -1,0 +1,77 @@
+{
+  "card_id": "III-022",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "hazard",
+  "title": "Siren First",
+  "hook": "Siren first, then lamps. Something wants the right.",
+  "scene": "Rain at midday, stacked on Central. The siren arrives before the lamps — that is the order when you are in a bus. Officer Dunn is in a dark WSP remnant, lights finding the gaps, same heading, coming up the stack. The law is older than the quarantine: right, stop, wait. The Chorus would love your eyes on a screen right now. The siren is the screen.",
+  "decision": "Emergency vehicle behind, siren live. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Signal, move right, stop, wait until he is past, then reenter in order",
+      "correct": true,
+      "result": "You put the Ledger on the right and plant it. Dunn takes the hole you made. When his lamps are gone you signal and take your place in the stack. Nobody invented a new order.",
+      "state_delta": { "noise": -1, "time_cost": 6 }
+    },
+    {
+      "id": "b",
+      "text": "Hold the left and speed up so he can have the right",
+      "correct": false,
+      "result": "You run from a siren. He needs the right, and you just filled the passing lane. The stack becomes a wall with your name on it.",
+      "state_delta": { "noise": 4, "time_cost": 8 }
+    },
+    {
+      "id": "c",
+      "text": "Stop in your lane immediately — he can go around",
+      "correct": false,
+      "result": "You plant a bus in a live lane. He has to invent a path. The man behind you does not stop. Three vehicles, one siren, no right.",
+      "state_delta": { "noise": 3, "yaw": 1, "time_cost": 7 }
+    },
+    {
+      "id": "d",
+      "text": "Check the tablet for which way he is going, then decide",
+      "correct": false,
+      "result": "Your eyes leave the glass. The siren is already beside you. You decide late. That was the timeout, and it was a look.",
+      "state_delta": { "noise": 2, "light": 2, "time_cost": 5 }
+    }
+  ],
+  "debrief": "Siren or lamps: move right, stop, wait until the emergency vehicle is past, then reenter in the order you had. Do not look down to think about it.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "4.9 Sharing with emergency vehicles",
+    "teaching_target": "Pull to the right and stop for an emergency vehicle using lights or siren; reenter in original order."
+  },
+  "cast": ["deac", "officer_dunn"],
+  "antagonist": "chorus",
+  "callback_of": null,
+  "schedules_callback": false,
+  "timeout_option_id": "d",
+  "timeout_ms": 8000,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "subject": "WSP remnant with lamps finding the gaps, same heading, filling the interior glass",
+    "foreground": "rearview housing, rain on the glass",
+    "midground": "Dunn's cruiser in the stack, no readable plate, lamps live",
+    "background": "defocused Central, midday rain",
+    "read": "the emergency vehicle is behind and already talking; the road ahead is not the subject",
+    "continuity": ["ledger_cockpit"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "left travel lane of two southbound lanes, stacked",
+      "ego_nose_in_frame": "not in the mirror; reflected traffic is behind",
+      "oncoming_position": "none in the glass",
+      "hazard_position": "behind"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "rain",
+    "time_of_day": "midday",
+    "tone": "urgent",
+    "failure_mode": "distraction"
+  }
+}

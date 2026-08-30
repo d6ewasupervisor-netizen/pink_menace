@@ -1,0 +1,2531 @@
+[
+  {
+    "card_id": "III-002",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "dossier",
+    "title": "Mya Has the Glass",
+    "hook": "Mya owns the glass. The log is still open.",
+    "scene": "The Ledger's cab is a high seat and a thermos that has been empty since yesterday. Mya is a brown mackerel loaf on the dash, dark stripe, green eyes, one paw in the west-coast glass. The clipboard is clipped to the doghouse. Amber vest, taped shoulder. Ali is still in the jump seat from the ride-along. Your hands are on the wheel now. The arterial is already moving.",
+    "debrief": "This is Deac's cab: west-coast mirrors, thermos, log, cat on the dash. If you cannot see past Mya, move her. The glass is the job.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "n/a",
+      "teaching_target": "Establish the Ledger cab: high seat, west-coast mirrors, Mya blocking glass, clipboard as the log."
+    },
+    "cast": [
+      "deac",
+      "mya",
+      "ali"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "brown mackerel tabby loafed on the dash with one paw in the round west-coast mirror glass",
+      "foreground": "worn transit wheel rim, dented steel thermos in the cup, metal clipboard clipped to the doghouse",
+      "midground": "bar cage with a wiper-slot cut, analog gauges, amber vest hem at the left edge of frame",
+      "background": "overcast Kent arterial through the cage at dawn, two lanes, wet paint",
+      "read": "the cat is sitting in the only good look at the right-side glass",
+      "continuity": [
+        "ledger_cockpit",
+        "mya",
+        "deac_clipboard"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of a two-lane-each-way arterial",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+        "oncoming_position": "left half of the roadway, opposite direction, distant",
+        "hazard_position": "none"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "overcast",
+      "time_of_day": "dawn",
+      "tone": "quiet",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "III-003",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "The Right Is Through",
+    "hook": "Two southbound lanes. A sedan is camping left.",
+    "scene": "Central Avenue, two lanes south, rain on a Kent morning. A primer sedan is doing twenty-eight in the left. Your lane is the right. The left looks empty ahead of him. The thermos ticks once in the cup. Schedule wants the hole. The Ledger is long and the next light is already a rumor.",
+    "decision": "The left lane is open ahead of a slow sedan. Where do you put this bus?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Move left now and sit in the empty — through traffic can use either",
+        "correct": false,
+        "result": "You take the left and become the new slow. A pickup that was using that lane as a pass has to stand on it. Horn. The sedan never moved. You spent his margin to sit pretty.",
+        "state_delta": {
+          "noise": 3,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Hold the right. Pass only if he stays slow and the left is clear",
+        "correct": true,
+        "result": "You stay right. He stays twenty-eight. When the left is empty and you need him, you take it, clear him, and come back. The pickup behind never has to lift. Through traffic stayed through.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "c",
+        "text": "Straddle both — the Ledger is wide enough that the sedan will yield",
+        "correct": false,
+        "result": "You occupy the dashed line. He brakes. The pickup goes for the shoulder. You own two lanes and nobody can pass you, including you.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Drop to twenty and wait for him to notice and move over",
+        "correct": false,
+        "result": "You become a rolling roadblock in the right. He never looks. The stack behind you grows. You taught the arterial that the Ledger is the problem.",
+        "state_delta": {
+          "noise": 1,
+          "time_cost": 8
+        }
+      }
+    ],
+    "debrief": "When several lanes go the same way, through traffic keeps right except to pass. Sitting in the left because it looks empty makes you the thing other people have to pass.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "4.10 Traffic laws",
+      "teaching_target": "Keep right except to pass on a multi-lane road; the left is for passing, not cruising."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_DIAGRAM",
+      "subject": "ex-transit cutaway in the right southbound lane, primer sedan in the left lane ahead, dashed white between",
+      "foreground": "wet asphalt and skip-dashed white lane line",
+      "midground": "the Ledger occupying only the right travel lane, van nose pointed south",
+      "background": "rain, Kent commercial strip, a pickup stacked behind in the left",
+      "read": "through vehicle is in the right; the left is occupied by a slower car others need for passing",
+      "continuity": [
+        "diagram_style",
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of two southbound lanes",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+        "oncoming_position": "far left of frame, opposite direction, across a yellow pair",
+        "hazard_position": "ahead_same_direction"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "rain",
+      "time_of_day": "morning",
+      "tone": "procedural",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "III-004",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "Rooms You Cannot See",
+    "hook": "Fog eats the right glass. The sweep is the job.",
+    "scene": "Fog eats the right glass on a mill-and-fill at midday. Cones pinch the right lane shut. You need left. The Ledger has rooms a Beetle never had: a whole van-length of nothing in the west-coast, and a convex that lies if you stare at it once. The thermos is still empty. Your eyes want the hole, not the sweep.",
+    "decision": "You need the left lane. What do you look at, and in what order?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Glance the left glass once and go — you already know the right is cones",
+        "correct": false,
+        "result": "You take the left on one look. A motorcycle you never owned is in the room the convex would have shown. He stands on it. You stand on it. The cones get a new story.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Watch the hole until it is yours, then check the glass as you commit",
+        "correct": false,
+        "result": "The hole closes while your eyes are in it. You drift. A cone kisses the skirting. The sweep you skipped was the only thing that would have told you the hole was a rumor.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 2,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "c",
+        "text": "Left glass, right glass, convex, over the shoulder, then the hole",
+        "correct": true,
+        "result": "You run the rooms. The convex has a motorcycle in it that the flat glass missed. You wait one more gap. When you take it, he is already past. The cones stay cones.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 3
+        }
+      },
+      {
+        "id": "d",
+        "text": "Trust the convex alone — it sees more than the flats",
+        "correct": false,
+        "result": "The convex shrinks a pickup into a toy. You take the hole on a toy. He is a wall. You put the Ledger's shoulder in his.",
+        "state_delta": {
+          "noise": 3,
+          "damage": 1,
+          "time_cost": 7
+        }
+      }
+    ],
+    "debrief": "The Ledger has rooms you cannot see unless you sweep them. Glass, convex, shoulder, then the hole. One look is a guess. Named in Skill nine.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "5.5 Focus",
+      "teaching_target": "Mirror sweep plus over-the-shoulder before a lane change; convex glass lies if it is the only look."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "drift",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_MIRROR_REAR",
+      "camera_is_the_lesson": false,
+      "subject": "interior rearview showing the right-rear quarter and cone line, fog in the glass",
+      "foreground": "weathered rearview housing and a strip of bar cage",
+      "midground": "fogged reflection of stacked headlamps in the lane you still occupy, cone line along the right edge of the glass",
+      "background": "defocused windshield, midday fog, mill-and-fill amber",
+      "read": "stacked lamps behind are only visible as a reflection; the road ahead is not the subject",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane pinched by cones",
+        "ego_nose_in_frame": "not in the mirror; travel is away, reflected traffic is behind",
+        "oncoming_position": "none in the mirror glass",
+        "hazard_position": "behind"
+      }
+    },
+    "variation": {
+      "location_type": "work_zone",
+      "weather": "fog",
+      "time_of_day": "midday",
+      "tone": "tense",
+      "failure_mode": "fatigue"
+    }
+  },
+  {
+    "card_id": "III-005",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "hazard",
+    "title": "The Right-Side Room",
+    "hook": "A white panel sits in the convex. You are already signaling.",
+    "scene": "Clear cold afternoon on West Valley. You signaled left a breath ago. In the right convex, a white panel van is parked in the room the Ledger cannot see from the seat — close, same heading, no lamps. If you drift right to make the left feel bigger, you write him into the skirting. The blinker is already talking.",
+    "decision": "The convex has a van in the right-side room and you are mid-change. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Cancel, hold the lane, let him show or fall back, then take a clean hole",
+        "correct": true,
+        "result": "You kill the blinker and hold. He appears in the flat glass a second later, then drops. The next hole is empty. You take it without writing him into the steel.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Finish the left — he is on the right, so the left is yours",
+        "correct": false,
+        "result": "You commit left. The van was using you as a windbreak and comes with you. Steel on steel. He never had lamps. You never had the room.",
+        "state_delta": {
+          "noise": 4,
+          "damage": 1,
+          "yaw": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Drift right first to square up, then take the left",
+        "correct": false,
+        "result": "You drift into the room to get a better angle. The convex was already telling you the room was occupied. The panel takes the skirting. That was the timeout.",
+        "state_delta": {
+          "noise": 3,
+          "damage": 1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Tap the horn so he knows to get out of the convex",
+        "correct": false,
+        "result": "The horn on an arterial. He flinches into you. You both stop in a live lane. Everything behind has to lift.",
+        "state_delta": {
+          "noise": 5,
+          "time_cost": 6
+        }
+      }
+    ],
+    "debrief": "If you cannot see him in the glass, assume he is in the room. Cancel, hold, then take a hole you have swept. The convex is a check, not a suggestion.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "5.2 Space",
+      "teaching_target": "Recheck the blind zone during a lane change; do not drift into a vehicle the convex already showed."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": true,
+    "timeout_option_id": "c",
+    "timeout_ms": 8000,
+    "image_brief": {
+      "camera": "POV_MIRROR_DOOR",
+      "camera_is_the_lesson": true,
+      "subject": "white panel van filling the right convex glass, same heading, no lamps, close",
+      "foreground": "round west-coast mirror housing and a strip of gray primer flank",
+      "midground": "the van in the glass, occupying the right-side room beside the Ledger",
+      "background": "clear cold afternoon, West Valley arterial, long shadows",
+      "read": "the van is already in the right-side room the seat cannot see",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "left travel lane of two northbound lanes, mid-change",
+        "ego_nose_in_frame": "not in this glass; the reflection is the right flank and the van beside",
+        "oncoming_position": "none in this glass",
+        "hazard_position": "beside"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "clear_cold",
+      "time_of_day": "afternoon",
+      "tone": "urgent",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "III-006",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "convoy",
+    "title": "A Hundred Feet of Amber",
+    "hook": "Amber letters crawl. The column has not seen you yet.",
+    "scene": "Wind at dusk on 167, a three-vehicle stack you did not ask for. Your destination sign is dark. You need the left in a hundred feet. Radios are trash. The Ledger talks with amber. If you wink the stalk at the last second, the box behind you will eat your rear doors.",
+    "decision": "You need the left in a hundred feet. How do you tell the column?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Move first, then signal — they will see the bus and understand",
+        "correct": false,
+        "result": "You start the change. The box behind had no sentence. He stands on it. You stand on it. The sign stays dark. You spent his brakes to keep your schedule.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 1,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "Flash the highs twice — faster than a blinker and they cannot miss it",
+        "correct": false,
+        "result": "The flash hits his glass and comes back. He thinks you are warning him of something ahead. He slows in your hole. You still have not said left.",
+        "state_delta": {
+          "light": 3,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "c",
+        "text": "Leave the sign dark and use the stalk at the last skip-dash",
+        "correct": false,
+        "result": "The stalk talks for ten feet. He is already in your door. Late is the same as silent on a bus this long.",
+        "state_delta": {
+          "noise": 3,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Sign left, stalk on, hold a hundred feet, then take a swept hole",
+        "correct": true,
+        "result": "Amber crawls LEFT. The stalk agrees. You hold the lane until the box lifts. The hole you take is one he already gave you. That is a sentence.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Signal a hundred feet before you move. The destination sign is the same sentence for a column that cannot hear you. Late amber is a surprise, not a signal.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "2.5 Vehicle Maintenance (Turn signals)",
+      "teaching_target": "Signal at least 100 feet before a lane change; give the column time to answer."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_CHASE",
+      "subject": "the Ledger's rear, amber destination sign lit, left stalk blinking, a box truck tight behind",
+      "foreground": "following cab A-pillar and a strip of windshield",
+      "midground": "the Ledger's rear doors and oversize west-coast arms, amber sign facing the camera",
+      "background": "dusk, wind, 167 concrete, stacked lamps",
+      "read": "the sign and the left stalk are already on while the bus is still in its lane",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of a multi-lane highway",
+        "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
+        "oncoming_position": "none in this heading",
+        "hazard_position": "none"
+      }
+    },
+    "variation": {
+      "location_type": "highway",
+      "weather": "wind",
+      "time_of_day": "dusk",
+      "tone": "wry",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "III-007",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "If You Cannot Count It",
+    "hook": "The hole looks like a hole. Count it anyway.",
+    "scene": "Heavy rain at night on Meeker. You need the left. A gap opens between a pickup and a dark SUV. It looks like a Ledger-shaped hole. Your foot agrees. The ride-along is still in your hands: if you cannot count it, it is not a hole. The thermos does not argue. The schedule does.",
+    "decision": "A gap just opened in the left. Do you take it?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hold until you can count a full Ledger plus a breath, then take it",
+        "correct": true,
+        "result": "You wait. The SUV closes what looked like a hole. The next gap is longer. You count it, take it, and nobody has to lift. Late on the log. Alive in the lane.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Take it now — rain makes people generous and the pickup already lifted",
+        "correct": false,
+        "result": "You put the nose in. The SUV did not lift. You make him. Horn, spray, the Ledger's shoulder in his. That was the late merge you already watched.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 9
+        }
+      },
+      {
+        "id": "c",
+        "text": "Nose in and force the zipper — they will make room for a bus",
+        "correct": false,
+        "result": "You write your length into a gap that was a car. He stands on it. You stand on it. Two lanes become one argument.",
+        "state_delta": {
+          "noise": 5,
+          "yaw": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "d",
+        "text": "Match the pickup's speed in the right and wait for him to wave you in",
+        "correct": false,
+        "result": "He never waves. You sit beside him in the rain until the light. You did not count a hole. You waited for permission the arterial does not give.",
+        "state_delta": {
+          "time_cost": 10
+        }
+      }
+    ],
+    "debrief": "Merge only into a gap you can count — your length, plus room so nobody has to swerve or stand on it. A hole you cannot count is a wish.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "5.2 Space",
+      "teaching_target": "Accept only a merge gap large enough that other drivers need not swerve, slow, or stop."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "a short dark gap in the left lane between a pickup tail and an SUV nose, rain in the cage",
+      "foreground": "wheel rim and wiper-slot cage, rain on the glass",
+      "midground": "the gap, already shrinking, skip-dashed white at the left edge",
+      "background": "Meeker at night, heavy rain, sodium lamps",
+      "read": "the open space in the left is shorter than the bus you are sitting in",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of two westbound lanes",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "heavy_rain",
+      "time_of_day": "night",
+      "tone": "grim",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "III-008",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "rule",
+    "title": "Broken White, Solid White",
+    "hook": "Broken white on the left. Solid white on the right.",
+    "scene": "Snow at deep night on 84th. Two whites. The left skip-dash is broken — a legal change if the hole is real. The right is a solid white at the edge of a diamond lane you have not earned. The Ledger wants out of the stack. The paint is the sentence, not the want.",
+    "decision": "You want out of this stack. Which paint do you cross?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Cross the solid white into the diamond — it is empty and faster",
+        "correct": false,
+        "result": "You take the diamond. The sign said two. You are one and a bus. A trooper remnant in a dark cap sits in the next ramp. You just wrote a restricted lane onto the log.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Straddle the broken white until someone makes a hole",
+        "correct": false,
+        "result": "You occupy the dash. Both lanes lose you. The stack behind has to guess which room you want. Nobody guesses right.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "c",
+        "text": "Wait for a hole and cross only the broken white. Leave the solid alone",
+        "correct": true,
+        "result": "You hold. A hole opens on the broken side. You take it, cancel, and leave the diamond to the people who paid for it. The paint stayed a sentence.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "d",
+        "text": "Use the solid as a shoulder to let the stack pass, then come back",
+        "correct": false,
+        "result": "The solid was not a shoulder. You put a bus on the rumble. Snow and a drain. The stack passes you as a wreck.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 3,
+          "damage": 1,
+          "time_cost": 8
+        }
+      }
+    ],
+    "debrief": "Broken white between same-direction lanes may be crossed to change lanes. Solid white marks an edge or a restricted lane — do not treat it as a passing lane or a shoulder.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "4.16 Road markings",
+      "teaching_target": "Cross broken white to change lanes; do not cross solid white into a restricted or edge lane."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_OBJECT",
+      "subject": "wet skip-dashed white on the left of frame, solid white and a painted diamond on the right",
+      "foreground": "falling snow in the lamp, a strip of gray primer at the bottom edge",
+      "midground": "the two paints meeting at the Ledger's left front corner, no readable words",
+      "background": "deep night, 84th, sodium, empty diamond lane",
+      "read": "broken white is the legal change; solid white fences a diamond you have not earned",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "center travel lane of three northbound lanes",
+        "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame along the paint",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "snow",
+      "time_of_day": "deep_night",
+      "tone": "procedural",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "III-009",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "hazard",
+    "title": "Hollis at Arterial Speed",
+    "hook": "Hollis fills the glass. Your front gap is the fix.",
+    "scene": "Ice on a Kent morning, 256th doing arterial speed. Hollis is in the lifted truck again, filling the interior glass, close enough that his plow is a suggestion. If you brake for the light you cannot see yet, he writes you into the doghouse. The six-second habit from the Grid still works. You just have to spend it ahead, not behind.",
+    "decision": "Hollis is on your bumper at speed. What do you change?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Brake-check him once so he finds a legal following distance",
+        "correct": false,
+        "result": "You tap. He does not have ice tires. He has a lift and a wish. His plow kisses your rear doors. The arterial hears it.",
+        "state_delta": {
+          "noise": 5,
+          "damage": 1,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "Open your own front gap and hold speed so you can roll instead of stand on it",
+        "correct": true,
+        "result": "You lift a breath off the truck ahead. The next light goes yellow. You roll it out instead of planting. Hollis has to lift with you or eat you. He lifts. You never touched him.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "c",
+        "text": "Move left now and let him have this lane",
+        "correct": false,
+        "result": "You take a hole you did not sweep because he is loud. A sedan is in the left room. You make three problems out of one bumper.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Match him and close the front — if you are a box he cannot hit you as hard",
+        "correct": false,
+        "result": "You close the front. The light you could not see is red. You and Hollis and the truck ahead become one piece of ice.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 3,
+          "time_cost": 9
+        }
+      }
+    ],
+    "debrief": "When someone tailgates, increase YOUR following distance so you can avoid a panic stop. You cannot fix his bumper. You can refuse to be the middle of a chain.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "5.2 Space",
+      "teaching_target": "If tailgated, increase the gap ahead so you can brake gradually; do not brake-check."
+    },
+    "cast": [
+      "deac",
+      "hollis"
+    ],
+    "antagonist": "splitter",
+    "callback_of": null,
+    "schedules_callback": true,
+    "timeout_option_id": "d",
+    "timeout_ms": 10000,
+    "image_brief": {
+      "camera": "POV_MIRROR_REAR",
+      "subject": "lifted truck grille filling the interior rearview, too close, ice film on the glass",
+      "foreground": "weathered rearview housing",
+      "midground": "Hollis's plow and lamps, no legal gap, same heading",
+      "background": "defocused windshield, Kent morning, ice",
+      "read": "he is closer than a stop at this speed; the road ahead is not the subject",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of two eastbound lanes",
+        "ego_nose_in_frame": "not in the mirror; reflected traffic is behind",
+        "oncoming_position": "none in the glass",
+        "hazard_position": "behind"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "ice",
+      "time_of_day": "morning",
+      "tone": "tense",
+      "failure_mode": "speed"
+    }
+  },
+  {
+    "card_id": "III-010",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "ledger",
+    "title": "The Panel Again",
+    "hook": "Same white panel. Same room. He remembered you.",
+    "scene": "Clear cold afternoon on West Valley, same paint, same sun angle. The white panel van is in the right-side room again, closer, lamps still off. Last time you drifted into him. This time he is already hugging the Ledger like a grudge. The blinker wants left. The convex is honest. He is not a surprise anymore. He is a debt.",
+    "decision": "The van is in the right-side room and you still need left. What do you do with the debt?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hold, let him declare, and take a hole you have swept twice",
+        "correct": true,
+        "result": "You hold. He finally shows a lamp and drops back. The hole you take is empty. He does not get a second kiss of steel. That is the apology.",
+        "state_delta": {
+          "noise": -2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Finish the left fast so he cannot stay in your room",
+        "correct": false,
+        "result": "You snatch the left. He comes with you again. Same steel, same afternoon. He was waiting for the same move.",
+        "state_delta": {
+          "noise": 4,
+          "damage": 1,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Drift right and pin him to the curb so he cannot follow",
+        "correct": false,
+        "result": "You use the bus as a wall. He has nowhere. The curb takes his wheel. You collected the debt with his quarter panel.",
+        "state_delta": {
+          "noise": 5,
+          "damage": 1,
+          "time_cost": 9
+        }
+      },
+      {
+        "id": "d",
+        "text": "Stop in the lane and wait until he goes around",
+        "correct": false,
+        "result": "You plant a bus on West Valley. He goes around into the left you wanted. Everyone behind you gets a new problem.",
+        "state_delta": {
+          "noise": 3,
+          "time_cost": 10
+        }
+      }
+    ],
+    "debrief": "A miss in the right-side room comes back on the same street. Sweep, hold, then move. He does not owe you a hole because you already hit him once.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "5.2 Space",
+      "teaching_target": "Revisit the blind-zone lane change: cancel and hold until the adjacent room is empty."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": "III-005",
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_ROADSIDE",
+      "subject": "white panel van tight on the Ledger's right flank, same heading, lamps off, afternoon sun",
+      "foreground": "cold curb and a strip of skip-dashed white",
+      "midground": "the Ledger and the van sharing one room, west-coast arm between them",
+      "background": "West Valley, clear cold, long shadows, same strip as before",
+      "read": "the van is already in the right-side room; this is the same afternoon, not a new one",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "left_to_right",
+        "ego_lane_side": "left travel lane of two northbound lanes",
+        "ego_nose_in_frame": "the van nose points toward the right of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "beside"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "clear_cold",
+      "time_of_day": "afternoon",
+      "tone": "grim",
+      "failure_mode": "inexperience",
+      "forced": "location+weather+time match III-005 callback street"
+    }
+  },
+  {
+    "card_id": "III-011",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "Old Ninety's Glass",
+    "hook": "Old Ninety's trailer. If you cannot see his mirrors, he cannot.",
+    "scene": "Overcast midday on 167. A rogue semi with no door marks and a dirty number that used to be ninety fills the rear glass, then the left. Old Ninety. You are beside a trailer that has rooms a Ledger understands. If you cannot see his west-coasts, you are nowhere. The schedule wants you past him. Nowhere wants you first.",
+    "decision": "You are coming up on Old Ninety's left rear quarter. Where do you sit?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hold beside the trailer — his length is a windbreak and the left is empty",
+        "correct": false,
+        "result": "You cruise the no-zone. He starts a right that needs your lane. You are the car in the statistic. He never had you in the glass.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "Tuck under his tail — if you cannot see him he cannot hit you",
+        "correct": false,
+        "result": "You sit in the hole behind a loaded trailer. He cannot see you and he cannot stop for you. The next brake is yours.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "c",
+        "text": "Pass on the shoulder — the rumble is safer than his left",
+        "correct": false,
+        "result": "The shoulder is a drain and a sign post. You put a bus in the junk. He never knew you tried.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 3,
+          "damage": 1,
+          "time_cost": 9
+        }
+      },
+      {
+        "id": "d",
+        "text": "Drop back until both his mirrors show you, or commit the pass and clear",
+        "correct": true,
+        "result": "You fall back until two dirty west-coasts hold a Ledger. Then you pass once, all the way, and you do not linger. He keeps his rooms. You keep your steel.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "If you cannot see a truck's mirrors, the driver cannot see you. Do not live beside the trailer. Be in his glass, or be gone.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "4.4 Sharing with large vehicles",
+      "teaching_target": "Stay out of a truck's blind zones; if you cannot see the driver's mirrors, you are invisible."
+    },
+    "cast": [
+      "deac",
+      "old_ninety"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_MIRROR_REAR",
+      "camera_is_the_lesson": true,
+      "subject": "dirty west-coast mirrors on a rogue semi, no Ledger reflected in them, trailer filling the glass",
+      "foreground": "Ledger rearview housing",
+      "midground": "Old Ninety's left-side glass empty of you, trailer ribs, no door marks",
+      "background": "defocused 167, overcast midday",
+      "read": "his mirrors do not have you in them; you are in a room he cannot see",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "left travel lane of two northbound highway lanes",
+        "ego_nose_in_frame": "not in the mirror; the reflection is the truck beside and behind",
+        "oncoming_position": "none in the glass",
+        "hazard_position": "behind"
+      }
+    },
+    "variation": {
+      "location_type": "highway",
+      "weather": "overcast",
+      "time_of_day": "midday",
+      "tone": "tense",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "III-012",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "rule",
+    "title": "Do Not Live Beside",
+    "hook": "The no-zones are drawn on the asphalt. Do not sit in them.",
+    "scene": "Rain at dusk, still 167, the same trailer length painted in your head. Passing a truck is a trip, not a lane. If you linger at the drive axle you are in a room he uses to turn. The Ledger knows this from the other side. Tonight you are the car.",
+    "decision": "You have started a pass on a trailer. When are you done?",
+    "options": [
+      {
+        "id": "a",
+        "text": "When your nose is past his — that is enough to claim the lane",
+        "correct": false,
+        "result": "You recover early. Your rear doors are still at his drive axle. He starts the right he signaled a mile ago. You are the lingering car.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "b",
+        "text": "When you see his whole front in your glass and the bus is clear, then recover",
+        "correct": true,
+        "result": "You stay in the pass until the trailer is a trailer in the glass, not a wall at your shoulder. You recover once. He keeps his turn. You keep your doors.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "c",
+        "text": "Match his speed beside the cab so he sees you and can wave you past",
+        "correct": false,
+        "result": "You become a passenger on his left. He cannot wave a bus through a no-zone. He needs that space to live.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "d",
+        "text": "Cut in as soon as you see pavement in front of him — leave him a car length",
+        "correct": false,
+        "result": "You give a loaded trailer a car length at highway speed. He cannot stop. You just borrowed his stopping distance.",
+        "state_delta": {
+          "noise": 4,
+          "time_cost": 6
+        }
+      }
+    ],
+    "debrief": "Do not linger beside a truck. Pass, then recover only when the whole front of his vehicle is in your mirror and you have left him stopping room.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "4.4 Sharing with large vehicles",
+      "teaching_target": "Never linger beside a large vehicle; complete the pass and leave stopping room before merging back."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_DIAGRAM",
+      "subject": "Ledger alongside a trailer at the drive axle, skip-dashed white between, no-zone implied by position",
+      "foreground": "wet highway asphalt, skip-dashed white",
+      "midground": "the Ledger even with the trailer's drive axle, van nose not yet past the cab",
+      "background": "dusk rain, 167, guardrail",
+      "read": "the bus is still beside the trailer, not clear of it",
+      "continuity": [
+        "diagram_style",
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "left travel lane of two northbound highway lanes",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+        "oncoming_position": "none on this divided highway",
+        "hazard_position": "beside"
+      }
+    },
+    "variation": {
+      "location_type": "highway",
+      "weather": "rain",
+      "time_of_day": "dusk",
+      "tone": "procedural",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "III-013",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "dossier",
+    "title": "Twenty-Six, None Preventable",
+    "hook": "Twenty-six years. The schedule is louder now.",
+    "scene": "Fog on a downtown ramp at night, the Ledger idling in a legal pocket. Glasses on a cord. Clipboard on the thigh. Twenty-six years and he never wrote a preventable. The schedule used to be a promise to the people in the back. Now it is a number that wants the late merge you already refused. The thermos is still empty. That is not a boast. That is the cost of the number.",
+    "debrief": "Deac's record is a habit, not a trophy. The schedule still matters. It does not get to spend someone else's margin. Two clean stops reset him. This idle is one.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "n/a",
+      "teaching_target": "Deac beat: twenty-six years without a preventable; the schedule is not permission to take a late hole."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_PORTRAIT",
+      "subject": "Deac in the high seat, glasses on a cord, amber vest taped at the shoulder, clipboard on the thigh, reddened eyes",
+      "foreground": "dented thermos and the wheel rim",
+      "midground": "his face and the ghost agency patch, no smile",
+      "background": "fog, downtown ramp lamps through the cage, night",
+      "read": "tired, still, the log is on his body — this is the man who will not take a late hole",
+      "continuity": [
+        "deac",
+        "deac_clipboard",
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3"
+    },
+    "variation": {
+      "location_type": "downtown",
+      "weather": "fog",
+      "time_of_day": "night",
+      "tone": "warm",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "III-014",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "Arrow, Then Circle",
+    "hook": "The arrow dies. The circle is still green.",
+    "scene": "Clear cold dawn, high seat, a Kent arterial left-turn pocket. A green arrow has been feeding you. It dies. The circular green stays. Oncoming still has a path. The Ledger's nose is already in the intersection because you trusted the arrow. Permissive is not protected. The yellow line you want is still across a live lane.",
+    "decision": "The arrow is gone and the circle is green. Do you finish the left?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Go now — you were in the intersection on the arrow, so you own it",
+        "correct": false,
+        "result": "You take the permissive as if it were still protected. Oncoming is a pair of lamps you did not yield to. You make them lift. The pocket was not a promise.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "Sit in the pocket until another arrow — circular green is a trap",
+        "correct": false,
+        "result": "You become a bus in a pocket through two cycles. The stack behind you starts using the through lanes. You taught the light that Deac does not know the difference.",
+        "state_delta": {
+          "time_cost": 12
+        }
+      },
+      {
+        "id": "c",
+        "text": "Yield to oncoming, then take the closest lane right of their yellow when it is clear",
+        "correct": true,
+        "result": "You wait. Oncoming clears. You steer to the first lane right of their yellow, not the far one. The arrow was a gift. The circle is a yield.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "d",
+        "text": "Swing wide into the far lane so you are out of oncoming's way faster",
+        "correct": false,
+        "result": "You exit into the far lane. A through car already owns it. You traded a yield for a sideswipe.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 7
+        }
+      }
+    ],
+    "debrief": "A green arrow is protected. A circular green is permissive — yield to oncoming, then finish in the closest lane to the right of the yellow. The arrow dying is the lesson, not a dare.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part two",
+      "dol_section": "4.11 Traffic light signals",
+      "teaching_target": "Protected left on a green arrow; permissive circular green requires a yield, then the nearest lane right of the yellow."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": true,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "dead left arrow, live circular green, oncoming lamps still in the hole you want",
+      "foreground": "high-seat wheel and cage, left stalk still on",
+      "midground": "the intersection and the yellow you would steer to, oncoming not yet clear",
+      "background": "clear cold dawn, Kent arterial, empty sidewalks",
+      "read": "the arrow is dark; the circle is green; oncoming still has a path",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "left-turn pocket on the left side of the approach",
+        "ego_nose_in_frame": "the van nose points into the intersection toward the top of the frame",
+        "oncoming_position": "opposite approach, lamps facing the camera through the cage",
+        "hazard_position": "oncoming"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "clear_cold",
+      "time_of_day": "dawn",
+      "tone": "procedural",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "III-015",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "The Pocket Is Not a Lane",
+    "hook": "The pocket is for turns. The stack wants a pass.",
+    "scene": "Wind on a Kent morning. A two-way left-turn lane down the middle, arrows both ways, the same idea as the Grid's dead-van pocket except this one is legal if you are actually turning. A primer sedan is using it as a travel lane to beat the light. Your left is coming up in two blocks. The pocket will take you. It will not take you for a mile.",
+    "decision": "The two-way pocket is empty for a long stretch. How do you use it?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Enter only when you are ready to turn, and do not travel farther than you need",
+        "correct": true,
+        "result": "You wait until the turn is real. You take the pocket for a short bite, yield to the other direction, and finish. The sedan is still touring it like a lane when oncoming wants it.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "b",
+        "text": "Use it as a passing lane — that is what the dashes are for",
+        "correct": false,
+        "result": "You pass in a lane that belongs to both directions. Oncoming enters it to turn. Two noses, one paint. The dashes were not a pass.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Ride it for the next mile so you are already in position at every left",
+        "correct": false,
+        "result": "You travel the center. Three driveways and a car coming the other way all have a claim. Three hundred feet was the limit. You spent it like a highway.",
+        "state_delta": {
+          "noise": 3,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Straddle the yellow and the pocket so nobody can surprise you",
+        "correct": false,
+        "result": "You occupy two rooms. Through traffic has to guess. The pocket is no longer a pocket. It is a problem with your name on it.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 1,
+          "time_cost": 6
+        }
+      }
+    ],
+    "debrief": "A two-way left-turn lane is for turning, not traveling or passing. Enter it to turn, watch the other direction, and do not tour it.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part two",
+      "dol_section": "4.16 Road markings",
+      "teaching_target": "Use a two-way left-turn lane only to turn; do not travel or pass in it."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_DIAGRAM",
+      "subject": "shared center lane with left-turn arrows both ways, Ledger still in the through lane, primer sedan already touring the pocket",
+      "foreground": "double yellow and skip-dash fencing the center pocket",
+      "midground": "the empty pocket stretching a block, arrows pointing both directions",
+      "background": "wind, Kent morning, commercial driveways",
+      "read": "the center pocket is a turn lane with arrows both ways, not a travel lane",
+      "continuity": [
+        "diagram_style",
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right through lane of a five-lane undivided arterial",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+        "oncoming_position": "far side of the center pocket, opposite direction",
+        "hazard_position": "ahead_same_direction"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "wind",
+      "time_of_day": "morning",
+      "tone": "wry",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "III-016",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "hazard",
+    "title": "The Hood Line Walks",
+    "hook": "The hood line walks toward the rumble. Your eyes were gone.",
+    "scene": "Overcast afternoon, a long straight on 167, nothing to do with your hands but hold. The thermos is empty. The hood line has walked an inch toward the rumble and you did not tell it to. That is the Drift with a lowercase d until you name it. A clean stop would reset it. There is no legal shoulder that is not a story. The timeout is the walk.",
+    "decision": "The hood line is walking and you felt the skip. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Shake it off and hold speed — the straight will end and you will be fine",
+        "correct": false,
+        "result": "You argue with a nervous system. The walk becomes a tire on the rumble. The stack behind you gets a new shape of bus.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 3,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "Crack a window and talk — conversation is as good as a stop",
+        "correct": false,
+        "result": "You talk to an empty jump seat. The walk continues. Conversation is not sleep. The rumble finds you anyway.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 2,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "c",
+        "text": "Speed up so the air keeps you honest",
+        "correct": false,
+        "result": "You add speed to a microsleep. The Drift does not care about your schedule. It cares that you are still moving.",
+        "state_delta": {
+          "noise": 2,
+          "yaw": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "d",
+        "text": "Signal, find a legal pad, key off, twenty minutes. The log can wait.",
+        "correct": true,
+        "result": "You take the next ramp pad, hazards, key off. Twenty minutes that are not driving. The hood line is a hood line when you start again. Two clean stops reset him. This is one.",
+        "state_delta": {
+          "noise": -2,
+          "time_cost": 8
+        }
+      }
+    ],
+    "debrief": "Lane drift, heavy eyes, missing a stretch of road — pull off and rest. Fatigue is impairment. The schedule does not get a vote.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "3.1 Impaired driving (Fatigue and drowsy driving)",
+      "teaching_target": "Treat lane drift and a missing stretch of road as fatigue; stop and rest rather than push through."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "drift",
+    "callback_of": null,
+    "schedules_callback": true,
+    "timeout_option_id": "a",
+    "timeout_ms": 7000,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "hood line an inch toward the right rumble, skip-dash walking under the cage, empty thermos",
+      "foreground": "wheel rim and a hand that has gone slack on it",
+      "midground": "the rumble strip closer than it should be, no vehicle forcing the drift",
+      "background": "overcast 167 afternoon, long straight, no exit yet",
+      "read": "the bus has walked toward the rumble with no one in the way",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of a two-lane-each-way highway, drifted toward the rumble",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame, slightly right of the lane center",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
+    },
+    "variation": {
+      "location_type": "highway",
+      "weather": "overcast",
+      "time_of_day": "afternoon",
+      "tone": "grim",
+      "failure_mode": "fatigue"
+    }
+  },
+  {
+    "card_id": "III-017",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "wrench",
+    "title": "The Convex Lies Down",
+    "hook": "The convex hangs. The right-side room is gone.",
+    "scene": "Heavy rain at dusk in a mill-and-fill. A cone you did not own kissed the right west-coast arm. The convex now looks at the sky. Mya is a loaf on the dash, useless for this. The Ledger just lost a room. You can keep rolling on a guess or you can make the glass tell the truth again.",
+    "decision": "The right convex is pointed at the weather. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Keep rolling — you still have the flat glass and the shoulder check",
+        "correct": false,
+        "result": "You guess the right-side room. A work van is in it. You find him with the skirting. The flat glass never had that angle.",
+        "state_delta": {
+          "noise": 4,
+          "damage": 1,
+          "time_cost": 9
+        }
+      },
+      {
+        "id": "b",
+        "text": "Cover the dead glass with your hand so it stops lying",
+        "correct": false,
+        "result": "You drive one-handed in a work zone. The lie is gone. So is a hand. The next cone is closer than your remaining glass.",
+        "state_delta": {
+          "yaw": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "c",
+        "text": "Hazards, legal pad, reset the arm until the convex sees the room again",
+        "correct": true,
+        "result": "You put the bus on a pad and put the glass back on the lane. Two minutes in the rain. The room returns. You do not buy a sideswipe with a schedule.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Switch to the left rooms only and refuse all right-side changes",
+        "correct": false,
+        "result": "The next merge is a right. You refuse it and become a rolling roadblock in a closed pattern. The work crew has to wave you through a lie you would not fix.",
+        "state_delta": {
+          "time_cost": 12
+        }
+      }
+    ],
+    "debrief": "A mirror that does not see the lane is a maintenance problem, not a personality. Stop and set it. Guessing the right-side room is how you collect a van.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "2.5 Vehicle Maintenance",
+      "teaching_target": "A knocked convex must be reset before you keep changing lanes; do not drive on a blind right."
+    },
+    "cast": [
+      "deac",
+      "mya"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_MIRROR_DOOR",
+      "subject": "round convex pointed at rain sky instead of the right-side lane, arm bent from a cone",
+      "foreground": "west-coast arm and a strip of wet primer",
+      "midground": "the useless sky in the glass, cone line along the asphalt you cannot see",
+      "background": "heavy rain, dusk, mill-and-fill amber",
+      "read": "the convex is looking at weather, not at the room beside the bus",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "left travel lane of a two-lane work pattern",
+        "ego_nose_in_frame": "not in this glass; the arm and sky fill the frame",
+        "oncoming_position": "none in this glass",
+        "hazard_position": "beside"
+      }
+    },
+    "variation": {
+      "location_type": "work_zone",
+      "weather": "heavy_rain",
+      "time_of_day": "dusk",
+      "tone": "urgent",
+      "failure_mode": "vehicle_failure"
+    }
+  },
+  {
+    "card_id": "III-018",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "The Whole Front in Glass",
+    "hook": "You are alongside. The pass is not done.",
+    "scene": "Rain at night on Central, a box doing thirty in the right. You are in the left, mid-pass, the Ledger's nose past his cab. Recovering now would put your rear doors in his windshield. Skill nine said: see the whole front in the glass, then come back. The arterial wants you humble about how long a bus is.",
+    "decision": "Your nose is past him. When do you come back?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Now — you are ahead, and the right is yours again",
+        "correct": false,
+        "result": "You recover on a guess. His windshield fills with your rear doors. He stands on it. You taught him that a pass is a suggestion.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "When his whole front is in your glass and the bus is clear, then signal and recover",
+        "correct": true,
+        "result": "You wait until the box is a box in the mirror, not a wall at your hip. You signal, come back, cancel. He never had to lift. That is a finished pass.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "c",
+        "text": "Stay in the left after you pass — through traffic can live here",
+        "correct": false,
+        "result": "You become the new slow in the passing lane. Everyone who needed the left now needs you. Keep-right did not expire because you passed once.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Cut in tight to teach him thirty is not a speed",
+        "correct": false,
+        "result": "You give him a breath of asphalt at night in the rain. A box cannot stop on a breath. You spent his margin to make a point.",
+        "state_delta": {
+          "noise": 5,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Finish the pass. Recover only when the passed vehicle's whole front is in your mirror and you are clear. Then get out of the left.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part two",
+      "dol_section": "5.2 Space",
+      "teaching_target": "Complete a multi-lane pass only when the full front of the passed vehicle is visible in the mirror."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_MIRROR_REAR",
+      "subject": "box truck cab and windshield still beside the Ledger in the glass, not yet a full front",
+      "foreground": "rearview housing, rain on the glass",
+      "midground": "the box's face incomplete in the reflection — you are not clear",
+      "background": "defocused Central at night, rain",
+      "read": "the passed vehicle's whole front is not yet in the glass",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "left travel lane of two southbound lanes",
+        "ego_nose_in_frame": "not in the mirror; reflected traffic is behind and beside",
+        "oncoming_position": "none in the glass",
+        "hazard_position": "behind"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "rain",
+      "time_of_day": "night",
+      "tone": "tense",
+      "failure_mode": "speed"
+    }
+  },
+  {
+    "card_id": "III-019",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "convoy",
+    "title": "The Sign Talks First",
+    "hook": "The sign lights SLOW. Someone is in your doors.",
+    "scene": "Snow at deep night, a volunteer box on your bumper who joined without asking. You need to dump speed for a dead pickup in the right. The stalk will talk to him late. The destination sign talks to a column. Radios are still trash. Amber is the language. If you only use the brake lamps, he eats your rear doors and you invent passengers.",
+    "decision": "You need to slow and the volunteer is tight. How do you tell him?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Sign SLOW, left arm down if the lamps are buried, then lift off",
+        "correct": true,
+        "result": "Amber crawls SLOW. Your left arm goes out and down for the man who cannot see a sign through snow. He lifts. You dump speed without writing him into the doors. The pickup stays a pickup.",
+        "state_delta": {
+          "noise": -1,
+          "passenger_stress": -1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "b",
+        "text": "Stand on the brakes — the lamps are the sentence",
+        "correct": false,
+        "result": "The lamps dump. He does not. Your rear doors become his windshield. You just made passengers out of a volunteer and a schedule.",
+        "state_delta": {
+          "noise": 5,
+          "passenger_stress": 3,
+          "damage": 1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "c",
+        "text": "Wave him around on the left before you slow",
+        "correct": false,
+        "result": "You wave a stranger into a snow lane you have not swept. He goes. The dead pickup was not the only object. You spent him.",
+        "state_delta": {
+          "noise": 3,
+          "passenger_stress": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "d",
+        "text": "Leave the sign dark so you do not draw the Quiet, and hope he reads the stalk",
+        "correct": false,
+        "result": "The stalk talks for ten feet of snow. He never had a sentence. Hope is not a signal.",
+        "state_delta": {
+          "noise": 4,
+          "passenger_stress": 2,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Tell the column before you dump speed. The destination sign is the sentence; the left arm down is the backup when snow buries the lamps. Brake lamps alone are a surprise.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "2.5 Vehicle Maintenance (Hand signals)",
+      "teaching_target": "Communicate a slow-down to following traffic with the sign and, if needed, the left-arm-down signal."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "load",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_CHASE",
+      "subject": "Ledger rear, amber destination sign lit, left arm out and down, volunteer box tight behind",
+      "foreground": "following glass and falling snow",
+      "midground": "rear doors, west-coast arms, the sign facing the camera, a torso in the left window with the left arm out and down",
+      "background": "deep night, snow, a dead pickup ahead in the right",
+      "read": "the sign and the left arm are already talking while the brake lamps are still dark",
+      "continuity": [
+        "the_ledger",
+        "hand_signals"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of a two-lane-each-way highway",
+        "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
+        "oncoming_position": "none in this heading",
+        "hazard_position": "ahead_same_direction"
+      }
+    },
+    "variation": {
+      "location_type": "highway",
+      "weather": "snow",
+      "time_of_day": "night",
+      "tone": "warm",
+      "failure_mode": "passengers"
+    }
+  },
+  {
+    "card_id": "III-020",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "ledger",
+    "title": "The Straight Again",
+    "hook": "Same long straight. The hood line is walking again.",
+    "scene": "Overcast afternoon on 167, the same straight you already lost. Last time you shook it off. This time the hood line is already on the rumble and the skip-dash is a smear. The thermos is still empty. A pad is coming up on the right, legal, ugly, enough. The Drift does not give second warnings. It gives the same mile twice.",
+    "decision": "The hood line is on the rumble again. What do you do with the second chance?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hold the wheel harder and finish the straight — you know it now",
+        "correct": false,
+        "result": "Knowing the mile does not put sleep in your eyes. You walk it into the rumble for real. The stack behind you writes a new shape.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 3,
+          "time_cost": 9
+        }
+      },
+      {
+        "id": "b",
+        "text": "Open a window and slap the dash until the line comes back",
+        "correct": false,
+        "result": "You make noise in a tired cab. The line does not come back. Mya would have, if she were here. You are not a cat.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "c",
+        "text": "Take the pad. Hazards. Key off. Twenty minutes you already owed.",
+        "correct": true,
+        "result": "You take the ugly pad. Key off. The log waits. When you start again the hood line is a hood line. That is the only apology the straight accepts.",
+        "state_delta": {
+          "noise": -2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "d",
+        "text": "Hand the wheel to whoever is in the jump — anyone awake is better",
+        "correct": false,
+        "result": "The jump is empty. You reach for a person who is not there and the rumble takes the rest.",
+        "state_delta": {
+          "yaw": 3,
+          "noise": 2,
+          "time_cost": 6
+        }
+      }
+    ],
+    "debrief": "The same straight comes back when you push through. Fatigue is still impairment the second time. Stop. The log will be there.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "3.1 Impaired driving (Fatigue and drowsy driving)",
+      "teaching_target": "A repeated lane-drift on the same stretch means stop and rest; do not tough out a second microsleep."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "drift",
+    "callback_of": "III-016",
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_ROADSIDE",
+      "subject": "Ledger drifted onto the rumble of a long overcast straight, no other vehicle forcing it",
+      "foreground": "rumble strip and cold grass at eye height",
+      "midground": "the Ledger's right duals on the rumble, van nose still pointed up the highway",
+      "background": "167 afternoon, overcast, the same mile",
+      "read": "the bus walked onto the rumble with nothing in the way — again",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "left_to_right",
+        "ego_lane_side": "right travel lane, right duals on the rumble",
+        "ego_nose_in_frame": "the van nose points toward the right of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
+    },
+    "variation": {
+      "location_type": "highway",
+      "weather": "overcast",
+      "time_of_day": "afternoon",
+      "tone": "grim",
+      "failure_mode": "fatigue",
+      "forced": "location+weather+time match III-016 callback stretch"
+    }
+  },
+  {
+    "card_id": "III-021",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "Reyna Off-Route",
+    "hook": "A transit box signals out. She is not on the shelter run.",
+    "scene": "Clear cold morning, downtown edge, a transit box pulling off a stop with its stalk already talking. Reyna is in a different seat today — not Bus 12, a city coach, off the shelter route, still on time. The law is the same: if she has signaled and she is coming back, you yield. The Ledger can eat a bus. The schedule cannot eat Reyna.",
+    "decision": "She has signaled and the coach is coming back onto your lane. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hold speed — she can wait, you are already in the through lane",
+        "correct": false,
+        "result": "You keep the lane she needs. She stands on it or she clips you. She stands. You taught a transit driver that through traffic does not yield.",
+        "state_delta": {
+          "noise": 3,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Pass her on the left before she commits — get it over with",
+        "correct": false,
+        "result": "You go for the left as her nose comes out. She is already in the room. Two boxes, one hole. Downtown hears it.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 2,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Horn once so she knows you see her, then keep your speed",
+        "correct": false,
+        "result": "The horn on a cold downtown edge. She flinches and stops half out. You still did not give her the lane. You just announced the block.",
+        "state_delta": {
+          "noise": 5,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Lift, give her the lane, and take her back once she is through",
+        "correct": true,
+        "result": "You lift. She takes the lane she already asked for. You roll in behind her. Two fingers off the wheel, not a wave. Off-route or not, she still runs on time.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Yield to a transit vehicle in your direction that has signaled and is pulling back on. The stop is her work. The lane is the courtesy the law already named.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "4.3 Sharing with transit buses",
+      "teaching_target": "Yield to a transit bus in your direction that has signaled and is reentering the roadway."
+    },
+    "cast": [
+      "deac",
+      "reyna_solis"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "city coach leaving a stop, left stalk blinking, nose already crossing into the through lane",
+      "foreground": "cage and wheel, high seat",
+      "midground": "the coach's nose and the gap she needs, skip-dash at her flank",
+      "background": "clear cold downtown edge, morning, empty shelter glass",
+      "read": "her stalk is on and the coach is already coming back into your lane",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of a two-lane-each-way downtown arterial",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+        "oncoming_position": "opposite side, distant",
+        "hazard_position": "ahead_same_direction"
+      }
+    },
+    "variation": {
+      "location_type": "downtown",
+      "weather": "clear_cold",
+      "time_of_day": "morning",
+      "tone": "procedural",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "III-022",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "hazard",
+    "title": "Siren First",
+    "hook": "Siren first, then lamps. Something wants the right.",
+    "scene": "Rain at midday, stacked on Central. The siren arrives before the lamps — that is the order when you are in a bus. Officer Dunn is in a dark WSP remnant, lights finding the gaps, same heading, coming up the stack. The law is older than the quarantine: right, stop, wait. The Chorus would love your eyes on a screen right now. The siren is the screen.",
+    "decision": "Emergency vehicle behind, siren live. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Signal, move right, stop, wait until he is past, then reenter in order",
+        "correct": true,
+        "result": "You put the Ledger on the right and plant it. Dunn takes the hole you made. When his lamps are gone you signal and take your place in the stack. Nobody invented a new order.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Hold the left and speed up so he can have the right",
+        "correct": false,
+        "result": "You run from a siren. He needs the right, and you just filled the passing lane. The stack becomes a wall with your name on it.",
+        "state_delta": {
+          "noise": 4,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "c",
+        "text": "Stop in your lane immediately — he can go around",
+        "correct": false,
+        "result": "You plant a bus in a live lane. He has to invent a path. The man behind you does not stop. Three vehicles, one siren, no right.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Check the tablet for which way he is going, then decide",
+        "correct": false,
+        "result": "Your eyes leave the glass. The siren is already beside you. You decide late. That was the timeout, and it was a look.",
+        "state_delta": {
+          "noise": 2,
+          "light": 2,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Siren or lamps: move right, stop, wait until the emergency vehicle is past, then reenter in the order you had. Do not look down to think about it.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "4.9 Sharing with emergency vehicles",
+      "teaching_target": "Pull to the right and stop for an emergency vehicle using lights or siren; reenter in original order."
+    },
+    "cast": [
+      "deac",
+      "officer_dunn"
+    ],
+    "antagonist": "chorus",
+    "callback_of": null,
+    "schedules_callback": false,
+    "timeout_option_id": "d",
+    "timeout_ms": 8000,
+    "image_brief": {
+      "camera": "POV_MIRROR_REAR",
+      "subject": "WSP remnant with lamps finding the gaps, same heading, filling the interior glass",
+      "foreground": "rearview housing, rain on the glass",
+      "midground": "Dunn's cruiser in the stack, no readable plate, lamps live",
+      "background": "defocused Central, midday rain",
+      "read": "the emergency vehicle is behind and already talking; the road ahead is not the subject",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "left travel lane of two southbound lanes, stacked",
+        "ego_nose_in_frame": "not in the mirror; reflected traffic is behind",
+        "oncoming_position": "none in the glass",
+        "hazard_position": "behind"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "rain",
+      "time_of_day": "midday",
+      "tone": "urgent",
+      "failure_mode": "distraction"
+    }
+  },
+  {
+    "card_id": "III-023",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "rule",
+    "title": "The Diamond Is Not Yours",
+    "hook": "A diamond sits on the left. The sign says two.",
+    "scene": "Fog at dusk on 167, a diamond on the pavement and a sign that does not need words if you already know the paint. HOV. Two or more, or a motorcycle, or a bus that earned it. The Ledger is one tired man and a cat. The left looks empty and fast. Solid white fences it. The schedule wants the empty. The paint wants a number you do not have.",
+    "decision": "The diamond lane is empty and fenced with solid white. Do you take it?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Take it — a bus is basically transit and the lane is wasted empty",
+        "correct": false,
+        "result": "You cross the solid. You are not a carpool and you are not the coach that earned it. A remnant in a cap is in the next ramp. The diamond was not a suggestion.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Leave it. Stay in the general lane. Solid white is the fence.",
+        "correct": true,
+        "result": "You stay out. The empty stays empty. The general lane is slower and legal. The schedule takes the minutes. The paint keeps its number.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 3
+        }
+      },
+      {
+        "id": "c",
+        "text": "Take it only to the next ramp, then drop back before anyone cares",
+        "correct": false,
+        "result": "A short theft is still a theft of a restricted lane. You crossed the solid. The remnant in the cap does not grade on duration.",
+        "state_delta": {
+          "noise": 1,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Use it only to pass, then come back before the next ramp",
+        "correct": false,
+        "result": "Carpool lanes are not passing lanes. You still crossed the solid. The empty was not a gift.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 4
+        }
+      }
+    ],
+    "debrief": "HOV paint and a diamond mark a lane you enter only if you meet the posted occupancy. Solid white is the fence. A bus with one driver is still one.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "4.16 Road markings (HOV / Carpool lane)",
+      "teaching_target": "Do not enter an HOV lane unless you meet the occupancy; solid white separates it from general lanes."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_OBJECT",
+      "subject": "painted diamond on wet pavement, solid white fence, no readable occupancy numbers",
+      "foreground": "fog in the lamp, a strip of skip-dash in the general lane",
+      "midground": "the diamond and the solid white, empty restricted lane beyond",
+      "background": "167 dusk, fog, a general-lane stack",
+      "read": "the diamond and the solid white mark a lane the Ledger has not earned",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right-hand general lane beside an HOV lane",
+        "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
+    },
+    "variation": {
+      "location_type": "highway",
+      "weather": "fog",
+      "time_of_day": "dusk",
+      "tone": "procedural",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "III-024",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "Posted Is Not the Number",
+    "hook": "Posted forty-five. Rain. The six seconds got longer.",
+    "scene": "Rain at night on West Valley, posted forty-five, water in the wheel tracks. The Grid taught six seconds on a quiet street. At arterial speed the same seconds are more asphalt. A pickup ahead is doing the number on the sign. Your tires are doing a rumor. The Splitter loves the posted number. The road wants less.",
+    "decision": "The sign says forty-five and the asphalt is a river. What speed do you keep?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hold forty-five — posted is posted and the pickup is the proof",
+        "correct": false,
+        "result": "You match him. The next brake is a wish. The Ledger's duals write a story in the standing water. Posted was the maximum, not the assignment.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 3,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "b",
+        "text": "Drop to twenty and become the new problem",
+        "correct": false,
+        "result": "You become a roadblock in a live lane. The pickup goes around you in the rain. You traded a hydroplane for a sideswipe you invited.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 10
+        }
+      },
+      {
+        "id": "c",
+        "text": "Lift off until the six-second gap is real again, even if that is under posted",
+        "correct": true,
+        "result": "You give the water the seconds. The pickup pulls away. You can still see his tires meet the road. When the rain eases you take the number back. The sign never asked you to float.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "d",
+        "text": "Move left and hold forty-five in the drier tracks",
+        "correct": false,
+        "result": "The left tracks are also a river. You added a lane change on ice-that-is-rain. The number did not get safer because you switched paint.",
+        "state_delta": {
+          "yaw": 2,
+          "noise": 2,
+          "time_cost": 6
+        }
+      }
+    ],
+    "debrief": "Posted is a ceiling, not a demand. On wet asphalt, slow until your following time is real again. Arriving late is better than not arriving.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "5.6 Road and driving conditions (Slippery roads)",
+      "teaching_target": "Reduce speed below posted on wet roads so following time stays usable; posted is a maximum."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "cold_roads",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_ROADSIDE",
+      "subject": "Ledger in standing water, pickup ahead too close, rain at night, no sign face readable",
+      "foreground": "wet curb and a sheet of water in the wheel track",
+      "midground": "the Ledger's duals in the river, the pickup's rear a short gap ahead",
+      "background": "West Valley at night, rain, sodium",
+      "read": "the gap ahead is too short for this water at this speed",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "left_to_right",
+        "ego_lane_side": "right travel lane of two northbound lanes",
+        "ego_nose_in_frame": "the van nose points toward the right of the frame",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "rain",
+      "time_of_day": "night",
+      "tone": "tense",
+      "failure_mode": "weather"
+    }
+  },
+  {
+    "card_id": "III-025",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "dossier",
+    "title": "What He Sees at the Edge",
+    "hook": "The edge of his vision is not empty anymore.",
+    "scene": "Ice, deep night, the Ledger in a legal pocket off Aurora. Deac's eyes are on the cage and also not. At the edge of the glass, a presence that is not a vehicle — T1, a smear that could be fatigue and could be the Quiet learning the arterial. He does not look at it. Looking is how the Chorus gets in. He names it instead, under his breath, so the student in the jump can hear: the Drift. Not a lecture. A thing that already has his lane.",
+    "debrief": "The Drift is fatigue given a face. He manages it with stops and a thermos, not with stares. If you look at the edge, you have already left the road.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "n/a",
+      "teaching_target": "Name the Drift as Deac's fatigue antagonist; do not stare at the presence at the edge of vision."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "drift",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_PORTRAIT",
+      "subject": "Deac in the high seat, eyes on the cage, a smear of presence at the far right edge of the glass, not a face",
+      "foreground": "thermos and clipboard, ice on the wheel",
+      "midground": "his reddened eyes and the taped vest, no smile",
+      "background": "Aurora deep night, ice, the smear staying at the edge",
+      "read": "he will not look at the edge; the edge is already looking at the lane",
+      "continuity": [
+        "deac",
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3"
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "ice",
+      "time_of_day": "deep_night",
+      "tone": "quiet",
+      "failure_mode": "none"
+    }
+  },
+  {
+    "card_id": "III-026",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "Both Lanes Until the Teeth",
+    "hook": "Both lanes still run. The sign says the right will die.",
+    "scene": "Overcast dawn, a mill-and-fill that ate the right in a quarter mile. Both lanes still move. The early-merge instinct wants the left now, to be polite, to be first. The zipper wants both lanes used until the merge paint, then one-for-one. You already took a late hole once on purpose so she could watch the cost. This is the legal late. Different sentence.",
+    "decision": "The right dies ahead. When do you merge left?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Stay in the right until the merge paint, then take turns with the left",
+        "correct": true,
+        "result": "You use the lane until it ends. At the teeth you take one, give one. The stack is shorter than the polite line that started a mile early. The sign meant it.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Move left now so you are not the person who cuts at the end",
+        "correct": false,
+        "result": "You join the polite line. The right stays empty and angry. Someone late uses it and you resent them for doing the zipper. You taught the zone the wrong courtesy.",
+        "state_delta": {
+          "noise": 2,
+          "time_cost": 9
+        }
+      },
+      {
+        "id": "c",
+        "text": "Straddle both until the last cone so nobody can beat you",
+        "correct": false,
+        "result": "You occupy two lanes in a work zone. Nobody zippers. You are the blockage the sign was trying to prevent.",
+        "state_delta": {
+          "noise": 4,
+          "yaw": 1,
+          "time_cost": 8
+        }
+      },
+      {
+        "id": "d",
+        "text": "Stop at the first warning sign and wait for a flagger to assign a lane",
+        "correct": false,
+        "result": "There is no flagger. You plant a bus at a sign. The zipper happens without you, around you, angry.",
+        "state_delta": {
+          "noise": 3,
+          "time_cost": 10
+        }
+      }
+    ],
+    "debrief": "For a lane closure, use both lanes until the merge point, then take turns — the zipper. Early merging out of courtesy makes a longer line and a nastier end.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "5.3 Merging",
+      "teaching_target": "Zipper merge: stay in your lane until the designated merge, then alternate."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_DIAGRAM",
+      "subject": "two same-direction lanes still full, right lane ending at merge paint, Ledger still in the right",
+      "foreground": "wet work-zone asphalt and skip-dash",
+      "midground": "the merge teeth, one vehicle from each lane taking a turn",
+      "background": "overcast dawn, cones, mill-and-fill",
+      "read": "both lanes are still in use up to the merge; the zipper is the pattern at the teeth",
+      "continuity": [
+        "diagram_style",
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of two northbound lanes, approaching a right-lane end",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+        "oncoming_position": "none in this work pattern",
+        "hazard_position": "ahead_same_direction"
+      }
+    },
+    "variation": {
+      "location_type": "work_zone",
+      "weather": "overcast",
+      "time_of_day": "dawn",
+      "tone": "procedural",
+      "failure_mode": "inexperience"
+    }
+  },
+  {
+    "card_id": "III-027",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "hazard",
+    "title": "The Tablet Wakes",
+    "hook": "The tablet wakes mid-change. The Chorus wants a look.",
+    "scene": "Wind on a Kent morning, left stalk already on, hole half-taken. The aftermarket tablet on the doghouse lights up — a familiar voice, a map, a lie. II-009's cousin. Eyes off a Beetle was bad. Eyes off the Ledger mid-change is how you write a sedan into the west-coast. The timeout is the look.",
+    "decision": "The screen lights up in the middle of a lane change. Where do your eyes go?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Glance the screen — one second, then finish the change",
+        "correct": false,
+        "result": "One second is a room. The sedan was in it. You find him with the arm. The Chorus got the look it wanted.",
+        "state_delta": {
+          "noise": 4,
+          "light": 2,
+          "damage": 1,
+          "time_cost": 7
+        }
+      },
+      {
+        "id": "b",
+        "text": "Thumb the screen off while you steer — you can do two things",
+        "correct": false,
+        "result": "You steer with a thumb on glass. The hole moves. The Ledger does not. Two things was the problem.",
+        "state_delta": {
+          "yaw": 2,
+          "light": 1,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "c",
+        "text": "Finish by memory — you already swept, the screen can wait",
+        "correct": false,
+        "result": "Memory is not a sweep. The room changed. You take a hole that closed. The tablet keeps talking to nobody.",
+        "state_delta": {
+          "noise": 3,
+          "yaw": 2,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "d",
+        "text": "Cancel the change, hold the lane, ignore the screen, sweep again, then move",
+        "correct": true,
+        "result": "You kill the stalk and let the tablet die alone. The hole you take later is one you have seen. The Chorus does not get a vote mid-change.",
+        "state_delta": {
+          "noise": -1,
+          "light": -1,
+          "time_cost": 4
+        }
+      }
+    ],
+    "debrief": "A screen mid-maneuver is a look you cannot afford. Cancel, hold, finish the driving, then the glass. The Chorus can wait.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "5.5 Focus",
+      "teaching_target": "Do not take eyes off the road to a screen during a lane change; cancel and complete the driving first."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "chorus",
+    "callback_of": null,
+    "schedules_callback": false,
+    "timeout_option_id": "a",
+    "timeout_ms": 6000,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "subject": "tablet on the doghouse lit, skip-dash of a half-taken left hole, sedan lamp in the left glass",
+      "foreground": "wheel and a dark clipboard, no readable UI on the tablet — only a glow",
+      "midground": "the unfinished lane change and the glow competing for the same eyes",
+      "background": "Kent morning, wind, arterial",
+      "read": "the screen is lit in the middle of a change the glass has not finished",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane, nose crossing the skip-dash into the left",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "wind",
+      "time_of_day": "morning",
+      "tone": "urgent",
+      "failure_mode": "distraction"
+    }
+  },
+  {
+    "card_id": "III-028",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "wrench",
+    "title": "The Needle and the Detour",
+    "hook": "The needle sits on a lie. The detour adds miles.",
+    "scene": "Snow on an afternoon arterial, a closed bridge ahead, the detour painted on a board you can read from the high seat. The fuel needle has been optimistic since Renton. The Ledger drinks. A detour that looks like twenty minutes on a map is forty in snow with this motor. You can gamble the needle or you can take the short ugly top-off you passed two blocks back.",
+    "decision": "The detour is long and the needle is a rumor. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Take the detour now — turning around wastes more than the risk",
+        "correct": false,
+        "result": "You take the long snow. The needle tells the truth halfway. You become a bus on a shoulder that is not a station. The cargo clock does not care that you were optimistic.",
+        "state_delta": {
+          "fuel": -5,
+          "time_cost": 20
+        }
+      },
+      {
+        "id": "b",
+        "text": "Turn back two blocks and top off before you accept the extra miles",
+        "correct": true,
+        "result": "You eat the ugly U and the short line. The needle becomes a number. The detour is still long. You finish it. Late on the log. Rolling at the end.",
+        "state_delta": {
+          "fuel": 2,
+          "time_cost": 9
+        }
+      },
+      {
+        "id": "c",
+        "text": "Coast in neutral to make the detour on what you have",
+        "correct": false,
+        "result": "You lose the motor's brake in snow. The needle does not reward you. The next light does.",
+        "state_delta": {
+          "yaw": 2,
+          "fuel": -3,
+          "time_cost": 12
+        }
+      },
+      {
+        "id": "d",
+        "text": "Ignore the board and try the bridge — closed signs lie since the first week",
+        "correct": false,
+        "result": "The bridge is actually closed. You add a dead end to a low tank. Now you have no detour and no fuel.",
+        "state_delta": {
+          "fuel": -4,
+          "time_cost": 15
+        }
+      }
+    ],
+    "debrief": "Believe the detour and doubt a hopeful needle. Fuel first, then the extra miles. A bus that stops on the shoulder spends more than a top-off.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "2.5 Vehicle Maintenance",
+      "teaching_target": "Do not enter a long detour on a hopeful fuel gauge; top off before you accept extra miles."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_OBJECT",
+      "subject": "analog fuel needle low against a stained gauge, no readable brand marks",
+      "foreground": "cracked plastic bezel and a strip of amber vest",
+      "midground": "the needle and an empty thermos edge, snow light on the glass",
+      "background": "defocused snow, a detour board out of focus, no readable words",
+      "read": "the needle is already a rumor and the detour is still ahead",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3"
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "snow",
+      "time_of_day": "afternoon",
+      "tone": "grim",
+      "failure_mode": "vehicle_failure"
+    }
+  },
+  {
+    "card_id": "III-029",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "scene",
+    "title": "The Pass That Gains Nothing",
+    "hook": "The pass would gain a length. The left is a wish.",
+    "scene": "Heavy rain at dusk, two lanes, a box doing the same number you are. The left is empty for a breath. A pass would put you one length ahead and back in the same rain. Skill nine said do not pass unless you need to. Deac's thesis is shorter: if it gains nothing, it is only risk. The schedule will not notice a length. The Quiet might notice the extra noise.",
+    "decision": "The left is open and he is doing your speed. Do you pass?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Pass now — empty left is permission and the schedule likes motion",
+        "correct": false,
+        "result": "You take a pass that buys a length. Recovering, you write spray across his glass. He lifts. You are one length richer and louder. The light ahead makes you even again.",
+        "state_delta": {
+          "noise": 3,
+          "time_cost": 6
+        }
+      },
+      {
+        "id": "b",
+        "text": "Sit on his bumper until he notices and moves over",
+        "correct": false,
+        "result": "You become Hollis with a bus. He does not move. You spend the arterial as a threat. Nothing is gained except a enemy.",
+        "state_delta": {
+          "noise": 4,
+          "time_cost": 5
+        }
+      },
+      {
+        "id": "c",
+        "text": "Flash him once so he yields the right, then take it without a pass",
+        "correct": false,
+        "result": "The flash is a demand. He brakes. You almost eat a box you did not need to pass. Permission you invented.",
+        "state_delta": {
+          "light": 3,
+          "noise": 1,
+          "time_cost": 4
+        }
+      },
+      {
+        "id": "d",
+        "text": "Hold the right. Keep the gap. Let the empty left stay empty",
+        "correct": true,
+        "result": "You stay. He stays. The left stays a lane for someone who needs it. You arrive the same minute you would have. That is the thesis: do not spend a pass you cannot cash.",
+        "state_delta": {
+          "noise": -1,
+          "time_cost": 5
+        }
+      }
+    ],
+    "debrief": "Do not pass just because the left is empty. Pass to turn, to clear a hazard, to exit — not to own a length. If it gains nothing, hold.",
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part two",
+      "dol_section": "4.10 Traffic laws",
+      "teaching_target": "Do not change lanes or pass unnecessarily; keep right and only pass when the pass does useful work."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "splitter",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_CHASE",
+      "subject": "Ledger in the right, a box ahead at the same speed, empty left lane, rain at dusk",
+      "foreground": "following glass and rain",
+      "midground": "the Ledger's rear and the empty left that is not being used",
+      "background": "heavy rain, dusk, arterial lamps",
+      "read": "the left is empty and the two vehicles are already doing the same speed",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of two southbound lanes",
+        "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
+        "oncoming_position": "none in this heading",
+        "hazard_position": "ahead_same_direction"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "heavy_rain",
+      "time_of_day": "dusk",
+      "tone": "wry",
+      "failure_mode": "speed"
+    }
+  },
+  {
+    "card_id": "III-030",
+    "act": "III",
+    "zone": "The Arterial",
+    "driver": "deac",
+    "card_type": "dossier",
+    "title": "The Core From Here",
+    "hook": "The Core sits ahead. Someone new is on the radio.",
+    "scene": "Clear cold night, the Ledger on a legal pad at the north end of the arterial. Downtown is a dark geometry with a few stubborn lamps — the Core, locked from here. Mya has finally moved off the glass. The radio, which has been trash for two acts, carries a young voice that is not Reyna and not dispatch: a count-in, then a laugh, then static. Yuna, not yet a face. The door to Act IV is visible and shut. The log has a line left for tomorrow.",
+    "debrief": "Act III ends on the arterial with the Core in sight. The next driver is already talking. The door is locked on purpose. Finish the log.",
+    "source": {
+      "psdp_skill": "n/a",
+      "dol_section": "n/a",
+      "teaching_target": "Cliffhanger: the Core is visible, Act IV is locked, Yuna is teased on the radio."
+    },
+    "cast": [
+      "deac",
+      "mya",
+      "yuna"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_ROADSIDE",
+      "subject": "Ledger parked on a pad, downtown skyline dark with a few lamps, no readable signs",
+      "foreground": "cold gravel pad and a strip of arterial paint",
+      "midground": "the Ledger's square box and west-coast arms, destination sign dark",
+      "background": "the Core as a dark downtown geometry, clear cold night, one radio glow in the cab",
+      "read": "the city is ahead and shut; the bus has stopped on purpose",
+      "continuity": [
+        "the_ledger"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "left_to_right",
+        "ego_lane_side": "legal pad off the right of the northbound arterial",
+        "ego_nose_in_frame": "the van nose points toward the right, toward the skyline",
+        "oncoming_position": "none in frame",
+        "hazard_position": "none"
+      }
+    },
+    "variation": {
+      "location_type": "downtown",
+      "weather": "clear_cold",
+      "time_of_day": "night",
+      "tone": "quiet",
+      "failure_mode": "none"
+    }
+  }
+]

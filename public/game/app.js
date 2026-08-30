@@ -21,7 +21,7 @@ let playGen = 0;
 let stopType = null;
 let hazardTimer = 0;
 let advanceTimer = 0;
-let meters = { noise: 0, light: 0, yaw: 0, cargo: 100, time_cost: 0, cold: 90, warming: 0, phase: "cold" };
+let meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold" };
 let liveCard = null;
 let answering = false;
 let timedSubmit = false;
@@ -739,7 +739,7 @@ async function loadHome(focusCardId) {
 
 async function startOver() {
   clearLive();
-  meters = { noise: 0, light: 0, yaw: 0, cargo: 100, time_cost: 0, cold: 90, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false };
+  meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false };
   try {
     await PM.api("/api/run/restart", { method: "POST", body: {} });
   } catch {

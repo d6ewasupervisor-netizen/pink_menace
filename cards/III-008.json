@@ -1,0 +1,75 @@
+{
+  "card_id": "III-008",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "rule",
+  "title": "Broken White, Solid White",
+  "hook": "Broken white on the left. Solid white on the right.",
+  "scene": "Snow at deep night on 84th. Two whites. The left skip-dash is broken — a legal change if the hole is real. The right is a solid white at the edge of a diamond lane you have not earned. The Ledger wants out of the stack. The paint is the sentence, not the want.",
+  "decision": "You want out of this stack. Which paint do you cross?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Cross the solid white into the diamond — it is empty and faster",
+      "correct": false,
+      "result": "You take the diamond. The sign said two. You are one and a bus. A trooper remnant in a dark cap sits in the next ramp. You just wrote a restricted lane onto the log.",
+      "state_delta": { "noise": 2, "time_cost": 6 }
+    },
+    {
+      "id": "b",
+      "text": "Straddle the broken white until someone makes a hole",
+      "correct": false,
+      "result": "You occupy the dash. Both lanes lose you. The stack behind has to guess which room you want. Nobody guesses right.",
+      "state_delta": { "noise": 3, "yaw": 1, "time_cost": 7 }
+    },
+    {
+      "id": "c",
+      "text": "Wait for a hole and cross only the broken white. Leave the solid alone",
+      "correct": true,
+      "result": "You hold. A hole opens on the broken side. You take it, cancel, and leave the diamond to the people who paid for it. The paint stayed a sentence.",
+      "state_delta": { "noise": -1, "time_cost": 4 }
+    },
+    {
+      "id": "d",
+      "text": "Use the solid as a shoulder to let the stack pass, then come back",
+      "correct": false,
+      "result": "The solid was not a shoulder. You put a bus on the rumble. Snow and a drain. The stack passes you as a wreck.",
+      "state_delta": { "noise": 4, "yaw": 3, "damage": 1, "time_cost": 8 }
+    }
+  ],
+  "debrief": "Broken white between same-direction lanes may be crossed to change lanes. Solid white marks an edge or a restricted lane — do not treat it as a passing lane or a shoulder.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part one",
+    "dol_section": "4.16 Road markings",
+    "teaching_target": "Cross broken white to change lanes; do not cross solid white into a restricted or edge lane."
+  },
+  "cast": ["deac"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "wet skip-dashed white on the left of frame, solid white and a painted diamond on the right",
+    "foreground": "falling snow in the lamp, a strip of gray primer at the bottom edge",
+    "midground": "the two paints meeting at the Ledger's left front corner, no readable words",
+    "background": "deep night, 84th, sodium, empty diamond lane",
+    "read": "broken white is the legal change; solid white fences a diamond you have not earned",
+    "continuity": ["the_ledger"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "center travel lane of three northbound lanes",
+      "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame along the paint",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "snow",
+    "time_of_day": "deep_night",
+    "tone": "procedural",
+    "failure_mode": "none"
+  }
+}

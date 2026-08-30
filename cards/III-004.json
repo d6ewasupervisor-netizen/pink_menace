@@ -1,0 +1,76 @@
+{
+  "card_id": "III-004",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "scene",
+  "title": "Rooms You Cannot See",
+  "hook": "Fog eats the right glass. The sweep is the job.",
+  "scene": "Fog eats the right glass on a mill-and-fill at midday. Cones pinch the right lane shut. You need left. The Ledger has rooms a Beetle never had: a whole van-length of nothing in the west-coast, and a convex that lies if you stare at it once. The thermos is still empty. Your eyes want the hole, not the sweep.",
+  "decision": "You need the left lane. What do you look at, and in what order?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Glance the left glass once and go — you already know the right is cones",
+      "correct": false,
+      "result": "You take the left on one look. A motorcycle you never owned is in the room the convex would have shown. He stands on it. You stand on it. The cones get a new story.",
+      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 6 }
+    },
+    {
+      "id": "b",
+      "text": "Watch the hole until it is yours, then check the glass as you commit",
+      "correct": false,
+      "result": "The hole closes while your eyes are in it. You drift. A cone kisses the skirting. The sweep you skipped was the only thing that would have told you the hole was a rumor.",
+      "state_delta": { "noise": 2, "yaw": 2, "time_cost": 5 }
+    },
+    {
+      "id": "c",
+      "text": "Left glass, right glass, convex, over the shoulder, then the hole",
+      "correct": true,
+      "result": "You run the rooms. The convex has a motorcycle in it that the flat glass missed. You wait one more gap. When you take it, he is already past. The cones stay cones.",
+      "state_delta": { "noise": -1, "time_cost": 3 }
+    },
+    {
+      "id": "d",
+      "text": "Trust the convex alone — it sees more than the flats",
+      "correct": false,
+      "result": "The convex shrinks a pickup into a toy. You take the hole on a toy. He is a wall. You put the Ledger's shoulder in his.",
+      "state_delta": { "noise": 3, "damage": 1, "time_cost": 7 }
+    }
+  ],
+  "debrief": "The Ledger has rooms you cannot see unless you sweep them. Glass, convex, shoulder, then the hole. One look is a guess. Named in Skill nine.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part one",
+    "dol_section": "5.5 Focus",
+    "teaching_target": "Mirror sweep plus over-the-shoulder before a lane change; convex glass lies if it is the only look."
+  },
+  "cast": ["deac"],
+  "antagonist": "drift",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "camera_is_the_lesson": false,
+    "subject": "interior rearview showing the right-rear quarter and cone line, fog in the glass",
+    "foreground": "weathered rearview housing and a strip of bar cage",
+    "midground": "fogged reflection of stacked headlamps in the lane you still occupy, cone line along the right edge of the glass",
+    "background": "defocused windshield, midday fog, mill-and-fill amber",
+    "read": "stacked lamps behind are only visible as a reflection; the road ahead is not the subject",
+    "continuity": ["ledger_cockpit"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane pinched by cones",
+      "ego_nose_in_frame": "not in the mirror; travel is away, reflected traffic is behind",
+      "oncoming_position": "none in the mirror glass",
+      "hazard_position": "behind"
+    }
+  },
+  "variation": {
+    "location_type": "work_zone",
+    "weather": "fog",
+    "time_of_day": "midday",
+    "tone": "tense",
+    "failure_mode": "fatigue"
+  }
+}

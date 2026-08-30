@@ -63,7 +63,7 @@ const PMFeel = (() => {
     const min = document.getElementById("cooler-min");
     const cold = Math.max(0, Math.round(Number(s.cold) || 0));
     const warming = Math.max(0, Math.round(Number(s.warming) || 0));
-    const warmingLive = s.phase === "warming" || (cold <= 0 && (warming > 0 || Number(s.time_cost) >= 90));
+    const warmingLive = s.phase === "warming" || (cold <= 0 && warming > 0);
     if (min) {
       min.textContent = warmingLive ? "0 · WARMING " + warming + " MIN" : cold + " MIN";
     }
@@ -682,7 +682,7 @@ const PMFeel = (() => {
     const row = data || {};
     set("man-run", row.run || "");
     set("man-cargo", row.cargo || "");
-    set("man-cold", (row.cold != null ? row.cold : 90) + " MIN");
+    set("man-cold", (row.cold != null ? row.cold : 130) + " MIN");
     set("man-for", row.for || "");
     set("manifest-sig", row.driver || "________");
     panel.classList.remove("hidden");

@@ -1,0 +1,75 @@
+{
+  "card_id": "III-018",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "scene",
+  "title": "The Whole Front in Glass",
+  "hook": "You are alongside. The pass is not done.",
+  "scene": "Rain at night on Central, a box doing thirty in the right. You are in the left, mid-pass, the Ledger's nose past his cab. Recovering now would put your rear doors in his windshield. Skill nine said: see the whole front in the glass, then come back. The arterial wants you humble about how long a bus is.",
+  "decision": "Your nose is past him. When do you come back?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Now — you are ahead, and the right is yours again",
+      "correct": false,
+      "result": "You recover on a guess. His windshield fills with your rear doors. He stands on it. You taught him that a pass is a suggestion.",
+      "state_delta": { "noise": 4, "yaw": 2, "time_cost": 8 }
+    },
+    {
+      "id": "b",
+      "text": "When his whole front is in your glass and the bus is clear, then signal and recover",
+      "correct": true,
+      "result": "You wait until the box is a box in the mirror, not a wall at your hip. You signal, come back, cancel. He never had to lift. That is a finished pass.",
+      "state_delta": { "noise": -1, "time_cost": 6 }
+    },
+    {
+      "id": "c",
+      "text": "Stay in the left after you pass — through traffic can live here",
+      "correct": false,
+      "result": "You become the new slow in the passing lane. Everyone who needed the left now needs you. Keep-right did not expire because you passed once.",
+      "state_delta": { "noise": 2, "time_cost": 7 }
+    },
+    {
+      "id": "d",
+      "text": "Cut in tight to teach him thirty is not a speed",
+      "correct": false,
+      "result": "You give him a breath of asphalt at night in the rain. A box cannot stop on a breath. You spent his margin to make a point.",
+      "state_delta": { "noise": 5, "time_cost": 5 }
+    }
+  ],
+  "debrief": "Finish the pass. Recover only when the passed vehicle's whole front is in your mirror and you are clear. Then get out of the left.",
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part two",
+    "dol_section": "5.2 Space",
+    "teaching_target": "Complete a multi-lane pass only when the full front of the passed vehicle is visible in the mirror."
+  },
+  "cast": ["deac"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "subject": "box truck cab and windshield still beside the Ledger in the glass, not yet a full front",
+    "foreground": "rearview housing, rain on the glass",
+    "midground": "the box's face incomplete in the reflection — you are not clear",
+    "background": "defocused Central at night, rain",
+    "read": "the passed vehicle's whole front is not yet in the glass",
+    "continuity": ["ledger_cockpit"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "left travel lane of two southbound lanes",
+      "ego_nose_in_frame": "not in the mirror; reflected traffic is behind and beside",
+      "oncoming_position": "none in the glass",
+      "hazard_position": "behind"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "rain",
+    "time_of_day": "night",
+    "tone": "tense",
+    "failure_mode": "speed"
+  }
+}

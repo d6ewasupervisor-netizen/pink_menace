@@ -1,0 +1,68 @@
+{
+  "card_id": "III-028",
+  "act": "III",
+  "zone": "The Arterial",
+  "driver": "deac",
+  "card_type": "wrench",
+  "title": "The Needle and the Detour",
+  "hook": "The needle sits on a lie. The detour adds miles.",
+  "scene": "Snow on an afternoon arterial, a closed bridge ahead, the detour painted on a board you can read from the high seat. The fuel needle has been optimistic since Renton. The Ledger drinks. A detour that looks like twenty minutes on a map is forty in snow with this motor. You can gamble the needle or you can take the short ugly top-off you passed two blocks back.",
+  "decision": "The detour is long and the needle is a rumor. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Take the detour now — turning around wastes more than the risk",
+      "correct": false,
+      "result": "You take the long snow. The needle tells the truth halfway. You become a bus on a shoulder that is not a station. The cargo clock does not care that you were optimistic.",
+      "state_delta": { "fuel": -5, "time_cost": 20 }
+    },
+    {
+      "id": "b",
+      "text": "Turn back two blocks and top off before you accept the extra miles",
+      "correct": true,
+      "result": "You eat the ugly U and the short line. The needle becomes a number. The detour is still long. You finish it. Late on the log. Rolling at the end.",
+      "state_delta": { "fuel": 2, "time_cost": 9 }
+    },
+    {
+      "id": "c",
+      "text": "Coast in neutral to make the detour on what you have",
+      "correct": false,
+      "result": "You lose the motor's brake in snow. The needle does not reward you. The next light does.",
+      "state_delta": { "yaw": 2, "fuel": -3, "time_cost": 12 }
+    },
+    {
+      "id": "d",
+      "text": "Ignore the board and try the bridge — closed signs lie since the first week",
+      "correct": false,
+      "result": "The bridge is actually closed. You add a dead end to a low tank. Now you have no detour and no fuel.",
+      "state_delta": { "fuel": -4, "time_cost": 15 }
+    }
+  ],
+  "debrief": "Believe the detour and doubt a hopeful needle. Fuel first, then the extra miles. A bus that stops on the shoulder spends more than a top-off.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "2.5 Vehicle Maintenance",
+    "teaching_target": "Do not enter a long detour on a hopeful fuel gauge; top off before you accept extra miles."
+  },
+  "cast": ["deac"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "analog fuel needle low against a stained gauge, no readable brand marks",
+    "foreground": "cracked plastic bezel and a strip of amber vest",
+    "midground": "the needle and an empty thermos edge, snow light on the glass",
+    "background": "defocused snow, a detour board out of focus, no readable words",
+    "read": "the needle is already a rumor and the detour is still ahead",
+    "continuity": ["ledger_cockpit"],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "snow",
+    "time_of_day": "afternoon",
+    "tone": "grim",
+    "failure_mode": "vehicle_failure"
+  }
+}

@@ -15,8 +15,10 @@ function resolveCard(raw) {
   const id = raw.card_id || "(missing card_id)";
   const tokens = [...((raw.image_brief && raw.image_brief.continuity) || [])];
   const cam = raw.image_brief && raw.image_brief.camera;
-  if (cam === "POV_DIAGRAM" && !tokens.includes("pink_menace_exterior")) {
-    tokens.push("pink_menace_exterior");
+  const diagramVehicle =
+    raw.driver === "deac" ? "the_ledger" : raw.driver === "yuna" ? "encore" : "pink_menace_exterior";
+  if (cam === "POV_DIAGRAM" && !tokens.includes(diagramVehicle)) {
+    tokens.push(diagramVehicle);
   }
   const errors = [];
   const attachments = [];
@@ -24,7 +26,13 @@ function resolveCard(raw) {
 
   if (cam === "POV_DIAGRAM") {
     const lockTokens = tokens.filter(
-      (t) => t !== "diagram_style" && t !== "pink_menace_exterior" && !isLocation(t) && !MAP.no_file.includes(t)
+      (t) =>
+        t !== "diagram_style" &&
+        t !== "pink_menace_exterior" &&
+        t !== "the_ledger" &&
+        t !== "encore" &&
+        !isLocation(t) &&
+        !MAP.no_file.includes(t)
     );
     if (lockTokens.length) {
       errors.push(

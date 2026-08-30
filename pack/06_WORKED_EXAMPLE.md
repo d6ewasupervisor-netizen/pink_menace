@@ -30,7 +30,7 @@ Proof the pipeline produces something worth playing. Read this before you genera
   "driver": "ali",
   "card_type": "scene",
   "title": "Bus 12, Amber",
-  "scene": "Fourth Ave South, Kent, and the rain has been going since Renton. Half a block up, Bus 12 rolls at maybe fifteen. Reyna runs the last shelter route and she runs it on time. The amber lamps come on above her rear window. Gracie stands up in the passenger footwell. You are carrying insulin that has seventy minutes of cold left, and there is a clear lane to Reyna's left.",
+  "scene": "Fourth Ave South, Kent, and the rain has been going since Renton. Half a block up, Bus 12 rolls at maybe fifteen. Reyna runs the last shelter route and she runs it on time. The amber lamps come on above her rear window. Gracie stands up in the passenger footwell. You are carrying insulin that has a hundred and ten minutes of cold left, and there is a clear lane to Reyna's left.",
   "decision": "The amber lamps are on and the left lane is open. What do you do?",
   "options": [
     {
