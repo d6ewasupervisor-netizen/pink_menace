@@ -8,6 +8,7 @@ const { resolveCard } = require("./resolve-refs");
 const { checkCameraLedger } = require("./camera-ledger");
 const { validateGeometry, LEGAL_CAMERAS } = require("./geometry");
 const { assemblePrompt } = require("./compile-prompt");
+const { validateAuthoringSeat } = require("./authoring-seat");
 
 // Compiler rule, not a prose rule. Scene/debrief may say "driver-side window"
 // because that is the language the guide uses. Do not "fix" card text to match.
@@ -111,6 +112,7 @@ for (let i = 0; i < cards.length; i++) {
   }
   for (const e of validateCard(c, tables)) err(id, e.replace(`${id}: `, ""));
   for (const e of resolveCard(c).errors) err(id, e.replace(`${id}: `, ""));
+  for (const e of validateAuthoringSeat(c)) err(id, e.replace(`${id}: `, ""));
 }
 
 const n = cards.filter((c) => c.card_type !== "dossier").length;

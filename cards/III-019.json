@@ -50,6 +50,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_CHASE",
+    "camera_is_the_lesson": true,
     "subject": "Ledger rear, amber destination sign lit, left arm out and down, volunteer box tight behind",
     "foreground": "following glass and falling snow",
     "midground": "rear doors, west-coast arms, the sign facing the camera, a torso in the left window with the left arm out and down",

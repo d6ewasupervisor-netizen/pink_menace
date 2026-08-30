@@ -50,11 +50,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_OBJECT",
-    "subject": "painted diamond and solid white fence on wet pavement, a slow flatbed pickup in the general lane, no readable occupancy numbers",
-    "foreground": "fog in the lamp, skip-dash of the general lane",
-    "midground": "the empty diamond lane beside the flatbed you would have to leave to enter it",
-    "background": "167 dusk, fog, general-lane stack",
-    "read": "the empty diamond sits beside a slow vehicle — a pass that is not a pass",
+    "subject": "painted diamond and solid white fence on wet pavement to the left; a loaded dump truck filling the general lane ahead, brake lamps on, no gap past it, no readable occupancy numbers",
+    "foreground": "a strip of Ledger van hood at the bottom, still in the general lane, fog beading on the paint",
+    "midground": "the dump's high tailgate as a wall in your lane; the empty diamond fenced by solid white beside it — factory mirrors only on the dump, no cutaway body, no amber destination sign, no roof rack, no west-coast arms",
+    "background": "167 dusk, fog eating the road ahead of the dump, general-lane stack tight behind you",
+    "read": "the diamond is empty and the dump is a wall — a pass you would have to steal",
     "continuity": ["the_ledger"],
     "aspect": "2:3",
     "geometry": {

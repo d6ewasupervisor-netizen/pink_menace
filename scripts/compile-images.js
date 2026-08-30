@@ -5,6 +5,7 @@ const path = require("path");
 const { resolveCard, assertCompileReady } = require("./resolve-refs");
 const { assemblePrompt } = require("./compile-prompt");
 const { validateGeometry } = require("./geometry");
+const { validateAuthoringSeat } = require("./authoring-seat");
 
 const dir = path.join(__dirname, "..", "cards");
 const only = process.argv.includes("--card")
@@ -22,6 +23,11 @@ const rows = [];
 for (const f of files) {
   const raw = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
   if (only && raw.card_id !== only) continue;
+  const seatErrs = validateAuthoringSeat(raw);
+  if (seatErrs.length) {
+    errors.push(...seatErrs);
+    continue;
+  }
   const resolved = resolveCard(raw);
   if (resolved.errors.length) {
     errors.push(...resolved.errors);

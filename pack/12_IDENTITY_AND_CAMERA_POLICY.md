@@ -65,3 +65,19 @@ That last line is the one that matters. If you mute the card text and the image 
 Hand-signal cards belong on a following-driver view (`POV_CHASE`, `camera_is_the_lesson`). Following-distance cards belong on `POV_MIRROR_REAR`. Do not steal a rearview from a hazard-behind card to satisfy a percentage.
 
 Add both checks to `npm run validate-cards` so the ledger is enforced by the validator rather than by review.
+
+---
+
+## 5. Whose seat — runs before compile
+
+The generator does not reliably track whose cab the player is in. Act II never surfaced it: one driver, one car, thirty cards. Act III is the first handoff. Acts IV through VII have two more.
+
+III-006 authored the ego from a following seat. III-026 carried a Menace into Deac's act. Three frames rendered other traffic with the Ledger's four canon marks. Same class of error.
+
+`scripts/authoring-seat.js` answers three questions from the JSON alone — `driver`, `camera`, and a regex on the brief — and **aborts compile** if any fail. Do not generate, then notice.
+
+1. **Ego matches the act's driver.** Act II is Ali / the Menace. Act III is Deac / the Ledger. A card may not put another playable vehicle in the ego seat, and a Ledger act may not carry Menace marks (pink Beetle, plow blade).
+2. **Camera is consistent with sitting in it.** `POV_CHASE` of the player's own vehicle from a following cab (`following cab`, follower A-pillar) is illegal unless `camera_is_the_lesson` is set — hand signals, and only those. The player's signaling language is shot from inside their cab.
+3. **No other vehicle shares the ego's canon marks.** Ledger: cutaway body, amber destination sign, roof cargo rack, west-coast arms. Menace: plow, pink Beetle, bull bar, knobby tires. Encore: horn flares, chevron. Those marks belong to one vehicle. Other traffic is a panel van, a dump, a sedan — factory mirrors only.
+
+The compiler already appends the other-vehicle clause on Deac cards. This check is the gate that keeps a bad brief from spending a generation.

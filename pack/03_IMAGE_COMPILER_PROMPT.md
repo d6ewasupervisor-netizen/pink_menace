@@ -44,6 +44,10 @@ You MUST:
   - abort POV_TOPDOWN and POV_MIRROR — both are illegal. Resolve to the
     sub-tokens in bible §8.3.
   - abort hazard_position behind on any forward camera. Behind is POV_MIRROR_REAR.
+  - abort before assembly unless scripts/authoring-seat.js passes: ego vehicle
+    matches the act's driver, the camera is consistent with sitting in it, and
+    no other vehicle in the brief shares the ego's canon marks. Do not compile
+    a following-cab chase of the player's own vehicle unless camera_is_the_lesson.
   - convert every role-relative spatial term to frame-relative language plus
     an explicit drive-side statement before compiling. Do not pass them through.
   - append the left-hand-drive clause to every compile that includes a vehicle
