@@ -355,16 +355,19 @@ html.playing .shell {
 }
 
 .choice-dock {
-  position: sticky;
-  bottom: 0;
+  position: static;
   z-index: 6;
-  margin: 0.15rem -1.1rem -1.1rem;
-  padding: 0.65rem 1.1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
-  background: var(--bg-2);
-  border-top: 1px solid var(--line);
+  margin: 0.15rem 0 0;
+  padding: 0.35rem 0 calc(0.5rem + env(safe-area-inset-bottom, 0px));
+  background: transparent;
+  border-top: 0;
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+}
+
+#run:not(.choices-ready) .choice-dock {
+  display: none;
 }
 
 .play-header {
@@ -1247,8 +1250,8 @@ html.playing .shell {
   }
   .panel { padding: 0.85rem; gap: 0.7rem; }
   .choice-dock {
-    margin: 0.15rem -0.85rem -0.85rem;
-    padding: 0.55rem 0.85rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+    margin: 0.15rem 0 0;
+    padding: 0.3rem 0 calc(0.45rem + env(safe-area-inset-bottom, 0px));
   }
   .shot-wrap {
     max-width: min(100%, 16.5rem);

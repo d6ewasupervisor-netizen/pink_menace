@@ -23,6 +23,7 @@ let hazardTimer = 0;
 let advanceTimer = 0;
 let meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold" };
 let liveCard = null;
+let stopChoiceGate = null;
 let answering = false;
 let timedSubmit = false;
 let cancelTypeScene = null;
@@ -227,8 +228,12 @@ function clearPlay() {
   if (wrap) wrap.classList.remove("arming");
   const clock = document.getElementById("hazard-clock");
   if (clock) clock.classList.add("hidden");
-  runEl.classList.remove("recap-skip");
+  runEl.classList.remove("recap-skip", "choices-ready");
   runEl.onclick = null;
+  if (stopChoiceGate) {
+    stopChoiceGate();
+    stopChoiceGate = null;
+  }
 }
 
 function applyMeters(state, how, extras) {
@@ -317,6 +322,78 @@ function revealChoices(card, opts) {
   if (!opts.review && !opts.pending && card.card_type === "hazard" && card.timeout_option_id && n) {
     armHazardWindow(card);
   }
+}
+
+function scenarioReadMark() {
+  const scene = document.getElementById("scene");
+  const decision = document.getElementById("decision");
+  const hook = document.getElementById("hook");
+  if (scene && !scene.classList.contains("hidden") && scene.textContent.trim()) return scene;
+  if (decision && !decision.classList.contains("hidden") && decision.textContent.trim()) return decision;
+  if (hook && !hook.classList.contains("hidden")) return hook;
+  return document.getElementById("title");
+}
+
+function sceneWaitingOnHook() {
+  const scene = document.getElementById("scene");
+  return Boolean(scene && scene.textContent.trim() && scene.classList.contains("hidden"));
+}
+
+function stillSettled() {
+  const wrap = document.getElementById("shot-wrap");
+  const shot = document.getElementById("shot");
+  if (!wrap || wrap.classList.contains("hidden")) return true;
+  if (!shot || !shot.getAttribute("src")) return false;
+  return shot.complete;
+}
+
+function scenarioIsRead() {
+  if (sceneWaitingOnHook()) return false;
+  if (!stillSettled()) return false;
+  const mark = scenarioReadMark();
+  if (!mark || !runEl) return true;
+  const runBox = runEl.getBoundingClientRect();
+  const markBox = mark.getBoundingClientRect();
+  return markBox.bottom <= runBox.bottom + 16;
+}
+
+function showChoiceDock() {
+  runEl.classList.add("choices-ready");
+}
+
+function armChoiceGate(card, opts) {
+  if (stopChoiceGate) {
+    stopChoiceGate();
+    stopChoiceGate = null;
+  }
+  runEl.classList.remove("choices-ready");
+  let latched = false;
+  const tryLatch = () => {
+    if (latched || !liveCard || liveCard.card_id !== card.card_id) return;
+    if (!scenarioIsRead()) return;
+    latched = true;
+    if (stopChoiceGate) {
+      stopChoiceGate();
+      stopChoiceGate = null;
+    }
+    showChoiceDock();
+    revealChoices(card, opts);
+    if (!(card.options || []).length) {
+      const cont = document.getElementById("continue");
+      cont.classList.remove("hidden");
+      cont.textContent = "Continue";
+      cont.onclick = () => submitAnswer("continue");
+    }
+  };
+  const onScroll = () => tryLatch();
+  runEl.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  stopChoiceGate = () => {
+    runEl.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onScroll);
+    stopChoiceGate = null;
+  };
+  requestAnimationFrame(() => requestAnimationFrame(tryLatch));
 }
 
 function armHazardWindow(card) {
@@ -428,6 +505,9 @@ function fillCard(card, opts) {
       hookEl.onclick = () => {
         if (!sceneEl) return;
         sceneEl.classList.toggle("hidden");
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          if (stopChoiceGate) runEl.dispatchEvent(new Event("scroll"));
+        }));
       };
     }
     if (sceneEl) {
@@ -443,6 +523,7 @@ function fillCard(card, opts) {
   document.getElementById("options").replaceChildren();
 
   if (opts.review) {
+    showChoiceDock();
     if (sceneEl) sceneEl.classList.remove("hidden");
     if (card.decision) decision.classList.remove("hidden");
     fillOptions(card, opts);
@@ -457,6 +538,7 @@ function fillCard(card, opts) {
   }
 
   if (opts.recap || card.recap) {
+    showChoiceDock();
     if (sceneEl) sceneEl.classList.remove("hidden");
     if (card.decision) decision.classList.remove("hidden");
     fillOptions(card, { review: true, pending: false });
@@ -473,6 +555,7 @@ function fillCard(card, opts) {
   cont.onclick = null;
 
   if (opts.pending) {
+    showChoiceDock();
     if (sceneEl) sceneEl.classList.remove("hidden");
     if (card.decision) decision.classList.remove("hidden");
     fillOptions(card, opts);
@@ -481,18 +564,14 @@ function fillCard(card, opts) {
     return;
   }
 
-  revealChoices(card, opts);
-  if (!(card.options || []).length) {
-    cont.classList.remove("hidden");
-    cont.textContent = "Continue";
-    cont.onclick = () => submitAnswer("continue");
-  }
+  armChoiceGate(card, opts);
   pinCardTop();
 }
 
 function pinCardTop() {
   runEl.scrollTop = 0;
   window.scrollTo(0, 0);
+  if (stopChoiceGate) runEl.dispatchEvent(new Event("scroll"));
 }
 
 async function finishContinue(cardId) {
@@ -509,6 +588,7 @@ async function finishContinue(cardId) {
 }
 
 function holdContinue(cardId, after) {
+  showChoiceDock();
   const cont = document.getElementById("continue");
   cont.classList.remove("hidden");
   cont.textContent = "Continue";
