@@ -75,6 +75,14 @@ You MUST:
     them in the scene line, the read, or the geometry clause.
   - lateral headings compile as `POV_ROADSIDE_PROFILE`. Never assemble a
     profile from generic `POV_ROADSIDE` plus corrective sentences.
+  - when the card's `read` is a pavement marking or lane line, compile
+    `geometry.marking_anchor`: name the roadway edge, then the marking
+    relative to it, then ego relative to the marking. Negate the inverse
+    placements. Never place a marking by direction alone.
+  - specify only the road features the lesson depends on. Leave lane counts,
+    line treatments, shoulder widths, and marking styles unstated unless the
+    card teaches them. Never pin "single solid," "double solid," or "buffer"
+    unless that is the teaching_target.
   - end with the negative block
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
@@ -357,6 +365,49 @@ head-on, which every restatement had banned.
 Yuna's act is arterial and highway. It inherits this rule. Do not
 rediscover it on card three of Act IV.
 
+## MARKING EDGE-ANCHOR — standing
+
+A pavement marking placed by direction alone drifts to wherever the
+composition wants it. When a marking or lane line is the card's `read`,
+anchor it to a physical edge of the roadway.
+
+Name the edge feature (median barrier, curb, shoulder, oncoming lanes),
+then place the marking relative to it, then place the ego lane relative
+to the marking. Negate the inverse placements explicitly.
+
+The diamond anchors to the median. A right-turn-only arrow anchors to
+the curb. A centerline anchors to oncoming traffic. Name the edge and
+the marking stays put.
+
+Compile from `geometry.marking_anchor` (`edge`, `marking`, `ego_relative`).
+Do not invent a direction-only placement in the prompt.
+
+## SPECIFY ONLY WHAT THE LESSON NEEDS — standing
+
+Do not turn an incidental feature of one reference photo into a rule.
+A striped buffer beside an HOV lane exists only where entry is prohibited
+for a stretch. Real freeways use single or double solid. "Occupies the
+right half of the roadway" is a two-lane fact and breaks on a divided
+highway.
+
+Specify only the road features the card's lesson depends on. Leave lane
+counts, line treatments, shoulder widths, and marking styles unstated
+unless the card teaches them. Every incidental feature pinned down is a
+chance to pin it down wrong, and the model renders real-world variation
+better than a description of one example does.
+
+For a card whose lesson is *solid means don't cross it*: compile "solid
+white pavement marking" — never "single solid line" or "double solid
+line" or "buffer."
+
+## SEAT OUTRANKS CONSECUTIVE-CAMERA — standing
+
+Cards where the ego seat is the teaching, and any card with
+`camera_is_the_lesson: true`, are exempt from the consecutive-camera-token
+check. Two cockpits in a row is a far smaller problem than a card shot
+from the wrong vehicle. Window-of-6 still applies to non-lesson tokens.
+The player's signaling language is shot from inside their cab.
+
 The plow is the orientation anchor. Always state where it points in frame.
 
 ### Camera is derived from hazard_position — not chosen freely
@@ -455,7 +506,8 @@ else. No commentary. No alternatives.
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |
 | Yuna | `ref_yuna_sheet.png`, `ref_yuna.png` |
 | The Ledger exterior | `ref_ledger_sheet.png` |
-| Ledger cockpit / Deac `POV_COCKPIT` | `ref_ledger_cockpit.png` |
+| Ledger cockpit / Deac `POV_COCKPIT` | `ref_ledger_cockpit.png` (D4 retake: clipboard off the mesh, road visible through the cage) |
+| HOV / diamond-lane geometry (III-008) | `ref_hov_median_diamond.png` — real US freeway, diamond in the leftmost lane against the median. Compile PNW wet asphalt; negate gantries, green guide signs, palm trees, arid roadside. |
 | Encore exterior | `ref_encore_sheet.png` |
 | Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` |
 | Two or more vehicles in frame | `ref_convoy.png` |

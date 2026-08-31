@@ -85,6 +85,11 @@
       "lanes_this_direction": 3,
       "ego_lane_from_left": 3,
       "ego_frame_side": "right",
+      "marking_anchor": {
+        "edge": "oncoming lanes beyond the yellow pair",
+        "marking": "two-way left-turn pocket: broken yellow inside, solid yellow outside, arrows both ways",
+        "ego_relative": "the shuttle occupies the through lane to the right of that pocket"
+      },
       "traffic_positions": [
         { "vehicle": "primer sedan", "frame_side": "left", "lane_from_left": 2, "along": "ahead", "lengths": 1 }
       ]

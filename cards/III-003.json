@@ -65,11 +65,16 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "On the RIGHT side of the frame: a gray cutaway shuttle in the right travel lane. On the LEFT side of the frame: a primer sedan ahead and a pickup even with the shuttle, both in the left lane. All three travel away from the camera",
+    "subject": "RIGHT: gray shuttle in the right lane, nothing ahead of it. LEFT: primer sedan in the left lane ahead of a pickup even with the shuttle. All away from camera.",
     "foreground": "wet asphalt and skip-dashed white lane line, rain",
-    "midground": "the Ledger occupying only the right travel lane, van nose pointed south, pickup in the left using it as a pass",
+    "midground": "the Ledger occupying only the right travel lane; pickup using the left as a pass; sedan further up that same left lane",
     "background": "rain, Kent commercial strip, no extra side streets",
-    "read": "the bus stays in the right; the left is already a passing lane with a sedan and a pickup",
+    "read": "the shuttle's lane is empty ahead; the sedan is in the left lane ahead of the pickup",
+    "extra_negatives": [
+      "no sedan in the shuttle's lane",
+      "no vehicle ahead of the shuttle in the right travel lane",
+      "no sedan to the right of the skip-dash"
+    ],
     "continuity": [
       "diagram_style",
       "the_ledger"

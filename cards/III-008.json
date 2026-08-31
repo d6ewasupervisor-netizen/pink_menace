@@ -5,8 +5,8 @@
   "driver": "deac",
   "card_type": "rule",
   "title": "Broken White, Solid White",
-  "hook": "Broken white on the left. Solid white on the right.",
-  "scene": "Snow at deep night on 84th. Two whites. The left skip-dash is broken — a legal change if the gap is real. The right is a solid white at the edge of a diamond lane you have not earned. The Ledger wants out of the stack. The paint decides, not the want.",
+  "hook": "Solid white fences the diamond on the left.",
+  "scene": "Overcast on a divided highway. Three lanes this way. A diamond sits in the leftmost lane against the median, fenced from the general lanes by solid white pavement marking. You are in the general lane immediately right of that paint, in a stack. Skip-dashes between general lanes are a legal change if the gap is real. The solid is not. The Ledger wants out. The paint decides, not the want.",
   "decision": "You want out of this stack. Which paint do you cross?",
   "options": [
     {
@@ -57,7 +57,7 @@
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.16 Road markings",
-    "teaching_target": "Cross broken white to change lanes; do not cross solid white into a restricted or edge lane."
+    "teaching_target": "Cross broken white to change lanes; do not cross solid white pavement marking into a restricted lane."
   },
   "cast": [
     "deac"
@@ -67,23 +67,40 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_OBJECT",
-    "subject": "wet skip-dashed white on the left of frame, solid white and a painted diamond on the right. No other vehicles. No van. No traffic in the diamond",
-    "foreground": "falling snow in the lamp, a strip of gray primer at the bottom edge",
-    "midground": "the two paints meeting at the Ledger's left front corner, no readable words",
-    "background": "deep night, 84th, sodium, empty diamond lane",
-    "read": "broken white is the legal change; solid white fences a diamond you have not earned",
+    "subject": "Divided highway from the cab looking forward. LEFT edge: concrete median barrier, narrow left shoulder, then the leftmost lane with a large white diamond on the pavement.",
+    "foreground": "commercial wheel and gauges; wet asphalt; solid white pavement marking between the diamond lane and the general lanes to its right",
+    "midground": "the gray cutaway shuttle occupies the general lane immediately right of that solid marking, traveling away from camera; skip-dashes between general lanes",
+    "background": "overcast Pacific Northwest daylight, wet asphalt, evergreen roadside",
+    "read": "the diamond lane sits beyond a solid white line the shuttle would have to cross",
+    "extra_negatives": [
+      "no diamond in the shuttle's lane",
+      "no diamond to the right of the shuttle",
+      "no diamond adjacent to the right shoulder or curb",
+      "no snow",
+      "no overhead sign gantries",
+      "no green guide signs",
+      "no legible text",
+      "no palm trees",
+      "no arid roadside"
+    ],
     "continuity": [
-      "the_ledger"
+      "ledger_cockpit",
+      "hov_geometry"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "center travel lane of three northbound lanes",
-      "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame along the paint",
-      "oncoming_position": "none in frame",
+      "ego_lane_side": "general lane immediately right of the diamond lane",
+      "ego_nose_in_frame": "travel is away; van nose toward the top of the frame beyond the hood",
+      "oncoming_position": "none in this heading; median is the left edge",
       "hazard_position": "none",
       "lanes_this_direction": 3,
-      "ego_lane_from_left": 2
+      "ego_lane_from_left": 2,
+      "marking_anchor": {
+        "edge": "concrete median barrier on the left",
+        "marking": "large white diamond in the leftmost travel lane, then solid white pavement marking",
+        "ego_relative": "the shuttle occupies the general lane immediately right of that solid white marking"
+      }
     }
   },
   "variation": {

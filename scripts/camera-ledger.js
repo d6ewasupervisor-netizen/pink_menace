@@ -8,6 +8,15 @@ function isLessonCamera(card) {
   return Boolean(card.image_brief && card.image_brief.camera_is_the_lesson);
 }
 
+function isEgoSeatCamera(card) {
+  const cam = cameraOf(card);
+  return cam === "POV_COCKPIT" || cam === "POV_MIRROR_DOOR";
+}
+
+function consecutiveExempt(card) {
+  return isLessonCamera(card) || isEgoSeatCamera(card);
+}
+
 function checkCameraLedger(cards, opts) {
   const errors = [];
   const windowSize = (opts && opts.windowSize) || 6;
@@ -27,7 +36,10 @@ function checkCameraLedger(cards, opts) {
     cameras[cam] = (cameras[cam] || 0) + 1;
     if (isLessonCamera(c)) exemptIds.push(id);
     if (i > 0 && cam === cameraOf(cards[i - 1])) {
-      errors.push(`${id}: camera twice in a row (${cam})`);
+      const prev = cards[i - 1];
+      if (!consecutiveExempt(c) && !consecutiveExempt(prev)) {
+        errors.push(`${id}: camera twice in a row (${cam})`);
+      }
     }
     if (i >= windowSize - 1) {
       const counts = {};
@@ -79,4 +91,10 @@ function checkCameraLedger(cards, opts) {
   };
 }
 
-module.exports = { checkCameraLedger, cameraOf, isLessonCamera };
+module.exports = {
+  checkCameraLedger,
+  cameraOf,
+  isLessonCamera,
+  isEgoSeatCamera,
+  consecutiveExempt,
+};

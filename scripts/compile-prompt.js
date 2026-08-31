@@ -5,6 +5,7 @@ const {
   trafficPositionsClause,
   framePlacementClause,
   framePassNegatives,
+  markingAnchorClause,
   usesFramePlacement,
   MIRROR_CLAUSE,
   DOOR_MIRROR_CLAUSE,
@@ -153,6 +154,9 @@ function assemblePrompt(card) {
   let framing = FRAMING[cam];
   if (deac && cam === "POV_COCKPIT") framing = FRAMING.POV_COCKPIT_LEDGER;
   if (deac && cam === "POV_DIAGRAM") framing = FRAMING.POV_DIAGRAM_LEDGER;
+  if (deac && cam === "POV_OBJECT" && (brief.continuity || []).includes("hov_geometry")) {
+    framing = FRAMING.POV_COCKPIT_LEDGER;
+  }
   if (!framing) throw new Error(`${card.card_id}: cannot compile camera ${cam}`);
 
   const parts = [];
@@ -214,6 +218,8 @@ function assemblePrompt(card) {
       }
     }
     parts.push(SIGN_CLAUSE);
+    const mark = markingAnchorClause(brief.geometry);
+    if (mark) parts.push(mark);
   } else if (cam !== "POV_OBJECT" && cam !== "POV_PORTRAIT") {
     parts.push(LHD);
   }
@@ -240,6 +246,9 @@ function assemblePrompt(card) {
   const continuity = (brief.continuity || []);
   if (cam === "POV_MIRROR_DOOR" && continuity.includes("dutch_reach")) {
     negs.push(DUTCH_REACH_NEGATIVES);
+  }
+  if (Array.isArray(brief.extra_negatives) && brief.extra_negatives.length) {
+    negs.push(brief.extra_negatives.join(". ") + ".");
   }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);

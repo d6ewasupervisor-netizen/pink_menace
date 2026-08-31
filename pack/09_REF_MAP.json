@@ -11,6 +11,7 @@
     "yuna": ["ref_yuna_sheet.png", "ref_yuna.png"],
     "the_ledger": ["ref_ledger_sheet.png"],
     "ledger_cockpit": ["ref_ledger_cockpit.png"],
+    "hov_geometry": ["ref_hov_median_diamond.png"],
     "encore": ["ref_encore_sheet.png"],
     "encore_cockpit": ["ref_encore_cockpit.png"],
     "convoy": ["ref_convoy.png"],

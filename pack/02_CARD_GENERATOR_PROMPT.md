@@ -145,6 +145,14 @@ Rules:
     "right half of the roadway" on multi-lane. Never "passing occurs on the LEFT."
     `ego_lane_side` is two-lane only. Lateral headings use `POV_ROADSIDE_PROFILE`.
     State each spatial fact exactly once.
+  - When the `read` is a pavement marking or lane line, set
+    `geometry.marking_anchor`: name the roadway edge (median barrier, curb,
+    shoulder, oncoming), then the marking relative to it, then ego relative
+    to the marking. A diamond anchors to the median. A right-turn arrow
+    anchors to the curb. Never place a marking by direction alone.
+  - Specify only the road features the lesson depends on. Do not pin lane
+    counts, line treatments, shoulder widths, or marking styles (single vs
+    double solid, striped buffer) unless the card teaches them.
   - Sign, signal, and marking recognition defaults to `POV_OBJECT`.
   - Do not put text, words, numbers, or UI in the frame unless the card is
     teaching a sign face or a gauge reading.
@@ -167,7 +175,10 @@ The ledger state lists what has already been used. You must:
   - Rotate every axis in 05_VARIATION_LEDGER.md.
   - Never repeat the same (location_type + weather + time_of_day) triple within
     six cards.
-  - Never use the same camera token twice in a row.
+  - Never use the same camera token twice in a row, except when either card
+    in the pair is `camera_is_the_lesson` or is shot from the ego seat
+    (`POV_COCKPIT`, `POV_MIRROR_DOOR`). The seat outranks the consecutive
+    check. Two cockpits in a row is finer than a card from the wrong vehicle.
   - No camera token on more than 25% of **non-exempt** cards in the act.
     `camera_is_the_lesson` cards leave the denominator.
   - No camera token more than twice in any window of six cards (lesson cameras

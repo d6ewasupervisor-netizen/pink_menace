@@ -89,7 +89,7 @@ Five Act III cards carried the default through: III-004, III-009, III-011, III-0
 
 ## 10. CLIPBOARD AND CAT
 
-The cockpit lock (`ref_ledger_cockpit.png`) mounted the clipboard on the passenger mesh. Every `ledger_cockpit` attach copies that into the generation. **The clipboard never sits in the windshield.** Doghouse, thigh, or hands. Tag stills that put it in the glass as `INVENTED` (or keep a stronger first-failure tag and name the clipboard in the note). Do not recompile Ledger cockpits until D4 is retaken without it.
+The cockpit lock (`ref_ledger_cockpit.png`) was retaken as D4: clipboard off the mesh, right half of the road visible through the cage. **The clipboard never sits in the windshield.** Doghouse, thigh, or hands. Tag stills that put it in the glass as `INVENTED` (or keep a stronger first-failure tag and name the clipboard in the note). Do not attach the old poisoned cockpit.
 
 **Mya is not loose in a moving vehicle.** Dash loaf only when the Ledger is parked. III-002 teaches the opposite (Central is already moving; cat on the dash) — that is `CARD_BROKEN`, not a missing paw. Rewrite it parked, then the dash loaf is legal. Same check on other Mya frames (III-017 already COPY). Gracie on the dash while the Menace is rolling is the same class except II-018, which *teaches* box her before you roll.
 
@@ -99,7 +99,7 @@ On any multi-lane roadway, do not describe position by role or by half. `ego_lan
 
 A `read` that names a process, a gap you have to count, a hood "walking," a smear as psychology, or a tablet "mid-change" is the same class that killed II-009. Rewrite it to a static fact before generating. Recompiling against an unphotographable read buys another take of the same miss.
 
-Do not generate III-014 or III-025 until D4 (`ref_ledger_cockpit.png`) is retaken without the clipboard on the mesh. Other `ledger_cockpit` attaches wait on that lock too.
+D4 is locked. Ledger cockpits attach `ref_ledger_cockpit.png`. Do not attach the pre-D4 cockpit that had the clipboard on the mesh.
 
 ## 12. PERSIST THE VERDICTS
 

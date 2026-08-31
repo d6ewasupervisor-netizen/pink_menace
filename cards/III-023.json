@@ -6,14 +6,14 @@
   "card_type": "rule",
   "title": "Hold the General Lane",
   "hook": "The diamond is empty. The box in your lane is slow.",
-  "scene": "Fog at dusk on 167. A box is doing thirty in the general lane. To the left, a diamond on the pavement and a solid white fence, empty and fast. The schedule wants the opening. You are a bus. You could live in that lane. What you cannot do is dart in, pass, and dart out. That is a passing lane you invented.",
+  "scene": "Fog at dusk on 167. A box is doing thirty in the general lane. To the left, a diamond on the pavement and a solid white fence, empty and fast. A bus may travel in that lane when the signs say so. What you cannot do is cross the solid to dart in, pass one vehicle, and dart out. Broken white is where entry is even legal. That diamond is not a passing lane you invented.",
   "decision": "The diamond is empty and he is slow. Do you use it to pass?",
   "options": [
     {
       "id": "a",
       "text": "Dart into the diamond, pass, come back before the next ramp",
       "correct": false,
-      "result": "You use a carpool lane as a slingshot. Solid white, in and out. The remnant in the cap does not care that you are a bus. You stole a pass from a lane that was never yours to dart through.",
+      "result": "You use a carpool lane as a slingshot. Solid white means stay out through that stretch. The remnant in the cap does not care that you are a bus. You stole a pass from a lane that was never yours to dart through.",
       "state_delta": {
         "noise": 2,
         "time_cost": 6
@@ -53,11 +53,11 @@
       }
     }
   ],
-  "debrief": "A bus may travel in a carpool lane. Darting in to pass one vehicle and coming back is a steal. You missed a ticket by staying in the general lane.",
+  "debrief": "4.16: HOV is a diamond, occupancy on the signs, typically fenced by solid white. A bus may travel in it. Solid means do not cross that stretch; broken is where you may enter or exit. Darting in to pass one vehicle is not travel. Carpool lanes are not passing lanes.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.16 Road markings (HOV / Carpool lane)",
-    "teaching_target": "HOV / carpool lanes are not passing lanes; do not enter one only to pass and return."
+    "teaching_target": "HOV is not a passing lane. Solid white: do not cross into it on that stretch. Broken white: you may enter or exit. A qualifying bus may travel in HOV, not dart through it."
   },
   "cast": [
     "deac"
@@ -81,7 +81,12 @@
       "ego_lane_side": "right-hand general lane beside an HOV lane",
       "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame",
       "oncoming_position": "none in frame",
-      "hazard_position": "ahead_same_direction"
+      "hazard_position": "ahead_same_direction",
+      "marking_anchor": {
+        "edge": "median side, left of the general lane",
+        "marking": "diamond in the HOV lane beyond solid white pavement marking",
+        "ego_relative": "the shuttle stays in the general lane immediately right of that solid white marking"
+      }
     }
   },
   "variation": {

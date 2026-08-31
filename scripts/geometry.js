@@ -88,6 +88,26 @@ function isGeometryRead(read) {
   );
 }
 
+const MARKING_READ_RE =
+  /\bdiamond\b|solid white|broken white|pavement marking|centerline|two-way left|center pocket is a turn|left-turn arrows both|arrows both ways/;
+const INCIDENTAL_MARKING_RE =
+  /\bsingle solid\b|\bdouble solid\b|\bstriped buffer\b|\bpainted buffer\b|\bbuffer (?:lane|stripe)s?\b/i;
+const MARKING_EDGE_RE = /\b(median|barrier|curb|shoulder|oncoming)\b/i;
+
+function isMarkingRead(read) {
+  return MARKING_READ_RE.test(String(read || "").toLowerCase());
+}
+
+function markingAnchorClause(geo) {
+  const a = geo && geo.marking_anchor;
+  if (!a || typeof a !== "object") return "";
+  return (
+    `The ${a.marking} is anchored to the ${a.edge}, not to a compass direction. ` +
+    `${a.ego_relative} ` +
+    "Negate the inverse placements explicitly."
+  );
+}
+
 function camerasForHazard(hazard, driver) {
   switch (hazard) {
     case "behind":
@@ -403,6 +423,37 @@ function validateGeometry(card) {
     errors.push(`${id}: geometry lesson read requires POV_DIAGRAM, got ${cam}`);
   }
 
+  const incidentalHit = String(
+    briefText(brief, ["subject", "foreground", "midground", "background", "read"])
+  ).match(INCIDENTAL_MARKING_RE);
+  if (incidentalHit) {
+    const target = String((card.source && card.source.teaching_target) || "");
+    const hit = incidentalHit[0];
+    if (!new RegExp(hit.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(target)) {
+      errors.push(
+        `${id}: incidental marking style ${JSON.stringify(hit)} is not in teaching_target — specify only what the lesson needs`
+      );
+    }
+  }
+
+  const actFrozen = card.act === "I" || card.act === "II";
+  if (!actFrozen && isMarkingRead(brief.read)) {
+    const a = geo && geo.marking_anchor;
+    if (!a || typeof a !== "object") {
+      errors.push(
+        `${id}: pavement-marking read requires geometry.marking_anchor (edge, marking, ego_relative)`
+      );
+    } else {
+      if (!a.edge || !MARKING_EDGE_RE.test(a.edge)) {
+        errors.push(
+          `${id}: marking_anchor.edge must name a roadway edge (median, barrier, curb, shoulder, oncoming)`
+        );
+      }
+      if (!a.marking) errors.push(`${id}: marking_anchor.marking missing`);
+      if (!a.ego_relative) errors.push(`${id}: marking_anchor.ego_relative missing`);
+    }
+  }
+
   if (needsTrafficPositions(card)) {
     const rows = geo && geo.traffic_positions;
     if (!Array.isArray(rows) || rows.length < 1) {
@@ -466,6 +517,8 @@ module.exports = {
   cameraOf,
   describesRoadway,
   isGeometryRead,
+  isMarkingRead,
+  markingAnchorClause,
   camerasForHazard,
   geometryClause,
   headingLockClause,

@@ -64,23 +64,25 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_CHASE",
+    "camera": "POV_COCKPIT",
     "camera_is_the_lesson": true,
-    "subject": "Ledger rear, destination sign already LEFT, a day-cab box still tight behind",
-    "foreground": "following glass, dusk, the box's windshield frame",
-    "midground": "the Ledger's rear doors and an amber destination sign lit LEFT; the box has not dropped back",
-    "background": "wind at dusk on 167, no extra traffic",
-    "read": "the sign is already talking; the box has not given the gap",
+    "subject": "from the seat looking forward: destination-sign switch already thrown, left stalk blinking amber; the column sits in the left side-mirror glass at the edge of frame",
+    "foreground": "commercial wheel, square analog gauges, left turn stalk with the blinker on",
+    "midground": "welded bar cage, wet 167 at dusk; left side-mirror glass holds a day-cab box still tight behind — factory mirrors only, no cutaway body",
+    "background": "wind at dusk on 167, no extra traffic, no readable destination-sign text",
+    "read": "the sign switch is thrown and the left stalk is blinking; the column in the left side-mirror glass has not given the gap",
     "continuity": [
-      "the_ledger"
+      "ledger_cockpit"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right travel lane of a multi-lane highway",
-      "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
+      "ego_lane_side": "right travel lane of two highway lanes",
+      "ego_nose_in_frame": "travel is away; van nose toward the top of the frame beyond the hood",
       "oncoming_position": "none in this heading",
-      "hazard_position": "none"
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2
     }
   },
   "variation": {

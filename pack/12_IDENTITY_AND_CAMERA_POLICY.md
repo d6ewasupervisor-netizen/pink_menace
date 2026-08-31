@@ -59,7 +59,7 @@ That last line is the one that matters. If you mute the card text and the image 
 
 - A card may declare `image_brief.camera_is_the_lesson: true` when the camera position is itself the teaching content. Declared cards are **exempt from the cap** and excluded from the denominator.
 - The 25% cap applies to non-exempt cards only.
-- The consecutive rule still applies to **all** cards, exempt or not — never the same token twice in a row.
+- Consecutive-token **skips** a pair when either card is `camera_is_the_lesson` or is shot from the ego seat (`POV_COCKPIT`, `POV_MIRROR_DOOR`). Two cockpits in a row is a far smaller problem than a card shot from the wrong vehicle. Window-of-6 still applies to non-lesson tokens.
 - New hard rule, replacing the cap as the real anti-monotony guard: **no more than 2 uses of any token in any window of 6 cards.** Clustering is what reads as monotonous. A token spread evenly at 27% does not.
 
 Hand-signal cards belong on a following-driver view (`POV_CHASE`, `camera_is_the_lesson`). Following-distance cards belong on `POV_MIRROR_REAR` when the ego has a rear window (Ali). On Deac they belong on `POV_MIRROR_DOOR` — the Ledger has no rear glass. Do not steal a rearview from a hazard-behind card to satisfy a percentage, and do not invent one on a cutaway.
@@ -79,7 +79,7 @@ III-006 authored the ego from a following seat. III-026 carried a Menace into De
 1. **Ego matches the act's driver.** Act II is Ali / the Menace. Act III is Deac / the Ledger. A card may not put another playable vehicle in the ego seat, and a Ledger act may not carry Menace marks (pink Beetle, plow blade).
 2. **Camera is consistent with sitting in it.** `POV_CHASE` of the player's own vehicle from a following cab (`following cab`, follower A-pillar) is illegal unless `camera_is_the_lesson` is set — hand signals, and only those. The player's signaling language is shot from inside their cab. **`POV_MIRROR_REAR` + `driver: deac` is a hard reject** — the Ledger has no rear window and no interior mirror. Hazard behind on a Deac card is `POV_MIRROR_DOOR`.
 3. **No other vehicle shares the ego's canon marks.** Ledger: cutaway body, amber destination sign, roof cargo rack, west-coast arms. Menace: plow, pink Beetle, bull bar, knobby tires. Encore: horn flares, chevron. Those marks belong to one vehicle. Other traffic is a panel van, a dump, a sedan — factory mirrors only.
-4. **Clipboard is not in the glass.** It lives on the doghouse, on the thigh, or in his hands. Never on the dash, never clipped to the mesh. The D4 cockpit lock currently violates this — retake before attaching `ref_ledger_cockpit.png` to a recompile.
+4. **Clipboard is not in the glass.** It lives on the doghouse, on the thigh, or in his hands. Never on the dash, never clipped to the mesh. D4 (`ref_ledger_cockpit.png`) was retaken without the clipboard on the mesh; attach that lock on Ledger cockpits.
 5. **No unrestrained cat in a moving Ledger.** Mya on the dash only when parked.
 
 The compiler already appends the other-vehicle clause on Deac cards. This check is the gate that keeps a bad brief from spending a generation.
