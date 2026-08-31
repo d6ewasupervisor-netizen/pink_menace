@@ -67,10 +67,14 @@ You MUST:
     Menace lock (ref_car_exterior.jpg, ref_cockpit.jpg, Ali, Gracie) on a Deac card.
   - on every Deac compile, append: no Volkswagen Beetle, no rounded-fender
     compact, no plow blade.
-  - on Deac POV_DIAGRAM, POV_ROADSIDE, and POV_CHASE with same-direction
-    traffic, append the frame-relative traffic_positions clause (left of
-    frame / right of frame, both headings, longitudinal offset). Never
-    compile "passing occurs on the LEFT" into the positive prompt.
+  - on Deac POV_DIAGRAM, POV_ROADSIDE, POV_ROADSIDE_PROFILE, and POV_CHASE
+    with same-direction traffic, append the frame-relative traffic_positions
+    clause once (left of frame / right of frame, both headings, longitudinal
+    offset). Never compile "passing occurs on the LEFT" into the positive
+    prompt. If those facts are already in the frame clause, do not repeat
+    them in the scene line, the read, or the geometry clause.
+  - lateral headings compile as `POV_ROADSIDE_PROFILE`. Never assemble a
+    profile from generic `POV_ROADSIDE` plus corrective sentences.
   - end with the negative block
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
@@ -306,8 +310,8 @@ Append this clause, filled from that block, to every road compile:
 > **[oncoming_position]**. No vehicle faces the wrong way in its lane.
 
 When `traffic_positions` is present (required on Deac `POV_DIAGRAM`,
-`POV_ROADSIDE`, and `POV_CHASE` whenever a same-direction vehicle is in
-frame):
+`POV_ROADSIDE`, `POV_ROADSIDE_PROFILE`, and `POV_CHASE` whenever a
+same-direction vehicle is in frame):
 
 ## MULTI-LANE FRAME RULE — standing, Acts III–VII
 
@@ -329,10 +333,21 @@ When `frame_side` is `same`, the other vehicle shares the shuttle's lane
 and the opposite half of the frame is empty. Compile that emptiness.
 Never leave "same lane" implied.
 
-Lateral headings (`left_to_right`, `right_to_left`) are a SIDE VIEW.
-Compile noses pointing at the named frame edge and forbid headlights
-toward the camera. A roadside still that faces the lens has discarded
-the heading.
+Lateral headings (`left_to_right`, `right_to_left`) use the camera token
+`POV_ROADSIDE_PROFILE`. The token carries the profile framing: long
+flanks, noses along the roadway, not at the lens. Never assemble a
+profile from generic `POV_ROADSIDE` ("ground level, outside the car")
+plus corrective sentences. Ground-level-outside does not imply a
+profile — the model can satisfy it from directly in front.
+
+## SPATIAL FACTS ONCE — standing
+
+State each spatial fact exactly once. If `frame_side`, heading, and lane
+are already given, do not restate them in the scene line, the read, or
+the geometry clause. The instruction that repeats is the instruction the
+model is least sure of. III-012's winning prompt stated position once.
+III-010 take 1 restated heading four ways and the model resolved it
+head-on, which every restatement had banned.
 
 > The roadway has [N] lanes in this direction. On the LEFT side of the
 > frame: [vehicle A], traveling [heading]. On the RIGHT side of the
@@ -351,7 +366,7 @@ The plow is the orientation anchor. Always state where it points in frame.
 | behind | POV_MIRROR_REAR on a vehicle with a rear window. On the Ledger: POV_MIRROR_DOOR. Never a forward camera. Never POV_MIRROR_REAR on Deac. |
 | ahead_same_direction | POV_COCKPIT (or another forward camera; never a rearview) |
 | oncoming | POV_COCKPIT, oncoming lane left of frame; or POV_DIAGRAM |
-| beside | POV_DIAGRAM, POV_ROADSIDE, or POV_MIRROR_DOOR |
+| beside | POV_DIAGRAM, POV_ROADSIDE, POV_ROADSIDE_PROFILE, or POV_MIRROR_DOOR |
 | geometry of a maneuver | POV_DIAGRAM |
 
 A forward camera can never depict a following vehicle. Abort the compile.

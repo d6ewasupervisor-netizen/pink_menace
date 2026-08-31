@@ -101,7 +101,7 @@ Fields:
                   Exempts the card from the 25% cap and from window-of-6 counts.
   geometry      — required whenever a roadway appears. ego_heading, ego_lane_side,
                   ego_nose_in_frame (the plow), oncoming_position, hazard_position.
-                  On Deac POV_DIAGRAM, POV_ROADSIDE, and POV_CHASE, when a same-direction
+                  On Deac POV_DIAGRAM, POV_ROADSIDE, POV_ROADSIDE_PROFILE, and POV_CHASE, when a same-direction
                   vehicle is in frame: lanes_this_direction, ego_lane_from_left
                   (1 = leftmost), and traffic_positions with frame_side
                   (left / right of the FRAME, or `same` for the shuttle's lane
@@ -143,7 +143,8 @@ Rules:
     `traffic_positions` with `frame_side` (left/right of the FRAME, or `same`
     for the shuttle's lane with the opposite half empty). Never
     "right half of the roadway" on multi-lane. Never "passing occurs on the LEFT."
-    `ego_lane_side` is two-lane only. Lateral headings are a side view.
+    `ego_lane_side` is two-lane only. Lateral headings use `POV_ROADSIDE_PROFILE`.
+    State each spatial fact exactly once.
   - Sign, signal, and marking recognition defaults to `POV_OBJECT`.
   - Do not put text, words, numbers, or UI in the frame unless the card is
     teaching a sign face or a gauge reading.

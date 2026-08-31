@@ -64,21 +64,22 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_OBJECT",
-    "subject": "left turn stalk blinking amber, destination-sign toggle already thrown, the stacked column visible in the glass behind",
-    "foreground": "commercial column, blinking left stalk, and the thrown sign switch — Deac's cab, no driver face",
-    "midground": "interior rearview and a slice of the left door mirror, both holding the same day-cab box truck behind — factory mirrors only, no amber destination sign, no roof rack, no cutaway shuttle body",
-    "background": "defocused dusk 167 through the cage, not the subject",
-    "read": "the stalk and the sign switch are already talking; the column in the glass has not given the gap",
+    "camera": "POV_CHASE",
+    "camera_is_the_lesson": true,
+    "subject": "Ledger rear, destination sign already LEFT, a day-cab box still tight behind",
+    "foreground": "following glass, dusk, the box's windshield frame",
+    "midground": "the Ledger's rear doors and an amber destination sign lit LEFT; the box has not dropped back",
+    "background": "wind at dusk on 167, no extra traffic",
+    "read": "the sign is already talking; the box has not given the gap",
     "continuity": [
-      "ledger_cockpit"
+      "the_ledger"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of a multi-lane highway",
-      "ego_nose_in_frame": "not in the mirror; travel is away, reflected traffic is behind",
-      "oncoming_position": "none in the glass",
+      "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
+      "oncoming_position": "none in this heading",
       "hazard_position": "none"
     }
   },

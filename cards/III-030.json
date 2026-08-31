@@ -7,7 +7,7 @@
   "title": "The Core From Here",
   "hook": "The Core sits ahead. Someone new is on the radio.",
   "scene": "Clear cold night, the Ledger on a legal pad at the north end of Central. Downtown is a dark geometry with a few stubborn lamps — the Core, locked from here. Mya has finally moved off the glass. The radio, which has been trash for two acts, carries a young voice — a count-in, then a laugh, then static. Yuna, not yet a face. The door to Act IV is visible and shut. The log has a line left for tomorrow.",
-  "debrief": "Act III ends on Central with the Core in sight. The next driver is already talking. The door is locked on purpose. The skyline is dark and the sign is dark with it.",
+  "debrief": "The skyline is dark and the sign is dark with it. The next driver is already talking. The door is locked on purpose.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
@@ -22,7 +22,7 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_ROADSIDE",
+    "camera": "POV_ROADSIDE_PROFILE",
     "subject": "Ledger parked on a pad, downtown skyline dark with a few lamps, no readable signs",
     "foreground": "cold gravel pad and a strip of Central paint",
     "midground": "the Ledger's square box and oversize door-mirror arms, destination sign dark",

@@ -8,6 +8,7 @@ const LEGAL_CAMERAS = [
   "POV_DIAGRAM",
   "POV_CHASE",
   "POV_ROADSIDE",
+  "POV_ROADSIDE_PROFILE",
   "POV_PORTRAIT",
   "POV_OBJECT",
 ];
@@ -36,6 +37,7 @@ const ROAD_CAMERAS = new Set([
   "POV_MIRROR_REAR",
   "POV_MIRROR_DOOR",
   "POV_ROADSIDE",
+  "POV_ROADSIDE_PROFILE",
 ]);
 
 const FORWARD_CAMERAS = new Set(["POV_COCKPIT", "POV_CHASE", "POV_TOPDOWN_PHOTO"]);
@@ -96,7 +98,7 @@ function camerasForHazard(hazard, driver) {
     case "oncoming":
       return ["POV_COCKPIT", "POV_DIAGRAM"];
     case "beside":
-      return ["POV_DIAGRAM", "POV_ROADSIDE", "POV_MIRROR_DOOR"];
+      return ["POV_DIAGRAM", "POV_ROADSIDE", "POV_ROADSIDE_PROFILE", "POV_MIRROR_DOOR"];
     case "none":
       return LEGAL_CAMERAS.slice();
     default:
@@ -219,8 +221,9 @@ function alongPhrase(along, lengths) {
   return `behind the shuttle by ${n} ${unit}`;
 }
 
-function framePlacementClause(geo, driver) {
+function framePlacementClause(geo, driver, opts) {
   if (!usesFramePlacement(geo)) return "";
+  const cam = opts && opts.camera;
   const shuttle = driver === "deac" ? "a gray cutaway shuttle bus" : "the pink vehicle";
   const n = geo.lanes_this_direction;
   const travel = travelPhrase(geo.ego_heading);
@@ -228,13 +231,14 @@ function framePlacementClause(geo, driver) {
   if (typeof n === "number" && n >= 2) {
     bits.push(`The roadway has ${n} lanes in this direction.`);
   }
-  bits.push(`On the ${String(geo.ego_frame_side).toUpperCase()} side of the frame: ${shuttle}, traveling ${travel}.`);
+  bits.push(`Heading: ${travel}.`);
+  bits.push(`On the ${String(geo.ego_frame_side).toUpperCase()} side of the frame: ${shuttle}.`);
   for (const r of geo.traffic_positions || []) {
     if (r.frame_side === "left" || r.frame_side === "right") {
-      bits.push(`On the ${r.frame_side.toUpperCase()} side of the frame: ${r.vehicle}, traveling ${travel}.`);
+      bits.push(`On the ${r.frame_side.toUpperCase()} side of the frame: ${r.vehicle}.`);
     } else if (r.frame_side === "same") {
       bits.push(
-        `Also on the ${String(geo.ego_frame_side).toUpperCase()} side of the frame, in the same lane: ${r.vehicle}, traveling ${travel}. ` +
+        `Also on the ${String(geo.ego_frame_side).toUpperCase()} side of the frame, in the same lane: ${r.vehicle}. ` +
           `The skip-dashed lane line runs along the ${egoWrongFlank(geo.ego_frame_side)} flank of both vehicles. ` +
           `Both vehicles' tires sit on the ${String(geo.ego_frame_side).toUpperCase()} of that dashed line. ` +
           `The ${egoWrongFlank(geo.ego_frame_side).toUpperCase()} travel lane is empty wet asphalt.`
@@ -244,13 +248,15 @@ function framePlacementClause(geo, driver) {
   for (const r of geo.traffic_positions || []) {
     bits.push(offsetInFrame(r.along, r.lengths, geo.ego_heading, r.vehicle));
   }
-  bits.push(`Both headings are ${travel}.`);
-  const lock = headingLockClause(geo);
-  if (lock) bits.push(lock);
+  const tokenCarriesHeading = cam === "POV_ROADSIDE_PROFILE" || cam === "POV_CHASE" || cam === "POV_DIAGRAM";
+  if (!tokenCarriesHeading) {
+    const lock = headingLockClause(geo);
+    if (lock) bits.push(lock);
+  }
   return bits.join(" ");
 }
 
-function framePassNegatives(geo, driver) {
+function framePassNegatives(geo, driver, cam) {
   if (!geo) return "";
   if (!usesFramePlacement(geo)) {
     if (Array.isArray(geo.traffic_positions) && geo.traffic_positions.length) {
@@ -274,7 +280,10 @@ function framePassNegatives(geo, driver) {
       parts.push(`No ${r.vehicle} in a different lane from the shuttle.`);
     }
   }
-  if (geo.ego_heading === "left_to_right" || geo.ego_heading === "right_to_left") {
+  if (
+    (geo.ego_heading === "left_to_right" || geo.ego_heading === "right_to_left") &&
+    cam !== "POV_ROADSIDE_PROFILE"
+  ) {
     parts.push(
       "No headlights facing the camera, no grille toward the viewer, no vehicle coming toward the lens, no head-on view."
     );
@@ -308,7 +317,7 @@ function needsTrafficPositions(card) {
   return (
     card &&
     card.driver === "deac" &&
-    (cam === "POV_DIAGRAM" || cam === "POV_ROADSIDE" || cam === "POV_CHASE") &&
+    (cam === "POV_DIAGRAM" || cam === "POV_ROADSIDE" || cam === "POV_ROADSIDE_PROFILE" || cam === "POV_CHASE") &&
     SAME_DIRECTION_HAZARDS.has(hazard)
   );
 }
@@ -360,6 +369,12 @@ function validateGeometry(card) {
       }
       if (geo.ego_heading && !HEADINGS.includes(geo.ego_heading)) {
         errors.push(`${id}: geometry.ego_heading ${JSON.stringify(geo.ego_heading)}`);
+      }
+      if (
+        (geo.ego_heading === "left_to_right" || geo.ego_heading === "right_to_left") &&
+        cam === "POV_ROADSIDE"
+      ) {
+        errors.push(`${id}: lateral heading requires POV_ROADSIDE_PROFILE, not POV_ROADSIDE`);
       }
       if (geo.hazard_position && !HAZARDS.includes(geo.hazard_position)) {
         errors.push(`${id}: geometry.hazard_position ${JSON.stringify(geo.hazard_position)}`);

@@ -46,6 +46,8 @@ const FRAMING = {
     "Camera is behind the subject vehicle, traveling the same direction. The subject's rear is the nearest and dominant mass; the body recedes away from the camera. Dead astern or offset to a flank as the brief specifies. The camera may be outside or in a following cab looking forward through glass. Never oncoming. The subject's front, grille, and headlights are not in frame.",
   POV_ROADSIDE:
     "Camera is ground level, outside the car, human eye height.",
+  POV_ROADSIDE_PROFILE:
+    "Camera is at curb height, a true profile of the vehicles. You see the long near flanks. Noses point along the roadway, not at the lens.",
   POV_PORTRAIT:
     "Chest-up, subject centered, background compressed.",
   POV_OBJECT:
@@ -79,6 +81,9 @@ const CHASE_CLAUSE =
 const CHASE_NEGATIVE =
   "No front grille, no headlights facing the camera, no oncoming vehicles, no vehicle facing the camera, no nose-to-nose traffic, no subject coming toward the lens.";
 
+const PROFILE_NEGATIVE =
+  "No headlights facing the camera, no grille toward the viewer, no vehicle coming toward the lens, no head-on view.";
+
 const SIGN_CLAUSE =
   "Traffic signs are single-faced. Any sign in frame is legible only if it faces the camera's direction of travel. Signs governing a cross or opposing approach show their blank reverse side. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.";
 
@@ -94,6 +99,18 @@ const LEDGER_PARKED_CAT =
   "The vehicle is parked and still. A brown mackerel tabby may loaf on the dash. Do not show the cat if the wheels are rolling.";
 
 const LEDGER_INCAB = new Set(["POV_COCKPIT", "POV_OBJECT", "POV_MIRROR_DOOR", "POV_PORTRAIT"]);
+
+function otherVehicleClauseLedger(card) {
+  if (card && Array.isArray(card.cast) && card.cast.includes("old_ninety")) {
+    return (
+      "Any vehicle other than the Ledger must be visually distinct from it. " +
+      "The Ledger is the only cutaway shuttle: no second cutaway body, no amber destination sign, no roof cargo rack on any other vehicle. " +
+      "Old Ninety is a semi tractor-trailer with dirty door mirrors on the cab — those mirrors are the subject, not a second Ledger. " +
+      "No Volkswagen Beetle, no rounded-fender compact, no pink car, no plow blade, on any vehicle."
+    );
+  }
+  return OTHER_VEHICLE_CLAUSE_LEDGER;
+}
 
 function headingPhrase(heading) {
   switch (heading) {
@@ -144,17 +161,24 @@ function assemblePrompt(card) {
 
   parts.push(framing);
 
-  if (brief.geometry && usesFramePlacement(brief.geometry)) {
-    parts.push(framePlacementClause(brief.geometry, card.driver));
+  const framed = Boolean(brief.geometry && usesFramePlacement(brief.geometry));
+  if (framed) {
+    parts.push(framePlacementClause(brief.geometry, card.driver, { camera: cam }));
   }
 
-  if (deac && (cam === "POV_CHASE" || cam === "POV_ROADSIDE" || cam === "POV_DIAGRAM")) {
+  if (
+    deac &&
+    (cam === "POV_CHASE" ||
+      cam === "POV_ROADSIDE" ||
+      cam === "POV_ROADSIDE_PROFILE" ||
+      cam === "POV_DIAGRAM")
+  ) {
     parts.push(
       "Ego vehicle: a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette — a tall square passenger box on a van cab, faded green and white transit livery ghosting under gray primer. All four of the following must be clearly visible and unmistakable: the tall square box on a van nose, oversize side mirrors on long arms on both sides, an amber dot-matrix destination sign above the windshield with no readable text, and a welded bar cage over the windshield with a cut wiper slot."
     );
   }
   if (deac && cam !== "POV_PORTRAIT") {
-    parts.push(OTHER_VEHICLE_CLAUSE_LEDGER);
+    parts.push(otherVehicleClauseLedger(card));
   }
 
   if (brief.subject) parts.push(brief.subject.replace(/\.*$/, "."));
@@ -175,17 +199,19 @@ function assemblePrompt(card) {
 
   if (describesRoadway(card) && brief.geometry) {
     parts.push(LHD);
-    if (cam === "POV_CHASE") {
-      parts.push(CHASE_CLAUSE);
-      const geo = brief.geometry;
-      parts.push(
-        "United States road configuration, traffic drives on the right. " +
-          `The subject is traveling ${headingPhrase(geo.ego_heading)}. Any oncoming traffic is ${geo.oncoming_position}. No vehicle faces the wrong way in its lane.`
-      );
-      const traffic = trafficPositionsClause(geo, card.driver);
-      if (traffic) parts.push(traffic);
-    } else {
-      parts.push(geometryPromptClause(brief.geometry, card.driver));
+    if (!framed) {
+      if (cam === "POV_CHASE") {
+        parts.push(CHASE_CLAUSE);
+        const geo = brief.geometry;
+        parts.push(
+          "United States road configuration, traffic drives on the right. " +
+            `The subject is traveling ${headingPhrase(geo.ego_heading)}. Any oncoming traffic is ${geo.oncoming_position}. No vehicle faces the wrong way in its lane.`
+        );
+        const traffic = trafficPositionsClause(geo, card.driver);
+        if (traffic) parts.push(traffic);
+      } else {
+        parts.push(geometryPromptClause(brief.geometry, card.driver));
+      }
     }
     parts.push(SIGN_CLAUSE);
   } else if (cam !== "POV_OBJECT" && cam !== "POV_PORTRAIT") {
@@ -205,9 +231,10 @@ function assemblePrompt(card) {
   ];
   if (deac) negs.push(LEDGER_NO_MENACE);
   if (brief.geometry) {
-    const frameNeg = framePassNegatives(brief.geometry, card.driver);
+    const frameNeg = framePassNegatives(brief.geometry, card.driver, cam);
     if (frameNeg) negs.push(frameNeg);
   }
+  if (cam === "POV_ROADSIDE_PROFILE") negs.push(PROFILE_NEGATIVE);
   if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
   const continuity = (brief.continuity || []);

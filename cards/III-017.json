@@ -6,14 +6,14 @@
   "card_type": "wrench",
   "title": "The Side Mirror Points Up",
   "hook": "The right side mirror is pointing at the sky.",
-  "scene": "Heavy rain at dusk in a work zone. A cone you did not own kissed the right mirror arm. The side mirror now looks at the sky. Mya is a loaf on the dash, useless for this. The Ledger just lost the look at its right. You can keep rolling on a guess or you can make the glass tell the truth again.",
+  "scene": "Heavy rain at dusk in a work zone. A cone you did not own kissed the right mirror arm. The side mirror now looks at the sky. Mya is boxed on the doghouse between the seats. The Ledger just lost the look at its right. You can keep rolling on a guess or you can make the glass tell the truth again.",
   "decision": "The right side mirror is pointed at the weather. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Keep rolling — you still have the inside mirror and the shoulder check",
+      "text": "Keep rolling — you still have the left door mirror and the shoulder check",
       "correct": false,
-      "result": "You guess the right-side blind spot. A work van is in it. You find him with the side of the bus. The inside mirror never had that angle.",
+      "result": "You guess the right-side blind spot. A work van is in it. You find him with the side of the bus. The left door mirror never had that angle.",
       "state_delta": {
         "noise": 4,
         "damage": 1,

@@ -68,9 +68,9 @@
   "timeout_option_id": "d",
   "timeout_ms": 8000,
   "image_brief": {
-    "camera": "POV_MIRROR_REAR",
-    "subject": "WSP remnant with lamps finding the gaps, same heading, filling the interior glass",
-    "foreground": "rearview housing, rain on the glass",
+    "camera": "POV_MIRROR_DOOR",
+    "subject": "WSP remnant with lamps finding the gaps, same heading, filling the left door-mirror glass",
+    "foreground": "left door-mirror housing, rain on the glass",
     "midground": "Dunn's cruiser in the stack, no readable plate, lamps live",
     "background": "defocused Central, midday rain",
     "read": "the emergency vehicle is behind and already talking; the road ahead is not the subject",

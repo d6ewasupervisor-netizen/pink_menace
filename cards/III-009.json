@@ -5,8 +5,8 @@
   "driver": "deac",
   "card_type": "hazard",
   "title": "Hollis on Your Bumper",
-  "hook": "Hollis fills the glass. Your front gap is the fix.",
-  "scene": "Ice on a Kent morning, 256th doing the speed of Central. Hollis is in the lifted truck again, filling the inside mirror, close enough that his plow is a suggestion. If you brake for the light you cannot see yet, he writes you into the doghouse between the seats. The six-second habit from the Grid still works. You just have to spend it ahead, not behind.",
+  "hook": "Hollis fills the left door glass. Open your front gap.",
+  "scene": "Ice on a Kent morning, 256th doing the speed of Central. Hollis is in the lifted truck again, filling the left door mirror, close enough that his plow is a suggestion. If you brake for the light you cannot see yet, he writes you into the doghouse between the seats. The six-second habit from the Grid still works. You just have to spend it ahead, not behind.",
   "decision": "Hollis is on your bumper at speed. What do you change?",
   "options": [
     {
@@ -69,9 +69,9 @@
   "timeout_option_id": "d",
   "timeout_ms": 10000,
   "image_brief": {
-    "camera": "POV_MIRROR_REAR",
-    "subject": "lifted truck grille filling the interior rearview, too close, ice film on the glass",
-    "foreground": "weathered rearview housing",
+    "camera": "POV_MIRROR_DOOR",
+    "subject": "lifted truck grille filling the left door-mirror glass, too close, ice film on the glass",
+    "foreground": "left door-mirror housing and a strip of the door",
     "midground": "Hollis's plow and lamps, no legal gap, same heading",
     "background": "defocused windshield, Kent morning, ice",
     "read": "he is closer than a stop at this speed; the road ahead is not the subject",

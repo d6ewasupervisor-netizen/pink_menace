@@ -64,7 +64,7 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_ROADSIDE",
+    "camera": "POV_ROADSIDE_PROFILE",
     "subject": "the Pink Menace's front in rain: a wide flat plow on the black bull bar; the headlamp on the car's left fender is dark; the headlamp on the car's right fender is a lit low beam",
     "foreground": "wet glass, rain needles, the plow blade catching the one live lamp",
     "midground": "residential street, morning rain, no other lamps",

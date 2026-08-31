@@ -134,6 +134,7 @@
             "POV_DIAGRAM",
             "POV_CHASE",
             "POV_ROADSIDE",
+            "POV_ROADSIDE_PROFILE",
             "POV_PORTRAIT",
             "POV_OBJECT"
           ],

@@ -5,9 +5,9 @@
   "driver": "deac",
   "card_type": "ledger",
   "title": "The Straight Again",
-  "hook": "Same long straight. The hood line is walking again.",
-  "scene": "Overcast afternoon on 167, the same long straight. Last time your eyes left it — sleep or a screen, the mile does not care. This time the hood line is already on the rumble and the skip-dash is a smear. The thermos is still empty. A pad is coming up on the right, legal, ugly, enough. The Drift does not give second warnings. It gives the same mile twice.",
-  "decision": "The hood line is on the rumble again. What do you do with the second chance?",
+  "hook": "The same straight comes back.",
+  "scene": "Overcast afternoon on 167, the same long straight. Last time your eyes left it — sleep or a screen, the mile does not care. This time the right rear tires are already on the rumble and the skip-dash is a smear. The thermos is still empty. A pad is coming up on the right, legal, ugly, enough. The Drift does not give second warnings. It gives the same mile twice.",
+  "decision": "The right rear tires are on the rumble again. What do you do with the second chance?",
   "options": [
     {
       "id": "a",
@@ -66,7 +66,7 @@
   "callback_of": "III-016",
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_ROADSIDE",
+    "camera": "POV_ROADSIDE_PROFILE",
     "subject": "Ledger drifted onto the rumble of a long overcast straight, no other vehicle forcing it",
     "foreground": "rumble strip and cold grass at eye height",
     "midground": "the Ledger's right rear tires on the rumble, van nose still pointed up the highway",

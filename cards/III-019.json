@@ -68,23 +68,23 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_CHASE",
+    "camera": "POV_COCKPIT",
     "camera_is_the_lesson": true,
-    "subject": "Ledger rear, amber destination sign lit, left arm out and down, volunteer box tight behind",
-    "foreground": "following glass and falling snow",
-    "midground": "rear doors, oversize door-mirror arms, the sign facing the camera, a torso in the left window with the left arm out and down",
-    "background": "deep night, snow, a dead pickup ahead in the right",
-    "read": "the sign and the left arm are already talking while the brake lamps are still dark",
+    "subject": "sign switch on SLOW, left arm down, volunteer in the left door glass, brakes dark",
+    "foreground": "worn transit wheel, left window frame, snow on the cage",
+    "midground": "left arm out the window pointing down; volunteer box in the left door-mirror glass",
+    "background": "a dead pickup ahead through the cage, deep night, snow",
+    "read": "the sign and the left arm are already talking; the brake lamps are still dark",
     "continuity": [
-      "the_ledger",
+      "ledger_cockpit",
       "hand_signals"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of a two-lane-each-way highway",
-      "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
-      "oncoming_position": "none in this heading",
+      "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+      "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction"
     }
   },

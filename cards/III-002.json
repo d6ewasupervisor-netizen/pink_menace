@@ -6,7 +6,7 @@
   "card_type": "dossier",
   "title": "Mya Has the Glass",
   "hook": "Mya is sitting on the glass you need.",
-  "scene": "The Ledger's cab is a high seat and a thermos empty since yesterday. Mya is a brown mackerel loaf on the dash — dark stripe, green eyes, one paw in the big west-coast mirror on his door. The clipboard sits on the doghouse between the seats. Amber vest, taped at the shoulder. Ali is still in the jump seat from the ride-along. Your hands are on the wheel now. Central is already moving.",
+  "scene": "The Ledger is parked at the curb on Central at dawn, engine still, key in. The cab is a high seat and a thermos empty since yesterday. Mya is a brown mackerel loaf on the dash — dark stripe, green eyes, one paw in the big west-coast mirror on his door. The clipboard sits on the doghouse between the seats. Amber vest, taped at the shoulder. Ali is still in the jump seat from the ride-along. Your hands rest on the wheel. You have not rolled yet.",
   "debrief": "High seat, empty thermos, clipboard on the doghouse between the seats. The big west-coast mirror on his door is how this bus sees the right. The only good look at the right is past that paw.",
   "source": {
     "psdp_skill": "n/a",
@@ -35,7 +35,7 @@
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right travel lane of a two-lane-each-way stretch of Central",
+      "ego_lane_side": "parked at the curb of a two-lane-each-way stretch of Central",
       "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
       "oncoming_position": "left half of the roadway, opposite direction, distant",
       "hazard_position": "none"

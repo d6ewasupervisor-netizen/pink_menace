@@ -5,8 +5,8 @@
   "driver": "deac",
   "card_type": "scene",
   "title": "See His Mirrors or Leave",
-  "hook": "Old Ninety's trailer. If you cannot see his mirrors, he cannot.",
-  "scene": "Overcast midday on 167. A rogue semi with no door marks and a dirty number that used to be ninety fills the rear glass, then the left. Old Ninety. You are beside a trailer that has blind spots a Ledger understands. If you cannot see the big west-coast mirrors on his doors, you are nowhere. The schedule wants you past him. Nowhere wants you first.",
+  "hook": "You're beside his trailer. He can't see you here.",
+  "scene": "Overcast midday on 167. A rogue semi with no door marks and a dirty number that used to be ninety is in the right lane. You are in the left, beside the rear half of his trailer. Old Ninety. The big west-coast mirrors on his doors sit far ahead on the cab. If you cannot see those mirrors, he cannot see you. The schedule wants you past him. You are in the place a truck cannot see.",
   "decision": "You are coming up on Old Ninety's left rear quarter. Where do you sit?",
   "options": [
     {
@@ -67,23 +67,29 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR_REAR",
+    "camera": "POV_CHASE",
     "camera_is_the_lesson": true,
-    "subject": "dirty oversize door mirrors on a rogue semi, no Ledger reflected in them, trailer filling the glass",
-    "foreground": "Ledger rearview housing",
-    "midground": "Old Ninety's left-side glass empty of you, trailer ribs, no door marks",
-    "background": "defocused 167, overcast midday",
-    "read": "his mirrors do not have you in them; you are in a blind spot he cannot see",
+    "subject": "shuttle beside the rear half of a semi trailer; the tractor's door mirrors far ahead",
+    "foreground": "wet asphalt and the shuttle's left flank",
+    "midground": "Old Ninety's trailer ribs; the cab and its door mirrors many lengths ahead",
+    "background": "overcast 167, midday, bare trees",
+    "read": "the bus sits beside the trailer's rear half; the truck's door mirrors are far ahead",
     "continuity": [
-      "ledger_cockpit"
+      "the_ledger"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "left travel lane of two northbound highway lanes",
-      "ego_nose_in_frame": "not in the mirror; the reflection is the truck beside and behind",
-      "oncoming_position": "none in the glass",
-      "hazard_position": "behind"
+      "ego_nose_in_frame": "van nose away; rear of the box nearer the camera",
+      "oncoming_position": "none in this heading",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 1,
+      "ego_frame_side": "left",
+      "traffic_positions": [
+        { "vehicle": "semi tractor-trailer", "frame_side": "right", "lane_from_left": 2, "along": "beside", "lengths": 0 }
+      ]
     }
   },
   "variation": {

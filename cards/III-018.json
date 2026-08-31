@@ -64,22 +64,29 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR_REAR",
-    "subject": "day-cab cube truck, short cargo box, still beside the Ledger in the glass, not yet a full front — factory mirrors only, no amber destination sign, no roof rack, no cutaway shuttle body",
-    "foreground": "rearview housing, rain on the glass",
-    "midground": "the cube truck's face incomplete in the reflection — you are not clear",
-    "background": "defocused Central at night, rain",
-    "read": "the passed vehicle's whole front is not yet in the glass",
+    "camera": "POV_DIAGRAM",
+    "subject": "shuttle in the left lane still overlapping a cube truck in the right",
+    "foreground": "wet asphalt and skip-dashed white, rain at night",
+    "midground": "the Ledger's nose past the box's cab; the rear doors still overlap the box",
+    "background": "Central at night, rain, no extra side streets",
+    "read": "the bus still overlaps the box; the recovery is not done",
     "continuity": [
-      "ledger_cockpit"
+      "diagram_style",
+      "the_ledger"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "left travel lane of two southbound lanes",
-      "ego_nose_in_frame": "not in the mirror; reflected traffic is behind and beside",
-      "oncoming_position": "none in the glass",
-      "hazard_position": "behind"
+      "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 1,
+      "ego_frame_side": "left",
+      "traffic_positions": [
+        { "vehicle": "day-cab cube truck", "frame_side": "right", "lane_from_left": 2, "along": "beside", "lengths": 0 }
+      ]
     }
   },
   "variation": {

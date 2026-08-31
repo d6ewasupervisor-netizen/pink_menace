@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Sweep Before You Change",
   "hook": "Cones shut the right. You need left.",
-  "scene": "Midday fog, work zone. Cones pinch the right lane shut, so you need the left. On this bus the inside mirror is a postage stamp. The look that matters is the big side mirror on the left door, then over your left shoulder. Fog on the windshield is why one glance is not enough.",
+  "scene": "Midday fog, work zone. Cones pinch the right lane shut, so you need the left. On this bus the look that matters is the big side mirror on the left door, then over your left shoulder. Fog on the windshield is why one glance is not enough.",
   "decision": "You need the left lane. What do you look at, and in what order?",
   "options": [
     {
@@ -35,7 +35,7 @@
       "id": "c",
       "text": "Left glass, left door mirror, over the left shoulder, then the gap",
       "correct": true,
-      "result": "You run the sweep. The side mirror has a motorcycle in it that the inside mirror missed. You wait one more gap. When you take it, he is already past you.",
+      "result": "You run the sweep. The side mirror has a motorcycle in it that a glance at the windshield missed. You wait one more gap. When you take it, he is already past you.",
       "state_delta": {
         "noise": -1,
         "time_cost": 3
@@ -43,7 +43,7 @@
     },
     {
       "id": "d",
-      "text": "Trust the side mirror alone — it sees more than the inside mirror",
+      "text": "Trust the side mirror alone — skip the shoulder",
       "correct": false,
       "result": "The side mirror shrinks a pickup into a toy. You take the gap on a toy. He is a wall. You put the Ledger's shoulder in his.",
       "state_delta": {
@@ -72,7 +72,7 @@
     "foreground": "worn transit wheel at the bottom, left window pillar, the long-arm left door mirror filling the left of frame",
     "midground": "reflection in the left door mirror of the lane you want, fog, no motorcycle or a small bike just visible",
     "background": "fogged windshield ahead, orange cones killing the right lane",
-    "read": "the check for a left change is the left door mirror from the seat, not the tiny inside mirror",
+    "read": "the check for a left change is the left door mirror from the seat, then the shoulder",
     "continuity": [
       "ledger_cockpit"
     ],

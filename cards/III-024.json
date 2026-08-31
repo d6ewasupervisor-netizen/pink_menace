@@ -65,7 +65,7 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_ROADSIDE",
+    "camera": "POV_ROADSIDE_PROFILE",
     "subject": "Ledger in standing water, pickup ahead too close, rain at night, no sign face readable",
     "foreground": "wet curb and a sheet of water in the wheel track",
     "midground": "the Ledger's right rear tires in the river, the pickup's rear a short gap ahead",

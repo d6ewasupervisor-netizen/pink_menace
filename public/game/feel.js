@@ -30,6 +30,7 @@ const PMFeel = (() => {
       case "POV_DIAGRAM":
         return "ken-diagram";
       case "POV_ROADSIDE":
+      case "POV_ROADSIDE_PROFILE":
         return "ken-roadside";
       case "POV_PORTRAIT":
         return "ken-portrait";
