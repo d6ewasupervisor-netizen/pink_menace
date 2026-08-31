@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Art review</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <header class="bar">
+    <p class="brand">Art review</p>
+    <nav id="acts" class="acts"></nav>
+    <p id="counts" class="counts"></p>
+  </header>
+
+  <main class="stage">
+    <figure class="still" id="still-wrap">
+      <img id="still" alt="">
+      <p id="missing" class="missing hidden">No still</p>
+    </figure>
+
+    <section class="copy">
+      <p id="kicker" class="kicker"></p>
+      <h1 id="title"></h1>
+      <p id="hook" class="hook"></p>
+      <p id="scene" class="scene"></p>
+      <p id="decision" class="decision"></p>
+      <p id="read" class="read"></p>
+      <p id="geo" class="geo"></p>
+      <label class="note-lab">
+        Note
+        <textarea id="note" rows="3" maxlength="800"></textarea>
+      </label>
+    </section>
+  </main>
+
+  <nav id="strip" class="strip"></nav>
+
+  <footer class="dock">
+    <button type="button" id="prev" class="ghost">Prev</button>
+    <button type="button" id="pass">Pass</button>
+    <button type="button" id="fix" class="warn">Fix</button>
+    <button type="button" id="next" class="ghost">Next</button>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

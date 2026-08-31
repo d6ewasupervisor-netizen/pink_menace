@@ -10,3 +10,4 @@ generations/
 .walk-token
 scripts/live-gate-report.json
 _audit_patch/
+cards/art-review-state.json
