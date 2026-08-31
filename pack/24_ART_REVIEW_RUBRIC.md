@@ -84,3 +84,9 @@ A review note that doesn't name **what** is wrong and **who** fixes it isn't a r
 This is also why his act is about mirrors and blind zones. Ali can glance at a center mirror; Deac has two side mirrors and a wall. A mirror contact in his act appears in a door mirror, or it does not appear until it is beside him.
 
 Five Act III cards carried the default through: III-004, III-009, III-011, III-018, III-022. Tag **`WRONG_CAMERA`** for the four; III-011 stays **`CARD_BROKEN`** (situation is three-way broken and heads to overhead). Do not generate any of them until the writer changes the JSON. `POV_MIRROR_REAR` + `driver: deac` is a hard validator reject.
+
+## 10. CLIPBOARD AND CAT
+
+The cockpit lock (`ref_ledger_cockpit.png`) mounted the clipboard on the passenger mesh. Every `ledger_cockpit` attach copies that into the generation. **The clipboard never sits in the windshield.** Doghouse, thigh, or hands. Tag stills that put it in the glass as `INVENTED` (or keep a stronger first-failure tag and name the clipboard in the note). Do not recompile Ledger cockpits until D4 is retaken without it.
+
+**Mya is not loose in a moving vehicle.** Dash loaf only when the Ledger is parked. III-002 teaches the opposite (Central is already moving; cat on the dash) — that is `CARD_BROKEN`, not a missing paw. Rewrite it parked, then the dash loaf is legal.

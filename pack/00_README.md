@@ -31,7 +31,7 @@ Three layers, and the order matters.
 
 `06_WORKED_EXAMPLE.md` is one card carried end to end so you can see the output shape before you generate 150 of them.
 
-`12_IDENTITY_AND_CAMERA_POLICY.md` is the shot-design rule adopted after the Act II art pass: identity budget, vehicle feature checklist, amended camera cap. After the Act III handoff it also owns the **whose-seat check** (`scripts/authoring-seat.js`): ego matches the act's driver, camera sits in that vehicle, no other vehicle borrows its canon marks, and **`POV_MIRROR_REAR` is illegal on the Ledger**. Compile aborts if any fail. The generator does not track whose cab the player is in; the JSON has to.
+`12_IDENTITY_AND_CAMERA_POLICY.md` is the shot-design rule adopted after the Act II art pass: identity budget, vehicle feature checklist, amended camera cap. After the Act III handoff it also owns the **whose-seat check** (`scripts/authoring-seat.js`): ego matches the act's driver, camera sits in that vehicle, no other vehicle borrows its canon marks, **`POV_MIRROR_REAR` is illegal on the Ledger**, the clipboard is not in the glass, and Mya is not loose in a moving cab. Compile aborts if any fail. The generator does not track whose cab the player is in; the JSON has to.
 
 `16_FEAR_AND_SOUND.md` is the fear overlay and audio-first cue spec. Presence is a sum of existing `state_delta` values, never a score. Horror sits on the frame, not the card art. Hearing is not required to drive; RCW 46.37.480 is verified and still does not go on a card until a card is written to teach chosen distraction. T1/T2 overlays ship in the live loop and do not wait on cockpit chrome.
 

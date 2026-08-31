@@ -1,7 +1,7 @@
 "use strict";
 
 const VERDICTS = [
-  ["III-002", "READ_MISSING", "Paw is on a dash toy mirror, not the right door glass the card turns on."],
+  ["III-002", "CARD_BROKEN", "Central is already moving and Mya is loose on the dash — illegal. Park it, then the dash loaf is legal. Clipboard belongs on the doghouse; the still put it in the passenger glass. Paw-on-toy-mirror is downstream."],
   ["III-003", "GEOMETRY_WRONG", "Sedan belongs in the left (the passing lane). Frame puts it ahead in the right."],
   ["III-004", "WRONG_CAMERA", "Ledger has no rear window. Copy still teaches an inside mirror. Seat looking at the left door mirror is the camera; rewrite copy so there is no interior mirror."],
   ["III-005", "PASS", ""],
@@ -17,10 +17,10 @@ const VERDICTS = [
   ],
   ["III-012", "GEOMETRY_WRONG", "US pass is on the left. Frame puts the Ledger on the trailer's right."],
   ["III-013", "PASS", ""],
-  ["III-014", "READ_MISSING", "Read is arrow dark, circle green. Frame still lights the arrow."],
+  ["III-014", "READ_MISSING", "Read is arrow dark, circle green. Frame still lights the arrow. Clipboard is also clipped to the passenger mesh — illegal, blocks the right half of the road. Do not recompile until D4 lock is retaken without it."],
   ["III-015", "CANON_DRIFT", "Primer sedan in the two-way pocket rendered as a Beetle — Menace silhouette on a Deac card."],
   ["III-016", "READ_MISSING", "Hood line walking toward the rumble is not in the frame."],
-  ["III-017", "PASS", ""],
+  ["III-017", "COPY", "Mya is a loaf on the dash while the bus is in a work zone — unrestrained cat in a moving vehicle. Inside-mirror language is also illegal on the Ledger."],
   ["III-018", "WRONG_CAMERA", "POV_MIRROR_REAR is illegal on the Ledger. Hazard behind → POV_MIRROR_DOOR (left side mirror). Brief+copy swap, then recompile."],
   ["III-019", "WRONG_CAMERA", "Chase of the Ledger from outside his own seat, plus an oncoming grille. Writer: from the seat, dest sign SLOW, left arm down, volunteer in the glass, brakes dark."],
   ["III-020", "COPY", "Still reads the rumble. Debrief/hook: The same straight comes back — §5 closer."],
@@ -28,7 +28,7 @@ const VERDICTS = [
   ["III-022", "WRONG_CAMERA", "POV_MIRROR_REAR is illegal on the Ledger. Hazard behind → POV_MIRROR_DOOR. Brief+copy swap, then recompile."],
   ["III-023", "PASS", ""],
   ["III-024", "GEOMETRY_WRONG", "Pickup should be ahead, gap too short. Frame puts him beside."],
-  ["III-025", "READ_MISSING", "T1 smear at the edge of the glass is absent. Aurora is invented."],
+  ["III-025", "READ_MISSING", "T1 smear at the edge of the glass is absent. Aurora is invented. Clipboard is also propped in the passenger glass — illegal even in a legal pocket."],
   ["III-026", "PASS", ""],
   ["III-027", "READ_MISSING", "Lit tablet mid-change is the subject and is not in the cab."],
   ["III-028", "PASS", ""],

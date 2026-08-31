@@ -48,9 +48,14 @@ You MUST:
     POV_MIRROR_DOOR — abort POV_MIRROR_REAR + driver deac. The cargo box is
     plate steel; there is no interior rearview to point a camera at.
   - abort before assembly unless scripts/authoring-seat.js passes: ego vehicle
-    matches the act's driver, the camera is consistent with sitting in it, and
-    no other vehicle in the brief shares the ego's canon marks. Do not compile
-    a following-cab chase of the player's own vehicle unless camera_is_the_lesson.
+    matches the act's driver, the camera is consistent with sitting in it,
+    no other vehicle in the brief shares the ego's canon marks, POV_MIRROR_REAR
+    is not on a Deac card, the clipboard is not in the glass or on the dash,
+    and a cat is not loose in a moving Ledger. Do not compile a following-cab
+    chase of the player's own vehicle unless camera_is_the_lesson.
+  - on any Deac in-cab camera, append the clipboard negatives: no clipboard on
+    the dash, no clipboard on the mesh, no clipboard blocking the right half
+    of the road. Cat on the dash only when the vehicle is parked.
   - convert every role-relative spatial term to frame-relative language plus
     an explicit drive-side statement before compiling. Do not pass them through.
   - append the left-hand-drive clause to every compile that includes a vehicle

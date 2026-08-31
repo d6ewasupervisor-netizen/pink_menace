@@ -74,10 +74,12 @@ The generator does not reliably track whose cab the player is in. Act II never s
 
 III-006 authored the ego from a following seat. III-026 carried a Menace into Deac's act. Three frames rendered other traffic with the Ledger's four canon marks. Same class of error.
 
-`scripts/authoring-seat.js` answers four questions from the JSON alone — `driver`, `camera`, and a regex on the brief — and **aborts compile** if any fail. Do not generate, then notice.
+`scripts/authoring-seat.js` answers five questions from the JSON alone — `driver`, `camera`, and a regex on the brief — and **aborts compile** if any fail. Do not generate, then notice.
 
 1. **Ego matches the act's driver.** Act II is Ali / the Menace. Act III is Deac / the Ledger. A card may not put another playable vehicle in the ego seat, and a Ledger act may not carry Menace marks (pink Beetle, plow blade).
 2. **Camera is consistent with sitting in it.** `POV_CHASE` of the player's own vehicle from a following cab (`following cab`, follower A-pillar) is illegal unless `camera_is_the_lesson` is set — hand signals, and only those. The player's signaling language is shot from inside their cab. **`POV_MIRROR_REAR` + `driver: deac` is a hard reject** — the Ledger has no rear window and no interior mirror. Hazard behind on a Deac card is `POV_MIRROR_DOOR`.
 3. **No other vehicle shares the ego's canon marks.** Ledger: cutaway body, amber destination sign, roof cargo rack, west-coast arms. Menace: plow, pink Beetle, bull bar, knobby tires. Encore: horn flares, chevron. Those marks belong to one vehicle. Other traffic is a panel van, a dump, a sedan — factory mirrors only.
+4. **Clipboard is not in the glass.** It lives on the doghouse, on the thigh, or in his hands. Never on the dash, never clipped to the mesh. The D4 cockpit lock currently violates this — retake before attaching `ref_ledger_cockpit.png` to a recompile.
+5. **No unrestrained cat in a moving Ledger.** Mya on the dash only when parked.
 
 The compiler already appends the other-vehicle clause on Deac cards. This check is the gate that keeps a bad brief from spending a generation.

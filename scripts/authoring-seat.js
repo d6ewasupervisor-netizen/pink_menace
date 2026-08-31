@@ -2,13 +2,14 @@
 
 /**
  * Pre-compile seat check. The generator does not reliably track whose cab
- * the player is in. Answer three questions from the JSON before any prompt
+ * the player is in. Answer five questions from the JSON before any prompt
  * is assembled:
  *
  *   1. Does the ego vehicle match the act's driver?
  *   2. Is the camera consistent with sitting in it?
  *   3. Does any other vehicle in the brief share the ego's canon marks?
  *   4. Does the Ledger claim a rear window it does not have?
+ *   5. Is the clipboard in the glass, or a cat loose in a moving cab?
  */
 
 const ACT_DRIVER = {
@@ -74,6 +75,40 @@ function briefText(fields) {
   return [fields.subject, fields.foreground, fields.midground, fields.background, fields.read].join(" ");
 }
 
+const PARKED_RE =
+  /\b(parked|parking lot|legal pad|idle at|at the curb|on a pad|stopped on|off Aurora)\b/i;
+
+function vehicleParked(card) {
+  if (card && card.variation && card.variation.location_type === "parking_lot") return true;
+  const brief = (card && card.image_brief) || {};
+  const geo = brief.geometry || {};
+  const t = [
+    card && card.scene,
+    brief.subject,
+    brief.foreground,
+    brief.midground,
+    brief.background,
+    brief.read,
+    geo.ego_lane_side,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  return PARKED_RE.test(t);
+}
+
+function stripClipboardNegatives(text) {
+  return String(text || "").replace(/\bno clipboard\b[\s\S]{0,60}/gi, "");
+}
+
+const CLIPBOARD_IN_GLASS_RE =
+  /\bclipboard\b[\s\S]{0,80}\b(windshield|on the mesh|to the mesh)\b|\b(windshield)\b[\s\S]{0,80}\bclipboard\b|\bmounted metal clipboard\b/i;
+
+const CLIPBOARD_ON_DASH_RE =
+  /\bclipboard\b[\s\S]{0,48}\b(dash|dashboard)\b|\b(dash|dashboard)\b[\s\S]{0,48}\bclipboard\b/i;
+
+const CAT_ON_DASH_RE =
+  /\b(mya|tabby|\bcat\b)\b[\s\S]{0,72}\bdash|\bdash[\s\S]{0,72}\b(mya|tabby|\bcat\b)\b/i;
+
 function egoOwned(clause, driver) {
   const spec = EGO[driver];
   if (!spec) return false;
@@ -105,6 +140,23 @@ function validateAuthoringSeat(card) {
     errors.push(
       `${id}: POV_MIRROR_REAR is illegal on the Ledger — no rear window, no interior mirror; use POV_MIRROR_DOOR`
     );
+  }
+
+  if (driver === "deac") {
+    const parked = vehicleParked(card);
+    const glassText = stripClipboardNegatives(text);
+    if (CLIPBOARD_IN_GLASS_RE.test(glassText) || CLIPBOARD_ON_DASH_RE.test(glassText)) {
+      errors.push(
+        `${id}: clipboard cannot sit in the glass or on the dash — doghouse, thigh, or hands only; it blocks the right half of the road`
+      );
+    }
+    const player = [card.scene, card.debrief, card.hook].filter(Boolean).join(" ");
+    const catText = [text, player].join(" ");
+    if (CAT_ON_DASH_RE.test(catText) && !parked) {
+      errors.push(
+        `${id}: unrestrained cat in a moving Ledger is illegal — Mya on the dash only when parked`
+      );
+    }
   }
 
   if (cam === "POV_CHASE" && spec && spec.nameRe.test(fields.subject)) {
@@ -149,6 +201,7 @@ function assertAuthoringSeat(card) {
 module.exports = {
   ACT_DRIVER,
   EGO,
+  vehicleParked,
   validateAuthoringSeat,
   assertAuthoringSeat,
 };

@@ -9,6 +9,7 @@ const {
   cameraOf,
   describesRoadway,
 } = require("./geometry");
+const { vehicleParked } = require("./authoring-seat");
 
 const MASTER_STYLE =
   "Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.";
@@ -26,7 +27,7 @@ const FRAMING = {
   POV_COCKPIT:
     "Camera is inside the cabin, over the wheel, looking forward through the windshield. Gauges bottom-left, welded steel mesh across the top of the glass, road through the grid.",
   POV_COCKPIT_LEDGER:
-    "Camera is inside the high-seat cabin, no driver face in frame. Default is over the large commercial wheel looking forward through the windshield: square analog gauges bottom-left, a welded bar cage with a cut wiper slot across the glass, road through the grid. When the brief names the left door mirror: sit in the seat and look left at the big side mirror on the left door; the windshield and any cones stay in the right of frame.",
+    "Camera is inside the high-seat cabin, no driver face in frame. Default is over the large commercial wheel looking forward through the windshield: square analog gauges bottom-left, a welded bar cage with a cut wiper slot across the glass, road through the grid. The right half of the windshield is open road — no clipboard, no log sheet, no paper on the mesh. The clipboard if present is on the doghouse between the seats, below the glass. When the brief names the left door mirror: sit in the seat and look left at the big side mirror on the left door; the windshield and any cones stay in the right of frame.",
   POV_DIAGRAM_LEDGER:
     "Camera is high and slightly oblique — fifteen to twenty degrees off vertical, looking along the ego vehicle's direction of travel so the rear of the cutaway shuttle is nearer the camera and the van nose is the far, leading end. Tight crop: only the lane geometry the card turns on. No extra side streets, parked cars, or curb clutter the brief did not name. Real wet pavement, real painted lines. The Ledger is the actual ex-transit cutaway: tall square passenger box on a van nose, gray primer over faded green-and-white, oversize side mirrors on long arms, amber destination sign with no readable text, bar cage over the windshield. Other vehicles are ordinary cars or trucks, desaturated gray or primer, never a second cutaway shuttle. Painted pavement arrows only where the brief names them, and they agree with travel direction — no floating UI arrows, no legend, no callouts.",
   POV_MIRROR_REAR:
@@ -73,6 +74,19 @@ const CHASE_NEGATIVE =
 
 const SIGN_CLAUSE =
   "Traffic signs are single-faced. Any sign in frame is legible only if it faces the camera's direction of travel. Signs governing a cross or opposing approach show their blank reverse side. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.";
+
+const LEDGER_CLIPBOARD_NEGATIVES =
+  "No clipboard on the dashboard, no clipboard clipped to the windshield or the mesh, " +
+  "no clipboard blocking the right half of the road, no log sheet in the glass. " +
+  "The clipboard if visible is on the doghouse between the seats, on the driver's thigh, or in his hands, never in the windshield.";
+
+const LEDGER_MOVING_CAT_NEGATIVES =
+  "No cat on the dash, no cat loose in the cab, no unrestrained animal in a moving vehicle.";
+
+const LEDGER_PARKED_CAT =
+  "The vehicle is parked and still. A brown mackerel tabby may loaf on the dash. Do not show the cat if the wheels are rolling.";
+
+const LEDGER_INCAB = new Set(["POV_COCKPIT", "POV_OBJECT", "POV_MIRROR_DOOR", "POV_PORTRAIT"]);
 
 function headingPhrase(heading) {
   switch (heading) {
@@ -179,6 +193,17 @@ function assemblePrompt(card) {
   const continuity = (brief.continuity || []);
   if (cam === "POV_MIRROR_DOOR" && continuity.includes("dutch_reach")) {
     negs.push(DUTCH_REACH_NEGATIVES);
+  }
+  if (deac && LEDGER_INCAB.has(cam)) {
+    negs.push(LEDGER_CLIPBOARD_NEGATIVES);
+    const parked = vehicleParked(card);
+    const myaNamed =
+      continuity.includes("mya") || /\b(mya|tabby|\bcat\b)\b/i.test(brief.subject || "");
+    if (parked && myaNamed) {
+      parts.push(LEDGER_PARKED_CAT);
+    } else {
+      negs.push(LEDGER_MOVING_CAT_NEGATIVES);
+    }
   }
   parts.push(negs.join(" "));
 

@@ -49,7 +49,7 @@ Driver: `deac` throughout. Zone: `Central`. PSDP anchor: **Skill nine: multi-lan
 | Slot | Type | Teaching target | Source anchor | Fail mode | Cast/notes |
 |---|---|---|---|---|---|
 | III-001 | ride-along | Deac demonstrates: mirror sweep, lane hold, one deliberate late merge + consequence | Skill nine | none | Watch-layer debut; ends "Your wheel." |
-| III-002 | dossier | The Ledger's cab: the log, the thermos, Mya on the dash blocking the mirror | — | none | Mya debuts in-cab |
+| III-002 | dossier | The Ledger's cab: the log, the thermos. Mya on the dash only if parked | — | none | Parked idle. Clipboard on the doghouse, never in the glass. |
 | III-003 | scene | Choosing a lane: through traffic keeps right except to pass | 4.10 Traffic laws [V] | inexperience | First live card |
 | III-004 | scene | Mirror sweep cadence + the Ledger's blind zones | 5.5 Focus [V] | fatigue | POV_MIRROR_DOOR |
 | III-005 | hazard | Vehicle in the right-side blind spot during a lane change | 5.2 Space [V] | inexperience | Timed; timeout = drift into them checked by the convex mirror |

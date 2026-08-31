@@ -71,3 +71,9 @@ No other vehicle may wear the ego's canon marks (pack/12).
 ## Ledger rear vision
 
 `POV_MIRROR_REAR` is illegal on any Deac card. The Ledger is a cutaway with a plate-steel cargo box: no rear window, no interior mirror. Hazard behind → `POV_MIRROR_DOOR`. On Deac, `POV_MIRROR_REAR` is always `WRONG_CAMERA` (III-011 stays `CARD_BROKEN` because the situation itself is three-way broken). Never generate those stills until the writer changes the token. Never write "rear glass," "rearview," "interior mirror," or "the center mirror" into a Ledger frame or Ledger copy.
+
+## Clipboard and cat
+
+The clipboard never sits in the windshield. Doghouse, thigh, or hands — never on the dash, never on the mesh, never blocking the right half of the road. `ref_ledger_cockpit.png` currently violates this; retake D4 before any Ledger cockpit recompile.
+
+Mya is not loose in a moving vehicle. Dash loaf only when parked. III-002 (moving + cat on dash) is `CARD_BROKEN`.
