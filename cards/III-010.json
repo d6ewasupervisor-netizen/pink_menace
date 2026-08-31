@@ -80,7 +80,10 @@
       "ego_lane_side": "left travel lane of two northbound lanes",
       "ego_nose_in_frame": "the van nose points toward the right of the frame",
       "oncoming_position": "none in frame",
-      "hazard_position": "beside"
+      "hazard_position": "beside",
+      "traffic_positions": [
+        { "vehicle": "white cargo van", "lane": "right_of_ego", "along": "beside", "lengths": 0 }
+      ]
     }
   },
   "variation": {

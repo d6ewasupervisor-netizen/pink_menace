@@ -7,6 +7,14 @@ const ROOT = path.join(__dirname, "..");
 const REFS = path.join(ROOT, "refs");
 const MAP = JSON.parse(fs.readFileSync(path.join(ROOT, "pack", "09_REF_MAP.json"), "utf8"));
 
+const MENACE_LOCKS = new Set([
+  "pink_menace_exterior",
+  "pink_menace_interior",
+  "ali",
+  "ali_face",
+  "gracie",
+]);
+
 function isLocation(token) {
   return /^L-\d+/.test(token);
 }
@@ -23,6 +31,14 @@ function resolveCard(raw) {
   const errors = [];
   const attachments = [];
   const seen = new Set();
+
+  if (raw.driver === "deac") {
+    for (const t of tokens) {
+      if (MENACE_LOCKS.has(t)) {
+        errors.push(`${id}: Deac card cannot attach Menace lock ${t}`);
+      }
+    }
+  }
 
   if (cam === "POV_DIAGRAM") {
     const lockTokens = tokens.filter(
@@ -43,6 +59,7 @@ function resolveCard(raw) {
 
   for (const token of tokens) {
     if (isLocation(token) || MAP.no_file.includes(token)) continue;
+    if (raw.driver === "deac" && MENACE_LOCKS.has(token)) continue;
     const files = MAP.locks[token];
     if (!files) {
       errors.push(

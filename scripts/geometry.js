@@ -16,6 +16,9 @@ const BANNED_CAMERAS = ["POV_TOPDOWN", "POV_MIRROR"];
 
 const HEADINGS = ["away_from_camera", "toward_camera", "left_to_right", "right_to_left"];
 const HAZARDS = ["ahead_same_direction", "behind", "oncoming", "beside", "none"];
+const TRAFFIC_LANES = ["left_of_ego", "right_of_ego", "same_as_ego"];
+const TRAFFIC_ALONG = ["ahead", "beside", "behind"];
+const SAME_DIRECTION_HAZARDS = new Set(["ahead_same_direction", "beside", "behind"]);
 const GEOMETRY_KEYS = [
   "ego_heading",
   "ego_lane_side",
@@ -117,6 +120,55 @@ function geometryClause(geo, driver) {
   );
 }
 
+function lanePhrase(lane) {
+  switch (lane) {
+    case "left_of_ego":
+      return "the lane to the LEFT of the ego vehicle";
+    case "right_of_ego":
+      return "the lane to the RIGHT of the ego vehicle";
+    case "same_as_ego":
+      return "the same lane as the ego vehicle";
+    default:
+      return lane;
+  }
+}
+
+function alongPhrase(along, lengths) {
+  if (along === "beside") return "beside it";
+  const n = Number(lengths);
+  const unit = n === 1 ? "vehicle length" : "vehicle lengths";
+  if (along === "ahead") return `ahead of it by ${n} ${unit}`;
+  return `behind it by ${n} ${unit}`;
+}
+
+function trafficPositionsClause(geo, driver) {
+  const rows = geo && geo.traffic_positions;
+  if (!Array.isArray(rows) || !rows.length) return "";
+  const ego = driver === "deac" ? "the gray cutaway shuttle" : "the pink vehicle";
+  const bits = rows.map((r) => {
+    return (
+      `${r.vehicle} is in ${lanePhrase(r.lane)} and is ${alongPhrase(r.along, r.lengths)}, ` +
+      `relative to ${ego}.`
+    );
+  });
+  return (
+    "United States road configuration. Passing occurs on the LEFT. " +
+    bits.join(" ") +
+    " No same-direction vehicle occupies a lane other than the one stated."
+  );
+}
+
+function needsTrafficPositions(card) {
+  const cam = cameraOf(card);
+  const hazard = card && card.image_brief && card.image_brief.geometry && card.image_brief.geometry.hazard_position;
+  return (
+    card &&
+    card.driver === "deac" &&
+    (cam === "POV_DIAGRAM" || cam === "POV_ROADSIDE") &&
+    SAME_DIRECTION_HAZARDS.has(hazard)
+  );
+}
+
 const MIRROR_CLAUSE =
   "The image inside the mirror glass is a reflection of the road BEHIND the vehicle. " +
   "Do not show the road ahead inside the mirror. The view forward through the windshield is not the subject " +
@@ -192,6 +244,38 @@ function validateGeometry(card) {
     errors.push(`${id}: geometry lesson read requires POV_DIAGRAM, got ${cam}`);
   }
 
+  if (needsTrafficPositions(card)) {
+    const rows = geo && geo.traffic_positions;
+    if (!Array.isArray(rows) || rows.length < 1) {
+      errors.push(
+        `${id}: same-direction traffic on a Deac diagram/roadside frame requires geometry.traffic_positions`
+      );
+    } else {
+      rows.forEach((row, i) => {
+        if (!row || typeof row !== "object") {
+          errors.push(`${id}: traffic_positions[${i}] is not an object`);
+          return;
+        }
+        if (!row.vehicle) errors.push(`${id}: traffic_positions[${i}] missing vehicle`);
+        if (!TRAFFIC_LANES.includes(row.lane)) {
+          errors.push(`${id}: traffic_positions[${i}].lane ${JSON.stringify(row.lane)}`);
+        }
+        if (!TRAFFIC_ALONG.includes(row.along)) {
+          errors.push(`${id}: traffic_positions[${i}].along ${JSON.stringify(row.along)}`);
+        }
+        if (typeof row.lengths !== "number" || row.lengths < 0) {
+          errors.push(`${id}: traffic_positions[${i}].lengths ${JSON.stringify(row.lengths)}`);
+        }
+        if (row.along === "beside" && row.lengths !== 0) {
+          errors.push(`${id}: traffic_positions[${i}] beside must use lengths 0`);
+        }
+        if ((row.along === "ahead" || row.along === "behind") && !(row.lengths > 0)) {
+          errors.push(`${id}: traffic_positions[${i}] ${row.along} requires lengths > 0`);
+        }
+      });
+    }
+  }
+
   return errors;
 }
 
@@ -208,6 +292,10 @@ module.exports = {
   isGeometryRead,
   camerasForHazard,
   geometryClause,
+  trafficPositionsClause,
+  needsTrafficPositions,
+  TRAFFIC_LANES,
+  TRAFFIC_ALONG,
   MIRROR_CLAUSE,
   DOOR_MIRROR_CLAUSE,
   MIRROR_NEGATIVES,

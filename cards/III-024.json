@@ -80,7 +80,10 @@
       "ego_lane_side": "right travel lane of two northbound lanes",
       "ego_nose_in_frame": "the van nose points toward the right of the frame",
       "oncoming_position": "none in frame",
-      "hazard_position": "ahead_same_direction"
+      "hazard_position": "ahead_same_direction",
+      "traffic_positions": [
+        { "vehicle": "pickup", "lane": "same_as_ego", "along": "ahead", "lengths": 1 }
+      ]
     }
   },
   "variation": {

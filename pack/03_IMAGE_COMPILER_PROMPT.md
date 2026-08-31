@@ -62,7 +62,13 @@ You MUST:
   - append the geometry clause to every road frame
   - append the mirror clause and mirror negatives to POV_MIRROR_REAR and
     POV_MIRROR_DOOR
-  - attach ref_car_exterior.jpg to every POV_DIAGRAM for build only; no faces
+  - attach the ego vehicle lock to every POV_DIAGRAM for build only; no faces.
+    Ali: ref_car_exterior.jpg. Deac: ref_ledger_sheet.png. Never attach a
+    Menace lock (ref_car_exterior.jpg, ref_cockpit.jpg, Ali, Gracie) on a Deac card.
+  - on every Deac compile, append: no Volkswagen Beetle, no rounded-fender
+    compact, no plow blade.
+  - on Deac POV_DIAGRAM and POV_ROADSIDE with same-direction traffic, append
+    the traffic_positions clause (passing occurs on the LEFT)
   - end with the negative block
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
@@ -295,6 +301,19 @@ Append this clause, filled from that block, to every road compile:
 > Any oncoming traffic is **[oncoming_position]**. No vehicle faces the wrong
 > way in its lane.
 
+When `traffic_positions` is present (required on Deac `POV_DIAGRAM` and
+`POV_ROADSIDE` whenever a same-direction vehicle is in frame), also append:
+
+> United States road configuration. Passing occurs on the LEFT. [Vehicle] is
+> in the [lane] and is [ahead by N lengths / beside / behind], relative to the
+> pink/gray ego vehicle. No same-direction vehicle occupies a lane other than
+> the one stated.
+
+`oncoming_position` does not bind same-direction traffic. Without this field
+the model places those vehicles by balance, which is how III-003, III-010,
+III-012, and III-024 all failed the same way. III-012 is the teaching card
+for "US pass is on the left" — verify it hardest.
+
 The plow is the orientation anchor. Always state where it points in frame.
 
 ### Camera is derived from hazard_position — not chosen freely
@@ -323,8 +342,10 @@ aesthetically. Lane law cannot survive that.
   faded-pink VW Beetle with mesh, plow, riveted plate, knobbies. Other
   vehicles are real desaturated cars, each facing a legal direction in its
   lane. Geometry block is mandatory so traffic direction is stated, not
-  invented. Attach ref_car_exterior.jpg for build only — never carry its
-  golden-hour salt flat. No faces. No infographic. No vector cars.
+  invented. Attach the ego vehicle lock for build only: Ali diagrams get
+  `ref_car_exterior.jpg`; Deac diagrams get `ref_ledger_sheet.png` and never
+  a Menace ref. Never carry the salt-flat sunset. No faces. No infographic.
+  No vector cars.
   Same-direction vehicles occupy the right half of the roadway and face
   the same way; never nose-to-nose in one lane, never in the oncoming half.
 
@@ -395,7 +416,8 @@ else. No commentary. No alternatives.
 | Two or more vehicles in frame | `ref_convoy.png` |
 | Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
 | Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_CHASE`: from directly behind, the arm extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
-| `POV_DIAGRAM` | `ref_car_exterior.jpg` for Beetle build and plow. Overcast PNW lighting — never the salt-flat sunset. No faces. |
+| `POV_DIAGRAM` (Ali) | `ref_car_exterior.jpg` for Beetle build and plow. Overcast PNW lighting — never the salt-flat sunset. No faces. |
+| `POV_DIAGRAM` (Deac) | `ref_ledger_sheet.png` only. Never `ref_car_exterior.jpg`. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 

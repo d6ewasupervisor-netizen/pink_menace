@@ -80,7 +80,11 @@
       "ego_lane_side": "right travel lane of two northbound lanes, approaching a right-lane end",
       "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
       "oncoming_position": "none in this work pattern",
-      "hazard_position": "ahead_same_direction"
+      "hazard_position": "ahead_same_direction",
+      "traffic_positions": [
+        { "vehicle": "vehicle in the continuing left lane", "lane": "left_of_ego", "along": "beside", "lengths": 0 },
+        { "vehicle": "vehicle ahead at the merge teeth", "lane": "same_as_ego", "along": "ahead", "lengths": 1 }
+      ]
     }
   },
   "variation": {

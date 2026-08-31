@@ -5,147 +5,147 @@
     "III-002": {
       "tag": "CARD_BROKEN",
       "note": "Central is already moving and Mya is loose on the dash — illegal. Park it, then the dash loaf is legal. Clipboard belongs on the doghouse; the still put it in the passenger glass. Paw-on-toy-mirror is downstream.",
-      "updated_at": "2026-08-31T16:20:10.740Z"
+      "updated_at": "2026-08-31T16:40:18.982Z"
     },
     "III-003": {
       "tag": "GEOMETRY_WRONG",
-      "note": "Sedan belongs in the left (the passing lane). Frame puts it ahead in the right.",
-      "updated_at": "2026-08-31T16:20:10.751Z"
+      "note": "Sedan belongs in the left (the passing lane). Frame puts it ahead in the right. traffic_positions filled; compiler clause now binds same-direction lanes. Passing is on the LEFT.",
+      "updated_at": "2026-08-31T16:40:18.989Z"
     },
     "III-004": {
       "tag": "WRONG_CAMERA",
       "note": "Ledger has no rear window. Copy still teaches an inside mirror. Seat looking at the left door mirror is the camera; rewrite copy so there is no interior mirror.",
-      "updated_at": "2026-08-31T16:20:10.754Z"
+      "updated_at": "2026-08-31T16:40:18.992Z"
     },
     "III-005": {
       "tag": "COPY",
       "note": "Correct result: He appears in the inside mirror. Ledger has no inside mirror. Side door glass only.",
-      "updated_at": "2026-08-31T16:20:10.757Z"
+      "updated_at": "2026-08-31T16:40:18.994Z"
     },
     "III-006": {
       "tag": "WRONG_CAMERA",
       "note": "OBJECT cannot show dest-sign + stalk + column in glass. Brief also invents an interior rearview the Ledger does not have. Writer: cockpit looking at the sign switch, stalk, and the stack in the door glass.",
-      "updated_at": "2026-08-31T16:20:10.759Z"
+      "updated_at": "2026-08-31T16:40:18.997Z"
     },
     "III-007": {
       "tag": "READ_MISSING",
-      "note": "The countable gap between two same-direction vehicles is not the first thing the eye reads.",
-      "updated_at": "2026-08-31T16:20:10.762Z"
+      "note": "Read rewritten to a static gap: pavement visible between pickup and SUV, shorter than one bus length. HOLD: attaches poisoned D4 cockpit lock.",
+      "updated_at": "2026-08-31T16:40:18.999Z"
     },
     "III-008": {
       "tag": "INVENTED",
       "note": "Object camera: diamond + broken/solid whites. Extra van in the left is not in the brief.",
-      "updated_at": "2026-08-31T16:20:10.765Z"
+      "updated_at": "2026-08-31T16:40:19.001Z"
     },
     "III-009": {
       "tag": "WRONG_CAMERA",
       "note": "Hollis filling the interior rearview is canon-impossible. Left door mirror with his grille — tighter, more claustrophobic. (Stills also drifted Hollis into a semi; that is downstream of the camera.)",
-      "updated_at": "2026-08-31T16:20:10.767Z"
+      "updated_at": "2026-08-31T16:40:19.003Z"
     },
     "III-010": {
       "tag": "GEOMETRY_WRONG",
-      "note": "Vehicles face the camera, so curb-right van reads as the bus's left. Need left-to-right, van nearer the curb.",
-      "updated_at": "2026-08-31T16:20:10.770Z"
+      "note": "Vehicles face the camera, so curb-right van reads as the bus's left. Need left-to-right, van nearer the curb. traffic_positions: van right_of_ego beside.",
+      "updated_at": "2026-08-31T16:40:19.006Z"
     },
     "III-011": {
       "tag": "CARD_BROKEN",
       "note": "Scene/decision: overtaking his left rear quarter (truck ahead-right). Geometry: behind. Camera: rearview. Three situations. His door mirrors are the subject and are absent. Hook elliptical. Scene closer: Nowhere wants you first. Fix: overhead, truck right lane, Ledger beside trailer rear, tractor mirror far ahead. Hook: You're beside his trailer. He can't see you here.",
-      "updated_at": "2026-08-31T16:20:10.772Z"
+      "updated_at": "2026-08-31T16:40:19.009Z"
     },
     "III-012": {
       "tag": "GEOMETRY_WRONG",
-      "note": "US pass is on the left. Frame puts the Ledger on the trailer's right.",
-      "updated_at": "2026-08-31T16:20:10.775Z"
+      "note": "HARD VERIFY: US pass is on the left. Ego is in the left travel lane; trailer is right_of_ego beside. Frame currently puts the Ledger on the trailer's right.",
+      "updated_at": "2026-08-31T16:40:19.011Z"
     },
     "III-013": {
       "tag": "PASS",
       "note": "",
-      "updated_at": "2026-08-31T16:20:10.777Z"
+      "updated_at": "2026-08-31T16:40:19.014Z"
     },
     "III-014": {
       "tag": "READ_MISSING",
-      "note": "Read is arrow dark, circle green. Frame still lights the arrow. Clipboard is also clipped to the passenger mesh — illegal, blocks the right half of the road. Do not recompile until D4 lock is retaken without it.",
-      "updated_at": "2026-08-31T16:20:10.779Z"
+      "note": "Read rewritten to a static lamp fact: left-turn arrow unlit, circular green lit. Frame still lights the arrow. Clipboard on the passenger mesh. HOLD: do not generate until D4 lock is retaken without it.",
+      "updated_at": "2026-08-31T16:40:19.016Z"
     },
     "III-015": {
       "tag": "CANON_DRIFT",
-      "note": "Primer sedan in the two-way pocket rendered as a Beetle — Menace silhouette on a Deac card.",
-      "updated_at": "2026-08-31T16:20:10.781Z"
+      "note": "Primer sedan in the two-way pocket rendered as a Beetle — Menace silhouette on a Deac card. Do not attach any Menace ref. Negatives: no Volkswagen Beetle, no rounded-fender compact, no plow blade.",
+      "updated_at": "2026-08-31T16:40:19.019Z"
     },
     "III-016": {
       "tag": "READ_MISSING",
-      "note": "Hood line walking toward the rumble is not in the frame.",
-      "updated_at": "2026-08-31T16:20:10.783Z"
+      "note": "Read rewritten: hood crossing the lane line, tires touching the rumble. Still missing from the frame. HOLD: attaches poisoned D4 cockpit lock.",
+      "updated_at": "2026-08-31T16:40:19.021Z"
     },
     "III-017": {
       "tag": "COPY",
       "note": "Mya is a loaf on the dash while the bus is in a work zone — unrestrained cat in a moving vehicle. Inside-mirror language is also illegal on the Ledger.",
-      "updated_at": "2026-08-31T16:20:10.785Z"
+      "updated_at": "2026-08-31T16:40:19.023Z"
     },
     "III-018": {
       "tag": "WRONG_CAMERA",
       "note": "POV_MIRROR_REAR is illegal on the Ledger. Hazard behind → POV_MIRROR_DOOR (left side mirror). Brief+copy swap, then recompile.",
-      "updated_at": "2026-08-31T16:20:10.787Z"
+      "updated_at": "2026-08-31T16:40:19.025Z"
     },
     "III-019": {
       "tag": "WRONG_CAMERA",
       "note": "Chase of the Ledger from outside his own seat, plus an oncoming grille. Writer: from the seat, dest sign SLOW, left arm down, volunteer in the glass, brakes dark.",
-      "updated_at": "2026-08-31T16:20:10.788Z"
+      "updated_at": "2026-08-31T16:40:19.027Z"
     },
     "III-020": {
       "tag": "COPY",
       "note": "Still reads the rumble. Debrief/hook: The same straight comes back — §5 closer.",
-      "updated_at": "2026-08-31T16:20:10.790Z"
+      "updated_at": "2026-08-31T16:40:19.029Z"
     },
     "III-021": {
       "tag": "READ_MISSING",
-      "note": "Her stalk-on / coming back into your lane is not the mute read. Yellow overhead is.",
-      "updated_at": "2026-08-31T16:20:10.792Z"
+      "note": "Read rewritten to a static coach fact: left stalk blinking, nose already across the skip-dash. HOLD: attaches poisoned D4 cockpit lock.",
+      "updated_at": "2026-08-31T16:40:19.031Z"
     },
     "III-022": {
       "tag": "WRONG_CAMERA",
       "note": "POV_MIRROR_REAR is illegal on the Ledger. Hazard behind → POV_MIRROR_DOOR. Brief+copy swap, then recompile.",
-      "updated_at": "2026-08-31T16:20:10.794Z"
+      "updated_at": "2026-08-31T16:40:19.033Z"
     },
     "III-023": {
       "tag": "PASS",
       "note": "",
-      "updated_at": "2026-08-31T16:20:10.795Z"
+      "updated_at": "2026-08-31T16:40:19.035Z"
     },
     "III-024": {
       "tag": "GEOMETRY_WRONG",
-      "note": "Pickup should be ahead, gap too short. Frame puts him beside.",
-      "updated_at": "2026-08-31T16:20:10.797Z"
+      "note": "Pickup should be ahead, gap too short. Frame puts him beside. traffic_positions: pickup same_as_ego ahead by 1 length.",
+      "updated_at": "2026-08-31T16:40:19.037Z"
     },
     "III-025": {
       "tag": "READ_MISSING",
-      "note": "T1 smear at the edge of the glass is absent. Aurora is invented. Clipboard is also propped in the passenger glass — illegal even in a legal pocket.",
-      "updated_at": "2026-08-31T16:20:10.799Z"
+      "note": "Read rewritten: smear of presence at the far right edge of the glass, no face, no lamps. Aurora is invented. Clipboard in the passenger glass. HOLD: do not generate until D4 lock is retaken without it.",
+      "updated_at": "2026-08-31T16:40:19.039Z"
     },
     "III-026": {
       "tag": "PASS",
       "note": "",
-      "updated_at": "2026-08-31T16:20:10.801Z"
+      "updated_at": "2026-08-31T16:40:19.040Z"
     },
     "III-027": {
       "tag": "READ_MISSING",
-      "note": "Lit tablet mid-change is the subject and is not in the cab.",
-      "updated_at": "2026-08-31T16:20:10.802Z"
+      "note": "Read rewritten: tablet on the doghouse is lit; bus straddles the skip-dash; sedan lamp in the left door glass. HOLD: attaches poisoned D4 cockpit lock.",
+      "updated_at": "2026-08-31T16:40:19.042Z"
     },
     "III-028": {
       "tag": "PASS",
       "note": "",
-      "updated_at": "2026-08-31T16:20:10.804Z"
+      "updated_at": "2026-08-31T16:40:19.044Z"
     },
     "III-029": {
       "tag": "CANON_DRIFT",
-      "note": "The vehicle ahead wears Ledger marks (box, roof rack, amber bar). That silhouette is ego-only.",
-      "updated_at": "2026-08-31T16:20:10.806Z"
+      "note": "The vehicle ahead wears Ledger marks (box, roof rack, amber bar). That silhouette is ego-only. Do not attach any Menace ref. Negatives: no Volkswagen Beetle, no rounded-fender compact, no plow blade.",
+      "updated_at": "2026-08-31T16:40:19.046Z"
     },
     "III-030": {
       "tag": "COPY",
       "note": "Still reads stopped bus + dark skyline. Closer: The skyline is dark and the sign is dark with it.",
-      "updated_at": "2026-08-31T16:20:10.808Z"
+      "updated_at": "2026-08-31T16:40:19.048Z"
     }
   }
 }

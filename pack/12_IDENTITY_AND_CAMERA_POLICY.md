@@ -20,7 +20,7 @@ Ali is the player character. In a driving game she is behind the camera for most
 |---|---|---|---|
 | **Face-critical** — Ali, Deac, or Yuna recognizable | `POV_PORTRAIT`, `POV_ROADSIDE` at close range | **≤ 10% of act** (3 cards in 30) | 8 takes, hand-curate 1. Never accept a first take. |
 | **Vehicle-critical** — the Menace, Ledger, or Encore identifiable | `POV_CHASE`, `POV_ROADSIDE` at distance, `POV_TOPDOWN_PHOTO` | ≤ 25% | 4 takes, curate. Feature checklist mandatory (§2). |
-| **Identity-free** | `POV_COCKPIT`, `POV_MIRROR_REAR`, `POV_MIRROR_DOOR`, `POV_OBJECT`, `POV_DIAGRAM` | remainder | 1–2 takes. No faces in frame. Diagrams are overhead photographs of the Menace; attach `ref_car_exterior.jpg` for build. |
+| **Identity-free** | `POV_COCKPIT`, `POV_MIRROR_REAR`, `POV_MIRROR_DOOR`, `POV_OBJECT`, `POV_DIAGRAM` | remainder | 1–2 takes. No faces in frame. Diagrams are overhead photographs of the ego vehicle: Ali attaches `ref_car_exterior.jpg`; Deac attaches `ref_ledger_sheet.png` and never a Menace ref. |
 
 `POV_COCKPIT` shows no driver at all — it is over the wheel, looking out. That is the single most drift-proof camera in the set and it is also the most narratively correct one for a decision moment. Use it freely.
 

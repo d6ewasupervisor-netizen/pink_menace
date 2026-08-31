@@ -69,7 +69,7 @@
     "foreground": "high-seat wheel and cage, left stalk still on",
     "midground": "the intersection and the yellow you would steer to, oncoming not yet clear",
     "background": "clear cold dawn, Central Avenue, empty sidewalks",
-    "read": "the arrow is dark; the circle is green; oncoming still has a path",
+    "read": "the left-turn arrow lamp is unlit; the circular green lamp is lit",
     "continuity": [
       "ledger_cockpit"
     ],

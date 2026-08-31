@@ -80,7 +80,10 @@
       "ego_lane_side": "left travel lane of two northbound highway lanes",
       "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
       "oncoming_position": "none on this divided highway",
-      "hazard_position": "beside"
+      "hazard_position": "beside",
+      "traffic_positions": [
+        { "vehicle": "semi trailer", "lane": "right_of_ego", "along": "beside", "lengths": 0 }
+      ]
     }
   },
   "variation": {

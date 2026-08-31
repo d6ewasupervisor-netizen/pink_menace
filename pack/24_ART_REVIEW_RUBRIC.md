@@ -25,7 +25,7 @@ Replace the free-text note with a required tag plus an optional line. The tag ro
 | `PASS` | Teaches muted, geometry correct | — | — |
 | `CARD_BROKEN` | Scene / decision / read / geometry contradict each other | Writer, then compiler | Rewrite + recompile |
 | `WRONG_CAMERA` | Camera cannot show the read | Writer changes token | Recompile |
-| `READ_MISSING` | Brief is fine; the subject didn't render | Compiler | Recompile, tighten `read` |
+| `READ_MISSING` | Brief is fine; the subject didn't render | Compiler — **after** the `read` is a static photographable fact | Recompile. If the read is a process or a mood, rewrite it first (writer). |
 | `GEOMETRY_WRONG` | Wrong lane, wrong facing, wrong side, ego confusion | Compiler | Recompile with geometry clause |
 | `CANON_DRIFT` | Off-model vehicle, character, or a lookalike vehicle | Compiler | Recompile with locks attached |
 | `INVENTED` | Object in frame the brief didn't ask for | Compiler | Recompile |
@@ -91,8 +91,16 @@ Five Act III cards carried the default through: III-004, III-009, III-011, III-0
 
 The cockpit lock (`ref_ledger_cockpit.png`) mounted the clipboard on the passenger mesh. Every `ledger_cockpit` attach copies that into the generation. **The clipboard never sits in the windshield.** Doghouse, thigh, or hands. Tag stills that put it in the glass as `INVENTED` (or keep a stronger first-failure tag and name the clipboard in the note). Do not recompile Ledger cockpits until D4 is retaken without it.
 
-**Mya is not loose in a moving vehicle.** Dash loaf only when the Ledger is parked. III-002 teaches the opposite (Central is already moving; cat on the dash) — that is `CARD_BROKEN`, not a missing paw. Rewrite it parked, then the dash loaf is legal.
+**Mya is not loose in a moving vehicle.** Dash loaf only when the Ledger is parked. III-002 teaches the opposite (Central is already moving; cat on the dash) — that is `CARD_BROKEN`, not a missing paw. Rewrite it parked, then the dash loaf is legal. Same check on other Mya frames (III-017 already COPY). Gracie on the dash while the Menace is rolling is the same class except II-018, which *teaches* box her before you roll.
 
-## 11. PERSIST THE VERDICTS
+## 11. SAME-DIRECTION TRAFFIC AND UNPHOTOGRAPHABLE READS
+
+`oncoming_position` does not bind same-direction vehicles. Geometry failures that put a car in the wrong lane relative to ego (III-003, III-010, III-012, III-024) are one compiler clause: `traffic_positions`. III-012 teaches "US pass is on the left" — verify it hardest.
+
+A `read` that names a process, a gap you have to count, a hood "walking," a smear as psychology, or a tablet "mid-change" is the same class that killed II-009. Rewrite it to a static fact before generating. Recompiling against an unphotographable read buys another take of the same miss.
+
+Do not generate III-014 or III-025 until D4 (`ref_ledger_cockpit.png`) is retaken without the clipboard on the mesh. Other `ledger_cockpit` attaches wait on that lock too.
+
+## 12. PERSIST THE VERDICTS
 
 The review state is the most expensive artifact in this phase. It lives at `cards/art-review-state.json` and **is committed**. A server restart must not wipe a full act. `node tools/art-review/apply-verdicts.js` writes that file, then refreshes the live board.

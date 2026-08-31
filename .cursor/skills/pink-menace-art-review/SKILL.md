@@ -43,7 +43,8 @@ Muted-read test for PASS: cover the text; if the picture doesn't teach `read`, i
 |---|---|---|
 | `CARD_BROKEN` | Writer, then compiler | **No** until the JSON is one situation |
 | `WRONG_CAMERA` | Writer changes camera token | **No** until the token can show the read |
-| `READ_MISSING` `GEOMETRY_WRONG` `CANON_DRIFT` `INVENTED` | Compiler | Yes |
+| `READ_MISSING` | Writer if the `read` is a process/mood; else compiler | **No** until the read is a static photographable fact |
+| `GEOMETRY_WRONG` `CANON_DRIFT` `INVENTED` | Compiler | Yes — after the matching compiler clause exists |
 | `COPY` | Writer | Text only |
 | `STYLE` | Optional | Lowest |
 | `PASS` | — | — |
@@ -61,12 +62,14 @@ Muted-read test for PASS: cover the text; if the picture doesn't teach `read`, i
 
 ## Regen (recompile tags only)
 
-1. Brief already coherent. Tighten `read` / geometry in frame-relative language if needed.
-2. `GenerateImage` with vehicle lock. Tool aspect `3:4`; seed encodes 2:3.
-3. Copy to `cards/<id>.png`. Seed live if shipped. Bump `src/game.js` `imageUrl` `?v=`.
-4. Reload the board; wait for `PASS`.
+1. Brief already coherent. The `read` must be a static photographable fact.
+2. Deac same-direction diagram/roadside must have `traffic_positions`. III-012 (US pass on the left) is the hardest verify.
+3. Deac cards attach the Ledger lock only — never a Menace ref.
+4. `GenerateImage` with vehicle lock. Tool aspect `3:4`; seed encodes 2:3.
+5. Copy to `cards/<id>.png`. Seed live if shipped. Bump `src/game.js` `imageUrl` `?v=`.
+6. Reload the board; wait for `PASS`.
 
-No other vehicle may wear the ego's canon marks (pack/12).
+No other vehicle may wear the ego's canon marks (pack/12). Do not generate III-014 or III-025 (or any other `ledger_cockpit` attach) until D4 is retaken without the clipboard on the mesh.
 
 ## Ledger rear vision
 
@@ -76,4 +79,4 @@ No other vehicle may wear the ego's canon marks (pack/12).
 
 The clipboard never sits in the windshield. Doghouse, thigh, or hands — never on the dash, never on the mesh, never blocking the right half of the road. `ref_ledger_cockpit.png` currently violates this; retake D4 before any Ledger cockpit recompile.
 
-Mya is not loose in a moving vehicle. Dash loaf only when parked. III-002 (moving + cat on dash) is `CARD_BROKEN`.
+Mya is not loose in a moving vehicle. Dash loaf only when parked. III-002 (moving + cat on dash) is `CARD_BROKEN`. Same check on other Mya frames. Gracie on the dash while rolling is the same class except II-018 (the teaching card).

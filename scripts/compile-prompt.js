@@ -2,6 +2,7 @@
 
 const {
   geometryClause,
+  trafficPositionsClause,
   MIRROR_CLAUSE,
   DOOR_MIRROR_CLAUSE,
   MIRROR_NEGATIVES,
@@ -58,10 +59,13 @@ const DIAGRAM_NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No stick figures, no vector icons, no infographic, no textbook schematic, no flat cartoon cars, no board-game tokens, no UI overlay, no legend, no floating arrows that are not painted on the pavement. No text, no captions, no watermarks. No vehicle facing the wrong way in its lane. No two vehicles in the same lane facing each other. No vehicle occupying the left (oncoming) half of the roadway. The Pink Menace must not face the camera — no headlights or plow toward the viewer. Rear mesh nearer the camera; plow at the far leading end. Same-direction traffic shows rears, never oncoming grilles. No gore, no crowds, no firearms. This is a photograph.";
 
 const OTHER_VEHICLE_CLAUSE_LEDGER =
-  "Any vehicle other than the Ledger must be visually distinct from it. When the ego vehicle is the Ledger, no other vehicle in frame may be a transit-style box: no cutaway shuttle body, no amber dot-matrix destination sign, no roof cargo rack, no long-arm side mirrors. Those four marks belong only to the Ledger. Other traffic uses plainly different silhouettes — a panel van, a stake-bed, a flatbed, a sedan — with factory door mirrors only. No pink Beetle, no plow blade, on any vehicle.";
+  "Any vehicle other than the Ledger must be visually distinct from it. When the ego vehicle is the Ledger, no other vehicle in frame may be a transit-style box: no cutaway shuttle body, no amber dot-matrix destination sign, no roof cargo rack, no long-arm side mirrors. Those four marks belong only to the Ledger. Other traffic uses plainly different silhouettes — a panel van, a stake-bed, a flatbed, a sedan — with factory door mirrors only. No Volkswagen Beetle, no rounded-fender compact, no pink car, no plow blade, on any vehicle.";
 
 const LEDGER_DIAGRAM_NEGATIVE =
-  "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No stick figures, no vector icons, no infographic, no textbook schematic, no flat cartoon cars, no board-game tokens, no UI overlay, no legend, no floating arrows that are not painted on the pavement. No text, no captions, no watermarks. No vehicle facing the wrong way in its lane. No two vehicles in the same lane facing each other. No vehicle occupying the left (oncoming) half of the roadway. The Ledger must not face the camera — no headlights or van nose toward the viewer. Rear of the square box nearer the camera; van nose at the far leading end. Same-direction traffic shows rears, never oncoming grilles. No pink Beetle, no plow blade. No gore, no crowds, no firearms. This is a photograph.";
+  "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No stick figures, no vector icons, no infographic, no textbook schematic, no flat cartoon cars, no board-game tokens, no UI overlay, no legend, no floating arrows that are not painted on the pavement. No text, no captions, no watermarks. No vehicle facing the wrong way in its lane. No two vehicles in the same lane facing each other. No vehicle occupying the left (oncoming) half of the roadway. The Ledger must not face the camera — no headlights or van nose toward the viewer. Rear of the square box nearer the camera; van nose at the far leading end. Same-direction traffic shows rears, never oncoming grilles. No Volkswagen Beetle, no rounded-fender compact, no plow blade. No gore, no crowds, no firearms. This is a photograph.";
+
+const LEDGER_NO_MENACE =
+  "No Volkswagen Beetle, no rounded-fender compact, no plow blade.";
 
 const LHD_NEGATIVE =
   "No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road.";
@@ -105,13 +109,15 @@ function headingPhrase(heading) {
 
 function geometryPromptClause(geo, driver) {
   if (!geo) return "";
-  return geometryClause(
+  const core = geometryClause(
     {
       ...geo,
       ego_heading: headingPhrase(geo.ego_heading),
     },
     driver
   );
+  const traffic = trafficPositionsClause(geo, driver);
+  return [core, traffic].filter(Boolean).join(" ");
 }
 
 function assemblePrompt(card) {
@@ -169,6 +175,8 @@ function assemblePrompt(card) {
         "United States road configuration, traffic drives on the right. Same-direction traffic occupies the right half of the roadway. " +
           `The subject is traveling ${headingPhrase(geo.ego_heading)}. Any oncoming traffic is ${geo.oncoming_position}. No vehicle faces the wrong way in its lane.`
       );
+      const traffic = trafficPositionsClause(geo, card.driver);
+      if (traffic) parts.push(traffic);
     } else {
       parts.push(geometryPromptClause(brief.geometry, card.driver));
     }
@@ -188,6 +196,7 @@ function assemblePrompt(card) {
     cam === "POV_DIAGRAM" ? (deac ? LEDGER_DIAGRAM_NEGATIVE : DIAGRAM_NEGATIVE) : NEGATIVE,
     LHD_NEGATIVE,
   ];
+  if (deac) negs.push(LEDGER_NO_MENACE);
   if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
   const continuity = (brief.continuity || []);

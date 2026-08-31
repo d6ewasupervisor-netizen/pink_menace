@@ -69,7 +69,7 @@
     "foreground": "worn transit wheel at the bottom, wiper-slot cage, rain on the glass; no clipboard in the windshield",
     "midground": "pickup tail close, then a short dark gap of wet asphalt, then the SUV's rear lamps farther ahead, all in one file",
     "background": "Meeker at night, heavy rain, sodium lamps, wet asphalt",
-    "read": "two same-direction vehicles stacked ahead with a gap too short for this bus; nothing faces the camera",
+    "read": "pavement is visible between the pickup's rear and the SUV's rear, and that gap is shorter than one bus length",
     "continuity": [
       "ledger_cockpit"
     ],

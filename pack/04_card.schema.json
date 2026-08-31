@@ -155,7 +155,7 @@
         "continuity": {
           "type": "array",
           "items": { "type": "string" },
-          "description": "Canonical bible assets that must render exactly. POV_DIAGRAM attaches pink_menace_exterior for build. No faces."
+          "description": "Canonical bible assets that must render exactly. POV_DIAGRAM attaches the ego vehicle lock (pink_menace_exterior for Ali, the_ledger for Deac). Never attach a Menace lock on a Deac card. No faces."
         },
         "aspect": { "enum": ["2:3", "16:9", "1:1"], "default": "2:3" },
         "geometry": {
@@ -178,6 +178,21 @@
             "oncoming_position": { "type": "string", "minLength": 4, "maxLength": 160 },
             "hazard_position": {
               "enum": ["ahead_same_direction", "behind", "oncoming", "beside", "none"]
+            },
+            "traffic_positions": {
+              "type": "array",
+              "description": "Required on Deac POV_DIAGRAM and POV_ROADSIDE when a same-direction vehicle is in frame. Passing is on the LEFT. Each entry is one other same-direction vehicle.",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["vehicle", "lane", "along", "lengths"],
+                "properties": {
+                  "vehicle": { "type": "string", "minLength": 2, "maxLength": 80 },
+                  "lane": { "enum": ["left_of_ego", "right_of_ego", "same_as_ego"] },
+                  "along": { "enum": ["ahead", "beside", "behind"] },
+                  "lengths": { "type": "number", "minimum": 0, "maximum": 20 }
+                }
+              }
             }
           }
         }
