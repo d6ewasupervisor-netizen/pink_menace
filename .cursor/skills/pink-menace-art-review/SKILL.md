@@ -63,7 +63,7 @@ Muted-read test for PASS: cover the text; if the picture doesn't teach `read`, i
 ## Regen (recompile tags only)
 
 1. Brief already coherent. The `read` must be a static photographable fact.
-2. Deac same-direction diagram/roadside must have numbered lanes (`lanes_this_direction`, `ego_lane_from_left`) and `frame_side` (left/right of the FRAME). Never compile "right half of the roadway" on multi-lane. Never compile "passing occurs on the LEFT." III-012: shuttle LEFT of frame, trailer RIGHT of frame, shuttle longitudinally ahead. That is the proof take.
+2. Multi-lane: numbered lanes + `frame_side` (left/right of the FRAME, headings stated, longitudinal offset). `ego_lane_side` is two-lane only. Never compile "right half of the roadway" on multi-lane. Never compile "passing occurs on the LEFT." `frame_side: same` means the opposite half is empty. Lateral headings are a side view — no headlights at the lens.
 3. Deac cards attach the Ledger lock only — never a Menace ref.
 4. `GenerateImage` with vehicle lock. Tool aspect `3:4`; seed encodes 2:3.
 5. Copy to `cards/<id>.png`. Seed live if shipped. Bump `src/game.js` `imageUrl` `?v=`.

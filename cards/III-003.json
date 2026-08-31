@@ -65,7 +65,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "ex-transit cutaway in the right southbound lane only, primer sedan ahead in the left lane, a pickup in the left beside the bus passing the sedan",
+    "subject": "On the RIGHT side of the frame: a gray cutaway shuttle in the right travel lane. On the LEFT side of the frame: a primer sedan ahead and a pickup even with the shuttle, both in the left lane. All three travel away from the camera",
     "foreground": "wet asphalt and skip-dashed white lane line, rain",
     "midground": "the Ledger occupying only the right travel lane, van nose pointed south, pickup in the left using it as a pass",
     "background": "rain, Kent commercial strip, no extra side streets",

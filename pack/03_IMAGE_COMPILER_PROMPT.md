@@ -67,8 +67,10 @@ You MUST:
     Menace lock (ref_car_exterior.jpg, ref_cockpit.jpg, Ali, Gracie) on a Deac card.
   - on every Deac compile, append: no Volkswagen Beetle, no rounded-fender
     compact, no plow blade.
-  - on Deac POV_DIAGRAM and POV_ROADSIDE with same-direction traffic, append
-    the traffic_positions clause (passing occurs on the LEFT)
+  - on Deac POV_DIAGRAM, POV_ROADSIDE, and POV_CHASE with same-direction
+    traffic, append the frame-relative traffic_positions clause (left of
+    frame / right of frame, both headings, longitudinal offset). Never
+    compile "passing occurs on the LEFT" into the positive prompt.
   - end with the negative block
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
@@ -303,27 +305,42 @@ Append this clause, filled from that block, to every road compile:
 > — points **[ego_nose_in_frame]**. Any oncoming traffic is
 > **[oncoming_position]**. No vehicle faces the wrong way in its lane.
 
-When `traffic_positions` is present (required on Deac `POV_DIAGRAM` and
-`POV_ROADSIDE` whenever a same-direction vehicle is in frame):
+When `traffic_positions` is present (required on Deac `POV_DIAGRAM`,
+`POV_ROADSIDE`, and `POV_CHASE` whenever a same-direction vehicle is in
+frame):
 
-- Do **not** compile "passing occurs on the LEFT." That is a rule the model
-  assigns as a role. State placements. Put "no vehicle passes on the right"
-  in the negative block.
-- When `ego_heading` is `away_from_camera`, compile **frame-relative**
-  sides, not ego-relative lanes:
+## MULTI-LANE FRAME RULE — standing, Acts III–VII
 
-> Looking down a divided highway with [N] lanes running away from the
-> camera. On the LEFT side of the frame: [shuttle]. On the RIGHT side of
-> the frame: [other vehicle]. The shuttle's front bumper is [offset].
-> Both travel away from the camera.
+On any multi-lane roadway, do not describe position by role or by half.
+`ego_lane_side` is a two-lane concept and is invalid where lanes run the
+same direction. This is the same class of error as "driver-side" on the
+hand-signal plate: a role-relative term the model has to resolve — first
+that plate, then `ego_lane_side` on a divided highway.
 
-Left-of-frame / right-of-frame are unambiguous when both vehicles head
-away from the camera. Role words (ego, left_of_ego, passing) are not.
+State every vehicle's position as **left of frame / right of frame** with
+both headings stated, plus a longitudinal offset in vehicle lengths.
 
-`oncoming_position` does not bind same-direction traffic. III-012 is the
-teaching card for a left-side pass — verify it hardest: trailer must land
-on the RIGHT of the frame, shuttle on the LEFT, shuttle longitudinally
-ahead enough to read as a pass in progress.
+Abstract rules ("passing occurs on the left") never appear in the
+positive prompt — state the resulting placement and put the rule in the
+negative block: *no vehicle on the right passing a vehicle on the left;
+no vehicle passes on the right.*
+
+When `frame_side` is `same`, the other vehicle shares the shuttle's lane
+and the opposite half of the frame is empty. Compile that emptiness.
+Never leave "same lane" implied.
+
+Lateral headings (`left_to_right`, `right_to_left`) are a SIDE VIEW.
+Compile noses pointing at the named frame edge and forbid headlights
+toward the camera. A roadside still that faces the lens has discarded
+the heading.
+
+> The roadway has [N] lanes in this direction. On the LEFT side of the
+> frame: [vehicle A], traveling [heading]. On the RIGHT side of the
+> frame: [vehicle B], traveling [heading]. [A]'s front bumper is [N]
+> vehicle lengths ahead of [B]'s front bumper. Both headings are [heading].
+
+Yuna's act is arterial and highway. It inherits this rule. Do not
+rediscover it on card three of Act IV.
 
 The plow is the orientation anchor. Always state where it points in frame.
 
@@ -357,8 +374,10 @@ aesthetically. Lane law cannot survive that.
   `ref_car_exterior.jpg`; Deac diagrams get `ref_ledger_sheet.png` and never
   a Menace ref. Never carry the salt-flat sunset. No faces. No infographic.
   No vector cars.
-  Same-direction vehicles occupy the right half of the roadway and face
-  the same way; never nose-to-nose in one lane, never in the oncoming half.
+  On two-lane undivided, same-direction vehicles occupy the right half of
+  the roadway and face the same way. On multi-lane, place them left of
+  frame / right of frame with both headings — never "right half." Never
+  nose-to-nose in one lane, never in the oncoming half.
 
 POV_TOPDOWN is illegal.
 

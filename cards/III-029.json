@@ -65,7 +65,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_CHASE",
-    "subject": "Ledger in the right, a box ahead at the same speed, empty left lane, rain at dusk",
+    "subject": "On the RIGHT side of the frame: the gray cutaway shuttle, rear nearest the camera. Ahead in that same lane: a plain box truck — factory door mirrors only, no cutaway body, no amber destination sign, no roof cargo rack, no long-arm mirrors. On the LEFT side of the frame: an empty travel lane. Rain at dusk",
     "foreground": "following glass and rain",
     "midground": "the Ledger's rear and the empty left that is not being used",
     "background": "heavy rain, dusk, lamps on Central",
@@ -79,7 +79,19 @@
       "ego_lane_side": "right travel lane of two southbound lanes",
       "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
       "oncoming_position": "none in this heading",
-      "hazard_position": "ahead_same_direction"
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "plain box truck",
+          "frame_side": "same",
+          "lane_from_left": 2,
+          "along": "ahead",
+          "lengths": 2
+        }
+      ]
     }
   },
   "variation": {

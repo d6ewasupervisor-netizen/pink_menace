@@ -111,7 +111,31 @@ function laneOrdinal(k, n) {
 }
 
 function usesFramePlacement(geo) {
-  return Boolean(geo && geo.ego_heading === "away_from_camera" && geo.ego_frame_side);
+  return Boolean(
+    geo &&
+    typeof geo.lanes_this_direction === "number" &&
+    geo.lanes_this_direction >= 2 &&
+    (geo.ego_frame_side === "left" || geo.ego_frame_side === "right")
+  );
+}
+
+function travelPhrase(heading) {
+  switch (heading) {
+    case "away_from_camera":
+      return "away from the camera";
+    case "toward_camera":
+      return "toward the camera";
+    case "left_to_right":
+      return "left to right across the frame";
+    case "right_to_left":
+      return "right to left across the frame";
+    default:
+      return heading;
+  }
+}
+
+function egoWrongFlank(frameSide) {
+  return frameSide === "left" ? "right" : "left";
 }
 
 function geometryClause(geo, driver) {
@@ -129,15 +153,62 @@ function geometryClause(geo, driver) {
   } else {
     occupancy = `${vehicle} occupies the **right half of the roadway** for its direction of travel.`;
   }
+  const heading = travelPhrase(geo.ego_heading);
   return (
     "United States road configuration, traffic drives on the right. " +
-    `${vehicle} is traveling **${geo.ego_heading}**. ` +
+    `${vehicle} is traveling **${heading}**. ` +
     occupancy +
     " " +
     front +
     `**${geo.ego_nose_in_frame}**. ` +
     `Any oncoming traffic is **${geo.oncoming_position}**. No vehicle faces the wrong way in its lane.`
   );
+}
+
+function headingLockClause(geo) {
+  if (!geo || !geo.ego_heading) return "";
+  switch (geo.ego_heading) {
+    case "left_to_right":
+      return (
+        "This is a SIDE VIEW from the curb. Every vehicle travels left-to-right. " +
+        "Every nose points at the RIGHT edge of the frame. The long left flank of each vehicle faces the camera. " +
+        "Headlights and grilles do not face the viewer."
+      );
+    case "right_to_left":
+      return (
+        "This is a SIDE VIEW from the curb. Every vehicle travels right-to-left. " +
+        "Every nose points at the LEFT edge of the frame. The long right flank of each vehicle faces the camera. " +
+        "Headlights and grilles do not face the viewer."
+      );
+    case "away_from_camera":
+      return (
+        "Rear of each same-direction vehicle is nearer the camera. Bodies recede toward the top of the frame. " +
+        "No headlights or grilles face the viewer."
+      );
+    case "toward_camera":
+      return "Front of each vehicle faces the camera. Rears are farther from the viewer.";
+    default:
+      return "";
+  }
+}
+
+function offsetInFrame(along, lengths, heading, vehicle) {
+  const n = Number(lengths);
+  const unit = n === 1 ? "vehicle length" : "vehicle lengths";
+  if (along === "beside") return `The ${vehicle} is even with the shuttle.`;
+  if (along === "ahead") {
+    let where = "further from the camera";
+    if (heading === "left_to_right") where = "further toward the RIGHT edge of the frame";
+    else if (heading === "right_to_left") where = "further toward the LEFT edge of the frame";
+    else if (heading === "away_from_camera") where = "further from the camera, receding toward the top of the frame";
+    else if (heading === "toward_camera") where = "closer to the camera than the shuttle";
+    return `The ${vehicle} is ahead of the shuttle by ${n} ${unit} — ${where}.`;
+  }
+  let where = "closer to the camera than the shuttle";
+  if (heading === "left_to_right") where = "further toward the LEFT edge of the frame";
+  else if (heading === "right_to_left") where = "further toward the RIGHT edge of the frame";
+  else if (heading === "away_from_camera") where = "closer to the camera than the shuttle";
+  return `The shuttle's front bumper is roughly ${n} ${unit} ahead of the ${vehicle}'s front bumper — the ${vehicle} is ${where}.`;
 }
 
 function alongPhrase(along, lengths) {
@@ -152,29 +223,30 @@ function framePlacementClause(geo, driver) {
   if (!usesFramePlacement(geo)) return "";
   const shuttle = driver === "deac" ? "a gray cutaway shuttle bus" : "the pink vehicle";
   const n = geo.lanes_this_direction;
+  const travel = travelPhrase(geo.ego_heading);
   const bits = [];
   if (typeof n === "number" && n >= 2) {
-    bits.push(`Looking down a divided highway with ${n} lanes running away from the camera.`);
+    bits.push(`The roadway has ${n} lanes in this direction.`);
   }
-  bits.push(`On the ${String(geo.ego_frame_side).toUpperCase()} side of the frame: ${shuttle}.`);
+  bits.push(`On the ${String(geo.ego_frame_side).toUpperCase()} side of the frame: ${shuttle}, traveling ${travel}.`);
   for (const r of geo.traffic_positions || []) {
     if (r.frame_side === "left" || r.frame_side === "right") {
-      bits.push(`On the ${r.frame_side.toUpperCase()} side of the frame: ${r.vehicle}.`);
+      bits.push(`On the ${r.frame_side.toUpperCase()} side of the frame: ${r.vehicle}, traveling ${travel}.`);
+    } else if (r.frame_side === "same") {
+      bits.push(
+        `Also on the ${String(geo.ego_frame_side).toUpperCase()} side of the frame, in the same lane: ${r.vehicle}, traveling ${travel}. ` +
+          `The skip-dashed lane line runs along the ${egoWrongFlank(geo.ego_frame_side)} flank of both vehicles. ` +
+          `Both vehicles' tires sit on the ${String(geo.ego_frame_side).toUpperCase()} of that dashed line. ` +
+          `The ${egoWrongFlank(geo.ego_frame_side).toUpperCase()} travel lane is empty wet asphalt.`
+      );
     }
   }
   for (const r of geo.traffic_positions || []) {
-    if (r.along === "behind" && r.lengths > 0) {
-      const unit = r.lengths === 1 ? "trailer-length" : "trailer-lengths";
-      bits.push(
-        `The shuttle's front bumper is roughly ${r.lengths} ${unit} ahead of the ${r.vehicle}'s front bumper.`
-      );
-    } else if (r.along === "ahead" && r.lengths > 0) {
-      bits.push(`The ${r.vehicle} is ${alongPhrase("ahead", r.lengths)}.`);
-    } else if (r.along === "beside") {
-      bits.push(`The ${r.vehicle} is even with the shuttle.`);
-    }
+    bits.push(offsetInFrame(r.along, r.lengths, geo.ego_heading, r.vehicle));
   }
-  bits.push("Both travel away from the camera.");
+  bits.push(`Both headings are ${travel}.`);
+  const lock = headingLockClause(geo);
+  if (lock) bits.push(lock);
   return bits.join(" ");
 }
 
@@ -197,7 +269,15 @@ function framePassNegatives(geo, driver) {
     if (r.frame_side === "left" || r.frame_side === "right") {
       const wrong = r.frame_side === "left" ? "right" : "left";
       parts.push(`No ${r.vehicle} on the ${wrong} side of the frame.`);
+    } else if (r.frame_side === "same") {
+      parts.push(`No ${r.vehicle} on the ${egoWrong} side of the frame.`);
+      parts.push(`No ${r.vehicle} in a different lane from the shuttle.`);
     }
+  }
+  if (geo.ego_heading === "left_to_right" || geo.ego_heading === "right_to_left") {
+    parts.push(
+      "No headlights facing the camera, no grille toward the viewer, no vehicle coming toward the lens, no head-on view."
+    );
   }
   parts.push("No pedestrian signs, no additional vehicles.");
   return parts.join(" ");
@@ -228,7 +308,7 @@ function needsTrafficPositions(card) {
   return (
     card &&
     card.driver === "deac" &&
-    (cam === "POV_DIAGRAM" || cam === "POV_ROADSIDE") &&
+    (cam === "POV_DIAGRAM" || cam === "POV_ROADSIDE" || cam === "POV_CHASE") &&
     SAME_DIRECTION_HAZARDS.has(hazard)
   );
 }
@@ -312,7 +392,7 @@ function validateGeometry(card) {
     const rows = geo && geo.traffic_positions;
     if (!Array.isArray(rows) || rows.length < 1) {
       errors.push(
-        `${id}: same-direction traffic on a Deac diagram/roadside frame requires geometry.traffic_positions`
+        `${id}: same-direction traffic on a Deac diagram/roadside/chase frame requires geometry.traffic_positions`
       );
     } else {
       if (typeof geo.lanes_this_direction !== "number" || geo.lanes_this_direction < 2) {
@@ -321,8 +401,8 @@ function validateGeometry(card) {
       if (typeof geo.ego_lane_from_left !== "number" || geo.ego_lane_from_left < 1) {
         errors.push(`${id}: multi-lane same-direction frame requires geometry.ego_lane_from_left`);
       }
-      if (geo.ego_heading === "away_from_camera" && !["left", "right"].includes(geo.ego_frame_side)) {
-        errors.push(`${id}: away_from_camera same-direction frame requires geometry.ego_frame_side left|right`);
+      if (!["left", "right"].includes(geo.ego_frame_side)) {
+        errors.push(`${id}: multi-lane same-direction frame requires geometry.ego_frame_side left|right`);
       }
       rows.forEach((row, i) => {
         if (!row || typeof row !== "object") {
@@ -373,6 +453,7 @@ module.exports = {
   isGeometryRead,
   camerasForHazard,
   geometryClause,
+  headingLockClause,
   framePlacementClause,
   framePassNegatives,
   trafficPositionsClause,

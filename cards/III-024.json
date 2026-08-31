@@ -83,6 +83,7 @@
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 2,
       "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
       "traffic_positions": [
         { "vehicle": "pickup", "frame_side": "same", "lane_from_left": 2, "along": "ahead", "lengths": 1 }
       ]

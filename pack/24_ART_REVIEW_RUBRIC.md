@@ -95,7 +95,7 @@ The cockpit lock (`ref_ledger_cockpit.png`) mounted the clipboard on the passeng
 
 ## 11. SAME-DIRECTION TRAFFIC AND UNPHOTOGRAPHABLE READS
 
-`oncoming_position` does not bind same-direction vehicles. On multi-lane, "occupies the right half of the roadway" fights "passing on the left" — the model parks the bus in the right lane and puts the truck left. Compile numbered lanes from the left, then **frame-relative** placements (left of frame / right of frame) when both vehicles head away from the camera. Never compile the abstract rule "passing occurs on the LEFT." III-012 is the proof take: trailer must land right-of-frame.
+On any multi-lane roadway, do not describe position by role or by half. `ego_lane_side` is a two-lane concept and is invalid where lanes run the same direction. Compile **left of frame / right of frame** with both headings and a longitudinal offset. Abstract rules ("passing occurs on the left") never appear in the positive prompt. `frame_side: same` means the opposite half is empty. Lateral headings are a side view. III-012 is the proof take: trailer right-of-frame, shuttle left-of-frame, still alongside (the question, not the answer).
 
 A `read` that names a process, a gap you have to count, a hood "walking," a smear as psychology, or a tablet "mid-change" is the same class that killed II-009. Rewrite it to a static fact before generating. Recompiling against an unphotographable read buys another take of the same miss.
 

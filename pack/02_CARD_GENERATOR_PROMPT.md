@@ -101,10 +101,11 @@ Fields:
                   Exempts the card from the 25% cap and from window-of-6 counts.
   geometry      — required whenever a roadway appears. ego_heading, ego_lane_side,
                   ego_nose_in_frame (the plow), oncoming_position, hazard_position.
-                  On Deac POV_DIAGRAM and POV_ROADSIDE, when a same-direction
+                  On Deac POV_DIAGRAM, POV_ROADSIDE, and POV_CHASE, when a same-direction
                   vehicle is in frame: lanes_this_direction, ego_lane_from_left
                   (1 = leftmost), and traffic_positions with frame_side
-                  (left / right of the FRAME, not of ego). Never compile
+                  (left / right of the FRAME, or `same` for the shuttle's lane
+                  with the opposite half empty). Never compile
                   "occupies the right half" on multi-lane. Never compile
                   "passing occurs on the LEFT" — state the two placements.
   subject       — the ONE thing the eye lands on first
@@ -138,9 +139,11 @@ Rules:
     Blind zones and door glass are `POV_MIRROR_DOOR`. Bare `POV_MIRROR` is illegal.
   - Every road frame includes `image_brief.geometry` (heading, lane side, plow
     direction in frame, oncoming position, hazard position). The plow is the front.
-    Deac diagram and roadside frames with same-direction traffic also carry
-    `traffic_positions` with `frame_side` (left/right of the FRAME). Never
+    Deac diagram, roadside, and chase frames with same-direction traffic also carry
+    `traffic_positions` with `frame_side` (left/right of the FRAME, or `same`
+    for the shuttle's lane with the opposite half empty). Never
     "right half of the roadway" on multi-lane. Never "passing occurs on the LEFT."
+    `ego_lane_side` is two-lane only. Lateral headings are a side view.
   - Sign, signal, and marking recognition defaults to `POV_OBJECT`.
   - Do not put text, words, numbers, or UI in the frame unless the card is
     teaching a sign face or a gauge reading.

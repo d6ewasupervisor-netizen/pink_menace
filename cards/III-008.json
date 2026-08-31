@@ -67,7 +67,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_OBJECT",
-    "subject": "wet skip-dashed white on the left of frame, solid white and a painted diamond on the right",
+    "subject": "wet skip-dashed white on the left of frame, solid white and a painted diamond on the right. No other vehicles. No van. No traffic in the diamond",
     "foreground": "falling snow in the lamp, a strip of gray primer at the bottom edge",
     "midground": "the two paints meeting at the Ledger's left front corner, no readable words",
     "background": "deep night, 84th, sodium, empty diamond lane",
@@ -81,7 +81,9 @@
       "ego_lane_side": "center travel lane of three northbound lanes",
       "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame along the paint",
       "oncoming_position": "none in frame",
-      "hazard_position": "none"
+      "hazard_position": "none",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 2
     }
   },
   "variation": {

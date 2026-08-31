@@ -197,7 +197,7 @@
             },
             "traffic_positions": {
               "type": "array",
-              "description": "Required on Deac POV_DIAGRAM and POV_ROADSIDE when a same-direction vehicle is in frame. Prefer frame_side (left/right of FRAME) over role-relative lane. Do not compile 'passing occurs on the LEFT'.",
+              "description": "Required on Deac POV_DIAGRAM, POV_ROADSIDE, and POV_CHASE when a same-direction vehicle is in frame. Prefer frame_side (left/right of FRAME, or same for the shuttle's lane with the opposite half empty) over role-relative lane. Do not compile 'passing occurs on the LEFT'.",
               "items": {
                 "type": "object",
                 "additionalProperties": false,
