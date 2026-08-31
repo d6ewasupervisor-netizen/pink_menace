@@ -30,6 +30,18 @@ const TITLE_OPTION_ONLY = [
   { re: /\bthe room\b/i, label: "the room (title/option/decision)" },
 ];
 
+// The Ledger is a cutaway with a plate-steel cargo box. No rear window,
+// no interior mirror. Same ratchet as the swap column — Act V cannot
+// put Deac back on a center rearview.
+const LEDGER_REAR_GLASS = [
+  { re: /\brear glass\b/i, label: "rear glass" },
+  { re: /\brearview\b/i, label: "rearview" },
+  { re: /\binterior mirror\b/i, label: "interior mirror" },
+  { re: /\bthe center mirror\b/i, label: "the center mirror" },
+  { re: /\bcenter mirror\b/i, label: "center mirror" },
+  { re: /\binside mirror\b/i, label: "inside mirror" },
+];
+
 function walkPlayer(card) {
   const rows = [];
   for (const field of PLAYER_FIELDS) {
@@ -45,9 +57,17 @@ function walkPlayer(card) {
 function checkSpoken(card) {
   const errors = [];
   const id = card.card_id;
+  const ledgerGlass = card.driver === "deac";
   for (const row of walkPlayer(card)) {
     for (const { re, label } of HARD) {
       if (re.test(row.text)) errors.push(`${id}: ${row.field} uses "${label}"`);
+    }
+    if (ledgerGlass) {
+      for (const { re, label } of LEDGER_REAR_GLASS) {
+        if (re.test(row.text)) {
+          errors.push(`${id}: ${row.field} uses "${label}" (Ledger has no rear window)`);
+        }
+      }
     }
     if (/^(title|decision|opt:)/.test(row.field)) {
       for (const { re, label } of TITLE_OPTION_ONLY) {
@@ -74,6 +94,13 @@ function checkSpoken(card) {
       if (/\bmill-and-fill\b/i.test(t)) errors.push(`${id}: image_brief.${k} uses mill-and-fill`);
       if (/\bartial\b/i.test(t)) errors.push(`${id}: image_brief.${k} uses arterial`);
       if (/\bwest-coast\b/i.test(t)) errors.push(`${id}: image_brief.${k} uses west-coast`);
+      if (ledgerGlass) {
+        for (const { re, label } of LEDGER_REAR_GLASS) {
+          if (re.test(t)) {
+            errors.push(`${id}: image_brief.${k} uses "${label}" (Ledger has no rear window)`);
+          }
+        }
+      }
     }
   }
   return errors;
@@ -124,4 +151,4 @@ function checkClosers(cards) {
   return errors;
 }
 
-module.exports = { checkSpoken, checkClosers, walkPlayer };
+module.exports = { checkSpoken, checkClosers, walkPlayer, LEDGER_REAR_GLASS };

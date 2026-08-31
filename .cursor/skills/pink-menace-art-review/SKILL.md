@@ -3,52 +3,71 @@ name: pink-menace-art-review
 description: >-
   Walk Pink Menace card stills against scene copy in the local art-review
   board (npm run art-review). Use when reviewing card art, stills vs scene,
-  picture/text mismatch, iterating an act's images, Pass/Fix on a card
-  picture, or starting an act art pass.
+  picture/text mismatch, iterating an act's images, tagging CARD_BROKEN /
+  WRONG_CAMERA / PASS, or starting an act art pass. Rubric: pack/24_ART_REVIEW_RUBRIC.md.
 ---
 
 # Pink Menace art review
 
 Local board. Never mount it on ali.tactag.app. Bind `127.0.0.1` only.
+Rubric: `pack/24_ART_REVIEW_RUBRIC.md`.
 
 ```
 npm run art-review
 ```
 
-Opens `http://127.0.0.1:3847/?act=III&card=III-010` (override with `--act` / `--card`).
+`http://127.0.0.1:3847/?act=III&card=III-010`
 
-UI: still + hook/scene/decision/`read`/geometry. **Pass** / **Fix** / Prev / Next. State: `cards/art-review-state.json` (gitignored).
+A verdict is a **tag** plus an optional detail line. Tags: `PASS`, `CARD_BROKEN`, `WRONG_CAMERA`, `READ_MISSING`, `GEOMETRY_WRONG`, `CANON_DRIFT`, `INVENTED`, `COPY`, `STYLE`.
 
-## Start an act
+State: `cards/art-review-state.json` (gitignored). Queue: `GET /api/queue?act=III`.
 
-1. Run the board if it is not already on `:3847`.
-2. First unfinished card in that act, unless the user names a card.
-3. Current act III starts at **III-010** until that still is Passed.
+## Order on every card
 
-## One card at a time
+Stop at the first failure (pack/24 §1):
 
-Stay on the current card until the still matches hook + scene + `image_brief.read` + geometry (vehicle-relative left/right, heading, whose seat).
+A. Card coherent? scene → decision → correct option → read → geometry = one situation.
+B. Can this camera show the read?
+C. Do the pixels execute the brief? Judge at **390px**.
+D. Style last.
 
-| User says | Do |
-|---|---|
-| Pass / looks right | `PUT /api/verdict` `{status:"pass"}`, go **Next** |
-| mismatch / Fix + a note | regenerate that PNG only (see below), copy onto `cards/<id>.png`, seed live if the card is already shipped, stay on this card until Pass |
-| Next / Prev | change cursor only |
+Muted-read test for PASS: cover the text; if the picture doesn't teach `read`, it fails.
 
-`GET http://127.0.0.1:3847/api/state` and `GET /api/card/<id>` are the cursor. After a new still, reload the board tab (mtime cache-busts `/still/<id>.png`).
+## Batching
 
-Do not skip a Fix to "come back later" unless the user says to.
+**Tag the whole act before fixing anything.** Fixes cluster. Then group by tag, then fix by group.
 
-## Regen a still
+## Routing — never generate on writer-first tags
 
-1. Read `cards/<id>.json` `image_brief` + scene. If left/right was the miss, tighten the brief in frame-relative language (curb, camera side, heading) before generating.
-2. `GenerateImage` with the act vehicle lock (`refs/ref_ledger_sheet.png` or cockpit / Menace exterior). Tool aspect `3:4`; delivery still is 2:3 via `scripts/encode-still.py` at seed.
-3. Copy the result to `cards/<id>.png`.
-4. If live: `node scripts/seed-cards.js <id>` against prod `DATABASE_URL` (public Railway proxy, never print the URL). Bump `imageUrl` `?v=` in `src/game.js`. Commit and push.
-5. Reload the board; wait for Pass.
+| Tag | Who | Image gen? |
+|---|---|---|
+| `CARD_BROKEN` | Writer, then compiler | **No** until the JSON is one situation |
+| `WRONG_CAMERA` | Writer changes camera token | **No** until the token can show the read |
+| `READ_MISSING` `GEOMETRY_WRONG` `CANON_DRIFT` `INVENTED` | Compiler | Yes |
+| `COPY` | Writer | Text only |
+| `STYLE` | Optional | Lowest |
+| `PASS` | — | — |
+
+`CARD_BROKEN` and `WRONG_CAMERA` must never be sent to image generation. The board prints "Writer first — do not generate" on those.
+
+## After the act is tagged
+
+1. `GET /api/queue?act=III`
+2. Rewrite group (`CARD_BROKEN`) first.
+3. Camera-token group (`WRONG_CAMERA`) next.
+4. Recompile group together — one compiler rule often clears several `GEOMETRY_WRONG`.
+5. `COPY` text pass (no recompile).
+6. `STYLE` last, if at all.
+
+## Regen (recompile tags only)
+
+1. Brief already coherent. Tighten `read` / geometry in frame-relative language if needed.
+2. `GenerateImage` with vehicle lock. Tool aspect `3:4`; seed encodes 2:3.
+3. Copy to `cards/<id>.png`. Seed live if shipped. Bump `src/game.js` `imageUrl` `?v=`.
+4. Reload the board; wait for `PASS`.
 
 No other vehicle may wear the ego's canon marks (pack/12).
 
-## Next act
+## Ledger rear vision
 
-Same tool: `node tools/art-review/server.js --act II` (or IV…). Pass the whole act before starting the next.
+`POV_MIRROR_REAR` is illegal on any Deac card. The Ledger is a cutaway with a plate-steel cargo box: no rear window, no interior mirror. Hazard behind → `POV_MIRROR_DOOR`. On Deac, `POV_MIRROR_REAR` is always `WRONG_CAMERA` (III-011 stays `CARD_BROKEN` because the situation itself is three-way broken). Never generate those stills until the writer changes the token. Never write "rear glass," "rearview," "interior mirror," or "the center mirror" into a Ledger frame or Ledger copy.

@@ -4,6 +4,15 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const { seqFromCard } = require("../../scripts/card-seq");
+const {
+  TAGS,
+  TAG_IDS,
+  normalizeTag,
+  bucketOf,
+  countBuckets,
+  formatCounts,
+  writerFirst,
+} = require("./tags");
 
 const ROOT = path.join(__dirname, "..", "..");
 const CARDS = path.join(ROOT, "cards");
@@ -76,9 +85,13 @@ function saveState(state) {
 
 function verdictOf(state, id) {
   const v = state.verdicts[id];
-  if (!v || typeof v !== "object") return { status: "open", note: "" };
-  const status = v.status === "pass" || v.status === "fix" ? v.status : "open";
-  return { status, note: typeof v.note === "string" ? v.note : "" };
+  if (!v || typeof v !== "object") return { tag: null, note: "", writer_first: false };
+  const tag = normalizeTag(v.tag || v.status);
+  return {
+    tag,
+    note: typeof v.note === "string" ? v.note : "",
+    writer_first: writerFirst(tag),
+  };
 }
 
 function summarize(card) {
@@ -94,6 +107,7 @@ function summarize(card) {
     hook: card.hook || "",
     scene: card.scene || "",
     decision: card.decision || "",
+    debrief: card.debrief || "",
     camera: brief.camera || "",
     read: brief.read || "",
     subject: brief.subject || "",
@@ -115,7 +129,9 @@ function listAct(act) {
       driver: card.driver,
       seq: seqFromCard(card),
       has_image: imageMeta(id).has_image,
-      status: v.status,
+      tag: v.tag,
+      bucket: v.tag ? bucketOf(v.tag) : "open",
+      writer_first: v.writer_first,
     });
   }
   rows.sort((a, b) => a.seq - b.seq || a.card_id.localeCompare(b.card_id));
@@ -144,6 +160,7 @@ app.get("/api/meta", (_req, res) => {
     act: state.act,
     cursor: state.cursor,
     port: PORT,
+    tags: TAGS,
   });
 });
 
@@ -151,9 +168,38 @@ app.get("/api/deck", (req, res) => {
   const state = loadState();
   const act = String(req.query.act || state.act || BOOT_ACT);
   const cards = listAct(act);
-  const counts = { open: 0, pass: 0, fix: 0 };
-  for (const c of cards) counts[c.status] = (counts[c.status] || 0) + 1;
-  res.json({ ok: true, act, cards, counts, cursor: state.cursor });
+  const counts = countBuckets(cards);
+  res.json({
+    ok: true,
+    act,
+    cards,
+    counts,
+    counts_label: formatCounts(counts),
+    cursor: state.cursor,
+  });
+});
+
+app.get("/api/queue", (req, res) => {
+  const state = loadState();
+  const act = String(req.query.act || state.act || BOOT_ACT);
+  const cards = listAct(act);
+  const byTag = {};
+  for (const t of TAGS) byTag[t.id] = [];
+  const open = [];
+  for (const c of cards) {
+    if (!c.tag) open.push(c.card_id);
+    else byTag[c.tag].push(c.card_id);
+  }
+  res.json({
+    ok: true,
+    act,
+    counts: countBuckets(cards),
+    counts_label: formatCounts(countBuckets(cards)),
+    by_tag: byTag,
+    open,
+    writer_first: cards.filter((c) => c.writer_first).map((c) => c.card_id),
+    recompile: cards.filter((c) => c.bucket === "recompile" && !c.writer_first).map((c) => c.card_id),
+  });
 });
 
 app.get("/api/card/:id", (req, res) => {
@@ -171,8 +217,10 @@ app.get("/api/card/:id", (req, res) => {
     ok: true,
     ...summarize(card),
     ...img,
-    status: v.status,
+    tag: v.tag,
     note: v.note,
+    writer_first: v.writer_first,
+    bucket: v.tag ? bucketOf(v.tag) : "open",
     index: idx,
     total: deck.length,
     prev: idx > 0 ? deck[idx - 1].card_id : null,
@@ -210,14 +258,15 @@ app.put("/api/verdict", (req, res) => {
   const body = req.body || {};
   const id = String(body.card_id || "").toUpperCase();
   if (!ID_RE.test(id)) return res.status(400).json({ ok: false, error: "bad id" });
-  const status = body.status;
-  if (status !== "open" && status !== "pass" && status !== "fix") {
-    return res.status(400).json({ ok: false, error: "bad status" });
+  const tag = normalizeTag(body.tag || body.status);
+  if (body.tag != null && body.tag !== "" && body.tag !== "open" && !TAG_IDS.has(tag)) {
+    return res.status(400).json({ ok: false, error: "bad tag" });
   }
   const state = loadState();
   const prev = verdictOf(state, id);
+  const nextTag = body.tag === "" || body.tag === "open" ? null : tag || prev.tag;
   state.verdicts[id] = {
-    status,
+    tag: nextTag,
     note: body.note != null ? String(body.note) : prev.note,
     updated_at: new Date().toISOString(),
   };
@@ -225,7 +274,13 @@ app.put("/api/verdict", (req, res) => {
   const file = path.join(CARDS, id + ".json");
   if (fs.existsSync(file)) state.act = readJson(file).act || state.act;
   saveState(state);
-  res.json({ ok: true, card_id: id, ...state.verdicts[id] });
+  res.json({
+    ok: true,
+    card_id: id,
+    ...state.verdicts[id],
+    writer_first: writerFirst(nextTag),
+    bucket: nextTag ? bucketOf(nextTag) : "open",
+  });
 });
 
 app.get("*", (_req, res) => {

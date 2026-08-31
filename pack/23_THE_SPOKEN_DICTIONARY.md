@@ -11,7 +11,7 @@ Authority for the Americanization pass. Cards, chrome, barks, manifest, ride-alo
 | We wrote | Say | Notes |
 |---|---|---|
 | convex / convexes | **side mirror**, the big mirror, the right mirror | Every instance. Titles too. |
-| flat glass | **the inside mirror**, the regular mirror | |
+| flat glass | **the inside mirror**, the regular mirror | Ali only. The Ledger has no interior mirror — Deac cards say the left door mirror, never "the inside mirror." |
 | mill / millings / mill-and-fill | **work zone**, torn-up road, *they're grinding it* | See §4 — II-023 is a content fix, not a word fix |
 | collector | **side street**, two-lane, neighborhood street | |
 | arterial | **the main road**, the four-lane, Central | Zone rename in §3 |
@@ -36,6 +36,8 @@ Deac is a 26-year transit operator. Strip his vocabulary and he becomes a drivin
 - **blind spot as "the room"** — allowed *after* one card has said blind spot plainly, and never as the hinge of a correct answer. III-005's title is the jargon and must change.
 
 Also keep: the Ledger, the Menace, Ali, Deac, Yuna, Gracie, Mya, **The Grid** (a place, not a road class), **The Quiet**, COLD / WARMING, and *pavement* in the three-second following line — that phrasing is real US driver ed.
+
+**Ledger rear vision (hard, same ratchet as §1):** the cargo box is plate steel. No rear window, no interior mirror. Never print "rear glass," "rearview," "interior mirror," "the center mirror," or "the inside mirror" on a Deac card. The side mirrors are the only rearward vision. A look behind is the left door mirror, or it is a wall.
 
 ## 3. ACT III RENAME — Central
 

@@ -10,14 +10,17 @@
   <header class="bar">
     <p class="brand">Art review</p>
     <nav id="acts" class="acts"></nav>
+    <button type="button" id="phone" class="ghost">390</button>
     <p id="counts" class="counts"></p>
   </header>
 
   <main class="stage">
-    <figure class="still" id="still-wrap">
-      <img id="still" alt="">
-      <p id="missing" class="missing hidden">No still</p>
-    </figure>
+    <div class="still-col">
+      <figure class="still" id="still-wrap">
+        <img id="still" alt="">
+        <p id="missing" class="missing hidden">No still</p>
+      </figure>
+    </div>
 
     <section class="copy">
       <p id="kicker" class="kicker"></p>
@@ -27,9 +30,11 @@
       <p id="decision" class="decision"></p>
       <p id="read" class="read"></p>
       <p id="geo" class="geo"></p>
+      <nav id="tags" class="tags"></nav>
+      <p id="route" class="route hidden"></p>
       <label class="note-lab">
-        Note
-        <textarea id="note" rows="3" maxlength="800"></textarea>
+        Detail
+        <textarea id="note" rows="2" maxlength="800"></textarea>
       </label>
     </section>
   </main>
@@ -38,8 +43,6 @@
 
   <footer class="dock">
     <button type="button" id="prev" class="ghost">Prev</button>
-    <button type="button" id="pass">Pass</button>
-    <button type="button" id="fix" class="warn">Fix</button>
     <button type="button" id="next" class="ghost">Next</button>
   </footer>
 

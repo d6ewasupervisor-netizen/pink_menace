@@ -43,7 +43,10 @@ You MUST:
     no driver. Diagrams are the same photoreal world, overhead — no faces.
   - abort POV_TOPDOWN and POV_MIRROR — both are illegal. Resolve to the
     sub-tokens in bible §8.3.
-  - abort hazard_position behind on any forward camera. Behind is POV_MIRROR_REAR.
+  - abort hazard_position behind on any forward camera. Behind is POV_MIRROR_REAR
+    on a vehicle with a rear window. On the Ledger (driver: deac) behind is
+    POV_MIRROR_DOOR — abort POV_MIRROR_REAR + driver deac. The cargo box is
+    plate steel; there is no interior rearview to point a camera at.
   - abort before assembly unless scripts/authoring-seat.js passes: ego vehicle
     matches the act's driver, the camera is consistent with sitting in it, and
     no other vehicle in the brief shares the ego's canon marks. Do not compile
@@ -293,7 +296,7 @@ The plow is the orientation anchor. Always state where it points in frame.
 
 | hazard_position | Required camera |
 |---|---|
-| behind | POV_MIRROR_REAR — never a forward camera |
+| behind | POV_MIRROR_REAR on a vehicle with a rear window. On the Ledger: POV_MIRROR_DOOR. Never a forward camera. Never POV_MIRROR_REAR on Deac. |
 | ahead_same_direction | POV_COCKPIT (or another forward camera; never a rearview) |
 | oncoming | POV_COCKPIT, oncoming lane left of frame; or POV_DIAGRAM |
 | beside | POV_DIAGRAM, POV_ROADSIDE, or POV_MIRROR_DOOR |
@@ -327,9 +330,12 @@ POV_TOPDOWN is illegal.
 POV_MIRROR is illegal. Resolve to one of:
 
 - POV_MIRROR_REAR — interior rearview, wide, upper frame, road BEHIND in
-  the glass. Following distance, tailgating. Prefer this.
+  the glass. Following distance, tailgating. Prefer this — **only when the
+  ego vehicle has a rear window.** Illegal on Deac / the Ledger.
 - POV_MIRROR_DOOR — left-side door mirror, subject in the glass, flank in
-  the foreground. Blind zones, lane changes, backing sightlines.
+  the foreground. Blind zones, lane changes, backing sightlines. **On the
+  Ledger this is the only rearward camera.** Hazard-behind on any Deac card
+  resolves here.
 
 Mandatory clause on any mirror compile:
 

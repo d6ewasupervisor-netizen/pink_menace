@@ -58,7 +58,7 @@ Driver: `deac` throughout. Zone: `Central`. PSDP anchor: **Skill nine: multi-lan
 | III-008 | rule | Lane markings on a multi-lane: white broken vs solid white | 4.16 Road markings [V] | none | POV_OBJECT |
 | III-009 | hazard | Hollis tailgating at speed on Central — increase YOUR front gap | 5.2 Space [V] | speed | Hollis recurs; six-second echo |
 | III-010 | ledger | Callback slot (armed by III-005 or III-009 miss) | — | — | Same street, same weather |
-| III-011 | scene | Old Ninety debuts: the no-zones of a large truck | Sharing with trucks [VERIFY] | inexperience | POV_MIRROR_REAR: you're in his mirror or you're nowhere |
+| III-011 | scene | Old Ninety debuts: the no-zones of a large truck | Sharing with trucks [VERIFY] | inexperience | Overhead: you're beside his trailer. He can't see you here. Never POV_MIRROR_REAR on the Ledger. |
 | III-012 | rule | Never linger beside a truck; pass and clear | Sharing with trucks [VERIFY] | none | POV_DIAGRAM |
 | III-013 | dossier | Deac beat: 26 years, never a preventable; what the schedule means now | — | none | |
 | III-014 | scene | Left turn types: protected green arrow vs permissive circular green | Traffic light signals [VERIFY] | inexperience | POV_COCKPIT high seat |

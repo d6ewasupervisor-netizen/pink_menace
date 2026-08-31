@@ -119,7 +119,11 @@ Rules:
   - Rules of geometry (turns, merges, roundabouts, parking, lane position,
     right-of-way, passing, road markings) default to `POV_DIAGRAM`. Photoreal
     aerials (`POV_TOPDOWN_PHOTO`) are establishing only. `POV_TOPDOWN` is illegal.
-  - A vehicle behind the ego vehicle is `POV_MIRROR_REAR`, never a forward camera.
+  - A vehicle behind the ego vehicle is `POV_MIRROR_REAR` when that vehicle
+    has a rear window (Ali / the Menace), never a forward camera. On Deac /
+    the Ledger it is `POV_MIRROR_DOOR` — the cargo box is plate steel, there
+    is no interior rearview. Never write rear glass, rearview, interior
+    mirror, or the center mirror into a Ledger frame or Ledger copy.
     Blind zones and door glass are `POV_MIRROR_DOOR`. Bare `POV_MIRROR` is illegal.
   - Every road frame includes `image_brief.geometry` (heading, lane side, plow
     direction in frame, oncoming position, hazard position). The plow is the front.

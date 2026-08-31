@@ -921,6 +921,18 @@ button.act-row {
 .fear-root.collapsing .fear-gait { opacity: 1; }
 .fear-root.collapsing .fear-contacts { opacity: 1; }
 
+html[data-driver="deac"] .fear-mirror {
+  background: radial-gradient(ellipse 20% 24% at 7% 38%, rgba(6, 5, 5, 0.62), transparent 74%);
+}
+html[data-driver="deac"] .fear-contacts {
+  background:
+    radial-gradient(ellipse 16px 20px at 8% 36%, rgba(8, 7, 7, 0.7) 0 55%, transparent 72%),
+    radial-gradient(ellipse 11px 14px at 11% 44%, rgba(10, 9, 9, 0.55) 0 50%, transparent 72%);
+}
+html[data-driver="deac"] .fear-root.collapsing .fear-mirror {
+  background: radial-gradient(ellipse 28% 32% at 8% 38%, #050404 55%, transparent 74%);
+}
+
 .hook {
   display: block;
   width: 100%;

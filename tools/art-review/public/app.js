@@ -12,18 +12,20 @@ const scene = document.getElementById("scene");
 const decision = document.getElementById("decision");
 const read = document.getElementById("read");
 const geo = document.getElementById("geo");
+const tagsEl = document.getElementById("tags");
+const routeEl = document.getElementById("route");
 const note = document.getElementById("note");
 const strip = document.getElementById("strip");
 const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
-const passBtn = document.getElementById("pass");
-const fixBtn = document.getElementById("fix");
+const phoneBtn = document.getElementById("phone");
 
 const params = new URLSearchParams(location.search);
 let act = params.get("act") || "III";
 let currentId = (params.get("card") || "III-010").toUpperCase();
 let deck = [];
 let card = null;
+let tags = [];
 let noteTimer = 0;
 
 function setQuery() {
@@ -45,6 +47,18 @@ function geoLine(g) {
     .join(" · ");
 }
 
+function renderTags() {
+  tagsEl.innerHTML = "";
+  for (const t of tags) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = t.id;
+    b.className = [t.bucket, card && card.tag === t.id ? "on" : ""].filter(Boolean).join(" ");
+    b.addEventListener("click", () => saveVerdict(t.id));
+    tagsEl.appendChild(b);
+  }
+}
+
 function renderDeck() {
   actsEl.innerHTML = "";
   strip.innerHTML = "";
@@ -60,15 +74,13 @@ function renderDeck() {
     const b = document.createElement("button");
     b.type = "button";
     b.textContent = row.card_id.replace(/^[IVX]+-/, "");
-    b.title = row.card_id + " " + row.title;
-    b.className = [row.card_id === currentId ? "on" : "", row.status].filter(Boolean).join(" ");
+    b.title = row.card_id + " " + (row.tag || "open") + " " + row.title;
+    b.className = [row.card_id === currentId ? "on" : "", row.bucket || "open"]
+      .filter(Boolean)
+      .join(" ");
     b.addEventListener("click", () => show(row.card_id));
     strip.appendChild(b);
   }
-  const pass = deck.filter((c) => c.status === "pass").length;
-  const fix = deck.filter((c) => c.status === "fix").length;
-  const open = deck.filter((c) => c.status === "open").length;
-  countsEl.textContent = pass + " pass · " + fix + " fix · " + open + " open · " + deck.length;
 }
 
 function renderCard() {
@@ -87,6 +99,14 @@ function renderCard() {
   note.value = card.note || "";
   prevBtn.disabled = !card.prev;
   nextBtn.disabled = !card.next;
+  if (card.writer_first) {
+    routeEl.textContent = "Writer first — do not generate";
+    routeEl.classList.remove("hidden");
+  } else {
+    routeEl.textContent = "";
+    routeEl.classList.add("hidden");
+  }
+  renderTags();
   if (card.has_image && card.image_url) {
     still.src = card.image_url;
     still.alt = card.card_id;
@@ -102,6 +122,7 @@ function renderCard() {
 async function loadDeck() {
   const data = await api("/api/deck?act=" + encodeURIComponent(act));
   deck = data.cards || [];
+  countsEl.textContent = data.counts_label || "";
   renderDeck();
 }
 
@@ -125,25 +146,32 @@ async function switchAct(nextAct) {
   deck = data.cards || [];
   const start =
     deck.find((c) => c.card_id === currentId) ||
-    deck.find((c) => c.status !== "pass") ||
+    deck.find((c) => !c.tag) ||
     deck[0];
   if (!start) return;
   await show(start.card_id);
 }
 
-async function saveVerdict(status) {
+async function saveVerdict(tag) {
   if (!card) return;
   await api("/api/verdict", {
     method: "PUT",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ card_id: currentId, status, note: note.value }),
+    body: JSON.stringify({ card_id: currentId, tag, note: note.value }),
   });
-  if (status === "pass" && card.next) await show(card.next);
+  if (card.next) await show(card.next);
   else await show(currentId);
 }
 
 stillWrap.addEventListener("click", () => {
+  if (document.body.classList.contains("phone-view")) return;
   stillWrap.classList.toggle("fs");
+});
+
+phoneBtn.addEventListener("click", () => {
+  stillWrap.classList.remove("fs");
+  document.body.classList.toggle("phone-view");
+  phoneBtn.classList.toggle("on", document.body.classList.contains("phone-view"));
 });
 
 prevBtn.addEventListener("click", () => {
@@ -152,8 +180,6 @@ prevBtn.addEventListener("click", () => {
 nextBtn.addEventListener("click", () => {
   if (card && card.next) show(card.next);
 });
-passBtn.addEventListener("click", () => saveVerdict("pass"));
-fixBtn.addEventListener("click", () => saveVerdict("fix"));
 
 note.addEventListener("input", () => {
   clearTimeout(noteTimer);
@@ -164,7 +190,7 @@ note.addEventListener("input", () => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         card_id: currentId,
-        status: card.status === "pass" ? "fix" : card.status || "open",
+        tag: card.tag || "",
         note: note.value,
       }),
     }).catch(() => {});
@@ -175,8 +201,10 @@ document.addEventListener("keydown", (e) => {
   if (e.target === note) return;
   if (e.key === "ArrowLeft" && card && card.prev) show(card.prev);
   if (e.key === "ArrowRight" && card && card.next) show(card.next);
-  if (e.key === "p" || e.key === "P") saveVerdict("pass");
-  if (e.key === "f" || e.key === "F") saveVerdict("fix");
+  if (e.key === "p" || e.key === "P") saveVerdict("PASS");
+  if (e.key === "3") {
+    phoneBtn.click();
+  }
 });
 
 document.addEventListener("visibilitychange", () => {
@@ -186,6 +214,7 @@ document.addEventListener("visibilitychange", () => {
 (async function boot() {
   const meta = await api("/api/meta");
   window._acts = meta.acts || [];
+  tags = meta.tags || [];
   if (!params.get("card") && meta.cursor) currentId = meta.cursor;
   if (!params.get("act") && meta.act) act = meta.act;
   await show(currentId);

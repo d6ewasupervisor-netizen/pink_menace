@@ -66,7 +66,7 @@ body {
   flex-wrap: wrap;
 }
 
-.acts button, .dock button, .strip button {
+.acts button, .dock button, .strip button, .tags button, #phone {
   appearance: none;
   border: 1px solid var(--line);
   background: transparent;
@@ -78,24 +78,22 @@ body {
   cursor: pointer;
 }
 
-.acts button.on, .dock button:not(.ghost):not(.warn) {
+.acts button.on, #phone.on {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--on-accent);
 }
 
-.dock button.warn {
-  background: var(--bad);
-  border-color: var(--bad);
-  color: #fff;
+.dock button.ghost, #phone {
+  min-width: 3.5rem;
 }
 
-.dock button.ghost {
-  min-width: 5.5rem;
+#phone {
+  margin-left: auto;
 }
 
 .counts {
-  margin: 0 0 0 auto;
+  margin: 0;
   color: var(--muted);
   font-size: 0.85rem;
 }
@@ -109,6 +107,16 @@ body {
   overflow: auto;
 }
 
+.still-col {
+  min-width: 0;
+}
+
+body.phone-view .still-col {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
 .still {
   margin: 0;
   background: #100e0e;
@@ -117,6 +125,12 @@ body {
   overflow: hidden;
   position: relative;
   cursor: zoom-in;
+}
+
+body.phone-view .still {
+  width: 390px;
+  max-width: 100%;
+  max-height: none;
 }
 
 .still.fs {
@@ -184,13 +198,40 @@ h1 {
 .read { color: var(--ok); }
 .geo { color: var(--muted); font-size: 0.9rem; }
 
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tags button {
+  min-height: 2.15rem;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.tags button.on.pass { background: var(--ok); border-color: var(--ok); color: #121010; }
+.tags button.on.rewrite { background: var(--bad); border-color: var(--bad); color: #fff; }
+.tags button.on.recompile { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.tags button.on.copy, .tags button.on.style {
+  background: var(--line);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.route {
+  margin: 0;
+  color: var(--bad);
+  font-size: 0.85rem;
+}
+
 .note-lab {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
   color: var(--muted);
   font-size: 0.8rem;
-  margin-top: auto;
 }
 
 textarea {
@@ -225,7 +266,9 @@ textarea {
 }
 
 .strip button.pass { color: var(--ok); }
-.strip button.fix { color: var(--bad); }
+.strip button.rewrite { color: var(--bad); }
+.strip button.recompile { color: var(--accent-2); }
+.strip button.copy, .strip button.style { color: var(--ink); }
 
 @media (max-width: 820px) {
   .stage {

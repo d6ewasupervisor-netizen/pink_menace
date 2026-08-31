@@ -74,6 +74,8 @@ Map only to ceiling tests that **PASS**ed. T12 was SOFT (clean standing silhouet
 
 **T3 handprints persist.** Get loud enough and she drives the rest of the run with the evidence of her noise on the glass. That is the teeth. Presence can decay; the prints do not.
 
+**Deac / the Ledger.** No rear window, no interior mirror. Overlay slots inherit that: a mirror contact appears in a **door mirror** (left of frame), or it does not appear until the figure is beside him — which is scarier than Ali's centered glass. T3 prints sit on side glass. Never a center-rearview smear on a Deac card. `html[data-driver="deac"]` moves `.fear-mirror` and `.fear-contacts` off the top-center slot.
+
 Do not render The Quiet. Do not put faces on the silhouettes. Do not put blood on the glass — T8/T14 stay out of the overlay set. Grime, drag streaks, condensation.
 
 ---
@@ -97,7 +99,7 @@ Correct resolutions get **quiet**. Meters ease. Rain only. **Never a success chi
 
 Show nothing we would have to render well.
 
-1. Mirror slot fills.
+1. Mirror slot fills. On Deac that slot is the **left door mirror**, not a center rearview.
 2. Handprints multiply.
 3. Dash dies.
 4. Black.

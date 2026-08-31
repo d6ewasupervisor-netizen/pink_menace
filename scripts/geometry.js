@@ -82,9 +82,10 @@ function isGeometryRead(read) {
   );
 }
 
-function camerasForHazard(hazard) {
+function camerasForHazard(hazard, driver) {
   switch (hazard) {
     case "behind":
+      if (driver === "deac") return ["POV_MIRROR_DOOR"];
       return ["POV_MIRROR_REAR", "POV_MIRROR_DOOR"];
     case "ahead_same_direction":
       return LEGAL_CAMERAS.filter((c) => c !== "POV_MIRROR_REAR" && c !== "POV_MIRROR_DOOR");
@@ -170,12 +171,18 @@ function validateGeometry(card) {
     }
   }
 
+  if (card.driver === "deac" && cam === "POV_MIRROR_REAR") {
+    errors.push(
+      `${id}: POV_MIRROR_REAR is illegal on the Ledger (no rear window, no interior mirror); use POV_MIRROR_DOOR`
+    );
+  }
+
   const hazard = geo && geo.hazard_position;
   if (hazard === "behind" && FORWARD_CAMERAS.has(cam)) {
     errors.push(`${id}: hazard_position behind cannot use forward camera ${cam}`);
   }
   if (hazard && cam && !BANNED_CAMERAS.includes(cam)) {
-    const allowed = camerasForHazard(hazard);
+    const allowed = camerasForHazard(hazard, card.driver);
     if (allowed && !allowed.includes(cam)) {
       errors.push(`${id}: camera ${cam} contradicts hazard_position ${hazard}`);
     }

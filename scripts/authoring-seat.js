@@ -8,6 +8,7 @@
  *   1. Does the ego vehicle match the act's driver?
  *   2. Is the camera consistent with sitting in it?
  *   3. Does any other vehicle in the brief share the ego's canon marks?
+ *   4. Does the Ledger claim a rear window it does not have?
  */
 
 const ACT_DRIVER = {
@@ -98,6 +99,12 @@ function validateAuthoringSeat(card) {
   const foreign = FOREIGN_EGO[driver];
   if (foreign && foreign.test(text)) {
     errors.push(`${id}: other playable vehicle's canon marks in ${spec ? spec.name : driver}'s act`);
+  }
+
+  if (driver === "deac" && cam === "POV_MIRROR_REAR") {
+    errors.push(
+      `${id}: POV_MIRROR_REAR is illegal on the Ledger — no rear window, no interior mirror; use POV_MIRROR_DOOR`
+    );
   }
 
   if (cam === "POV_CHASE" && spec && spec.nameRe.test(fields.subject)) {

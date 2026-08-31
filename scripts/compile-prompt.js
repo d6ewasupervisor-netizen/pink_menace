@@ -105,6 +105,11 @@ function assemblePrompt(card) {
   if (!brief) throw new Error(`${card.card_id}: missing image_brief`);
   const cam = cameraOf(card);
   const deac = card.driver === "deac";
+  if (deac && cam === "POV_MIRROR_REAR") {
+    throw new Error(
+      `${card.card_id}: POV_MIRROR_REAR is illegal on the Ledger — no rear window, no interior mirror; use POV_MIRROR_DOOR`
+    );
+  }
   let framing = FRAMING[cam];
   if (deac && cam === "POV_COCKPIT") framing = FRAMING.POV_COCKPIT_LEDGER;
   if (deac && cam === "POV_DIAGRAM") framing = FRAMING.POV_DIAGRAM_LEDGER;

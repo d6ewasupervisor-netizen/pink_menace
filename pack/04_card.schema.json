@@ -137,7 +137,7 @@
             "POV_PORTRAIT",
             "POV_OBJECT"
           ],
-          "description": "POV_TOPDOWN and POV_MIRROR are illegal. Photoreal aerials are POV_TOPDOWN_PHOTO (establishing only). Lane law uses POV_DIAGRAM. Following traffic uses POV_MIRROR_REAR; blind zones use POV_MIRROR_DOOR."
+          "description": "POV_TOPDOWN and POV_MIRROR are illegal. Photoreal aerials are POV_TOPDOWN_PHOTO (establishing only). Lane law uses POV_DIAGRAM. Following traffic uses POV_MIRROR_REAR only when the ego has a rear window; on the Ledger (driver deac) following traffic uses POV_MIRROR_DOOR. Blind zones use POV_MIRROR_DOOR."
         },
         "camera_is_the_lesson": {
           "type": "boolean",
