@@ -6,8 +6,8 @@
   "card_type": "scene",
   "title": "Count the Gap First",
   "hook": "The gap looks big enough. Count it anyway.",
-  "scene": "Heavy rain at night on Meeker. You need the left. A gap opens between a pickup and a dark SUV. It looks Ledger-shaped. Your foot agrees. The ride-along is still in your hands: if you cannot count it, keep waiting. The thermos does not argue. The schedule does.",
-  "decision": "A gap just opened in the left. Do you take it?",
+  "scene": "Heavy rain at night on Meeker. Ahead of you a pickup, then a gap, then a dark SUV, both going your way. The opening looks Ledger-shaped. Your foot agrees. The ride-along is still in your hands: if you cannot count it, keep waiting. The thermos does not argue. The schedule does.",
+  "decision": "A gap just opened between them. Do you take it?",
   "options": [
     {
       "id": "a",
@@ -43,9 +43,9 @@
     },
     {
       "id": "d",
-      "text": "Match the pickup's speed in the right and wait for him to wave you in",
+      "text": "Match the pickup's speed and wait for him to wave you through",
       "correct": false,
-      "result": "He never waves. You sit beside him in the rain until the light. You did not count a gap. You waited for permission Central does not give.",
+      "result": "He never waves. You sit on his bumper in the rain until the light. You did not count a gap. You waited for permission Central does not give.",
       "state_delta": {
         "time_cost": 10
       }
@@ -65,11 +65,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a short dark gap in the left lane between a pickup tail and an SUV nose, rain in the cage",
-    "foreground": "wheel rim and wiper-slot cage, rain on the glass",
-    "midground": "the gap, already shrinking, skip-dashed white at the left edge",
-    "background": "Meeker at night, heavy rain, sodium lamps",
-    "read": "the open space in the left is shorter than the bus you are sitting in",
+    "subject": "from the seat looking forward: a pickup then a gap then a dark SUV in the same lane as the Ledger, both traveling away, rears toward camera, no oncoming face",
+    "foreground": "worn transit wheel at the bottom, wiper-slot cage, rain on the glass; no clipboard in the windshield",
+    "midground": "pickup tail close, then a short dark gap of wet asphalt, then the SUV's rear lamps farther ahead, all in one file",
+    "background": "Meeker at night, heavy rain, sodium lamps, wet asphalt",
+    "read": "two same-direction vehicles stacked ahead with a gap too short for this bus; nothing faces the camera",
     "continuity": [
       "ledger_cockpit"
     ],
