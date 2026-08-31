@@ -1,10 +1,15 @@
 "use strict";
 
+const fs = require("fs");
+const path = require("path");
+
+const STATE_PATH = path.join(__dirname, "..", "..", "cards", "art-review-state.json");
+
 const VERDICTS = [
   ["III-002", "CARD_BROKEN", "Central is already moving and Mya is loose on the dash — illegal. Park it, then the dash loaf is legal. Clipboard belongs on the doghouse; the still put it in the passenger glass. Paw-on-toy-mirror is downstream."],
   ["III-003", "GEOMETRY_WRONG", "Sedan belongs in the left (the passing lane). Frame puts it ahead in the right."],
   ["III-004", "WRONG_CAMERA", "Ledger has no rear window. Copy still teaches an inside mirror. Seat looking at the left door mirror is the camera; rewrite copy so there is no interior mirror."],
-  ["III-005", "PASS", ""],
+  ["III-005", "COPY", "Correct result: He appears in the inside mirror. Ledger has no inside mirror. Side door glass only."],
   ["III-006", "WRONG_CAMERA", "OBJECT cannot show dest-sign + stalk + column in glass. Brief also invents an interior rearview the Ledger does not have. Writer: cockpit looking at the sign switch, stalk, and the stack in the door glass."],
   ["III-007", "READ_MISSING", "The countable gap between two same-direction vehicles is not the first thing the eye reads."],
   ["III-008", "INVENTED", "Object camera: diamond + broken/solid whites. Extra van in the left is not in the brief."],
@@ -36,7 +41,31 @@ const VERDICTS = [
   ["III-030", "COPY", "Still reads stopped bus + dark skyline. Closer: The skyline is dark and the sign is dark with it."],
 ];
 
+function writeStateFile() {
+  let prev = {};
+  if (fs.existsSync(STATE_PATH)) {
+    try {
+      prev = JSON.parse(fs.readFileSync(STATE_PATH, "utf8"));
+    } catch {
+      prev = {};
+    }
+  }
+  const now = new Date().toISOString();
+  const verdicts = {};
+  for (const [card_id, tag, note] of VERDICTS) {
+    verdicts[card_id] = { tag, note, updated_at: now };
+  }
+  const body = {
+    act: prev.act || "III",
+    cursor: prev.cursor || "III-010",
+    verdicts,
+  };
+  fs.writeFileSync(STATE_PATH, JSON.stringify(body, null, 2) + "\n");
+}
+
 async function main() {
+  writeStateFile();
+  console.log("wrote", STATE_PATH);
   for (const [card_id, tag, note] of VERDICTS) {
     const res = await fetch("http://127.0.0.1:3847/api/verdict", {
       method: "PUT",
@@ -48,7 +77,19 @@ async function main() {
   }
   const q = await fetch("http://127.0.0.1:3847/api/queue?act=III").then((r) => r.json());
   console.log(q.counts_label);
-  console.log(JSON.stringify({ writer_first: q.writer_first, recompile: q.recompile, copy: q.by_tag.COPY, pass: q.by_tag.PASS }, null, 2));
+  console.log(
+    JSON.stringify(
+      {
+        writer_first: q.writer_first,
+        recompile: q.recompile,
+        copy: q.by_tag.COPY,
+        pass: q.by_tag.PASS,
+        by_tag: q.by_tag,
+      },
+      null,
+      2
+    )
+  );
 }
 
 main().catch((err) => {

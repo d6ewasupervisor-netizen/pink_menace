@@ -3,7 +3,7 @@
 const TAGS = [
   { id: "PASS", bucket: "pass", writerFirst: false },
   { id: "CARD_BROKEN", bucket: "rewrite", writerFirst: true },
-  { id: "WRONG_CAMERA", bucket: "recompile", writerFirst: true },
+  { id: "WRONG_CAMERA", bucket: "camera", writerFirst: true },
   { id: "READ_MISSING", bucket: "recompile", writerFirst: false },
   { id: "GEOMETRY_WRONG", bucket: "recompile", writerFirst: false },
   { id: "CANON_DRIFT", bucket: "recompile", writerFirst: false },
@@ -29,7 +29,7 @@ function bucketOf(tag) {
 }
 
 function emptyCounts() {
-  return { pass: 0, rewrite: 0, recompile: 0, copy: 0, style: 0, open: 0 };
+  return { pass: 0, rewrite: 0, camera: 0, recompile: 0, copy: 0, style: 0, open: 0 };
 }
 
 function countBuckets(rows) {
@@ -47,6 +47,8 @@ function formatCounts(counts) {
     " pass · " +
     counts.rewrite +
     " rewrite · " +
+    counts.camera +
+    " camera · " +
     counts.recompile +
     " recompile · " +
     counts.copy +

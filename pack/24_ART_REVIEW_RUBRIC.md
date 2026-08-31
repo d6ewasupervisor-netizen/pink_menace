@@ -52,9 +52,11 @@ The review pane shows the still large. **Add a phone-width toggle (390px) and ju
 
 `0 pass · 1 fix · 28 open` treats every fix as equal work. Split it by tag so the queue shows what it actually costs:
 
-> `3 pass · 2 rewrite · 4 recompile · 1 copy · 19 open`
+> `3 pass · 2 rewrite · 6 camera · 13 recompile · 4 copy · 0 style · 0 open`
 
-Rewrites are the expensive ones and should be visible as their own number.
+`WRONG_CAMERA` is **camera**, not recompile. It is writer-first. Counting it as recompile is how 13 generation tickets look like 20.
+
+Rewrites and camera changes are the expensive ones and should be visible as their own numbers.
 
 ## 6. BATCHING
 
@@ -90,3 +92,7 @@ Five Act III cards carried the default through: III-004, III-009, III-011, III-0
 The cockpit lock (`ref_ledger_cockpit.png`) mounted the clipboard on the passenger mesh. Every `ledger_cockpit` attach copies that into the generation. **The clipboard never sits in the windshield.** Doghouse, thigh, or hands. Tag stills that put it in the glass as `INVENTED` (or keep a stronger first-failure tag and name the clipboard in the note). Do not recompile Ledger cockpits until D4 is retaken without it.
 
 **Mya is not loose in a moving vehicle.** Dash loaf only when the Ledger is parked. III-002 teaches the opposite (Central is already moving; cat on the dash) — that is `CARD_BROKEN`, not a missing paw. Rewrite it parked, then the dash loaf is legal.
+
+## 11. PERSIST THE VERDICTS
+
+The review state is the most expensive artifact in this phase. It lives at `cards/art-review-state.json` and **is committed**. A server restart must not wipe a full act. `node tools/art-review/apply-verdicts.js` writes that file, then refreshes the live board.

@@ -20,7 +20,7 @@ npm run art-review
 
 A verdict is a **tag** plus an optional detail line. Tags: `PASS`, `CARD_BROKEN`, `WRONG_CAMERA`, `READ_MISSING`, `GEOMETRY_WRONG`, `CANON_DRIFT`, `INVENTED`, `COPY`, `STYLE`.
 
-State: `cards/art-review-state.json` (gitignored). Queue: `GET /api/queue?act=III`.
+State: `cards/art-review-state.json` (**committed** — a restart must not wipe an act). Queue: `GET /api/queue?act=III`. Restore: `node tools/art-review/apply-verdicts.js`.
 
 ## Order on every card
 

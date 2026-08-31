@@ -212,7 +212,7 @@ h1 {
 }
 
 .tags button.on.pass { background: var(--ok); border-color: var(--ok); color: #121010; }
-.tags button.on.rewrite { background: var(--bad); border-color: var(--bad); color: #fff; }
+.tags button.on.rewrite, .tags button.on.camera { background: var(--bad); border-color: var(--bad); color: #fff; }
 .tags button.on.recompile { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .tags button.on.copy, .tags button.on.style {
   background: var(--line);
@@ -266,7 +266,7 @@ textarea {
 }
 
 .strip button.pass { color: var(--ok); }
-.strip button.rewrite { color: var(--bad); }
+.strip button.rewrite, .strip button.camera { color: var(--bad); }
 .strip button.recompile { color: var(--accent-2); }
 .strip button.copy, .strip button.style { color: var(--ink); }
 
