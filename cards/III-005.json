@@ -5,9 +5,9 @@
   "driver": "deac",
   "card_type": "hazard",
   "title": "The Van You Cannot See",
-  "hook": "The right mirror has him. The seat does not.",
-  "scene": "Clear cold afternoon on West Valley. You already signaled left. The right door mirror has a white van in it — close, same way, no lamps. Turn your head: from the seat he is gone. That empty stretch beside the box is the blind spot. The glass can have him and the seat can still be empty. Nudge right to make the left feel bigger and you hit him. Take the left anyway and he can stay on the box and come with you.",
-  "decision": "The right mirror has a van you still cannot see from the seat. What do you do?",
+  "hook": "His nose is just in the window. The seat misses him.",
+  "scene": "Clear cold afternoon on West Valley. You already signaled left. Look right: the door mirror is empty of him. At the edge of the passenger window, the faintest bite of a white van's nose — parallel, same way, no lamps. That is all the seat gets. The rest of him is in the blind spot beside the box. Nudge right to make the left feel bigger and you hit him. Take the left anyway and he can stay on the box and come with you.",
+  "decision": "You can barely see his nose in the right window. What do you do?",
   "options": [
     {
       "id": "a",
@@ -44,7 +44,7 @@
     },
     {
       "id": "d",
-      "text": "Tap the horn so he knows to get out of the mirror",
+      "text": "Tap the horn so he knows to drop back",
       "correct": false,
       "result": "The horn on Central. He flinches into you. You both stop in a live lane. Everything behind has to lift.",
       "state_delta": {
@@ -53,11 +53,11 @@
       }
     }
   ],
-  "debrief": "The right mirror can show a van the seat still cannot see. That is the blind spot. Kill the blinker, hold, then take a gap you have swept. Wait until he is a van you can see.",
+  "debrief": "A sliver of nose in the window is still a van in the blind spot. Kill the blinker, hold, then take a gap you have swept. Wait until he is a van you can see.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "5.2 Space",
-    "teaching_target": "Recheck the blind zone during a lane change; do not drift into a vehicle the side mirror already showed."
+    "teaching_target": "A van in the right blind spot may show only as a sliver in the window; do not drift into him or finish the change until you can see him."
   },
   "cast": [
     "deac"
@@ -70,11 +70,11 @@
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
     "camera_is_the_lesson": true,
-    "subject": "from the seat looking right across the empty jump seat, through the right window, into the right door-mounted side mirror; a modern white cargo van fills that glass, same heading, no lamps, close — factory door mirrors only, no roof rack, no amber sign, no cutaway shuttle body",
-    "foreground": "empty jump seat and the doghouse between the seats, passenger door window frame, the long-arm right door mirror large in frame",
-    "midground": "the cargo van filling the right door-mirror glass, a thin sliver of the Ledger's own gray flank on the inner edge of that glass",
+    "subject": "from the seat looking right across the empty jump seat, through the right window; no van in the right door-mirror glass; only the faintest hint of a white cargo van's nose at the edge of the right window, parallel, same heading, no lamps",
+    "foreground": "empty jump seat and the doghouse between the seats, passenger door window frame, the long-arm right door mirror with empty road in its glass",
+    "midground": "a sliver of white van nose and maybe one lamp just entering the edge of the right window, the rest of the van hidden beside the box",
     "background": "clear cold afternoon through the right window, West Valley, long shadows; a strip of windshield at the left of frame",
-    "read": "from inside the cab the right door mirror already has a white van filling the glass",
+    "read": "the only other vehicle is a barely-there van nose at the window's edge; the door mirror does not have him",
     "continuity": [
       "the_ledger"
     ],

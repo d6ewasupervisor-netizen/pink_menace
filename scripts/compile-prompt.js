@@ -32,7 +32,7 @@ const FRAMING = {
   POV_MIRROR_REAR:
     "Camera is inside the cabin, looking up and forward at the interior rearview mirror, which is wide, weathered, and fills the upper portion of the frame. The windshield view is dark, defocused, or cropped out.",
   POV_MIRROR_DOOR:
-    "Camera is inside the cab, in the driver's seat. When the brief names the right-side blind spot: look right across the passenger seat, through the right window, into the right door-mounted side mirror. Otherwise look left into the left door-mounted side mirror. The subject is in that glass. Do not stand outside the vehicle. Do not shoot the mirror from behind the box.",
+    "Camera is inside the cab, in the driver's seat. When the brief names the right-side blind spot: look right across the passenger seat, through the right window. If the brief names a sliver in the window: the right door-mirror glass does not contain the other vehicle; the only read is the faintest hint of that vehicle's nose at the trailing edge of the right window, parallel, same heading. Otherwise look into the right door-mounted side mirror and put the subject in that glass. When the brief does not name the right side, look left into the left door-mounted side mirror. Do not stand outside the vehicle. Do not shoot the mirror from behind the box.",
   POV_TOPDOWN_PHOTO:
     "Photoreal aerial establishing shot. No lane rule is being taught. Do not invent traffic direction that contradicts the geometry block.",
   POV_DIAGRAM:
