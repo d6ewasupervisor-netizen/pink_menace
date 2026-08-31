@@ -95,7 +95,7 @@ The cockpit lock (`ref_ledger_cockpit.png`) mounted the clipboard on the passeng
 
 ## 11. SAME-DIRECTION TRAFFIC AND UNPHOTOGRAPHABLE READS
 
-`oncoming_position` does not bind same-direction vehicles. Geometry failures that put a car in the wrong lane relative to ego (III-003, III-010, III-012, III-024) are one compiler clause: `traffic_positions`. III-012 teaches "US pass is on the left" — verify it hardest.
+`oncoming_position` does not bind same-direction vehicles. On multi-lane, "occupies the right half of the roadway" fights "passing on the left" — the model parks the bus in the right lane and puts the truck left. Compile numbered lanes from the left, then **frame-relative** placements (left of frame / right of frame) when both vehicles head away from the camera. Never compile the abstract rule "passing occurs on the LEFT." III-012 is the proof take: trailer must land right-of-frame.
 
 A `read` that names a process, a gap you have to count, a hood "walking," a smear as psychology, or a tablet "mid-change" is the same class that killed II-009. Rewrite it to a static fact before generating. Recompiling against an unphotographable read buys another take of the same miss.
 

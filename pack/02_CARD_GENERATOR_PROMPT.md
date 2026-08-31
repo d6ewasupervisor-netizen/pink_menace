@@ -102,10 +102,11 @@ Fields:
   geometry      — required whenever a roadway appears. ego_heading, ego_lane_side,
                   ego_nose_in_frame (the plow), oncoming_position, hazard_position.
                   On Deac POV_DIAGRAM and POV_ROADSIDE, when a same-direction
-                  vehicle is in frame, also traffic_positions: for each other
-                  vehicle, lane (left_of_ego / right_of_ego / same_as_ego),
-                  along (ahead / beside / behind), and lengths (vehicle lengths;
-                  0 if beside). Passing occurs on the LEFT.
+                  vehicle is in frame: lanes_this_direction, ego_lane_from_left
+                  (1 = leftmost), and traffic_positions with frame_side
+                  (left / right of the FRAME, not of ego). Never compile
+                  "occupies the right half" on multi-lane. Never compile
+                  "passing occurs on the LEFT" — state the two placements.
   subject       — the ONE thing the eye lands on first
   foreground    — what frames the shot (wheel rim, mirror housing, mesh, door pillar)
   midground     — the hazard or decision object
@@ -138,7 +139,8 @@ Rules:
   - Every road frame includes `image_brief.geometry` (heading, lane side, plow
     direction in frame, oncoming position, hazard position). The plow is the front.
     Deac diagram and roadside frames with same-direction traffic also carry
-    `traffic_positions`. Passing is on the LEFT.
+    `traffic_positions` with `frame_side` (left/right of the FRAME). Never
+    "right half of the roadway" on multi-lane. Never "passing occurs on the LEFT."
   - Sign, signal, and marking recognition defaults to `POV_OBJECT`.
   - Do not put text, words, numbers, or UI in the frame unless the card is
     teaching a sign face or a gauge reading.

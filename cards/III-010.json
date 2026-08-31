@@ -81,8 +81,10 @@
       "ego_nose_in_frame": "the van nose points toward the right of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "beside",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 1,
       "traffic_positions": [
-        { "vehicle": "white cargo van", "lane": "right_of_ego", "along": "beside", "lengths": 0 }
+        { "vehicle": "white cargo van", "frame_side": "right", "lane_from_left": 2, "along": "beside", "lengths": 0 }
       ]
     }
   },

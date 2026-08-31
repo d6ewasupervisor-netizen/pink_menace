@@ -3,6 +3,9 @@
 const {
   geometryClause,
   trafficPositionsClause,
+  framePlacementClause,
+  framePassNegatives,
+  usesFramePlacement,
   MIRROR_CLAUSE,
   DOOR_MIRROR_CLAUSE,
   MIRROR_NEGATIVES,
@@ -141,6 +144,10 @@ function assemblePrompt(card) {
 
   parts.push(framing);
 
+  if (brief.geometry && usesFramePlacement(brief.geometry)) {
+    parts.push(framePlacementClause(brief.geometry, card.driver));
+  }
+
   if (deac && (cam === "POV_CHASE" || cam === "POV_ROADSIDE" || cam === "POV_DIAGRAM")) {
     parts.push(
       "Ego vehicle: a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette — a tall square passenger box on a van cab, faded green and white transit livery ghosting under gray primer. All four of the following must be clearly visible and unmistakable: the tall square box on a van nose, oversize side mirrors on long arms on both sides, an amber dot-matrix destination sign above the windshield with no readable text, and a welded bar cage over the windshield with a cut wiper slot."
@@ -172,7 +179,7 @@ function assemblePrompt(card) {
       parts.push(CHASE_CLAUSE);
       const geo = brief.geometry;
       parts.push(
-        "United States road configuration, traffic drives on the right. Same-direction traffic occupies the right half of the roadway. " +
+        "United States road configuration, traffic drives on the right. " +
           `The subject is traveling ${headingPhrase(geo.ego_heading)}. Any oncoming traffic is ${geo.oncoming_position}. No vehicle faces the wrong way in its lane.`
       );
       const traffic = trafficPositionsClause(geo, card.driver);
@@ -197,6 +204,10 @@ function assemblePrompt(card) {
     LHD_NEGATIVE,
   ];
   if (deac) negs.push(LEDGER_NO_MENACE);
+  if (brief.geometry) {
+    const frameNeg = framePassNegatives(brief.geometry, card.driver);
+    if (frameNeg) negs.push(frameNeg);
+  }
   if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
   const continuity = (brief.continuity || []);

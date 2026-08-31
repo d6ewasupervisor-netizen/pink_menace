@@ -295,24 +295,35 @@ Every image_brief that contains a roadway must carry a `geometry` block.
 Append this clause, filled from that block, to every road compile:
 
 > United States road configuration, traffic drives on the right. The pink
-> vehicle is traveling **[ego_heading]** and occupies the **right half of
-> the roadway** for its direction of travel. Its front — identified by the
-> black tube bull bar and wide flat plow blade — points **[ego_nose_in_frame]**.
-> Any oncoming traffic is **[oncoming_position]**. No vehicle faces the wrong
-> way in its lane.
+> vehicle is traveling **[ego_heading]**. On a two-lane undivided road it
+> occupies the **right half of the roadway** for its direction of travel.
+> On a multi-lane road, never say "right half" — say *"the roadway has N
+> lanes in this direction; the gray shuttle occupies lane K, the leftmost."*
+> Its front — identified by the black tube bull bar and wide flat plow blade
+> — points **[ego_nose_in_frame]**. Any oncoming traffic is
+> **[oncoming_position]**. No vehicle faces the wrong way in its lane.
 
 When `traffic_positions` is present (required on Deac `POV_DIAGRAM` and
-`POV_ROADSIDE` whenever a same-direction vehicle is in frame), also append:
+`POV_ROADSIDE` whenever a same-direction vehicle is in frame):
 
-> United States road configuration. Passing occurs on the LEFT. [Vehicle] is
-> in the [lane] and is [ahead by N lengths / beside / behind], relative to the
-> pink/gray ego vehicle. No same-direction vehicle occupies a lane other than
-> the one stated.
+- Do **not** compile "passing occurs on the LEFT." That is a rule the model
+  assigns as a role. State placements. Put "no vehicle passes on the right"
+  in the negative block.
+- When `ego_heading` is `away_from_camera`, compile **frame-relative**
+  sides, not ego-relative lanes:
 
-`oncoming_position` does not bind same-direction traffic. Without this field
-the model places those vehicles by balance, which is how III-003, III-010,
-III-012, and III-024 all failed the same way. III-012 is the teaching card
-for "US pass is on the left" — verify it hardest.
+> Looking down a divided highway with [N] lanes running away from the
+> camera. On the LEFT side of the frame: [shuttle]. On the RIGHT side of
+> the frame: [other vehicle]. The shuttle's front bumper is [offset].
+> Both travel away from the camera.
+
+Left-of-frame / right-of-frame are unambiguous when both vehicles head
+away from the camera. Role words (ego, left_of_ego, passing) are not.
+
+`oncoming_position` does not bind same-direction traffic. III-012 is the
+teaching card for a left-side pass — verify it hardest: trailer must land
+on the RIGHT of the frame, shuttle on the LEFT, shuttle longitudinally
+ahead enough to read as a pass in progress.
 
 The plow is the orientation anchor. Always state where it points in frame.
 

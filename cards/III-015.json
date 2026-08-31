@@ -82,8 +82,11 @@
       "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
       "oncoming_position": "far side of the center pocket, opposite direction",
       "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3,
+      "ego_frame_side": "right",
       "traffic_positions": [
-        { "vehicle": "primer sedan", "lane": "left_of_ego", "along": "ahead", "lengths": 1 }
+        { "vehicle": "primer sedan", "frame_side": "left", "lane_from_left": 2, "along": "ahead", "lengths": 1 }
       ]
     }
   },

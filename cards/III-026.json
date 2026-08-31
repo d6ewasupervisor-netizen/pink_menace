@@ -81,9 +81,12 @@
       "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
       "oncoming_position": "none in this work pattern",
       "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
       "traffic_positions": [
-        { "vehicle": "vehicle in the continuing left lane", "lane": "left_of_ego", "along": "beside", "lengths": 0 },
-        { "vehicle": "vehicle ahead at the merge teeth", "lane": "same_as_ego", "along": "ahead", "lengths": 1 }
+        { "vehicle": "vehicle in the continuing left lane", "frame_side": "left", "lane_from_left": 1, "along": "beside", "lengths": 0 },
+        { "vehicle": "vehicle ahead at the merge teeth", "frame_side": "same", "lane_from_left": 2, "along": "ahead", "lengths": 1 }
       ]
     }
   },

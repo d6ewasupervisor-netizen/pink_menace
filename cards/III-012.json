@@ -65,11 +65,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "Ledger alongside a trailer at the drive axle, skip-dashed white between, no-zone implied by position",
-    "foreground": "wet highway asphalt, skip-dashed white",
-    "midground": "the Ledger even with the trailer's drive axle, van nose not yet past the cab",
-    "background": "dusk rain, 167, guardrail",
-    "read": "the bus is still beside the trailer, not clear of it",
+    "subject": "On the LEFT side of the frame: a gray cutaway shuttle bus with a roof rack and spare tire. On the RIGHT side of the frame: a semi tractor-trailer. The shuttle's front bumper is roughly one trailer-length ahead of the semi's front bumper",
+    "foreground": "wet highway asphalt, skip-dashed white between the two lanes",
+    "midground": "shuttle on the left of frame still overlapping the trailer on the right; both traveling away from camera",
+    "background": "dusk rain, 167, guardrail on the right shoulder",
+    "read": "the shuttle is on the left of the frame and has not recovered; the trailer is still on the right",
     "continuity": [
       "diagram_style",
       "the_ledger"
@@ -77,12 +77,21 @@
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "left travel lane of two northbound highway lanes",
+      "ego_lane_side": "lane 1 of 2, leftmost",
       "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
       "oncoming_position": "none on this divided highway",
       "hazard_position": "beside",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 1,
+      "ego_frame_side": "left",
       "traffic_positions": [
-        { "vehicle": "semi trailer", "lane": "right_of_ego", "along": "beside", "lengths": 0 }
+        {
+          "vehicle": "semi tractor-trailer",
+          "frame_side": "right",
+          "lane_from_left": 2,
+          "along": "behind",
+          "lengths": 1
+        }
       ]
     }
   },

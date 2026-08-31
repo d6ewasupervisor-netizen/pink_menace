@@ -17,6 +17,7 @@ const BANNED_CAMERAS = ["POV_TOPDOWN", "POV_MIRROR"];
 const HEADINGS = ["away_from_camera", "toward_camera", "left_to_right", "right_to_left"];
 const HAZARDS = ["ahead_same_direction", "behind", "oncoming", "beside", "none"];
 const TRAFFIC_LANES = ["left_of_ego", "right_of_ego", "same_as_ego"];
+const TRAFFIC_FRAME_SIDES = ["left", "right", "same"];
 const TRAFFIC_ALONG = ["ahead", "beside", "behind"];
 const SAME_DIRECTION_HAZARDS = new Set(["ahead_same_direction", "beside", "behind"]);
 const GEOMETRY_KEYS = [
@@ -103,6 +104,16 @@ function camerasForHazard(hazard, driver) {
   }
 }
 
+function laneOrdinal(k, n) {
+  if (k === 1) return "the leftmost";
+  if (k === n) return "the rightmost";
+  return "counting from the left";
+}
+
+function usesFramePlacement(geo) {
+  return Boolean(geo && geo.ego_heading === "away_from_camera" && geo.ego_frame_side);
+}
+
 function geometryClause(geo, driver) {
   if (!geo) return "";
   const front =
@@ -110,52 +121,105 @@ function geometryClause(geo, driver) {
       ? "Its front — identified by the van nose and the leading edge of the tall square box — points "
       : "Its front — identified by the black tube bull bar and wide flat plow blade — points ";
   const vehicle = driver === "deac" ? "The gray cutaway shuttle" : "The pink vehicle";
+  const n = geo.lanes_this_direction;
+  const k = geo.ego_lane_from_left;
+  let occupancy;
+  if (typeof n === "number" && n >= 2 && typeof k === "number") {
+    occupancy = `The roadway has ${n} lanes in this direction. ${vehicle} occupies lane ${k}, ${laneOrdinal(k, n)}.`;
+  } else {
+    occupancy = `${vehicle} occupies the **right half of the roadway** for its direction of travel.`;
+  }
   return (
     "United States road configuration, traffic drives on the right. " +
-    `${vehicle} is traveling ` +
-    `**${geo.ego_heading}** and occupies the **right half of the roadway** for its direction of travel. ` +
+    `${vehicle} is traveling **${geo.ego_heading}**. ` +
+    occupancy +
+    " " +
     front +
     `**${geo.ego_nose_in_frame}**. ` +
     `Any oncoming traffic is **${geo.oncoming_position}**. No vehicle faces the wrong way in its lane.`
   );
 }
 
-function lanePhrase(lane) {
-  switch (lane) {
-    case "left_of_ego":
-      return "the lane to the LEFT of the ego vehicle";
-    case "right_of_ego":
-      return "the lane to the RIGHT of the ego vehicle";
-    case "same_as_ego":
-      return "the same lane as the ego vehicle";
-    default:
-      return lane;
-  }
-}
-
 function alongPhrase(along, lengths) {
-  if (along === "beside") return "beside it";
+  if (along === "beside") return "even with the shuttle";
   const n = Number(lengths);
   const unit = n === 1 ? "vehicle length" : "vehicle lengths";
-  if (along === "ahead") return `ahead of it by ${n} ${unit}`;
-  return `behind it by ${n} ${unit}`;
+  if (along === "ahead") return `ahead of the shuttle by ${n} ${unit}`;
+  return `behind the shuttle by ${n} ${unit}`;
+}
+
+function framePlacementClause(geo, driver) {
+  if (!usesFramePlacement(geo)) return "";
+  const shuttle = driver === "deac" ? "a gray cutaway shuttle bus" : "the pink vehicle";
+  const n = geo.lanes_this_direction;
+  const bits = [];
+  if (typeof n === "number" && n >= 2) {
+    bits.push(`Looking down a divided highway with ${n} lanes running away from the camera.`);
+  }
+  bits.push(`On the ${String(geo.ego_frame_side).toUpperCase()} side of the frame: ${shuttle}.`);
+  for (const r of geo.traffic_positions || []) {
+    if (r.frame_side === "left" || r.frame_side === "right") {
+      bits.push(`On the ${r.frame_side.toUpperCase()} side of the frame: ${r.vehicle}.`);
+    }
+  }
+  for (const r of geo.traffic_positions || []) {
+    if (r.along === "behind" && r.lengths > 0) {
+      const unit = r.lengths === 1 ? "trailer-length" : "trailer-lengths";
+      bits.push(
+        `The shuttle's front bumper is roughly ${r.lengths} ${unit} ahead of the ${r.vehicle}'s front bumper.`
+      );
+    } else if (r.along === "ahead" && r.lengths > 0) {
+      bits.push(`The ${r.vehicle} is ${alongPhrase("ahead", r.lengths)}.`);
+    } else if (r.along === "beside") {
+      bits.push(`The ${r.vehicle} is even with the shuttle.`);
+    }
+  }
+  bits.push("Both travel away from the camera.");
+  return bits.join(" ");
+}
+
+function framePassNegatives(geo, driver) {
+  if (!geo) return "";
+  if (!usesFramePlacement(geo)) {
+    if (Array.isArray(geo.traffic_positions) && geo.traffic_positions.length) {
+      return "No vehicle passes on the right.";
+    }
+    return "";
+  }
+  const shuttle = driver === "deac" ? "shuttle" : "pink vehicle";
+  const parts = [
+    "No vehicle on the right passing a vehicle on the left.",
+    "No vehicle passes on the right.",
+  ];
+  const egoWrong = geo.ego_frame_side === "left" ? "right" : "left";
+  parts.push(`No ${shuttle} on the ${egoWrong} side of the frame.`);
+  for (const r of geo.traffic_positions || []) {
+    if (r.frame_side === "left" || r.frame_side === "right") {
+      const wrong = r.frame_side === "left" ? "right" : "left";
+      parts.push(`No ${r.vehicle} on the ${wrong} side of the frame.`);
+    }
+  }
+  parts.push("No pedestrian signs, no additional vehicles.");
+  return parts.join(" ");
 }
 
 function trafficPositionsClause(geo, driver) {
   const rows = geo && geo.traffic_positions;
   if (!Array.isArray(rows) || !rows.length) return "";
-  const ego = driver === "deac" ? "the gray cutaway shuttle" : "the pink vehicle";
+  if (usesFramePlacement(geo)) return "";
   const bits = rows.map((r) => {
-    return (
-      `${r.vehicle} is in ${lanePhrase(r.lane)} and is ${alongPhrase(r.along, r.lengths)}, ` +
-      `relative to ${ego}.`
-    );
+    if (typeof r.lane_from_left === "number") {
+      return `${r.vehicle} occupies lane ${r.lane_from_left} (counting from the left) and is ${alongPhrase(r.along, r.lengths)}.`;
+    }
+    const side =
+      r.lane === "left_of_ego"
+        ? "the left travel lane"
+        : r.lane === "right_of_ego"
+          ? "the right travel lane"
+          : "the same lane as the gray shuttle";
+    return `${r.vehicle} occupies ${side} and is ${alongPhrase(r.along, r.lengths)}.`;
   });
-  return (
-    "United States road configuration. Passing occurs on the LEFT. " +
-    bits.join(" ") +
-    " No same-direction vehicle occupies a lane other than the one stated."
-  );
+  return bits.join(" ") + " No same-direction vehicle occupies a lane other than the one stated.";
 }
 
 function needsTrafficPositions(card) {
@@ -251,13 +315,30 @@ function validateGeometry(card) {
         `${id}: same-direction traffic on a Deac diagram/roadside frame requires geometry.traffic_positions`
       );
     } else {
+      if (typeof geo.lanes_this_direction !== "number" || geo.lanes_this_direction < 2) {
+        errors.push(`${id}: multi-lane same-direction frame requires geometry.lanes_this_direction >= 2`);
+      }
+      if (typeof geo.ego_lane_from_left !== "number" || geo.ego_lane_from_left < 1) {
+        errors.push(`${id}: multi-lane same-direction frame requires geometry.ego_lane_from_left`);
+      }
+      if (geo.ego_heading === "away_from_camera" && !["left", "right"].includes(geo.ego_frame_side)) {
+        errors.push(`${id}: away_from_camera same-direction frame requires geometry.ego_frame_side left|right`);
+      }
       rows.forEach((row, i) => {
         if (!row || typeof row !== "object") {
           errors.push(`${id}: traffic_positions[${i}] is not an object`);
           return;
         }
         if (!row.vehicle) errors.push(`${id}: traffic_positions[${i}] missing vehicle`);
-        if (!TRAFFIC_LANES.includes(row.lane)) {
+        const hasFrame = TRAFFIC_FRAME_SIDES.includes(row.frame_side);
+        const hasLane = TRAFFIC_LANES.includes(row.lane);
+        if (!hasFrame && !hasLane) {
+          errors.push(`${id}: traffic_positions[${i}] needs frame_side or lane`);
+        }
+        if (row.frame_side != null && !hasFrame) {
+          errors.push(`${id}: traffic_positions[${i}].frame_side ${JSON.stringify(row.frame_side)}`);
+        }
+        if (row.lane != null && !hasLane) {
           errors.push(`${id}: traffic_positions[${i}].lane ${JSON.stringify(row.lane)}`);
         }
         if (!TRAFFIC_ALONG.includes(row.along)) {
@@ -292,9 +373,13 @@ module.exports = {
   isGeometryRead,
   camerasForHazard,
   geometryClause,
+  framePlacementClause,
+  framePassNegatives,
   trafficPositionsClause,
+  usesFramePlacement,
   needsTrafficPositions,
   TRAFFIC_LANES,
+  TRAFFIC_FRAME_SIDES,
   TRAFFIC_ALONG,
   MIRROR_CLAUSE,
   DOOR_MIRROR_CLAUSE,
