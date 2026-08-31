@@ -245,9 +245,9 @@
     "driver": "deac",
     "card_type": "hazard",
     "title": "The Van You Cannot See",
-    "hook": "A white van sits in the right mirror.",
-    "scene": "Clear cold afternoon on West Valley. You signaled left a breath ago. In the right side mirror, a white panel van sits in the blind spot the Ledger cannot see from the seat — close, same heading, no lamps. If you drift right to make the left feel bigger, you write him into the side of the bus. The blinker is already talking.",
-    "decision": "The right mirror has a van in the blind spot and you are mid-change. What do you do?",
+    "hook": "The right mirror has him. The seat does not.",
+    "scene": "Clear cold afternoon on West Valley. You already signaled left. The right door mirror has a white van in it — close, same way, no lamps. Turn your head: from the seat he is gone. That empty stretch beside the box is the blind spot. The glass can have him and the seat can still be empty. Nudge right to make the left feel bigger and you hit him. Take the left anyway and he can stay on the box and come with you.",
+    "decision": "The right mirror has a van you still cannot see from the seat. What do you do?",
     "options": [
       {
         "id": "a",
@@ -261,9 +261,9 @@
       },
       {
         "id": "b",
-        "text": "Finish the left — he is on the right, so the left is yours",
+        "text": "Finish the left — he is on the right, so the left is empty",
         "correct": false,
-        "result": "You commit left. The van was using you as a windbreak and comes with you. Steel on steel. He never had lamps. You never had the blind spot clear.",
+        "result": "You take the left anyway. He was tucked on the right of the box, and he stays there as you move. Now you are both in the new lane and you still cannot see him. Steel on steel.",
         "state_delta": {
           "noise": 4,
           "damage": 1,
@@ -275,7 +275,7 @@
         "id": "c",
         "text": "Drift right first to square up, then take the left",
         "correct": false,
-        "result": "You drift into the blind spot to get a better angle. The right mirror was already telling you someone was there. The panel takes the side of the bus. That was the timeout.",
+        "result": "You drift right to get a better look. He is already in that space. The side of the bus takes the van.",
         "state_delta": {
           "noise": 3,
           "damage": 1,
@@ -293,7 +293,7 @@
         }
       }
     ],
-    "debrief": "If you cannot see him in the glass, assume he is in the blind spot. Cancel, hold, then take a gap you have swept. Hold the lane until that van is a van you can see.",
+    "debrief": "The right mirror can show a van the seat still cannot see. That is the blind spot. Kill the blinker, hold, then take a gap you have swept. Wait until he is a van you can see.",
     "source": {
       "psdp_skill": "Skill nine: multi-lane roads – part one",
       "dol_section": "5.2 Space",
