@@ -827,6 +827,41 @@ const PMFeel = (() => {
     }, 1200);
   }
 
+  function typeText(el, full, onDone) {
+    const text = String(full || "");
+    let i = 0;
+    let timer = 0;
+    const tickMs = 1000 / CPS;
+    function paint() {
+      if (el) el.textContent = text.slice(0, i);
+    }
+    function finish() {
+      i = text.length;
+      paint();
+      onDone && onDone();
+    }
+    function step() {
+      if (i >= text.length) {
+        onDone && onDone();
+        return;
+      }
+      i += 1;
+      paint();
+      timer = window.setTimeout(step, tickMs);
+    }
+    if (!el || !text || reduced()) {
+      if (el) el.textContent = text;
+      onDone && onDone();
+      return () => {};
+    }
+    paint();
+    timer = window.setTimeout(step, tickMs);
+    return (complete) => {
+      window.clearTimeout(timer);
+      if (complete) finish();
+    };
+  }
+
   function typeScene(full, onFirst, onDone) {
     const el = document.getElementById("scene");
     const first = firstSentence(full);
@@ -900,6 +935,7 @@ const PMFeel = (() => {
     playCollapse,
     driveBySight,
     sting: playCueAudio,
+    typeText,
     typeScene,
     ensureAudio,
     barkFor,

@@ -248,7 +248,7 @@ function clearPlay() {
   runPointerDown = false;
   choicesLiveAt = 0;
   if (cancelTypeScene) {
-    cancelTypeScene(true);
+    cancelTypeScene(false);
     cancelTypeScene = null;
   }
   PMFeel.hideReward();
@@ -341,6 +341,15 @@ function fillOptions(card, opts) {
   return options.length;
 }
 
+function questionInView() {
+  const decision = document.getElementById("decision");
+  if (!decision || decision.classList.contains("hidden") || !decision.textContent.trim()) return true;
+  if (!runEl) return true;
+  const runBox = runEl.getBoundingClientRect();
+  const box = decision.getBoundingClientRect();
+  return box.bottom <= runBox.bottom + 16;
+}
+
 function revealChoices(card, opts) {
   const decision = document.getElementById("decision");
   if (card.decision) decision.classList.remove("hidden");
@@ -413,15 +422,11 @@ function armChoiceGate(card, opts) {
     stopChoiceGate = null;
   }
   runEl.classList.remove("choices-ready");
+  let phase = card.decision ? "scene" : "ready";
+  let typing = false;
   let latched = false;
-  const tryLatch = () => {
-    if (latched || !liveCard || liveCard.card_id !== card.card_id) return;
-    if (!scenarioIsRead()) return;
-    latched = true;
-    if (stopChoiceGate) {
-      stopChoiceGate();
-      stopChoiceGate = null;
-    }
+  const decision = document.getElementById("decision");
+  const openChoices = () => {
     showChoiceDock();
     choicesLiveAt = Date.now() + 450;
     revealChoices(card, opts);
@@ -431,6 +436,44 @@ function armChoiceGate(card, opts) {
       cont.textContent = "Continue";
       cont.onclick = () => submitAnswer("continue");
     }
+  };
+  const startQuestion = () => {
+    if (!decision || !card.decision) {
+      phase = "ready";
+      return;
+    }
+    phase = "question";
+    decision.textContent = "";
+    decision.classList.remove("hidden");
+    typing = true;
+    if (cancelTypeScene) cancelTypeScene(true);
+    cancelTypeScene = PMFeel.typeText(decision, card.decision, () => {
+      typing = false;
+      cancelTypeScene = null;
+      requestAnimationFrame(() => requestAnimationFrame(tryLatch));
+    });
+    decision.onclick = () => {
+      if (cancelTypeScene) cancelTypeScene(true);
+    };
+  };
+  const tryLatch = () => {
+    if (latched || !liveCard || liveCard.card_id !== card.card_id) return;
+    if (phase === "scene") {
+      if (!scenarioIsRead()) return;
+      startQuestion();
+    }
+    if (phase === "question") {
+      if (typing || runPointerDown || !questionInView()) return;
+      phase = "ready";
+    }
+    if (phase !== "ready") return;
+    latched = true;
+    if (stopChoiceGate) {
+      stopChoiceGate();
+      stopChoiceGate = null;
+    }
+    if (decision) decision.onclick = null;
+    openChoices();
   };
   const onScroll = () => tryLatch();
   runEl.addEventListener("scroll", onScroll, { passive: true });
