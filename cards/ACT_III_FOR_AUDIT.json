@@ -778,11 +778,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_ROADSIDE",
-      "subject": "white panel van tight on the Ledger's right flank, same heading, lamps off, afternoon sun",
-      "foreground": "cold curb and a strip of skip-dashed white",
-      "midground": "the Ledger and the van sharing one flank, door-mirror arm between them",
+      "subject": "camera stands on the right curb: a plain white cargo van travels left to right in the lane nearest that curb, tight against the Ledger's right flank, same heading, lamps off, afternoon sun. The van is closer to camera than the shuttle. The shuttle occupies the left travel lane. Both noses point toward the right of the frame.",
+      "foreground": "right curb under the camera, skip-dashed white between the two vehicles",
+      "midground": "white van nearer the curb; Ledger further from camera in the left travel lane; long-arm side mirror in the gap between them",
       "background": "West Valley, clear cold, long shadows, same strip as before",
-      "read": "the van is already in the right-side blind spot; this is the same afternoon, not a new one",
+      "read": "the van sits on the curb side of the shuttle, already in the right-side blind spot; this is the same afternoon, not a new one",
       "continuity": [
         "the_ledger"
       ],
