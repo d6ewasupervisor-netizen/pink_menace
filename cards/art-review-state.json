@@ -1,6 +1,6 @@
 {
   "act": "III",
-  "cursor": "III-030",
+  "cursor": "III-011",
   "verdicts": {
     "III-002": {
       "tag": "CARD_BROKEN",
@@ -57,9 +57,9 @@
     },
     "III-011": {
       "tag": "READ_MISSING",
-      "note": "Chase from the left flank: shuttle left, trailer right, tractor door mirrors far ahead. Takes waiting muted 390px read. this card image needs completely redone, this should be an image of a semi coming up on the left/drivers side of the box truck visible in the drivers side mirror.",
-      "pick": "live",
-      "updated_at": "2026-09-01T15:30:10.940Z"
+      "note": "Overhead POV_DIAGRAM rewrite: shuttle coming up the left of the semi, beside the trailer rear, tractor mirrors far ahead. Four c-takes waiting muted 390px. Do not seed until a human pick.",
+      "pick": "",
+      "updated_at": "2026-09-01T16:15:00.000Z"
     },
     "III-012": {
       "tag": "GEOMETRY_WRONG",

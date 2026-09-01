@@ -67,28 +67,35 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_CHASE",
+    "camera": "POV_DIAGRAM",
     "camera_is_the_lesson": true,
-    "subject": "shuttle beside the rear half of a semi trailer; the tractor's door mirrors far ahead",
-    "foreground": "wet asphalt and the shuttle's left flank",
-    "midground": "Old Ninety's trailer ribs; the cab and its door mirrors many lengths ahead",
-    "background": "overcast 167, midday, bare trees",
-    "read": "the bus sits beside the trailer's rear half; the truck's door mirrors are far ahead",
+    "subject": "LEFT of frame: gray cutaway shuttle bus coming up alongside the rear half of a semi trailer. RIGHT of frame: dirty semi tractor-trailer. Both travel away from camera.",
+    "foreground": "wet skip-dashed white between two northbound highway lanes; rear of the shuttle box nearer the camera",
+    "midground": "shuttle in the left lane beside the trailer's rear half; tractor cab and its door mirrors many lengths ahead in the right lane",
+    "background": "overcast 167 midday, bare trees, no extra side streets",
+    "read": "the bus is beside the trailer's rear half; the truck's door mirrors are far ahead",
+    "extra_negatives": [
+      "no second cutaway shuttle",
+      "no Ledger marks on the semi",
+      "no Volkswagen Beetle",
+      "no oncoming vehicle"
+    ],
     "continuity": [
+      "diagram_style",
       "the_ledger"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "left travel lane of two northbound highway lanes",
-      "ego_nose_in_frame": "van nose away; rear of the box nearer the camera",
-      "oncoming_position": "none in this heading",
-      "hazard_position": "ahead_same_direction",
+      "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside",
       "lanes_this_direction": 2,
       "ego_lane_from_left": 1,
       "ego_frame_side": "left",
       "traffic_positions": [
-        { "vehicle": "semi tractor-trailer", "frame_side": "right", "lane_from_left": 2, "along": "beside", "lengths": 0 }
+        { "vehicle": "semi trailer rear half", "frame_side": "right", "lane_from_left": 2, "along": "beside", "lengths": 0 }
       ]
     }
   },

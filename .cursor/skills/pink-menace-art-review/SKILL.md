@@ -75,7 +75,7 @@ No other vehicle may wear the ego's canon marks (pack/12). D4 is locked. Ledger 
 
 ## Ledger rear vision
 
-`POV_MIRROR_REAR` is illegal on any Deac card. The Ledger is a cutaway with a plate-steel cargo box: no rear window, no interior mirror. Hazard behind or beside → `POV_MIRROR_DOOR`, resolved by the hazard's side: behind or left → left door mirror; right / curb side → **right door mirror**. The Ledger has both. Never place a right-side hazard in the left glass. On Deac, `POV_MIRROR_REAR` is always `WRONG_CAMERA` (III-011 stays `CARD_BROKEN` because the situation itself is three-way broken). Never generate those stills until the writer changes the token. Never write "rear glass," "rearview," "interior mirror," or "the center mirror" into a Ledger frame or Ledger copy.
+`POV_MIRROR_REAR` is illegal on any Deac card. The Ledger is a cutaway with a plate-steel cargo box: no rear window, no interior mirror. Hazard behind or beside → `POV_MIRROR_DOOR`, resolved by the hazard's side: behind or left → left door mirror; right / curb side → **right door mirror**. The Ledger has both. Never place a right-side hazard in the left glass. On Deac, `POV_MIRROR_REAR` is always `WRONG_CAMERA`. III-011 is overhead `POV_DIAGRAM`: shuttle coming up the left of a semi, beside the trailer rear. Never generate a Ledger interior rearview. Never write "rear glass," "rearview," "interior mirror," or "the center mirror" into a Ledger frame or Ledger copy.
 
 ## Clipboard and cat
 
