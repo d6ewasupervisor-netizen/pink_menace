@@ -1,6 +1,6 @@
 {
   "act": "III",
-  "cursor": "III-030",
+  "cursor": "III-021",
   "verdicts": {
     "III-002": {
       "tag": "CARD_BROKEN",
@@ -52,8 +52,8 @@
     "III-010": {
       "tag": "PASS",
       "note": "Take 2: true profile, van on the curb-side flank, skip-dash, long-arm mirror in the gap. Transit, not a Ledger. b2 is closest, however the white van needs to be back farther, along this same side of the box truck, but with the nose/hood of the van about even with the door on the box truck",
-      "pick": "c-take-2",
-      "updated_at": "2026-09-01T19:22:26.749Z"
+      "pick": "e-take-1",
+      "updated_at": "2026-09-01T20:34:00.000Z"
     },
     "III-011": {
       "tag": "READ_MISSING",
@@ -112,14 +112,14 @@
     "III-020": {
       "tag": "PASS",
       "note": "the bus needs to be closer to the edge of the road",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T20:14:55.539Z"
+      "pick": "c-take-1",
+      "updated_at": "2026-09-01T20:33:35.204Z"
     },
     "III-021": {
       "tag": "READ_MISSING",
       "note": "the bus is facing the right direction now, but we need to remove the traffic light from the equation and make the bus look like it's leaving the side of the road, not driving through the middle of an intersection",
-      "pick": "c-take-2",
-      "updated_at": "2026-09-01T20:16:29.403Z"
+      "pick": "e-take-1",
+      "updated_at": "2026-09-01T20:33:44.944Z"
     },
     "III-022": {
       "tag": "READ_MISSING",
