@@ -1,6 +1,6 @@
 {
   "act": "III",
-  "cursor": "III-011",
+  "cursor": "III-023",
   "verdicts": {
     "III-002": {
       "tag": "CARD_BROKEN",
@@ -57,9 +57,9 @@
     },
     "III-011": {
       "tag": "READ_MISSING",
-      "note": "Overhead POV_DIAGRAM rewrite: shuttle coming up the left of the semi, beside the trailer rear, tractor mirrors far ahead. Four c-takes waiting muted 390px. Do not seed until a human pick.",
+      "note": "Two lanes, same direction, skip-dash in the middle; semi in the right; box/bus coming up behind him in the left. D-takes waiting muted 390px. Do not seed until a human pick.",
       "pick": "",
-      "updated_at": "2026-09-01T16:15:00.000Z"
+      "updated_at": "2026-09-01T16:15:45.654Z"
     },
     "III-012": {
       "tag": "GEOMETRY_WRONG",
@@ -129,7 +129,7 @@
     },
     "III-023": {
       "tag": "COPY",
-      "note": "Citation check: 4.16 HOV paragraph names a diamond and a solid white separator; dashed vs solid is in the same section (dashed = may cross; solid = stay unless special situation; double solid = illegal). Copy now carries that distinction so III-008 + III-023 do not add up to permanently sealed. Text before pixels; still not regenerated. this image is good minus the inside of the vehicle needs updated to the current model.",
+      "note": "Picture is good minus the cab. D4 cockpit b-takes waiting muted 390px. Do not seed until a human pick.",
       "pick": "live",
       "updated_at": "2026-09-01T15:45:19.371Z"
     },

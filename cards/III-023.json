@@ -67,13 +67,14 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_OBJECT",
-    "subject": "painted diamond and solid white fence on wet pavement to the left; a loaded dump truck filling the general lane ahead, brake lamps on, no gap past it, no readable occupancy numbers",
-    "foreground": "a strip of Ledger van hood at the bottom, still in the general lane, fog beading on the paint",
+    "subject": "from the D4 Ledger cab looking forward: painted diamond and solid white fence on wet pavement to the left; a loaded dump truck filling the general lane ahead, brake lamps on, no gap past it, no readable occupancy numbers",
+    "foreground": "worn three-spoke wheel, analog cluster, bar cage with a cut wiper slot, thermos in the right cup; a strip of van hood at the bottom, still in the general lane, fog beading on the paint",
     "midground": "the dump's high tailgate as a wall in your lane; the empty diamond fenced by solid white beside it — factory mirrors only on the dump, no cutaway body, no amber destination sign, no roof rack, no oversize door-mirror arms",
     "background": "167 dusk, fog eating the road ahead of the dump, general-lane stack tight behind you",
     "read": "the diamond is empty and the dump is a wall — a pass you would have to steal",
     "continuity": [
-      "the_ledger"
+      "ledger_cockpit",
+      "hov_geometry"
     ],
     "aspect": "2:3",
     "geometry": {

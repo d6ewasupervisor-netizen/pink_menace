@@ -69,16 +69,19 @@
   "image_brief": {
     "camera": "POV_DIAGRAM",
     "camera_is_the_lesson": true,
-    "subject": "LEFT of frame: gray cutaway shuttle bus coming up alongside the rear half of a semi trailer. RIGHT of frame: dirty semi tractor-trailer. Both travel away from camera.",
-    "foreground": "wet skip-dashed white between two northbound highway lanes; rear of the shuttle box nearer the camera",
-    "midground": "shuttle in the left lane beside the trailer's rear half; tractor cab and its door mirrors many lengths ahead in the right lane",
-    "background": "overcast 167 midday, bare trees, no extra side streets",
-    "read": "the bus is beside the trailer's rear half; the truck's door mirrors are far ahead",
+    "subject": "Exactly two travel lanes, both the same direction. Skip-dashed white down the middle. RIGHT lane: a dirty semi tractor-trailer. LEFT lane: a gray cutaway shuttle bus coming up behind that semi.",
+    "foreground": "wet skip-dashed white between the two lanes; rear of the shuttle box nearer the camera",
+    "midground": "shuttle still behind the semi in the left lane, closing; tractor and trailer occupying the right lane ahead",
+    "background": "overcast 167 midday, bare trees, no extra lanes, no extra vehicles",
+    "read": "two same-direction lanes with skip-dash between them; semi in the right; shuttle coming up behind it in the left",
     "extra_negatives": [
+      "no third travel lane",
+      "no yellow centerline",
+      "no double yellow",
+      "no oncoming vehicle",
+      "no HOV diamond",
       "no second cutaway shuttle",
-      "no Ledger marks on the semi",
-      "no Volkswagen Beetle",
-      "no oncoming vehicle"
+      "no Ledger marks on the semi"
     ],
     "continuity": [
       "diagram_style",
@@ -90,12 +93,12 @@
       "ego_lane_side": "left travel lane of two northbound highway lanes",
       "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
       "oncoming_position": "none in frame",
-      "hazard_position": "beside",
+      "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 2,
       "ego_lane_from_left": 1,
       "ego_frame_side": "left",
       "traffic_positions": [
-        { "vehicle": "semi trailer rear half", "frame_side": "right", "lane_from_left": 2, "along": "beside", "lengths": 0 }
+        { "vehicle": "semi tractor-trailer", "frame_side": "right", "lane_from_left": 2, "along": "ahead", "lengths": 1 }
       ]
     }
   },
