@@ -4,8 +4,8 @@
   "verdicts": {
     "III-002": {
       "tag": "READ_MISSING",
-      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T05:20:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-003": {
       "tag": "READ_MISSING",
@@ -13,9 +13,9 @@
       "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-004": {
-      "tag": "PASS",
-      "note": "Human muted 390px: take 3. Left door mirror doing work (flat + convex), cones/barrels shutting the right, oncoming lamp ahead. Take 1 was blank glass. Seeded.",
-      "updated_at": "2026-09-01T07:10:00.000Z"
+      "tag": "READ_MISSING",
+      "note": "Previous take 3 is still live. Cab redo b-takes against D4-take-2.png waiting muted 390px before replacing the seed.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-005": {
       "tag": "PASS",
@@ -24,13 +24,13 @@
     },
     "III-006": {
       "tag": "READ_MISSING",
-      "note": "Back in Deac's cab: sign switch thrown, left stalk blinking, column in the left side-mirror glass. Seat exemption covers consecutive cockpit with III-007. Takes waiting muted 390px read.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-007": {
       "tag": "READ_MISSING",
-      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T05:20:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-008": {
       "tag": "PASS",
@@ -39,8 +39,8 @@
     },
     "III-009": {
       "tag": "READ_MISSING",
-      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T05:20:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-010": {
       "tag": "PASS",
@@ -64,8 +64,8 @@
     },
     "III-014": {
       "tag": "READ_MISSING",
-      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T05:20:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-015": {
       "tag": "PASS",
@@ -74,8 +74,8 @@
     },
     "III-016": {
       "tag": "READ_MISSING",
-      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T05:20:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-017": {
       "tag": "COPY",
@@ -89,8 +89,8 @@
     },
     "III-019": {
       "tag": "READ_MISSING",
-      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T05:20:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-020": {
       "tag": "PASS",
@@ -99,13 +99,13 @@
     },
     "III-021": {
       "tag": "READ_MISSING",
-      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T05:20:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-022": {
       "tag": "READ_MISSING",
-      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T05:20:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-023": {
       "tag": "COPY",
@@ -119,8 +119,8 @@
     },
     "III-025": {
       "tag": "READ_MISSING",
-      "note": "Face-critical: eight takes now (5-8 added). Mechanical shortlist is take 6 (smear on the right glass). Waiting muted 390px. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T07:10:00.000Z"
+      "note": "Face-critical redo: two b-takes in the relocked D4 cab. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-026": {
       "tag": "PASS",
@@ -129,8 +129,8 @@
     },
     "III-027": {
       "tag": "READ_MISSING",
-      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T05:20:00.000Z"
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T08:15:00.000Z"
     },
     "III-028": {
       "tag": "PASS",
