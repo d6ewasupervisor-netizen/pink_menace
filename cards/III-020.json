@@ -67,9 +67,9 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "Ledger traveling left-to-right, van nose pointing right, right rear tires on the rumble of a long overcast straight, no other vehicle forcing it",
-    "foreground": "rumble strip and cold grass at eye height",
-    "midground": "the Ledger's right rear tires on the rumble, van nose still pointed up the highway",
+    "subject": "Ledger traveling left-to-right, hugging the right edge of the road, van nose pointing right, right rear tires on the rumble",
+    "foreground": "rumble strip and cold grass at eye height, almost under the right duals",
+    "midground": "the Ledger's right rear tires on the rumble, body tight to the pavement edge",
     "background": "167 afternoon, overcast, the same mile",
     "read": "the bus walked onto the rumble with nothing in the way — again",
     "continuity": [

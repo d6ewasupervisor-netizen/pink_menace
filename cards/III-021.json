@@ -66,11 +66,16 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "city coach on the right side of the road, left blinker on, pulling off a stop",
+    "subject": "city coach leaving the curb on the right, left blinker on, pulling back into the through lane — not in an intersection",
     "foreground": "cage and wheel, high seat",
-    "midground": "the coach's left stalk blinking; its nose starting to come back left into the through lane",
-    "background": "clear cold downtown edge, morning, empty shelter glass on the right curb",
-    "read": "the bus is on the right with its left blinker on",
+    "midground": "the coach's left stalk blinking; its nose coming off the stop into the lane ahead",
+    "background": "clear cold downtown edge, morning, shelter glass on the right curb, no traffic signal",
+    "read": "the bus is leaving the side of the road with its left blinker on",
+    "extra_negatives": [
+      "no traffic light",
+      "no intersection",
+      "no clipboard on the mesh"
+    ],
     "continuity": [
       "ledger_cockpit"
     ],

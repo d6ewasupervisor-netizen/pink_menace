@@ -1,12 +1,12 @@
 {
   "act": "III",
-  "cursor": "III-023",
+  "cursor": "III-030",
   "verdicts": {
     "III-002": {
       "tag": "CARD_BROKEN",
       "note": "B2 is closest to what I want. Change the imagery to just have the cat on the dash, remove the mirror from card text about her touching it and just have her sit there in image. Also, the speedometer need to show 0 mph not 28",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T15:23:54.964Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T19:21:11.462Z"
     },
     "III-003": {
       "tag": "READ_MISSING",
@@ -17,8 +17,8 @@
     "III-004": {
       "tag": "READ_MISSING",
       "note": "b2 is the closest image, but the cones need to visibily show they are angled towards the middle of the road and cutting off the right lane ahead",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T15:18:44.445Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T19:21:34.719Z"
     },
     "III-005": {
       "tag": "PASS",
@@ -34,8 +34,8 @@
     "III-007": {
       "tag": "READ_MISSING",
       "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. b2 is closest but the cars in front need to be in a straight line",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T15:23:19.045Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T19:21:48.827Z"
     },
     "III-008": {
       "tag": "PASS",
@@ -46,14 +46,14 @@
     "III-009": {
       "tag": "READ_MISSING",
       "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. 4 closest, but there is no plow showing and the interior of the truck is wrong same as the mirror",
-      "pick": "take-4",
-      "updated_at": "2026-09-01T15:27:18.965Z"
+      "pick": "c-take-1",
+      "updated_at": "2026-09-01T19:22:05.493Z"
     },
     "III-010": {
       "tag": "PASS",
       "note": "Take 2: true profile, van on the curb-side flank, skip-dash, long-arm mirror in the gap. Transit, not a Ledger. b2 is closest, however the white van needs to be back farther, along this same side of the box truck, but with the nose/hood of the van about even with the door on the box truck",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T15:29:02.180Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T19:22:26.749Z"
     },
     "III-011": {
       "tag": "READ_MISSING",
@@ -76,8 +76,8 @@
     "III-014": {
       "tag": "READ_MISSING",
       "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. Remove the white arrow from the top of the light on the arrow indicator.",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T15:34:16.892Z"
+      "pick": "c-take-1",
+      "updated_at": "2026-09-01T19:24:42.134Z"
     },
     "III-015": {
       "tag": "PASS",
@@ -88,8 +88,8 @@
     "III-016": {
       "tag": "READ_MISSING",
       "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. the speedometer needs to read one speed and it's not 30, it should be 60",
-      "pick": "b-take-1",
-      "updated_at": "2026-09-01T15:36:26.908Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T19:24:54.917Z"
     },
     "III-017": {
       "tag": "COPY",
@@ -100,32 +100,32 @@
     "III-018": {
       "tag": "READ_MISSING",
       "note": "Diagram of the unfinished overlap. Takes waiting muted 390px read. This needs to be completely redone.",
-      "pick": "live",
-      "updated_at": "2026-09-01T15:38:55.806Z"
+      "pick": "e-take-2",
+      "updated_at": "2026-09-01T19:25:03.268Z"
     },
     "III-019": {
       "tag": "READ_MISSING",
       "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. This card needs to be completely redone. the stalled pickup needs to be farther right on the road, the car behind, we need to only see their left headlight indicating they are behind the driver and the scene needs zoomed out so that the view shows the drivers window clearer. remove the arm from the scene",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T15:41:48.405Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T19:25:18.109Z"
     },
     "III-020": {
       "tag": "PASS",
-      "note": "Copy fixed: The same straight comes back. Still already reads the rumble. the vehicle is going the wrong direction.",
-      "pick": "live",
-      "updated_at": "2026-09-01T15:42:37.548Z"
+      "note": "the bus needs to be closer to the edge of the road",
+      "pick": "b-take-2",
+      "updated_at": "2026-09-01T20:14:55.539Z"
     },
     "III-021": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. b2 is closest but the bus needs to be on the right side of the road with it's left blinker on.",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T15:43:47.180Z"
+      "note": "the bus is facing the right direction now, but we need to remove the traffic light from the equation and make the bus look like it's leaving the side of the road, not driving through the middle of an intersection",
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T20:16:29.403Z"
     },
     "III-022": {
       "tag": "READ_MISSING",
       "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
       "pick": "b-take-1",
-      "updated_at": "2026-09-01T15:44:27.975Z"
+      "updated_at": "2026-09-01T20:16:40.253Z"
     },
     "III-023": {
       "tag": "COPY",
@@ -136,32 +136,32 @@
     "III-024": {
       "tag": "PASS",
       "note": "Take 2: both left-to-right, pickup ahead about a length, standing water at the wheels, sodium at night. b2 is closest but the box truck needs to be behind the pickup truck.",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T15:46:28.781Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T20:16:53.155Z"
     },
     "III-025": {
       "tag": "READ_MISSING",
       "note": "Face-critical redo: two b-takes in the relocked D4 cab. Waiting muted 390px. Do not seed until a human pass. this entire card doesn't make sense.",
-      "pick": "take-4",
-      "updated_at": "2026-09-01T15:48:08.588Z"
+      "pick": "take-3",
+      "updated_at": "2026-09-01T20:17:06.934Z"
     },
     "III-026": {
       "tag": "PASS",
       "note": "the image could be redone better, the card doesn't illustrate the description well.",
-      "pick": "live",
-      "updated_at": "2026-09-01T15:49:15.285Z"
+      "pick": "b-take-1",
+      "updated_at": "2026-09-01T20:17:22.148Z"
     },
     "III-027": {
       "tag": "READ_MISSING",
       "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. B1 is closest but the bus needs to be in the right hand lane.",
-      "pick": "b-take-1",
-      "updated_at": "2026-09-01T15:50:56.249Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T20:17:43.370Z"
     },
     "III-028": {
       "tag": "PASS",
       "note": "the image needs redone to match the visuals of the remainder of the deck",
-      "pick": "live",
-      "updated_at": "2026-09-01T15:51:27.917Z"
+      "pick": "b-take-2",
+      "updated_at": "2026-09-01T20:18:08.182Z"
     },
     "III-029": {
       "tag": "PASS",
@@ -172,8 +172,8 @@
     "III-030": {
       "tag": "PASS",
       "note": "Copy fixed: The skyline is dark and the sign is dark with it. Still already reads stopped bus + dark skyline. the bus is sitting on the wrong side of the road.",
-      "pick": "live",
-      "updated_at": "2026-09-01T15:52:25.996Z"
+      "pick": "b-take-2",
+      "updated_at": "2026-09-01T20:18:25.286Z"
     }
   }
 }

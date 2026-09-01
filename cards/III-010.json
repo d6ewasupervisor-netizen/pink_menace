@@ -66,11 +66,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "white cargo van on the shuttle's right (curb) flank, skip-dash between them; the van's hood even with the shuttle's side door, not the nose",
-    "foreground": "right curb under the camera, skip-dashed white between the two vehicles",
-    "midground": "van nearer the curb, lamps off, farther back than the shuttle cab; shuttle further from camera",
-    "background": "West Valley, clear cold, long shadows, same strip as before",
-    "read": "the van sits in the right-side blind spot with its hood even with the shuttle's side door",
+    "subject": "from a wet sidewalk: white cargo van on the shuttle's RIGHT (curb) flank, skip-dash between them; the van's hood even with the shuttle's side door",
+    "foreground": "wet sidewalk and a mossy curb under the camera",
+    "midground": "van nearer the camera and the curb, lamps off; Ledger shuttle further from camera, left of the van; both traveling left-to-right",
+    "background": "stained concrete retaining wall and evergreens, overcast, wet asphalt",
+    "read": "the white van sits on the right of the shuttle with its hood even with the side door",
     "continuity": [
       "the_ledger"
     ],
