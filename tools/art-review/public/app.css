@@ -66,6 +66,82 @@ body {
   flex-wrap: wrap;
 }
 
+.takes button {
+  appearance: none;
+  width: 3.5rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: #100e0e;
+  color: var(--muted);
+  border-radius: 0.4rem;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.takes button img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.takes button .tlab {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  padding: 0.12rem 0;
+  text-align: center;
+}
+
+.takes button.on {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.takes button.pick {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.takes button.pick .tlab {
+  color: var(--on-accent);
+  background: var(--accent);
+}
+
+.takes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+}
+
+.options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.options li {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.options li.correct {
+  color: var(--ok);
+}
+
+.options .oid {
+  font-weight: 600;
+  margin-right: 0.35rem;
+  text-transform: uppercase;
+}
+
 .acts button, .dock button, .strip button, .tags button, #phone {
   appearance: none;
   border: 1px solid var(--line);
@@ -113,15 +189,21 @@ body {
 
 body.phone-view .still-col {
   display: flex;
-  justify-content: center;
-  align-items: start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+body.phone-view .takes {
+  width: 390px;
+  max-width: 100%;
 }
 
 .still {
   margin: 0;
   background: #100e0e;
   aspect-ratio: 2 / 3;
-  max-height: calc(100dvh - 10rem);
+  max-height: calc(100dvh - 18rem);
   overflow: hidden;
   position: relative;
   cursor: zoom-in;

@@ -16,9 +16,12 @@ const {
 
 const ROOT = path.join(__dirname, "..", "..");
 const CARDS = path.join(ROOT, "cards");
+const TAKES_DIR = path.join(CARDS, "takes");
 const STATE_PATH = path.join(CARDS, "art-review-state.json");
 const PUBLIC = path.join(__dirname, "public");
 const ID_RE = /^(I|II|III|IV|V|VI|VII)-\d{3}$/;
+const TAKE_FILE_RE = /^((?:I|II|III|IV|V|VI|VII)-\d{3})(?:-([a-z]+))?-take-(\d+)\.png$/i;
+const PICK_RE = /^(live|(?:[a-z]+-)?take-\d+)$/;
 
 const args = process.argv.slice(2);
 function flag(name, fallback) {
@@ -59,6 +62,64 @@ function imageMeta(id) {
   };
 }
 
+function takeLabel(batch, n) {
+  if (!batch) return String(n);
+  return batch.toUpperCase() + n;
+}
+
+function listTakes(id) {
+  const takes = [];
+  const live = imageMeta(id);
+  if (live.has_image) {
+    takes.push({
+      id: "live",
+      label: "Live",
+      batch: null,
+      n: 0,
+      image_url: live.image_url,
+      mtime: live.mtime,
+    });
+  }
+  if (!fs.existsSync(TAKES_DIR)) return takes;
+  for (const f of fs.readdirSync(TAKES_DIR)) {
+    const m = f.match(TAKE_FILE_RE);
+    if (!m) continue;
+    if (m[1].toUpperCase() !== id) continue;
+    const batch = m[2] ? m[2].toLowerCase() : "";
+    const n = Number(m[3]);
+    const key = (batch ? batch + "-take-" : "take-") + n;
+    const p = path.join(TAKES_DIR, f);
+    const st = fs.statSync(p);
+    takes.push({
+      id: key,
+      label: takeLabel(batch, n),
+      batch: batch || null,
+      n,
+      file: f,
+      image_url: "/take/" + encodeURIComponent(f) + "?v=" + st.mtimeMs,
+      mtime: st.mtimeMs,
+    });
+  }
+  takes.sort((a, b) => {
+    if (a.id === "live") return -1;
+    if (b.id === "live") return 1;
+    const ba = a.batch || "";
+    const bb = b.batch || "";
+    if (ba !== bb) return ba.localeCompare(bb);
+    return a.n - b.n;
+  });
+  return takes;
+}
+
+function optionRows(card) {
+  if (!Array.isArray(card.options)) return [];
+  return card.options.map((o) => ({
+    id: o.id,
+    text: o.text || "",
+    correct: Boolean(o.correct),
+  }));
+}
+
 function loadState() {
   if (!fs.existsSync(STATE_PATH)) {
     return { act: BOOT_ACT, cursor: BOOT_CARD, verdicts: {} };
@@ -85,11 +146,15 @@ function saveState(state) {
 
 function verdictOf(state, id) {
   const v = state.verdicts[id];
-  if (!v || typeof v !== "object") return { tag: null, note: "", writer_first: false };
+  if (!v || typeof v !== "object") {
+    return { tag: null, note: "", pick: "", writer_first: false };
+  }
   const tag = normalizeTag(v.tag || v.status);
+  const pick = typeof v.pick === "string" && PICK_RE.test(v.pick) ? v.pick : "";
   return {
     tag,
     note: typeof v.note === "string" ? v.note : "",
+    pick,
     writer_first: writerFirst(tag),
   };
 }
@@ -112,6 +177,7 @@ function summarize(card) {
     read: brief.read || "",
     subject: brief.subject || "",
     geometry: geo,
+    options: optionRows(card),
   };
 }
 
@@ -129,7 +195,9 @@ function listAct(act) {
       driver: card.driver,
       seq: seqFromCard(card),
       has_image: imageMeta(id).has_image,
+      take_count: listTakes(id).length,
       tag: v.tag,
+      pick: v.pick || "",
       bucket: v.tag ? bucketOf(v.tag) : "open",
       writer_first: v.writer_first,
     });
@@ -150,6 +218,12 @@ function actsPresent() {
 const app = express();
 app.disable("x-powered-by");
 app.use(express.json({ limit: "32kb" }));
+app.use((req, res, next) => {
+  if (/\.(?:js|css|html)$/i.test(req.path) || req.path === "/") {
+    res.setHeader("Cache-Control", "no-store");
+  }
+  next();
+});
 app.use(express.static(PUBLIC, { index: false, maxAge: 0 }));
 
 app.get("/api/meta", (_req, res) => {
@@ -199,6 +273,7 @@ app.get("/api/queue", (req, res) => {
     open,
     writer_first: cards.filter((c) => c.writer_first).map((c) => c.card_id),
     recompile: cards.filter((c) => c.bucket === "recompile" && !c.writer_first).map((c) => c.card_id),
+    picks: Object.fromEntries(cards.filter((c) => c.pick).map((c) => [c.card_id, c.pick])),
   });
 });
 
@@ -211,12 +286,16 @@ app.get("/api/card/:id", (req, res) => {
   const state = loadState();
   const v = verdictOf(state, id);
   const img = imageMeta(id);
+  const takes = listTakes(id);
+  const pick = takes.some((t) => t.id === v.pick) ? v.pick : "";
   const deck = listAct(card.act);
   const idx = deck.findIndex((c) => c.card_id === id);
   res.json({
     ok: true,
     ...summarize(card),
     ...img,
+    takes,
+    pick,
     tag: v.tag,
     note: v.note,
     writer_first: v.writer_first,
@@ -232,6 +311,15 @@ app.get("/still/:id.png", (req, res) => {
   const id = String(req.params.id || "").replace(/\.png$/i, "").toUpperCase();
   if (!ID_RE.test(id)) return res.status(400).end();
   const p = pngPath(id);
+  if (!fs.existsSync(p)) return res.status(404).end();
+  res.setHeader("Cache-Control", "no-store");
+  res.sendFile(p);
+});
+
+app.get("/take/:file", (req, res) => {
+  const file = path.basename(String(req.params.file || ""));
+  if (!TAKE_FILE_RE.test(file)) return res.status(400).end();
+  const p = path.join(TAKES_DIR, file);
   if (!fs.existsSync(p)) return res.status(404).end();
   res.setHeader("Cache-Control", "no-store");
   res.sendFile(p);
@@ -265,9 +353,17 @@ app.put("/api/verdict", (req, res) => {
   const state = loadState();
   const prev = verdictOf(state, id);
   const nextTag = body.tag === "" || body.tag === "open" ? null : tag || prev.tag;
+  let pick = prev.pick || "";
+  if (body.pick != null) {
+    const raw = String(body.pick);
+    if (raw === "") pick = "";
+    else if (!PICK_RE.test(raw)) return res.status(400).json({ ok: false, error: "bad pick" });
+    else pick = raw;
+  }
   state.verdicts[id] = {
     tag: nextTag,
     note: body.note != null ? String(body.note) : prev.note,
+    pick,
     updated_at: new Date().toISOString(),
   };
   state.cursor = id;

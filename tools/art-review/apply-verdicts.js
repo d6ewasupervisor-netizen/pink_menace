@@ -53,7 +53,13 @@ function writeStateFile() {
   const now = new Date().toISOString();
   const verdicts = {};
   for (const [card_id, tag, note] of VERDICTS) {
-    verdicts[card_id] = { tag, note, updated_at: now };
+    const prevV = prev.verdicts && prev.verdicts[card_id];
+    verdicts[card_id] = {
+      tag,
+      note,
+      pick: prevV && typeof prevV.pick === "string" ? prevV.pick : "",
+      updated_at: now,
+    };
   }
   const body = {
     act: prev.act || "III",

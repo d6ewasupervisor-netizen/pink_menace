@@ -18,9 +18,11 @@ npm run art-review
 
 `http://127.0.0.1:3847/?act=III&card=III-010`
 
-A verdict is a **tag** plus an optional detail line. Tags: `PASS`, `CARD_BROKEN`, `WRONG_CAMERA`, `READ_MISSING`, `GEOMETRY_WRONG`, `CANON_DRIFT`, `INVENTED`, `COPY`, `STYLE`.
+A verdict is a **tag**, a **closest take** (`pick`), and an optional detail line. Tags: `PASS`, `CARD_BROKEN`, `WRONG_CAMERA`, `READ_MISSING`, `GEOMETRY_WRONG`, `CANON_DRIFT`, `INVENTED`, `COPY`, `STYLE`.
 
-State: `cards/art-review-state.json` (**committed** — a restart must not wipe an act). Queue: `GET /api/queue?act=III`. Restore: `node tools/art-review/apply-verdicts.js`.
+The board lists the live still plus every file in `cards/takes/` named `<id>-take-N.png` or `<id>-b-take-N.png`. Click a thumbnail to mark it closest (amber). Detail is the remaining change on that take, if any. Keys 1–9 pick takes in strip order. Decision options render under the question; the correct one is green.
+
+State: `cards/art-review-state.json` (**committed** — a restart must not wipe an act). Queue: `GET /api/queue?act=III` (includes `picks`). Restore: `node tools/art-review/apply-verdicts.js` (keeps existing picks).
 
 ## Order on every card
 

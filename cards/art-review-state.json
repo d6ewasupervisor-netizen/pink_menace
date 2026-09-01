@@ -1,11 +1,12 @@
 {
   "act": "III",
-  "cursor": "III-010",
+  "cursor": "III-002",
   "verdicts": {
     "III-002": {
       "tag": "READ_MISSING",
       "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
-      "updated_at": "2026-09-01T08:15:00.000Z"
+      "pick": "",
+      "updated_at": "2026-09-01T14:54:43.438Z"
     },
     "III-003": {
       "tag": "READ_MISSING",
