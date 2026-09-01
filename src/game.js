@@ -2,7 +2,7 @@
 
 const { query, pool } = require("./db");
 const { publicFear } = require("./presence");
-const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET } = require("./manifest");
+const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET, timeCostOf } = require("./manifest");
 
 async function purgeExpiredPending() {
   await query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
@@ -172,8 +172,59 @@ function cargoFrom(state) {
   return Math.max(0, Math.min(CARGO_BUDGET, CARGO_BUDGET - time - noise - Math.round(light / 2)));
 }
 
+function actOfCardId(cardId) {
+  const id = String(cardId || "");
+  let hit = null;
+  for (const z of ACT_ZONES) {
+    const prefix = z.act + "-";
+    if (id.startsWith(prefix) && (!hit || z.act.length > hit.length)) hit = z.act;
+  }
+  return hit;
+}
+
+function withActCargo(state, act) {
+  const s = { ...(state || {}) };
+  if (!act) return s;
+  if (s.cargo_act === act) return s;
+  if (!s.cargo_act && act === "II") {
+    s.cargo_act = "II";
+    return s;
+  }
+  s.time_cost = 0;
+  s.cargo_act = act;
+  if (cargoFrom(s) <= 0) {
+    s.noise = 0;
+    s.light = 0;
+  }
+  return s;
+}
+
 function cargoDead(state, delta) {
-  return cargoFrom(state) <= 0 || Boolean(delta && delta.fatal);
+  if (delta && delta.fatal) return true;
+  if (cargoFrom(state) > 0) return false;
+  const d = delta || {};
+  return timeCostOf(d) > 0 || (Number(d.noise) || 0) > 0 || (Number(d.light) || 0) > 0;
+}
+
+function statesEqual(a, b) {
+  return JSON.stringify(a || {}) === JSON.stringify(b || {});
+}
+
+async function persistActCargo(db, run) {
+  if (!run || !run.id || !run.current_card_id) return run;
+  const act = actOfCardId(run.current_card_id);
+  if (!act) return run;
+  const next = withActCargo(run.state, act);
+  if (statesEqual(run.state, next)) {
+    run.state = next;
+    return run;
+  }
+  await db.query(`UPDATE runs SET state = $1::jsonb, updated_at = now() WHERE id = $2`, [
+    JSON.stringify(next),
+    run.id,
+  ]);
+  run.state = next;
+  return run;
 }
 
 function checkpointKeep(answersBefore) {
@@ -197,7 +248,7 @@ function applyDelta(state, delta) {
 async function checkpointState(client, failedRunId, keep) {
   if (keep <= 0) return {};
   const { rows } = await client.query(
-    `SELECT o.state_delta
+    `SELECT o.state_delta, c.act
        FROM run_answers a
        JOIN cards c ON c.card_id = a.card_id
        JOIN card_options o ON o.card_id = a.card_id AND o.option_id = a.option_id
@@ -207,7 +258,14 @@ async function checkpointState(client, failedRunId, keep) {
     [failedRunId, keep]
   );
   let state = {};
-  for (const r of rows) state = applyDelta(state, r.state_delta);
+  let cargoAct = null;
+  for (const r of rows) {
+    if (r.act !== cargoAct) {
+      cargoAct = r.act;
+      state = withActCargo(state, cargoAct);
+    }
+    state = applyDelta(state, r.state_delta);
+  }
   return state;
 }
 
@@ -337,7 +395,7 @@ async function reopenIfMoreCards(run) {
   run.status = "active";
   run.current_card_id = picked.cardId;
   run.current_attempt_no = 1;
-  return run;
+  return persistActCargo(pool, run);
 }
 
 async function advanceReplayPlan(client, runId, run) {
@@ -750,6 +808,9 @@ module.exports = {
   ACT_ZONES,
   cargoFrom,
   ledgerOrigin,
+  actOfCardId,
+  withActCargo,
+  persistActCargo,
   cargoDead,
   cargoFailDispatch,
   checkpointKeep,

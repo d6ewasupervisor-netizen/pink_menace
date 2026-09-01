@@ -6,24 +6,25 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, checkpointState, applyDelta, checkpointKeep, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan, reopenIfMoreCards } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, checkpointState, applyDelta, checkpointKeep, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId } = require("./game");
 const { applyFear } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
 // A completed run starts a new one. We never rewind an in-progress run to card one.
 async function assignCurrent(run) {
-  if (run.current_card_id) return run;
-  const picked = await pickNextCard(pool, run.id, run.callback_debts, run.start_seq);
-  if (picked.cardId) {
-    await query(
-      `UPDATE runs SET current_card_id = $1, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
-      [picked.cardId, run.id]
-    );
-    run.current_card_id = picked.cardId;
-    run.current_attempt_no = 1;
+  if (!run.current_card_id) {
+    const picked = await pickNextCard(pool, run.id, run.callback_debts, run.start_seq);
+    if (picked.cardId) {
+      await query(
+        `UPDATE runs SET current_card_id = $1, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
+        [picked.cardId, run.id]
+      );
+      run.current_card_id = picked.cardId;
+      run.current_attempt_no = 1;
+    }
   }
-  return run;
+  return persistActCargo(pool, run);
 }
 
 async function cardForRun(run) {
@@ -32,11 +33,6 @@ async function cardForRun(run) {
     return recapBeat(step.card_id, step.option_id);
   }
   return publicCard(run.current_card_id);
-}
-
-async function answeredCount(runId) {
-  const { rows } = await query(`SELECT COUNT(*)::int AS n FROM run_answers WHERE run_id = $1`, [runId]);
-  return (rows[0] && rows[0].n) || 0;
 }
 
 async function failCharges(client, runId) {
@@ -51,13 +47,24 @@ async function failCharges(client, runId) {
   return rows.map((r) => ({ card_id: r.card_id, minutes: r.time_cost }));
 }
 
-function withManifest(payload, run, card, session, answersN) {
+async function answeredInAct(runId, act) {
+  const { rows } = await query(
+    `SELECT COUNT(*)::int AS n
+       FROM run_answers a
+       JOIN cards c ON c.card_id = a.card_id
+      WHERE a.run_id = $1 AND c.act = $2`,
+    [runId, act]
+  );
+  return (rows[0] && rows[0].n) || 0;
+}
+
+function withManifest(payload, run, card, session, answersInAct) {
   const act = (card && card.act) || "II";
   return {
     ...payload,
     manifest: {
       ...manifestFor(act, session && session.name),
-      show: answersN === 0 && !payload.pending_outcome && !payload.recap && !(card && card.recap),
+      show: answersInAct === 0 && !payload.pending_outcome && !payload.recap && !(card && card.recap),
     },
   };
 }
@@ -146,7 +153,7 @@ function mountRun(app) {
         if (!card) return jsonError(res, 500, "Could not load card.");
         const progress = await progressFor(run);
         const neighbors = await neighborsAnsweredForStudent(session.userId, pending.card_id);
-        const n = await answeredCount(run.id);
+        const n = await answeredInAct(run.id, card.act);
         return res.json(withManifest({
           ok: true,
           run_id: run.id,
@@ -166,7 +173,7 @@ function mountRun(app) {
       if (!card) return res.json({ ok: true, done: true, next: { done: true } });
       const progress = await progressFor(run);
       const neighbors = await neighborsAnsweredForStudent(session.userId, run.current_card_id);
-      const n = await answeredCount(run.id);
+      const n = await answeredInAct(run.id, card.act);
       return res.json(withManifest({
         ok: true,
         run_id: run.id,
@@ -376,7 +383,7 @@ function mountRun(app) {
 
       const delta = option.state_delta || {};
       const timedOut = Boolean(req.body && req.body.timed_out) && optionId !== "continue";
-      const prevState = { ...(run.state || {}) };
+      const prevState = withActCargo(run.state, card.act);
       let state = { ...prevState };
       for (const [k, v] of Object.entries(delta)) {
         if (k === "presence" || k === "handprints" || k === "drew") continue;
@@ -490,16 +497,21 @@ function mountRun(app) {
         if (replayPlan.length) {
           nextCardId = replayPlan[0].card_id;
           await client.query(
-            `UPDATE runs SET current_card_id = $1, updated_at = now() WHERE id = $2`,
-            [nextCardId, freshId]
+            `UPDATE runs SET current_card_id = $1, state = $2::jsonb, updated_at = now() WHERE id = $3`,
+            [nextCardId, JSON.stringify(withActCargo(restartState, actOfCardId(nextCardId))), freshId]
           );
         } else {
           const picked = await pickNextCard(client, freshId, debts, startSeq);
           nextCardId = picked.cardId;
           if (nextCardId) {
             await client.query(
-              `UPDATE runs SET current_card_id = $1, callback_debts = $2::jsonb, updated_at = now() WHERE id = $3`,
-              [nextCardId, JSON.stringify(picked.debts), freshId]
+              `UPDATE runs SET current_card_id = $1, callback_debts = $2::jsonb, state = $3::jsonb, updated_at = now() WHERE id = $4`,
+              [
+                nextCardId,
+                JSON.stringify(picked.debts),
+                JSON.stringify(withActCargo(restartState, actOfCardId(nextCardId))),
+                freshId,
+              ]
             );
           }
         }

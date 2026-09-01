@@ -64,7 +64,7 @@ const PMFeel = (() => {
     const min = document.getElementById("cooler-min");
     const cold = Math.max(0, Math.round(Number(s.cold) || 0));
     const warming = Math.max(0, Math.round(Number(s.warming) || 0));
-    const warmingLive = s.phase === "warming" || (cold <= 0 && warming > 0);
+    const warmingLive = cold <= 0 && warming > 0;
     if (min) {
       min.textContent = warmingLive ? "0 · WARMING " + warming + " MIN" : cold + " MIN";
     }
