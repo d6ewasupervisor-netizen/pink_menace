@@ -65,11 +65,17 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "shuttle in the left lane still overlapping a cube truck in the right",
-    "foreground": "wet asphalt and skip-dashed white, rain at night",
-    "midground": "the Ledger's nose past the box's cab; the rear doors still overlap the box",
-    "background": "Central at night, rain, no extra side streets",
+    "subject": "LEFT of frame: gray cutaway shuttle in the left lane, mid-pass. RIGHT of frame: a day-cab cube truck in the right lane. The shuttle's nose is past the box's cab; the shuttle's rear doors still overlap the box.",
+    "foreground": "wet skip-dashed white between two southbound lanes, rain at night",
+    "midground": "both traveling away from camera; recovery not done",
+    "background": "Central at night, rain, no extra side streets, no yellow centerline",
     "read": "the bus still overlaps the box; the recovery is not done",
+    "extra_negatives": [
+      "no yellow centerline",
+      "no oncoming vehicle",
+      "no second cutaway shuttle",
+      "no Ledger marks on the cube truck"
+    ],
     "continuity": [
       "diagram_style",
       "the_ledger"

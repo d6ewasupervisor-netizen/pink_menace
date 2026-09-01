@@ -71,18 +71,18 @@
   "timeout_ms": 6000,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "tablet on the doghouse lit, skip-dash of a half-taken left gap, sedan lamp in the left glass",
+    "subject": "tablet on the doghouse lit; the Ledger stays in the right-hand lane; sedan lamp in the left glass",
     "foreground": "wheel and a dark clipboard, no readable UI on the tablet — only a glow",
-    "midground": "the unfinished lane change and the glow competing for the same eyes",
+    "midground": "the right-hand lane under the bus; the glow competing for the same eyes",
     "background": "Kent morning, wind, Central Avenue",
-    "read": "the tablet on the doghouse is lit; the bus straddles the skip-dash; a sedan lamp is in the left door glass",
+    "read": "the tablet is lit; the bus is in the right-hand lane",
     "continuity": [
       "ledger_cockpit"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right travel lane, nose crossing the skip-dash into the left",
+      "ego_lane_side": "right travel lane of two westbound lanes",
       "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction"

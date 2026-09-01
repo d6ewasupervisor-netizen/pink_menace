@@ -65,19 +65,19 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
-    "subject": "round side mirror pointed at rain sky instead of the right-side lane, arm bent from a cone",
-    "foreground": "door-mirror arm and a strip of wet primer",
-    "midground": "the useless sky in the glass, cone line along the asphalt you cannot see",
-    "background": "heavy rain, dusk, work-zone amber",
-    "read": "the side mirror is looking at weather, not at the lane beside the bus",
+    "subject": "from the driver's seat looking right across the doghouse and passenger seat at the right door-mounted side mirror through the passenger window; that mirror is aimed at the rain sky, not at the lane",
+    "foreground": "passenger seat, doghouse, right window pillar, the long-arm right door mirror filling the right of frame",
+    "midground": "rain sky in the right mirror glass; a cone line on the asphalt the glass cannot see",
+    "background": "heavy rain, dusk, work-zone amber through the right window",
+    "read": "the right side mirror is pointing at the sky instead of the lane beside the bus",
     "continuity": [
-      "the_ledger"
+      "ledger_cockpit"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "left travel lane of a two-lane work pattern",
-      "ego_nose_in_frame": "not in this glass; the arm and sky fill the frame",
+      "ego_nose_in_frame": "not in this glass; the right arm and sky fill the frame",
       "oncoming_position": "none in this glass",
       "hazard_position": "beside"
     }

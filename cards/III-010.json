@@ -66,11 +66,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "white cargo van tight against the shuttle's right flank, skip-dash between them, long-arm mirror in the gap",
+    "subject": "white cargo van on the shuttle's right (curb) flank, skip-dash between them; the van's hood even with the shuttle's side door, not the nose",
     "foreground": "right curb under the camera, skip-dashed white between the two vehicles",
-    "midground": "van nearer the curb, lamps off; shuttle further from camera",
+    "midground": "van nearer the curb, lamps off, farther back than the shuttle cab; shuttle further from camera",
     "background": "West Valley, clear cold, long shadows, same strip as before",
-    "read": "the van sits in the right-side blind spot, lamps off",
+    "read": "the van sits in the right-side blind spot with its hood even with the shuttle's side door",
     "continuity": [
       "the_ledger"
     ],

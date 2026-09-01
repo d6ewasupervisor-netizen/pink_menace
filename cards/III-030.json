@@ -23,11 +23,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "Ledger parked on a pad, downtown skyline dark with a few lamps, no readable signs",
-    "foreground": "cold gravel pad and a strip of Central paint",
-    "midground": "the Ledger's square box and oversize door-mirror arms, destination sign dark",
+    "subject": "Ledger parked on a pad on the RIGHT side of the road, downtown skyline dark with a few lamps, no readable signs",
+    "foreground": "cold gravel pad and a strip of Central paint on the right of northbound",
+    "midground": "the Ledger's square box and oversize door-mirror arms, destination sign dark, nose pointing toward the skyline",
     "background": "the Core as a dark downtown geometry, clear cold night, one radio glow in the cab",
-    "read": "the city is ahead and shut; the bus has stopped on purpose",
+    "read": "the bus is stopped on the right-side pad; the city is ahead and shut",
     "continuity": [
       "the_ledger"
     ],

@@ -66,11 +66,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "city coach leaving a stop, left stalk blinking, nose already crossing into the through lane",
+    "subject": "city coach on the right side of the road, left blinker on, pulling off a stop",
     "foreground": "cage and wheel, high seat",
-    "midground": "the coach's nose and the gap she needs, skip-dash at her flank",
-    "background": "clear cold downtown edge, morning, empty shelter glass",
-    "read": "the coach's left stalk is blinking and its nose has crossed the skip-dash into the through lane",
+    "midground": "the coach's left stalk blinking; its nose starting to come back left into the through lane",
+    "background": "clear cold downtown edge, morning, empty shelter glass on the right curb",
+    "read": "the bus is on the right with its left blinker on",
     "continuity": [
       "ledger_cockpit"
     ],

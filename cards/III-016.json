@@ -70,10 +70,10 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "hood line an inch toward the right rumble, skip-dash walking under the cage, empty thermos",
-    "foreground": "wheel rim and a hand that has gone slack on it",
+    "foreground": "wheel rim and a hand that has gone slack on it; analog cluster with one speed needle at 60, not 30",
     "midground": "the rumble strip closer than it should be, no vehicle forcing the drift",
     "background": "overcast 167 afternoon, long straight, no exit yet",
-    "read": "the hood is crossing the lane line, tires touching the rumble strip",
+    "read": "the hood is crossing the lane line; the cluster reads 60",
     "continuity": [
       "ledger_cockpit"
     ],

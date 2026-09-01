@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_PORTRAIT",
-    "subject": "Deac in the high seat, glasses on a cord, amber vest taped at the shoulder, clipboard on the thigh, reddened eyes",
+    "subject": "Deac in the high seat, glasses on a cord, amber vest taped at the shoulder, clipboard on the thigh, reddened eyes; behind him the Ledger's cargo box, long-arm side mirrors, and grated side windows",
     "foreground": "dented thermos and the wheel rim",
     "midground": "his face and the ghost agency patch, no smile",
-    "background": "fog, downtown ramp lamps through the cage, night",
-    "read": "tired, still, the log is on his body — this is the man who will not take a late gap",
+    "background": "the cutaway's box and grated passenger windows; fog, downtown ramp lamps at night",
+    "read": "tired, still; the bus behind him is a box with grated side windows and long-arm mirrors",
     "continuity": [
       "deac",
       "deac_clipboard",

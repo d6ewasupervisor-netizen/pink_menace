@@ -66,11 +66,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "Ledger in standing water, pickup ahead too close, rain at night, no sign face readable",
+    "subject": "pickup ahead in standing water; the Ledger box truck following behind that pickup, rain at night, no sign face readable",
     "foreground": "wet curb and a sheet of water in the wheel track",
-    "midground": "the Ledger's right rear tires in the river, the pickup's rear a short gap ahead",
+    "midground": "pickup first, Ledger box a length behind it, both left-to-right",
     "background": "West Valley at night, rain, sodium",
-    "read": "the gap ahead is too short for this water at this speed",
+    "read": "the box is behind the pickup; both tires are in standing water",
     "continuity": [
       "the_ledger"
     ],

@@ -66,11 +66,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "On the RIGHT side of the frame: a gray cutaway shuttle still in the through lane. On the LEFT of the shuttle, in the shared center pocket: a primer sedan — ordinary boxy American sedan, not a Volkswagen, not a Beetle, no plow, no rounded fenders. Left-turn arrows painted both ways in the pocket",
+    "subject": "On the RIGHT side of the frame: a gray cutaway shuttle still in the through lane. In the shared center pocket: an ordinary sedan facing the OPPOSITE direction. Two left-turn arrows in the pocket: the nearer arrow points one way, the farther arrow is the inverse",
     "foreground": "double yellow and skip-dash fencing the center pocket",
     "midground": "the empty pocket stretching a block, arrows pointing both directions",
     "background": "wind, Kent morning, commercial driveways",
-    "read": "the center pocket is a turn lane with arrows both ways, not a travel lane",
+    "read": "the center pocket has arrows both ways; the sedan in it is coming the other direction",
     "continuity": [
       "diagram_style",
       "the_ledger"

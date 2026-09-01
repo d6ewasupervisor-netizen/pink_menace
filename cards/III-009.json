@@ -70,11 +70,11 @@
   "timeout_ms": 10000,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
-    "subject": "lifted truck grille filling the left door-mirror glass, too close, ice film on the glass",
-    "foreground": "left door-mirror housing and a strip of the door",
-    "midground": "Hollis's plow and lamps, no legal gap, same heading",
+    "subject": "from the D4 Ledger seat, the left door-mirror glass filled by a lifted snowplow truck too close — the plow must be visible",
+    "foreground": "left door-mirror housing and a strip of the D4 door; match the attached cockpit lock",
+    "midground": "Hollis's plow and lamps filling the glass, no legal gap, same heading",
     "background": "defocused windshield, Kent morning, ice",
-    "read": "he is closer than a stop at this speed; the road ahead is not the subject",
+    "read": "a snowplow truck is in the left door glass, closer than a stop at this speed",
     "continuity": [
       "ledger_cockpit"
     ],

@@ -71,8 +71,8 @@
     "subject": "from the driver's seat looking left at the big side mirror on the left door, fog in that glass",
     "foreground": "worn transit wheel at the bottom, left window pillar, the long-arm left door mirror filling the left of frame",
     "midground": "reflection in the left door mirror of the lane you want, fog, no motorcycle or a small bike just visible",
-    "background": "fogged windshield ahead, orange cones killing the right lane",
-    "read": "the check for a left change is the left door mirror from the seat, then the shoulder",
+    "background": "fogged windshield ahead, orange cones angled toward the middle of the road and cutting off the right lane ahead",
+    "read": "the check for a left change is the left door mirror from the seat; cones pinch the right shut ahead",
     "continuity": [
       "ledger_cockpit"
     ],
