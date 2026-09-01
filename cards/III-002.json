@@ -5,13 +5,13 @@
   "driver": "deac",
   "card_type": "dossier",
   "title": "Mya Has the Glass",
-  "hook": "Mya is sitting on the glass you need.",
-  "scene": "The Ledger is parked at the curb on Central at dawn, engine still, key in. The cab is a high seat and a thermos empty since yesterday. Mya is a brown mackerel loaf on the dash — dark stripe, green eyes, one paw in the big west-coast mirror on his door. The clipboard sits on the doghouse between the seats. Amber vest, taped at the shoulder. Ali is still in the jump seat from the ride-along. Your hands rest on the wheel. You have not rolled yet.",
-  "debrief": "High seat, empty thermos, clipboard on the doghouse between the seats. The big west-coast mirror on his door is how this bus sees the right. The only good look at the right is past that paw.",
+  "hook": "Mya is on the dash.",
+  "scene": "The Ledger is parked at the curb on Central at dawn, engine still, key in. The cab is a high seat and a thermos empty since yesterday. Mya is a brown mackerel loaf on the dash — dark stripe, green eyes, no paw in any glass. The clipboard sits on the doghouse between the seats. Amber vest, taped at the shoulder. Ali is still in the jump seat from the ride-along. Your hands rest on the wheel. The cluster reads zero. You have not rolled yet.",
+  "debrief": "High seat, empty thermos, clipboard on the doghouse between the seats. Parked: the cluster reads zero. Mya is a loaf on the dash, not in the glass. The big west-coast mirror on his door is how this bus sees the right once you roll.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Establish the Ledger cab: high seat, oversize door mirrors, Mya blocking glass, clipboard as the log."
+    "teaching_target": "Establish the Ledger cab parked: cluster at 0, Mya on the dash, clipboard on the doghouse, oversize door mirrors."
   },
   "cast": [
     "deac",
@@ -23,11 +23,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "brown mackerel tabby loafed on the dash with one paw in the round door-mirror glass",
+    "subject": "brown mackerel tabby loafed on the dash, no paw in the mirror glass",
     "foreground": "worn transit wheel rim, dented steel thermos in the cup, metal clipboard clipped to the doghouse",
-    "midground": "bar cage with a wiper-slot cut, analog gauges, amber vest hem at the left edge of frame",
+    "midground": "bar cage with a wiper-slot cut, analog cluster at 0 mph, amber vest hem at the left edge of frame",
     "background": "overcast Central Avenue through the cage at dawn, two lanes, wet paint",
-    "read": "the cat is sitting in the only good look at the right-side glass",
+    "read": "the cat is loafed on the dash; the speedometer reads 0",
     "continuity": [
       "ledger_cockpit",
       "mya"

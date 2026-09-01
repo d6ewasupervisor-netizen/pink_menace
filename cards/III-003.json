@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Stay Right Until You Pass",
   "hook": "Slow car ahead. The left is empty.",
-  "scene": "Rain on a Kent morning, Central Avenue, two lanes south. You are in the right. A primer sedan is doing twenty-eight in that same lane, ahead of the Ledger. The left is open asphalt. The schedule wants past him. You take the left, you clear him, you come back. Sitting in the left after you pass is how a bus becomes the next twenty-eight.",
+  "scene": "Rain on a Kent morning, Central Avenue, two lanes south. You are in the right. A primer sedan is doing twenty-eight in that same lane, ahead of the Ledger. The left is open asphalt. The schedule wants past him. Sitting in the left after you pass is how a bus becomes the next twenty-eight.",
   "decision": "The slow car is in your lane and the left is clear. What do you do?",
   "options": [
     {
