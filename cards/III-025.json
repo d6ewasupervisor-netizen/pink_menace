@@ -5,9 +5,9 @@
   "driver": "deac",
   "card_type": "dossier",
   "title": "What He Sees at the Edge",
-  "hook": "The edge of his vision is not empty anymore.",
-  "scene": "Ice, deep night, the Ledger in a legal pocket off Aurora. Deac's eyes are on the cage and also not. At the edge of the glass, a presence with no lamps and no shape of a car — T1, a smear that could be fatigue and could be the Quiet learning Central. He does not look at it. Looking is how the Chorus gets in. He names it instead, under his breath, so the student in the jump can hear: the Drift. Not a lecture. A thing that already has his lane.",
-  "debrief": "The Drift is fatigue given a face. He manages it with stops and a thermos, not with stares. Look at the lane, not the smear.",
+  "hook": "Ice on the far right of the glass. He does not look.",
+  "scene": "Ice, deep night, the Ledger parked in a legal pocket off Aurora Avenue. A smear of ice sits at the far right of the windshield — no lamps, no car, no face. Deac's eyes stay in the cage, on the empty lane. He names it under his breath so the jump seat can hear: the Drift. Looking is how the Chorus gets in. The clipboard is on his thigh. The thermos is empty. He does not turn his head.",
+  "debrief": "The Drift is fatigue given a shape at the edge of the glass. He manages it with stops and a thermos, not with stares. Look at the lane, not the smear.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
@@ -21,13 +21,19 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_PORTRAIT",
-    "subject": "Deac in the high seat, eyes on the cage, a smear of presence at the far right edge of the glass, not a face",
-    "foreground": "thermos and clipboard, ice on the wheel",
-    "midground": "his reddened eyes and the taped vest, no smile",
-    "background": "Aurora deep night, ice, the smear staying at the edge",
-    "read": "a smear of presence at the far right edge of the windshield glass, no face, no lamps",
+    "subject": "Deac in the high seat looking forward through the cage at the lane, not at the smear; a smear of ice at the far right edge of the windshield, no face, no lamps",
+    "foreground": "thermos in the cup, ice on the wheel",
+    "midground": "his reddened eyes on the cage, amber vest taped at the shoulder, glasses on a cord, no smile",
+    "background": "Aurora Avenue at deep night, parked, streetlamps on ice; the smear stays at the far right of the glass",
+    "read": "ice occupies the far right of the windshield; Deac is looking at the lane, not at it",
+    "extra_negatives": [
+      "no northern lights",
+      "no aurora borealis",
+      "the smear has no face and no lamps"
+    ],
     "continuity": [
       "deac",
+      "deac_clipboard",
       "ledger_cockpit"
     ],
     "aspect": "2:3"
