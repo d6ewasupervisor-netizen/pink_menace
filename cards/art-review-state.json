@@ -1,6 +1,6 @@
 {
   "act": "III",
-  "cursor": "III-021",
+  "cursor": "III-022",
   "verdicts": {
     "III-002": {
       "tag": "CARD_BROKEN",
@@ -64,14 +64,14 @@
     "III-012": {
       "tag": "GEOMETRY_WRONG",
       "note": "HARD VERIFY: US pass is on the left. Ego is in the left travel lane; trailer is right_of_ego beside. Frame currently puts the Ledger on the trailer's right.",
-      "pick": "b-take-2",
-      "updated_at": "2026-09-01T15:31:36.479Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T21:00:11.179Z"
     },
     "III-013": {
       "tag": "PASS",
       "note": "the mirrors on the side look wrong, the back should be the box truck/bus and there should be grates on the side windows",
-      "pick": "live",
-      "updated_at": "2026-09-01T15:32:51.909Z"
+      "pick": "c-take-2",
+      "updated_at": "2026-09-01T21:01:00.218Z"
     },
     "III-014": {
       "tag": "READ_MISSING",
@@ -83,7 +83,7 @@
       "tag": "PASS",
       "note": "Best geometry frame in the act. Two-way left-turn lane reads: broken yellow inside, solid yellow outside, both edges, left-turn arrow with opposing arrow beyond. Shuttle in the through lane. Ordinary sedan, no Beetle. Human muted read at 390px. The sedan in the left lane needs to be facing the opposite direction and the turn arrow that is next to the box truck needs to the inverse of the first arrow if you're looking from bottom to top",
       "pick": "live",
-      "updated_at": "2026-09-01T15:35:21.548Z"
+      "updated_at": "2026-09-01T22:08:00.000Z"
     },
     "III-016": {
       "tag": "READ_MISSING",
