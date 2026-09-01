@@ -36,8 +36,38 @@ function readJson(file) {
   return JSON.parse(fs.readFileSync(file, "utf8"));
 }
 
+function sleepMs(ms) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+
 function writeJson(file, data) {
-  fs.writeFileSync(file, JSON.stringify(data, null, 2) + "\n");
+  const body = JSON.stringify(data, null, 2) + "\n";
+  const tmp = file + ".tmp";
+  let last;
+  for (let i = 0; i < 10; i++) {
+    try {
+      fs.writeFileSync(tmp, body);
+      try {
+        fs.renameSync(tmp, file);
+      } catch {
+        fs.copyFileSync(tmp, file);
+        try {
+          fs.unlinkSync(tmp);
+        } catch {
+          /* OneDrive may hold the temp file */
+        }
+      }
+      return;
+    } catch (err) {
+      last = err;
+      const code = err && err.code;
+      if (code !== "UNKNOWN" && code !== "EPERM" && code !== "EBUSY" && code !== "EACCES") {
+        throw err;
+      }
+      sleepMs(50 * (i + 1));
+    }
+  }
+  throw last;
 }
 
 function cardFiles() {
