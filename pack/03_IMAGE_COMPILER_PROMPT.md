@@ -47,6 +47,8 @@ You MUST:
     on a vehicle with a rear window. On the Ledger (driver: deac) behind is
     POV_MIRROR_DOOR — abort POV_MIRROR_REAR + driver deac. The cargo box is
     plate steel; there is no interior rearview to point a camera at.
+    Resolve the door by the hazard's side (behind/left → left; right/curb
+    → right). Never compile a right-side hazard into the left glass.
   - abort before assembly unless scripts/authoring-seat.js passes: ego vehicle
     matches the act's driver, the camera is consistent with sitting in it,
     no other vehicle in the brief shares the ego's canon marks, POV_MIRROR_REAR
@@ -462,10 +464,11 @@ POV_MIRROR is illegal. Resolve to one of:
 - POV_MIRROR_REAR — interior rearview, wide, upper frame, road BEHIND in
   the glass. Following distance, tailgating. Prefer this — **only when the
   ego vehicle has a rear window.** Illegal on Deac / the Ledger.
-- POV_MIRROR_DOOR — left-side door mirror, subject in the glass, flank in
-  the foreground. Blind zones, lane changes, backing sightlines. **On the
-  Ledger this is the only rearward camera.** Hazard-behind on any Deac card
-  resolves here.
+- POV_MIRROR_DOOR — the door mirror on the hazard's side, subject in the
+  glass, flank in the foreground. Blind zones, lane changes, backing
+  sightlines. **On the Ledger this is the only rearward camera.** Hazard
+  behind or to the left → left door. Hazard on the right → right door.
+  The Ledger has both. Never place a right-side hazard in the left glass.
 
 Mandatory clause on any mirror compile:
 

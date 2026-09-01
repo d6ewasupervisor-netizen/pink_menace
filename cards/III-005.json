@@ -13,7 +13,7 @@
       "id": "a",
       "text": "Cancel, hold the lane, let him show or fall back, then take a clean gap",
       "correct": true,
-      "result": "You kill the blinker and hold. He appears in the left door glass a second later, then drops. The next gap is empty. You take it without writing him into the steel.",
+      "result": "You kill the blinker and hold. He appears in the right door glass a second later, then drops. The next gap is empty. You take it without writing him into the steel.",
       "state_delta": {
         "noise": -1,
         "time_cost": 4

@@ -69,14 +69,14 @@ Muted-read test for PASS: cover the text; if the picture doesn't teach `read`, i
 5. Copy to `cards/<id>.png`. Seed live if shipped. Bump `src/game.js` `imageUrl` `?v=`.
 6. Reload the board; wait for `PASS`.
 
-No other vehicle may wear the ego's canon marks (pack/12). Do not generate III-014 or III-025 (or any other `ledger_cockpit` attach) until D4 is retaken without the clipboard on the mesh.
+No other vehicle may wear the ego's canon marks (pack/12). D4 is locked. Ledger cockpits attach `ref_ledger_cockpit.png` only.
 
 ## Ledger rear vision
 
-`POV_MIRROR_REAR` is illegal on any Deac card. The Ledger is a cutaway with a plate-steel cargo box: no rear window, no interior mirror. Hazard behind → `POV_MIRROR_DOOR`. On Deac, `POV_MIRROR_REAR` is always `WRONG_CAMERA` (III-011 stays `CARD_BROKEN` because the situation itself is three-way broken). Never generate those stills until the writer changes the token. Never write "rear glass," "rearview," "interior mirror," or "the center mirror" into a Ledger frame or Ledger copy.
+`POV_MIRROR_REAR` is illegal on any Deac card. The Ledger is a cutaway with a plate-steel cargo box: no rear window, no interior mirror. Hazard behind or beside → `POV_MIRROR_DOOR`, resolved by the hazard's side: behind or left → left door mirror; right / curb side → **right door mirror**. The Ledger has both. Never place a right-side hazard in the left glass. On Deac, `POV_MIRROR_REAR` is always `WRONG_CAMERA` (III-011 stays `CARD_BROKEN` because the situation itself is three-way broken). Never generate those stills until the writer changes the token. Never write "rear glass," "rearview," "interior mirror," or "the center mirror" into a Ledger frame or Ledger copy.
 
 ## Clipboard and cat
 
-The clipboard never sits in the windshield. Doghouse, thigh, or hands — never on the dash, never on the mesh, never blocking the right half of the road. `ref_ledger_cockpit.png` currently violates this; retake D4 before any Ledger cockpit recompile.
+The clipboard never sits in the windshield. Doghouse, thigh, or hands — never on the dash, never on the mesh, never blocking the right half of the road. D4 is locked: attach `ref_ledger_cockpit.png` (clipboard off the mesh). Never the old poisoned cockpit.
 
 Mya is not loose in a moving vehicle. Dash loaf only when parked. III-002 (moving + cat on dash) is `CARD_BROKEN`. Same check on other Mya frames. Gracie on the dash while rolling is the same class except II-018 (the teaching card).

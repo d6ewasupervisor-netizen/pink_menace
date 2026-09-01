@@ -26,7 +26,7 @@ Inject this file plus the running state into every Layer 2 call.
 The 25% cap was the wrong anti-monotony guard. A token at 27% spread evenly reads fine; the same token at 15% bunched in one stretch reads terrible.
 
 - A card may set `image_brief.camera_is_the_lesson: true` when the camera position is itself the teaching content (Act II: the three left-arm hand-signal cards on `POV_CHASE`; Act III: III-006 signaling from Deac's cab). Those cards are **exempt from the 25% cap** and excluded from its denominator. Consecutive-token **skips** a pair when either card is a lesson camera or an ego-seat camera (`POV_COCKPIT`, `POV_MIRROR_DOOR`). The seat outranks the consecutive check.
-- The 25% cap is computed on **non-exempt cards only**. Do not steal a `POV_MIRROR_REAR` from a hazard-behind card to satisfy a percentage. On Deac there is no `POV_MIRROR_REAR` to steal: hazard-behind is `POV_MIRROR_DOOR`.
+- The 25% cap is computed on **non-exempt cards only**. Do not steal a `POV_MIRROR_REAR` from a hazard-behind card to satisfy a percentage. On Deac there is no `POV_MIRROR_REAR` to steal: hazard-behind is `POV_MIRROR_DOOR`, and the door is the one on the hazard's side.
 - Lane law (`read` is lane position, turn geometry, right-of-way, passing, merging, parking, or road markings) is `POV_DIAGRAM`. A photoreal aerial cannot teach lane law.
 - Replacing the cap as the real guard: **no more than 2 uses of any token in any window of 6 cards.** Lesson-camera cards occupy a slot in that window but are omitted from the token count — otherwise a required camera would force a neighboring card off the shot the lesson needs. `npm run validate-cards` enforces both checks.
 

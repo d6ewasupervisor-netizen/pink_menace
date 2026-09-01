@@ -12,7 +12,7 @@ Check in this sequence and **stop at the first failure.** Most bad frames are do
 
 Before changing what is in a frame, **re-read the cited passage** and confirm the correct answer is physically possible in the scene as written. The fix has to serve the citation, not the composition. III-003 failed this twice: the sedan was camping in the left while the answer was "pass in the left if it's clear," which cannot be executed. Composition notes that move traffic without checking the citation are `CARD_BROKEN` waiting to happen.
 
-**B. Is the camera capable of the read?** Can the specified camera physically show the thing the card turns on? A forward camera cannot show a following vehicle. A rearview cannot show a truck you are overtaking. Relative position of two vehicles is geometry and wants an overhead. **On Deac, `POV_MIRROR_REAR` is always `WRONG_CAMERA`** — the Ledger is a cutaway with a plate-steel cargo box: no rear window, no interior mirror. Hazard behind resolves to `POV_MIRROR_DOOR`.
+**B. Is the camera capable of the read?** Can the specified camera physically show the thing the card turns on? A forward camera cannot show a following vehicle. A rearview cannot show a truck you are overtaking. Relative position of two vehicles is geometry and wants an overhead. **On Deac, `POV_MIRROR_REAR` is always `WRONG_CAMERA`** — the Ledger is a cutaway with a plate-steel cargo box: no rear window, no interior mirror. Hazard behind or beside resolves to `POV_MIRROR_DOOR` on that hazard's side: behind/left → left door; right/curb → right door. A right-side van in the left glass is the wrong mirror.
 
 **C. Does the frame execute the brief?** Only now judge the pixels: is the subject present, is the read legible muted, is the geometry right, is anything invented.
 
@@ -83,9 +83,9 @@ A review note that doesn't name **what** is wrong and **who** fixes it isn't a r
 
 ## 9. LEDGER REAR VISION
 
-`POV_MIRROR_REAR` is only valid when the ego vehicle has a rear window. **The Ledger does not.** On any Deac card, a hazard behind is `POV_MIRROR_DOOR`. Never write "rear glass," "rearview," "interior mirror," or "the center mirror" into a Ledger frame or a Ledger card's copy.
+`POV_MIRROR_REAR` is only valid when the ego vehicle has a rear window. **The Ledger does not.** On any Deac card, a hazard behind or beside is `POV_MIRROR_DOOR`. Resolve the door by the hazard's side — behind or left → left door mirror; right / curb side → right door mirror. The Ledger has oversize mirrors on long arms on both sides. Never place a right-side hazard in the left glass. Never write "rear glass," "rearview," "interior mirror," or "the center mirror" into a Ledger frame or a Ledger card's copy.
 
-This is also why his act is about mirrors and blind zones. Ali can glance at a center mirror; Deac has two side mirrors and a wall. A mirror contact in his act appears in a door mirror, or it does not appear until it is beside him.
+This is also why his act is about mirrors and blind zones. Ali can glance at a center mirror; Deac has two side mirrors and a wall. A mirror contact in his act appears in the door mirror on that contact's side, or it does not appear until it is beside him.
 
 Five Act III cards carried the default through: III-004, III-009, III-011, III-018, III-022. Tag **`WRONG_CAMERA`** for the four; III-011 stays **`CARD_BROKEN`** (situation is three-way broken and heads to overhead). Do not generate any of them until the writer changes the JSON. `POV_MIRROR_REAR` + `driver: deac` is a hard validator reject.
 

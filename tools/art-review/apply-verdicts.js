@@ -26,7 +26,7 @@ const VERDICTS = [
   ["III-015", "CANON_DRIFT", "Primer sedan in the two-way pocket rendered as a Beetle — Menace silhouette on a Deac card. Do not attach any Menace ref. Negatives: no Volkswagen Beetle, no rounded-fender compact, no plow blade."],
   ["III-016", "READ_MISSING", "Read rewritten: hood crossing the lane line, tires touching the rumble. Still missing from the frame. HOLD: attaches poisoned D4 cockpit lock."],
   ["III-017", "COPY", "Mya is a loaf on the dash while the bus is in a work zone — unrestrained cat in a moving vehicle. Inside-mirror language is also illegal on the Ledger."],
-  ["III-018", "WRONG_CAMERA", "POV_MIRROR_REAR is illegal on the Ledger. Hazard behind → POV_MIRROR_DOOR (left side mirror). Brief+copy swap, then recompile."],
+  ["III-018", "WRONG_CAMERA", "POV_MIRROR_REAR is illegal on the Ledger. Hazard behind → POV_MIRROR_DOOR on the hazard's side (behind/left → left door; right/curb → right door). Brief+copy swap, then recompile."],
   ["III-019", "WRONG_CAMERA", "Chase of the Ledger from outside his own seat, plus an oncoming grille. Writer: from the seat, dest sign SLOW, left arm down, volunteer in the glass, brakes dark."],
   ["III-020", "COPY", "Still reads the rumble. Debrief/hook: The same straight comes back — §5 closer."],
   ["III-021", "READ_MISSING", "Read rewritten to a static coach fact: left stalk blinking, nose already across the skip-dash. HOLD: attaches poisoned D4 cockpit lock."],
