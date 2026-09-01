@@ -150,6 +150,10 @@ Rules:
     shoulder, oncoming), then the marking relative to it, then ego relative
     to the marking. A diamond anchors to the median. A right-turn arrow
     anchors to the curb. Never place a marking by direction alone.
+    On same-direction multi-lane cards (keep-right, pass, merge), the
+    edge in frame is a median barrier, curb, or shoulder — never a
+    centerline. `oncoming_position` is `none in frame` unless opposing
+    traffic is the lesson.
   - Specify only the road features the lesson depends on. Do not pin lane
     counts, line treatments, shoulder widths, or marking styles (single vs
     double solid, striped buffer) unless the card teaches them.

@@ -5,25 +5,25 @@
   "driver": "deac",
   "card_type": "scene",
   "title": "Stay Right Until You Pass",
-  "hook": "Two lanes south. He's sitting in the left.",
-  "scene": "Central Avenue, two lanes south, rain on a Kent morning. You are in the right. A primer sedan is doing twenty-eight in the left. A pickup is already using that left to get around him. The empty ahead of the sedan is not a place to sit. The schedule would love it anyway. The left is for passing, then coming back.",
-  "decision": "The left has a slow sedan and a pickup passing him. Where do you put this bus?",
+  "hook": "Slow car ahead. The left is empty.",
+  "scene": "Rain on a Kent morning, Central Avenue, two lanes south. You are in the right. A primer sedan is doing twenty-eight in that same lane, ahead of the Ledger. The left is open asphalt. The schedule wants past him. You take the left, you clear him, you come back. Sitting in the left after you pass is how a bus becomes the next twenty-eight.",
+  "decision": "The slow car is in your lane and the left is clear. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Move left now and sit in the empty — through traffic can use either",
+      "text": "Hold the right and sit behind him until he notices",
       "correct": false,
-      "result": "You take the left and become the new slow. A pickup that was using that lane as a pass has to stand on it. Horn. The sedan never moved. You spent his margin so you could sit pretty.",
+      "result": "You match his twenty-eight. The schedule bleeds. The left stays empty while you teach him nothing. Central learns the Ledger will wait.",
       "state_delta": {
-        "noise": 3,
-        "time_cost": 6
+        "noise": 1,
+        "time_cost": 8
       }
     },
     {
       "id": "b",
-      "text": "Hold the right. Pass only if he stays slow and the left is clear",
+      "text": "Signal, take the left, clear him, signal, come back right",
       "correct": true,
-      "result": "You stay right. He stays twenty-eight. When the left is empty and you need him, you take it, clear him, and come back. The pickup behind never has to lift. Through traffic stayed through.",
+      "result": "Amber crawls. You take the left, pass, cancel, recover. He stays twenty-eight in the right. You did not become the next camper. The left stayed a tool.",
       "state_delta": {
         "noise": -1,
         "time_cost": 4
@@ -31,9 +31,9 @@
     },
     {
       "id": "c",
-      "text": "Straddle both — the Ledger is wide enough that the sedan will yield",
+      "text": "Straddle both — the Ledger is wide enough that he will yield",
       "correct": false,
-      "result": "You occupy the dashed line. He brakes. The pickup goes for the shoulder. You own two lanes and nobody can pass you, including you.",
+      "result": "You occupy the skip-dash. He brakes. Nobody can pass you, including you. Two lanes become one because you wanted both.",
       "state_delta": {
         "noise": 2,
         "yaw": 1,
@@ -42,20 +42,20 @@
     },
     {
       "id": "d",
-      "text": "Drop to twenty and wait for him to notice and move over",
+      "text": "Move left, clear him, and stay in the left — through traffic can live here",
       "correct": false,
-      "result": "You become a rolling roadblock in the right. He never looks. The stack behind you grows. You taught Central that the Ledger is the problem.",
+      "result": "You pass once and become the new slow in the passing lane. Everyone who needed the left now needs you. Keep-right did not expire because you passed once.",
       "state_delta": {
-        "noise": 1,
-        "time_cost": 8
+        "noise": 3,
+        "time_cost": 6
       }
     }
   ],
-  "debrief": "When several lanes go the same way, keep right except to pass. You saved the left for the people who actually need it.",
+  "debrief": "When several lanes run the same way, drive in the right lane and use the left to pass. You saved the left as a tool by coming back.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.10 Traffic laws",
-    "teaching_target": "Keep right except to pass on a multi-lane road; the left is for passing, not cruising."
+    "teaching_target": "Drive in the right lane. Use the left lane to pass slower traffic, then return to the right."
   },
   "cast": [
     "deac"
@@ -65,15 +65,18 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "RIGHT: gray shuttle in the right lane, nothing ahead of it. LEFT: primer sedan in the left lane ahead of a pickup even with the shuttle. All away from camera.",
-    "foreground": "wet asphalt and skip-dashed white lane line, rain",
-    "midground": "the Ledger occupying only the right travel lane; pickup using the left as a pass; sedan further up that same left lane",
-    "background": "rain, Kent commercial strip, no extra side streets",
-    "read": "the shuttle's lane is empty ahead; the sedan is in the left lane ahead of the pickup",
+    "subject": "RIGHT of frame: gray shuttle in the right travel lane with a primer sedan ahead in that same lane. LEFT of frame: empty wet asphalt. Both travel away from camera.",
+    "foreground": "wet skip-dashed white between the two southbound lanes; LEFT edge of the roadway is a concrete median barrier, not a yellow line",
+    "midground": "ordinary primer sedan two lengths ahead of the shuttle, not a Beetle, no plow; left travel lane empty",
+    "background": "rain, Kent commercial strip, no extra side streets, no opposing traffic in frame",
+    "read": "the sedan is ahead in the shuttle's lane; the left travel lane is empty",
     "extra_negatives": [
-      "no sedan in the shuttle's lane",
-      "no vehicle ahead of the shuttle in the right travel lane",
-      "no sedan to the right of the skip-dash"
+      "no yellow centerline",
+      "no double yellow",
+      "no oncoming vehicle",
+      "no vehicle in the left travel lane",
+      "no pickup",
+      "no second cutaway shuttle"
     ],
     "continuity": [
       "diagram_style",
@@ -84,14 +87,13 @@
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of two southbound lanes",
       "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
-      "oncoming_position": "far left of frame, opposite direction, across a yellow pair",
+      "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 2,
       "ego_lane_from_left": 2,
       "ego_frame_side": "right",
       "traffic_positions": [
-        { "vehicle": "primer sedan", "frame_side": "left", "lane_from_left": 1, "along": "ahead", "lengths": 2 },
-        { "vehicle": "pickup", "frame_side": "left", "lane_from_left": 1, "along": "beside", "lengths": 0 }
+        { "vehicle": "primer sedan", "frame_side": "same", "lane_from_left": 2, "along": "ahead", "lengths": 2 }
       ]
     }
   },

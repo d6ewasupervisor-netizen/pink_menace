@@ -300,6 +300,12 @@ function framePassNegatives(geo, driver, cam) {
       parts.push(`No ${r.vehicle} in a different lane from the shuttle.`);
     }
   }
+  if (/none/i.test(String(geo.oncoming_position || "")) && geo.lanes_this_direction >= 2) {
+    parts.push("No yellow centerline in frame, no double yellow, no oncoming traffic, no opposing lane visible.");
+    parts.push(
+      "The LEFT edge of the roadway in frame is a concrete median barrier, a curb, or a crop — never a centerline."
+    );
+  }
   if (
     (geo.ego_heading === "left_to_right" || geo.ego_heading === "right_to_left") &&
     cam !== "POV_ROADSIDE_PROFILE"
@@ -452,6 +458,19 @@ function validateGeometry(card) {
       if (!a.marking) errors.push(`${id}: marking_anchor.marking missing`);
       if (!a.ego_relative) errors.push(`${id}: marking_anchor.ego_relative missing`);
     }
+  }
+
+  if (
+    !actFrozen &&
+    geo &&
+    typeof geo.lanes_this_direction === "number" &&
+    geo.lanes_this_direction >= 2 &&
+    geo.hazard_position !== "oncoming" &&
+    /yellow|centerline/.test(String(geo.oncoming_position || ""))
+  ) {
+    errors.push(
+      `${id}: same-direction multi-lane frame cannot put a centerline in oncoming_position — use none in frame; edge is median, curb, or shoulder`
+    );
   }
 
   if (needsTrafficPositions(card)) {

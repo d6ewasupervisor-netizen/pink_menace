@@ -4,18 +4,18 @@
   "verdicts": {
     "III-002": {
       "tag": "READ_MISSING",
-      "note": "Writer done: parked at the curb, Mya loaf legal. D4 cockpit lock is clean (clipboard off the mesh). Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-003": {
-      "tag": "GEOMETRY_WRONG",
-      "note": "Recompile: sedan into the left lane ahead of the pickup; shuttle lane empty ahead. Takes waiting muted 390px read.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "tag": "READ_MISSING",
+      "note": "Rewrite done. 4.10 keep-right except to pass: slow sedan ahead IN THE RIGHT, left empty, no centerline in frame. Correct is signal-left-pass-return. Four new takes waiting muted 390px. Do not seed the old take 3.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-004": {
       "tag": "READ_MISSING",
-      "note": "Writer done: copy is door-mirror only, camera already cockpit looking left. D4 lock is clean. Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-005": {
       "tag": "PASS",
@@ -29,18 +29,18 @@
     },
     "III-007": {
       "tag": "READ_MISSING",
-      "note": "Read rewritten to a static gap: pavement visible between pickup and SUV, shorter than one bus length. D4 lock is clean. Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-008": {
-      "tag": "GEOMETRY_WRONG",
-      "note": "Recompile from cab: diamond in leftmost lane against the median, solid white, shuttle in the general lane immediately right. Norwalk freeway ref attached. Citation: 4.16 solid = stay unless special situation; HOV typically fenced by solid white. Takes waiting muted 390px read.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "tag": "PASS",
+      "note": "Take 2: diamond in the leftmost lane against the median, solid white to the general lanes, skip-dashes between general lanes, ego in the general lane. Median barrier held the geometry. Distant lookalike shuttle tolerated at 390px.",
+      "updated_at": "2026-09-01T04:50:00.000Z"
     },
     "III-009": {
       "tag": "READ_MISSING",
-      "note": "Writer done: POV_MIRROR_DOOR, Hollis's lifted-truck grille in the left door glass. D4 cockpit lock is clean (clipboard off the mesh). Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-010": {
       "tag": "PASS",
@@ -64,18 +64,18 @@
     },
     "III-014": {
       "tag": "READ_MISSING",
-      "note": "Read rewritten to a static lamp fact: left-turn arrow unlit, circular green lit. Frame still lights the arrow. Clipboard on the passenger mesh. D4 cockpit lock is clean (clipboard off the mesh). Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-015": {
       "tag": "PASS",
       "note": "Best geometry frame in the act. Two-way left-turn lane reads: broken yellow inside, solid yellow outside, both edges, left-turn arrow with opposing arrow beyond. Shuttle in the through lane. Ordinary sedan, no Beetle. Human muted read at 390px. Seeded as-is.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "updated_at": "2026-09-01T04:50:00.000Z"
     },
     "III-016": {
       "tag": "READ_MISSING",
-      "note": "Read rewritten: hood crossing the lane line, tires touching the rumble. Still missing from the frame. D4 cockpit lock is clean (clipboard off the mesh). Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-017": {
       "tag": "COPY",
@@ -89,8 +89,8 @@
     },
     "III-019": {
       "tag": "READ_MISSING",
-      "note": "Writer done: from the seat, sign switch SLOW, left arm down, volunteer in the left door glass, brakes dark. D4 cockpit lock is clean (clipboard off the mesh). Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-020": {
       "tag": "PASS",
@@ -99,13 +99,13 @@
     },
     "III-021": {
       "tag": "READ_MISSING",
-      "note": "Read rewritten to a static coach fact: left stalk blinking, nose already across the skip-dash. D4 cockpit lock is clean (clipboard off the mesh). Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-022": {
       "tag": "READ_MISSING",
-      "note": "Writer done: POV_MIRROR_DOOR, Dunn's lamps in the left door glass. D4 cockpit lock is clean (clipboard off the mesh). Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-023": {
       "tag": "COPY",
@@ -119,8 +119,8 @@
     },
     "III-025": {
       "tag": "READ_MISSING",
-      "note": "Read rewritten: smear of presence at the far right edge of the glass, no face, no lamps. Aurora is invented. Clipboard in the passenger glass. D4 cockpit lock is clean (clipboard off the mesh). Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Face-critical portrait. Four takes on the new D4 cockpit lock plus Deac sheets. Policy wants eight; waiting muted 390px on these four first. Smear at far right glass, no face in the smear. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-026": {
       "tag": "PASS",
@@ -129,8 +129,8 @@
     },
     "III-027": {
       "tag": "READ_MISSING",
-      "note": "Read rewritten: tablet on the doghouse is lit; bus straddles the skip-dash; sedan lamp in the left door glass. D4 cockpit lock is clean (clipboard off the mesh). Ready to generate.",
-      "updated_at": "2026-08-31T22:15:00.000Z"
+      "note": "Four takes on the new D4 cockpit lock (clipboard off the mesh). Waiting muted 390px read. Do not seed until a human pass.",
+      "updated_at": "2026-09-01T05:20:00.000Z"
     },
     "III-028": {
       "tag": "PASS",

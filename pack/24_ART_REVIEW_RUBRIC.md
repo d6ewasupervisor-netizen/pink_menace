@@ -10,6 +10,8 @@ Check in this sequence and **stop at the first failure.** Most bad frames are do
 
 **A. Is the card coherent?** Read scene → decision → correct option → read → geometry, and ask whether they describe one situation. III-011 failed here: the scene puts the truck ahead-right, the geometry puts it behind, and the camera shows neither. No image can satisfy a self-contradictory brief.
 
+Before changing what is in a frame, **re-read the cited passage** and confirm the correct answer is physically possible in the scene as written. The fix has to serve the citation, not the composition. III-003 failed this twice: the sedan was camping in the left while the answer was "pass in the left if it's clear," which cannot be executed. Composition notes that move traffic without checking the citation are `CARD_BROKEN` waiting to happen.
+
 **B. Is the camera capable of the read?** Can the specified camera physically show the thing the card turns on? A forward camera cannot show a following vehicle. A rearview cannot show a truck you are overtaking. Relative position of two vehicles is geometry and wants an overhead. **On Deac, `POV_MIRROR_REAR` is always `WRONG_CAMERA`** — the Ledger is a cutaway with a plate-steel cargo box: no rear window, no interior mirror. Hazard behind resolves to `POV_MIRROR_DOOR`.
 
 **C. Does the frame execute the brief?** Only now judge the pixels: is the subject present, is the read legible muted, is the geometry right, is anything invented.
@@ -95,7 +97,7 @@ The cockpit lock (`ref_ledger_cockpit.png`) was retaken as D4: clipboard off the
 
 ## 11. SAME-DIRECTION TRAFFIC AND UNPHOTOGRAPHABLE READS
 
-On any multi-lane roadway, do not describe position by role or by half. `ego_lane_side` is a two-lane concept and is invalid where lanes run the same direction. Compile **left of frame / right of frame** with both headings and a longitudinal offset. Abstract rules ("passing occurs on the left") never appear in the positive prompt. `frame_side: same` means the opposite half is empty. Lateral headings use `POV_ROADSIDE_PROFILE`. State each spatial fact once. III-012 is the proof take: trailer right-of-frame, shuttle left-of-frame, still alongside (the question, not the answer).
+On any multi-lane roadway, do not describe position by role or by half. `ego_lane_side` is a two-lane concept and is invalid where lanes run the same direction. Compile **left of frame / right of frame** with both headings and a longitudinal offset. Abstract rules ("passing occurs on the left") never appear in the positive prompt. `frame_side: same` means the opposite half is empty. On same-direction lane-discipline cards, never put a centerline in frame — median barrier, curb, or shoulder only. Lateral headings use `POV_ROADSIDE_PROFILE`. State each spatial fact once. III-012 is the proof take: trailer right-of-frame, shuttle left-of-frame, still alongside (the question, not the answer).
 
 A `read` that names a process, a gap you have to count, a hood "walking," a smear as psychology, or a tablet "mid-change" is the same class that killed II-009. Rewrite it to a static fact before generating. Recompiling against an unphotographable read buys another take of the same miss.
 

@@ -113,6 +113,22 @@ function otherVehicleClauseLedger(card) {
   return OTHER_VEHICLE_CLAUSE_LEDGER;
 }
 
+function diagramNegativeBlock(deac, geo) {
+  let n = deac ? LEDGER_DIAGRAM_NEGATIVE : DIAGRAM_NEGATIVE;
+  if (
+    geo &&
+    typeof geo.lanes_this_direction === "number" &&
+    geo.lanes_this_direction >= 2 &&
+    /none/i.test(String(geo.oncoming_position || ""))
+  ) {
+    n = n.replace(
+      / No vehicle occupying the left \(oncoming\) half of the roadway\./,
+      ""
+    );
+  }
+  return n;
+}
+
 function headingPhrase(heading) {
   switch (heading) {
     case "away_from_camera":
@@ -232,7 +248,7 @@ function assemblePrompt(card) {
   }
 
   const negs = [
-    cam === "POV_DIAGRAM" ? (deac ? LEDGER_DIAGRAM_NEGATIVE : DIAGRAM_NEGATIVE) : NEGATIVE,
+    cam === "POV_DIAGRAM" ? diagramNegativeBlock(deac, brief.geometry) : NEGATIVE,
     LHD_NEGATIVE,
   ];
   if (deac) negs.push(LEDGER_NO_MENACE);

@@ -379,6 +379,14 @@ The diamond anchors to the median. A right-turn-only arrow anchors to
 the curb. A centerline anchors to oncoming traffic. Name the edge and
 the marking stays put.
 
+On any same-direction multi-lane card (keep-right, pass, merge, recover),
+the edge in frame is a median barrier, a curb, or a shoulder — **never a
+centerline**. A yellow pair imports oncoming traffic into a card that has
+none and makes the road look two-way. III-003 take 3 failed this way:
+double yellow between same-direction vehicles, so "keep right except to
+pass" had no road to exist on. If opposing traffic is not in the lesson,
+crop it out. `oncoming_position` is `none in frame`.
+
 Compile from `geometry.marking_anchor` (`edge`, `marking`, `ego_relative`).
 Do not invent a direction-only placement in the prompt.
 
