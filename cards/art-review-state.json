@@ -57,9 +57,9 @@
     },
     "III-011": {
       "tag": "READ_MISSING",
-      "note": "Two lanes, same direction, skip-dash in the middle; semi in the right; box/bus coming up behind him in the left. D-takes waiting muted 390px. Do not seed until a human pick.",
-      "pick": "",
-      "updated_at": "2026-09-01T16:15:45.654Z"
+      "note": "Seeded d-take-1. Two same-direction lanes, skip-dash, semi right, shuttle coming up behind in the left.",
+      "pick": "d-take-1",
+      "updated_at": "2026-09-01T16:28:44.770Z"
     },
     "III-012": {
       "tag": "GEOMETRY_WRONG",
@@ -129,9 +129,9 @@
     },
     "III-023": {
       "tag": "COPY",
-      "note": "Picture is good minus the cab. D4 cockpit b-takes waiting muted 390px. Do not seed until a human pick.",
-      "pick": "live",
-      "updated_at": "2026-09-01T15:45:19.371Z"
+      "note": "Seeded b-take-2: same diamond and dump, D4 cab.",
+      "pick": "b-take-2",
+      "updated_at": "2026-09-01T16:29:02.172Z"
     },
     "III-024": {
       "tag": "PASS",
