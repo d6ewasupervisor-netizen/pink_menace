@@ -1,6 +1,6 @@
 {
   "act": "III",
-  "cursor": "III-022",
+  "cursor": "III-025",
   "verdicts": {
     "III-002": {
       "tag": "CARD_BROKEN",
@@ -94,8 +94,8 @@
     "III-017": {
       "tag": "COPY",
       "note": "It is showing on the wrong side of the vehicle currently. and backwards. the view should be from inside the cab, looking over the passenger seat at the side mirror through the passenger window. the mirror pointing up towards the sky.",
-      "pick": "live",
-      "updated_at": "2026-09-01T15:38:26.941Z"
+      "pick": "b-take-2",
+      "updated_at": "2026-09-01T22:19:34.607Z"
     },
     "III-018": {
       "tag": "READ_MISSING",
@@ -142,8 +142,8 @@
     "III-025": {
       "tag": "READ_MISSING",
       "note": "Face-critical redo: two b-takes in the relocked D4 cab. Waiting muted 390px. Do not seed until a human pass. this entire card doesn't make sense.",
-      "pick": "take-3",
-      "updated_at": "2026-09-01T20:17:06.934Z"
+      "pick": "c-take-1",
+      "updated_at": "2026-09-01T22:20:20.526Z"
     },
     "III-026": {
       "tag": "PASS",
