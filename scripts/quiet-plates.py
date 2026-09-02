@@ -10,15 +10,21 @@ SRC = Path(r"C:\Users\tgaut\.cursor\projects\c-Users-tgaut-pink-menace\assets")
 OUT = Path(__file__).resolve().parents[1] / "public" / "game" / "quiet"
 
 
-def key_rgba(im: Image.Image) -> Image.Image:
+def key_rgba(im: Image.Image, hard: bool = False) -> Image.Image:
     arr = np.asarray(im.convert("RGB"), dtype=np.float32)
     r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
     dist = np.sqrt((r - 255.0) ** 2 + (g - 0.0) ** 2 + (b - 255.0) ** 2)
     # Magenta channel leftover vs green (despill)
     mag = np.minimum(r, b)
     score = mag - g
-    alpha = np.clip((dist - 70.0) / 150.0, 0.0, 1.0)
-    alpha = np.where(score > 90.0, alpha * 0.15, alpha)
+    if hard:
+        # Print / silhouette: on/off alpha. Soft midtones read as apparition.
+        alpha = np.where(dist < 95.0, 0.0, np.clip((dist - 70.0) / 55.0, 0.0, 1.0))
+        alpha = np.where(score > 110.0, 0.0, alpha)
+        alpha = np.where(alpha > 0.2, np.clip(alpha * 1.35, 0.0, 1.0), alpha)
+    else:
+        alpha = np.clip((dist - 70.0) / 150.0, 0.0, 1.0)
+        alpha = np.where(score > 90.0, alpha * 0.15, alpha)
     alpha = np.clip(alpha, 0.0, 1.0)
     # Pull remaining pink toward the dirt color
     spill = np.clip(score / 140.0, 0.0, 1.0)
@@ -89,18 +95,18 @@ def main() -> None:
     mapping = {
         "prints": "quiet-prints.png",
         "flood": "quiet-flood.png",
-        "palm": "quiet-palm.png",
+        "palm": "quiet-palm-print.png",
         "smear": "quiet-smear.png",
         "fog": "quiet-fog.png",
         "distant": "quiet-distant.png",
-        "gait": "quiet-gait.png",
+        "gait": "quiet-gait-legs-2.png",
         "herd": "quiet-herd.png",
         "contact": "quiet-contact.png",
         "eyeshine": "quiet-eyeshine.png",
     }
     for name, src_name in mapping.items():
         src = SRC / src_name
-        keyed = key_rgba(Image.open(src))
+        keyed = key_rgba(Image.open(src), hard=name in ("palm", "gait"))
         if name == "eyeshine" and opaque_frac(keyed) < 0.002:
             keyed = make_eyeshine()
             print(f"{name:10} synthesized (empty key)")
@@ -116,6 +122,10 @@ def main() -> None:
             keyed = dirtify(keyed, True)
         elif name in ("distant", "gait", "herd", "contact"):
             keyed = dirtify(keyed, False)
+        if name == "palm":
+            a = np.asarray(keyed).astype(np.float32)
+            a[:, :, :3] *= 0.52
+            keyed = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), "RGBA")
         if name == "smear" and opaque_frac(keyed) < 0.01:
             print(f"{name:10} skipped (empty)")
             continue
