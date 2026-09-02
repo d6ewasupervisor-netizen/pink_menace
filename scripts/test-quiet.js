@@ -18,6 +18,9 @@ const loud = applyFear({}, { noise: 4 }, { correct: false, timedOut: false });
 assert.strictEqual(loud.state.presence, 4);
 assert.strictEqual(loud.quiet, false);
 
+const lit = applyFear({}, { light: 4, yaw: 3 }, { correct: false, timedOut: true });
+assert.strictEqual(lit.state.presence, 0);
+
 const hit = applyFear({ presence: 20 }, { noise: 4 }, { correct: false });
 assert.strictEqual(hit.quiet, true);
 assert.strictEqual(hit.state.presence, AFTER_COLLAPSE);

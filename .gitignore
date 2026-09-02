@@ -7,6 +7,7 @@ node_modules/
 generations/
 .railway/
 .env
+zombie_zones/
 .walk-token
 scripts/live-gate-report.json
 _audit_patch/

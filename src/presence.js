@@ -26,14 +26,10 @@ function tierOf(presence) {
   return 3;
 }
 
-function addedFrom(delta, timedOut) {
+function addedFrom(delta, _timedOut) {
   const d = delta || {};
-  return (
-    Math.max(0, num(d.noise)) +
-    Math.max(0, num(d.light)) +
-    Math.max(0, num(d.yaw)) +
-    (timedOut ? TIMED_WEIGHT : 0)
-  );
+  // The Quiet only notice noise. Light and yaw still cost cargo. Timeout is not loud.
+  return Math.max(0, num(d.noise));
 }
 
 function dispatchFor(delta, timedOut) {

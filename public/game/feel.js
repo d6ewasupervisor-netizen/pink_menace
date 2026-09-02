@@ -482,6 +482,27 @@ const PMFeel = (() => {
     return "center";
   }
 
+  const ZONE_CHARS = 12;
+  const ZONE_POSES = 5;
+
+  function hashStr(s) {
+    let h = 2166136261;
+    const t = String(s || "x");
+    for (let i = 0; i < t.length; i++) h = Math.imul(h ^ t.charCodeAt(i), 16777619) >>> 0;
+    return h;
+  }
+
+  function zoneUrl(cardId, tier) {
+    const h = hashStr(cardId);
+    const ch = h % ZONE_CHARS;
+    const watch = (h >>> 8) % 3;
+    const attack = 3 + ((h >>> 16) % 2);
+    const pose = tier >= 3 ? attack : watch;
+    const n = ch * ZONE_POSES + pose + 1;
+    const id = n < 10 ? "0" + n : String(n);
+    return "/quiet/zones/" + id + ".webp?v=z1";
+  }
+
   function paintFear(state, extras) {
     const root = document.getElementById("fear-root");
     if (!root) return;
@@ -507,6 +528,10 @@ const PMFeel = (() => {
     ]
       .filter(Boolean)
       .join(" ");
+    const mirror = root.querySelector(".fear-mirror");
+    if (mirror) {
+      mirror.style.backgroundImage = glass && tier >= 1 ? 'url("' + zoneUrl(cardId, tier) + '")' : "";
+    }
     presenceAmt = tier >= 2 && plateOn ? Math.min(1, (Number(state && state.presence) || 0) / 22) : 0;
     paintVignette();
   }

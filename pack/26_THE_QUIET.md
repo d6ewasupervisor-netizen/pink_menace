@@ -30,12 +30,14 @@ Plates live in `public/game/quiet/`. Depth plates only apply where `camera` is f
 | Tier | Presence | What paints |
 |---|---|---|
 | T0 | 0–3 | Nothing. The reward state. |
-| **T1** | **4–8** | One depth plate: distant figures at the horizon band, heavily blurred. |
-| **T2** | **9–13** | Zombie in the **door-mirror glass**. On chase stills, a roadside figure. Never a figure in the middle of a cockpit windshield — that reads as a toy on the dash. Vignette begins. |
-| **T3** | **14–22** | Glass plates: handprints appear and **persist for the rest of the run**. Eyeshine at night/dusk cards. |
+| **T1** | **4–8** | A walker in the **rearview** (Menace) or door glass (Ledger). Watching, not attacking. Different still per card. |
+| **T2** | **9–13** | Same walker, nearer in that glass. Vignette begins. Never a figure in the middle of a cockpit windshield — that reads as a toy on the dash. |
+| **T3** | **14–22** | They got loud. Pose swaps to an attack still of that walker. Handprints appear and **persist for the rest of the run**. Eyeshine at night/dusk cards. |
 | **T4** | **23** | The Quiet beat (§3). |
 
-A wrong answer runs +3 to +4. She should cross T1 inside the first few cards of a sloppy run and never see it on a clean one.
+A wrong answer runs +3 to +4 **of noise**. Light and yaw still cost cargo. They do not summon the Quiet. Timeout is not loud. She should cross T1 inside the first few loud cards of a sloppy run and never see an attack on a clean one.
+
+**Same character per street, different pose when they get loud.** 60 stills in `public/game/quiet/zones/` (12 walkers × 5 poses). The rearview picks a walker from the card id. Watching uses poses 1–3. Attack (T3+) swaps to pose 4 or 5 of that same walker. Pink Menace uses the interior rearview (top center of the windshield). The Ledger has no rear window — door glass only.
 
 ## 3. T4 IS NOT THE CARGO-FAIL COLLAPSE
 
