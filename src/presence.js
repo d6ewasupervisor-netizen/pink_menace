@@ -3,7 +3,7 @@
 const TIER = [
   { max: 3, tier: 0 },
   { max: 8, tier: 1 },
-  { max: 14, tier: 2 },
+  { max: 13, tier: 2 },
   { max: 22, tier: 3 },
 ];
 
@@ -60,16 +60,14 @@ function applyFear(state, delta, opts) {
   if (correct && add === 0) presence = Math.max(0, presence - CLEAN_DECAY);
   next.presence = presence;
   if (tierOf(presence) >= 3) next.handprints = true;
-  let collapse = false;
-  let dispatch = null;
+  let quiet = false;
   if (presence >= COLLAPSE_AT) {
-    collapse = true;
-    dispatch = dispatchFor(delta, timedOut);
+    quiet = true;
     next.presence = AFTER_COLLAPSE;
     next.handprints = true;
     next.drew = num(next.drew) + 1;
   }
-  return { state: next, collapse, dispatch, add };
+  return { state: next, quiet, add };
 }
 
 function publicFear(state) {

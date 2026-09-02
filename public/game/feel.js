@@ -472,18 +472,40 @@ const PMFeel = (() => {
     paintVignette();
   }
 
-  function paintFear(state) {
+  function forwardCamera(camera) {
+    return /^(POV_COCKPIT|POV_CHASE|POV_MIRROR_)/.test(String(camera || ""));
+  }
+
+  function fearSlot(cardId) {
+    if (cardId === "III-005") return "right";
+    if (document.documentElement.dataset.driver === "deac") return "left";
+    return "center";
+  }
+
+  function paintFear(state, extras) {
     const root = document.getElementById("fear-root");
     if (!root) return;
+    const camera = extras && extras.camera != null ? extras.camera : "";
+    const cardId = extras && extras.cardId != null ? extras.cardId : "";
     const tier = Math.max(0, Math.min(4, Number(state && state.tier) || 0));
     const prints = Boolean(state && state.handprints) || tier >= 3;
     const night = Boolean(state && state.night);
-    root.className =
-      "fear-root tier-" +
-      Math.min(tier, 3) +
-      (prints ? " prints" : "") +
-      (night ? " night" : "");
-    presenceAmt = Math.min(1, (Number(state && state.presence) || 0) / 22);
+    const forward = forwardCamera(camera);
+    const glass = forward;
+    const slot = fearSlot(cardId);
+    const plateOn = (forward && tier >= 1) || (glass && (prints || tier >= 2));
+    root.className = [
+      "fear-root",
+      "tier-" + Math.min(tier, 3),
+      prints ? "prints" : "",
+      night ? "night" : "",
+      forward ? "forward" : "",
+      glass ? "glass" : "",
+      "slot-" + slot,
+    ]
+      .filter(Boolean)
+      .join(" ");
+    presenceAmt = tier >= 2 && plateOn ? Math.min(1, (Number(state && state.presence) || 0) / 22) : 0;
     paintVignette();
   }
 
@@ -782,6 +804,17 @@ const PMFeel = (() => {
     };
   }
 
+  function playQuietBeat(then) {
+    const root = document.getElementById("fear-root");
+    if (root) root.classList.add("quieting");
+    playCueAudio("palm");
+    window.setTimeout(() => playCueAudio("steps"), 900);
+    window.setTimeout(() => {
+      if (root) root.classList.remove("quieting");
+      then && then();
+    }, 5000);
+  }
+
   function playCollapse(dispatch, then) {
     const panel = document.getElementById("collapse");
     const copy = document.getElementById("collapse-copy");
@@ -934,6 +967,7 @@ const PMFeel = (() => {
     showDelivery,
     showIgnition,
     playCollapse,
+    playQuietBeat,
     driveBySight,
     sting: playCueAudio,
     typeText,

@@ -72,7 +72,7 @@ function showScreen(name) {
   if (name === "home") {
     clearPlay();
     PMFeel.stopBed();
-    PMFeel.paintFear({ tier: 0, presence: 0, handprints: false });
+    PMFeel.paintFear({ tier: 0, presence: 0, handprints: false }, { camera: "", cardId: "" });
     const ign = document.getElementById("ignition");
     if (ign) ign.classList.add("hidden");
     const man = document.getElementById("manifest");
@@ -283,11 +283,13 @@ function applyMeters(state, how, extras) {
     tier: Number(next.tier) || 0,
     handprints: Boolean(next.handprints),
     night: extras && extras.night != null ? Boolean(extras.night) : Boolean(meters.night),
+    camera: extras && extras.camera != null ? extras.camera : meters.camera,
+    cardId: extras && extras.cardId != null ? extras.cardId : meters.cardId,
   };
   if (how === "spike") PMFeel.spikeMeters(null, meters);
   else if (how === "ease") PMFeel.easeMeters(meters);
   else PMFeel.paintMeters(meters);
-  PMFeel.paintFear(meters);
+  PMFeel.paintFear(meters, { camera: meters.camera, cardId: meters.cardId });
   if (meters.handprints && !hadPrints) PMFeel.sting("palm");
 }
 
@@ -574,7 +576,11 @@ function fillCard(card, opts) {
   PMFeel.setWeather(card.weather);
   PMFeel.setDriver(card.driver);
   PMFeel.applyGrade();
-  applyMeters(card.state || meters, "paint", { night: Boolean(card.night) });
+  applyMeters(card.state || meters, "paint", {
+    night: Boolean(card.night),
+    camera: card.camera,
+    cardId: card.card_id,
+  });
   const result = document.getElementById("result");
   const debrief = document.getElementById("debrief");
   result.classList.add("hidden");
@@ -736,11 +742,11 @@ function playOutcome(data, card) {
   const correct = Boolean(data && data.was_correct);
   const nextMeters = data.state || meters;
   const failed = Boolean(data && data.failed);
-  const collapse = Boolean(data && data.collapse) || failed;
+  const quiet = Boolean(data && data.quiet) && !failed;
   const isDossier = liveCard && liveCard.card_type === "dossier";
   const finish = () => {
     const cost = data.time_cost != null ? data.time_cost : data.state_delta && data.state_delta.time_cost;
-    if (collapse) {
+    if (failed) {
       applyMeters(nextMeters, "paint");
       PMFeel.floatTimeCost(cost);
       document.getElementById("options").classList.add("hidden");
@@ -754,6 +760,14 @@ function playOutcome(data, card) {
         })
       );
       PMFeel.playCollapse(data.dispatch, () => holdContinue(card.card_id));
+      return;
+    }
+    if (quiet) {
+      applyMeters(nextMeters, "spike");
+      PMFeel.floatTimeCost(cost);
+      applyOutcome(data, { collapseDebrief: true });
+      bindAlts((data && data.alts) || [], card);
+      PMFeel.playQuietBeat(() => holdContinue(card.card_id));
       return;
     }
     if (correct) {
@@ -778,7 +792,7 @@ function playOutcome(data, card) {
     }
     holdContinue(card.card_id);
   };
-  if (!isDossier && !collapse) {
+  if (!isDossier && !failed && !quiet) {
     PMFeel.showReward(correct, finish);
     return;
   }
@@ -899,7 +913,7 @@ async function loadHome(focusCardId) {
 
 async function startOver() {
   clearLive();
-  meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false };
+  meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false, camera: "", cardId: "" };
   try {
     await PM.api("/api/run/restart", { method: "POST", body: {} });
   } catch {
