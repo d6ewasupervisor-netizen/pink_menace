@@ -10,6 +10,22 @@ SRC = Path(r"C:\Users\tgaut\.cursor\projects\c-Users-tgaut-pink-menace\assets")
 OUT = Path(__file__).resolve().parents[1] / "public" / "game" / "quiet"
 
 
+def key_keep_rgb(im: Image.Image) -> Image.Image:
+    """Keep photoreal RGB. Magenta goes to alpha. Used for figures, not dirt prints."""
+    arr = np.asarray(im.convert("RGB"), dtype=np.float32)
+    r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
+    dist = np.sqrt((r - 255.0) ** 2 + (g - 0.0) ** 2 + (b - 255.0) ** 2)
+    mag = np.minimum(r, b) - g
+    alpha = np.clip((dist - 50.0) / 45.0, 0.0, 1.0)
+    alpha = np.where(mag > 75.0, np.minimum(alpha, 0.06), alpha)
+    out = np.zeros((arr.shape[0], arr.shape[1], 4), dtype=np.uint8)
+    out[:, :, 0] = np.clip(r, 0, 255).astype(np.uint8)
+    out[:, :, 1] = np.clip(g, 0, 255).astype(np.uint8)
+    out[:, :, 2] = np.clip(b, 0, 255).astype(np.uint8)
+    out[:, :, 3] = (alpha * 255.0).astype(np.uint8)
+    return Image.fromarray(out, "RGBA")
+
+
 def key_rgba(im: Image.Image, hard: bool = False) -> Image.Image:
     arr = np.asarray(im.convert("RGB"), dtype=np.float32)
     r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
@@ -99,14 +115,17 @@ def main() -> None:
         "smear": "quiet-smear.png",
         "fog": "quiet-fog.png",
         "distant": "quiet-distant.png",
-        "gait": "quiet-gait-legs-2.png",
+        "gait": "quiet-gait-shoulder.png",
         "herd": "quiet-herd.png",
-        "contact": "quiet-contact.png",
+        "contact": "quiet-contact-zombie-mirror.png",
         "eyeshine": "quiet-eyeshine.png",
     }
     for name, src_name in mapping.items():
         src = SRC / src_name
-        keyed = key_rgba(Image.open(src), hard=name in ("palm", "gait"))
+        if name in ("gait", "contact"):
+            keyed = key_keep_rgb(Image.open(src))
+        else:
+            keyed = key_rgba(Image.open(src), hard=name == "palm")
         if name == "eyeshine" and opaque_frac(keyed) < 0.002:
             keyed = make_eyeshine()
             print(f"{name:10} synthesized (empty key)")
@@ -120,7 +139,7 @@ def main() -> None:
             print(f"{name:10} opaque={opaque_frac(keyed):.2%} size={keyed.size}")
         if name in ("prints", "flood", "palm", "fog"):
             keyed = dirtify(keyed, True)
-        elif name in ("distant", "gait", "herd", "contact"):
+        elif name in ("distant", "herd"):
             keyed = dirtify(keyed, False)
         if name == "palm":
             a = np.asarray(keyed).astype(np.float32)

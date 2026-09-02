@@ -882,14 +882,14 @@ button.act-row {
   filter: blur(1.6px) saturate(0.4);
 }
 .fear-gait {
-  left: 42%;
-  width: 14%;
-  top: 30%;
-  height: 16%;
-  background-image: url("/quiet/gait.png?v=q2");
+  left: 76%;
+  width: 8%;
+  top: 33%;
+  height: 8%;
+  background-image: url("/quiet/gait.png?v=q3");
   background-size: contain;
   background-position: center bottom;
-  mix-blend-mode: multiply;
+  filter: blur(0.7px) saturate(0.45);
 }
 .fear-prints {
   inset: 0;
@@ -933,20 +933,19 @@ button.act-row {
   filter: blur(0.4px);
 }
 .fear-mirror {
-  width: 28%;
-  height: 12%;
-  top: 5%;
-  left: 36%;
-  background-image: url("/quiet/contact.png?v=q2");
+  width: 22%;
+  height: 20%;
+  top: 24%;
+  left: 0;
+  background-image: url("/quiet/contact.png?v=q3");
   background-size: contain;
-  background-position: center;
-  filter: blur(1.4px) saturate(0.45);
+  background-position: left center;
 }
 html[data-driver="deac"] .fear-mirror {
-  top: 32%;
-  left: 4%;
-  width: 20%;
-  height: 16%;
+  top: 25%;
+  left: 0;
+  width: 24%;
+  height: 20%;
 }
 .fear-root.slot-right .fear-mirror,
 html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
@@ -958,7 +957,8 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
 }
 .fear-root.tier-1.forward .fear-depth { opacity: 0.28; }
 .fear-root.tier-2.forward .fear-depth { opacity: 0.3; }
-.fear-root.tier-2.forward .fear-gait { opacity: 0.78; }
+.fear-root.tier-2.forward .fear-gait { opacity: 0.7; }
+.fear-root.cockpit.tier-2.forward .fear-gait { opacity: 0; }
 .fear-root.tier-2.glass .fear-mirror,
 .fear-root.tier-3.glass .fear-mirror { opacity: 0.72; }
 .fear-root.prints.glass .fear-prints { opacity: 0.78; }
@@ -977,8 +977,8 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
 .fear-root.quieting.glass .fear-palm { opacity: 1; }
 
 @keyframes contact-breathe {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 0.75; }
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.88; }
 }
 .fear-root.tier-2.glass .fear-mirror,
 .fear-root.tier-3.glass .fear-mirror {

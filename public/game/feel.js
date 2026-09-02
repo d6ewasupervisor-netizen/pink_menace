@@ -492,6 +492,7 @@ const PMFeel = (() => {
     const night = Boolean(state && state.night);
     const forward = forwardCamera(camera);
     const glass = forward;
+    const cockpit = /^POV_COCKPIT/.test(String(camera || ""));
     const slot = fearSlot(cardId);
     const plateOn = (forward && tier >= 1) || (glass && (prints || tier >= 2));
     root.className = [
@@ -501,6 +502,7 @@ const PMFeel = (() => {
       night ? "night" : "",
       forward ? "forward" : "",
       glass ? "glass" : "",
+      cockpit ? "cockpit" : "",
       "slot-" + slot,
     ]
       .filter(Boolean)

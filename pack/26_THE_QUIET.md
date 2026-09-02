@@ -31,7 +31,7 @@ Plates live in `public/game/quiet/`. Depth plates only apply where `camera` is f
 |---|---|---|
 | T0 | 0–3 | Nothing. The reward state. |
 | **T1** | **4–8** | One depth plate: distant figures at the horizon band, heavily blurred. |
-| **T2** | **9–13** | Wrong-gait figure, nearer. Mirror-slot contact. Vignette begins. |
+| **T2** | **9–13** | Zombie in the **door-mirror glass**. On chase stills, a roadside figure. Never a figure in the middle of a cockpit windshield — that reads as a toy on the dash. Vignette begins. |
 | **T3** | **14–22** | Glass plates: handprints appear and **persist for the rest of the run**. Eyeshine at night/dusk cards. |
 | **T4** | **23** | The Quiet beat (§3). |
 
