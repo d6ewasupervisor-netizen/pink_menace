@@ -231,6 +231,39 @@ function checkpointKeep(answersBefore) {
   return Math.floor(Math.max(0, Number(answersBefore) || 0) / 5) * 5;
 }
 
+function checkpointStartSeq(keepSeq, floorSeq, keep) {
+  const floor = Math.max(0, Number(floorSeq) || 0);
+  if ((Number(keep) || 0) <= 0) return floor;
+  return Math.max(floor, Number(keepSeq) || 0);
+}
+
+function replayWindowAnswers(answers, keep) {
+  const list = Array.isArray(answers) ? answers : [];
+  const k = Math.max(0, Number(keep) || 0);
+  if (list.length <= 1) return [];
+  const end = list.length - 1;
+  if (k >= end) return [];
+  return list.slice(k, end);
+}
+
+function planFromWindow(window) {
+  return (window || [])
+    .map((ans) => {
+      const cardId = ans && ans.card_id;
+      if (!cardId) return null;
+      if (ans.was_correct) {
+        return {
+          card_id: String(cardId),
+          mode: "recap",
+          option_id: ans.option_id ? String(ans.option_id) : null,
+          was_correct: true,
+        };
+      }
+      return { card_id: String(cardId), mode: "retry" };
+    })
+    .filter(Boolean);
+}
+
 function applyDelta(state, delta) {
   const next = { ...(state || {}) };
   const d = delta || {};
@@ -245,28 +278,40 @@ function applyDelta(state, delta) {
   return next;
 }
 
-async function checkpointState(client, failedRunId, keep) {
-  if (keep <= 0) return {};
+async function mainAnswersForRun(client, failedRunId) {
   const { rows } = await client.query(
-    `SELECT o.state_delta, c.act
+    `SELECT a.card_id, a.option_id, a.was_correct, o.state_delta, c.act, c.seq
        FROM run_answers a
        JOIN cards c ON c.card_id = a.card_id
-       JOIN card_options o ON o.card_id = a.card_id AND o.option_id = a.option_id
+       LEFT JOIN card_options o ON o.card_id = a.card_id AND o.option_id = a.option_id
       WHERE a.run_id = $1 AND c.callback_of IS NULL
-      ORDER BY c.seq ASC, c.card_id ASC
-      LIMIT $2`,
-    [failedRunId, keep]
+      ORDER BY c.seq ASC, c.card_id ASC`,
+    [failedRunId]
   );
-  let state = {};
+  return rows;
+}
+
+async function failRestart(client, failedRunId, floorSeq) {
+  const answers = await mainAnswersForRun(client, failedRunId);
+  const keep = checkpointKeep(Math.max(0, answers.length - 1));
+  const kept = keep > 0 ? answers[keep - 1] : null;
+  const startSeq = checkpointStartSeq(kept && kept.seq, floorSeq, keep);
+  const replayPlan = planFromWindow(replayWindowAnswers(answers, keep));
+  let restartState = {};
   let cargoAct = null;
-  for (const r of rows) {
+  for (const r of answers.slice(0, keep)) {
     if (r.act !== cargoAct) {
       cargoAct = r.act;
-      state = withActCargo(state, cargoAct);
+      restartState = withActCargo(restartState, cargoAct);
     }
-    state = applyDelta(state, r.state_delta);
+    restartState = applyDelta(restartState, r.state_delta);
   }
-  return state;
+  return { startSeq, replayPlan, restartState, keep };
+}
+
+async function checkpointState(client, failedRunId) {
+  const restart = await failRestart(client, failedRunId, 0);
+  return restart.restartState;
 }
 
 function asReplayPlan(raw) {
@@ -287,43 +332,9 @@ function replayStep(run) {
   return plan[idx] || null;
 }
 
-async function buildReplayPlan(client, failedRunId, answersBefore) {
-  const keep = checkpointKeep(answersBefore);
-  const { rows: catalog } = await client.query(
-    `SELECT card_id, seq
-       FROM cards
-      WHERE callback_of IS NULL
-      ORDER BY seq ASC, card_id ASC`
-  );
-  if (!catalog.length || keep >= catalog.length) return [];
-  const windowEnd = Math.min(Math.max(0, Number(answersBefore) || 0), catalog.length - 1);
-  if (windowEnd < keep) return [];
-
-  const { rows: answers } = await client.query(
-    `SELECT a.card_id, a.option_id, a.was_correct
-       FROM run_answers a
-       JOIN cards c ON c.card_id = a.card_id
-      WHERE a.run_id = $1 AND c.callback_of IS NULL
-      ORDER BY c.seq ASC, c.card_id ASC`,
-    [failedRunId]
-  );
-  const byCard = new Map(answers.map((a) => [a.card_id, a]));
-  const plan = [];
-  for (const card of catalog.slice(keep, windowEnd + 1)) {
-    const ans = byCard.get(card.card_id);
-    if (!ans) continue;
-    if (ans.was_correct) {
-      plan.push({
-        card_id: card.card_id,
-        mode: "recap",
-        option_id: ans.option_id,
-        was_correct: true,
-      });
-    } else {
-      plan.push({ card_id: card.card_id, mode: "retry" });
-    }
-  }
-  return plan;
+async function buildReplayPlan(client, failedRunId) {
+  const restart = await failRestart(client, failedRunId, 0);
+  return restart.replayPlan;
 }
 
 async function recapBeat(cardId, optionId) {
@@ -433,14 +444,9 @@ async function advanceReplayPlan(client, runId, run) {
   return { cardId: null, done: true, cleared: true };
 }
 
-async function skipSeqFor(client, answersBefore) {
-  const keep = checkpointKeep(answersBefore);
-  if (keep <= 0) return 0;
-  const { rows } = await client.query(
-    `SELECT seq FROM cards ORDER BY seq ASC, card_id ASC OFFSET $1 LIMIT 1`,
-    [keep - 1]
-  );
-  return rows[0] ? Number(rows[0].seq) : 0;
+async function skipSeqFor(client, failedRunId, floorSeq) {
+  const restart = await failRestart(client, failedRunId, floorSeq);
+  return restart.startSeq;
 }
 
 function nightOf(timeOfDay) {
@@ -814,8 +820,12 @@ module.exports = {
   cargoDead,
   cargoFailDispatch,
   checkpointKeep,
+  checkpointStartSeq,
+  replayWindowAnswers,
+  planFromWindow,
   skipSeqFor,
   checkpointState,
+  failRestart,
   applyDelta,
   buildReplayPlan,
   recapBeat,

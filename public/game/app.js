@@ -1002,17 +1002,21 @@ async function submitAnswer(optionId) {
   if (clock) clock.classList.add("hidden");
   const timed = timedSubmit;
   timedSubmit = false;
-  const data = await PM.api("/api/run/answer", {
-    method: "POST",
-    body: {
-      card_id: currentCardId,
-      option_id: optionId,
-      ms_to_answer: Date.now() - shownAt,
-      timed_out: timed,
-    },
-  });
-  saveLive({ card_id: currentCardId, phase: "result", scroll: runEl.scrollTop });
-  playOutcome({ ...data, timed_out: timed }, { card_id: currentCardId });
+  try {
+    const data = await PM.api("/api/run/answer", {
+      method: "POST",
+      body: {
+        card_id: currentCardId,
+        option_id: optionId,
+        ms_to_answer: Date.now() - shownAt,
+        timed_out: timed,
+      },
+    });
+    saveLive({ card_id: currentCardId, phase: "result", scroll: runEl.scrollTop });
+    playOutcome({ ...data, timed_out: timed }, { card_id: currentCardId });
+  } catch {
+    answering = false;
+  }
 }
 
 async function bootApp() {

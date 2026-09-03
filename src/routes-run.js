@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, checkpointState, applyDelta, checkpointKeep, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, recapBeat, replayStep, advanceReplayPlan, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId } = require("./game");
 const { applyFear, loudDelta } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
@@ -60,11 +60,13 @@ async function answeredInAct(runId, act) {
 
 function withManifest(payload, run, card, session, answersInAct) {
   const act = (card && card.act) || "II";
+  const recap = Boolean(payload.recap || (card && card.recap));
+  const opener = Boolean(card && card.card_id === act + "-001");
   return {
     ...payload,
     manifest: {
       ...manifestFor(act, session && session.name),
-      show: answersInAct === 0 && !payload.pending_outcome && !payload.recap && !(card && card.recap),
+      show: answersInAct === 0 && !payload.pending_outcome && !recap && opener,
     },
   };
 }
@@ -457,14 +459,7 @@ function mountRun(app) {
       }
       let nextCardId = null;
       if (failed) {
-        const counted = await client.query(
-          `SELECT COUNT(*)::int AS n FROM run_answers WHERE run_id = $1`,
-          [run.id]
-        );
-        const answersBefore = (counted.rows[0] && counted.rows[0].n) - 1;
-        const startSeq = await skipSeqFor(client, answersBefore);
-        const replayPlan = await buildReplayPlan(client, run.id, answersBefore);
-        const restartState = await checkpointState(client, run.id, checkpointKeep(answersBefore));
+        const { startSeq, replayPlan, restartState } = await failRestart(client, run.id, run.start_seq);
         await client.query(
           `UPDATE runs
               SET status = 'failed', current_card_id = NULL, queued_callbacks = $1,
