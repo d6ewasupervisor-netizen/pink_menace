@@ -568,7 +568,11 @@ function fillCard(card, opts) {
     shot.onerror = null;
     shot.removeAttribute("src");
     wrap.classList.remove("hidden", "fs");
-    PM.loadImage(shot, card.image_url).then(() => pinCardTop());
+    const rideLinesEarly = Array.isArray(card.ride_along) ? card.ride_along.filter(Boolean) : [];
+    const rideOwnsShot = !opts.review && !opts.pending && rideLinesEarly.length;
+    if (!rideOwnsShot) {
+      PM.loadImage(shot, card.image_url).then(() => pinCardTop());
+    }
   } else {
     shot.removeAttribute("src");
     wrap.classList.add("hidden");
@@ -681,6 +685,8 @@ function fillCard(card, opts) {
 
 function startRideAlong(card, lines) {
   const wrap = document.getElementById("shot-wrap");
+  const ken = document.getElementById("shot-ken");
+  const shot = document.getElementById("shot");
   const sceneEl = document.getElementById("scene");
   const hookEl = document.getElementById("hook");
   const cont = document.getElementById("continue");
@@ -692,9 +698,97 @@ function startRideAlong(card, lines) {
   cont.classList.add("hidden");
   cont.onclick = null;
   runEl.classList.add("choices-ready", "riding");
+
+  const beats = Array.isArray(card.ride_beats) ? card.ride_beats : [];
+  const liveUrl = card.image_url;
+  const beatUrl = (name) =>
+    "/ride/" + encodeURIComponent(card.card_id) + "/" + encodeURIComponent(name) + ".webp?v=r2";
+
+  let spots = wrap && wrap.querySelector(".ride-spots");
+  if (wrap && !spots) {
+    spots = document.createElement("div");
+    spots.className = "ride-spots";
+    ["left", "right", "gap", "thermos", "wheel"].forEach((id) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "ride-spot";
+      b.dataset.spot = id;
+      b.setAttribute("aria-label", id);
+      spots.appendChild(b);
+    });
+    wrap.appendChild(spots);
+  }
+
   let i = 0;
+  let seq = [];
+  let seqAt = 0;
+  let awaiting = "anywhere";
+
+  const clearSpots = () => {
+    if (!spots) return;
+    spots.querySelectorAll(".ride-spot").forEach((el) => {
+      el.classList.remove("armed", "done");
+    });
+  };
+
+  const armSpot = (id) => {
+    clearSpots();
+    if (!spots || !id || id === "anywhere") return;
+    const el = spots.querySelector('[data-spot="' + id + '"]');
+    if (el) el.classList.add("armed");
+  };
+
+  const setLook = (look) => {
+    if (!ken) return;
+    ken.className = "shot-ken still ride-look-" + (look || "road");
+  };
+
+  const setStill = (name) => {
+    if (!shot) return;
+    const url = name ? beatUrl(name) : liveUrl;
+    if (shot.getAttribute("src") === url) return;
+    PM.loadImage(shot, url).catch(() => {
+      if (name && liveUrl) PM.loadImage(shot, liveUrl).catch(() => {});
+    });
+  };
+
+  const sequenceFor = (tap) => {
+    if (tap === "sweep") return ["left", "right", "left"];
+    if (tap === "eyes") return ["left", "right", "left", "road"];
+    if (tap && tap !== "anywhere") return [tap];
+    return [];
+  };
+
   const show = () => {
+    const beat = beats[i] || {};
+    const look = beat.look || "road";
+    const tap = beat.tap || "anywhere";
+    setStill(beat.still || null);
+    setLook(look);
+    seq = sequenceFor(tap);
+    seqAt = 0;
+    awaiting = seq.length ? seq[0] : "anywhere";
+    if (awaiting === "road") {
+      // road has no hotspot — anywhere on the still completes that step
+      clearSpots();
+    } else {
+      armSpot(awaiting === "anywhere" ? null : awaiting);
+    }
     PMFeel.showBark({ who: "deac", line: lines[i], tap: true, persist: true });
+    if (i >= lines.length - 1 && awaiting === "anywhere" && !seq.length) {
+      cont.classList.remove("hidden");
+      cont.textContent = "Continue";
+      cont.onclick = () => {
+        stop();
+        submitAnswer("continue");
+      };
+    } else {
+      cont.classList.add("hidden");
+      cont.onclick = null;
+    }
+  };
+
+  const advanceLine = () => {
     if (i >= lines.length - 1) {
       cont.classList.remove("hidden");
       cont.textContent = "Continue";
@@ -702,20 +796,93 @@ function startRideAlong(card, lines) {
         stop();
         submitAnswer("continue");
       };
+      clearSpots();
+      awaiting = "done";
+      return;
     }
-  };
-  const advance = (ev) => {
-    if (ev && ev.target && ev.target.closest && ev.target.closest("#continue")) return;
-    if (i >= lines.length - 1) return;
     i += 1;
     show();
   };
+
+  const onSpot = (spot) => {
+    if (awaiting === "done") return;
+    if (awaiting === "anywhere") {
+      advanceLine();
+      return;
+    }
+    if (awaiting === "road") {
+      // completed via wrap click
+      return;
+    }
+    if (spot !== awaiting) {
+      if (spots) {
+        const wrong = spots.querySelector('[data-spot="' + spot + '"]');
+        if (wrong) {
+          wrong.classList.add("miss");
+          window.setTimeout(() => wrong.classList.remove("miss"), 280);
+        }
+      }
+      return;
+    }
+    const el = spots && spots.querySelector('[data-spot="' + spot + '"]');
+    if (el) el.classList.add("done");
+    setLook(spot === "thermos" || spot === "wheel" || spot === "gap" ? spot : spot);
+    seqAt += 1;
+    if (seqAt >= seq.length) {
+      advanceLine();
+      return;
+    }
+    awaiting = seq[seqAt];
+    if (awaiting === "road") {
+      clearSpots();
+      setLook("road");
+    } else {
+      armSpot(awaiting);
+      setLook(awaiting);
+    }
+  };
+
+  const onWrap = (ev) => {
+    if (ev && ev.target && ev.target.closest && ev.target.closest("#continue")) return;
+    if (ev && ev.target && ev.target.closest && ev.target.closest(".ride-spot")) return;
+    if (awaiting === "done") return;
+    if (awaiting === "anywhere" || awaiting === "road") {
+      if (awaiting === "road") {
+        seqAt += 1;
+        if (seqAt >= seq.length) advanceLine();
+        else {
+          awaiting = seq[seqAt];
+          armSpot(awaiting);
+          setLook(awaiting);
+        }
+        return;
+      }
+      advanceLine();
+    }
+  };
+
   const stop = () => {
     if (wrap) wrap.onclick = null;
+    if (spots) {
+      spots.querySelectorAll(".ride-spot").forEach((el) => {
+        el.onclick = null;
+      });
+      clearSpots();
+    }
+    if (ken) ken.className = "shot-ken " + (PMFeel.kenClass(card.camera) || "ken-cockpit");
     runEl.classList.remove("riding");
     PMFeel.hideBark();
   };
-  if (wrap) wrap.onclick = advance;
+
+  if (spots) {
+    spots.querySelectorAll(".ride-spot").forEach((el) => {
+      el.onclick = (ev) => {
+        ev.stopPropagation();
+        onSpot(el.dataset.spot);
+      };
+    });
+  }
+  if (wrap) wrap.onclick = onWrap;
   show();
   pinCardTop();
 }

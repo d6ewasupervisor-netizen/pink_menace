@@ -1055,6 +1055,61 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
 }
 #run.riding #shot-wrap { cursor: pointer; }
 #run.riding .bark { animation: none; }
+#run.riding .shot-ken {
+  animation: none;
+  transition: transform 0.45s ease;
+  will-change: transform;
+}
+#run.riding .shot-ken.ride-look-road { transform: scale(1.04) translate(0%, -2%); }
+#run.riding .shot-ken.ride-look-left { transform: scale(1.42) translate(22%, 4%); }
+#run.riding .shot-ken.ride-look-right { transform: scale(1.38) translate(-16%, 6%); }
+#run.riding .shot-ken.ride-look-gap { transform: scale(1.32) translate(10%, -14%); }
+#run.riding .shot-ken.ride-look-thermos { transform: scale(1.7) translate(-28%, -22%); }
+#run.riding .shot-ken.ride-look-wheel { transform: scale(1.65) translate(14%, -32%); }
+
+.ride-spots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.ride-spot {
+  position: absolute;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  pointer-events: none;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.ride-spot[data-spot="left"] { left: 2%; top: 28%; width: 28%; height: 36%; border-radius: 18% / 28%; }
+.ride-spot[data-spot="right"] { right: 2%; top: 30%; width: 24%; height: 34%; border-radius: 18% / 28%; }
+.ride-spot[data-spot="gap"] { left: 28%; top: 18%; width: 34%; height: 28%; border-radius: 24% / 30%; }
+.ride-spot[data-spot="thermos"] { right: 8%; bottom: 18%; width: 22%; height: 22%; }
+.ride-spot[data-spot="wheel"] { left: 8%; bottom: 6%; width: 42%; height: 32%; border-radius: 40% / 45%; }
+#run.riding .ride-spot.armed {
+  opacity: 1;
+  pointer-events: auto;
+  box-shadow: inset 0 0 0 2px rgba(232, 196, 92, 0.85), 0 0 18px rgba(232, 196, 92, 0.35);
+  animation: ride-spot-pulse 1.4s ease-in-out infinite;
+}
+#run.riding .ride-spot.done {
+  opacity: 0.35;
+  box-shadow: inset 0 0 0 2px rgba(232, 196, 92, 0.35);
+  animation: none;
+}
+#run.riding .ride-spot.miss {
+  opacity: 1;
+  box-shadow: inset 0 0 0 2px rgba(180, 64, 64, 0.9);
+  animation: none;
+}
+@keyframes ride-spot-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
 #bark-line {
   margin: 0;
   color: var(--ink);

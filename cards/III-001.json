@@ -22,6 +22,61 @@
     "Your eyes now. Left glass. Right glass. The side mirror. Then the road.",
     "Your wheel."
   ],
+  "ride_beats": [
+    {
+      "look": "left",
+      "tap": "sweep",
+      "still": "left"
+    },
+    {
+      "look": "road",
+      "tap": "anywhere"
+    },
+    {
+      "look": "gap",
+      "tap": "gap"
+    },
+    {
+      "look": "gap",
+      "tap": "anywhere"
+    },
+    {
+      "look": "left",
+      "tap": "anywhere",
+      "still": "merge"
+    },
+    {
+      "look": "left",
+      "tap": "anywhere",
+      "still": "horn"
+    },
+    {
+      "look": "left",
+      "tap": "anywhere",
+      "still": "horn"
+    },
+    {
+      "look": "road",
+      "tap": "anywhere"
+    },
+    {
+      "look": "road",
+      "tap": "anywhere"
+    },
+    {
+      "look": "thermos",
+      "tap": "thermos"
+    },
+    {
+      "look": "left",
+      "tap": "eyes",
+      "still": "left"
+    },
+    {
+      "look": "wheel",
+      "tap": "wheel"
+    }
+  ],
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.10 Traffic laws",
@@ -36,11 +91,11 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "camera_is_the_lesson": true,
-    "subject": "from the high seat looking forward through the bar cage, wet two-lane Central ahead, a gap in the left that is not yet a hole",
-    "foreground": "worn transit wheel rim, analog cluster moving, dented steel thermos in the cup on the doghouse, amber vest hem at the left edge of frame",
+    "subject": "from the high seat looking forward through the bar cage with the left door mirror in frame, wet two-lane Central ahead, a gap in the left that is not yet a hole",
+    "foreground": "worn transit wheel rim, analog cluster moving, dented steel thermos in the cup on the doghouse, amber vest hem at the left edge of frame, oversize left door mirror on a long arm",
     "midground": "bar cage with a wiper-slot cut, two lanes of wet paint, a primer sedan ahead in the right",
     "background": "overcast Central Avenue through the cage, brick and streetlights",
-    "read": "Deac is driving; the left is not yet a hole",
+    "read": "Deac is driving; the left door glass is in frame; the left is not yet a hole",
     "continuity": [
       "ledger_cockpit"
     ],

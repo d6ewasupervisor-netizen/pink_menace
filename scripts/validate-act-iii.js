@@ -89,6 +89,10 @@ for (let i = 0; i < cards.length; i++) {
   if (c.card_type === "ride-along") {
     const lines = c.ride_along || [];
     if (lines.length < 12 || lines.length > 15) err(id, `ride_along length ${lines.length}`);
+    const beats = c.ride_beats || [];
+    if (beats.length && beats.length !== lines.length) {
+      err(id, `ride_beats length ${beats.length} vs ride_along ${lines.length}`);
+    }
     if (id === "III-001") {
       const packLines = rideAlongPackLines();
       if (packLines.length !== lines.length) {

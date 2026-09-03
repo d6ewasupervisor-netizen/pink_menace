@@ -104,6 +104,7 @@ async function seedFile(filePath, tables) {
         timeout_ms: raw.timeout_ms || null,
         hook: raw.hook || null,
         ride_along: raw.ride_along || null,
+        ride_beats: raw.ride_beats || null,
       }),
     ]
   );
