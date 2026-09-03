@@ -42,7 +42,7 @@ Lead time is the whole lesson. Do not shorten it because "she might miss it." Mi
 
 ## 3. Presence is a sum, not a new system
 
-Presence accumulates from **noise** every card already emits. Light, yaw, and timeout still cost cargo. They do not summon The Quiet. Presence decays during clean driving (correct, and the delta added nothing).
+**Every locked-in wrong is loud.** Floor +3 noise even if the option is a lights or yaw miss. Authored noise above that still wins. Timeout and dossier continue stay quiet.
 
 Never shown as a number. She reads it from the world.
 

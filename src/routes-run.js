@@ -7,7 +7,7 @@ const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
 const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, skipSeqFor, checkpointState, applyDelta, checkpointKeep, buildReplayPlan, recapBeat, replayStep, advanceReplayPlan, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId } = require("./game");
-const { applyFear } = require("./presence");
+const { applyFear, loudDelta } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
@@ -381,19 +381,13 @@ function mountRun(app) {
         throw err;
       }
 
-      const delta = option.state_delta || {};
       const timedOut = Boolean(req.body && req.body.timed_out) && optionId !== "continue";
+      const dossier = card.card_type === "dossier";
+      const correct = Boolean(option.is_correct) && !dossier;
+      const delta = loudDelta(option.state_delta || {}, { correct, timedOut, dossier });
       const prevState = withActCargo(run.state, card.act);
-      let state = { ...prevState };
-      for (const [k, v] of Object.entries(delta)) {
-        if (k === "presence" || k === "handprints" || k === "drew") continue;
-        if (typeof v === "number") state[k] = (Number(state[k]) || 0) + v;
-        else state[k] = v;
-      }
-      const fear = applyFear(state, delta, {
-        correct: option.is_correct && card.card_type !== "dossier",
-        timedOut,
-      });
+      let state = applyDelta(prevState, delta);
+      const fear = applyFear(state, delta, { correct, timedOut });
       state = fear.state;
 
       let queued = Array.isArray(run.queued_callbacks) ? [...run.queued_callbacks] : [];

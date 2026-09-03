@@ -11,6 +11,7 @@ const COLLAPSE_AT = 23;
 const AFTER_COLLAPSE = 16;
 const TIMED_WEIGHT = 3;
 const CLEAN_DECAY = 2;
+const WRONG_NOISE_FLOOR = 3;
 
 function num(v) {
   const n = Number(v);
@@ -24,6 +25,13 @@ function tierOf(presence) {
     if (p <= row.max) return row.tier;
   }
   return 3;
+}
+
+function loudDelta(delta, opts) {
+  const d = { ...(delta || {}) };
+  if (opts && (opts.correct || opts.timedOut || opts.dossier)) return d;
+  if (num(d.noise) < WRONG_NOISE_FLOOR) d.noise = WRONG_NOISE_FLOOR;
+  return d;
 }
 
 function addedFrom(delta, _timedOut) {
@@ -81,8 +89,10 @@ module.exports = {
   AFTER_COLLAPSE,
   TIMED_WEIGHT,
   CLEAN_DECAY,
+  WRONG_NOISE_FLOOR,
   tierOf,
   addedFrom,
+  loudDelta,
   dispatchFor,
   applyFear,
   publicFear,

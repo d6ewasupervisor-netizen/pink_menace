@@ -35,7 +35,7 @@ Plates live in `public/game/quiet/`. Depth plates only apply where `camera` is f
 | **T3** | **14–22** | They got loud. Pose swaps to an attack still of that walker. Prints thicken with the **noise meter**, not a sticky on/off. Eyeshine at night/dusk cards. |
 | **T4** | **23** | The Quiet beat (§3). |
 
-A wrong answer runs +3 to +4 **of noise**. Light and yaw still cost cargo. They do not summon the Quiet. Timeout is not loud. She should cross T1 inside the first few loud cards of a sloppy run and never see an attack on a clean one.
+A locked-in wrong answer is at least **+3 noise**, even when the option is a light or yaw miss. Authored noise above that still wins. Light and yaw still cost cargo. Timeout and dossier continue are not loud. Tapping the other choices after the card is scored does not count. She should cross T1 inside the first few loud cards of a sloppy run and never see an attack on a clean one.
 
 **Same character per street, different pose when they get loud.** 60 stills in `public/game/quiet/zones/` (12 walkers × 5 poses). The rearview picks a walker from the card id. Watching uses poses 1–3. Attack (T3+) swaps to pose 4 or 5 of that same walker. Pink Menace uses the interior rearview (top center of the windshield). The Ledger has no rear window — door glass only.
 
