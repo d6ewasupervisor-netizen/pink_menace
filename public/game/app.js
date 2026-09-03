@@ -592,10 +592,10 @@ function fillCard(card, opts) {
   const cont = document.getElementById("continue");
   const resumeLive = document.getElementById("resume-live");
   const hook = card.hook || PMFeel.firstSentence(card.scene);
-  const isDossier = card.card_type === "dossier";
+  const isWatch = card.card_type === "dossier" || card.card_type === "ride-along";
   if (hookEl) {
     hookEl.textContent = hook;
-    hookEl.classList.toggle("hidden", isDossier || !hook);
+    hookEl.classList.toggle("hidden", isWatch || !hook);
     hookEl.onclick = null;
   }
   if (sceneEl) {
@@ -654,6 +654,12 @@ function fillCard(card, opts) {
     return;
   }
 
+  const rideLines = Array.isArray(card.ride_along) ? card.ride_along.filter(Boolean) : [];
+  if (!opts.review && !opts.pending && rideLines.length) {
+    startRideAlong(card, rideLines);
+    return;
+  }
+
   resumeLive.classList.add("hidden");
   resumeLive.onclick = null;
   cont.classList.add("hidden");
@@ -670,6 +676,47 @@ function fillCard(card, opts) {
   }
 
   armChoiceGate(card, opts);
+  pinCardTop();
+}
+
+function startRideAlong(card, lines) {
+  const wrap = document.getElementById("shot-wrap");
+  const sceneEl = document.getElementById("scene");
+  const hookEl = document.getElementById("hook");
+  const cont = document.getElementById("continue");
+  const decision = document.getElementById("decision");
+  if (sceneEl) sceneEl.classList.add("hidden");
+  if (hookEl) hookEl.classList.add("hidden");
+  if (decision) decision.classList.add("hidden");
+  document.getElementById("options").classList.add("hidden");
+  cont.classList.add("hidden");
+  cont.onclick = null;
+  runEl.classList.add("choices-ready", "riding");
+  let i = 0;
+  const show = () => {
+    PMFeel.showBark({ who: "deac", line: lines[i], tap: true, persist: true });
+    if (i >= lines.length - 1) {
+      cont.classList.remove("hidden");
+      cont.textContent = "Continue";
+      cont.onclick = () => {
+        stop();
+        submitAnswer("continue");
+      };
+    }
+  };
+  const advance = (ev) => {
+    if (ev && ev.target && ev.target.closest && ev.target.closest("#continue")) return;
+    if (i >= lines.length - 1) return;
+    i += 1;
+    show();
+  };
+  const stop = () => {
+    if (wrap) wrap.onclick = null;
+    runEl.classList.remove("riding");
+    PMFeel.hideBark();
+  };
+  if (wrap) wrap.onclick = advance;
+  show();
   pinCardTop();
 }
 
@@ -762,7 +809,7 @@ function playOutcome(data, card) {
   const nextMeters = data.state || meters;
   const failed = Boolean(data && data.failed);
   const quiet = Boolean(data && data.quiet) && !failed;
-  const isDossier = liveCard && liveCard.card_type === "dossier";
+  const isDossier = liveCard && (liveCard.card_type === "dossier" || liveCard.card_type === "ride-along");
   const finish = () => {
     const cost = data.time_cost != null ? data.time_cost : data.state_delta && data.state_delta.time_cost;
     if (failed) {
@@ -1165,6 +1212,7 @@ document.getElementById("shot-wrap").addEventListener("click", (ev) => {
   const wrap = ev.currentTarget;
   if (wrap.classList.contains("hidden")) return;
   if (runEl.classList.contains("holding")) return;
+  if (runEl.classList.contains("riding")) return;
   if (ev.target.closest("button, a, #bark")) return;
   wrap.classList.toggle("fs");
 });

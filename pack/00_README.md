@@ -37,7 +37,9 @@ Three layers, and the order matters.
 
 `26_THE_QUIET.md` turns that machine on: photoreal glass and depth plates, rethresholded tiers, a T4 beat that is not cargo-fail, and Deac's door-mirror slot (III-005 on the right glass).
 
-`21_THE_MANIFEST.md` is the stake-legibility spec. Cargo and `time_cost` were already tracked; the player could not see them. Clipboard, cooler tag, per-result `−N MIN`, two Reyna check-ins, and both endings are copy and UI. After cold hits zero the tag reads `COLD: 0 · WARMING N MIN` — a live tag never shows a number that isn't true. **A mechanic the player doesn't perceive doesn't exist.** The test for every system from here on is not "does it work" — it's "did she see it work."
+`21_THE_MANIFEST.md` is the stake-legibility spec. Cargo and `time_cost` were already tracked; the player could not see them. Clipboard, cooler tag, per-result `−N MIN`, two Reyna check-ins, and both endings are copy and UI. After cold hits zero the tag reads `COLD: 0 · WARMING N MIN` — a live tag never shows a number that isn't true. **A mechanic the player doesn't perceive doesn't exist.** The test for every system from here on is not "does it work" — it's "did she see it work." **A feature turned off for quality must leave a ticket** — in the pack or the repo, naming what was disabled and why. A silent `display: none` is not a decision; it is a disappearance. Same failure from the opposite direction.
+
+`27_ACT_III_CLOSEOUT.md` is the Act III ship checklist and the handoff to shell + watch layer.
 
 `22_III_001_RIDE_ALONG.md` is Deac's twelve-line watch-layer handoff for III-001. Hand-written. Not generated.
 

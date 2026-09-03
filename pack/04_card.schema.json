@@ -20,7 +20,7 @@
     },
     "driver": { "enum": ["ali", "deac", "yuna"] },
     "card_type": {
-      "enum": ["scene", "hazard", "rule", "convoy", "wrench", "ledger", "dossier"]
+      "enum": ["scene", "hazard", "rule", "convoy", "wrench", "ledger", "dossier", "ride-along"]
     },
     "title": { "type": "string", "minLength": 3, "maxLength": 40 },
     "hook": {
@@ -66,7 +66,13 @@
         }
       }
     },
-    "debrief": { "type": "string", "maxLength": 400 },
+    "ride_along": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 15,
+      "items": { "type": "string", "minLength": 8, "maxLength": 160 },
+      "description": "Watch-layer lines. Deac drives; tap advances. Required on ride-along cards."
+    },
     "source": {
       "type": "object",
       "required": ["psdp_skill", "dol_section", "teaching_target"],
@@ -256,9 +262,13 @@
   },
   "allOf": [
     {
-      "if": { "properties": { "card_type": { "const": "dossier" } } },
+      "if": { "properties": { "card_type": { "enum": ["dossier", "ride-along"] } } },
       "then": { "not": { "required": ["options"] } },
       "else": { "required": ["decision", "options", "debrief"] }
+    },
+    {
+      "if": { "properties": { "card_type": { "const": "ride-along" } } },
+      "then": { "required": ["ride_along", "debrief"] }
     },
     {
       "if": { "properties": { "card_type": { "const": "hazard" } } },

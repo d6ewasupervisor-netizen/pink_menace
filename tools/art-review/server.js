@@ -184,6 +184,7 @@ function verdictOf(state, id) {
   return {
     tag,
     note: typeof v.note === "string" ? v.note : "",
+    caveat: typeof v.caveat === "string" ? v.caveat : "",
     pick,
     writer_first: writerFirst(tag),
   };
@@ -328,6 +329,7 @@ app.get("/api/card/:id", (req, res) => {
     pick,
     tag: v.tag,
     note: v.note,
+    caveat: v.caveat,
     writer_first: v.writer_first,
     bucket: v.tag ? bucketOf(v.tag) : "open",
     index: idx,

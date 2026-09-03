@@ -370,6 +370,7 @@ const PMFeel = (() => {
     if (line) line.textContent = s.line || (s.tap ? "" : "");
     el.className = "bark" + (s.tap ? " tap" : "");
     el.classList.remove("hidden");
+    if (s.persist) return;
     barkTimer = window.setTimeout(() => {
       el.classList.add("hidden");
     }, 1800);

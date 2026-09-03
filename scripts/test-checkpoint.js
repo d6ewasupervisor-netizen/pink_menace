@@ -64,11 +64,13 @@ assert.deepStrictEqual(replayWindowAnswers(actIII.slice(0, 6), 5), []);
 
 const withTypes = actIII.map((a) => ({
   ...a,
-  card_type: a.card_id === "III-002" ? "dossier" : "scene",
+  card_type:
+    a.card_id === "III-001" ? "ride-along" : a.card_id === "III-002" ? "dossier" : "scene",
   was_correct: a.was_correct,
 }));
 const reviewIds = reviewIdsFromAnswers(withTypes);
 assert.ok(!reviewIds.includes("III-008"), "failing card stays out of the hold");
+assert.ok(!reviewIds.includes("III-001"), "ride-along stays out of the hold");
 assert.ok(!reviewIds.includes("III-002"), "dossiers stay out of the hold");
 assert.strictEqual(reviewIds[0], "III-004");
 assert.strictEqual(reviewIds[1], "III-007");

@@ -161,7 +161,7 @@ function sceneFragment(scene) {
 }
 
 function imageUrl(cardId) {
-  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a49";
+  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a51";
 }
 
 function cargoUsed(state) {
@@ -276,9 +276,13 @@ const REVIEW_N = 10;
 const REVIEW_MIN = 4;
 const HOLD_CUTOUTS = ["52", "56", "57", "58", "59", "60"];
 
+function isWatchCard(type) {
+  return type === "dossier" || type === "ride-along";
+}
+
 function quizableAnswer(ans) {
   if (!ans || !ans.card_id) return false;
-  if (ans.card_type === "dossier") return false;
+  if (isWatchCard(ans.card_type)) return false;
   return true;
 }
 
@@ -362,6 +366,7 @@ async function fillReviewFromStudent(client, studentId, have, need, skipIds) {
       WHERE r.student_id = $1
         AND c.callback_of IS NULL
         AND c.card_type IS DISTINCT FROM 'dossier'
+        AND c.card_type IS DISTINCT FROM 'ride-along'
         AND EXISTS (
               SELECT 1 FROM card_options o
                WHERE o.card_id = c.card_id AND o.option_id <> 'continue'
@@ -671,6 +676,7 @@ async function publicCard(cardId) {
     camera: brief.camera || null,
     timeout_option_id: extra.timeout_option_id || null,
     timeout_ms: Number(extra.timeout_ms) || 24000,
+    ride_along: Array.isArray(extra.ride_along) ? extra.ride_along : null,
     image_url: imageUrl(card.card_id),
     options: options.map((o) => ({ option_id: o.option_id, option_text: o.option_text })),
     tappable: true,
@@ -998,5 +1004,7 @@ module.exports = {
   reopenIfMoreCards,
   publicState,
   hookOf,
+  isWatchCard,
+  quizableAnswer,
   nightOf,
 };

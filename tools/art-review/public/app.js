@@ -15,6 +15,7 @@ const read = document.getElementById("read");
 const geo = document.getElementById("geo");
 const tagsEl = document.getElementById("tags");
 const routeEl = document.getElementById("route");
+const caveatEl = document.getElementById("caveat");
 const note = document.getElementById("note");
 const takesEl = document.getElementById("takes");
 const strip = document.getElementById("strip");
@@ -190,6 +191,15 @@ function renderCard() {
   } else {
     routeEl.textContent = "";
     routeEl.classList.add("hidden");
+  }
+  if (caveatEl) {
+    if (card.caveat) {
+      caveatEl.textContent = card.caveat;
+      caveatEl.classList.remove("hidden");
+    } else {
+      caveatEl.textContent = "";
+      caveatEl.classList.add("hidden");
+    }
   }
   renderTags();
   renderOptions();

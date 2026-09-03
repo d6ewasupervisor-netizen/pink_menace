@@ -12,13 +12,20 @@ const ENCODE_STILL = path.join(__dirname, "encode-still.py");
 
 function encodeStill(pngPath) {
   const dest = path.join(os.tmpdir(), path.basename(pngPath, path.extname(pngPath)) + ".webp");
-  const run = spawnSync("python", [ENCODE_STILL, pngPath, dest], {
+  try {
+    fs.unlinkSync(dest);
+  } catch {
+    /* ok */
+  }
+  const run = spawnSync("python3", [ENCODE_STILL, path.resolve(pngPath), dest], {
     windowsHide: true,
     encoding: "utf8",
   });
   if (run.status !== 0 || !fs.existsSync(dest)) {
-    const err = (run.stderr || run.stdout || "").trim();
-    throw new Error(`webp encode failed for ${path.basename(pngPath)}${err ? ": " + err : ""}`);
+    const err = (run.stderr || run.stdout || (run.error && run.error.message) || "").trim();
+    throw new Error(
+      `webp encode failed for ${path.basename(pngPath)} status=${run.status}${err ? ": " + err : ""}`
+    );
   }
   const bytes = fs.readFileSync(dest);
   try {
@@ -96,6 +103,7 @@ async function seedFile(filePath, tables) {
         timeout_option_id: raw.timeout_option_id || null,
         timeout_ms: raw.timeout_ms || null,
         hook: raw.hook || null,
+        ride_along: raw.ride_along || null,
       }),
     ]
   );
@@ -144,6 +152,20 @@ async function main() {
   }
   console.log("seeded", ids.join(", "));
   await pool.end();
+
+  // Post-step: encoded repo stills must match what we just wrote.
+  const acts = [...new Set(ids.map((id) => String(id).split("-")[0]))].sort();
+  for (const act of acts) {
+    const audit = spawnSync(process.execPath, [path.join(__dirname, "audit-stills.js"), "--act", act], {
+      env: process.env,
+      encoding: "utf8",
+    });
+    if (audit.stdout) process.stdout.write(audit.stdout);
+    if (audit.stderr) process.stderr.write(audit.stderr);
+    if (audit.status !== 0) {
+      throw new Error(`audit-stills failed for act ${act} after seed`);
+    }
+  }
 }
 
 main().catch((err) => {
