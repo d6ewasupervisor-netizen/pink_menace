@@ -919,7 +919,7 @@ button.act-row {
   top: 14%;
   width: 10%;
   height: 9%;
-  background-image: url("/quiet/palm.png?v=q2");
+  background-image: url("/quiet/palm.png?v=q3");
   background-size: contain;
   background-position: left top;
   mix-blend-mode: multiply;
@@ -990,7 +990,7 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
 .fear-root.cockpit.tier-2.forward .fear-gait { opacity: 0; }
 .fear-root.street .fear-gait { opacity: 0; }
 .fear-root.glass .fear-prints { opacity: calc(0.1 + var(--quiet-loud, 0) * 0.72); }
-.fear-root.glass .fear-palm { opacity: calc(0.06 + var(--quiet-loud, 0) * 0.8); }
+.fear-root.glass .fear-palm { opacity: calc(0.2 + var(--quiet-loud, 0) * 0.75); }
 .fear-root.has-mirror .fear-mirror { opacity: calc(0.12 + var(--quiet-loud, 0) * 0.7); }
 .fear-root.street .fear-walker { opacity: calc(0.1 + var(--quiet-loud, 0) * 0.68); }
 .fear-root.night.glass.tier-3 .fear-eyeshine { opacity: calc(0.25 + var(--quiet-loud, 0) * 0.55); }
@@ -1457,10 +1457,10 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
   opacity: calc(0.2 + (1 - var(--hold-clear, 0)) * 0.55);
 }
 .hold-palm {
-  background-image: url("/quiet/palm.png?v=q2");
+  background-image: url("/quiet/palm.png?v=q3");
   background-size: 36% auto;
   background-position: 20% 90%;
-  opacity: calc(0.15 + (1 - var(--hold-clear, 0)) * 0.7);
+  opacity: calc(0.28 + (1 - var(--hold-clear, 0)) * 0.72);
 }
 .hold-fog {
   background-image: url("/quiet/fog.png?v=q2");

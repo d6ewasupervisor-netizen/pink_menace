@@ -6,7 +6,7 @@ Act III is playable, seeded, and playtested. This file closes the work-order che
 
 ## §1 Quiet plates (handoff)
 
-- **Palm print:** scaled in CSS (`.fear-palm` ~10×9% frame). Same hand plate; driver-distance scale.
+- **Palm print:** regenerated (4 takes, take 3 shipped). Flat grime displacement on glass — not a photographic hand. `mix-blend-mode: multiply`, higher opacity, ~10×9% frame.
 - **Horizon band:** tier-1/tier-2 forward depth uses `herd.png` (legs, asymmetry) instead of the blob strip `distant.png`. Less blur so it reads as figures at 390px, not sky smudge.
 
 Rain, drag marks, cold tag, spiked meters, and bus card legibility were not touched.
