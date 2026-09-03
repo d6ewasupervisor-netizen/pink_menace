@@ -194,21 +194,32 @@ function bindGate({ kind, onReady }) {
 }
 
 function loadImage(img, url) {
-  return waitFor(new Promise((resolve) => {
-    if (!img || !url) {
-      resolve();
-      return;
-    }
-    const done = () => {
-      img.onload = null;
-      img.onerror = null;
-      resolve();
-    };
-    img.decoding = "async";
-    img.onload = done;
-    img.onerror = done;
-    img.src = url;
-  }));
+  return waitFor(
+    new Promise((resolve) => {
+      if (!img || !url) {
+        resolve();
+        return;
+      }
+      const token = {};
+      img._pmLoadToken = token;
+      const done = () => {
+        // Always resolve so a superseded src cannot leave Buffering stuck.
+        if (img._pmLoadToken === token) {
+          img.onload = null;
+          img.onerror = null;
+        }
+        resolve();
+      };
+      img.decoding = "async";
+      img.onload = done;
+      img.onerror = done;
+      if (img.getAttribute("src") === url && img.complete && img.naturalWidth) {
+        done();
+        return;
+      }
+      img.src = url;
+    })
+  );
 }
 
 window.PM = { api, $, show, setMsg, bindGate, waitBegin, waitEnd, waitFor, loadImage };
