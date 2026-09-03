@@ -915,10 +915,10 @@ button.act-row {
   mix-blend-mode: multiply;
 }
 .fear-palm {
-  left: 22%;
-  top: 10%;
-  width: 18%;
-  height: 15%;
+  left: 26%;
+  top: 14%;
+  width: 10%;
+  height: 9%;
   background-image: url("/quiet/palm.png?v=q2");
   background-size: contain;
   background-position: left top;
@@ -1458,8 +1458,8 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
 }
 .hold-palm {
   background-image: url("/quiet/palm.png?v=q2");
-  background-size: 70% auto;
-  background-position: 12% 88%;
+  background-size: 36% auto;
+  background-position: 20% 90%;
   opacity: calc(0.15 + (1 - var(--hold-clear, 0)) * 0.7);
 }
 .hold-fog {
