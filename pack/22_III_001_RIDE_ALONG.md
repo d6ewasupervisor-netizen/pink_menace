@@ -4,6 +4,8 @@ Watch-layer debut. Deac drives. She does not touch the wheel until the last line
 
 Skill nine (multi-lane). Central. The Ledger. Mya on the dash.
 
+She looks with him. Each line pans the glass; the sweep, the gap, the thermos, and the wheel are taps on the named spot — not a text slideshow on one still.
+
 ---
 
 1. Left mirror. Right mirror. Left again. Every time. That's the sweep. The Ledger has rooms you cannot see.

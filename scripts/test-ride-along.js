@@ -12,6 +12,10 @@ assert.ok(quizableAnswer({ card_id: "III-003", card_type: "scene", was_correct: 
 const card = require("../cards/III-001.json");
 assert.strictEqual(card.card_type, "ride-along");
 assert.strictEqual(card.ride_along.length, 12);
+assert.strictEqual(card.ride_beats.length, 12);
+assert.strictEqual(card.ride_beats[0].tap, "sweep");
+assert.strictEqual(card.ride_beats[11].tap, "wheel");
+assert.strictEqual(card.ride_beats[5].still, "horn");
 assert.strictEqual(
   card.ride_along[0],
   "Left mirror. Right mirror. Left again. Every time. That's the sweep. The Ledger has rooms you cannot see."

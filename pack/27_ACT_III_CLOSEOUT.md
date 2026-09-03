@@ -39,6 +39,6 @@ Nothing else blocks moving off Act III.
 
 ## §4 Ride-along (shipped this pass)
 
-III-001 is playable: twelve Deac lines over the cockpit still, tap to advance, last line hands the wheel. Watch-card (dossier-class) for answers and the Hold. Still seeded.
+III-001 is playable: twelve Deac lines, look pans and named-spot taps (sweep / gap / thermos / wheel), beat stills for left glass / late merge / horn. Watch-card for answers and the Hold. Still seeded.
 
 Navigation shell (Log, Cast, Resume) stays next.

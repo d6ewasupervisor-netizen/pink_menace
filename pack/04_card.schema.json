@@ -73,6 +73,30 @@
       "items": { "type": "string", "minLength": 8, "maxLength": 160 },
       "description": "Watch-layer lines. Deac drives; tap advances. Required on ride-along cards."
     },
+    "ride_beats": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 15,
+      "description": "Per-line look and tap for ride-along. Length must match ride_along. look pans the still; tap is the hotspot she must hit (sweep/eyes are sequences).",
+      "items": {
+        "type": "object",
+        "required": ["look", "tap"],
+        "additionalProperties": false,
+        "properties": {
+          "look": {
+            "enum": ["road", "left", "right", "gap", "thermos", "wheel"]
+          },
+          "tap": {
+            "enum": ["anywhere", "left", "right", "gap", "thermos", "wheel", "sweep", "eyes"]
+          },
+          "still": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]{0,24}$",
+            "description": "Optional beat still under /ride/<card_id>/<still>.webp. Omit to keep the live card image."
+          }
+        }
+      }
+    },
     "source": {
       "type": "object",
       "required": ["psdp_skill", "dol_section", "teaching_target"],

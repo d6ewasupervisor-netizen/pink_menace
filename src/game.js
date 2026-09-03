@@ -161,7 +161,7 @@ function sceneFragment(scene) {
 }
 
 function imageUrl(cardId) {
-  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a51";
+  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a52";
 }
 
 function cargoUsed(state) {
@@ -677,6 +677,7 @@ async function publicCard(cardId) {
     timeout_option_id: extra.timeout_option_id || null,
     timeout_ms: Number(extra.timeout_ms) || 24000,
     ride_along: Array.isArray(extra.ride_along) ? extra.ride_along : null,
+    ride_beats: Array.isArray(extra.ride_beats) ? extra.ride_beats : null,
     image_url: imageUrl(card.card_id),
     options: options.map((o) => ({ option_id: o.option_id, option_text: o.option_text })),
     tappable: true,
