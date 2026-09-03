@@ -476,14 +476,25 @@ const PMFeel = (() => {
     return /^(POV_COCKPIT|POV_CHASE|POV_MIRROR_)/.test(String(camera || ""));
   }
 
+  // Ledger cockpit stills that already show a west-coast door mirror.
+  // Do not invent a mirror on a still that does not have one (III-014, III-002, …).
+  // III-022 is a close-up of the door mirror with a trooper in it — that glass is the lesson.
+  const DEAC_DOOR = {
+    "III-004": "left",
+    "III-005": "right",
+    "III-006": "left",
+    "III-009": "left",
+    "III-017": "right",
+    "III-019": "left",
+    "III-027": "left",
+  };
+
   function fearSlot(cardId) {
-    if (cardId === "III-005") return "right";
-    if (document.documentElement.dataset.driver === "deac") return "left";
+    const deac = document.documentElement.dataset.driver === "deac";
+    if (deac) return DEAC_DOOR[cardId] || "";
     return "center";
   }
 
-  const ZONE_CHARS = 12;
-  const ZONE_POSES = 5;
   const STREET_CUTOUTS = ["52", "56", "57", "58", "59", "60"];
 
   function hashStr(s) {
@@ -491,17 +502,6 @@ const PMFeel = (() => {
     const t = String(s || "x");
     for (let i = 0; i < t.length; i++) h = Math.imul(h ^ t.charCodeAt(i), 16777619) >>> 0;
     return h;
-  }
-
-  function zoneUrl(cardId, tier) {
-    const h = hashStr(cardId);
-    const ch = h % ZONE_CHARS;
-    const watch = (h >>> 8) % 3;
-    const attack = 3 + ((h >>> 16) % 2);
-    const pose = tier >= 3 ? attack : watch;
-    const n = ch * ZONE_POSES + pose + 1;
-    const id = n < 10 ? "0" + n : String(n);
-    return "/quiet/zones/" + id + ".webp?v=z1";
   }
 
   function cutoutUrl(cardId, tier) {
@@ -525,7 +525,9 @@ const PMFeel = (() => {
     const cockpit = /^POV_COCKPIT/.test(String(camera || ""));
     const chase = /^POV_CHASE/.test(String(camera || ""));
     const street = /^(POV_ROADSIDE|POV_ROADSIDE_PROFILE|POV_CHASE)$/.test(String(camera || ""));
+    const deac = document.documentElement.dataset.driver === "deac";
     const slot = fearSlot(cardId);
+    const hasMirror = deac ? Boolean(slot) && tier >= 1 : glass && tier >= 1;
     root.className = [
       "fear-root",
       "tier-" + Math.min(tier, 3),
@@ -536,15 +538,17 @@ const PMFeel = (() => {
       cockpit ? "cockpit" : "",
       chase ? "chase" : "",
       street ? "street" : "",
+      hasMirror ? "has-mirror" : "",
       loud >= 0.4 ? "hot" : "",
-      "slot-" + slot,
+      slot ? "slot-" + slot : "",
     ]
       .filter(Boolean)
       .join(" ");
     root.style.setProperty("--quiet-loud", String(loud));
     const mirror = root.querySelector(".fear-mirror");
     if (mirror) {
-      mirror.style.backgroundImage = glass && tier >= 1 ? 'url("' + zoneUrl(cardId, tier) + '")' : "";
+      // Cutouts only. Full zone stills are scenes (DOL interiors, hordes) and do not read as a reflection.
+      mirror.style.backgroundImage = hasMirror ? 'url("' + cutoutUrl(cardId, tier) + '")' : "";
     }
     const walker = root.querySelector(".fear-walker");
     if (walker) {

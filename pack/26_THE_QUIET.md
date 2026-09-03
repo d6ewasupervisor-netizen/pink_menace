@@ -37,11 +37,13 @@ Plates live in `public/game/quiet/`. Depth plates only apply where `camera` is f
 
 A locked-in wrong answer is at least **+3 noise**, even when the option is a light or yaw miss. Authored noise above that still wins. Light and yaw still cost cargo. Timeout and dossier continue are not loud. Tapping the other choices after the card is scored does not count. She should cross T1 inside the first few loud cards of a sloppy run and never see an attack on a clean one.
 
-**Same character per street, different pose when they get loud.** 60 stills in `public/game/quiet/zones/` (12 walkers × 5 poses). The rearview picks a walker from the card id. Watching uses poses 1–3. Attack (T3+) swaps to pose 4 or 5 of that same walker. Pink Menace uses the interior rearview (top center of the windshield). The Ledger has no rear window — door glass only.
+**Same character per street, different pose when they get loud.** Door-mirror and rearview glass get **cutouts** (`/quiet/cutouts/`), not the 60 zone photographs. Those zone files are scenes — DOL interiors, hordes, trucks — and they read as a photograph taped to the cab, not a reflection. Watching vs attack still swaps among the six standing walkers.
+
+Pink Menace uses the interior rearview (top center of the windshield). The Ledger has no rear window. **Only fill a door mirror that is already in the still.** If the still has no west-coast mirror (Arrow Then Circle, Mya on the dash, etc.), do not invent one. III-022's door glass is the lesson (the remnant in the cap) — leave it.
 
 **Do not paste a zone photograph onto a card still.** Those 60 files are scenes, not stickers. Three legal uses:
 
-1. **Glass** — the full still is the contents of a rearview or door mirror. That is a photograph of a photograph. Legal.
+1. **Glass** — a standing-walker cutout in a rearview or door mirror that is already in the still. Not a full zone photograph.
 2. **Street** — rembg cutouts of standing figures only (`/quiet/cutouts/`), small, on the shoulder of `POV_ROADSIDE`, `POV_ROADSIDE_PROFILE`, and `POV_CHASE`. Never in the middle of the road. Never on the dash plane of a cockpit.
 3. **Never on `POV_DIAGRAM`, `POV_OBJECT`, or `POV_PORTRAIT`.** An eye-level walker on a bird's-eye four-way is a toy. The teaching read (who was first, what the sign says, whose face) stays clean.
 
@@ -58,9 +60,7 @@ Cargo fail still uses the black `collapse` panel. `quiet` is a separate response
 
 ## 4. THE LEDGER
 
-`html[data-driver="deac"]` puts the mirror slot on a door mirror. Never a rear window.
-
-**III-005 specifically: the right door glass** (`slot-right`).
+`html[data-driver="deac"]` only paints a walker into a **door mirror that is already in the still** (III-004, III-005 right, III-006, III-009, III-017 right, III-019, III-027). Never a fake chrome box on a windshield that has no mirror. Never a rear window.
 
 ## 5. VIGNETTE
 

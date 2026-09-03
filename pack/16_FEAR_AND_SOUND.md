@@ -73,7 +73,7 @@ Map only to ceiling tests that **PASS**ed. T12 was SOFT (clean standing silhouet
 
 **Prints track the noise meter.** At noise 0 they are a smear you can miss. They thicken as the bar fills. Drive quiet and they fade. They are not a sticky on/off that outlives the meter.
 
-**Deac / the Ledger.** No rear window, no interior mirror. Overlay slots inherit that: a mirror contact appears in a **door mirror** (left of frame), or it does not appear until the figure is beside him — which is scarier than Ali's centered glass. T3 prints sit on side glass. Never a center-rearview smear on a Deac card. `html[data-driver="deac"]` moves `.fear-mirror` and `.fear-contacts` off the top-center slot.
+**Deac / the Ledger.** No rear window, no interior mirror. Only fill a **door mirror that is already in the still**. Never invent a chrome box on a windshield that has none. T3 prints sit on the windshield. Never a center-rearview smear on a Deac card.
 
 Do not render The Quiet. Do not put faces on the silhouettes. Do not put blood on the glass — T8/T14 stay out of the overlay set. Grime, drag streaks, condensation.
 
@@ -98,7 +98,7 @@ Correct resolutions get **quiet**. Meters ease. Rain only. **Never a success chi
 
 Show nothing we would have to render well.
 
-1. Mirror slot fills. On Deac that slot is the **left door mirror**, not a center rearview.
+1. Mirror slot fills only when that glass already exists in the still. On Deac that is a **door mirror**, never an invented rearview.
 2. Handprints multiply.
 3. Dash dies.
 4. Black.
