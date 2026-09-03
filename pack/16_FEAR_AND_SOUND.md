@@ -150,6 +150,8 @@ If she connects her driving to the world's behavior, the system reads. Everythin
 
 Do not wait for rolling road, radio, or Phase 3 micro-mechanics. Do not regenerate Act II art. Do not add points, accuracy, or streaks. Do not write Act III.
 
+**Disabled features:** if a tier, overlay, or cue is switched off because it fails quality bar, file a row in `pack/DISABLED_TICKETS.md` before merge. Same standard as manifest legibility — invisible is not shipped.
+
 ---
 
 ## 10. What this is not

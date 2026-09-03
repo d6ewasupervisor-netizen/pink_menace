@@ -869,17 +869,17 @@ button.act-row {
 .fear-depth {
   left: 8%;
   right: 8%;
-  top: 38%;
-  height: 10%;
-  background-image: url("/quiet/distant.png?v=q2");
-  background-size: contain;
+  top: 40%;
+  height: 9%;
+  background-image: url("/quiet/herd.png?v=q3");
+  background-size: auto 100%;
   background-position: center bottom;
-  filter: blur(2.2px) saturate(0.35);
+  filter: blur(1px) saturate(0.42) brightness(0.78);
 }
 .fear-root.tier-2.forward .fear-depth {
-  background-image: url("/quiet/herd.png?v=q2");
-  height: 12%;
-  filter: blur(1.6px) saturate(0.4);
+  background-image: url("/quiet/herd.png?v=q3");
+  height: 11%;
+  filter: blur(0.85px) saturate(0.45) brightness(0.8);
 }
 .fear-gait {
   left: 76%;

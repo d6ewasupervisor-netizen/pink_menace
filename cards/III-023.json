@@ -53,7 +53,7 @@
       }
     }
   ],
-  "debrief": "4.16: HOV is a diamond, occupancy on the signs, typically fenced by solid white. A bus may travel in it. Solid means do not cross that stretch; broken is where you may enter or exit. Darting in to pass one vehicle is not travel. Carpool lanes are not passing lanes.",
+  "debrief": "4.16: HOV is a diamond, occupancy on the signs, typically fenced by solid white. A bus may travel in it. Solid means do not cross that stretch; broken is where you may enter or exit. Do not dart through the diamond to pass one slow vehicle.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "4.16 Road markings (HOV / Carpool lane)",
