@@ -859,7 +859,7 @@ button.act-row {
 }
 .dash.dead .cooler-tag { background: #8a6a5a; opacity: 0.55; }
 
-.fear-depth, .fear-gait, .fear-prints, .fear-palm, .fear-flood, .fear-fog, .fear-mirror, .fear-eyeshine {
+.fear-depth, .fear-gait, .fear-walker, .fear-prints, .fear-palm, .fear-flood, .fear-fog, .fear-mirror, .fear-eyeshine {
   position: absolute;
   pointer-events: none;
   opacity: 0;
@@ -890,6 +890,22 @@ button.act-row {
   background-size: contain;
   background-position: center bottom;
   filter: blur(0.7px) saturate(0.45);
+}
+.fear-walker {
+  left: 6%;
+  width: 8%;
+  top: 40%;
+  height: 22%;
+  background-size: contain;
+  background-position: center bottom;
+  filter: saturate(0.4) brightness(0.72) drop-shadow(0 5px 6px rgba(0, 0, 0, 0.55));
+}
+.fear-root.chase .fear-walker {
+  left: 72%;
+  width: 6%;
+  top: 46%;
+  height: 14%;
+  filter: saturate(0.35) brightness(0.68) blur(0.35px) drop-shadow(0 4px 5px rgba(0, 0, 0, 0.5));
 }
 .fear-prints {
   inset: 0;
@@ -968,6 +984,10 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
 .fear-root.cockpit .fear-depth { opacity: 0 !important; }
 .fear-root.tier-2.forward .fear-gait { opacity: 0.7; }
 .fear-root.cockpit.tier-2.forward .fear-gait { opacity: 0; }
+.fear-root.street .fear-gait { opacity: 0; }
+.fear-root.tier-1.street .fear-walker { opacity: 0.48; }
+.fear-root.tier-2.street .fear-walker { opacity: 0.62; }
+.fear-root.tier-3.street .fear-walker { opacity: 0.78; }
 .fear-root.tier-1.glass .fear-mirror { opacity: 0.5; }
 .fear-root.tier-2.glass .fear-mirror { opacity: 0.68; }
 .fear-root.tier-3.glass .fear-mirror { opacity: 0.82; }
@@ -1335,7 +1355,7 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
   .buffer img {
     animation: none !important;
   }
-  .fear-depth, .fear-gait, .fear-prints, .fear-palm, .fear-flood, .fear-fog, .fear-mirror, .fear-eyeshine {
+  .fear-depth, .fear-gait, .fear-walker, .fear-prints, .fear-palm, .fear-flood, .fear-fog, .fear-mirror, .fear-eyeshine {
     transition: none;
   }
 }

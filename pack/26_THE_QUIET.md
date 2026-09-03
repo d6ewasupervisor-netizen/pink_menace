@@ -39,6 +39,12 @@ A wrong answer runs +3 to +4 **of noise**. Light and yaw still cost cargo. They 
 
 **Same character per street, different pose when they get loud.** 60 stills in `public/game/quiet/zones/` (12 walkers × 5 poses). The rearview picks a walker from the card id. Watching uses poses 1–3. Attack (T3+) swaps to pose 4 or 5 of that same walker. Pink Menace uses the interior rearview (top center of the windshield). The Ledger has no rear window — door glass only.
 
+**Do not paste a zone photograph onto a card still.** Those 60 files are scenes, not stickers. Three legal uses:
+
+1. **Glass** — the full still is the contents of a rearview or door mirror. That is a photograph of a photograph. Legal.
+2. **Street** — rembg cutouts of standing figures only (`/quiet/cutouts/`), small, on the shoulder of `POV_ROADSIDE`, `POV_ROADSIDE_PROFILE`, and `POV_CHASE`. Never in the middle of the road. Never on the dash plane of a cockpit.
+3. **Never on `POV_DIAGRAM`, `POV_OBJECT`, or `POV_PORTRAIT`.** An eye-level walker on a bird's-eye four-way is a toy. The teaching read (who was first, what the sign says, whose face) stays clean.
+
 ## 3. T4 IS NOT THE CARGO-FAIL COLLAPSE
 
 The Quiet beat is not a fail. Presence hits 23 and:

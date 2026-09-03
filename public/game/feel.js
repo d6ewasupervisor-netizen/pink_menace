@@ -484,6 +484,7 @@ const PMFeel = (() => {
 
   const ZONE_CHARS = 12;
   const ZONE_POSES = 5;
+  const STREET_CUTOUTS = ["52", "56", "57", "58", "59", "60"];
 
   function hashStr(s) {
     let h = 2166136261;
@@ -503,6 +504,12 @@ const PMFeel = (() => {
     return "/quiet/zones/" + id + ".webp?v=z1";
   }
 
+  function cutoutUrl(cardId, tier) {
+    const h = hashStr(cardId + ":cut");
+    const i = tier >= 3 ? STREET_CUTOUTS.length - 1 - (h % 2) : h % Math.max(1, STREET_CUTOUTS.length - 2);
+    return "/quiet/cutouts/" + STREET_CUTOUTS[i] + ".png?v=z1";
+  }
+
   function paintFear(state, extras) {
     const root = document.getElementById("fear-root");
     if (!root) return;
@@ -514,8 +521,10 @@ const PMFeel = (() => {
     const forward = forwardCamera(camera);
     const glass = forward;
     const cockpit = /^POV_COCKPIT/.test(String(camera || ""));
+    const chase = /^POV_CHASE/.test(String(camera || ""));
+    const street = /^(POV_ROADSIDE|POV_ROADSIDE_PROFILE|POV_CHASE)$/.test(String(camera || ""));
     const slot = fearSlot(cardId);
-    const plateOn = (forward && tier >= 1) || (glass && (prints || tier >= 2));
+    const plateOn = (forward && tier >= 1) || (glass && (prints || tier >= 2)) || (street && tier >= 1);
     root.className = [
       "fear-root",
       "tier-" + Math.min(tier, 3),
@@ -524,6 +533,8 @@ const PMFeel = (() => {
       forward ? "forward" : "",
       glass ? "glass" : "",
       cockpit ? "cockpit" : "",
+      chase ? "chase" : "",
+      street ? "street" : "",
       "slot-" + slot,
     ]
       .filter(Boolean)
@@ -531,6 +542,10 @@ const PMFeel = (() => {
     const mirror = root.querySelector(".fear-mirror");
     if (mirror) {
       mirror.style.backgroundImage = glass && tier >= 1 ? 'url("' + zoneUrl(cardId, tier) + '")' : "";
+    }
+    const walker = root.querySelector(".fear-walker");
+    if (walker) {
+      walker.style.backgroundImage = street && tier >= 1 ? 'url("' + cutoutUrl(cardId, tier) + '")' : "";
     }
     presenceAmt = tier >= 2 && plateOn ? Math.min(1, (Number(state && state.presence) || 0) / 22) : 0;
     paintVignette();
