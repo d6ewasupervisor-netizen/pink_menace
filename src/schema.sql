@@ -91,6 +91,8 @@ CREATE TABLE IF NOT EXISTS runs (
   callback_debts JSONB NOT NULL DEFAULT '[]'::jsonb,
   replay_plan JSONB NOT NULL DEFAULT '[]'::jsonb,
   replay_index INTEGER NOT NULL DEFAULT 0,
+  review_plan JSONB NOT NULL DEFAULT '[]'::jsonb,
+  review_index INTEGER NOT NULL DEFAULT 0,
   state JSONB NOT NULL DEFAULT '{}'::jsonb,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()

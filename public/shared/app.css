@@ -1422,3 +1422,89 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
   button, .top, .buffer { display: none !important; }
 }
 
+.hold {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+  background: rgba(4, 3, 3, 0.42);
+}
+.hold.hidden { display: none; }
+.hold-herd, .hold-contact, .hold-prints, .hold-palm, .hold-fog {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.hold-herd {
+  background-image: url("/quiet/herd.png?v=q2");
+  background-size: 140% auto;
+  background-position: 50% 78%;
+  opacity: 0.55;
+  filter: blur(0.6px);
+}
+.hold-contact {
+  background-image: url("/quiet/contact.png?v=q2");
+  background-size: 58% auto;
+  background-position: 88% 42%;
+  opacity: calc(0.22 + (1 - var(--hold-clear, 0)) * 0.55);
+  mix-blend-mode: screen;
+}
+.hold-prints {
+  background-image: url("/quiet/prints.png?v=q2");
+  background-size: cover;
+  opacity: calc(0.2 + (1 - var(--hold-clear, 0)) * 0.55);
+}
+.hold-palm {
+  background-image: url("/quiet/palm.png?v=q2");
+  background-size: 70% auto;
+  background-position: 12% 88%;
+  opacity: calc(0.15 + (1 - var(--hold-clear, 0)) * 0.7);
+}
+.hold-fog {
+  background-image: url("/quiet/fog.png?v=q2");
+  background-size: cover;
+  opacity: 0.35;
+}
+.hold-walkers {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0 2%;
+  pointer-events: none;
+}
+.hold-walkers img {
+  height: 88%;
+  width: auto;
+  max-width: 22%;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,0.65));
+  transform-origin: 50% 100%;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
+}
+.hold-walkers img:nth-child(odd) { height: 100%; }
+.hold-walkers img:nth-child(3n) { height: 78%; }
+.hold-walkers img.down {
+  transform: translateY(118%) rotate(8deg);
+  opacity: 0;
+}
+.hold-walkers.lunge img:not(.down) {
+  animation: hold-lunge 0.38s ease-out;
+}
+@keyframes hold-lunge {
+  0% { transform: scale(1) translateY(0); }
+  40% { transform: scale(1.16) translateY(6%); }
+  100% { transform: scale(1.04) translateY(0); }
+}
+#run.holding #shot { opacity: 0.38; filter: grayscale(0.35) contrast(1.1); }
+#run.holding #hook { display: none; }
+#run.holding .shot-wrap { cursor: default; }
+.cooler-float.gain { color: #d8c4a2; }
+

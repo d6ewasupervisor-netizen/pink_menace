@@ -6,13 +6,25 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, recapBeat, replayStep, advanceReplayPlan, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN } = require("./game");
 const { applyFear, loudDelta } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
 // A completed run starts a new one. We never rewind an in-progress run to card one.
 async function assignCurrent(run) {
+  const holdId = reviewStep(run);
+  if (holdId) {
+    if (run.current_card_id !== holdId) {
+      await query(
+        `UPDATE runs SET current_card_id = $1, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
+        [holdId, run.id]
+      );
+      run.current_card_id = holdId;
+      run.current_attempt_no = 1;
+    }
+    return persistActCargo(pool, run);
+  }
   if (!run.current_card_id) {
     const picked = await pickNextCard(pool, run.id, run.callback_debts, run.start_seq);
     if (picked.cardId) {
@@ -28,6 +40,8 @@ async function assignCurrent(run) {
 }
 
 async function cardForRun(run) {
+  const holdId = reviewStep(run);
+  if (holdId) return holdBeat(holdId, run);
   const step = replayStep(run);
   if (step && step.mode === "recap" && step.card_id === run.current_card_id) {
     return recapBeat(step.card_id, step.option_id);
@@ -66,21 +80,21 @@ function withManifest(payload, run, card, session, answersInAct) {
     ...payload,
     manifest: {
       ...manifestFor(act, session && session.name),
-      show: answersInAct === 0 && !payload.pending_outcome && !recap && opener,
+      show: answersInAct === 0 && !payload.pending_outcome && !recap && opener && !(card && card.hold),
     },
   };
 }
 
 async function getOrCreateRun(studentId) {
   const { rows } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index, review_plan, review_index
        FROM runs
       WHERE student_id = $1 AND status = 'active'`,
     [studentId]
   );
   if (rows[0]) return assignCurrent(rows[0]);
   const { rows: done } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index, review_plan, review_index
        FROM runs
       WHERE student_id = $1 AND status = 'completed'
       ORDER BY updated_at DESC
@@ -98,7 +112,7 @@ async function getOrCreateRun(studentId) {
     [id, studentId]
   );
   const created = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index, review_plan, review_index
        FROM runs WHERE id = $1`,
     [id]
   );
@@ -107,14 +121,14 @@ async function getOrCreateRun(studentId) {
 
 async function getRunForHome(studentId) {
   const { rows: active } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index, review_plan, review_index
        FROM runs
       WHERE student_id = $1 AND status = 'active'`,
     [studentId]
   );
   if (active[0]) return assignCurrent(active[0]);
   const { rows: last } = await query(
-    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
+    `SELECT id, student_id, status, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index, review_plan, review_index
        FROM runs
       WHERE student_id = $1
       ORDER BY updated_at DESC
@@ -307,7 +321,7 @@ function mountRun(app) {
     try {
       await client.query("BEGIN");
       const runRes = await client.query(
-        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
+        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index, review_plan, review_index
            FROM runs
           WHERE student_id = $1 AND status = 'active'
           FOR UPDATE`,
@@ -334,6 +348,10 @@ function mountRun(app) {
       if (replay && replay.mode === "recap" && replay.card_id === cardId) {
         await client.query("ROLLBACK");
         return jsonError(res, 409, "Recap beat — tap to continue.");
+      }
+      if (reviewStep(run)) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 409, "Hold beat.");
       }
       const cardRes = await client.query(
         `SELECT card_id, card_type, debrief, schedules_callback, callback_of, psdp_skill, dol_section,
@@ -459,7 +477,12 @@ function mountRun(app) {
       }
       let nextCardId = null;
       if (failed) {
-        const { startSeq, replayPlan, restartState } = await failRestart(client, run.id, run.start_seq);
+        const { startSeq, replayPlan, restartState, reviewPlan } = await failRestart(
+          client,
+          run.id,
+          run.start_seq,
+          session.userId
+        );
         await client.query(
           `UPDATE runs
               SET status = 'failed', current_card_id = NULL, queued_callbacks = $1,
@@ -471,8 +494,8 @@ function mountRun(app) {
         await client.query(
           `INSERT INTO runs (
              id, student_id, status, current_attempt_no, start_seq,
-             queued_callbacks, callback_debts, state, replay_plan, replay_index
-           ) VALUES ($1, $2, 'active', 1, $3, $4, $5::jsonb, $6::jsonb, $7::jsonb, 0)`,
+             queued_callbacks, callback_debts, state, replay_plan, replay_index, review_plan, review_index
+           ) VALUES ($1, $2, 'active', 1, $3, $4, $5::jsonb, $6::jsonb, $7::jsonb, 0, $8::jsonb, 0)`,
           [
             freshId,
             session.userId,
@@ -481,9 +504,16 @@ function mountRun(app) {
             JSON.stringify(debts),
             JSON.stringify(restartState),
             JSON.stringify(replayPlan),
+            JSON.stringify(reviewPlan || []),
           ]
         );
-        if (replayPlan.length) {
+        if (reviewPlan && reviewPlan.length) {
+          nextCardId = reviewPlan[0];
+          await client.query(
+            `UPDATE runs SET current_card_id = $1, updated_at = now() WHERE id = $2`,
+            [nextCardId, freshId]
+          );
+        } else if (replayPlan.length) {
           nextCardId = replayPlan[0].card_id;
           await client.query(
             `UPDATE runs SET current_card_id = $1, state = $2::jsonb, updated_at = now() WHERE id = $3`,
@@ -550,7 +580,7 @@ function mountRun(app) {
       let next = nextCardId ? { card_id: nextCardId } : { done: true };
       if (nextCardId) {
         const activeRes = await query(
-          `SELECT id, current_card_id, replay_plan, replay_index, callback_debts, start_seq
+          `SELECT id, current_card_id, replay_plan, replay_index, review_plan, review_index, callback_debts, start_seq
              FROM runs
             WHERE student_id = $1 AND status = 'active'
             ORDER BY updated_at DESC
@@ -629,6 +659,79 @@ function mountRun(app) {
     }
   });
 
+  app.post("/api/run/hold-answer", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    const cardId = String((req.body && req.body.card_id) || "");
+    const optionId = String((req.body && req.body.option_id) || "");
+    if (!cardId || !optionId) return jsonError(res, 400, "Missing answer.");
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+      const runRes = await client.query(
+        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index, review_plan, review_index
+           FROM runs
+          WHERE student_id = $1 AND status = 'active'
+          FOR UPDATE`,
+        [session.userId]
+      );
+      const run = runRes.rows[0];
+      if (!run || run.current_card_id !== cardId || reviewStep(run) !== cardId) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 409, "This is not the current card.");
+      }
+      const optRes = await client.query(
+        `SELECT option_id, is_correct, result
+           FROM card_options
+          WHERE card_id = $1 AND option_id = $2`,
+        [cardId, optionId]
+      );
+      const option = optRes.rows[0];
+      if (!option) {
+        await client.query("ROLLBACK");
+        return jsonError(res, 400, "Unknown option.");
+      }
+      const correct = Boolean(option.is_correct);
+      const nextState = bankHoldMinutes(run.state, correct);
+      await client.query(`UPDATE runs SET state = $1::jsonb, updated_at = now() WHERE id = $2`, [
+        JSON.stringify(nextState),
+        run.id,
+      ]);
+      run.state = nextState;
+      const advanced = await advanceHold(client, { ...run, state: nextState });
+      await client.query("COMMIT");
+      const activeRes = await query(
+        `SELECT id, current_card_id, replay_plan, replay_index, review_plan, review_index, callback_debts, start_seq, state
+           FROM runs WHERE id = $1`,
+        [run.id]
+      );
+      const active = activeRes.rows[0];
+      let next = { done: true };
+      if (advanced.cardId && active) {
+        next = (await cardForRun(active)) || (await publicCard(advanced.cardId)) || { done: true };
+      }
+      return res.json({
+        ok: true,
+        was_correct: correct,
+        banked: correct ? REVIEW_MIN : 0,
+        result: option.result || "",
+        hold_cleared: Number(nextState.hold_cleared) || 0,
+        state: publicState(active && active.state),
+        next,
+      });
+    } catch (err) {
+      try {
+        await client.query("ROLLBACK");
+      } catch {
+        // ignore
+      }
+      return jsonError(res, 500, "Could not save hold.");
+    } finally {
+      client.release();
+    }
+  });
+
   app.post("/api/run/peek", async (req, res) => {
     if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
     const session = await auth.requireRole(req, res, "student");
@@ -666,7 +769,7 @@ function mountRun(app) {
     try {
       await client.query("BEGIN");
       const runRes = await client.query(
-        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index
+        `SELECT id, student_id, current_card_id, current_attempt_no, queued_callbacks, callback_debts, state, start_seq, replay_plan, replay_index, review_plan, review_index
            FROM runs
           WHERE student_id = $1 AND status = 'active'
           FOR UPDATE`,
@@ -710,7 +813,7 @@ function mountRun(app) {
       let next = { done: true };
       if (advanced.cardId) {
         const activeRes = await query(
-          `SELECT id, current_card_id, replay_plan, replay_index, callback_debts, start_seq, state
+          `SELECT id, current_card_id, replay_plan, replay_index, review_plan, review_index, callback_debts, start_seq, state
              FROM runs WHERE id = $1`,
           [run.id]
         );

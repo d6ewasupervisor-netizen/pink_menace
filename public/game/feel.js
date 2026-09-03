@@ -83,7 +83,22 @@ const PMFeel = (() => {
       el.classList.add("hidden");
       return;
     }
+    el.classList.remove("gain");
     el.textContent = "−" + cost + " MIN";
+    el.classList.remove("hidden");
+    el.replaceWith(el.cloneNode(true));
+  }
+
+  function floatHoldGain(n) {
+    const el = document.getElementById("cooler-float");
+    if (!el) return;
+    const gain = Math.max(0, Math.round(Number(n) || 0));
+    if (!gain) {
+      el.classList.add("hidden");
+      return;
+    }
+    el.classList.add("gain");
+    el.textContent = "+" + gain + " MIN";
     el.classList.remove("hidden");
     el.replaceWith(el.cloneNode(true));
   }
@@ -910,6 +925,69 @@ const PMFeel = (() => {
     }, 1200);
   }
 
+  const HOLD_CUTOUTS = ["52", "56", "57", "58", "59", "60"];
+
+  function holdRoot() {
+    return document.getElementById("hold");
+  }
+
+  function showHold(card) {
+    const panel = holdRoot();
+    const row = document.getElementById("hold-walkers");
+    if (!panel || !row) return;
+    const total = Math.max(1, Number(card && card.hold_total) || 10);
+    const cleared = Math.max(0, Number(card && card.hold_cleared) || 0);
+    const cuts = (card && card.hold_cutouts) || HOLD_CUTOUTS;
+    if (row.childElementCount !== total) {
+      row.replaceChildren();
+      for (let i = 0; i < total; i++) {
+        const img = document.createElement("img");
+        img.alt = "";
+        img.src = "/quiet/cutouts/" + cuts[i % cuts.length] + ".png?v=z1";
+        row.appendChild(img);
+      }
+    }
+    panel.classList.remove("hidden");
+    panel.setAttribute("aria-hidden", "false");
+    setHoldCleared(cleared, total);
+  }
+
+  function setHoldCleared(cleared, total) {
+    const panel = holdRoot();
+    const row = document.getElementById("hold-walkers");
+    if (panel) {
+      const n = Math.max(1, Number(total) || (row && row.childElementCount) || 10);
+      panel.style.setProperty("--hold-clear", String(Math.max(0, Math.min(1, cleared / n))));
+    }
+    if (!row) return;
+    const kids = row.querySelectorAll("img");
+    kids.forEach((img, i) => img.classList.toggle("down", i < cleared));
+  }
+
+  function dropHold(cleared) {
+    const row = document.getElementById("hold-walkers");
+    setHoldCleared(cleared, row && row.childElementCount);
+    playCueAudio("steps");
+  }
+
+  function lungeHold() {
+    const row = document.getElementById("hold-walkers");
+    if (!row) return;
+    row.classList.remove("lunge");
+    void row.offsetWidth;
+    row.classList.add("lunge");
+    window.setTimeout(() => row.classList.remove("lunge"), 420);
+    playCueAudio("palm");
+  }
+
+  function hideHold() {
+    const panel = holdRoot();
+    if (!panel) return;
+    panel.classList.add("hidden");
+    panel.setAttribute("aria-hidden", "true");
+    panel.style.removeProperty("--hold-clear");
+  }
+
   function typeText(el, full, onDone) {
     const text = String(full || "");
     let i = 0;
@@ -1017,6 +1095,11 @@ const PMFeel = (() => {
     showIgnition,
     playCollapse,
     playQuietBeat,
+    showHold,
+    hideHold,
+    dropHold,
+    lungeHold,
+    floatHoldGain,
     driveBySight,
     sting: playCueAudio,
     typeText,

@@ -164,12 +164,16 @@ function imageUrl(cardId) {
   return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a48";
 }
 
-function cargoFrom(state) {
+function cargoUsed(state) {
   const s = state || {};
   const time = Number(s.time_cost) || 0;
   const noise = Math.max(0, Number(s.noise) || 0);
   const light = Math.max(0, Number(s.light) || 0);
-  return Math.max(0, Math.min(CARGO_BUDGET, CARGO_BUDGET - time - noise - Math.round(light / 2)));
+  return time + noise + Math.round(light / 2);
+}
+
+function cargoFrom(state) {
+  return Math.max(0, Math.min(CARGO_BUDGET, CARGO_BUDGET - cargoUsed(state)));
 }
 
 function actOfCardId(cardId) {
@@ -212,6 +216,10 @@ function statesEqual(a, b) {
 
 async function persistActCargo(db, run) {
   if (!run || !run.id || !run.current_card_id) return run;
+  if (reviewStep(run)) {
+    run.state = run.state || {};
+    return run;
+  }
   const act = actOfCardId(run.current_card_id);
   if (!act) return run;
   const next = withActCargo(run.state, act);
@@ -264,6 +272,57 @@ function planFromWindow(window) {
     .filter(Boolean);
 }
 
+const REVIEW_N = 10;
+const REVIEW_MIN = 4;
+const HOLD_CUTOUTS = ["52", "56", "57", "58", "59", "60"];
+
+function quizableAnswer(ans) {
+  if (!ans || !ans.card_id) return false;
+  if (ans.card_type === "dossier") return false;
+  return true;
+}
+
+function reviewIdsFromAnswers(answers) {
+  const list = Array.isArray(answers) ? answers : [];
+  const before = list.slice(0, Math.max(0, list.length - 1)).filter(quizableAnswer);
+  const ordered = [...before.filter((a) => !a.was_correct), ...before.filter((a) => a.was_correct)];
+  const ids = [];
+  const seen = new Set();
+  for (const a of ordered) {
+    const id = String(a.card_id);
+    if (seen.has(id)) continue;
+    seen.add(id);
+    ids.push(id);
+    if (ids.length >= REVIEW_N) break;
+  }
+  return ids;
+}
+
+function asReviewPlan(raw) {
+  if (!Array.isArray(raw)) return [];
+  return raw.map((step) => String((step && step.card_id) || step || "")).filter(Boolean);
+}
+
+function reviewStep(run) {
+  const plan = asReviewPlan(run && run.review_plan);
+  const idx = Number(run && run.review_index) || 0;
+  return plan[idx] || null;
+}
+
+function bankHoldMinutes(state, correct) {
+  const next = { ...(state || {}) };
+  if (!correct) return next;
+  next.time_cost = Math.max(0, (Number(next.time_cost) || 0) - REVIEW_MIN);
+  next.hold_cleared = (Number(next.hold_cleared) || 0) + 1;
+  return next;
+}
+
+function clearHoldState(state) {
+  const next = { ...(state || {}) };
+  delete next.hold_cleared;
+  return next;
+}
+
 function applyDelta(state, delta) {
   const next = { ...(state || {}) };
   const d = delta || {};
@@ -280,7 +339,7 @@ function applyDelta(state, delta) {
 
 async function mainAnswersForRun(client, failedRunId) {
   const { rows } = await client.query(
-    `SELECT a.card_id, a.option_id, a.was_correct, o.state_delta, c.act, c.seq
+    `SELECT a.card_id, a.option_id, a.was_correct, o.state_delta, c.act, c.seq, c.card_type
        FROM run_answers a
        JOIN cards c ON c.card_id = a.card_id
        LEFT JOIN card_options o ON o.card_id = a.card_id AND o.option_id = a.option_id
@@ -291,7 +350,35 @@ async function mainAnswersForRun(client, failedRunId) {
   return rows;
 }
 
-async function failRestart(client, failedRunId, floorSeq) {
+async function fillReviewFromStudent(client, studentId, have, need, skipIds) {
+  const ids = Array.isArray(have) ? [...have] : [];
+  if (!studentId || ids.length >= need) return ids;
+  const skip = new Set([...(skipIds || []), ...ids]);
+  const { rows } = await client.query(
+    `SELECT c.card_id
+       FROM run_answers a
+       JOIN runs r ON r.id = a.run_id
+       JOIN cards c ON c.card_id = a.card_id
+      WHERE r.student_id = $1
+        AND c.callback_of IS NULL
+        AND c.card_type IS DISTINCT FROM 'dossier'
+        AND EXISTS (
+              SELECT 1 FROM card_options o
+               WHERE o.card_id = c.card_id AND o.option_id <> 'continue'
+            )
+      ORDER BY a.created_at DESC`,
+    [studentId]
+  );
+  for (const r of rows) {
+    if (skip.has(r.card_id)) continue;
+    skip.add(r.card_id);
+    ids.push(r.card_id);
+    if (ids.length >= need) break;
+  }
+  return ids;
+}
+
+async function failRestart(client, failedRunId, floorSeq, studentId) {
   const answers = await mainAnswersForRun(client, failedRunId);
   const keep = checkpointKeep(Math.max(0, answers.length - 1));
   const kept = keep > 0 ? answers[keep - 1] : null;
@@ -306,7 +393,12 @@ async function failRestart(client, failedRunId, floorSeq) {
     }
     restartState = applyDelta(restartState, r.state_delta);
   }
-  return { startSeq, replayPlan, restartState, keep };
+  let reviewPlan = reviewIdsFromAnswers(answers);
+  const failId = answers.length ? answers[answers.length - 1].card_id : null;
+  if (studentId && reviewPlan.length < REVIEW_N) {
+    reviewPlan = await fillReviewFromStudent(client, studentId, reviewPlan, REVIEW_N, failId ? [failId] : []);
+  }
+  return { startSeq, replayPlan, restartState, keep, reviewPlan };
 }
 
 async function checkpointState(client, failedRunId) {
@@ -364,6 +456,26 @@ async function recapBeat(cardId, optionId) {
       was_correct: true,
       result: picked.result || "",
     },
+  };
+}
+
+async function holdBeat(cardId, run) {
+  const live = await publicCard(cardId);
+  if (!live) return null;
+  const plan = asReviewPlan(run && run.review_plan);
+  const idx = Number(run && run.review_index) || 0;
+  const cleared = Number(run && run.state && run.state.hold_cleared) || 0;
+  return {
+    ...live,
+    hold: true,
+    timeout_option_id: null,
+    timeout_ms: 0,
+    scene: "",
+    hold_index: idx,
+    hold_total: plan.length,
+    hold_cleared: cleared,
+    hold_cutouts: HOLD_CUTOUTS,
+    bank_min: REVIEW_MIN,
   };
 }
 
@@ -442,6 +554,48 @@ async function advanceReplayPlan(client, runId, run) {
     [runId]
   );
   return { cardId: null, done: true, cleared: true };
+}
+
+async function advanceHold(client, run) {
+  const plan = asReviewPlan(run.review_plan);
+  const nextIndex = (Number(run.review_index) || 0) + 1;
+  if (nextIndex < plan.length) {
+    await client.query(
+      `UPDATE runs
+          SET review_index = $1, current_card_id = $2, current_attempt_no = 1, updated_at = now()
+        WHERE id = $3`,
+      [nextIndex, plan[nextIndex], run.id]
+    );
+    return { cardId: plan[nextIndex], holding: true };
+  }
+  const clearedState = clearHoldState(run.state);
+  await client.query(
+    `UPDATE runs
+        SET review_plan = '[]'::jsonb, review_index = 0, state = $1::jsonb, updated_at = now()
+      WHERE id = $2`,
+    [JSON.stringify(clearedState), run.id]
+  );
+  const replay = asReplayPlan(run.replay_plan);
+  if (replay.length) {
+    await client.query(
+      `UPDATE runs SET current_card_id = $1, replay_index = 0, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
+      [replay[0].card_id, run.id]
+    );
+    return { cardId: replay[0].card_id, holding: false, replay: true };
+  }
+  const picked = await pickNextCard(client, run.id, run.callback_debts, run.start_seq);
+  if (picked.cardId) {
+    await client.query(
+      `UPDATE runs SET current_card_id = $1, callback_debts = $2::jsonb, current_attempt_no = 1, updated_at = now() WHERE id = $3`,
+      [picked.cardId, JSON.stringify(picked.debts), run.id]
+    );
+    return { cardId: picked.cardId, holding: false, debts: picked.debts };
+  }
+  await client.query(
+    `UPDATE runs SET status = 'completed', current_card_id = NULL, updated_at = now() WHERE id = $1`,
+    [run.id]
+  );
+  return { cardId: null, holding: false, done: true };
 }
 
 async function skipSeqFor(client, failedRunId, floorSeq) {
@@ -823,15 +977,23 @@ module.exports = {
   checkpointStartSeq,
   replayWindowAnswers,
   planFromWindow,
+  reviewIdsFromAnswers,
+  bankHoldMinutes,
+  REVIEW_N,
+  REVIEW_MIN,
   skipSeqFor,
   checkpointState,
   failRestart,
   applyDelta,
   buildReplayPlan,
   recapBeat,
+  holdBeat,
   replayStep,
+  reviewStep,
   asReplayPlan,
+  asReviewPlan,
   advanceReplayPlan,
+  advanceHold,
   lockedNextAct,
   reopenIfMoreCards,
   publicState,

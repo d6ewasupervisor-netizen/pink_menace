@@ -6,6 +6,10 @@ const {
   checkpointStartSeq,
   replayWindowAnswers,
   planFromWindow,
+  reviewIdsFromAnswers,
+  bankHoldMinutes,
+  REVIEW_N,
+  REVIEW_MIN,
 } = require("../src/game");
 const { pool } = require("../src/db");
 
@@ -57,6 +61,24 @@ assert.strictEqual(checkpointStartSeq(2005, 0, 5), 2005);
 const earlyFail = actIII.slice(0, 3);
 assert.deepStrictEqual(ids(replayWindowAnswers(earlyFail, checkpointKeep(2))), ["III-001", "III-002"]);
 assert.deepStrictEqual(replayWindowAnswers(actIII.slice(0, 6), 5), []);
+
+const withTypes = actIII.map((a) => ({
+  ...a,
+  card_type: a.card_id === "III-002" ? "dossier" : "scene",
+  was_correct: a.was_correct,
+}));
+const reviewIds = reviewIdsFromAnswers(withTypes);
+assert.ok(!reviewIds.includes("III-008"), "failing card stays out of the hold");
+assert.ok(!reviewIds.includes("III-002"), "dossiers stay out of the hold");
+assert.strictEqual(reviewIds[0], "III-004");
+assert.strictEqual(reviewIds[1], "III-007");
+assert.ok(reviewIds.length <= REVIEW_N);
+
+const banked = bankHoldMinutes({ time_cost: 80 }, true);
+assert.strictEqual(banked.time_cost, 80 - REVIEW_MIN);
+assert.strictEqual(banked.hold_cleared, 1);
+const missed = bankHoldMinutes({ time_cost: 80, hold_cleared: 1 }, false);
+assert.strictEqual(missed.time_cost, 80);
 
 console.log("ok");
 pool.end();

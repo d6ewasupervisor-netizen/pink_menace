@@ -81,6 +81,7 @@ function showScreen(name) {
     if (del) del.classList.add("hidden");
     const col = document.getElementById("collapse");
     if (col) col.classList.add("hidden");
+    if (PMFeel.hideHold) PMFeel.hideHold();
   }
 }
 
@@ -259,7 +260,7 @@ function clearPlay() {
   if (wrap) wrap.classList.remove("arming", "fs");
   const clock = document.getElementById("hazard-clock");
   if (clock) clock.classList.add("hidden");
-  runEl.classList.remove("recap-skip", "choices-ready");
+  runEl.classList.remove("recap-skip", "choices-ready", "holding");
   runEl.onclick = null;
   if (stopChoiceGate) {
     stopChoiceGate();
@@ -635,6 +636,24 @@ function fillCard(card, opts) {
     return;
   }
 
+  if (card.hold) {
+    runEl.classList.add("holding");
+    showChoiceDock();
+    if (hookEl) hookEl.classList.add("hidden");
+    if (sceneEl) sceneEl.classList.add("hidden");
+    if (card.decision) decision.classList.remove("hidden");
+    fillOptions(card, { review: false, pending: false });
+    document.getElementById("options").classList.toggle("hidden", !(card.options || []).length);
+    resumeLive.classList.add("hidden");
+    resumeLive.onclick = null;
+    cont.classList.add("hidden");
+    cont.onclick = null;
+    choicesLiveAt = Date.now();
+    PMFeel.showHold(card);
+    pinCardTop();
+    return;
+  }
+
   resumeLive.classList.add("hidden");
   resumeLive.onclick = null;
   cont.classList.add("hidden");
@@ -868,9 +887,12 @@ function startRecapBeat(card) {
 function renderLive(card) {
   showScreen("live");
   setHeader({ title: card.title, saved: card.saved, back: true });
-  runEl.classList.remove("slide-in");
-  void runEl.offsetWidth;
-  runEl.classList.add("slide-in");
+  const skipIntro = Boolean(card.hold || card.recap);
+  if (!skipIntro) {
+    runEl.classList.remove("slide-in");
+    void runEl.offsetWidth;
+    runEl.classList.add("slide-in");
+  }
   const begin = () => {
     shownAt = Date.now();
     PMFeel.startBed(card.weather);
@@ -882,6 +904,10 @@ function renderLive(card) {
     });
     pinCardTop();
   };
+  if (card.hold) {
+    begin();
+    return;
+  }
   const crankThen = () => {
     if (sessionCaught()) {
       begin();
@@ -992,7 +1018,59 @@ async function answerLink(accept) {
   showConfirm();
 }
 
+function playHoldOutcome(data, card) {
+  const correct = Boolean(data && data.was_correct);
+  applyMeters(data.state || meters, correct ? "ease" : "spike");
+  if (correct) {
+    PMFeel.floatHoldGain(data.banked);
+    PMFeel.dropHold(data.hold_cleared);
+  } else {
+    PMFeel.shake();
+    PMFeel.lungeHold();
+  }
+  const result = document.getElementById("result");
+  if (result) {
+    result.textContent = correct ? "" : (data.result || "");
+    result.classList.toggle("hidden", !result.textContent);
+  }
+  document.getElementById("options").classList.add("hidden");
+  const next = (data && data.next) || {};
+  window.setTimeout(() => {
+    answering = false;
+    if (next.hold && next.card_id) {
+      previousCardId = card.card_id;
+      fillCard({ ...next, saved: card.saved, state: data.state || card.state }, { pending: false, review: false });
+      return;
+    }
+    PMFeel.hideHold();
+    runEl.classList.remove("holding");
+    if (next.done || !next.card_id) {
+      loadHome();
+      return;
+    }
+    renderLive({ ...next, saved: card.saved, state: data.state || next.state, pending_outcome: false, review: false });
+  }, correct ? 720 : 880);
+}
+
+async function submitHoldAnswer(optionId) {
+  if (answering) return;
+  answering = true;
+  try {
+    const data = await PM.api("/api/run/hold-answer", {
+      method: "POST",
+      body: { card_id: currentCardId, option_id: optionId },
+    });
+    playHoldOutcome(data, { card_id: currentCardId, saved: liveCard && liveCard.saved });
+  } catch {
+    answering = false;
+  }
+}
+
 async function submitAnswer(optionId) {
+  if (liveCard && liveCard.hold) {
+    await submitHoldAnswer(optionId);
+    return;
+  }
   if (answering) return;
   if (!timedSubmit && Date.now() < choicesLiveAt) return;
   answering = true;
@@ -1038,7 +1116,7 @@ runEl.addEventListener("scroll", () => {
 
 runEl.addEventListener("pointerdown", (ev) => {
   runPointerDown = true;
-  if (ev.target.closest("#ignition") || ev.target.closest("#collapse") || ev.target.closest("#manifest") || ev.target.closest("#delivery")) return;
+  if (ev.target.closest("#ignition") || ev.target.closest("#collapse") || ev.target.closest("#manifest") || ev.target.closest("#delivery") || ev.target.closest("#hold")) return;
   PMFeel.ensureAudio();
 });
 window.addEventListener("pointerup", () => {
@@ -1086,6 +1164,7 @@ runEl.addEventListener("touchend", (ev) => {
 document.getElementById("shot-wrap").addEventListener("click", (ev) => {
   const wrap = ev.currentTarget;
   if (wrap.classList.contains("hidden")) return;
+  if (runEl.classList.contains("holding")) return;
   if (ev.target.closest("button, a, #bark")) return;
   wrap.classList.toggle("fs");
 });

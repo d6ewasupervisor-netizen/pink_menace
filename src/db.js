@@ -66,6 +66,12 @@ async function migrate() {
     ALTER TABLE runs ADD COLUMN IF NOT EXISTS replay_index INTEGER NOT NULL DEFAULT 0
   `);
   await pool.query(`
+    ALTER TABLE runs ADD COLUMN IF NOT EXISTS review_plan JSONB NOT NULL DEFAULT '[]'::jsonb
+  `);
+  await pool.query(`
+    ALTER TABLE runs ADD COLUMN IF NOT EXISTS review_index INTEGER NOT NULL DEFAULT 0
+  `);
+  await pool.query(`
     DO $$
     DECLARE r RECORD;
     BEGIN
