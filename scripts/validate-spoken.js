@@ -4,6 +4,8 @@
 // Titles, options, and decisions never get a keep-list nickname.
 
 const PLAYER_FIELDS = ["title", "hook", "scene", "decision", "debrief"];
+const fs = require("fs");
+const path = require("path");
 
 const HARD = [
   { re: /\bconvex(es)?\b/i, label: "convex" },
@@ -40,7 +42,11 @@ const LEDGER_REAR_GLASS = [
   { re: /\bthe center mirror\b/i, label: "the center mirror" },
   { re: /\bcenter mirror\b/i, label: "center mirror" },
   { re: /\binside mirror\b/i, label: "inside mirror" },
+  // Bare sweep call — "Mirror left. Right. Center. Again." — same error as naming the glass.
+  { re: /(?:^|[.!?]\s+)Center\.?(?:\s|$)/, label: "Center (as mirror)" },
 ];
+
+const RIDE_ALONG_PACK = path.join(__dirname, "..", "pack", "22_III_001_RIDE_ALONG.md");
 
 function walkPlayer(card) {
   const rows = [];
@@ -51,7 +57,35 @@ function walkPlayer(card) {
     if (o.text) rows.push({ field: "opt:" + o.id, text: String(o.text) });
     if (o.result) rows.push({ field: "res:" + o.id, text: String(o.result) });
   }
+  const ride = Array.isArray(card.ride_along) ? card.ride_along : [];
+  ride.forEach((line, i) => {
+    if (line) rows.push({ field: "ride_along:" + (i + 1), text: String(line) });
+  });
   return rows;
+}
+
+/** Numbered player-facing lines from pack/22 — same voice rules as the card. */
+function rideAlongPackLines(filePath) {
+  const p = filePath || RIDE_ALONG_PACK;
+  if (!fs.existsSync(p)) return [];
+  const lines = [];
+  for (const raw of fs.readFileSync(p, "utf8").split(/\r?\n/)) {
+    const m = raw.match(/^\s*(\d+)\.\s+(.+?)\s*$/);
+    if (!m) continue;
+    lines.push({ n: Number(m[1]), text: m[2] });
+  }
+  return lines;
+}
+
+function checkRideAlongPack(filePath) {
+  const lines = rideAlongPackLines(filePath);
+  if (!lines.length) return [`pack/22: no numbered ride-along lines`];
+  const pseudo = {
+    card_id: "pack/22",
+    driver: "deac",
+    ride_along: lines.map((l) => l.text),
+  };
+  return checkSpoken(pseudo);
 }
 
 function checkSpoken(card) {
@@ -151,4 +185,11 @@ function checkClosers(cards) {
   return errors;
 }
 
-module.exports = { checkSpoken, checkClosers, walkPlayer, LEDGER_REAR_GLASS };
+module.exports = {
+  checkSpoken,
+  checkClosers,
+  checkRideAlongPack,
+  rideAlongPackLines,
+  walkPlayer,
+  LEDGER_REAR_GLASS,
+};

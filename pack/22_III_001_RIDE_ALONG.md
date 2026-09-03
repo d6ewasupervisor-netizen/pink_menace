@@ -6,7 +6,7 @@ Skill nine (multi-lane). Central. The Ledger. Mya on the dash.
 
 ---
 
-1. Mirror left. Right. Center. Again. That's the sweep. The Ledger has rooms you cannot see.
+1. Left mirror. Right mirror. Left again. Every time. That's the sweep. The Ledger has rooms you cannot see.
 2. Hands quiet. We hold the lane. Through traffic keeps right except to pass. We are through traffic.
 3. Count the gap. If you cannot count it, it is not a hole.
 4. I am going to take this one late. Watch what that costs.

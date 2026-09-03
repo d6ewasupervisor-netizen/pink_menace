@@ -9,7 +9,7 @@ const { checkCameraLedger } = require("./camera-ledger");
 const { validateGeometry, LEGAL_CAMERAS } = require("./geometry");
 const { assemblePrompt } = require("./compile-prompt");
 const { validateAuthoringSeat } = require("./authoring-seat");
-const { checkSpoken, checkClosers } = require("./validate-spoken");
+const { checkSpoken, checkClosers, checkRideAlongPack, rideAlongPackLines } = require("./validate-spoken");
 
 const ROLE_RELATIVE_RE = /\b(?:driver['’]?s[ -](?:side|window|door)|driver-(?:side|window|door)|driver (?:side|window|door)|passenger['’]?s?[ -]side|passenger-side|near[ -]side|off[ -]side)\b/i;
 
@@ -89,6 +89,18 @@ for (let i = 0; i < cards.length; i++) {
   if (c.card_type === "ride-along") {
     const lines = c.ride_along || [];
     if (lines.length < 12 || lines.length > 15) err(id, `ride_along length ${lines.length}`);
+    if (id === "III-001") {
+      const packLines = rideAlongPackLines();
+      if (packLines.length !== lines.length) {
+        err(id, `ride_along length ${lines.length} vs pack/22 ${packLines.length}`);
+      } else {
+        for (let n = 0; n < lines.length; n++) {
+          if (lines[n] !== packLines[n].text) {
+            err(id, `ride_along:${n + 1} drifts from pack/22`);
+          }
+        }
+      }
+    }
   }
   if (c.card_type === "hazard") {
     const tid = c.timeout_option_id;
@@ -128,6 +140,7 @@ const n = cards.filter((c) => c.card_type !== "dossier" && c.card_type !== "ride
 const cameraLedger = checkCameraLedger(cards);
 for (const e of cameraLedger.errors) errors.push(e);
 for (const e of checkClosers(cards)) errors.push(e);
+for (const e of checkRideAlongPack()) errors.push(e);
 const portraits = cards.filter((c) => c.image_brief && c.image_brief.camera === "POV_PORTRAIT").length;
 const faceBudget = Math.ceil(cards.length * 0.1);
 const decision = cards.filter((c) => c.card_type !== "dossier" && c.card_type !== "ride-along");

@@ -152,6 +152,20 @@ async function main() {
   }
   console.log("seeded", ids.join(", "));
   await pool.end();
+
+  // Post-step: encoded repo stills must match what we just wrote.
+  const acts = [...new Set(ids.map((id) => String(id).split("-")[0]))].sort();
+  for (const act of acts) {
+    const audit = spawnSync(process.execPath, [path.join(__dirname, "audit-stills.js"), "--act", act], {
+      env: process.env,
+      encoding: "utf8",
+    });
+    if (audit.stdout) process.stdout.write(audit.stdout);
+    if (audit.stderr) process.stderr.write(audit.stderr);
+    if (audit.status !== 0) {
+      throw new Error(`audit-stills failed for act ${act} after seed`);
+    }
+  }
 }
 
 main().catch((err) => {
