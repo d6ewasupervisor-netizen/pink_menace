@@ -568,7 +568,11 @@ function fillCard(card, opts) {
     shot.onerror = null;
     shot.removeAttribute("src");
     wrap.classList.remove("hidden", "fs");
-    PM.loadImage(shot, card.image_url).then(() => pinCardTop());
+    const rideLinesEarly = Array.isArray(card.ride_along) ? card.ride_along.filter(Boolean) : [];
+    const rideOwnsShot = !opts.review && !opts.pending && rideLinesEarly.length;
+    if (!rideOwnsShot) {
+      PM.loadImage(shot, card.image_url).then(() => pinCardTop());
+    }
   } else {
     shot.removeAttribute("src");
     wrap.classList.add("hidden");
