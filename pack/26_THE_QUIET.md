@@ -29,10 +29,10 @@ Plates live in `public/game/quiet/`. Depth plates only apply where `camera` is f
 
 | Tier | Presence | What paints |
 |---|---|---|
-| T0 | 0–3 | Nothing. The reward state. |
+| T0 | 0–3 | Whisper. Handprints at ~10% — barely there. |
 | **T1** | **4–8** | A walker in the **rearview** (Menace) or door glass (Ledger). Watching, not attacking. Different still per card. |
 | **T2** | **9–13** | Same walker, nearer in that glass. Vignette begins. Never a figure in the middle of a cockpit windshield — that reads as a toy on the dash. |
-| **T3** | **14–22** | They got loud. Pose swaps to an attack still of that walker. Handprints appear and **persist for the rest of the run**. Eyeshine at night/dusk cards. |
+| **T3** | **14–22** | They got loud. Pose swaps to an attack still of that walker. Prints thicken with the **noise meter**, not a sticky on/off. Eyeshine at night/dusk cards. |
 | **T4** | **23** | The Quiet beat (§3). |
 
 A wrong answer runs +3 to +4 **of noise**. Light and yaw still cost cargo. They do not summon the Quiet. Timeout is not loud. She should cross T1 inside the first few loud cards of a sloppy run and never see an attack on a clean one.

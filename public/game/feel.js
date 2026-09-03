@@ -516,6 +516,8 @@ const PMFeel = (() => {
     const camera = extras && extras.camera != null ? extras.camera : "";
     const cardId = extras && extras.cardId != null ? extras.cardId : "";
     const tier = Math.max(0, Math.min(4, Number(state && state.tier) || 0));
+    const noise = Math.max(0, Number(state && state.noise) || 0);
+    const loud = Math.max(0, Math.min(1, noise / 8));
     const prints = Boolean(state && state.handprints) || tier >= 3;
     const night = Boolean(state && state.night);
     const forward = forwardCamera(camera);
@@ -524,7 +526,6 @@ const PMFeel = (() => {
     const chase = /^POV_CHASE/.test(String(camera || ""));
     const street = /^(POV_ROADSIDE|POV_ROADSIDE_PROFILE|POV_CHASE)$/.test(String(camera || ""));
     const slot = fearSlot(cardId);
-    const plateOn = (forward && tier >= 1) || (glass && (prints || tier >= 2)) || (street && tier >= 1);
     root.className = [
       "fear-root",
       "tier-" + Math.min(tier, 3),
@@ -535,10 +536,12 @@ const PMFeel = (() => {
       cockpit ? "cockpit" : "",
       chase ? "chase" : "",
       street ? "street" : "",
+      loud >= 0.4 ? "hot" : "",
       "slot-" + slot,
     ]
       .filter(Boolean)
       .join(" ");
+    root.style.setProperty("--quiet-loud", String(loud));
     const mirror = root.querySelector(".fear-mirror");
     if (mirror) {
       mirror.style.backgroundImage = glass && tier >= 1 ? 'url("' + zoneUrl(cardId, tier) + '")' : "";
@@ -547,7 +550,7 @@ const PMFeel = (() => {
     if (walker) {
       walker.style.backgroundImage = street && tier >= 1 ? 'url("' + cutoutUrl(cardId, tier) + '")' : "";
     }
-    presenceAmt = tier >= 2 && plateOn ? Math.min(1, (Number(state && state.presence) || 0) / 22) : 0;
+    presenceAmt = loud;
     paintVignette();
   }
 

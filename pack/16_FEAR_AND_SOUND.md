@@ -42,16 +42,15 @@ Lead time is the whole lesson. Do not shorten it because "she might miss it." Mi
 
 ## 3. Presence is a sum, not a new system
 
-Presence accumulates from the `state_delta` values every card already emits: **noise, light, yaw,** plus a weight for **timed hazard failures**. It decays during clean driving (correct, and the delta added nothing).
+Presence accumulates from **noise** every card already emits. Light, yaw, and timeout still cost cargo. They do not summon The Quiet. Presence decays during clean driving (correct, and the delta added nothing).
 
 Never shown as a number. She reads it from the world.
 
 ```
-add    = max(0, Δnoise) + max(0, Δlight) + max(0, Δyaw) + (timed_out ? 3 : 0)
+add    = max(0, Δnoise)   // light, yaw, timeout do not summon
 P      = P + add
 if correct and add == 0: P = max(0, P - 2)
-if tier(P) >= 3: handprints = true   // persists for the rest of the run
-if P >= 23: collapse beat, then clamp P to 16 (stay T3, prints stay)
+if P >= 23: collapse beat, then clamp P to 16 (stay T3)
 ```
 
 Cargo, time_cost, and the existing meters are unchanged. Presence does not block progress. A collapse is a scare beat, not a wipe, and not a completed-run lock.
@@ -66,13 +65,13 @@ Map only to ceiling tests that **PASS**ed. T12 was SOFT (clean standing silhouet
 
 | Tier | Presence | What she sees | Ceiling ref | Audio (earlier than the visual) |
 |---|---|---|---|---|
-| **T0** | 0–3 | Rain, idle, nothing extra | — | Bed only |
+| **T0** | 0–3 | Whisper prints on glass (~10%). Thickness tracks the **noise meter**. | — | Bed only |
 | **T1** | 4–8 | Distant unreadable silhouettes at the vanishing point; vignette starts | T6 | Wet footsteps / distant scrape |
 | **T2** | 9–14 | One figure in the road, slack, head at a wrong angle; inside fog at the edges | T12 (commit the gait in CSS), T7 | Closer steps, a wet slap |
-| **T3** | 15–22 | **Handprints on the exterior glass. They persist.** | T4 PASS, T13 intent | Palm on mesh |
-| **T4** | ≥ 23 | Collapse beat (§6), then back to T3 with prints still on | — | Cut to nothing |
+| **T3** | 15–22 | Attack pose in the glass. Prints are thick **while she is loud**. | T4 PASS, T13 intent | Palm on mesh |
+| **T4** | ≥ 23 | Collapse beat (§6), then back to T3 | — | Cut to nothing |
 
-**T3 handprints persist.** Get loud enough and she drives the rest of the run with the evidence of her noise on the glass. That is the teeth. Presence can decay; the prints do not.
+**Prints track the noise meter.** At noise 0 they are a smear you can miss. They thicken as the bar fills. Drive quiet and they fade. They are not a sticky on/off that outlives the meter.
 
 **Deac / the Ledger.** No rear window, no interior mirror. Overlay slots inherit that: a mirror contact appears in a **door mirror** (left of frame), or it does not appear until the figure is beside him — which is scarier than Ali's centered glass. T3 prints sit on side glass. Never a center-rearview smear on a Deac card. `html[data-driver="deac"]` moves `.fear-mirror` and `.fear-contacts` off the top-center slot.
 
@@ -145,7 +144,7 @@ If she connects her driving to the world's behavior, the system reads. Everythin
 | 1 | Presence sum + decay on the existing `state` blob | No |
 | 2 | T1/T2 overlays + vignette floor + engine gate + audio-first cues | No |
 | 3 | Re-test with her. Pass = the sentence in §8 | — |
-| 4 | T3 persistent prints (in this pass: ship them; they are the teeth) | No |
+| 4 | Prints thicken with the noise meter (whisper at 0) | No |
 | 5 | Collapse beat | No |
 | 6 | Phase 2 cockpit chrome inherits the same overlay slots | Yes, later |
 
