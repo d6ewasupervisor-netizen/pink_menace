@@ -1053,7 +1053,8 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
   border-radius: 0.35rem;
   flex-shrink: 0;
 }
-.bark img:not([src]) { display: none; }
+#run.riding #shot-wrap { cursor: pointer; }
+#run.riding .bark { animation: none; }
 #bark-line {
   margin: 0;
   color: var(--ink);

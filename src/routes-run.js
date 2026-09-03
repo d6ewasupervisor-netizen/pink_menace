@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN } = require("./game");
+const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard } = require("./game");
 const { applyFear, loudDelta } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
@@ -365,7 +365,7 @@ function mountRun(app) {
         await client.query("ROLLBACK");
         return jsonError(res, 400, "Unknown card.");
       }
-      if (card.card_type === "dossier" && (!optionId || optionId === "continue")) {
+      if (isWatchCard(card.card_type) && (!optionId || optionId === "continue")) {
         optionId = "continue";
       }
       if (!optionId) {
@@ -373,7 +373,7 @@ function mountRun(app) {
         return jsonError(res, 400, "Missing answer.");
       }
       let option = null;
-      if (card.card_type === "dossier" && optionId === "continue") {
+      if (isWatchCard(card.card_type) && optionId === "continue") {
         option = { option_id: "continue", is_correct: true, result: "", state_delta: {} };
       } else {
         const optRes = await client.query(
@@ -402,9 +402,9 @@ function mountRun(app) {
       }
 
       const timedOut = Boolean(req.body && req.body.timed_out) && optionId !== "continue";
-      const dossier = card.card_type === "dossier";
-      const correct = Boolean(option.is_correct) && !dossier;
-      const delta = loudDelta(option.state_delta || {}, { correct, timedOut, dossier });
+      const watch = isWatchCard(card.card_type);
+      const correct = Boolean(option.is_correct) && !watch;
+      const delta = loudDelta(option.state_delta || {}, { correct, timedOut, dossier: watch });
       const prevState = withActCargo(run.state, card.act);
       let state = applyDelta(prevState, delta);
       const fear = applyFear(state, delta, { correct, timedOut });

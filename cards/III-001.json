@@ -1,0 +1,63 @@
+{
+  "card_id": "III-001",
+  "act": "III",
+  "zone": "Central",
+  "driver": "deac",
+  "card_type": "ride-along",
+  "title": "Your Wheel",
+  "hook": "Deac has the wheel.",
+  "scene": "Central at morning, two lanes, wet paint. You are in the jump seat. Deac has the wheel and the thermos and the log. He will sweep the glass, hold the lane, then take one merge late on purpose so you can watch what that costs. He talks while he drives. You do not touch the wheel until he says so.",
+  "debrief": "You saw the merge you do not take. He spent another man's margin to keep his. Deac hands you the wheel.",
+  "ride_along": [
+    "Mirror left. Right. Center. Again. That's the sweep. The Ledger has rooms you cannot see.",
+    "Hands quiet. We hold the lane. Through traffic keeps right except to pass. We are through traffic.",
+    "Count the gap. If you cannot count it, it is not a hole.",
+    "I am going to take this one late. Watch what that costs.",
+    "Blinker. No hole yet. I take it anyway.",
+    "Horn behind. That's on me. I made a man lift.",
+    "He had to stand on it. I spent his margin so I could keep mine.",
+    "Schedule's still the schedule. I just wrote a late on it.",
+    "That's the merge you do not take. You saw the consequence. I do not get a free one.",
+    "Thermos. Two clean stops reset me. This was not one.",
+    "Your eyes now. Left glass. Right glass. The side mirror. Then the road.",
+    "Your wheel."
+  ],
+  "source": {
+    "psdp_skill": "Skill nine: multi-lane roads – part one",
+    "dol_section": "4.10 Traffic laws",
+    "teaching_target": "Demonstrate-first: sweep, hold right, never take a late merge; consequence is a horn and a man who had to lift."
+  },
+  "cast": [
+    "deac"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "camera_is_the_lesson": true,
+    "subject": "from the high seat looking forward through the bar cage, wet two-lane Central ahead, a gap in the left that is not yet a hole",
+    "foreground": "worn transit wheel rim, analog cluster moving, dented steel thermos in the cup on the doghouse, amber vest hem at the left edge of frame",
+    "midground": "bar cage with a wiper-slot cut, two lanes of wet paint, a primer sedan ahead in the right",
+    "background": "overcast Central Avenue through the cage, brick and streetlights",
+    "read": "Deac is driving; the left is not yet a hole",
+    "continuity": [
+      "ledger_cockpit"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of a two-lane-each-way stretch of Central",
+      "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+      "oncoming_position": "left half of the roadway, opposite direction, distant",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none"
+  }
+}

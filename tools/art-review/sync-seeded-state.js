@@ -1,144 +1,176 @@
 "use strict";
 
 /**
- * Re-tag cards/art-review-state.json from the seeded deck.
- * With DATABASE_URL: query Postgres for Act III cards that have image_bytes.
- * Without: use the manifest below (last reconciled against seed commits on main).
+ * Reconcile take names and clear impossible board states.
+ * Does NOT issue PASS. Human tags stay. Cards with no human tag → UNREVIEWED.
  *
  *   node tools/art-review/sync-seeded-state.js [--act III] [--dry-run]
  */
 
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const ROOT = path.join(__dirname, "..", "..");
-const STATE_PATH = path.join(ROOT, "cards", "art-review-state.json");
+const CARDS = path.join(ROOT, "cards");
+const TAKES_DIR = path.join(CARDS, "takes");
+const STATE_PATH = path.join(CARDS, "art-review-state.json");
+const TAKE_FILE_RE = /^((?:I|II|III|IV|V|VI|VII)-\d{3})(?:-([a-z]+))?-take-(\d+)\.png$/i;
 
-/** Seeded deck = live in Postgres. pick must match cards/<id>.png or named take. */
-const MANIFEST = {
-  "III-002": { pick: "live", note: "Parked cab: Mya on dash, clipboard by thermos, cluster at 0." },
-  "III-003": { pick: "take-4", note: "Keep-right pass. Seeded." },
-  "III-004": { pick: "take-3", note: "Left door mirror, cone lane. Seeded." },
-  "III-005": { pick: "live", note: "Van sliver at right window edge; door mirror empty. Seeded." },
-  "III-006": { pick: "live", note: "Sign switch / stalk cockpit. Seeded." },
-  "III-007": { pick: "live", note: "Gap between pickup and SUV. Seeded." },
-  "III-008": { pick: "live", note: "HOV diamond in leftmost lane. Live still is take-1 geometry (note reconciled)." },
-  "III-009": { pick: "live", note: "Left door mirror. Seeded." },
-  "III-010": { pick: "e-take-1", note: "Street profile, van curb-side. Seeded." },
-  "III-011": { pick: "d-take-1", note: "Overhead diagram beside semi trailer. Seeded." },
-  "III-012": { pick: "c-take-2", note: "Pass-lane profile. Seeded." },
-  "III-013": { pick: "c-take-2", note: "Box truck flank. Seeded." },
-  "III-014": { pick: "live", note: "Arrow signal cockpit. Seeded." },
-  "III-015": { pick: "live", note: "Two-way left-turn pocket. Seeded." },
-  "III-016": { pick: "live", note: "Rumble / lane line. Seeded." },
-  "III-017": { pick: "b-take-2", note: "Right mirror sky look. Seeded." },
-  "III-018": { pick: "live", note: "Unfinished overlap diagram. Seeded pending art pass." },
-  "III-019": { pick: "live", note: "Volunteer in door glass. Seeded." },
-  "III-020": { pick: "c-take-1", note: "Rumble straight. Seeded." },
-  "III-021": { pick: "e-take-1", note: "Coach blinker across skip-dash. Seeded." },
-  "III-022": { pick: "live", note: "Remnant in door glass. Seeded." },
-  "III-023": { pick: "b-take-2", note: "Diamond + dump, D4 cab. Seeded." },
-  "III-024": { pick: "live", note: "Pickup ahead, night rain. Seeded." },
-  "III-025": { pick: "c-take-1", note: "Face-critical portrait; four takes accepted — see pack/27 §3." },
-  "III-026": { pick: "b-take-1", note: "Seeded." },
-  "III-027": { pick: "live", note: "Tablet on doghouse. Seeded." },
-  "III-028": { pick: "b-take-2", note: "Seeded." },
-  "III-029": { pick: "live", note: "Chase, right lane empty. Seeded." },
-  "III-030": { pick: "b-take-2", note: "Stopped bus, dark skyline. Seeded." },
-};
+const IMPOSSIBLE = [
+  /\s*Waiting muted 390px\.?\s*Do not seed until a human pass\.?/gi,
+  /\s*Do not seed until a human pass\.?/gi,
+  /\bungenerated\b/gi,
+];
 
-const OPEN = {
-  "III-001": {
-    tag: "COPY",
-    note: "Ride-along script exists (22); watch layer not wired. Opener still unreviewed on this pass.",
-    pick: "live",
-  },
-  "III-018": {
-    tag: "READ_MISSING",
-    note: "Diagram overlap still weak at 390px. Seeded for playtest; art pass remains open.",
-    pick: "live",
-  },
-};
+const HUMAN_TAGS = new Set([
+  "PASS",
+  "CARD_BROKEN",
+  "WRONG_CAMERA",
+  "READ_MISSING",
+  "GEOMETRY_WRONG",
+  "CANON_DRIFT",
+  "INVENTED",
+  "COPY",
+  "STYLE",
+]);
 
-function sslOption(url) {
-  const u = String(url || "");
-  if (!u) return false;
-  if (u.includes("railway.internal") || u.includes("localhost") || u.includes("127.0.0.1")) {
-    return false;
-  }
-  return { rejectUnauthorized: false };
+function humanTag(raw) {
+  const t = String(raw || "").trim().toUpperCase();
+  return HUMAN_TAGS.has(t) ? t : null;
 }
 
-async function seededFromDb(act) {
-  let Pool;
-  try {
-    ({ Pool } = require("pg"));
-  } catch {
-    throw new Error("DATABASE_URL set but pg is not installed — run npm install");
-  }
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: sslOption(process.env.DATABASE_URL),
-    max: 2,
-  });
-  try {
-    const { rows } = await pool.query(
-      `SELECT card_id FROM cards
-        WHERE act = $1 AND image_bytes IS NOT NULL
-        ORDER BY card_id`,
-      [act]
-    );
-    return rows.map((r) => r.card_id);
-  } finally {
-    await pool.end();
-  }
+function sha256(buf) {
+  return crypto.createHash("sha256").update(buf).digest("hex");
 }
 
-async function main() {
+function fileHash(p) {
+  if (!fs.existsSync(p)) return null;
+  return sha256(fs.readFileSync(p));
+}
+
+function listTakeKeys(id) {
+  const keys = [];
+  if (!fs.existsSync(TAKES_DIR)) return keys;
+  for (const f of fs.readdirSync(TAKES_DIR)) {
+    const m = f.match(TAKE_FILE_RE);
+    if (!m) continue;
+    if (m[1].toUpperCase() !== id) continue;
+    const batch = m[2] ? m[2].toLowerCase() : "";
+    const n = Number(m[3]);
+    const key = (batch ? batch + "-take-" : "take-") + n;
+    keys.push({ key, file: path.join(TAKES_DIR, f) });
+  }
+  return keys;
+}
+
+function reconcilePick(id, prevPick) {
+  const live = path.join(CARDS, id + ".png");
+  const liveHash = fileHash(live);
+  const takes = listTakeKeys(id);
+  if (liveHash) {
+    for (const t of takes) {
+      if (fileHash(t.file) === liveHash) return t.key;
+    }
+    if (prevPick === "live") return "live";
+    const named = takes.find((t) => t.key === prevPick);
+    if (named) return "live";
+    return "live";
+  }
+  if (prevPick && takes.some((t) => t.key === prevPick)) return prevPick;
+  return prevPick || "";
+}
+
+function clearImpossibleNote(note) {
+  let n = String(note || "");
+  for (const re of IMPOSSIBLE) n = n.replace(re, "");
+  return n.replace(/\s{2,}/g, " ").trim();
+}
+
+function cardIds(act) {
+  return fs
+    .readdirSync(CARDS)
+    .filter((f) => /^(I|II|III|IV|V|VI|VII)-\d{3}\.json$/.test(f))
+    .map((f) => JSON.parse(fs.readFileSync(path.join(CARDS, f), "utf8")))
+    .filter((c) => String(c.act) === String(act))
+    .map((c) => c.card_id)
+    .sort();
+}
+
+function main() {
   const act = process.argv.includes("--act")
     ? process.argv[process.argv.indexOf("--act") + 1]
     : "III";
   const dry = process.argv.includes("--dry-run");
   const now = new Date().toISOString();
-  let seededIds = Object.keys(MANIFEST);
-  if (process.env.DATABASE_URL) {
-    const dbIds = await seededFromDb(act);
-    const missing = dbIds.filter((id) => !MANIFEST[id]);
-    const extra = seededIds.filter((id) => !dbIds.includes(id));
-    if (missing.length) {
-      console.warn("manifest missing seeded cards:", missing.join(", "));
-    }
-    if (extra.length) {
-      console.warn("manifest lists unseeded cards:", extra.join(", "));
-    }
-    seededIds = dbIds.filter((id) => MANIFEST[id] || id.startsWith(act + "-"));
-  }
+  const prev = JSON.parse(fs.readFileSync(STATE_PATH, "utf8"));
+  const prevV = prev.verdicts || {};
+  const ids = cardIds(act);
   const verdicts = {};
-  for (const card_id of seededIds) {
-    const row = MANIFEST[card_id];
-    if (!row) continue;
-    verdicts[card_id] = {
-      tag: "PASS",
-      note: row.note,
-      pick: row.pick,
-      updated_at: now,
+  const changes = [];
+  for (const card_id of ids) {
+    const old = prevV[card_id] || {};
+    const tag = humanTag(old.tag);
+    const note = clearImpossibleNote(old.note);
+    const pick = reconcilePick(card_id, old.pick);
+    const next = {
+      tag: tag || "UNREVIEWED",
+      note,
+      pick,
+      updated_at: old.updated_at || now,
     };
-  }
-  for (const [card_id, row] of Object.entries(OPEN)) {
-    if (card_id.startsWith(act + "-")) {
-      verdicts[card_id] = { ...row, updated_at: now };
+    if (old.caveat) next.caveat = old.caveat;
+    if (card_id === "III-025" && !next.caveat) {
+      next.caveat = "Accepted with logged caveat: four face-critical takes vs pack/12 eight-take policy (pack/27).";
     }
+    const prevTag = humanTag(old.tag) || "UNREVIEWED";
+    if (next.tag !== prevTag || pick !== (old.pick || "") || note !== (old.note || "").trim()) {
+      changes.push({
+        card_id,
+        tag: [old.tag, next.tag],
+        pick: [old.pick, pick],
+      });
+    }
+    verdicts[card_id] = next;
   }
-  const body = { act, cursor: "III-030", verdicts };
+  const body = {
+    act,
+    cursor: prev.cursor || ids[0] || "",
+    verdicts,
+  };
   if (dry) {
-    console.log(JSON.stringify(body, null, 2));
+    console.log(JSON.stringify({ changes, counts: count(verdicts) }, null, 2));
     return;
   }
   fs.writeFileSync(STATE_PATH, JSON.stringify(body, null, 2) + "\n");
-  console.log("wrote", STATE_PATH, Object.keys(verdicts).length, "verdicts");
+  console.log("wrote", STATE_PATH);
+  console.log("counts", count(verdicts));
+  if (changes.length) {
+    console.log("reconciled", changes.length);
+    for (const c of changes) {
+      console.log(
+        " ",
+        c.card_id,
+        "tag",
+        c.tag[0],
+        "→",
+        c.tag[1],
+        "pick",
+        c.pick[0] || "(none)",
+        "→",
+        c.pick[1] || "(none)"
+      );
+    }
+  }
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+function count(verdicts) {
+  const c = {};
+  for (const v of Object.values(verdicts)) {
+    const t = v.tag || "UNREVIEWED";
+    c[t] = (c[t] || 0) + 1;
+  }
+  return c;
+}
+
+main();

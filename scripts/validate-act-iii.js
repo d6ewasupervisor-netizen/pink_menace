@@ -53,7 +53,7 @@ for (let i = 0; i < cards.length; i++) {
   if (!c.hook || hookWords.length < 1 || hookWords.length > 12) {
     err(id, `hook words ${hookWords.length}`);
   }
-  if (c.card_type !== "dossier") {
+  if (c.card_type !== "dossier" && c.card_type !== "ride-along") {
     if (!c.decision || !c.options || !c.debrief) err(id, "missing decision/options/debrief");
     const correct = (c.options || []).filter((o) => o.correct);
     if (correct.length !== 1) err(id, `correct count ${correct.length}`);
@@ -85,6 +85,10 @@ for (let i = 0; i < cards.length; i++) {
         err(id, `image_brief.${k} uses a role-relative spatial term`);
       }
     }
+  }
+  if (c.card_type === "ride-along") {
+    const lines = c.ride_along || [];
+    if (lines.length < 12 || lines.length > 15) err(id, `ride_along length ${lines.length}`);
   }
   if (c.card_type === "hazard") {
     const tid = c.timeout_option_id;
@@ -120,13 +124,13 @@ for (let i = 0; i < cards.length; i++) {
   for (const e of checkSpoken(c)) err(id, e.replace(`${id}: `, ""));
 }
 
-const n = cards.filter((c) => c.card_type !== "dossier").length;
+const n = cards.filter((c) => c.card_type !== "dossier" && c.card_type !== "ride-along").length;
 const cameraLedger = checkCameraLedger(cards);
 for (const e of cameraLedger.errors) errors.push(e);
 for (const e of checkClosers(cards)) errors.push(e);
 const portraits = cards.filter((c) => c.image_brief && c.image_brief.camera === "POV_PORTRAIT").length;
 const faceBudget = Math.ceil(cards.length * 0.1);
-const decision = cards.filter((c) => c.card_type !== "dossier");
+const decision = cards.filter((c) => c.card_type !== "dossier" && c.card_type !== "ride-along");
 const maxAns = Math.max(...Object.values(answers), 0);
 if (decision.length && maxAns / decision.length > 0.35 + 1e-12) {
   errors.push(`answer position exceeds 35%: ${JSON.stringify(answers)}`);

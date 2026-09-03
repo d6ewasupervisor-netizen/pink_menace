@@ -1,6 +1,7 @@
 "use strict";
 
 const TAGS = [
+  { id: "UNREVIEWED", bucket: "open", writerFirst: false },
   { id: "PASS", bucket: "pass", writerFirst: false },
   { id: "CARD_BROKEN", bucket: "rewrite", writerFirst: true },
   { id: "WRONG_CAMERA", bucket: "camera", writerFirst: true },
