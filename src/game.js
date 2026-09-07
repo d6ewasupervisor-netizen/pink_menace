@@ -1,5 +1,6 @@
 "use strict";
 
+const crypto = require("crypto");
 const { query, pool } = require("./db");
 const { publicFear } = require("./presence");
 const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET, timeCostOf } = require("./manifest");
@@ -404,6 +405,145 @@ async function failRestart(client, failedRunId, floorSeq, studentId) {
     reviewPlan = await fillReviewFromStudent(client, studentId, reviewPlan, REVIEW_N, failId ? [failId] : []);
   }
   return { startSeq, replayPlan, restartState, keep, reviewPlan };
+}
+
+/** Rebuild cargo + ledger debts for a play-again that lands on a chosen card. */
+function rebuildPlayAgain(answersBefore, floorSeq) {
+  const list = Array.isArray(answersBefore) ? answersBefore : [];
+  let restartState = {};
+  let cargoAct = null;
+  let debts = [];
+  const queued = [];
+  let lastMainSeq = null;
+  for (const r of list) {
+    if (r.callback_of) {
+      debts = clearCallback(debts, r.callback_of);
+      continue;
+    }
+    if (r.act !== cargoAct) {
+      cargoAct = r.act;
+      restartState = withActCargo(restartState, cargoAct);
+    }
+    restartState = applyDelta(restartState, r.state_delta);
+    debts = onMainAnswered(debts);
+    if (r.schedules_callback && !r.was_correct) {
+      debts = queueCallback(debts, r.card_id);
+      if (!queued.includes(r.card_id)) queued.push(r.card_id);
+    }
+    lastMainSeq = r.seq;
+  }
+  const startSeq =
+    lastMainSeq != null ? Number(lastMainSeq) : Math.max(0, Number(floorSeq) || 0);
+  return { startSeq, restartState, debts, queued };
+}
+
+/**
+ * Abandon the active run and open a fresh active run whose next card is cardId.
+ * Keeps economy from answers before that card on the source run.
+ */
+async function playAgainFrom(client, studentId, cardId) {
+  const id = String(cardId || "");
+  if (!id) return { error: 400, message: "Missing card." };
+  const { rows: cardRows } = await client.query(
+    `SELECT card_id, seq, act, callback_of FROM cards WHERE card_id = $1`,
+    [id]
+  );
+  const target = cardRows[0];
+  if (!target) return { error: 404, message: "Unknown card." };
+  if (target.callback_of) return { error: 400, message: "Pick a main card." };
+
+  const { rows: activeRows } = await client.query(
+    `SELECT id, student_id, status, current_card_id, start_seq
+       FROM runs
+      WHERE student_id = $1 AND status = 'active'
+      FOR UPDATE`,
+    [studentId]
+  );
+  const active = activeRows[0] || null;
+  const isCurrent = Boolean(active && active.current_card_id === id);
+
+  let sourceRunId = null;
+  let floorSeq = 0;
+  if (active) {
+    const { rows: onActive } = await client.query(
+      `SELECT 1 FROM run_answers WHERE run_id = $1 AND card_id = $2 LIMIT 1`,
+      [active.id, id]
+    );
+    if (isCurrent || onActive.length) {
+      sourceRunId = active.id;
+      floorSeq = Number(active.start_seq) || 0;
+    }
+  }
+  if (!sourceRunId) {
+    const { rows: prior } = await client.query(
+      `SELECT a.run_id, r.start_seq
+         FROM run_answers a
+         JOIN runs r ON r.id = a.run_id
+        WHERE r.student_id = $1 AND a.card_id = $2
+        ORDER BY a.created_at DESC
+        LIMIT 1`,
+      [studentId, id]
+    );
+    if (!prior[0]) return { error: 404, message: "Not resolved." };
+    sourceRunId = prior[0].run_id;
+    floorSeq = Number(prior[0].start_seq) || 0;
+  }
+
+  const { rows: before } = await client.query(
+    `SELECT a.card_id, a.option_id, a.was_correct, o.state_delta, c.act, c.seq, c.card_type,
+            c.callback_of, c.schedules_callback
+       FROM run_answers a
+       JOIN cards c ON c.card_id = a.card_id
+       LEFT JOIN card_options o ON o.card_id = a.card_id AND o.option_id = a.option_id
+      WHERE a.run_id = $1 AND c.seq < $2
+      ORDER BY c.seq ASC, c.card_id ASC`,
+    [sourceRunId, target.seq]
+  );
+
+  const rebuilt = rebuildPlayAgain(before, floorSeq);
+  if (active) {
+    await client.query(
+      `UPDATE runs
+          SET status = 'abandoned', current_card_id = NULL, updated_at = now()
+        WHERE id = $1`,
+      [active.id]
+    );
+  }
+
+  const freshId = crypto.randomUUID();
+  await client.query(
+    `INSERT INTO runs (
+       id, student_id, status, current_attempt_no, start_seq,
+       queued_callbacks, callback_debts, state, replay_plan, replay_index, review_plan, review_index
+     ) VALUES ($1, $2, 'active', 1, $3, $4, $5::jsonb, $6::jsonb, '[]'::jsonb, 0, '[]'::jsonb, 0)`,
+    [
+      freshId,
+      studentId,
+      rebuilt.startSeq,
+      rebuilt.queued,
+      JSON.stringify(rebuilt.debts),
+      JSON.stringify(rebuilt.restartState),
+    ]
+  );
+
+  await client.query(
+    `UPDATE runs
+        SET current_card_id = $1, callback_debts = $2::jsonb, state = $3::jsonb, updated_at = now()
+      WHERE id = $4`,
+    [
+      id,
+      JSON.stringify(rebuilt.debts),
+      JSON.stringify(withActCargo(rebuilt.restartState, actOfCardId(id))),
+      freshId,
+    ]
+  );
+
+  return {
+    ok: true,
+    run_id: freshId,
+    card_id: id,
+    start_seq: rebuilt.startSeq,
+  };
 }
 
 async function checkpointState(client, failedRunId) {
@@ -991,6 +1131,8 @@ module.exports = {
   skipSeqFor,
   checkpointState,
   failRestart,
+  rebuildPlayAgain,
+  playAgainFrom,
   applyDelta,
   buildReplayPlan,
   recapBeat,

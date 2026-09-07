@@ -594,6 +594,7 @@ function fillCard(card, opts) {
   const hookEl = document.getElementById("hook");
   const sceneEl = document.getElementById("scene");
   const cont = document.getElementById("continue");
+  const playAgain = document.getElementById("play-again");
   const resumeLive = document.getElementById("resume-live");
   const hook = card.hook || PMFeel.firstSentence(card.scene);
   const isWatch = card.card_type === "dossier" || card.card_type === "ride-along";
@@ -623,9 +624,18 @@ function fillCard(card, opts) {
     bindAlts(card.alts || [], card);
     cont.classList.add("hidden");
     cont.onclick = null;
+    if (playAgain) {
+      playAgain.classList.remove("hidden");
+      playAgain.onclick = () => playAgainCard(card.card_id);
+    }
     resumeLive.classList.remove("hidden");
     resumeLive.onclick = () => openLive();
     return;
+  }
+
+  if (playAgain) {
+    playAgain.classList.add("hidden");
+    playAgain.onclick = null;
   }
 
   if (opts.recap || card.recap) {
@@ -1156,6 +1166,18 @@ async function startOver() {
   meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false, camera: "", cardId: "" };
   try {
     await PM.api("/api/run/restart", { method: "POST", body: {} });
+  } catch {
+    return;
+  }
+  await openLive();
+}
+
+async function playAgainCard(cardId) {
+  if (!cardId) return;
+  clearLive();
+  meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false, camera: "", cardId: "" };
+  try {
+    await PM.api("/api/run/play-again", { method: "POST", body: { card_id: cardId } });
   } catch {
     return;
   }

@@ -8,8 +8,10 @@ const {
   planFromWindow,
   reviewIdsFromAnswers,
   bankHoldMinutes,
+  rebuildPlayAgain,
   REVIEW_N,
   REVIEW_MIN,
+  CALLBACK_GAP,
 } = require("../src/game");
 const { pool } = require("../src/db");
 
@@ -81,6 +83,70 @@ assert.strictEqual(banked.time_cost, 80 - REVIEW_MIN);
 assert.strictEqual(banked.hold_cleared, 1);
 const missed = bankHoldMinutes({ time_cost: 80, hold_cleared: 1 }, false);
 assert.strictEqual(missed.time_cost, 80);
+
+const beforeTarget = [
+  {
+    card_id: "III-001",
+    act: "III",
+    seq: 3001,
+    was_correct: true,
+    state_delta: { time_cost: 4 },
+    schedules_callback: false,
+  },
+  {
+    card_id: "III-003",
+    act: "III",
+    seq: 3003,
+    was_correct: false,
+    state_delta: { noise: 2, time_cost: 6 },
+    schedules_callback: true,
+  },
+  {
+    card_id: "III-003b",
+    act: "III",
+    seq: 3004,
+    was_correct: true,
+    state_delta: {},
+    callback_of: "III-003",
+  },
+];
+const replay = rebuildPlayAgain(beforeTarget, actIIFloor);
+assert.strictEqual(replay.startSeq, 3003, "lands after last main before the chosen card");
+assert.strictEqual(replay.restartState.time_cost, 10);
+assert.strictEqual(replay.restartState.noise, 2);
+assert.strictEqual(replay.restartState.cargo_act, "III");
+assert.deepStrictEqual(replay.debts, [], "cleared callback leaves no debt");
+assert.deepStrictEqual(replay.queued, ["III-003"]);
+
+const fromFloor = rebuildPlayAgain([], actIIFloor);
+assert.strictEqual(fromFloor.startSeq, actIIFloor, "empty prefix keeps the run floor");
+assert.deepStrictEqual(fromFloor.restartState, {});
+assert.deepStrictEqual(fromFloor.debts, []);
+
+const openDebt = rebuildPlayAgain(
+  [
+    {
+      card_id: "III-004",
+      act: "III",
+      seq: 3004,
+      was_correct: false,
+      state_delta: { time_cost: 5 },
+      schedules_callback: true,
+    },
+    {
+      card_id: "III-005",
+      act: "III",
+      seq: 3005,
+      was_correct: true,
+      state_delta: { time_cost: 3 },
+    },
+  ],
+  0
+);
+assert.strictEqual(openDebt.startSeq, 3005);
+assert.strictEqual(openDebt.debts.length, 1);
+assert.strictEqual(openDebt.debts[0].from_card, "III-004");
+assert.strictEqual(openDebt.debts[0].remaining, CALLBACK_GAP - 1, "one main after the miss");
 
 console.log("ok");
 pool.end();
