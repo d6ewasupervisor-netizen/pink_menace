@@ -782,7 +782,7 @@ function publicState(state) {
 
 async function publicCard(cardId) {
   const { rows: cards } = await query(
-    `SELECT card_id, title, scene, decision, card_type, act, zone, seq, weather, extra, driver, time_of_day
+    `SELECT card_id, title, scene, decision, debrief, card_type, act, zone, seq, weather, extra, driver, time_of_day
        FROM cards
       WHERE card_id = $1`,
     [cardId]
@@ -806,6 +806,7 @@ async function publicCard(cardId) {
     title: card.title,
     hook: hookOf(card),
     scene: card.scene,
+    debrief: card.debrief || "",
     decision: card.decision,
     act: card.act,
     zone: card.zone,
@@ -894,7 +895,7 @@ async function progressFor(run) {
        FROM run_answers a
        JOIN runs r ON r.id = a.run_id
       WHERE r.student_id = $1
-      ORDER BY a.card_id, a.created_at ASC`,
+      ORDER BY a.card_id, a.created_at DESC`,
     [studentId]
   );
   const byCard = new Map();

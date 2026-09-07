@@ -318,6 +318,10 @@ function setDebrief(text, collapsed) {
   debrief.classList.remove("hidden");
 }
 
+function continueOnly(card) {
+  return Boolean(card) && (card.card_type === "dossier" || !(card.options || []).length);
+}
+
 function applyOutcome(outcome, opts) {
   document.getElementById("options").classList.add("hidden");
   const result = document.getElementById("result");
@@ -437,7 +441,7 @@ function armChoiceGate(card, opts) {
       const cont = document.getElementById("continue");
       cont.classList.remove("hidden");
       cont.textContent = "Continue";
-      cont.onclick = () => submitAnswer("continue");
+      cont.onclick = () => advanceContinueOnly(card);
     }
   };
   const startQuestion = () => {
@@ -685,8 +689,17 @@ function fillCard(card, opts) {
     if (card.decision) decision.classList.remove("hidden");
     fillOptions(card, opts);
     document.getElementById("options").classList.add("hidden");
+    if (continueOnly(card)) {
+      applyOutcome(card.outcome, { collapseDebrief: false });
+      holdContinue(card.card_id);
+      return;
+    }
     playOutcome({ ...(card.outcome || {}), state: card.state, alts: card.alts }, card);
     return;
+  }
+
+  if (continueOnly(card)) {
+    setDebrief(card.debrief || "", false);
   }
 
   armChoiceGate(card, opts);
@@ -786,11 +799,16 @@ function startRideAlong(card, lines) {
     }
     PMFeel.showBark({ who: "deac", line: lines[i], tap: true, persist: true });
     if (i >= lines.length - 1 && awaiting === "anywhere" && !seq.length) {
+      if (sceneEl) {
+        sceneEl.textContent = card.scene || "";
+        sceneEl.classList.remove("hidden");
+      }
+      setDebrief(card.debrief || "", false);
       cont.classList.remove("hidden");
       cont.textContent = "Continue";
       cont.onclick = () => {
         stop();
-        submitAnswer("continue");
+        advanceContinueOnly(card);
       };
     } else {
       cont.classList.add("hidden");
@@ -800,11 +818,16 @@ function startRideAlong(card, lines) {
 
   const advanceLine = () => {
     if (i >= lines.length - 1) {
+      if (sceneEl) {
+        sceneEl.textContent = card.scene || "";
+        sceneEl.classList.remove("hidden");
+      }
+      setDebrief(card.debrief || "", false);
       cont.classList.remove("hidden");
       cont.textContent = "Continue";
       cont.onclick = () => {
         stop();
-        submitAnswer("continue");
+        advanceContinueOnly(card);
       };
       clearSpots();
       awaiting = "done";
@@ -1299,6 +1322,44 @@ async function submitHoldAnswer(optionId) {
     playHoldOutcome(data, { card_id: currentCardId, saved: liveCard && liveCard.saved });
   } catch {
     answering = false;
+  }
+}
+
+async function advanceContinueOnly(card) {
+  if (answering) return;
+  answering = true;
+  const cont = document.getElementById("continue");
+  if (cont) {
+    cont.onclick = null;
+    cont.classList.add("hidden");
+  }
+  try {
+    const data = await PM.api("/api/run/answer", {
+      method: "POST",
+      body: {
+        card_id: card.card_id,
+        option_id: "continue",
+        ms_to_answer: Date.now() - shownAt,
+        timed_out: false,
+      },
+    });
+    if (data.failed) {
+      playOutcome({ ...data, timed_out: false }, card);
+      return;
+    }
+    if (data.delivery) {
+      outcomeAt = Date.now();
+      PMFeel.showDelivery(data.delivery, () => loadHome());
+      return;
+    }
+    outcomeAt = Date.now();
+    await finishContinue(card.card_id);
+  } catch {
+    answering = false;
+    if (cont) {
+      cont.classList.remove("hidden");
+      cont.onclick = () => advanceContinueOnly(card);
+    }
   }
 }
 
