@@ -450,7 +450,6 @@ async function playAgainFrom(client, studentId, cardId) {
   );
   const target = cardRows[0];
   if (!target) return { error: 404, message: "Unknown card." };
-  if (target.callback_of) return { error: 400, message: "Pick a main card." };
 
   const { rows: activeRows } = await client.query(
     `SELECT id, student_id, status, current_card_id, start_seq

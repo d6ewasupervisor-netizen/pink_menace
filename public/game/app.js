@@ -1195,15 +1195,23 @@ async function startOver() {
   await openLive();
 }
 
+let playAgainBusy = false;
+
 async function playAgainCard(cardId) {
-  if (!cardId) return;
+  if (!cardId || playAgainBusy) return;
+  playAgainBusy = true;
+  const btn = document.getElementById("play-again");
+  if (btn) btn.disabled = true;
   clearLive();
   meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false, camera: "", cardId: "" };
   try {
     await PM.api("/api/run/play-again", { method: "POST", body: { card_id: cardId } });
   } catch {
+    playAgainBusy = false;
+    if (btn) btn.disabled = false;
     return;
   }
+  playAgainBusy = false;
   await openLive();
 }
 
