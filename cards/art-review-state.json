@@ -1,18 +1,12 @@
 {
   "act": "III",
-  "cursor": "III-025",
+  "cursor": "III-010",
   "verdicts": {
-    "III-001": {
-      "tag": "UNREVIEWED",
-      "note": "",
-      "pick": "live",
-      "updated_at": "2026-09-03T16:36:29.145Z"
-    },
     "III-002": {
-      "tag": "CARD_BROKEN",
-      "note": "B2 is closest to what I want. Change the imagery to just have the cat on the dash, remove the mirror from card text about her touching it and just have her sit there in image. Also, the speedometer need to show 0 mph not 28",
+      "tag": "READ_MISSING",
+      "note": "d-take-2 shipped: clipboard on the doghouse by the thermos, Mya loafed on the dash, cluster at 0. Paw-in-glass copy removed. Waiting muted 390px.",
       "pick": "d-take-2",
-      "updated_at": "2026-09-01T19:21:11.462Z"
+      "updated_at": "2026-09-03T08:20:00.000Z"
     },
     "III-003": {
       "tag": "READ_MISSING",
@@ -29,18 +23,17 @@
     "III-005": {
       "tag": "PASS",
       "note": "COPY: correct result now says he appears in the right door glass. Van is curb-side; left glass cannot show it. Art already the sliver in the right window. Text-only seed.",
-      "pick": "live",
       "updated_at": "2026-09-01T07:10:00.000Z"
     },
     "III-006": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts.",
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
       "pick": "b-take-2",
       "updated_at": "2026-09-01T15:20:39.182Z"
     },
     "III-007": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. b2 is closest but the cars in front need to be in a straight line",
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. b2 is closest but the cars in front need to be in a straight line",
       "pick": "c-take-2",
       "updated_at": "2026-09-01T19:21:48.827Z"
     },
@@ -52,20 +45,20 @@
     },
     "III-009": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. 4 closest, but there is no plow showing and the interior of the truck is wrong same as the mirror",
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. 4 closest, but there is no plow showing and the interior of the truck is wrong same as the mirror",
       "pick": "c-take-1",
       "updated_at": "2026-09-01T19:22:05.493Z"
     },
     "III-010": {
       "tag": "PASS",
       "note": "Take 2: true profile, van on the curb-side flank, skip-dash, long-arm mirror in the gap. Transit, not a Ledger. b2 is closest, however the white van needs to be back farther, along this same side of the box truck, but with the nose/hood of the van about even with the door on the box truck",
-      "pick": "d-take-1",
+      "pick": "e-take-1",
       "updated_at": "2026-09-01T20:34:00.000Z"
     },
     "III-011": {
       "tag": "READ_MISSING",
       "note": "Seeded d-take-1. Two same-direction lanes, skip-dash, semi right, shuttle coming up behind in the left.",
-      "pick": "live",
+      "pick": "d-take-1",
       "updated_at": "2026-09-01T16:28:44.770Z"
     },
     "III-012": {
@@ -82,19 +75,19 @@
     },
     "III-014": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Remove the white arrow from the top of the light on the arrow indicator.",
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. Remove the white arrow from the top of the light on the arrow indicator.",
       "pick": "c-take-1",
       "updated_at": "2026-09-01T19:24:42.134Z"
     },
     "III-015": {
       "tag": "PASS",
       "note": "Best geometry frame in the act. Two-way left-turn lane reads: broken yellow inside, solid yellow outside, both edges, left-turn arrow with opposing arrow beyond. Shuttle in the through lane. Ordinary sedan, no Beetle. Human muted read at 390px. The sedan in the left lane needs to be facing the opposite direction and the turn arrow that is next to the box truck needs to the inverse of the first arrow if you're looking from bottom to top",
-      "pick": "d-take-1",
+      "pick": "live",
       "updated_at": "2026-09-01T22:08:00.000Z"
     },
     "III-016": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. the speedometer needs to read one speed and it's not 30, it should be 60",
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. the speedometer needs to read one speed and it's not 30, it should be 60",
       "pick": "c-take-2",
       "updated_at": "2026-09-01T19:24:54.917Z"
     },
@@ -112,8 +105,8 @@
     },
     "III-019": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. This card needs to be completely redone. the stalled pickup needs to be farther right on the road, the car behind, we need to only see their left headlight indicating they are behind the driver and the scene needs zoomed out so that the view shows the drivers window clearer. remove the arm from the scene",
-      "pick": "live",
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. This card needs to be completely redone. the stalled pickup needs to be farther right on the road, the car behind, we need to only see their left headlight indicating they are behind the driver and the scene needs zoomed out so that the view shows the drivers window clearer. remove the arm from the scene",
+      "pick": "c-take-2",
       "updated_at": "2026-09-01T19:25:18.109Z"
     },
     "III-020": {
@@ -130,14 +123,14 @@
     },
     "III-022": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts.",
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass.",
       "pick": "b-take-1",
       "updated_at": "2026-09-01T20:16:40.253Z"
     },
     "III-023": {
       "tag": "COPY",
       "note": "Seeded b-take-2: same diamond and dump, D4 cab.",
-      "pick": "live",
+      "pick": "b-take-2",
       "updated_at": "2026-09-01T16:29:02.172Z"
     },
     "III-024": {
@@ -148,10 +141,9 @@
     },
     "III-025": {
       "tag": "READ_MISSING",
-      "note": "Face-critical redo: two b-takes in the relocked D4 cab. this entire card doesn't make sense.",
+      "note": "Face-critical redo: two b-takes in the relocked D4 cab. Waiting muted 390px. Do not seed until a human pass. this entire card doesn't make sense.",
       "pick": "c-take-1",
-      "updated_at": "2026-09-01T22:20:20.526Z",
-      "caveat": "Accepted with logged caveat: four face-critical takes vs pack/12 eight-take policy (pack/27)."
+      "updated_at": "2026-09-01T22:20:20.526Z"
     },
     "III-026": {
       "tag": "PASS",
@@ -161,7 +153,7 @@
     },
     "III-027": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. B1 is closest but the bus needs to be in the right hand lane.",
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. B1 is closest but the bus needs to be in the right hand lane.",
       "pick": "c-take-2",
       "updated_at": "2026-09-01T20:17:43.370Z"
     },
@@ -174,7 +166,7 @@
     "III-029": {
       "tag": "PASS",
       "note": "Take 3: both in the right lane, left empty and prominent, chase with rear nearest. Take 1 archived (same geometry, mountain).",
-      "pick": "live",
+      "pick": "b-take-3",
       "updated_at": "2026-09-01T15:52:01.487Z"
     },
     "III-030": {
