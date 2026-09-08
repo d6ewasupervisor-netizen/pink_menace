@@ -939,11 +939,22 @@ async function finishContinue(cardId) {
   await openLive();
 }
 
+function revealOutcome() {
+  // The debrief grows the card past the fold. Bring the outcome + Continue into
+  // view so the player is never stranded on text with the button below the fold.
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      if (runEl) runEl.scrollTop = runEl.scrollHeight;
+    })
+  );
+}
+
 function holdContinue(cardId, after) {
   showChoiceDock();
   const cont = document.getElementById("continue");
   cont.classList.remove("hidden");
   cont.textContent = "Continue";
+  revealOutcome();
   cont.onclick = async () => {
     cont.onclick = null;
     cont.classList.add("hidden");
