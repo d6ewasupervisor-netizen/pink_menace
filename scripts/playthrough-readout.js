@@ -3,6 +3,8 @@
 const { pool } = require("../src/db");
 
 const SKIM_MS = 6000;
+const LOT_SKIM_MS = 4000;
+const LOT_IDS = ["I-006", "I-007", "I-008", "I-009"];
 
 function median(nums) {
   const a = nums.filter((n) => Number.isFinite(n)).slice().sort((x, y) => x - y);
@@ -40,8 +42,8 @@ async function main() {
   }
   const runId = process.env.RUN_ID || runs[0].id;
   const { rows } = await pool.query(
-    `SELECT a.card_id, a.attempt_no, a.option_id, a.was_correct, a.ms_to_answer, a.ms_on_outcome, a.created_at,
-            c.seq, c.title, c.scene, c.debrief, c.callback_of, c.schedules_callback, length(c.scene) AS scene_chars
+    `SELECT a.card_id, a.attempt_no, a.option_id, a.was_correct, a.ms_to_answer, a.ms_on_scene, a.ms_on_outcome, a.created_at,
+            c.seq, c.title, c.scene, c.debrief, c.card_type, c.callback_of, c.schedules_callback, length(c.scene) AS scene_chars
        FROM run_answers a
        JOIN cards c ON c.card_id = a.card_id
       WHERE a.run_id = $1
@@ -52,7 +54,9 @@ async function main() {
   const ms = rows.map((r) => r.ms_to_answer).filter((n) => n != null);
   const dwell = rows.map((r) => r.ms_on_outcome).filter((n) => n != null);
   const med = median(ms);
+  const sceneMs = rows.map((r) => r.ms_on_scene).filter((n) => n != null);
   console.log("median ms_to_answer", med, med != null && med < SKIM_MS ? "SKIM (under 6s)" : "ok or empty");
+  console.log("median ms_on_scene", median(sceneMs), `(${sceneMs.length}/${rows.length} with scene dwell)`);
   console.log("median ms_on_outcome", median(dwell), `(${dwell.length}/${rows.length} continued)`);
   console.log(
     [
@@ -89,6 +93,34 @@ async function main() {
   console.log("  II-010", c010.length ? "appeared" : "did not appear");
   console.log("\ncallback feeling is not in this table. Ask afterward without naming it:");
   console.log('  "Did anything in it feel like it remembered you?"');
+
+  const lot = LOT_IDS.map((id) => rows.find((r) => r.card_id === id)).filter(Boolean);
+  console.log("\nDOL lot — scene dwell is the number. Under 4s a card means she did not see it.");
+  if (!lot.length) {
+    console.log("  I-006 through I-009 not on this run");
+  } else {
+    const { rows: priorMyaRows } = await pool.query(
+      `SELECT 1
+         FROM run_answers a
+         JOIN runs r ON r.id = a.run_id
+        WHERE r.student_id = (SELECT student_id FROM runs WHERE id = $1)
+          AND a.card_id = 'III-002'
+          AND a.created_at <= $2
+        LIMIT 1`,
+      [runId, lot[lot.length - 1].created_at]
+    );
+    const priorMya = priorMyaRows.length > 0;
+    console.log(priorMya ? "  reveal: backward — she already saw Mya on the dash" : "  reveal: forward");
+    for (const r of lot) {
+      const scene = r.ms_on_scene;
+      const cardMs = r.ms_to_answer;
+      const skim = (scene != null && scene < LOT_SKIM_MS) || (cardMs != null && cardMs < LOT_SKIM_MS);
+      const opt = r.card_id === "I-008" ? `  option ${r.option_id}` : r.option_id && r.option_id !== "continue" ? `  option ${r.option_id}` : "";
+      console.log(
+        `  ${r.card_id}  scene ${scene == null ? "-" : Math.round(scene / 1000) + "s"}  card ${cardMs == null ? "-" : Math.round(cardMs / 1000) + "s"}${opt}${skim ? "  SKIM" : ""}`
+      );
+    }
+  }
   await pool.end();
 }
 

@@ -4,10 +4,14 @@ Locked 8 Sep 2026. Cards `I-006` through `I-009`. Not seeded. No art until a com
 
 She goes for the license. The building is empty. Gracie gets out. The call works. The one that was not in the wide shot comes. She gets Gracie. She is not hurt. The passenger seat is empty.
 
-The sequence proceeds whether I-007 is correct or not. A correct I-007 changes the I-009 debrief only (`tone_debrief`). It does not save Mya.
+The sequence proceeds whether I-007 is correct or not. A correct I-007 changes the I-009 debrief only (`tone_debrief`). It does not save Mya. Open on the read: the I-009 scene still says the call started this, even on a clean I-007, and the default debrief says she was loud for every miss, including the ones that never called.
 
 I-008 is `beat`. Every option records `was_correct: true` and the chosen `option_id`. Timeout is freeze. No ledger, no Play again, no hold replay, no cargo death.
 
 Presence overlay is off on these four. Cooler tag is off for Act I. `driver` stays `ali`.
+
+The live player meets this sequence after Mya is already on Deac's dash. For her the reveal runs backward: I-009 is where she learns what the cat on the dashboard meant. Quiet at the empty seat is that version landing, not a miss. A new player who has not seen III-002 gets the forward version. `npm run playthrough` prints which one.
+
+Scene dwell on these four is the measurement. Under four seconds a card means the delivery layer is still in the way. Read `ms_on_scene`, not outcome time.
 
 Quiet compile: attach `ref_quiet.png` plus the scene plate (`ref_quiet_a4.png` on I-007, `ref_quiet_a5.png` on I-008). Write distance farther than the landing. Never write a disease word. No harm to either cat is shown.
