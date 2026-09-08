@@ -8,7 +8,20 @@
   "hook": "One cat, where there were two.",
   "scene": "You are in the driver's seat. The door is shut. The engine is not started. Gracie is on your chest, shaking, orange and cream, both eyes open. The passenger seat is empty. You put the window down a little and say Mya's name, quietly, and then you stop, because calling is what started this. The lot behind the mesh is empty again. That is worse. You have Gracie. You are not hurt. The seat where the other one was is the whole of it.",
   "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. The passenger seat is empty.",
-  "tone_debrief": "You did it right and it happened anyway. The one that mattered was never in the frame. Sound draws them. Gracie is on your chest. The passenger seat is empty.",
+  "lot_states": {
+    "called": {
+      "stop": "calling is what started this",
+      "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. The passenger seat is empty."
+    },
+    "correct": {
+      "stop": "sound is what fills a lot like this",
+      "debrief": "You did it right and it happened anyway. The one that mattered was never in the frame. Sound draws them. Gracie is on your chest. The passenger seat is empty."
+    },
+    "slow": {
+      "stop": "there is nothing out there listening for it now",
+      "debrief": "You spent the time you had. Gracie is on your chest. The passenger seat is empty."
+    }
+  },
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "5.5 Focus",
@@ -31,7 +44,14 @@
       "no person in the lot",
       "no figure outside the car"
     ],
-    "aspect": "2:3"
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked in a stall in an empty licensing lot, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at the empty lot through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
   },
   "variation": {
     "location_type": "parking_lot",

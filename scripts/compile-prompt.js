@@ -152,6 +152,12 @@ function headingPhrase(heading) {
 
 function geometryPromptClause(geo, driver) {
   if (!geo) return "";
+  if (/not in frame/i.test(String(geo.ego_nose_in_frame || ""))) {
+    return (
+      "The ego vehicle is behind the camera and is not in this frame. Do not render the Pink Menace, a plow, a cabin, or a steering wheel. " +
+      `Any oncoming traffic is ${geo.oncoming_position}.`
+    );
+  }
   const core = geometryClause(
     {
       ...geo,

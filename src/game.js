@@ -882,7 +882,7 @@ async function publicCard(cardId) {
     timeout_ms: Number(extra.timeout_ms) || 24000,
     show_cold: card.act !== "I",
     suppress_presence: QUIET_IN_FRAME.has(card.card_id),
-    tone_debrief: extra.tone_debrief || null,
+    lot_states: extra.lot_states || null,
     ride_along: Array.isArray(extra.ride_along) ? extra.ride_along : null,
     ride_beats: Array.isArray(extra.ride_beats) ? extra.ride_beats : null,
     image_url: imageUrl(card.card_id),
@@ -891,20 +891,39 @@ async function publicCard(cardId) {
   };
 }
 
+function lotKeyFromOption(optionId, wasCorrect) {
+  if (optionId === "b" || wasCorrect) return "correct";
+  if (optionId === "c" || optionId === "d") return "slow";
+  return "called";
+}
+
+function applyLotState(card, key) {
+  const states = card && card.lot_states;
+  const row = states && states[key];
+  if (!row) return card;
+  if (row.stop && card.scene) {
+    card.scene = card.scene.replace("calling is what started this", row.stop);
+  }
+  if (row.debrief) {
+    card.debrief = row.debrief;
+    if (card.outcome) card.outcome.debrief = row.debrief;
+  }
+  return card;
+}
+
 async function applySequenceTone(card, runId) {
-  if (!card || card.card_id !== "I-009" || !card.tone_debrief || !runId) return card;
+  if (!card || card.card_id !== "I-009" || !runId) return card;
   const { rows } = await query(
-    `SELECT was_correct
+    `SELECT option_id, was_correct
        FROM run_answers
       WHERE run_id = $1 AND card_id = 'I-007'
       ORDER BY created_at DESC
       LIMIT 1`,
     [runId]
   );
-  if (rows[0] && rows[0].was_correct) {
-    card.debrief = card.tone_debrief;
-  }
-  return card;
+  const hit = rows[0];
+  if (!hit) return card;
+  return applyLotState(card, lotKeyFromOption(hit.option_id, hit.was_correct));
 }
 
 async function reviewCard(cardId, attempt) {

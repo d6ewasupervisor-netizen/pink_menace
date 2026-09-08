@@ -1,10 +1,10 @@
 # 30 — The DOL lot
 
-Locked 8 Sep 2026. Cards `I-006` through `I-009`. Not seeded. No art until a compile pass. Probe already returned: A4 and A5 pass. See `29_QUIET_RENDER_PROBE.md`. Do not re-run it for this sequence.
+Locked 8 Sep 2026. Cards `I-006` through `I-009`. Not seeded. Stills chosen (`cards/I-006.png` take 2, `I-007.png` take 1, `I-008.png` take 2, `I-009.png` take 2). Do not seed until a full Act I start exists. Probe already returned: A4 and A5 pass. See `29_QUIET_RENDER_PROBE.md`. Do not re-run it for this sequence.
 
 She goes for the license. The building is empty. Gracie gets out. The call works. The one that was not in the wide shot comes. She gets Gracie. She is not hurt. The passenger seat is empty.
 
-The sequence proceeds whether I-007 is correct or not. A correct I-007 changes the I-009 debrief only (`tone_debrief`). It does not save Mya. Open on the read: the I-009 scene still says the call started this, even on a clean I-007, and the default debrief says she was loud for every miss, including the ones that never called.
+The sequence proceeds whether I-007 is correct or not. It does not save Mya. I-009 has three states, on the stop-line and the debrief, from the I-007 option: called (a), correct (b), slow (c/d). The last line of the scene does not change.
 
 I-008 is `beat`. Every option records `was_correct: true` and the chosen `option_id`. Timeout is freeze. No ledger, no Play again, no hold replay, no cargo death.
 

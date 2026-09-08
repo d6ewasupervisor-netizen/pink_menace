@@ -18,7 +18,9 @@
     "dutch_reach": ["ref_dutch_reach.png", "ref_dutch_reach_topdown.png"],
     "hand_signals": ["ref_hand_signals.png"],
     "diagram_style": ["ref_diagram_style.png"],
-    "the_quiet": ["ref_quiet.png"]
+    "the_quiet": ["ref_quiet.png"],
+    "quiet_a4": ["ref_quiet_a4.png"],
+    "quiet_a5": ["ref_quiet_a5.png"]
   },
   "no_file": [
     "marisol",

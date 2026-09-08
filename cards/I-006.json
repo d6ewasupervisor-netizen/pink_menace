@@ -6,7 +6,7 @@
   "card_type": "dossier",
   "title": "Licensing Office, Kent",
   "hook": "Both cats on the seat. The doors are open.",
-  "scene": "You parked in the Kent licensing lot because the license is the thing you came for. Gracie is on the passenger seat, cream chest, paws tucked. Mya is beside her, heavier, green eyes half shut. They came because they always come. The building is ahead through the mesh. The doors are propped. There is no line. There are no cars. The counter beyond the glass has nobody at it. You have not gotten out yet.",
+  "scene": "You parked in the Kent licensing lot because the license is the thing you came for. Gracie is on the passenger seat, cream chest, paws tucked. Mya is beside her, heavier, green eyes half shut. They came because they always come. The building is ahead through the mesh. The doors are propped. There is no line. There are no cars. The counter beyond the glass has nobody at it. The counter is empty. That is the end of the plan you drove here with. You have not gotten out yet.",
   "debrief": "You came for the license. The cats are with you because they always are. The doors are open and nobody is at the counter. That is as far as this goes.",
   "source": {
     "psdp_skill": "n/a",
@@ -30,7 +30,14 @@
       "no figure standing outside",
       "no one at the counter"
     ],
-    "aspect": "2:3"
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked in a stall in an empty licensing lot, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at the licensing office doors through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
   },
   "variation": {
     "location_type": "parking_lot",

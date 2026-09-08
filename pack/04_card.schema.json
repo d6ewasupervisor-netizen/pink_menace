@@ -153,7 +153,17 @@
     "tone_debrief": {
       "type": "string",
       "maxLength": 700,
-      "description": "Optional alternate debrief when a prior card in the same run was answered correctly. I-009 uses this when I-007 was clean."
+      "description": "Deprecated. I-009 uses lot_states."
+    },
+    "lot_states": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "I-009 stop-line and debrief by what she did on I-007. called = a, correct = b, slow = c or d.",
+      "properties": {
+        "called": { "$ref": "#/$defs/lotState" },
+        "correct": { "$ref": "#/$defs/lotState" },
+        "slow": { "$ref": "#/$defs/lotState" }
+      }
     },
     "image_brief": {
       "type": "object",
@@ -286,6 +296,17 @@
           "type": "string",
           "description": "If an axis had to repeat, name it and why."
         }
+      }
+    }
+  },
+  "$defs": {
+    "lotState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stop", "debrief"],
+      "properties": {
+        "stop": { "type": "string", "minLength": 8, "maxLength": 120 },
+        "debrief": { "type": "string", "minLength": 20, "maxLength": 400 }
       }
     }
   },

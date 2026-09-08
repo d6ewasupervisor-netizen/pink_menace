@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Gracie's Out",
   "hook": "Gracie is in the open lot. So are you.",
-  "scene": "Gracie is out of the car and into the stalls, low and curious, ten feet off the open door. You are out after her. The Menace sits behind you, door hanging wide. Mya is still in the cab. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you. The license is not what this moment is about. The cat is in the open. So are you.",
+  "scene": "Gracie is out of the car and into the stalls, low and curious, ten feet off the open door. You are out after her. The Menace sits behind you, door hanging wide. Mya is still in the cab. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
   "decision": "Gracie is in the open lot. How do you get her back?",
   "options": [
     {
@@ -55,7 +55,7 @@
     "midground": "empty painted stalls, the open car door behind camera out of frame, no other vehicles close",
     "background": "three figures at far middle distance, spread apart, moving at different angles, filthy torn clothing, slack uneven gait, none looking toward camera, a low commercial building behind them, overcast gray",
     "read": "the cat is in the open and so is she, and the three figures are far off and not coming",
-    "continuity": ["gracie", "the_quiet"],
+    "continuity": ["gracie", "the_quiet", "quiet_a4"],
     "extra_negatives": [
       "no upright alert posture",
       "no eye contact with the camera",
