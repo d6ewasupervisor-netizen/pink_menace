@@ -1,0 +1,86 @@
+{
+  "card_id": "I-007",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Gracie's Out",
+  "hook": "Gracie is in the open lot. So are you.",
+  "scene": "Gracie is out of the car and into the stalls, low and curious, ten feet off the open door. You are out after her. The Menace sits behind you, door hanging wide. Mya is still in the cab. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you. The license is not what this moment is about. The cat is in the open. So are you.",
+  "decision": "Gracie is in the open lot. How do you get her back?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Call her. Loudly. She knows your voice.",
+      "correct": false,
+      "result": "You call her name across the stalls. She stops. She turns. She knows you. The sound goes out over wet asphalt farther than the word did. She is coming back. You do not look at anything except her.",
+      "state_delta": { "noise": 2 }
+    },
+    {
+      "id": "b",
+      "text": "Get low, stay quiet, and move to cut her off from the open lot",
+      "correct": true,
+      "result": "You drop and stay low and do not use your voice. She is still moving, but she is not being called. You cut the open side of the lot and she slows when the space in front of her closes. You have her attention without the sound. That is the right way. It is not the only thing in the lot.",
+      "state_delta": {}
+    },
+    {
+      "id": "c",
+      "text": "Go back for the carrier and come out with food",
+      "correct": false,
+      "result": "You go back to the car. The carrier is under the bench. By the time you have it and a bit of food, she is farther into the stalls than she was. The lot is still open. You spent the time you did not have.",
+      "state_delta": {}
+    },
+    {
+      "id": "d",
+      "text": "Leave the car door open and wait — she'll come back on her own",
+      "correct": false,
+      "result": "You stay by the open door and wait. She does not come. The lot is not a place that waits with you. She gets farther into the painted stalls, and you are still standing where you started.",
+      "state_delta": {}
+    }
+  ],
+  "debrief": "The call works. She turns. That is why you did it. The quiet cut-off is the one that does not send sound across the lot. Neither of those facts ends this.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "5.5 Focus",
+    "teaching_target": "How you get the cat back. Calling works and is the move that starts the noise. The quiet cut-off is correct. The sequence proceeds either way."
+  },
+  "cast": ["ali", "gracie", "mya"],
+  "antagonist": "chorus",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "subject": "an orange tabby in an empty wet parking lot at Ali's eye height, three filthy human figures about a hundred and twenty feet off, spread and not converging",
+    "foreground": "wet asphalt and faded stall paint, Gracie the orange tabby low to the ground and turned away, ten feet into the open lot",
+    "midground": "empty painted stalls, the open car door behind camera out of frame, no other vehicles close",
+    "background": "three figures at far middle distance, spread apart, moving at different angles, filthy torn clothing, slack uneven gait, none looking toward camera, a low commercial building behind them, overcast gray",
+    "read": "the cat is in the open and so is she, and the three figures are far off and not coming",
+    "continuity": ["gracie", "the_quiet"],
+    "extra_negatives": [
+      "no upright alert posture",
+      "no eye contact with the camera",
+      "no person looking at the lens",
+      "no walking normally",
+      "no clean clothing",
+      "no blurred or pixelated face patch",
+      "no censorship smear",
+      "the figures never fill the frame"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "standing in an empty parking aisle, not in a travel lane",
+      "ego_nose_in_frame": "the Menace is behind camera and not in frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "ego_frame_side": "left"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "distraction"
+  }
+}

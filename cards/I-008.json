@@ -1,0 +1,83 @@
+{
+  "card_id": "I-008",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "beat",
+  "title": "The One You Didn't See",
+  "hook": "The one that was not in the wide shot.",
+  "scene": "You have Gracie, or your hand is on her. She is under your arm, shaking, orange and cream. Across the lot the three are still far off and still not looking. This one was never in that shot. It is between the parked rows, closer, upright and wrong, and it comes. Arms up. The face is torn sideways by the motion. The frame ends there. It does not reach you. It does not reach her.",
+  "decision": "It is coming. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Put yourself between it and the cats",
+      "correct": true,
+      "result": "You turn your body so it has you and not her. Gracie is under your arm. The lunge stops at the edge of the frame. Nothing touches you. Nothing touches her. Mya is not in this picture. You acted. It does not change what the lot takes.",
+      "state_delta": {}
+    },
+    {
+      "id": "b",
+      "text": "Grab Gracie and run",
+      "correct": true,
+      "result": "You take Gracie and you go. She is against you. The lunge is still coming when the frame cuts. Nothing touches you. Nothing touches her. You moved. The one that mattered was already closer than the three you were watching.",
+      "state_delta": {}
+    },
+    {
+      "id": "c",
+      "text": "Freeze",
+      "correct": true,
+      "result": "You freeze. That is what a person does. Gracie is under your hand. The lunge fills the near ground and the frame ends before it arrives. Nothing touches you. Nothing touches her. You did not choose this. You still get to have been here.",
+      "state_delta": {}
+    }
+  ],
+  "debrief": "You had Gracie. The one that came was not one of the three. The frame ends before it reaches either of you.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "5.5 Focus",
+    "teaching_target": "The lunge, used once. Every option is an attempt, not a miss. Timeout is freeze. No grade, no retry, no contact."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "chorus",
+  "callback_of": null,
+  "schedules_callback": false,
+  "timeout_option_id": "c",
+  "timeout_ms": 8000,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "subject": "one filthy human figure lunging toward camera from low angle, arms forward and up, face smeared by motion, an orange tabby under a hand in the near foreground",
+    "foreground": "wet asphalt close to the lens, Gracie the orange tabby under a hand or against an arm, cream chest visible, no second cat",
+    "midground": "the lunge, arms extended, heavy motion blur across the arms and torso, face nearly legible and not a smear of censorship, filthy torn clothing, no contact with the cat or the person",
+    "background": "parking lot asphalt, flat gray overcast, no other figures, the three from the wide shot not in this frame",
+    "read": "the lunge is toward her and the frame ends there, and Gracie is the only cat in it",
+    "continuity": ["gracie", "the_quiet"],
+    "extra_negatives": [
+      "no contact with the person",
+      "no contact with the cat",
+      "no second cat",
+      "no upright alert posture",
+      "no eye contact with the camera",
+      "no person looking at the lens",
+      "no walking normally",
+      "no clean clothing",
+      "no blurred or pixelated face patch",
+      "no censorship smear",
+      "the figure does not fill the frame"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "toward_camera",
+      "ego_lane_side": "low on the asphalt of an empty parking aisle",
+      "ego_nose_in_frame": "the Menace is not in frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "urgent",
+    "failure_mode": "none"
+  }
+}

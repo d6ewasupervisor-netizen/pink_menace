@@ -37,7 +37,7 @@ Each has a different vehicle, different handling, different curriculum focus, an
 - **Vehicle: THE PINK MENACE.** Baja-converted VW Beetle. Faded matte pink with oxidation. Riveted raw-steel door and quarter-panel plating. Welded steel mesh cages over every window and the windshield. Black tube bull bar with a wide flat plow blade. Oversize knobby tires, chrome slot wheels. Interior: cracked pink dash, worn black leather wheel, analog gauge cluster, aftermarket nav tablet, rocker switch bank.
 - **Handling:** light, quick, short wheelbase, excellent visibility, **terrible crash tolerance.**
 - **Weakness: SPEED.** She's fast, she knows it, and she has never once been wrong until she is. Her arc is the speeding arc — PSDP p.12: speeding was a factor in 30% of fatal teen crashes.
-- **Passenger: GRACIE**, orange tabby cat, amber-green eyes, cream chest. Unrestrained cat = live distraction mechanic and the reason Ali comes back.
+- **Passengers: GRACIE and MYA.** Both are Ali's. They ride loose because they always have. Gracie is the orange tabby, amber-green eyes, cream chest — the curious one, and the one who comes back. Mya is the brown mackerel, dark dorsal stripe, green eyes, heavier. She bolts at the DOL lot. Deac finds her, reads the collar tag, and holds her through two acts. Neither of them says whose she is. III-002's pixels do not change. Unrestrained cat = live distraction, and the reason the noise rule is taught by taking something.
 
 ### 3.2 DESMOND VAILE — callsign **DEAC**
 - **Age 54.** Former transit operator, 26 years, never a preventable. Dark brown skin, close-cut gray hair receding at the temples, short gray beard, deep-set tired eyes with reddened lids. Broad and tall-shouldered, moves slowly and deliberately. Speaks in dispatch cadence. Believes the schedule is a moral document.
@@ -49,7 +49,7 @@ Each has a different vehicle, different handling, different curriculum focus, an
 - **Handling:** heavy, slow, enormous blind zones, huge stopping distance, high seating position (sees far).
 - **Weakness: FATIGUE.** He has been awake for the entire quarantine. Input lag, microsleep, the slow drift. DOL 3.1 — fatigue and drowsy driving.
 - **Curriculum focus:** blind zones, following distance, stopping distance, hand signals, sharing the road with large vehicles, school bus law.
-- **Passenger: MYA**, brown mackerel tabby, dark dorsal stripe, green eyes, heavier build. Sleeps on the dash against the cargo wall **only when the Ledger is parked.** An unrestrained cat in a moving vehicle is illegal. While the wheels are rolling she is not loose in the cab and not in frame as a dash loaf.
+- **He has MYA.** She is Ali's. He read the collar. She sleeps on the dash against the cargo wall **only when the Ledger is parked.** An unrestrained cat in a moving vehicle is illegal. While the wheels are rolling she is not loose in the cab and not in frame as a dash loaf. The reveal is III-002. Do not rewrite that still.
 
 ### 3.3 YUNA PARK-REYES — callsign **ENCORE**
 - **Age 17.** Eleven months into an idol trainee contract at a Seattle studio house when the border closed. Light-medium skin, no glasses. **Asymmetric chin-length bob, jet black on top with a platinum under-layer** that flashes when she turns her head. A single thin braid at the right temple with a strip of **retroreflective tape** woven into it. Stage-trained posture — squared shoulders, chin level, never still. Talks over engine noise.

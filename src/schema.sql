@@ -109,8 +109,18 @@ CREATE TABLE IF NOT EXISTS run_answers (
   was_correct BOOLEAN NOT NULL,
   ms_to_answer INTEGER,
   ms_on_outcome INTEGER,
+  ms_on_scene INTEGER,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (run_id, card_id, attempt_no)
+);
+
+CREATE TABLE IF NOT EXISTS run_line_advances (
+  id UUID PRIMARY KEY,
+  run_id UUID NOT NULL REFERENCES runs(id) ON DELETE CASCADE,
+  card_id TEXT NOT NULL,
+  line_index INTEGER NOT NULL,
+  ms_at INTEGER NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 -- One resolution per card per run. Callback debt may queue a different card;

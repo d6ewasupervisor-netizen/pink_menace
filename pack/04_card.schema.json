@@ -20,7 +20,7 @@
     },
     "driver": { "enum": ["ali", "deac", "yuna"] },
     "card_type": {
-      "enum": ["scene", "hazard", "rule", "convoy", "wrench", "ledger", "dossier", "ride-along"]
+      "enum": ["scene", "hazard", "rule", "convoy", "wrench", "ledger", "dossier", "ride-along", "beat"]
     },
     "title": { "type": "string", "minLength": 3, "maxLength": 40 },
     "hook": {
@@ -148,7 +148,12 @@
       "type": "integer",
       "minimum": 4000,
       "maximum": 30000,
-      "description": "Hazard decision window. Default 24000."
+      "description": "Hazard decision window. Default 24000. Also used on beat cards."
+    },
+    "tone_debrief": {
+      "type": "string",
+      "maxLength": 700,
+      "description": "Optional alternate debrief when a prior card in the same run was answered correctly. I-009 uses this when I-007 was clean."
     },
     "image_brief": {
       "type": "object",

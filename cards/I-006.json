@@ -1,0 +1,42 @@
+{
+  "card_id": "I-006",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "Licensing Office, Kent",
+  "hook": "Both cats on the seat. The doors are open.",
+  "scene": "You parked in the Kent licensing lot because the license is the thing you came for. Gracie is on the passenger seat, cream chest, paws tucked. Mya is beside her, heavier, green eyes half shut. They came because they always come. The building is ahead through the mesh. The doors are propped. There is no line. There are no cars. The counter beyond the glass has nobody at it. You have not gotten out yet.",
+  "debrief": "You came for the license. The cats are with you because they always are. The doors are open and nobody is at the counter. That is as far as this goes.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Establish the DOL lot: she is here for the license, both cats are with her, and the building is wrong. End before she understands."
+  },
+  "cast": ["ali", "gracie", "mya"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "parked cockpit of the Pink Menace, both cats settled on the passenger seat, licensing office ahead through the windshield",
+    "foreground": "worn black wheel rim, cracked pink dash, Gracie the orange tabby and Mya the brown mackerel settled together on the passenger seat",
+    "midground": "welded steel mesh over the windshield, analog gauges at rest, no clipboard on the mesh",
+    "background": "Kent licensing office through the mesh, doors propped open, empty counter, no line, no other cars, wet asphalt, flat gray overcast",
+    "read": "parked, both cats on the seat, the doors open and nobody at the counter",
+    "continuity": ["pink_menace_interior", "gracie", "mya"],
+    "extra_negatives": [
+      "no person in the lot",
+      "no figure standing outside",
+      "no one at the counter"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

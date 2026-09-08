@@ -1,0 +1,43 @@
+{
+  "card_id": "I-009",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "One of Them Comes Back",
+  "hook": "One cat, where there were two.",
+  "scene": "You are in the driver's seat. The door is shut. The engine is not started. Gracie is on your chest, shaking, orange and cream, both eyes open. The passenger seat is empty. You put the window down a little and say Mya's name, quietly, and then you stop, because calling is what started this. The lot behind the mesh is empty again. That is worse. You have Gracie. You are not hurt. The seat where the other one was is the whole of it.",
+  "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. The passenger seat is empty.",
+  "tone_debrief": "You did it right and it happened anyway. The one that mattered was never in the frame. Sound draws them. Gracie is on your chest. The passenger seat is empty.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "5.5 Focus",
+    "teaching_target": "Name the rule once: sound draws them, and she was loud because she was watching the wrong thing. End on the empty seat. If I-007 was correct, the tone is that she did it right and the one that mattered was never in the frame."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "parked cockpit, Gracie the orange tabby on the driver's chest, the passenger seat empty",
+    "foreground": "Gracie shaking on the chest, cream chest, orange fur, the empty passenger seat as the subject of the frame",
+    "midground": "worn black wheel, cracked pink dash, gauges at rest, door shut, window down a little, no second cat, no clipboard on the mesh",
+    "background": "the licensing lot through the mesh, empty again, wet asphalt, doors of the building still open, nobody and nothing standing out there",
+    "read": "one cat, where there were two, and the passenger seat is empty",
+    "continuity": ["pink_menace_interior", "gracie"],
+    "extra_negatives": [
+      "no second cat",
+      "no person in the lot",
+      "no figure outside the car"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "grim",
+    "failure_mode": "distraction"
+  }
+}

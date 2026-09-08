@@ -62,6 +62,7 @@ function applyFear(state, delta, opts) {
   const add = addedFrom(delta, timedOut);
   let presence = num(next.presence) + add;
   if (correct && add === 0) presence = Math.max(0, presence - CLEAN_DECAY);
+  next.max_presence = Math.max(num(next.max_presence), presence);
   next.presence = presence;
   if (tierOf(presence) >= 3) next.handprints = true;
   let quiet = false;

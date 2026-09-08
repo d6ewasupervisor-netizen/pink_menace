@@ -59,31 +59,86 @@ async function ledgerForOrigin(client, runId, fromCard) {
   return rows[0] ? rows[0].card_id : null;
 }
 
-async function pickNextCard(client, runId, debts, startSeq) {
+const QUIET_IN_FRAME = new Set(["I-006", "I-007", "I-008", "I-009"]);
+
+function isBeatCard(type) {
+  return type === "beat";
+}
+
+function actEntryLocked(act, actCards, everSet) {
+  const cards = (actCards && actCards[act]) || [];
+  if (!cards.length) return true;
+  if (cards.some((c) => everSet.has(c.card_id))) return false;
+  const idx = ACT_ZONES.findIndex((z) => z.act === act);
+  if (idx <= 0) return false;
+  for (let i = idx - 1; i >= 0; i--) {
+    const prev = (actCards && actCards[ACT_ZONES[i].act]) || [];
+    if (!prev.length) continue;
+    return !prev.every((c) => everSet.has(c.card_id));
+  }
+  return false;
+}
+
+async function actBoundForRun(client, run, hintAct) {
+  const hint = hintAct || actOfCardId(run && run.current_card_id);
+  if (hint) return hint;
+  if (run && run.id) {
+    const { rows } = await client.query(
+      `SELECT c.act
+         FROM run_answers a
+         JOIN cards c ON c.card_id = a.card_id
+        WHERE a.run_id = $1
+        ORDER BY a.created_at DESC
+        LIMIT 1`,
+      [run.id]
+    );
+    if (rows[0] && rows[0].act) return rows[0].act;
+  }
+  const { rows: seeded } = await client.query(`SELECT DISTINCT act FROM cards`);
+  const have = new Set(seeded.map((r) => r.act));
+  for (const z of ACT_ZONES) {
+    if (have.has(z.act)) return z.act;
+  }
+  return "II";
+}
+
+async function pickNextCard(client, runId, debts, startSeq, act) {
   const list = asDebts(debts);
   const skip = Number(startSeq) || 0;
+  const bound = String(act || "");
   for (const d of list) {
     if (Number(d.remaining) > 0) continue;
     const id = await ledgerForOrigin(client, runId, d.from_card);
-    if (id) return { cardId: id, debts: list };
+    if (!id) continue;
+    if (bound && actOfCardId(id) !== bound) continue;
+    return { cardId: id, debts: list };
+  }
+  const params = [runId, skip];
+  let actClause = "";
+  if (bound) {
+    params.push(bound);
+    actClause = " AND c.act = $3";
   }
   const { rows: main } = await client.query(
     `SELECT c.card_id
        FROM cards c
       WHERE c.callback_of IS NULL
         AND c.seq > $2
+        ${actClause}
         AND NOT EXISTS (
               SELECT 1 FROM run_answers a
                WHERE a.run_id = $1 AND a.card_id = c.card_id
             )
       ORDER BY c.seq ASC, c.card_id ASC
       LIMIT 1`,
-    [runId, skip]
+    params
   );
   if (main[0]) return { cardId: main[0].card_id, debts: list };
   for (const d of list) {
     const id = await ledgerForOrigin(client, runId, d.from_card);
-    if (id) return { cardId: id, debts: list };
+    if (!id) continue;
+    if (bound && actOfCardId(id) !== bound) continue;
+    return { cardId: id, debts: list };
   }
   return { cardId: null, debts: list };
 }
@@ -130,8 +185,8 @@ const CAST = [
   { id: "ali", name: "Ali", line: "Cranberry braid. The Menace. The Grid is hers." },
   { id: "deac", name: "Deac", line: "The Ledger. He still counts cadence." },
   { id: "yuna", name: "Yuna", line: "Encore. She talks with the horns." },
-  { id: "gracie", name: "Gracie", line: "Orange tabby. Dash. Cream chest." },
-  { id: "mya", name: "Mya", line: "Mackerel tabby. Heavy. Green eyes." },
+  { id: "gracie", name: "Gracie", line: "Orange tabby. Ali's. She comes back." },
+  { id: "mya", name: "Mya", line: "Ali's. Deac has her. The collar has a name and no person." },
   { id: "reyna_solis", name: "Reyna", line: "Bus 12. The bent arm." },
   { id: "marisol", name: "Marisol", line: "The bike. The door zone." },
   { id: "hollis", name: "Hollis", line: "The truck in the glass." },
@@ -281,9 +336,14 @@ function isWatchCard(type) {
   return type === "dossier" || type === "ride-along";
 }
 
+function gradesCard(type) {
+  return !isWatchCard(type) && !isBeatCard(type);
+}
+
 function quizableAnswer(ans) {
   if (!ans || !ans.card_id) return false;
   if (isWatchCard(ans.card_type)) return false;
+  if (isBeatCard(ans.card_type)) return false;
   return true;
 }
 
@@ -445,11 +505,12 @@ async function playAgainFrom(client, studentId, cardId) {
   const id = String(cardId || "");
   if (!id) return { error: 400, message: "Missing card." };
   const { rows: cardRows } = await client.query(
-    `SELECT card_id, seq, act, callback_of FROM cards WHERE card_id = $1`,
+    `SELECT card_id, seq, act, callback_of, card_type FROM cards WHERE card_id = $1`,
     [id]
   );
   const target = cardRows[0];
   if (!target) return { error: 404, message: "Unknown card." };
+  if (isBeatCard(target.card_type)) return { error: 409, message: "No retry." };
 
   const { rows: activeRows } = await client.query(
     `SELECT id, student_id, status, current_card_id, start_seq
@@ -651,7 +712,8 @@ function lockedNextAct(catalog, run, answeredIds) {
 
 async function reopenIfMoreCards(run) {
   if (!run || run.status !== "completed") return run;
-  const picked = await pickNextCard(pool, run.id, run.callback_debts, run.start_seq);
+  const act = await actBoundForRun(pool, run);
+  const picked = await pickNextCard(pool, run.id, run.callback_debts, run.start_seq, act);
   if (!picked.cardId) return run;
   await query(
     `UPDATE runs
@@ -685,7 +747,8 @@ async function advanceReplayPlan(client, runId, run) {
     [runId]
   );
   const cleared = { ...run, replay_plan: [], replay_index: 0 };
-  const picked = await pickNextCard(client, runId, cleared.callback_debts, cleared.start_seq);
+  const act = await actBoundForRun(client, cleared);
+  const picked = await pickNextCard(client, runId, cleared.callback_debts, cleared.start_seq, act);
   if (picked.cardId) {
     await client.query(
       `UPDATE runs SET current_card_id = $1, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
@@ -727,7 +790,8 @@ async function advanceHold(client, run) {
     );
     return { cardId: replay[0].card_id, holding: false, replay: true };
   }
-  const picked = await pickNextCard(client, run.id, run.callback_debts, run.start_seq);
+  const act = await actBoundForRun(client, run);
+  const picked = await pickNextCard(client, run.id, run.callback_debts, run.start_seq, act);
   if (picked.cardId) {
     await client.query(
       `UPDATE runs SET current_card_id = $1, callback_debts = $2::jsonb, current_attempt_no = 1, updated_at = now() WHERE id = $3`,
@@ -816,12 +880,31 @@ async function publicCard(cardId) {
     camera: brief.camera || null,
     timeout_option_id: extra.timeout_option_id || null,
     timeout_ms: Number(extra.timeout_ms) || 24000,
+    show_cold: card.act !== "I",
+    suppress_presence: QUIET_IN_FRAME.has(card.card_id),
+    tone_debrief: extra.tone_debrief || null,
     ride_along: Array.isArray(extra.ride_along) ? extra.ride_along : null,
     ride_beats: Array.isArray(extra.ride_beats) ? extra.ride_beats : null,
     image_url: imageUrl(card.card_id),
     options: options.map((o) => ({ option_id: o.option_id, option_text: o.option_text })),
     tappable: true,
   };
+}
+
+async function applySequenceTone(card, runId) {
+  if (!card || card.card_id !== "I-009" || !card.tone_debrief || !runId) return card;
+  const { rows } = await query(
+    `SELECT was_correct
+       FROM run_answers
+      WHERE run_id = $1 AND card_id = 'I-007'
+      ORDER BY created_at DESC
+      LIMIT 1`,
+    [runId]
+  );
+  if (rows[0] && rows[0].was_correct) {
+    card.debrief = card.tone_debrief;
+  }
+  return card;
 }
 
 async function reviewCard(cardId, attempt) {
@@ -959,7 +1042,7 @@ async function progressFor(run) {
       total: cards.length,
       practiced,
       current: isCurrent,
-      locked: cards.length === 0 || (row.act !== currentAct && practiced === 0 && !complete),
+      locked: actEntryLocked(row.act, actCards, everSet),
       complete,
       first_card_id: firstId || null,
       open_card_id: isCurrent && !complete && run.current_card_id
@@ -1094,6 +1177,7 @@ module.exports = {
   pendingForPhone,
   nextUnansweredCard,
   publicCard,
+  applySequenceTone,
   reviewCard,
   pendingOutcome,
   progressFor,
@@ -1103,6 +1187,10 @@ module.exports = {
   firstAnswerForStudent,
   canViewImage,
   pickNextCard,
+  actBoundForRun,
+  actEntryLocked,
+  isBeatCard,
+  QUIET_IN_FRAME,
   queueCallback,
   onMainAnswered,
   clearCallback,

@@ -11,6 +11,7 @@ const LIVE_KEY = "pm.live";
 
 let pendingQueue = [];
 let shownAt = 0;
+let choicesOpenedAt = 0;
 let outcomeAt = 0;
 let currentCardId = null;
 let previousCardId = null;
@@ -286,11 +287,19 @@ function applyMeters(state, how, extras) {
     night: extras && extras.night != null ? Boolean(extras.night) : Boolean(meters.night),
     camera: extras && extras.camera != null ? extras.camera : meters.camera,
     cardId: extras && extras.cardId != null ? extras.cardId : meters.cardId,
+    suppressPresence:
+      extras && extras.suppressPresence != null
+        ? Boolean(extras.suppressPresence)
+        : Boolean(meters.suppressPresence),
   };
   if (how === "spike") PMFeel.spikeMeters(null, meters);
   else if (how === "ease") PMFeel.easeMeters(meters);
   else PMFeel.paintMeters(meters);
-  PMFeel.paintFear(meters, { camera: meters.camera, cardId: meters.cardId });
+  PMFeel.paintFear(meters, {
+    camera: meters.camera,
+    cardId: meters.cardId,
+    suppressPresence: meters.suppressPresence,
+  });
   if (meters.handprints && !hadPrints) PMFeel.sting("palm");
 }
 
@@ -365,7 +374,13 @@ function revealChoices(card, opts) {
   if (!opts.review && !opts.pending && card.card_type === "hazard") {
     PMFeel.fireCue(PMFeel.cueFor(card));
   }
-  if (!opts.review && !opts.pending && card.card_type === "hazard" && card.timeout_option_id && n) {
+  if (
+    !opts.review &&
+    !opts.pending &&
+    (card.card_type === "hazard" || card.card_type === "beat") &&
+    card.timeout_option_id &&
+    n
+  ) {
     armHazardWindow(card);
   }
 }
@@ -435,6 +450,7 @@ function armChoiceGate(card, opts) {
   const decision = document.getElementById("decision");
   const openChoices = () => {
     showChoiceDock();
+    if (!choicesOpenedAt) choicesOpenedAt = Date.now();
     choicesLiveAt = Date.now() + 450;
     revealChoices(card, opts);
     if (!(card.options || []).length) {
@@ -585,10 +601,13 @@ function fillCard(card, opts) {
   PMFeel.setWeather(card.weather);
   PMFeel.setDriver(card.driver);
   PMFeel.applyGrade();
+  const coldTag = document.getElementById("cooler-tag");
+  if (coldTag) coldTag.classList.toggle("hidden", card.act === "I" || card.show_cold === false);
   applyMeters(card.state || meters, "paint", {
     night: Boolean(card.night),
     camera: card.camera,
     cardId: card.card_id,
+    suppressPresence: Boolean(card.suppress_presence),
   });
   const result = document.getElementById("result");
   const debrief = document.getElementById("debrief");
@@ -629,8 +648,13 @@ function fillCard(card, opts) {
     cont.classList.add("hidden");
     cont.onclick = null;
     if (playAgain) {
-      playAgain.classList.remove("hidden");
-      playAgain.onclick = () => playAgainCard(card.card_id);
+      if (card.card_type === "beat") {
+        playAgain.classList.add("hidden");
+        playAgain.onclick = null;
+      } else {
+        playAgain.classList.remove("hidden");
+        playAgain.onclick = () => playAgainCard(card.card_id);
+      }
     }
     resumeLive.classList.remove("hidden");
     resumeLive.onclick = () => openLive();
@@ -783,6 +807,10 @@ function startRideAlong(card, lines) {
   };
 
   const show = () => {
+    PM.api("/api/run/line", {
+      method: "POST",
+      body: { card_id: card.card_id, line_index: i, ms_at: Date.now() - shownAt },
+    }).catch(() => {});
     const beat = beats[i] || {};
     const look = beat.look || "road";
     const tap = beat.tap || "anywhere";
@@ -1153,6 +1181,7 @@ function renderLive(card) {
   }
   const begin = () => {
     shownAt = Date.now();
+    choicesOpenedAt = 0;
     PMFeel.startBed(card.weather);
     fillCard(card, { pending: Boolean(card.pending_outcome), review: false });
     saveLive({
@@ -1236,7 +1265,7 @@ function openAct(a) {
     openLive();
     return;
   }
-  if (a.open_card_id) openReview(a.open_card_id);
+  if (a.practiced > 0 && a.open_card_id) openReview(a.open_card_id);
 }
 
 async function openLive() {
@@ -1359,6 +1388,7 @@ async function advanceContinueOnly(card) {
         card_id: card.card_id,
         option_id: "continue",
         ms_to_answer: Date.now() - shownAt,
+        ms_on_scene: Date.now() - shownAt,
         timed_out: false,
       },
     });
@@ -1403,6 +1433,7 @@ async function submitAnswer(optionId) {
         card_id: currentCardId,
         option_id: optionId,
         ms_to_answer: Date.now() - shownAt,
+        ms_on_scene: choicesOpenedAt ? Math.max(0, choicesOpenedAt - shownAt) : null,
         timed_out: timed,
       },
     });

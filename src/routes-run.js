@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, dayNight, pickNextCard, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, playAgainFrom, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard } = require("./game");
+const { publicCard, applySequenceTone, dayNight, pickNextCard, actBoundForRun, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, playAgainFrom, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard, isBeatCard } = require("./game");
 const { applyFear, loudDelta } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
@@ -26,7 +26,8 @@ async function assignCurrent(run) {
     return persistActCargo(pool, run);
   }
   if (!run.current_card_id) {
-    const picked = await pickNextCard(pool, run.id, run.callback_debts, run.start_seq);
+    const act = await actBoundForRun(pool, run);
+    const picked = await pickNextCard(pool, run.id, run.callback_debts, run.start_seq, act);
     if (picked.cardId) {
       await query(
         `UPDATE runs SET current_card_id = $1, current_attempt_no = 1, updated_at = now() WHERE id = $2`,
@@ -46,7 +47,8 @@ async function cardForRun(run) {
   if (step && step.mode === "recap" && step.card_id === run.current_card_id) {
     return recapBeat(step.card_id, step.option_id);
   }
-  return publicCard(run.current_card_id);
+  const card = await publicCard(run.current_card_id);
+  return applySequenceTone(card, run.id);
 }
 
 async function failCharges(client, runId) {
@@ -76,6 +78,9 @@ function withManifest(payload, run, card, session, answersInAct) {
   const act = (card && card.act) || "II";
   const recap = Boolean(payload.recap || (card && card.recap));
   const opener = Boolean(card && card.card_id === act + "-001");
+  if (act === "I") {
+    return { ...payload, manifest: { show: false } };
+  }
   return {
     ...payload,
     manifest: {
@@ -388,12 +393,16 @@ function mountRun(app) {
         await client.query("ROLLBACK");
         return jsonError(res, 400, "Unknown option.");
       }
+      const beat = isBeatCard(card.card_type);
+      const wasCorrect = beat ? true : Boolean(option.is_correct);
+      const sceneMs = Number(req.body && req.body.ms_on_scene);
+      const msOnScene = Number.isFinite(sceneMs) ? Math.max(0, Math.min(sceneMs, 3_600_000)) : null;
       const answerId = crypto.randomUUID();
       try {
         await client.query(
-          `INSERT INTO run_answers (id, run_id, card_id, attempt_no, option_id, was_correct, ms_to_answer)
-           VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-          [answerId, run.id, cardId, run.current_attempt_no, optionId, option.is_correct, msToAnswer]
+          `INSERT INTO run_answers (id, run_id, card_id, attempt_no, option_id, was_correct, ms_to_answer, ms_on_scene)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+          [answerId, run.id, cardId, run.current_attempt_no, optionId, wasCorrect, msToAnswer, msOnScene]
         );
       } catch (err) {
         await client.query("ROLLBACK");
@@ -403,8 +412,8 @@ function mountRun(app) {
 
       const timedOut = Boolean(req.body && req.body.timed_out) && optionId !== "continue";
       const watch = isWatchCard(card.card_type);
-      const correct = Boolean(option.is_correct) && !watch;
-      const delta = loudDelta(option.state_delta || {}, { correct, timedOut, dossier: watch });
+      const correct = wasCorrect && !watch && !beat;
+      const delta = loudDelta(option.state_delta || {}, { correct: beat ? true : correct, timedOut, dossier: watch || beat });
       const prevState = withActCargo(run.state, card.act);
       let state = applyDelta(prevState, delta);
       const fear = applyFear(state, delta, { correct, timedOut });
@@ -417,7 +426,7 @@ function mountRun(app) {
       } else {
         debts = onMainAnswered(debts);
       }
-      if (card.schedules_callback && !option.is_correct) {
+      if (!beat && card.schedules_callback && !wasCorrect) {
         debts = queueCallback(debts, cardId);
         if (!queued.includes(cardId)) queued.push(cardId);
       }
@@ -467,13 +476,16 @@ function mountRun(app) {
           state_delta: o.state_delta || {},
         }));
 
-      const failed = cargoDead(state, delta);
-      const radio = failed ? null : radioCheckin(prevState, state);
+      const failed = card.act !== "I" && cargoDead(state, delta);
+      const radio = failed || card.act === "I" ? null : radioCheckin(prevState, state);
       const inReplay = Boolean(replayStep(run));
       let failDispatch = null;
       if (failed) {
         const charges = await failCharges(client, run.id);
         failDispatch = cargoFailDispatch(charges);
+        state.fail_reason = failDispatch;
+        state.fail_kind = "cargo";
+        state.fail_card_id = cardId;
       }
       let nextCardId = null;
       if (failed) {
@@ -520,7 +532,8 @@ function mountRun(app) {
             [nextCardId, JSON.stringify(withActCargo(restartState, actOfCardId(nextCardId))), freshId]
           );
         } else {
-          const picked = await pickNextCard(client, freshId, debts, startSeq);
+          const bound = await actBoundForRun(client, { id: freshId, current_card_id: cardId }, card.act);
+          const picked = await pickNextCard(client, freshId, debts, startSeq, bound);
           nextCardId = picked.cardId;
           if (nextCardId) {
             await client.query(
@@ -554,7 +567,7 @@ function mountRun(app) {
           );
         }
       } else {
-        const picked = await pickNextCard(client, run.id, debts, run.start_seq);
+        const picked = await pickNextCard(client, run.id, debts, run.start_seq, card.act);
         nextCardId = picked.cardId;
         if (nextCardId) {
           await client.query(
@@ -591,13 +604,14 @@ function mountRun(app) {
         if (active && active.current_card_id === nextCardId) {
           next = (await cardForRun(active)) || { done: true };
         } else {
-          next = (await publicCard(nextCardId)) || { done: true };
+          next = (await applySequenceTone(await publicCard(nextCardId), run.id)) || { done: true };
         }
       }
       const done = Boolean(next && next.done) && !failed;
       return res.json({
         ok: true,
-        was_correct: option.is_correct,
+        was_correct: wasCorrect,
+        option_id: optionId,
         result: option.result,
         state_delta: delta,
         time_cost: timeCostOf(delta),
@@ -607,7 +621,7 @@ function mountRun(app) {
         quiet: Boolean(fear.quiet) && !failed,
         dispatch: failDispatch,
         radio,
-        delivery: done ? deliveryBeat(state) : null,
+        delivery: done && card.act !== "I" ? deliveryBeat(state) : null,
         debrief: card.debrief,
         driver: card.driver || "ali",
         alts,
@@ -622,6 +636,35 @@ function mountRun(app) {
       return jsonError(res, 500, "Could not save answer.");
     } finally {
       client.release();
+    }
+  });
+
+  app.post("/api/run/line", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    const cardId = String((req.body && req.body.card_id) || "");
+    const lineIndex = Number(req.body && req.body.line_index);
+    const ms = Number(req.body && req.body.ms_at);
+    if (!cardId || !Number.isInteger(lineIndex) || lineIndex < 0 || lineIndex > 40) {
+      return jsonError(res, 400, "Missing line.");
+    }
+    const msAt = Number.isFinite(ms) ? Math.max(0, Math.min(ms, 3_600_000)) : 0;
+    try {
+      const runRes = await query(
+        `SELECT id FROM runs WHERE student_id = $1 AND status = 'active' ORDER BY updated_at DESC LIMIT 1`,
+        [session.userId]
+      );
+      const run = runRes.rows[0];
+      if (!run) return jsonError(res, 409, "No run.");
+      await query(
+        `INSERT INTO run_line_advances (id, run_id, card_id, line_index, ms_at)
+         VALUES ($1, $2, $3, $4, $5)`,
+        [crypto.randomUUID(), run.id, cardId, lineIndex, msAt]
+      );
+      return res.json({ ok: true });
+    } catch (err) {
+      return jsonError(res, 500, "Could not save line.");
     }
   });
 
@@ -833,7 +876,7 @@ function mountRun(app) {
         state: publicState(run.state),
         time_cost: timeCostOf(recapDelta),
         radio,
-        delivery: deliveryBeat(run.state),
+        delivery: actOfCardId(cardId) === "I" ? null : deliveryBeat(run.state),
       });
     } catch (err) {
       try {

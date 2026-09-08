@@ -57,6 +57,19 @@ async function migrate() {
     ALTER TABLE run_answers ADD COLUMN IF NOT EXISTS ms_on_outcome INTEGER
   `);
   await pool.query(`
+    ALTER TABLE run_answers ADD COLUMN IF NOT EXISTS ms_on_scene INTEGER
+  `);
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS run_line_advances (
+      id UUID PRIMARY KEY,
+      run_id UUID NOT NULL REFERENCES runs(id) ON DELETE CASCADE,
+      card_id TEXT NOT NULL,
+      line_index INTEGER NOT NULL,
+      ms_at INTEGER NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `);
+  await pool.query(`
     ALTER TABLE runs ADD COLUMN IF NOT EXISTS start_seq INTEGER NOT NULL DEFAULT 0
   `);
   await pool.query(`
