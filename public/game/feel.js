@@ -399,9 +399,15 @@ const PMFeel = (() => {
   ];
   let rewardPick = 0;
 
+  const WRONG_GIF = "/rewards/zombie_head_01.gif";
+
   function pickRewardImage() {
     rewardPick = (rewardPick % REWARD_COUNT) + 1;
     return "/rewards/correct_answer__" + String(rewardPick).padStart(2, "0") + ".png";
+  }
+
+  function pickWrongImage() {
+    return WRONG_GIF + "?t=" + Date.now();
   }
 
   function pickRewardMsg(correct) {
@@ -435,12 +441,9 @@ const PMFeel = (() => {
     hideReward();
     msg.textContent = pickRewardMsg(correct);
     el.className = "reward" + (correct ? "" : " wrong");
-    if (correct && img) {
-      img.src = pickRewardImage();
+    if (img) {
+      img.src = correct ? pickRewardImage() : pickWrongImage();
       img.classList.remove("hidden");
-    } else if (img) {
-      img.removeAttribute("src");
-      img.classList.add("hidden");
     }
     el.classList.remove("hidden");
     const done = () => {
@@ -448,7 +451,7 @@ const PMFeel = (() => {
       then && then();
     };
     el.onclick = done;
-    rewardTimer = window.setTimeout(done, correct ? 2800 : 2200);
+    rewardTimer = window.setTimeout(done, correct ? 2800 : 2600);
   }
 
   const SIGHT_KEY = "pm.driveBySight";

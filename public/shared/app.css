@@ -1163,6 +1163,11 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
   aspect-ratio: 1;
 }
 .reward-img.hidden { display: none; }
+.reward.wrong .reward-img {
+  object-fit: contain;
+  background: #000;
+  max-width: 16rem;
+}
 #reward-msg {
   margin: 0;
   color: var(--ink);
