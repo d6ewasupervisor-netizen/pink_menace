@@ -100,7 +100,7 @@ All twenty carry the master style token and negative block. Abbreviated below as
 | T12 | Figure, wrong gait | SOFT | Clean standing silhouette. Slack posture and wrong-angle head did not survive. |
 | T13 | Hand on glass | SOFT | Occupant's own hand on the *inside*. Threat inverted into melancholy. |
 | T14 | Blood-fogged windshield | PASS | Dark red-brown, wiper arc, empty road. Blood-on-glass holds; blood-on-a-person does not. |
-| T15 | Infected mid-distance | SOFT | Pulled to arm's reach at the side window. Blurred pedestrian, not 30 feet. **Retired 8 Sep 2026** — see `29_QUIET_RENDER_PROBE.md`. A4/A5 pass. The remaining trap is a side-window fill (A6 SOFT). |
+| T15 | Infected mid-distance | SOFT | Pulled to arm's reach at the side window. Blurred pedestrian, not 30 feet. **Retired 8 Sep 2026** — see `29_QUIET_RENDER_PROBE.md`. A4/A5 pass. A6 is a finding: the Quiet never fill the frame. |
 | T16 | Group at vanishing point | PASS | Dark mass across the lanes, unresolvable, foreground empty. |
 | T17 | Collision aftermath | PASS | Empty of people. Bent metal, spidered glass, open door, debris. Stop arm folded, lamps dark. |
 | T18 | Facial injury | REFUSE | Blocked. Injury stays below the collarbone. |

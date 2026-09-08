@@ -170,7 +170,7 @@ MYA:
 
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no
   warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no
-  wounds, no blood on skin, no bodies. No infected in sharp focus or close range.
+  wounds, no blood on skin, no corpses.
   No text, no captions, no watermarks, no UI overlay. No crowds. No firearms.
   No anime, no illustration, no painterly rendering, no 3D render look — this is
   a photograph. No detached limbs, no arms or hands without a visible attached
@@ -183,6 +183,16 @@ NOT this game. Every prompt you compile is overcast Pacific Northwest daylight
 on wet asphalt. Use the vehicle references for BUILD AND SILHOUETTE ONLY. If you
 carry their lighting forward you have failed. The negative block exists
 specifically to fight this and you must never omit it.
+
+## THE QUIET — register lock, 8 Sep 2026
+
+If the frame contains the Quiet, continuity includes `the_quiet` and you attach `ref_quiet.png`. That plate is the register, not a costume to copy: filthy, slack-shouldered, head canted, doing nothing, seen through glass. Wrongness of posture and stillness. Not damage.
+
+- They never fill the frame. A close face behind glass renders as a person. That is a hard rule, not a tuning problem.
+- Write the distance farther than you want it. Thirty feet lands at ten to fifteen. Sixty lands at thirty to forty.
+- Motion blur kills a face. A privacy smear reads as a redaction. On a lunge, keep near-legibility — A5 take 3, not a fully destroyed face.
+- Never write a disease word. Name them the Quiet, or describe the posture and the clothes.
+- Lot staging: figures spread and not converging. Ambient, not an attack. The cat's absence is the read, not the contact.
 
 ## FIELD-TESTED FIXES
 
@@ -526,6 +536,7 @@ else. No commentary. No alternatives.
 | Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_CHASE`: from directly behind, the arm extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
 | `POV_DIAGRAM` (Ali) | `ref_car_exterior.jpg` for Beetle build and plow. Overcast PNW lighting — never the salt-flat sunset. No faces. |
 | `POV_DIAGRAM` (Deac) | `ref_ledger_sheet.png` only. Never `ref_car_exterior.jpg`. |
+| The Quiet in frame | `ref_quiet.png` — A3 take 3, the register lock. Continuity token `the_quiet`. Attach on every Quiet compile, including when the brief says "the Quiet" and the token was omitted. Register only: posture and stillness, not wounds. They never fill the frame. Plates: `ref_quiet_a1.png` through `ref_quiet_a5.png`. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 

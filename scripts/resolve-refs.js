@@ -57,6 +57,16 @@ function resolveCard(raw) {
     }
   }
 
+  const brief = raw.image_brief || {};
+  const quietInFrame =
+    tokens.includes("the_quiet") ||
+    /\bthe Quiet\b/.test(
+      [brief.subject, brief.foreground, brief.midground, brief.background, brief.read]
+        .filter(Boolean)
+        .join(" ")
+    );
+  if (quietInFrame && !tokens.includes("the_quiet")) tokens.push("the_quiet");
+
   for (const token of tokens) {
     if (isLocation(token) || MAP.no_file.includes(token)) continue;
     if (raw.driver === "deac" && MENACE_LOCKS.has(token)) continue;

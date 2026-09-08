@@ -191,7 +191,7 @@
         "continuity": {
           "type": "array",
           "items": { "type": "string" },
-          "description": "Canonical bible assets that must render exactly. POV_DIAGRAM attaches the ego vehicle lock (pink_menace_exterior for Ali, the_ledger for Deac). Never attach a Menace lock on a Deac card. No faces."
+          "description": "Canonical bible assets that must render exactly. POV_DIAGRAM attaches the ego vehicle lock (pink_menace_exterior for Ali, the_ledger for Deac). Never attach a Menace lock on a Deac card. No faces. Any frame with the Quiet includes the_quiet — attaches ref_quiet.png."
         },
         "aspect": { "enum": ["2:3", "16:9", "1:1"], "default": "2:3" },
         "geometry": {

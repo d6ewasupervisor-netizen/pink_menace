@@ -17,7 +17,8 @@
     "convoy": ["ref_convoy.png"],
     "dutch_reach": ["ref_dutch_reach.png", "ref_dutch_reach_topdown.png"],
     "hand_signals": ["ref_hand_signals.png"],
-    "diagram_style": ["ref_diagram_style.png"]
+    "diagram_style": ["ref_diagram_style.png"],
+    "the_quiet": ["ref_quiet.png"]
   },
   "no_file": [
     "marisol",

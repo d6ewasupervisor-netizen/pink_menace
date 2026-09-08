@@ -59,7 +59,13 @@ const LHD =
   "Left-hand-drive vehicle: the steering wheel is on the left side of the cabin.";
 
 const NEGATIVE =
-  "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no bodies. No infected in sharp focus or close range. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel.";
+  "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel.";
+
+const QUIET_REGISTER =
+  "Match the attached Quiet plate for register only — wrongness of posture and stillness, not damage, not a wound. Filthy everyday clothing, slack shoulders, a canted or tilted head, standing or moving as if doing nothing. They do not fill the frame. Write them farther than the shot needs: thirty feet renders at ten to fifteen, sixty at thirty to forty. If a face must die, kill it with motion blur, never a privacy smear. Near-legibility is allowed on a lunge; a fully destroyed face is duller. Do not name them as diseased.";
+
+const QUIET_NEGATIVE =
+  "No Quiet filling the frame. No figure pressed to the glass filling the window. No privacy-blur or censorship smear on a face. No gore, no wounds, no blood on a Quiet.";
 
 const DIAGRAM_NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No stick figures, no vector icons, no infographic, no textbook schematic, no flat cartoon cars, no board-game tokens, no UI overlay, no legend, no floating arrows that are not painted on the pavement. No text, no captions, no watermarks. No vehicle facing the wrong way in its lane. No two vehicles in the same lane facing each other. No vehicle occupying the left (oncoming) half of the roadway. The Pink Menace must not face the camera — no headlights or plow toward the viewer. Rear mesh nearer the camera; plow at the far leading end. Same-direction traffic shows rears, never oncoming grilles. No gore, no crowds, no firearms. This is a photograph.";
@@ -201,6 +207,16 @@ function assemblePrompt(card) {
     parts.push(otherVehicleClauseLedger(card));
   }
 
+  const continuityEarly = (brief.continuity || []);
+  const quietNamed =
+    continuityEarly.includes("the_quiet") ||
+    /\bthe Quiet\b/.test(
+      [brief.subject, brief.foreground, brief.midground, brief.background, brief.read]
+        .filter(Boolean)
+        .join(" ")
+    );
+  if (quietNamed) parts.push(QUIET_REGISTER);
+
   if (brief.subject) parts.push(brief.subject.replace(/\.*$/, "."));
   if (brief.foreground) parts.push(brief.foreground.replace(/\.*$/, "."));
   if (brief.midground) parts.push(brief.midground.replace(/\.*$/, "."));
@@ -260,6 +276,7 @@ function assemblePrompt(card) {
   if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
   const continuity = (brief.continuity || []);
+  if (quietNamed) negs.push(QUIET_NEGATIVE);
   if (cam === "POV_MIRROR_DOOR" && continuity.includes("dutch_reach")) {
     negs.push(DUTCH_REACH_NEGATIVES);
   }

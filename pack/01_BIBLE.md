@@ -107,7 +107,7 @@ Never teach a rule abstractly. Attach it to one of these.
 
 ## 6. FICTION GUARDRAILS
 
-- The infected are **the Quiet**. Never "zombies," never "walkers."
+- They are **the Quiet**. Never "zombies," never "walkers," and never a disease word in an image prompt.
 - No firearms as a solution to a driving problem. The car is the tool.
 - No character is punished for asking a question or driving slowly.
 - Adults model correct behavior or are shown paying for not doing so — never both careless and unpunished (PSDP p.2: be a driving role model).
@@ -142,6 +142,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 - `ref_car_exterior.jpg` — **silhouette and build only.** The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
 - `ref_cockpit.jpg` — **interior layout and mesh screen only.** Same warning: not the lighting.
 - `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
+- `ref_quiet.png` — Quiet register lock (A3 take 3). Attach on every Quiet compile. Posture and stillness, not damage. They never fill the frame. Plates: `ref_quiet_a1.png`–`ref_quiet_a5.png`.
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
 - `ref_hand_signals.png` — three-panel left-arm plate (left / stop / right). Limb geometry is not improvised.
 - `ref_diagram_style.png` — optional overhead look lock. Diagram compiles attach `ref_car_exterior.jpg` for the Menace's build. Lighting is still overcast PNW, never the salt-flat sunset.
@@ -190,20 +191,23 @@ Consequence must land. It must also survive an image generator's safety filter, 
 - Collision aftermath with no people, doors open, glass on the road *(T17 PASS)*
 - An empty driver's seat, belt cut or hanging, spidered glass *(T19 PASS)*
 - The Quiet as an unresolvable mass at mid-distance or vanishing point, through a windshield, out of focus, no faces *(T16 PASS, T20 PASS)*
-- The Quiet as filthy figures in the scene at lot distance, none looking at camera *(A4 PASS, 8 Sep 2026 — see `29_QUIET_RENDER_PROBE.md`)*
-- A single Quiet lunging at camera, face killed by motion blur, not by a readable expression *(A5 PASS, 3 of 4; one take refused)*
+- The Quiet as filthy figures in the scene at lot distance, none looking at camera, spread and not converging *(A4 take 1, 8 Sep 2026 — see `29_QUIET_RENDER_PROBE.md`)*
+- A single Quiet lunging at camera, face nearly legible through motion blur, teeth in the smear *(A5 take 3 — the keep. Take 2's destroyed face is safer and duller.)*
 
 **Forbidden — do not generate, do not describe:**
 - Wounds, viscera, dismemberment, exposed anatomy
 - Corpses, human or animal, in any state
 - Blood or gauze on a **face** *(T18 REFUSE)*
 - Bloodied clothing in a character portrait *(T10 SOFT — treat as refuse)*
-- A Quiet filling a side window, face resolvable through the glass *(A6 SOFT — a man at the glass, not a figure. August T15 was this failure, not a distance ban.)*
-- The word "infected" in any image prompt
+- A Quiet filling the frame, including a side-window close-up *(A6 — a finding, not a miss. Fill the frame from behind glass and the model has no way to make a close face not a person. The Quiet never fill the frame.)*
+- The word in any image prompt that names them as diseased — never write it
+- A privacy-blur or censorship smear on a face *(A2 takes 2 and 4 — reads as a redaction, not as wrongness)*
 - Any harm to a child shown on screen
 - Any harm to Gracie or Mya shown on screen
 
-**The Quiet — standing rule after the 8 Sep 2026 retest:** they can be in the frame. A4 and A5 passed, so Act I's DOL lot may put them on the asphalt, and the lunge that costs Ali the cat can be rendered. Budget a spare take on the lunge — one of four refused on a generic content-safety block, no category named. Do not write "thirty feet" and trust it; the model pulls them closer. Kill the face with motion blur or optical defocus, never with a privacy smear, and never by filling the side glass. A readable face at the window is SOFT and is worse than a miss. August T15 is retired as a ceiling. Full log: `29_QUIET_RENDER_PROBE.md`.
+**The Quiet — standing rule after the 8 Sep 2026 retest:** August T15 is gone. One take in twenty-three blocked, no category named. They work when they are wrong at the joints, not when they are gory. The register is posture and stillness: facing away and not moving, a head tilt, slack shoulders, a canted head, standing in the road doing nothing. Damage is not the lever.
+
+The DOL lot may put them on the asphalt. The lunge that costs Ali the cat is A5 take 3 — near-legibility, not a fully destroyed face. They never fill the frame. Write the distance farther than you want it: thirty feet lands at ten to fifteen; sixty lands at thirty to forty. Motion blur kills a face; a smear reads as censorship. Attach `ref_quiet.png` (A3 take 3) on every Quiet compile. Full log: `29_QUIET_RENDER_PROBE.md`.
 
 **SOFT watch:** a stopped car with hazards will render as a moving car with parking lights *(T5)*. A "wrong gait" figure will render as a person standing still *(T12)*. A hand on the *outside* of glass will render as the occupant's own hand *(T13)*. Name the opposite state. Do not assume the brief survived.
 
