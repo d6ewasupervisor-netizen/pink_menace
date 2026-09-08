@@ -1180,11 +1180,11 @@ html[data-driver="deac"] .fear-root.slot-right .fear-mirror {
   max-width: none;
   margin: 0 auto 1rem;
   transform-origin: center center;
-  animation: zombie-zoom 2.6s ease-out both;
+  animation: zombie-zoom 2.5s linear both;
 }
 @keyframes zombie-zoom {
-  from { transform: scale(0.55); }
-  to { transform: scale(1.25); }
+  from { transform: scale(0.35); }
+  to { transform: scale(1.3); }
 }
 @media (prefers-reduced-motion: reduce) {
   .reward.wrong .reward-img { animation: none; transform: scale(1.1); }

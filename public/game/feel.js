@@ -444,6 +444,11 @@ const PMFeel = (() => {
     if (img) {
       img.src = correct ? pickRewardImage() : pickWrongImage();
       img.classList.remove("hidden");
+      if (!correct) {
+        img.style.animation = "none";
+        void img.offsetWidth;
+        img.style.animation = "";
+      }
     }
     el.classList.remove("hidden");
     const done = () => {
