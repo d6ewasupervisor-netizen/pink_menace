@@ -190,17 +190,20 @@ Consequence must land. It must also survive an image generator's safety filter, 
 - Collision aftermath with no people, doors open, glass on the road *(T17 PASS)*
 - An empty driver's seat, belt cut or hanging, spidered glass *(T19 PASS)*
 - The Quiet as an unresolvable mass at mid-distance or vanishing point, through a windshield, out of focus, no faces *(T16 PASS, T20 PASS)*
+- The Quiet as filthy figures in the scene at lot distance, none looking at camera *(A4 PASS, 8 Sep 2026 — see `29_QUIET_RENDER_PROBE.md`)*
+- A single Quiet lunging at camera, face killed by motion blur, not by a readable expression *(A5 PASS, 3 of 4; one take refused)*
 
 **Forbidden — do not generate, do not describe:**
 - Wounds, viscera, dismemberment, exposed anatomy
-- Bodies, human or animal, in any state
+- Corpses, human or animal, in any state
 - Blood or gauze on a **face** *(T18 REFUSE)*
 - Bloodied clothing in a character portrait *(T10 SOFT — treat as refuse)*
-- An infected at side-window / arm's-reach distance *(T15 SOFT — pulls them into the cab)*
+- A Quiet filling a side window, face resolvable through the glass *(A6 SOFT — a man at the glass, not a figure. August T15 was this failure, not a distance ban.)*
+- The word "infected" in any image prompt
 - Any harm to a child shown on screen
 - Any harm to Gracie or Mya shown on screen
 
-**The Quiet — standing rule after T15/T20:** they are negative space unless the shot is a windshield at mid-distance or farther, figures unresolvable. Never request torn clothing, a face, or a side-window crop. What the characters look at, the reaction in the mirror, the empty road behind. Restraint beats depiction on this material, and on this account it is also the line that holds.
+**The Quiet — standing rule after the 8 Sep 2026 retest:** they can be in the frame. A4 and A5 passed, so Act I's DOL lot may put them on the asphalt, and the lunge that costs Ali the cat can be rendered. Budget a spare take on the lunge — one of four refused on a generic content-safety block, no category named. Do not write "thirty feet" and trust it; the model pulls them closer. Kill the face with motion blur or optical defocus, never with a privacy smear, and never by filling the side glass. A readable face at the window is SOFT and is worse than a miss. August T15 is retired as a ceiling. Full log: `29_QUIET_RENDER_PROBE.md`.
 
 **SOFT watch:** a stopped car with hazards will render as a moving car with parking lights *(T5)*. A "wrong gait" figure will render as a person standing still *(T12)*. A hand on the *outside* of glass will render as the occupant's own hand *(T13)*. Name the opposite state. Do not assume the brief survived.
 
