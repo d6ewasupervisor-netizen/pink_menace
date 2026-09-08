@@ -43,7 +43,24 @@ The DOL scene is unblocked. The Quiet can be on the asphalt. The lunge is A5 tak
 
 ## Compiler rules
 
+Negative on every Quiet compile, verbatim. Written against the register, not against gore. These five separate A3 from A3 take 1:
+
+> No upright alert posture, no eye contact with camera, no person looking at the lens, no walking normally, no clean clothing. No blurred or pixelated face patch, no censorship smear — obscure the face with motion or distance only. The Quiet never fill the frame, never appear in a side-window close-up, never make eye contact.
+
 - Write the distance farther than you want it. Thirty feet lands at ten to fifteen. Sixty lands at thirty to forty.
-- Motion blur kills a face. A smear reads as censorship. Near-legibility on a lunge is the keep.
+- Obscure a face with motion or distance only. A smear reads as censorship. Near-legibility on a lunge is the keep.
 - Never write a disease word in an image prompt.
 - Continuity token `the_quiet` attaches `ref_quiet.png`. A brief that says "the Quiet" attaches it even if the token was omitted.
+- Grammar, including Act IV: never fill the frame, never a side-window close-up, never eye contact. Distance and glass are the whole grammar.
+
+## Placement — three appearances
+
+Hold the line. Five plates are not five card arts.
+
+| Appearance | Where | Plate |
+|---|---|---|
+| Act I, the DOL lot | On the asphalt. The reason she loses Mya. A sequence of frames, not one card. | A3 register. A5 once, on the beat that costs the cat. |
+| Act II | One at distance. She watches and drives past. | Distance. Not the lunge. |
+| The pass | The herd. The reason the pass is closed. | A4's spread, as reference for staging — not a second lunge. |
+
+A1, A2, and A4 are reference material. A5 is once in the game. Presence overlays carry everything in between.

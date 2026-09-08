@@ -205,9 +205,13 @@ Consequence must land. It must also survive an image generator's safety filter, 
 - Any harm to a child shown on screen
 - Any harm to Gracie or Mya shown on screen
 
-**The Quiet — standing rule after the 8 Sep 2026 retest:** August T15 is gone. One take in twenty-three blocked, no category named. They work when they are wrong at the joints, not when they are gory. The register is posture and stillness: facing away and not moving, a head tilt, slack shoulders, a canted head, standing in the road doing nothing. Damage is not the lever.
+**The Quiet — standing rule after the 8 Sep 2026 retest:** August T15 is gone. One take in twenty-three blocked, no category named. They work when they are wrong at the joints, not when they are gory. The register is posture and stillness: facing away and not moving, a head tilt, slack shoulders, a canted head, standing in the road doing nothing. Damage is not the lever. The failure mode is an upright, alert person looking at the lens.
 
-The DOL lot may put them on the asphalt. The lunge that costs Ali the cat is A5 take 3 — near-legibility, not a fully destroyed face. They never fill the frame. Write the distance farther than you want it: thirty feet lands at ten to fifteen; sixty lands at thirty to forty. Motion blur kills a face; a smear reads as censorship. Attach `ref_quiet.png` (A3 take 3) on every Quiet compile. Full log: `29_QUIET_RENDER_PROBE.md`.
+Every Quiet compile attaches `ref_quiet.png` and appends: no upright alert posture, no eye contact with camera, no person looking at the lens, no walking normally, no clean clothing. No blurred or pixelated face patch, no censorship smear — obscure the face with motion or distance only.
+
+**Grammar, including Act IV:** the Quiet never fill the frame, never appear in a side-window close-up, never make eye contact. Distance and glass are their whole grammar. Write the distance farther than you want it: thirty feet lands at ten to fifteen; sixty lands at thirty to forty.
+
+**Three appearances. Not five plates spent as card art.** Act I, the DOL lot, on the asphalt — the reason she loses Mya. Act II, one at distance she watches and drives past. The pass, the herd, the reason the pass is closed. A5's lunge is once in the game. If it shows up twice it stops being the moment Ali loses the cat. A1, A2, and A4 stay reference plates. Presence overlays carry everything in between. Full log: `29_QUIET_RENDER_PROBE.md`.
 
 **SOFT watch:** a stopped car with hazards will render as a moving car with parking lights *(T5)*. A "wrong gait" figure will render as a person standing still *(T12)*. A hand on the *outside* of glass will render as the occupant's own hand *(T13)*. Name the opposite state. Do not assume the brief survived.
 
