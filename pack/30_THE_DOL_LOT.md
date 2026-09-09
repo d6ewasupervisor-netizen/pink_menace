@@ -1,6 +1,6 @@
 # 30 — The DOL lot
 
-Locked 8 Sep 2026. Cards `I-006` through `I-009`. Not seeded. Stills chosen (`cards/I-006.png` take 2, `I-007.png` take 1, `I-008.png` take 8, `I-009.png` take 2). The near arm on I-008 is Ali's: warm medium-brown skin, half African American, faded pink sleeve. Her face is not in that frame. Do not seed until a full Act I start exists. Probe already returned: A4 and A5 pass. See `29_QUIET_RENDER_PROBE.md`. Do not re-run it for this sequence.
+Locked 8 Sep 2026. Cards `I-006` through `I-009`. Not seeded. Stills chosen (`cards/I-006.png` take 2, `I-007.png` take 1, `I-008.png` take 11, `I-009.png` take 2). The near arm on I-008 is Ali's: warm medium-brown skin, half African American, faded pink sleeve. Her face is not in that frame. Do not seed until a full Act I start exists. Probe already returned: A4 and A5 pass. See `29_QUIET_RENDER_PROBE.md`. Do not re-run it for this sequence.
 
 She goes for the license. The building is empty. Gracie gets out. The call works. The one that was not in the wide shot comes. She gets Gracie. She is not hurt. The passenger seat is empty.
 
@@ -14,4 +14,4 @@ The live player meets this sequence after Mya is already on Deac's dash. For her
 
 Scene dwell on these four is the measurement. Under four seconds a card means the delivery layer is still in the way. Read `ms_on_scene`, not outcome time.
 
-Quiet compile: attach `ref_quiet.png` plus the scene plate (`ref_quiet_a4.png` on I-007, `ref_quiet_a5.png` on I-008). On I-008 the A5 plate is distance and arms-up body only — the head is turned down and away, the face is not resolvable, and the near arm is Ali's faded pink sleeve with Gracie pulled tight against her. Write distance farther than the landing except on that lunge, where the distance already held. Never write a disease word. No harm to either cat is shown.
+Quiet compile: attach `ref_quiet.png` plus the scene plate (`ref_quiet_a4.png` on I-007, `ref_quiet_a5.png` on I-008). On I-008 the A5 plate is motion only — mid-stride, one foot off the ground, pitched forward, close between two rows of derelict parked cars. The head is down and turned away, hair across the face, not a face-on stare from that plate. The near arm is Ali's: warm medium-brown skin, faded pink sleeve, Gracie pulled tight against her, ears back. Do not write this lunge farther than fifteen feet. Never write a disease word. No harm to either cat is shown.

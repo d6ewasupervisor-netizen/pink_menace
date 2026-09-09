@@ -224,10 +224,12 @@ function assemblePrompt(card) {
   if (quietNamed) {
     let register = QUIET_REGISTER;
     if (card.card_id === "I-008") {
-      register = register.replace(
-        "Near-legibility is allowed on a lunge; a fully destroyed face is duller.",
-        "On this lunge the head is turned partly away and downward. The face is lost in motion and hanging hair — no eyes, mouth, or teeth resolvable, not looking toward the camera. Do not copy a face-on stare from the attached lunge plate; match its distance and arms-up body only."
-      );
+      register = register
+        .replace("standing or moving as if doing nothing.", "not standing still.")
+        .replace(
+          "Distance and glass are their whole grammar. They never fill the frame, never appear in a side-window close-up, never make eye contact. Write them farther than the shot needs: thirty feet renders at ten to fifteen, sixty at thirty to forty. If a face must die, obscure it with motion or distance only. Near-legibility is allowed on a lunge; a fully destroyed face is duller.",
+          "They never fill the frame, never appear in a side-window close-up, never make eye contact. This one is the lunge, used once: mid-stride, running hard toward the camera, one foot off the ground, body pitched forward and low, already close — about fifteen feet, between two rows of derelict parked cars. Match the attached lunge plate for motion only. The head is down and turned away, hair fallen across where the face would be — no features resolvable, not looking toward the camera. Do not copy a face-on stare from that plate. Heavy motion blur on the body and hair; the lot behind stays sharp."
+        );
     }
     parts.push(register);
   }

@@ -6,7 +6,7 @@
   "card_type": "beat",
   "title": "The One You Didn't See",
   "hook": "The one that was not in the wide shot.",
-    "scene": "You have Gracie. She is pulled tight against you, tense and low, head turned into your arm, orange and cream. Across the lot the three are still far off and still not looking. This one was never in that shot. It is between the parked rows, closer, upright and wrong, and it comes. Arms up. The head is turned down and away. The frame ends there. It does not reach you. It does not reach her.",
+    "scene": "You have Gracie. She is pulled tight against you, tense and low, ears back, head turned into your arm, orange and cream. Across the lot the three are still far off and still not looking. This one was never in that shot. It is between the parked rows, already inside the space, and it comes. Mid-stride. The head is down and turned away. The frame ends there. It does not reach you. It does not reach her.",
   "decision": "It is coming. What do you do?",
   "options": [
     {
@@ -45,10 +45,10 @@
   "timeout_ms": 8000,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "subject": "one filthy human figure lunging from between the parked rows, arms forward and up, head turned partly away and downward, face lost in motion and hanging hair; in the near foreground Ali's warm medium-brown forearm in a faded pink sleeve, her hand closed over an orange tabby pulled tight against her",
-    "foreground": "Ali's own forearm and hand, warm medium-brown skin, half African American, matching her lock, a faded pink hoodie sleeve with a white raglan stripe, her smaller hand closed over an orange tabby pulled tight against her, the cat's body tense and low, head turned toward the arm, cream chest, wet asphalt close to the lens, her face not in frame, no second cat",
-    "midground": "the lunging figure between the painted rows, arms up, low angle, head turned partly away and downward, face lost in motion blur and hanging hair, no eyes mouth or teeth resolvable, not looking toward the camera, filthy torn clothing, no contact with the cat or the person, the figure does not fill the frame",
-    "background": "parking lot asphalt, flat gray overcast, no other figures, the three from the wide shot not in this frame",
+    "subject": "one filthy human figure mid-stride, running hard toward the camera between two rows of derelict parked cars, one foot off the ground, body pitched forward and low, head down and turned away, hair fallen across the face; in the near foreground Ali's warm medium-brown forearm in a faded pink sleeve, her hand closed over an orange tabby pulled tight against her",
+    "foreground": "Ali's own forearm and hand, warm medium-brown skin, half African American, matching her lock, a faded pink hoodie sleeve with a white raglan stripe, her smaller hand closed over an orange tabby pulled tight against her, the cat's body low and tense, ears back, head turned toward the arm, cream chest, wet asphalt close to the lens, her face not in frame, no second cat",
+    "midground": "the figure is close, roughly fifteen feet, coming between the parked rows, mid-stride, one foot off the ground, body pitched forward and low, head down and turned away, hair fallen across where the face would be, no features resolvable, not looking toward the camera, heavy motion blur across the arms torso and hair, the background sharp behind it, filthy torn clothing, no contact with the cat or the person, the figure does not fill the frame",
+    "background": "two rows of derelict parked cars in a wet lot, this figure coming out from between them, flat gray overcast, no other people, the three from the wide shot not in this frame",
     "read": "the lunge is toward her and the frame ends there, Gracie is pulled tight against a pink sleeve, and the face is not looking at her",
     "continuity": ["gracie", "the_quiet", "quiet_a5"],
     "extra_negatives": [
@@ -71,12 +71,19 @@
       "no light-skinned hand",
       "no olive canvas sleeve",
       "no relaxed or resting cat",
+      "no ears up",
+      "no standing still",
+      "no static pose",
+      "no planted feet",
+      "no arms raised symmetrically",
+      "no upright posture",
+      "no empty open lot",
       "the figure does not fill the frame"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "toward_camera",
-      "ego_lane_side": "low on the asphalt of an empty parking aisle",
+      "ego_lane_side": "low on the asphalt between two rows of derelict parked cars",
       "ego_nose_in_frame": "the Menace is not in frame",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction"
