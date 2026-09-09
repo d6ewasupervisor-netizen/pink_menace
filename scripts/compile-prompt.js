@@ -221,7 +221,16 @@ function assemblePrompt(card) {
         .filter(Boolean)
         .join(" ")
     );
-  if (quietNamed) parts.push(QUIET_REGISTER);
+  if (quietNamed) {
+    let register = QUIET_REGISTER;
+    if (card.card_id === "I-008") {
+      register = register.replace(
+        "Near-legibility is allowed on a lunge; a fully destroyed face is duller.",
+        "On this lunge the head is turned partly away and downward. The face is lost in motion and hanging hair — no eyes, mouth, or teeth resolvable, not looking toward the camera. Do not copy a face-on stare from the attached lunge plate; match its distance and arms-up body only."
+      );
+    }
+    parts.push(register);
+  }
 
   if (brief.subject) parts.push(brief.subject.replace(/\.*$/, "."));
   if (brief.foreground) parts.push(brief.foreground.replace(/\.*$/, "."));
