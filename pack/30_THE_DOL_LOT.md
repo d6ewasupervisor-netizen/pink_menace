@@ -1,6 +1,6 @@
 # 30 — The DOL lot
 
-Locked 8 Sep 2026. Cards `I-006` through `I-009`. Not seeded. Stills chosen (`cards/I-006.png` take 2, `I-007.png` take 1, `I-008.png` take 11, `I-009.png` take 2). The near arm on I-008 is Ali's: warm medium-brown skin, half African American, faded pink sleeve. Her face is not in that frame. Do not seed until a full Act I start exists. Probe already returned: A4 and A5 pass. See `29_QUIET_RENDER_PROBE.md`. Do not re-run it for this sequence.
+Locked 8 Sep 2026. Cards `I-006` through `I-009`. Not seeded. Stills chosen (`cards/I-006.png` take 2, `I-007.png` take 1, `I-008.png` take 13, `I-009.png` take 2). The near arm on I-008 is Ali's: warm medium-brown skin, half African American, faded pink sleeve. Her face is not in that frame. Do not seed until a full Act I start exists. Probe already returned: A4 and A5 pass. See `29_QUIET_RENDER_PROBE.md`. Do not re-run it for this sequence.
 
 She goes for the license. The building is empty. Gracie gets out. The call works. The one that was not in the wide shot comes. She gets Gracie. She is not hurt. The passenger seat is empty.
 

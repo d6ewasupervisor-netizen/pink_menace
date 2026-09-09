@@ -45,10 +45,10 @@
   "timeout_ms": 8000,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "subject": "one filthy human figure mid-stride, running hard toward the camera between two rows of derelict parked cars, one foot off the ground, body pitched forward and low, head down and turned away, hair fallen across the face; in the near foreground Ali's warm medium-brown forearm in a faded pink sleeve, her hand closed over an orange tabby pulled tight against her",
-    "foreground": "Ali's own forearm and hand, warm medium-brown skin, half African American, matching her lock, a faded pink hoodie sleeve with a white raglan stripe, her smaller hand closed over an orange tabby pulled tight against her, the cat's body low and tense, ears back, head turned toward the arm, cream chest, wet asphalt close to the lens, her face not in frame, no second cat",
-    "midground": "the figure is close, roughly fifteen feet, coming between the parked rows, mid-stride, one foot off the ground, body pitched forward and low, head down and turned away, hair fallen across where the face would be, no features resolvable, not looking toward the camera, heavy motion blur across the arms torso and hair, the background sharp behind it, filthy torn clothing, no contact with the cat or the person, the figure does not fill the frame",
-    "background": "two rows of derelict parked cars in a wet lot, this figure coming out from between them, flat gray overcast, no other people, the three from the wide shot not in this frame",
+    "subject": "shot from inside the aisle, slightly beside the runner, so the camera sees the back of the head and the driving shoulder — not a face-on charge. One filthy figure running hard between two derelict cars, one foot off the ground, body pitched forward. Near foreground is the back of an orange tabby's head against Ali's brown wrist and faded pink cuff",
+    "foreground": "the back of Gracie's head, ears flattened, orange fur, pulled tight against Ali's wrist. Ali is half African American: warm medium-brown skin on the wrist and hand, faded pink hoodie cuff, her face not in frame. The cat is not looking at the lens",
+    "midground": "rear three-quarter of a running figure about fifteen feet off, close, already in the aisle. We see the back of the skull and swinging hair, the face is on the far side of the head and is not in the shot. One foot off the ground, jacket and arms blurred by the run, parked cars sharp. Filthy torn clothing. No contact. Does not fill the frame",
+    "background": "two derelict parked cars framing the aisle left and right, wet asphalt, flat gray overcast, no other people",
     "read": "the lunge is toward her and the frame ends there, Gracie is pulled tight against a pink sleeve, and the face is not looking at her",
     "continuity": ["gracie", "the_quiet", "quiet_a5"],
     "extra_negatives": [

@@ -228,7 +228,7 @@ function assemblePrompt(card) {
         .replace("standing or moving as if doing nothing.", "not standing still.")
         .replace(
           "Distance and glass are their whole grammar. They never fill the frame, never appear in a side-window close-up, never make eye contact. Write them farther than the shot needs: thirty feet renders at ten to fifteen, sixty at thirty to forty. If a face must die, obscure it with motion or distance only. Near-legibility is allowed on a lunge; a fully destroyed face is duller.",
-          "They never fill the frame, never appear in a side-window close-up, never make eye contact. This one is the lunge, used once: mid-stride, running hard toward the camera, one foot off the ground, body pitched forward and low, already close — about fifteen feet, between two rows of derelict parked cars. Match the attached lunge plate for motion only. The head is down and turned away, hair fallen across where the face would be — no features resolvable, not looking toward the camera. Do not copy a face-on stare from that plate. Heavy motion blur on the body and hair; the lot behind stays sharp."
+          "They never fill the frame, never appear in a side-window close-up, never make eye contact. This one is the lunge, used once, shot from inside the aisle slightly beside the runner so the camera sees the back of the head and the driving shoulder, not a face-on charge. Mid-stride, one foot off the ground, body pitched forward, about fifteen feet, framed by two derelict parked cars. The face is on the far side of the head and is not in the shot. Heavy motion blur on the body and hair; the cars stay sharp. Do not match a face-on lunge plate."
         );
     }
     parts.push(register);
