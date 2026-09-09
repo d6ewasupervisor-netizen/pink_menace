@@ -1,0 +1,45 @@
+{
+  "card_id": "I-001",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "The Pass Is Closed",
+  "hook": "You know why you are here.",
+  "scene": "You are in Kent. Your mother is in Spokane. The pass is between you. You cannot take it on a permit. You cannot take it alone. You cannot take it until you are good enough. Gracie is on the passenger seat. Mya is beside her. They came because they always come. That is the whole of what you are doing.",
+  "debrief": "The pass is closed. You know that before the car moves. The cats are with you because they always are.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "The premise, on the first card. She is here for the license so she can get good enough for the pass. Both cats are with her."
+  },
+  "cast": ["ali", "gracie", "mya"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "parked cockpit, both cats on the passenger seat, gray lot ahead through the mesh",
+    "foreground": "worn black wheel, cracked pink dash, Gracie and Mya settled together",
+    "midground": "welded steel mesh, gauges at rest, no clipboard on the mesh",
+    "background": "empty wet parking lot, flat gray overcast, no building lettering",
+    "read": "parked, both cats on the seat, she has not moved yet",
+    "continuity": ["pink_menace_interior", "gracie", "mya"],
+    "extra_negatives": ["no person outside", "no readable text"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked in a stall, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at empty wet asphalt through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

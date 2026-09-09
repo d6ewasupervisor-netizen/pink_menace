@@ -1,0 +1,76 @@
+{
+  "card_id": "I-012",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Out of the Stall",
+  "hook": "Nose in. The way out is behind you.",
+  "scene": "You are parked nose-in. The office is in front of the plow. The aisle is behind you. Gracie is on the seat. The passenger seat is empty. You have looked. Now you have to back out, slow, in one motion, and not through the stall you cannot see by hope.",
+  "decision": "How do you get out of the stall?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Back out on the side mirror only",
+      "correct": false,
+      "result": "The mirror shows a slice. The bumper's corner is not in it. You back until the stall post is closer than the glass said.",
+      "state_delta": {}
+    },
+    {
+      "id": "b",
+      "text": "Look over your shoulder, slow, one motion into the aisle",
+      "correct": true,
+      "result": "You turn. You look past the empty seat, over the shoulder, at the aisle itself. You back slow. One motion. The car comes out where you looked, not where you hoped.",
+      "state_delta": {}
+    },
+    {
+      "id": "c",
+      "text": "Go forward. There is room if you cut the stall line",
+      "correct": false,
+      "result": "You try to leave the way you are pointed. The stall is a stall. The cut puts you across paint and you are still not in the aisle.",
+      "state_delta": {}
+    },
+    {
+      "id": "d",
+      "text": "Back fast so it is over",
+      "correct": false,
+      "result": "You make the back-up short by making it fast. The aisle arrives before the look is finished. You stop because something metal is closer than the plan.",
+      "state_delta": {}
+    }
+  ],
+  "debrief": "Nose in, the way out is behind you. Look over the shoulder. Slow. One motion. The mirror is a slice, not the aisle.",
+  "source": {
+    "psdp_skill": "Skill four: backing up",
+    "dol_section": "n/a",
+    "teaching_target": "Back out of the stall by looking over the shoulder, slow, one motion. The mirror is not the look."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "subject": "backing view down the empty aisle, the empty passenger seat at the edge of the glass, wet stall paint",
+    "foreground": "rear glass and the near stall line sliding",
+    "midground": "the aisle she is backing into, empty",
+    "background": "parked cars along both rows, flat gray, no person",
+    "read": "she is backing out of a nose-in stall into an empty aisle",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": ["no person outside", "no readable text"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "backing out of a stall into the aisle",
+      "ego_nose_in_frame": "the plow is not in the rear glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "behind"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "none"
+  }
+}

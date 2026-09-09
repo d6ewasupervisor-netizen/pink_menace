@@ -1,0 +1,45 @@
+{
+  "card_id": "I-010",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "She Does Not Go In",
+  "hook": "The building can wait.",
+  "scene": "The door is shut. The engine is still off. Gracie is on your chest. You do not get out again. You do not go to the counter. The license is not what you leave with. You have one cat and a lot that is empty again, and the next thing is to look before the wheels move.",
+  "debrief": "You do not go inside. The counter is not the plan anymore. You look before you move.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "After the empty seat. She does not go in. The next act of driving is to look before she rolls."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "parked cockpit, Gracie on the chest, doors shut, licensing building ahead, she is not getting out",
+    "foreground": "Gracie against the chest, empty passenger seat still visible",
+    "midground": "wheel, pink dash, door shut",
+    "background": "the office through the mesh, doors open, nobody at the counter, wet lot",
+    "read": "she stays in the seat, one cat, she is not going in",
+    "continuity": ["pink_menace_interior", "gracie"],
+    "extra_negatives": ["no second cat", "no person outside", "no readable text"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked in a stall, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at the office through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "grim",
+    "failure_mode": "none"
+  }
+}

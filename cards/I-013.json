@@ -1,0 +1,45 @@
+{
+  "card_id": "I-013",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "The Window",
+  "hook": "She asks about the cats.",
+  "scene": "The radio finds her. It does not always. She says, are the cats all right. You say, Gracie is. You stop. She says the pass is still closed. You say you know. She does not ask how the driving is going. You do not tell her. The window stays, and then it is gone.",
+  "debrief": "She asks about the cats. She mentions the pass. She does not ask how the driving is going. You got the window.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Mom is a voice. She asks about the cats and the pass. She does not ask how the driving is going. The window stays because Ali got out."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "parked cockpit, radio handset or speaker on the dash, Gracie on the seat, empty passenger seat",
+    "foreground": "the radio, Gracie, the empty seat",
+    "midground": "pink dash, gauges at rest",
+    "background": "wet lot through the mesh, no person",
+    "read": "the radio is on, one cat, she is talking and not driving",
+    "continuity": ["pink_menace_interior", "gracie"],
+    "extra_negatives": ["no second cat", "no person outside", "no readable text", "no woman's face"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at the empty lot through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

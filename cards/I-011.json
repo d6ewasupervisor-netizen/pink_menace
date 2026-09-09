@@ -1,0 +1,76 @@
+{
+  "card_id": "I-011",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Before the Wheels",
+  "hook": "The aisle is empty. That is not the same as seen.",
+  "scene": "The engine is on. Gracie is on the seat beside you, not on your chest now, still shaking a little. The passenger seat is empty. The aisle behind you is the way out. You have not looked it. The lot is quiet. Quiet is not a look.",
+  "decision": "Before you roll, what do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Pull out. The aisle was empty a minute ago.",
+      "correct": false,
+      "result": "You roll on the look you already spent. The aisle may still be empty. You did not see it this time. That is how a lot stops being empty.",
+      "state_delta": {}
+    },
+    {
+      "id": "b",
+      "text": "Look the aisle, both ways, then move",
+      "correct": true,
+      "result": "You look. Left, right, the row you will back into, the ground behind the bumper. Then you move. The lot is empty because you saw it, not because it was empty before.",
+      "state_delta": {}
+    },
+    {
+      "id": "c",
+      "text": "Call her name once more, then go",
+      "correct": false,
+      "result": "You use your voice. Nothing comes. You have spent the look on a name. The aisle is still something you have not seen.",
+      "state_delta": { "noise": 1 }
+    },
+    {
+      "id": "d",
+      "text": "Watch the empty seat until you are ready",
+      "correct": false,
+      "result": "You watch the seat. The aisle does not get looked at. Ready is not a direction. The car is still pointing at a building you are not going into.",
+      "state_delta": {}
+    }
+  ],
+  "debrief": "Before the wheels, you look the aisle. Empty a minute ago is not a look.",
+  "source": {
+    "psdp_skill": "Skill one: before you start the engine",
+    "dol_section": "n/a",
+    "teaching_target": "Look the aisle before she rolls. A remembered empty lot is not a look."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "subject": "the aisle behind the parked Menace, wet, empty, seen in the interior mirror before she moves",
+    "foreground": "the rearview mirror frame, wet asphalt and stall paint in the glass",
+    "midground": "the empty aisle behind the car",
+    "background": "derelict parked cars at the edges, flat gray, no person",
+    "read": "she is looking behind before she moves, and the aisle is empty because she is looking",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": ["no person outside", "no readable text", "no second cat"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked nose-in, the aisle behind is the way out",
+      "ego_nose_in_frame": "the plow is not in this mirror",
+      "oncoming_position": "none in frame",
+      "hazard_position": "behind"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "none"
+  }
+}

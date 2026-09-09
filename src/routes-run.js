@@ -510,9 +510,19 @@ function mountRun(app) {
         await client.query(
           `UPDATE runs
               SET status = 'failed', current_card_id = NULL, queued_callbacks = $1,
-                  callback_debts = $2::jsonb, state = $3::jsonb, updated_at = now()
+                  callback_debts = $2::jsonb, state = $3::jsonb,
+                  max_presence = GREATEST(max_presence, $5),
+                  cargo_fail_reason = $6,
+                  updated_at = now()
             WHERE id = $4`,
-          [queued, JSON.stringify(debts), JSON.stringify(state), run.id]
+          [
+            queued,
+            JSON.stringify(debts),
+            JSON.stringify(state),
+            run.id,
+            Math.max(0, Number(state.max_presence) || Number(state.presence) || 0),
+            failDispatch,
+          ]
         );
         const freshId = crypto.randomUUID();
         await client.query(
@@ -585,9 +595,18 @@ function mountRun(app) {
           await client.query(
             `UPDATE runs
                 SET current_card_id = $1, current_attempt_no = 1, queued_callbacks = $2,
-                    callback_debts = $3::jsonb, state = $4::jsonb, updated_at = now()
+                    callback_debts = $3::jsonb, state = $4::jsonb,
+                    max_presence = GREATEST(max_presence, $6),
+                    updated_at = now()
               WHERE id = $5`,
-            [nextCardId, queued, JSON.stringify(picked.debts), JSON.stringify(state), run.id]
+            [
+              nextCardId,
+              queued,
+              JSON.stringify(picked.debts),
+              JSON.stringify(state),
+              run.id,
+              Math.max(0, Number(state.max_presence) || Number(state.presence) || 0),
+            ]
           );
         } else {
           await client.query(

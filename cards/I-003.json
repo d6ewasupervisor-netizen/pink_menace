@@ -1,0 +1,76 @@
+{
+  "card_id": "I-003",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Belt",
+  "hook": "Your belt is in your hand. Both cats are not.",
+  "scene": "You are in the seat. The belt is beside you. Gracie is on the passenger seat, cream chest, paws tucked. Mya is beside her. They ride loose because they always have. The lot is still empty. The engine is still off.",
+  "decision": "Before you move, what do you fasten?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Nothing. It is a parking lot.",
+      "correct": false,
+      "result": "You leave the belt. The lot being empty is not the same as you being held. The cats are already the thing you will watch. You are not even attached to the seat.",
+      "state_delta": {}
+    },
+    {
+      "id": "b",
+      "text": "Your belt. You see both cats, and you leave them where they are",
+      "correct": true,
+      "result": "You fasten your belt. You look at both of them. They are loose. That is how they ride. The belt is yours. It does not cover them, and you do not pretend it does.",
+      "state_delta": {}
+    },
+    {
+      "id": "c",
+      "text": "Put both cats in the carrier and call it done",
+      "correct": false,
+      "result": "You reach for the carrier. They do not stay in it. By the time you have one, the other is back on the seat. You have not put your belt on. You have only moved the problem around the cab.",
+      "state_delta": {}
+    },
+    {
+      "id": "d",
+      "text": "Belt Mya in against the seat and leave Gracie",
+      "correct": false,
+      "result": "You try to belt a cat like a person. She will not hold that shape. You have not fastened yourself. The cab is worse than it was.",
+      "state_delta": {}
+    }
+  ],
+  "debrief": "The belt is yours. The cats ride loose. You see that before you move. You do not pretend a belt on a cat is the same thing.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "2.6 Occupant Protection",
+    "teaching_target": "Her belt, before the car moves. The cats ride loose. She sees that and does not fake a restraint for them."
+  },
+  "cast": ["ali", "gracie", "mya"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "parked cockpit, both cats on the passenger seat, the driver's belt unfastened beside the seat",
+    "foreground": "the unfastened belt and the worn seat, Gracie and Mya together on the passenger seat",
+    "midground": "cracked pink dash, analog gauges at rest, mesh over the glass",
+    "background": "empty wet lot through the mesh, flat gray",
+    "read": "her belt is not on, both cats are loose on the seat",
+    "continuity": ["pink_menace_interior", "gracie", "mya"],
+    "extra_negatives": ["no person outside", "no readable text"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked in a stall, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at empty asphalt through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

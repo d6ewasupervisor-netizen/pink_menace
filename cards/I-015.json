@@ -1,0 +1,45 @@
+{
+  "card_id": "I-015",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "The Street",
+  "hook": "You leave with one cat.",
+  "scene": "You roll out of the lot onto the street that is not the highway. Gracie is on the seat. The license is not in your pocket. The pass is still closed. You are good enough for this street and not for the one that goes home. That is the end of the lot and the start of the work.",
+  "debrief": "You leave the lot with one cat. You are not going to the pass. The next work is a quiet street.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Close Act I. She leaves the lot onto a street, not the pass. One cat. The license is not what she left with."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "leaving the lot onto a quiet wet street, Gracie on the seat, no highway",
+    "foreground": "wheel, pink dash, Gracie",
+    "midground": "mesh, plow toward the street",
+    "background": "a quiet residential street, wet, overcast, no freeway",
+    "read": "she is leaving the lot onto a street, one cat",
+    "continuity": ["pink_menace_interior", "gracie"],
+    "extra_negatives": ["no highway", "no readable text", "no second cat"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "turning out of a lot onto a quiet street, right side of the road",
+      "ego_nose_in_frame": "the plow points at the street through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

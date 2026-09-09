@@ -61,8 +61,9 @@ async function main() {
   console.log(
     [
       "card".padEnd(8),
-      "ms".padStart(6),
-      "dwell".padStart(6),
+      "scene".padStart(6),
+      "cardms".padStart(6),
+      "out".padStart(6),
       "ok".padStart(3),
       "words".padStart(5),
       "title",
@@ -74,6 +75,7 @@ async function main() {
     console.log(
       [
         String(r.card_id).padEnd(8),
+        String(r.ms_on_scene ?? "-").padStart(6),
         String(r.ms_to_answer ?? "-").padStart(6),
         String(r.ms_on_outcome ?? "-").padStart(6),
         r.was_correct ? "  y" : "  n",
@@ -119,6 +121,35 @@ async function main() {
       console.log(
         `  ${r.card_id}  scene ${scene == null ? "-" : Math.round(scene / 1000) + "s"}  card ${cardMs == null ? "-" : Math.round(cardMs / 1000) + "s"}${opt}${skim ? "  SKIM" : ""}`
       );
+    }
+  }
+  const { rows: runRows } = await pool.query(
+    `SELECT id, status, state
+       FROM runs
+      WHERE id = $1 OR student_id = (SELECT student_id FROM runs WHERE id = $1)
+      ORDER BY updated_at DESC`,
+    [runId]
+  );
+  const live = runRows.find((r) => r.id === runId) || runRows[0];
+  const failed = runRows.find((r) => r.state && r.state.fail_reason);
+  const maxPresence = live && live.state ? Number(live.state.max_presence) : null;
+  const failReason = (failed && failed.state && failed.state.fail_reason) || null;
+  const { rows: lines } = await pool.query(
+    `SELECT card_id, line_index, ms_at
+       FROM run_line_advances
+      WHERE run_id = $1
+      ORDER BY created_at, line_index`,
+    [runId]
+  );
+  console.log("\ncolumns");
+  console.log("  scene dwell     ", sceneMs.length ? "on the answer" : "none yet");
+  console.log("  max presence    ", maxPresence == null ? "-" : maxPresence);
+  console.log("  cargo-fail      ", failReason || "none");
+  if (!lines.length) console.log("  line advances   none");
+  else {
+    console.log("  line advances");
+    for (const line of lines) {
+      console.log(`    ${line.card_id}  line ${line.line_index}  ${Math.round(line.ms_at / 1000)}s`);
     }
   }
   await pool.end();

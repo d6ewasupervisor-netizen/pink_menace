@@ -1,0 +1,76 @@
+{
+  "card_id": "I-002",
+  "act": "I",
+  "zone": "The Lot",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Before the Engine",
+  "hook": "The key is in your hand. You have not turned it.",
+  "scene": "You are parked. The engine is off. Gracie and Mya are already on the seat. The lot is empty and wet. The car has not moved today. You have not walked it.",
+  "decision": "Before you start it, what do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Turn the key. You already know the car.",
+      "correct": false,
+      "result": "The engine catches. You did not walk it. You start from what you remember, and a lot remembers differently than a car that sat.",
+      "state_delta": {}
+    },
+    {
+      "id": "b",
+      "text": "Get out and walk the car once, all the way around",
+      "correct": true,
+      "result": "You get out. You walk it. Tires, glass, nothing behind the bumper, both doors shut the way you left them. Then you get back in. The key can wait until you have seen it.",
+      "state_delta": {}
+    },
+    {
+      "id": "c",
+      "text": "Check the phone, then start it",
+      "correct": false,
+      "result": "You look at the phone. The lot does not change while you do. You start the car having seen the screen and not the ground around the wheels.",
+      "state_delta": {}
+    },
+    {
+      "id": "d",
+      "text": "Open the door, sit back down, and start it",
+      "correct": false,
+      "result": "You open the door and sit back down. That is not a walk. The car starts from the same view you already had.",
+      "state_delta": {}
+    }
+  ],
+  "debrief": "Before the engine, you walk the car. The lot is empty. That does not mean the ground around the wheels is something you already know.",
+  "source": {
+    "psdp_skill": "Skill one: before you start the engine",
+    "dol_section": "2.5 Vehicle Maintenance",
+    "teaching_target": "Before the engine. Walk the car once. Do not start from memory."
+  },
+  "cast": ["ali", "gracie", "mya"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "subject": "the Pink Menace parked in an empty wet stall, door open, no one in the lot",
+    "foreground": "wet asphalt and a faded stall line beside the open door",
+    "midground": "the pink car in profile, door hanging open, cats not required in this frame",
+    "background": "empty lot, flat gray overcast, no other vehicles close",
+    "read": "parked, engine off, she has not walked it yet",
+    "continuity": ["pink_menace_exterior"],
+    "extra_negatives": ["no person in frame", "no readable text"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked in a stall, not in a travel lane",
+      "ego_nose_in_frame": "the plow is at the far end of the car, not toward the lens",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

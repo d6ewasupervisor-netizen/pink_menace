@@ -94,6 +94,8 @@ CREATE TABLE IF NOT EXISTS runs (
   review_plan JSONB NOT NULL DEFAULT '[]'::jsonb,
   review_index INTEGER NOT NULL DEFAULT 0,
   state JSONB NOT NULL DEFAULT '{}'::jsonb,
+  max_presence INTEGER NOT NULL DEFAULT 0,
+  cargo_fail_reason TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
