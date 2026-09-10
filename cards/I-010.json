@@ -53,27 +53,31 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "camera_pose": "Camera is inside the cabin at the driver's seat, body turned rearward looking out through the rear glass — not outside the car, not a door mirror, not an exterior roadside standing shot.",
-    "subject": "the view rearward out of the Menace from the driver seat turned around — mesh over the rear glass, the aisle beyond it",
-    "foreground": "the seat backs and headrests, the empty passenger seat visible",
-    "midground": "rear glass with welded mesh, the aisle behind",
-    "background": "the wet lot",
-    "read": "the aisle behind the car is visible by turning and looking, not by mirror",
+    "camera_pose": "Camera is outside the open driver door at standing height, looking in at Ali in the driver seat as she twists to look over her right shoulder toward the rear — not a passenger-seat camera, not a mirror shot.",
+    "subject": "Ali Okonjo in the driver seat of the Menace, braid over the left shoulder, wire-rim glasses, twisted right looking over her right shoulder toward the rear aisle",
+    "foreground": "driver door frame and a slice of faded pink exterior plating on correct hinges",
+    "midground": "Ali's shoulders and the back of her head as she looks rearward; empty passenger seat with Gracie a small orange shape if visible; rear mesh beyond",
+    "background": "wet parking aisle behind with derelict or empty parked cars on the left and right of the aisle, flat overcast",
+    "read": "she is looking over her right shoulder at the aisle behind, with cars on both sides of that aisle",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_exterior",
+      "ali",
+      "gracie"
     ],
     "extra_negatives": [
       "no mirror as the subject",
       "no Quiet",
-      "no people",
       "no second cat",
-      "no chest shot"
+      "no chest shot",
+      "no camera between the front seats looking forward",
+      "no passenger-seat vantage",
+      "no empty aisle with no cars flanking it"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked nose-in, camera at driver seat turned rearward looking out the rear glass",
-      "ego_nose_in_frame": "the Menace plow is not in this rearward view — only seat backs and rear mesh",
+      "ego_lane_side": "parked nose-in, camera at the open driver door looking in",
+      "ego_nose_in_frame": "the plow is ahead and mostly out of this rearward look",
       "oncoming_position": "none in frame",
       "hazard_position": "none"
     }

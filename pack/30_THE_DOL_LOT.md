@@ -6,7 +6,7 @@ Stills: `cards/I-005.png` (was I-006 take 2), `I-006.png` (was I-007 take 1), `I
 
 She goes for the license. The building is empty. Gracie gets out. The call works. The one that was not in the wide shot comes. She gets Gracie. She is not hurt. The passenger seat is empty.
 
-The sequence proceeds whether I-006 is correct or not. It does not save Mya. I-008 has three states, on the stop-line and the debrief, from the I-006 option: called (a), correct (b), slow (c/d). The last line of the scene does not change.
+The sequence proceeds whether I-006 is correct or not. It does not save Mya. I-008 has three states, on the stop-line and the debrief, from the I-006 option: called (a), correct (b), slow (c/d).
 
 I-007 is `beat`. Every option records `was_correct: true` and the chosen `option_id`. Timeout is freeze. No ledger, no Play again, no hold replay, no cargo death.
 

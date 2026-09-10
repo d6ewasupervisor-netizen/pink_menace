@@ -23,11 +23,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "parked cockpit of the Pink Menace, both cats settled on the passenger seat, licensing office ahead through the windshield",
-    "foreground": "worn black wheel rim, cracked pink dash, Gracie the orange tabby and Mya the brown mackerel settled together on the passenger seat",
-    "midground": "welded steel mesh over the windshield, analog gauges at rest, no clipboard on the mesh",
-    "background": "Kent licensing office through the mesh, doors propped open, empty counter, no line, no other cars, wet asphalt, flat gray overcast",
-    "read": "parked, both cats on the seat, the doors open and nobody at the counter",
+    "subject": "parked cockpit of the Pink Menace, both cats settled on the passenger seat, a small municipal licensing office ahead through the windshield",
+    "foreground": "worn black wheel rim, cracked pink dash, Gracie the orange tabby and Mya the brown mackerel settled together on the passenger seat — Mya heavy, fat, thick body, loafed wide, visibly heavier than Gracie; no seatbelt coming out of the dash",
+    "midground": "welded steel mesh over the windshield, analog gauges at rest, no clipboard on the mesh, door and pillar continuous with the body",
+    "background": "a small gray municipal office building — glass pedestrian entrance doors ajar a foot or two, not garage bays, not drive-through service doors — empty lobby/counter faintly visible, no line, no other cars, wet asphalt, flat gray overcast",
+    "read": "parked, both cats on the seat, the office doors ajar and nobody at the counter",
     "continuity": [
       "pink_menace_interior",
       "gracie",
@@ -36,7 +36,13 @@
     "extra_negatives": [
       "no person in the lot",
       "no figure standing outside",
-      "no one at the counter"
+      "no one at the counter",
+      "no garage bay doors",
+      "no oil-change drive-through",
+      "no wide roll-up service doors",
+      "no auto shop",
+      "no slim Mya",
+      "no belt rising from the dashboard"
     ],
     "aspect": "2:3",
     "geometry": {

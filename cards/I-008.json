@@ -6,7 +6,7 @@
   "card_type": "dossier",
   "title": "One of Them Comes Back",
   "hook": "One cat, where there were two.",
-  "scene": "You are in the driver's seat. The door is shut. The engine is not started. Gracie is on your chest, shaking, orange and cream, both eyes open. The passenger seat is empty. You put the window down a little and say Mya's name, quietly, and then you stop, because calling is what started this. The lot behind the mesh is empty again. That is worse. You have Gracie. You are not hurt. The seat where the other one was is the whole of it.",
+  "scene": "You are in the driver's seat. The door is shut. The engine is not started. Gracie is on your chest, shaking, orange and cream, both eyes open. The passenger seat is empty. You put the window down a little and say Mya's name, quietly, and then you stop, because calling is what started this. The lot behind the mesh is empty again. That is worse. You have Gracie. You are not hurt.",
   "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. The passenger seat is empty.",
   "lot_states": {
     "called": {

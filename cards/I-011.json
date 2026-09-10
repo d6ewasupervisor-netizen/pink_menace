@@ -33,11 +33,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_OBJECT",
-    "subject": "the Menace's dash-mounted radio handset, held or resting, keyed — a small lit indicator, the coiled cord",
+    "subject": "the Menace's CB radio handset, keyed, lit indicator — coiled cord running clearly into a dash-mounted CB radio unit",
     "foreground": "the handset, sharp, close",
-    "midground": "faded pink dash, the nav tablet dark beside it",
+    "midground": "faded pink dash; a physical CB radio deck with knobs and a dark face, the coiled cord plugged into that radio — not vanishing into the dash skin; nav tablet dark beside it if present",
     "background": "windshield beyond, out of focus — wet grey light, no readable road",
-    "read": "the radio is live and someone is on the other end of it",
+    "read": "the handset is live and the cord runs into the CB",
     "continuity": [
       "pink_menace_interior"
     ],
@@ -45,7 +45,10 @@
       "no people",
       "no faces",
       "no legible text or callsigns",
-      "no Quiet"
+      "no Quiet",
+      "no cord ending in blank dash",
+      "no cord vanishing into paint",
+      "no floating mic with no radio body"
     ],
     "aspect": "2:3"
   },

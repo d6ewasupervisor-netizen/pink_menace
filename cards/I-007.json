@@ -5,37 +5,37 @@
   "driver": "ali",
   "card_type": "beat",
   "title": "The One You Didn't See",
-  "hook": "The one that was not in the wide shot.",
-  "scene": "You have Gracie. She is pulled tight against you, tense and low, ears back, head turned into your arm, orange and cream. Across the lot the three are still far off and still not looking. This one was never in that shot. It is between the parked rows, already inside the space, and it comes. Mid-stride. The head is down and turned away. The frame ends there. It does not reach you. It does not reach her.",
+  "hook": "You were watching the wrong three.",
+  "scene": "You have Gracie. She's pulled tight against you, tense and low, ears back, head turned into your arm, orange and cream. Across the lot the three are still far off and still not looking. This one was never with them. It's already between the parked rows, coming mid-stride, head down, and you don't finish the thought before it stops short of you — short of her — and nothing touches either of you.",
   "decision": "It is coming. What do you do?",
   "options": [
     {
       "id": "a",
       "text": "Put yourself between it and the cats",
       "correct": true,
-      "result": "You turn your body so it has you and not her. Gracie is under your arm. The lunge stops at the edge of the frame. Nothing touches you. Nothing touches her. Mya is not in this picture. You acted. It does not change what the lot takes.",
+      "result": "You turn so it has you and not her. Gracie is under your arm. It stops short. Nothing touches you. Nothing touches her. Mya is not here. You moved. It does not change what the lot takes.",
       "state_delta": {}
     },
     {
       "id": "b",
       "text": "Grab Gracie and run",
       "correct": true,
-      "result": "You take Gracie and you go. She is against you. The lunge is still coming when the frame cuts. Nothing touches you. Nothing touches her. You moved. The one that mattered was already closer than the three you were watching.",
+      "result": "You take Gracie and you go. She's against you. It's still coming when the moment breaks. Nothing touches you. Nothing touches her. You moved. The one that mattered was already closer than the three you were watching.",
       "state_delta": {}
     },
     {
       "id": "c",
       "text": "Freeze",
       "correct": true,
-      "result": "You freeze. That is what a person does. Gracie is under your hand. The lunge fills the near ground and the frame ends before it arrives. Nothing touches you. Nothing touches her. You did not choose this. You still get to have been here.",
+      "result": "You freeze. That is what a person does. Gracie is under your hand. It fills the near ground and then it is gone before it arrives. Nothing touches you. Nothing touches her. You did not choose this. You still get to have been here.",
       "state_delta": {}
     }
   ],
-  "debrief": "You had Gracie. The one that came was not one of the three. The frame ends before it reaches either of you.",
+  "debrief": "You had Gracie. The one that came was not one of the three. It never reached either of you.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "5.5 Focus",
-    "teaching_target": "The lunge, used once. Every option is an attempt, not a miss. Timeout is freeze. No grade, no retry, no contact."
+    "teaching_target": "The lunge, used once. Lived experience, not frame language. Every option is an attempt, not a miss. Timeout is freeze. No grade, no retry, no contact."
   },
   "cast": [
     "ali",

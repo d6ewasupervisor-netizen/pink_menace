@@ -55,13 +55,13 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
-    "subject": "the Menace's left door mirror, showing the aisle behind — wet, empty, receding",
-    "foreground": "mirror housing and a slice of riveted door plating, sharp; Gracie the orange tabby visible on the passenger seat at the edge of frame if composition allows, seat beside her empty",
-    "midground": "the aisle in the glass",
-    "background": "grey lot, flat overcast",
-    "read": "the aisle behind is visible and clear in the mirror",
+    "subject": "from the driver seat: left door mirror shows the wet parking aisle behind with painted stall lines; Gracie sits on the passenger seat in frame, the seat space beside her empty",
+    "foreground": "left door-mirror housing sharp; Gracie the orange tabby on the passenger seat at the right of frame, empty seat cushion clearly beside her — not on a chest",
+    "midground": "in the mirror glass: a wet empty parking aisle with painted stall lines receding, not a cracked highway",
+    "background": "grey licensing lot, flat overcast",
+    "read": "Gracie is on the seat with empty space beside her, and the aisle behind is clear in the mirror",
     "continuity": [
-      "pink_menace_exterior",
+      "pink_menace_interior",
       "gracie"
     ],
     "extra_negatives": [
@@ -69,13 +69,16 @@
       "no cat being held",
       "no Quiet",
       "no people",
-      "no second cat"
+      "no second cat",
+      "no handprints on glass",
+      "no cracked desert highway in the mirror",
+      "no empty frame without the passenger seat"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked nose-in, looking at left door mirror",
-      "ego_nose_in_frame": "the plow is not the subject; the left door mirror is",
+      "ego_lane_side": "parked nose-in, looking at left door mirror from the driver seat",
+      "ego_nose_in_frame": "the plow is not the subject; the left door mirror and passenger seat are",
       "oncoming_position": "none in frame",
       "hazard_position": "behind"
     }
@@ -84,7 +87,7 @@
     "location_type": "parking_lot",
     "weather": "overcast",
     "time_of_day": "afternoon",
-    "tone": "tense",
+    "tone": "quiet",
     "failure_mode": "none"
   }
 }
