@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS runs (
   state JSONB NOT NULL DEFAULT '{}'::jsonb,
   max_presence INTEGER NOT NULL DEFAULT 0,
   cargo_fail_reason TEXT,
+  lot_state TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

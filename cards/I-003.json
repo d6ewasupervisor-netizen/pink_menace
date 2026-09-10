@@ -42,21 +42,21 @@
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "2.6 Occupant Protection",
-    "teaching_target": "Her belt, before the car moves. The cats ride loose. She sees that and does not fake a restraint for them."
+    "teaching_target": "Her belt, before the car moves. The cats ride loose. Wrong answers arm II-031."
   },
   "cast": ["ali", "gracie", "mya"],
   "antagonist": "none",
   "callback_of": null,
-  "schedules_callback": false,
+  "schedules_callback": true,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "parked cockpit, both cats on the passenger seat, the driver's belt unfastened beside the seat",
-    "foreground": "the unfastened belt and the worn seat, Gracie and Mya together on the passenger seat",
-    "midground": "cracked pink dash, analog gauges at rest, mesh over the glass",
-    "background": "empty wet lot through the mesh, flat gray",
-    "read": "her belt is not on, both cats are loose on the seat",
+    "subject": "the driver's seat belt, unlatched, held in a young woman's hand in a faded pink sleeve — warm medium-brown skin, half African American",
+    "foreground": "the belt webbing and the buckle, sharp",
+    "midground": "both cats on the passenger seat — orange tabby with cream chest, brown mackerel tabby beside her, both settled, neither restrained",
+    "background": "faded pink dash, mesh over the windshield, empty wet lot beyond",
+    "read": "the belt is in her hand and both cats are loose on the seat",
     "continuity": ["pink_menace_interior", "gracie", "mya"],
-    "extra_negatives": ["no person outside", "no readable text"],
+    "extra_negatives": ["no carrier", "no cat wearing a belt", "no full face", "no Quiet", "no pale hand"],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

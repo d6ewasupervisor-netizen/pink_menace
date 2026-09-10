@@ -22,6 +22,17 @@
     "Your eyes now. Left glass. Right glass. The side mirror. Then the road.",
     "Your wheel."
   ],
+  "lot_voice": {
+    "called": {
+      "ride_open": "Keep your voice down in this cab. After that lot, I would too. Left mirror. Right mirror. Left again."
+    },
+    "correct": {
+      "ride_open": "You did the quiet cut. The lot took her anyway. That is not on this merge. Left mirror. Right mirror. Left again."
+    },
+    "slow": {
+      "ride_open": "You spent the time. The lot does not give it back. Keep your eyes moving. Left mirror. Right mirror. Left again."
+    }
+  },
   "ride_beats": [
     {
       "look": "left",

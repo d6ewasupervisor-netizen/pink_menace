@@ -42,7 +42,7 @@
   "source": {
     "psdp_skill": "Skill two: moving, steering, and stopping",
     "dol_section": "n/a",
-    "teaching_target": "Start, roll, and stop on a line she picked. Smooth. The cats do not slide."
+    "teaching_target": "Start, roll, and stop on a line she picked. Smooth."
   },
   "cast": ["ali", "gracie", "mya"],
   "antagonist": "none",
@@ -50,13 +50,13 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "rolling slowly down an empty wet parking aisle, stall paint ahead",
-    "foreground": "worn black wheel, cracked pink dash, both cats on the passenger seat",
-    "midground": "mesh, hood and plow pointing down the aisle",
-    "background": "empty painted stalls, wet asphalt, no other cars close, flat gray",
-    "read": "she is rolling the empty aisle and has room to stop",
-    "continuity": ["pink_menace_interior", "gracie", "mya"],
-    "extra_negatives": ["no person outside", "no readable text"],
+    "subject": "a long empty parking aisle running away from the camera, painted stalls both sides, wet",
+    "foreground": "wheel rim, mesh, dash edge",
+    "midground": "the aisle, one stall line further down that could be a stopping target",
+    "background": "low retail frontage, flat grey sky",
+    "read": "the aisle is long and completely empty — room to roll and room to stop",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": ["no other vehicles", "no people", "no Quiet", "no obstacles"],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",

@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, applySequenceTone, dayNight, pickNextCard, actBoundForRun, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, playAgainFrom, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard, isBeatCard } = require("./game");
+const { publicCard, applySequenceTone, dayNight, pickNextCard, actBoundForRun, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, playAgainFrom, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard, isBeatCard, lotKeyFromOption } = require("./game");
 const { applyFear, loudDelta } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
@@ -441,6 +441,11 @@ function mountRun(app) {
       if (!beat && card.schedules_callback && !wasCorrect) {
         debts = queueCallback(debts, cardId);
         if (!queued.includes(cardId)) queued.push(cardId);
+      }
+      if (cardId === "I-006") {
+        const stamped = lotKeyFromOption(optionId, wasCorrect);
+        await client.query(`UPDATE runs SET lot_state = $1 WHERE id = $2`, [stamped, run.id]);
+        state.lot_state = stamped;
       }
 
       const { rows: parents } = await client.query(

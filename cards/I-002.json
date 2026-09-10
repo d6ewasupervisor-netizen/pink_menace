@@ -50,18 +50,18 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "subject": "the Pink Menace parked in an empty wet stall, door open, no one in the lot",
-    "foreground": "wet asphalt and a faded stall line beside the open door",
-    "midground": "the pink car in profile, door hanging open, cats not required in this frame",
-    "background": "empty lot, flat gray overcast, no other vehicles close",
-    "read": "parked, engine off, she has not walked it yet",
+    "subject": "the Menace parked in an empty wet lot, seen from a few feet away at standing height, front three-quarter",
+    "foreground": "wet asphalt, painted stall line",
+    "midground": "the car — plow, mesh, riveted plating, knobby tires — one door slightly ajar",
+    "background": "empty lot, low grey buildings, flat overcast",
+    "read": "the car is sitting still and close enough to walk around, and nobody has walked around it yet",
     "continuity": ["pink_menace_exterior"],
-    "extra_negatives": ["no person in frame", "no readable text"],
+    "extra_negatives": ["no people", "no other vehicles", "no Quiet", "no motion", "Ali is not in frame"],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "parked in a stall, not in a travel lane",
-      "ego_nose_in_frame": "the plow is at the far end of the car, not toward the lens",
+      "ego_nose_in_frame": "the plow is at the far leading end, not toward the lens",
       "oncoming_position": "none in frame",
       "hazard_position": "none"
     }

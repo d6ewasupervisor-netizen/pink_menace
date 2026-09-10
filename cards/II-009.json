@@ -7,6 +7,17 @@
   "title": "A Voice You Know",
   "hook": "The radio bleeds by itself. Someone is already in the crosswalk.",
   "scene": "The radio bleeds at dawn on a Kent two-lane. Wind again. You did not turn the radio on. It came up by itself, a trick the aftermarket tablet has been pulling since the lot — a scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right, mid-block enough to be easy to miss if you are looking down. Both hands should be on the wheel. One of them is not.",
+  "lot_voice": {
+    "called": {
+      "scene": "The radio bleeds at dawn on a Kent two-lane. Wind again. You did not turn the radio on. It came up by itself — and after you called across that lot, a voice that sounds almost like yours is a harder trick to ignore. A scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right. Both hands should be on the wheel. One of them is not."
+    },
+    "correct": {
+      "scene": "The radio bleeds at dawn on a Kent two-lane. Wind again. You did not turn the radio on. It came up by itself, the same trick as the lot — and you already know looking down costs you. A scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right. Both hands should be on the wheel. One of them is not."
+    },
+    "slow": {
+      "scene": "The radio bleeds at dawn on a Kent two-lane. Wind again. You did not turn the radio on. It came up by itself, and you have already spent time you did not have once today. A scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right. Both hands should be on the wheel. One of them is not."
+    }
+  },
   "decision": "The tablet is talking in a voice you know and a pedestrian is in the crosswalk. Where do your eyes go?",
   "options": [
     {

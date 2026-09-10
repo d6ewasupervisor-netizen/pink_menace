@@ -66,6 +66,9 @@ async function migrate() {
     ALTER TABLE runs ADD COLUMN IF NOT EXISTS cargo_fail_reason TEXT
   `);
   await pool.query(`
+    ALTER TABLE runs ADD COLUMN IF NOT EXISTS lot_state TEXT
+  `);
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS run_line_advances (
       id UUID PRIMARY KEY,
       run_id UUID NOT NULL REFERENCES runs(id) ON DELETE CASCADE,

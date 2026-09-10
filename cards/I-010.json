@@ -52,33 +52,37 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR_REAR",
-    "subject": "backing view down the empty aisle, the empty passenger seat at the edge of the glass, wet stall paint",
-    "foreground": "rear glass and the near stall line sliding",
-    "midground": "the aisle she is backing into, empty",
-    "background": "parked cars along both rows, flat gray, no person",
-    "read": "she is backing out of a nose-in stall into an empty aisle",
+    "camera": "POV_ROADSIDE",
+    "camera_pose": "Camera is inside the cabin at the driver's seat, body turned rearward looking out through the rear glass — not outside the car, not a door mirror, not an exterior roadside standing shot.",
+    "subject": "the view rearward out of the Menace from the driver seat turned around — mesh over the rear glass, the aisle beyond it",
+    "foreground": "the seat backs and headrests, the empty passenger seat visible",
+    "midground": "rear glass with welded mesh, the aisle behind",
+    "background": "the wet lot",
+    "read": "the aisle behind the car is visible by turning and looking, not by mirror",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
-      "no person outside",
-      "no readable text"
+      "no mirror as the subject",
+      "no Quiet",
+      "no people",
+      "no second cat",
+      "no chest shot"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "backing out of a stall into the aisle",
-      "ego_nose_in_frame": "the plow is not in the rear glass",
+      "ego_lane_side": "parked nose-in, camera at driver seat turned rearward looking out the rear glass",
+      "ego_nose_in_frame": "the Menace plow is not in this rearward view — only seat backs and rear mesh",
       "oncoming_position": "none in frame",
-      "hazard_position": "behind"
+      "hazard_position": "none"
     }
   },
   "variation": {
     "location_type": "parking_lot",
     "weather": "overcast",
     "time_of_day": "afternoon",
-    "tone": "tense",
+    "tone": "quiet",
     "failure_mode": "none"
   }
 }

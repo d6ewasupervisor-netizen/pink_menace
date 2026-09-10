@@ -22,18 +22,21 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "leaving the lot onto a quiet wet street, Gracie on the seat, no highway",
-    "foreground": "wheel, pink dash, Gracie",
-    "midground": "mesh, plow toward the street",
-    "background": "a quiet residential street, wet, overcast, no freeway",
-    "read": "she is leaving the lot onto a street, one cat",
+    "subject": "a quiet residential street ahead through the windshield — narrow, wet, low speed, houses both sides",
+    "foreground": "wheel rim, mesh, dash; Gracie alone on the passenger seat at the right edge, the seat space beside her empty",
+    "midground": "the street running ahead, a 25 mph speed limit sign small and legible at the roadside",
+    "background": "bare trees, Kent houses, flat overcast",
+    "read": "the road ahead is a quiet residential street, and there is one cat in the car",
     "continuity": [
       "pink_menace_interior",
       "gracie"
     ],
     "extra_negatives": [
       "no highway",
-      "no readable text",
+      "no mountains",
+      "no other vehicles",
+      "no people",
+      "no Quiet",
       "no second cat"
     ],
     "aspect": "2:3",

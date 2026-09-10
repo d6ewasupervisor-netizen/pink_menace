@@ -54,25 +54,28 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_MIRROR_REAR",
-    "subject": "the aisle behind the parked Menace, wet, empty, seen in the interior mirror before she moves",
-    "foreground": "the rearview mirror frame, wet asphalt and stall paint in the glass",
-    "midground": "the empty aisle behind the car",
-    "background": "derelict parked cars at the edges, flat gray, no person",
-    "read": "she is looking behind before she moves, and the aisle is empty because she is looking",
+    "camera": "POV_MIRROR_DOOR",
+    "subject": "the Menace's left door mirror, showing the aisle behind — wet, empty, receding",
+    "foreground": "mirror housing and a slice of riveted door plating, sharp; Gracie the orange tabby visible on the passenger seat at the edge of frame if composition allows, seat beside her empty",
+    "midground": "the aisle in the glass",
+    "background": "grey lot, flat overcast",
+    "read": "the aisle behind is visible and clear in the mirror",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_exterior",
+      "gracie"
     ],
     "extra_negatives": [
-      "no person outside",
-      "no readable text",
+      "no chest shot",
+      "no cat being held",
+      "no Quiet",
+      "no people",
       "no second cat"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked nose-in, the aisle behind is the way out",
-      "ego_nose_in_frame": "the plow is not in this mirror",
+      "ego_lane_side": "parked nose-in, looking at left door mirror",
+      "ego_nose_in_frame": "the plow is not the subject; the left door mirror is",
       "oncoming_position": "none in frame",
       "hazard_position": "behind"
     }

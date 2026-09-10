@@ -8,6 +8,17 @@
   "hook": "Insulin crates on the floor. The Grid still has paint.",
   "scene": "You idle at the curb on a Kent side street that still has its paint. The Menace ticks as it cools. Cranberry braid over one shoulder, wire rims catching the overcast, Gracie already on the dash with her paws in the defrost. Insulin crates sweat on the floor behind the seats. The Grid is residential, two lanes, stop signs that still mean stop. Signals still cycle. That is the whole job today: move the cold through streets that look empty and are not.",
   "debrief": "Act II is quiet Kent, not the lot. Search, signs, turns, bikes, buses, space, and focus — in that order. The lights still work. You took the cold through streets that still have rules.",
+  "lot_voice": {
+    "called": {
+      "bark": { "who": "reyna_solis", "line": "Heard you at the licensing lot. Next time use your hands, not your voice. — R." }
+    },
+    "correct": {
+      "bark": { "who": "reyna_solis", "line": "Quiet cut at the lot. Good. The Grid still wants your eyes. — R." }
+    },
+    "slow": {
+      "bark": { "who": "reyna_solis", "line": "You burned time in that lot. The cold does not wait. Move. — R." }
+    }
+  },
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",

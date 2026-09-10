@@ -19,18 +19,18 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "parked cockpit, both cats on the passenger seat, gray lot ahead through the mesh",
-    "foreground": "worn black wheel, cracked pink dash, Gracie and Mya settled together",
-    "midground": "welded steel mesh, gauges at rest, no clipboard on the mesh",
-    "background": "empty wet parking lot, flat gray overcast, no building lettering",
-    "read": "parked, both cats on the seat, she has not moved yet",
+    "subject": "the road east out of the lot, and far beyond it the Cascades under heavy cloud — the pass, closed, unreachable",
+    "foreground": "wheel rim across the bottom, welded mesh across the top of the windshield, faded pink dash edge; both cats on the passenger seat at the right edge of frame — Gracie orange tabby cream chest and Mya brown mackerel together",
+    "midground": "wet empty road running east, low commercial buildings thinning out",
+    "background": "mountains, snow on them, weather sitting on the ridge",
+    "read": "the mountains are far away and the road that goes there is empty",
     "continuity": ["pink_menace_interior", "gracie", "mya"],
-    "extra_negatives": ["no person outside", "no readable text"],
+    "extra_negatives": ["no signage", "no legible text", "no other vehicles", "no people", "no Quiet"],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked in a stall, not in a travel lane",
-      "ego_nose_in_frame": "the plow points at empty wet asphalt through the mesh",
+      "ego_lane_side": "parked at the edge of a lot pointed at an empty road east, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at the empty road through the mesh",
       "oncoming_position": "none in frame",
       "hazard_position": "none"
     }

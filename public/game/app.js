@@ -640,6 +640,13 @@ function fillCard(card, opts) {
   }
   if (wrap) wrap.classList.remove("arming");
   PMFeel.hideBark();
+  if (card.bark && card.bark.line && !opts.review && !opts.pending) {
+    PMFeel.showBark({
+      who: card.bark.who || "reyna_solis",
+      line: card.bark.line,
+      tap: false,
+    });
+  }
   const coldFloat = document.getElementById("cooler-float");
   if (coldFloat) coldFloat.classList.add("hidden");
   document.getElementById("options").classList.add("hidden");

@@ -1,0 +1,76 @@
+{
+  "card_id": "II-031",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "ledger",
+  "title": "Into the Dash",
+  "hook": "Hard stop. Something orange hits the dash.",
+  "scene": "A stop comes up faster than the street said it would — a kid on a bike, or a door, or a light that was yellow when you looked last. You stand on the pedal. You never buckled in at the lot and you're about to find out what that costs. Gracie leaves the seat and hits the cracked pink dash with a sound that is small and wrong. She is not hurt. You are not sure of that for a second. The belt is still hanging by the pillar where you left it.",
+  "decision": "Gracie is on the dash and the street is still moving around you. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold the stop. Put a hand on her. Buckle yourself before you roll again.",
+      "correct": true,
+      "result": "You stay stopped. You put a hand on her until she settles back onto the seat. Then you click the belt you skipped at the lot. The street can wait for that.",
+      "state_delta": { "time_cost": 4 }
+    },
+    {
+      "id": "b",
+      "text": "Roll through — she landed, keep moving",
+      "correct": false,
+      "result": "You keep rolling. She is still finding the seat. The next stop will be the same story because the belt is still hanging.",
+      "state_delta": { "noise": 1, "time_cost": 2 }
+    },
+    {
+      "id": "c",
+      "text": "Pull over and put her in the carrier",
+      "correct": false,
+      "result": "You pull over. She will not stay in the carrier any more than she did at the lot. You spend the stop on a fight you already lost, and you are still unbuckled.",
+      "state_delta": { "time_cost": 8 }
+    },
+    {
+      "id": "d",
+      "text": "Yell at her to stay on the seat",
+      "correct": false,
+      "result": "Your voice fills the cab. She flinches. The belt is still not on you. The street got louder for nothing.",
+      "state_delta": { "noise": 2, "time_cost": 2 }
+    }
+  ],
+  "debrief": "The belt was yours at the lot. A hard stop in the Grid is where that bill comes due.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "2.6 Occupant Protection",
+    "teaching_target": "Physical debt from I-003. Hard stop puts Gracie on the dash. Scene names the lot belt in the clause."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": "I-003",
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "hard-stopped cockpit, orange tabby scrambled onto the cracked pink dash, empty belt hanging by the pillar",
+    "foreground": "Gracie on the dash, cream chest, unsettled, the unlatched belt webbing",
+    "midground": "worn wheel, mesh, gauges",
+    "background": "wet Kent residential street through the mesh, overcast",
+    "read": "the cat is on the dash after a hard stop and the belt is still hanging",
+    "continuity": ["pink_menace_interior", "gracie"],
+    "extra_negatives": ["no second cat", "no injury", "no blood", "no Quiet"],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "stopped in a residential lane, right side of the road",
+      "ego_nose_in_frame": "the plow points down the street through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "none"
+  }
+}

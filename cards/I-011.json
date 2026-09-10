@@ -8,6 +8,17 @@
   "hook": "She asks about the cats.",
   "scene": "Mom comes through on the radio, which she doesn't always. She asks if the cats are all right. You say Gracie is, and then you don't say the rest of it, and she doesn't ask. She tells you the pass is still closed like you might not have heard. You say you know. She doesn't ask how the driving is going. You don't tell her.",
   "debrief": "",
+  "lot_voice": {
+    "called": {
+      "scene": "Mom comes through on the radio, which she doesn't always. She asks if the cats are all right. You say Gracie is, and then you don't say the rest of it, and she doesn't ask. She says the lot sounded loud from here — she doesn't know how, she just says it — and then she tells you the pass is still closed like you might not have heard. You say you know. She doesn't ask how the driving is going. You don't tell her."
+    },
+    "correct": {
+      "scene": "Mom comes through on the radio, which she doesn't always. She asks if the cats are all right. You say Gracie is, and then you don't say the rest of it, and she doesn't ask. She says you sounded careful, and then she tells you the pass is still closed like you might not have heard. You say you know. She doesn't ask how the driving is going. You don't tell her."
+    },
+    "slow": {
+      "scene": "Mom comes through on the radio, which she doesn't always. She asks if the cats are all right. You say Gracie is, and then you don't say the rest of it, and she doesn't ask. She says you took a long time in that lot, and then she tells you the pass is still closed like you might not have heard. You say you know. She doesn't ask how the driving is going. You don't tell her."
+    }
+  },
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
@@ -21,30 +32,22 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_COCKPIT",
-    "subject": "parked cockpit, radio handset or speaker on the dash, Gracie on the seat, empty passenger seat",
-    "foreground": "the radio, Gracie, the empty seat",
-    "midground": "pink dash, gauges at rest",
-    "background": "wet lot through the mesh, no person",
-    "read": "the radio is on, one cat, she is talking and not driving",
+    "camera": "POV_OBJECT",
+    "subject": "the Menace's dash-mounted radio handset, held or resting, keyed — a small lit indicator, the coiled cord",
+    "foreground": "the handset, sharp, close",
+    "midground": "faded pink dash, the nav tablet dark beside it",
+    "background": "windshield beyond, out of focus — wet grey light, no readable road",
+    "read": "the radio is live and someone is on the other end of it",
     "continuity": [
-      "pink_menace_interior",
-      "gracie"
+      "pink_menace_interior"
     ],
     "extra_negatives": [
-      "no second cat",
-      "no person outside",
-      "no readable text",
-      "no woman's face"
+      "no people",
+      "no faces",
+      "no legible text or callsigns",
+      "no Quiet"
     ],
-    "aspect": "2:3",
-    "geometry": {
-      "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked, not in a travel lane",
-      "ego_nose_in_frame": "the plow points at the empty lot through the mesh",
-      "oncoming_position": "none in frame",
-      "hazard_position": "none"
-    }
+    "aspect": "2:3"
   },
   "variation": {
     "location_type": "parking_lot",

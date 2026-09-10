@@ -185,6 +185,9 @@ function assemblePrompt(card) {
   if (deac && cam === "POV_OBJECT" && (brief.continuity || []).includes("hov_geometry")) {
     framing = FRAMING.POV_COCKPIT_LEDGER;
   }
+  if (typeof brief.camera_pose === "string" && brief.camera_pose.trim()) {
+    framing = brief.camera_pose.trim();
+  }
   if (!framing) throw new Error(`${card.card_id}: cannot compile camera ${cam}`);
 
   const parts = [];
