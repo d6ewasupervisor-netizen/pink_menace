@@ -223,7 +223,7 @@ function assemblePrompt(card) {
     );
   if (quietNamed) {
     let register = QUIET_REGISTER;
-    if (card.card_id === "I-008") {
+    if (card.card_id === "I-007") {
       register = register
         .replace("standing or moving as if doing nothing.", "not standing still.")
         .replace(

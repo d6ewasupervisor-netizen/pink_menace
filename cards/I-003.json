@@ -5,40 +5,40 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "The Belt",
-  "hook": "Your belt is in your hand. Both cats are not.",
-  "scene": "You are in the seat. The belt is beside you. Gracie is on the passenger seat, cream chest, paws tucked. Mya is beside her. They ride loose because they always have. The lot is still empty. The engine is still off.",
+  "hook": "Your belt's in your hand. Neither cat is.",
+  "scene": "They ride loose. They've always ridden loose, and there's no version of these two where that changes, so the question isn't what to do about them. It's what to do about you.",
   "decision": "Before you move, what do you fasten?",
   "options": [
     {
       "id": "a",
-      "text": "Nothing. It is a parking lot.",
+      "text": "Nothing. It's a parking lot.",
       "correct": false,
-      "result": "You leave the belt. The lot being empty is not the same as you being held. The cats are already the thing you will watch. You are not even attached to the seat.",
+      "result": "You leave it hanging. Then something moves in the lot and you're not attached to anything.",
       "state_delta": {}
     },
     {
       "id": "b",
-      "text": "Your belt. You see both cats, and you leave them where they are",
+      "text": "Your belt. Look at both cats. Leave them where they are",
       "correct": true,
-      "result": "You fasten your belt. You look at both of them. They are loose. That is how they ride. The belt is yours. It does not cover them, and you do not pretend it does.",
+      "result": "You click in. You look at Gracie, then at Mya, and you know exactly where both of them are — which is loose on a seat, which is the truth. The belt is yours. It was only ever yours.",
       "state_delta": {}
     },
     {
       "id": "c",
       "text": "Put both cats in the carrier and call it done",
       "correct": false,
-      "result": "You reach for the carrier. They do not stay in it. By the time you have one, the other is back on the seat. You have not put your belt on. You have only moved the problem around the cab.",
+      "result": "You get Gracie in. By the time you've got Mya, Gracie's back on the seat. Ten minutes gone and your belt is still hanging by the pillar.",
       "state_delta": {}
     },
     {
       "id": "d",
-      "text": "Belt Mya in against the seat and leave Gracie",
+      "text": "Belt Mya against the seat and leave Gracie",
       "correct": false,
-      "result": "You try to belt a cat like a person. She will not hold that shape. You have not fastened yourself. The cab is worse than it was.",
+      "result": "A cat is not a shape a seat belt understands. She's out of it before you've finished, and now the cab's worse and you're still unbuckled.",
       "state_delta": {}
     }
   ],
-  "debrief": "The belt is yours. The cats ride loose. You see that before you move. You do not pretend a belt on a cat is the same thing.",
+  "debrief": "The belt is yours. Fasten it every time, before anything else moves.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "2.6 Occupant Protection",

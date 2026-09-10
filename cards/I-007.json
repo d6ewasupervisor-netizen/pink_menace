@@ -3,60 +3,65 @@
   "act": "I",
   "zone": "The Lot",
   "driver": "ali",
-  "card_type": "scene",
-  "title": "Gracie's Out",
-  "hook": "Gracie is in the open lot. So are you.",
-  "scene": "Gracie is out of the car and into the stalls, low and curious, ten feet off the open door. You are out after her. The Menace sits behind you, door hanging wide. Mya is still in the cab. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
-  "decision": "Gracie is in the open lot. How do you get her back?",
+  "card_type": "beat",
+  "title": "The One You Didn't See",
+  "hook": "The one that was not in the wide shot.",
+  "scene": "You have Gracie. She is pulled tight against you, tense and low, ears back, head turned into your arm, orange and cream. Across the lot the three are still far off and still not looking. This one was never in that shot. It is between the parked rows, already inside the space, and it comes. Mid-stride. The head is down and turned away. The frame ends there. It does not reach you. It does not reach her.",
+  "decision": "It is coming. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Call her. Loudly. She knows your voice.",
-      "correct": false,
-      "result": "You call her name across the stalls. She stops. She turns. She knows you. The sound goes out over wet asphalt farther than the word did. She is coming back. You do not look at anything except her.",
-      "state_delta": { "noise": 2 }
+      "text": "Put yourself between it and the cats",
+      "correct": true,
+      "result": "You turn your body so it has you and not her. Gracie is under your arm. The lunge stops at the edge of the frame. Nothing touches you. Nothing touches her. Mya is not in this picture. You acted. It does not change what the lot takes.",
+      "state_delta": {}
     },
     {
       "id": "b",
-      "text": "Get low, stay quiet, and move to cut her off from the open lot",
+      "text": "Grab Gracie and run",
       "correct": true,
-      "result": "You drop and stay low and do not use your voice. She is still moving, but she is not being called. You cut the open side of the lot and she slows when the space in front of her closes. You have her attention without the sound. That is the right way. It is not the only thing in the lot.",
+      "result": "You take Gracie and you go. She is against you. The lunge is still coming when the frame cuts. Nothing touches you. Nothing touches her. You moved. The one that mattered was already closer than the three you were watching.",
       "state_delta": {}
     },
     {
       "id": "c",
-      "text": "Go back for the carrier and come out with food",
-      "correct": false,
-      "result": "You go back to the car. The carrier is under the bench. By the time you have it and a bit of food, she is farther into the stalls than she was. The lot is still open. You spent the time you did not have.",
-      "state_delta": {}
-    },
-    {
-      "id": "d",
-      "text": "Leave the car door open and wait — she'll come back on her own",
-      "correct": false,
-      "result": "You stay by the open door and wait. She does not come. The lot is not a place that waits with you. She gets farther into the painted stalls, and you are still standing where you started.",
+      "text": "Freeze",
+      "correct": true,
+      "result": "You freeze. That is what a person does. Gracie is under your hand. The lunge fills the near ground and the frame ends before it arrives. Nothing touches you. Nothing touches her. You did not choose this. You still get to have been here.",
       "state_delta": {}
     }
   ],
-  "debrief": "The call works. She turns. That is why you did it. The quiet cut-off is the one that does not send sound across the lot. Neither of those facts ends this.",
+  "debrief": "You had Gracie. The one that came was not one of the three. The frame ends before it reaches either of you.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "5.5 Focus",
-    "teaching_target": "How you get the cat back. Calling works and is the move that starts the noise. The quiet cut-off is correct. The sequence proceeds either way."
+    "teaching_target": "The lunge, used once. Every option is an attempt, not a miss. Timeout is freeze. No grade, no retry, no contact."
   },
-  "cast": ["ali", "gracie", "mya"],
+  "cast": [
+    "ali",
+    "gracie"
+  ],
   "antagonist": "chorus",
   "callback_of": null,
   "schedules_callback": false,
+  "timeout_option_id": "c",
+  "timeout_ms": 8000,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "subject": "an orange tabby in an empty wet parking lot at Ali's eye height, three filthy human figures about a hundred and twenty feet off, spread and not converging",
-    "foreground": "wet asphalt and faded stall paint, Gracie the orange tabby low to the ground and turned away, ten feet into the open lot",
-    "midground": "empty painted stalls, the open car door behind camera out of frame, no other vehicles close",
-    "background": "three figures at far middle distance, spread apart, moving at different angles, filthy torn clothing, slack uneven gait, none looking toward camera, a low commercial building behind them, overcast gray",
-    "read": "the cat is in the open and so is she, and the three figures are far off and not coming",
-    "continuity": ["gracie", "the_quiet", "quiet_a4"],
+    "subject": "shot from inside the aisle, slightly beside the runner, so the camera sees the back of the head and the driving shoulder — not a face-on charge. One filthy figure running hard between two derelict cars, one foot off the ground, body pitched forward. Near foreground is the back of an orange tabby's head against Ali's brown wrist and faded pink cuff",
+    "foreground": "the back of Gracie's head, ears flattened, orange fur, pulled tight against Ali's wrist. Ali is half African American: warm medium-brown skin on the wrist and hand, faded pink hoodie cuff, her face not in frame. The cat is not looking at the lens",
+    "midground": "rear three-quarter of a running figure about fifteen feet off, close, already in the aisle. We see the back of the skull and swinging hair, the face is on the far side of the head and is not in the shot. One foot off the ground, jacket and arms blurred by the run, parked cars sharp. Filthy torn clothing. No contact. Does not fill the frame",
+    "background": "two derelict parked cars framing the aisle left and right, wet asphalt, flat gray overcast, no other people",
+    "read": "the lunge is toward her and the frame ends there, Gracie is pulled tight against a pink sleeve, and the face is not looking at her",
+    "continuity": [
+      "gracie",
+      "the_quiet",
+      "quiet_a5"
+    ],
     "extra_negatives": [
+      "no contact with the person",
+      "no contact with the cat",
+      "no second cat",
       "no upright alert posture",
       "no eye contact with the camera",
       "no person looking at the lens",
@@ -64,23 +69,38 @@
       "no clean clothing",
       "no blurred or pixelated face patch",
       "no censorship smear",
-      "the figures never fill the frame"
+      "no face toward the camera",
+      "no resolvable eyes or mouth",
+      "no open mouth",
+      "no bared teeth",
+      "no adult man's arm",
+      "no pale forearm",
+      "no light-skinned hand",
+      "no olive canvas sleeve",
+      "no relaxed or resting cat",
+      "no ears up",
+      "no standing still",
+      "no static pose",
+      "no planted feet",
+      "no arms raised symmetrically",
+      "no upright posture",
+      "no empty open lot",
+      "the figure does not fill the frame"
     ],
     "aspect": "2:3",
     "geometry": {
-      "ego_heading": "away_from_camera",
-      "ego_lane_side": "standing in an empty parking aisle, not in a travel lane",
-      "ego_nose_in_frame": "the Menace is behind camera and not in frame",
+      "ego_heading": "toward_camera",
+      "ego_lane_side": "low on the asphalt between two rows of derelict parked cars",
+      "ego_nose_in_frame": "the Menace is not in frame",
       "oncoming_position": "none in frame",
-      "hazard_position": "ahead_same_direction",
-      "ego_frame_side": "left"
+      "hazard_position": "ahead_same_direction"
     }
   },
   "variation": {
     "location_type": "parking_lot",
     "weather": "overcast",
     "time_of_day": "afternoon",
-    "tone": "tense",
-    "failure_mode": "distraction"
+    "tone": "urgent",
+    "failure_mode": "none"
   }
 }

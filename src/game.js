@@ -59,7 +59,7 @@ async function ledgerForOrigin(client, runId, fromCard) {
   return rows[0] ? rows[0].card_id : null;
 }
 
-const QUIET_IN_FRAME = new Set(["I-006", "I-007", "I-008", "I-009"]);
+const QUIET_IN_FRAME = new Set(["I-005", "I-006", "I-007", "I-008"]);
 
 function isBeatCard(type) {
   return type === "beat";
@@ -217,7 +217,7 @@ function sceneFragment(scene) {
 }
 
 function imageUrl(cardId) {
-  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a54";
+  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a55";
 }
 
 function cargoUsed(state) {
@@ -912,11 +912,11 @@ function applyLotState(card, key) {
 }
 
 async function applySequenceTone(card, runId) {
-  if (!card || card.card_id !== "I-009" || !runId) return card;
+  if (!card || card.card_id !== "I-008" || !runId) return card;
   const { rows } = await query(
     `SELECT option_id, was_correct
        FROM run_answers
-      WHERE run_id = $1 AND card_id = 'I-007'
+      WHERE run_id = $1 AND card_id = 'I-006'
       ORDER BY created_at DESC
       LIMIT 1`,
     [runId]

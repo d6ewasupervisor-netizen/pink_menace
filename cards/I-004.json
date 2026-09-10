@@ -5,40 +5,40 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Roll and Stop",
-  "hook": "An empty aisle. Nothing in it but you.",
-  "scene": "The engine is on. Both cats are on the seat. The aisle ahead is empty, painted stalls on both sides, wet. You have room to roll and room to stop. There is no one to beat and no one to wait for.",
+  "hook": "An empty aisle and nobody to be fast for.",
+  "scene": "Painted stalls both sides, wet asphalt, the whole aisle to yourself. Nobody to beat, nobody waiting. Pick a line and see if you can stop on it.",
   "decision": "How do you move through the aisle?",
   "options": [
     {
       "id": "a",
-      "text": "Give it throttle and brake at the end",
+      "text": "Throttle, then brake at the end",
       "correct": false,
-      "result": "You go harder than the aisle needs. The stop is late and heavy. Both cats slide. You arrived. You did not stop where you meant.",
+      "result": "You get there quickly and stop late and heavy, and both cats slide into the seat back. You arrived. You didn't stop where you meant to.",
       "state_delta": {}
     },
     {
       "id": "b",
-      "text": "Roll, ease off, and stop on the line you picked",
+      "text": "Roll, ease off early, stop on the line you picked",
       "correct": true,
-      "result": "You roll. You ease off before the stop. The car settles on the line you picked. The cats do not slide. That is the whole skill, and the lot is big enough to learn it.",
+      "result": "You let it roll, come off the throttle before you need to, and the car settles onto your line without asking anything of the brakes. Neither cat moves.",
       "state_delta": {}
     },
     {
       "id": "c",
       "text": "Creep the whole aisle with the brake half on",
       "correct": false,
-      "result": "You ride the brake the length of the aisle. The car never settles into a roll. You stop, but you never drove the space. You fought it.",
+      "result": "You ride it the full length. The car never settles into a roll, and you finish having fought the aisle instead of driven it.",
       "state_delta": {}
     },
     {
       "id": "d",
-      "text": "Look at the cats and let the car find the end",
+      "text": "Watch the cats and let the car find the end",
       "correct": false,
-      "result": "You watch the seat instead of the aisle. The end arrives before you have chosen a stop. You brake because the stall paint is suddenly close.",
+      "result": "You're looking at the seat when the stalls run out, so the stop isn't chosen — it's just where the paint got close.",
       "state_delta": {}
     }
   ],
-  "debrief": "Roll, ease off, stop where you meant. The lot is the place that still lets you practice that without a street attached.",
+  "debrief": "Ease off before the stop. Smooth braking is a skill you build in a lot, before there's a street attached.",
   "source": {
     "psdp_skill": "Skill two: moving, steering, and stopping",
     "dol_section": "n/a",

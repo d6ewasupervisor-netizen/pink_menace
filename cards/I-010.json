@@ -3,43 +3,82 @@
   "act": "I",
   "zone": "The Lot",
   "driver": "ali",
-  "card_type": "dossier",
-  "title": "She Does Not Go In",
-  "hook": "The building can wait.",
-  "scene": "The door is shut. The engine is still off. Gracie is on your chest. You do not get out again. You do not go to the counter. The license is not what you leave with. You have one cat and a lot that is empty again, and the next thing is to look before the wheels move.",
-  "debrief": "You do not go inside. The counter is not the plan anymore. You look before you move.",
+  "card_type": "scene",
+  "title": "Out of the Stall",
+  "hook": "Nose in. The way out is behind you.",
+  "scene": "You parked pointed at a building you're not going into, which means leaving is a backing job — slow, one motion, into an aisle you can't see any of from where you're sitting.",
+  "decision": "How do you get out of the stall?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Back out on the side mirror",
+      "correct": false,
+      "result": "The mirror gives you a slice of it. The corner of your own bumper isn't in that slice, and neither is the post you find.",
+      "state_delta": {}
+    },
+    {
+      "id": "b",
+      "text": "Turn and look over your shoulder — slow, one motion",
+      "correct": true,
+      "result": "You twist in the seat, past the empty place beside you, and look at the actual aisle. The car comes out where you were looking.",
+      "state_delta": {}
+    },
+    {
+      "id": "c",
+      "text": "Pull forward and cut across the stall line",
+      "correct": false,
+      "result": "You try to leave the way you're already pointed, end up across two stalls at an angle, and you're still not in the aisle.",
+      "state_delta": {}
+    },
+    {
+      "id": "d",
+      "text": "Back out fast so it's over",
+      "correct": false,
+      "result": "You make it short by making it quick, and the aisle arrives before your look does.",
+      "state_delta": {}
+    }
+  ],
+  "debrief": "Back up slowly, in one motion, looking over your shoulder at the aisle itself.",
   "source": {
-    "psdp_skill": "n/a",
+    "psdp_skill": "Skill four: backing up",
     "dol_section": "n/a",
-    "teaching_target": "After the empty seat. She does not go in. The next act of driving is to look before she rolls."
+    "teaching_target": "Back out of the stall by looking over the shoulder, slow, one motion. The mirror is not the look."
   },
-  "cast": ["ali", "gracie"],
+  "cast": [
+    "ali",
+    "gracie"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_COCKPIT",
-    "subject": "parked cockpit, Gracie on the chest, doors shut, licensing building ahead, she is not getting out",
-    "foreground": "Gracie against the chest, empty passenger seat still visible",
-    "midground": "wheel, pink dash, door shut",
-    "background": "the office through the mesh, doors open, nobody at the counter, wet lot",
-    "read": "she stays in the seat, one cat, she is not going in",
-    "continuity": ["pink_menace_interior", "gracie"],
-    "extra_negatives": ["no second cat", "no person outside", "no readable text"],
+    "camera": "POV_MIRROR_REAR",
+    "subject": "backing view down the empty aisle, the empty passenger seat at the edge of the glass, wet stall paint",
+    "foreground": "rear glass and the near stall line sliding",
+    "midground": "the aisle she is backing into, empty",
+    "background": "parked cars along both rows, flat gray, no person",
+    "read": "she is backing out of a nose-in stall into an empty aisle",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "extra_negatives": [
+      "no person outside",
+      "no readable text"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked in a stall, not in a travel lane",
-      "ego_nose_in_frame": "the plow points at the office through the mesh",
+      "ego_lane_side": "backing out of a stall into the aisle",
+      "ego_nose_in_frame": "the plow is not in the rear glass",
       "oncoming_position": "none in frame",
-      "hazard_position": "none"
+      "hazard_position": "behind"
     }
   },
   "variation": {
     "location_type": "parking_lot",
     "weather": "overcast",
     "time_of_day": "afternoon",
-    "tone": "grim",
+    "tone": "tense",
     "failure_mode": "none"
   }
 }

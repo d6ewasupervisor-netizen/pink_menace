@@ -5,40 +5,40 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Before the Engine",
-  "hook": "The key is in your hand. You have not turned it.",
-  "scene": "You are parked. The engine is off. Gracie and Mya are already on the seat. The lot is empty and wet. The car has not moved today. You have not walked it.",
+  "hook": "The key's in your hand. You haven't turned it.",
+  "scene": "The lot's wet and empty and the car has been sitting since yesterday, which is long enough for a lot of small things to change without asking you. Gracie and Mya are already on the seat. The key's in your hand.",
   "decision": "Before you start it, what do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Turn the key. You already know the car.",
+      "text": "Turn the key. You already know this car.",
       "correct": false,
-      "result": "The engine catches. You did not walk it. You start from what you remember, and a lot remembers differently than a car that sat.",
+      "result": "It catches on the first try, the way it always does. You pull out on everything you knew yesterday. The car sat all night in a lot that didn't stay the same shape while it did.",
       "state_delta": {}
     },
     {
       "id": "b",
-      "text": "Get out and walk the car once, all the way around",
+      "text": "Get out and walk it, all the way around",
       "correct": true,
-      "result": "You get out. You walk it. Tires, glass, nothing behind the bumper, both doors shut the way you left them. Then you get back in. The key can wait until you have seen it.",
+      "result": "Tires. Glass. Nothing behind the bumper, nothing under it. Both doors shut the way you left them. It takes forty seconds and then the key means something.",
       "state_delta": {}
     },
     {
       "id": "c",
-      "text": "Check the phone, then start it",
+      "text": "Check your phone, then start it",
       "correct": false,
-      "result": "You look at the phone. The lot does not change while you do. You start the car having seen the screen and not the ground around the wheels.",
+      "result": "You read the screen. The screen doesn't know anything about the ground around your wheels, and now you've spent the only time you were going to give this.",
       "state_delta": {}
     },
     {
       "id": "d",
-      "text": "Open the door, sit back down, and start it",
+      "text": "Open the door, sit back down, start it",
       "correct": false,
-      "result": "You open the door and sit back down. That is not a walk. The car starts from the same view you already had.",
+      "result": "You get half out, look at nothing in particular, and sit down again. The engine starts on the same view you already had.",
       "state_delta": {}
     }
   ],
-  "debrief": "Before the engine, you walk the car. The lot is empty. That does not mean the ground around the wheels is something you already know.",
+  "debrief": "Walk the car before you start it — tires, glass, and the ground around the wheels.",
   "source": {
     "psdp_skill": "Skill one: before you start the engine",
     "dol_section": "2.5 Vehicle Maintenance",

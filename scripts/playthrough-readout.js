@@ -4,7 +4,7 @@ const { pool } = require("../src/db");
 
 const SKIM_MS = 6000;
 const LOT_SKIM_MS = 4000;
-const LOT_IDS = ["I-006", "I-007", "I-008", "I-009"];
+const LOT_IDS = ["I-005", "I-006", "I-007", "I-008"];
 
 function median(nums) {
   const a = nums.filter((n) => Number.isFinite(n)).slice().sort((x, y) => x - y);
@@ -99,7 +99,7 @@ async function main() {
   const lot = LOT_IDS.map((id) => rows.find((r) => r.card_id === id)).filter(Boolean);
   console.log("\nDOL lot — scene dwell is the number. Under 4s a card means she did not see it.");
   if (!lot.length) {
-    console.log("  I-006 through I-009 not on this run");
+    console.log("  I-005 through I-008 not on this run");
   } else {
     const { rows: priorMyaRows } = await pool.query(
       `SELECT 1
@@ -117,7 +117,7 @@ async function main() {
       const scene = r.ms_on_scene;
       const cardMs = r.ms_to_answer;
       const skim = (scene != null && scene < LOT_SKIM_MS) || (cardMs != null && cardMs < LOT_SKIM_MS);
-      const opt = r.card_id === "I-008" ? `  option ${r.option_id}` : r.option_id && r.option_id !== "continue" ? `  option ${r.option_id}` : "";
+      const opt = r.card_id === "I-007" ? `  option ${r.option_id}` : r.option_id && r.option_id !== "continue" ? `  option ${r.option_id}` : "";
       console.log(
         `  ${r.card_id}  scene ${scene == null ? "-" : Math.round(scene / 1000) + "s"}  card ${cardMs == null ? "-" : Math.round(cardMs / 1000) + "s"}${opt}${skim ? "  SKIM" : ""}`
       );

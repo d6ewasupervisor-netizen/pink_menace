@@ -223,12 +223,12 @@ function mountRun(app) {
       if (!attempt) return jsonError(res, 404, "Not resolved.");
       let card = await reviewCard(cardId, attempt);
       if (!card) return jsonError(res, 404, "Unknown card.");
-      if (cardId === "I-009") {
+      if (cardId === "I-008") {
         const { rows: origin } = await query(
           `SELECT a.run_id
              FROM run_answers a
              JOIN runs r ON r.id = a.run_id
-            WHERE r.student_id = $1 AND a.card_id = 'I-009'
+            WHERE r.student_id = $1 AND a.card_id = 'I-008'
             ORDER BY a.created_at ASC
             LIMIT 1`,
           [session.userId]

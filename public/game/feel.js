@@ -500,11 +500,11 @@ const PMFeel = (() => {
     return /^(POV_COCKPIT|POV_CHASE|POV_MIRROR_)/.test(String(camera || ""));
   }
 
-  const QUIET_IN_FRAME = { "I-006": 1, "I-007": 1, "I-008": 1, "I-009": 1 };
+  const QUIET_IN_FRAME = { "I-005": 1, "I-006": 1, "I-007": 1, "I-008": 1 };
 
   // Handprints only. The figure/scene overlays (walkers, mirror reflections,
   // eyeshine, zone stills) were pulled — the grime on the glass is the whole read.
-  // I-006 through I-009 already have the Quiet in the photograph. No overlay there.
+  // I-005 through I-008 already have the Quiet in the photograph. No overlay there.
   function paintFear(state, extras) {
     const root = document.getElementById("fear-root");
     if (!root) return;

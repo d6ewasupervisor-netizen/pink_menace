@@ -5,13 +5,13 @@
   "driver": "ali",
   "card_type": "dossier",
   "title": "The Pass Is Closed",
-  "hook": "You know why you are here.",
-  "scene": "You are in Kent. Your mother is in Spokane. The pass is between you. You cannot take it on a permit. You cannot take it alone. You cannot take it until you are good enough. Gracie is on the passenger seat. Mya is beside her. They came because they always come. That is the whole of what you are doing.",
-  "debrief": "The pass is closed. You know that before the car moves. The cats are with you because they always are.",
+  "hook": "Ninety minutes of mountain you can't have yet.",
+  "scene": "Spokane is two hundred and eighty miles east, and the only road that gets there climbs a pass you can't take on a permit, can't take alone, and can't take until you're better than you are right now. Gracie's on the passenger seat with her paws tucked. Mya's beside her, taking up more room than she needs to. They came because they always come. So today you do the small version: you go get the license, and then you start being someone who can drive the pass.",
+  "debrief": "The pass is the goal. Everything before it is how you get there.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "The premise, on the first card. She is here for the license so she can get good enough for the pass. Both cats are with her."
+    "teaching_target": "State the goal in miles. The pass is closed. Both cats are with her. Today is the license."
   },
   "cast": ["ali", "gracie", "mya"],
   "antagonist": "none",

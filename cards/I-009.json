@@ -3,61 +3,85 @@
   "act": "I",
   "zone": "The Lot",
   "driver": "ali",
-  "card_type": "dossier",
-  "title": "One of Them Comes Back",
-  "hook": "One cat, where there were two.",
-  "scene": "You are in the driver's seat. The door is shut. The engine is not started. Gracie is on your chest, shaking, orange and cream, both eyes open. The passenger seat is empty. You put the window down a little and say Mya's name, quietly, and then you stop, because calling is what started this. The lot behind the mesh is empty again. That is worse. You have Gracie. You are not hurt. The seat where the other one was is the whole of it.",
-  "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. The passenger seat is empty.",
-  "lot_states": {
-    "called": {
-      "stop": "calling is what started this",
-      "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. The passenger seat is empty."
+  "card_type": "scene",
+  "title": "Before the Wheels",
+  "hook": "You looked at this aisle twenty minutes ago.",
+  "scene": "The engine's on. Gracie's on the seat instead of your chest now, still not settled. The seat beside her is empty and you keep not looking at it. The aisle behind you is the way out, and the last time you saw it was before.",
+  "decision": "Before you roll, what do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Pull out. It was empty a minute ago.",
+      "correct": false,
+      "result": "You back out on a look you already spent. It might still be empty. You wouldn't know.",
+      "state_delta": {}
     },
-    "correct": {
-      "stop": "sound is what fills a lot like this",
-      "debrief": "You did it right and it happened anyway. The one that mattered was never in the frame. Sound draws them. Gracie is on your chest. The passenger seat is empty."
+    {
+      "id": "b",
+      "text": "Look it again — both ways, and behind the bumper",
+      "correct": true,
+      "result": "Left, right, the row you're backing into, the ground behind you. Then you move, and the lot is clear because you checked, not because it was clear before.",
+      "state_delta": {}
     },
-    "slow": {
-      "stop": "there is nothing out there listening for it now",
-      "debrief": "You spent the time you had. Gracie is on your chest. The passenger seat is empty."
+    {
+      "id": "c",
+      "text": "Call her name once more, then go",
+      "correct": false,
+      "result": "Your voice goes out across the wet asphalt and nothing comes back, and you've spent the check on a name.",
+      "state_delta": {
+        "noise": 1
+      }
+    },
+    {
+      "id": "d",
+      "text": "Sit with the empty seat until you're ready",
+      "correct": false,
+      "result": "You look at the seat for a while. The aisle goes unlooked-at the whole time.",
+      "state_delta": {}
     }
-  },
+  ],
+  "debrief": "Look before you move, every time. A clear lot goes stale in a minute.",
   "source": {
-    "psdp_skill": "n/a",
-    "dol_section": "5.5 Focus",
-    "teaching_target": "Name the rule once: sound draws them, and she was loud because she was watching the wrong thing. End on the empty seat. If I-007 was correct, the tone is that she did it right and the one that mattered was never in the frame."
+    "psdp_skill": "Skill one: before you start the engine",
+    "dol_section": "n/a",
+    "teaching_target": "Look the aisle before she rolls. A remembered empty lot is not a look."
   },
-  "cast": ["ali", "gracie"],
+  "cast": [
+    "ali",
+    "gracie"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_COCKPIT",
-    "subject": "parked cockpit, Gracie the orange tabby on the driver's chest, the passenger seat empty",
-    "foreground": "Gracie shaking on the chest, cream chest, orange fur, the empty passenger seat as the subject of the frame",
-    "midground": "worn black wheel, cracked pink dash, gauges at rest, door shut, window down a little, no second cat, no clipboard on the mesh",
-    "background": "the licensing lot through the mesh, empty again, wet asphalt, doors of the building still open, nobody and nothing standing out there",
-    "read": "one cat, where there were two, and the passenger seat is empty",
-    "continuity": ["pink_menace_interior", "gracie"],
+    "camera": "POV_MIRROR_REAR",
+    "subject": "the aisle behind the parked Menace, wet, empty, seen in the interior mirror before she moves",
+    "foreground": "the rearview mirror frame, wet asphalt and stall paint in the glass",
+    "midground": "the empty aisle behind the car",
+    "background": "derelict parked cars at the edges, flat gray, no person",
+    "read": "she is looking behind before she moves, and the aisle is empty because she is looking",
+    "continuity": [
+      "pink_menace_interior"
+    ],
     "extra_negatives": [
-      "no second cat",
-      "no person in the lot",
-      "no figure outside the car"
+      "no person outside",
+      "no readable text",
+      "no second cat"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked in a stall in an empty licensing lot, not in a travel lane",
-      "ego_nose_in_frame": "the plow points at the empty lot through the mesh",
+      "ego_lane_side": "parked nose-in, the aisle behind is the way out",
+      "ego_nose_in_frame": "the plow is not in this mirror",
       "oncoming_position": "none in frame",
-      "hazard_position": "none"
+      "hazard_position": "behind"
     }
   },
   "variation": {
     "location_type": "parking_lot",
     "weather": "overcast",
     "time_of_day": "afternoon",
-    "tone": "grim",
-    "failure_mode": "distraction"
+    "tone": "tense",
+    "failure_mode": "none"
   }
 }

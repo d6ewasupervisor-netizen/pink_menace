@@ -4,33 +4,45 @@
   "zone": "The Lot",
   "driver": "ali",
   "card_type": "dossier",
-  "title": "The Office",
-  "hook": "You came for the license.",
-  "scene": "The licensing office is ahead. You came for the license because the license is the thing that starts the rest of it. Gracie is on the seat. Mya is beside her. There is no line at the door that you can see from here. You have not parked yet. You have not gotten out. You still think the counter is the next thing.",
-  "debrief": "You came for the license. The cats are with you. The building is the next thing you can see, and that is as far as you understand it.",
+  "title": "Licensing Office, Kent",
+  "hook": "Both cats on the seat. The doors are open.",
+  "scene": "You parked in the Kent licensing lot because the license is the thing you came for. Gracie is on the passenger seat, cream chest, paws tucked. Mya is beside her, heavier, green eyes half shut. They came because they always come. The building is ahead through the mesh. The doors are propped. There is no line. There are no cars. The counter beyond the glass has nobody at it. The counter is empty. That is the end of the plan you drove here with. You have not gotten out yet.",
+  "debrief": "You came for the license. The cats are with you because they always are. The doors are open and nobody is at the counter. That is as far as this goes.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "She arrives for the license, still expecting the counter. End before she understands the building."
+    "teaching_target": "Establish the DOL lot: she is here for the license, both cats are with her, and the building is wrong. End before she understands."
   },
-  "cast": ["ali", "gracie", "mya"],
+  "cast": [
+    "ali",
+    "gracie",
+    "mya"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "the licensing office ahead through the mesh, not yet parked at the door, both cats on the seat",
-    "foreground": "worn wheel, pink dash, both cats",
-    "midground": "mesh, no clipboard",
-    "background": "low commercial building, doors not yet the subject, wet lot, no lettering",
-    "read": "she is arriving for the license and has not parked",
-    "continuity": ["pink_menace_interior", "gracie", "mya"],
-    "extra_negatives": ["no readable text", "no person at the counter"],
+    "subject": "parked cockpit of the Pink Menace, both cats settled on the passenger seat, licensing office ahead through the windshield",
+    "foreground": "worn black wheel rim, cracked pink dash, Gracie the orange tabby and Mya the brown mackerel settled together on the passenger seat",
+    "midground": "welded steel mesh over the windshield, analog gauges at rest, no clipboard on the mesh",
+    "background": "Kent licensing office through the mesh, doors propped open, empty counter, no line, no other cars, wet asphalt, flat gray overcast",
+    "read": "parked, both cats on the seat, the doors open and nobody at the counter",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie",
+      "mya"
+    ],
+    "extra_negatives": [
+      "no person in the lot",
+      "no figure standing outside",
+      "no one at the counter"
+    ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "turning into an empty licensing lot, not a travel lane",
-      "ego_nose_in_frame": "the plow points at the office through the mesh",
+      "ego_lane_side": "parked in a stall in an empty licensing lot, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at the licensing office doors through the mesh",
       "oncoming_position": "none in frame",
       "hazard_position": "none"
     }
