@@ -58,7 +58,7 @@
     "subject": "strictly from the driver seat inside the cabin looking left at the left door mirror; Gracie the orange tabby sits on the driver's lap / on the driver seat with you in the lower foreground",
     "foreground": "Gracie on your lap on the driver seat, orange tabby cream chest, unsettled; empty passenger seat visible to the right; wheel rim at the bottom",
     "midground": "left door mirror mounted farther forward toward the A-pillar / front of the car — about a foot farther forward than a mid-door mount — glass shows wet parking aisle with painted stall lines",
-    "background": "grey licensing lot through the side glass, flat overcast; windshield mesh ahead if visible",
+    "background": "grey licensing lot through the side glass, flat overcast; windshield ahead has welded square steel wire cage / grid over real glass — heavy bar cage, not fine perforated mesh, not fabric screen, not privacy dots",
     "read": "you are in the driver seat with Gracie on your lap, looking the aisle in the forward-mounted left mirror",
     "continuity": [
       "pink_menace_interior",
@@ -75,7 +75,11 @@
       "no Gracie on the passenger seat",
       "no handprints on glass",
       "no cracked desert highway in the mirror",
-      "no mirror mounted mid-door far back"
+      "no mirror mounted mid-door far back",
+      "no fine perforated mesh",
+      "no privacy-dot windshield",
+      "no fabric screen",
+      "no mosquito net look"
     ],
     "aspect": "2:3",
     "geometry": {
