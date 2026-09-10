@@ -7,7 +7,7 @@
   "title": "The Street",
   "hook": "You leave with one cat.",
   "scene": "You roll out onto a residential street with a twenty-five on it, which is the opposite of a mountain pass in every way that matters and the only place anybody has ever learned to drive one. The license isn't in your pocket. Gracie's on the seat. Somewhere out there is a cat with your name on her collar and no idea where you went, and the way you get back to either of them is the same way: this street, then the next one.",
-  "debrief": "Quiet streets first. That's where the pass gets earned.",
+  "debrief": "",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",

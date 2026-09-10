@@ -336,6 +336,14 @@ function applyOutcome(outcome, opts) {
   const result = document.getElementById("result");
   result.textContent = (outcome && outcome.result) || "";
   result.classList.toggle("hidden", !result.textContent);
+  const dossier = liveCard && liveCard.card_type === "dossier";
+  if (dossier || (opts && opts.skipDebrief)) {
+    const debrief = document.getElementById("debrief");
+    debrief.replaceChildren();
+    debrief.classList.add("hidden");
+    debrief.onclick = null;
+    return;
+  }
   setDebrief((outcome && outcome.debrief) || "", Boolean(opts && opts.collapseDebrief));
 }
 
@@ -722,7 +730,7 @@ function fillCard(card, opts) {
     return;
   }
 
-  if (continueOnly(card)) {
+  if (continueOnly(card) && card.card_type !== "dossier") {
     setDebrief(card.debrief || "", false);
   }
 

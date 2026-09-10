@@ -6,8 +6,8 @@
   "card_type": "dossier",
   "title": "The Window",
   "hook": "She asks about the cats.",
-  "scene": "The radio finds her, which it doesn't always. She asks if the cats are all right. You say Gracie is, and then you don't say the rest of it, and she doesn't ask. She tells you the pass is still closed like you might not have heard. You say you know. She doesn't ask how the driving is going. You don't tell her.",
-  "debrief": "You got the window. She asked about the cats.",
+  "scene": "Mom comes through on the radio, which she doesn't always. She asks if the cats are all right. You say Gracie is, and then you don't say the rest of it, and she doesn't ask. She tells you the pass is still closed like you might not have heard. You say you know. She doesn't ask how the driving is going. You don't tell her.",
+  "debrief": "",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",

@@ -217,7 +217,7 @@ function sceneFragment(scene) {
 }
 
 function imageUrl(cardId) {
-  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a55";
+  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a56";
 }
 
 function cargoUsed(state) {
@@ -845,7 +845,8 @@ function publicState(state) {
 
 async function publicCard(cardId) {
   const { rows: cards } = await query(
-    `SELECT card_id, title, scene, decision, debrief, card_type, act, zone, seq, weather, extra, driver, time_of_day
+    `SELECT card_id, title, scene, decision, debrief, card_type, act, zone, seq, weather, extra, driver, time_of_day,
+            (image_bytes IS NOT NULL) AS has_image
        FROM cards
       WHERE card_id = $1`,
     [cardId]
@@ -885,7 +886,7 @@ async function publicCard(cardId) {
     lot_states: extra.lot_states || null,
     ride_along: Array.isArray(extra.ride_along) ? extra.ride_along : null,
     ride_beats: Array.isArray(extra.ride_beats) ? extra.ride_beats : null,
-    image_url: imageUrl(card.card_id),
+    image_url: card.has_image ? imageUrl(card.card_id) : null,
     options: options.map((o) => ({ option_id: o.option_id, option_text: o.option_text })),
     tappable: true,
   };
