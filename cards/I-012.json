@@ -23,8 +23,8 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "a quiet residential street ahead through the windshield — narrow, wet, low speed, houses both sides",
-    "foreground": "wheel rim, mesh, dash; Gracie alone on the passenger seat at the right edge, the seat space beside her empty",
-    "midground": "the street running ahead, a 25 mph speed limit sign small and legible at the roadside",
+    "foreground": "intact enclosed cabin: solid roof headliner and A-pillars visible at the top of frame; wheel rim; faded pink dash; Gracie alone on the passenger seat at the right edge, seat space beside her empty",
+    "midground": "FULL welded square steel wire cage covering the ENTIRE windshield over real glass — top to bottom, left to right, no open upper half; the street running ahead, a 25 mph speed limit sign small and legible at the roadside",
     "background": "bare trees, Kent houses, flat overcast",
     "read": "the road ahead is a quiet residential street, and there is one cat in the car",
     "continuity": [
@@ -37,7 +37,15 @@
       "no other vehicles",
       "no people",
       "no Quiet",
-      "no second cat"
+      "no second cat",
+      "no missing roof",
+      "no open-top cab",
+      "no sky above the dash where the roof should be",
+      "no half-covered windshield",
+      "no cage only on the lower half",
+      "no open upper windshield",
+      "no fine perforated mesh",
+      "no GPS map"
     ],
     "aspect": "2:3",
     "geometry": {
