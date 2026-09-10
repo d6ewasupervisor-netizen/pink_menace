@@ -53,31 +53,36 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "camera_pose": "Camera is outside the open driver door at standing height, looking in at Ali in the driver seat as she twists to look over her right shoulder toward the rear — not a passenger-seat camera, not a mirror shot.",
-    "subject": "Ali Okonjo in the driver seat of the Menace, braid over the left shoulder, wire-rim glasses, twisted right looking over her right shoulder toward the rear aisle",
-    "foreground": "driver door frame and a slice of faded pink exterior plating on correct hinges",
-    "midground": "Ali's shoulders and the back of her head as she looks rearward; empty passenger seat with Gracie a small orange shape if visible; rear mesh beyond",
-    "background": "wet parking aisle behind with derelict or empty parked cars on the left and right of the aisle, flat overcast",
-    "read": "she is looking over her right shoulder at the aisle behind, with cars on both sides of that aisle",
+    "camera_pose": "Camera is inside the cabin at the driver's seat, body turned looking over the right shoulder out the rear glass — enclosed cab with solid roof headliner above the rear window. Not outside the car. Not looking forward. Not a mirror shot.",
+    "subject": "the view rearward out of the Menace from the driver seat — mesh over the rear glass, a wet parking-lot aisle beyond it",
+    "foreground": "driver's right shoulder in faded pink hoodie at the right edge; seat backs and headrests; solid faded pink roof headliner and rear window frame continuous — no open sky above the cab",
+    "midground": "rear glass with welded mesh and raindrops; wet parking aisle with painted white stall lines",
+    "background": "cars parked nose-in in marked parking stalls on the left and right of the aisle — a lot, not a road with shoulder parking; grey overcast",
+    "read": "the aisle behind is visible by turning and looking, with cars in stalls on both sides",
     "continuity": [
-      "pink_menace_exterior",
-      "ali",
-      "gracie"
+      "pink_menace_interior"
     ],
     "extra_negatives": [
       "no mirror as the subject",
       "no Quiet",
+      "no people faces",
       "no second cat",
       "no chest shot",
-      "no camera between the front seats looking forward",
-      "no passenger-seat vantage",
-      "no empty aisle with no cars flanking it"
+      "no missing roof",
+      "no open-top cab",
+      "no sky above the rear window frame where the roof should be",
+      "no street with roadside parallel parking",
+      "no highway",
+      "no cars lined on a road shoulder",
+      "no forward windshield view",
+      "no steering wheel as the main subject",
+      "no GPS"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked nose-in, camera at the open driver door looking in",
-      "ego_nose_in_frame": "the plow is ahead and mostly out of this rearward look",
+      "ego_lane_side": "parked nose-in in a stall, camera turned rearward from the driver seat",
+      "ego_nose_in_frame": "the Menace plow is not in this rearward view",
       "oncoming_position": "none in frame",
       "hazard_position": "none"
     }

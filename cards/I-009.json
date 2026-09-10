@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Before the Wheels",
   "hook": "You looked at this aisle twenty minutes ago.",
-  "scene": "The engine's on. Gracie's on the seat instead of your chest now, still not settled. The seat beside her is empty and you keep not looking at it. The aisle behind you is the way out, and the last time you saw it was before.",
+  "scene": "The engine's on. Gracie's on the seat in your lap now, still not settled. The passenger seat beside you is empty and you keep not looking at it. The aisle behind you is the way out, and the last time you saw it was before.",
   "decision": "Before you roll, what do you do?",
   "options": [
     {
@@ -55,30 +55,33 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
-    "subject": "from the driver seat: left door mirror shows the wet parking aisle behind with painted stall lines; Gracie sits on the passenger seat in frame, the seat space beside her empty",
-    "foreground": "left door-mirror housing sharp; Gracie the orange tabby on the passenger seat at the right of frame, empty seat cushion clearly beside her — not on a chest",
-    "midground": "in the mirror glass: a wet empty parking aisle with painted stall lines receding, not a cracked highway",
-    "background": "grey licensing lot, flat overcast",
-    "read": "Gracie is on the seat with empty space beside her, and the aisle behind is clear in the mirror",
+    "subject": "strictly from the driver seat inside the cabin looking left at the left door mirror; Gracie the orange tabby sits on the driver's lap / on the driver seat with you in the lower foreground",
+    "foreground": "Gracie on your lap on the driver seat, orange tabby cream chest, unsettled; empty passenger seat visible to the right; wheel rim at the bottom",
+    "midground": "left door mirror mounted farther forward toward the A-pillar / front of the car — about a foot farther forward than a mid-door mount — glass shows wet parking aisle with painted stall lines",
+    "background": "grey licensing lot through the side glass, flat overcast; windshield mesh ahead if visible",
+    "read": "you are in the driver seat with Gracie on your lap, looking the aisle in the forward-mounted left mirror",
     "continuity": [
       "pink_menace_interior",
       "gracie"
     ],
     "extra_negatives": [
-      "no chest shot",
-      "no cat being held",
+      "no exterior standing shot",
+      "no camera outside the car",
+      "no open-door looking-in shot",
+      "no chest shot of holding the cat up",
       "no Quiet",
       "no people",
       "no second cat",
+      "no Gracie on the passenger seat",
       "no handprints on glass",
       "no cracked desert highway in the mirror",
-      "no empty frame without the passenger seat"
+      "no mirror mounted mid-door far back"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked nose-in, looking at left door mirror from the driver seat",
-      "ego_nose_in_frame": "the plow is not the subject; the left door mirror and passenger seat are",
+      "ego_lane_side": "parked nose-in, camera at driver head looking at left door mirror",
+      "ego_nose_in_frame": "the plow is not the subject; the left door mirror and Gracie on the lap are",
       "oncoming_position": "none in frame",
       "hazard_position": "behind"
     }
