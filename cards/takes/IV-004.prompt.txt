@@ -10,6 +10,12 @@
 #   outer edges ~level with the front wheels); Menace SQUARED in-lane and MOVING
 #   (tire spray, forward tracking, nose straight up the road — not parked diagonal).
 # Ban: ref_car_rear_plow / flank / corner plow plates. ref_cockpit.jpg banned.
+# takes this pass: 68–107
+# closest (not seeded): cards/takes/IV-004-take-103.png
+# runner-up: take 74
+# away-family keep: take 76 (flap residual)
+# 103: full-width FRONT blade matching plate, tire spray, person between van/sedan. Residual: toward-camera
+# 74: same blade + spray, take-63-ish street. Residual: toward-camera; person in the open
 # do not seed. no Act I–III.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
