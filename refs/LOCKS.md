@@ -16,6 +16,7 @@ Never mix panels across takes. Winners only.
 | Encore four-view | Y3 take 3 | `ref_encore_sheet.png` | Wedge + four roof horns + chevrons; no mesh. All four takes stripped the glass — bible wants glass with no mesh. Silhouette still reads. Rerun before cockpit lock if glass matters. |
 | Convoy silhouette | G1 take 2 | `ref_convoy.png` | Round / box / wedge reads at a glance. Only take that kept Encore's PA horns; 1, 3, 4 turned them into spotlights. Overcast PNW, no salt-flat bleed. |
 | II-007 card art | take 2 | `../cards/II-007.png` | Amber lamps lit; enough pavement that the open left lane reads. Invented fallen tree is compiler drift — do not carry into later Kent cards. Takes 3–4 lit the reds/brakes and are unusable. |
+| IV-026 card art | take 110 | `../cards/IV-026.png` | Owner (Tyson) override 2026-09-11: seed despite residual left-front corner stub on this away heading. Scene (distance + camera) accepted. **Full-width plate authority remains `ref_car_nose_plow.png`** for front/identity — do not treat the away-POV stub as the plow lock. |
 | Ledger cockpit | D4 take 2 | `ref_ledger_cockpit.png` | Locked from `cards/takes/D4-take-2.png` (1 Sep 2026). Match this cab: worn three-spoke wheel, analog cluster, bar cage, thermos in the right cup, no clipboard on the mesh. Never the old poisoned cockpit. Never a Menace ref on Deac cards. |
 | Encore cockpit | Y4 take 1 | `ref_encore_cockpit.png` | Four PA horns, mic on the cage, guarded red switch. Takes 2 and 4 turned horns into spotlights. Glass may read as missing — compiler still forces intact glass on exteriors. |
 | The Quiet — register lock | A3 take 3 | `ref_quiet.png` | Attach on every Quiet compile. Filthy, slack-shouldered, head canted, doing nothing, seen through dirty glass. Wrongness of posture and stillness — not damage. Same file as `ref_quiet_a3.png`. |
@@ -37,3 +38,5 @@ Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg
 - faded pink + bare-metal body treatment
 
 `ref_car_rear_plow.jpg` and `ref_car_rear_plow.png` are **out of the compile pool**. Do not attach. Claude rejected that photo (left-flank blade / drift). PR #66 stays unmerged.
+
+**IV-026 residual (documented, not a lock change):** live still is take 110 (`cards/IV-026.png`, copied from `cards/takes/IV-026-take-110.png`). Away POV may show a left-front corner stub. That stub is not the identity plate. Front/identity plow remains `ref_car_nose_plow.png` only.
