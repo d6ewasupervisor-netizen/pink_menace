@@ -1,14 +1,19 @@
-# IV-027 — take-11 mirror scale on the promoted cabin
+# IV-027 — blank the grille badge (take-29 KEEP)
 
-Claude FAIL on PR #75 take-26: mirror filled the frame / truck drifted.
-Cabin improvisation was already gone (promote OK).
+Claude muted-read FAIL on PR #78 take-29: composition passed (player
+in the car; upper-third mirror; truck already on the bumper) but the
+oval grille badge invented legible characters (`10HC` / IOHC-class).
+Badge kills the frame.
 
-FIX: take-11 mirror composition and scale (PR #65) — truck already on the
-bumper in the rear glass — dropped into the promoted Menace cabin plate.
+FIX: same KEEP composition, blank chrome oval (or no badge). Tyson
+composite if helpful: take-29 mirror content/scale + take-33 cabin
+proportion; nacelle dial per the promoted cabin plate.
 
-Branched from `cursor/promote-menace-cabin-6b66`. Card JSON sole brief.
-`POV_MIRROR_REAR`. Lesson: the truck is already on the bumper in the
-interior rear glass. Daylight. No Act I–III. Not seeded.
+Branched from `cursor/regen-iv-027-take11-mirror-218a` (PR #78).
+Card JSON sole brief. `POV_MIRROR_REAR`. Midground now pins
+`blank oval grille badge with no letters or glyphs`. Extra negatives
+ban letters / numerals / brand / readable characters on the emblem.
+Daylight. No Act I–III. Not seeded.
 
 ## Compile attachments
 
@@ -16,44 +21,47 @@ interior rear glass. Daylight. No Act I–III. Not seeded.
 
 - `refs/ref_menace_cabin.png` (take 16, human-verified)
   `sha256:3576270ee32f8759060cf63cfdf7a74e4ed32308f3907696bce0de4ef24c5a46`
-- `refs/ref_car_exterior.jpg` (pink roof / mesh family only; salt-flat
-  sunset is not the lighting)
+- `refs/ref_car_exterior.jpg` (pink roof / mesh family only)
 
-Composition reference (not a lock): `cards/takes/IV-027-take-11.png` and
-the mirror crop `cards/takes/IV-027-comp-take-11-mirror.png`.
+Composition references (not locks): take-29 (KEEP mirror), take-33
+(cabin proportion).
 
 ## Closest
 
-**`cards/takes/IV-027-take-29.png`**
+**`cards/takes/IV-027-take-49.png`**
 
-KEEP: take-11 scale — interior rearview in the **upper third**, not
-filling the frame. Truck is **grille-dominant** and already on the bumper
-(horizontal bars + bumper + lamps fill the glass; no roof / cab / bed /
-wheels). Promoted cabin below: flat faded-pink painted-metal dash, single
-nacelle, unbranded three-spoke wheel, floor shifter, three pedals. No
-tablet. Ice beads. Mesh around the housing. Pale daylight. Both plates
-attached.
+KEEP take-29 structure: interior rearview in the **upper third**.
+Gray dirty truck already on the bumper (grille, both headlights,
+bumper, indicators edge-to-edge; no cab / bed / wheels). **Blank
+chrome oval badge — no letters, no numerals, no glyphs.** Take-33
+cabin proportion below: painted-metal faded-pink dash, single nacelle
+with the plate's analog dial, unbranded three-spoke wheel, ball
+shifter, three pedals, coarse mesh. Ice beads. Pale daylight. No
+tablet. Truck is primer-gray, not pink.
 
-Runner-up: take 33 — same structure; oval badge reads **YORK**.
+Runner-up: take 45 — tighter on-bumper crop, same blank badge; cabin
+a little closer to take-29 tightness than take-33.
 
-## Residuals on take 29
+## Residuals on take 49
 
-- Oval grille badge with invented `10HC` characters (same class as PR #65
-  take-11).
 - Lamps still fairly clean (brief: already dirty).
 - Lift hidden by the grille crop (same class as PR #65 take 19).
 - Downtown crawl is not in the glass.
 - Mesh still a regular square grid more than discrete armor panels
   (cabin-plate residual).
+- A thin pale sliver under the bumper — still on-bumper, not the
+  discarded gap/wheels class.
 
-## Discard
+## Discard this wave
 
 | Takes | Why not closest |
 |---|---|
-| 26 (prior) | Mirror fills the frame |
-| 30, 31, 34 | Cabin good; truck not on the bumper (wheels / gap) |
-| 32, 35, 36, 38, 39, 40 | Full body in the glass |
-| 37 | Three-quarter + wheel; not grille-only |
-| 33 | On-bumper crop, but YORK badge |
+| 41, 43 | Full body / wheels; 43 is a pink mesh SUV (canon drift) |
+| 42 | Blank badge, but the truck wears pink |
+| 44 | On-bumper KEEP, invented `10RC` on the oval (same FAIL) |
+| 46, 48, 50 | Blank badge, same structure; 49 is the tighter Tyson composite |
+| 47 | No badge (safe); truck a hair farther / hood in the glass |
+| 29 (prior) | KEEP composition; `10HC` badge FAIL |
+| 33 (prior) | YORK badge |
 
 Do not seed `cards/IV-027.png` until Claude PASSes.

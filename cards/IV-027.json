@@ -71,12 +71,19 @@
     "camera_is_the_lesson": true,
     "subject": "a lifted truck filling the interior rear glass, same heading, too close, lamps already dirty",
     "foreground": "interior mirror housing, ice beads on the glass, a strip of faded pink roof",
-    "midground": "the truck's grille and bumper, no readable plate, no cutaway marks",
+    "midground": "the truck's grille and bumper, blank oval grille badge with no letters or glyphs, no readable plate, no cutaway marks",
     "background": "ice at dawn, downtown crawl defocused around the glass",
     "read": "the truck is already on the bumper in the interior rear glass",
     "continuity": [
       "pink_menace_interior",
       "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no letters on the truck grille badge",
+      "no numerals on the truck grille badge",
+      "no brand name on the truck",
+      "no readable characters in the oval emblem",
+      "blank chrome oval badge only"
     ],
     "aspect": "2:3",
     "geometry": {
