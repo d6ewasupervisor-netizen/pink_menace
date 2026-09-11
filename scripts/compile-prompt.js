@@ -123,8 +123,14 @@ const LEDGER_NO_MENACE =
 const MENACE_PLOW =
   "Nose plow: match the attached overcast plate ref_car_nose_plow.png exactly for plow geometry. The plow is one continuous wide flat black steel plate on the FRONT black-tube bull bar, in front of both front wheels. The blade spans the FULL WIDTH of that bull bar — its outer edges sit roughly level with the outer faces of the front wheels. It hangs below the bull bar like a snowplow / dozer blade. It is not a narrow flap, not a small panel on one side, not a one-third-width tab with bare bull bar across the rest. No flank-mounted blade; no blade on a corner; no blade on the rear or engine lid. Preserve on the Menace: welded steel mesh cages on the side glass and the windshield; a riveted metal door panel; oversize knobby tires on chrome slot wheels; faded matte pink with bare-metal / oxidized steel plating. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset. Never attach ref_car_rear_plow.jpg or any flank / corner plow plate.";
 
+const MENACE_PLOW_AWAY =
+  "The attached ref_car_nose_plow.png is a catalog plate of the SAME car facing the lens. Copy ONLY the blade geometry from it — do not copy its toward-camera heading. Rotate the Beetle so it travels AWAY from the camera: the sloping rear engine lid and rear-window mesh are nearest the camera and large; the plate's full-width nose blade sits on the FAR / leading / FRONT bull bar and points at the TOP of the frame. From this rear-three-quarter both outer edges of that wide blade remain visible past the front corners. Never weld the plate onto the near (rear) bumper. Never shrink the far blade to a flap.";
+
 const MENACE_PLOW_NEGATIVE =
   "No side-mounted plow, no flank-mounted blade, no left-flank blade, no corner-mounted blade, no blade on a side arm ahead of the front wheel, no narrow flap plow, no small panel hanging off one side of the bull bar, no one-third-width blade, no bare bull bar with only a partial blade, no plain tube bumper without a blade, no rear-mounted plow, no blade on the engine lid, no plow welded onto the rear of the Beetle.";
+
+const MENACE_PLOW_AWAY_NEGATIVE =
+  "No Beetle facing the camera, no headlights or plow toward the viewer, no copying the nose-plow plate's toward-camera heading onto the street car, no full-width blade on the near bumper.";
 
 const LHD_NEGATIVE =
   "No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road.";
@@ -270,6 +276,9 @@ function assemblePrompt(card) {
       (cam === "POV_DIAGRAM" && card.driver !== "yuna"));
   if (menaceExterior) {
     parts.push(MENACE_PLOW);
+    if (brief.geometry && brief.geometry.ego_heading === "away_from_camera") {
+      parts.push(MENACE_PLOW_AWAY);
+    }
   }
   const quietNamed =
     continuityEarly.includes("the_quiet") ||
@@ -345,7 +354,12 @@ function assemblePrompt(card) {
     LHD_NEGATIVE,
   ];
   if (deac) negs.push(LEDGER_NO_MENACE);
-  if (menaceExterior) negs.push(MENACE_PLOW_NEGATIVE);
+  if (menaceExterior) {
+    negs.push(MENACE_PLOW_NEGATIVE);
+    if (brief.geometry && brief.geometry.ego_heading === "away_from_camera") {
+      negs.push(MENACE_PLOW_AWAY_NEGATIVE);
+    }
+  }
   if (brief.geometry) {
     const frameNeg = framePassNegatives(brief.geometry, card.driver, cam);
     if (frameNeg) negs.push(frameNeg);
@@ -400,7 +414,9 @@ module.exports = {
   OTHER_VEHICLE_CLAUSE_LEDGER,
   DAYLIGHT_NEGATIVE,
   MENACE_PLOW,
+  MENACE_PLOW_AWAY,
   MENACE_PLOW_NEGATIVE,
+  MENACE_PLOW_AWAY_NEGATIVE,
   MENACE_CABIN_BUILD,
   MENACE_CABIN_NEGATIVES,
   wantsNight,

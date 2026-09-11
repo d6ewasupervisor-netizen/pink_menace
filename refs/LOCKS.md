@@ -30,6 +30,8 @@ Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg
 
 **Plow:** one continuous wide flat nose blade spanning the FULL WIDTH of the front bull bar, outer edges roughly level with the front wheels. No narrow flap. No flank-mounted blade. Nothing on the rear.
 
+The plate itself is a toward-camera front-quarter. On any `away_from_camera` Menace exterior, copy **blade geometry only** — rotate the car so the rear is nearest the lens and the plate's full-width blade sits on the FAR front. Do not copy the plate's heading. Do not weld the plate onto the near bumper.
+
 **Preserve on the plate and every compile:**
 
 - welded mesh cages on side glass and windshield

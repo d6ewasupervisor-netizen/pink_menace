@@ -66,10 +66,10 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "camera_pose": "Camera is ground level, outside the car, human eye height, standing on the wet right curb looking along the two-lane side street in the direction of travel. Overcast daylight, wet pavement.",
+    "camera_pose": "Camera is ground level, outside the car, human eye height, standing on the wet right curb looking along the two-lane side street in the direction of travel — a rear-three-quarter, never head-on. The sloping rear engine lid of the pink Beetle is nearer the camera and large. The full-width nose plow is on the FAR front, pointing at the top of the frame. Overcast daylight, wet pavement.",
     "subject": "a person mid-step out of the gap between a gray sedan and a rusted van, one shoe in the travel lane",
     "foreground": "wet curb and a parked-car bumper closest to camera",
-    "midground": "the person in a dark coat, not looking at camera, halfway out of the gap; the pink Beetle rolling away from camera in the right travel lane, squared to the lane with its long axis parallel to the centerline, nose straight toward the top of the frame, visibly moving — wet tire spray off the knobbies — still short of the person, full-width front plow blade matching the attached nose-plow plate",
+    "midground": "the person in a dark coat, not looking at camera, halfway out of the gap; the pink Beetle rolling AWAY from camera in the right travel lane, rear engine lid nearest the lens, squared to the lane with its long axis parallel to the centerline, nose and full-width front plow pointing straight toward the TOP of the frame, visibly moving — wet tire spray off the knobbies — still short of the person",
     "background": "clear cold afternoon, two-lane side street, low brick, no crowd",
     "read": "a person is stepping out from between parked cars into the travel lane",
     "continuity": [
@@ -82,7 +82,10 @@
       "no narrow flap or one-third-width plow blade",
       "no Beetle parked or angled diagonally across the lane",
       "no stationary Beetle",
-      "no Beetle nose pointed at the curb"
+      "no Beetle nose pointed at the curb",
+      "no Beetle facing the camera",
+      "no headlights or plow toward the viewer",
+      "no nose-plow plate heading copied onto the street car"
     ],
     "aspect": "2:3",
     "geometry": {
