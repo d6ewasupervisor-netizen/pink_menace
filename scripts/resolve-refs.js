@@ -6,6 +6,7 @@ const path = require("path");
 const ROOT = path.join(__dirname, "..");
 const REFS = path.join(ROOT, "refs");
 const MAP = JSON.parse(fs.readFileSync(path.join(ROOT, "pack", "09_REF_MAP.json"), "utf8"));
+const BANNED_REFS = new Set(MAP.banned || []);
 
 const MENACE_LOCKS = new Set([
   "pink_menace_exterior",
@@ -78,6 +79,10 @@ function resolveCard(raw) {
       continue;
     }
     for (const file of files) {
+      if (BANNED_REFS.has(file)) {
+        errors.push(`${id}: banned ref ${file} is out of the compile pool`);
+        continue;
+      }
       const abs = path.join(REFS, file);
       if (!fs.existsSync(abs)) {
         errors.push(`${id}: missing ref ${file} (continuity ${token})`);
