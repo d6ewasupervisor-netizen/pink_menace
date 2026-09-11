@@ -1,0 +1,35 @@
+Pink Menace cabin INTERIOR REFERENCE PLATE candidate (not promoted).
+Claude confirmed the plate PLAN 2026-09-11. Pixels still need muted-read PASS.
+Winner: take 16 → refs/ref_menace_cabin_candidate.png
+Runner-up: take 10 → refs/ref_menace_cabin_candidate_runnerup.png
+Did NOT attach refs/ref_cockpit.jpg.
+Portrait 3:4.
+
+PINNED POSITIVE LAYOUT:
+- Flat painted metal dash of the period (continuous Type 1 shelf). No recess, no tablet bay — a screen has nowhere to sit.
+- Single instrument nacelle. One housing only.
+- GAUGE TREATMENT (pinned): nacelle angled away from camera so no glyphs render. Alternate acceptable: one period-correct dial. Never three-gauge gibberish.
+- Unbranded wheel — worn leather, blank hub, no VW roundel.
+- Manual floor shifter, ball knob. pedal_count: 3 (clutch, brake, accelerator).
+- Menace coarser PANEL mesh — thick welded panels, large openings. NOT Encore’s fine full-windshield grid. NOT a flyscreen.
+- No touchscreen / infotainment.
+
+Cinematic photoreal still. Empty cabin REFERENCE PLATE, not a game card. 35mm, f/2.8, overcast Pacific Northwest daylight through the glass — soft, diffuse, low-contrast, gray-blue. Wet empty street beyond. The only saturated color is cracked faded pink paint on the dash.
+
+Camera inside a Baja-converted air-cooled VW Beetle, left-hand drive, slightly offset over an unbranded worn black leather three-spoke wheel (plain hub, no logo), looking forward.
+
+DASH: one continuous flat painted-metal shelf of the period, cracked faded pink. No recess, no tablet bay, no rectangle, no glass panel.
+
+SINGLE INSTRUMENT NACELLE: one round housing in the dash. Prefer angled away so the face is oblique and no glyphs render. Do not add a second or third gauge.
+
+WHEEL: worn black leather, blank hub, no Volkswagen roundel.
+
+SHIFTER: manual floor-tunnel shifter, black ball knob.
+
+PEDALS: exactly three — clutch left, brake, accelerator — all visible.
+
+MESH: coarse welded PANEL mesh, thick stock, large square openings, Baja cage panels over intact glass. Not a fine full-windshield grid. Not Encore bare glass. Not a flyscreen.
+
+EMPTY: no person, no hands, no cats.
+
+NEGATIVE: no golden hour, no sunset, no desert, no salt flat, no night, no full night. No tablet, no touchscreen, no GPS, no infotainment, no rectangular screen, no dash cutout for a screen. No VW roundel. No three-gauge modern cluster. No readable gauge gibberish. No Encore fine windshield grid. No two-pedal automatic box. Photograph, not a 3D render.
