@@ -5,13 +5,13 @@
   "driver": "ali",
   "card_type": "dossier",
   "title": "The Door to the Pass",
-  "hook": "The Beetle is in the eastbound lane. Downtown is behind.",
-  "scene": "Clear cold morning on a two-lane street at the last downtown block, heading east. The Menace is in the eastbound travel lane, on wet asphalt between the lane paint and the right curb. The full-width nose plow sits on the front bull bar and points east. Behind the car, west, brick downtown blocks and the last intersection meet the sidewalk of this same street. Ahead, east, the same two-lane continues with wet paint and no other playable vehicles. Both cats are a sound in the closed carrier on the floor. You are not cleared for the pass.",
+  "hook": "Hold eastbound. She is not cleared for the pass.",
+  "scene": "Clear cold morning on a two-lane street at the last downtown block, heading east. The Menace is in the eastbound travel lane, on wet asphalt between the lane paint and the right curb. The full-width nose plow sits on the front bull bar and points east. Behind the car, west, brick downtown blocks and the last intersection meet the sidewalk of this same street. Ahead, east, the same two-lane continues with wet paint and no other playable vehicles. Both cats are a sound in the closed carrier on the floor. Hold. You are not cleared for the pass.",
   "debrief": "Downtown sits behind the Beetle. The eastbound travel lane continues ahead. She is not cleared for the pass.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Establishing: Menace in the eastbound lane at the last downtown block; city on the left shares that street; empty eastbound continues right."
+    "teaching_target": "Hold the eastbound at the last downtown block; city on the left shares that street; empty eastbound continues right; she is not cleared for the pass."
   },
   "cast": [
     "ali"
@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_TOPDOWN_PHOTO",
-    "subject": "faded pink Beetle on the eastbound travel lane of a two-lane street that crosses the full frame left to right; full-width nose plow on the front bull bar points right",
-    "foreground": "one continuous wet asphalt street from the left edge of the frame to the right edge; skip-dashed paint; right curb and sidewalk along the bottom of the frame",
+    "subject": "high-oblique aerial of a faded pink Beetle on the eastbound travel lane of a two-lane street crossing the frame left to right; full-width nose plow points right",
+    "foreground": "unbroken wet asphalt to every frame edge; skip-dashed paint; right curb and sidewalk along the bottom of the frame",
     "midground": "the Beetle sits in the eastbound lane in the lower half, occupying the lane paint, one car-length past the last downtown crosswalk",
     "background": "clear cold morning; left third: brick downtown blocks whose sidewalks meet this street; right third: the same two-lane continues east, empty, pale readable sky",
-    "read": "the Beetle is on the eastbound travel lane heading right; downtown blocks sit on the left of the frame and share the same street",
+    "read": "the Beetle holds the eastbound travel lane heading right; downtown shares that street on the left; she is not cleared for the pass",
     "continuity": [
       "pink_menace_exterior"
     ],
@@ -37,7 +37,10 @@
       "no isolated gravel patch",
       "no moss island",
       "no featureless pale expanse",
-      "no helipad"
+      "no helipad",
+      "no eye-level roadside view",
+      "no three-quarter front portrait",
+      "no car facing the camera"
     ],
     "aspect": "2:3",
     "geometry": {
