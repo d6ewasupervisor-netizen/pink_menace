@@ -2,7 +2,7 @@
   "locks": {
     "ali": ["ref_ali2.png"],
     "ali_face": ["ref_ali2.png"],
-    "pink_menace_exterior": ["ref_car_exterior.jpg"],
+    "pink_menace_exterior": ["ref_car_sheet.png", "ref_car_exterior.jpg"],
     "pink_menace_interior": ["ref_cockpit.jpg"],
     "gracie": ["ref_gracie.jpg"],
     "mya": ["ref_mya.jpg"],
@@ -31,5 +31,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. pink_menace_exterior → ref_car_exterior.jpg is locked: nose_plow is standard plate equipment (wide flat blade on the black tube bull bar at the far leading / nose end; not scene-optional; not left-flank / side-mounted)."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. pink_menace_exterior attaches ref_car_sheet.png (four-view; rear 3/4 is plow at the far leading end) then ref_car_exterior.jpg (front 3/4 silhouette). nose_plow is standard plate equipment — wide flat blade on the black tube bull bar at the far leading / nose end; not scene-optional; not left-flank / side-mounted."
 }

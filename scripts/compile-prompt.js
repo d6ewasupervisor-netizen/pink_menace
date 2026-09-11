@@ -224,7 +224,7 @@ function assemblePrompt(card) {
       cam === "POV_DIAGRAM")
   ) {
     parts.push(
-      "Continuity plow — standard Pink Menace plate equipment, not scene-optional: wide flat plow blade on the black tube bull bar at the far leading / nose end. Not a left-flank or side-mounted blade. Not a thin bar without a blade. Not a missing plow."
+      "Continuity plow — standard Pink Menace plate equipment, not scene-optional: wide flat plow blade on the black tube bull bar at the far leading / nose end. Match the attached four-view sheet: rear three-quarter keeps that blade at the far nose, never on the left flank, never on the tail. Not a thin bar without a blade. Not a missing plow."
     );
   }
 
