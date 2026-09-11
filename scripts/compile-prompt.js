@@ -70,6 +70,19 @@ const MENACE_CABIN_BUILD =
 const MENACE_CABIN_NEGATIVES =
   "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no fine full-windshield flyscreen grid, no two-pedal automatic box, no missing clutch on a Menace cabin.";
 
+const COVER_THE_BRAKE =
+  "Cover-the-brake is one settled posture, not a plant: the driver's right knee is bent, shin about forty-five degrees — not a straight nearly-horizontal leg. The right heel is planted on the floor. The ball of that shoe hovers above the brake pedal (the center pedal of three) with a visible air gap between sole and pad. The accelerator — the rightmost pedal — is empty. The clutch — the leftmost pedal — is empty. The sole is not planted flat on the accelerator. The sole is not resting flush on the brake pad.";
+
+const COVER_THE_BRAKE_NEGATIVES =
+  "No right foot planted flat on the accelerator. No straight nearly-horizontal right leg. No sole flush on a pedal pad. No empty floor with the foot away from the pedals. No cover-the-gas. No pressing the brake to the floor.";
+
+function briefAsksCoverTheBrake(brief) {
+  const text = [brief.subject, brief.foreground, brief.midground, brief.read]
+    .filter(Boolean)
+    .join(" ");
+  return /cover(?:ing)? the brake/i.test(text);
+}
+
 function wantsNight(card) {
   const t = String((card.variation && card.variation.time_of_day) || "").toLowerCase();
   if (!t) return false;
@@ -359,6 +372,10 @@ function assemblePrompt(card) {
     parts.push(MENACE_CABIN_BUILD);
     negs.push(MENACE_CABIN_NEGATIVES);
   }
+  if (briefAsksCoverTheBrake(brief)) {
+    parts.push(COVER_THE_BRAKE);
+    negs.push(COVER_THE_BRAKE_NEGATIVES);
+  }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);
     const parked = vehicleParked(card);
@@ -387,5 +404,7 @@ module.exports = {
   DAYLIGHT_NEGATIVE,
   MENACE_CABIN_BUILD,
   MENACE_CABIN_NEGATIVES,
+  COVER_THE_BRAKE,
+  COVER_THE_BRAKE_NEGATIVES,
   wantsNight,
 };

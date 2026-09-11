@@ -1,0 +1,43 @@
+# IV-005 — The Double Threat (cabin held; brake posture + live yield after take-49 FAIL)
+# card_id: IV-005
+# lesson: the sedan is stopped at the crosswalk; the left lane beside it is empty
+# shot: POV_COCKPIT
+# attachments: refs/ref_menace_cabin.png (Pink Menace interior lock — take 16, human-verified)
+#              refs/ref_car_exterior.jpg (plow/mesh silhouette if glimpsed through the glass; ignore salt-flat sunset)
+# compiled from cards/IV-005.json — card JSON is sole brief authority
+# KEEP from take 49 (PR #77): cabin lock — painted dash, single nacelle with a period-correct dial, unbranded wheel, ball shifter, coarse mesh; no screen / roundel / gibberish
+# FAIL take 49: right foot planted flat on the accelerator, leg nearly straight; pedestrian well past the nose mid-crossing (yield already made)
+# FIX: cover-the-brake hover (knee bent, heel planted, ball hovering above the CENTER brake pad); person still in the paint on the far side of the sedan, not yet clear — yield still live
+# weather: wet overcast PNW daylight (bible §8.1 / Act IV daylight lock). Card scene names fog at dusk — compile daylight; light fog OK; no dusk, no night.
+# takes this pass: 51–66
+# closest (not seeded): cards/takes/IV-005-take-65.png
+# runner-up: take 60
+# 65: cabin held + bent-knee hover (not a gas plant) + person peeking so yield is live
+# residual: boot still over empty floor, not clearly over the center brake pad; peek is right-flank more than hidden-nose
+# do not seed. no Act I–III. do not touch IV-004 / IV-012 / IV-026 / IV-027 / 028 / 030.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Light fog is fine; the sky is flat gray DAYLIGHT, not dusk, not night, no streetlamp key light. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is inside the Pink Menace cabin, over the wheel, looking forward through the windshield. No driver face in frame. Match the attached cabin lock exactly for BUILD: a flat painted-metal cranberry dash of the period — one continuous Type 1 shelf with no recess, no tablet bay, no rectangle that could hold a screen. A single instrument nacelle, one housing only, with the period-correct analog dial as on the attached plate — no glyphs invented, no three-gauge cluster. An unbranded wheel — worn leather, plain hub, no logo, no VW roundel. A manual floor shifter with a ball knob on the tunnel. Three pedals: clutch, brake, accelerator. Coarse Menace panel mesh over the glass — thick welded panels, large openings — match the attached mesh. Ignore the exterior lock's salt-flat sunset. This is the Menace, not the Encore: not a fine full-windshield flyscreen, not a two-pedal automatic box.
+
+FOREGROUND: worn black three-spoke wheel and welded mesh. Cover-the-brake is one settled posture, not a plant: the driver's right knee is bent, shin about forty-five degrees — not a straight nearly-horizontal leg. The right heel is planted on the floor. The ball of that shoe hovers above the BRAKE pedal — the CENTER pedal of three — with a visible air gap between sole and pad. The accelerator (rightmost pedal) is empty. The clutch (leftmost pedal) is empty. The sole is not planted flat on the accelerator. The sole is not resting flush on the brake pad. No driver face. No tablet. No glass panel in the dash.
+
+The roadway has 2 lanes in this direction. Heading: away from the camera. Ego occupies the RIGHT travel lane (lane 2 of 2). A skip-dashed white lane line separates the two same-direction lanes. The LEFT travel lane beside the sedan is empty wet asphalt — the invitation to pass. The LEFT edge of the roadway in frame is a concrete median barrier, a curb, or a crop — never a yellow centerline.
+
+MIDGROUND through the mesh:
+1. A primer-gray sedan in the SAME right travel lane, stopped at a worn faded school-edge crosswalk. Its rear faces us. Brake lamps are lit. We are queued behind that rear, approaching — the yield decision is still live. The plow, if glimpsed through the mesh at the bottom of the glass, points at that sedan's bumper. Not headlights. Not oncoming.
+2. Worn faint crosswalk paint across both lanes — broken/gapped school-edge bars, not a fresh bright zebra.
+3. An adult person IN that worn crosswalk paint on the FAR SIDE of the sedan — at the sedan's hidden front, still in the sedan's travel lane, coat and bag, not done crossing, not yet clear, not looking at camera. They are why the sedan stopped. The yield is still live: they have not already walked well past the nose into the open left. They are not standing well left of the sedan in the empty passing lane. They are not a sliver beside the sedan's rear flank. They are not on the sidewalk. From this rear view they appear just beyond the sedan, still on the sedan's line, partly hidden by the sedan's body so the car is still a wall.
+
+BACKGROUND: overcast daylight, light fog OK, school-edge chain-link fence out of focus, no readable sign text.
+
+The read: the sedan is stopped at the crosswalk; the left lane beside it is empty.
+Muted-text test: if every caption were hidden, the empty left lane and the stopped sedan at the worn paint read at phone size. The person still in the paint on the sedan's far side is findable so the stop has a reason, and the hold is still required.
+
+Left-hand-drive. United States, traffic drives on the right. Rear of each same-direction vehicle is nearer the camera. No headlights or grilles face the viewer.
+
+Traffic signs are single-faced. Never a double-sided sign. No readable lettering.
+
+Menace cabin, positive layout: a flat painted-metal dash of the period — one continuous Type 1 shelf with no recess, no tablet bay, no rectangle that could hold a screen. A single instrument nacelle, one housing only, period-correct dial as on the attached lock. An unbranded wheel — worn leather, plain hub, no logo, no VW roundel. A manual floor shifter with a ball knob on the tunnel. Three pedals: clutch, brake, accelerator. Coarse Menace panel mesh over the glass — thick welded panels, large openings — not Encore's fine full-windshield grid, not a flyscreen.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso. No right-hand drive. No vehicle on the right passing a vehicle on the left. No yellow centerline, no oncoming traffic. No child. No face toward camera. No person standing in the empty left / passing lane. No person standing beside the sedan's rear flank. No person already well past the sedan's nose mid-crossing in the open. No dusk, no night, no blue-black city, no streetlamp as the key light. No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no fine full-windshield flyscreen grid, no two-pedal automatic box, no missing clutch on a Menace cabin. No right foot planted flat on the accelerator. No straight nearly-horizontal right leg. No sole flush on a pedal pad. No empty floor with the foot away from the pedals. No cover-the-gas. No pressing the brake to the floor. Aspect ratio 2:3.
