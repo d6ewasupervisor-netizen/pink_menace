@@ -32,5 +32,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. encore_footwell → ref_encore_footwell.png is a PROPOSED lock (take 6, pedal_count 2) pending human verify — do not name it on a live card until accepted."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. encore_footwell → ref_encore_footwell.png is the accepted lock (take 6, pedal_count 2, human-verified). Attach on Encore footwell / cover-the-brake compiles. Never invent a third pedal. Never treat IV-001-brake takes as this plate. Empty plate is not card art."
 }

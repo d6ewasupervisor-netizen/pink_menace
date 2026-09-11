@@ -70,7 +70,7 @@ Every prompt below already carries the master style token and the negative block
 >
 > *[negative block]* · Aspect ratio 2:3
 
-## Y5 — ENCORE footwell (PROPOSED lock — pending human verify)
+## Y5 — ENCORE footwell (LOCKED — human-verified)
 *(attach Y4 glass cockpit for cabin language only — not for pedal count; that plate is over-the-wheel and does not show the box)*
 
 Encore is automatic. **pedal_count: 2.** Do not invent a clutch. Do not invent a third pedal.
@@ -79,7 +79,7 @@ Encore is automatic. **pedal_count: 2.** Do not invent a clutch. Do not invent a
 >
 > *[negative block]* · no clutch, no third pedal, no three-pedal box, no foot, no shoe, no pink floor mat, no magenta carpet · Aspect ratio 2:3
 
-Closest generated candidate: `cards/takes/encore-footwell-take-6.png` → `refs/ref_encore_footwell.png`. Human must accept before any IV-001-brake regen.
+Locked winner: `cards/takes/encore-footwell-take-6.png` → `refs/ref_encore_footwell.png`. Claude HUMAN-VERIFIED PASS 2026-09-11. Empty plate is not card art. Never invent a third pedal. Never treat IV-001-brake takes as this plate.
 
 ---
 
@@ -113,7 +113,7 @@ Use G1 as a silhouette test. If you can't tell the three apart at thumbnail size
 | Yuna portrait | `ref_yuna.png` |
 | Encore four-view | `ref_encore_sheet.png` |
 | Encore cockpit | `ref_encore_cockpit.png` |
-| Encore footwell (PROPOSED — pending human verify) | `ref_encore_footwell.png` |
+| Encore footwell (LOCKED — human-verified) | `ref_encore_footwell.png` |
 | Convoy silhouette test | `ref_convoy.png` |
 
 Ali and the Menace already have refs and need nothing. Gracie and Mya are locked.
