@@ -67,7 +67,8 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "RIGHT of frame: pink Beetle traveling straight in the right lane, mid-motion not parked. Ahead at two lengths: open van door, person in the paint, bike between. LEFT of frame: empty travel lane.",
+    "camera_pose": "Camera is slightly elevated — a low street-level overhead from the LEFT-REAR three-quarter, not dead astern and not a steep bird's-eye — looking along a wet small-town main street so brick storefronts recede with real depth and a readable flat gray daylight sky fills the top of frame. The Beetle's rear mesh and sloping engine cover are nearer the camera in the lower third. The Beetle's nose is farther up the street. At that far leading end a wide flat plow blade is mounted on a black tube bull bar and spans the full width of the nose ahead of both front tires — the same geometry as the attached exterior lock. The left door and left rear quarter show only riveted raw-steel plating; no plow, blade, or bull bar is attached to the left flank. Tight crop: two travel lanes and the three hazards about two Beetle-lengths ahead of the plow. Real wet pavement, real painted skip-dashes. No extra side streets or curb clutter the brief did not name.",
+    "subject": "RIGHT of frame: pink Beetle traveling straight in the right lane, mid-motion not parked, standard wide flat plow blade on the black tube bull bar at the far leading/nose end. Ahead at two lengths: open van door, person in the paint, bike between. LEFT of frame: empty travel lane.",
     "foreground": "wet skip-dashed white; LEFT edge is a curb, not a yellow line; Beetle parallel to the dash",
     "midground": "three hazards stacked in two lengths at approach distance — door, person, bike — none facing camera",
     "background": "heavy overcast rain, flat gray Pacific Northwest daylight sky readable under overcast, wet small-town main street with depth, no opposing traffic",
@@ -86,22 +87,25 @@
       "no unreadable black sky",
       "no parked still Beetle",
       "no cocked or yawed Beetle",
-      "no thin left-flank plow bar",
+      "no missing plow",
+      "no left-flank-only plow",
       "no side-mounted plow",
+      "no thin left-flank plow bar",
+      "no thin bar without a blade",
+      "no plow beside the driver's door",
       "no second pink vehicle",
       "no pink van",
       "no steep bird's-eye",
       "no long empty gap before the hazards"
     ],
     "continuity": [
-      "diagram_style",
       "pink_menace_exterior"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of two lanes this direction",
-      "ego_nose_in_frame": "standard wide flat nose-mounted plow at the far leading end, pointing at the stacked hazards",
+      "ego_nose_in_frame": "wide flat plow blade on the black tube bull bar at the far leading/nose end, pointing at the stacked hazards",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 2,
