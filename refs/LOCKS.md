@@ -30,4 +30,6 @@ Y4 take 1 / `ref_encore_cockpit.png` is an over-the-wheel windshield plate. Peda
 
 Dedicated empty footwell take 6 is the pedal-box lock: wide diamond-treadplate brake + narrow ribbed accelerator; empty floor left of the brake; no clutch; no Menace pink mat. Claude / human PASS.
 
-IV-001-brake compiles attach `ref_encore_footwell.png` + `ref_encore_cockpit.png`. Do not treat IV-001-brake take-21, take-35, or any cover-the-brake still as this plate.
+IV-001-brake compiles attach `ref_encore_footwell.png` + `ref_encore_cockpit.png`. Do not treat IV-001-brake take-21, take-35, take-57, or any cover-the-brake still as this plate.
+
+Take 57 FAILED Claude muted-read: sole flat on the brake pad (resting, not covering); heel touches only because the leg is stretched nearly horizontal. A later hover regen may build-from take 57 for camera / dash / rain-on-glass / flat floor only. Do not re-roll this lock. Cover-the-brake is ONE posture: knee bent, shin ~45°, heel planted below the pad, ball hovering with daylight between sole and pad.
