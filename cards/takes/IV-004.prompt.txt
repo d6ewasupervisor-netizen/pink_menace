@@ -10,7 +10,11 @@
 # FIX: rotate the attached nose-plow plate onto the FAR front of an AWAY Beetle. Rear engine lid
 #   nearest camera. Full-width blade on the leading end, both edges visible past the front corners.
 # Ban: ref_car_rear_plow / flank / corner plow plates. ref_cockpit.jpg banned.
-# takes this pass: 108+
+# takes this pass: 108–130
+# closest (not seeded): cards/takes/IV-004-take-119.png
+# runner-up: take 127
+# 119: away heading, thin rear tube, large far-right dozer face, take-63 street, tire spray
+# residual: far blade still right-side, not both edges of the plate; person in the open
 # do not seed. no Act I–III.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
