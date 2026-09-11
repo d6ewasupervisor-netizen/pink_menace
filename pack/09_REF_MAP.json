@@ -32,5 +32,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. encore_footwell → ref_encore_footwell.png is a PROPOSED lock (take 6, pedal_count 2) pending human verify — do not name it on a live card until accepted."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. encore_footwell → ref_encore_footwell.png is locked (Y4/Encore footwell take 6, pedal_count 2, human-verified PASS by Claude 2026-09-11). Cockpit authority remains Y4 take 1 / ref_encore_cockpit.png."
 }
