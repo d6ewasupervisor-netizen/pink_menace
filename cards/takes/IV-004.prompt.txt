@@ -6,7 +6,13 @@
 # FIX: Menace MOVING in the travel lane, still SHORT of the person; nose-in (perpendicular) parked pair; blank plates; plow on the FRONT/far end
 # keep teaching: a person stepping out from between parked cars into the travel lane
 # keep daylight (overcast PNW). Do not lose the gray-white sky.
-# takes this pass: 41–46
+# takes this pass: 41–50
+# closest (not seeded): cards/takes/IV-004-take-43.png
+# runner-up: take 41 (approaching; person leaning on the sedan)
+# 43: Beetle moving in-lane, short of the person, rear heading, daylight. Residual: plow on rear; pair parallel; person walking in the open
+# 42: facing camera
+# 47–49: second Beetle
+# 50: even + readable plate
 # weather: wet overcast PNW daylight (bible §8.1 / Act IV daylight lock). Card scene is a cold afternoon — no sun, no dusk, no night.
 # not a sign-recognition card: blank sign faces, no license-plate numbers
 # do not seed. no Act I–III. do not touch IV-012 / IV-026 / IV-027 / IV-028 / IV-030.
