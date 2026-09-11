@@ -1,0 +1,33 @@
+# IV-001-brake — compile from cards/IV-001-brake.json (sole brief)
+# card_id: IV-001-brake | lesson: cover-the-brake hover | shot token: POV_OBJECT
+# attachments: refs/ref_encore_footwell.png (take 6 LOCKED, pedal_count 2),
+#              refs/ref_encore_cockpit.png (Y4 take 1 — cabin language only; over-the-wheel, footwell out of frame)
+# build-from: cards/takes/IV-001-brake-take-57.png — FRAME ONLY. Keep dash, rain-on-glass, flat floor, camera.
+#             Take 57 FAILED: sole lies flat on the brake pad, no air gap; heel touches only because the leg is stretched nearly horizontal.
+#             Do NOT copy that foot. Fix only foot/leg posture.
+# do not attach Y4 take 7. do not attach take 21 / take 35. do not re-roll locked plates.
+# do not attach Menace refs. do not attach IV-003. do not seed.
+# camera: POV_OBJECT
+# line 3: Cover the brake before the light even thinks about yellow. Foot off the gas. Held. Not riding it.
+# phrase: the foot pivots at the heel, ball hovering above the pad, ready to press
+# takes 61–80. closest: take 77 (cover family, take-57 frame). residual: no daylight gap; shin still stretched.
+# runner-up shin: take 70 (bent knee, heel planted — foot on empty floor, not covering).
+# not seeded.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight through intact windshield glass — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+BUILD FROM the attached take 57. Preserve the entire frame: same camera height and angle, same analog dash, same rain beads on intact glass, same flat painted dark floor, same two-pedal box, same left cage tube, same guarded red switch. Change ONLY the right foot and lower-leg posture. Take 57 is a FAILED foot — do not copy its sole-on-pad rest or its stretched-horizontal leg.
+
+HARD PEDAL-BOX REFERENCE: match the attached Encore footwell lock (encore-footwell take 6 / ref_encore_footwell.png). pedal_count is exactly TWO. Automatic. Wide rectangular diamond-treadplate BRAKE hanging as the left pedal of the pair. Narrow ribbed rubber ACCELERATOR hanging to the right of the brake, distinctly narrower. Empty painted dark metal floor to the LEFT of the brake — the clutch bay is vacant. No clutch. No third pedal. Dark painted heel zone. No mat.
+
+HARD CABIN REFERENCE: match the attached Y4 take 1 Encore cockpit lock for analog cluster, guarded red switch, and left cage tube only. That plate is over-the-wheel; the footwell is out of frame — do not invent pedal count from it. Force intact factory windshield glass as a continuous real sheet with rain beads on the OUTSIDE, enclosed roof, no open tube-frame sky, no PA horns inside the cabin.
+
+Camera is low in the left-hand-drive driver footwell of Encore, near the empty floor left of the brake, looking down and slightly forward at the pedal box. EXACTLY TWO pedals occupy the lower-middle of the FRAME. The wide diamond-treadplate brake is the center of the FRAME. Intact windshield with rain-on-glass and overcast wiper-path lighting occupy only the top fifth of the FRAME, soft and out of focus. Analog cluster and one guarded red switch. No faces.
+
+ONE posture, not two constraints. A right foot in a black high-top covering the BRAKE. Knee bent. Thigh angled down from the seat. Shin at about 45 degrees — the shin is a diagonal, not a near-horizontal line. Heel planted on the painted floor below the brake pad's lower edge. Ankle flexed (toes up) so the ball of the foot HOVERS over the wide diamond-treadplate brake with daylight visible between the sole and the pad — a bright or silhouetted air gap you can see. The foot pivots at the heel, ball hovering above the pad, ready to press. The sole does not touch the pad. The leg is not stretched nearly horizontal. Not between pedals, not on the gas, not pumping, not riding. Held. Empty painted floor left of the brake stays empty. Gas right of the brake is empty. painted dark Encore floor; the planted heel; a roll-cage tube at the left edge of the FRAME. No floor mat. the covering foot and the bent shin at ~45 degrees, a sliver of black track pant; daylight between sole and diamond treadplate; empty floor left of the brake; empty gas. soft rain-dotted intact windshield and the locked analog dash; overcast wiper-path light through glass; a distant traffic light, no readable sign legend.
+
+The read: the foot pivots at the heel, ball hovering above the pad, ready to press — daylight between sole and diamond treadplate; two pedals in frame; empty floor left of the brake; gas empty. Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied. Cover-the-brake hover.
+
+Left-hand-drive vehicle: pedals in a US automatic footwell, brake left of the pair, gas right, empty floor left of the brake. intact window glass in all openings, no mesh, no bars, no open cabin.
+
+No magenta posterization, no color banding, no purple or magenta cast in the lower third. No sole flush on the pad, no shoe lying flat on the treadplate, no resting on the brake, no riding the brake. No nearly horizontal stretched leg, no shin parallel to the floor, no heel that only touches because the leg is extended. No heel off the floor, no floating foot, no foot suspended in mid-air, no shoe hanging in empty space. No foot between the pedals, no foot over empty floor, no foot on the gas, no foot well to the right of the pedal box. No mat riding toward the pedal box, no bunched mat, no large distressed mat filling the lower third, no pink Menace floor mat. No clutch, no third pedal, no three-pedal footwell. No Volkswagen Beetle interior, no faded pink dashboard, no pink floor. No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs — the foot must attach to a visible ankle and a sliver of bent shin. No faces. No right-hand drive. No open cabin, no missing windshield, no mesh, no bars across the glass, no PA horns inside the cabin. no cooler. no COLD tag. no Quiet. Aspect ratio 2:3.

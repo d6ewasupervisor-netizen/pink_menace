@@ -17,8 +17,19 @@ Never mix panels across takes. Winners only.
 | Convoy silhouette | G1 take 2 | `ref_convoy.png` | Round / box / wedge reads at a glance. Only take that kept Encore's PA horns; 1, 3, 4 turned them into spotlights. Overcast PNW, no salt-flat bleed. |
 | II-007 card art | take 2 | `../cards/II-007.png` | Amber lamps lit; enough pavement that the open left lane reads. Invented fallen tree is compiler drift — do not carry into later Kent cards. Takes 3–4 lit the reds/brakes and are unusable. |
 | Ledger cockpit | D4 take 2 | `ref_ledger_cockpit.png` | Locked from `cards/takes/D4-take-2.png` (1 Sep 2026). Match this cab: worn three-spoke wheel, analog cluster, bar cage, thermos in the right cup, no clipboard on the mesh. Never the old poisoned cockpit. Never a Menace ref on Deac cards. |
-| Encore cockpit | Y4 take 1 | `ref_encore_cockpit.png` | Four PA horns, mic on the cage, guarded red switch. Takes 2 and 4 turned horns into spotlights. Glass may read as missing — compiler still forces intact glass on exteriors. |
+| Encore cockpit | Y4 take 1 | `ref_encore_cockpit.png` | Four PA horns, mic on the cage, guarded red switch. Takes 2 and 4 turned horns into spotlights. Glass may read as missing — compiler still forces intact glass on exteriors. Over-the-wheel windshield plate — **footwell out of frame; do not read pedal count from this shot.** Do not promote Y4 take 7 over take 1. |
+| Encore footwell | take 6 (LOCKED) | `ref_encore_footwell.png` | Same file as `cards/takes/encore-footwell-take-6.png`. Human / Claude PASS. **pedal_count: 2.** Wide diamond-treadplate brake (left of the pair) + narrow ribbed accelerator (right). Empty painted floor left of the brake. **No clutch. No third pedal.** Dark painted heel zone — no Menace pink/magenta mat. Empty plate: no foot. Not a card still. Do not treat IV-001-brake take-21, take-35, or any IV-001-brake take as this plate. |
 | The Quiet — register lock | A3 take 3 | `ref_quiet.png` | Attach on every Quiet compile. Filthy, slack-shouldered, head canted, doing nothing, seen through dirty glass. Wrongness of posture and stillness — not damage. Same file as `ref_quiet_a3.png`. |
 | Quiet plates | probe keeps | `ref_quiet_a1.png` `ref_quiet_a2.png` `ref_quiet_a3.png` `ref_quiet_a4.png` `ref_quiet_a5.png` | A1 take 3 still, facing away. A2 take 1 head tilt. A3 take 3 the register. A4 take 1 lot, spread, not converging. A5 take 3 the lunge — near-legible, once in the game. A1, A2, A4 are reference, not card art. |
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
+
+## Encore footwell — LOCKED (take 6, pedal_count 2)
+
+Y4 take 1 / `ref_encore_cockpit.png` is an over-the-wheel windshield plate. Pedal count cannot be read from it. Do not promote Y4 take 7 over take 1.
+
+Dedicated empty footwell take 6 is the pedal-box lock: wide diamond-treadplate brake + narrow ribbed accelerator; empty floor left of the brake; no clutch; no Menace pink mat. Claude / human PASS.
+
+IV-001-brake compiles attach `ref_encore_footwell.png` + `ref_encore_cockpit.png`. Do not treat IV-001-brake take-21, take-35, take-57, or any cover-the-brake still as this plate.
+
+Take 57 FAILED Claude muted-read: sole flat on the brake pad (resting, not covering); heel touches only because the leg is stretched nearly horizontal. A later hover regen may build-from take 57 for camera / dash / rain-on-glass / flat floor only. Do not re-roll this lock. Cover-the-brake is ONE posture: knee bent, shin ~45°, heel planted below the pad, ball hovering with daylight between sole and pad.
