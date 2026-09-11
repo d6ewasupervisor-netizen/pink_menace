@@ -3,6 +3,7 @@
 # camera: POV_OBJECT
 # line 3: Cover the brake before the light even thinks about yellow. Foot off the gas. Held. Not riding it.
 # STOP: do not reuse the take-13 floor-plant prompt. IV-003 take 1 is the pedal-box ideal.
+# takes 17–21. closest: take 18 (hover + air gap, Encore floor/dash). take 20 alt. take 21 = IV-003 box dressed dark. discard 19 diptych.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight through intact windshield glass — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 
