@@ -22,6 +22,9 @@ const MASTER_STYLE =
 const DEAC_STYLE =
   "Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is transit amber. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.";
 
+const YUNA_STYLE =
+  "Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.";
+
 const DIAGRAM_STYLE =
   "Cinematic photoreal still, same world as the rest of the game. 35mm full-frame equivalent, high overhead fifteen to twenty degrees off vertical looking along travel, everything in focus enough to read lanes. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Wet asphalt, moss, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, no HDR, no glow, no lens flare. This is a photograph of real vehicles on a real street, not a map, not an infographic, not a vector diagram.";
 
@@ -31,6 +34,8 @@ const LEDGER_DIAGRAM_STYLE =
 const FRAMING = {
   POV_COCKPIT:
     "Camera is inside the cabin, over the wheel, looking forward through the windshield. Gauges bottom-left, welded steel mesh across the top of the glass, road through the grid.",
+  POV_COCKPIT_ENCORE:
+    "REQUIRED ELEMENT FIRST: intact factory windshield glass — a continuous real sheet of glass filling the entire windshield opening, rubber gasket, windshield header, A-pillars. Raindrops and reflections sit on the OUTSIDE of that glass. The cabin is fully enclosed: solid roof headliner, weather stays outside, no sky where the roof should be. Camera is inside the cabin, over the wheel, looking forward THROUGH that intact glass. A small suede-wrapped racing steering wheel across the bottom of frame. Stripped dashboard, bare metal, exposed wiring, a single aftermarket tachometer, a toggle-switch panel with one large guarded red switch clearly separate from the others. Welded roll cage tubing crossing the A-pillars — the cage belongs inside this enclosed cabin. A sliver of the mismatched welded rear bench belongs in frame. Do not show the roof PA horns from inside.",
   POV_COCKPIT_LEDGER:
     "Camera is inside the high-seat cabin, no driver face in frame. Match the attached cockpit lock exactly — same worn three-spoke wheel, same analog cluster, same bar cage with a cut wiper slot, same thermos in the right-side cup. Do not invent a different dashboard, a different mesh, extra switch labels, or a second vehicle interior. Default is over that wheel looking forward through the windshield, road through the grid. The right half of the windshield is open road — no clipboard, no log sheet, no paper on the mesh. The clipboard if present is on the doghouse between the seats, below the glass. When the brief names the left door mirror: sit in the seat and look left at the big side mirror on the left door; the windshield and any cones stay in the right of frame. When the brief names the right door mirror or a right-side sliver: sit in the seat and look right across the doghouse at the right door glass; never put a right-side hazard in the left mirror.",
   POV_DIAGRAM_LEDGER:
@@ -150,7 +155,7 @@ function headingPhrase(heading) {
   }
 }
 
-function geometryPromptClause(geo, driver) {
+function geometryPromptClause(geo, driver, ego) {
   if (!geo) return "";
   if (/not in frame/i.test(String(geo.ego_nose_in_frame || ""))) {
     return (
@@ -163,7 +168,8 @@ function geometryPromptClause(geo, driver) {
       ...geo,
       ego_heading: headingPhrase(geo.ego_heading),
     },
-    driver
+    driver,
+    ego
   );
   const traffic = trafficPositionsClause(geo, driver);
   return [core, traffic].filter(Boolean).join(" ");
@@ -174,6 +180,28 @@ function assemblePrompt(card) {
   if (!brief) throw new Error(`${card.card_id}: missing image_brief`);
   const cam = cameraOf(card);
   const deac = card.driver === "deac";
+  const continuityEarly = brief.continuity || [];
+  const encoreVehicleCam = new Set([
+    "POV_CHASE",
+    "POV_ROADSIDE",
+    "POV_ROADSIDE_PROFILE",
+    "POV_DIAGRAM",
+    "POV_TOPDOWN_PHOTO",
+    "POV_COCKPIT",
+  ]);
+  const encoreToken =
+    continuityEarly.includes("encore") || continuityEarly.includes("encore_cockpit");
+  const encoreNamed =
+    encoreToken || (card.driver === "yuna" && encoreVehicleCam.has(cam));
+  const encoreCockpit = cam === "POV_COCKPIT" && encoreNamed;
+  const encoreExteriorCam = new Set([
+    "POV_CHASE",
+    "POV_ROADSIDE",
+    "POV_ROADSIDE_PROFILE",
+    "POV_DIAGRAM",
+    "POV_TOPDOWN_PHOTO",
+  ]);
+  const encoreExterior = encoreNamed && encoreExteriorCam.has(cam);
   if (deac && cam === "POV_MIRROR_REAR") {
     throw new Error(
       `${card.card_id}: POV_MIRROR_REAR is illegal on the Ledger — no rear window, no interior mirror; use POV_MIRROR_DOOR`
@@ -185,6 +213,7 @@ function assemblePrompt(card) {
   if (deac && cam === "POV_OBJECT" && (brief.continuity || []).includes("hov_geometry")) {
     framing = FRAMING.POV_COCKPIT_LEDGER;
   }
+  if (encoreCockpit) framing = FRAMING.POV_COCKPIT_ENCORE;
   if (typeof brief.camera_pose === "string" && brief.camera_pose.trim()) {
     framing = brief.camera_pose.trim();
   }
@@ -192,7 +221,9 @@ function assemblePrompt(card) {
 
   const parts = [];
   if (cam === "POV_DIAGRAM") parts.push(deac ? LEDGER_DIAGRAM_STYLE : DIAGRAM_STYLE);
-  else parts.push(deac ? DEAC_STYLE : MASTER_STYLE);
+  else if (deac) parts.push(DEAC_STYLE);
+  else if (encoreNamed || card.driver === "yuna") parts.push(YUNA_STYLE);
+  else parts.push(MASTER_STYLE);
 
   parts.push(framing);
 
@@ -216,7 +247,6 @@ function assemblePrompt(card) {
     parts.push(otherVehicleClauseLedger(card));
   }
 
-  const continuityEarly = (brief.continuity || []);
   const quietNamed =
     continuityEarly.includes("the_quiet") ||
     /\bthe Quiet\b/.test(
@@ -252,6 +282,16 @@ function assemblePrompt(card) {
       "Subject identity: a broad tall-shouldered 54-year-old man with dark brown skin, close-cut gray hair receding at the temples, a short gray beard, deep-set tired eyes with reddened lids, wearing a faded charcoal transit operator's jacket with a worn-off patch over a dulled amber high-visibility safety vest grimy and taped at one shoulder, half-frame reading glasses hanging on a cord against his chest. No smile. No bandage. No blood."
     );
   }
+  if (card.driver === "yuna" && cam === "POV_PORTRAIT") {
+    parts.push(
+      "Subject identity: a 17-year-old woman with light-medium skin and no glasses, an asymmetric chin-length bob, jet black on top with a platinum under-layer, a single thin braid at her right temple with retroreflective tape woven into it, wearing a cropped black windbreaker with retroreflective piping down both sleeves, squared stage-trained posture. Match the attached Yuna lock for face and braid side. No smile. No bandage. No blood."
+    );
+  }
+  if (cam === "POV_PORTRAIT") {
+    parts.push(
+      "Portrait of the person only. No switches, levers, gauges, or cab hardware on the body, the clothing, or the chest. If a mechanical object matters it belongs in a cockpit or object frame, not this portrait."
+    );
+  }
 
   if (describesRoadway(card) && brief.geometry) {
     parts.push(LHD);
@@ -266,7 +306,13 @@ function assemblePrompt(card) {
         const traffic = trafficPositionsClause(geo, card.driver);
         if (traffic) parts.push(traffic);
       } else {
-        parts.push(geometryPromptClause(brief.geometry, card.driver));
+        parts.push(
+          geometryPromptClause(
+            brief.geometry,
+            card.driver,
+            encoreNamed ? "encore" : deac ? "ledger" : undefined
+          )
+        );
       }
     }
     parts.push(SIGN_CLAUSE);
@@ -282,6 +328,16 @@ function assemblePrompt(card) {
   if (cam === "POV_MIRROR_DOOR") {
     parts.push(DOOR_MIRROR_CLAUSE);
   }
+  if (encoreNamed) {
+    parts.push(
+      "intact window glass in all openings, no mesh, no bars, no open cabin."
+    );
+    if (encoreExterior) {
+      parts.push(
+        "Exterior brief only: do not describe stripping, gutting, a roll cage, seats, or other interior hardware."
+      );
+    }
+  }
 
   const negs = [
     cam === "POV_DIAGRAM" ? diagramNegativeBlock(deac, brief.geometry) : NEGATIVE,
@@ -295,7 +351,19 @@ function assemblePrompt(card) {
   if (cam === "POV_ROADSIDE_PROFILE") negs.push(PROFILE_NEGATIVE);
   if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
+  if (cam === "POV_PORTRAIT") {
+    negs.push(
+      "No switch on clothing, no device on the chest, no hardware attached to the person, no props composited on the body, no rocker switch, no gauge, no lever on the person."
+    );
+  }
   const continuity = (brief.continuity || []);
+  if (encoreNamed) {
+    negs.push(
+      encoreCockpit
+        ? "No open cabin, no bare apertures, no missing windshield, no stripped glass, no weather coming straight in, no mesh over the windshield, no bars across the glass, no window nets, no convertible, no sky where the roof should be, no open tube-frame cockpit, no formula car, no dune buggy, no PA horns inside the cabin."
+        : "No open cabin, no missing windows, no stripped glass, no roll cage visible from outside, no window nets, no bare door frames."
+    );
+  }
   if (quietNamed) negs.push(QUIET_NEGATIVE);
   if (cam === "POV_MIRROR_DOOR" && continuity.includes("dutch_reach")) {
     negs.push(DUTCH_REACH_NEGATIVES);
@@ -321,4 +389,12 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };
+module.exports = {
+  assemblePrompt,
+  FRAMING,
+  MASTER_STYLE,
+  YUNA_STYLE,
+  DIAGRAM_STYLE,
+  LHD,
+  OTHER_VEHICLE_CLAUSE_LEDGER,
+};

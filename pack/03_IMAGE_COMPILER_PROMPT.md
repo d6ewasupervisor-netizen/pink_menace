@@ -89,6 +89,17 @@ You MUST:
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
   - if the brief names a hand or arm, require a visible attached shoulder and torso in the same frame, or drop the body part and show only the object. Never a detached limb.
+  - never put interior modifications in an exterior vehicle brief.
+    Interior modifications do not appear in exterior vehicle briefs.
+    Stripping, cages, seats, and interior hardware belong only in
+    cockpit compiles. Putting them in an exterior brief pulls the glass
+    out — and it will do the same to the Ledger's windshield cage or
+    the Menace's window mesh if it creeps in.
+  - a card's mechanical object (switch, lever, gauge) never appears ON a
+    character. If the object matters it goes in a cockpit or object frame.
+    Portraits carry people only. Do not compile a switch, lever, gauge, or
+    other hardware onto clothing, a chest, or a body. IV-029 take 5 is the
+    proof: the guarded red PA switch landed on Yuna's jacket.
 
 ## ASSEMBLY ORDER
 
@@ -277,6 +288,27 @@ the target in one pass so the fill and the placement happen together — shiftin
 pixels alone leaves a hole.
 
 When a geometry card fails twice, stop regenerating and composite.
+
+### 7. Interior facts stay in the cockpit
+Interior modifications do not appear in exterior vehicle briefs. Stripping, cages, seats, and interior hardware belong only in cockpit compiles. Putting them in an exterior brief pulls the glass out — and it will do the same to the Ledger's windshield cage or the Menace's window mesh if it creeps in.
+
+Encore four-view is the proof: six takes with "stripped / gutted / roll cage" in the exterior prompt rendered open cabins. Build from an intact stock hatchback, then add exterior mods (tape, chevrons, roof horns). If a four-view still fails the front-on windshield, composite that one panel. Do not keep regenerating the old brief.
+
+### 8. Mechanical objects never appear on a character
+A card's mechanical object — a switch, a lever, a gauge, a guarded PA rocker — never appears ON a character. If the object matters it belongs in a cockpit frame or a `POV_OBJECT` plate. Portraits carry people only: face, hair, clothes, the body. No hardware composited onto the chest, no device clipped to the jacket as if it were a prop from the cab.
+
+IV-029 take 5 is the proof: the brief named the guarded red PA switch behind Yuna and the model stuck a large red rocker on her clothing. Name the person. Leave the switch in Y4 / the Encore cockpit. Append on every `POV_PORTRAIT`:
+
+  positive: "portrait of the person only — no switches, levers, gauges, or cab hardware on the body"
+  negative: "no switch on clothing, no device on the chest, no hardware attached to the person, no props composited on the body"
+
+### 9. Encore cockpit glass is a required element, stated first
+Y4 take 4 and IV-002 take 3 rendered an open tube-frame cabin: weather coming straight in through a bare aperture. The four-view lock (Y3 take 12) already has intact factory glass. The cockpit plate must match that treatment.
+
+On any Encore / Yuna `POV_COCKPIT`, state intact windshield glass as a required element up front — a continuous real sheet of glass filling the opening, raindrops and reflections on the outside surface, rubber gasket, A-pillars, windshield header. The cabin is enclosed. Cage tubing and the welded bench belong *inside* that enclosed cabin. Weather stays outside the glass.
+
+  positive: "REQUIRED: intact factory windshield glass filling the entire opening; rain beads on the outside of the glass; enclosed cabin, solid roof, A-pillars, header"
+  negative: "no open cabin, no bare apertures, no missing windshield, no weather coming straight in, no convertible, no sky where the roof should be, no open tube-frame cockpit"
 
 ## THE DRIVE-SIDE PROBLEM
 
@@ -546,7 +578,7 @@ else. No commentary. No alternatives.
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 
-**Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.
+**Encore four-view lock: Y3 take 12** (`ref_encore_sheet.png`, same bytes as `ref_encore_sheet_y3_take12.png`). Stock-glass-first — intact factory glass on all four views. The old Y3 brief (stripped / gutted / roll cage / bucket seat / welded bench) is retired; those are interior facts and they pull the glass out. Attach the locked sheet for silhouette and striping. Still add "intact window glass in all openings, no mesh, no bars, no open cabin." Never put interior hardware in an Encore exterior compile. Cockpit lock `ref_encore_cockpit.png` is the place for cage and seats. Take 3 (open cabin) lives at `ref_encore_sheet_y3_take3.png`. Take 11 passed glass but drifted to a modern five-door — do not attach it. Composites of take 9 remain named candidates in `refs/LOCKS.md`.
 
 ## Operator QA — ten seconds, reject on any miss (pack/12)
 
