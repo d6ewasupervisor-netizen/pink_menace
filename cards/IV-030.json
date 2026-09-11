@@ -5,13 +5,13 @@
   "driver": "ali",
   "card_type": "dossier",
   "title": "The Door to the Pass",
-  "hook": "The Core is behind. The pass is shut.",
-  "scene": "Clear cold morning, the Menace on a legal pad at the east edge of downtown. The Core is a dark geometry in the glass behind you — a few stubborn lamps, no skyline you can read. The road ahead is east, toward the passes, toward a ribbon you have not been cleared for. Both cats are a sound on the floor next to the seat. You are not cleared. The door to Act V sits in the windshield like a title with a lock. Deac's standard still holds. The next skill is a different mountain.",
-  "debrief": "Downtown is behind you. The road east is a locked door with a name on it. The eastbound sits there with a lock on it.",
+  "hook": "The Beetle is in the eastbound lane. Downtown is behind.",
+  "scene": "Clear cold morning on a two-lane street at the last downtown block, heading east. The Menace is in the eastbound travel lane, on wet asphalt between the lane paint and the right curb. The full-width nose plow sits on the front bull bar and points east. Behind the car, west, brick downtown blocks and the last intersection meet the sidewalk of this same street. Ahead, east, the same two-lane continues with wet paint and no other playable vehicles. Both cats are a sound in the closed carrier on the floor. You are not cleared for the pass.",
+  "debrief": "Downtown sits behind the Beetle. The eastbound travel lane continues ahead. She is not cleared for the pass.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Cliffhanger: Core behind, road east ahead, Act V locked; she is not cleared for the pass."
+    "teaching_target": "Establishing: Menace in the eastbound lane at the last downtown block; city on the left shares that street; empty eastbound continues right."
   },
   "cast": [
     "ali"
@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_TOPDOWN_PHOTO",
-    "subject": "the Menace on a pad at the east edge of downtown, plow pointed east, the Core a dark downtown geometry behind the car",
-    "foreground": "wet pad gravel and a strip of eastbound paint",
-    "midground": "the pink Beetle small in frame, plow toward the right of the frame, no other playable vehicles",
-    "background": "clear cold morning, downtown behind, empty eastbound lanes ahead, no readable signs, no mountain yet",
-    "read": "the Beetle is pointed east; the city is behind it and shut",
+    "subject": "faded pink Beetle on the eastbound travel lane of a two-lane street that crosses the full frame left to right; full-width nose plow on the front bull bar points right",
+    "foreground": "one continuous wet asphalt street from the left edge of the frame to the right edge; skip-dashed paint; right curb and sidewalk along the bottom of the frame",
+    "midground": "the Beetle sits in the eastbound lane in the lower half, occupying the lane paint, one car-length past the last downtown crosswalk",
+    "background": "clear cold morning; left third: brick downtown blocks whose sidewalks meet this street; right third: the same two-lane continues east, empty, pale readable sky",
+    "read": "the Beetle is on the eastbound travel lane heading right; downtown blocks sit on the left of the frame and share the same street",
     "continuity": [
       "pink_menace_exterior"
     ],
@@ -33,22 +33,28 @@
       "no Encore",
       "no Ledger",
       "no readable highway sign",
-      "no mountain pass in frame"
+      "no mountain pass in frame",
+      "no isolated gravel patch",
+      "no moss island",
+      "no featureless pale expanse",
+      "no helipad"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",
-      "ego_lane_side": "legal pad off the right of eastbound",
-      "ego_nose_in_frame": "the plow points toward the right of the frame, toward the empty eastbound",
-      "oncoming_position": "none in frame",
-      "hazard_position": "none"
+      "ego_lane_side": "eastbound travel lane, lower half of the two-lane street, right curb along the bottom of the frame",
+      "ego_nose_in_frame": "the full-width nose plow on the front bull bar points toward the right edge of the frame, down the eastbound lane",
+      "oncoming_position": "westbound half in the upper part of the street is empty",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
     }
   },
   "variation": {
     "location_type": "downtown",
     "weather": "clear_cold",
     "time_of_day": "morning",
-    "tone": "warm",
+    "tone": "procedural",
     "failure_mode": "none"
   }
 }

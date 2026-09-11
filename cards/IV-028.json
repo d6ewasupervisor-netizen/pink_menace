@@ -4,37 +4,41 @@
   "zone": "The Core",
   "driver": "ali",
   "card_type": "dossier",
-  "title": "Neither Names the Lot",
-  "hook": "Two on the seat. Nobody mentions the lot.",
-  "scene": "Overcast midday, the Menace parked in a downtown lot stall, cluster at zero. Gracie and Mya are both on the passenger seat again — orange and brown, cream chest and dark stripe — boxed earlier, loose now because you are still. Nobody says Kent. Nobody says the collar. Nobody says who held her. Two cats, one seat, the same weight as I-003 and none of the talk. The Core is a wall of brick through the mesh. You let the quiet sit.",
-  "debrief": "Both cats are on the seat. Nobody names the lot. You saved the lot a sentence nobody said.",
+  "title": "Both in the Carrier",
+  "hook": "Both cats are boxed. A person is in the crosswalk.",
+  "scene": "Overcast midday on a two-lane downtown street. The Menace is in the right travel lane, moving. The carrier sits on the floor to the right of the tunnel, door latched, a strap around the box and the seat post. Gracie and Mya are both inside — orange with a cream chest, brown with a dark stripe — visible through the grate. Ahead through the mesh, a person in a dark coat is already in the marked crosswalk, one shoe on the white paint. The full-width nose plow on the front bull bar points at that person. The cats are a sound in a closed box. The person is the thing in the paint.",
+  "debrief": "Animals ride in a closed, strapped carrier. The person in the crosswalk is what you see when the load stays on the floor.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Mya beat: both cats on the seat, parked; neither Ali nor the card names the lot or the collar."
+    "teaching_target": "Pets ride in a closed, strapped carrier while moving; the person in the crosswalk stays visible in the glass."
   },
   "cast": [
     "ali",
     "gracie",
     "mya"
   ],
-  "antagonist": "none",
+  "antagonist": "load",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "both cats on the passenger seat — Gracie the orange tabby with cream chest, Mya the brown mackerel with a dark dorsal stripe — settled, neither on the dash",
-    "foreground": "worn wheel, faded pink dash, cluster at 0, mesh over the glass",
-    "midground": "the two cats sharing the seat, carrier clipped and stowed on the floor next to the seat",
-    "background": "overcast midday, downtown lot brick through the mesh, empty stall paint",
-    "read": "both cats are on the seat; the speedometer reads 0",
+    "subject": "closed carrier on the floor to the right of the tunnel, door latched, strap to the seat post; both cats visible through the grate",
+    "foreground": "worn wheel, faded pink dash, coarse panel mesh over the glass, full-width nose plow on the front bull bar at the bottom of the windshield",
+    "midground": "the latched strapped carrier on the floor; through the mesh, a person in a dark coat already in the marked crosswalk in the same travel lane",
+    "background": "overcast midday, two-lane downtown street, wet asphalt, skip-dashed paint, brick storefronts, travel lane continuing past the person",
+    "read": "both cats are inside the closed strapped carrier; a person stands in the marked crosswalk ahead",
     "continuity": [
       "pink_menace_interior",
       "gracie",
       "mya"
     ],
     "extra_negatives": [
+      "no cats on the seat",
       "no cats on the dash",
+      "no open carrier door",
+      "no parking-lot stall paint",
+      "no empty lot through the glass",
       "no Deac",
       "no Ledger",
       "no Quiet",
@@ -43,17 +47,20 @@
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked in a stall, not in a travel lane",
-      "ego_nose_in_frame": "the plow points at empty lot asphalt through the mesh",
+      "ego_lane_side": "right travel lane of two lanes this direction",
+      "ego_nose_in_frame": "the full-width nose plow on the front bull bar points at the person in the crosswalk through the mesh",
       "oncoming_position": "none in frame",
-      "hazard_position": "none"
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
     }
   },
   "variation": {
-    "location_type": "parking_lot",
+    "location_type": "downtown",
     "weather": "overcast",
     "time_of_day": "midday",
-    "tone": "quiet",
-    "failure_mode": "none"
+    "tone": "procedural",
+    "failure_mode": "distraction"
   }
 }
