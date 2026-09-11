@@ -1,0 +1,94 @@
+{
+  "card_id": "IV-008",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Bike in the Gap",
+  "hook": "A motorcycle is already in the lane you wanted.",
+  "scene": "Rain at morning on a four-lane downtown street. You already threw the left stalk. The left looks like a gap. In the left door glass a motorcycle is already there — low, same way, one lamp, a rider in a dark jacket, filling the space you wanted. They are a vehicle, not a gap. The stalk is still blinking. Cancel is a sentence. Taking it is a sideswipe.",
+  "decision": "The motorcycle is already in the lane you signaled for. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Finish the change — they will make room, they are smaller",
+      "correct": false,
+      "result": "You take the left anyway. They are already in it. Steel on a fairing. They go down in the rain. Smaller is not a hole you get to occupy.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "b",
+      "text": "Cancel, hold your lane, let them show or pass, then take a swept gap",
+      "correct": true,
+      "result": "You kill the stalk and hold. They slide through the glass and go. The next gap is empty paint. You take it without writing a rider into the door.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "c",
+      "text": "Drift right first so they have more of the left",
+      "correct": false,
+      "result": "You drift right to be kind. A van is already in that space. You buy a sideswipe to avoid a sideswipe. The rider still has your old gap.",
+      "state_delta": {
+        "noise": 3,
+        "damage": 1,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Tap the horn so they know to drop back",
+      "correct": false,
+      "result": "The horn on a wet morning. They flinch and stand it up. You both stop in live lanes. The stack behind you gets two new problems.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "A motorcycle in the lane you wanted is already a vehicle in that lane. Cancel, hold, then take a gap you have swept. You saved a rider a door full of steel.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "4.5 Sharing with motorcycles",
+    "teaching_target": "Treat a motorcycle as a full vehicle in the lane; do not change into a rider who is already there."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR_DOOR",
+    "camera_is_the_lesson": true,
+    "subject": "a motorcycle and rider filling the left door-mirror glass, same heading, one lamp, already in the lane you signaled for",
+    "foreground": "left door-mirror housing, rain on the glass, a strip of pink door flank",
+    "midground": "the rider in a dark jacket, no face, motorcycle parallel, blinker reflection still live",
+    "background": "defocused wet downtown, morning rain",
+    "read": "the motorcycle already occupies the left lane in the door-mirror glass",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two northbound lanes, mid-change",
+      "ego_nose_in_frame": "not in this glass; the reflection is the left flank and the motorcycle beside",
+      "oncoming_position": "none in this glass",
+      "hazard_position": "beside"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "rain",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "inexperience"
+  }
+}
