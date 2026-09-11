@@ -212,6 +212,19 @@ function assemblePrompt(card) {
       "Ego vehicle: a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette — a tall square passenger box on a van cab, faded green and white transit livery ghosting under gray primer. All four of the following must be clearly visible and unmistakable: the tall square box on a van nose, oversize side mirrors on long arms on both sides, an amber dot-matrix destination sign above the windshield with no readable text, and a welded bar cage over the windshield with a cut wiper slot."
     );
   }
+  if (
+    !deac &&
+    card.driver === "ali" &&
+    (brief.continuity || []).includes("pink_menace_exterior") &&
+    (cam === "POV_CHASE" ||
+      cam === "POV_ROADSIDE" ||
+      cam === "POV_ROADSIDE_PROFILE" ||
+      cam === "POV_DIAGRAM")
+  ) {
+    parts.push(
+      "Ego vehicle: a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the door on the left side of the vehicle and the rear quarter panel, and oversize knobby tires on chrome slot wheels. Use the attached exterior lock for BUILD AND SILHOUETTE ONLY — do not copy its golden-hour salt-flat lighting, and do not copy its FRONT three-quarter angle. That lock faces the plow toward the lens. If this brief is a reverse, the plow is the FAR end, pointing away from the camera."
+    );
+  }
   if (deac && cam !== "POV_PORTRAIT") {
     parts.push(otherVehicleClauseLedger(card));
   }
@@ -272,6 +285,16 @@ function assemblePrompt(card) {
     parts.push(SIGN_CLAUSE);
     const mark = markingAnchorClause(brief.geometry);
     if (mark) parts.push(mark);
+    const reverseNamed = /\brevers/i.test(
+      [brief.camera_pose, brief.subject, brief.read, brief.foreground, brief.midground]
+        .filter(Boolean)
+        .join(" ")
+    );
+    if (reverseNamed && !deac) {
+      parts.push(
+        "REVERSE MANEUVER lock: the Beetle is backing up. Its rear bumper and white reverse lamps travel toward the camera into the drive aisle. The plow still points away into the stall. This is not a forward pull-out and not travel away from the camera. Two white reverse lamps are lit on the rear apron; they are not headlights. The driver looks over her shoulder toward the rear, not toward the plow."
+      );
+    }
   } else if (cam !== "POV_OBJECT" && cam !== "POV_PORTRAIT") {
     parts.push(LHD);
   }
