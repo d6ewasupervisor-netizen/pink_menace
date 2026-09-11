@@ -74,7 +74,14 @@
     "background": "fog at dusk, school-edge fence out of focus, no readable sign text",
     "read": "the sedan is stopped at the crosswalk; the left lane beside it is empty",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "pink_menace_exterior",
+      "cover_the_brake"
+    ],
+    "extra_negatives": [
+      "No boot on bare floor left of the pedal box",
+      "No unused brake pad sitting empty to the right of the shoe",
+      "No black high-top, no dark Encore two-pedal dash copied from the footwell plate"
     ],
     "aspect": "2:3",
     "geometry": {

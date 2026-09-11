@@ -234,6 +234,18 @@ Alternate: one period-correct dial. Card JSON wins when it names the needle.
 Already locked via footwell take-6 / Y4 take-1 cockpit authority. Do not lock
 Y4 take 7 as cockpit authority.
 
+## COVER THE BRAKE — attach the plate, do not re-describe
+
+When the brief names covering the brake, attach `ref_brake_cover.png`
+(IV-001-brake take 81, Claude muted-read PASS). Continuity token
+`cover_the_brake` is auto-injected if omitted.
+
+That plate is **posture only**. Copy the heel-plant / ball-hover onto this
+card's brake pad. Do not copy the plate's dark Encore dash, black high-top,
+or two-pedal automatic box onto a Menace cabin. Menace stays three pedals
+with a clutch; the shoe sits over the **center** pad, not on bare floor
+left of the pedal box.
+
 ## THE QUIET — register lock, 8 Sep 2026
 
 If the frame contains the Quiet, continuity includes `the_quiet` and you attach `ref_quiet.png`. That plate is the register, not a costume to copy: filthy, slack-shouldered, head canted, doing nothing, seen through glass. Wrongness of posture and stillness. Not damage.
@@ -578,6 +590,7 @@ else. No commentary. No alternatives.
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
 | Pink Menace exterior | `ref_car_exterior.jpg` |
 | Pink Menace interior / `POV_COCKPIT` | `ref_menace_cabin.png` (take 16, human-verified). Never `ref_cockpit.jpg`. |
+| Brief names covering the brake | `ref_brake_cover.png` (IV-001-brake take 81). Posture only — not cabin or pedal-count authority. |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |
