@@ -1,0 +1,36 @@
+{
+  "card_id": "IV-001-brake",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "yuna",
+  "card_type": "ride-along-still",
+  "title": "Cover the brake",
+  "note": "Named-spot still for IV-001 line 3. Not a scored card. This JSON is the sole brief authority for the brake footwell.",
+  "hook": "Foot off the gas. Heel down. Ball of the foot held over the brake.",
+  "scene": "Encore ride-along, Yuna driving. Cover the brake before the light even thinks about yellow. Foot off the gas. Held. Not riding it.",
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "camera_pose": "Camera is low in the left-hand-drive driver footwell of Encore, same footwell as IV-001-brake-take-18, near the dead pedal, looking down and slightly forward at the pedal box. THREE pedals occupy the lower-middle of the FRAME: clutch on the left, brake in the center, gas on the right. The brake pedal is the center of the FRAME. Intact windshield with rain-on-glass and the same overcast wiper-path lighting as take 18 occupy only the top fifth of the FRAME, soft and out of focus. Analog cluster and one guarded red switch match the Y4 take 7 glass lock. No faces.",
+    "subject": "a right foot in a black high-top covering the BRAKE pedal. The heel of the shoe is planted on the painted floor. The ball of the foot is held directly above the center brake pedal with a clear air gap between sole and pedal pad — that gap is silhouetted on the rubber brake pad. The foot is not between pedals, not on the gas, not pumping, not riding the pedal. Held. Clutch left of the brake is empty. Gas right of the brake is empty.",
+    "foreground": "three worn metal pedals with rubber covers; painted dark Encore floor; the planted heel; a roll-cage tube at the left edge of the FRAME. Any floor mat stays flat and back on the floor — it does not bunch or ride toward the pedal box.",
+    "midground": "the covering foot and ankle, a sliver of black track pant; empty clutch; empty gas; the silhouetted air gap on the brake pad",
+    "background": "soft rain-dotted intact windshield and the locked analog dash from Y4 take 7; overcast wiper-path light through glass; a distant traffic light, no readable sign legend",
+    "read": "three pedals in frame; heel on the floor; ball of the foot covers the brake with a clear gap silhouetted on the pad; gas empty",
+    "continuity": ["encore_cockpit"],
+    "aspect": "2:3",
+    "extra_negatives": [
+      "No magenta posterization, no color banding, no purple or magenta cast in the lower third",
+      "No heel off the floor, no floating foot, no foot suspended in mid-air, no shoe hanging in empty space",
+      "No foot between the pedals, no foot over empty floor, no foot on the gas, no foot well to the right of the pedal box",
+      "No mat riding toward the pedal box, no bunched mat, no large distressed mat filling the lower third, no pink Menace floor mat",
+      "No two-pedal footwell — clutch, brake, and gas must all be visible",
+      "No Volkswagen Beetle interior, no faded pink dashboard, no pink floor"
+    ]
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "rain",
+    "time_of_day": "overcast",
+    "tone": "procedural"
+  }
+}
