@@ -33,4 +33,11 @@ Hashes against `cards/<id>.png`. Take numbers are the matching file in `cards/ta
 
 Lot cards I-005–I-008 untouched.
 
-I-009 and I-010 new takes (take 9+) stay in `cards/takes/` until a human pass. Do not copy them to `cards/I-009.png` or `cards/I-010.png`.
+I-009 and I-010 new takes stay in `cards/takes/` until a human pass. Do not copy them to `cards/I-009.png` or `cards/I-010.png`.
+
+New batch (11 Sep 2026), compiled from the JSON briefs:
+
+| Card | Takes | Notes |
+|------|-------|-------|
+| I-009 | take 9–12 | Door-mirror crop vs warehouse lot. 10 and 12 show Gracie on a seat; 11 is mirror-only; 9 has the cat from behind. None seeded. |
+| I-010 | take 9–12 | Same rearward OTS as live take 8; aisle empty, warehouse frontage, no parked cars. None seeded. |
