@@ -40,7 +40,10 @@
       "no Encore",
       "no Quiet",
       "no cooler",
-      "no Ledger through the windshield"
+      "no Ledger through the windshield",
+      "no cat on the hood or roof",
+      "no GPS map",
+      "dark blank tablet only"
     ],
     "aspect": "2:3",
     "geometry": {

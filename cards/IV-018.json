@@ -86,7 +86,9 @@
       "no Quiet",
       "no Deac",
       "no cats on the lap",
-      "no open carrier door"
+      "no open carrier door",
+      "no GPS map",
+      "dark blank tablet only"
     ],
     "aspect": "2:3",
     "geometry": {
