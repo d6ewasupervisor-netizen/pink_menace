@@ -1,0 +1,113 @@
+{
+  "card_id": "IV-006",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Tracks in the Lane",
+  "hook": "Tracks sit in your lane. The train cannot swerve.",
+  "scene": "Wind at night on a downtown street that still carries light rail. Steel sits in the asphalt of your lane — two rails, wet, the groove that eats a tire. A train is a set of lamps coming up those rails, same way, no steering to give you. You can straddle, you can race, or you can leave the rail to the thing that cannot leave it. The wind shoves the Menace a hand toward the groove.",
+  "decision": "The rails are in your lane and the train is coming. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Straddle the rails and hold speed — your tires can take the groove",
+      "correct": false,
+      "result": "A tire finds the groove and follows it. The plow walks. You fight the wheel while the lamps grow. The train does not have a wheel to fight. You become a problem on its rail.",
+      "state_delta": {
+        "yaw": 3,
+        "noise": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Beat the train through the next light — it has to stop anyway",
+      "correct": false,
+      "result": "You try to own a rail the train already owns. It does not stop for your light. You dump speed on steel. The lamps fill the mesh. You were never going to win that race.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stop on the rails so the train has to deal with you first",
+      "correct": false,
+      "result": "You plant a Beetle on steel. The train cannot swerve. The operator has one move and it is late. You made a crossing out of a travel lane.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 10
+      }
+    },
+    {
+      "id": "d",
+      "text": "Signal, leave the track lane, give the train the rails, then hold",
+      "correct": true,
+      "result": "Amber on. You take the next lane that is only paint. The train takes the steel it cannot leave. You feel it pass in the door glass. The groove stays a groove, not a trap.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    }
+  ],
+  "debrief": "Light rail uses the street and cannot swerve. Get off the rails; do not race it or sit on the steel. The steel keeps the train it cannot leave.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "4.7 Sharing the road with trains (Light rail)",
+    "teaching_target": "Street light rail cannot swerve; do not stop, park, or leave a vehicle on the tracks — leave the track lane."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "subject": "RIGHT of frame: pink Beetle in the right travel lane, rails in that lane, a light-rail car two lengths ahead on those rails. LEFT of frame: empty travel lane. Both travel away from camera.",
+    "foreground": "wet skip-dashed white between the two lanes; LEFT edge of the roadway is a curb, not a yellow line",
+    "midground": "two steel rails inset in the Beetle's lane; a low light-rail car ahead on the rails, lamps on, no steering angle",
+    "background": "wind, night, downtown lamps, no extra side streets, no opposing traffic in frame",
+    "read": "the rails and the train occupy the Beetle's lane; the left travel lane is empty",
+    "extra_negatives": [
+      "no yellow centerline",
+      "no oncoming vehicle",
+      "no second Beetle",
+      "no Encore chevron",
+      "no Ledger cutaway"
+    ],
+    "continuity": [
+      "diagram_style",
+      "pink_menace_exterior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two northbound lanes",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, away from camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "light-rail car",
+          "frame_side": "same",
+          "lane_from_left": 2,
+          "along": "ahead",
+          "lengths": 2
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "rail_crossing",
+    "weather": "wind",
+    "time_of_day": "night",
+    "tone": "grim",
+    "failure_mode": "inexperience"
+  }
+}

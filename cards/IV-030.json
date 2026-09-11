@@ -1,0 +1,54 @@
+{
+  "card_id": "IV-030",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "The Door to the Pass",
+  "hook": "The Core is behind. The pass is shut.",
+  "scene": "Clear cold morning, the Menace on a legal pad at the east edge of downtown. The Core is a dark geometry in the glass behind you — a few stubborn lamps, no skyline you can read. The road ahead is east, toward the passes, toward a ribbon you have not been cleared for. Both cats are a sound on the floor next to the seat. You are not cleared. The door to Act V sits in the windshield like a title with a lock. Deac's standard still holds. The next skill is a different mountain.",
+  "debrief": "Downtown is behind you. The road east is a locked door with a name on it. The eastbound sits there with a lock on it.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Cliffhanger: Core behind, road east ahead, Act V locked; she is not cleared for the pass."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_TOPDOWN_PHOTO",
+    "subject": "the Menace on a pad at the east edge of downtown, plow pointed east, the Core a dark downtown geometry behind the car",
+    "foreground": "wet pad gravel and a strip of eastbound paint",
+    "midground": "the pink Beetle small in frame, plow toward the right of the frame, no other playable vehicles",
+    "background": "clear cold morning, downtown behind, empty eastbound lanes ahead, no readable signs, no mountain yet",
+    "read": "the Beetle is pointed east; the city is behind it and shut",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no Encore",
+      "no Ledger",
+      "no readable highway sign",
+      "no mountain pass in frame"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "legal pad off the right of eastbound",
+      "ego_nose_in_frame": "the plow points toward the right of the frame, toward the empty eastbound",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "clear_cold",
+    "time_of_day": "morning",
+    "tone": "warm",
+    "failure_mode": "none"
+  }
+}

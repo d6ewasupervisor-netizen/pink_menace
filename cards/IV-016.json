@@ -1,0 +1,65 @@
+{
+  "card_id": "IV-016",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "He Does Not Get Out",
+  "hook": "The Ledger is parked. Mya has the dash.",
+  "scene": "Rain at midday, a downtown curb you can see from the mesh. The Ledger is parked where he knew you would look — destination sign dark, long-arm mirrors beaded. He does not get out. Mya is a brown mackerel loaf on the dash against the cargo wall, dark stripe, green eyes. The clipboard is on the doghouse between the seats. You idle in the Menace a stall away. Two engines. One cat. He waits for you to see what he already decided.",
+  "debrief": "Deac came back parked, not walking. Mya has the glass because the bus is still. You took the look he waited for.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Deac returns: parked in sight, Mya on the dash only because the Ledger is still, he does not get out."
+  },
+  "cast": [
+    "ali",
+    "deac",
+    "mya"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "subject": "the Ledger — van-nose cutaway, dark destination sign, windshield bar cage — parked a stall behind, Deac in the high seat, Mya a brown loaf on the dash",
+    "foreground": "Camera is inside the Menace, looking up at the interior rearview. Faded pink header, mesh dark around the glass.",
+    "midground": "in the rearview only: Ledger front, door shut, Deac a seated silhouette, Mya loafed on the dash against the cargo wall",
+    "background": "rain at midday, downtown brick in the reflection, nobody standing beside the bus",
+    "read": "the Ledger is parked behind; Deac is in the cab; Mya is loafed on the dash; the door is shut",
+    "continuity": [
+      "pink_menace_interior",
+      "the_ledger",
+      "mya"
+    ],
+    "extra_negatives": [
+      "no Deac standing outside",
+      "no open door",
+      "no clipboard in the windshield",
+      "no Encore",
+      "no Quiet",
+      "no cooler",
+      "no Ledger through the windshield",
+      "no cat on the hood or roof",
+      "no GPS map",
+      "dark blank tablet only"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "idling at the curb a stall ahead of the parked bus",
+      "ego_nose_in_frame": "the plow is not the subject; windshield view is dark and defocused",
+      "oncoming_position": "none in frame",
+      "hazard_position": "behind"
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "rain",
+    "time_of_day": "midday",
+    "tone": "quiet",
+    "failure_mode": "none",
+    "forced": "016-018 emotional center shares downtown; Deac+Mya cast cluster"
+  }
+}
