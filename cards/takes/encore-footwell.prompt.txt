@@ -1,0 +1,18 @@
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.8, pedal box sharp. Overcast Pacific Northwest daylight through the windshield — soft, diffuse, low-contrast, gray-blue. Desaturated palette: wet asphalt gray, oxidized steel, cold concrete, dark painted metal. No pink, no magenta, no cranberry. Fine grain, slight vignetting, no HDR, no glow, no lens flare.
+
+EMPTY Encore driver-footwell REFERENCE PLATE. Camera low in the left-hand-drive driver footwell, looking down and slightly forward at the pedal box. Pedals, floor, and heel zone fill most of the frame. No foot, no shoe, no ankle, no leg, no person.
+
+REQUIRED pedal_count: exactly TWO pedals. Automatic. NO clutch. NO third pedal under any circumstance.
+- LEFT of the brake: empty painted dark metal floor — bare, open, nothing hanging, no pedal hidden in shadow, no dead pedal plate.
+- BRAKE (left pedal of the pair): wide rectangular metal treadplate with raised diamond/bar ridges, hanging from a visible arm.
+- ACCELERATOR (right pedal): distinctly narrower ribbed rubber organ-style pedal, to the right of the brake, clear gap between them.
+
+Heel rest zone in the foreground on dark charcoal painted metal floor. NEVER pink, never magenta, never a Beetle floor mat.
+
+Upper frame: rain beads on intact windshield glass, sliver of analog instrument cluster, left roll-cage tube, guarded red switch — enclosed cabin, solid roof. Match attached Encore cockpit (Y4 take 7) for glass/dash/cage language ONLY. That cockpit shot is over-the-wheel; do not invent pedal count from it.
+
+Left-hand drive. Photograph, not a render.
+
+No clutch, no third pedal, no three-pedal box, no hanging pedal left of the brake, no foot, no shoe, no pink floor mat, no magenta carpet, no Menace Beetle interior, no mesh over glass, no open tube-frame cabin, no sky where the roof should be, no golden hour, no text, no captions, no watermarks, no illustration.
+
+Aspect ratio 2:3. Attachments: cards/takes/Y4-take-7.png (cabin language only).
