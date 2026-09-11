@@ -1,0 +1,12 @@
+# IV-002 — The Naked Glass (after Y4 glass lock)
+# attachments: ref_encore_cockpit.png (Y4 take 8), ref_encore_sheet.png (Y3 take 12)
+# FAIL take 3: inherited open tube-frame / weather through bare apertures
+# takes: 5–8
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field. REQUIRED ELEMENT FIRST: intact factory windshield glass — a continuous real sheet of glass filling the opening, rubber gasket, windshield header, A-pillars, an interior rearview hanging from the glass. Raindrops bead on the OUTSIDE of the glass. Weather stays outside. The cabin is enclosed: solid roof, headliner. Match the attached cockpit lock for that enclosed glass.
+
+Camera is inside Encore on the welded-in rear bench, looking forward through the cabin at the windshield. The mismatched welded rear bench and cage tubing occupy the bottom of frame. The empty suede racing wheel sits ahead. Stripped metal dash, a guarded red PA switch left off. Dead wireless in-ears hanging on the cage tube, one earpiece dangling. Beyond the intact glass: overcast downtown Seattle, wet pavement, rain on the street, no readable signs. Left-hand drive. Desaturated; retroreflective silver-white is the only bright note.
+
+The read: the windshield is intact glass with no mesh; rain is outside on the glass, not inside through a hole; this cab has a bench for people.
+
+No open cabin, no bare apertures, no missing windshield, no weather coming straight in, no open tube-frame cockpit, no mesh, no bars across the glass, no PA horns inside the cabin, no plow, no pink Beetle interior, no Ledger cage. No golden hour, no text, no UI. Photograph. Aspect ratio 2:3.

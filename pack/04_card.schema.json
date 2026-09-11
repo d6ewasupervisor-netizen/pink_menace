@@ -189,6 +189,12 @@
           "type": "boolean",
           "description": "True when the camera position is itself the teaching content. Exempt from the 25% act cap, from window-of-6 token counts, and from consecutive-token when either card in the pair is lesson or ego-seat (POV_COCKPIT / POV_MIRROR_DOOR)."
         },
+        "camera_pose": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 400,
+          "description": "Explicit camera position. Overrides the default framing for the camera token. Required when the token's stock pose cannot show the read (e.g. Encore cockpit from the rear bench, I-010 looking over the shoulder)."
+        },
         "extra_negatives": {
           "type": "array",
           "items": { "type": "string", "minLength": 4, "maxLength": 160 },
