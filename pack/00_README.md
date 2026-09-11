@@ -56,7 +56,7 @@ Three layers, and the order matters.
 3. Generate **Act II first**, not Act I. Act I is parking-lot fundamentals and the hardest act to make fun — lock the voice on The Grid before you write Skill One. Within an act, walk the slot list in order so callbacks can resolve.
 4. **Act II is done. Do not write Act III until someone has played it.** Give her https://ali.tactag.app, leave the room, and read the run off `run_answers` afterward (`npm run playthrough`). Watching changes how a sixteen-year-old plays; `ms_to_answer` is the skim signal (median under ~6s means the scene is not being read). Continue dwell is `ms_on_outcome`. The II-007 → II-010 callback feeling is not in the data — ask afterward, without naming it: "Did anything in it feel like it remembered you?"
 5. After each card, append its axis values to the ledger state and pass the updated state into the next call.
-6. Batch image compilation **after** a full zone is written, so recurring locations stay visually consistent within an act.
+6. Batch image compilation **after** a full zone is written, so recurring locations stay visually consistent within an act. Takes follow the waves-of-eight rule below — not a twelve-plate dump.
 7. Chunk size 100 for any bulk pass. Run twenty §9 ceiling tests before committing a full act.
 
 `19_ACT_II_ART_AUDIT.md` is the human art pass for Act II — frame-by-frame read against card text, with rebuild prompts for failures.
@@ -64,6 +64,26 @@ Three layers, and the order matters.
 ## Regeneration rule
 
 If a card comes back flat, regenerate the **card**, not the image. A bad image is almost always a symptom of a vague decision moment. Fix upstream.
+
+---
+
+## Take sends — standing (Claude)
+
+**Waves of eight.** Face-critical frames get eight takes, then four more if the wave misses. Never twelve in one send. Vehicle-critical starts at four. Identity-free is one or two. Exposure classes: pack/12.
+
+**Locked batch: eight then four, not twelve.** The second wave exists because the first can miss. Twelve up front is the same money with no review in between.
+
+**Every take send names three things:** `card_id`, one-line lesson, shot token. A send without those is not a send — it is an unlabeled plate. The lesson is the card's `read` in one sentence. The shot token is the camera token from the brief (`POV_COCKPIT`, `POV_DIAGRAM`, …). Do not invent a fourth label. This is a Claude standing rule: every take send, every wave.
+
+```
+IV-001  the gap to the bumper is one car length      POV_COCKPIT
+IV-002  the diamond sits against the median          POV_DIAGRAM
+IV-003  the following cab fills the left door glass  POV_MIRROR_DOOR
+```
+
+The three fields wrap the send. They do not enter the compiled GPT Image 2 paragraph (pack/03).
+
+**Review batches in threes.** After a wave, send three cards at a time. Each line is `card_id` + lesson. Not a strip of twelve stills. The human tags; you do not pick.
 
 ---
 
