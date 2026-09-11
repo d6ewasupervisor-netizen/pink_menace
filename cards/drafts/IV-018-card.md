@@ -30,4 +30,4 @@ Both cats are on the seat and you have not rolled. What do you do with the load?
 
 ## Debrief
 
-An animal in a moving car is a load. Secure it before you roll. Both cats are in the frame again. Two cats, one carrier, then the ice.
+An animal in a moving car is a load. Secure it before you roll. Both cats are in the frame again. Gracie is a sound on the floor next to the seat.
