@@ -188,11 +188,24 @@ function assemblePrompt(card) {
   if (typeof brief.camera_pose === "string" && brief.camera_pose.trim()) {
     framing = brief.camera_pose.trim();
   }
+  if (card.card_id === "IV-026") {
+    framing =
+      "Camera is slightly elevated — a low street-level overhead, not a steep bird's-eye — looking along a wet small-town main street so brick storefronts recede with real depth and a readable flat gray daylight sky fills the top of frame. Slight left offset from dead astern: the rear mesh of the Beetle is nearer the camera in the lower third; the standard wide flat nose-mounted plow blade is readable at the far leading end as a wide dark rectangle on a black tube bull bar. Tight crop: two travel lanes and the three hazards. Real wet pavement, real painted skip-dashes. No extra side streets or curb clutter the brief did not name.";
+  }
   if (!framing) throw new Error(`${card.card_id}: cannot compile camera ${cam}`);
 
   const parts = [];
-  if (cam === "POV_DIAGRAM") parts.push(deac ? LEDGER_DIAGRAM_STYLE : DIAGRAM_STYLE);
-  else parts.push(deac ? DEAC_STYLE : MASTER_STYLE);
+  if (cam === "POV_DIAGRAM") {
+    if (card.card_id === "IV-026") {
+      parts.push(
+        "Cinematic photoreal still, same world as the rest of the game. 35mm full-frame equivalent, slightly elevated looking along travel — low street-level overhead, not a steep bird's-eye — everything in focus enough to read lanes. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Wet asphalt, moss, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, no HDR, no glow, no lens flare. This is a photograph of real vehicles on a real street, not a map, not an infographic, not a vector diagram."
+      );
+    } else {
+      parts.push(deac ? LEDGER_DIAGRAM_STYLE : DIAGRAM_STYLE);
+    }
+  } else {
+    parts.push(deac ? DEAC_STYLE : MASTER_STYLE);
+  }
 
   parts.push(framing);
 
@@ -210,6 +223,23 @@ function assemblePrompt(card) {
   ) {
     parts.push(
       "Ego vehicle: a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette — a tall square passenger box on a van cab, faded green and white transit livery ghosting under gray primer. All four of the following must be clearly visible and unmistakable: the tall square box on a van nose, oversize side mirrors on long arms on both sides, an amber dot-matrix destination sign above the windshield with no readable text, and a welded bar cage over the windshield with a cut wiper slot."
+    );
+  }
+  if (
+    !deac &&
+    card.driver === "ali" &&
+    (cam === "POV_CHASE" ||
+      cam === "POV_ROADSIDE" ||
+      cam === "POV_ROADSIDE_PROFILE" ||
+      cam === "POV_DIAGRAM")
+  ) {
+    parts.push(
+      "Ego vehicle: a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the door on the left side of the vehicle and the rear quarter panel, and oversize knobby tires on chrome slot wheels. Use the attached exterior lock for BUILD AND SILHOUETTE ONLY — do not copy its golden-hour salt-flat lighting."
+    );
+  }
+  if (card.card_id === "IV-026") {
+    parts.push(
+      "The Beetle is in readable mid-motion: rolling straight toward the three hazards at approach distance, wet knobby spray, wheels mid-roll — not parked still in an empty stretch. Body parallel to the skip-dashed line, not cocked, not yawed. Camera may offset; the car does not. Continuity plow: standard Pink Menace nose-mounted wide flat blade on the black tube bull bar at the front/nose — the same geometry as the attached exterior lock. Not a thin bar on the left flank, not a side-mounted blade."
     );
   }
   if (deac && cam !== "POV_PORTRAIT") {

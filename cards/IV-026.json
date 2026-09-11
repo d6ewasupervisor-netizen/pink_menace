@@ -1,0 +1,120 @@
+{
+  "card_id": "IV-026",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Separate the Three",
+  "hook": "Three problems. You cannot fix all three.",
+  "scene": "Heavy rain under a flat gray overcast on a downtown block that stacked its problems. Ahead: an open van door, a person in the travel lane, a bike splitting the two. You can slow. You cannot thread all three. Hazard management is picking an order — dump speed, give the person the lane, let the bike declare, then deal with the door. Trying to fix all three in one steer is how you write a fourth.",
+  "decision": "Door, person, bike, all in the next two lengths. What do you do first?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Steer through the middle and miss all three at once",
+      "correct": false,
+      "result": "You invent a path that does not exist. The bike goes left, the person goes right, the door stays a door. You collect two of them. One steer is not three answers.",
+      "state_delta": {
+        "noise": 5,
+        "yaw": 3,
+        "damage": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "b",
+      "text": "Honk and take the left so they all have to sort themselves",
+      "correct": false,
+      "result": "The horn makes all three move at once, in three directions. You still have to pick one. You picked noise. The left had a van you did not have.",
+      "state_delta": {
+        "noise": 5,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Speed up and clear the block before they finish stacking",
+      "correct": false,
+      "result": "You add speed to a pile. The person is not done. The door is still open. Faster is how a stack becomes a crash. You did not separate anything.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Dump speed first, hold, let the person and the bike declare, then creep past the door",
+      "correct": true,
+      "result": "You plant the number. The person finishes. The bike takes a side. The door is the last thing and you creep it. Three problems, three beats. No fourth.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "You cannot fix three hazards in one move. Dump speed, separate them, take them in order. Three problems, three beats, no fourth.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "5.0 Dangers of driving",
+    "teaching_target": "When multiple hazards appear at once, reduce speed and separate them; do not try to solve all three in one steering input."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "subject": "RIGHT of frame: pink Beetle traveling straight in the right lane, mid-motion not parked. Ahead at two lengths: open van door, person in the paint, bike between. LEFT of frame: empty travel lane.",
+    "foreground": "wet skip-dashed white; LEFT edge is a curb, not a yellow line; Beetle parallel to the dash",
+    "midground": "three hazards stacked in two lengths at approach distance — door, person, bike — none facing camera",
+    "background": "heavy overcast rain, flat gray Pacific Northwest daylight sky readable under overcast, wet small-town main street with depth, no opposing traffic",
+    "read": "three hazards sit in the Beetle's next two lengths; the left travel lane is empty",
+    "extra_negatives": [
+      "no faces",
+      "no child",
+      "no yellow centerline",
+      "no Encore",
+      "no Ledger",
+      "no dusk",
+      "no night",
+      "no deep night",
+      "no warm headlight-dominant night look",
+      "no black asphalt night",
+      "no unreadable black sky",
+      "no parked still Beetle",
+      "no cocked or yawed Beetle",
+      "no thin left-flank plow bar",
+      "no side-mounted plow",
+      "no second pink vehicle",
+      "no pink van",
+      "no steep bird's-eye",
+      "no long empty gap before the hazards"
+    ],
+    "continuity": [
+      "diagram_style",
+      "pink_menace_exterior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two lanes this direction",
+      "ego_nose_in_frame": "standard wide flat nose-mounted plow at the far leading end, pointing at the stacked hazards",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "heavy_rain",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "inexperience",
+    "forced": "Act IV daylight lock — dusk/night is Act VII Dark Hours"
+  }
+}
