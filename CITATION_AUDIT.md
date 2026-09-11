@@ -1,6 +1,8 @@
-# Citation audit — after Act IV fixes
+# Citation audit — after Act IV fixes (POST-FIX)
 
 Human citation audit. Text before pixels. No art. No frame seed. No Encore exterior compile. No Act I/II/III replay.
+
+**POST-FIX 29-row list (live JSON):** `ACT_IV_CARD_AUDIT_LIST.md`.
 
 **Allowlist authority:** PR #10 (`cursor/citation-encore-glass-8e42`) — `pack/07_DOL_SECTIONS.json` + `pack/08_PSDP_SKILLS.json`. This branch copies those two files and adds **one** real TOC child:
 
@@ -8,7 +10,7 @@ Human citation audit. Text before pixels. No art. No frame seed. No Encore exter
 
 Official body: WA Driver Guide text-only. Rechecked 2026-09-11.
 
-**IV-017 is ACCEPTED AS WRITTEN.** Do not soften, lengthen, or add curriculum.
+**IV-017 is ACCEPTED AS WRITTEN.** Do not soften, lengthen, or add curriculum. Scene field is the same words in order, broken into staging / nine Deac lines / Ali — not a wall paragraph.
 
 ---
 
@@ -17,10 +19,10 @@ Official body: WA Driver Guide text-only. Rechecked 2026-09-11.
 | # | What | Path |
 |---|---|---|
 | 1 | IV-001 twelve lines | `cards/drafts/IV-001-ridealong-lines.md` |
-| 2 | IV-017 card + Deac dialogue verbatim | `cards/IV-017.json` (scene) · `cards/drafts/IV-017-CONVERSATION.md` (nine lines) |
+| 2 | IV-017 card + Deac dialogue verbatim | `cards/IV-017.json` (scene, line-broken) · `cards/drafts/IV-017-CONVERSATION.md` (nine lines) |
 | 3 | This audit | `CITATION_AUDIT.md` |
-| 4 | IV-018 full card copy | `cards/IV-018.json` · `cards/drafts/IV-018-card.md` |
-| 5 | All 29 Act IV cards (002–030) | `cards/drafts/IV-CARD-INDEX.md` |
+| 4 | IV-018 full card copy | `cards/IV-018.json` · `cards/drafts/IV-018-card.md` — carrier not in scene |
+| 5 | All 29 Act IV cards (002–030) POST-FIX | `ACT_IV_CARD_AUDIT_LIST.md` · `cards/drafts/IV-CARD-INDEX.md` |
 | 6 | Hazard→scene flip | **IV-026** — see below |
 | 7 | Act II camera-cap ticket | `pack/DISABLED_TICKETS.md` (GitHub Issues API not writable from this agent) |
 
@@ -80,7 +82,7 @@ After IV-029 → dossier: **13 scene, 3 hazard, 2 rule, 1 convoy, 1 wrench, 2 le
 | IV-014 | `5.2 Space` | Brake in lane; do not take unchecked space | **FIXED** (see cite choice) |
 | IV-015 | `4.15 Other intersections` | Roundabout: yield to traffic already in; look left; no lane change inside; signal on exit | **FIXED** (was WRONG 4.13-class yield-to-right). Parent only — PR #10 skipped 4.15 children. Skill thirteen not on allowlist → Skill ten p2. |
 | IV-016 | `n/a` | Deac parked; Mya on the dash because still | SUPPORT |
-| IV-017 | `n/a` | Handover. He decided. No quiz. | SUPPORT — **accepted as written** |
+| IV-017 | `n/a` | Handover. He decided. No quiz. | SUPPORT — **accepted as written** (scene line-broken only) |
 | IV-018 | `4.19 Transporting (Animals)` | Secure both cats before you roll | **FIXED** (exact string) |
 | IV-019 | `5.10 Law enforcement (Getting pulled over)` | Stay in the vehicle, hands, dome, wait | SUPPORT |
 | IV-020 | `5.10 Law enforcement (Getting a ticket)` | Sign (not guilt); follow the back within 15 days | **FIXED** (real TOC child added to pack/07) |
@@ -123,7 +125,7 @@ Skill ten strings match PR #10 (`Skill ten: city driving – part one` / `part t
 | Path | Where | Do |
 |---|---|---|
 | `cards/drafts/IV-017-CONVERSATION.md` | PR #13, untouched | Hand-written authority. Accepted as written. |
-| `cards/IV-017.json` | PR #13, untouched | Do not seed. |
+| `cards/IV-017.json` | PR #13 words; line breaks this PR | Do not seed. Same words, same order. |
 | `cards/drafts/IV-001-ridealong-lines.md` | from PR #12 | Cite, do not fork. |
 | IV-002…016, 018…028, 030 | from PR #12; cites/rewrites this PR | |
 | Skill ten + DOL allowlist | from PR #10 + Getting a ticket | |

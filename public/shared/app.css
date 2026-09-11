@@ -307,7 +307,7 @@ button.danger {
   overflow-wrap: anywhere;
 }
 
-.scene { color: var(--ink); line-height: 1.45; font-size: 0.98rem; }
+.scene { color: var(--ink); line-height: 1.45; font-size: 0.98rem; white-space: pre-wrap; }
 .decision { color: var(--pink); font-weight: 600; }
 .result { color: var(--muted); }
 

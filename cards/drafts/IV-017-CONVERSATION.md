@@ -45,6 +45,8 @@ She takes her. She does not say the name.
 
 `cards/IV-017.json` on this branch is this copy. It **replaces** the generated scene on PR #12 (`cursor/act-iv-core-text-29b1`, `cards/IV-017.json`) — that file summarized the prompt ("Quiet. Checks. Trusted with a thing…") and set `tone: warm`. Do not seed art.
 
+The `scene` field is the same words in the same order, with line breaks: staging first, each of the nine Deac lines on its own line, then Ali. Not a wall paragraph. Do not change the words.
+
 ---
 
 ## IV-001

@@ -1,8 +1,34 @@
-# Act IV card index (IV-002–IV-030)
+# Act IV card audit list — POST-FIX
 
-**POST-FIX.** Canonical 29-row list with cite confirmation: `ACT_IV_CARD_AUDIT_LIST.md`.
+Verified against live `cards/IV-002.json` … `cards/IV-030.json` on this branch (PR #17 citation fixes + e8424f65 text pass). These are the values in the card JSON. **Not pre-fix.**
 
-Plain list for Claude. IV-001 is lines only: `cards/drafts/IV-001-ridealong-lines.md`.
+IV-001 is ride-along lines only (`cards/drafts/IV-001-ridealong-lines.md`) and is not one of the 29 rows.
+
+Precedent already on this branch: **II-018** `dol_section` is `4.19 Transporting (Animals)`.
+
+---
+
+## Fixed-cite confirmation (live JSON)
+
+| Card | Live `dol_section` / type | Required POST-FIX | Match |
+|---|---|---|---|
+| IV-003 | `5.5 Focus` · Skill ten: city driving – part one | 5.5 Focus (not 5.0 Hazard perception); Skill ten p1 primary | YES |
+| IV-006 | `4.7 Sharing the road with trains (Light rail)` | (Light rail) lowercase r | YES |
+| IV-013 | `4.6 Sharing with bicyclists` | 4.6 Sharing with bicyclists (not 4.18 Parallel parking) | YES |
+| IV-014 | `5.2 Space` | 5.2 Space (not 5.0 Situational awareness) | YES |
+| IV-015 | `4.15 Other intersections` · title Already In the Circle · roundabout | Rewritten as roundabout under 4.15 (NOT "The One on the Left" / uncontrolled / yield-to-left). Correct: yield to traffic already in, look left, no lane change inside, signal on exit | YES |
+| IV-018 | `4.19 Transporting (Animals)` | exact string, no slash form | YES |
+| IV-021 | `5.9 Collisions` | plain `5.9 Collisions` | YES |
+| IV-022 | `5.9 Collisions` · title What You Carry · emergency kit | 5.9 Emergency kit content (not Reporting/911) | YES |
+| IV-023 | `5.7 Vehicle failures` | plain `5.7 Vehicle failures` | YES |
+| IV-026 | `5.0 Dangers of driving` | plain `5.0 Dangers of driving` | YES |
+| IV-027 | `5.2 Space` | `5.2 Space` | YES |
+| IV-029 | dossier · `n/a` / `n/a` · title When Not To Be Loud | dossier Yuna thesis when NOT to be loud (n/a cites), not a scene | YES |
+| II-018 | `4.19 Transporting (Animals)` | same exact string if not already | YES |
+
+---
+
+## 29 rows (IV-002–IV-030)
 
 | card_id | title | card_type | psdp_skill | dol_section | correct option |
 |---|---|---|---|---|---|
@@ -40,8 +66,7 @@ Plain list for Claude. IV-001 is lines only: `cards/drafts/IV-001-ridealong-line
 
 13 scene · 3 hazard · 2 rule · 1 convoy · 1 wrench · 2 ledger · 7 dossier.
 
-IV-001 is not in this count (ride-along lines only). IV-029 is now a dossier (was a scene that duplicated III-029).
+## e8424f65 text pass (this PR)
 
-## Hazard → scene flip
-
-**IV-026** — the 13/4 summary wanted a fourth hazard; the numbered slot table already typed IV-026 as `scene` (Hazard management). Shipped as scene. See `CITATION_AUDIT.md`.
+- **IV-017** scene: same words, same order. Staging first, each of Deac’s nine accepted lines on its own line, Ali’s action last. Not a wall paragraph.
+- **IV-018** scene: carrier not mentioned (she has to think of it). Ice, two weights, option (a) “invent a lap,” and debrief kept. `image_brief` no longer requires an open carrier in frame.
