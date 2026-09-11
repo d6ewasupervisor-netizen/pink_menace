@@ -140,12 +140,13 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 ### 8.2 Reference discipline — read this or you will get sunsets forever
 - `ref_ali1.jpg`, `ref_ali2.png` — **face, hair, glasses, jewelry.** Also the correct lighting model.
 - `ref_car_exterior.jpg` — **silhouette and build only.** The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
+- `ref_car_nose_plow.png` — **nose plow attachment.** Overcast square plate (Claude PASS take 5, 2026-09-11). Full-width nose blade on the front bull bar; no flank-mounted blade; nothing on the rear. Preserve mesh on side glass and windshield, riveted metal door, knobby tires on chrome wheels, faded pink + bare-metal. Attach with `pink_menace_exterior` alongside `ref_car_exterior.jpg`. `ref_car_rear_plow.jpg` and any flank / corner plow plate are out of the compile pool.
 - `ref_menace_cabin.png` — **interior layout and mesh only** (take 16, human-verified). Flat period dash, single nacelle, unbranded wheel, manual floor shifter, three pedals. Same warning: not the lighting. Never attach `ref_cockpit.jpg` (poisoned tablet / gibberish cluster).
 - `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
 - `ref_quiet.png` — Quiet register lock (A3 take 3). Attach on every Quiet compile. Posture and stillness, not damage. They never fill the frame. Plates: `ref_quiet_a1.png`–`ref_quiet_a5.png`.
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
 - `ref_hand_signals.png` — three-panel left-arm plate (left / stop / right). Limb geometry is not improvised.
-- `ref_diagram_style.png` — optional overhead look lock. Diagram compiles attach `ref_car_exterior.jpg` for the Menace's build. Lighting is still overcast PNW, never the salt-flat sunset.
+- `ref_diagram_style.png` — optional overhead look lock. Diagram compiles attach `ref_car_exterior.jpg` and `ref_car_nose_plow.png` for the Menace's build. Lighting is still overcast PNW, never the salt-flat sunset.
 
 ### 8.3 Camera set (pick exactly one per card)
 
