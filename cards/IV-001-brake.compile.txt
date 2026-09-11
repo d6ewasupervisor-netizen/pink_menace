@@ -4,6 +4,7 @@
 #   refs/ref_encore_cockpit.png   — Y4 take 1, over-the-wheel; footwell out of frame
 # do NOT attach Y4 take 7. do NOT attach IV-001-brake take 21 / 35. do NOT attach Menace refs.
 # camera: POV_OBJECT
+# takes 38–60. closest: cards/takes/IV-001-brake-take-57.png (pedal_count 2)
 # not seeded
 
 See cards/takes/IV-001-brake.prompt.txt
