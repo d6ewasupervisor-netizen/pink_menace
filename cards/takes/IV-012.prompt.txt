@@ -1,0 +1,27 @@
+# IV-012 — The Same Crosswalk (daylight regen after take-2 / take-17 FAILs)
+# attachments: refs/ref_car_exterior.jpg (Beetle build lock only — ignore salt-flat sunset)
+# compiled from cards/IV-012.json — card JSON is sole brief authority
+# FAIL take 2: Beetle alongside/ahead of the sedan, facing camera; no bag; fresh zebra
+# take 17 remaining: person hugs the LEFT EDGE of the stripes more than mid-paint; front plow hidden; night lamps
+# FIX: person already ON the near / passing half of the worn paint (not a statue on the left edge); sedan IN FRONT of the Beetle on the same lane axis; overcast DAYLIGHT; plow at the far leading end
+# takes this pass: 29+
+# do not seed. do not touch IV-026 take-110. do not regen IV-027/028/030.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Light fog is fine; the sky is flat gray DAYLIGHT, not dusk, not night, no streetlamp key light. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+CAMERA: Ground level, outside, human eye height, standing IN THE RIGHT TRAVEL LANE BEHIND a faded pink VW Beetle, looking FORWARD along the wet two-lane street TOWARD a worn school-edge crosswalk. The camera is behind the queue. Vehicles travel AWAY from the camera. We see REARS receding toward the top of the frame. Do not stand in the crosswalk. Do not face the Beetle's plow.
+
+HARD STACK, nearest to farthest (this is the whole picture):
+1. NEAREST, large in the lower-middle of frame: the REAR and rear-quarter of a classic VW Beetle — round fenders, sloping rear engine cover, domed roof — faded matte cranberry pink with oxidation. Welded steel mesh cages over the windows, riveted raw-steel plating on the left door and rear quarter, oversize knobby tires on chrome slot wheels. A black tube bull bar and wide flat plow sit at the FAR leading end, pointing AWAY from camera toward the top of the frame, still SHORT of the sedan's rear bumper. Match the attached exterior lock for silhouette and build only, not the sunset lighting.
+2. AHEAD of the Beetle, same right travel lane, same vertical axis: a primer-gray sedan STOPPED, rear toward camera, brake lamps lit, bumper short of the worn crosswalk. One vehicle-length ahead. Not beside the Beetle. Not left of the Beetle.
+3. FARTHER, IN the worn white crosswalk stripes: an adult in a dark coat with a shoulder bag, already on the LEFT / passing half of the paint — the half a go-around would take — mid-paint, not hugging the leftmost edge as a statue, looking down at the stripes or toward a vanished plow scar, face not toward camera. Not a child. Not on the sidewalk. Not a coat on the ground.
+4. BACKGROUND: overcast daylight, light fog OK, school-edge chain-link fence, wet grass, same block as IV-005. No readable sign text. No night lamps as the key light.
+
+The left travel lane beside this stack is empty wet asphalt. Two lanes this direction. No oncoming traffic.
+
+The read: the sedan is stopped in front of the pink Beetle; the person is in the crosswalk on the half a pass would take.
+Muted-text test: if every caption were hidden, that stack is the first thing the eye reads.
+
+Left-hand-drive. United States, traffic drives on the right. No vehicle faces the wrong way.
+
+No Beetle facing the camera, no plow toward the lens, no headlights toward the lens, no Beetle beside the sedan, no Beetle ahead of the sedan, no Beetle in the crosswalk, no Beetle in the left lane. No coat on the pavement without a person. No face toward camera. No child. No school bus. No second pink car. No Encore. No Ledger shuttle. No cockpit, no steering wheel, no dash. No golden hour, no sunset, no desert, no salt flat, no warm orange light, no lens flare, no HDR, no glow. No dusk, no night, no streetlamp key light. No text, no captions, no watermarks, no UI, no readable plates. No gore. Photograph, not illustration. Aspect ratio 2:3.

@@ -1,0 +1,35 @@
+# IV-005 — The Double Threat (daylight regen after take-1 / take-32 FAILs)
+# attachments: refs/ref_cockpit.jpg (Pink Menace interior — mesh/wheel build only; ignore desert sunset)
+#              refs/ref_car_exterior.jpg (plow/mesh silhouette if glimpsed through the glass)
+# compiled from cards/IV-005.json — card JSON is sole brief authority
+# FAIL take 1: person not in the crosswalk geometry; weak empty left lane; no cover-the-brake foot
+# take 32 remaining: person is a sliver at the sedan's RIGHT FLANK, not past the NOSE; no cover-the-brake foot; dusk
+# FIX: person IN worn crosswalk paint PAST the sedan's front bumper; left travel lane empty; foot covering the brake; overcast DAYLIGHT
+# Menace cabin if pedals show: pedal_count 3 (clutch, brake, accelerator). NOT Encore's two-pedal box.
+# Continuity for IV-012: same school-edge block, worn crosswalk, primer sedan + brake lamps, chain-link fence
+# takes this pass: 37+
+# do not seed. do not touch IV-026 take-110. do not regen IV-027/028/030.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Light fog is fine; the sky is flat gray DAYLIGHT, not dusk, not night, no streetlamp key light. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is inside the Pink Menace cabin, over the wheel, looking forward through the windshield. No driver face in frame. Match the attached cockpit lock for BUILD only — cracked faded pink dashboard, worn black leather steering wheel, coarse welded steel mesh across the windshield, road through the grid. Ignore the lock's desert sunset. This is the Menace, not the Encore: coarser panel mesh, not a fine full-windshield grid. If pedals are visible they are THREE pedals (clutch, brake, accelerator) — never a two-pedal automatic box.
+
+FOREGROUND: worn black wheel and welded mesh. A driver's shoe and attached lower leg already covering the brake pedal — cover-the-brake, heel down, not a hover, not empty floor. No driver face.
+
+The roadway has 2 lanes in this direction. Heading: away from the camera. Ego occupies the RIGHT travel lane (lane 2 of 2). A skip-dashed white lane line separates the two same-direction lanes. The LEFT travel lane beside the sedan is empty wet asphalt — the invitation to pass. The LEFT edge of the roadway in frame is a concrete median barrier, a curb, or a crop — never a yellow centerline.
+
+MIDGROUND through the mesh:
+1. A primer-gray sedan in the SAME right travel lane, stopped at a worn faded school-edge crosswalk. Its rear faces us. Brake lamps are lit. We are queued behind that rear. The plow, if glimpsed through the mesh, points at that sedan's bumper. Not headlights. Not oncoming.
+2. Worn faint crosswalk paint across both lanes — broken/gapped school-edge bars, not a fresh bright zebra.
+3. An adult person IN that worn crosswalk paint PAST THE SEDAN'S FRONT / NOSE — on the far side of the stopped car, coat and bag, not done crossing, not looking at camera. They are why the sedan stopped. They are not a sliver beside the sedan's rear flank. They are not standing in the empty left lane. They are not on the sidewalk.
+
+BACKGROUND: overcast daylight, light fog OK, school-edge chain-link fence out of focus, no readable sign text. Same block language IV-012 will callback.
+
+The read: the sedan is stopped at the crosswalk; the left lane beside it is empty.
+Muted-text test: if every caption were hidden, the empty left lane and the stopped sedan at the worn paint read at phone size. The person past the sedan's nose is findable so the stop has a reason.
+
+Left-hand-drive. United States, traffic drives on the right. Rear of each same-direction vehicle is nearer the camera. No headlights or grilles face the viewer.
+
+Traffic signs are single-faced. Never a double-sided sign. No readable lettering.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs. No right-hand drive. No vehicle on the right passing a vehicle on the left. No yellow centerline, no oncoming traffic. No child. No face toward camera. No person standing in the empty left / passing lane. No dusk, no night, no blue-black city, no streetlamp as the key light. No two-pedal Encore footwell. Aspect ratio 2:3.
