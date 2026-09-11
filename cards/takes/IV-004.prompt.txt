@@ -1,0 +1,29 @@
+# IV-004 — Between the Parked (regen after take 3 FAIL)
+# attachments: refs/ref_car_exterior.jpg (Pink Menace exterior lock — silhouette/build only; ignore salt-flat sunset)
+# compiled from cards/IV-004.json — card JSON is sole brief authority
+# FAIL take 3 (WAVE_ONE_MAP / Claude muted-read): person leaning into a van window with feet on the curb; Menace already past, back to camera, no cover/slow/stop decision
+# FIX: person stepping OUT INTO THE TRAVEL LANE from the gap between two parked cars, body partly occluded, close enough to matter; Menace still approaching, plow short of the person
+# takes: 5–24
+# closest (not seeded): cards/takes/IV-004-take-11.png
+# runner-up: take 10 (from the sedan/van gap into the lane; Beetle even with them, no plow)
+# follow-up: keep the parked-gap brief (card JSON). Do not restage as a cockpit sedan-ahead.
+# 17–18/21–22: same as 11. 19/20/23/24: lean-into-van FAIL class. 18 invented a second Beetle.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Clear cold Pacific Northwest afternoon — pale gray sky, soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is ground level, outside the car, human eye height, standing on the wet curb looking along the side street in the direction of travel.
+
+STACK, near to far, one situation:
+1. Foreground: wet curb and a parked-car bumper closest to camera.
+2. Nose-in along the right curb: a gray sedan and a rusted van, a narrow gap between them. An adult person in a dark coat is mid-step OUT of that gap INTO the travel lane — one shoe already on the travel-lane asphalt, the other still in the gap. The body is partly occluded by the sedan and the van. They are not looking at camera. They are not leaning on a door. They are not standing on the curb. They are entering the roadway.
+3. The Pink Menace — a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the door on the left side of the vehicle and the rear quarter panel, and oversize knobby tires on chrome slot wheels. The Beetle occupies the travel lane of this two-lane side street (right half of the roadway for its direction). It is traveling AWAY from the camera. The rear engine cover and rear window mesh are nearer the camera. The plow and bull bar are on the FAR end of the car, pointing toward the TOP of the frame. The plow is still SHORT of the person — there is visible asphalt between the plow blade and the shoe in the lane. The Beetle has not reached the person. The Beetle is not already past. The approach still presents a cover / slow / stop decision. The person is close enough to matter to the driver — one to two car-lengths ahead of the plow, large and central at phone size.
+4. Background: clear cold afternoon, two-lane side street, low brick, bare trees, no crowd. Oncoming half empty. No extra vehicles the brief did not name.
+
+The read: a person is stepping out from between parked cars into the travel lane.
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. United States road configuration, traffic drives on the right. The pink vehicle is traveling away from the camera. Its front — identified by the black tube bull bar and wide flat plow blade — points toward the top of the frame, still short of the person. Any oncoming traffic is none in frame. No vehicle faces the wrong way in its lane.
+
+Traffic signs are single-faced. Any sign in frame is legible only if it faces the camera's direction of travel. Signs governing a cross or opposing approach show their blank reverse side. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. No face toward camera. No child. No crowd. No person leaning into a window. No person standing only on the curb. No Beetle already past the person. No Beetle facing the camera. No headlights or plow toward the viewer. Aspect ratio 2:3.

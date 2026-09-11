@@ -1,0 +1,98 @@
+{
+  "card_id": "IV-005",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "The Double Threat",
+  "hook": "The car ahead is stopped for a person.",
+  "scene": "Fog at dusk on a school-edge block, lamps already up. The sedan ahead is planted at a worn crosswalk. A figure is in the paint on their side — coat, bag, not done. Your left is empty asphalt. The clock in your head wants around them. Passing a car stopped for a person is how you meet the person the sedan was hiding. The timeout is the pass.",
+  "decision": "They are stopped at the crosswalk and your left looks empty. Do you go around?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold behind them until the person is gone and the sedan moves",
+      "correct": true,
+      "result": "You plant it. The person clears. The sedan rolls. You roll. The left stayed empty and unused. Nobody had to invent a second threat out of your plow.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "b",
+      "text": "Creep left and peek — if you can see the person you can thread it",
+      "correct": false,
+      "result": "You put the nose into the left. The person you can see is not the only person. A second coat comes off the sedan's front. You and that coat share the fog. The peek was the pass.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Tap the horn so the person hurries and the sedan can go",
+      "correct": false,
+      "result": "The horn hits fog and a school-edge block. The person freezes in the paint. The sedan stays planted. You made sound and you still cannot go around.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Pass on the left — the person is already on their half",
+      "correct": false,
+      "result": "You take the left. The person is not done. They step into the half you claimed. The sedan hid them until you were already alongside. That is the double threat, and you drove into it.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "Never pass a vehicle stopped for a person. The car is a wall. The person you cannot see is why it stopped. Ali holds until the coat is gone.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "4.1 Sharing with people",
+    "teaching_target": "Never pass a vehicle stopped for a pedestrian; the stopped car hides a second person (double threat)."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "splitter",
+  "callback_of": null,
+  "schedules_callback": true,
+  "timeout_option_id": "d",
+  "timeout_ms": 8000,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "a primer sedan stopped at a worn crosswalk, a person in the paint on the far side of that sedan, left travel lane empty",
+    "foreground": "worn black wheel and welded mesh, a foot already covering the brake",
+    "midground": "the sedan's brake lamps lit, crosswalk paint, the person not yet clear",
+    "background": "fog at dusk, school-edge fence out of focus, no readable sign text",
+    "read": "the sedan is stopped at the crosswalk; the left lane beside it is empty",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two lanes this direction",
+      "ego_nose_in_frame": "the plow points at the sedan's bumper through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
+    }
+  },
+  "variation": {
+    "location_type": "school_zone",
+    "weather": "fog",
+    "time_of_day": "dusk",
+    "tone": "urgent",
+    "failure_mode": "speed"
+  }
+}
