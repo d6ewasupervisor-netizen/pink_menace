@@ -4,9 +4,10 @@
 # compiled on the post-PR #26 compiler stack; card JSON is sole brief authority
 # FAIL take 2 (WAVE_ONE_MAP / Claude muted-read): Beetle alongside/ahead of the sedan, facing camera; no bag
 # must match IV-005 take 1 street: worn faint crosswalk, primer sedan + brake lamps, chain-link school fence, fog at dusk
-# takes: 5–14
+# takes: 5–22
 # closest (not seeded): cards/takes/IV-012-take-14.png
-# runner-up: take 12 (same read, looser stack) / take 10 (best curb+file, person still left-edge)
+# runner-up: take 12 (same read, looser stack) / take 19 (IV-005-closer worn bars + file; person still left-edge)
+# 15–18 copied take 14's fresh zebra; 17 inverted the stack (Beetle ahead). 21 grassed the Beetle.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest dusk in fog — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 
