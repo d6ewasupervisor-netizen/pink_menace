@@ -75,7 +75,8 @@
     "background": "ice at dawn, downtown crawl defocused around the glass",
     "read": "the truck is already on the bumper in the interior rear glass",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "pink_menace_exterior"
     ],
     "aspect": "2:3",
     "geometry": {
