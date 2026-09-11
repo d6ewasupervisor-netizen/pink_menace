@@ -1,0 +1,98 @@
+{
+  "card_id": "IV-004",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Between the Parked",
+  "hook": "Someone steps out between the parked cars.",
+  "scene": "Clear cold afternoon on a two-lane side street off the Core. Cars are nose-in along both curbs. A figure steps out from the gap between a gray sedan and a rusted van — one shoe, then a coat, then the rest. You have the paper on your side. The person is already in your paint. The plow is the only vote that counts.",
+  "decision": "They are already between the parked cars and your lane. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold speed — they should wait, and you have the street",
+      "correct": false,
+      "result": "You keep the number. They finish the step. The plow and a coat occupy the same paint. You dump it late. They freeze. You freeze. The side street now has a story it did not need.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Honk so they step back between the cars",
+      "correct": false,
+      "result": "The horn hits the block. They flinch forward, not back. You get a louder problem and a person still in the lane. Sound does not put them between the cars again.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Cover, slow, stop if you must. Let them finish or go back",
+      "correct": true,
+      "result": "You lift and cover. They see the plow and finish across. You never argue the paper. The side street stays a side street. You roll when the gap is a gap again.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "d",
+      "text": "Swing left around them and keep the number",
+      "correct": false,
+      "result": "You take the left. Oncoming is a pickup you did not budget. You put a person and a pickup in the same second. The plow cannot split that.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "A person between parked cars is already in your decision. Slow or stop. Who had the paper does not move them. You saved the side street a collision.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "4.1 Sharing with people",
+    "teaching_target": "Search gaps between parked cars; yield to a person already entering the roadway — right of way is not the question."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "subject": "a person mid-step out of the gap between a gray sedan and a rusted van, one shoe in the travel lane",
+    "foreground": "wet curb and a parked-car bumper closest to camera",
+    "midground": "the person in a dark coat, not looking at camera, halfway out of the gap; the pink Beetle approaching away from camera in the travel lane, plow visible",
+    "background": "clear cold afternoon, two-lane side street, low brick, no crowd",
+    "read": "a person is stepping out from between parked cars into the travel lane",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no face toward camera",
+      "no child",
+      "no crowd"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of a two-lane side street",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, still short of the person",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside"
+    }
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "clear_cold",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "inexperience"
+  }
+}

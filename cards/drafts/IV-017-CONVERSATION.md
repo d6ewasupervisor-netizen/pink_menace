@@ -49,4 +49,6 @@ She takes her. She does not say the name.
 
 ## IV-001
 
-Twelve ride-along lines already drafted on **PR #12**: `cards/drafts/IV-001-ridealong-lines.md` (Yuna's twelve, ends on **Your wheel.**). Do not fork a second set.
+Twelve ride-along lines: `cards/drafts/IV-001-ridealong-lines.md` (Yuna's twelve, ends on **Your wheel.**). Do not fork a second set.
+
+This copy is **accepted as written**. Do not soften, lengthen, or add curriculum.

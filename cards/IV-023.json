@@ -1,0 +1,93 @@
+{
+  "card_id": "IV-023",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "wrench",
+  "title": "One Lamp Dark",
+  "hook": "The right lamp dies under the viaduct.",
+  "scene": "Overcast night under the Alaskan Way viaduct. The right headlamp dies with a tick you feel in the wheel. The left still paints a wet strip. One eye in a tunnel of columns is how you invent a car that is not there, or miss one that is. Hazards are a draw. A legal pad and a swap, or a crawl with the remaining lamp and the hazards only as long as you must — those are the tools. Driving blind on the right is not one.",
+  "decision": "The right headlamp is dead under the viaduct. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold speed and hope the left lamp is enough until you clear the columns",
+      "correct": false,
+      "result": "You keep the number on one eye. A dark pickup is in the right you cannot paint. You find him with the plow. The columns carry the note. One lamp was not a lane.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Hazards on, crawl to the next legal pad, stop, and fix or swap the lamp",
+      "correct": true,
+      "result": "You throw the hazards and dump the number. The pad is ugly and close. You swap the sealed beam from the kit. Two minutes. Two eyes. You kill the hazards before you roll. The columns stay columns.",
+      "state_delta": {
+        "noise": -1,
+        "light": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "High beams on the remaining side so you make up the missing light",
+      "correct": false,
+      "result": "One high beam under a viaduct is a spear. Oncoming in the other bays has to eat it. You did not fix a lamp. You made a glare. They dump speed into you.",
+      "state_delta": {
+        "light": 4,
+        "noise": 2,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Leave the hazards on and keep the number so people know you are hurt",
+      "correct": false,
+      "result": "Hazards at speed under columns look like a stop that never comes. The stack guesses. Someone stands on it. A draw you left running is still a draw.",
+      "state_delta": {
+        "light": 3,
+        "noise": 3,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "A dead headlamp is a maintenance stop. Hazards, legal pad, fix or swap, then kill the lamps. Stop and swap the lamp before you roll.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "5.7 Vehicle failures",
+    "teaching_target": "If a headlight fails, use hazards only as needed, get off the travel lane, and repair or replace before continuing at speed."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "the Menace's right headlamp housing dark, the left lamp still painting a wet strip of viaduct concrete",
+    "foreground": "the dark right lamp bucket, rain-bead on the lens",
+    "midground": "the lit left lamp and a column, no extra vehicles",
+    "background": "overcast night, Alaskan Way columns, wet concrete, no sky",
+    "read": "the right headlamp is dark; the left headlamp is lit",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no both lamps lit",
+      "no Encore",
+      "no Ledger"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "overcast",
+    "time_of_day": "night",
+    "tone": "procedural",
+    "failure_mode": "vehicle_failure"
+  }
+}

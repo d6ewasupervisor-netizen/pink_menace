@@ -1,0 +1,97 @@
+{
+  "card_id": "IV-022",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "What You Carry",
+  "hook": "The crash is behind you. Check the kit.",
+  "scene": "Rain still, same viaduct, you already gave the gap. The two cars are behind you. You are on a legal pad at the next ramp. Radios are trash. A passerby who is already clear does not get a speech. Triangles, first aid, a paper list of numbers, water — that is the kit. Walking back onto the viaduct with nothing is how a witness becomes a body. Check what you carry before you roll.",
+  "decision": "You are on a pad after a crash that was not yours. What do you do now?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Walk back onto the viaduct with nothing and try to help from the travel lane",
+      "correct": false,
+      "result": "You leave a Beetle on a pad and become a body in a live lane. The next car does not expect you. Helping from the travel path is how a witness writes a third crash. The kit stayed in the trunk.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "b",
+      "text": "Call and spend it on whose fault it was, then invent a count you did not write down",
+      "correct": false,
+      "result": "You get someone on the line and spend it on a verdict. They still do not have a mile marker. A passerby does not get that script. You burned a call the book never gave you.",
+      "state_delta": {
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Post the crash to the convoy board so someone closer can deal with the kit",
+      "correct": false,
+      "result": "The board just passes talk. Nobody has triangles on this ramp. You handed a crash to a chorus and left your own kit shut. The pad stays a rumor.",
+      "state_delta": {
+        "light": 2,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Confirm the kit — triangles, first aid, paper numbers, water — then roll when the pad is clear",
+      "correct": true,
+      "result": "You open the kit. Triangles. First aid. A paper list of numbers. Water. You do not walk back onto the viaduct. You do not invent a call script. When the pad is clear you roll. That is what you carry.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "A passerby does not get a 911 script. Keep an emergency kit: triangles, first aid, paper numbers, water. You saved a walk back onto the viaduct.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "5.9 Collisions",
+    "teaching_target": "Emergency kit (5.9): triangles, first aid, paper numbers, water. Replaced the witness 911 script — Witnessing a crash has no passerby call script (do not block, do not stare)."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "subject": "the Menace on a legal ramp pad, a kit open on the wet gravel — triangles, a small first-aid tin, a paper card of numbers — two wrecked cars small and out of focus on the viaduct behind, doors open, no people",
+    "foreground": "wet gravel pad and a strip of ramp paint, the open kit",
+    "midground": "the pink Beetle parked, kit on the ground next to the door, no readable phone number",
+    "background": "rain, afternoon, the two-car shape on the viaduct, no faces",
+    "read": "the Beetle is on a pad; a kit is open; the crash is behind and small",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no people at the crash",
+      "no blood",
+      "no readable phone number",
+      "no Encore"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "legal pad off the right of the ramp",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, away from the viaduct",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "rain",
+    "time_of_day": "afternoon",
+    "tone": "urgent",
+    "failure_mode": "none",
+    "forced": "location+weather+time match IV-021 crash scene"
+  }
+}

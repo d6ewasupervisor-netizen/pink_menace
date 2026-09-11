@@ -1,0 +1,57 @@
+{
+  "card_id": "IV-002",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "The Naked Glass",
+  "hook": "The glass has no mesh.",
+  "scene": "You are on the welded bench in Encore, still downtown, engine dead. Yuna's wheel is empty. The windshield is just glass — no mesh, no bars, the whole street in your face. The bench under you came out of another car. Dead in-ears hang on the cage tube, one earpiece in the loop, one dangling. She chose to see the block and let the block see her. The Menace is a street over. You have not walked to it yet.",
+  "debrief": "Encore has no mesh. Intact glass, a bench welded in for people, dead in-ears on the cage. The mesh is back on the next street.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Establish Encore's cab: no mesh, intact glass, passenger bench, dead in-ears; she chose visibility over armor."
+  },
+  "cast": [
+    "ali",
+    "yuna"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "camera_is_the_lesson": true,
+    "subject": "bare clean windshield with intact glass and no mesh, the whole wet downtown street visible",
+    "foreground": "mismatched welded rear bench, exposed roll-cage tube, dead wireless in-ears hanging on the tube with one earpiece dangling",
+    "midground": "empty suede racing wheel, stripped metal dash, a guarded red PA switch left off",
+    "background": "overcast downtown Seattle through naked glass, wet pavement, no readable signs",
+    "read": "the windshield is intact glass with no mesh; the in-ears hang on the cage",
+    "continuity": [
+      "encore_cockpit"
+    ],
+    "extra_negatives": [
+      "no windshield mesh",
+      "no bar cage over the glass",
+      "no plow blade",
+      "no pink Beetle interior",
+      "no Ledger bar cage"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked at the curb of a downtown block",
+      "ego_nose_in_frame": "the hatchback nose points toward the top of the frame through bare glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}
