@@ -546,7 +546,7 @@ else. No commentary. No alternatives.
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 
-**Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.
+**Encore exterior compiles are BLOCKED.** `ref_encore_sheet.png` (Y3 take 3) stripped the glass on all four views — open cabins, roll-cage-only body. Bible: intact glass, no mesh. Y3 glass reruns: `ref_encore_sheet_y3_take5.png` … `take10.png`. Closest is take 9 (windshield reflection on the three-quarter; front-on still a void). Do not treat any take as the lock until `refs/LOCKS.md` names a winner. Until then: do not compile Encore exteriors. Do not attach the stripped sheet as a vehicle lock for card art. Cockpit lock `ref_encore_cockpit.png` has the same open-cabin risk — keep the intact-glass clause on any Yuna cockpit compile. If a compile is ever unblocked, attach the locked glass sheet and still add "intact window glass in all openings, no mesh, no bars, no open cabin."
 
 ## Operator QA — ten seconds, reject on any miss (pack/12)
 

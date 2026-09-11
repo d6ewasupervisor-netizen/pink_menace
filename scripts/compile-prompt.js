@@ -174,6 +174,22 @@ function assemblePrompt(card) {
   if (!brief) throw new Error(`${card.card_id}: missing image_brief`);
   const cam = cameraOf(card);
   const deac = card.driver === "deac";
+  const continuityEarly = brief.continuity || [];
+  const encoreExteriorCam = new Set([
+    "POV_CHASE",
+    "POV_ROADSIDE",
+    "POV_ROADSIDE_PROFILE",
+    "POV_DIAGRAM",
+    "POV_TOPDOWN_PHOTO",
+  ]);
+  if (
+    continuityEarly.includes("encore") ||
+    (card.driver === "yuna" && encoreExteriorCam.has(cam))
+  ) {
+    throw new Error(
+      `${card.card_id}: Encore exterior compiles are blocked until the glass four-view lock passes visual check (refs/LOCKS.md)`
+    );
+  }
   if (deac && cam === "POV_MIRROR_REAR") {
     throw new Error(
       `${card.card_id}: POV_MIRROR_REAR is illegal on the Ledger — no rear window, no interior mirror; use POV_MIRROR_DOOR`
@@ -216,7 +232,6 @@ function assemblePrompt(card) {
     parts.push(otherVehicleClauseLedger(card));
   }
 
-  const continuityEarly = (brief.continuity || []);
   const quietNamed =
     continuityEarly.includes("the_quiet") ||
     /\bthe Quiet\b/.test(

@@ -31,5 +31,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. Encore exterior (`encore` / ref_encore_sheet.png) is BLOCKED until a glass four-view take passes visual check — see refs/LOCKS.md. The file is present so the map stays valid; compile-prompt.js aborts Encore exterior compiles anyway."
 }
