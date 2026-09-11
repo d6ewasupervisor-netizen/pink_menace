@@ -1,0 +1,98 @@
+{
+  "card_id": "IV-013",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Door Before You Step",
+  "hook": "Parked parallel. The door wants the bike lane.",
+  "scene": "Clear cold dawn, a downtown curb, you already nailed the parallel — plow in line, wheels straight, one foot from the curb. The engine dies. Marisol is a dark shape in the left door glass, closing fast in the bike lane you just boxed with a door that has not opened yet. The Dutch reach is the far hand, look, then the latch. Opening the near hand is how a bike becomes a story.",
+  "decision": "You are parked and a bike is in the glass. How do you open the door?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Open with the near hand and step out — you are already parked",
+      "correct": false,
+      "result": "The door takes the bike lane. Marisol has nowhere. Carbon and a pink panel. She goes down along the curb. Parked was not permission to throw a door into a lane.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "passenger_stress": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Far hand on the latch so your body turns, look, then open a crack",
+      "correct": true,
+      "result": "You reach across. The turn puts the glass in your face. Marisol is a whole bike, not a smear. You wait. She passes. The door opens on empty paint. She does not have to lift.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "c",
+      "text": "Crack the door two inches without looking so she has to slow",
+      "correct": false,
+      "result": "The two inches is still a wall. She swerves into the travel lane. A van has to lift. You taught the curb that a parked car gets to shove.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Wait until you cannot see her, then open fast and get it over with",
+      "correct": false,
+      "result": "Losing her in the glass is not a clear. She is in the blind stretch along the door. You open into a bike you decided was gone. The curb takes both of you.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "After a parallel park, check the bike lane before the door moves. Far hand on the latch turns you into the glass. Marisol was already in the glass.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "4.6 Sharing with bicyclists",
+    "teaching_target": "Door zone (4.6): after a parallel park, look for bicyclists before the door; far-hand reach so the body turns. The park maneuver stays; the grade is the door."
+  },
+  "cast": [
+    "ali",
+    "marisol"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR_DOOR",
+    "camera_is_the_lesson": true,
+    "subject": "from the seat looking left at the left door-mirror glass: Marisol on a bicycle in the bike lane, closing, even with the door",
+    "foreground": "left door panel and mirror housing, a hand not yet on the near latch",
+    "midground": "the bike and rider in the glass, no face, same heading as the parked Beetle",
+    "background": "clear cold dawn, downtown curb, empty travel lane beyond the bike lane",
+    "read": "a bicycle is in the left door glass even with the door, which is still closed",
+    "continuity": [
+      "pink_menace_interior",
+      "dutch_reach",
+      "marisol"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked parallel at the right curb",
+      "ego_nose_in_frame": "not in this glass; the reflection is the left flank and the bike beside",
+      "oncoming_position": "none in this glass",
+      "hazard_position": "beside"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "clear_cold",
+    "time_of_day": "dawn",
+    "tone": "wry",
+    "failure_mode": "inexperience"
+  }
+}

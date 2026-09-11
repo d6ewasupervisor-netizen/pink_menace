@@ -160,13 +160,29 @@ function egoWrongFlank(frameSide) {
   return frameSide === "left" ? "right" : "left";
 }
 
-function geometryClause(geo, driver) {
+function egoGeometryLabels(driver, ego) {
+  const token = ego || (driver === "deac" ? "ledger" : driver === "yuna" ? "encore" : "menace");
+  if (token === "ledger") {
+    return {
+      vehicle: "The gray cutaway shuttle",
+      front: "Its front — identified by the van nose and the leading edge of the tall square box — points ",
+    };
+  }
+  if (token === "encore") {
+    return {
+      vehicle: "The matte-black hatchback",
+      front: "Its front — identified by the low wedge nose — points ",
+    };
+  }
+  return {
+    vehicle: "The pink vehicle",
+    front: "Its front — identified by the black tube bull bar and wide flat plow blade — points ",
+  };
+}
+
+function geometryClause(geo, driver, ego) {
   if (!geo) return "";
-  const front =
-    driver === "deac"
-      ? "Its front — identified by the van nose and the leading edge of the tall square box — points "
-      : "Its front — identified by the black tube bull bar and wide flat plow blade — points ";
-  const vehicle = driver === "deac" ? "The gray cutaway shuttle" : "The pink vehicle";
+  const { vehicle, front } = egoGeometryLabels(driver, ego);
   const n = geo.lanes_this_direction;
   const k = geo.ego_lane_from_left;
   let occupancy;
