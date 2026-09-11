@@ -1,9 +1,10 @@
 # IV-001-person — reshoot after take 5 FAIL
-# attachments: refs/ref_encore_cockpit.png (Y4 take 7 glass lock), refs/ref_encore_sheet.png (Y3 take 12)
+# attachments: refs/ref_encore_cockpit.png (Y4 take 7 glass lock) ONLY on takes 10+
+# do not attach ref_encore_sheet.png — it bled chevrons onto other traffic (takes 6–9)
 # camera: POV_COCKPIT
 # line 5: Person between the parked cars. I do not own the right of way. I own the stop.
 # FAIL take 5: pedestrian walking openly in the travel lane past parked cars (teaches the opposite of the card)
-# takes: 6+
+# takes: 6–17. closest: take 16
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. REQUIRED ELEMENT FIRST AND UNMISTAKABLE: match the attached Encore cockpit lock (Y4 take 7). Intact factory windshield glass — a continuous real sheet filling the entire windshield opening, rubber gasket, header, A-pillars. Raindrops bead on the OUTSIDE of the glass. Specular reflections prove the glass is a real plane. The cabin is fully enclosed: solid roof, headliner. Weather stays outside. A real dashboard under the glass: analog cluster, solid dash panel, one guarded red switch, radio. Welded roll-cage tubes at the A-pillars belong INSIDE this enclosed cabin, behind the glass, not instead of the glass. Compile FROM that locked plate. Do not invent an open tube-frame cockpit or a wiring nest where the dash should be.
 

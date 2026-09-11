@@ -3,7 +3,7 @@
 # camera: POV_COCKPIT
 # line 7: Tracks in this lane. The train does not swerve. We do.
 # FAIL take 4: freight-style rails / empty corridor, not light rail embedded in the travel lane; also bare-tube cockpit
-# takes: 5+
+# takes: 5–10. closest: take 7.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. REQUIRED ELEMENT FIRST AND UNMISTAKABLE: match the attached Encore cockpit lock (Y4 take 7). Intact factory windshield glass — a continuous real sheet filling the entire windshield opening, rubber gasket, header, A-pillars. Raindrops bead on the OUTSIDE of the glass. Specular reflections prove the glass is a real plane. The cabin is fully enclosed: solid roof, headliner. Weather stays outside. A real dashboard under the glass: analog cluster, solid dash panel, one guarded red switch, radio. Welded roll-cage tubes at the A-pillars belong INSIDE this enclosed cabin, behind the glass, not instead of the glass. Compile FROM that locked plate. Do not invent an open tube-frame cockpit or a wiring nest where the dash should be.
 

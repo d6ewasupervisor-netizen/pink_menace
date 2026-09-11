@@ -25,17 +25,17 @@ Muted-read pick. Not a PASS stamp. Reviews do not gate this batch.
 | Frame | Closest | Why |
 |---|---|---|
 | count-in | `IV-001-count-in-take-5.png` | Presumed PASS pending seed. Not reshot this pass. |
-| brake | *(pending reshoot 11+)* | Take 5 FAIL: hover + bare-tube cockpit. Reshoot: foot on the floor beside the pedals; compile from Y4 take 7. |
-| person | *(pending reshoot 6+)* | Take 5 FAIL: pedestrian in the travel lane. Reshoot: emerge from concealment between parked cars; Y4 take 7 cab. |
-| tracks | *(pending reshoot 5+)* | Take 4 FAIL: freight / empty corridor + bare-tube cab. Reshoot: light rail embedded in this lane; Y4 take 7 cab. |
+| brake | `IV-001-brake-take-13.png` | Foot planted on the floor beside both pedals. Intact rain glass + real analog dash (Y4 take 7). Not a hover. Takes 15–16 are unusable diptychs. |
+| person | `IV-001-person-take-16.png` | Person in the bumper gap between two plain sedans; travel lane left is empty; intact glass/dash. Not an open-lane walker. Remaining: cars still read mid-block, person not half-occluded. Take 17 if you want a stiller gap. Discard 6–9 (chevrons) and 12 (person in cab). |
+| tracks | `IV-001-tracks-take-7.png` | Streetcar rails in this lane, distant car, both hands, intact glass/dash. Not freight flanking. Take 5 if you want the rails larger. |
 | handoff | `IV-001-handoff-take-1.png` | Presumed PASS pending seed. Not reshot this pass. |
 
 **Reshoot notes (brake / person / tracks — this pass):**
-- Compile FROM `refs/ref_encore_cockpit.png` (Y4 take 7). Intact glass and a real dash first. Negate open tube frame, bare door apertures, exposed wiring where the dash should be, weather inside the cabin.
-- Brake composition language: foot on the FLOOR beside the pedals, not hovering. Pedal-box read matches `IV-003-take-1.png`, adapted to Encore cab continuity (dark floor, locked glass/dash in the top of frame).
-- Person: hazard emerges from concealment between/behind parked cars — not a walker in the open travel lane.
-- Tracks: grooved light-rail rails flush in this lane, not a freight spur with rails flanking.
-- No `cards/IV-001.json` — prompts are hand-assembled. `compile-images.js --card IV-001` was not run.
+- Compiled FROM `refs/ref_encore_cockpit.png` (Y4 take 7). Intact glass and a real dash first. Open tube / wiring-nest-for-a-dash is gone on the closest three.
+- Brake: foot on the FLOOR beside the pedals (take 13). Pedal-box language from `IV-003-take-1.png`; Encore floor + locked glass/dash in the top of frame.
+- Person: take 16 puts the hazard in the gap between two cars. Attach cockpit lock only — the Y3 sheet bled chevrons onto other traffic (takes 6–9).
+- Tracks: take 7 is light rail in this lane, not a freight spur.
+- No `cards/IV-001.json` — prompts are hand-assembled. `compile-images.js --card IV-001` was not run. Not seeded.
 
 **Prior blockers (history):**
 - Brake takes 1–10: hover. Count-in: Yuna lock kept one IEM in. Person takes 1–5: open-lane walker. Tracks takes 1–4: missing or freight-style rails. All also inherited Y4 take 4's open tube-frame cockpit.

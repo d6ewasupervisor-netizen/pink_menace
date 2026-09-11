@@ -3,7 +3,7 @@
 # camera: POV_OBJECT in the Encore footwell, locked glass/dash still in frame
 # line 3: Cover the brake before the light even thinks about yellow. Foot off the gas. Held. Not riding it.
 # FAIL take 5: shoe hovering in mid-air + open tube frame / wiring nest where the dash should be
-# takes: 11+
+# takes: 11–16. closest: take 13. 15–16 are diptychs — discard.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. REQUIRED ELEMENT FIRST AND UNMISTAKABLE: this is the locked Encore cockpit — match the attached Y4 take 7 plate. Intact factory windshield glass is a continuous real sheet filling the opening, black rubber gasket, windshield header, A-pillars, solid roof headliner. Raindrops bead on the OUTSIDE of that glass. Weather stays outside. A real dashboard sits under the glass: analog cluster, a solid dash panel, one guarded red switch, a radio, cage tubes inside the enclosed cabin — not an open tube-frame go-kart, not a wiring nest instead of a dash. Compile FROM that locked plate.
 
