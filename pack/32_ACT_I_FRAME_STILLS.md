@@ -40,7 +40,8 @@ Lot cards I-005–I-008 untouched.
 | 1–8 | superseded | Old locked plates. Live `cards/I-009.png` is still take 8 until a pass. |
 | 9–12 | old brief (PR #6) | Gracie-on-lap door-mirror reshoot. Not this brief. Files live on [PR #6](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/6). |
 | 13–16 | **FAILED — camera outside the car** | Leave as failed history. Same miss on all four: camera left the cabin. 13/15 on asphalt beside the front fender; 14 outside an open door; 16 closest but still angled from the right looking in, Gracie on the left seat. Do not seed. Do not overwrite. |
-| 17–20 | **muted-read candidates** | New takes under the current `cards/I-009.json`: camera INSIDE the cabin at left-seat eye height, looking left at the left door-mounted side mirror through the open left window. Inner door edge frames left. Mirror glass shows the empty parking aisle behind. Gracie on the right-hand seat across the cabin, space beside her empty. One cat. Do not seed until Claude passes. |
+| 17–20 | **muted-read (Claude, 11 Sep)** | Camera inside the cabin is fixed on all four. **17 / 18 / 20 FAIL** — Gracie on the left seat in front of the wheel. **19 CAMERA PERFECT, cat missing** — left-seat eye height, left door mirror, empty aisle in the glass; no passenger seat in frame. Do not seed. |
+| 21–24 | **not generated** | Inpaint of take 19 aborted. The passenger seat is not in those pixels; adding Gracie there is a recompose (forbidden fifth round). See `cards/I-009.inpaint.md`. Claude offered to accept take 19 with a scene-copy adjustment. |
 
 ## I-010 takes 9–12
 
