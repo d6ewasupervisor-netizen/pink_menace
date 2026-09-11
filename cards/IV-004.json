@@ -66,9 +66,10 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE",
+    "camera_pose": "Camera is ground level, outside the car, human eye height, standing on the wet right curb looking along the two-lane side street in the direction of travel. Overcast daylight, wet pavement.",
     "subject": "a person mid-step out of the gap between a gray sedan and a rusted van, one shoe in the travel lane",
     "foreground": "wet curb and a parked-car bumper closest to camera",
-    "midground": "the person in a dark coat, not looking at camera, halfway out of the gap; the pink Beetle approaching away from camera in the travel lane, plow visible",
+    "midground": "the person in a dark coat, not looking at camera, halfway out of the gap; the pink Beetle rolling away from camera in the right travel lane, squared to the lane with its long axis parallel to the centerline, nose straight toward the top of the frame, visibly moving — wet tire spray off the knobbies — still short of the person, full-width front plow blade matching the attached nose-plow plate",
     "background": "clear cold afternoon, two-lane side street, low brick, no crowd",
     "read": "a person is stepping out from between parked cars into the travel lane",
     "continuity": [
@@ -77,7 +78,11 @@
     "extra_negatives": [
       "no face toward camera",
       "no child",
-      "no crowd"
+      "no crowd",
+      "no narrow flap or one-third-width plow blade",
+      "no Beetle parked or angled diagonally across the lane",
+      "no stationary Beetle",
+      "no Beetle nose pointed at the curb"
     ],
     "aspect": "2:3",
     "geometry": {
