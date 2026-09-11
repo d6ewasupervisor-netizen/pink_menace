@@ -1,0 +1,45 @@
+# IV-004 — Between the Parked (regen after take-3 Claude FAIL)
+# attachments: refs/ref_car_exterior.jpg (Pink Menace exterior lock — silhouette/build only; ignore salt-flat sunset)
+# compiled from cards/IV-004.json — card JSON is sole brief authority
+# vehicle plate: Menace lock already human-verified. Parked sedan/van are ordinary factory cars, not new locks.
+# FAIL take 3: man leaning into a van window, feet on the curb, NOT entering the road; Menace already past, back to camera — no cover/slow/stop decision
+# later miss (take 11): person walking in the OPEN lane, not mid-step out of the gap
+# FIX: person stepping OUT INTO THE TRAVEL LANE from the gap between two nose-in parked cars, body partly occluded, one shoe on travel-lane asphalt; Menace still approaching, plow short of the person
+# takes this pass: 25–36
+# closest (not seeded): cards/takes/IV-004-take-29.png
+# runner-up: take 28 (same gap + occlusion; sedan plate more readable)
+# plate verify on take 29: Beetle rear covered by plow, no numbers; sedan plate dark/unreadable at phone size; van plate out of frame
+# 25/31/35: person walking in the OPEN lane (take-11 class)
+# 26: second Beetle invented
+# 27: canon-drift three-wheeler
+# 30/33: same gap as 28–29; 33 has a readable sedan plate + extra distant car
+# 32/34/36: lean-on-van / open-door FAIL class
+# weather: wet overcast PNW daylight (bible §8.1 / standing). Card scene is a cold afternoon — do not add sun.
+# not a sign-recognition card: blank sign faces, no license-plate numbers, no invented lettering
+# no mechanical objects on the pedestrian
+# do not seed. do not touch IV-005.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is ground level, outside the car, human eye height, standing on the wet curb looking along the two-lane side street in the direction of travel.
+
+ONE SITUATION, near to far:
+
+1. Foreground: wet concrete curb and one parked-car bumper closest to camera.
+
+2. Right curb, nose-in parking (perpendicular, not parallel): a gray sedan and a rusted van parked noses toward the sidewalk, rear bumpers facing the travel lane. A narrow gap between their flanks opens onto the travel-lane asphalt. Ordinary factory cars only — no mesh, no plow, no pink, no armor.
+
+3. Subject in that gap: an adult person in a dark coat, face turned away from camera, HALFWAY out of the gap. The torso and one shoulder are still between the sedan and the van and are partly hidden by those bodies. One shoe is already on the travel-lane asphalt, past the parked rear-bumper line. The other foot is still in the gap. This is a step INTO the roadway. They are not leaning on a door or a window. They are not standing only on the curb. They are not walking in the open street. They wear a coat and shoes only — no switches, levers, gauges, or cab hardware on the body.
+
+4. Travel lane, still approaching: the Pink Menace — a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the door on the left side of the vehicle and the rear quarter panel, and oversize knobby tires on chrome slot wheels. The Beetle occupies the right half of this two-lane side street for its direction. It is traveling away from the camera. The rear engine cover and rear window mesh are nearer the camera. The plow and bull bar are on the FAR end of the car and point toward the TOP of the frame. The plow is still SHORT of the person's shoe — wet asphalt is visible between the plow blade and that shoe. The Beetle has not reached the gap. The Beetle is not already past. The person is one to two car-lengths ahead of the plow, large enough at phone size that a driver must cover, slow, or stop.
+
+5. Background: overcast cold afternoon, two-lane side street, low brick, bare trees, no crowd. Oncoming half empty. No extra vehicles the brief did not name.
+
+The read: a person is stepping out from between parked cars into the travel lane.
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. United States road configuration, traffic drives on the right. The pink vehicle is traveling away from the camera. Its front — identified by the black tube bull bar and wide flat plow blade — points toward the top of the frame, still short of the person. Any oncoming traffic is none in frame. No vehicle faces the wrong way in its lane.
+
+Traffic signs are single-faced. This card does not teach a sign face. Every sign face stays blank or shows its aluminum reverse. No destination-board text, no storefront lettering, no license-plate numbers, no doubled letters.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. No face toward camera. No child. No crowd. No person leaning into a window. No person standing only on the curb. No person walking freely in the open lane. No parallel-parked cars along the curb. No Beetle already past the person. No Beetle facing the camera. No headlights or plow toward the viewer. No second pink car. No switch, lever, gauge, or device on the pedestrian. No legible text, no lettering, no invented words, no license plate numbers. Aspect ratio 2:3.
