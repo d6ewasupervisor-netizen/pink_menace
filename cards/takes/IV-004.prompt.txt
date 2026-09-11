@@ -5,7 +5,15 @@
 # FAIL take 3: man leaning into a van window, feet on the curb, NOT entering the road; Menace already past, back to camera — no cover/slow/stop decision
 # later miss (take 11): person walking in the OPEN lane, not mid-step out of the gap
 # FIX: person stepping OUT INTO THE TRAVEL LANE from the gap between two nose-in parked cars, body partly occluded, one shoe on travel-lane asphalt; Menace still approaching, plow short of the person
-# takes this pass: 25–32
+# takes this pass: 25–36
+# closest (not seeded): cards/takes/IV-004-take-29.png
+# runner-up: take 28 (same gap + occlusion; sedan plate more readable)
+# plate verify on take 29: Beetle rear covered by plow, no numbers; sedan plate dark/unreadable at phone size; van plate out of frame
+# 25/31/35: person walking in the OPEN lane (take-11 class)
+# 26: second Beetle invented
+# 27: canon-drift three-wheeler
+# 30/33: same gap as 28–29; 33 has a readable sedan plate + extra distant car
+# 32/34/36: lean-on-van / open-door FAIL class
 # weather: wet overcast PNW daylight (bible §8.1 / standing). Card scene is a cold afternoon — do not add sun.
 # not a sign-recognition card: blank sign faces, no license-plate numbers, no invented lettering
 # no mechanical objects on the pedestrian
