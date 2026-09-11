@@ -3,9 +3,10 @@
 # compiled from cards/IV-004.json — card JSON is sole brief authority
 # FAIL take 3 (WAVE_ONE_MAP / Claude muted-read): person leaning into a van window with feet on the curb; Menace already past, back to camera, no cover/slow/stop decision
 # FIX: person stepping OUT INTO THE TRAVEL LANE from the gap between two parked cars, body partly occluded, close enough to matter; Menace still approaching, plow short of the person
-# takes: 5–14
+# takes: 5–16
 # closest (not seeded): cards/takes/IV-004-take-11.png
 # runner-up: take 10 (from the sedan/van gap into the lane; Beetle even with them, no plow)
+# 15–16: same stack as 11, person still walking in the open rather than occluded in the gap
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Clear cold Pacific Northwest afternoon — pale gray sky, soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 
