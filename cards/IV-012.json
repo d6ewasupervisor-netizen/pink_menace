@@ -105,6 +105,7 @@
     "time_of_day": "dusk",
     "tone": "grim",
     "failure_mode": "inexperience",
-    "forced": "location+weather+time match IV-005 callback street"
+    "winner": "take-32",
+    "forced": "location+weather+time match IV-005 callback street; live still cards/takes/IV-012-take-32.png (Claude PASS 2026-09-11)"
   }
 }
