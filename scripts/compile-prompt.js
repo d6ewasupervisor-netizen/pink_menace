@@ -71,10 +71,10 @@ const MENACE_CABIN_NEGATIVES =
   "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no fine full-windshield flyscreen grid, no two-pedal automatic box, no missing clutch on a Menace cabin.";
 
 const COVER_THE_BRAKE =
-  "Cover-the-brake is one settled posture, not a plant: the driver's right knee is bent, shin about forty-five degrees — not a straight nearly-horizontal leg. The right heel is planted on the floor. The ball of that shoe hovers above the brake pedal (the center pedal of three) with a visible air gap between sole and pad. The accelerator — the rightmost pedal — is empty. The clutch — the leftmost pedal — is empty. The sole is not planted flat on the accelerator. The sole is not resting flush on the brake pad.";
+  "Cover-the-brake is one settled posture, not a plant: the driver's right knee is bent, shin about forty-five degrees — not a straight nearly-horizontal leg. The right boot is centered over the BRAKE — the CENTER pedal of three — not on empty floor left of the pedal box. The right heel is planted on the floor directly below that pad's lower edge. The ball of that shoe hovers above the brake pad with visible daylight between sole and pad. The accelerator — the rightmost pedal — is empty. The clutch — the leftmost pedal — is empty. The sole is not planted flat on the accelerator. The sole is not resting flush on the brake pad.";
 
 const COVER_THE_BRAKE_NEGATIVES =
-  "No right foot planted flat on the accelerator. No straight nearly-horizontal right leg. No sole flush on a pedal pad. No empty floor with the foot away from the pedals. No cover-the-gas. No pressing the brake to the floor.";
+  "No right foot planted flat on the accelerator. No straight nearly-horizontal right leg. No sole flush on a pedal pad. No empty floor with the foot away from the pedals. No boot on bare floor left of the pedal box. No boot hovering over empty floor while the brake pad sits unused to its right. No cover-the-gas. No pressing the brake to the floor.";
 
 function briefAsksCoverTheBrake(brief) {
   const text = [brief.subject, brief.foreground, brief.midground, brief.read]
