@@ -16,7 +16,25 @@ Attachments on every compile: `ref_encore_cockpit.png`, `ref_encore_sheet.png`. 
 | 4 | `IV-001-tracks` | 7 | tracks in the lane | On the bench, looking forward and slightly **down** through glass. Wet rails **center of the FRAME**, running away in this lane. Wheel **bottom-left**. |
 | 5 | `IV-001-handoff` | 12 | the empty seat / wheel | On the bench, looking forward-left at the empty driver seat. Empty seat **left-center**. Empty suede wheel **lower-left**. Ali reaching from the **right** of the FRAME. |
 
-Takes: `cards/takes/<slug>-take-N.png` (N = 1–4). Prompts: `cards/takes/<slug>.prompt.txt`.
+Takes: `cards/takes/<slug>-take-N.png`. Prompts: `cards/takes/<slug>.prompt.txt`.
+
+## Closest take (1 of 4+)
+
+Muted-read pick. Not a PASS stamp. Reviews do not gate this batch.
+
+| Frame | Closest | Why |
+|---|---|---|
+| count-in | `IV-001-count-in-take-5.png` | Two-beat hand + street through rain glass. Take 3 is the same gesture. |
+| brake | `IV-001-brake-take-5.png` | Foot overlaps a pedal; yellow light in the top fifth. Covering is still a hover — see blockers. |
+| person | `IV-001-person-take-5.png` | Living pedestrian + two cars through intact glass. Person is beside the cars, not in the bumper gap. Take 2 if you want one car and a cleaner lane. |
+| tracks | `IV-001-tracks-take-4.png` | Rails in this lane, both hands on the wheel. Take 2 if you want the rails larger. |
+| handoff | `IV-001-handoff-take-1.png` | Empty seat is in frame; Ali reaches the empty wheel. Takes 2–4 sit her in the driver seat — not the handoff. |
+
+**Blockers (do not invent a scored card around these):**
+- Brake: the model will not plant the sole on the pedal. Takes hover. Covering the brake is the named spot and it is weak.
+- Count-in: Yuna lock has a right IEM in. Every take kept one earpiece in. Line 2 wants both out.
+- Person: “between parked cars” did not land. Person walks the travel lane. Takes 6–8 discarded (other traffic wore Encore chevrons).
+- No `cards/IV-001.json` — prompts are hand-assembled from the Yuna / Encore cockpit template. `compile-images.js --card IV-001` was not run.
 
 ---
 
