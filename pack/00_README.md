@@ -49,6 +49,16 @@ Three layers, and the order matters.
 
 ---
 
+## Standing locks (do not rediscover)
+
+**Vehicle plate — human-verified before compile.** A vehicle plate must be human-verified before any card compiles against it. Menace and Ledger were already verified. Encore is locked via Y4 take 7 (`refs/ref_encore_cockpit.png`, PR #26). No future vehicle enters the pipeline without this step. See `03_IMAGE_COMPILER_PROMPT.md`.
+
+**Muted-read waves — eight cards, not sixteen.** Batch B/C muted reads are delivered in two waves of eight cards. Wave one: IV-004, IV-005, IV-006, IV-007, IV-008, IV-011, IV-012, IV-013. Wave two stays queued until wave-one verdicts return.
+
+**Portraits carry people only.** A card's mechanical object (switch, lever, gauge) never appears on a character. If the object matters it goes in a cockpit or object frame. Compiler appends the people-only clause on every `POV_PORTRAIT`.
+
+---
+
 ## Run order
 
 1. Lock Deac, Yuna, the Ledger, and Encore from `07_CHARACTER_LOCK_PROMPTS.md` before any card that features them. Ali and the Menace already have refs.

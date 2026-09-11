@@ -89,6 +89,40 @@ You MUST:
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
   - if the brief names a hand or arm, require a visible attached shoulder and torso in the same frame, or drop the body part and show only the object. Never a detached limb.
+  - a card's mechanical object (switch, lever, gauge) never appears ON a
+    character. If the object matters it goes in a cockpit or object frame.
+    Portraits carry people only. Do not compile a switch, lever, gauge, or
+    other hardware onto clothing, a chest, or a body. IV-029 take 5 is the
+    proof: the guarded red PA switch landed on Yuna's jacket.
+  - abort the compile if the brief's continuity names a vehicle lock whose
+    plate has not been human-verified. Menace and Ledger are verified.
+    Encore is verified as of Y4 take 7 (`refs/ref_encore_cockpit.png`,
+    PR #26). No future vehicle enters the pipeline without that step.
+
+## VEHICLE PLATE LOCK — standing, human-verified before compile
+
+A vehicle plate must be human-verified before any card compiles against it.
+Menace (`ref_car_exterior.jpg`, `ref_cockpit.jpg`) and Ledger
+(`ref_ledger_sheet.png`, `ref_ledger_cockpit.png`) were already verified.
+Encore is now locked via Y4 take 7 (`refs/ref_encore_cockpit.png` /
+`cards/takes/Y4-take-7.png`, PR #26). Intact factory glass, enclosed cabin.
+
+No future vehicle — a new ego, a new chase car, a new lock sheet — enters
+the compile pipeline until a human has verified the plate. An unverified
+sheet is not a lock. Encore's unverified first plates cost six or seven
+regenerations across four frames. Do not rediscover that on the next car.
+
+## MUTED-READ WAVES — Batch B/C and after
+
+Batch B/C muted reads are delivered in **two waves of eight cards**, not
+sixteen at once. Wave one goes to review; wave two stays queued until
+wave-one verdicts return. Do not attach sixteen stills on one turn.
+
+Wave one (this lock): IV-004, IV-005, IV-006, IV-007, IV-008, IV-011,
+IV-012, IV-013.
+Wave two (queued): IV-014, IV-019, IV-020, IV-021, IV-022, IV-023,
+IV-024, IV-025 — then a short third wave for IV-026, IV-027, IV-028,
+IV-030.
 
 ## ASSEMBLY ORDER
 
@@ -277,6 +311,14 @@ the target in one pass so the fill and the placement happen together — shiftin
 pixels alone leaves a hole.
 
 When a geometry card fails twice, stop regenerating and composite.
+
+### 8. Mechanical objects never appear on a character
+A card's mechanical object — a switch, a lever, a gauge, a guarded PA rocker — never appears ON a character. If the object matters it belongs in a cockpit frame or a `POV_OBJECT` plate. Portraits carry people only: face, hair, clothes, the body. No hardware composited onto the chest, no device clipped to the jacket as if it were a prop from the cab.
+
+IV-029 take 5 is the proof: the brief named the guarded red PA switch behind Yuna and the model stuck a large red rocker on her clothing. Name the person. Leave the switch in Y4 / the Encore cockpit. Append on every `POV_PORTRAIT`:
+
+  positive: "portrait of the person only — no switches, levers, gauges, or cab hardware on the body"
+  negative: "no switch on clothing, no device on the chest, no hardware attached to the person, no props composited on the body"
 
 ## THE DRIVE-SIDE PROBLEM
 
