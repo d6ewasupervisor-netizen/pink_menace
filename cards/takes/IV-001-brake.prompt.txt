@@ -1,0 +1,20 @@
+# IV-001-brake — reshoot after take 5 FAIL
+# attachments: refs/ref_encore_cockpit.png (Y4 take 7 glass lock), cards/takes/IV-003-take-1.png (foot-read composition ONLY)
+# camera: POV_OBJECT in the Encore footwell, locked glass/dash still in frame
+# line 3: Cover the brake before the light even thinks about yellow. Foot off the gas. Held. Not riding it.
+# FAIL take 5: shoe hovering in mid-air + open tube frame / wiring nest where the dash should be
+# takes: 11–16. closest: take 13. 15–16 are diptychs — discard.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. REQUIRED ELEMENT FIRST AND UNMISTAKABLE: this is the locked Encore cockpit — match the attached Y4 take 7 plate. Intact factory windshield glass is a continuous real sheet filling the opening, black rubber gasket, windshield header, A-pillars, solid roof headliner. Raindrops bead on the OUTSIDE of that glass. Weather stays outside. A real dashboard sits under the glass: analog cluster, a solid dash panel, one guarded red switch, a radio, cage tubes inside the enclosed cabin — not an open tube-frame go-kart, not a wiring nest instead of a dash. Compile FROM that locked plate.
+
+Camera is low in the left-hand-drive driver footwell, looking down and slightly forward at the pedal box the way the attached IV-003-take-1 composition does: both pedals large and readable, the right foot as the subject. The locked dash and rain-beaded intact windshield occupy the top third of the FRAME, in soft focus — glass and dash must be there. The brake pedal is center-left of the FRAME. The gas pedal is to the right of the brake and empty. No faces.
+
+THE READ, large and central: a right foot in a black high-top is planted ON THE FLOOR beside the pedals. Heel and sole rest on the painted metal floor (or a dark worn mat). The foot sits next to the brake pedal — beside it, ready, held. Not hovering in empty air. Not showing the underside of a floating shoe as the main read. Not pressing the brake. Not on the gas. Foot off the gas. Held. Not riding it.
+
+Foreground: worn metal pedals with rubber covers, painted Encore floor, a roll-cage tube at the left edge of the FRAME — the cage belongs inside this enclosed cabin. Midground: the planted foot and ankle, a sliver of black track pant; the empty gas pedal. Background: the locked dash under rain-dotted intact glass; a yellow traffic light far ahead through the glass, no readable sign legend.
+
+Left-hand-drive US footwell: clutch if present at far left, brake, then gas. Overcast Pacific Northwest daylight through the glass — soft, diffuse, low-contrast, gray-blue. Desaturated; the only bright element is retroreflective silver-white. Fine grain, no HDR, no glow.
+
+Muted-text test: if every caption were hidden, the first thing the eye reads is the foot on the floor beside the pedals, with a real glass dash above.
+
+No hovering foot, no floating shoe, no sole aimed at camera as the whole frame, no pink Menace floor mat. No open cabin, no bare apertures, no missing windshield, no weather coming straight in, no open tube-frame cockpit, no formula car, no dune buggy, no wiring nest where the dashboard should be, no mesh, no bars across the glass, no PA horns inside the cabin. No golden hour, no sunset, no desert, no text, no UI, no faces. Photograph. Aspect ratio 2:3.

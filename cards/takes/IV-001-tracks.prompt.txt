@@ -1,0 +1,20 @@
+# IV-001-tracks — reshoot after take 4 FAIL
+# attachments: refs/ref_encore_cockpit.png (Y4 take 7 glass lock), refs/ref_encore_sheet.png (Y3 take 12)
+# camera: POV_COCKPIT
+# line 7: Tracks in this lane. The train does not swerve. We do.
+# FAIL take 4: freight-style rails / empty corridor, not light rail embedded in the travel lane; also bare-tube cockpit
+# takes: 5–10. closest: take 7.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. REQUIRED ELEMENT FIRST AND UNMISTAKABLE: match the attached Encore cockpit lock (Y4 take 7). Intact factory windshield glass — a continuous real sheet filling the entire windshield opening, rubber gasket, header, A-pillars. Raindrops bead on the OUTSIDE of the glass. Specular reflections prove the glass is a real plane. The cabin is fully enclosed: solid roof, headliner. Weather stays outside. A real dashboard under the glass: analog cluster, solid dash panel, one guarded red switch, radio. Welded roll-cage tubes at the A-pillars belong INSIDE this enclosed cabin, behind the glass, not instead of the glass. Compile FROM that locked plate. Do not invent an open tube-frame cockpit or a wiring nest where the dash should be.
+
+Camera sits on the welded rear bench looking forward and slightly down THROUGH the intact windshield. Wet streetcar / light-rail rails EMBEDDED IN THIS travel lane occupy the center of the FRAME, starting at the hood line and running away. The suede wheel occupies the bottom-left of the FRAME. Left-hand drive.
+
+THE READ, large and central: grooved steel light-rail tracks set FLUSH into the wet asphalt of the lane Encore is driving in — the same pavement cars use. Two rails, a car-width apart, embedded in the lane, with asphalt between them and asphalt outside them. You could drive on them. They catch the overcast sky. They run straight down THIS lane. They do not swerve. This is urban streetcar / light rail in the street, not a freight railroad.
+
+Foreground: suede racing wheel, Yuna's hands holding it; a sliver of silver chevron on the hood seen through the glass. Midground: the two embedded rails in the travel lane, rain-dotted windshield, a painted lane line. Background: downtown Seattle street under overcast — brick, storefronts, wet pavement — no readable signs. If a streetcar exists it is distant and small, never filling the frame. No locomotive. No freight cars.
+
+The matte-black hatchback is traveling away from the camera. United States road, traffic on the right. Overcast PNW daylight through glass — soft, diffuse, gray-blue. Desaturated; retroreflective silver-white is the only bright note. Fine grain, no HDR, no glow.
+
+Muted-text test: if every caption were hidden, the first thing the eye reads is light-rail tracks embedded in this lane, seen through intact cockpit glass.
+
+No freight spur, no rails flanking the lane on either side, no railroad ties, no ballast, no raised tracks sitting on top of the road, no empty road with no rails, no industrial corridor, no locomotive filling the frame. No open cabin, no bare apertures, no missing windshield, no weather coming straight in, no open tube-frame cockpit, no wiring nest where the dash should be, no mesh, no bars across the glass, no PA horns inside the cabin, no plow, no pink Beetle, no Ledger cage, no Quiet, no cooler, no COLD tag. No golden hour, no text, no UI. Photograph. Aspect ratio 2:3.
