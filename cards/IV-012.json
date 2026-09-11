@@ -1,0 +1,110 @@
+{
+  "card_id": "IV-012",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "ledger",
+  "title": "The Same Crosswalk",
+  "hook": "Same block. Same paint. The person you passed.",
+  "scene": "Fog at dusk on the same school-edge block. Same worn crosswalk. Same sedan lamps, closer. Last time you went around a car stopped for a person. This time the person is already in your half — coat, bag, looking at the place a plow was. The left is empty again. The paint remembers. You do not get a clean first look twice.",
+  "decision": "The same person is in the same crosswalk and the left is empty again. What do you do with the debt?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold behind the sedan until they are gone and the car moves",
+      "correct": true,
+      "result": "You plant it. They finish. The sedan rolls. You roll. The left stays a lane you did not spend. That is the only apology the paint takes.",
+      "state_delta": {
+        "noise": -2,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Go around faster this time so you are past before they step",
+      "correct": false,
+      "result": "You take the left harder. They are already in it because they learned you from last time. Same fog, same coat, same steel. They were waiting for the same pass.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stop in the left and wave them across so you can own the apology",
+      "correct": false,
+      "result": "You plant a Beetle in the passing lane and invent a crossing guard. The stack behind you has to guess. You paid a debt with everyone else's brakes.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Honk once so they know you saw them, then take the left",
+      "correct": false,
+      "result": "The horn says you noticed. The pass says you did not care. They freeze in the paint. You still wrote a plow through a person you already owed.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "A pass around a stopped car comes back on the same block. Hold. Let the person finish. You took the paint's second chance.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Callback of the double-threat pass: hold behind the stopped car until the person and the car are clear."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": "IV-005",
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "subject": "the same person in the same worn crosswalk, coat and bag, already on the near half of the paint; a primer sedan stopped short of them",
+    "foreground": "wet school-edge curb and fog in the grass",
+    "midground": "the person in the crosswalk not looking at camera; the sedan's bumper one vehicle length ahead of the Beetle on the same lane axis",
+    "background": "fog at dusk, school-edge fence, same block as IV-005",
+    "read": "the sedan is stopped in front of the pink Beetle; the person is in the crosswalk on the half a pass would take",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no face toward camera",
+      "no child",
+      "no sedan beside the Beetle",
+      "no yellow centerline"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two lanes this direction",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, still behind the sedan",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "primer sedan",
+          "frame_side": "same",
+          "along": "ahead",
+          "lengths": 1
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "school_zone",
+    "weather": "fog",
+    "time_of_day": "dusk",
+    "tone": "grim",
+    "failure_mode": "inexperience",
+    "forced": "location+weather+time match IV-005 callback street"
+  }
+}
