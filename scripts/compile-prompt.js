@@ -212,6 +212,18 @@ function assemblePrompt(card) {
       "Ego vehicle: a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette — a tall square passenger box on a van cab, faded green and white transit livery ghosting under gray primer. All four of the following must be clearly visible and unmistakable: the tall square box on a van nose, oversize side mirrors on long arms on both sides, an amber dot-matrix destination sign above the windshield with no readable text, and a welded bar cage over the windshield with a cut wiper slot."
     );
   }
+  if (
+    !deac &&
+    card.driver === "ali" &&
+    (cam === "POV_CHASE" ||
+      cam === "POV_ROADSIDE" ||
+      cam === "POV_ROADSIDE_PROFILE" ||
+      cam === "POV_DIAGRAM")
+  ) {
+    parts.push(
+      "Ego vehicle: a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the door on the left side of the vehicle and the rear quarter panel, and oversize knobby tires on chrome slot wheels. Use the attached exterior lock for BUILD AND SILHOUETTE ONLY — do not copy its golden-hour salt-flat lighting."
+    );
+  }
   if (deac && cam !== "POV_PORTRAIT") {
     parts.push(otherVehicleClauseLedger(card));
   }
