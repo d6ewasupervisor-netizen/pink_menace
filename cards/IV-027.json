@@ -99,6 +99,8 @@
     "weather": "ice",
     "time_of_day": "dawn",
     "tone": "wry",
-    "failure_mode": "weather"
+    "failure_mode": "weather",
+    "winner": "take-49",
+    "forced": "live still cards/takes/IV-027-take-49.png (Claude PASS 2026-09-11, PR #80 blank-badge regen)"
   }
 }
