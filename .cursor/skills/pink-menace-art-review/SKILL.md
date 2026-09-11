@@ -68,6 +68,8 @@ Muted-read test for PASS: cover the text; if the picture doesn't teach `read`, i
 2. Multi-lane: numbered lanes + `frame_side` (left/right of the FRAME, headings stated, longitudinal offset). `ego_lane_side` is two-lane only. Never compile "right half of the roadway" on multi-lane. Never compile "passing occurs on the LEFT." `frame_side: same` means the opposite half is empty. Lateral headings use `POV_ROADSIDE_PROFILE`. State each spatial fact exactly once.
 3. Deac cards attach the Ledger lock only — never a Menace ref.
 4. `GenerateImage` with vehicle lock. Tool aspect `3:4`; seed encodes 2:3.
+   Attach only `refs/` winners (`LOCKS.md` / `09_REF_MAP.json`). `cards/takes/` is history — unpromoted and superseded takes leave the pool.
+   Check lesson (look / shoulder / mirror / yield): Ali's head orientation leads the prompt (pack/03). Card JSON is sole brief authority.
 5. Copy to `cards/<id>.png`. Seed live if shipped. Bump `src/game.js` `imageUrl` `?v=`.
 6. Reload the board; wait for `PASS`.
 
