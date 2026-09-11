@@ -1,67 +1,39 @@
-# IV-005 — regen after Claude FAIL on take 49 (PR #77)
+# IV-005 — regen after Claude FAIL on takes 65/60 (PR #81)
 
-Branch from `cursor/promote-menace-cabin-6b66` so the promoted Menace
-cabin lock (take 16) is present. Card JSON is sole brief authority.
-Overcast PNW daylight. Not seeded. No Act I–III.
+Branch from `cursor/regen-iv-005-brake-719d` so the promoted Menace
+cabin lock (take 16) and the take-51–66 pool are present. Card JSON is
+sole brief authority. Overcast PNW daylight. Not seeded. No Act I–III.
+
+Claude said take 60 is closer — KEEP base is take 60.
 
 ## FAIL this pass is fixing
 
-Claude muted-read FAIL on `cards/takes/IV-005-take-49.png` (PR #77):
+Claude muted-read FAIL on `cards/takes/IV-005-take-65.png` /
+`cards/takes/IV-005-take-60.png` (PR #81):
 
 | | |
 |---|---|
-| **KEEP** | Cabin lock: painted dash, single nacelle with a period-correct dial, unbranded wheel, ball shifter, coarse mesh. No screen / roundel / gibberish. |
-| **FAIL** | Right foot planted flat on the accelerator, leg nearly straight. Card is approaching a crosswalk with a pedestrian — foot must cover the BRAKE: knee bent, heel planted, ball hovering above the brake pad. |
-| **FAIL** | Pedestrian already well past the nose mid-crossing (yield already made). Recompose so the yield is still live. Brief: person in the paint on the far side of the sedan, not yet clear. |
+| **KEEP (take 60)** | Cabin, bent-knee hover, sedan, empty left, daylight. |
+| **FAIL take 65** | Boot further left/higher over floor; brake pad unused to its right; pedestrian at far side of the stopped car’s rear (door-stander, not crosswalk). |
+| **FAIL take 60** | Boot on bare floor left of the pedal box; brake pad unused to its right; pedestrian past the nose mid-crossing (yield already made). |
+| **FIX** | Take 60 unchanged for cabin / leg geometry / scene. ONLY move the boot right and center it over the brake pad: heel planted below the pad’s lower edge, ball hovering with daylight between sole and pad. Pedestrian before/at the yield — not past the nose, not at the car door. |
 
 ## Attachments
 
-`ref_menace_cabin.png` (cabin lock) + `ref_car_exterior.jpg` (plow if glimpsed).
-`ref_cockpit.jpg` is banned. Do not attach it.
+- `refs/ref_menace_cabin.png` — cabin lock (take 16)
+- `cards/takes/IV-005-take-60.png` — FRAME KEEP
+- `cards/takes/IV-001-brake-take-81.png` — seeded cover-the-brake hover (Claude PASS, PR #56). Posture only. Attached at generate time.
+- `refs/ref_car_exterior.jpg` — plow if glimpsed
+- `ref_cockpit.jpg` banned
+- `refs/ref_encore_footwell.png` exists on the Encore lock PRs (empty two-pedal automatic). Not attached as cabin authority — wrong vehicle / pedal_count 2.
 
-Compiler: `COVER_THE_BRAKE` / `COVER_THE_BRAKE_NEGATIVES` now fire when the
-brief names covering the brake.
-
-## Closest for Claude muted-read
-
-| Card | Lesson | Shot | Closest | Runner-up |
-|---|---|---|---|---|
-| **IV-005** | the sedan is stopped at the crosswalk; the left lane beside it is empty | `POV_COCKPIT` | `cards/takes/IV-005-take-65.png` | take 60 |
-
-### IV-005 take 65
-
-KEEP vs take 49: cabin lock held (painted dash, single nacelle dial,
-unbranded wheel, ball shifter, coarse mesh; no tablet / roundel).
-Brake posture vs the FAIL: foot is no longer planted flat on the
-accelerator; knee is bent, heel down, shoe hovering. Pedestrian is a
-head/shoulder peek at the sedan — the car is still a wall; they are not
-already well past the nose in the open left. Daylight.
-
-Residuals: boot still hovers over empty floor left of the pedal box,
-not clearly over the center brake pad (same empty-floor family as
-IV-001-brake). Person reads as a right-flank peek more than “just past
-the hidden nose.” Two-lane dashed line / school fence still weak.
-Crosswalk bars still fairly fresh.
-
-### IV-005 take 60 (runner-up)
-
-Same cabin lock. Person is fully in the worn paint to the right of the
-sedan — findable, not in the empty left. Foot is the bent-knee hover,
-not a gas plant. Residual: full figure in the open (less “wall” than
-65); boot still off the brake pad.
+Compiler: `COVER_THE_BRAKE` now names heel-below-pad and forbids boot-on-empty-floor-left-of-box.
 
 ## This pass (not seeded)
 
-`cards/takes/IV-005-take-51.png` … `take-66.png`
+`cards/takes/IV-005-take-67.png` …
 
-Discard:
-- 53: no foot
-- 61: lost the mesh
-- 52 / 54 / 56 / 58 / 62 / 64: person already in the open left (take-49 yield class)
-- 57: invented a second person; straighter leg
-- 51 / 55 / 59 / 63 / 66: cabin + not-on-gas family; 63/66 are 65’s peek
-  siblings (66 hides the person to a sliver). 51/55/59 leave the person
-  as a full curb-side figure.
+Closest / residuals: pending review.
 
 ## Out of scope
 
