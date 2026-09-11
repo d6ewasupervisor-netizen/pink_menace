@@ -65,7 +65,9 @@ You MUST:
     of the road. Cat on the dash only when the vehicle is parked.
   - convert every role-relative spatial term to frame-relative language plus
     an explicit drive-side statement before compiling. Do not pass them through.
-  - append the left-hand-drive clause to every compile that includes a vehicle
+  - append the left-hand-drive clause to every compile that includes a vehicle.
+    Skip it when `ego_nose_in_frame` says the ego is not in frame (sign /
+    object cards). Do not inject a cabin or a steering wheel into those.
   - append the geometry clause to every road frame
   - append the mirror clause and mirror negatives to POV_MIRROR_REAR and
     POV_MIRROR_DOOR

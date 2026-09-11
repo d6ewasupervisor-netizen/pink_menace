@@ -268,8 +268,12 @@ function assemblePrompt(card) {
     );
   }
 
+  const egoOutOfFrame =
+    Boolean(brief.geometry) &&
+    /not in frame/i.test(String(brief.geometry.ego_nose_in_frame || ""));
+
   if (describesRoadway(card) && brief.geometry) {
-    parts.push(LHD);
+    if (!egoOutOfFrame) parts.push(LHD);
     if (!framed) {
       if (cam === "POV_CHASE") {
         parts.push(CHASE_CLAUSE);
@@ -300,8 +304,8 @@ function assemblePrompt(card) {
 
   const negs = [
     cam === "POV_DIAGRAM" ? diagramNegativeBlock(deac, brief.geometry) : NEGATIVE,
-    LHD_NEGATIVE,
   ];
+  if (!egoOutOfFrame) negs.push(LHD_NEGATIVE);
   if (deac) negs.push(LEDGER_NO_MENACE);
   if (brief.geometry) {
     const frameNeg = framePassNegatives(brief.geometry, card.driver, cam);
