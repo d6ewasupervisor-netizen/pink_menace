@@ -32,5 +32,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. pink_menace_interior remains ref_cockpit.jpg until Claude muted-read PASS on refs/ref_menace_cabin_candidate.png (take 7). pink_menace_interior_candidate is the gated plate — do not attach on card compiles until promote. After PASS: point pink_menace_interior at the promoted cabin file and stop attaching ref_cockpit.jpg (poisoned tablet / gibberish cluster)."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. pink_menace_interior remains ref_cockpit.jpg until Claude muted-read PASS on refs/ref_menace_cabin_candidate.png (take 16). pink_menace_interior_candidate is the gated plate — do not attach on card compiles until promote. After PASS: point pink_menace_interior at the promoted cabin file and stop attaching ref_cockpit.jpg (poisoned tablet / gibberish cluster). Pinned cabin: flat period dash, single nacelle angled away, unbranded wheel, manual floor shifter, pedal_count 3, coarse panel mesh, no screen bay."
 }

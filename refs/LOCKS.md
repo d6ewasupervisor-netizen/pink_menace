@@ -25,22 +25,35 @@ Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg
 
 ## Pink Menace cabin — CANDIDATE (not promoted)
 
-Claude has **not** muted-read PASS on this plate. Brad will muted-read with Claude next. Do **not** treat the candidate as human-verified. Do **not** swap `pink_menace_interior` off `ref_cockpit.jpg` in this PR.
+Claude confirmed the **plate plan** (2026-09-11) below. Claude has **not** muted-read PASS on the pixels. Brad will muted-read take 16 next. Do **not** treat the candidate as human-verified. Do **not** swap `pink_menace_interior` off `ref_cockpit.jpg` in this PR.
+
+### Pinned decisions (write these down)
+
+| Decision | Pin |
+|---|---|
+| Dash | Flat painted metal of the period. Continuous shelf. No recess — a screen has nowhere to sit. |
+| Cluster | **Single instrument nacelle.** |
+| Gauge treatment | **Prefer:** nacelle angled away from camera so **no glyphs render**. Alternate: one period-correct dial only. Never three-gauge gibberish. |
+| Wheel | Unbranded. No VW roundel. |
+| Shifter | **Manual.** Floor shifter, ball knob. |
+| Pedals | **`pedal_count: 3`** — clutch, brake, accelerator. Beetle-plausible (take 5 showed the ball-knob manual). Not Encore’s two-pedal box. |
+| Mesh | Menace **coarser panel mesh**. **Not** Encore’s fine full-windshield grid. |
+| Screen | No touchscreen / infotainment. Positive layout leaves no place for one. |
 
 | Role | File | Take | Notes |
 |---|---|---|---|
-| Closest (candidate) | `ref_menace_cabin_candidate.png` | 7 | Same bytes as `candidates/menace-cabin-take-7.png`. `sha256:b11425c8…`. Type 1 cracked faded-pink dash; worn three-spoke, blank hub (no VW roundel); single analog gauge, ticks only; welded square mesh; tunnel shifter; **no screen**. |
-| Runner-up | `ref_menace_cabin_candidate_runnerup.png` | 8 | Fuller square mesh + rocker bank. Residual: gauge numerals. |
+| Closest (candidate) | `ref_menace_cabin_candidate.png` | **16** | Same bytes as `candidates/menace-cabin-take-16.png`. `sha256:3576270e…`. Flat period dash; single nacelle; unbranded wheel; ball-knob floor shifter; **three pedals**; coarse panel mesh; no screen bay. Residual: nacelle still faces camera (small; glyphs do not read). |
+| Runner-up | `ref_menace_cabin_candidate_runnerup.png` | 10 | Coarse mesh + three pedals + shifter + empty dash. **Nacelle missing.** |
 
-Variants: `refs/candidates/menace-cabin-take-1.png` … `take-8.png`. Brief: `refs/CANDIDATE_MENACE_CABIN.md`. Handoff: `refs/NEXT.md`.
+Variants: `refs/candidates/menace-cabin-take-1.png` … `take-17.png`. Brief: `refs/CANDIDATE_MENACE_CABIN.md`. Handoff: `refs/NEXT.md`.
 
-**`ref_cockpit.jpg` is the poisoned interior** — desert GPS tablet, three-gauge gibberish, VW-ish hub. Same failure Claude named on IV-027 take-11 / take-19, IV-028 take-5. Keep it as the live `pink_menace_interior` attachment only until Claude PASSes take 7; then replace it (Encore cockpit / Ledger cockpit pattern) and stop attaching the old file.
+**`ref_cockpit.jpg` is the poisoned interior** — desert GPS tablet, three-gauge gibberish, VW-ish hub. Keep it as the live `pink_menace_interior` attachment only until Claude PASSes take 16; then replace it and stop attaching the old file.
 
 After PASS, winners-table row should read:
 
 | Asset | Winner | File | Notes |
 |---|---|---|---|
-| Pink Menace cabin | candidate take 7 (pending Claude) | `ref_menace_cabin.png` | **Do not write this row until Claude PASSes.** Dash, cluster, wheel, square mesh, shifter. No tablet / touchscreen. |
+| Pink Menace cabin | candidate take 16 (pending Claude) | `ref_menace_cabin.png` | **Do not write this row until Claude PASSes.** Flat period dash; single nacelle; unbranded wheel; manual floor shifter; pedal_count 3; coarse panel mesh. No tablet. |
 
 ## Daylight lock (Act IV / non-night)
 

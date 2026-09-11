@@ -205,28 +205,39 @@ Compiler appends, on every non-night card:
 
 ## MENACE CABIN — CANDIDATE plate (Claude PASS required)
 
-`ref_cockpit.jpg` is the poisoned Menace interior (desert GPS tablet, three-gauge
-gibberish, VW-ish hub). Do not promote `refs/ref_menace_cabin_candidate.png`
-into `pink_menace_interior` until Claude muted-read PASSes it. Brad does that
-read next. See `refs/CANDIDATE_MENACE_CABIN.md`.
+Claude confirmed the plate **plan** (2026-09-11). Do not promote
+`refs/ref_menace_cabin_candidate.png` (take 16) into `pink_menace_interior`
+until Claude muted-read PASSes the pixels. Brad does that read next.
+See `refs/CANDIDATE_MENACE_CABIN.md`.
 
 Until promote, Ali `pink_menace_interior` / `POV_COCKPIT` / `POV_MIRROR_REAR`
-compiles still attach `ref_cockpit.jpg` and MUST append:
+compiles still attach `ref_cockpit.jpg`. The compiler MUST state the
+**positive** cabin (so a screen has nowhere to sit) and the negatives:
 
-  "No rectangular touchscreen, no tablet, no infotainment, no GPS, no
-  navigation screen, no glass panel in the dash, no VW roundel, no Volkswagen
-  logo on the wheel, no emblem on the hub, no readable gauge text, no invented
-  numerals on the cluster, no three-gauge modern cluster copied from the old
-  cockpit lock."
+Positive (`MENACE_CABIN_BUILD`):
 
-After Claude PASS, replace the live PINK MENACE INTERIOR string with:
+  "Menace cabin, positive layout: a flat painted-metal dash of the period —
+  one continuous Type 1 shelf with no recess, no tablet bay, no rectangle
+  that could hold a screen. A single instrument nacelle, one housing only.
+  An unbranded wheel — worn leather, plain hub, no logo, no VW roundel.
+  A manual floor shifter with a ball knob on the tunnel. Three pedals:
+  clutch, brake, accelerator. Coarse Menace panel mesh over the glass —
+  thick welded panels, large openings — not Encore's fine full-windshield
+  grid, not a flyscreen. Default: the single nacelle is angled away from
+  the camera so no glyphs render. Only when the card brief names a readable
+  needle or cluster-at-0, show that one period-correct dial."
 
-  "a cracked faded-pink painted metal Type 1 dash, worn black leather
-  three-spoke steering wheel with a plain chrome or black hub and no logo,
-  a round analog gauge cluster with unlabeled ticks only, a floor-tunnel
-  shifter, a bank of unlabeled rocker switches, welded square steel mesh
-  across the windshield with intact glass under it — no tablet, no
-  touchscreen, no infotainment"
+Negatives (`MENACE_CABIN_NEGATIVES`): no touchscreen / tablet / infotainment /
+dash cutout / VW roundel / three-gauge modern cluster / invented numerals /
+fine full-windshield flyscreen / two-pedal automatic box.
+
+**Gauge treatment is pinned:** prefer nacelle angled away (no glyphs).
+Alternate: one period-correct dial. Card JSON wins when it names the needle.
+
+**Shifter is pinned:** manual, floor, ball knob, `pedal_count: 3`.
+
+After Claude PASS, replace the live PINK MENACE INTERIOR string with that
+same positive paragraph. Stop attaching `ref_cockpit.jpg`.
 
 ## THE QUIET — register lock, 8 Sep 2026
 
@@ -571,7 +582,7 @@ else. No commentary. No alternatives.
 |---|---|
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
 | Pink Menace exterior | `ref_car_exterior.jpg` |
-| Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` until Claude PASSes the cabin candidate; then the promoted `ref_menace_cabin*.png`. Candidate file: `ref_menace_cabin_candidate.png` (take 7). Do not attach the candidate on card compiles until promote. |
+| Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` until Claude PASSes the cabin candidate; then the promoted `ref_menace_cabin*.png`. Candidate file: `ref_menace_cabin_candidate.png` (take 16). Do not attach the candidate on card compiles until promote. |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |

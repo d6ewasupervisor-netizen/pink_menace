@@ -64,8 +64,11 @@ const NEGATIVE =
 const DAYLIGHT_NEGATIVE =
   "No night, no full night, no city at night, no dusk-as-night, no blue hour, no black sky, no star field, no lit office towers as night key light, no sodium streetlight night, no headlights as the only illumination, no warm headlight-dominant night look, no near-black asphalt night. The sky must be readable daylight or pale overcast gray-white, not black.";
 
+const MENACE_CABIN_BUILD =
+  "Menace cabin, positive layout: a flat painted-metal dash of the period — one continuous Type 1 shelf with no recess, no tablet bay, no rectangle that could hold a screen. A single instrument nacelle, one housing only. An unbranded wheel — worn leather, plain hub, no logo, no VW roundel. A manual floor shifter with a ball knob on the tunnel. Three pedals: clutch, brake, accelerator. Coarse Menace panel mesh over the glass — thick welded panels, large openings — not Encore's fine full-windshield grid, not a flyscreen. Default: the single nacelle is angled away from the camera so no glyphs render. Only when the card brief names a readable needle or cluster-at-0, show that one period-correct dial.";
+
 const MENACE_CABIN_NEGATIVES =
-  "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no readable gauge text, no invented numerals on the cluster, no three-gauge modern cluster copied from the old cockpit lock.";
+  "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no fine full-windshield flyscreen grid, no two-pedal automatic box, no missing clutch on a Menace cabin.";
 
 function wantsNight(card) {
   const t = String((card.variation && card.variation.time_of_day) || "").toLowerCase();
@@ -324,6 +327,7 @@ function assemblePrompt(card) {
       cam === "POV_COCKPIT" ||
       cam === "POV_MIRROR_REAR");
   if (menaceCabin) {
+    parts.push(MENACE_CABIN_BUILD);
     negs.push(MENACE_CABIN_NEGATIVES);
   }
   if (deac && LEDGER_INCAB.has(cam)) {
@@ -352,6 +356,7 @@ module.exports = {
   LHD,
   OTHER_VEHICLE_CLAUSE_LEDGER,
   DAYLIGHT_NEGATIVE,
+  MENACE_CABIN_BUILD,
   MENACE_CABIN_NEGATIVES,
   wantsNight,
 };
