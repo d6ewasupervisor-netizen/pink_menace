@@ -20,7 +20,7 @@ Ali is the player character. In a driving game she is behind the camera for most
 |---|---|---|---|
 | **Face-critical** — Ali, Deac, or Yuna recognizable | `POV_PORTRAIT`, `POV_ROADSIDE` at close range | **≤ 10% of act** (3 cards in 30) | 8 takes, hand-curate 1. Never accept a first take. |
 | **Vehicle-critical** — the Menace, Ledger, or Encore identifiable | `POV_CHASE`, `POV_ROADSIDE` / `POV_ROADSIDE_PROFILE` at distance, `POV_TOPDOWN_PHOTO` | ≤ 25% | 4 takes, curate. Feature checklist mandatory (§2). |
-| **Identity-free** | `POV_COCKPIT`, `POV_MIRROR_REAR`, `POV_MIRROR_DOOR`, `POV_OBJECT`, `POV_DIAGRAM` | remainder | 1–2 takes. No faces in frame. Diagrams are overhead photographs of the ego vehicle: Ali attaches `ref_car_exterior.jpg`; Deac attaches `ref_ledger_sheet.png` and never a Menace ref. |
+| **Identity-free** | `POV_COCKPIT`, `POV_MIRROR_REAR`, `POV_MIRROR_DOOR`, `POV_OBJECT`, `POV_DIAGRAM` | remainder | 1–2 takes. No faces in frame. Diagrams are overhead photographs of the ego vehicle: Ali attaches `ref_car_sheet.png` and `ref_car_exterior.jpg`; Deac attaches `ref_ledger_sheet.png` and never a Menace ref. |
 
 `POV_COCKPIT` shows no driver at all — it is over the wheel, looking out. That is the single most drift-proof camera in the set and it is also the most narratively correct one for a decision moment. Use it freely.
 
@@ -34,7 +34,7 @@ Silhouette drift responds better to an explicit feature list than to a reference
 
 **Append a mandatory feature clause to every Menace compile**, phrased as a requirement rather than description:
 
-> All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the driver's door and rear quarter panel, and oversize knobby tires on chrome slot wheels.
+> All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front (standard plate equipment — nose-mounted at the far leading end, never missing, never left-flank / side-mounted), riveted raw-steel plating over the driver's door and rear quarter panel, and oversize knobby tires on chrome slot wheels.
 
 Same pattern for the Ledger (tall square box on a van nose, oversize side mirrors on long arms, amber dot-matrix destination sign, bar cage with cut wiper slot) and Encore (low wide wedge, four chrome PA horn flares on a roof frame, retroreflective chevron striping, intact glass and no mesh).
 
@@ -43,7 +43,7 @@ Same pattern for the Ledger (tall square box on a van nose, oversize side mirror
 Reject and regenerate on any miss. Do not accept "close enough"; drift compounds across an act.
 
 **Ali (face-critical only):** round wire-rim glasses present · cranberry-red hair · braided at the crown · gold hoops · flat affect, not smiling
-**Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
+**Menace:** mesh cages · **nose plow** (wide flat blade on the black tube bull bar at the far leading end — not optional, not left-flank) · riveted door plate · knobby tires on slot wheels
 **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
 **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted

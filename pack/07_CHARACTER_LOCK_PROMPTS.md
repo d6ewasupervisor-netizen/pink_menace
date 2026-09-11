@@ -102,6 +102,7 @@ Use G1 as a silhouette test. If you can't tell the three apart at thumbnail size
 | Yuna portrait | `ref_yuna.png` |
 | Encore four-view | `ref_encore_sheet.png` |
 | Encore cockpit | `ref_encore_cockpit.png` |
+| Pink Menace four-view | `ref_car_sheet.png` |
 | Convoy silhouette test | `ref_convoy.png` |
 
-Ali and the Menace already have refs and need nothing. Gracie and Mya are locked.
+Ali face refs are locked. The Menace four-view is `ref_car_sheet.png` (sheet take 1). **nose_plow: standard plate equipment** — wide flat blade on the black tube bull bar at the far leading / nose end; rear 3/4 on that sheet is the plate the model sees. Not scene-optional, not left-flank / side-mounted. Front 3/4 hero remains `ref_car_exterior.jpg` (salt-flat lighting is not the game's). Gracie and Mya are locked.
