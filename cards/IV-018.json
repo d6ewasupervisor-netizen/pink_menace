@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Two on the Seat",
   "hook": "Both cats. First time since the lot.",
-  "scene": "Ice at night, the Menace still at the same curb. Mya is back. Gracie never left. Orange tabby and brown mackerel on the passenger seat — cream chest, dark stripe — the first time both have been in one frame since the lot. The carrier sits open on the floor next to the seat. The engine is still. This is not a rebuke. It is the next thing you do with a load that cannot buckle itself. The road is ice. They are two moving weights.",
+  "scene": "Ice at night, the Menace still at the same curb. Mya is back. Gracie never left. Orange tabby and brown mackerel on the passenger seat — cream chest, dark stripe — the first time both have been in one frame since the lot. The engine is still. This is not a rebuke. It is the next thing you do with a load that cannot buckle itself. The road is ice. They are two moving weights.",
   "decision": "Both cats are on the seat and you have not rolled. What do you do with the load?",
   "options": [
     {
@@ -68,11 +68,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "both cats on the passenger seat — orange tabby Gracie with cream chest, brown mackerel Mya with a dark dorsal stripe — and the carrier door hanging open on the floor next to the seat",
+    "subject": "both cats on the passenger seat — orange tabby Gracie with cream chest, brown mackerel Mya with a dark dorsal stripe — neither belted, no carrier in frame",
     "foreground": "worn black wheel, faded pink dash, mesh over the windshield, cluster at 0",
-    "midground": "the two cats settled, neither on the dash, neither belted; open carrier on the floor next to the seat",
+    "midground": "the two cats settled, neither on the dash, neither belted",
     "background": "ice, night, downtown curb through the mesh, Ledger gone from the glass",
-    "read": "both cats are on the seat; the carrier is open; the speedometer reads 0",
+    "read": "both cats are on the seat; the speedometer reads 0",
     "continuity": [
       "pink_menace_interior",
       "gracie",
@@ -84,7 +84,9 @@
       "no obese Mya",
       "no cats on the lap",
       "no Quiet",
-      "no Deac in frame"
+      "no Deac in frame",
+      "no carrier in frame",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

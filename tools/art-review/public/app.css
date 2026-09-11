@@ -276,6 +276,8 @@ h1 {
   line-height: 1.45;
 }
 
+.scene { white-space: pre-wrap; }
+
 .decision { color: var(--ink); }
 .read { color: var(--ok); }
 .geo { color: var(--muted); font-size: 0.9rem; }

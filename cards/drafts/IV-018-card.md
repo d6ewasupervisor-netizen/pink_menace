@@ -15,7 +15,9 @@ Text-only extract for audit. Source of truth: `cards/IV-018.json`.
 
 ## Scene
 
-Ice at night, the Menace still at the same curb. Mya is back. Gracie never left. Orange tabby and brown mackerel on the passenger seat — cream chest, dark stripe — the first time both have been in one frame since the lot. The carrier sits open on the floor next to the seat. The engine is still. This is not a rebuke. It is the next thing you do with a load that cannot buckle itself. The road is ice. They are two moving weights.
+Ice at night, the Menace still at the same curb. Mya is back. Gracie never left. Orange tabby and brown mackerel on the passenger seat — cream chest, dark stripe — the first time both have been in one frame since the lot. The engine is still. This is not a rebuke. It is the next thing you do with a load that cannot buckle itself. The road is ice. They are two moving weights.
+
+(Carrier is not in the scene. She has to think of it. Correct option still: clip both in the carrier, stow it, then roll.)
 
 ## Decision
 
