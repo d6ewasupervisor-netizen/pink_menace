@@ -1,0 +1,34 @@
+# IV-005 — The Double Threat (regen after take 1 FAIL)
+# attachments: refs/ref_cockpit.jpg (Pink Menace interior lock — dash/wheel/mesh build only; ignore desert sunset)
+# compiled from cards/IV-005.json — card JSON is sole brief authority
+# FAIL take 1 (WAVE_ONE_MAP / Claude muted-read): person not in the crosswalk geometry the hazard needs; weak empty left lane; no cover-the-brake foot
+# FIX: person IN the worn crosswalk paint on the far side of the stopped sedan; two lanes this direction; left travel lane empty; foot covering the brake
+# Continuity for IV-012 ledger callback (do not touch IV-012): same school-edge block, worn crosswalk, fog at dusk, primer sedan + brake lamps, chain-link fence
+# takes: 5+
+# closest (not seeded): TBD
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest dusk in fog — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is inside the cabin, over the wheel, looking forward through the windshield. No driver face in frame. Match the attached cockpit lock for BUILD only — cracked faded pink dashboard, worn black leather steering wheel with a chrome center hub, round analog gauge cluster bottom-left, an aftermarket navigation tablet mounted center dash with no readable text, a bank of illuminated rocker switches, welded steel mesh across the windshield. Road through the grid. Ignore the lock's desert sunset.
+
+PINK MENACE INTERIOR: a cracked faded pink dashboard, worn black leather steering wheel with a chrome center hub, round analog gauge cluster, an aftermarket navigation tablet mounted center dash, a bank of illuminated rocker switches, welded steel mesh across the windshield.
+
+FOREGROUND: worn black wheel and welded mesh. A driver's shoe and attached lower leg already covering the brake pedal — cover-the-brake, not a hover, not empty floor. No driver face.
+
+The roadway has 2 lanes in this direction. Heading: away from the camera. Ego occupies the RIGHT travel lane (lane 2 of 2). A skip-dashed white lane line separates the two same-direction lanes. The LEFT travel lane beside the sedan is empty wet asphalt — the invitation to pass. The LEFT edge of the roadway in frame is a concrete median barrier, a curb, or a crop — never a yellow centerline.
+
+MIDGROUND through the mesh:
+1. A primer-gray sedan in the SAME right travel lane, stopped at a worn faded school-edge crosswalk. Its rear faces us. Brake lamps are lit. The plow, if glimpsed through the mesh, points at that sedan's bumper.
+2. Worn faint crosswalk paint across both lanes — same worn bars IV-012 will callback, not fresh bright zebra.
+3. An adult person IN that worn crosswalk paint on the FAR SIDE of the sedan — the sedan's right / curb half, coat and bag, not done crossing, not looking at camera. They are in the paint. They are why the sedan stopped. They are not standing in the empty left lane. They are not a distant fog blob beside the bumper. They are not on the sidewalk.
+
+BACKGROUND: fog at dusk, school-edge chain-link fence out of focus, no readable sign text. Same block language IV-012 will later callback.
+
+The read: the sedan is stopped at the crosswalk; the left lane beside it is empty.
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied. The empty left lane and the stopped sedan at the worn paint must read at phone size. The person in the far-side paint must be findable so the stop has a reason.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. United States road configuration, traffic drives on the right. Rear of each same-direction vehicle is nearer the camera. Bodies recede toward the top of the frame. No headlights or grilles face the viewer.
+
+Traffic signs are single-faced. Any sign in frame is legible only if it faces the camera's direction of travel. Signs governing a cross or opposing approach show their blank reverse side. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. No vehicle on the right passing a vehicle on the left. No vehicle passes on the right. No pink vehicle on the left side of the frame. No yellow centerline in frame, no double yellow, no oncoming traffic, no opposing lane visible. No pedestrian signs, no additional vehicles. No child. No face toward camera. No person standing in the empty left / passing lane. Aspect ratio 2:3.
