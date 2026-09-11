@@ -1,0 +1,96 @@
+{
+  "card_id": "IV-027",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Space With No Space",
+  "hook": "Stop-and-go. The bumper ahead is a wish.",
+  "scene": "Ice at dawn on a four-lane downtown crawl. The sedan ahead dumps and rolls, dumps and rolls. In the interior glass a lifted truck is already on your bumper — Hollis would be proud and he is not here. Stop-and-go is when there is no space and you still owe the car ahead three seconds off a mark. If they dump and you are on their hitch, the ice writes the rest. The truck behind you is their problem until you make it yours.",
+  "decision": "The truck is on your bumper and the sedan keeps dumping. Where do you put the gap?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Close up on the sedan so the truck cannot cut in and you stay a pack",
+      "correct": false,
+      "result": "You sit on the hitch. The sedan dumps. You dump. The plow talks to metal on ice. The truck behind you still cannot cut in. He also cannot stop you from writing a note.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "yaw": 2,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "b",
+      "text": "Lift until you can count three seconds off a mark, even if the truck hates it",
+      "correct": true,
+      "result": "You let the sedan go. A crack in the ice passes their bumper. You count it. When they dump again you are already covering. The truck flashes. He does not get your gap. Nobody gets a kiss.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "c",
+      "text": "Move left and pass the whole crawl so you are not in the sandwich",
+      "correct": false,
+      "result": "You take a pass in a crawl on ice. The left is a door you did not have. You leave the sandwich and invent a sideswipe. The sedan never asked you to save it.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Tap the brakes to tell the truck to back off, then close on the sedan",
+      "correct": false,
+      "result": "You brake-check ice. The truck does not back off. He writes his bumper into yours. Teaching him cost you a lamp. The sedan is still dumping.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "Stop-and-go still owes the car ahead a counted gap. Keep space even when the truck behind wants it. Keep the counted gap even when the truck hates it.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "5.2 Space",
+    "teaching_target": "Maintain a following gap in congested stop-and-go traffic; do not close up because a tailgater is behind you."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "camera_is_the_lesson": true,
+    "subject": "a lifted truck filling the interior rear glass, same heading, too close, lamps already dirty",
+    "foreground": "interior mirror housing, ice beads on the glass, a strip of faded pink roof",
+    "midground": "the truck's grille and bumper, no readable plate, no cutaway marks",
+    "background": "ice at dawn, downtown crawl defocused around the glass",
+    "read": "the truck is already on the bumper in the interior rear glass",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two lanes this direction, stacked",
+      "ego_nose_in_frame": "not in this glass; reflected traffic is behind",
+      "oncoming_position": "none in the glass",
+      "hazard_position": "behind"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "ice",
+    "time_of_day": "dawn",
+    "tone": "wry",
+    "failure_mode": "weather"
+  }
+}

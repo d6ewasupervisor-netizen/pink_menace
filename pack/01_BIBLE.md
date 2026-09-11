@@ -34,7 +34,7 @@ Each has a different vehicle, different handling, different curriculum focus, an
 
 ### 3.1 ALI OKONJO — callsign **KILO** *(canon, do not restyle)*
 - **Age 17.** Cranberry-red tightly coiled hair — crown braids, a long thick braid, or a loose shoulder-length curl-out; vary it per card. Wire-rim round glasses. Gold hoop earrings, small gold nose ring. Warm brown skin. Clothes vary: faded pink hoodie with white raglan stripes, black oversize tee, charcoal work jacket — never a pink jumpsuit, never the same look two cards in a row if a face is in frame. Flat affect, dry, does not perform emotion.
-- **Vehicle: THE PINK MENACE.** Baja-converted VW Beetle. Faded matte pink with oxidation. Riveted raw-steel door and quarter-panel plating. Welded steel mesh cages over every window and the windshield. Black tube bull bar with a wide flat plow blade. Oversize knobby tires, chrome slot wheels. Interior: cracked pink dash, worn black leather wheel, analog gauge cluster, aftermarket nav tablet, rocker switch bank.
+- **Vehicle: THE PINK MENACE.** Baja-converted VW Beetle. Faded matte pink with oxidation. Riveted raw-steel door and quarter-panel plating. Welded steel mesh cages over every window and the windshield. Black tube bull bar with a wide flat plow blade. Oversize knobby tires, chrome slot wheels. Interior: flat painted-metal period dash (no screen), single instrument nacelle, unbranded worn leather wheel, **manual floor shifter, three pedals**, coarse panel mesh. Lock: `ref_menace_cabin.png` (take 16, human-verified). Not Encore’s two-pedal automatic.
 - **Handling:** light, quick, short wheelbase, excellent visibility, **terrible crash tolerance.**
 - **Weakness: SPEED.** She's fast, she knows it, and she has never once been wrong until she is. Her arc is the speeding arc — PSDP p.12: speeding was a factor in 30% of fatal teen crashes.
 - **Passengers: GRACIE and MYA.** Both are Ali's. They ride loose because they always have. Gracie is the orange tabby, amber-green eyes, cream chest — the curious one, and the one who comes back. Mya is the brown mackerel, dark dorsal stripe, green eyes, heavier. She bolts at the DOL lot. Deac finds her, reads the collar tag, and holds her through two acts. Neither of them says whose she is. III-002's pixels do not change. Unrestrained cat = live distraction, and the reason the noise rule is taught by taking something.
@@ -140,7 +140,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 ### 8.2 Reference discipline — read this or you will get sunsets forever
 - `ref_ali1.jpg`, `ref_ali2.png` — **face, hair, glasses, jewelry.** Also the correct lighting model.
 - `ref_car_exterior.jpg` — **silhouette and build only.** The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
-- `ref_cockpit.jpg` — **interior layout and mesh screen only.** Same warning: not the lighting.
+- `ref_menace_cabin.png` — **interior layout and mesh only** (take 16, human-verified). Flat period dash, single nacelle, unbranded wheel, manual floor shifter, three pedals. Same warning: not the lighting. Never attach `ref_cockpit.jpg` (poisoned tablet / gibberish cluster).
 - `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
 - `ref_quiet.png` — Quiet register lock (A3 take 3). Attach on every Quiet compile. Posture and stillness, not damage. They never fill the frame. Plates: `ref_quiet_a1.png`–`ref_quiet_a5.png`.
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
