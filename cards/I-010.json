@@ -56,9 +56,9 @@
     "camera_pose": "Camera is inside the cabin at the driver's seat, body turned looking over the right shoulder out the rear glass — enclosed cab with solid roof headliner above the rear window. Not outside the car. Not looking forward. Not a mirror shot.",
     "subject": "the view rearward out of the Menace from the driver seat — mesh over the rear glass, a wet parking-lot aisle beyond it",
     "foreground": "driver's right shoulder in faded pink hoodie at the right edge; seat backs and headrests; solid faded pink roof headliner and rear window frame continuous — no open sky above the cab",
-    "midground": "rear glass with welded mesh and raindrops; wet parking aisle with painted white stall lines",
-    "background": "cars parked nose-in in marked parking stalls on the left and right of the aisle — a lot, not a road with shoulder parking; grey overcast",
-    "read": "the aisle behind is visible by turning and looking, with cars in stalls on both sides",
+    "midground": "rear glass with welded mesh and raindrops; wet EMPTY parking aisle with painted white stall lines, no cars",
+    "background": "empty marked stalls both sides of a receding aisle — a lot, not a road; grey overcast, low warehouse frontage",
+    "read": "the aisle behind is empty and visible by turning and looking — no parked cars",
     "continuity": [
       "pink_menace_interior"
     ],
@@ -76,7 +76,9 @@
       "no cars lined on a road shoulder",
       "no forward windshield view",
       "no steering wheel as the main subject",
-      "no GPS"
+      "no GPS",
+      "no parked cars",
+      "no other vehicles"
     ],
     "aspect": "2:3",
     "geometry": {

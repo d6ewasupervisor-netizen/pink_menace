@@ -61,6 +61,10 @@ Three layers, and the order matters.
 
 `19_ACT_II_ART_AUDIT.md` is the human art pass for Act II — frame-by-frame read against card text, with rebuild prompts for failures.
 
+## Brief authority
+
+**Card JSON is the only authority for a card's brief.** Pack files are how a brief is written the first time; once the card is in `cards/`, the pack is history. Do not "correct" a live `image_brief` from a pack markdown. Edit the JSON.
+
 ## Regeneration rule
 
 If a card comes back flat, regenerate the **card**, not the image. A bad image is almost always a symptom of a vague decision moment. Fix upstream.
