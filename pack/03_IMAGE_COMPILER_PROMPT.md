@@ -526,7 +526,7 @@ else. No commentary. No alternatives.
 | Card contains | Attach |
 |---|---|
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
-| Pink Menace exterior | `ref_car_exterior.jpg` |
+| Pink Menace exterior | `ref_car_exterior.jpg` — silhouette and build only. **nose_plow: standard plate equipment** — wide flat blade on the black tube bull bar at the far leading / nose end. Not scene-optional. Not left-flank / side-mounted. Never copy the lock sheet's salt-flat sunset. |
 | Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
@@ -546,6 +546,8 @@ else. No commentary. No alternatives.
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 
+**Menace nose plow.** The wide flat plow blade on the black tube bull bar is standard `pink_menace_exterior` plate equipment — same class as Encore `pedal_count: 2`. Always at the far leading / nose end. Not scene-optional. Not left-flank / side-mounted. Reject a missing plow, a left-flank-only blade, or a thin bar without a blade.
+
 **Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.
 
 ## Operator QA — ten seconds, reject on any miss (pack/12)
@@ -553,7 +555,7 @@ Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_coc
 Do not accept "close enough"; drift compounds across an act.
 
 - **Ali (face-critical only):** round wire-rim glasses · cranberry-red hair · braided at the crown · gold hoops · flat affect, not smiling
-- **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
+- **Menace:** mesh cages · **nose plow** (wide flat blade on the black tube bull bar at the far leading end — not optional, not left-flank) · riveted door plate · knobby tires on slot wheels
 - **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 - **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
 - **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted

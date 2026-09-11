@@ -104,4 +104,4 @@ Use G1 as a silhouette test. If you can't tell the three apart at thumbnail size
 | Encore cockpit | `ref_encore_cockpit.png` |
 | Convoy silhouette test | `ref_convoy.png` |
 
-Ali and the Menace already have refs and need nothing. Gracie and Mya are locked.
+Ali and the Menace already have refs and need nothing. The Menace nose plow is standard plate equipment (`refs/LOCKS.md`): wide flat blade on the black tube bull bar at the far leading / nose end — not scene-optional, not left-flank / side-mounted. Gracie and Mya are locked.

@@ -215,6 +215,18 @@ function assemblePrompt(card) {
   if (deac && cam !== "POV_PORTRAIT") {
     parts.push(otherVehicleClauseLedger(card));
   }
+  if (
+    !deac &&
+    card.driver === "ali" &&
+    (cam === "POV_CHASE" ||
+      cam === "POV_ROADSIDE" ||
+      cam === "POV_ROADSIDE_PROFILE" ||
+      cam === "POV_DIAGRAM")
+  ) {
+    parts.push(
+      "Continuity plow — standard Pink Menace plate equipment, not scene-optional: wide flat plow blade on the black tube bull bar at the far leading / nose end. Not a left-flank or side-mounted blade. Not a thin bar without a blade. Not a missing plow."
+    );
+  }
 
   const continuityEarly = (brief.continuity || []);
   const quietNamed =

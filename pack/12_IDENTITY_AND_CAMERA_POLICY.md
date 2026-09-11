@@ -34,7 +34,7 @@ Silhouette drift responds better to an explicit feature list than to a reference
 
 **Append a mandatory feature clause to every Menace compile**, phrased as a requirement rather than description:
 
-> All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the driver's door and rear quarter panel, and oversize knobby tires on chrome slot wheels.
+> All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front (standard plate equipment — nose-mounted at the far leading end, never missing, never left-flank / side-mounted), riveted raw-steel plating over the driver's door and rear quarter panel, and oversize knobby tires on chrome slot wheels.
 
 Same pattern for the Ledger (tall square box on a van nose, oversize side mirrors on long arms, amber dot-matrix destination sign, bar cage with cut wiper slot) and Encore (low wide wedge, four chrome PA horn flares on a roof frame, retroreflective chevron striping, intact glass and no mesh).
 
@@ -43,7 +43,7 @@ Same pattern for the Ledger (tall square box on a van nose, oversize side mirror
 Reject and regenerate on any miss. Do not accept "close enough"; drift compounds across an act.
 
 **Ali (face-critical only):** round wire-rim glasses present · cranberry-red hair · braided at the crown · gold hoops · flat affect, not smiling
-**Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
+**Menace:** mesh cages · **nose plow** (wide flat blade on the black tube bull bar at the far leading end — not optional, not left-flank) · riveted door plate · knobby tires on slot wheels
 **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
 **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
