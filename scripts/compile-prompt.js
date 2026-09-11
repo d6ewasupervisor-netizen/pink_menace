@@ -185,12 +185,12 @@ function assemblePrompt(card) {
   if (deac && cam === "POV_OBJECT" && (brief.continuity || []).includes("hov_geometry")) {
     framing = FRAMING.POV_COCKPIT_LEDGER;
   }
-  if (typeof brief.camera_pose === "string" && brief.camera_pose.trim()) {
-    framing = brief.camera_pose.trim();
-  }
   if (card.card_id === "IV-026") {
     framing =
-      "Camera is slightly elevated — a low street-level overhead, not a steep bird's-eye — looking along a wet small-town main street so brick storefronts recede with real depth and a readable flat gray daylight sky fills the top of frame. Slight left offset from dead astern: the rear mesh of the Beetle is nearer the camera in the lower third; the standard wide flat nose-mounted plow blade is readable at the far leading end as a wide dark rectangle on a black tube bull bar. Tight crop: two travel lanes and the three hazards. Real wet pavement, real painted skip-dashes. No extra side streets or curb clutter the brief did not name.";
+      "Camera is slightly elevated — a low street-level overhead from the LEFT-REAR three-quarter, not dead astern and not a steep bird's-eye — looking along a wet small-town main street so brick storefronts recede with real depth and a readable flat gray daylight sky fills the top of frame. The Beetle's rear mesh and sloping engine cover are nearer the camera in the lower third. The Beetle's nose is farther up the street. At that far leading end a wide flat plow blade is mounted on a black tube bull bar and spans the full width of the nose ahead of both front tires — the same geometry as the attached exterior lock. The left door and left rear quarter show only riveted raw-steel plating; no plow, blade, or bull bar is attached to the left flank. Tight crop: two travel lanes and the three hazards about two Beetle-lengths ahead of the plow. Real wet pavement, real painted skip-dashes. No extra side streets or curb clutter the brief did not name.";
+  }
+  if (typeof brief.camera_pose === "string" && brief.camera_pose.trim()) {
+    framing = brief.camera_pose.trim();
   }
   if (!framing) throw new Error(`${card.card_id}: cannot compile camera ${cam}`);
 
@@ -239,7 +239,7 @@ function assemblePrompt(card) {
   }
   if (card.card_id === "IV-026") {
     parts.push(
-      "The Beetle is in readable mid-motion: rolling straight toward the three hazards at approach distance, wet knobby spray, wheels mid-roll — not parked still in an empty stretch. Body parallel to the skip-dashed line, not cocked, not yawed. Camera may offset; the car does not. Continuity plow: standard Pink Menace nose-mounted wide flat blade on the black tube bull bar at the front/nose — the same geometry as the attached exterior lock. Not a thin bar on the left flank, not a side-mounted blade."
+      "The Beetle is in readable mid-motion: rolling straight toward the three hazards at about two Beetle-lengths, wet knobby spray, wheels mid-roll — not parked still in an empty stretch. Body parallel to the skip-dashed line, not cocked, not yawed. Camera may offset to the left-rear three-quarter so the nose plow reads; the car stays in the right travel lane. Continuity plow — standard Pink Menace plate equipment, not scene-optional: wide flat blade on the black tube bull bar at the far leading / nose end, spanning the full width of the front ahead of both front tires — the same geometry as the attached exterior lock. The left flank is riveted plate only. Not a left-flank or side-mounted blade. Not a thin bar without a blade. Not a missing plow. Attach only the Menace exterior lock that shows this nose plow; do not attach the overhead diagram-style plate (that lock shows a left-flank bar)."
     );
   }
   if (deac && cam !== "POV_PORTRAIT") {
