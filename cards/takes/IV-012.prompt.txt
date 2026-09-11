@@ -1,0 +1,31 @@
+# IV-012 — The Same Crosswalk (regen after take 2 FAIL)
+# attachments: refs/ref_car_exterior.jpg (Pink Menace exterior lock — silhouette/build only; ignore salt-flat sunset)
+# do not attach Encore/Y4 cockpit (this card's continuity is pink_menace_exterior only)
+# compiled on the post-PR #26 compiler stack; card JSON is sole brief authority
+# FAIL take 2 (WAVE_ONE_MAP / Claude muted-read): Beetle alongside/ahead of the sedan, facing camera; no bag
+# must match IV-005 take 1 street: worn faint crosswalk, primer sedan + brake lamps, chain-link school fence, fog at dusk
+# takes: 5–28
+# closest (not seeded): cards/takes/IV-012-take-24.png
+# runner-up: take 14 / 27 (same read, fresher paint) / take 19 (worn bars, person left-edge)
+# 24 keeps person in the passing-lane half and breaks the zebra toward IV-005 wear.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest dusk in fog — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is ground level, outside the car, human eye height, standing on the wet school-edge curb looking along the street in the direction of travel.
+
+STACK, near to far, one situation:
+1. Foreground: wet school-edge curb and fog in the grass.
+2. The Pink Menace — a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the door on the left side of the vehicle and the rear quarter panel, and oversize knobby tires on chrome slot wheels. The Beetle occupies the RIGHT travel lane of TWO lanes this direction. It is traveling AWAY from the camera. The rear engine cover and rear window mesh are nearer the camera. The plow and bull bar are on the FAR end of the car, pointing toward the TOP of the frame, aimed at the sedan's bumper. The Beetle is still fully BEHIND the sedan in the same right lane — not beside it, not ahead of it, not passing.
+3. A primer-gray sedan in that SAME right travel lane, ahead of the Beetle, stopped short of the worn crosswalk. We see its rear and lit red brake lamps. Same sedan as IV-005.
+4. The same adult person in a dark coat WITH a shoulder bag, already in the worn crosswalk on the LEFT half of the paint — the empty passing-lane half a pass would take. Not looking at camera. Facing the place a plow was. Not a child.
+5. Background: fog at dusk, chain-link school-edge fence disappearing into the fog, same block as IV-005.
+
+The left travel lane is empty wet asphalt. No oncoming traffic.
+
+The read: the person is in the crosswalk on the half a pass would take; the sedan is still stopped. Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. United States road configuration, traffic drives on the right. Rear of each same-direction vehicle is nearer the camera. Bodies recede toward the top of the frame. No headlights or grilles face the viewer.
+
+Match IV-005 street continuity: worn faded scuffed crosswalk bars (thin, old paint, not a fresh bright zebra), chain-link fence, primer sedan, lamps in fog at dusk.
+
+No Beetle beside the sedan. No Beetle ahead of the sedan. No Beetle facing the camera. No headlights or plow toward the viewer. No missing bag. No person on the sidewalk only. No empty coat on the ground. No school bus. No fresh thick white zebra. No face toward camera. No child. No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs. No right-hand drive. Aspect ratio 2:3.
