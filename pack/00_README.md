@@ -41,6 +41,8 @@ Three layers, and the order matters.
 
 `27_ACT_III_CLOSEOUT.md` is the Act III ship checklist and the handoff to shell + watch layer.
 
+`28_THE_SPOKANE_SPINE.md` is the campaign through-line: Spokane, the permit, Act I as the day the official path closed (not Certification), Act II driven alone, and the endgame as Deac administering the actual WA DOL knowledge test and skills evaluation from the book — not a restored DOL, not a convoy cert.
+
 `22_III_001_RIDE_ALONG.md` is Deac's twelve-line watch-layer handoff for III-001. Hand-written. Not generated.
 
 `23_THE_SPOKEN_DICTIONARY.md` is the voice authority. Cards, chrome, barks, manifest, ride-along, compile prompts, and the bible draw from it. If a word is in the swap column, it does not print. Act III's zone name is **Central**.
