@@ -24,8 +24,9 @@ You MAY NOT:
   - change the camera token
   - change the lighting model
   - add a mood, a color, or a time of day the brief did not specify
-  - add text, logos, watermarks, HUD, or UI unless the brief's `read` requires
-    a sign face or gauge
+  - add text, logos, watermarks, HUD, or UI. Legible text is permitted ONLY
+    on a regulatory sign face where the card teaches sign recognition.
+    Everywhere else remains blank. No invented text.
   - depict anything in bible §9 FORBIDDEN
   - emit role-relative spatial terms: driver's side, driver-side, passenger
     side, passenger-side, near side, off side, driver's window, driver's door.
@@ -88,7 +89,45 @@ You MUST:
   - end with the negative block
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
+  - leave every surface blank unless the card teaches sign recognition on a
+    regulatory sign face. No invented lettering on destination boards,
+    storefronts, plates, gauges, clipboards, or any other surface. II-003
+    is the legal face (STOP is the lesson). IV-007 take 1 is the proof:
+    letter-doubling (ONEWAYWAY / NOTURNONREDDED / TRANSITONLYLY).
   - if the brief names a hand or arm, require a visible attached shoulder and torso in the same frame, or drop the body part and show only the object. Never a detached limb.
+
+## SIGN-FACE TEXT — standing, regulatory recognition only
+
+Legible text is permitted ONLY on regulatory sign faces where the card
+teaches sign recognition. Everywhere else remains blank. No invented
+text.
+
+A sign-recognition card (`read` is the face itself — STOP, YIELD,
+ONE WAY, NO TURN ON RED, TRANSIT ONLY) may show that one face, and
+only that face, as readable. Every other sign in frame is the blank
+aluminum reverse, cropped, or turned. That is the existing single-faced
+clause plus this one: the face is legal only because the card teaches it.
+
+On every other card, compile blank. Destination signs, storefronts,
+license plates, street names, clipboard sheets, gauges, PA displays,
+and any incidental lettering stay unreadable or empty. Do not invent
+words to make a surface look finished. The model will letter-double
+(ONEWAYWAY) and then you spend takes scrubbing text you never asked for.
+
+II-003 is the keep: portable octagon, white STOP, the card teaches the
+face. IV-007 take 1 is the miss: three stacked faces, then
+`ONEWAYWAY` / `NOTURNONREDDED` / `TRANSITONLYLY`. Name the shape and
+the color. Leave the letters off unless the card is the recognition
+lesson, and even then compile one clean face.
+
+Append on every compile that is not a sign-recognition card:
+
+  negative: "no legible text, no lettering, no invented words, no
+  destination board text, no storefront signs, no license plate
+  numbers, no doubled letters"
+
+On a sign-recognition card, compile the one teaching face and negate
+every other string.
 
 ## ASSEMBLY ORDER
 
@@ -249,13 +288,14 @@ its blank aluminum back from the ego vehicle's position. A frame with several
 legible sign faces teaches nothing about who stops — they become wallpaper.
 
   "Traffic signs are single-faced. Any sign in frame is legible only if it faces
-  the camera's direction of travel. Signs governing a cross or opposing approach
-  show their blank reverse side. Exactly one sign face may be legible in any
-  frame; if a second would be, turn it or crop it. Never depict a double-sided
-  sign."
+  the camera's direction of travel AND the card teaches that face. Signs
+  governing a cross or opposing approach show their blank reverse side.
+  Exactly one sign face may be legible, and only on a sign-recognition card;
+  if a second would be, turn it or crop it. Never depict a double-sided sign.
+  On every other card the faces stay blank."
 
 This applies past stop signs — yields, one-ways, speed limits, no-parking.
-Append the clause to every road compile.
+Append the clause to every road compile. Standing lock: SIGN-FACE TEXT.
 
 ### 5. No detached body parts
 Any brief asking for "a hand" or "an arm" without the rest of the body in frame
@@ -277,6 +317,24 @@ the target in one pass so the fill and the placement happen together — shiftin
 pixels alone leaves a hole.
 
 When a geometry card fails twice, stop regenerating and composite.
+
+### 7. No invented text except a teaching sign face
+Legible text is permitted ONLY on a regulatory sign face where the card
+teaches sign recognition. Everywhere else remains blank. Do not invent
+words to finish a destination board, a storefront, a plate, a gauge, or
+a clipboard. The model letter-doubles, then you spend takes deleting
+strings nobody asked for.
+
+II-003 is the legal face: STOP is the lesson, so STOP is in the sheeting.
+IV-007 take 1 is the proof: `ONEWAYWAY` / `NOTURNONREDDED` / `TRANSITONLYLY`.
+Name shape and color. Leave the letters off unless the card is the
+recognition lesson, and even then compile one clean face.
+
+  positive (sign-recognition only): "one regulatory face, the teaching
+             legend only, no other lettering in frame"
+  negative (every other card): "no legible text, no lettering, no invented
+             words, no destination board text, no storefront signs, no
+             license plate numbers, no doubled letters"
 
 ## THE DRIVE-SIDE PROBLEM
 
@@ -556,6 +614,6 @@ Do not accept "close enough"; drift compounds across an act.
 - **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
 - **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 - **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
-- **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
+- **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI except a regulatory sign face the card teaches · nothing invented that the brief didn't name · `read` element legible with the text muted
 
 If you mute the card text and the image no longer teaches, the image failed regardless of how on-model it is.
