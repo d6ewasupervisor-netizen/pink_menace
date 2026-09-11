@@ -17,8 +17,30 @@ Never mix panels across takes. Winners only.
 | Convoy silhouette | G1 take 2 | `ref_convoy.png` | Round / box / wedge reads at a glance. Only take that kept Encore's PA horns; 1, 3, 4 turned them into spotlights. Overcast PNW, no salt-flat bleed. |
 | II-007 card art | take 2 | `../cards/II-007.png` | Amber lamps lit; enough pavement that the open left lane reads. Invented fallen tree is compiler drift — do not carry into later Kent cards. Takes 3–4 lit the reds/brakes and are unusable. |
 | Ledger cockpit | D4 take 2 | `ref_ledger_cockpit.png` | Locked from `cards/takes/D4-take-2.png` (1 Sep 2026). Match this cab: worn three-spoke wheel, analog cluster, bar cage, thermos in the right cup, no clipboard on the mesh. Never the old poisoned cockpit. Never a Menace ref on Deac cards. |
-| Encore cockpit | Y4 take 1 | `ref_encore_cockpit.png` | Four PA horns, mic on the cage, guarded red switch. Takes 2 and 4 turned horns into spotlights. Glass may read as missing — compiler still forces intact glass on exteriors. |
+| Encore cockpit | Y4 take 1 | `ref_encore_cockpit.png` | Four PA horns, mic on the cage, guarded red switch. Takes 2 and 4 turned horns into spotlights. Glass may read as missing — compiler still forces intact glass on exteriors. Over-the-wheel windshield plate — **footwell out of frame; do not read pedal count from this shot.** Act IV glass language used for the footwell plate is Y4 take 7 (`cards/takes/Y4-take-7.png`), not take 1. |
+| Encore footwell | **take 6 (LOCKED — human-verified)** | `ref_encore_footwell.png` | Same file as `cards/takes/encore-footwell-take-6.png`. **pedal_count: 2.** Wide diamond-treadplate brake (left of the pair) + narrow ribbed accelerator (right). Empty painted floor left of the brake. **No clutch. No third pedal.** Dark painted heel zone — no Menace pink/magenta mat. Cabin language (rain glass, analog cluster, guarded red switch, left cage tube) from Y4 take 7 where visible. Empty plate: no foot. Not a card still. Do not treat IV-001-brake take-21 (or any IV-001-brake take) as this plate. |
 | The Quiet — register lock | A3 take 3 | `ref_quiet.png` | Attach on every Quiet compile. Filthy, slack-shouldered, head canted, doing nothing, seen through dirty glass. Wrongness of posture and stillness — not damage. Same file as `ref_quiet_a3.png`. |
 | Quiet plates | probe keeps | `ref_quiet_a1.png` `ref_quiet_a2.png` `ref_quiet_a3.png` `ref_quiet_a4.png` `ref_quiet_a5.png` | A1 take 3 still, facing away. A2 take 1 head tilt. A3 take 3 the register. A4 take 1 lot, spread, not converging. A5 take 3 the lunge — near-legible, once in the game. A1, A2, A4 are reference, not card art. |
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
+
+## Encore footwell — locked (human-verified)
+
+Y4 take 1 / `ref_encore_cockpit.png` is an over-the-wheel windshield plate. Pedal count cannot be read from it. Dedicated empty footwell takes were generated against Y4 take 7 glass/dash/cage language (`cards/takes/Y4-take-7.png`). Claude locked **automatic / two pedals only** before this plate: wide treadplate brake + narrow ribbed accelerator; empty floor left of the brake; no clutch. Claude HUMAN-VERIFIED take 6 PASS on 2026-09-11 (~08:00 AM PDT): two pedals, unambiguous geometry. Not seeded as card art.
+
+Do not treat IV-001-brake take-21 (failed generation) or any IV-001-brake card take as this plate. Those are cover-the-brake stills, not the pedal-box lock.
+
+| Take | File | pedal_count | Notes |
+|---|---|---|---|
+| 1 | `cards/takes/encore-footwell-take-1.png` | 2 | Correct layout. Invents a crisp unused rectangular mat. |
+| 2 | `cards/takes/encore-footwell-take-2.png` | 2 | Pedals too small / same width. Discard. |
+| 3 | `cards/takes/encore-footwell-take-3.png` | 2 | Letterboxed; wheel in. Discard. |
+| 4 | `cards/takes/encore-footwell-take-4.png` | 2 | Brake not a wide treadplate. Discard. |
+| 5 | `cards/takes/encore-footwell-take-5.png` | 2 | Mini showroom mat. |
+| **6 (LOCKED)** | `cards/takes/encore-footwell-take-6.png` | **2** | Wide diamond brake + narrow ribbed gas. Empty floor left of brake. Painted heel zone, no pink mat. Y4 cluster / red switch / cage / rain glass. Human-verified PASS. |
+| 7 | `cards/takes/encore-footwell-take-7.png` | 2 | Runner-up — slightly more floor scuff. |
+| 8 | `cards/takes/encore-footwell-take-8.png` | 2 | Same layout; pedals a bit smaller. |
+
+**Residual on take 6:** horizontal cage bar across the dash is extra vs Y4 take 7; pedals sit mid-dash rather than a tight pedal-box crop; floor is cleaner than a gutted race cab. Pedal count and identities are unambiguous.
+
+Empty plate is not card art. Never invent a third pedal. Never treat IV-001-brake takes as this plate.

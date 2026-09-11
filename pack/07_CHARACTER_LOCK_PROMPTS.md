@@ -70,6 +70,17 @@ Every prompt below already carries the master style token and the negative block
 >
 > *[negative block]* · Aspect ratio 2:3
 
+## Y5 — ENCORE footwell (LOCKED — human-verified)
+*(attach Y4 glass cockpit for cabin language only — not for pedal count; that plate is over-the-wheel and does not show the box)*
+
+Encore is automatic. **pedal_count: 2.** Do not invent a clutch. Do not invent a third pedal.
+
+> Cinematic photoreal still. 35mm full-frame equivalent, f/2.8, pedal box sharp. Overcast Pacific Northwest daylight through the windshield — soft, diffuse, low-contrast, gray-blue. Desaturated palette: wet asphalt gray, oxidized steel, cold concrete, dark painted metal. No pink, no magenta, no cranberry. Fine grain, slight vignetting, no HDR, no glow, no lens flare. EMPTY driver-footwell reference plate — no foot, no shoe, no person. Camera low in the left-hand-drive driver footwell, looking down and slightly forward at the pedal box. REQUIRED: exactly TWO pedals. Empty painted dark metal floor to the LEFT of the brake (clutch bay vacant). BRAKE: wide rectangular metal treadplate with raised diamond or bar ridges, left pedal of the pair. ACCELERATOR: distinctly narrower ribbed rubber pedal to the right of the brake. Heel rest zone on dark painted floor in the foreground. No Menace pink mat. Upper frame may show rain beads on intact windshield glass, analog cluster, guarded red switch, left roll-cage tube — enclosed cabin. Match attached Y4 cockpit for glass/dash/cage language only.
+>
+> *[negative block]* · no clutch, no third pedal, no three-pedal box, no foot, no shoe, no pink floor mat, no magenta carpet · Aspect ratio 2:3
+
+Locked winner: `cards/takes/encore-footwell-take-6.png` → `refs/ref_encore_footwell.png`. Claude HUMAN-VERIFIED PASS 2026-09-11. Empty plate is not card art. Never invent a third pedal. Never treat IV-001-brake takes as this plate.
+
 ---
 
 ## Group shots — generate last, after all singles are locked
@@ -102,6 +113,7 @@ Use G1 as a silhouette test. If you can't tell the three apart at thumbnail size
 | Yuna portrait | `ref_yuna.png` |
 | Encore four-view | `ref_encore_sheet.png` |
 | Encore cockpit | `ref_encore_cockpit.png` |
+| Encore footwell (LOCKED — human-verified) | `ref_encore_footwell.png` |
 | Convoy silhouette test | `ref_convoy.png` |
 
 Ali and the Menace already have refs and need nothing. Gracie and Mya are locked.

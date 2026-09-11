@@ -537,6 +537,7 @@ else. No commentary. No alternatives.
 | HOV / diamond-lane geometry (III-008) | `ref_hov_median_diamond.png` — real US freeway, diamond in the leftmost lane against the median. Compile PNW wet asphalt; negate gantries, green guide signs, palm trees, arid roadside. |
 | Encore exterior | `ref_encore_sheet.png` |
 | Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` |
+| Encore footwell (LOCKED — human-verified) | `ref_encore_footwell.png` — automatic pedal box only. Attach on Encore footwell / cover-the-brake compiles. **pedal_count: 2.** Wide treadplate brake + narrow ribbed accelerator. Empty floor left of the brake. No clutch. Never invent a third pedal. Never attach a Menace cockpit or pink mat. Never treat an IV-001-brake take as this lock. Empty plate is not card art. |
 | Two or more vehicles in frame | `ref_convoy.png` |
 | Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
 | Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_CHASE`: from directly behind, the arm extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
@@ -545,6 +546,8 @@ else. No commentary. No alternatives.
 | The Quiet in frame | `ref_quiet.png` — A3 take 3, the register lock. Continuity token `the_quiet`. Attach on every Quiet compile, including when the brief says "the Quiet" and the token was omitted. Also append the Quiet negative: no upright alert posture, no eye contact, no person looking at the lens, no walking normally, no clean clothing, no censorship smear. They never fill the frame, never a side-window close-up. A1/A2/A4 are reference, not card art. A5 once. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
+
+**Encore footwell (LOCKED — human-verified).** `ref_encore_footwell.png` (take 6) is the accepted empty pedal-box plate. Attach on Encore footwell / cover-the-brake compiles. Encore is automatic: pedal_count 2 — wide treadplate brake, narrow ribbed accelerator, empty floor left of the brake. No clutch. The Y4 cockpit lock is over-the-wheel and cannot supply pedal count. Do not compile a third pedal. Do not attach Menace interior refs. Do not treat IV-001-brake takes as this lock. Empty plate is not card art.
 
 **Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.
 
