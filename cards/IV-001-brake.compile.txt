@@ -1,0 +1,6 @@
+# IV-001-brake — compile from cards/IV-001-brake.json
+# attachments: refs/ref_encore_cockpit.png (Y4 take 7), cards/takes/IV-001-brake-take-18.png (lighting only)
+# camera: POV_OBJECT
+# not seeded
+
+See cards/takes/IV-001-brake.prompt.txt
