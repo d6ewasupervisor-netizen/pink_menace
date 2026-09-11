@@ -89,6 +89,12 @@ You MUST:
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
   - if the brief names a hand or arm, require a visible attached shoulder and torso in the same frame, or drop the body part and show only the object. Never a detached limb.
+  - never put interior modifications in an exterior vehicle brief.
+    Interior modifications do not appear in exterior vehicle briefs.
+    Stripping, cages, seats, and interior hardware belong only in
+    cockpit compiles. Putting them in an exterior brief pulls the glass
+    out — and it will do the same to the Ledger's windshield cage or
+    the Menace's window mesh if it creeps in.
 
 ## ASSEMBLY ORDER
 
@@ -277,6 +283,11 @@ the target in one pass so the fill and the placement happen together — shiftin
 pixels alone leaves a hole.
 
 When a geometry card fails twice, stop regenerating and composite.
+
+### 7. Interior facts stay in the cockpit
+Interior modifications do not appear in exterior vehicle briefs. Stripping, cages, seats, and interior hardware belong only in cockpit compiles. Putting them in an exterior brief pulls the glass out — and it will do the same to the Ledger's windshield cage or the Menace's window mesh if it creeps in.
+
+Encore four-view is the proof: six takes with "stripped / gutted / roll cage" in the exterior prompt rendered open cabins. Build from an intact stock hatchback, then add exterior mods (tape, chevrons, roof horns). If a four-view still fails the front-on windshield, composite that one panel. Do not keep regenerating the old brief.
 
 ## THE DRIVE-SIDE PROBLEM
 
@@ -546,7 +557,7 @@ else. No commentary. No alternatives.
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 
-**Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.
+**Encore four-view lock: Y3 take 12** (`ref_encore_sheet.png`, same bytes as `ref_encore_sheet_y3_take12.png`). Stock-glass-first — intact factory glass on all four views. The old Y3 brief (stripped / gutted / roll cage / bucket seat / welded bench) is retired; those are interior facts and they pull the glass out. Attach the locked sheet for silhouette and striping. Still add "intact window glass in all openings, no mesh, no bars, no open cabin." Never put interior hardware in an Encore exterior compile. Cockpit lock `ref_encore_cockpit.png` is the place for cage and seats. Take 3 (open cabin) lives at `ref_encore_sheet_y3_take3.png`. Take 11 passed glass but drifted to a modern five-door — do not attach it. Composites of take 9 remain named candidates in `refs/LOCKS.md`.
 
 ## Operator QA — ten seconds, reject on any miss (pack/12)
 
