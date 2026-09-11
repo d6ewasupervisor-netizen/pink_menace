@@ -59,12 +59,11 @@
     "camera_pose": "Camera is INSIDE the cabin at the left-seat occupant's eye height, looking LEFT and slightly forward at the left door-mounted side mirror through the open left window. This is Ali's own view of her own mirror from the left seat. The camera never leaves the cabin. Not a shot of the car from outside. Not standing beside the car. Not looking in through a window or an open doorway. If the vehicle's exterior sheet metal, fender, or wheel is visible as a subject, the take is wrong.",
     "subject": "left door-mounted side mirror seen from inside through the open left window, glass filling a good part of left-center frame, showing the PARKING AISLE BEHIND — wet asphalt, painted stalls both sides, receding, EMPTY",
     "foreground": "left of frame, sharp and close: the inner edge of the left door — riveted steel plating on the interior door card, window frame, inner door panel — framing the shot from inside the cabin",
-    "midground": "right of frame, inside the cabin: the right-hand seat with Gracie the orange tabby sitting on it, seat space beside her empty. She is at the far side of the cabin from the camera, across the interior. One cat. No cat on the left seat. No cat in arms, on a lap, or on a chest.",
+    "midground": "right of frame, inside the cabin: windshield mesh, analog gauges, and the steering wheel at the right edge",
     "background": "through the mirror glass only: grey lot, flat overcast, low warehouse frontage consistent with I-002",
-    "read": "she is in the left seat looking at her own mirror, aisle behind clear, one cat in the car",
+    "read": "the aisle behind is visible and clear in the door mirror",
     "continuity": [
-      "pink_menace_interior",
-      "gracie"
+      "pink_menace_interior"
     ],
     "extra_negatives": [
       "no exterior view of the vehicle",
@@ -75,6 +74,8 @@
       "no exterior sheet metal as the subject",
       "no fender as the subject",
       "no wheel as the subject",
+      "no passenger seat",
+      "no cat",
       "no cat on the left seat",
       "no cat in arms or on a lap or chest",
       "no parked cars",
