@@ -10,7 +10,9 @@
 # camera: POV_OBJECT
 # line 3: Cover the brake before the light even thinks about yellow. Foot off the gas. Held. Not riding it.
 # phrase: the foot pivots at the heel, ball hovering above the pad, ready to press
-# takes 61+. not seeded.
+# takes 61–80. closest: take 77 (cover family, take-57 frame). residual: no daylight gap; shin still stretched.
+# runner-up shin: take 70 (bent knee, heel planted — foot on empty floor, not covering).
+# not seeded.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight through intact windshield glass — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 

@@ -12,6 +12,8 @@
 # phrase: the foot pivots at the heel, ball hovering above the pad, ready to press
 # do NOT attach Y4 take 7. do NOT attach take 21 / 35. do NOT re-roll locked plates.
 # do NOT attach Menace refs. do NOT seed.
-# takes 61+. not seeded.
+# takes 61–80. closest: cards/takes/IV-001-brake-take-77.png
+# residual: sole still reads on the pad; shin still nearer horizontal than 45°.
+# not seeded.
 
 See cards/takes/IV-001-brake.prompt.txt
