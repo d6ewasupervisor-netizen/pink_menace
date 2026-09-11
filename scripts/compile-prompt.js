@@ -150,7 +150,15 @@ function headingPhrase(heading) {
   }
 }
 
-function geometryPromptClause(geo, driver) {
+function reverseManeuverNamed(brief) {
+  return /\brevers/i.test(
+    [brief && brief.camera_pose, brief && brief.subject, brief && brief.read, brief && brief.foreground, brief && brief.midground]
+      .filter(Boolean)
+      .join(" ")
+  );
+}
+
+function geometryPromptClause(geo, driver, opts) {
   if (!geo) return "";
   if (/not in frame/i.test(String(geo.ego_nose_in_frame || ""))) {
     return (
@@ -163,7 +171,8 @@ function geometryPromptClause(geo, driver) {
       ...geo,
       ego_heading: headingPhrase(geo.ego_heading),
     },
-    driver
+    driver,
+    opts
   );
   const traffic = trafficPositionsClause(geo, driver);
   return [core, traffic].filter(Boolean).join(" ");
@@ -266,6 +275,7 @@ function assemblePrompt(card) {
     );
   }
 
+  const reverseNamed = reverseManeuverNamed(brief);
   if (describesRoadway(card) && brief.geometry) {
     parts.push(LHD);
     if (!framed) {
@@ -279,20 +289,19 @@ function assemblePrompt(card) {
         const traffic = trafficPositionsClause(geo, card.driver);
         if (traffic) parts.push(traffic);
       } else {
-        parts.push(geometryPromptClause(brief.geometry, card.driver));
+        parts.push(
+          geometryPromptClause(brief.geometry, card.driver, {
+            reverseManeuver: reverseNamed && !deac,
+          })
+        );
       }
     }
     parts.push(SIGN_CLAUSE);
     const mark = markingAnchorClause(brief.geometry);
     if (mark) parts.push(mark);
-    const reverseNamed = /\brevers/i.test(
-      [brief.camera_pose, brief.subject, brief.read, brief.foreground, brief.midground]
-        .filter(Boolean)
-        .join(" ")
-    );
     if (reverseNamed && !deac) {
       parts.push(
-        "REVERSE MANEUVER lock: the Beetle is backing up. Its rear bumper and white reverse lamps travel toward the camera into the drive aisle. The plow still points away into the stall. This is not a forward pull-out and not travel away from the camera. Two white reverse lamps are lit on the rear apron; they are not headlights. The driver looks over her shoulder toward the rear, not toward the plow."
+        "REVERSE MANEUVER lock: the Beetle is backing up. Camera sits close behind the left rear corner — tight crop, pulled back from any mid-aisle overview. Two SMALL rectangular WHITE REVERSE LAMPS are lit on the rear apron under the engine lid (stock Beetle reverse lamps), not large circular headlights on the rear fenders. Rear bumper and those lamps travel toward the camera into a narrow strip of drive aisle. The plow still points away into the stall. Ali looks back over her right shoulder through the rear glass, not toward the plow. The check-target is only a coat-shoulder and head at the far side of a neighboring parked car — half-occluded. This is not a forward pull-out, not travel away from the camera, and not a wide empty-aisle establishing shot."
       );
     }
   } else if (cam !== "POV_OBJECT" && cam !== "POV_PORTRAIT") {

@@ -66,9 +66,9 @@
   "image_brief": {
     "camera": "POV_ROADSIDE",
     "camera_is_the_lesson": true,
-    "camera_pose": "Low rear-quarter from the left rear corner, eye height. Long left flank recedes into a marked stall. Sloping REAR engine lid and two LIT WHITE REVERSE LAMPS are nearest the lens. The plow is the FAR end, small, pointing at a curb wall — never on the near bumper. Ali looks back over her right shoulder. NOT overhead, NOT a forward pull-out, NOT the lock's front angle.",
-    "subject": "Ali (cranberry coils, wire-rims) twisted looking back over her right shoulder at the left-side wheel; white reverse lamps lit; wheels cut; Beetle reversing, rear in the aisle",
-    "foreground": "one dark-coated adult entering the aisle from behind a neighboring sedan — only a coat-shoulder and one leg visible, partly occluded, several feet from the bumper, not struck",
+    "camera_pose": "Tight low rear-quarter from immediately behind the left rear bumper, human eye height, close-in — camera pulled BACK toward the rear, not standing forward in the aisle. Crop tight: sloping REAR engine lid and two SMALL LIT WHITE REVERSE LAMPS on the rear apron fill the near third. Neighbor cars and the Beetle body hide most of the aisle so the player shares Ali's limited rearward view. Long left flank recedes into a marked stall. The plow is the FAR end, small, pointing at a curb wall. Ali twisted looking back over her right shoulder through the rear glass. NOT a wide aisle overview, NOT overhead, NOT a forward pull-out, NOT the lock's front angle.",
+    "subject": "Ali (cranberry coils, wire-rims) twisted looking back over her right shoulder through the rear glass at the left-side wheel; two small white reverse lamps lit on the rear apron; wheels cut; Beetle reversing, rear in the aisle",
+    "foreground": "one dark-coated adult at the FAR side of a neighboring parked sedan — only a coat-shoulder and head visible, half-occluded by that car, several feet from the bumper, not a full figure in open asphalt, not struck",
     "midground": "two parallel white stall-bay lines to a curb wall; full gray sedans in the stalls immediately left and right blocking the sightline; plow at the far stall end",
     "background": "heavy rain, flat gray overcast daylight, visible gray sky, wet downtown lot, drive aisle behind the reversing Beetle, no night, no lot-lamp key light",
     "read": "the Menace is mid-reverse out of a marked stall, white reverse lamps lit, while one partly occluded pedestrian enters the aisle she must check",
@@ -86,8 +86,10 @@
       "no red brake lamps as the only rear light",
       "no forward pull-out, no driving forward into the stall, no travel away from camera",
       "no unlit reverse lamps, no headlights as the near lamps",
+      "no large circular headlights on the rear fenders as the only rear lights",
       "no Ali facing the plow, no driver looking forward only",
       "no fully visible pedestrian in open empty asphalt",
+      "no wide aisle overview, no camera standing mid-aisle showing the whole pedestrian",
       "no child",
       "no Encore",
       "no Ledger"
