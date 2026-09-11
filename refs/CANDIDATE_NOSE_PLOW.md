@@ -1,20 +1,17 @@
 # Nose plow plate — PROMOTED 2026-09-11
 
-Claude (chat f7494af8) muted-read **PASS** on take 5 (`refs/ref_car_nose_plow_candidate.png` from PR #68, branch `cursor/candidate-nose-plow-plate-da22`). Promoted to the live plate:
+Claude (chat f7494af8) muted-read **PASS** on take 5 (`refs/ref_car_nose_plow_candidate.png` from PR #68). Promoted to the live plate:
 
 **`refs/ref_car_nose_plow.png`**
 
-Wired into `pink_menace_exterior` alongside `refs/ref_car_exterior.jpg`:
+Take 6 is weaker — not promoted, not in this tree.
 
-- `refs/LOCKS.md`
-- `pack/09_REF_MAP.json`
-- `pack/03_IMAGE_COMPILER_PROMPT.md`
-- `scripts/compile-prompt.js`
+Wired into `pink_menace_exterior` alongside `refs/ref_car_exterior.jpg` only.
 
-Muted-read the plate teaches: **wide flat blade on the black tube bull bar at the nose; nothing on the flanks.**
+**Plow:** a full-width nose blade on the front bull bar. No flank-mounted blade.
 
-`refs/ref_car_rear_plow.jpg` (PR #66) stays rejected / unmerged — that photo reads as a left-flank blade on a side arm ahead of the front wheel, with a plain tube nose bumper.
+**Preserve:** welded mesh on side glass and windshield; riveted metal door panel; knobby tires on chrome wheels; faded pink + bare-metal body.
 
-Runner-up (take 6, not promoted): `refs/candidates/ref_car_nose_plow_runnerup.png`.
+`refs/ref_car_rear_plow.jpg` / `.png` are **out of the compile pool** (`pack/09_REF_MAP.json` `banned`; `scripts/resolve-refs.js` refuses them). Claude: that photo caused flank-blade drift. PR #66 stays unmerged.
 
-No IV-026 regen in this promotion. No card stills.
+No IV-026 regen in this promotion. No card stills. No Act I–III. No seed.

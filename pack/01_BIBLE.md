@@ -140,7 +140,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 ### 8.2 Reference discipline — read this or you will get sunsets forever
 - `ref_ali1.jpg`, `ref_ali2.png` — **face, hair, glasses, jewelry.** Also the correct lighting model.
 - `ref_car_exterior.jpg` — **silhouette and build only.** The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
-- `ref_car_nose_plow.png` — **nose plow attachment.** Overcast square plate. Wide flat blade on the black tube bull bar; nothing on the flanks. Attach with `pink_menace_exterior` alongside `ref_car_exterior.jpg`. Never `ref_car_rear_plow.jpg`.
+- `ref_car_nose_plow.png` — **nose plow attachment.** Overcast square plate. Full-width nose blade on the front bull bar; no flank-mounted blade. Preserve mesh on side glass and windshield, riveted metal door, knobby tires on chrome wheels, faded pink + bare-metal. Attach with `pink_menace_exterior` alongside `ref_car_exterior.jpg`. `ref_car_rear_plow.jpg` is out of the compile pool.
 - `ref_cockpit.jpg` — **interior layout and mesh screen only.** Same warning: not the lighting.
 - `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
 - `ref_quiet.png` — Quiet register lock (A3 take 3). Attach on every Quiet compile. Posture and stillness, not damage. They never fill the frame. Plates: `ref_quiet_a1.png`–`ref_quiet_a5.png`.

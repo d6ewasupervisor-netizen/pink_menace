@@ -80,10 +80,10 @@ const LEDGER_NO_MENACE =
   "No Volkswagen Beetle, no rounded-fender compact, no plow blade.";
 
 const MENACE_PLOW =
-  "Nose plow: match the attached overcast plate ref_car_nose_plow.png — a wide flat steel blade spanning the full width of the car, mounted on the black tube bull bar at the nose, in front of both front wheels. The black tube bull bar is visible above or behind the blade. Nothing on the flanks. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset.";
+  "Nose plow: match the attached overcast plate ref_car_nose_plow.png. The plow is a full-width nose blade on the front black-tube bull bar, in front of both front wheels; no flank-mounted blade. Preserve on the Menace: welded steel mesh cages on the side glass and the windshield; a riveted metal door panel; oversize knobby tires on chrome slot wheels; faded matte pink with bare-metal / oxidized steel plating. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset. Never attach ref_car_rear_plow.jpg.";
 
 const MENACE_PLOW_NEGATIVE =
-  "No side-mounted plow, no left-flank blade, no blade on a side arm ahead of the front wheel, no plain tube bumper without a blade, no rear-mounted plow, no blade on the engine lid.";
+  "No side-mounted plow, no flank-mounted blade, no left-flank blade, no blade on a side arm ahead of the front wheel, no plain tube bumper without a blade, no rear-mounted plow, no blade on the engine lid.";
 
 const LHD_NEGATIVE =
   "No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road.";

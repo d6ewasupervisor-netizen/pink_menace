@@ -31,5 +31,6 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
+  "banned": ["ref_car_rear_plow.jpg", "ref_car_rear_plow.png"],
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. pink_menace_exterior attaches ref_car_exterior.jpg and ref_car_nose_plow.png only. ref_car_rear_plow.jpg / .png are banned — out of the compile pool (flank-blade drift)."
 }
