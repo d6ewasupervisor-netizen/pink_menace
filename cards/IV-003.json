@@ -1,0 +1,87 @@
+{
+  "card_id": "IV-003",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Cover the Brake",
+  "hook": "Foot off the gas. Held over the brake.",
+  "scene": "Rain at midday on a four-lane downtown street. Yuna is already gone. You have the Menace and the mesh back. A light ahead is still green. A primer sedan in front dumps speed for nothing you can name yet. Your foot is still on the gas. Covering the brake is a hover, not a ride. The Core does not wait for you to learn the difference.",
+  "decision": "The sedan is dumping speed and you cannot see why. Where does your right foot go?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Stay on the gas — the light is still green and you will lose the gap",
+      "correct": false,
+      "result": "You hold the gas. He is already stopped. You stand on it late. The plow talks to his bumper. Rain carries the note down the block. Whatever made him dump speed now has you too.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Lift off the gas and hold your foot over the brake without pressing it yet",
+      "correct": true,
+      "result": "You lift. The foot waits over the pedal. He bottoms out. You are already covering, so the stop is a press, not a panic. No note. The reason he stopped is a person you can now see.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
+    },
+    {
+      "id": "c",
+      "text": "Ride the brake the rest of the block so you are always ready",
+      "correct": false,
+      "result": "You drag the pads in the rain. Lamps stay lit behind you. The stack thinks you are stopping and then you are not. Someone behind stands on it. Riding it is not covering it.",
+      "state_delta": {
+        "light": 2,
+        "noise": 2,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "d",
+      "text": "Move left around him before he finishes slowing",
+      "correct": false,
+      "result": "You take the left on a guess. The reason he dumped speed is still in that lane. You meet it with a plow and a green light that did not promise you a pass.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "Cover the brake: foot off the gas, held over the pedal, not riding it. You bought the second you needed when the sedan stopped. Keep the foot ready, not planted.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "5.0 Dangers of driving (Hazard perception)",
+    "teaching_target": "Cover the brake in traffic: lift off the accelerator and hold the foot over the brake without riding the pedal."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "a right foot lifted off the accelerator, hovering over the brake pedal, not pressing it",
+    "foreground": "worn pedals and a faded pink floor mat, rain light on the metal",
+    "midground": "the gap between sole and brake pedal, one clean inch",
+    "background": "dark kick panel, no dash gauges, no windshield",
+    "read": "the foot is off the gas and held over the brake without touching it",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "rain",
+    "time_of_day": "midday",
+    "tone": "procedural",
+    "failure_mode": "inexperience"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "card_id": "IV-014",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Driver in the Lane",
+  "hook": "The box dumps speed. A door opens into you.",
+  "scene": "Wind at afternoon on a four-lane downtown street. A white delivery box ahead dumps speed with no stalk. The right door opens into your lane before the lamps finish. A driver is already a pair of boots on the asphalt, a crate in both hands, looking at a doorway not at you. The timeout is a late brake. Swerve is a second lane you have not swept.",
+  "decision": "The box is stopped and a driver is stepping into your lane. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Brake late and swerve around him — you can still make the gap",
+      "correct": false,
+      "result": "You dump it and yank. He is already in the gap. The crate kisses the mesh. You invent a pedestrian out of a delivery. The stack behind you stands on it too.",
+      "state_delta": {
+        "noise": 5,
+        "yaw": 3,
+        "damage": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Honk and take the right of the box so you do not lose the light",
+      "correct": false,
+      "result": "You horn and thread the curb side. A second crate is on the asphalt there. You trade a driver for a box of glass. The light was never the problem.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "c",
+      "text": "Cover, brake, stop short of the open door, wait until he is back inside",
+      "correct": true,
+      "result": "You are already covering. The stop is a press. He sees the plow and pulls the crate back. The door shuts. You roll when the lane is a lane again. No swerve. No note.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "d",
+      "text": "Change left without a look so you keep the number",
+      "correct": false,
+      "result": "You take the left blind. A motorcycle is already there. You write two problems into one second. The delivery driver never even saw you leave.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 8
+      }
+    }
+  ],
+  "debrief": "A delivery box that dumps speed is about to grow a person. Cover, brake, stop short of the open door. The crate is still in the lane until he is back.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "5.0 Dangers of driving (Situational awareness)",
+    "teaching_target": "A sudden stop by a delivery vehicle often means a driver exiting into the lane; brake in your lane, do not swerve blind."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "chorus",
+  "callback_of": null,
+  "schedules_callback": true,
+  "timeout_option_id": "a",
+  "timeout_ms": 7000,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "a white delivery box stopped ahead, right door open into the travel lane, a driver's boots and a crate already on the asphalt",
+    "foreground": "worn wheel and mesh, a foot covering the brake",
+    "midground": "the open door, the crate, the boots, no face",
+    "background": "wind, afternoon, downtown storefronts, no readable signs",
+    "read": "the delivery door is open into the lane and a person is already on the asphalt",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two lanes this direction",
+      "ego_nose_in_frame": "the plow points at the open door through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "wind",
+    "time_of_day": "afternoon",
+    "tone": "urgent",
+    "failure_mode": "distraction"
+  }
+}

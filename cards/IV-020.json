@@ -1,0 +1,87 @@
+{
+  "card_id": "IV-020",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "What a Ticket Is",
+  "hook": "The paper is not the lesson.",
+  "scene": "Clear cold midday on a side street after the stop. Dunn has already walked back. A slip of paper sits on the cracked pink dash — numbers, a box, a signature line, no lecture. The remnant is gone. The paper is a record of what you did, and a date to answer it. It is not permission to keep the habit. It is not a debt you pay in noise. It is not the end of the run unless you make it one.",
+  "decision": "The paper is on the dash and he is gone. What is it?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Proof the stop is over — you can drive like you did before",
+      "correct": false,
+      "result": "You treat the slip as a receipt. The next block gets the same number. The paper was a record, not a reset. Dunn does not have to be there for the habit to still be the habit.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "b",
+      "text": "A fine you can ignore until someone else stops you",
+      "correct": false,
+      "result": "You fold it into the glove box and forget the date. The record does not forget. Ignoring it is a second problem with a first one's name on it.",
+      "state_delta": {
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "c",
+      "text": "A record you answer by the date, and a habit you change now",
+      "correct": true,
+      "result": "You read the date. You put the slip with the clipboard later. You roll at a number the paper would not write again. The stop stays a stop. The habit does not get a sequel.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
+    },
+    {
+      "id": "d",
+      "text": "A mark on you that means you should not drive the rest of the day",
+      "correct": false,
+      "result": "You shut the Menace off in the middle of a run because paper felt like a verdict. A ticket is not a suspension unless it says so. You spent a block the Core still needed.",
+      "state_delta": {
+        "time_cost": 12
+      }
+    }
+  ],
+  "debrief": "A ticket is a record with a date to answer. Change the habit now. You saved the habit a sequel.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "5.10 Law enforcement (Getting a ticket)",
+    "teaching_target": "A ticket is a written record that must be answered by the date; it is not permission to keep the behavior and not an automatic suspension."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "a citation slip on the cracked pink dash, numbers and a date box, text not readable as a lecture",
+    "foreground": "the paper and the faded pink dash vinyl",
+    "midground": "a worn wheel rim out of focus, no hands",
+    "background": "clear cold midday through mesh, no remnant lamps",
+    "read": "a citation slip sits on the dash with a date box visible",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "extra_negatives": [
+      "no readable statute text",
+      "no officer",
+      "no clipboard in the windshield"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "clear_cold",
+    "time_of_day": "midday",
+    "tone": "wry",
+    "failure_mode": "none"
+  }
+}

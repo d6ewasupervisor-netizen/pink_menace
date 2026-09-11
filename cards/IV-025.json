@@ -1,0 +1,99 @@
+{
+  "card_id": "IV-025",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "ledger",
+  "title": "The Same Truck",
+  "hook": "Same truck. Same open door. He remembers.",
+  "scene": "Wind at afternoon on the same four-lane. The white delivery box is there again, door already open, crate already on the asphalt. Last time you were late on the brake, or you drove past a crash like it was paint. This time he is looking at the mesh — not at the doorway. The left is a motorcycle you can hear and not see. The timeout you spent is standing in your lane with a crate.",
+  "decision": "The same driver is in your lane again. What do you do with the second look?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Cover, brake, stop short of the crate, wait until he is back inside",
+      "correct": true,
+      "result": "You are already covering. The stop is early this time. He pulls the crate in. The door shuts. You roll when the lane is empty. That is the only apology a delivery street takes.",
+      "state_delta": {
+        "noise": -2,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Thread the left this time — you know the motorcycle is there so you can time it",
+      "correct": false,
+      "result": "Knowing the bike is not seeing the bike. You take the left on a memory. He is still there. Same wind, same steel. You collected the debt with a rider.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stop in the lane and get out so you can help him with the crate",
+      "correct": false,
+      "result": "You plant a Beetle and become a second body in a live lane. He did not ask. The stack behind you now has two people to miss. Help is not a travel-lane job.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Honk until he looks, then go around on the right",
+      "correct": false,
+      "result": "The horn makes him look. The right still has the second crate. You spend a warning on a pass that still hits glass. He remembers the sound and the scrape.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "A late brake comes back as the same open door. Cover, stop, wait. Ali stops short of the same crate.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Callback of IV-014 (or IV-021): stop short of the open door / do not treat a live hazard as scenery."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": "IV-014",
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "subject": "the same white delivery box, right door open, crate on the asphalt, driver in dark boots looking at the approaching plow",
+    "foreground": "wet curb and wind-moved trash",
+    "midground": "the open door and crate; the pink Beetle in the right travel lane, plow short of the crate",
+    "background": "wind, afternoon, same downtown storefronts as IV-014",
+    "read": "the delivery door is open and the crate is in the Beetle's lane again",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no face toward camera",
+      "no child",
+      "no Encore"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two lanes this direction",
+      "ego_nose_in_frame": "the plow points toward the crate at the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "wind",
+    "time_of_day": "afternoon",
+    "tone": "grim",
+    "failure_mode": "distraction",
+    "forced": "location+weather+time match IV-014 callback street; also armed by IV-021"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "card_id": "IV-024",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Colman Dock",
+  "hook": "The ferry line is still loading.",
+  "scene": "Fog at morning on the waterfront. Colman Dock still has a line — cones, a remnant in an orange vest, the boat's mouth open. The Ferry Line is a habit that outlived the quarantine: set the brake in the line, listen for the vest, no passing inside the hold, no leaving the car once they chain you, engine off if they say off. A gap on the ramp looks like a skip. It is how you become a problem on a boat that cannot swerve either.",
+  "decision": "You are in the ferry line and a gap opens on the ramp. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Take the gap and pass the van ahead so you load in the next wave",
+      "correct": false,
+      "result": "You jump the line on a ramp with no shoulder. The vest has to walk you back. The boat waits. You taught the dock that a plow gets to skip. The next cars heard the horn.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 10
+      }
+    },
+    {
+      "id": "b",
+      "text": "Leave the Menace in the line and walk aboard to hold a spot",
+      "correct": false,
+      "result": "You invent a parked car in a live loading line and a body on the ramp. The vest now has two problems. The boat does not take a person without a car they can chain.",
+      "state_delta": {
+        "time_cost": 12,
+        "noise": 2
+      }
+    },
+    {
+      "id": "c",
+      "text": "Hold the brake, wait for the vest, roll when they point, then set it and shut down if they say",
+      "correct": true,
+      "result": "You hold. The vest points. You roll onto the steel, set the brake, kill the engine when they tap the glass. They chain the wheel. You stay with the car. The boat takes a load that already knows the rules.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Stay in gear on the boat so you can leave fast if the hold goes wrong",
+      "correct": false,
+      "result": "You keep a live car on a deck they want dead. A roll on a boat is a roll into the next car. They have to come back and make you kill it. Fast is how a hold becomes a pile.",
+      "state_delta": {
+        "yaw": 2,
+        "noise": 3,
+        "time_cost": 8
+      }
+    }
+  ],
+  "debrief": "Ferry lines still load. Wait for the vest, no passing on the ramp, set the brake, stay with the car. You took the vest's point and killed the engine.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "4.20 Maritime (Ferries)",
+    "teaching_target": "Ferry procedure: wait in line, follow crew directions, set the brake, turn the engine off if directed, remain with the vehicle, do not pass in the loading line."
+  },
+  "cast": [
+    "ali",
+    "ferry_line"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE_PROFILE",
+    "subject": "the Menace in a loading line at Colman Dock, traveling left-to-right, plow toward the boat mouth, a remnant in an orange vest pointing",
+    "foreground": "wet dock concrete and a cone",
+    "midground": "the pink Beetle in line, a van ahead in the same line, the vest at the ramp lip",
+    "background": "fog at morning, the ferry mouth open, water gray, no readable boat name",
+    "read": "the Beetle is in a line on the dock; a vest is pointing; the boat mouth is open",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no Encore",
+      "no Ledger",
+      "no readable ferry name",
+      "no crowd"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "rightmost line on the dock approach",
+      "ego_nose_in_frame": "the plow points toward the right of the frame, toward the boat",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction"
+    }
+  },
+  "variation": {
+    "location_type": "waterfront",
+    "weather": "fog",
+    "time_of_day": "morning",
+    "tone": "warm",
+    "failure_mode": "none"
+  }
+}

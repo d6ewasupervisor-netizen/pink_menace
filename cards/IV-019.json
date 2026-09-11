@@ -1,0 +1,100 @@
+{
+  "card_id": "IV-019",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Hands and the Dome",
+  "hook": "Lamps behind you. Hands. Dome. Stay.",
+  "scene": "Snow at dawn on a four-lane downtown street. Lamps find the gaps behind you — Officer Dunn, dark WSP remnant, same book as Central. You are already stopped. The dome is still off. Your hands want the tablet, the glove box, the door. His walk-up is slow because the book is slow. Hands on the wheel. Dome on so he can see empty hands. You do not get out. You do not hunt for the glove box in the dark.",
+  "decision": "He is walking up and the remnant is behind you. What do you do with your hands and the dome?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Get out and meet him at his door so this goes faster",
+      "correct": false,
+      "result": "You open into a live lane in the snow. He has to treat a body as a problem. The stop just grew a second stop. Faster is how people get hit at the curb.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Hands on the wheel, dome on, stay in the car, wait for him to ask",
+      "correct": true,
+      "result": "Hands at ten and two. Dome on. He sees empty palms through the mesh. He asks. You answer. The glove box waits until he says so. The stop stays a stop.",
+      "state_delta": {
+        "noise": -1,
+        "light": 1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Kill the dome and dig for the papers so you have them ready",
+      "correct": false,
+      "result": "The cab goes dark and your hands leave the wheel. He cannot see what you are reaching for. The walk-up gets slower, and colder. Ready is not the same as visible.",
+      "state_delta": {
+        "light": -1,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Keep rolling to a brighter block so he can see you better",
+      "correct": false,
+      "result": "You take a stop for a tour. His lamps stay on you. Rolling after a stop is how a remnant writes a chase he did not want. The brighter block never arrives.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "Hands on the wheel, dome on so he can see them. Wait to be asked. Stay in the car until he asks.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "5.10 Law enforcement (Getting pulled over)",
+    "teaching_target": "When stopped by law enforcement: remain in the vehicle, hands visible on the wheel, dome light on, wait for instructions."
+  },
+  "cast": [
+    "ali",
+    "officer_dunn"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "camera_is_the_lesson": true,
+    "subject": "both hands on the worn wheel, dome lamp on, mesh lit from inside, no officer in the cab",
+    "foreground": "two hands at ten and two, faded pink dash, dome glow",
+    "midground": "welded mesh, snow on the glass, empty passenger seat",
+    "background": "snow at dawn, downtown, a wash of remnant lamps on the mesh, no readable plate",
+    "read": "hands are on the wheel and the dome lamp is on",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "extra_negatives": [
+      "no hands in the glove box",
+      "no door open",
+      "no officer in the cab",
+      "no firearm"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane, stopped",
+      "ego_nose_in_frame": "the plow points toward the top of the frame through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "snow",
+    "time_of_day": "dawn",
+    "tone": "tense",
+    "failure_mode": "none"
+  }
+}
