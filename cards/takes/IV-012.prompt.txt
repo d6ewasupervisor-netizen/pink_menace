@@ -1,0 +1,27 @@
+# IV-012 — The Same Crosswalk (Beetle-behind-sedan regen)
+# attachments: ref_car_exterior.jpg (Beetle build lock only — ignore salt-flat sunset)
+# continuity plate: cards/takes/IV-005-take-1.png (fog, chain-link, primer sedan, dusk — street only, not the cockpit)
+# FAIL take 2: person in paint + sedan brakes + fog/fence, but Beetle alongside/ahead facing camera
+# takes: 5–12
+# closest for Claude muted-read: take 7 (same-lane rear stack; person in paint with bag)
+# runner-up: take 9 (3/4 Beetle identity; stack still behind)
+# discard: take 11 (Beetle back in the paint); takes 5/8/10 (plow on the rear)
+# camera: POV_ROADSIDE — from BEHIND the queue looking along travel. Do not stand in the crosswalk.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest dusk in fog — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+CAMERA: Ground level, outside, human eye height, standing IN THE RIGHT TRAVEL LANE BEHIND a faded pink VW Beetle, looking FORWARD along the wet two-lane street TOWARD a worn school-edge crosswalk. The camera is behind the queue. Vehicles travel AWAY from the camera. We see REARS receding toward the top of the frame. Do not stand in the crosswalk. Do not face the Beetle's plow.
+
+HARD STACK, nearest to farthest (this is the whole picture):
+1. NEAREST, large in the lower-middle of frame: the REAR and rear-quarter of a classic VW Beetle — round fenders, sloping rear engine cover, domed roof — faded matte cranberry pink with oxidation. Welded steel mesh cages over the windows, riveted raw-steel plating on the left door and rear quarter, oversize knobby tires on chrome slot wheels. A black tube bull bar and wide flat plow sit at the FAR leading end, pointing AWAY from camera toward the top of the frame. The plow is still SHORT of the sedan's rear bumper. The Beetle has not left the right travel lane. Match the attached exterior lock for silhouette and build only, not the sunset lighting.
+2. AHEAD of the Beetle, same right travel lane: a primer-gray sedan STOPPED, rear toward camera, brake lamps lit, bumper short of the worn crosswalk. Same sedan language as the IV-005 continuity plate.
+3. FARTHER, in the worn white crosswalk stripes: an adult in a dark coat with a shoulder bag, already on the LEFT / passing half of the paint — the half a go-around would take — looking down at the stripes or toward a vanished plow scar, face not toward camera. Not a child. Not on the sidewalk. Not a coat on the ground.
+4. BACKGROUND: fog at dusk, school-edge chain-link fence, wet grass, lamps already up, same block as IV-005. No readable sign text.
+
+The left travel lane beside this stack is empty wet asphalt. Two lanes this direction. No oncoming traffic.
+
+The read: the person is already in the crosswalk on the half a pass would take; the sedan is still stopped; the pink Beetle is still BEHIND that sedan in the right lane, plow short of the sedan bumper. Muted-text test: if every caption were hidden, that stack is the first thing the eye reads.
+
+Left-hand-drive. United States, traffic drives on the right. No vehicle faces the wrong way.
+
+No Beetle facing the camera, no plow toward the lens, no headlights toward the lens, no Beetle beside the sedan, no Beetle ahead of the sedan, no Beetle in the crosswalk, no Beetle in the left lane. No coat on the pavement without a person. No face toward camera. No child. No school bus. No second pink car. No Encore. No Ledger shuttle. No cockpit, no steering wheel, no dash. No golden hour, no sunset, no desert, no salt flat, no warm orange light, no lens flare, no HDR, no glow. No text, no captions, no watermarks, no UI, no readable plates. No gore. Photograph, not illustration. Aspect ratio 2:3.
