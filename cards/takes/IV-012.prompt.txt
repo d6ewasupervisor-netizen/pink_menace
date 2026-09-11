@@ -1,12 +1,13 @@
 # IV-012 — The Same Crosswalk (Beetle-behind-sedan regen)
 # attachments: ref_car_exterior.jpg (Beetle build lock only — ignore salt-flat sunset)
 # continuity plate: cards/takes/IV-005-take-1.png (fog, chain-link, primer sedan, dusk — street only, not the cockpit)
-# FAIL take 2: person in paint + sedan brakes + fog/fence, but Beetle alongside/ahead facing camera
-# takes: 5–12
-# closest for Claude muted-read: take 7 (same-lane rear stack; person in paint with bag)
-# runner-up: take 9 (3/4 Beetle identity; stack still behind)
-# discard: take 11 (Beetle back in the paint); takes 5/8/10 (plow on the rear)
-# camera: POV_ROADSIDE — from BEHIND the queue looking along travel. Do not stand in the crosswalk.
+# FAIL take 2 + Claude extra: sedan reads ALONGSIDE ego, not IN FRONT (Act III lane-geometry class)
+# takes: 5–18
+# 13–18: frame-relative reshoot — sedan same right-of-frame lane, along=ahead, 1 length
+# closest: take 17 (sedan on-axis IN FRONT; person at paint with bag; fog/fence)
+# runner-up: take 15 (first clean axis stack)
+# discard: 14 / 16 (sedan slides left again); 13 still slightly left
+# camera: POV_ROADSIDE — dead behind the queue on the SAME LANE AXIS. Do not stand in the crosswalk.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest dusk in fog — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 

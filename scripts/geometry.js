@@ -214,31 +214,32 @@ function headingLockClause(geo) {
   }
 }
 
-function offsetInFrame(along, lengths, heading, vehicle) {
+function offsetInFrame(along, lengths, heading, vehicle, egoName) {
   const n = Number(lengths);
   const unit = n === 1 ? "vehicle length" : "vehicle lengths";
-  if (along === "beside") return `The ${vehicle} is even with the shuttle.`;
+  const ego = egoName || "shuttle";
+  if (along === "beside") return `The ${vehicle} is even with the ${ego}.`;
   if (along === "ahead") {
     let where = "further from the camera";
     if (heading === "left_to_right") where = "further toward the RIGHT edge of the frame";
     else if (heading === "right_to_left") where = "further toward the LEFT edge of the frame";
     else if (heading === "away_from_camera") where = "further from the camera, receding toward the top of the frame";
-    else if (heading === "toward_camera") where = "closer to the camera than the shuttle";
-    return `The ${vehicle} is ahead of the shuttle by ${n} ${unit} — ${where}.`;
+    else if (heading === "toward_camera") where = `closer to the camera than the ${ego}`;
+    return `The ${vehicle} is IN FRONT of the ${ego} by ${n} ${unit} — ${where}. Not beside. Not left of the ${ego}. Same lane axis.`;
   }
-  let where = "closer to the camera than the shuttle";
+  let where = `closer to the camera than the ${ego}`;
   if (heading === "left_to_right") where = "further toward the LEFT edge of the frame";
   else if (heading === "right_to_left") where = "further toward the RIGHT edge of the frame";
-  else if (heading === "away_from_camera") where = "closer to the camera than the shuttle";
-  return `The shuttle's front bumper is roughly ${n} ${unit} ahead of the ${vehicle}'s front bumper — the ${vehicle} is ${where}.`;
+  else if (heading === "away_from_camera") where = `closer to the camera than the ${ego}`;
+  return `The ${ego}'s front bumper is roughly ${n} ${unit} ahead of the ${vehicle}'s front bumper — the ${vehicle} is ${where}.`;
 }
 
 function alongPhrase(along, lengths) {
   if (along === "beside") return "even with the shuttle";
   const n = Number(lengths);
   const unit = n === 1 ? "vehicle length" : "vehicle lengths";
-  if (along === "ahead") return `ahead of the shuttle by ${n} ${unit}`;
-  return `behind the shuttle by ${n} ${unit}`;
+  if (along === "ahead") return `ahead of ego by ${n} ${unit}`;
+  return `behind ego by ${n} ${unit}`;
 }
 
 function framePlacementClause(geo, driver, opts) {
@@ -265,8 +266,9 @@ function framePlacementClause(geo, driver, opts) {
       );
     }
   }
+  const egoShort = driver === "deac" ? "shuttle" : "pink vehicle";
   for (const r of geo.traffic_positions || []) {
-    bits.push(offsetInFrame(r.along, r.lengths, geo.ego_heading, r.vehicle));
+    bits.push(offsetInFrame(r.along, r.lengths, geo.ego_heading, r.vehicle, egoShort));
   }
   const tokenCarriesHeading = cam === "POV_ROADSIDE_PROFILE" || cam === "POV_CHASE" || cam === "POV_DIAGRAM";
   if (!tokenCarriesHeading) {
@@ -297,7 +299,7 @@ function framePassNegatives(geo, driver, cam) {
       parts.push(`No ${r.vehicle} on the ${wrong} side of the frame.`);
     } else if (r.frame_side === "same") {
       parts.push(`No ${r.vehicle} on the ${egoWrong} side of the frame.`);
-      parts.push(`No ${r.vehicle} in a different lane from the shuttle.`);
+      parts.push(`No ${r.vehicle} in a different lane from the ${shuttle}.`);
     }
   }
   if (/none/i.test(String(geo.oncoming_position || "")) && geo.lanes_this_direction >= 2) {
