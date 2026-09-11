@@ -150,7 +150,15 @@ function headingPhrase(heading) {
   }
 }
 
-function geometryPromptClause(geo, driver) {
+function reverseManeuverNamed(brief) {
+  return /\brevers/i.test(
+    [brief && brief.camera_pose, brief && brief.subject, brief && brief.read, brief && brief.foreground, brief && brief.midground]
+      .filter(Boolean)
+      .join(" ")
+  );
+}
+
+function geometryPromptClause(geo, driver, opts) {
   if (!geo) return "";
   if (/not in frame/i.test(String(geo.ego_nose_in_frame || ""))) {
     return (
@@ -163,7 +171,8 @@ function geometryPromptClause(geo, driver) {
       ...geo,
       ego_heading: headingPhrase(geo.ego_heading),
     },
-    driver
+    driver,
+    opts
   );
   const traffic = trafficPositionsClause(geo, driver);
   return [core, traffic].filter(Boolean).join(" ");
@@ -212,6 +221,19 @@ function assemblePrompt(card) {
       "Ego vehicle: a classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette — a tall square passenger box on a van cab, faded green and white transit livery ghosting under gray primer. All four of the following must be clearly visible and unmistakable: the tall square box on a van nose, oversize side mirrors on long arms on both sides, an amber dot-matrix destination sign above the windshield with no readable text, and a welded bar cage over the windshield with a cut wiper slot."
     );
   }
+  if (
+    !deac &&
+    card.driver === "ali" &&
+    (brief.continuity || []).includes("pink_menace_exterior") &&
+    (cam === "POV_CHASE" ||
+      cam === "POV_ROADSIDE" ||
+      cam === "POV_ROADSIDE_PROFILE" ||
+      cam === "POV_DIAGRAM")
+  ) {
+    parts.push(
+      "Ego vehicle: a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the door on the left side of the vehicle and the rear quarter panel, and oversize knobby tires on chrome slot wheels. Use the attached exterior lock for BUILD AND SILHOUETTE ONLY — do not copy its golden-hour salt-flat lighting, and do not copy its FRONT three-quarter angle. That lock faces the plow toward the lens. If this brief is a reverse, the plow is the FAR end, pointing away from the camera."
+    );
+  }
   if (deac && cam !== "POV_PORTRAIT") {
     parts.push(otherVehicleClauseLedger(card));
   }
@@ -253,6 +275,7 @@ function assemblePrompt(card) {
     );
   }
 
+  const reverseNamed = reverseManeuverNamed(brief);
   if (describesRoadway(card) && brief.geometry) {
     parts.push(LHD);
     if (!framed) {
@@ -266,12 +289,21 @@ function assemblePrompt(card) {
         const traffic = trafficPositionsClause(geo, card.driver);
         if (traffic) parts.push(traffic);
       } else {
-        parts.push(geometryPromptClause(brief.geometry, card.driver));
+        parts.push(
+          geometryPromptClause(brief.geometry, card.driver, {
+            reverseManeuver: reverseNamed && !deac,
+          })
+        );
       }
     }
     parts.push(SIGN_CLAUSE);
     const mark = markingAnchorClause(brief.geometry);
     if (mark) parts.push(mark);
+    if (reverseNamed && !deac) {
+      parts.push(
+        "REVERSE MANEUVER lock: the Beetle is backing up. Camera sits close behind the left rear corner — tight crop, pulled back from any mid-aisle overview. Two SMALL rectangular WHITE REVERSE LAMPS are lit on the rear apron under the engine lid (stock Beetle reverse lamps), not large circular headlights on the rear fenders. Rear bumper and those lamps travel toward the camera into a narrow strip of drive aisle. The plow still points away into the stall. Ali looks back over her right shoulder through the rear glass, not toward the plow. The check-target is only a coat-shoulder and head at the far side of a neighboring parked car — half-occluded. This is not a forward pull-out, not travel away from the camera, and not a wide empty-aisle establishing shot."
+      );
+    }
   } else if (cam !== "POV_OBJECT" && cam !== "POV_PORTRAIT") {
     parts.push(LHD);
   }

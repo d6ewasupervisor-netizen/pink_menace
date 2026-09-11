@@ -160,7 +160,7 @@ function egoWrongFlank(frameSide) {
   return frameSide === "left" ? "right" : "left";
 }
 
-function geometryClause(geo, driver) {
+function geometryClause(geo, driver, opts) {
   if (!geo) return "";
   const front =
     driver === "deac"
@@ -172,10 +172,15 @@ function geometryClause(geo, driver) {
   let occupancy;
   if (typeof n === "number" && n >= 2 && typeof k === "number") {
     occupancy = `The roadway has ${n} lanes in this direction. ${vehicle} occupies lane ${k}, ${laneOrdinal(k, n)}.`;
+  } else if (/stall/i.test(String(geo.ego_lane_side || ""))) {
+    occupancy = `${vehicle} occupies a marked parking stall opening onto a drive aisle, not a travel lane.`;
   } else {
     occupancy = `${vehicle} occupies the **right half of the roadway** for its direction of travel.`;
   }
-  const heading = travelPhrase(geo.ego_heading);
+  const heading =
+    opts && opts.reverseManeuver
+      ? "in reverse toward the camera — backing, rear first — while the nose still points away into the stall"
+      : travelPhrase(geo.ego_heading);
   return (
     "United States road configuration, traffic drives on the right. " +
     `${vehicle} is traveling **${heading}**. ` +
