@@ -3,7 +3,7 @@
 # do not attach IV-003-take-1 (Menace pink mat). do not attach Menace refs. do not attach Y4 take 1 / take 4.
 # camera: POV_OBJECT
 # line 3: Cover the brake before the light even thinks about yellow. Foot off the gas. Held. Not riding it.
-# takes 22+. take 21 FAIL: magenta lower third; heel off floor; foot between pedals; mat riding toward pedal box.
+# takes 22–37. closest: take 35 (three pedals, take-18 lighting, foot over the brake, no magenta/mat). remaining: heel still off floor. take 26 heel-down alt.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight through intact windshield glass — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 

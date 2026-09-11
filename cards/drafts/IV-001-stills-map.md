@@ -25,14 +25,14 @@ Muted-read pick. Not a PASS stamp. Reviews do not gate this batch.
 | Frame | Closest | Why |
 |---|---|---|
 | count-in | `IV-001-count-in-take-5.png` | Presumed PASS pending seed. Not reshot this pass. |
-| brake | pending takes 22+ | Take 21 FAIL: magenta posterization in the lower third; heel off the floor; foot between pedals not over the brake; mat riding toward the pedal box. Claude wants three pedals; heel on the floor; ball of the foot above the brake with the gap silhouetted on the pad; same footwell; keep take-18 rain-on-glass / wiper lighting. |
+| brake | `IV-001-brake-take-35.png` | Three pedals; take-18 rain-on-glass / cluster / red switch; dark Encore floor; no magenta; no riding mat; ball of the foot over the center brake (not between pedals). Remaining: heel still off the floor — the cover is still a whole-foot hover. Take 26 is the heel-down alt (three pedals, Y4 cabin) but the shoe is planted on empty floor in front of the box. Discard 22/24 (two-pedal take-18 copies), 23 (Nike + moss), 28–33 (wheel/seat, wrong camera), 37 (parked right). |
 | person | `IV-001-person-take-16.png` | Person in the bumper gap between two plain sedans; travel lane left is empty; intact glass/dash. Not an open-lane walker. Remaining: cars still read mid-block, person not half-occluded. Take 17 if you want a stiller gap. Discard 6–9 (chevrons) and 12 (person in cab). |
 | tracks | `IV-001-tracks-take-7.png` | Streetcar rails in this lane, distant car, both hands, intact glass/dash. Not freight flanking. Take 5 if you want the rails larger. |
 | handoff | `IV-001-handoff-take-1.png` | Presumed PASS pending seed. Not reshot this pass. |
 
-**Reshoot notes (brake — takes 22+):**
-- Take 21 FAIL (do not repeat): magenta posterization in the lower third; heel off the floor; foot between the pedals not over the brake; mat riding toward the pedal box.
-- Claude wants: three pedals in frame; heel on the floor; ball of the foot above the brake with a clear gap silhouetted on the pedal pad; same Encore footwell; keep take-18 rain-on-glass / wiper lighting.
+**Reshoot notes (brake — takes 22–37):**
+- Closest: take 35. Fixes take 21's magenta lower third, between-pedals placement, and riding mat. Keeps take-18 rain-on-glass lighting and shows three pedals with the ball over the brake.
+- Remaining on 35: heel still off the floor. Take 26 planted the heel (and showed three pedals) but lost the cover — shoe on empty floor in front of the box.
 - Sole brief: `cards/IV-001-brake.json`. Do not attach IV-003-take-1 (pink Menace mat). Do not attach Menace refs.
 - Covering the brake is heel-down, ball hovering — not a mid-air float and not a plant on the mat away from the pedals.
 - Person take 16 / tracks take 7 stay from PR #27 — not reshot here.
