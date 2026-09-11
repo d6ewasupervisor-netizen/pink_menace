@@ -79,6 +79,12 @@ const LEDGER_DIAGRAM_NEGATIVE =
 const LEDGER_NO_MENACE =
   "No Volkswagen Beetle, no rounded-fender compact, no plow blade.";
 
+const MENACE_PLOW =
+  "Nose plow: match the attached overcast plate ref_car_nose_plow.png — a wide flat steel blade spanning the full width of the car, mounted on the black tube bull bar at the nose, in front of both front wheels. The black tube bull bar is visible above or behind the blade. Nothing on the flanks. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset.";
+
+const MENACE_PLOW_NEGATIVE =
+  "No side-mounted plow, no left-flank blade, no blade on a side arm ahead of the front wheel, no plain tube bumper without a blade, no rear-mounted plow, no blade on the engine lid.";
+
 const LHD_NEGATIVE =
   "No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road.";
 
@@ -217,6 +223,13 @@ function assemblePrompt(card) {
   }
 
   const continuityEarly = (brief.continuity || []);
+  const menaceExterior =
+    !deac &&
+    (continuityEarly.includes("pink_menace_exterior") ||
+      (cam === "POV_DIAGRAM" && card.driver !== "yuna"));
+  if (menaceExterior) {
+    parts.push(MENACE_PLOW);
+  }
   const quietNamed =
     continuityEarly.includes("the_quiet") ||
     /\bthe Quiet\b/.test(
@@ -288,6 +301,7 @@ function assemblePrompt(card) {
     LHD_NEGATIVE,
   ];
   if (deac) negs.push(LEDGER_NO_MENACE);
+  if (menaceExterior) negs.push(MENACE_PLOW_NEGATIVE);
   if (brief.geometry) {
     const frameNeg = framePassNegatives(brief.geometry, card.driver, cam);
     if (frameNeg) negs.push(frameNeg);
