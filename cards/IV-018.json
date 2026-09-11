@@ -68,11 +68,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "both cats on the passenger seat — orange tabby Gracie with cream chest, brown mackerel Mya with a dark dorsal stripe — and the carrier door hanging open on the floor next to the seat",
-    "foreground": "worn black wheel, faded pink dash, mesh over the windshield, cluster at 0",
-    "midground": "the two cats settled, neither on the dash, neither belted; open carrier on the floor next to the seat",
-    "background": "ice, night, downtown curb through the mesh, Ledger gone from the glass",
-    "read": "both cats are on the seat; the carrier is open; the speedometer reads 0",
+    "subject": "a hard-sided pet carrier clipped shut on the floor next to the passenger seat, orange tabby Gracie and brown mackerel Mya both visible inside it",
+    "foreground": "Camera is inside the Menace over the worn black wheel, looking across the faded pink dash. Mesh, cluster at 0.",
+    "midground": "both cats contained in the clipped carrier — cream chest and dark dorsal stripe readable through the grate; neither loose, neither on the dash",
+    "background": "ice at night through the mesh, downtown curb, Ledger gone from the glass",
+    "read": "both cats are inside the clipped carrier; the speedometer reads 0",
     "continuity": [
       "pink_menace_interior",
       "gracie",
@@ -80,11 +80,13 @@
     ],
     "extra_negatives": [
       "no cats on the dash",
+      "no cats loose on the seat",
       "no cat wearing a belt",
       "no obese Mya",
-      "no cats on the lap",
       "no Quiet",
-      "no Deac in frame"
+      "no Deac",
+      "no cats on the lap",
+      "no open carrier door"
     ],
     "aspect": "2:3",
     "geometry": {

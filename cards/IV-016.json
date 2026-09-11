@@ -22,13 +22,14 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "the Ledger parked at the curb traveling left-to-right in the frame, destination sign dark, Mya a brown loaf on the dash behind the cage",
-    "foreground": "wet downtown curb and a strip of paint",
-    "midground": "the cutaway's square box and long-arm side mirrors; a brown mackerel tabby loafed on the dash; Deac a silhouette in the high seat, not opening a door",
-    "background": "rain at midday, downtown brick, the Menace not in frame",
-    "read": "the bus is parked; the cat is loafed on the dash; the door is shut",
+    "camera": "POV_MIRROR_REAR",
+    "subject": "the Ledger — van-nose cutaway, dark destination sign, windshield bar cage — parked a stall behind, Deac in the high seat, Mya a brown loaf on the dash",
+    "foreground": "Camera is inside the Menace, looking up at the interior rearview. Faded pink header, mesh dark around the glass.",
+    "midground": "in the rearview only: Ledger front, door shut, Deac a seated silhouette, Mya loafed on the dash against the cargo wall",
+    "background": "rain at midday, downtown brick in the reflection, nobody standing beside the bus",
+    "read": "the Ledger is parked behind; Deac is in the cab; Mya is loafed on the dash; the door is shut",
     "continuity": [
+      "pink_menace_interior",
       "the_ledger",
       "mya"
     ],
@@ -36,16 +37,18 @@
       "no Deac standing outside",
       "no open door",
       "no clipboard in the windshield",
-      "no pink Beetle in frame",
-      "no Encore"
+      "no Encore",
+      "no Quiet",
+      "no cooler",
+      "no Ledger through the windshield"
     ],
     "aspect": "2:3",
     "geometry": {
-      "ego_heading": "left_to_right",
-      "ego_lane_side": "parked at the right curb of a downtown block",
-      "ego_nose_in_frame": "the van nose points toward the right of the frame",
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "idling at the curb a stall ahead of the parked bus",
+      "ego_nose_in_frame": "the plow is not the subject; windshield view is dark and defocused",
       "oncoming_position": "none in frame",
-      "hazard_position": "none"
+      "hazard_position": "behind"
     }
   },
   "variation": {

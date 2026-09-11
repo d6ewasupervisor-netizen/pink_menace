@@ -22,25 +22,35 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_PORTRAIT",
-    "subject": "Deac in the high seat, glasses on a cord, amber vest taped at the shoulder, clipboard on the thigh, Mya held against his chest in both hands at the open window",
-    "foreground": "dented thermos and the window ledge, fog on the cage",
-    "midground": "his face, no smile, reddened eyes, the brown mackerel against the vest",
-    "background": "the Ledger's cargo box and long-arm mirrors; fog, downtown dusk; Ali not in frame",
-    "read": "Mya is in his hands at the open window; the clipboard is on his thigh",
+    "camera": "POV_ROADSIDE",
+    "subject": "two parked vehicles window-to-window — the Ledger left of frame, a small weathered sedan right of frame, both doors shut, both drivers still in their seats",
+    "foreground": "Camera is at curb height in front of both noses, looking at both windshields. Wet downtown curb, dusk fog, no cooler.",
+    "midground": "Deac in the Ledger high seat, glasses on a cord, Mya a brown mackerel loaf on the dash; a silhouette seated in the sedan, nobody standing",
+    "background": "fog at dusk, downtown brick, Ledger destination sign dark",
+    "read": "two vehicles sit window-to-window; both drivers are in their seats; both doors are shut",
     "continuity": [
+      "the_ledger",
       "deac",
-      "deac_clipboard",
-      "mya",
-      "ledger_cockpit"
+      "mya"
     ],
     "extra_negatives": [
+      "no one standing outside",
+      "no open door",
+      "no Quiet",
+      "no cooler",
       "no clipboard in the windshield",
-      "no clipboard on the dash",
-      "no Menace lock",
-      "no both characters in glasses"
+      "no Encore",
+      "no Volkswagen Beetle",
+      "no plow blade"
     ],
-    "aspect": "2:3"
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "toward_camera",
+      "ego_lane_side": "parked at the right curb of a downtown block",
+      "ego_nose_in_frame": "the van nose points toward the camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
   },
   "variation": {
     "location_type": "downtown",
