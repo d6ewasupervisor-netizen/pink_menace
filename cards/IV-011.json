@@ -66,10 +66,10 @@
   "image_brief": {
     "camera": "POV_ROADSIDE",
     "camera_is_the_lesson": true,
-    "camera_pose": "Low three-quarter from behind the Menace, human eye height in the drive aisle. NOT high overhead, NOT architecture, NOT bird's-eye. Rear bumper and reverse lamps nearest the lens; stall and plow recede. Adjacent parked cars fill the left and right flanks.",
-    "subject": "Ali at the left-side wheel of the pink Beetle, mid-reverse, reverse lamps lit, rear wheels turned, car partway out; cranberry hair and glasses through rear mesh",
-    "foreground": "wet drive aisle behind the stall; one dark-coated pedestrian entering that aisle from the side, mid-stride, several feet from the bumper, not touching the car",
-    "midground": "Menace rear nearest camera; white stall-bay lines to a curb wall; ordinary gray cars parked in marked stalls immediately left and right, blocking the sightline",
+    "camera_pose": "Low three-quarter from behind the Menace, human eye height in the drive aisle. NOT high overhead, NOT architecture, NOT bird's-eye. Rear bumper and white reverse lamps nearest the lens; stall and plow recede. Beetle straddles the stall mouth: rear third in the aisle, nose still in the bay. Pedestrian in the open aisle on the reverse path, not against a wall.",
+    "subject": "Ali at the left-side wheel mid-reverse; white reverse lamps lit; front wheels cut; Beetle straddling the stall mouth, rear in the aisle",
+    "foreground": "one dark-coated pedestrian in the open aisle on the reverse path, mid-stride, several feet from the bumper, not along a wall",
+    "midground": "two parallel white stall lines to a curb wall; full gray sedans in the stalls immediately left and right; plow at the far stall end",
     "background": "heavy rain, flat gray overcast daylight, visible gray sky, wet downtown lot, no night, no lot-lamp key light",
     "read": "the Menace is reversing partway out of a stall while one pedestrian enters the aisle she must yield to",
     "extra_negatives": [
@@ -80,6 +80,10 @@
       "no two people at the bumper, no struck pedestrians, no coats touching the car",
       "no triangular hatch field, no diagonal hatch fill, no chevron gore, no floating keep-clear stripes",
       "no two-lane arterial, no Beetle occupying only the right half of a street",
+      "no plow blade on the rear bumper",
+      "no pedestrian walking along a wall away from the car",
+      "no single isolated stall line, no cropped bumper-only neighbor cars",
+      "no red brake lamps as the only rear light",
       "no child",
       "no Encore",
       "no Ledger"
