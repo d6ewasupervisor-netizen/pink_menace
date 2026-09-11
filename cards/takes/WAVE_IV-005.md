@@ -34,7 +34,43 @@ the brief names covering the brake.
 
 ## Closest for Claude muted-read
 
-Pending generation. Takes start at 67.
+| Card | Lesson | Shot | Closest | Runner-up |
+|---|---|---|---|---|
+| **IV-005** | the sedan is stopped at the crosswalk; the left lane beside it is empty | `POV_COCKPIT` | `cards/takes/IV-005-take-79.png` | take 84 |
+
+### IV-005 take 79
+
+KEEP vs take 60: cabin lock held (painted dash, single nacelle dial,
+unbranded wheel, ball shifter, coarse mesh; no tablet / roundel).
+Pedestrian stays mid-crossing in the paint to the right of the sedan.
+Daylight. Bent knee.
+
+FIX vs the FAIL: the brown boot is on the brake pad — pad visible
+under the heel, not an unused pedal sitting empty to the right of a
+floor plant. Shifter still on the tunnel.
+
+Residuals: sole may read flush on the pad (hover / daylight slit not
+obvious — cover-by-contact more than brake-81 hover). Clutch and gas
+not clearly shown (two-pedal read risk). Pedestrian still past the
+nose in the open (take-60 KEEP, yield already readable as decided).
+School fence / skip-dash still weak.
+
+### IV-005 take 84 (runner-up)
+
+Same cabin + shifter + take-60 pedestrian. Boot-on-pad is even more
+unambiguous (larger pad under the shoe). Residual: reads more like a
+plant / press than a hover. Same missing third-pedal / hover-gap notes.
+
+## This pass (not seeded)
+
+`cards/takes/IV-005-take-67.png` … `take-84.png`
+
+On-pad family: 71 (first success, no shifter), 79 / 81 / 83 / 84
+(on-pad + shifter). 82 is 71's sibling.
+
+Discard / empty-floor family (same as take 60): 67–70, 72–74, 76–78.
+75 restored the empty three-pedal box and parked the boot left of it.
+80 invented a shifter between the knees and left a pedal unused.
 
 ## Out of scope
 
