@@ -184,6 +184,50 @@ on wet asphalt. Use the vehicle references for BUILD AND SILHOUETTE ONLY. If you
 carry their lighting forward you have failed. The negative block exists
 specifically to fight this and you must never omit it.
 
+## DAYLIGHT — standing lock (not Act VII)
+
+Night and dusk are Act VII (The Dark Hours). Acts I–VI compile daylight-class
+unless `variation.time_of_day` is exactly `night`, `dusk`, or `dark_hours`.
+Dawn / morning / midday / afternoon are daylight. Ice-at-dawn is pale winter
+light, not a black sky.
+
+Wave-two IV-030 takes 5–6 went full night (blue-black city, streetlights)
+because there was no standing night negative — `MASTER_STYLE` said daylight
+and the model still keyed off "dark downtown" / "stubborn lamps."
+
+Compiler appends, on every non-night card:
+
+  "No night, no full night, no city at night, no dusk-as-night, no blue hour,
+  no black sky, no star field, no lit office towers as night key light, no
+  sodium streetlight night, no headlights as the only illumination, no warm
+  headlight-dominant night look, no near-black asphalt night. The sky must
+  be readable daylight or pale overcast gray-white, not black."
+
+## MENACE CABIN — CANDIDATE plate (Claude PASS required)
+
+`ref_cockpit.jpg` is the poisoned Menace interior (desert GPS tablet, three-gauge
+gibberish, VW-ish hub). Do not promote `refs/ref_menace_cabin_candidate.png`
+into `pink_menace_interior` until Claude muted-read PASSes it. Brad does that
+read next. See `refs/CANDIDATE_MENACE_CABIN.md`.
+
+Until promote, Ali `pink_menace_interior` / `POV_COCKPIT` / `POV_MIRROR_REAR`
+compiles still attach `ref_cockpit.jpg` and MUST append:
+
+  "No rectangular touchscreen, no tablet, no infotainment, no GPS, no
+  navigation screen, no glass panel in the dash, no VW roundel, no Volkswagen
+  logo on the wheel, no emblem on the hub, no readable gauge text, no invented
+  numerals on the cluster, no three-gauge modern cluster copied from the old
+  cockpit lock."
+
+After Claude PASS, replace the live PINK MENACE INTERIOR string with:
+
+  "a cracked faded-pink painted metal Type 1 dash, worn black leather
+  three-spoke steering wheel with a plain chrome or black hub and no logo,
+  a round analog gauge cluster with unlabeled ticks only, a floor-tunnel
+  shifter, a bank of unlabeled rocker switches, welded square steel mesh
+  across the windshield with intact glass under it — no tablet, no
+  touchscreen, no infotainment"
+
 ## THE QUIET — register lock, 8 Sep 2026
 
 If the frame contains the Quiet, continuity includes `the_quiet` and you attach `ref_quiet.png`. That plate is the register, not a costume to copy: filthy, slack-shouldered, head canted, doing nothing, seen through glass. Wrongness of posture and stillness. Not damage.
@@ -527,7 +571,7 @@ else. No commentary. No alternatives.
 |---|---|
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
 | Pink Menace exterior | `ref_car_exterior.jpg` |
-| Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` |
+| Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` until Claude PASSes the cabin candidate; then the promoted `ref_menace_cabin*.png`. Candidate file: `ref_menace_cabin_candidate.png` (take 7). Do not attach the candidate on card compiles until promote. |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |

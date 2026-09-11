@@ -61,6 +61,18 @@ const LHD =
 const NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel.";
 
+const DAYLIGHT_NEGATIVE =
+  "No night, no full night, no city at night, no dusk-as-night, no blue hour, no black sky, no star field, no lit office towers as night key light, no sodium streetlight night, no headlights as the only illumination, no warm headlight-dominant night look, no near-black asphalt night. The sky must be readable daylight or pale overcast gray-white, not black.";
+
+const MENACE_CABIN_NEGATIVES =
+  "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no readable gauge text, no invented numerals on the cluster, no three-gauge modern cluster copied from the old cockpit lock.";
+
+function wantsNight(card) {
+  const t = String((card.variation && card.variation.time_of_day) || "").toLowerCase();
+  if (!t) return false;
+  return /^(night|dusk|dark[_-]?hours)$/.test(t) || /\bnight\b/.test(t);
+}
+
 const QUIET_REGISTER =
   "Match the attached Quiet plate for register only — wrongness of posture and stillness, not damage, not a wound. Filthy torn everyday clothing, slack shoulders, a canted or tilted head, standing or moving as if doing nothing. Distance and glass are their whole grammar. They never fill the frame, never appear in a side-window close-up, never make eye contact. Write them farther than the shot needs: thirty feet renders at ten to fifteen, sixty at thirty to forty. If a face must die, obscure it with motion or distance only. Near-legibility is allowed on a lunge; a fully destroyed face is duller. Do not name them as diseased.";
 
@@ -303,6 +315,17 @@ function assemblePrompt(card) {
   if (Array.isArray(brief.extra_negatives) && brief.extra_negatives.length) {
     negs.push(brief.extra_negatives.join(". ") + ".");
   }
+  if (!wantsNight(card)) {
+    negs.push(DAYLIGHT_NEGATIVE);
+  }
+  const menaceCabin =
+    card.driver === "ali" &&
+    (continuity.includes("pink_menace_interior") ||
+      cam === "POV_COCKPIT" ||
+      cam === "POV_MIRROR_REAR");
+  if (menaceCabin) {
+    negs.push(MENACE_CABIN_NEGATIVES);
+  }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);
     const parked = vehicleParked(card);
@@ -321,4 +344,14 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };
+module.exports = {
+  assemblePrompt,
+  FRAMING,
+  MASTER_STYLE,
+  DIAGRAM_STYLE,
+  LHD,
+  OTHER_VEHICLE_CLAUSE_LEDGER,
+  DAYLIGHT_NEGATIVE,
+  MENACE_CABIN_NEGATIVES,
+  wantsNight,
+};

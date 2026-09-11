@@ -104,4 +104,10 @@ Use G1 as a silhouette test. If you can't tell the three apart at thumbnail size
 | Encore cockpit | `ref_encore_cockpit.png` |
 | Convoy silhouette test | `ref_convoy.png` |
 
-Ali and the Menace already have refs and need nothing. Gracie and Mya are locked.
+Ali face / exterior locks exist. The Menace **cabin** lock does not — `ref_cockpit.jpg` is the poisoned tablet still. Candidate plate (not promoted): `refs/ref_menace_cabin_candidate.png` (take 7). Claude muted-read PASS required before this becomes the live interior. See `refs/CANDIDATE_MENACE_CABIN.md`.
+
+## M4 — PINK MENACE cabin (CANDIDATE — do not treat as locked)
+
+> Cinematic photoreal still. 35mm full-frame equivalent, f/2.8, cabin sharp. Overcast Pacific Northwest daylight through the windshield — soft, diffuse, low-contrast, gray-blue. Desaturated palette; the only saturated color is cracked faded pink. Camera inside the Baja Beetle, over the wheel, looking forward. A cracked faded-pink painted metal Type 1 dash. Worn black leather three-spoke wheel with a plain chrome or black hub — no logo, no VW roundel. One large round analog speedometer with unlabeled ticks only, no numerals, no text. Floor-tunnel shifter with a black knob visible lower-right. Unlabeled rocker switches. Welded square steel mesh over the entire windshield, intact glass under the mesh. Wet empty street beyond the grid. Empty plate: no person, no cats. No tablet, no touchscreen, no infotainment.
+>
+> *[negative block + MENACE_CABIN_NEGATIVES + DAYLIGHT_NEGATIVE]* · Aspect ratio 2:3 / tool 3:4

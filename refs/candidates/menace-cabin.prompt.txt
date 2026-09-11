@@ -1,0 +1,30 @@
+Pink Menace cabin INTERIOR REFERENCE PLATE candidate (not promoted).
+Winner: take 7 → refs/ref_menace_cabin_candidate.png
+Runner-up: take 8 → refs/ref_menace_cabin_candidate_runnerup.png
+Attached lock while generating: refs/ref_car_exterior.jpg (Beetle / mesh only).
+Did NOT attach refs/ref_cockpit.jpg (poisoned tablet / gibberish / desert).
+Portrait 3:4. Claude must PASS before LOCKS promote.
+
+Cinematic photoreal still. Empty Pink Menace cabin INTERIOR REFERENCE PLATE, not a game card. 35mm full-frame equivalent, f/2.8, entire cabin sharp. Overcast Pacific Northwest daylight through the windshield — soft, diffuse, low-contrast, gray-blue ambient. Wet empty city street beyond the glass, flat gray sky. Desaturated palette; the only saturated color is cracked faded pink paint on the dash. Fine grain, slight vignetting, no HDR, no glow, no lens flare.
+
+Camera inside a Baja-converted classic air-cooled VW Beetle, left-hand drive, over the wheel looking forward through the windshield. Required objects all in frame: dash, analog cluster, steering wheel, welded windshield mesh, floor shifter.
+
+DASH: slim curved cracked faded-pink painted metal Beetle dashboard — a simple painted-metal shelf like a 1960s Type 1, oxidized and worn, NOT a modern wide SUV dash, NOT a Jeep dash, NOT a flush-mounted tablet dash.
+
+WHEEL: worn black leather three-spoke steering wheel across the lower frame, PLAIN chrome or black center cap with no logo, no Volkswagen roundel, no emblem, no wave mark, no crest.
+
+CLUSTER: one large round analog speedometer plus at most one small round aux gauge, left of center behind the wheel. Unlabeled tick marks only. Needle at rest. NO numerals, NO text, NO "112.0", NO unit labels.
+
+SHIFTER: classic Beetle floor-tunnel shifter visible lower-right — long thin worn metal lever with a simple black knob rising from the center tunnel.
+
+MESH: welded coarse square steel mesh cage covering the entire windshield, intact glass under the mesh, road visible through the grid. Enclosed roof, faded pink headliner strip.
+
+SWITCHES: a short bank of physical unlabeled rocker switches only. No labels.
+
+EMPTY plate: no person, no hands, no arms, no cats, no feet, no shoes.
+
+EXPLICITLY NO SCREEN: no tablet, no touchscreen, no rectangular infotainment, no GPS, no monitor, no glass panel in the dash, no modern car interior.
+
+Use the attached exterior photograph for Beetle silhouette and mesh language only — do not copy its salt-flat sunset lighting.
+
+NEGATIVE: no golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no night, no full night, no lens flare, no HDR, no glow, no bloom. No tablet, no touchscreen, no GPS, no infotainment, no rectangular screen. No VW roundel, no Volkswagen logo on the wheel. No readable gauge text, no invented numerals. No Encore stripped race dash, no Ledger commercial dash. No text, no captions, no watermarks. Photograph, not a 3D render.

@@ -22,3 +22,26 @@ Never mix panels across takes. Winners only.
 | Quiet plates | probe keeps | `ref_quiet_a1.png` `ref_quiet_a2.png` `ref_quiet_a3.png` `ref_quiet_a4.png` `ref_quiet_a5.png` | A1 take 3 still, facing away. A2 take 1 head tilt. A3 take 3 the register. A4 take 1 lot, spread, not converging. A5 take 3 the lunge — near-legible, once in the game. A1, A2, A4 are reference, not card art. |
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
+
+## Pink Menace cabin — CANDIDATE (not promoted)
+
+Claude has **not** muted-read PASS on this plate. Brad will muted-read with Claude next. Do **not** treat the candidate as human-verified. Do **not** swap `pink_menace_interior` off `ref_cockpit.jpg` in this PR.
+
+| Role | File | Take | Notes |
+|---|---|---|---|
+| Closest (candidate) | `ref_menace_cabin_candidate.png` | 7 | Same bytes as `candidates/menace-cabin-take-7.png`. `sha256:b11425c8…`. Type 1 cracked faded-pink dash; worn three-spoke, blank hub (no VW roundel); single analog gauge, ticks only; welded square mesh; tunnel shifter; **no screen**. |
+| Runner-up | `ref_menace_cabin_candidate_runnerup.png` | 8 | Fuller square mesh + rocker bank. Residual: gauge numerals. |
+
+Variants: `refs/candidates/menace-cabin-take-1.png` … `take-8.png`. Brief: `refs/CANDIDATE_MENACE_CABIN.md`. Handoff: `refs/NEXT.md`.
+
+**`ref_cockpit.jpg` is the poisoned interior** — desert GPS tablet, three-gauge gibberish, VW-ish hub. Same failure Claude named on IV-027 take-11 / take-19, IV-028 take-5. Keep it as the live `pink_menace_interior` attachment only until Claude PASSes take 7; then replace it (Encore cockpit / Ledger cockpit pattern) and stop attaching the old file.
+
+After PASS, winners-table row should read:
+
+| Asset | Winner | File | Notes |
+|---|---|---|---|
+| Pink Menace cabin | candidate take 7 (pending Claude) | `ref_menace_cabin.png` | **Do not write this row until Claude PASSes.** Dash, cluster, wheel, square mesh, shifter. No tablet / touchscreen. |
+
+## Daylight lock (Act IV / non-night)
+
+Wave-two (`cursor/wave-two-stills-batch2-724a`) had **no standing night negative**. `MASTER_STYLE` says overcast daylight, but IV-030 takes 5–6 compiled full night (blue-black city, streetlights). Night/dusk is Act VII. Compiler now appends `DAYLIGHT_NEGATIVE` unless `variation.time_of_day` is `night` / `dusk` / `dark_hours`. Dawn / morning / midday / afternoon stay daylight-class (IV-027 ice-at-dawn is pale winter light, not night).

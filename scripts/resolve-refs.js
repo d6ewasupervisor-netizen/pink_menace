@@ -10,6 +10,7 @@ const MAP = JSON.parse(fs.readFileSync(path.join(ROOT, "pack", "09_REF_MAP.json"
 const MENACE_LOCKS = new Set([
   "pink_menace_exterior",
   "pink_menace_interior",
+  "pink_menace_interior_candidate",
   "ali",
   "ali_face",
   "gracie",
