@@ -4,8 +4,9 @@
 # FAIL take 1 (WAVE_ONE_MAP / Claude muted-read): person not in the crosswalk geometry the hazard needs; weak empty left lane; no cover-the-brake foot
 # FIX: person IN the worn crosswalk paint on the far side of the stopped sedan; two lanes this direction; left travel lane empty; foot covering the brake
 # Continuity for IV-012 ledger callback (do not touch IV-012): same school-edge block, worn crosswalk, fog at dusk, primer sedan + brake lamps, chain-link fence
-# takes: 5+
-# closest (not seeded): TBD
+# takes: 5–14
+# closest (not seeded): cards/takes/IV-005-take-13.png
+# runner-up: take 7 (best person-in-paint + bag; lost the mesh) / take 9 (mesh, person at the right of the zebra)
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest dusk in fog — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 
