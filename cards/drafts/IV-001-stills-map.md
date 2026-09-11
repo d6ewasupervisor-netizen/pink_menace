@@ -25,7 +25,7 @@ Muted-read pick. Not a PASS stamp. Reviews do not gate this batch.
 | Frame | Closest | Why |
 |---|---|---|
 | count-in | `IV-001-count-in-take-5.png` | Presumed PASS pending seed. Not reshot this pass. |
-| brake | pending (takes 17+) | Take 13 FAIL (third miss): sole on the floor well right of both pedals. New path: IV-003 take 1 pedal-box hard ref (hover + air gap) into Y4 take 7 Encore lock. |
+| brake | `IV-001-brake-take-18.png` | Hover with visible air gap; other pedal empty; dark Encore floor; Y4 dash/glass in the top. Not planted on the mat. Take 20 same hover over the hanging pedal. Take 21 is the IV-003 pedal-box composite (ideal gap, floor dressed dark). Discard 19 (diptych). |
 | person | `IV-001-person-take-16.png` | Person in the bumper gap between two plain sedans; travel lane left is empty; intact glass/dash. Not an open-lane walker. Remaining: cars still read mid-block, person not half-occluded. Take 17 if you want a stiller gap. Discard 6–9 (chevrons) and 12 (person in cab). |
 | tracks | `IV-001-tracks-take-7.png` | Streetcar rails in this lane, distant car, both hands, intact glass/dash. Not freight flanking. Take 5 if you want the rails larger. |
 | handoff | `IV-001-handoff-take-1.png` | Presumed PASS pending seed. Not reshot this pass. |
