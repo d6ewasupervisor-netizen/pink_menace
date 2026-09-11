@@ -1,0 +1,17 @@
+# IV-001-brake — compile from cards/IV-001-brake.json (sole brief)
+# attachments (required by continuity):
+#   refs/ref_encore_footwell.png  — encore-footwell take 6, LOCKED, pedal_count 2
+#   refs/ref_encore_cockpit.png   — Y4 take 1, over-the-wheel; footwell out of frame
+# composite plate (posture-only regen): cards/takes/IV-001-brake-take-57.png
+#   take-57 plate match was clean — keep cabin, pedals, camera, lighting, shoe.
+#   change ONLY the right leg and ankle to the hover motion.
+# do NOT attach Y4 take 7. do NOT attach IV-001-brake take 21 / 35. do NOT attach Menace refs.
+# do NOT attach IV-003 — pack does not name it as brake composite authority.
+# camera: POV_OBJECT
+# takes 61–84. winner / seeded: cards/takes/IV-001-brake-take-81.png
+# vs take-57: heel planted on the floor; shin drops from the left (~45°), not horizontal;
+#   ball overlaps the left of the diamond brake. Residual: overhead camera still makes
+#   the air-gap slit hard to silhouette.
+# seeded 2026-09-11: cards/IV-001-brake.png + public/game/ride/IV-001/brake.webp
+
+Sole brief: cards/IV-001-brake.json
