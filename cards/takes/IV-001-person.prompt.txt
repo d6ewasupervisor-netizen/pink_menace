@@ -1,0 +1,22 @@
+# IV-001-person — reshoot after take 5 FAIL
+# attachments: refs/ref_encore_cockpit.png (Y4 take 7 glass lock), refs/ref_encore_sheet.png (Y3 take 12)
+# camera: POV_COCKPIT
+# line 5: Person between the parked cars. I do not own the right of way. I own the stop.
+# FAIL take 5: pedestrian walking openly in the travel lane past parked cars (teaches the opposite of the card)
+# takes: 6+
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. REQUIRED ELEMENT FIRST AND UNMISTAKABLE: match the attached Encore cockpit lock (Y4 take 7). Intact factory windshield glass — a continuous real sheet filling the entire windshield opening, rubber gasket, header, A-pillars. Raindrops bead on the OUTSIDE of the glass. Specular reflections prove the glass is a real plane. The cabin is fully enclosed: solid roof, headliner. Weather stays outside. A real dashboard under the glass: analog cluster, solid dash panel, one guarded red switch, radio. Welded roll-cage tubes at the A-pillars belong INSIDE this enclosed cabin, behind the glass, not instead of the glass. Compile FROM that locked plate. Do not invent an open tube-frame cockpit or a wiring nest where the dash should be.
+
+Camera sits on the welded rear bench looking forward and slightly right THROUGH the intact windshield. Small suede-wrapped racing steering wheel and Yuna's hands occupy the lower-left of the FRAME. Left-hand drive.
+
+THE READ, large and central, through the rain-dotted glass: a living pedestrian is EMERGING FROM CONCEALMENT in the body-width GAP BETWEEN two parked ordinary sedans on the RIGHT curb. The person is still half-hidden — a torso and one leg stepping out from between bumpers and fenders, not yet in the open travel lane. The hazard appears from between/behind the parked cars. The travel lane ahead of Encore is otherwise empty. This is not a person walking openly down the lane past parked cars.
+
+Subject: an ordinary living adult in a dark raincoat, upright, mid-step out of the bumper gap, curb-distance, right-center of the FRAME. Not slack-shouldered, not filthy, not the Quiet. Two parked desaturated sedans on the right curb, same heading as Encore (noses away, rears nearer), with a person-wide gap between them. No Encore chevrons on other traffic. No second hatchback with roof horns.
+
+Foreground: suede racing wheel; Yuna's hands at ten-and-two (light-medium skin, black windbreaker cuffs, retroreflective piping). Ali's hands on her knees on the bench at the bottom edge — not on the wheel. Midground: rain-dotted windshield, cage A-pillar at the right, the two parked cars and the emerging person. Background: overcast downtown Seattle block, wet pavement, no readable signs.
+
+The matte-black hatchback is traveling away from the camera. A sliver of silver chevron may show on the hood through the glass. United States road, traffic on the right. Overcast PNW daylight through glass — soft, diffuse, gray-blue. Desaturated; retroreflective silver-white is the only bright note. Fine grain, no HDR, no glow.
+
+Muted-text test: if every caption were hidden, the first thing the eye reads is a person coming out from between parked cars, seen through intact cockpit glass.
+
+No pedestrian walking in the open travel lane, no person fully clear of the parked cars, no empty curb, no single parked car with a walker beside it. No open cabin, no bare apertures, no missing windshield, no weather coming straight in, no open tube-frame cockpit, no wiring nest where the dash should be, no mesh, no bars across the glass, no PA horns inside the cabin, no plow, no pink Beetle, no Ledger cage, no Quiet, no cooler, no COLD tag. Other traffic must not wear chevrons or roof horns. No golden hour, no text, no UI. Photograph. Aspect ratio 2:3.
