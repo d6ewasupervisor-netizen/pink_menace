@@ -1,0 +1,108 @@
+{
+  "card_id": "IV-018",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Two on the Seat",
+  "hook": "Both cats. First time since the lot.",
+  "scene": "Ice at night, the Menace still at the same curb. Mya is back. Gracie never left. Orange tabby and brown mackerel on the passenger seat — cream chest, dark stripe — the first time both have been in one frame since the lot. The engine is still. This is not a rebuke. It is the next thing you do with a load that cannot buckle itself. The road is ice. They are two moving weights.",
+  "decision": "Both cats are on the seat and you have not rolled. What do you do with the load?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Roll now — they have always ridden loose and tonight is not different",
+      "correct": false,
+      "result": "You take the ice with two loose weights. Mya hits the dash. Gracie hits Mya. Your eyes leave the glass. A curb finds the plow. He did not hand her back so you could invent a lap.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "b",
+      "text": "Belt Mya and leave Gracie — one secured is enough",
+      "correct": false,
+      "result": "A cat is not a shape a belt understands. She is out of it before you finish. Gracie is already on the defrost. You spent the curb on a knot and still have two loose.",
+      "state_delta": {
+        "time_cost": 8,
+        "noise": 2
+      }
+    },
+    {
+      "id": "c",
+      "text": "Hold them both in your lap so they cannot walk the glass",
+      "correct": false,
+      "result": "Mass in your legs on ice. Two jobs, one pair of feet. The right pedal is a negotiation. The stall you have not left yet already wants a story.",
+      "state_delta": {
+        "yaw": 2,
+        "noise": 2,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Clip both in the carrier, stow it, then roll",
+      "correct": true,
+      "result": "You box them. The clip bites. They complain once and become a sound on the floor next to the seat. Two cats, one load, secured. You look at the ice, not at a cream chest. That is what you do next.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    }
+  ],
+  "debrief": "An animal in a moving car is a load. Secure it before you roll. Both cats are in the frame again. Gracie is a sound on the floor next to the seat.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "4.19 Transporting (Animals)",
+    "teaching_target": "Secure animals before the vehicle moves; unrestrained pets are a load and a distraction. Lands immediately after the handover."
+  },
+  "cast": [
+    "ali",
+    "gracie",
+    "mya"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "both cats on the passenger seat — orange tabby Gracie with cream chest, brown mackerel Mya with a dark dorsal stripe — neither belted, no carrier in frame",
+    "foreground": "worn black wheel, faded pink dash, mesh over the windshield, cluster at 0",
+    "midground": "the two cats settled, neither on the dash, neither belted",
+    "background": "ice, night, downtown curb through the mesh, Ledger gone from the glass",
+    "read": "both cats are on the seat; the speedometer reads 0",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie",
+      "mya"
+    ],
+    "extra_negatives": [
+      "no cats on the dash",
+      "no cat wearing a belt",
+      "no obese Mya",
+      "no cats on the lap",
+      "no Quiet",
+      "no Deac in frame",
+      "no carrier in frame",
+      "no open carrier"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked at the curb, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at empty ice through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "ice",
+    "time_of_day": "night",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "016-018 emotional center shares downtown; both cats first time since I-003"
+  }
+}
