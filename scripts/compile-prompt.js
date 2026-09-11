@@ -182,14 +182,9 @@ function assemblePrompt(card) {
     "POV_DIAGRAM",
     "POV_TOPDOWN_PHOTO",
   ]);
-  if (
-    continuityEarly.includes("encore") ||
-    (card.driver === "yuna" && encoreExteriorCam.has(cam))
-  ) {
-    throw new Error(
-      `${card.card_id}: Encore exterior compiles are blocked until the glass four-view lock passes visual check (refs/LOCKS.md)`
-    );
-  }
+  const encoreNamed =
+    continuityEarly.includes("encore") || card.driver === "yuna";
+  const encoreExterior = encoreNamed && encoreExteriorCam.has(cam);
   if (deac && cam === "POV_MIRROR_REAR") {
     throw new Error(
       `${card.card_id}: POV_MIRROR_REAR is illegal on the Ledger — no rear window, no interior mirror; use POV_MIRROR_DOOR`
@@ -297,6 +292,16 @@ function assemblePrompt(card) {
   if (cam === "POV_MIRROR_DOOR") {
     parts.push(DOOR_MIRROR_CLAUSE);
   }
+  if (encoreNamed) {
+    parts.push(
+      "intact window glass in all openings, no mesh, no bars, no open cabin."
+    );
+    if (encoreExterior) {
+      parts.push(
+        "Exterior brief only: do not describe stripping, gutting, a roll cage, seats, or other interior hardware."
+      );
+    }
+  }
 
   const negs = [
     cam === "POV_DIAGRAM" ? diagramNegativeBlock(deac, brief.geometry) : NEGATIVE,
@@ -311,6 +316,11 @@ function assemblePrompt(card) {
   if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
   const continuity = (brief.continuity || []);
+  if (encoreNamed) {
+    negs.push(
+      "No open cabin, no missing windows, no stripped glass, no roll cage visible from outside, no window nets, no bare door frames."
+    );
+  }
   if (quietNamed) negs.push(QUIET_NEGATIVE);
   if (cam === "POV_MIRROR_DOOR" && continuity.includes("dutch_reach")) {
     negs.push(DUTCH_REACH_NEGATIVES);

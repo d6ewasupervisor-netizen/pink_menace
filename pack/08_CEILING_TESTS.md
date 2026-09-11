@@ -128,4 +128,4 @@ Amend `01_BIBLE.md` §9 to match what actually passed — move REFUSE items from
 
 ## Sequencing note
 
-The ceiling tests and the two cockpit locks are independent. Run D4 and Y4 first — they're two generations and they unblock every `POV_COCKPIT` card in Acts III, V, and VI. Then run all twenty of these in one sitting. Encore exterior compiles stay blocked until a Y3 glass four-view take passes visual check (`refs/LOCKS.md`); the stripped `ref_encore_sheet.png` is history, not a lock. None of those cards are in The Grid.
+The ceiling tests and the two cockpit locks are independent. Run D4 and Y4 first — they're two generations and they unblock every `POV_COCKPIT` card in Acts III, V, and VI. Then run all twenty of these in one sitting. Encore exterior lock is Y3 take 12 (`ref_encore_sheet.png`, stock-glass-first). The open-cabin take 3 is history at `ref_encore_sheet_y3_take3.png`. None of those cards are in The Grid.
