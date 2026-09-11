@@ -31,5 +31,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. Encore exterior lock is Y3 take 12 (ref_encore_sheet.png) — stock-glass-first, intact glass on all four views. See refs/LOCKS.md."
 }
