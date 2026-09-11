@@ -4,14 +4,14 @@
   "zone": "The Grid",
   "driver": "ali",
   "card_type": "dossier",
-  "title": "Night on a Kent Curb",
-  "hook": "Ordinary dark on a Kent curb. The rules still hold.",
-  "scene": "You sit at a curb on a Kent residential that has gone overcast-night, not the Dark Hours yet, just the ordinary dark the Grid always had. Signals still cycle. A stale green somewhere to the west paints the wet. Ali in the glass: braid, wire rims, the pink hoodie gone gray in this light. The clipboard next to the seat has hours on it now. School zones. Stops. Turns. Bikes. A bus you may have passed. Space. Ice. A cut you refused to join. The Quiet uses the same paint at night. The rules do not get optional when the color drains. Tomorrow is more of this, then it is not — then it is someone else's act.",
-  "debrief": "Night in The Grid is still The Grid. Lights work. Search harder. The Dark Hours are a later zone. The hoodie is gray and the lamps still cycle.",
+  "title": "Where You Are Driving",
+  "hook": "She asks where you are driving now.",
+  "scene": "Mom comes through on the radio. She asks where you are driving now. You tell her the street names like they mean something to a woman two hundred and eighty miles east, and she says them back like they do. She does not ask how the driving is going. She says be careful with her whole voice, and then the window is gone.",
+  "debrief": "",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Night does not suspend residential rules; Act II remains search, space, and communication until the zone is clean."
+    "teaching_target": "Mom asks where Ali is driving and says the street names back. She does not ask how the driving is going."
   },
   "cast": [
     "ali"

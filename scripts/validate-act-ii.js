@@ -45,6 +45,18 @@ for (let i = 0; i < cards.length; i++) {
   if (c.act !== "II" || c.zone !== "The Grid" || c.driver !== "ali") err(id, "act/zone/driver");
   if (!typeEnum.includes(c.card_type)) err(id, "card_type");
   if (c.scene.length < 150 || c.scene.length > 700) err(id, `scene len ${c.scene.length}`);
+  const voices = c.lot_voice || {};
+  for (const key of ["called", "correct", "slow"]) {
+    const voice = voices[key];
+    if (!voice) continue;
+    if (voice.scene && (voice.scene.length < 150 || voice.scene.length > 700)) {
+      err(id, `lot_voice.${key}.scene len ${voice.scene.length}`);
+    }
+    if (voice.scene_append) {
+      const combined = String(c.scene).replace(/\s+$/, "").length + 1 + String(voice.scene_append).trim().length;
+      if (combined > 700) err(id, `lot_voice.${key}.scene_append makes scene ${combined}`);
+    }
+  }
   const hookWords = String(c.hook || "").trim().split(/\s+/).filter(Boolean);
   if (!c.hook || hookWords.length < 1 || hookWords.length > 12) {
     err(id, `hook words ${hookWords.length}`);

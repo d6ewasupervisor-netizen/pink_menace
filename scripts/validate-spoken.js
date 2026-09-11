@@ -61,6 +61,19 @@ function walkPlayer(card) {
   ride.forEach((line, i) => {
     if (line) rows.push({ field: "ride_along:" + (i + 1), text: String(line) });
   });
+  const voices = card.lot_voice || {};
+  for (const key of ["called", "correct", "slow"]) {
+    const voice = voices[key];
+    if (!voice) continue;
+    if (voice.scene) rows.push({ field: "lot_voice." + key + ".scene", text: String(voice.scene) });
+    if (voice.scene_append) rows.push({ field: "lot_voice." + key + ".scene_append", text: String(voice.scene_append) });
+    if (voice.hook) rows.push({ field: "lot_voice." + key + ".hook", text: String(voice.hook) });
+    if (voice.debrief) rows.push({ field: "lot_voice." + key + ".debrief", text: String(voice.debrief) });
+    if (voice.ride_open) rows.push({ field: "lot_voice." + key + ".ride_open", text: String(voice.ride_open) });
+    if (voice.bark && voice.bark.line) {
+      rows.push({ field: "lot_voice." + key + ".bark", text: String(voice.bark.line) });
+    }
+  }
   return rows;
 }
 
@@ -108,7 +121,12 @@ function checkSpoken(card) {
         if (re.test(row.text)) errors.push(`${id}: ${row.field} uses "${label}"`);
       }
     }
-    if (row.field === "scene" || row.field === "debrief" || row.field.startsWith("res:")) {
+    if (
+      row.field === "scene" ||
+      row.field === "debrief" ||
+      row.field.startsWith("res:") ||
+      /\.(scene|scene_append|debrief)$/.test(row.field)
+    ) {
       if (/\bthe room\b/i.test(row.text) && !/\bblind spot\b/i.test(row.text)) {
         errors.push(`${id}: ${row.field} uses "the room" without saying blind spot`);
       }

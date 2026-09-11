@@ -47,6 +47,8 @@ Three layers, and the order matters.
 
 `24_ART_REVIEW_RUBRIC.md` is the still-vs-copy review: tag as a work order, text before pixels, never generate on `CARD_BROKEN` / `WRONG_CAMERA`. Tool: `npm run art-review`.
 
+`33_LOT_MEMORY.md` is the lot stamp (`called` / `correct` / `slow` on I-006) and the alternate lines it writes on existing cards. The value is never shown.
+
 ---
 
 ## Run order

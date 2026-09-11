@@ -7,6 +7,14 @@
   "title": "Marisol in the Lot",
   "hook": "A bike is closing on your left toward the same exit.",
   "scene": "Rain hammers the old Kent Station lot, a sheet off the mesh, the stalls faded to ghosts. You are rolling a lane of painted arrows toward the exit onto 1st. In the left side mirror, a bicycle: bare head, dark jacket, fast, unafraid. Marisol. She is using the lot as a cut-through the way she always has. She is on your left rear quarter — the driver's side — closing to pass you on the inside toward the same exit. Your window is up. Your door is a weapon if you forget she is there.",
+  "lot_voice": {
+    "called": {
+      "scene_append": "As she draws even she says, not looking over, that she heard someone shouting in a lot the other day. She does not connect it to you. You do not correct her."
+    },
+    "slow": {
+      "scene_append": "As she draws even she says you showed up later than she expected."
+    }
+  },
   "decision": "Marisol is in your left mirror, coming up the driver's side toward the same exit. What do you do?",
   "options": [
     {

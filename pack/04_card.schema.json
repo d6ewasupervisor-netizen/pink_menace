@@ -158,11 +158,21 @@
     "lot_states": {
       "type": "object",
       "additionalProperties": false,
-      "description": "I-009 stop-line and debrief by what she did on I-007. called = a, correct = b, slow = c or d.",
+      "description": "I-008 stop-line and debrief by what she did on I-006. called = a, correct = b, slow = c or d.",
       "properties": {
         "called": { "$ref": "#/$defs/lotState" },
         "correct": { "$ref": "#/$defs/lotState" },
         "slow": { "$ref": "#/$defs/lotState" }
+      }
+    },
+    "lot_voice": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Alternate lines keyed to runs.lot_state. Applied server-side; the value is never shown.",
+      "properties": {
+        "called": { "$ref": "#/$defs/lotVoice" },
+        "correct": { "$ref": "#/$defs/lotVoice" },
+        "slow": { "$ref": "#/$defs/lotVoice" }
       }
     },
     "image_brief": {
@@ -307,6 +317,26 @@
       "properties": {
         "stop": { "type": "string", "minLength": 8, "maxLength": 120 },
         "debrief": { "type": "string", "minLength": 20, "maxLength": 400 }
+      }
+    },
+    "lotVoice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scene": { "type": "string", "minLength": 150, "maxLength": 700 },
+        "scene_append": { "type": "string", "minLength": 8, "maxLength": 240 },
+        "hook": { "type": "string", "minLength": 8, "maxLength": 90 },
+        "debrief": { "type": "string", "maxLength": 700 },
+        "ride_open": { "type": "string", "minLength": 8, "maxLength": 160 },
+        "bark": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["line"],
+          "properties": {
+            "who": { "type": "string", "minLength": 2, "maxLength": 40 },
+            "line": { "type": "string", "minLength": 8, "maxLength": 200 }
+          }
+        }
       }
     }
   },
