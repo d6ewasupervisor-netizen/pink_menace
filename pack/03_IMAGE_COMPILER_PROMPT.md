@@ -25,7 +25,12 @@ You MAY NOT:
   - change the lighting model
   - add a mood, a color, or a time of day the brief did not specify
   - add text, logos, watermarks, HUD, or UI unless the brief's `read` requires
-    a sign face or gauge
+    a sign face or gauge. Standing text rule: legible text is permitted ONLY
+    on regulatory sign faces where the card teaches sign recognition.
+    Everywhere else the surfaces are blank. Spell each taught legend exactly
+    once — no letter-doubling (ONEWAYWAY / NOTURNONREDDED / TRANSITONLYLY).
+    A sign-recognition card that names multiple faces (IV-007) compiles all
+    named faces; do not apply the "exactly one sign face" road clause there.
   - depict anything in bible §9 FORBIDDEN
   - emit role-relative spatial terms: driver's side, driver-side, passenger
     side, passenger-side, near side, off side, driver's window, driver's door.
@@ -60,7 +65,9 @@ You MUST:
     of the road. Cat on the dash only when the vehicle is parked.
   - convert every role-relative spatial term to frame-relative language plus
     an explicit drive-side statement before compiling. Do not pass them through.
-  - append the left-hand-drive clause to every compile that includes a vehicle
+  - append the left-hand-drive clause to every compile that includes a vehicle.
+    Skip it when `ego_nose_in_frame` says the ego is not in frame (sign /
+    object cards). Do not inject a cabin or a steering wheel into those.
   - append the geometry clause to every road frame
   - append the mirror clause and mirror negatives to POV_MIRROR_REAR and
     POV_MIRROR_DOOR
@@ -256,6 +263,12 @@ legible sign faces teaches nothing about who stops — they become wallpaper.
 
 This applies past stop signs — yields, one-ways, speed limits, no-parking.
 Append the clause to every road compile.
+
+**Sign-recognition exception.** When the card's `read` names two or more
+regulatory faces (IV-007: ONE WAY, NO TURN ON RED, TRANSIT ONLY), those faces
+are the lesson. Compile every named face. Do not apply "exactly one sign face."
+Standing text rule: legible text only on those taught regulatory faces;
+everywhere else blank. Spell each legend once — no letter-doubling.
 
 ### 5. No detached body parts
 Any brief asking for "a hand" or "an arm" without the rest of the body in frame
