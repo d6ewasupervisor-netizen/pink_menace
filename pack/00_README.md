@@ -49,6 +49,14 @@ Three layers, and the order matters.
 
 ---
 
+## Standing locks (do not rediscover)
+
+**Reference-pool hygiene.** A lock decision promotes one take into `refs/` and `refs/LOCKS.md`. Unpromoted and superseded takes stay in `cards/takes/` as history. They leave the generator's reference pool: do not attach them, do not list them in `pack/09_REF_MAP.json`, do not copy them into `refs/` under a new name. Later compiles attach only `refs/` winners mapped by `09_REF_MAP.json`. See pack/03 and `refs/LOCKS.md`.
+
+**Check-lesson head orientation.** On any card whose lesson is a check (look / shoulder / mirror / yield), Ali's head orientation leads the compiled prompt — same priority position heel-planted holds in the brake brief. Card JSON is sole brief authority when it conflicts with pack notes.
+
+---
+
 ## Run order
 
 1. Lock Deac, Yuna, the Ledger, and Encore from `07_CHARACTER_LOCK_PROMPTS.md` before any card that features them. Ali and the Menace already have refs.
