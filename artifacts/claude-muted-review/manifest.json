@@ -1,0 +1,24 @@
+{
+  "purpose": "Claude muted review \u2014 Act I live stills (unmodified copies)",
+  "note": "Live cards were not modified. These are exact copies of the repo files.",
+  "stills": [
+    {
+      "filename": "I-002.png",
+      "bytes": 303329,
+      "sha256": "fa0094532deebd673ceccc382ddc9e8cd61273ea87a5f9279a5151c0e2d67948",
+      "repo_relative_path": "cards/I-002.png"
+    },
+    {
+      "filename": "I-004.png",
+      "bytes": 315469,
+      "sha256": "132e56623e8f2608ee74c049be49643e39fd5994736dedb8c51b956bdbcfde16",
+      "repo_relative_path": "cards/I-004.png"
+    },
+    {
+      "filename": "I-010.png",
+      "bytes": 305678,
+      "sha256": "f0d78a95d00e461dc9962708b3430dfcf16e9847b79988198ca6393be124bb76",
+      "repo_relative_path": "cards/I-010.png"
+    }
+  ]
+}
