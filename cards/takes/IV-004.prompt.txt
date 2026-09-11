@@ -5,7 +5,12 @@
 # FAIL take 11: person walking in the OPEN lane, not mid-step out of the gap
 # take 29 remaining: shoe stays on sidewalk; Menace even with the gap; plow welded onto the REAR; parked cars parallel
 # FIX: one shoe ON travel-lane asphalt; Beetle still SHORT of the person; plow on the FRONT/far end only; nose-in (perpendicular) parked pair
-# takes this pass: 37+
+# takes this pass: 37–40
+# closest (not seeded): cards/takes/IV-004-take-40.png
+# runner-up: take 39 (same rear heading; person less clearly in the travel lane)
+# 37: two Beetles, near one facing camera
+# 38: one Beetle facing camera, plow toward lens
+# 39–40: rear heading fixed; person in the roadway. Residual: parallel park, Beetle even with the person, sedan plate readable on 40
 # weather: wet overcast PNW daylight (bible §8.1 / Act IV daylight lock). Card scene is a cold afternoon — no sun, no dusk, no night.
 # not a sign-recognition card: blank sign faces, no license-plate numbers
 # do not seed. do not touch IV-026 / IV-027 / IV-028 / IV-030.
