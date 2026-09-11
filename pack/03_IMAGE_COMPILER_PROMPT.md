@@ -65,8 +65,8 @@ You MUST:
   - append the mirror clause and mirror negatives to POV_MIRROR_REAR and
     POV_MIRROR_DOOR
   - attach the ego vehicle lock to every POV_DIAGRAM for build only; no faces.
-    Ali: ref_car_exterior.jpg. Deac: ref_ledger_sheet.png. Never attach a
-    Menace lock (ref_car_exterior.jpg, ref_menace_cabin.png, Ali, Gracie) on a Deac card.
+    Ali: ref_car_exterior.jpg and ref_car_nose_plow.png. Deac: ref_ledger_sheet.png. Never attach a
+    Menace lock (ref_car_exterior.jpg, ref_car_nose_plow.png, ref_menace_cabin.png, Ali, Gracie) on a Deac card.
   - on every Deac compile, append: no Volkswagen Beetle, no rounded-fender
     compact, no plow blade.
   - on Deac POV_DIAGRAM, POV_ROADSIDE, POV_ROADSIDE_PROFILE, and POV_CHASE
@@ -117,10 +117,11 @@ PINK MENACE:
   "a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders,
   sloping rear engine cover, domed roof — faded matte pink with oxidation.
   All four of the following must be clearly visible and unmistakable: welded
-  steel mesh cages over the windows, a black tube bull bar carrying a wide
-  flat plow blade at the front, riveted raw-steel plating over the door on
-  the left side of the vehicle and the rear quarter panel, and oversize
-  knobby tires on chrome slot wheels"
+  steel mesh cages over the side glass and the windshield, a black tube bull
+  bar carrying a full-width nose plow blade on the front bull bar (no
+  flank-mounted blade — match ref_car_nose_plow.png), riveted metal plating
+  over the door on the left side of the vehicle and the rear quarter panel,
+  and oversize knobby tires on chrome slot wheels"
 
 PINK MENACE INTERIOR:
   "Menace cabin, positive layout: a flat painted-metal dash of the period —
@@ -513,8 +514,9 @@ aesthetically. Lane law cannot survive that.
   vehicles are real desaturated cars, each facing a legal direction in its
   lane. Geometry block is mandatory so traffic direction is stated, not
   invented. Attach the ego vehicle lock for build only: Ali diagrams get
-  `ref_car_exterior.jpg`; Deac diagrams get `ref_ledger_sheet.png` and never
-  a Menace ref. Never carry the salt-flat sunset. No faces. No infographic.
+  `ref_car_exterior.jpg` and `ref_car_nose_plow.png`; Deac diagrams get
+  `ref_ledger_sheet.png` and never a Menace ref. Never carry the salt-flat
+  sunset. No faces. No infographic.
   No vector cars.
   On two-lane undivided, same-direction vehicles occupy the right half of
   the roadway and face the same way. On multi-lane, place them left of
@@ -576,7 +578,7 @@ else. No commentary. No alternatives.
 | Card contains | Attach |
 |---|---|
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
-| Pink Menace exterior | `ref_car_exterior.jpg` |
+| Pink Menace exterior | `ref_car_exterior.jpg` (silhouette / build; ignore salt-flat light) and `ref_car_nose_plow.png` (overcast square plow plate — full-width nose blade on the front bull bar; no flank-mounted blade; nothing on the rear). Preserve mesh on side glass and windshield, riveted metal door panel, knobby tires on chrome wheels, faded pink + bare-metal. Never attach `ref_car_rear_plow.jpg` or any flank / corner plow plate. |
 | Pink Menace interior / `POV_COCKPIT` | `ref_menace_cabin.png` (take 16, human-verified). Never `ref_cockpit.jpg`. |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
@@ -590,8 +592,8 @@ else. No commentary. No alternatives.
 | Two or more vehicles in frame | `ref_convoy.png` |
 | Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
 | Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_CHASE`: from directly behind, the arm extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
-| `POV_DIAGRAM` (Ali) | `ref_car_exterior.jpg` for Beetle build and plow. Overcast PNW lighting — never the salt-flat sunset. No faces. |
-| `POV_DIAGRAM` (Deac) | `ref_ledger_sheet.png` only. Never `ref_car_exterior.jpg`. |
+| `POV_DIAGRAM` (Ali) | `ref_car_exterior.jpg` for Beetle build and `ref_car_nose_plow.png` for the nose plow. Overcast PNW lighting — never the salt-flat sunset. No faces. |
+| `POV_DIAGRAM` (Deac) | `ref_ledger_sheet.png` only. Never `ref_car_exterior.jpg` or `ref_car_nose_plow.png`. |
 | The Quiet in frame | `ref_quiet.png` — A3 take 3, the register lock. Continuity token `the_quiet`. Attach on every Quiet compile, including when the brief says "the Quiet" and the token was omitted. Also append the Quiet negative: no upright alert posture, no eye contact, no person looking at the lens, no walking normally, no clean clothing, no censorship smear. They never fill the frame, never a side-window close-up. A1/A2/A4 are reference, not card art. A5 once. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.

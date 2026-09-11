@@ -7,6 +7,13 @@ const ROOT = path.join(__dirname, "..");
 const REFS = path.join(ROOT, "refs");
 const MAP = JSON.parse(fs.readFileSync(path.join(ROOT, "pack", "09_REF_MAP.json"), "utf8"));
 const BANNED_REFS = new Set(MAP.banned || []);
+const BANNED_NAME_RE = /(?:^|[_-])(?:rear|flank|side|corner)[_-]?plow/i;
+const NOSE_PLOW_PLATE = "ref_car_nose_plow.png";
+
+function isBannedRef(file) {
+  const base = path.basename(file);
+  return BANNED_REFS.has(base) || BANNED_NAME_RE.test(base);
+}
 
 const MENACE_LOCKS = new Set([
   "pink_menace_exterior",
@@ -78,8 +85,13 @@ function resolveCard(raw) {
       );
       continue;
     }
+    if (token === "pink_menace_exterior" && !files.includes(NOSE_PLOW_PLATE)) {
+      errors.push(
+        `${id}: pink_menace_exterior must attach ${NOSE_PLOW_PLATE} (promoted nose plow plate)`
+      );
+    }
     for (const file of files) {
-      if (BANNED_REFS.has(file)) {
+      if (isBannedRef(file)) {
         errors.push(`${id}: banned ref ${file} is out of the compile pool`);
         continue;
       }
@@ -92,6 +104,15 @@ function resolveCard(raw) {
         seen.add(abs);
         attachments.push(abs);
       }
+    }
+  }
+
+  if (tokens.includes("pink_menace_exterior")) {
+    const attachedBases = attachments.map((p) => path.basename(p));
+    if (!attachedBases.includes(NOSE_PLOW_PLATE)) {
+      errors.push(
+        `${id}: pink_menace_exterior compile must attach ${NOSE_PLOW_PLATE}`
+      );
     }
   }
 

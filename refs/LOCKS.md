@@ -5,9 +5,9 @@ Never mix panels across takes. Winners only.
 | Asset | Winner | File | Notes |
 |---|---|---|---|
 | Ali portrait | lock sheet | `ref_ali2.png` | Wire-rim rounds, cranberry lattice braid, gold hoop / nose ring, raglan hoodie. Canon face. Do not mix with `ref_ali1.jpg` frames. |
-| Pink Menace exterior | lock sheet | `ref_car_exterior.jpg` | Silhouette and build only — plow, mesh, riveted door plate, knobbies. The salt-flat sunset in this frame is **not** the game's lighting. Lossless copy: `ref_car_exterior.png`. |
+| Pink Menace exterior | lock sheet + plow plate | `ref_car_exterior.jpg`, `ref_car_nose_plow.png` | `ref_car_exterior.jpg` = silhouette and build (salt-flat sunset is **not** game lighting). `ref_car_nose_plow.png` = Claude PASS take 5 (2026-09-11), overcast square plate. **Plow:** a full-width nose blade on the front bull bar; no flank-mounted blade; nothing on the rear. **Preserve:** welded mesh on side glass and windshield; riveted metal door panel; knobby tires on chrome wheels; faded pink + bare-metal body. Never attach `ref_car_rear_plow.jpg` / `.png` or any flank / corner plow plate — out of the compile pool. Lossless exterior copy: `ref_car_exterior.png`. |
 | Hand signals | lock plate | `ref_hand_signals.png` | Three panels from directly behind, LHD: arm out the window on the left side of the frame — straight (left), down (stop), bent up (right). Right flank closed, no arm. No labels. Reuse forever; do not improvise limb geometry. |
-| Diagram language | style lock | `ref_diagram_style.png` | Optional. Overhead photoreal look. Ali diagrams attach `ref_car_exterior.jpg` for Beetle build. Deac diagrams attach `ref_ledger_sheet.png` and never a Menace ref. |
+| Diagram language | style lock | `ref_diagram_style.png` | Optional. Overhead photoreal look. Ali diagrams attach `ref_car_exterior.jpg` and `ref_car_nose_plow.png` for Beetle build and nose plow. Deac diagrams attach `ref_ledger_sheet.png` and never a Menace ref. |
 | Deac turnaround | D1 take 2 | `ref_deac_sheet.png` | Glasses on cord in all three panels; vest taped at the shoulder. |
 | Deac portrait | D2 take 2 | `ref_deac.png` | Clipboard is the PSDP log; glasses on chest; amber vest only saturated color. |
 | Yuna turnaround | Y1 take 6 | `ref_yuna_sheet.png` | First four takes put the braid on her left. Take 6: braid at her right temple, right IEM in, left dangling, platinum under-layer. |
@@ -23,6 +23,21 @@ Never mix panels across takes. Winners only.
 | Quiet plates | probe keeps | `ref_quiet_a1.png` `ref_quiet_a2.png` `ref_quiet_a3.png` `ref_quiet_a4.png` `ref_quiet_a5.png` | A1 take 3 still, facing away. A2 take 1 head tilt. A3 take 3 the register. A4 take 1 lot, spread, not converging. A5 take 3 the lunge — near-legible, once in the game. A1, A2, A4 are reference, not card art. |
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
+
+## Pink Menace exterior — locked plate
+
+`pink_menace_exterior` attaches `ref_car_exterior.jpg` and `ref_car_nose_plow.png` only. Every Menace exterior compile must attach the nose plow plate.
+
+**Plow:** a full-width nose blade on the front bull bar. No flank-mounted blade. Nothing on the rear.
+
+**Preserve on the plate and every compile:**
+
+- welded mesh cages on side glass and windshield
+- riveted metal door panel
+- knobby tires on chrome wheels
+- faded pink + bare-metal body treatment
+
+`ref_car_rear_plow.jpg` / `.png` and any flank / corner plow plate are **out of the compile pool**. Do not attach. Claude rejected the rear photo (left-flank blade / drift). Three wrong plow positions this session (flank, corner, rear) came from compiling without the nose plate. PR #66 stays unmerged.
 
 ## Pedal boxes — adjacent, deliberate (not a contradiction)
 

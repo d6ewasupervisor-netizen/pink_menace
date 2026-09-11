@@ -2,7 +2,7 @@
   "locks": {
     "ali": ["ref_ali2.png"],
     "ali_face": ["ref_ali2.png"],
-    "pink_menace_exterior": ["ref_car_exterior.jpg"],
+    "pink_menace_exterior": ["ref_car_exterior.jpg", "ref_car_nose_plow.png"],
     "pink_menace_interior": ["ref_menace_cabin.png"],
     "gracie": ["ref_gracie.jpg"],
     "mya": ["ref_mya.jpg"],
@@ -31,6 +31,14 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "banned": ["ref_cockpit.jpg"],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. pink_menace_interior attaches ref_menace_cabin.png only (human-verified take 16). ref_cockpit.jpg is banned — poisoned tablet / gibberish cluster. Menace = manual, floor shifter, three pedals. Encore = automatic, two pedals, no clutch."
+  "banned": [
+    "ref_cockpit.jpg",
+    "ref_car_rear_plow.jpg",
+    "ref_car_rear_plow.png",
+    "ref_car_flank_plow.jpg",
+    "ref_car_flank_plow.png",
+    "ref_car_corner_plow.jpg",
+    "ref_car_corner_plow.png"
+  ],
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. pink_menace_exterior attaches ref_car_exterior.jpg and ref_car_nose_plow.png only — every Menace exterior compile must attach the promoted nose plow plate (PR #69 take 5). Rear / flank / corner plow plates are banned. pink_menace_interior attaches ref_menace_cabin.png only (human-verified take 16). ref_cockpit.jpg is banned — poisoned tablet / gibberish cluster. Menace = manual, floor shifter, three pedals. Encore = automatic, two pedals, no clutch."
 }
