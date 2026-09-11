@@ -67,8 +67,8 @@
     "camera": "POV_OBJECT",
     "subject": "three regulatory sign faces over one intersection: ONE WAY with a right-pointing arrow, NO TURN ON RED, TRANSIT ONLY — each legend spelled exactly once",
     "foreground": "wet sheeting, rain beads, shallow depth, the three faces readable",
-    "midground": "a dark empty transit lane under the TRANSIT ONLY face, wet asphalt",
-    "background": "overcast downtown, wet pavement, no snow, no extra traffic, no other text",
+    "midground": "empty wet transit lane occupying the LEFT of the FRAME under the TRANSIT ONLY face",
+    "background": "overcast downtown, wet general pavement occupying the RIGHT of the FRAME, no snow, no extra traffic, no other text",
     "read": "the three faces are ONE WAY, NO TURN ON RED, and TRANSIT ONLY",
     "continuity": [],
     "extra_negatives": [
@@ -83,12 +83,14 @@
       "no ONEWAYWAY",
       "no NOTURNONREDDED",
       "no TRANSITONLYLY",
-      "no doubled letters on any face"
+      "no doubled letters on any face",
+      "no ego vehicle",
+      "no role-relative left lane or right of the transit lane"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "toward_camera",
-      "ego_lane_side": "general lane immediately right of the transit lane",
+      "ego_lane_side": "not in frame; TRANSIT ONLY sits over the LEFT of the FRAME",
       "ego_nose_in_frame": "the plow is not in frame; implied travel is toward the sign faces",
       "oncoming_position": "none in frame",
       "hazard_position": "none"
