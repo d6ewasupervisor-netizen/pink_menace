@@ -1,35 +1,42 @@
-# IV-004 — Between the Parked (nose-plow pool + regen after take-43 FAIL)
-# attachments: refs/ref_car_exterior.jpg, refs/ref_car_nose_plow.png
+# IV-004 — Between the Parked (full-width nose blade + in-lane motion after take-63 FAIL)
+# attachments (DIRECT, not pool-only): refs/ref_car_exterior.jpg, refs/ref_car_nose_plow.png
 # compiled from cards/IV-004.json — card JSON is sole brief authority
-# FAIL take 43 (PR #77): plow welded onto the rear; person walking in the open; pair parallel
-# Root cause: this stack compiled without ref_car_nose_plow.png (PR #69 take 5)
-# FIX: attach the promoted nose plow plate; Menace MOVING in-lane, still SHORT of the person;
-#      person mid-step out of the parked-car gap (occluded), not standing fully in open roadway;
-#      plow = full-width blade on the FRONT bull bar; clean rear
-# keep: daylight street, mesh, cabin exterior
-# takes this pass: 51–67
-# closest (not seeded): cards/takes/IV-004-take-63.png
-# runner-up: take 67
-# 63: front full-width blade on the bull bar, clean rear, Beetle short of the person, daylight/mesh. Residual: more three-quarter than dead-away; person still in the open; parked-ish
-# 67: away-er heading, front-corner plow peek, clean rear, short of the person. Residual: corner-ish blade read; person in the open
-# rear plow discard: 51, 52, 58, 60, 61
+# FAIL take 63 (PR #79): blade is a narrow flap (~1/3 width) hanging off the right;
+#   bare bull bar across the rest; Beetle parked-diagonal across the lane, nose toward curb, no motion.
+# FAIL take 67: same narrow flap + stationary diagonal; hazards much further away (weaker).
+# KEEP from take 63: overcast residential arterial; van+sedan at the far right curb;
+#   person stepping out; mesh/body per plate; hazard DISTANCE (Beetle large, closer than the pair).
+# FIX: attach ref_car_nose_plow.png directly; blade = plate geometry (full bull-bar width,
+#   outer edges ~level with the front wheels); Menace SQUARED in-lane and MOVING
+#   (tire spray, forward tracking, nose straight up the road — not parked diagonal).
+# Ban: ref_car_rear_plow / flank / corner plow plates. ref_cockpit.jpg banned.
+# takes this pass: 68–107
+# closest (not seeded): cards/takes/IV-004-take-103.png
+# runner-up: take 74
+# away-family keep: take 76 (flap residual)
+# 103: full-width FRONT blade matching plate, tire spray, person between van/sedan. Residual: toward-camera
+# 74: same blade + spray, take-63-ish street. Residual: toward-camera; person in the open
 # do not seed. no Act I–III.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 
-Camera is ground level, outside the car, human eye height, standing on the wet curb looking along the two-lane side street in the direction of travel. Overcast daylight, wet pavement.
+Camera is ground level, outside the car, human eye height, standing on the wet right curb looking along the two-lane side street in the direction of travel. Overcast daylight, wet pavement.
 
-ONE SITUATION, near to far — the Beetle is CLOSER to camera than the person:
+ATTACHED PLATES — use both, for different jobs:
+- ref_car_nose_plow.png is the AUTHORITY for the plow. Copy that blade exactly: one continuous wide flat black steel plate on the FRONT black-tube bull bar. The blade spans the FULL WIDTH of the bull bar. Its outer edges sit roughly level with the outer faces of the front wheels. It hangs below the bar like a snowplow / dozer blade. From this rear-three-quarter you still see the plate continue across the entire nose — both left and right edges visible past the front corners. Not a narrow flap. Not a small panel on the right. Not a one-third-width tab with bare bull bar across the rest.
+- ref_car_exterior.jpg is Beetle silhouette and build only. Ignore its salt-flat sunset.
 
-1. Foreground: wet concrete curb and one parked-car bumper closest to camera.
+ONE SITUATION, near to far — same staging distance as take 63 (Beetle LARGE, hazards mid-distance, not far):
 
-2. Travel lane, MOVING, nearer the camera than the person: the Pink Menace — a classic VW Beetle, unmistakably a Beetle — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. Match BOTH attached plates: ref_car_exterior.jpg for Beetle silhouette and build only (ignore its salt-flat sunset); ref_car_nose_plow.png for the plow. All four must read: welded steel mesh cages over the side glass and the windshield; a black tube bull bar carrying a full-width nose plow blade on the FRONT bull bar, in front of both front wheels; riveted metal plating on the left door and rear quarter; oversize knobby tires on chrome slot wheels. The Beetle occupies the right half of this two-lane side street and is ROLLING away from the camera, not parked, not stationary, not even with the person. Wet tire sheen on the knobbies. The sloping REAR engine lid and rear window mesh are nearer the camera and large. The plow and bull bar are on the FAR / leading / FRONT end and point toward the TOP of the frame. There is NO blade on the rear. There is NO blade on a flank or corner. The Beetle is still SHORT of the person: one to two car-lengths of wet travel-lane asphalt sit between the far front plow blade and the person's shoe.
+1. Foreground: wet concrete curb at the bottom of frame.
 
-3. Right curb, parked cars with a gap: a gray sedan and a rusted van. Ordinary factory cars only — no mesh, no plow, no pink, no armor. License plates are blank or unreadable.
+2. Travel lane, MOVING, nearer the camera than the person: the Pink Menace — a classic VW Beetle, unmistakably a Beetle — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. All four must read: welded steel mesh cages over the side glass and the windshield; a black tube bull bar carrying the FULL-WIDTH nose plow blade described above; riveted metal plating on the left door and rear quarter; oversize knobby tires on chrome slot wheels. The Beetle occupies the right half of this two-lane side street. It is SQUARED in its lane: long axis parallel to the centerline, wheels tracking straight up the wet lane, nose pointing straight toward the TOP of the frame. It is ROLLING — wet tire spray / a thin rooster-tail off the knobbies, slight motion blur on the wheels, a wet wake on the asphalt behind. Not parked. Not stationary. Not angled toward the curb. Not parked-diagonal across the lane. The sloping REAR engine lid and rear window mesh are nearer the camera and large. The plow and bull bar are on the FAR / leading / FRONT end. There is NO blade on the rear. There is NO blade on a flank or corner. The Beetle is still SHORT of the person: one to two car-lengths of wet travel-lane asphalt sit between the far front plow blade and the person's shoe. Same hazard distance as take 63 — do not push the van/sedan/person to the horizon.
+
+3. Right curb, mid-distance (take-63 closeness, not take-67 far): a gray sedan and a rusted van parked parallel along the far right curb, a gap between them. Ordinary factory cars only — no mesh, no plow, no pink, no armor. License plates are blank or unreadable.
 
 4. Subject in that gap, FURTHER from camera than the Beetle: an adult in a dark coat, face turned away from camera, HALFWAY out of the gap. Torso and one shoulder still between the sedan and the van, partly hidden / occluded. ONE SHOE is already ON the travel-lane asphalt, past the parked-car line. The other foot is still in the gap. This is a step INTO the roadway. Not standing fully in the open street. Not walking freely in the open lane. Not leaning on a door. Coat and shoes only.
 
-5. Background: overcast cold afternoon, two-lane side street, low brick, no crowd. Oncoming half empty.
+5. Background: overcast cold afternoon, two-lane residential arterial, low houses, bare trees, no crowd. Oncoming half empty.
 
 The read: a person is stepping out from between parked cars into the travel lane.
 Muted-text test: if every caption were hidden, that single fact is the first thing the eye reads — the shoe on travel-lane asphalt, the Beetle still approaching, not arrived.
@@ -38,4 +45,4 @@ Left-hand-drive. United States, traffic drives on the right. The pink vehicle is
 
 Traffic signs are single-faced. This card does not teach a sign face. Every sign face stays blank. No license-plate numbers.
 
-No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs. No right-hand drive. No face toward camera. No child. No crowd. No person standing fully in the open roadway without the parked-car gap. No person walking freely in the open lane. No Beetle already even with or past the person. No Beetle parked beside the person. No Beetle facing the camera. No headlights or plow toward the viewer. No plow blade attached to the rear of the Beetle. No flank-mounted blade. No corner-mounted blade. No second pink car. No night, no dusk-as-night, no black sky. The sky must be readable daylight or pale overcast gray-white, not black. Aspect ratio 2:3.
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs. No right-hand drive. No face toward camera. No child. No crowd. No person standing fully in the open roadway without the parked-car gap. No person walking freely in the open lane. No Beetle already even with or past the person. No Beetle parked beside the person. No Beetle facing the camera. No headlights or plow toward the viewer. No plow blade attached to the rear of the Beetle. No flank-mounted blade. No corner-mounted blade. No narrow flap plow. No small panel hanging off one side of the bull bar. No one-third-width blade. No bare bull bar with only a partial blade. No Beetle parked or angled diagonally across the lane. No stationary Beetle. No Beetle nose pointed at the curb. No second pink car. No night, no dusk-as-night, no black sky. The sky must be readable daylight or pale overcast gray-white, not black. Aspect ratio 2:3.

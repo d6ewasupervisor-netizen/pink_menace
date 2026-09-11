@@ -1,9 +1,9 @@
-# IV-004 — regen after Claude FAIL on take 43 (PR #77)
+# IV-004 — regen after Claude FAIL on take 63 (PR #79)
 
-Branch from `cursor/promote-menace-cabin-6b66` so cabin lock + daylight
-negatives stay. **Plate-pool fix:** `pink_menace_exterior` now attaches
-`ref_car_nose_plow.png` (PR #69 take 5) on every Menace exterior compile.
-Rear / flank / corner plow plates are banned.
+Branch from `cursor/iv-004-nose-plow-pool-da02` so the nose-plow pool
+fix stays. **This pass:** `ref_car_nose_plow.png` is attached DIRECTLY on
+every IV-004 GenerateImage call (plus pool + `ref_car_exterior.jpg`).
+Rear / flank / corner plow plates stay banned.
 
 Card JSON is sole brief authority. Overcast PNW daylight. Not seeded.
 No Act I–III. IV-005 / IV-012 / IV-026 / IV-027 / 028 / 030 untouched.
@@ -12,7 +12,7 @@ No Act I–III. IV-005 / IV-012 / IV-026 / IV-027 / 028 / 030 untouched.
 
 | Card | Camera | Attach |
 |---|---|---|
-| IV-004 | `POV_ROADSIDE` | `ref_car_exterior.jpg` + `ref_car_nose_plow.png` |
+| IV-004 | `POV_ROADSIDE` | `ref_car_exterior.jpg` + `ref_car_nose_plow.png` (direct) |
 
 `ref_cockpit.jpg` is banned. `ref_car_rear_plow.jpg` / flank / corner plow
 plates are banned.
@@ -22,47 +22,69 @@ Compile check: IV-004 attachments are `ref_car_exterior.jpg`,
 
 ## FAIL this pass is fixing
 
-| Card | Take-43 residual | Fix |
+| Card | Take-63 residual | Fix |
 |---|---|---|
-| **IV-004** | Plow on the rear; person walking in the open; pair parallel | Attach nose plow plate; Menace moving in-lane, still short of the person; pedestrian mid-step from the gap (occluded); clean rear |
+| **IV-004** | Narrow flap (~1/3 width) on the right of the bull bar, not the plate's full-width blade; Beetle parked-diagonal, nose toward curb, no motion | Direct-attach nose plow plate; blade spans full bull-bar width, edges ~level with front wheels; Menace squared in-lane and moving (tire spray, nose straight); keep take-63 hazard distance |
+
+Take 67: same flap + diagonal; hazards further away. Keep take 63's scene.
 
 ## Closest for Claude muted-read
 
 | Card | Lesson | Shot | Closest | Runner-up |
 |---|---|---|---|---|
-| **IV-004** | a person is stepping out from between parked cars into the travel lane | `POV_ROADSIDE` | `cards/takes/IV-004-take-63.png` | take 67 |
+| **IV-004** | a person is stepping out from between parked cars into the travel lane | `POV_ROADSIDE` | `cards/takes/IV-004-take-103.png` | take 74 |
 
-### IV-004 take 63
+### IV-004 take 103 (closest)
 
-KEEP vs take 43: the promoted nose plate reached the compile. Full-width
-blade is on the FRONT bull bar; rear engine lid is clean (thin bumper only).
-Beetle is in the travel lane and SHORT of the person. Daylight, mesh, riveted
-door, knobbies. Street reads.
+KEEP vs take 63: the attached nose plate reached the pixels. Full-width
+blade is on the FRONT bull bar — one continuous wide flat plate, outer
+edges roughly level with the front wheels, matching `ref_car_nose_plow.png`.
+Beetle is squared in-lane and MOVING (wet tire spray). Person is between
+the rusted van and the gray sedan, one foot toward the travel lane.
+Beetle is large / short of a distant horizon (take-63 closeness class).
+Mesh, riveted door, knobbies. Overcast daylight. Clean of a rear plow.
 
-Residuals: heading is more rear-right three-quarter / profile than dead-away
-(nose points right, not straight at the top). Person still walking in the
-open between the van and sedan, not mid-step out of a gap. Beetle still
-reads parked-ish. Pair still parallel. Extra roof cage bar.
+Residuals: heading is **toward camera** (geometry wants `away_from_camera`,
+plow toward the top of the frame). Person reads more in the open between
+the pair than occluded mid-step from the gap. Pair still parallel-parked
+(take-63 scene, which Claude called OK).
 
-### IV-004 take 67
+### IV-004 take 74 (runner-up)
 
-KEEP: away-er heading (rear nearer camera); front blade peeks at the
-far/right-front corner; clean rear; Beetle short of the person; daylight /
-mesh / street.
+KEEP: same full-width FRONT blade + in-lane tire spray. Street is closer
+to take 63 (houses, centerline, van+sedan at the right curb, Beetle large).
+Mesh / knobbies / overcast.
 
-Residuals: front blade can read as a corner peek rather than a full-width
-nose plate. Person still in the open. Pair parallel. Stationary stance.
+Residuals: also toward-camera. Person walking in the open rather than
+mid-step from the gap. Sedan and van more separated than a tight gap.
+
+### Away-family keep (if heading is a hard reject)
+
+`cards/takes/IV-004-take-76.png` — take-63 scene and hazard distance,
+squared in-lane, visible tire spray, clean rear. Residual: the far-front
+blade is still the take-63 **narrow flap**. This is the parked-diagonal
+fix without the plate's blade. Do not pick over 103 unless toward-camera
+is an automatic fail.
 
 ## Discard this pass
 
-- Rear plow (take-43 class): 51, 52, 58, 60, 61
-- Clean rear, no visible front blade, person in the open: 53, 54, 55, 57, 62, 65
-- Person in the sedan/van gap but Beetle even with them, no front blade: 56, 59
-- Front blade + clean rear but person at an open van door / wrong heading: 64
-- 66: similar to 67, weaker
+- Rear plow / dual plow (wide plate on the near bumper): 68, 71, 73, 89, 99, 100, 102, 105, 107
+- Toward-camera, full-width front blade, weaker than 103/74: 69, 72, 75, 104
+- Away, motion, flap or no readable front blade: 70, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 97, 98, 101, 106
+- 76 kept as the away-family note above
+
+## Compiler note
+
+Away + full-width front blade did not co-occur in 40 takes (68–107). The
+plate's front three-quarter is copied as a toward-camera car; dead-away
+hides the plate or shrinks it to a flap; asking for the plate's width on
+an away car often welds that plate onto the rear. Direct-attach fixed
+*what* the blade is when the nose faces the lens. It did not rotate that
+blade onto the far end of an away Beetle.
 
 ## This pass (not seeded)
 
-- IV-004: `cards/takes/IV-004-take-51.png` … `take-67.png`
-- Closest: take 63
-- Runner-up: take 67
+- IV-004: `cards/takes/IV-004-take-68.png` … `take-107.png`
+- Closest: take 103
+- Runner-up: take 74
+- Away-family keep: take 76

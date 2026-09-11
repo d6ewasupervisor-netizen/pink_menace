@@ -118,8 +118,10 @@ PINK MENACE:
   sloping rear engine cover, domed roof — faded matte pink with oxidation.
   All four of the following must be clearly visible and unmistakable: welded
   steel mesh cages over the side glass and the windshield, a black tube bull
-  bar carrying a full-width nose plow blade on the front bull bar (no
-  flank-mounted blade — match ref_car_nose_plow.png), riveted metal plating
+  bar carrying one continuous wide flat nose plow blade that spans the
+  FULL WIDTH of the front bull bar, outer edges roughly level with the
+  front wheels (no narrow flap, no one-third-width tab, no flank-mounted
+  blade — match ref_car_nose_plow.png), riveted metal plating
   over the door on the left side of the vehicle and the rear quarter panel,
   and oversize knobby tires on chrome slot wheels"
 
@@ -578,7 +580,7 @@ else. No commentary. No alternatives.
 | Card contains | Attach |
 |---|---|
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
-| Pink Menace exterior | `ref_car_exterior.jpg` (silhouette / build; ignore salt-flat light) and `ref_car_nose_plow.png` (overcast square plow plate — full-width nose blade on the front bull bar; no flank-mounted blade; nothing on the rear). Preserve mesh on side glass and windshield, riveted metal door panel, knobby tires on chrome wheels, faded pink + bare-metal. Never attach `ref_car_rear_plow.jpg` or any flank / corner plow plate. |
+| Pink Menace exterior | `ref_car_exterior.jpg` (silhouette / build; ignore salt-flat light) and `ref_car_nose_plow.png` (overcast square plow plate — one continuous wide flat nose blade spanning the FULL WIDTH of the front bull bar, outer edges roughly level with the front wheels; no narrow flap; no flank-mounted blade; nothing on the rear). Preserve mesh on side glass and windshield, riveted metal door panel, knobby tires on chrome wheels, faded pink + bare-metal. Never attach `ref_car_rear_plow.jpg` or any flank / corner plow plate. |
 | Pink Menace interior / `POV_COCKPIT` | `ref_menace_cabin.png` (take 16, human-verified). Never `ref_cockpit.jpg`. |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
