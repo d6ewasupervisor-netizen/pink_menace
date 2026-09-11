@@ -1,0 +1,59 @@
+{
+  "card_id": "IV-028",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "Neither Names the Lot",
+  "hook": "Two on the seat. Nobody mentions the lot.",
+  "scene": "Overcast midday, the Menace parked in a downtown lot stall, cluster at zero. Gracie and Mya are both on the passenger seat again — orange and brown, cream chest and dark stripe — boxed earlier, loose now because you are still. Nobody says Kent. Nobody says the collar. Nobody says who held her. Two cats, one seat, the same weight as I-003 and none of the talk. The Core is a wall of brick through the mesh. You let the quiet sit.",
+  "debrief": "Both cats are on the seat. Nobody names the lot. You saved the lot a sentence nobody said.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Mya beat: both cats on the seat, parked; neither Ali nor the card names the lot or the collar."
+  },
+  "cast": [
+    "ali",
+    "gracie",
+    "mya"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "both cats on the passenger seat — Gracie the orange tabby with cream chest, Mya the brown mackerel with a dark dorsal stripe — settled, neither on the dash",
+    "foreground": "worn wheel, faded pink dash, cluster at 0, mesh over the glass",
+    "midground": "the two cats sharing the seat, carrier clipped and stowed on the floor next to the seat",
+    "background": "overcast midday, downtown lot brick through the mesh, empty stall paint",
+    "read": "both cats are on the seat; the speedometer reads 0",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie",
+      "mya"
+    ],
+    "extra_negatives": [
+      "no cats on the dash",
+      "no Deac",
+      "no Ledger",
+      "no Quiet",
+      "no obese Mya"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "parked in a stall, not in a travel lane",
+      "ego_nose_in_frame": "the plow points at empty lot asphalt through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "midday",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

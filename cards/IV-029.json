@@ -1,0 +1,117 @@
+{
+  "card_id": "IV-029",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Pass She Leaves",
+  "hook": "The gap is there. She does not take it.",
+  "scene": "Rain at night on a four-lane leaving the Core. Yuna is on the bench you do not have — passenger seat, both in-ears out, watching the left. A box is doing your number. The left is empty for a breath. A pass would buy a length and a show. She does not reach for the stalk and she does not tell you to. The loudest driver in the Core just taught the pass she does not take. The length is still a length. The rain is still rain.",
+  "decision": "The left is empty and the box is at your speed. Do you pass?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Take it — empty left is permission and Yuna will want to see you move",
+      "correct": false,
+      "result": "You take a pass that buys a length. Spray on his glass. He lifts. You are louder and even again at the next light. She does not clap. The audience was never the point.",
+      "state_delta": {
+        "noise": 3,
+        "passenger_stress": 1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Sit on his bumper until he notices and gives you the right",
+      "correct": false,
+      "result": "You become a threat in the rain. He does not move. She looks at the glass, not at you. Nothing is gained except an enemy and a passenger who is done watching.",
+      "state_delta": {
+        "noise": 4,
+        "passenger_stress": 2,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Hold the right. Keep the gap. Let the empty left stay empty",
+      "correct": true,
+      "result": "You stay. He stays. The left stays a lane for someone who needs it. You arrive the same minute. She nods once, like a count-in that does not start. That is the thesis.",
+      "state_delta": {
+        "noise": -1,
+        "passenger_stress": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "d",
+      "text": "Flash him once so he yields, then take it without calling it a pass",
+      "correct": false,
+      "result": "The flash is a demand. He brakes. You almost eat a box you did not need. She puts one in-ear back in. You spent a show she already refused.",
+      "state_delta": {
+        "light": 3,
+        "noise": 1,
+        "passenger_stress": 2,
+        "time_cost": 4
+      }
+    }
+  ],
+  "debrief": "Do not pass just because the left is empty. The loudest Core driver knows when not to be. Yuna nods once and does not clap.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "n/a",
+    "teaching_target": "Yuna's thesis: decline a pass that gains nothing; being loud includes knowing when not to be."
+  },
+  "cast": [
+    "ali",
+    "yuna"
+  ],
+  "antagonist": "splitter",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "subject": "RIGHT of frame: pink Beetle in the right travel lane, a plain box truck ahead in that same lane. LEFT of frame: empty travel lane. Both travel away from camera. Rain at night.",
+    "foreground": "wet skip-dashed white; LEFT edge is a curb, not a yellow line",
+    "midground": "the box truck two lengths ahead, factory mirrors only; the left travel lane empty",
+    "background": "rain, night, lamps leaving downtown, no Encore in frame, no opposing traffic",
+    "read": "the left is empty and the two vehicles are already doing the same speed",
+    "extra_negatives": [
+      "no Encore",
+      "no horn flares",
+      "no chevron",
+      "no Ledger",
+      "no yellow centerline"
+    ],
+    "continuity": [
+      "diagram_style",
+      "pink_menace_exterior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two southbound lanes",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, away from camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "plain box truck",
+          "frame_side": "same",
+          "lane_from_left": 2,
+          "along": "ahead",
+          "lengths": 2
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "rain",
+    "time_of_day": "night",
+    "tone": "procedural",
+    "failure_mode": "speed"
+  }
+}

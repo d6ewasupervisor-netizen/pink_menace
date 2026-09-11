@@ -1,0 +1,102 @@
+{
+  "card_id": "IV-011",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Backing Into People",
+  "hook": "Angled stall. The street behind you has people.",
+  "scene": "Heavy rain at night in a downtown lot that still paints its stalls on a bias. You are nose-in, plow to the wall. Backing out puts you into a two-lane street. Two figures are already in that street — dark coats, not a crosswalk, walking the lane like it is a sidewalk. The lot wants you out. The street does not owe you a hole. You have to leave a stall into people who are not looking at a reverse lamp.",
+  "decision": "You are nose-in and the street behind the stall has people. How do you leave?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Reverse now — they will see the lamps and move",
+      "correct": false,
+      "result": "You come out on a guess. They do not see the lamps in the rain. The plow is the wrong end for this. You write two coats into a stall exit. The lot did not need that sound.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Honk the whole reverse so they know a car is coming",
+      "correct": false,
+      "result": "You back up shouting. They jump and scatter into the other lane. A primer car has to lift. Sound got them off your paint and onto someone else's.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "c",
+      "text": "Wait until they pass, then creep out and stop if anyone new enters the street",
+      "correct": false,
+      "result": "You wait once and then commit. A third coat steps off the curb after you are already rolling. Waiting is not the same as checking the whole time you move.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Wait them out, check both ways, creep, and be ready to plant it the whole reverse",
+      "correct": true,
+      "result": "You let the coats clear. You look both ways. You creep. A third person appears and you plant it. They pass. You finish into an empty street. The stall stays a stall.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "Angled and straight-in stalls back into a live street. People in that street own it until they are gone. Wait for them to clear, then creep.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "4.18 Parking",
+    "teaching_target": "When backing out of angled or perpendicular parking, yield to people and traffic in the street; creep and be ready to stop."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "subject": "RIGHT of frame: pink Beetle nose-in in an angled stall, plow toward the lot wall. Behind the stall, two dark-coated figures in the two-lane street. LEFT of frame: empty travel lane.",
+    "foreground": "angled stall paint and a wet lot aisle; street curb behind the stall",
+    "midground": "the Beetle's rear toward the street; two figures in the travel lane the reverse would enter",
+    "background": "heavy rain, night, downtown lot lamps, no opposing traffic in frame",
+    "read": "the Beetle is nose-in; two people stand in the street the reverse would enter",
+    "extra_negatives": [
+      "no faces",
+      "no child",
+      "no Encore",
+      "no Ledger"
+    ],
+    "continuity": [
+      "diagram_style",
+      "pink_menace_exterior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "angled stall on the right of a lot aisle, nose to the wall",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, into the stall wall",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "heavy_rain",
+    "time_of_day": "night",
+    "tone": "procedural",
+    "failure_mode": "inexperience"
+  }
+}

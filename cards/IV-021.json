@@ -1,0 +1,106 @@
+{
+  "card_id": "IV-021",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Not Your Collision",
+  "hook": "A crash ahead that is not yours.",
+  "scene": "Rain at afternoon on a viaduct heading out of the Core. Two cars have already made a shape that was not in the plan — doors open, glass on the asphalt, no people standing. Your lane is the one that still moves. The timeout is driving past like it is scenery. A witness slows, gives space, remembers what they can say. Becoming the third car is not witnessing. Neither is a screen.",
+  "decision": "The crash is ahead and it is not yours. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Slow, give a wide gap, look enough to remember, do not become the next car",
+      "correct": true,
+      "result": "You dump speed early. You take a gap that leaves them a door. You look once. You keep rolling when you are clear. You could say what you saw. You did not add a third pair of lamps.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Stop in your lane and get out to help — that is what a witness does",
+      "correct": false,
+      "result": "You plant a Beetle in a live viaduct lane and become a body. The next car does not expect you. Witnessing is not standing in the travel path. You wrote a third problem.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "c",
+      "text": "Hold your number and drive past — not your crash, not your minute",
+      "correct": false,
+      "result": "You take the number through the glass. You could not say which car moved first. You also clip a door that was already open. Driving past is how a witness becomes a second crash.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Film it for the convoy so someone else can report it",
+      "correct": false,
+      "result": "The tablet comes up. Your eyes leave the viaduct. The Chorus would love this. You miss the open door and add a scrape to a crash you were supposed to see.",
+      "state_delta": {
+        "light": 2,
+        "noise": 3,
+        "damage": 1,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "A crash that is not yours still needs a witness. Slow, give space, look enough to remember. Ali looks once and does not add a third car.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "5.9 Collisions (Witnessing a crash)",
+    "teaching_target": "When witnessing a crash: slow, give space, observe, do not become part of it or drive past without looking."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "chorus",
+  "callback_of": null,
+  "schedules_callback": true,
+  "timeout_option_id": "c",
+  "timeout_ms": 8000,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "two stopped cars ahead on the viaduct, doors open, glass on the asphalt, no people standing, your lane still open on their right",
+    "foreground": "worn wheel and mesh, rain on the grid",
+    "midground": "the open doors and the glass, a gap you could take without touching them",
+    "background": "rain, afternoon, concrete viaduct, no readable plates",
+    "read": "two cars are already stopped with doors open; the travel lane beside them is still open",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "extra_negatives": [
+      "no people standing",
+      "no faces",
+      "no blood",
+      "no corpses",
+      "no tablet in the foreground"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two lanes this direction",
+      "ego_nose_in_frame": "the plow points at the gap beside the two stopped cars",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "rain",
+    "time_of_day": "afternoon",
+    "tone": "grim",
+    "failure_mode": "distraction"
+  }
+}

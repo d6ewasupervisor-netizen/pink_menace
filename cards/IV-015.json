@@ -1,0 +1,111 @@
+{
+  "card_id": "IV-015",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The One on the Left",
+  "hook": "No sign. The car on your left waits.",
+  "scene": "Overcast morning, a downtown cross with no sign and no light — two two-lanes meeting like someone forgot the post. You and a gray primer car arrive together. They are on your left. You are on their right. Their nose is already creeping. Yours wants to match it. The Core still has corners that never got a face.",
+  "decision": "You arrive together and they are on your left. Who goes?",
+  "options": [
+    {
+      "id": "a",
+      "text": "You go — they are on your left, so they wait",
+      "correct": true,
+      "result": "You take the crossing at a crawl. They hold. Two cars, one rule, no horn. The corner that never got a sign still had an order.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
+    },
+    {
+      "id": "b",
+      "text": "Wave them through so you do not have to own the corner",
+      "correct": false,
+      "result": "You wave. They wave. Nobody goes, then both go. Noses meet in the middle. Politeness invented a tie the paint already broke.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stop long enough that they get tired and go, then follow",
+      "correct": false,
+      "result": "You plant it like a sign that is not there. They finally go, late. The car behind you does not know why you died at an empty corner. You taught the block to stall.",
+      "state_delta": {
+        "time_cost": 10
+      }
+    },
+    {
+      "id": "d",
+      "text": "Go together and split the middle — you arrived as a pair",
+      "correct": false,
+      "result": "You both take it. The middle is one plow wide. Steel on a primer quarter. Arriving together is why one of you waits, not why both of you go.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 8
+      }
+    }
+  ],
+  "debrief": "At a crossing with no sign and no light, yield to the driver on your right. If they are on your left, you go. Do not wave the order away.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "4.15 Other intersections (Uncontrolled Intersection)",
+    "teaching_target": "At an uncontrolled intersection, the vehicle on the left yields to the vehicle on the right."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "cold_roads",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "subject": "two two-lane streets meeting with no sign post and no signal. BOTTOM of frame: pink Beetle approaching the crossing. LEFT of frame: gray primer car on the cross street, nose even with the paint.",
+    "foreground": "worn crossing, no stop bar, no octagon, no signal head",
+    "midground": "the Beetle and the primer car arriving together; the primer car sits on the Beetle's left",
+    "background": "overcast morning, downtown brick, empty sidewalks, no extra cars",
+    "read": "no sign and no light; the other car is on the left of the Beetle",
+    "extra_negatives": [
+      "no stop sign",
+      "no traffic light",
+      "no yield sign",
+      "no Encore",
+      "no Ledger"
+    ],
+    "continuity": [
+      "diagram_style",
+      "pink_menace_exterior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of the southbound approach",
+      "ego_nose_in_frame": "the plow points toward the crossing at the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "gray primer car",
+          "frame_side": "left",
+          "along": "beside",
+          "lengths": 0
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "inexperience"
+  }
+}
