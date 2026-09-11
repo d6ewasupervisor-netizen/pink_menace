@@ -25,7 +25,12 @@ You MAY NOT:
   - change the lighting model
   - add a mood, a color, or a time of day the brief did not specify
   - add text, logos, watermarks, HUD, or UI unless the brief's `read` requires
-    a sign face or gauge
+    a sign face or gauge. Standing text rule: legible text is permitted ONLY
+    on regulatory sign faces where the card teaches sign recognition.
+    Everywhere else the surfaces are blank. Spell each taught legend exactly
+    once — no letter-doubling (ONEWAYWAY / NOTURNONREDDED / TRANSITONLYLY).
+    A sign-recognition card that names multiple faces (IV-007) compiles all
+    named faces; do not apply the "exactly one sign face" road clause there.
   - depict anything in bible §9 FORBIDDEN
   - emit role-relative spatial terms: driver's side, driver-side, passenger
     side, passenger-side, near side, off side, driver's window, driver's door.
@@ -256,6 +261,12 @@ legible sign faces teaches nothing about who stops — they become wallpaper.
 
 This applies past stop signs — yields, one-ways, speed limits, no-parking.
 Append the clause to every road compile.
+
+**Sign-recognition exception.** When the card's `read` names two or more
+regulatory faces (IV-007: ONE WAY, NO TURN ON RED, TRANSIT ONLY), those faces
+are the lesson. Compile every named face. Do not apply "exactly one sign face."
+Standing text rule: legible text only on those taught regulatory faces;
+everywhere else blank. Spell each legend once — no letter-doubling.
 
 ### 5. No detached body parts
 Any brief asking for "a hand" or "an arm" without the rest of the body in frame

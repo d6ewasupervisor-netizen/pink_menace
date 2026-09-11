@@ -94,6 +94,21 @@ const PROFILE_NEGATIVE =
 const SIGN_CLAUSE =
   "Traffic signs are single-faced. Any sign in frame is legible only if it faces the camera's direction of travel. Signs governing a cross or opposing approach show their blank reverse side. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.";
 
+const SIGN_RECOGNITION_CLAUSE =
+  "This card teaches sign recognition. The named regulatory sign faces are the only legible text in frame. Spell each legend exactly once in standard US wording — no doubled letters, no duplicated words, no ONEWAYWAY, no NOTURNONREDDED, no TRANSITONLYLY. Every other surface is blank: no street names, no ads, no extra plaques. Signs are single-faced; backs of any other signs are blank.";
+
+function signClauseFor(brief) {
+  const blob = [brief.subject, brief.read, brief.foreground, brief.midground]
+    .filter(Boolean)
+    .join(" ");
+  const faceHits = blob.match(/\b(ONE WAY|NO TURN ON RED|TRANSIT ONLY|STOP|YIELD)\b/gi) || [];
+  const unique = new Set(faceHits.map((s) => s.toUpperCase()));
+  if (unique.size >= 2 || /three (sign )?faces|sign recognition/i.test(blob)) {
+    return SIGN_RECOGNITION_CLAUSE;
+  }
+  return SIGN_CLAUSE;
+}
+
 const LEDGER_CLIPBOARD_NEGATIVES =
   "No clipboard on the dashboard, no clipboard clipped to the windshield or the mesh, " +
   "no clipboard blocking the right half of the road, no log sheet in the glass. " +
@@ -269,7 +284,7 @@ function assemblePrompt(card) {
         parts.push(geometryPromptClause(brief.geometry, card.driver));
       }
     }
-    parts.push(SIGN_CLAUSE);
+    parts.push(signClauseFor(brief));
     const mark = markingAnchorClause(brief.geometry);
     if (mark) parts.push(mark);
   } else if (cam !== "POV_OBJECT" && cam !== "POV_PORTRAIT") {
@@ -321,4 +336,12 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };
+module.exports = {
+  assemblePrompt,
+  FRAMING,
+  MASTER_STYLE,
+  DIAGRAM_STYLE,
+  LHD,
+  OTHER_VEHICLE_CLAUSE_LEDGER,
+  signClauseFor,
+};
