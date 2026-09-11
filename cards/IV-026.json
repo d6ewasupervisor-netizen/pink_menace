@@ -67,11 +67,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "camera_pose": "Camera is at driver-eye height or just above, placed more centrally behind the Beetle — standing in or just over the empty LEFT travel lane near the skip-dashed line, looking forward along travel. Not low behind the right rear quarter. Not a steep bird's-eye. The Beetle occupies the RIGHT travel lane, heading AWAY: rear mesh, sloping engine lid with restored horizontal louvers, and a clean stock rear bumper are nearer the camera in the lower third. From this slightly-left driver-eye rear-three-quarter the FRONT black-tube bull bar is visible past the clean left flank, and that bull bar carries a FULL-WIDTH flat plow blade spanning BOTH front tires — match attached overcast plate ref_car_nose_plow.png. The blade is on the nose bull bar, not a small black stub at the left-front corner, and not an empty bull bar. Tight crop: two same-direction travel lanes; three hazards sit in her IMMEDIATE path about TWO Beetle-lengths ahead of the plow, not six-to-eight lengths up the block. The left travel lane is empty from the camera to the vanishing point. Real wet pavement, real painted skip-dashes. No extra side streets or curb clutter the brief did not name.",
-    "subject": "RIGHT of frame: faded-pink Beetle mid-motion in the right travel lane, heading away, full-width nose plow on the far bull bar. Two lengths ahead: open van door, person, bike. LEFT: empty lane.",
-    "foreground": "wet skip-dashed white; LEFT edge is a curb, not a yellow line; Beetle parallel to the dash; wet knobby tire spray; rear-deck louvers; clean rear bumper",
-    "midground": "three hazards stacked TIGHT in her next TWO lengths — open van door, person in the paint, upright bike — occupying her immediate path, not six-to-eight lengths up the block; none facing camera",
-    "background": "heavy overcast rain, flat gray Pacific Northwest afternoon daylight sky readable under overcast, wet small-town main street with depth, no opposing traffic",
+    "camera_pose": "Camera is at driver-eye height at the left curb / empty LEFT travel lane — a 45-to-60-degree left-rear three-quarter, not dead-astern and not low behind the right rear quarter. You see three faces at once: round rear (mesh, horizontal louvers, short STOCK bumper, no plow); clean riveted left flank; and the FRONT nose, large enough to read. On that far nose a black-tube bull bar carries one continuous full-width flat plow blade spanning both front tires, matching ref_car_nose_plow.png. Heading AWAY. Tight crop: two same-direction lanes on a wet downtown block. THREE hazards sit IN HER SAME right lane about TWO Beetle-lengths ahead of the nose blade. Left travel lane empty. No yellow centerline.",
+    "subject": "RIGHT: faded-pink Beetle heading away, full-width nose blade wrapping the far bull bar. TWO lengths ahead IN HER LANE: cargo van with open side door, person, upright bike. LEFT lane empty.",
+    "foreground": "wet skip-dashed white; left curb not a yellow line; knobby spray; rear louvers; short stock rear bumper — no rear tube bar",
+    "midground": "van door + person + upright bike LARGE and TIGHT in her same lane, two lengths off the plow — not on a sidewalk, not at a distant house",
+    "background": "heavy overcast rain, flat gray PNW afternoon daylight, wet brick downtown storefronts with depth, no houses-on-highway, no opposing traffic",
     "read": "three hazards sit in the Beetle's next two lengths; the left travel lane is empty",
     "extra_negatives": [
       "no faces",
@@ -106,7 +106,13 @@
       "no hazards six to eight lengths ahead",
       "no toward-camera heading",
       "no headlights or plow facing the viewer",
-      "no missing rear-deck louvers"
+      "no missing rear-deck louvers",
+      "no black tube bar across the rear bumper",
+      "no rear bull bar",
+      "no dead-astern camera that hides the nose blade",
+      "no hazards on the sidewalk",
+      "no suburban houses as the main set",
+      "no empty highway with no van"
     ],
     "continuity": [
       "pink_menace_exterior"
