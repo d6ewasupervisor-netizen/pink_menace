@@ -197,8 +197,17 @@ function assemblePrompt(card) {
   if (!framing) throw new Error(`${card.card_id}: cannot compile camera ${cam}`);
 
   const parts = [];
-  if (cam === "POV_DIAGRAM") parts.push(deac ? LEDGER_DIAGRAM_STYLE : DIAGRAM_STYLE);
-  else parts.push(deac ? DEAC_STYLE : MASTER_STYLE);
+  if (cam === "POV_DIAGRAM") {
+    if (card.card_id === "IV-026") {
+      parts.push(
+        "Cinematic photoreal still, same world as the rest of the game. 35mm full-frame equivalent, slightly elevated looking along travel — low street-level overhead from the left-rear three-quarter, not a steep bird's-eye — everything in focus enough to read lanes and the far nose blade. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Wet asphalt, moss, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, no HDR, no glow, no lens flare. This is a photograph of real vehicles on a real street, not a map, not an infographic, not a vector diagram."
+      );
+    } else {
+      parts.push(deac ? LEDGER_DIAGRAM_STYLE : DIAGRAM_STYLE);
+    }
+  } else {
+    parts.push(deac ? DEAC_STYLE : MASTER_STYLE);
+  }
 
   parts.push(framing);
 
@@ -229,6 +238,11 @@ function assemblePrompt(card) {
       (cam === "POV_DIAGRAM" && card.driver !== "yuna"));
   if (menaceExterior) {
     parts.push(MENACE_PLOW);
+  }
+  if (card.card_id === "IV-026") {
+    parts.push(
+      "The Beetle is in readable mid-motion: rolling straight away from the camera toward the three hazards at about two Beetle-lengths, wet knobby tire spray, wheels mid-roll — not parked still in an empty stretch. Body parallel to the skip-dashed line, not cocked, not yawed. Match the attached overcast plate ref_car_nose_plow.png: a full-width flat nose blade on the front black-tube bull bar spanning both front tires at the far leading end. The rear bumper nearest the camera is clean stock — no rear-mounted plow, no blade on the engine lid. The left flank is riveted plate only — no flank-mounted blade. Preserve mesh cages on side glass and windshield, riveted door plate, knobby tires on chrome slot wheels, faded pink + bare metal. Attach only ref_car_exterior.jpg and ref_car_nose_plow.png; do not attach ref_diagram_style.png or ref_car_rear_plow."
+    );
   }
   const quietNamed =
     continuityEarly.includes("the_quiet") ||
