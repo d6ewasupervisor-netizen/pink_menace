@@ -27,7 +27,7 @@ Everything below is already designed and paid for; Act III is where it deploys.
 
 | Axis | Act II | Act III |
 |---|---|---|
-| Driver | Ali | **Deac** — first driver swap of the game |
+| Driver | Ali | **Deac** — first driver swap of the game. She meets him here; Act II she drove alone (pack/28). |
 | Vehicle / cockpit | Menace: light, quick, fragile | **The Ledger**: heavy, slow, huge blind zones, high seat, west-coast mirrors |
 | Accent | Cranberry | **Transit amber** — UI, meters, timer ring all change color |
 | Weakness / antagonist | Speed / the Splitter | **Fatigue / The Drift** — input-lag pressure, a different kind of dread |

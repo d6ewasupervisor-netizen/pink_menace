@@ -217,7 +217,7 @@ function sceneFragment(scene) {
 }
 
 function imageUrl(cardId) {
-  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a66";
+  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a67";
 }
 
 function cargoUsed(state) {
@@ -881,7 +881,7 @@ async function publicCard(cardId) {
     camera: brief.camera || null,
     timeout_option_id: extra.timeout_option_id || null,
     timeout_ms: Number(extra.timeout_ms) || 24000,
-    show_cold: card.act !== "I",
+    show_cold: card.act !== "I" && card.card_id !== "II-000",
     suppress_presence: QUIET_IN_FRAME.has(card.card_id),
     lot_states: extra.lot_states || null,
     lot_voice: extra.lot_voice || null,

@@ -2,6 +2,8 @@
 
 After the DOL lot, the world notices her. Not four systems — two.
 
+II-000 (*No One in the Seat*) is the first Grid card: the permit, the empty passenger seat, Gracie where the licensed supervisor would sit. No cooler tag. Then II-001 names the insulin run.
+
 ## Mechanism one: physical debt
 
 Wrong answer schedules a later card (existing `schedules_callback` / `callback_of`).

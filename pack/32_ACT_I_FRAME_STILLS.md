@@ -12,19 +12,34 @@ Eight cards need art. The lot sequence (I-005 through I-008) is compiled and see
 - Presence overlay stays on for these eight (suppressed only on the four lot cards)
 - **Both cats only in I-001 and I-003.** After the lot: Gracie alone, empty seat.
 
+**Brief authority:** card JSON is the only authority for a card's brief. This pack file is how the briefs were written the first time; once a card is in `cards/`, the JSON wins and this file is history. See pack/00_README.md.
+
 See card JSON `image_brief` blocks for the locked briefs. I-010 uses `POV_ROADSIDE` from inside turned rearward — not a mirror token. `camera_pose` overrides the exterior roadside framing for that card.
 
-## Locked plates (10 Sep 2026)
+## Live plates (11 Sep 2026)
 
-| Card | Live | Notes |
-|------|------|-------|
-| I-001 | take 2 | both cats on the seat, Cascades |
-| I-002 | take 2 | exterior, door ajar |
-| I-003 | take 1 | belt + both cats on seat |
-| I-004 | take 2 | empty aisle, dark tablet |
-| I-009 | take 1 | left door mirror, empty aisle |
-| I-010 | take 2 | over-shoulder rear glass |
-| I-011 | take 3 | keyed handset, lit LED |
-| I-012 | take 2 | Gracie alone, 25 sign |
+Hashes against `cards/<id>.png`. Take numbers are the matching file in `cards/takes/`.
+
+| Card | Live | Status |
+|------|------|--------|
+| I-001 | take 4 | seeded — both cats on the seat, Cascades, closed cabin |
+| I-002 | take 5 | **seeded** — exterior, door closed, empty wet lot, low warehouse |
+| I-003 | take 9 | seeded — belt from left B-pillar + both cats on seat |
+| I-004 | take 2 | **seeded** — empty aisle, dark tablet |
+| I-009 | take 8 | **do not seed** — live still is a cockpit lap shot; awaiting new takes under `cards/I-009.json` (`POV_MIRROR_DOOR`, Gracie on the passenger seat, empty aisle in the left glass, warehouse lot) |
+| I-010 | take 8 | **do not seed** — fails continuity (parked cars in an empty lot). Needs empty-aisle reshoot, same rearward OTS framing |
+| I-011 | take 5 | seeded — keyed handset, lit LED |
+| I-012 | take 5 | seeded — Gracie alone, 25 sign, full roof and windshield cage |
 
 Lot cards I-005–I-008 untouched.
+
+I-009 and I-010 new takes stay in `cards/takes/` until a human pass. Do not copy them to `cards/I-009.png` or `cards/I-010.png`.
+
+**Take 9–12 on I-009 belong to [PR #6](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/6).** They follow the *old* locked JSON (Gracie on the driver lap). Do not treat them as the current brief. This file does not re-add those PNGs.
+
+New batch (11 Sep 2026), compiled from the *current* `cards/I-009.json` / `cards/I-010.json`:
+
+| Card | Takes | Notes |
+|------|-------|-------|
+| I-009 | take 13–16 | `POV_MIRROR_DOOR`, Ali in the driver seat, Gracie on the passenger seat, empty beside her, empty aisle in the left glass, warehouse lot. None seeded. |
+| I-010 | take 9–12 | Same rearward OTS as live take 8; aisle empty, warehouse frontage, no parked cars. None seeded. |

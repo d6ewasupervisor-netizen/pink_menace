@@ -41,6 +41,8 @@ Three layers, and the order matters.
 
 `27_ACT_III_CLOSEOUT.md` is the Act III ship checklist and the handoff to shell + watch layer.
 
+`28_THE_SPOKANE_SPINE.md` is the campaign through-line: Spokane, the permit, Act I as the day the official path closed (not Certification), Act II driven alone, and the mock exam as the real DOL test Deac administers from the state book.
+
 `22_III_001_RIDE_ALONG.md` is Deac's twelve-line watch-layer handoff for III-001. Hand-written. Not generated.
 
 `23_THE_SPOKEN_DICTIONARY.md` is the voice authority. Cards, chrome, barks, manifest, ride-along, compile prompts, and the bible draw from it. If a word is in the swap column, it does not print. Act III's zone name is **Central**.
@@ -60,6 +62,10 @@ Three layers, and the order matters.
 7. Chunk size 100 for any bulk pass. Run twenty §9 ceiling tests before committing a full act.
 
 `19_ACT_II_ART_AUDIT.md` is the human art pass for Act II — frame-by-frame read against card text, with rebuild prompts for failures.
+
+## Brief authority
+
+**Card JSON is the only authority for a card's brief.** Pack files are how a brief is written the first time; once the card is in `cards/`, the pack is history. Do not "correct" a live `image_brief` from a pack markdown. Edit the JSON.
 
 ## Regeneration rule
 

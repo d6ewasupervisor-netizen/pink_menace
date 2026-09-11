@@ -81,11 +81,14 @@ function withManifest(payload, run, card, session, answersInAct) {
   if (act === "I") {
     return { ...payload, manifest: { show: false } };
   }
+  // II-000 may already be answered; the insulin clipboard still opens on II-001.
+  const answersOk =
+    answersInAct === 0 || (act === "II" && card && card.card_id === "II-001" && answersInAct <= 1);
   return {
     ...payload,
     manifest: {
       ...manifestFor(act, session && session.name),
-      show: answersInAct === 0 && !payload.pending_outcome && !recap && opener && !(card && card.hold),
+      show: answersOk && !payload.pending_outcome && !recap && opener && !(card && card.hold),
     },
   };
 }

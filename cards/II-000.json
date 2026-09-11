@@ -1,0 +1,57 @@
+{
+  "card_id": "II-000",
+  "act": "II",
+  "zone": "The Grid",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "No One in the Seat",
+  "hook": "Nobody is coming to sit beside you.",
+  "scene": "The permit in the glovebox says a licensed driver is supposed to be in the passenger seat, five years of driving behind them, watching what you do. There is no one at the counter to enforce that and no one left to ask. Gracie is where that person would sit. You are nineteen years old with a permit, an empty office behind you, and two hundred and eighty miles between you and your mother, and the only thing holding the standard up now is you.",
+  "debrief": "A permit means supervised. There is no one to supervise you, so the standard is yours to keep.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Name the empty seat. A permit requires a licensed supervisor. There is none. She keeps the standard anyway."
+  },
+  "cast": ["ali", "gracie"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "camera_is_the_lesson": true,
+    "subject": "empty wet residential street ahead through the mesh — Kent, overcast, no highway",
+    "foreground": "worn black leather wheel rim, cracked pink dash, welded mesh over real windshield glass",
+    "midground": "Gracie the orange tabby alone on the passenger seat, cream chest, paws on the cushion; the seat space beside her empty",
+    "background": "quiet Kent side street, single-story houses, bare maples, flat grey sky, no people",
+    "read": "the passenger seat has a cat and no licensed driver, and the street ahead is empty",
+    "continuity": ["pink_menace_interior", "gracie"],
+    "extra_negatives": [
+      "no people",
+      "no second cat",
+      "no Quiet",
+      "no highway",
+      "no cooler",
+      "no cargo crates",
+      "no insulin pack",
+      "no licensed adult in the seat",
+      "no cat on the dash",
+      "no cat on a lap"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of a quiet two-lane residential street",
+      "ego_nose_in_frame": "the plow points down the empty street through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}

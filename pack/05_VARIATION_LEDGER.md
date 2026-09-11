@@ -91,6 +91,7 @@ Do not let the generator choose slots. Build the slot list up front from the Zon
 
 | Slot | Type | PSDP | DOL | Failure mode |
 |---|---|---|---|---|
+| II-000 | dossier | n/a | n/a | none |
 | II-001 | dossier | n/a | n/a | none |
 | II-002 | scene | Skill five: driving on a quiet street – part one | 4.17 Zones (School zone) | inexperience |
 | II-003 | rule | Skill five: driving on a quiet street – part one | 4.12 Signs | none |
