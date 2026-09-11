@@ -24,13 +24,13 @@
   ],
   "lot_voice": {
     "called": {
-      "ride_open": "Keep your voice down in this cab. After that lot, I would too. Left mirror. Right mirror. Left again."
+      "ride_open": "You're quiet. That's new, or it isn't. Either way, keep it."
     },
     "correct": {
-      "ride_open": "You did the quiet cut. The lot took her anyway. That is not on this merge. Left mirror. Right mirror. Left again."
+      "ride_open": "You check things. I noticed that before I noticed anything else."
     },
     "slow": {
-      "ride_open": "You spent the time. The lot does not give it back. Keep your eyes moving. Left mirror. Right mirror. Left again."
+      "ride_open": "You're careful. Careful and slow aren't the same animal. We'll work on the difference."
     }
   },
   "ride_beats": [

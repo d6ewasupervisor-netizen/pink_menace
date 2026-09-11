@@ -883,8 +883,6 @@ async function publicCard(cardId) {
     timeout_ms: Number(extra.timeout_ms) || 24000,
     show_cold: card.act !== "I",
     suppress_presence: QUIET_IN_FRAME.has(card.card_id),
-    lot_states: extra.lot_states || null,
-    lot_voice: extra.lot_voice || null,
     ride_along: Array.isArray(extra.ride_along) ? extra.ride_along : null,
     ride_beats: Array.isArray(extra.ride_beats) ? extra.ride_beats : null,
     image_url: card.has_image ? imageUrl(card.card_id) : null,
@@ -917,33 +915,57 @@ function applyLotVoice(card, lotState) {
   if (!card || !lotState) return card;
   const voice = card.lot_voice && card.lot_voice[lotState];
   if (!voice) return card;
-  if (voice.scene) card.scene = voice.scene;
+  if (voice.scene) {
+    card.scene = voice.scene;
+  } else if (voice.scene_append && card.scene) {
+    const add = String(voice.scene_append).trim();
+    if (add && !String(card.scene).endsWith(add)) {
+      card.scene = String(card.scene).replace(/\s+$/, "") + " " + add;
+    }
+  }
   if (voice.hook) card.hook = voice.hook;
   if (voice.debrief) card.debrief = voice.debrief;
   if (voice.ride_open && Array.isArray(card.ride_along) && card.ride_along.length) {
-    card.ride_along = [voice.ride_open, ...card.ride_along.slice(1)];
+    if (card.ride_along[0] !== voice.ride_open) {
+      card.ride_along = [voice.ride_open, ...card.ride_along];
+      if (Array.isArray(card.ride_beats)) {
+        card.ride_beats = [{ look: "road", tap: "anywhere" }, ...card.ride_beats];
+      }
+    }
   }
   if (voice.bark) card.bark = voice.bark;
   return card;
 }
 
+function stripLotMeta(card) {
+  if (!card) return card;
+  delete card.lot_voice;
+  delete card.lot_states;
+  return card;
+}
+
 async function applySequenceTone(card, runId) {
   if (!card || !runId) return card;
+  const { rows: extraRows } = await query(`SELECT extra FROM cards WHERE card_id = $1`, [card.card_id]);
+  const extra = (extraRows[0] && extraRows[0].extra) || {};
+  card.lot_voice = extra.lot_voice || null;
+  card.lot_states = extra.lot_states || null;
   const { rows: runRows } = await query(`SELECT lot_state FROM runs WHERE id = $1`, [runId]);
   const lotState = runRows[0] && runRows[0].lot_state;
   if (lotState) applyLotVoice(card, lotState);
-  if (card.card_id !== "I-008") return card;
-  const { rows } = await query(
-    `SELECT option_id, was_correct
-       FROM run_answers
-      WHERE run_id = $1 AND card_id = 'I-006'
-      ORDER BY created_at DESC
-      LIMIT 1`,
-    [runId]
-  );
-  const hit = rows[0];
-  if (!hit) return card;
-  return applyLotState(card, lotKeyFromOption(hit.option_id, hit.was_correct));
+  if (card.card_id === "I-008") {
+    const { rows } = await query(
+      `SELECT option_id, was_correct
+         FROM run_answers
+        WHERE run_id = $1 AND card_id = 'I-006'
+        ORDER BY created_at DESC
+        LIMIT 1`,
+      [runId]
+    );
+    const hit = rows[0];
+    if (hit) applyLotState(card, lotKeyFromOption(hit.option_id, hit.was_correct));
+  }
+  return stripLotMeta(card);
 }
 
 async function reviewCard(cardId, attempt) {
@@ -1217,6 +1239,7 @@ module.exports = {
   nextUnansweredCard,
   publicCard,
   applySequenceTone,
+  applyLotVoice,
   lotKeyFromOption,
   reviewCard,
   pendingOutcome,

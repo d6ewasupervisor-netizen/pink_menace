@@ -1,5 +1,134 @@
 [
   {
+    "card_id": "III-001",
+    "act": "III",
+    "zone": "Central",
+    "driver": "deac",
+    "card_type": "ride-along",
+    "title": "Your Wheel",
+    "hook": "Deac has the wheel.",
+    "scene": "Central at morning, two lanes, wet paint. You are in the jump seat. Deac has the wheel and the thermos and the log. He will sweep the glass, hold the lane, then take one merge late on purpose so you can watch what that costs. He talks while he drives. You do not touch the wheel until he says so.",
+    "debrief": "You saw the merge you do not take. He spent another man's margin to keep his. Deac hands you the wheel.",
+    "ride_along": [
+      "Left mirror. Right mirror. Left again. Every time. That's the sweep. The Ledger has rooms you cannot see.",
+      "Hands quiet. We hold the lane. Through traffic keeps right except to pass. We are through traffic.",
+      "Count the gap. If you cannot count it, it is not a hole.",
+      "I am going to take this one late. Watch what that costs.",
+      "Blinker. No hole yet. I take it anyway.",
+      "Horn behind. That's on me. I made a man lift.",
+      "He had to stand on it. I spent his margin so I could keep mine.",
+      "Schedule's still the schedule. I just wrote a late on it.",
+      "That's the merge you do not take. You saw the consequence. I do not get a free one.",
+      "Thermos. Two clean stops reset me. This was not one.",
+      "Your eyes now. Left glass. Right glass. The side mirror. Then the road.",
+      "Your wheel."
+    ],
+    "lot_voice": {
+      "called": {
+        "ride_open": "You're quiet. That's new, or it isn't. Either way, keep it."
+      },
+      "correct": {
+        "ride_open": "You check things. I noticed that before I noticed anything else."
+      },
+      "slow": {
+        "ride_open": "You're careful. Careful and slow aren't the same animal. We'll work on the difference."
+      }
+    },
+    "ride_beats": [
+      {
+        "look": "left",
+        "tap": "sweep",
+        "still": "left"
+      },
+      {
+        "look": "road",
+        "tap": "anywhere"
+      },
+      {
+        "look": "gap",
+        "tap": "gap"
+      },
+      {
+        "look": "gap",
+        "tap": "anywhere"
+      },
+      {
+        "look": "left",
+        "tap": "anywhere",
+        "still": "merge"
+      },
+      {
+        "look": "left",
+        "tap": "anywhere",
+        "still": "horn"
+      },
+      {
+        "look": "left",
+        "tap": "anywhere",
+        "still": "horn"
+      },
+      {
+        "look": "road",
+        "tap": "anywhere"
+      },
+      {
+        "look": "road",
+        "tap": "anywhere"
+      },
+      {
+        "look": "thermos",
+        "tap": "thermos"
+      },
+      {
+        "look": "left",
+        "tap": "eyes",
+        "still": "left"
+      },
+      {
+        "look": "wheel",
+        "tap": "wheel"
+      }
+    ],
+    "source": {
+      "psdp_skill": "Skill nine: multi-lane roads – part one",
+      "dol_section": "4.10 Traffic laws",
+      "teaching_target": "Demonstrate-first: sweep, hold right, never take a late merge; consequence is a horn and a man who had to lift."
+    },
+    "cast": [
+      "deac"
+    ],
+    "antagonist": "none",
+    "callback_of": null,
+    "schedules_callback": false,
+    "image_brief": {
+      "camera": "POV_COCKPIT",
+      "camera_is_the_lesson": true,
+      "subject": "from the high seat looking forward through the bar cage with the left door mirror in frame, wet two-lane Central ahead, a gap in the left that is not yet a hole",
+      "foreground": "worn transit wheel rim, analog cluster moving, dented steel thermos in the cup on the doghouse, amber vest hem at the left edge of frame, oversize left door mirror on a long arm",
+      "midground": "bar cage with a wiper-slot cut, two lanes of wet paint, a primer sedan ahead in the right",
+      "background": "overcast Central Avenue through the cage, brick and streetlights",
+      "read": "Deac is driving; the left door glass is in frame; the left is not yet a hole",
+      "continuity": [
+        "ledger_cockpit"
+      ],
+      "aspect": "2:3",
+      "geometry": {
+        "ego_heading": "away_from_camera",
+        "ego_lane_side": "right travel lane of a two-lane-each-way stretch of Central",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+        "oncoming_position": "left half of the roadway, opposite direction, distant",
+        "hazard_position": "none"
+      }
+    },
+    "variation": {
+      "location_type": "arterial",
+      "weather": "overcast",
+      "time_of_day": "morning",
+      "tone": "procedural",
+      "failure_mode": "none"
+    }
+  },
+  {
     "card_id": "III-002",
     "act": "III",
     "zone": "Central",
@@ -62,25 +191,25 @@
     "driver": "deac",
     "card_type": "scene",
     "title": "Stay Right Until You Pass",
-    "hook": "Two lanes south. He's sitting in the left.",
-    "scene": "Central Avenue, two lanes south, rain on a Kent morning. You are in the right. A primer sedan is doing twenty-eight in the left. A pickup is already using that left to get around him. The empty ahead of the sedan is not a place to sit. The schedule would love it anyway. The left is for passing, then coming back.",
-    "decision": "The left has a slow sedan and a pickup passing him. Where do you put this bus?",
+    "hook": "Slow car ahead. The left is empty.",
+    "scene": "Rain on a Kent morning, Central Avenue, two lanes south. You are in the right. A primer sedan is doing twenty-eight in that same lane, ahead of the Ledger. The left is open asphalt. The schedule wants past him. Sitting in the left after you pass is how a bus becomes the next twenty-eight.",
+    "decision": "The slow car is in your lane and the left is clear. What do you do?",
     "options": [
       {
         "id": "a",
-        "text": "Move left now and sit in the empty — through traffic can use either",
+        "text": "Hold the right and sit behind him until he notices",
         "correct": false,
-        "result": "You take the left and become the new slow. A pickup that was using that lane as a pass has to stand on it. Horn. The sedan never moved. You spent his margin so you could sit pretty.",
+        "result": "You match his twenty-eight. The schedule bleeds. The left stays empty while you teach him nothing. Central learns the Ledger will wait.",
         "state_delta": {
-          "noise": 3,
-          "time_cost": 6
+          "noise": 1,
+          "time_cost": 8
         }
       },
       {
         "id": "b",
-        "text": "Hold the right. Pass only if he stays slow and the left is clear",
+        "text": "Signal, take the left, clear him, signal, come back right",
         "correct": true,
-        "result": "You stay right. He stays twenty-eight. When the left is empty and you need him, you take it, clear him, and come back. The pickup behind never has to lift. Through traffic stayed through.",
+        "result": "Amber crawls. You take the left, pass, cancel, recover. He stays twenty-eight in the right. You did not become the next camper. The left stayed a tool.",
         "state_delta": {
           "noise": -1,
           "time_cost": 4
@@ -88,9 +217,9 @@
       },
       {
         "id": "c",
-        "text": "Straddle both — the Ledger is wide enough that the sedan will yield",
+        "text": "Straddle both — the Ledger is wide enough that he will yield",
         "correct": false,
-        "result": "You occupy the dashed line. He brakes. The pickup goes for the shoulder. You own two lanes and nobody can pass you, including you.",
+        "result": "You occupy the skip-dash. He brakes. Nobody can pass you, including you. Two lanes become one because you wanted both.",
         "state_delta": {
           "noise": 2,
           "yaw": 1,
@@ -99,20 +228,20 @@
       },
       {
         "id": "d",
-        "text": "Drop to twenty and wait for him to notice and move over",
+        "text": "Move left, clear him, and stay in the left — through traffic can live here",
         "correct": false,
-        "result": "You become a rolling roadblock in the right. He never looks. The stack behind you grows. You taught Central that the Ledger is the problem.",
+        "result": "You pass once and become the new slow in the passing lane. Everyone who needed the left now needs you. Keep-right did not expire because you passed once.",
         "state_delta": {
-          "noise": 1,
-          "time_cost": 8
+          "noise": 3,
+          "time_cost": 6
         }
       }
     ],
-    "debrief": "When several lanes go the same way, keep right except to pass. You saved the left for the people who actually need it.",
+    "debrief": "When several lanes run the same way, drive in the right lane and use the left to pass. You saved the left as a tool by coming back.",
     "source": {
       "psdp_skill": "Skill nine: multi-lane roads – part one",
       "dol_section": "4.10 Traffic laws",
-      "teaching_target": "Keep right except to pass on a multi-lane road; the left is for passing, not cruising."
+      "teaching_target": "Drive in the right lane. Use the left lane to pass slower traffic, then return to the right."
     },
     "cast": [
       "deac"
@@ -122,11 +251,19 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_DIAGRAM",
-      "subject": "ex-transit cutaway in the right southbound lane only, primer sedan ahead in the left lane, a pickup in the left beside the bus passing the sedan",
-      "foreground": "wet asphalt and skip-dashed white lane line, rain",
-      "midground": "the Ledger occupying only the right travel lane, van nose pointed south, pickup in the left using it as a pass",
-      "background": "rain, Kent commercial strip, no extra side streets",
-      "read": "the bus stays in the right; the left is already a passing lane with a sedan and a pickup",
+      "subject": "RIGHT of frame: gray shuttle in the right travel lane with a primer sedan ahead in that same lane. LEFT of frame: empty wet asphalt. Both travel away from camera.",
+      "foreground": "wet skip-dashed white between the two southbound lanes; LEFT edge of the roadway is a concrete median barrier, not a yellow line",
+      "midground": "ordinary primer sedan two lengths ahead of the shuttle, not a Beetle, no plow; left travel lane empty",
+      "background": "rain, Kent commercial strip, no extra side streets, no opposing traffic in frame",
+      "read": "the sedan is ahead in the shuttle's lane; the left travel lane is empty",
+      "extra_negatives": [
+        "no yellow centerline",
+        "no double yellow",
+        "no oncoming vehicle",
+        "no vehicle in the left travel lane",
+        "no pickup",
+        "no second cutaway shuttle"
+      ],
       "continuity": [
         "diagram_style",
         "the_ledger"
@@ -136,8 +273,20 @@
         "ego_heading": "away_from_camera",
         "ego_lane_side": "right travel lane of two southbound lanes",
         "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
-        "oncoming_position": "far left of frame, opposite direction, across a yellow pair",
-        "hazard_position": "ahead_same_direction"
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction",
+        "lanes_this_direction": 2,
+        "ego_lane_from_left": 2,
+        "ego_frame_side": "right",
+        "traffic_positions": [
+          {
+            "vehicle": "primer sedan",
+            "frame_side": "same",
+            "lane_from_left": 2,
+            "along": "ahead",
+            "lengths": 2
+          }
+        ]
       }
     },
     "variation": {
@@ -156,7 +305,7 @@
     "card_type": "scene",
     "title": "Sweep Before You Change",
     "hook": "Cones shut the right. You need left.",
-    "scene": "Midday fog, work zone. Cones pinch the right lane shut, so you need the left. On this bus the inside mirror is a postage stamp. The look that matters is the big side mirror on the left door, then over your left shoulder. Fog on the windshield is why one glance is not enough.",
+    "scene": "Midday fog, work zone. Cones pinch the right lane shut, so you need the left. On this bus the look that matters is the big side mirror on the left door, then over your left shoulder. Fog on the windshield is why one glance is not enough.",
     "decision": "You need the left lane. What do you look at, and in what order?",
     "options": [
       {
@@ -185,7 +334,7 @@
         "id": "c",
         "text": "Left glass, left door mirror, over the left shoulder, then the gap",
         "correct": true,
-        "result": "You run the sweep. The side mirror has a motorcycle in it that the inside mirror missed. You wait one more gap. When you take it, he is already past you.",
+        "result": "You run the sweep. The side mirror has a motorcycle in it that a glance at the windshield missed. You wait one more gap. When you take it, he is already past you.",
         "state_delta": {
           "noise": -1,
           "time_cost": 3
@@ -193,7 +342,7 @@
       },
       {
         "id": "d",
-        "text": "Trust the side mirror alone — it sees more than the inside mirror",
+        "text": "Trust the side mirror alone — skip the shoulder",
         "correct": false,
         "result": "The side mirror shrinks a pickup into a toy. You take the gap on a toy. He is a wall. You put the Ledger's shoulder in his.",
         "state_delta": {
@@ -221,8 +370,8 @@
       "subject": "from the driver's seat looking left at the big side mirror on the left door, fog in that glass",
       "foreground": "worn transit wheel at the bottom, left window pillar, the long-arm left door mirror filling the left of frame",
       "midground": "reflection in the left door mirror of the lane you want, fog, no motorcycle or a small bike just visible",
-      "background": "fogged windshield ahead, orange cones killing the right lane",
-      "read": "the check for a left change is the left door mirror from the seat, not the tiny inside mirror",
+      "background": "fogged windshield ahead, orange cones angled toward the middle of the road and cutting off the right lane ahead",
+      "read": "the check for a left change is the left door mirror from the seat; cones pinch the right shut ahead",
       "continuity": [
         "ledger_cockpit"
       ],
@@ -258,7 +407,7 @@
         "id": "a",
         "text": "Cancel, hold the lane, let him show or fall back, then take a clean gap",
         "correct": true,
-        "result": "You kill the blinker and hold. He appears in the inside mirror a second later, then drops. The next gap is empty. You take it without writing him into the steel.",
+        "result": "You kill the blinker and hold. He appears in the right door glass a second later, then drops. The next gap is empty. You take it without writing him into the steel.",
         "state_delta": {
           "noise": -1,
           "time_cost": 4
@@ -406,22 +555,25 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_OBJECT",
-      "subject": "left turn stalk blinking amber, destination-sign toggle already thrown, the stacked column visible in the glass behind",
-      "foreground": "commercial column, blinking left stalk, and the thrown sign switch — Deac's cab, no driver face",
-      "midground": "interior rearview and a slice of the left door mirror, both holding the same day-cab box truck behind — factory mirrors only, no amber destination sign, no roof rack, no cutaway shuttle body",
-      "background": "defocused dusk 167 through the cage, not the subject",
-      "read": "the stalk and the sign switch are already talking; the column in the glass has not given the gap",
+      "camera": "POV_COCKPIT",
+      "camera_is_the_lesson": true,
+      "subject": "from the seat looking forward: destination-sign switch already thrown, left stalk blinking amber; the column sits in the left side-mirror glass at the edge of frame",
+      "foreground": "commercial wheel, square analog gauges, left turn stalk with the blinker on",
+      "midground": "welded bar cage, wet 167 at dusk; left side-mirror glass holds a day-cab box still tight behind — factory mirrors only, no cutaway body",
+      "background": "wind at dusk on 167, no extra traffic, no readable destination-sign text",
+      "read": "the sign switch is thrown and the left stalk is blinking; the column in the left side-mirror glass has not given the gap",
       "continuity": [
         "ledger_cockpit"
       ],
       "aspect": "2:3",
       "geometry": {
         "ego_heading": "away_from_camera",
-        "ego_lane_side": "right travel lane of a multi-lane highway",
-        "ego_nose_in_frame": "not in the mirror; travel is away, reflected traffic is behind",
-        "oncoming_position": "none in the glass",
-        "hazard_position": "none"
+        "ego_lane_side": "right travel lane of two highway lanes",
+        "ego_nose_in_frame": "travel is away; van nose toward the top of the frame beyond the hood",
+        "oncoming_position": "none in this heading",
+        "hazard_position": "ahead_same_direction",
+        "lanes_this_direction": 2,
+        "ego_lane_from_left": 2
       }
     },
     "variation": {
@@ -503,7 +655,7 @@
       "foreground": "worn transit wheel at the bottom, wiper-slot cage, rain on the glass; no clipboard in the windshield",
       "midground": "pickup tail close, then a short dark gap of wet asphalt, then the SUV's rear lamps farther ahead, all in one file",
       "background": "Meeker at night, heavy rain, sodium lamps, wet asphalt",
-      "read": "two same-direction vehicles stacked ahead with a gap too short for this bus; nothing faces the camera",
+      "read": "pavement is visible between the pickup's rear and the SUV's rear, and that gap is shorter than one bus length",
       "continuity": [
         "ledger_cockpit"
       ],
@@ -531,8 +683,8 @@
     "driver": "deac",
     "card_type": "rule",
     "title": "Broken White, Solid White",
-    "hook": "Broken white on the left. Solid white on the right.",
-    "scene": "Snow at deep night on 84th. Two whites. The left skip-dash is broken — a legal change if the gap is real. The right is a solid white at the edge of a diamond lane you have not earned. The Ledger wants out of the stack. The paint decides, not the want.",
+    "hook": "Solid white fences the diamond on the left.",
+    "scene": "Overcast on a divided highway. Three lanes this way. A diamond sits in the leftmost lane against the median, fenced from the general lanes by solid white pavement marking. You are in the general lane immediately right of that paint, in a stack. Skip-dashes between general lanes are a legal change if the gap is real. The solid is not. The Ledger wants out. The paint decides, not the want.",
     "decision": "You want out of this stack. Which paint do you cross?",
     "options": [
       {
@@ -583,7 +735,7 @@
     "source": {
       "psdp_skill": "Skill nine: multi-lane roads – part one",
       "dol_section": "4.16 Road markings",
-      "teaching_target": "Cross broken white to change lanes; do not cross solid white into a restricted or edge lane."
+      "teaching_target": "Cross broken white to change lanes; do not cross solid white pavement marking into a restricted lane."
     },
     "cast": [
       "deac"
@@ -593,21 +745,40 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_OBJECT",
-      "subject": "wet skip-dashed white on the left of frame, solid white and a painted diamond on the right",
-      "foreground": "falling snow in the lamp, a strip of gray primer at the bottom edge",
-      "midground": "the two paints meeting at the Ledger's left front corner, no readable words",
-      "background": "deep night, 84th, sodium, empty diamond lane",
-      "read": "broken white is the legal change; solid white fences a diamond you have not earned",
+      "subject": "Divided highway from the cab looking forward. LEFT edge: concrete median barrier, narrow left shoulder, then the leftmost lane with a large white diamond on the pavement.",
+      "foreground": "commercial wheel and gauges; wet asphalt; solid white pavement marking between the diamond lane and the general lanes to its right",
+      "midground": "the gray cutaway shuttle occupies the general lane immediately right of that solid marking, traveling away from camera; skip-dashes between general lanes",
+      "background": "overcast Pacific Northwest daylight, wet asphalt, evergreen roadside",
+      "read": "the diamond lane sits beyond a solid white line the shuttle would have to cross",
+      "extra_negatives": [
+        "no diamond in the shuttle's lane",
+        "no diamond to the right of the shuttle",
+        "no diamond adjacent to the right shoulder or curb",
+        "no snow",
+        "no overhead sign gantries",
+        "no green guide signs",
+        "no legible text",
+        "no palm trees",
+        "no arid roadside"
+      ],
       "continuity": [
-        "the_ledger"
+        "ledger_cockpit",
+        "hov_geometry"
       ],
       "aspect": "2:3",
       "geometry": {
         "ego_heading": "away_from_camera",
-        "ego_lane_side": "center travel lane of three northbound lanes",
-        "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame along the paint",
-        "oncoming_position": "none in frame",
-        "hazard_position": "none"
+        "ego_lane_side": "general lane immediately right of the diamond lane",
+        "ego_nose_in_frame": "travel is away; van nose toward the top of the frame beyond the hood",
+        "oncoming_position": "none in this heading; median is the left edge",
+        "hazard_position": "none",
+        "lanes_this_direction": 3,
+        "ego_lane_from_left": 2,
+        "marking_anchor": {
+          "edge": "concrete median barrier on the left",
+          "marking": "large white diamond in the leftmost travel lane, then solid white pavement marking",
+          "ego_relative": "the shuttle occupies the general lane immediately right of that solid white marking"
+        }
       }
     },
     "variation": {
@@ -625,8 +796,8 @@
     "driver": "deac",
     "card_type": "hazard",
     "title": "Hollis on Your Bumper",
-    "hook": "Hollis fills the glass. Your front gap is the fix.",
-    "scene": "Ice on a Kent morning, 256th doing the speed of Central. Hollis is in the lifted truck again, filling the inside mirror, close enough that his plow is a suggestion. If you brake for the light you cannot see yet, he writes you into the doghouse between the seats. The six-second habit from the Grid still works. You just have to spend it ahead, not behind.",
+    "hook": "Hollis fills the left door glass. Open your front gap.",
+    "scene": "Ice on a Kent morning, 256th doing the speed of Central. Hollis is in the lifted truck again, filling the left door mirror, close enough that his plow is a suggestion. If you brake for the light you cannot see yet, he writes you into the doghouse between the seats. The six-second habit from the Grid still works. You just have to spend it ahead, not behind.",
     "decision": "Hollis is on your bumper at speed. What do you change?",
     "options": [
       {
@@ -689,12 +860,12 @@
     "timeout_option_id": "d",
     "timeout_ms": 10000,
     "image_brief": {
-      "camera": "POV_MIRROR_REAR",
-      "subject": "lifted truck grille filling the interior rearview, too close, ice film on the glass",
-      "foreground": "weathered rearview housing",
-      "midground": "Hollis's plow and lamps, no legal gap, same heading",
+      "camera": "POV_MIRROR_DOOR",
+      "subject": "from the D4 Ledger seat, the left door-mirror glass filled by a lifted snowplow truck too close — the plow must be visible",
+      "foreground": "left door-mirror housing and a strip of the D4 door; match the attached cockpit lock",
+      "midground": "Hollis's plow and lamps filling the glass, no legal gap, same heading",
       "background": "defocused windshield, Kent morning, ice",
-      "read": "he is closer than a stop at this speed; the road ahead is not the subject",
+      "read": "a snowplow truck is in the left door glass, closer than a stop at this speed",
       "continuity": [
         "ledger_cockpit"
       ],
@@ -782,12 +953,12 @@
     "callback_of": "III-005",
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_ROADSIDE",
-      "subject": "camera stands on the right curb: a plain white cargo van travels left to right in the lane nearest that curb, tight against the Ledger's right flank, same heading, lamps off, afternoon sun. The van is closer to camera than the shuttle. The shuttle occupies the left travel lane. Both noses point toward the right of the frame.",
-      "foreground": "right curb under the camera, skip-dashed white between the two vehicles",
-      "midground": "white van nearer the curb; Ledger further from camera in the left travel lane; long-arm side mirror in the gap between them",
-      "background": "West Valley, clear cold, long shadows, same strip as before",
-      "read": "the van sits on the curb side of the shuttle, already in the right-side blind spot; this is the same afternoon, not a new one",
+      "camera": "POV_ROADSIDE_PROFILE",
+      "subject": "from a wet sidewalk: white cargo van on the shuttle's RIGHT (curb) flank, skip-dash between them; the van's hood even with the shuttle's side door",
+      "foreground": "wet sidewalk and a mossy curb under the camera",
+      "midground": "van nearer the camera and the curb, lamps off; Ledger shuttle further from camera, left of the van; both traveling left-to-right",
+      "background": "stained concrete retaining wall and evergreens, overcast, wet asphalt",
+      "read": "the white van sits on the right of the shuttle with its hood even with the side door",
       "continuity": [
         "the_ledger"
       ],
@@ -797,7 +968,19 @@
         "ego_lane_side": "left travel lane of two northbound lanes",
         "ego_nose_in_frame": "the van nose points toward the right of the frame",
         "oncoming_position": "none in frame",
-        "hazard_position": "beside"
+        "hazard_position": "beside",
+        "lanes_this_direction": 2,
+        "ego_lane_from_left": 1,
+        "ego_frame_side": "left",
+        "traffic_positions": [
+          {
+            "vehicle": "white cargo van",
+            "frame_side": "right",
+            "lane_from_left": 2,
+            "along": "beside",
+            "lengths": 0
+          }
+        ]
       }
     },
     "variation": {
@@ -816,8 +999,8 @@
     "driver": "deac",
     "card_type": "scene",
     "title": "See His Mirrors or Leave",
-    "hook": "Old Ninety's trailer. If you cannot see his mirrors, he cannot.",
-    "scene": "Overcast midday on 167. A rogue semi with no door marks and a dirty number that used to be ninety fills the rear glass, then the left. Old Ninety. You are beside a trailer that has blind spots a Ledger understands. If you cannot see the big west-coast mirrors on his doors, you are nowhere. The schedule wants you past him. Nowhere wants you first.",
+    "hook": "You're beside his trailer. He can't see you here.",
+    "scene": "Overcast midday on 167. A rogue semi with no door marks and a dirty number that used to be ninety is in the right lane. You are in the left, beside the rear half of his trailer. Old Ninety. The big west-coast mirrors on his doors sit far ahead on the cab. If you cannot see those mirrors, he cannot see you. The schedule wants you past him. You are in the place a truck cannot see.",
     "decision": "You are coming up on Old Ninety's left rear quarter. Where do you sit?",
     "options": [
       {
@@ -878,23 +1061,45 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_MIRROR_REAR",
+      "camera": "POV_DIAGRAM",
       "camera_is_the_lesson": true,
-      "subject": "dirty oversize door mirrors on a rogue semi, no Ledger reflected in them, trailer filling the glass",
-      "foreground": "Ledger rearview housing",
-      "midground": "Old Ninety's left-side glass empty of you, trailer ribs, no door marks",
-      "background": "defocused 167, overcast midday",
-      "read": "his mirrors do not have you in them; you are in a blind spot he cannot see",
+      "subject": "Exactly two travel lanes, both the same direction. Skip-dashed white down the middle. RIGHT lane: a dirty semi tractor-trailer. LEFT lane: a gray cutaway shuttle bus coming up behind that semi.",
+      "foreground": "wet skip-dashed white between the two lanes; rear of the shuttle box nearer the camera",
+      "midground": "shuttle still behind the semi in the left lane, closing; tractor and trailer occupying the right lane ahead",
+      "background": "overcast 167 midday, bare trees, no extra lanes, no extra vehicles",
+      "read": "two same-direction lanes with skip-dash between them; semi in the right; shuttle coming up behind it in the left",
+      "extra_negatives": [
+        "no third travel lane",
+        "no yellow centerline",
+        "no double yellow",
+        "no oncoming vehicle",
+        "no HOV diamond",
+        "no second cutaway shuttle",
+        "no Ledger marks on the semi"
+      ],
       "continuity": [
-        "ledger_cockpit"
+        "diagram_style",
+        "the_ledger"
       ],
       "aspect": "2:3",
       "geometry": {
         "ego_heading": "away_from_camera",
         "ego_lane_side": "left travel lane of two northbound highway lanes",
-        "ego_nose_in_frame": "not in the mirror; the reflection is the truck beside and behind",
-        "oncoming_position": "none in the glass",
-        "hazard_position": "behind"
+        "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+        "oncoming_position": "none in frame",
+        "hazard_position": "ahead_same_direction",
+        "lanes_this_direction": 2,
+        "ego_lane_from_left": 1,
+        "ego_frame_side": "left",
+        "traffic_positions": [
+          {
+            "vehicle": "semi tractor-trailer",
+            "frame_side": "right",
+            "lane_from_left": 2,
+            "along": "ahead",
+            "lengths": 1
+          }
+        ]
       }
     },
     "variation": {
@@ -972,11 +1177,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_DIAGRAM",
-      "subject": "Ledger alongside a trailer at the drive axle, skip-dashed white between, no-zone implied by position",
-      "foreground": "wet highway asphalt, skip-dashed white",
-      "midground": "the Ledger even with the trailer's drive axle, van nose not yet past the cab",
-      "background": "dusk rain, 167, guardrail",
-      "read": "the bus is still beside the trailer, not clear of it",
+      "subject": "On the LEFT side of the frame: a gray cutaway shuttle bus with a roof rack and spare tire. On the RIGHT side of the frame: a semi tractor-trailer. The shuttle's front bumper is roughly one trailer-length ahead of the semi's front bumper",
+      "foreground": "wet highway asphalt, skip-dashed white between the two lanes",
+      "midground": "shuttle on the left of frame still overlapping the trailer on the right; both traveling away from camera",
+      "background": "dusk rain, 167, guardrail on the right shoulder",
+      "read": "the shuttle is on the left of the frame and has not recovered; the trailer is still on the right",
       "continuity": [
         "diagram_style",
         "the_ledger"
@@ -984,10 +1189,22 @@
       "aspect": "2:3",
       "geometry": {
         "ego_heading": "away_from_camera",
-        "ego_lane_side": "left travel lane of two northbound highway lanes",
+        "ego_lane_side": "lane 1 of 2, leftmost",
         "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
         "oncoming_position": "none on this divided highway",
-        "hazard_position": "beside"
+        "hazard_position": "beside",
+        "lanes_this_direction": 2,
+        "ego_lane_from_left": 1,
+        "ego_frame_side": "left",
+        "traffic_positions": [
+          {
+            "vehicle": "semi tractor-trailer",
+            "frame_side": "right",
+            "lane_from_left": 2,
+            "along": "behind",
+            "lengths": 1
+          }
+        ]
       }
     },
     "variation": {
@@ -1021,11 +1238,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_PORTRAIT",
-      "subject": "Deac in the high seat, glasses on a cord, amber vest taped at the shoulder, clipboard on the thigh, reddened eyes",
+      "subject": "Deac in the high seat, glasses on a cord, amber vest taped at the shoulder, clipboard on the thigh, reddened eyes; behind him the Ledger's cargo box, long-arm side mirrors, and grated side windows",
       "foreground": "dented thermos and the wheel rim",
       "midground": "his face and the ghost agency patch, no smile",
-      "background": "fog, downtown ramp lamps through the cage, night",
-      "read": "tired, still, the log is on his body — this is the man who will not take a late gap",
+      "background": "the cutaway's box and grated passenger windows; fog, downtown ramp lamps at night",
+      "read": "tired, still; the bus behind him is a box with grated side windows and long-arm mirrors",
       "continuity": [
         "deac",
         "deac_clipboard",
@@ -1112,7 +1329,7 @@
       "foreground": "high-seat wheel and cage, left stalk still on",
       "midground": "the intersection and the yellow you would steer to, oncoming not yet clear",
       "background": "clear cold dawn, Central Avenue, empty sidewalks",
-      "read": "the arrow is dark; the circle is green; oncoming still has a path",
+      "read": "the left-turn arrow lamp is unlit; the circular green lamp is lit",
       "continuity": [
         "ledger_cockpit"
       ],
@@ -1201,11 +1418,11 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_DIAGRAM",
-      "subject": "shared center lane with left-turn arrows both ways, Ledger still in the through lane, primer sedan already touring the pocket",
+      "subject": "On the RIGHT side of the frame: a gray cutaway shuttle still in the through lane. In the shared center pocket: an ordinary sedan facing the OPPOSITE direction. Two left-turn arrows in the pocket: the nearer arrow points one way, the farther arrow is the inverse",
       "foreground": "double yellow and skip-dash fencing the center pocket",
       "midground": "the empty pocket stretching a block, arrows pointing both directions",
       "background": "wind, Kent morning, commercial driveways",
-      "read": "the center pocket is a turn lane with arrows both ways, not a travel lane",
+      "read": "the center pocket has arrows both ways; the sedan in it is coming the other direction",
       "continuity": [
         "diagram_style",
         "the_ledger"
@@ -1216,7 +1433,24 @@
         "ego_lane_side": "right through lane of a five-lane undivided stretch of Central",
         "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
         "oncoming_position": "far side of the center pocket, opposite direction",
-        "hazard_position": "ahead_same_direction"
+        "hazard_position": "ahead_same_direction",
+        "lanes_this_direction": 3,
+        "ego_lane_from_left": 3,
+        "ego_frame_side": "right",
+        "marking_anchor": {
+          "edge": "oncoming lanes beyond the yellow pair",
+          "marking": "two-way left-turn pocket: broken yellow inside, solid yellow outside, arrows both ways",
+          "ego_relative": "the shuttle occupies the through lane to the right of that pocket"
+        },
+        "traffic_positions": [
+          {
+            "vehicle": "primer sedan",
+            "frame_side": "left",
+            "lane_from_left": 2,
+            "along": "ahead",
+            "lengths": 1
+          }
+        ]
       }
     },
     "variation": {
@@ -1299,10 +1533,10 @@
     "image_brief": {
       "camera": "POV_COCKPIT",
       "subject": "hood line an inch toward the right rumble, skip-dash walking under the cage, empty thermos",
-      "foreground": "wheel rim and a hand that has gone slack on it",
+      "foreground": "wheel rim and a hand that has gone slack on it; analog cluster with one speed needle at 60, not 30",
       "midground": "the rumble strip closer than it should be, no vehicle forcing the drift",
       "background": "overcast 167 afternoon, long straight, no exit yet",
-      "read": "the bus has walked toward the rumble with no one in the way",
+      "read": "the hood is crossing the lane line; the cluster reads 60",
       "continuity": [
         "ledger_cockpit"
       ],
@@ -1331,14 +1565,14 @@
     "card_type": "wrench",
     "title": "The Side Mirror Points Up",
     "hook": "The right side mirror is pointing at the sky.",
-    "scene": "Heavy rain at dusk in a work zone. A cone you did not own kissed the right mirror arm. The side mirror now looks at the sky. Mya is a loaf on the dash, useless for this. The Ledger just lost the look at its right. You can keep rolling on a guess or you can make the glass tell the truth again.",
+    "scene": "Heavy rain at dusk in a work zone. A cone you did not own kissed the right mirror arm. The side mirror now looks at the sky. Mya is boxed on the doghouse between the seats. The Ledger just lost the look at its right. You can keep rolling on a guess or you can make the glass tell the truth again.",
     "decision": "The right side mirror is pointed at the weather. What do you do?",
     "options": [
       {
         "id": "a",
-        "text": "Keep rolling — you still have the inside mirror and the shoulder check",
+        "text": "Keep rolling — you still have the left door mirror and the shoulder check",
         "correct": false,
-        "result": "You guess the right-side blind spot. A work van is in it. You find him with the side of the bus. The inside mirror never had that angle.",
+        "result": "You guess the right-side blind spot. A work van is in it. You find him with the side of the bus. The left door mirror never had that angle.",
         "state_delta": {
           "noise": 4,
           "damage": 1,
@@ -1390,19 +1624,19 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_MIRROR_DOOR",
-      "subject": "round side mirror pointed at rain sky instead of the right-side lane, arm bent from a cone",
-      "foreground": "door-mirror arm and a strip of wet primer",
-      "midground": "the useless sky in the glass, cone line along the asphalt you cannot see",
-      "background": "heavy rain, dusk, work-zone amber",
-      "read": "the side mirror is looking at weather, not at the lane beside the bus",
+      "subject": "from the driver's seat looking right across the doghouse and passenger seat at the right door-mounted side mirror through the passenger window; that mirror is aimed at the rain sky, not at the lane",
+      "foreground": "passenger seat, doghouse, right window pillar, the long-arm right door mirror filling the right of frame",
+      "midground": "rain sky in the right mirror glass; a cone line on the asphalt the glass cannot see",
+      "background": "heavy rain, dusk, work-zone amber through the right window",
+      "read": "the right side mirror is pointing at the sky instead of the lane beside the bus",
       "continuity": [
-        "the_ledger"
+        "ledger_cockpit"
       ],
       "aspect": "2:3",
       "geometry": {
         "ego_heading": "away_from_camera",
         "ego_lane_side": "left travel lane of a two-lane work pattern",
-        "ego_nose_in_frame": "not in this glass; the arm and sky fill the frame",
+        "ego_nose_in_frame": "not in this glass; the right arm and sky fill the frame",
         "oncoming_position": "none in this glass",
         "hazard_position": "beside"
       }
@@ -1481,22 +1715,41 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_MIRROR_REAR",
-      "subject": "day-cab cube truck, short cargo box, still beside the Ledger in the glass, not yet a full front — factory mirrors only, no amber destination sign, no roof rack, no cutaway shuttle body",
-      "foreground": "rearview housing, rain on the glass",
-      "midground": "the cube truck's face incomplete in the reflection — you are not clear",
-      "background": "defocused Central at night, rain",
-      "read": "the passed vehicle's whole front is not yet in the glass",
+      "camera": "POV_DIAGRAM",
+      "subject": "LEFT of frame: gray cutaway shuttle in the left lane, mid-pass. RIGHT of frame: a day-cab cube truck in the right lane. The shuttle's nose is past the box's cab; the shuttle's rear doors still overlap the box.",
+      "foreground": "wet skip-dashed white between two southbound lanes, rain at night",
+      "midground": "both traveling away from camera; recovery not done",
+      "background": "Central at night, rain, no extra side streets, no yellow centerline",
+      "read": "the bus still overlaps the box; the recovery is not done",
+      "extra_negatives": [
+        "no yellow centerline",
+        "no oncoming vehicle",
+        "no second cutaway shuttle",
+        "no Ledger marks on the cube truck"
+      ],
       "continuity": [
-        "ledger_cockpit"
+        "diagram_style",
+        "the_ledger"
       ],
       "aspect": "2:3",
       "geometry": {
         "ego_heading": "away_from_camera",
         "ego_lane_side": "left travel lane of two southbound lanes",
-        "ego_nose_in_frame": "not in the mirror; reflected traffic is behind and beside",
-        "oncoming_position": "none in the glass",
-        "hazard_position": "behind"
+        "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+        "oncoming_position": "none in frame",
+        "hazard_position": "beside",
+        "lanes_this_direction": 2,
+        "ego_lane_from_left": 1,
+        "ego_frame_side": "left",
+        "traffic_positions": [
+          {
+            "vehicle": "day-cab cube truck",
+            "frame_side": "right",
+            "lane_from_left": 2,
+            "along": "beside",
+            "lengths": 0
+          }
+        ]
       }
     },
     "variation": {
@@ -1577,23 +1830,27 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_CHASE",
+      "camera": "POV_COCKPIT",
       "camera_is_the_lesson": true,
-      "subject": "Ledger rear, amber destination sign lit, left arm out and down, volunteer box tight behind",
-      "foreground": "following glass and falling snow",
-      "midground": "rear doors, oversize door-mirror arms, the sign facing the camera, a torso in the left window with the left arm out and down",
-      "background": "deep night, snow, a dead pickup ahead in the right",
-      "read": "the sign and the left arm are already talking while the brake lamps are still dark",
+      "subject": "zoomed out from the seat so the left window reads; a stalled pickup sits farther right toward the curb; the volunteer behind shows only its left headlight",
+      "foreground": "worn transit wheel and left window frame, snow on the cage; no arm in the window",
+      "midground": "destination sign already on SLOW; brakes dark; only the follower's left lamp in the left glass",
+      "background": "dead pickup well to the right of the travel lane, deep night, snow",
+      "read": "the sign is already on SLOW; the stalled pickup is far right; only the follower's left headlight is in the glass",
+      "extra_negatives": [
+        "no arm out the window",
+        "no right headlight of the follower",
+        "no clipboard on the mesh"
+      ],
       "continuity": [
-        "the_ledger",
-        "hand_signals"
+        "ledger_cockpit"
       ],
       "aspect": "2:3",
       "geometry": {
         "ego_heading": "away_from_camera",
         "ego_lane_side": "right travel lane of a two-lane-each-way highway",
-        "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
-        "oncoming_position": "none in this heading",
+        "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+        "oncoming_position": "none in frame",
         "hazard_position": "ahead_same_direction"
       }
     },
@@ -1612,9 +1869,9 @@
     "driver": "deac",
     "card_type": "ledger",
     "title": "The Straight Again",
-    "hook": "Same long straight. The hood line is walking again.",
-    "scene": "Overcast afternoon on 167, the same long straight. Last time your eyes left it — sleep or a screen, the mile does not care. This time the hood line is already on the rumble and the skip-dash is a smear. The thermos is still empty. A pad is coming up on the right, legal, ugly, enough. The Drift does not give second warnings. It gives the same mile twice.",
-    "decision": "The hood line is on the rumble again. What do you do with the second chance?",
+    "hook": "The same straight comes back.",
+    "scene": "Overcast afternoon on 167, the same long straight. Last time your eyes left it — sleep or a screen, the mile does not care. This time the right rear tires are already on the rumble and the skip-dash is a smear. The thermos is still empty. A pad is coming up on the right, legal, ugly, enough. The Drift does not give second warnings. It gives the same mile twice.",
+    "decision": "The right rear tires are on the rumble again. What do you do with the second chance?",
     "options": [
       {
         "id": "a",
@@ -1673,10 +1930,10 @@
     "callback_of": "III-016",
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_ROADSIDE",
-      "subject": "Ledger drifted onto the rumble of a long overcast straight, no other vehicle forcing it",
-      "foreground": "rumble strip and cold grass at eye height",
-      "midground": "the Ledger's right rear tires on the rumble, van nose still pointed up the highway",
+      "camera": "POV_ROADSIDE_PROFILE",
+      "subject": "Ledger traveling left-to-right, hugging the right edge of the road, van nose pointing right, right rear tires on the rumble",
+      "foreground": "rumble strip and cold grass at eye height, almost under the right duals",
+      "midground": "the Ledger's right rear tires on the rumble, body tight to the pavement edge",
       "background": "167 afternoon, overcast, the same mile",
       "read": "the bus walked onto the rumble with nothing in the way — again",
       "continuity": [
@@ -1768,11 +2025,16 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_COCKPIT",
-      "subject": "city coach leaving a stop, left stalk blinking, nose already crossing into the through lane",
+      "subject": "city coach leaving the curb on the right, left blinker on, pulling back into the through lane — not in an intersection",
       "foreground": "cage and wheel, high seat",
-      "midground": "the coach's nose and the gap she needs, skip-dash at her flank",
-      "background": "clear cold downtown edge, morning, empty shelter glass",
-      "read": "her stalk is on and the coach is already coming back into your lane",
+      "midground": "the coach's left stalk blinking; its nose coming off the stop into the lane ahead",
+      "background": "clear cold downtown edge, morning, shelter glass on the right curb, no traffic signal",
+      "read": "the bus is leaving the side of the road with its left blinker on",
+      "extra_negatives": [
+        "no traffic light",
+        "no intersection",
+        "no clipboard on the mesh"
+      ],
       "continuity": [
         "ledger_cockpit"
       ],
@@ -1863,9 +2125,9 @@
     "timeout_option_id": "d",
     "timeout_ms": 8000,
     "image_brief": {
-      "camera": "POV_MIRROR_REAR",
-      "subject": "WSP remnant with lamps finding the gaps, same heading, filling the interior glass",
-      "foreground": "rearview housing, rain on the glass",
+      "camera": "POV_MIRROR_DOOR",
+      "subject": "WSP remnant with lamps finding the gaps, same heading, filling the left door-mirror glass",
+      "foreground": "left door-mirror housing, rain on the glass",
       "midground": "Dunn's cruiser in the stack, no readable plate, lamps live",
       "background": "defocused Central, midday rain",
       "read": "the emergency vehicle is behind and already talking; the road ahead is not the subject",
@@ -1897,14 +2159,14 @@
     "card_type": "rule",
     "title": "Hold the General Lane",
     "hook": "The diamond is empty. The box in your lane is slow.",
-    "scene": "Fog at dusk on 167. A box is doing thirty in the general lane. To the left, a diamond on the pavement and a solid white fence, empty and fast. The schedule wants the opening. You are a bus. You could live in that lane. What you cannot do is dart in, pass, and dart out. That is a passing lane you invented.",
+    "scene": "Fog at dusk on 167. A box is doing thirty in the general lane. To the left, a diamond on the pavement and a solid white fence, empty and fast. A bus may travel in that lane when the signs say so. What you cannot do is cross the solid to dart in, pass one vehicle, and dart out. Broken white is where entry is even legal. That diamond is not a passing lane you invented.",
     "decision": "The diamond is empty and he is slow. Do you use it to pass?",
     "options": [
       {
         "id": "a",
         "text": "Dart into the diamond, pass, come back before the next ramp",
         "correct": false,
-        "result": "You use a carpool lane as a slingshot. Solid white, in and out. The remnant in the cap does not care that you are a bus. You stole a pass from a lane that was never yours to dart through.",
+        "result": "You use a carpool lane as a slingshot. Solid white means stay out through that stretch. The remnant in the cap does not care that you are a bus. You stole a pass from a lane that was never yours to dart through.",
         "state_delta": {
           "noise": 2,
           "time_cost": 6
@@ -1944,11 +2206,11 @@
         }
       }
     ],
-    "debrief": "A bus may travel in a carpool lane. Darting in to pass one vehicle and coming back is a steal. You missed a ticket by staying in the general lane.",
+    "debrief": "4.16: HOV is a diamond, occupancy on the signs, typically fenced by solid white. A bus may travel in it. Solid means do not cross that stretch; broken is where you may enter or exit. Do not dart through the diamond to pass one slow vehicle.",
     "source": {
       "psdp_skill": "Skill nine: multi-lane roads – part one",
       "dol_section": "4.16 Road markings (HOV / Carpool lane)",
-      "teaching_target": "HOV / carpool lanes are not passing lanes; do not enter one only to pass and return."
+      "teaching_target": "HOV is not a passing lane. Solid white: do not cross into it on that stretch. Broken white: you may enter or exit. A qualifying bus may travel in HOV, not dart through it."
     },
     "cast": [
       "deac"
@@ -1958,13 +2220,14 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_OBJECT",
-      "subject": "painted diamond and solid white fence on wet pavement to the left; a loaded dump truck filling the general lane ahead, brake lamps on, no gap past it, no readable occupancy numbers",
-      "foreground": "a strip of Ledger van hood at the bottom, still in the general lane, fog beading on the paint",
+      "subject": "from the D4 Ledger cab looking forward: painted diamond and solid white fence on wet pavement to the left; a loaded dump truck filling the general lane ahead, brake lamps on, no gap past it, no readable occupancy numbers",
+      "foreground": "worn three-spoke wheel, analog cluster, bar cage with a cut wiper slot, thermos in the right cup; a strip of van hood at the bottom, still in the general lane, fog beading on the paint",
       "midground": "the dump's high tailgate as a wall in your lane; the empty diamond fenced by solid white beside it — factory mirrors only on the dump, no cutaway body, no amber destination sign, no roof rack, no oversize door-mirror arms",
       "background": "167 dusk, fog eating the road ahead of the dump, general-lane stack tight behind you",
       "read": "the diamond is empty and the dump is a wall — a pass you would have to steal",
       "continuity": [
-        "the_ledger"
+        "ledger_cockpit",
+        "hov_geometry"
       ],
       "aspect": "2:3",
       "geometry": {
@@ -1972,7 +2235,12 @@
         "ego_lane_side": "right-hand general lane beside an HOV lane",
         "ego_nose_in_frame": "a strip of van nose at the bottom, pointing up-frame",
         "oncoming_position": "none in frame",
-        "hazard_position": "ahead_same_direction"
+        "hazard_position": "ahead_same_direction",
+        "marking_anchor": {
+          "edge": "median side, left of the general lane",
+          "marking": "diamond in the HOV lane beyond solid white pavement marking",
+          "ego_relative": "the shuttle stays in the general lane immediately right of that solid white marking"
+        }
       }
     },
     "variation": {
@@ -2050,12 +2318,12 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_ROADSIDE",
-      "subject": "Ledger in standing water, pickup ahead too close, rain at night, no sign face readable",
+      "camera": "POV_ROADSIDE_PROFILE",
+      "subject": "pickup ahead in standing water; the Ledger box truck following behind that pickup, rain at night, no sign face readable",
       "foreground": "wet curb and a sheet of water in the wheel track",
-      "midground": "the Ledger's right rear tires in the river, the pickup's rear a short gap ahead",
+      "midground": "pickup first, Ledger box a length behind it, both left-to-right",
       "background": "West Valley at night, rain, sodium",
-      "read": "the gap ahead is too short for this water at this speed",
+      "read": "the box is behind the pickup; both tires are in standing water",
       "continuity": [
         "the_ledger"
       ],
@@ -2065,7 +2333,19 @@
         "ego_lane_side": "right travel lane of two northbound lanes",
         "ego_nose_in_frame": "the van nose points toward the right of the frame",
         "oncoming_position": "none in frame",
-        "hazard_position": "ahead_same_direction"
+        "hazard_position": "ahead_same_direction",
+        "lanes_this_direction": 2,
+        "ego_lane_from_left": 2,
+        "ego_frame_side": "right",
+        "traffic_positions": [
+          {
+            "vehicle": "pickup",
+            "frame_side": "same",
+            "lane_from_left": 2,
+            "along": "ahead",
+            "lengths": 1
+          }
+        ]
       }
     },
     "variation": {
@@ -2083,9 +2363,9 @@
     "driver": "deac",
     "card_type": "dossier",
     "title": "What He Sees at the Edge",
-    "hook": "The edge of his vision is not empty anymore.",
-    "scene": "Ice, deep night, the Ledger in a legal pocket off Aurora. Deac's eyes are on the cage and also not. At the edge of the glass, a presence with no lamps and no shape of a car — T1, a smear that could be fatigue and could be the Quiet learning Central. He does not look at it. Looking is how the Chorus gets in. He names it instead, under his breath, so the student in the jump can hear: the Drift. Not a lecture. A thing that already has his lane.",
-    "debrief": "The Drift is fatigue given a face. He manages it with stops and a thermos, not with stares. Look at the lane, not the smear.",
+    "hook": "Ice on the far right of the glass. He does not look.",
+    "scene": "Ice, deep night, the Ledger parked in a legal pocket off Aurora Avenue. A smear of ice sits at the far right of the windshield — no lamps, no car, no face. Deac's eyes stay in the cage, on the empty lane. He names it under his breath so the jump seat can hear: the Drift. Looking is how the Chorus gets in. The clipboard is on his thigh. The thermos is empty. He does not turn his head.",
+    "debrief": "The Drift is fatigue given a shape at the edge of the glass. He manages it with stops and a thermos, not with stares. Look at the lane, not the smear.",
     "source": {
       "psdp_skill": "n/a",
       "dol_section": "n/a",
@@ -2099,13 +2379,19 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_PORTRAIT",
-      "subject": "Deac in the high seat, eyes on the cage, a smear of presence at the far right edge of the glass, not a face",
-      "foreground": "thermos and clipboard, ice on the wheel",
-      "midground": "his reddened eyes and the taped vest, no smile",
-      "background": "Aurora deep night, ice, the smear staying at the edge",
-      "read": "he will not look at the edge; the edge is already looking at the lane",
+      "subject": "Deac in the high seat looking forward through the cage at the lane, not at the smear; a smear of ice at the far right edge of the windshield, no face, no lamps",
+      "foreground": "thermos in the cup, ice on the wheel",
+      "midground": "his reddened eyes on the cage, amber vest taped at the shoulder, glasses on a cord, no smile",
+      "background": "Aurora Avenue at deep night, parked, streetlamps on ice; the smear stays at the far right of the glass",
+      "read": "ice occupies the far right of the windshield; Deac is looking at the lane, not at it",
+      "extra_negatives": [
+        "no northern lights",
+        "no aurora borealis",
+        "the smear has no face and no lamps"
+      ],
       "continuity": [
         "deac",
+        "deac_clipboard",
         "ledger_cockpit"
       ],
       "aspect": "2:3"
@@ -2200,7 +2486,26 @@
         "ego_lane_side": "right travel lane of two northbound lanes, approaching a right-lane end",
         "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
         "oncoming_position": "none in this work pattern",
-        "hazard_position": "ahead_same_direction"
+        "hazard_position": "ahead_same_direction",
+        "lanes_this_direction": 2,
+        "ego_lane_from_left": 2,
+        "ego_frame_side": "right",
+        "traffic_positions": [
+          {
+            "vehicle": "vehicle in the continuing left lane",
+            "frame_side": "left",
+            "lane_from_left": 1,
+            "along": "beside",
+            "lengths": 0
+          },
+          {
+            "vehicle": "vehicle ahead at the merge teeth",
+            "frame_side": "same",
+            "lane_from_left": 2,
+            "along": "ahead",
+            "lengths": 1
+          }
+        ]
       }
     },
     "variation": {
@@ -2284,18 +2589,18 @@
     "timeout_ms": 6000,
     "image_brief": {
       "camera": "POV_COCKPIT",
-      "subject": "tablet on the doghouse lit, skip-dash of a half-taken left gap, sedan lamp in the left glass",
+      "subject": "tablet on the doghouse lit; the Ledger stays in the right-hand lane; sedan lamp in the left glass",
       "foreground": "wheel and a dark clipboard, no readable UI on the tablet — only a glow",
-      "midground": "the unfinished lane change and the glow competing for the same eyes",
+      "midground": "the right-hand lane under the bus; the glow competing for the same eyes",
       "background": "Kent morning, wind, Central Avenue",
-      "read": "the screen is lit in the middle of a change the glass has not finished",
+      "read": "the tablet is lit; the bus is in the right-hand lane",
       "continuity": [
         "ledger_cockpit"
       ],
       "aspect": "2:3",
       "geometry": {
         "ego_heading": "away_from_camera",
-        "ego_lane_side": "right travel lane, nose crossing the skip-dash into the left",
+        "ego_lane_side": "right travel lane of two westbound lanes",
         "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
         "oncoming_position": "none in frame",
         "hazard_position": "ahead_same_direction"
@@ -2469,7 +2774,7 @@
     "schedules_callback": false,
     "image_brief": {
       "camera": "POV_CHASE",
-      "subject": "Ledger in the right, a box ahead at the same speed, empty left lane, rain at dusk",
+      "subject": "On the RIGHT side of the frame: the gray cutaway shuttle, rear nearest the camera. Ahead in that same lane: a plain box truck — factory door mirrors only, no cutaway body, no amber destination sign, no roof cargo rack, no long-arm mirrors. On the LEFT side of the frame: an empty travel lane. Rain at dusk",
       "foreground": "following glass and rain",
       "midground": "the Ledger's rear and the empty left that is not being used",
       "background": "heavy rain, dusk, lamps on Central",
@@ -2483,7 +2788,19 @@
         "ego_lane_side": "right travel lane of two southbound lanes",
         "ego_nose_in_frame": "the van nose is away; rear doors are nearest the camera",
         "oncoming_position": "none in this heading",
-        "hazard_position": "ahead_same_direction"
+        "hazard_position": "ahead_same_direction",
+        "lanes_this_direction": 2,
+        "ego_lane_from_left": 2,
+        "ego_frame_side": "right",
+        "traffic_positions": [
+          {
+            "vehicle": "plain box truck",
+            "frame_side": "same",
+            "lane_from_left": 2,
+            "along": "ahead",
+            "lengths": 2
+          }
+        ]
       }
     },
     "variation": {
@@ -2503,7 +2820,7 @@
     "title": "The Core From Here",
     "hook": "The Core sits ahead. Someone new is on the radio.",
     "scene": "Clear cold night, the Ledger on a legal pad at the north end of Central. Downtown is a dark geometry with a few stubborn lamps — the Core, locked from here. Mya has finally moved off the glass. The radio, which has been trash for two acts, carries a young voice — a count-in, then a laugh, then static. Yuna, not yet a face. The door to Act IV is visible and shut. The log has a line left for tomorrow.",
-    "debrief": "Act III ends on Central with the Core in sight. The next driver is already talking. The door is locked on purpose. The skyline is dark and the sign is dark with it.",
+    "debrief": "The skyline is dark and the sign is dark with it. The next driver is already talking. The door is locked on purpose.",
     "source": {
       "psdp_skill": "n/a",
       "dol_section": "n/a",
@@ -2518,12 +2835,12 @@
     "callback_of": null,
     "schedules_callback": false,
     "image_brief": {
-      "camera": "POV_ROADSIDE",
-      "subject": "Ledger parked on a pad, downtown skyline dark with a few lamps, no readable signs",
-      "foreground": "cold gravel pad and a strip of Central paint",
-      "midground": "the Ledger's square box and oversize door-mirror arms, destination sign dark",
+      "camera": "POV_ROADSIDE_PROFILE",
+      "subject": "Ledger parked on a pad on the RIGHT side of the road, downtown skyline dark with a few lamps, no readable signs",
+      "foreground": "cold gravel pad and a strip of Central paint on the right of northbound",
+      "midground": "the Ledger's square box and oversize door-mirror arms, destination sign dark, nose pointing toward the skyline",
       "background": "the Core as a dark downtown geometry, clear cold night, one radio glow in the cab",
-      "read": "the city is ahead and shut; the bus has stopped on purpose",
+      "read": "the bus is stopped on the right-side pad; the city is ahead and shut",
       "continuity": [
         "the_ledger"
       ],

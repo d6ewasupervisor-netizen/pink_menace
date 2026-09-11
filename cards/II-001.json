@@ -10,13 +10,13 @@
   "debrief": "Act II is quiet Kent, not the lot. Search, signs, turns, bikes, buses, space, and focus — in that order. The lights still work. You took the cold through streets that still have rules.",
   "lot_voice": {
     "called": {
-      "bark": { "who": "reyna_solis", "line": "Heard you at the licensing lot. Next time use your hands, not your voice. — R." }
+      "scene_append": "You have not used your voice since the lot."
     },
     "correct": {
-      "bark": { "who": "reyna_solis", "line": "Quiet cut at the lot. Good. The Grid still wants your eyes. — R." }
+      "scene_append": "You did everything right in that lot and it did not matter, and that is a thing you are still carrying."
     },
     "slow": {
-      "bark": { "who": "reyna_solis", "line": "You burned time in that lot. The cold does not wait. Move. — R." }
+      "scene_append": "You were not loud in that lot. You were slow, and slow cost the same."
     }
   },
   "source": {
