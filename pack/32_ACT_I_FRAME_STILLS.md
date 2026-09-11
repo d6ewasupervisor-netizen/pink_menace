@@ -35,9 +35,11 @@ Lot cards I-005–I-008 untouched.
 
 I-009 and I-010 new takes stay in `cards/takes/` until a human pass. Do not copy them to `cards/I-009.png` or `cards/I-010.png`.
 
-New batch (11 Sep 2026), compiled from the JSON briefs:
+**Take 9–12 on I-009 belong to [PR #6](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/6).** They follow the *old* locked JSON (Gracie on the driver lap). Do not treat them as the current brief. This file does not re-add those PNGs.
+
+New batch (11 Sep 2026), compiled from the *current* `cards/I-009.json` / `cards/I-010.json`:
 
 | Card | Takes | Notes |
 |------|-------|-------|
-| I-009 | take 9–12 | Door-mirror crop vs warehouse lot. 10 and 12 show Gracie on a seat; 11 is mirror-only; 9 has the cat from behind. None seeded. |
+| I-009 | take 13–16 | `POV_MIRROR_DOOR`, Ali in the driver seat, Gracie on the passenger seat, empty beside her, empty aisle in the left glass, warehouse lot. None seeded. |
 | I-010 | take 9–12 | Same rearward OTS as live take 8; aisle empty, warehouse frontage, no parked cars. None seeded. |
