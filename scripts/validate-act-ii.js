@@ -104,6 +104,7 @@ for (let i = 0; i < cards.length; i++) {
     for (let j = Math.max(0, i - 3); j < i; j++) {
       if ((cards[j].cast || []).includes(name) && !(id === "II-010" && name !== "deac")) {
         if (id === "II-010") continue;
+        if (id === "II-001" && cards[j].card_id === "II-000" && name === "gracie") continue;
         err(id, `cast ${name} within 4 of ${cards[j].card_id}`);
       }
     }

@@ -33,7 +33,7 @@ Three sensory rules. Everything mechanical derives from these.
 Each has a different vehicle, different handling, different curriculum focus, and a different **fatal weakness** drawn from the PSDP crash-risk data. Rotate protagonist by act — the student must play all three.
 
 ### 3.1 ALI OKONJO — callsign **KILO** *(canon, do not restyle)*
-- **Age 17.** Cranberry-red tightly coiled hair — crown braids, a long thick braid, or a loose shoulder-length curl-out; vary it per card. Wire-rim round glasses. Gold hoop earrings, small gold nose ring. Warm brown skin. Clothes vary: faded pink hoodie with white raglan stripes, black oversize tee, charcoal work jacket — never a pink jumpsuit, never the same look two cards in a row if a face is in frame. Flat affect, dry, does not perform emotion.
+- **Age 19, still on a permit.** The official path closed before the license (pack/28). Cranberry-red tightly coiled hair — crown braids, a long thick braid, or a loose shoulder-length curl-out; vary it per card. Wire-rim round glasses. Gold hoop earrings, small gold nose ring. Warm brown skin. Clothes vary: faded pink hoodie with white raglan stripes, black oversize tee, charcoal work jacket — never a pink jumpsuit, never the same look two cards in a row if a face is in frame. Flat affect, dry, does not perform emotion.
 - **Vehicle: THE PINK MENACE.** Baja-converted VW Beetle. Faded matte pink with oxidation. Riveted raw-steel door and quarter-panel plating. Welded steel mesh cages over every window and the windshield. Black tube bull bar with a wide flat plow blade. Oversize knobby tires, chrome slot wheels. Interior: cracked pink dash, worn black leather wheel, analog gauge cluster, aftermarket nav tablet, rocker switch bank.
 - **Handling:** light, quick, short wheelbase, excellent visibility, **terrible crash tolerance.**
 - **Weakness: SPEED.** She's fast, she knows it, and she has never once been wrong until she is. Her arc is the speeding arc — PSDP p.12: speeding was a factor in 30% of fatal teen crashes.
@@ -128,7 +128,7 @@ Never teach a rule abstractly. Attach it to one of these.
 
 Acts are gated. You do not reach The Ribbon until Central is clean — same rule the PSDP gives parents on p.1: do not advance until the prior skill has been practiced many times.
 
-`dol_section` and `psdp_skill` on a card must match pack/07_DOL_SECTIONS.json and pack/08_PSDP_SKILLS.json exactly. The seed script rejects anything else. Do not complete a partial skill name. `stat_cited` ships with a page number or the field is omitted. Act II play order is II-001…II-020, then II-029, II-030, then II-021…II-028.
+`dol_section` and `psdp_skill` on a card must match pack/07_DOL_SECTIONS.json and pack/08_PSDP_SKILLS.json exactly. The seed script rejects anything else. Do not complete a partial skill name. `stat_cited` ships with a page number or the field is omitted. Act II play order is II-000, then II-001…II-020, then II-029, II-030, then II-021…II-028. She drives Act II alone — Deac is not in the passenger seat; she meets him in Act III (pack/28).
 
 ## 8. VISUAL GRAMMAR (LOCKED)
 
