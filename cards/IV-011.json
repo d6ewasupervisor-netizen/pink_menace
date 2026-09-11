@@ -1,0 +1,125 @@
+{
+  "card_id": "IV-011",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Backing Into People",
+  "hook": "Mid-reverse. A coat just stepped into the aisle.",
+  "scene": "Heavy rain under flat gray overcast. You are at the wheel of the Menace, twisted looking back, nose-in in a marked perpendicular stall. Ordinary cars parked tight on both sides hide the aisle until your rear clears the bay. Reverse lamps are already lit. The Beetle is partway out, wheels cut, backing into the aisle. One dark coat has stepped into that aisle from behind a neighboring car — only partly visible. They are not looking at your lamps. Yield is the whole reverse, not a glance before you roll.",
+  "decision": "You are mid-reverse out of the stall and someone has entered the aisle. How do you leave?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Reverse now — they will see the lamps and move",
+      "correct": false,
+      "result": "You come out on a guess. They do not see the lamps in the rain. The plow is the wrong end for this. You write a coat into a stall exit. The lot did not need that sound.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Honk the whole reverse so they know a car is coming",
+      "correct": false,
+      "result": "You back up shouting. They jump and scatter into the other aisle lane. A primer car has to lift. Sound got them off your paint and onto someone else's.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "c",
+      "text": "Wait until they pass, then creep out and stop if anyone new enters the aisle",
+      "correct": false,
+      "result": "You wait once and then commit. A third coat steps off the curb after you are already rolling. Waiting is not the same as checking the whole time you move.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Wait them out, check both ways, creep, and be ready to plant it the whole reverse",
+      "correct": true,
+      "result": "You let the coat clear. You look both ways. You creep. A second person appears and you plant it. They pass. You finish into an empty aisle. The stall stays a stall.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "Angled and straight-in stalls back into a live aisle. People in that aisle own it until they are gone. Wait for them to clear, then creep.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "4.18 Parking",
+    "teaching_target": "When backing out of angled or perpendicular parking, yield to people and traffic; creep and be ready to stop."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "camera_is_the_lesson": true,
+    "camera_pose": "Low human-eye height, standing in the drive aisle immediately behind and outboard of the Menace's left rear quarter — roughly the pedestrian's position in her left-rear blind zone. Tight crop: the sloping REAR engine lid, left rear quarter, and two LIT WHITE REVERSE LAMPS on the rear bumper fill the near frame and are nearest the lens. The player shares that blind zone. Do not pull back to survey the whole aisle. Do not stand at the stall nose or in front of the plow looking back down the row. Ali stays readable through the rear glass and left side glass — head and shoulders rotated, looking back over her right shoulder toward the camera. The plow is the FAR end, small, still between neighboring parked cars in the stall. NOT overhead, NOT a forward pull-out, NOT the lock's front three-quarter, NOT a wide aisle establishing shot.",
+    "subject": "CHECK first: Ali's head and shoulders are rotated rearward — she looks back over her right shoulder through the glass toward the aisle (17-year-old, warm brown skin, cranberry-red tightly coiled hair, round wire-rim glasses, small gold hoop earrings, small gold nose ring, calm flat expression, raglan hoodie). She is not facing the plow. Two white reverse lamps are lit on the rear bumper. Front wheels cut. Beetle mid-reverse: rear entering the aisle, front still boxed between the neighboring parked cars.",
+    "foreground": "one dark-coated adult stepping into the aisle from behind the neighboring sedan on the left — only a coat-shoulder and one leg visible at the near-left frame edge, partly hidden by that sedan's body, standing in the same blind-zone pocket as the camera, not loading a car, not leaning into an open door, not fully visible, not struck",
+    "midground": "two parallel white stall-bay lines running to a curb wall; full gray sedans occupying the stalls immediately left and right, blocking the sightline until the rear clears; plow small at the far stall end between those cars",
+    "background": "heavy rain, flat gray overcast daylight, a strip of visible gray sky, wet downtown lot. Tight crop — the aisle is implied by the rear bumper entering it, not a wide empty-asphalt survey. No night, no lot-lamp key light",
+    "read": "from the left-rear blind zone, the Menace is mid-reverse out of a marked stall with white reverse lamps lit while a partly occluded pedestrian shares the aisle she must check",
+    "extra_negatives": [
+      "no night, no dusk, no deep night, no unlit black sky",
+      "no headlight spill as key light, no streetlamp pools as the only light",
+      "no high overhead, no aerial, no bird's-eye, no architecture roof shot",
+      "no empty cabin, no unoccupied car, no parked square fully inside the stall",
+      "no two people at the bumper, no struck pedestrians, no coats touching the car",
+      "no triangular hatch field, no diagonal hatch fill, no chevron gore, no floating keep-clear stripes",
+      "no two-lane arterial, no Beetle occupying only the right half of a street",
+      "no plow blade on the rear bumper",
+      "no pedestrian walking along a wall away from the car",
+      "no pedestrian loading a car, no person leaning into an open door, no figure sitting in a neighboring car",
+      "no single isolated stall line, no cropped bumper-only neighbor cars",
+      "no red brake lamps as the only rear light",
+      "no forward pull-out, no driving forward into the stall, no travel away from camera",
+      "no unlit reverse lamps, no headlights as the near lamps",
+      "no Ali facing the plow, no driver looking forward only",
+      "no face-on side-window portrait without a rearward shoulder turn",
+      "no camera surveying the full aisle from mid-aisle, no camera at the stall nose looking back, no wide establishing lot shot with the Beetle small in frame",
+      "no interior back-seat camera, no looking out the rear window from inside",
+      "no fully visible pedestrian in open empty asphalt",
+      "no child",
+      "no Encore",
+      "no Ledger"
+    ],
+    "continuity": [
+      "pink_menace_exterior",
+      "ali"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "marked perpendicular stall opening onto a drive aisle, occupied stalls either side",
+      "ego_nose_in_frame": "the plow points away from camera into the stall toward the curb wall",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside",
+      "marking_anchor": {
+        "edge": "concrete curb wall at the stall nose",
+        "marking": "two parallel white stall-bay lines forming one perpendicular bay, plus matching lines on occupied stalls left and right",
+        "ego_relative": "the Beetle is reversing partway out of that bay, rear in the aisle, plow still over stall paint toward the curb wall"
+      }
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "heavy_rain",
+    "time_of_day": "afternoon",
+    "tone": "procedural",
+    "failure_mode": "inexperience",
+    "forced": "Act IV daylight lock — night is Act VII Dark Hours"
+  }
+}
