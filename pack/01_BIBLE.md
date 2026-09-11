@@ -139,13 +139,14 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 
 ### 8.2 Reference discipline — read this or you will get sunsets forever
 - `ref_ali1.jpg`, `ref_ali2.png` — **face, hair, glasses, jewelry.** Also the correct lighting model.
-- `ref_car_exterior.jpg` — **silhouette and build only.** The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
+- `ref_car_exterior.jpg` — **silhouette and build only.** Front three-quarter. The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
+- `ref_car_rear_plow.jpg` — **rear-angle plow authority.** Rear three-quarter; wide flat blade on the black tube bull bar at the far leading / nose end. Attach with the front 3/4 on behind / left-rear / `POV_DIAGRAM` compiles (and on every `pink_menace_exterior` compile for safety). Salt-flat golden hour is **NOT** the game's lighting.
 - `ref_cockpit.jpg` — **interior layout and mesh screen only.** Same warning: not the lighting.
 - `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
 - `ref_quiet.png` — Quiet register lock (A3 take 3). Attach on every Quiet compile. Posture and stillness, not damage. They never fill the frame. Plates: `ref_quiet_a1.png`–`ref_quiet_a5.png`.
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
 - `ref_hand_signals.png` — three-panel left-arm plate (left / stop / right). Limb geometry is not improvised.
-- `ref_diagram_style.png` — optional overhead look lock. Diagram compiles attach `ref_car_exterior.jpg` for the Menace's build. Lighting is still overcast PNW, never the salt-flat sunset.
+- `ref_diagram_style.png` — optional overhead look lock. Diagram compiles attach `ref_car_exterior.jpg` and `ref_car_rear_plow.jpg` for the Menace's build and rear-angle plow. Lighting is still overcast PNW, never the salt-flat sunset.
 
 ### 8.3 Camera set (pick exactly one per card)
 

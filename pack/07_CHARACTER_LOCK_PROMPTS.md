@@ -102,6 +102,8 @@ Use G1 as a silhouette test. If you can't tell the three apart at thumbnail size
 | Yuna portrait | `ref_yuna.png` |
 | Encore four-view | `ref_encore_sheet.png` |
 | Encore cockpit | `ref_encore_cockpit.png` |
+| Pink Menace four-view | `ref_car_sheet.png` |
+| Pink Menace rear plow | `ref_car_rear_plow.jpg` |
 | Convoy silhouette test | `ref_convoy.png` |
 
-Ali and the Menace already have refs and need nothing. Gracie and Mya are locked.
+Ali face refs are locked. Front 3/4 hero remains `ref_car_exterior.jpg` (silhouette and build). Rear-angle plow authority is `ref_car_rear_plow.jpg` — rear 3/4 with the wide flat blade on the black tube bull bar at the far leading / nose end; that is the plate behind / left-rear / `POV_DIAGRAM` compiles must see. **nose_plow: standard plate equipment.** Not scene-optional, not left-flank / side-mounted. Salt-flat lighting on both plates is not the game's. Gracie and Mya are locked.
