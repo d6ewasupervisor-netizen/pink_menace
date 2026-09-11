@@ -1,0 +1,52 @@
+{
+  "card_id": "IV-017",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "deac",
+  "card_type": "dossier",
+  "title": "The Conversation",
+  "hook": "She found the bus. She's been fine.",
+  "scene": "The Ledger is still parked. Window to window. Fog on the cage. Glasses on the cord. Clipboard on the thigh. He does not ask you a question. She found the bus. She's been fine. Kent lot. I read the collar. I kept her. I was measuring whether you stay quiet. Whether you check. Whether I can trust you with something that cannot protect itself. Same test as a load. Same as the pass. Same as the license. One standard. First time I am saying that out loud. She goes back because I decided. You did not ask. You did not score this. I carried someone else's cat. Waited to see if you'd mention it. You never did. I know why. Take her. You take her. You do not say the name.",
+  "debrief": "He gives her back because he decided. You take her. You do not say the name.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Handover: Deac states the one standard out loud (quiet, checks, trust with what cannot protect itself) and returns Mya because he decided — no quiz, no scored answer."
+  },
+  "cast": [
+    "deac",
+    "ali",
+    "mya"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "Deac in the high seat, glasses on a cord, amber vest taped at the shoulder, clipboard on the thigh, Mya held against his chest in both hands at the open window",
+    "foreground": "dented thermos and the window ledge, fog on the cage",
+    "midground": "his face, no smile, reddened eyes, the brown mackerel against the vest",
+    "background": "the Ledger's cargo box and long-arm mirrors; fog, downtown dusk; Ali not in frame",
+    "read": "Mya is in his hands at the open window; the clipboard is on his thigh",
+    "continuity": [
+      "deac",
+      "deac_clipboard",
+      "mya",
+      "ledger_cockpit"
+    ],
+    "extra_negatives": [
+      "no clipboard in the windshield",
+      "no clipboard on the dash",
+      "no Menace lock",
+      "no both characters in glasses"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "fog",
+    "time_of_day": "dusk",
+    "tone": "quiet",
+    "failure_mode": "none"
+  }
+}
