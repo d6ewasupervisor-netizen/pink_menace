@@ -8,7 +8,10 @@
 # do NOT attach Y4 take 7. do NOT attach IV-001-brake take 21 / 35. do NOT attach Menace refs.
 # do NOT attach IV-003 — pack does not name it as brake composite authority.
 # camera: POV_OBJECT
-# takes 61+. closest: TBD
+# takes 61–84. closest: cards/takes/IV-001-brake-take-81.png
+# vs take-57: heel planted on the floor; shin drops from the left (~45°), not horizontal;
+#   ball overlaps the left of the diamond brake. Residual: overhead camera still makes
+#   the air-gap slit hard to silhouette.
 # not seeded
 
 See cards/takes/IV-001-brake.prompt.txt

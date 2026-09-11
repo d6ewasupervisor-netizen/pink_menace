@@ -8,7 +8,8 @@
 # line 3: Cover the brake before the light even thinks about yellow. Foot off the gas. Held. Not riding it.
 # take-57 FAIL: foot resting flat on the pad; shin too horizontal / leg too straight so ankle cannot pivot.
 # this pass: ONE ready-to-press motion — bent knee, thigh down, shin ~45°, heel under pad lip, ankle flexed, daylight under sole.
-# takes 61+. not seeded.
+# takes 61–84. closest: take 81 (heel down, shin dropped, ball over left of pad).
+# not seeded.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight through intact windshield glass — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 
