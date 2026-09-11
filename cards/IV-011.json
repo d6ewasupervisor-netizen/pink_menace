@@ -65,15 +65,17 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "subject": "RIGHT: pink Beetle nose-in in an angled stall, plow to the wall. Two dark coats stand in the street ON the reverse axis behind the rear. LEFT: empty travel lane.",
-    "foreground": "angled stall paint on a bias, not square to the wall; wet lot aisle; street curb at the stall's rear",
-    "midground": "Beetle rear toward camera and street; two coats closer to camera than that rear, same stall column, not left of the stall",
+    "subject": "RIGHT: pink Beetle nose-in in an angled parallelogram stall, plow to the curb wall. Adjacent empty stall, same bias paint. Two dark coats in the street on the reverse axis. LEFT: empty lane.",
+    "foreground": "two parallel white stall-bay lines on a bias forming a parallelogram bay, not a hatched triangle; lines meet the curb wall; adjacent empty stall; street curb at the rear",
+    "midground": "Beetle rear toward camera and street; two coats on unmarked street beyond the stall rear, same stall column, not inside the bay",
     "background": "heavy rain, flat gray overcast daylight, visible gray sky, wet downtown lot, no night, no lot-lamp key light",
     "read": "the Beetle is nose-in; two people stand in the street the reverse would enter",
     "extra_negatives": [
       "no night, no dusk, no deep night, no unlit black sky",
       "no headlight spill as key light, no streetlamp pools as the only light",
       "no perpendicular stall, no stall paint square to the wall",
+      "no triangular hatch field, no diagonal hatch fill, no chevron gore, no floating keep-clear stripes",
+      "no people standing on stall paint inside the bay",
       "no people left of the stall, no people in the lot aisle beside the Beetle",
       "no faces",
       "no child",
@@ -87,13 +89,18 @@
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "angled stall on the right of a lot aisle, paint on a bias, nose to the wall",
+      "ego_lane_side": "angled parallelogram stall right of aisle, bias bay lines, nose to curb wall",
       "ego_nose_in_frame": "the plow points toward the top of the frame, into the stall wall",
       "oncoming_position": "none in frame",
       "hazard_position": "beside",
       "lanes_this_direction": 2,
       "ego_lane_from_left": 2,
-      "ego_frame_side": "right"
+      "ego_frame_side": "right",
+      "marking_anchor": {
+        "edge": "concrete curb wall at the stall nose and street curb at the stall rear",
+        "marking": "two parallel white stall-bay lines on a bias forming one parallelogram bay, plus the same pair on the adjacent empty stall",
+        "ego_relative": "the Beetle sits inside that parallelogram stall, plow to the curb wall, rear toward the street; coats stand in the street beyond the stall rear"
+      }
     }
   },
   "variation": {
