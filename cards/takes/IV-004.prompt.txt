@@ -7,7 +7,12 @@
 #      person mid-step out of the parked-car gap (occluded), not standing fully in open roadway;
 #      plow = full-width blade on the FRONT bull bar; clean rear
 # keep: daylight street, mesh, cabin exterior
-# takes this pass: 51+
+# takes this pass: 51–67
+# closest (not seeded): cards/takes/IV-004-take-63.png
+# runner-up: take 67
+# 63: front full-width blade on the bull bar, clean rear, Beetle short of the person, daylight/mesh. Residual: more three-quarter than dead-away; person still in the open; parked-ish
+# 67: away-er heading, front-corner plow peek, clean rear, short of the person. Residual: corner-ish blade read; person in the open
+# rear plow discard: 51, 52, 58, 60, 61
 # do not seed. no Act I–III.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
