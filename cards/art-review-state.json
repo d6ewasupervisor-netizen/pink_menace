@@ -174,6 +174,12 @@
       "note": "Copy fixed: The skyline is dark and the sign is dark with it. Still already reads stopped bus + dark skyline. the bus is sitting on the wrong side of the road.",
       "pick": "b-take-2",
       "updated_at": "2026-09-01T20:18:25.286Z"
+    },
+    "IV-006": {
+      "tag": "PASS",
+      "note": "Claude muted-read PASS (a8a5ebe4) take-11. Blade on the far NOSE, not the rear; rear chrome bumper clean. Seeded as live still. Take-10 runner-up — not seeded. Residuals accepted: more nadir, train offset, left-front plate not full take-8 span.",
+      "pick": "take-11",
+      "updated_at": "2026-09-12T03:31:00.000Z"
     }
   }
 }
