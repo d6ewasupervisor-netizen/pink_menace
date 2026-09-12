@@ -45,7 +45,7 @@ Dossiers are continue-only (no quiz options). That is intended.
 
 ## Known residuals (play anyway)
 
-- **IV-026** — old plow stub (take 110). Later high-oblique / take-8 plow regen (#125, #128, including take 142) is **unmerged**. Do not regenerate.
+- **IV-026** — live still is still take 110 · #72 (old plow stub). Claude FAIL on #138 takes 184 / 179. This wave revises the brief to take-179's nose-toward / opposite-lane camera; take-8 plow plate attached. **Not seeded.** Do not merge on this PR.
 - **IV-007** — composition drift on take 30 vs later weather/MUTCD regen (#114). Live still is the seeded PASS. Do not regenerate.
 - **IV-001** — not a live card. Ride stills (`count-in`, `handoff`, `brake`) exist as assets only. The Core opens at IV-002.
 - **Unfinished / unseeded** — IV-014, IV-019–025, IV-029. PR #130 (parallel 018/010/029) stays unmerged. Sequence skips them.

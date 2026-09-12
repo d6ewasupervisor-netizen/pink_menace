@@ -1,0 +1,20 @@
+# IV-026 — GPT Image 2 compile prompt
+# attachments (MUST, every take): ref_car_exterior.jpg, ref_car_nose_plow.png
+# camera: POV_ROADSIDE (take-179 class: street-level, ahead of Menace, opposite-lane, nose-toward)
+# take send: IV-026 · three hazards sit in the Beetle's next two lengths; the left travel lane is empty · POV_ROADSIDE
+
+See cards/takes/IV-026.prompt.txt for the primary generation prompt.
+See cards/takes/IV-026.away.prompt.txt for the optional away/down-lane alternate — not generated this pass.
+See cards/takes/IV-026.WAVE.md for the wave, closest (199), and runner (194).
+
+Primary takes: IV-026-take-186.png … IV-026-take-199.png.
+Closest: cards/takes/IV-026-take-199.png
+Runner: cards/takes/IV-026-take-194.png
+
+Claude FAIL on PR #138 takes 184 and 179 is authoritative. Build from take 179's camera, not 184. Approved revision: nose-toward only from ahead of the car / opposite-lane vantage. Card JSON is now that camera. Lesson / hazards stay JSON authority: side-door van (not barn-door), person + bike in her lane, tight two-length stack.
+
+Take-8 plow plate (`refs/ref_car_nose_plow.png`, sha256:c6c8ec1fe709ddb8329e7b5def830dae0959002bf838ba1afcdbaf51d63d1133) MUST be attached every compile. Prior #138 upload missed the plate. Do not lift the plow requirement.
+
+Compiler resolve-refs lists only ref_car_exterior.jpg from continuity `pink_menace_exterior`. The plow plate is an extra lock attach at generation time — not a LOCKS.md / 09_REF_MAP change.
+
+Plow plate / LOCKS / other cards unchanged. Not seeded. Not merged.
