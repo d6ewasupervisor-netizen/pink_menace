@@ -1,0 +1,93 @@
+{
+  "card_id": "VI-001",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "Where the Blacktop Quits",
+  "hook": "The pavement ends and the mountain gets a face.",
+  "scene": "The county road gives up about four miles past the last mailbox, and what replaces it is gravel that somebody graded in the spring and nobody has touched since. You are alone. Gracie is in the carrier, latched, strapped, because the wheels are turning. For five acts the pass has been a gray smudge you could cover with a thumb. From here it has snow on it and weather sitting down on the ridge like something settling in, and you can see which notch the road goes through.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "n/a",
+    "teaching_target": "NEW frame: Backcountry starts where the blacktop quits. PSDP twelve Lesson one – gravel roads. Ali alone. No DOL pair."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "blacktop ending into graded gravel through the full-grid windshield mesh; mountain pass notch readable ahead with weather on the ridge; cabin shows carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT, FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier on passenger floor (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle); wheels turning",
+    "midground": "county blacktop giving way to washboard gravel in the wheel tracks; no other cars",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; ridge ahead with snow on the pass notch",
+    "read": "the pavement ends and the gravel begins; the pass notch on the ridge is readable ahead",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no second occupant",
+      "no snow on the roadway",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no parked Beetle",
+      "no night",
+      "no golden hour",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of a two-lane county road at the blacktop/gravel edge",
+      "ego_nose_in_frame": "plow points up-frame toward the gravel and the pass notch",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "gravel",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "quiet",
+    "failure_mode": "none",
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
+  },
+  "debrief": "Gravel from here. The pass is close enough to read now."
+}

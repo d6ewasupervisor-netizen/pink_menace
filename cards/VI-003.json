@@ -1,0 +1,143 @@
+{
+  "card_id": "VI-003",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Pile at the Edge",
+  "hook": "Somebody left a ridge of gravel along the shoulder.",
+  "scene": "A windrow runs the right edge for the next half mile — loose gravel piled where the grader pushed it and never came back. It looks like shoulder. It is a rope laid along the road.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "n/a",
+    "teaching_target": "PSDP twelve — gravel windrow / pile at the edge. PSDP-only (n/a DOL)."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "a continuous ridge of loose gravel piled along the right edge for the next half mile through full-grid mesh; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT, FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "midground": "gravel windrow along the right edge stretching ahead",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift",
+    "read": "loose gravel is piled along the right edge for a long stretch",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no second occupant",
+      "no snow on the roadway",
+      "no ice",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no wheels already off the pavement",
+      "no deer",
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of a two-lane rural road, still on the travel surface",
+      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "gravel",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
+  },
+  "decision": "The windrow is on your right. Where do you put the tires?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Left of it, in the graded track, and give it room",
+      "correct": true,
+      "result": "You stay in the part somebody meant you to drive on. The pile sits out there being a pile.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "b",
+      "text": "Straddle it so you are using the full width",
+      "correct": false,
+      "result": "One wheel in loose and one in packed, and the car starts arguing with itself about which way is straight.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Ride the far right so oncoming traffic has all the room it wants",
+      "correct": false,
+      "result": "You put the right side into the windrow to be generous. It takes the wheel out of your hands and points you at the ditch.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "d",
+      "text": "It's only gravel — drive normally",
+      "correct": false,
+      "result": "It is gravel that is six inches deep in a line. That is not the same gravel you are already on.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 8
+      }
+    }
+  ],
+  "debrief": "Watch for windrows — piled gravel at the road edge grabs a wheel."
+}

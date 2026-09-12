@@ -1,0 +1,145 @@
+{
+  "card_id": "VI-007",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "Five Easy Steps",
+  "hook": "A circle with nobody in charge of it.",
+  "scene": "A single-lane roundabout where the county road meets the state route, and a sedan is already inside it coming around toward your entry. You have never liked these. Yuna says they're the safest intersection anyone builds, which is easy to say on a radio.",
+  "source": {
+    "psdp_skill": "Skill thirteen: roundabouts",
+    "dol_section": "n/a",
+    "teaching_target": "NEW: PSDP thirteen Lesson one – five easy steps. Prefer PSDP-only (not IV-015 4.15 replay)."
+  },
+  "cast": [
+    "ali",
+    "gracie",
+    "yuna"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "single-lane roundabout entry; a sedan already circulating CROSS-TRAFFIC inside toward your entry (reads as cross-traffic, not a distant car ahead); full-grid cage; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT, FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "midground": "roundabout apron; circulating sedan inside the circle approaching your entry lane as cross-traffic",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; splitter island, no traffic signal",
+    "read": "a sedan is already inside the single-lane circle coming toward your entry as cross-traffic",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no second occupant",
+      "no snow on the roadway",
+      "no ice",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no two-lane roundabout",
+      "no traffic light",
+      "no Yuna in the cabin",
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no distant car merely ahead in the same lane",
+      "no missing circulating cross-traffic in the roundabout"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "entry lane of a single-lane rural roundabout",
+      "ego_nose_in_frame": "plow points up-frame toward the circulating lane",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "rural",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
+  },
+  "decision": "You're at the entry. A car is already in the circle.",
+  "options": [
+    {
+      "id": "a",
+      "text": "Slow to about fifteen, yield to him, then take the gap behind",
+      "correct": true,
+      "result": "You come down to fifteen, look left, and let him have it. Then the gap opens and you go without stopping again.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "b",
+      "text": "Stop at the line and wait for the whole circle to clear",
+      "correct": false,
+      "result": "Nobody empties a roundabout. You stop, then stop again, and the three cars behind you inherit it.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 10
+      }
+    },
+    {
+      "id": "c",
+      "text": "Enter now — you're moving and he can adjust",
+      "correct": false,
+      "result": "He's already in. Traffic in the circle has it, and you just asked a stranger to brake for your entry.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Enter, then change lanes inside to reach your exit sooner",
+      "correct": false,
+      "result": "Single lane, and you came in planning to move around in there. There is nowhere left to sort it.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 8
+      }
+    }
+  ],
+  "debrief": "Slow down, look left, yield to traffic already in the roundabout, don't stop inside, and signal your exit."
+}

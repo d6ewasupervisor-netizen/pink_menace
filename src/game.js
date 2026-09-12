@@ -346,6 +346,7 @@ function quizableAnswer(ans) {
   if (!ans || !ans.card_id) return false;
   if (isWatchCard(ans.card_type)) return false;
   if (isBeatCard(ans.card_type)) return false;
+  if (ans.option_id === "continue") return false;
   return true;
 }
 

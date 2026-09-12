@@ -1,0 +1,143 @@
+{
+  "card_id": "VI-006",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Nobody's In Charge Here",
+  "hook": "No stop, no yield, no paint. Somebody still has to go second.",
+  "scene": "Two gravel roads cross at the section line. No sign in any direction, no signal, nothing painted. A dusty pickup is coming from your right at about the same speed you are, and it is arriving at about the same time.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "4.15 Other intersections (Uncontrolled Intersection)",
+    "teaching_target": "NEW: PSDP twelve Uncontrolled intersections + DOL 4.15 Uncontrolled Intersection child."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "two gravel roads crossing with no stop, no yield, no paint; a dusty pickup arriving from the right at the same time; full-grid cage; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT, FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "midground": "empty uncontrolled gravel intersection; dusty pickup entering from the right",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; section-line country, fir edges",
+    "read": "no stop or yield; a pickup arrives from the right at the same time",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no second occupant",
+      "no snow on the roadway",
+      "no ice",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no stop sign face toward camera",
+      "no yield sign face toward camera",
+      "no traffic signal",
+      "no painted stop line",
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "approaching an unmarked gravel crossroads in the right half",
+      "ego_nose_in_frame": "plow points up-frame into the empty cross",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "rural",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
+  },
+  "decision": "No signs, and you'll both arrive together. Who goes?",
+  "options": [
+    {
+      "id": "a",
+      "text": "He's on your right — slow, look twice, let him through",
+      "correct": true,
+      "result": "You come off it, check both ways twice, and let him have it. He lifts a finger off the wheel.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "b",
+      "text": "You were there first — keep your speed",
+      "correct": false,
+      "result": "Uncontrolled means nobody has it by default. You arrived together and you both believed you were first.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Speed up and clear it before he gets there",
+      "correct": false,
+      "result": "You race a stranger through a blind crossing on the theory that whoever commits harder wins.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Stop dead in the middle and wave him on",
+      "correct": false,
+      "result": "You stop in the intersection, in dust, on gravel, and now nobody knows what either of you is doing.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "At an uncontrolled intersection, slow down, check both ways twice, and yield to the vehicle on your right."
+}

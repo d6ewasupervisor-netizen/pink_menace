@@ -1,0 +1,143 @@
+{
+  "card_id": "VI-005",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Wide and Slow",
+  "hook": "A grain truck, swinging out for a gate you cannot see.",
+  "scene": "A truck ahead doing thirty with a load and a slow-moving triangle. It drifts left, which on a two-lane looks like an invitation. There is a field entrance somewhere on the right that you have no way of knowing about and he does.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "4.8 Sharing with agricultural vehicles",
+    "teaching_target": "NEW: PSDP twelve Large/slow vehicles + DOL 4.8 agricultural vehicles."
+  },
+  "cast": [
+    "ali",
+    "gracie",
+    "grange_convoy"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "a slow grain truck ahead with SMV triangle, drifting left as if inviting a pass; field gate unseen on the right; full-grid cage; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT, FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "midground": "grain truck rear and SMV triangle in the same lane; truck yawed slightly left",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; fence line and field edge right",
+    "read": "the grain truck drifts left with an SMV triangle; a pass looks invited",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no second occupant",
+      "no snow on the roadway",
+      "no ice",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no pass already underway",
+      "no ego already in the oncoming lane",
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of a two-lane rural road",
+      "ego_nose_in_frame": "plow points up-frame toward the grain truck ahead",
+      "oncoming_position": "left half empty; no oncoming vehicle in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "rural",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
+  },
+  "decision": "He's moved left and slowed. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Take the gap on the right — he's making room",
+      "correct": false,
+      "result": "He swung wide for a right turn into the gate. You put the Menace where the trailer is going.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "b",
+      "text": "Stay back until you can see his mirrors and know where he's going",
+      "correct": true,
+      "result": "You hold. His signal comes on late, the trailer swings, and the gate appears. From back here it was obvious.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Pass on the left immediately, before he slows more",
+      "correct": false,
+      "result": "Blind crest coming and a farm truck beside you. You cannot finish it. The pass dies unfinished.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Sound the horn so he knows you're behind",
+      "correct": false,
+      "result": "You make noise on a country road. He already knew. The horn did not buy you information.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "Farm equipment makes wide turns at unmarked entrances. Make sure the driver can see you before you pass."
+}

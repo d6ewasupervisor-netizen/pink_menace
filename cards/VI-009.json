@@ -1,0 +1,152 @@
+{
+  "card_id": "VI-009",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Look for the Others",
+  "hook": "A deer in the road, and it is not alone.",
+  "scene": "Last light. A doe is standing in your lane, broadside, doing what they do, which is nothing. Ditch on the right, oncoming lane on the left, and your hands have already decided which one they like.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "n/a",
+    "teaching_target": "PSDP twelve Animals: do not swerve. Not DOL 4.19 pets. Timeout = swerve."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "a doe standing BROADSIDE centered in your travel lane, full scale, close, filling the next lengths INSIDE the full-grid windshield mesh (reopen take-1 deer framing); dark unlit dash (take-2 dash); carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT — gauges present but turn arrows OFF; no lit indicators; no speedlike digital readout; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; hands not yet yanking; carrier on passenger floor (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "midground": "doe broadside centered across the asphalt in THIS lane — full body readable through the mesh, not grazing roadside, not distant; ditch right, empty oncoming left",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; dusk overcast rural two-lane, treeline/fir, last light not full night",
+    "read": "a deer stands broadside centered in your lane at dusk, close and full-scale through the full-grid mesh; dark unlit dash; Gracie in carrier",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no deer grazing on the roadside shoulder",
+      "no deer already past or leaping clear",
+      "no herd filling the frame",
+      "no second occupant",
+      "no snow on the roadway",
+      "no ice",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no Encore",
+      "no full night with only headlamps",
+      "no golden hour warm orange",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no GPS navigation screen",
+      "no invented tablet on the dash",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no distant tiny deer",
+      "no brightly lit dash indicators",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of a two-lane rural road",
+      "ego_nose_in_frame": "plow points up-frame at the doe already in the lane",
+      "oncoming_position": "left half empty; no oncoming vehicle in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "rural",
+    "weather": "overcast",
+    "time_of_day": "dusk",
+    "tone": "urgent",
+    "failure_mode": "none",
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
+  },
+  "decision": "She's in your lane. You can't stop in time.",
+  "options": [
+    {
+      "id": "a",
+      "text": "Brake straight, stay in the lane, don't swerve",
+      "correct": true,
+      "result": "You brake hard and hold the wheel and hit nothing, or you hit her and keep the car. Either way you're still pointed down the road — and the second one comes out of the ditch three seconds later.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "b",
+      "text": "Swerve left into the oncoming lane",
+      "correct": false,
+      "result": "The worst crashes are people who missed an animal and found a truck. Oncoming finds you first.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "c",
+      "text": "Swerve right onto the shoulder",
+      "correct": false,
+      "result": "Soft shoulder, a ditch, and a Beetle rolling into it. The ditch takes the car the deer never needed.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "yaw": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "d",
+      "text": "Swerve",
+      "correct": false,
+      "result": "Your hands did it. That is the whole reason this card exists. The swerve was the decision.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "yaw": 1,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "Don't swerve for an animal — slow down, be prepared to stop, and look for more. Deer travel in groups.",
+  "timeout_option_id": "d",
+  "timeout_ms": 8000
+}

@@ -1,0 +1,161 @@
+{
+  "card_id": "VI-004",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Off the Edge",
+  "hook": "The right wheels are off the road.",
+  "scene": "The road narrows where the culvert went in and the shoulder is a four-inch drop of soft dirt, and you find it the way everyone finds it — not by deciding. The right side goes down and the car pulls hard toward the ditch and the wheel in your hands wants one thing, which is to come back up. Everything in your arms agrees with it.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "n/a",
+    "teaching_target": "PSDP twelve Sharp drop-offs and gravel shoulders. Do not yank. Arms ledger VI-011. PSDP-only."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": true,
+  "image_brief": {
+    "camera": "POV_ROADSIDE_PROFILE",
+    "subject": "faded-pink Beetle MID-EVENT soft shoulder at road-grade: off-camber; front-right corner shows EXPOSED HUB (no wheel on that corner); shed wheel separated on grass/gravel beside fresh rut; through rear side cage: carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "road-grade camera; soft dirt/grass shoulder with fresh rut; shed front wheel SEPARATE on grass/gravel; EXPOSED hub/axle on front-right — do not reattach a wheel to that corner",
+    "midground": "Beetle true profile left-to-right, off-camber, right side down mid-event; left tires on asphalt; plow and FULL-GRID mesh cages readable; rear side cage shows carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; culvert is LOCATION ONLY (not the subject); soft ditch, not a cliff",
+    "read": "mid-event soft shoulder: exposed hub, shed wheel separated, off-camber, fresh rut; road higher on the left",
+    "continuity": [
+      "pink_menace_exterior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no approaching the shoulder still fully on pavement",
+      "no all four tires on asphalt",
+      "no wheels climbing back onto the lip",
+      "no crash already finished",
+      "no second occupant",
+      "no snow on the roadway",
+      "no ice",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no Encore",
+      "no headlights toward camera",
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no parked beauty shot with level dry stance",
+      "no floating / levitating car",
+      "no wheel buried in a vertical dirt bank under a cliff lip",
+      "no cliff cut — soft shoulder only",
+      "no detached wheel as wreckage",
+      "no missing carrier through rear side cage",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no culvert as the hero subject",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no wheel reattached to the exposed hub corner",
+      "no floating car",
+      "no cliff cut",
+      "no culvert as hero subject"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "right half of a two-lane rural road, front-right tire already off onto soft shoulder mid-event, off-camber",
+      "ego_nose_in_frame": "the plow points toward the right of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "rural",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "urgent",
+    "failure_mode": "none",
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
+  },
+  "decision": "Two wheels are off the pavement. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Turn back onto the road — get the wheels up before the ditch",
+      "correct": false,
+      "result": "You pull. The tire climbs the lip, catches, and the car comes across the road with more angle than you asked for. That is how this crash happens. Not the drop — the fix.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "yaw": 2,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "b",
+      "text": "Don't turn. Off the gas, hold it straight, find a flat spot and come back when it's clear",
+      "correct": true,
+      "result": "You keep the wheel where it is, which is the hardest thing in the car. The Menace runs the dirt straight, slowing. Twenty yards on the shoulder comes back up level and you signal and steer on, and the whole thing ends up being nothing.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Brake hard before you lose more of it",
+      "correct": false,
+      "result": "You stand on it with two wheels on dirt and two on asphalt, and the two that grip swing the car around the two that don't.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Jerk it back",
+      "correct": false,
+      "result": "You do it before you decide to. The tire catches the lip and the car is across the centerline and you are a passenger for the part that matters.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "yaw": 2,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "If you run off the road: don't turn the wheel, ease off the gas, stay straight, and come back on where it's level. Arms VI-011.",
+  "timeout_option_id": "d",
+  "timeout_ms": 10000
+}

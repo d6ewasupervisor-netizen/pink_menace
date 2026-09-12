@@ -1,0 +1,150 @@
+{
+  "card_id": "VI-008",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Pick Your Lane Before the Circle",
+  "hook": "Two lanes in. The decision is on the approach, not inside.",
+  "scene": "Bigger roundabout at the highway junction, two lanes going in, arrows painted on the approach and a sign board before them. Your exit is the third one — effectively a left. The lane you're in decides whether you can take it.",
+  "source": {
+    "psdp_skill": "Skill thirteen: roundabouts",
+    "dol_section": "n/a",
+    "teaching_target": "NEW: PSDP thirteen Lesson three – two or more lane roundabouts. PSDP-only."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle; full-grid cage; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle); NO lit bidirectional dash arrow",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT — no lit turn arrows, no bidirectional arrow glow; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "midground": "two approach lanes into the roundabout; painted lane arrows on asphalt only (not lit dash indicators); if a fork sign exists it must have a readable legend or be removed",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift",
+    "read": "two approach lanes into the junction roundabout; pick your lane before the circle",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no second occupant",
+      "no snow on the roadway",
+      "no ice",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no decision already inside the circle",
+      "no night",
+      "no traffic signal controlling the circle",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no lit bidirectional arrow on the dash",
+      "no unlabeled fork post without legend"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right approach lane of two lanes into a roundabout",
+      "ego_nose_in_frame": "plow points up-frame toward the roundabout",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "marking_anchor": {
+        "edge": "right curb of the roundabout approach",
+        "marking": "two approach lanes with painted turn arrows before the circle",
+        "ego_relative": "ego occupies the right approach lane of the two painted lanes"
+      }
+    }
+  },
+  "variation": {
+    "location_type": "rural",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
+  },
+  "decision": "Two lanes, your exit is the far side. Where do you get in line?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Read the signs and arrows now, take the left lane, stay in it around",
+      "correct": true,
+      "result": "You read the board, take the left, hold your lane the whole way, signal, and leave. Decided before you entered.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "b",
+      "text": "Take the right lane and move left once you're inside",
+      "correct": false,
+      "result": "Changing lanes in a roundabout is how the side of your car meets somebody who was already there.",
+      "state_delta": {
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Take whichever lane is shorter and sort it out inside",
+      "correct": false,
+      "result": "You pick by queue length and end up on the wrong side of the circle at your exit.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "d",
+      "text": "Stay right and go around twice",
+      "correct": false,
+      "result": "You commit to a lap because you didn't read a sign. The circle takes another turn from you.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 12
+      }
+    }
+  ],
+  "debrief": "On a multi-lane roundabout, read the signs and arrows before you enter and stay in your lane all the way around."
+}

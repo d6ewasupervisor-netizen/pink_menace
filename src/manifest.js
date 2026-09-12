@@ -16,6 +16,11 @@ const MANIFESTS = {
     cargo: "Deac's cargo",
     for: "the next drop",
   },
+  VI: {
+    run: "The Backcountry — valley floor",
+    cargo: "TODO — Claude: Backcountry load",
+    for: "Clearance — Deac clipboard",
+  },
 };
 
 const FAIL_PLACE = {
@@ -138,9 +143,20 @@ function cargoFailDispatch(charges) {
   return parts.join(" ");
 }
 
-function deliveryBeat(stateOrCold) {
+function deliveryBeat(stateOrCold, act) {
   const state = stateOrCold && typeof stateOrCold === "object" ? stateOrCold : { time_cost: COLD_PACK - (Number(stateOrCold) || 0) };
   const n = coldFrom(state);
+  if (act === "VI") {
+    // End beat (not a VI-014 card): Cleared — and the pass is shut.
+    // Claude END_BEAT: same shut-gate beat whether the pack finished cold or warm.
+    void n;
+    return (
+      "The sheet goes in the glovebox with the affidavit and the log from Kent, and for the first time since the lot in Kent the thing you drove out there to get is actually in the car. " +
+      "Then the radio, and it's Yuna, and she isn't leading with it because she never does: the pass is shut. Four feet on the ridge in two days, or something moving on the east slope that the plows won't go near — the reason changes depending on who is telling it and both versions end with the same closed gate. " +
+      "You are cleared to drive a road that will not let you on it. " +
+      "Two hundred and eighty miles east, your mother is awake and does not know yet."
+    );
+  }
   if (n <= 0) return "Delivered warm. June took it anyway.";
   if (n >= 10) return "Delivered. " + n + " minutes to spare.";
   if (n === 1) return "Delivered. 1 minute. June didn't ask what took so long.";

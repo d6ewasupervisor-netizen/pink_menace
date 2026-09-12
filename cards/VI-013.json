@@ -1,0 +1,151 @@
+{
+  "card_id": "VI-013",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Clipboard, Again",
+  "hook": "He's in the seat beside you with the log.",
+  "scene": "Deac in the passenger seat for the first time since Central, the metal clipboard on his knee and the same hand-ruled sheet he has been carrying since Kent. He is not talking. He says drive to the crossing and turn around, and then he says nothing for eleven miles while you do gravel and a crest and a roundabout, and the only sound is the pen.\n\nAt the end he turns the sheet around so you can see it, which he has never done, and there are hours in the left column and a line at the bottom with his initials on it.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "n/a",
+    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. License lands here. End of act → Cleared beat."
+  },
+  "cast": [
+    "ali",
+    "gracie",
+    "deac"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "Ali driving LHD (hands on wheel at frame LEFT; her face readable) and Deac in the passenger seat with the metal clipboard — BOTH faces in frame; PNW through glass; carrier on rear bench/footwell (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black LHD wheel at LEFT with Ali's hands on it; faded pink dash DARK/UNLIT — no lit turn arrows, no large centered digital readout; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; no clipboard in the glass",
+    "midground": "Deac in the passenger seat only — face readable, glasses on a cord, amber vest edge, metal clipboard on his knee turned toward the driver; carrier behind seats (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle) — not replacing Deac",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; Menace stopped on gravel shoulder; fir, moss, wet gray — NO high-desert scrub",
+    "read": "Ali is driving (hands on wheel, frame left); Deac is passenger with metal clipboard; both faces; Gracie in carrier; PNW outside",
+    "continuity": [
+      "pink_menace_interior",
+      "deac",
+      "deac_clipboard",
+      "gracie",
+      "ali"
+    ],
+    "extra_negatives": [
+      "no clipboard on the dash",
+      "no clipboard on the mesh or windshield",
+      "no clipboard blocking the right half of the road",
+      "no Deac in the driver seat",
+      "no third occupant",
+      "no cat on the dash",
+      "no snow on the roadway",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no Ledger interior",
+      "no moving wheels",
+      "no night",
+      "no Deac outside the car",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "no Deac alone / solo portrait",
+      "no Ali missing from the drive (POV must be driver seat)",
+      "no high-desert scrub",
+      "no arid scrub landscape",
+      "no desert GPS map",
+      "no wooden clipboard — metal clipboard only",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no Ali face missing",
+      "no Deac face missing",
+      "no carrier replacing Deac in the passenger seat",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no Ali hands missing from the wheel"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "stopped on a rural gravel shoulder, not in a travel conflict",
+      "ego_nose_in_frame": "plow points up-frame at empty gravel through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "rural",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "quiet",
+    "failure_mode": "none",
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
+  },
+  "decision": "He's holding it out. What do you say?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Nothing — take it, read it, hand it back",
+      "correct": true,
+      "result": "You read your own hours. He takes it back and clips it down. \"That's the state's form,\" he says. \"I run it out of the book because there's nobody left to run it out of anything else. You passed it.\"",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "b",
+      "text": "Ask which parts you got wrong",
+      "correct": false,
+      "result": "\"You want the list, I'll give you the list.\" He does. It is short and it is not the point right now.",
+      "state_delta": {
+        "noise": 1,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "c",
+      "text": "Ask if this means you can take the pass",
+      "correct": false,
+      "result": "\"It means you can drive. What the mountain does about it is the mountain's business.\"",
+      "state_delta": {
+        "noise": 1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Tell him you were nervous",
+      "correct": false,
+      "result": "He looks at the sheet. \"Everybody is. I wrote down what you did, not what you felt.\"",
+      "state_delta": {
+        "noise": 1,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "The state's knowledge and skills standards are the standard, whoever holds the clipboard."
+}

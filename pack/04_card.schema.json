@@ -33,13 +33,18 @@
     "decision": {
       "type": "string",
       "maxLength": 200,
-      "description": "Required for all types except dossier."
+      "description": "Required for all types except dossier, ride-along, and no-question ledger callbacks."
+    },
+    "debrief": {
+      "type": "string",
+      "maxLength": 400,
+      "description": "Teaching line after the card. Required except empty dossier debriefs."
     },
     "options": {
       "type": "array",
       "minItems": 2,
       "maxItems": 4,
-      "description": "Omitted for dossier cards.",
+      "description": "Omitted for dossier cards and no-question ledger callbacks.",
       "items": {
         "type": "object",
         "required": ["id", "text", "correct", "result", "state_delta"],
@@ -318,7 +323,18 @@
     {
       "if": { "properties": { "card_type": { "enum": ["dossier", "ride-along"] } } },
       "then": { "not": { "required": ["options"] } },
-      "else": { "required": ["decision", "options", "debrief"] }
+      "else": {
+        "if": {
+          "properties": { "card_type": { "const": "ledger" } },
+          "required": ["callback_of"],
+          "not": { "required": ["decision"] }
+        },
+        "then": {
+          "required": ["debrief", "callback_of"],
+          "not": { "required": ["options"] }
+        },
+        "else": { "required": ["decision", "options", "debrief"] }
+      }
     },
     {
       "if": { "properties": { "card_type": { "const": "ride-along" } } },
