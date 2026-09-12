@@ -62,7 +62,7 @@ Dossiers are continue-only (no quiz options). That is intended.
 | V-010 | One Lane, Then Sit | rule | take 10 · #194 |
 | V-011 | Zipper at the Closure | hazard | take 7 · #159 |
 | V-012 | Three Seconds Here Too | rule | take 20 · #194 |
-| V-013 | Flashers on the Strip | scene | take 5 · Ribbon wave-1 (#198/#199) |
+| V-013 | Flashers on the Strip | scene | take 7 · Quiet silhouette (#204 PASS; take-6 not seeded) |
 
 ## Known residuals (play anyway)
 
