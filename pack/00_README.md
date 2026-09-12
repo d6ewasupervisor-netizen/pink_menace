@@ -53,6 +53,8 @@ Three layers, and the order matters.
 
 **Rule 2 — world grade. Regulatory-sign exemption is exterior MUTCD / street signage only.** The world stays desaturated (bible §8.1). MUTCD-correct color on a regulatory face is legal only on **exterior** street signage. Interior cabin switchgear and switch covers stay world-graded — desaturated, no candy-red oversat. They are not signs. IV-007's existing narrow legible-text exception stays on **exterior** regulatory sign faces only; do not extend it to cabin controls. See `03_IMAGE_COMPILER_PROMPT.md`.
 
+**Rule 3 — cat plates are face-only.** `ref_cat_mackerel.png` / `ref_cat_ginger.png` lock identity (face), not collar, body, or pose. Collar / body / pose require card JSON or an explicit LOCKS body rule. Silent on a cat collar → no collar. V-002 "faded pink collar" is Ali's hoodie, not Mya. See `refs/LOCKS.md`.
+
 ---
 
 ## Run order

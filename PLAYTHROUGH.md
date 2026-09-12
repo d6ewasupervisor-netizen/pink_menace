@@ -53,7 +53,7 @@ Dossiers are continue-only (no quiz options). That is intended.
 ## Plates / LOCKS stacked with this ship
 
 - Switchgear / MUTCD grade = exterior signs only (#115)
-- Cat identity: studio wins, grate plates in-carrier only (#118)
+- Cat identity: studio wins, grate plates in-carrier only (#118). Face-only — plates do not authorize collar / body / pose; silent on cat collar → no collar. V-002 "faded pink collar" is Ali's hoodie.
 - Full-width nose plow take 8 (#121)
 - Encore cockpit Y4 b-take-2 (#122)
 

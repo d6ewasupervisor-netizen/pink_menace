@@ -58,6 +58,12 @@ You MUST:
   - on any Deac in-cab camera, append the clipboard negatives: no clipboard on
     the dash, no clipboard on the mesh, no clipboard blocking the right half
     of the road. Cat on the dash only when the vehicle is parked.
+  - never compile a cat collar, body, or pose from a cat reference plate.
+    `ref_cat_mackerel.png` and `ref_cat_ginger.png` are face-only identity.
+    Pose, collar, and body come from card JSON or an explicit LOCKS body
+    rule. If both are silent on a cat collar, compile no collar. A brief
+    that says "faded pink collar" on an Ali portrait (V-002) is her hoodie,
+    not a collar on the cat.
   - convert every role-relative spatial term to frame-relative language plus
     an explicit drive-side statement before compiling. Do not pass them through.
   - append the left-hand-drive clause to every compile that includes a vehicle
@@ -528,8 +534,8 @@ else. No commentary. No alternatives.
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
 | Pink Menace exterior | `ref_car_exterior.jpg` |
 | Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` |
-| Gracie | `ref_gracie.jpg` |
-| Mya | `ref_mya.jpg` |
+| Gracie | `ref_gracie.jpg` (appearance). In-carrier only: also `ref_cat_ginger.png` — face identity, not collar / body / pose. |
+| Mya | `ref_mya.jpg` (appearance). In-carrier only: also `ref_cat_mackerel.png` — face identity, not collar / body / pose. Silent on cat collar → no collar. |
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |
 | Yuna | `ref_yuna_sheet.png`, `ref_yuna.png` |
 | The Ledger exterior | `ref_ledger_sheet.png` |
