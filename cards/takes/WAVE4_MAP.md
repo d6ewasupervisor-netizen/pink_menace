@@ -29,4 +29,8 @@ V-004 / V-005 / V-007 stay on the muted-read regen PR. Out of scope. Do not reus
 - **V-012 take 1:** Beetle facing the camera. **Take 4:** burned-in caption text.
 - **V-013 take 3:** more countable gap; warmer sunset wash.
 
-Do not seed. Do not live-DB. Do not merge.
+## Seeded (Claude overflow PASS)
+
+- **V-013 take 6** → `cards/V-013.png` (live-DB). Replaces previously live take-8. Take 4 remains runner — not seeded.
+
+Do not seed V-009 / V-010 / V-012 / V-007. No Acts I–III.
