@@ -81,5 +81,6 @@ III-006 authored the ego from a following seat. III-026 carried a Menace into De
 3. **No other vehicle shares the ego's canon marks.** Ledger: cutaway body, amber destination sign, roof cargo rack, west-coast arms. Menace: plow, pink Beetle, bull bar, knobby tires. Encore: horn flares, chevron. Those marks belong to one vehicle. Other traffic is a panel van, a dump, a sedan — factory mirrors only.
 4. **Clipboard is not in the glass.** It lives on the doghouse, on the thigh, or in his hands. Never on the dash, never clipped to the mesh. D4 (`ref_ledger_cockpit.png`) was retaken without the clipboard on the mesh; attach that lock on Ledger cockpits.
 5. **No unrestrained cat in a moving Ledger.** Mya on the dash only when parked.
+6. **Menace cluster is analog.** No digital gauge readout, no `112.0`, no highway-speed LED in the hub. Tablet dark / non-competing unless the brief names a map. Do not attach `refs/ref_cockpit.jpg` (poisoned 112.0 + desert GPS).
 
 The compiler already appends the other-vehicle clause on Deac cards. This check is the gate that keeps a bad brief from spending a generation.

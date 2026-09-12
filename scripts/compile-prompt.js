@@ -61,6 +61,11 @@ const LHD =
 const NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel.";
 
+const MENACE_COCKPIT_NEGATIVES =
+  "No digital gauge readout, no LCD speedometer, no LED digits in the instrument cluster, no numerals reading 112.0 or any highway-speed digital value on the hub or dials. The Menace cluster is analog needles only. The center-dash tablet is dark and blank unless the brief names a map — no GPS desert, no salt-flat navigation, no competing screen glow. Do not match refs/ref_cockpit.jpg (poisoned 112.0 + desert GPS).";
+
+const MENACE_INCAB = new Set(["POV_COCKPIT", "POV_PORTRAIT", "POV_MIRROR_REAR", "POV_MIRROR_DOOR", "POV_OBJECT"]);
+
 const QUIET_REGISTER =
   "Match the attached Quiet plate for register only — wrongness of posture and stillness, not damage, not a wound. Filthy torn everyday clothing, slack shoulders, a canted or tilted head, standing or moving as if doing nothing. Distance and glass are their whole grammar. They never fill the frame, never appear in a side-window close-up, never make eye contact. Write them farther than the shot needs: thirty feet renders at ten to fifteen, sixty at thirty to forty. If a face must die, obscure it with motion or distance only. Near-legibility is allowed on a lunge; a fully destroyed face is duller. Do not name them as diseased.";
 
@@ -302,6 +307,12 @@ function assemblePrompt(card) {
   }
   if (Array.isArray(brief.extra_negatives) && brief.extra_negatives.length) {
     negs.push(brief.extra_negatives.join(". ") + ".");
+  }
+  const aliIncab =
+    card.driver === "ali" &&
+    (MENACE_INCAB.has(cam) || (brief.continuity || []).includes("pink_menace_interior"));
+  if (aliIncab) {
+    negs.push(MENACE_COCKPIT_NEGATIVES);
   }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);

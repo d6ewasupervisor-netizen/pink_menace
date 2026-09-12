@@ -28,6 +28,15 @@ Never mix panels across takes. Winners only.
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
 
+## Pink Menace cockpit — analog cluster only (112.0 ban)
+
+Menace cockpit stills use **round analog needle dials**. Ban the `112.0` digital / highway-speed LED class (Claude overflow: V-001 take-8 FAIL; V-002 take-15 parked-loaf PASS then live-seed blocked on the same cluster).
+
+- No digital gauge readout, no LCD speedometer, no LED digits in the hub or dials, no `112.0`.
+- Center-dash tablet is **dark / blank / non-competing** unless the brief names a map. No desert GPS, no salt-flat navigation.
+- **`refs/ref_cockpit.jpg` is poisoned** — 112.0 in the hub + desert GPS on the tablet. Do **not** attach it on Menace cockpit stills. It is not a cabin plate. Cabin plate decision still open (PR #75).
+- Do not promote V-001 take-5 or V-002 take-15 into `refs/` or this table.
+
 ## Pink Menace plow — authority (take 8)
 
 The Menace plow is a **standard full-width nose-mounted bull-bar blade** on the black-tube bull bar. Clean flanks — nothing on the sides. Full-width IS canon. Do **not** revise toward an asymmetric or side-mounted blade.

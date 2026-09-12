@@ -38,7 +38,14 @@
       "no flatbed",
       "no fuel drums",
       "no trailer hitch",
-      "no antenna mounted as a new roof mark"
+      "no antenna mounted as a new roof mark",
+      "no digital gauge readout",
+      "no 112.0",
+      "no highway-speed LED cluster",
+      "no LCD speedometer",
+      "tablet dark/non-competing",
+      "no desert GPS",
+      "no salt-flat navigation"
     ],
     "aspect": "2:3"
   },
@@ -48,6 +55,6 @@
     "time_of_day": "midday",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "Act V draft stub — no still; do not seed"
+    "forced": "do not seed — take-15 parked-loaf PASS then live-seed BLOCKED on 112.0 cluster (same class as V-001 take-8). Wave C closest take-17 / runner take-18 pending muted-read. No cards/V-002.png."
   }
 }

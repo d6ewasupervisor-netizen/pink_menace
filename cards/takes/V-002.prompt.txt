@@ -1,8 +1,10 @@
 V-002 Tower 4 — POV_PORTRAIT, parked midday shoulder, plate ref_ribbon_deck.
 Authority: cards/V-002.json image_brief from PR #161 (Mya a brown mackerel loaf on the dash; continuity mya).
-Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_ali2.png, refs/ref_cockpit.jpg, refs/ref_mya.jpg (studio — out-of-carrier loaf, not the grate plate), .tmp-ribbon-plates/ref_ribbon_deck.png.
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_ali2.png, refs/ref_mya.jpg (studio — out-of-carrier loaf, not the grate plate), ribbon deck for PNW highway through mesh only.
+Do NOT attach refs/ref_cockpit.jpg — poisoned 112.0 digital hub + desert GPS (same FAIL class as V-001 take-8). Analog needle cluster only; tablet dark/non-competing. Do not seed.
 
 Wave A take-1..take-8: compiled before #161; Mya absent. Keep in pool; do not pick.
-Wave B take-9..take-16: #161 brief. Closest take-15 (Ali in frame; Mya loafed on the dash; clipboard; parked highway). Runner take-13 (loaf + Ali + clipboard).
+Wave B take-9..take-16: #161 brief. Closest take-15 PASSed parked-loaf then live-seed BLOCKED on 112.0 cluster. Runner take-13 FAIL. Do not seed take-15.
 Discard: take-11 (lap, not dash); take-12 (Ali only on the tablet); take-14 (no Ali face).
-Residual: invented collar on the cat; salt-flat GPS on several; loaf is often a sit.
+Residual wave B: invented collar; salt-flat GPS; loaf often a sit; 112.0 LED in the hub.
+Wave C take-17..take-22: regen, no ref_cockpit.jpg. Closest take-17 (Ali; Mya loaf on dash; analog needles; dark tablet; clipboard; mesh; overcast highway). Runner take-18 (same class, loaf + dark tablet). Discard: take-19 (lap, not dash; invented LOAFEDED text); take-21 (outside-in window, not POV_PORTRAIT); take-22 (112.0 LED on dash + pink jumpsuit). Residual: van-like dash vs Beetle; invented collar; loaf often a sit (take-20). Do not seed. Take-15 still blocked on 112.0.
