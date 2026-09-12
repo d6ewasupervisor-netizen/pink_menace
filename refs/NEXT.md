@@ -17,9 +17,10 @@ Claude — not seeded live.
 |---|---|---|---|
 | IV-027 | the truck is already on the bumper in the interior rear glass | `POV_MIRROR_REAR` | `cards/takes/IV-027-take-26.png` |
 | IV-028 | both cats are inside the closed strapped carrier on the floor; a person stands in the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-30.png` |
-| IV-030 | the Beetle is stopped at the last downtown crosswalk holding eastbound; a pedestrian is why she is not cleared | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-35.png` |
+| IV-030 | the Beetle is stopped short of the stop line for a person already in the marked crosswalk; downtown continues on the far side | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-50.png` |
 
-Notes: `cards/takes/WAVE_IV-030-hold.md` (HOLD regen). Prior sign-off:
+Notes: `cards/takes/WAVE_IV-030-hold.md` (HOLD regen after Claude FAIL
+on takes 35/36). Closest take 50; runner-up take 46. Prior HOLD:
 `cards/takes/WAVE_IV-028-030-signoff.md`. Prior cabin wave:
 `cards/takes/WAVE_IV-027-028-030.md`.
 

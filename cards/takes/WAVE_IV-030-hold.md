@@ -1,56 +1,67 @@
-# IV-030 HOLD regen — not in-lane motion
+# IV-030 HOLD regen — after Claude FAIL on takes 35/36
 
-Stacked on PR #87 briefs. Claude locked HOLD / NOT CLEARED.
-Prior closest (take 25) still read as in-lane motion / a parked car:
-map-flat, no hold reason, car past the crosswalk.
+Stacked on PR #90 HOLD stills. Card JSON is sole brief authority.
+HOLD family LOCKED (STOPPED at the stop line / crosswalk edge with a
+visible hold reason — NOT in-lane motion). Motion takes discarded.
+Nose-plow plate attached. No live `cards/IV-030.png`. No Act I–III.
 
-Card JSON is sole brief authority. Compiler now emits **stopped,
-heading** on hold cards instead of **traveling**. No live
-`cards/IV-028.png` / `030`. IV-027 untouched. No Act I–III.
+Claude FAIL on PR #90:
+- Take 35 (closest label): stopped INSIDE the crosswalk, nose/plow
+  across markings, ped in front of the blade; NADIR angle.
+- Take 36 (runner-up): hold geometry CORRECT — blade short of the
+  bars, ped clear ahead, shallow street-level oblique — but empty
+  horizon + bright sunlit sky with cast shadows.
+
+Use take-36 hold geometry as the stop/hold reference baseline.
+Next take MUST contain ALL of as one set:
+1. Stopped at or short of the crosswalk; blade CLEAR of the white bars
+2. Pedestrian in the paint ahead (hold reason)
+3. Shallower OFF-NADIR oblique (not plan-view / nadir)
+4. Flat OVERCAST light, no sun, no cast shadows
+5. Downtown continuing across and down the far side (not bunched in
+   one corner; not an empty horizon)
+6. Full-width plow blade per `refs/ref_car_nose_plow.png` on the bull bar
+7. Wheels still / HOLD — no rolling east departure
+
+Do NOT make this a cliffhanger / departure / rolling-east empty-road
+shot. That is a different card reading and is rejected for this regen.
 
 ## Closest for Claude muted-read
 
 | Card | Lesson (`read`) | Shot | Closest | Runner-up |
 |---|---|---|---|---|
-| **IV-030** | the Beetle is stopped at the last downtown crosswalk holding eastbound; a pedestrian stepping off the curb is why she is not cleared | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-35.png` | take 36 |
-| **IV-028** | both cats are inside the closed strapped carrier on the floor; a person stands in the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-30.png` | take 27 |
+| **IV-030** | the Beetle is stopped short of the stop line for a person already in the marked crosswalk; brick downtown continues across and down the far side | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-50.png` | take 46 |
 
-### IV-030 take 35
+### IV-030 take 50
 
-KEEP: Beetle is STOPPED short of a marked crosswalk (not past the
-paint, not rolling, not parked mid-intersection); a pedestrian in
-the crosswalk ahead of the plow is a visible hold reason; wet
-asphalt; daylight / overcast; mesh + riveted plate + knobbies;
-full-width-family plow on the bull bar; wheels still. Exterior lock
-attached. Takes 38 / 39 / 41 are the same hold class.
+KEEP: take-36 stop/hold geometry — Beetle STOPPED heading right,
+full-width blade CLEAR of the white bars with a visible asphalt gap,
+pedestrian already on the bars ahead of the plow, wheels still, HOLD
+(not rolling east, not an empty-road departure). Flat overcast midday,
+no sun disk, no cast shadows (the take-36 lighting FAIL). Shallow
+off-nadir street oblique (not plan-view / not take-35 nadir). Mesh +
+riveted door plate + knobbies + full-width nose plow on the bull bar.
+No umbrella.
 
-Residuals: street still runs along-frame (bottom-to-top) more than
-left-to-right across both edges; downtown is a corner fragment, not
-a left-third of brick blocks sharing this street; camera is closer
-to nadir than a shallower ~40° high-oblique; plow reads thin in
-profile; pedestrian is already in the paint more than stepping off
-the curb.
+Residuals: brick downtown recedes as a row along one flank and still
+opens to empty sky on the right — it does not continue across the
+opposite / far sidewalk; camera is closer to street-level than a ~40°
+high-oblique.
 
-Discard: 29 car already past the crosswalk; 30 nose-at-camera
-portrait; 31 / 33 / 34 car on the paint / receding street; 32
-receding downtown-ahead; 36 L-R + left brick but too eye-level and
-invented umbrella; 37 / 40 nadir + weak / invented hold dressing
-(umbrella, stall-like lines).
+### IV-030 take 46 (runner-up)
 
-### IV-028 take 30
+KEEP: flat overcast; brick downtown continuing across the far sidewalk
+(the #5 the closest still misses); full-width plow; pedestrian on the
+bars ahead of the blade; wheels still; off-nadir high-oblique.
 
-KEEP: both cats (orange + brown mackerel) inside a closed carrier;
-mesh over downtown glass; marked-crosswalk person restored; unbranded
-wheel; flat painted-metal dash; single nacelle; work boot (not the
-brake-81 black high-top); no letters on the box; overcast midday;
-cabin plate held.
+Residuals: rear-left wheel sits on a white bar (not fully short of
+all paint — take-35 class, milder); street still reads more
+along-frame than left-to-right; steeper than take-36's shallow oblique.
 
-Residuals: carrier still reads high vs a true floor plant; strap to
-the seat post is missing; sole is still left of an unused pedal more
-than overlapping the brake pad with a visible gap; mesh is a regular
-grid; plow at the glass base is a dark bar, not a readable blade.
-
-Discard: 27 / 31 both cats + strap + person but no mesh, floating
-plow in the street, dumpsters, carrier lettering; 28 mesh + person
-but one cat + "HEAVYDUTTY"; 29 "SECUREURE" lettering; 32 same class
-as 30 plus "SECURE" lettering.
+Discard:
+- 42 / 43 / 44 — car on/in the crosswalk, plow across bars (take-35 class)
+- 45 — same family as 46 but more of the body in the paint
+- 47 / 52 / 53 — same class as 46; rear still on a bar
+- 48 / 49 — take-36 geometry + overcast, but invented umbrella
+- 51 — same class as 50; ped stands at the first-bar edge more than
+  in the paint
