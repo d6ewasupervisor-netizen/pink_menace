@@ -19,6 +19,13 @@ const { vehicleParked } = require("./authoring-seat");
 const MASTER_STYLE =
   "Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.";
 
+/** Act VI standing geography — “rural” must not skew to open western landscapes. */
+const ACT_VI_GEOGRAPHY =
+  "Act VI geography lock: western Washington backcountry — wet, close, overgrown, short sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch line; restricted sightlines, vegetation close to the road. Do NOT depict sage, dry grass, bare hills, arid canyon, or long straight open highways — open country kills the lesson.";
+
+const ACT_VI_GEOGRAPHY_NEGS =
+  "no sagebrush, no dry-grass prairie, no bare hills, no high desert, no arid canyon, no long straight open western highway, no eastern-Washington open country";
+
 const DEAC_STYLE =
   "Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is transit amber. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.";
 
@@ -194,6 +201,11 @@ function assemblePrompt(card) {
   if (cam === "POV_DIAGRAM") parts.push(deac ? LEDGER_DIAGRAM_STYLE : DIAGRAM_STYLE);
   else parts.push(deac ? DEAC_STYLE : MASTER_STYLE);
 
+  const isActVI =
+    card.act === "VI" ||
+    (typeof card.card_id === "string" && /^VI-/.test(card.card_id));
+  if (isActVI) parts.push(ACT_VI_GEOGRAPHY);
+
   parts.push(framing);
 
   const framed = Boolean(brief.geometry && usesFramePlacement(brief.geometry));
@@ -303,6 +315,7 @@ function assemblePrompt(card) {
   if (Array.isArray(brief.extra_negatives) && brief.extra_negatives.length) {
     negs.push(brief.extra_negatives.join(". ") + ".");
   }
+  if (isActVI) negs.push(ACT_VI_GEOGRAPHY_NEGS);
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);
     const parked = vehicleParked(card);
