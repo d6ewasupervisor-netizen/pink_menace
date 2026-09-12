@@ -5,13 +5,13 @@
   "driver": "ali",
   "card_type": "dossier",
   "title": "The Door to the Pass",
-  "hook": "Hold eastbound. She is not cleared for the pass.",
-  "scene": "Clear cold morning on a two-lane street at the last downtown block, heading east. The Menace is in the eastbound travel lane, on wet asphalt between the lane paint and the right curb. The full-width nose plow sits on the front bull bar and points east. Behind the car, west, brick downtown blocks and the last intersection meet the sidewalk of this same street. Ahead, east, the same two-lane continues with wet paint and no other playable vehicles. Both cats are a sound in the closed carrier on the floor. Hold. You are not cleared for the pass.",
-  "debrief": "Downtown sits behind the Beetle. The eastbound travel lane continues ahead. She is not cleared for the pass.",
+  "hook": "Hold eastbound. A walker is already in the paint.",
+  "scene": "Overcast daylight on a two-lane downtown street heading east, wet asphalt edge to edge. The Menace is rolling in the eastbound travel lane — not parked, not stopped in the junction — between the skip-dashed paint and the right curb. The full-width nose plow on the front bull bar points east. Brick downtown blocks run alongside the street on the left, their sidewalks meeting this same roadway. Ahead in the same lane, a person in a dark coat is already in the marked crosswalk, one shoe on the white bars. She is not cleared for the pass. Both cats are a sound in the closed carrier on the floor.",
+  "debrief": "The Beetle is moving eastbound. Brick blocks share that street on the left. A person is already in the crosswalk. She is not cleared for the pass.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Hold the eastbound at the last downtown block; city on the left shares that street; empty eastbound continues right; she is not cleared for the pass."
+    "teaching_target": "Hold eastbound for a person already in the marked crosswalk; brick downtown blocks share the street on the left."
   },
   "cast": [
     "ali"
@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_TOPDOWN_PHOTO",
-    "subject": "high-oblique aerial of a faded pink Beetle on the eastbound travel lane of a two-lane street crossing the frame left to right; full-width nose plow points right",
-    "foreground": "unbroken wet asphalt to every frame edge; skip-dashed paint; right curb and sidewalk along the bottom of the frame",
-    "midground": "the Beetle sits in the eastbound lane in the lower half, occupying the lane paint, one car-length past the last downtown crosswalk",
-    "background": "clear cold morning; left third: brick downtown blocks whose sidewalks meet this street; right third: the same two-lane continues east, empty, pale readable sky",
-    "read": "the Beetle holds the eastbound travel lane heading right; downtown shares that street on the left; she is not cleared for the pass",
+    "subject": "shallower high-oblique of a faded pink Beetle ROLLING left-to-right on a two-lane street; full-width nose plow points right; person in dark coat already in marked crosswalk ahead",
+    "foreground": "unbroken wet asphalt to every frame edge; skip-dashed two-lane paint; right curb along the bottom; road has depth, not a map-flat top-down",
+    "midground": "Beetle in motion in the eastbound lane, short of the junction, not parked mid-intersection; ahead, a person in a dark coat already on the marked crosswalk bars",
+    "background": "overcast daylight; left third: brick downtown blocks running alongside this street; the same two-lane continues left-to-right past the person",
+    "read": "the Beetle is rolling eastbound toward a person already in the marked crosswalk; brick downtown blocks share the street on the left; she is not cleared for the pass",
     "continuity": [
       "pink_menace_exterior"
     ],
@@ -40,23 +40,28 @@
       "no helipad",
       "no eye-level roadside view",
       "no three-quarter front portrait",
-      "no car facing the camera"
+      "no car facing the camera",
+      "no car parked square in the intersection",
+      "no car stopped mid-junction",
+      "no map-flat straight-down aerial",
+      "no downtown as a single corner fragment",
+      "no empty crosswalk with no person"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",
       "ego_lane_side": "eastbound travel lane, lower half of the two-lane street, right curb along the bottom of the frame",
-      "ego_nose_in_frame": "the full-width nose plow on the front bull bar points toward the right edge of the frame, down the eastbound lane",
+      "ego_nose_in_frame": "the full-width nose plow on the front bull bar points toward the right edge, at the person in the marked crosswalk",
       "oncoming_position": "westbound half in the upper part of the street is empty",
-      "hazard_position": "none",
+      "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
     }
   },
   "variation": {
     "location_type": "downtown",
-    "weather": "clear_cold",
-    "time_of_day": "morning",
+    "weather": "overcast",
+    "time_of_day": "midday",
     "tone": "procedural",
     "failure_mode": "none"
   }
