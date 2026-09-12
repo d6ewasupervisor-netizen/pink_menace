@@ -45,6 +45,8 @@ Three layers, and the order matters.
 
 `23_THE_SPOKEN_DICTIONARY.md` is the voice authority. Cards, chrome, barks, manifest, ride-along, compile prompts, and the bible draw from it. If a word is in the swap column, it does not print. Act III's zone name is **Central**.
 
+`36_YUNA_RADIO_VOICE.md` is Act V Yuna radio copy. She is never seen and never in the car. Four appearances. Channel bands follow `cargo_rough` (CLEAN / SCUFFED / THINNED). Not a stills job.
+
 `24_ART_REVIEW_RUBRIC.md` is the still-vs-copy review: tag as a work order, text before pixels, never generate on `CARD_BROKEN` / `WRONG_CAMERA`. Tool: `npm run art-review`.
 
 ---

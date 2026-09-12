@@ -67,3 +67,9 @@ Accumulated, attributed, human. The death stops reading as punishment for the la
 ## The principle, for the pack
 
 This is the same failure class as the fear system before the tiers shipped: **a mechanic that isn't perceived doesn't exist.** The economy was real, the stakes were real, and to the player there were none. Going forward the test for any system is not "does it work" but "did she see it work" — and the playtest question for this one is already written: does she ever mention the medicine unprompted. The day she says "I almost lost the insulin," the manifest did its job.
+
+---
+
+## Act V radio (pointer)
+
+Act II Reyna lines above stay. Act V Yuna radio voice — four appearances, `cargo_rough` bands CLEAN / SCUFFED / THINNED, `daylight_fail` precedence — is `pack/36_YUNA_RADIO_VOICE.md`. She never mentions cargo condition and never grades the driving. The thinned channel is quietest, not harshest. No line blames Yuna.
