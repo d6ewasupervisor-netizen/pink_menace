@@ -20,21 +20,27 @@
   "callback_of": null,
   "schedules_callback": true,
   "image_brief": {
-    "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle mid-event: right wheels already down in soft dirt below a four-inch pavement lip; left wheels still on asphalt; Gracie in latched strapped carrier inside (not in frame)",
-    "foreground": "soft dirt shoulder and the raised asphalt lip; right knobby tires below the pavement plane",
-    "midground": "Beetle in true profile traveling left-to-right; right side dropped; plow and mesh cages readable; no yank pose",
-    "background": "narrowing at a culvert, ditch beyond the dirt, overcast PNW daylight, empty rural two-lane",
-    "read": "the right wheels are already off the pavement on soft dirt; the road surface is higher on the left",
+    "camera": "POV_COCKPIT",
+    "subject": "mid-event soft-shoulder drop from inside the rolling Menace: cabin canted right toward the ditch, pavement lip and soft dirt rushing past on the right through the mesh; right wheels already off",
+    "foreground": "worn black wheel held straight (not yanked), cracked faded pink dash, coarse windshield mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning); simple round analog gauges only — no digital cluster readout, no lit GPS map",
+    "midground": "through the mesh: asphalt higher on the left, four-inch lip, soft dirt shoulder and ditch on the right mid-event; culvert narrowing ahead; motion blur on the dirt",
+    "background": "overcast rural two-lane, fir edges, empty road, PNW daylight",
+    "read": "the right wheels are already off on soft dirt mid-event; the car pulls toward the ditch; the wheel wants to yank back",
     "continuity": [
-      "pink_menace_exterior",
+      "pink_menace_interior",
       "gracie"
     ],
     "extra_negatives": [
+      "no parked exterior beauty shot",
+      "no stationary car",
+      "no roadside profile of the Beetle",
       "no approaching the shoulder still fully on pavement",
       "no all four tires on asphalt",
       "no wheels climbing back onto the lip",
       "no crash already finished",
+      "no digital 112.0 cluster readout",
+      "no invented GPS tablet map",
+      "no lit navigation screen",
       "no second occupant",
       "no snow on the roadway",
       "no ice",
@@ -53,11 +59,11 @@
     ],
     "aspect": "2:3",
     "geometry": {
-      "ego_heading": "left_to_right",
+      "ego_heading": "away_from_camera",
       "ego_lane_side": "right half of a two-lane rural road, right tires already off onto soft shoulder",
-      "ego_nose_in_frame": "the plow points toward the right of the frame",
+      "ego_nose_in_frame": "plow points up-frame along the culvert narrowing; cabin canted toward the right ditch",
       "oncoming_position": "none in frame",
-      "hazard_position": "beside",
+      "hazard_position": "none",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
     }
@@ -68,7 +74,8 @@
     "time_of_day": "morning",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "winner": "take-5",
+    "forced": "live still cards/takes/VI-004-take-5.png (Claude PASS cockpit). take-11 not seeded. VI-011 not seeded."
   },
   "decision": "Two wheels are off the pavement. What do you do?",
   "options": [
