@@ -1,7 +1,13 @@
 {
-  "act": "III",
-  "cursor": "III-010",
+  "act": "V",
+  "cursor": "V-006",
   "verdicts": {
+    "V-006": {
+      "tag": "UNREVIEWED",
+      "note": "Regen 3 after Claude FAIL on take-8/take-6 (rural two-lane, Menace right, sedan following). Closest take-25: city three-lane deck, sedan in the inside glass facing us, dark tablet. Runner take-14. Residual: sedan still a follower not a close smear; camera sits center of the three not tight left; dash heavy. Do not seed.",
+      "pick": "take-25",
+      "updated_at": "2026-09-12T11:00:00.000Z"
+    },
     "III-002": {
       "tag": "READ_MISSING",
       "note": "d-take-2 shipped: clipboard on the doghouse by the thermos, Mya loafed on the dash, cluster at 0. Paw-in-glass copy removed. Waiting muted 390px.",

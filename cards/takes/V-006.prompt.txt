@@ -1,7 +1,22 @@
-V-006 Keep Right Except to Pass — POV_COCKPIT, rain midday, plate ref_ribbon_deck.
-Authority: cards/V-006.json image_brief (fail-fix PASS + sedan smear in inside glass).
-Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_cockpit.jpg (layout/mesh only), refs/ref_car_nose_plow.png (plow bar), .tmp-ribbon-plates/ref_ribbon_deck.png.
+V-006 Keep Right Except to Pass — POV_COCKPIT, rain midday.
+Authority: cards/V-006.json image_brief + geometry + extra_negatives only.
+Tool aspect 3:4 (seed encodes 2:3).
+Title: Keep Right Except to Pass.
 
-Pool: take-1..take-4. Closest take-4. Runner take-1. Residual: sedan not a close smear; take-2 second Beetle; take-3 dash wall.
+Plates (card JSON names none; LOCKS on PR #152):
+- ref_ribbon_rig.png serves V-006 / V-007 (scale + rain). Card extras forbid tractor-trailer — do not put the rig in frame.
+- ref_ribbon_deck.png is the 3-lane unnamed-corridor world (blank gantry, streetlights, Jersey, brick city). Attached so the windshield is not rural two-lane.
 
-Regen 2: closest take-8 (sedan in inside mirror AND empty lanes). Runner take-6 (mirror gate strong, lanes cropped). Extra gate: sedan must read in the interior rearview.
+Wave A attach: refs/ref_cockpit.jpg (layout/mesh only) + deck + rig.
+Wave B attach: deck + take-8 + take-13 (take-8 prior snapped the world back to rural two-lane — discard that class).
+Wave C attach: deck + take-13 only. Dark tablet. Left-lane offset did not land.
+
+Compile (live V-006.json):
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is faded pink. Everything else stays desaturated. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare. Over the wheel from the seat: gauges bottom-left, welded steel mesh across the windshield, the wet highway through the grid. No driver's face. Interior: a cracked faded pink dashboard, worn black leather steering wheel with a chrome center hub, round analog gauge cluster, an aftermarket navigation tablet mounted center dash, a bank of illuminated rocker switches, welded steel mesh across the windshield. Worn black wheel, left stalk off, faded pink dash, handheld on the floor; interior rearview large at the top of the mesh. The roadway has 3 lanes in this direction; this seat occupies lane 1, the leftmost. Immediately left of lane 1 is a concrete median barrier. Two white skip-dashes mark off the empty wet middle lane and the empty wet right lane. A pink plow blade is a bar at the bottom of the glass, pointing toward the top of the frame. In the interior rearview a period sedan is a smear, closing in that same left lane — headlights and grille occupy most of the mirror glass, larger than a comfortable following distance. Through the mesh below the mirror the three wet lanes stay countable; the middle and the right are empty wet asphalt; no merge paint. Rain, midday, valley highway, brick city below the barrier, blank gantry, no snow, no route numbers. The read: the Beetle is in the left travel lane; the middle and right are empty wet asphalt; a sedan closes in the inside glass. Left-hand-drive vehicle: the steering wheel is on the left side of the cabin, and the driver sits on the left. United States road configuration — traffic drives on the right-hand side of the road. Traffic signs are single-faced. No golden hour, no sunset, no desert, no salt flat. No merge paint, no on-ramp, no tractor-trailer, no semi alongside, no snow, no clipboard in the glass, no second occupant, no route numbers, no exit numbers, no cooler, no sedan only as windshield traffic — the closing sedan belongs in the interior rearview. No second Beetle. No dash wall. No two-lane rural highway, no double yellow, no oncoming traffic, no prairie. Aspect ratio 2:3.
+
+Pool: take-1..take-8 (PR #158 Claude FAIL). Regen 3: take-9..take-32.
+Closest: take-25. Runner: take-14.
+Discard: take-2 second Beetle; take-3 / 5 / 7 dash wall; take-8 / 6 / 17–24 rural two-lane + following sedan; take-15 windshield hatchback; take-12 sedan going away; take-9 / 11 / 13 / 16 GPS-desert tablet.
+Residual on 25 / 14: sedan is in the inside glass facing us but still a follower, not a close smear; camera sits center of the three, not tight to the left Jersey; dash still heavy; mesh thin; pink hood reads as a wall, not a plow bar.
+Not seeded.
