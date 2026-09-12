@@ -1,0 +1,13 @@
+Pink Menace LOCATION / SCALE AUTHORITY PLATE candidate (not promoted).
+ref_ribbon_rig — Act V Ribbon tractor-trailer. Scale and blind-spot authority.
+Serves V-006, V-007. Must feel able to push a Beetle.
+Claude locked brief 2026-09-12. Muted-read pending. Do not overwrite live refs/ref_ribbon_rig.png.
+16:9. Reference plate, not a card still.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/5.6, entire vehicle sharp. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. World-grade desaturation: wet asphalt gray, oxidized steel, cold concrete, no warm cast, no sun. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare. Photograph, not a 3D render, not posterized.
+
+Camera: DECK LEVEL, human standing height or passenger-car driver height, SIDE THREE-QUARTER of the tractor-trailer. The long flank of cab plus trailer reads. NOT a dramatic low-angle hero shot. NOT a worm's-eye. NOT aerial. NOT a head-on portrait. The deck and the rig share one horizon.
+
+Subject: a FULL tractor-trailer on the same wet elevated urban freeway deck as the Ribbon deck plate. Period-aged CONVENTIONAL cab from the 1980s–1990s (long hood, steel bumper, faded paint, rust at seams) — Kenworth W900 / Peterbilt 379 era, NOT a current-model aerodynamic day cab. WEST-COAST MIRRORS on both doors, large, clearly visible, the blind-spot teaching. Weathered dry-van TRAILER, plain dull white or oxidized gray sides, no logo, no wordmark, no fleet name, no readable branding of any kind. Dual drive wheels and trailer tandems throwing a little wet-deck spray, consistent with rain-wet asphalt. A period-aged compact PASSENGER CAR (small sedan or hatch, dull primer or faded paint, 1980s–1990s, NOT a current crossover) sits in an adjacent lane or just ahead on the same deck so the HEIGHT RELATIONSHIP reads: the trailer roof is far above the car roof; the tractor hood sits at about car-roof height; this rig could shove that car. Sparse other traffic. Concrete outside barrier and wet sheen match an elevated urban deck. Any overhead signs in frame are weathered-illegible or blank.
+
+NEGATIVE / HARD GATE: no current-model tractor (no 2018–2026 Cascadia, no modern sloped aero hood, no LED light bars as a new-truck tell). No Tesla Semi. No legible branding, no wordmark, no logo, no DOT number readable, no company name. No route shields, no numbered exits, no city names on any sign. A single legible route number FAILS. No dry pavement. No dramatic low-angle hero framing. No snow, ice, chains, chain-up signs, mountain grade. No sunlight, no warm cast, no golden hour. No posterized or flat-color look. No HUD, no labels, no UI, no text. No Pink Menace pink, no mesh Beetle, no Ledger shuttle, no Encore chevrons.
