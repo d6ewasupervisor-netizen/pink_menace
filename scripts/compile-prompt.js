@@ -126,6 +126,15 @@ const MENACE_PLOW =
 const MENACE_PLOW_AWAY =
   "The attached ref_car_nose_plow.png is a catalog plate of the SAME car facing the lens. Copy ONLY the blade geometry from it — do not copy its toward-camera heading. Rotate the Beetle so it travels AWAY from the camera: the sloping rear engine lid and rear-window mesh are nearest the camera and large; the plate's full-width nose blade sits on the FAR / leading / FRONT bull bar and points at the TOP of the frame. From this rear-three-quarter both outer edges of that wide blade remain visible past the front corners. Never weld the plate onto the near (rear) bumper. Never shrink the far blade to a flap.";
 
+const IV004_NONNEGOTIABLE_SET =
+  "IV-004 NON-NEGOTIABLE SET — this take MUST contain ALL THREE as one situation, not separate optional descriptors: " +
+  "(1) away-from-camera heading — the plow / blade points toward the TOP of the frame; the sloping rear engine lid is nearer the camera and large; " +
+  "(2) full-width nose blade across the FRONT black-tube bull bar matching the attached ref_car_nose_plow.png exactly — one continuous wide flat black steel plate, outer edges roughly level with the front wheels, hanging below the bar like a snowplow; not a narrow flap; not a one-third-width tab; not welded onto the rear; " +
+  "(3) in-lane motion — the Menace is squared to the lane, long axis parallel to the centerline, ROLLING, wet tire spray off the knobbies. " +
+  "A take that has the blade but faces the camera fails the card. A take that is away but wears a flap fails the card. A take that is parked or diagonal fails the card. " +
+  "Start from take-103 hazard staging and plow quality; reverse heading only. Person is mid-gap between the parked van and sedan, not in the open roadway. Do not use take-76. " +
+  "Preserve on the Menace: welded steel mesh cages on the side glass and the windshield; a riveted metal door panel; oversize knobby tires on chrome slot wheels; faded matte pink with bare-metal / oxidized steel plating. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset.";
+
 const MENACE_PLOW_NEGATIVE =
   "No side-mounted plow, no flank-mounted blade, no left-flank blade, no corner-mounted blade, no blade on a side arm ahead of the front wheel, no narrow flap plow, no small panel hanging off one side of the bull bar, no one-third-width blade, no bare bull bar with only a partial blade, no plain tube bumper without a blade, no rear-mounted plow, no blade on the engine lid, no plow welded onto the rear of the Beetle.";
 
@@ -275,9 +284,13 @@ function assemblePrompt(card) {
     (continuityEarly.includes("pink_menace_exterior") ||
       (cam === "POV_DIAGRAM" && card.driver !== "yuna"));
   if (menaceExterior) {
-    parts.push(MENACE_PLOW);
-    if (brief.geometry && brief.geometry.ego_heading === "away_from_camera") {
-      parts.push(MENACE_PLOW_AWAY);
+    if (card.card_id === "IV-004") {
+      parts.push(IV004_NONNEGOTIABLE_SET);
+    } else {
+      parts.push(MENACE_PLOW);
+      if (brief.geometry && brief.geometry.ego_heading === "away_from_camera") {
+        parts.push(MENACE_PLOW_AWAY);
+      }
     }
   }
   const quietNamed =
@@ -415,6 +428,7 @@ module.exports = {
   DAYLIGHT_NEGATIVE,
   MENACE_PLOW,
   MENACE_PLOW_AWAY,
+  IV004_NONNEGOTIABLE_SET,
   MENACE_PLOW_NEGATIVE,
   MENACE_PLOW_AWAY_NEGATIVE,
   MENACE_CABIN_BUILD,
