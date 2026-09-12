@@ -83,6 +83,8 @@ Y2 lock bleed (right IEM in the ear) — same miss as PR #130 take 8 / 10:
 |---|---|---|---|---|
 | `cards/takes/IV-010-take-18.png` / `cards/IV-010.png` | 232868 | `7ecf49c82d91859d8e9d372a85617c8f` | `4db9119ffff129d132c4b362f1cc4ed1bd9736c63c5815f878d43dcd4f7975fc` | 864×1152 |
 
+Encoded WebP (`scripts/encode-still.py`): IV-010 `6266ebcc50e7159ecd1d8695258555ec` (42798 B). Live Postgres MATCH on the public Railway proxy.
+
 Take-7 (`64cd6a28…`) superseded. Take-13 stays in the takes pool — FAIL, do not promote.
 
 ## Out of scope (untouched)
