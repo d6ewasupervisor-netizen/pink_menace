@@ -4,7 +4,7 @@ Claude locked three NEW plate briefs on 2026-09-12. Candidates compiled on PR #1
 
 1. **`ref_ribbon_deck` — PASS promote take-4** (not take-2). Streetlight standards along the deck needed for V-013 dusk grade. Live: `refs/ref_ribbon_deck.png`. Token `ribbon_deck`.
 2. **`ref_ribbon_rig` — PASS promote take-1** (not take-2). Period-aged, no legible livery, rain/spray, passenger car at right scale, mirrors visible for V-006. take-2 FAIL (car too far / hero angle / faint red markings). Live: `refs/ref_ribbon_rig.png`. Token `ribbon_rig`.
-3. **`ref_ribbon_workzone` — promote wave-C take-1** (closest). Wave-A takes FAIL (longitudinal cone line). Wave-C take-2 **PASS** as runner — keep, do not attach. Live: `refs/ref_ribbon_workzone.png`. Token `ribbon_workzone`.
+3. **`ref_ribbon_workzone` — PASS promote wave-C take-1.** Wave-A takes FAIL (longitudinal cone line). Wave-C take-2 **PASS** as runner — keep, do not attach. Live: `refs/ref_ribbon_workzone.png`. Token `ribbon_workzone`.
 
 Pack rule 4: plates travel in their own PR. No card art. No Act I–III. No seed. Act V draft cards on #132 / #141 / #151 do not yet name these tokens; REF_MAP + compiler attachment map are wired so compile can consume them when those cards do.
 
@@ -103,7 +103,7 @@ Deck take-4, rig take-1, and workzone wave-C take-1 are live. Take/sha filled in
 
 ## Workzone regen — wave C (promoted take-1)
 
-Wave A (takes 1–8 + b-1) failed the diagonal-taper hard gate. Wave C is eight new takes against the locked brief plus that gate. Claude image-review: **c-1 promoted**; **c-2 PASS runner** (not attached). Live `refs/ref_ribbon_workzone.png`. Token `ribbon_workzone` is in REF_MAP.
+Wave A (takes 1–8 + b-1) failed the diagonal-taper hard gate. Wave C is eight new takes against the locked brief plus that gate. Claude muted-read 2026-09-12: **c-1 PASS PROMOTE**; **c-2 PASS runner** (not attached). Live `refs/ref_ribbon_workzone.png`. Token `ribbon_workzone` is in REF_MAP.
 
 HARD GATE: the cone row must be a **diagonal pinch** across the closed lane — each successive cone steps laterally from the right-edge line toward the skip-dash as it recedes. A row parallel to the skip-dash is a FAIL (shoulder closure). Workers sit past the taper in the closed lane. Portable barrier / barrels at the closure head. Tall MUTCD orange + white collar (Act IV rain still language). Unnamed corridor.
 
@@ -113,7 +113,7 @@ Pure generation kept collapsing to a longitudinal shoulder line (same fail as wa
 
 | Take | File | Call | Notes |
 |---|---|---|---|
-| c-1 | `ribbon-workzone-c-take-1.png` | **PROMOTED** | Assembly. Steep pinch: near cone on the right-edge / shoulder, mid cones in the right-lane asphalt, far cones meet the barrel/barrier. Workers + portable barrier + barrels already in the closed lane. Unnamed gantry, streetlights, period sedan in an open lane. |
+| c-1 | `ribbon-workzone-c-take-1.png` | **PASS PROMOTED** | Assembly. Steep pinch: near cone on the right-edge / shoulder, mid cones in the right-lane asphalt, far cones meet the barrel/barrier. Workers + portable barrier + barrels already in the closed lane. Unnamed gantry, streetlights, period sedan in an open lane. |
 | c-2 | `ribbon-workzone-c-take-2.png` | **runner-up PASS** | Photorealize of the same layout. Cones look seated; pinch is milder than c-1 (model pulled the row a hair toward the edge). Same head language. Keep; do not attach. |
 | c-3 | `ribbon-workzone-c-take-3.png` | keep | Assembly. Steeper / fewer cones. Same class as c-1. |
 | c-4 | `ribbon-workzone-c-take-4.png` | keep | Assembly. Seven-cone slash. |
