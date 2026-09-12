@@ -1,12 +1,15 @@
 V-009 Small Hands at Speed — SCENE, POV_ROADSIDE_PROFILE, wind afternoon.
 Authority: cards/V-009.json image_brief (citation-audit / wave4 — JSON unchanged).
 Center-of-three eastbound I-90, true roadside profile, no lean, nose plow right.
-Ali alone. No cargo. No Yuna. presence 0.
+Ali alone IN the car: hands ON the wheel, wheel rim readable through near side glass/mesh.
+Not a cabin POV. Not an empty roadside profile.
+Yuna radio-only (not in frame). No cargo. presence 0. Tubular-bar rear only.
 Tool aspect 3:4 (seed encodes 2:3).
-Attachments: ref_car_exterior.jpg, ref_car_nose_plow.png (LOCKS Menace).
-Takes 7–12 also attached deck language (do not reuse — 3/4 front).
+Attachments: ref_car_exterior.jpg, ref_car_nose_plow.png, ref_ali2.png.
+BAN ref_cockpit.jpg. No separate ref_car_sheet file — exterior jpg is the lock sheet.
 
-PR #182 take-2 / take-3 FAIL: two-lane, not center-of-three.
-Regen pool: take-7..take-22.
-Closest take-21. Runner take-20. Same-class take-17.
+PR #188 take-20 / take-21 FAIL: empty cabin, no hands/wheel/driver (same ground as Wave4 take-2/3).
+Keep the three-lane stack. Occupied cabin is the FAIL fix.
+Regen pool: take-23..take-38.
+Closest take-37. Runner take-31. Same-class take-28.
 Do not seed.

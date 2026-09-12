@@ -1,39 +1,42 @@
-# V-009 regen map (PR #182 FAIL → center-of-three)
+# V-009 regen map (PR #188 FAIL → Small Hands at Speed)
 
 Card JSON is the sole brief (`cards/V-009.json`, citation-audit ≡ wave4). Do not seed.
 
 | | File | Note |
 |---|---|---|
-| **Closest** | `V-009-take-21.png` | True LTR profile; empty near + empty far; two skip-dashes; Beetle in lane 2 of 3; no lean; plow right; Ali alone |
-| **Runner** | `V-009-take-20.png` | Same class as 21 |
-| Same class | `V-009-take-17.png` | First land of the 3-lane stack |
+| **Closest** | `V-009-take-37.png` | First land of hands + wheel + three-lane center. True LTR profile; fog line; empty rightmost; skip-dash; Menace CENTER; skip-dash; empty leftmost; concrete median. Ali in the left seat; both hands on a visible wheel rim; plow at the right; no lean; no Yuna; tubular-bar rear |
+| **Runner** | `V-009-take-31.png` | Same occupancy + true profile + empty near / empty far. Far skip-dash weaker than 37 |
+| Same class (multi-lane + driver) | `V-009-take-28.png` | Occupied, empty near + empty far, but slight 3/4 and an extra far lane |
 
-## Why #182 failed
+## Why #188 failed
 
-Take-2 / take-3 were true profile + plow-right + no lean, but **one near skip-dash and a barrier hugging the far flank** — two-lane, not center-of-three.
+Take-20 / take-21 (and Wave4 take-2 / take-3) were true profile + plow-right + no lean, but **empty cabins** — no hands, no wheel, no driver. Same ground on occupancy. #188 also fixed the two-lane residual; that stack is kept.
 
 ## What landed
 
-Wave B (takes 13–18), Menace plates only (no Ribbon deck). Verge-height profile, three stacked asphalt bands. Take-17 first showed: fog line → empty rightmost → skip-dash → Beetle → skip-dash → empty leftmost → median.
+Wave D (takes 23–38). Menace plates + Ali plate (`ref_ali2.png`) for the person in the seat. Ban `ref_cockpit.jpg`. No Ribbon deck. Occupied-cabin clause replaced the old “radio voice only” line that was emptying the glass.
 
-Wave C (19–22) locked take-17 + Menace plates. 20 / 21 kept the stack. 19 invented a rear plow + `MENACE` plate text.
+Take-37 is the first still that shows **hands + wheel + three-lane center** in true `POV_ROADSIDE_PROFILE`.
 
 ## Discard (keep in pool)
 
-- **#182 take-1 / take-4 / take-6; regen 7 / 8 / 12 / 13 / 15 / 18:** 3/4 front, headlights toward camera.
-- **take-19:** rear-plow invention, burned-in `MENACE` text, yellow.
-- **take-14 / take-22:** extra yellow (same-direction frame wants median, not a centerline).
-- **take-2 / 3 / 5 / 9 / 10 / 11 / 16:** profile class, still two-lane.
+- **#188 take-20 / take-21; Wave4 take-2 / take-3:** empty roadside profile. Do not pick as closest.
+- **take-23 / take-25 / take-26 / take-35:** 3/4 front, headlights toward camera.
+- **take-24 / take-27 / take-29 / take-30 / take-32 / take-33 / take-34 / take-36 / take-38:** occupied profile, hands/wheel readable, still two-lane (one near skip-dash, barrier hugging the far flank). Best occupancy in this band: take-32 / take-36.
+- **take-19 and earlier 3/4 / two-lane / empty-cabin takes:** stay discarded per prior maps.
 
-## Residuals (closest take-21)
+## Residuals (closest take-37)
 
-- Slight product-render cleanliness.
+- Door-window mesh stripped so the hands read — windshield and rear mesh stay. Model would not keep door mesh *and* readable hands in this pool.
+- Far travel lane a little tight vs a full interstate lane (same class as #188 take-21).
 - Full-width take-8 plow is hard to diff in true profile.
-- Far / left travel lane a little tight vs a full interstate lane.
+- Slight product-render cleanliness.
 
 ## Attachments
 
-- LOCKS: `ref_car_exterior.jpg`, `ref_car_nose_plow.png`.
-- Deck on takes 7–12 only (language). It pulled 3/4 fronts — do not reuse for this camera.
+- LOCKS: `ref_car_exterior.jpg` (Menace lock sheet — there is no separate `ref_car_sheet` file), `ref_car_nose_plow.png`.
+- Ali identity for the occupied cabin: `ref_ali2.png` (already mapped for Menace exteriors).
+- BAN: `ref_cockpit.jpg`.
+- Takes 31 / 27 / 21 / 28 used as composition refs on 31–37 only.
 
-No Yuna. No Tower 4 kit. `presence` 0.
+No Yuna. No Tower 4 kit. No flat rack. `presence` 0.
