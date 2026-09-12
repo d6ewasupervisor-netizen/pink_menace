@@ -22,11 +22,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "Deac in the Menace passenger seat holding the metal clipboard with the hand-ruled sheet turned toward the driver",
-    "foreground": "worn black wheel rim at left edge; faded pink dash; coarse mesh; no clipboard in the glass; closed dark carrier latched and strapped on the passenger floor (Gracie inside)",
-    "midground": "Deac in the passenger seat, glasses on a cord, amber vest edge, clipboard on his knee turned so the sheet faces the driver",
-    "background": "overcast rural gravel shoulder through the mesh; Menace stopped; pass weather far off",
-    "read": "Deac is in the passenger seat with the clipboard held out; Ali is alone no longer",
+    "subject": "Ali driving LHD — hands on the wheel at FRAME LEFT; both faces visible; Deac in passenger seat with metal clipboard; carrier behind seats — hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "foreground": "worn black LHD wheel at FRAME LEFT with Ali's hands ON the wheel; Ali face readable; faded pink dash DARK/UNLIT; FULL-GRID windshield mesh; no lit arrows; no speedlike 112 LCD",
+    "midground": "Deac passenger RIGHT — face readable, metal clipboard; both faces in frame; carrier on rear bench/footwell — hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "background": "Cascades-west PNW wet valley through glass — fir, moss, restricted sightlines; NOT desert",
+    "read": "Ali drives LHD with hands on wheel at frame left; Deac passenger with clipboard; both faces; Gracie in carrier",
     "continuity": [
       "pink_menace_interior",
       "deac",
@@ -48,7 +48,11 @@
       "no night",
       "no Deac outside the car",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no Ali hands missing from wheel",
+      "no wheel on frame right / RHD",
+      "no Deac in driver seat",
+      "no Deac solo"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -59,7 +63,12 @@
       "hazard_position": "none",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
-    }
+    },
+    "prejudge_checks": [
+      "SEAT GEOMETRY first: LHD — Ali hands on wheel at FRAME LEFT before any other grade",
+      "Both faces visible (Ali + Deac)",
+      "Deac passenger only — never driver"
+    ]
   },
   "variation": {
     "location_type": "rural",

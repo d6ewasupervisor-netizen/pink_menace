@@ -55,7 +55,9 @@
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no wheel reattached covering the exposed hub",
+      "no shed wheel reading as a mounted spare on that corner"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -66,7 +68,12 @@
       "hazard_position": "none",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
-    }
+    },
+    "prejudge_checks": [
+      "EXPOSED HUB first: front-right corner must show exposed hub/axle — do NOT reattach a wheel to that corner",
+      "If hub is covered, shed wheel reads as spare and card reverts to parked — FAIL",
+      "Banked PASS: VI-004-take-5.png (cockpit) until a better exposed-hub take beats it"
+    ]
   },
   "variation": {
     "location_type": "rural",

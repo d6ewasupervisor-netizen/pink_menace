@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "STATIC exterior absence callback of VI-004: faded-pink Beetle holding the MIDDLE of the travel lane at a culvert narrowing; four-inch soft-shoulder LIP visible at the RIGHT edge of frame; all tires on asphalt; nothing touching the lip; nothing happening; through rear side cage: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "foreground": "culvert / narrowing / soft-shoulder LIP readable at the RIGHT edge — mossy concrete lip and soft dirt below; no wheels in the dirt; no mid-event drop",
-    "midground": "Beetle in true curb-height PROFILE left-to-right (NOT rear-facing / NOT hatch camera); FULL-GRID mesh cages and plow readable on the near flank; travel lane held center; carrier readable through the rear SIDE / rear-quarter window mesh on that same flank (cage-through-glass) — hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle; nothing happening",
-    "background": "western Washington valley floor / Cascades-west PNW wet forest — second-growth fir crowding the shoulder, blackberry and alder in the ditch, restricted sightlines, vegetation close to the road, wet gray asphalt; NOT high desert, NOT sagebrush, NOT bare hills, NOT long dry open eastern-WA highway",
-    "read": "the same lip and soft dirt are there at the right edge; nothing is happening; the Menace holds the middle of the lane",
+    "subject": "STATIC exterior absence callback of VI-004: faded-pink Beetle visibly EARNING the MIDDLE of the travel lane at a culvert narrowing — clear gap between near tires and the soft-shoulder LIP; four-inch LIP+narrowing SUBJECT at the RIGHT edge; all tires on asphalt; NOTHING touching the lip; nothing happening",
+    "foreground": "culvert / narrowing / soft-shoulder LIP at RIGHT edge — mossy concrete lip and soft dirt below; clear empty gap from near tires to lip; no wheels in dirt; no contact with lip",
+    "midground": "Beetle curb-height true PROFILE left-to-right (NOT rear-facing/hatch); FULL-GRID mesh cages and plow readable on near flank; travel lane held CENTER with readable asphalt margin to the lip; carrier through rear SIDE/quarter window mesh on near flank — hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "background": "Cascades-west PNW wet valley — second-growth fir crowding the shoulder, blackberry and alder in the ditch, restricted sightlines, vegetation close to the road, wet gray asphalt; NOT high desert/sage/bare hills/long dry highway",
+    "read": "Menace holds the middle of the lane with a clear gap to the lip; the lip is there untouched; carrier readable through rear side cage",
     "continuity": [
       "pink_menace_exterior",
       "gracie"
@@ -64,7 +64,12 @@
       "no rear-facing camera",
       "no hatch / looking backward at road already left",
       "no open long sightlines / prairie highway",
-      "no vegetation pulled back from the shoulder"
+      "no vegetation pulled back from the shoulder",
+      "no tires kissing the lip",
+      "no car hugging the shoulder",
+      "no accidental centering / just a car on a road",
+      "no hatch camera",
+      "no bare hills"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -77,7 +82,13 @@
       "ego_lane_from_left": 1
     },
     "carrier": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "carrier_placement": "In the same curb-height PROFILE flank shot: locked carrier readable through the rear SIDE window mesh (rear-quarter cage on the near flank) — NOT a rear-facing/backward camera. Spec: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle"
+    "carrier_placement": "In the same curb-height PROFILE flank shot: locked carrier readable through the rear SIDE window mesh (rear-quarter cage on the near flank) — NOT hatch/backward. Spec: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "prejudge_checks": [
+      "EARN THE LANE: clear gap between near tires and lip; centering must not look accidental",
+      "Nothing touching the lip",
+      "Carrier through near-flank rear SIDE mesh only",
+      "Cascades-west wet PNW — reject desert on sight"
+    ]
   },
   "variation": {
     "location_type": "rural",
@@ -85,7 +96,7 @@
     "time_of_day": "morning",
     "tone": "tense",
     "failure_mode": "none",
-    "forced": "VI-011 gate: STATIC exterior culvert lip + carrier; western WA valley floor PNW; NOT cockpit; mass regen paused; do not seed"
+    "forced": "VI-011 gate: earn the lane + static culvert lip + carrier verbatim; Cascades-west PNW; mass regen paused; do not seed"
   },
   "debrief": "Off the road: don't turn, stay straight, come back where it's level. You paid for that one already."
 }
