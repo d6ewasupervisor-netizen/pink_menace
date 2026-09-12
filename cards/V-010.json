@@ -77,7 +77,10 @@
       "no HOV diamond",
       "no snow",
       "no cutaway shuttle",
-      "no second pink Beetle"
+      "no second pink Beetle",
+      "no flat rack",
+      "no cargo platform",
+      "no rear wing"
     ],
     "aspect": "2:3",
     "geometry": {
