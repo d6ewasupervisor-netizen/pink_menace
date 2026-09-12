@@ -50,3 +50,16 @@ Scope the grate plates to in-carrier frames only. Do **not** attach them to out-
 - **Gracie** = ginger → `ref_cat_ginger.png`
 
 Art regen is paused pending daughter feedback. Do not generate new stills from these plates until that pass.
+
+## WAVE — Act V Ribbon plates (candidates only, 2026-09-12)
+
+Claude locked three NEW plate briefs. Candidates compiled on this plates-only PR. **Not promoted.** Do not copy to live `refs/ref_ribbon_*.png`. Do not attach in `pack/09_REF_MAP.json` or compile-prompt. Fill take/sha only after Claude muted-read PASS.
+
+```
+# ref_ribbon_deck      take-__  sha ________  Ribbon elevated deck. Unnamed corridor.
+# ref_ribbon_rig       take-__  sha ________  Period-aged tractor-trailer. Ribbon scale reference.
+# ref_ribbon_workzone  take-__  sha ________  Ribbon work zone. MUTCD orange exempt from world grade.
+```
+
+Pool: `refs/candidates/ribbon-*-take-N.png` plus closest/runner copies `refs/ref_ribbon_*_candidate.png`. Brief: `refs/CANDIDATE_RIBBON.md`.
+
