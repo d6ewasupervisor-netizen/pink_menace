@@ -174,6 +174,18 @@
       "note": "Copy fixed: The skyline is dark and the sign is dark with it. Still already reads stopped bus + dark skyline. the bus is sitting on the wrong side of the road.",
       "pick": "b-take-2",
       "updated_at": "2026-09-01T20:18:25.286Z"
+    },
+    "V-004": {
+      "tag": "PASS",
+      "note": "Claude overflow PASS take-1 from PR #181. Two-head red on the right shoulder; white stop line; I-5 mainline beyond a barrier. Seeded as live still. Take-5 runner-up — not seeded. Do not seed V-007.",
+      "pick": "take-1",
+      "updated_at": "2026-09-12T14:25:00.000Z"
+    },
+    "V-005": {
+      "tag": "PASS",
+      "note": "Claude overflow PASS take-5 from PR #181. Mesh + truck from behind + chevrons + hood signal. Seeded as live still. Take-9 closest-on-regen — not seeded. Do not seed V-007.",
+      "pick": "take-5",
+      "updated_at": "2026-09-12T14:25:00.000Z"
     }
   }
 }

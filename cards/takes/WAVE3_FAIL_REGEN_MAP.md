@@ -24,4 +24,9 @@ Do not reuse PR #179 or PR #173 pixels. **V-008 is out of scope** (take-7 alread
 - **V-005 takes 1–2, 6, 8, 10:** Wave-3-class empty highway / distant truck (do not promote). **Take 3:** invented pavement word `MERGE`. **Take 4:** second pink Beetle ahead; radio on the dash. **Take 7:** truck grille toward camera; gauge gibberish. **Take 11:** wrong cabin (modern VW, diamond mesh, logo).
 - **V-007 take 2:** warm sky. **Take 3:** overhead diagram, rear plow. **Take 4 / 5:** plow on the tail. **Take 6:** no ramp; red pavement artifact. **Take 7:** invented `DOWNTOWNST` text. **Take 8:** Menace facing the camera. **Take 10:** black (not MUTCD-green) panel; brake lamps.
 
-Do not seed. Do not live-DB. Do not merge. Do not touch V-008.
+## Seeded (Claude overflow PASS)
+
+- **V-004 take 1** → `cards/V-004.png` (live-DB). Take 5 remains runner-up — not seeded.
+- **V-005 take 5** → `cards/V-005.png` (live-DB). Take 9 remains closest-on-regen — not seeded.
+
+Do not seed V-007. Do not touch V-008. No Acts I–III.
