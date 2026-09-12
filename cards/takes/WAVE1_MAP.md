@@ -1,48 +1,48 @@
-# Act VI Backcountry — wave-1 map
+# Act VI Backcountry — WAVE1_MAP (Claude overflow locks)
 
-Card JSON is the sole brief. Stills from each card's MOMENT (hook/scene), not the topic label.
-**Do not seed.** Continuity: **Gracie in hard-sided latched strapped carrier** (grille inboard; ginger markings behind grille; belt through handle) on every cabin/cage frame; **Deac only on VI-013**. **No Mya** in Act VI wave-1.
+Card JSON is sole brief. **Do not seed.** No Act VII. **No Mya.**
 
-**Muted-read pack:** [`ACT_VI_WAVE1_MUTED_READ.md`](./ACT_VI_WAVE1_MUTED_READ.md) — muted-read only; no seed until PASS.
+## Locks (authoritative)
+1. Geography = one stretch: Backcountry east of Ribbon, **PNW only**.
+2. Windshield cage = **FULL GRID** (VI-009 canon). Low-band / missing cage = FAIL.
+3. Carrier SPEC verbatim wherever cabin/cage readable: *hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle.* Distant empty-road may omit.
+4. Dash default dark; lit green turn arrows out; 112 speedlike OUT.
+5. VI-013 = Ali driving LHD (hands frame-left) + Deac passenger + metal clipboard.
+6. VI-004 = soft-shoulder mid-event with **exposed hub** (do not reattach wheel).
+7. VI-011 = static exterior culvert lip + carrier (NOT cockpit).
 
-**Claude follow-up (overflow 21aded1a):** zero ship from prior priority; carrier SPEC locked; VI-004 take-2 retired outright (not 011 stock).
+## Muted-read delivery order
+1. **Lead: VI-011** (`artifacts/act-vi-wave1-priority/` — cage-through-glass + carrier bar)
+2. Priority: VI-004, VI-009, VI-013
+3. Remainder: `artifacts/act-vi-wave1-remainder/`
 
-## Closest / runner (post–Claude follow-up regen)
+Pack docs: `ACT_VI_WAVE1_MUTED_READ.md`
 
-| Card | Closest | Runner | Lock note |
+## Closest / runner (locked regen)
+
+| Card | Closest | Runner | Note |
 |---|---|---|---|
-| VI-001 | `VI-001-take-3.png` | take-1 | cockpit Gracie carrier (pre-SPEC wording; regen if muted-read fails SPEC) |
-| VI-002 | `VI-002-take-3.png` | take-1 | same |
-| VI-003 | `VI-003-take-3.png` | take-1 | same |
-| VI-004 | `VI-004-take-7.png` | take-6 | mid-event soft shoulder + **shed wheel** + off-camber + carrier; take-2 **RETIRED** |
-| VI-005 | `VI-005-take-3.png` | take-1 | cockpit carrier |
-| VI-006 | `VI-006-take-3.png` | take-1 | cockpit carrier |
-| VI-007 | `VI-007-take-3.png` | take-1 | cockpit carrier; Ali alone |
-| VI-008 | `VI-008-take-3.png` | take-1 | cockpit carrier |
-| VI-009 | `VI-009-take-7.png` | take-4 | deer through mesh + dark unlit dash + carrier; **no lit arrows / no 112** |
-| VI-010 | `VI-010-take-3.png` | take-1 | cockpit carrier |
-| VI-011 | `VI-011-take-6.png` | take-4 | culvert subject + carrier through rear cage (cage-through-glass ref); take-2 framing lean kept as legacy |
-| VI-012 | `VI-012-take-3.png` | take-1 | cockpit carrier |
-| VI-013 | `VI-013-take-8.png` | take-7 | Ali driving LHD + Deac passenger + metal clipboard + both faces + Gracie carrier + PNW |
+| **VI-011** | `VI-011-take-8.png` | take-6 | **LEAD** static culvert + carrier through rear cage |
+| VI-004 | `VI-004-take-10.png` | take-9 | exposed hub + shed wheel + carrier; take-2 RETIRED |
+| VI-009 | `VI-009-take-8.png` | take-7 | deer full-scale in mesh + dark dash + carrier |
+| VI-013 | `VI-013-take-10.png` | take-8 | Ali hands left + Deac clipboard + PNW + carrier |
+| VI-001 | `VI-001-take-4.png` | take-3 | full-grid + carrier SPEC |
+| VI-002 | `VI-002-take-4.png` | take-3 | full-grid + carrier SPEC |
+| VI-003 | `VI-003-take-4.png` | take-3 | full-grid + carrier SPEC |
+| VI-005 | `VI-005-take-4.png` | take-3 | full-grid + carrier SPEC |
+| VI-006 | `VI-006-take-4.png` | take-3 | full-grid + carrier SPEC |
+| VI-007 | `VI-007-take-4.png` | — | hard regen: cross-traffic + full-grid + carrier |
+| VI-008 | `VI-008-take-4.png` | — | no lit bidirectional dash arrow |
+| VI-010 | `VI-010-take-4.png` | take-3 | crest + natural conifer slopes |
+| VI-012 | `VI-012-take-4.png` | take-3 | rail crossing; carrier restraint; dark dash |
 
-## Priority inventory (new takes)
-
-| Card | New takes | Retired |
-|---|---|---|
-| VI-004 | take-4…7 | take-2 → `retired/VI-004-take-2.RETIRED.png` (not 011 stock); take-3 FAIL cliff |
-| VI-009 | take-4…7 | take-1/2/3 flagged (112 and/or lit arrows and/or missing carrier) |
-| VI-011 | take-3…6 | take-1 vehicle-intro runner-only |
-| VI-013 | take-6…8 | take-1…5 cast/desert FAIL |
-
-## Continuity locks (Tyson + Claude)
-
-1. **Carrier SPEC (verbatim):** hard-sided; wire grille door facing inboard; Gracie’s orange tabby markings visible behind the grille; belt routed through the handle. Gracie = ginger. Studio refs = appearance authority; in-carrier plates = framing-only.
-2. **Cabin:** always show Gracie latched/strapped in carrier. **Exterior:** when Menace body/cage in frame, carrier visible through rear side cage. Distant empty-road with no cabin/cage may omit.
-3. **Mya:** not in Act VI wave-1. “Same class as missing Mya” = FAIL severity only — do not place Mya.
-4. **VI-013** = Ali driving + Deac passenger + clipboard. Ali alone on every other Act VI card.
-5. **112.0 / lit turn arrows:** if 112 reads as live speed → out; lit green turn arrows → out. Odo/trip OK if not speedlike.
+## Retired
+| File | Why |
+|---|---|
+| `retired/VI-004-take-2.RETIRED.png` | parked beauty — **not** 011 stock |
+| Prior pack2 take-1s on 007/008/010/012 | carrier/cage FAIL — dead |
+| Prior 013 take-1…5 | cast/desert FAIL |
+| Prior 009 with 112 / lit arrows | OUT |
 
 ## TODO
-
-- Formal Claude muted-read via `ACT_VI_WAVE1_MUTED_READ.md` (PASS before seed).
-- Do **not** seed Postgres; no live `cards/VI-*.png`; no `imageUrl` bump.
+Formal Claude muted-read. **No Postgres seed. No live PNG. No imageUrl bump.**
