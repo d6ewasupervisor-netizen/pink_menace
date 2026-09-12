@@ -55,8 +55,8 @@
   "debrief": "Pick the exit early. Do not slow on the highway. You took the leftover off on the ramp.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
-    "dol_section": "4.12 Signs",
-    "teaching_target": "NEW: PSDP p1 Lesson four – exiting. 4.12 Signs is REVIEW (exit panel), not a new signs lesson. No DOL Exiting heading.",
+    "dol_section": "n/a",
+    "teaching_target": "NEW: PSDP p1 Lesson four – exiting. No DOL Exiting heading — dol n/a. Do not pair 4.12 Signs. Do not steal V-008’s 5.1 conditions cite.",
     "stat_cited": "PSDP p.31: Identify the exit well ahead of time… don’t slow down on the highway. Start to signal four to six seconds before reaching the ramp."
   },
   "cast": ["ali"],

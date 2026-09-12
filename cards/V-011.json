@@ -52,13 +52,13 @@
       }
     }
   ],
-  "debrief": "Watch for merging traffic and move one lane left when you have it. The empty middle became his ramp.",
+  "debrief": "Yield one lane to the merger when you have it. This is not a pass. The empty middle became his ramp.",
   "timeout_option_id": "a",
   "timeout_ms": 10000,
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
     "dol_section": "5.2 Space",
-    "teaching_target": "PSDP p2 Lesson two – move one lane left for a merger. Pair 5.2 Space. Not the 5.3 zipper child (lane-closure take-turns).",
+    "teaching_target": "PSDP p2 Lesson two – move one lane left for a merger (yield, not a pass). Pair 5.2 Space. Zipper take-turns lives on V-006, not here.",
     "stat_cited": "PSDP p.32: Watch for merging vehicles and move one lane left to make space for them when needed."
   },
   "cast": ["ali", "yuna"],

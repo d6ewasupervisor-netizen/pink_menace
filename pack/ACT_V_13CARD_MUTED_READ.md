@@ -10,7 +10,8 @@ Authority is the card JSON on PR #151. If this file and a card disagree, the car
 
 - Act V = Ribbon + Skill eleven. Ali alone. Yuna radio-only. Load = Tower 4 relay kit.
 - `presence` canonical. **Quiet at seventy:** they do not paint on the Ribbon the way they paint in the lot. Herd is VII. Thirteen cards + existing end beat. No V-014.
-- V-013 dusk = grade pass over the deck plate (geometry unchanged). One dusk card path. `daylight_fail` does not rewrite it.
+- V-013 dusk = grade pass over the deck plate (geometry unchanged). **One** dusk card path. Overrun is `daylight_fail` (end-of-run fail), not a V-013 scene variant.
+- V-006 spends `5.3 Merging (Zipper merging)`. V-011 stays merger/yield (`5.2 Space`). Do not put zipper on V-011.
 - Building-engaging locks:
   1. Allowlist + V-004 cite exact `4.11 Traffic light signals (Freeway ramp meters)` (TOC child, not a top-level section).
   2. V-009 `dol_section: "n/a"` (PSDP-only). Do not stretch a DOL parent. Validator accepts `n/a`.
@@ -23,9 +24,9 @@ Authority is the card JSON on PR #151. If this file and a card disagree, the car
 
 Type: `scene` · Ali · The Ribbon
 
-**Lesson:** NEW: PSDP p1 Lesson one – observation. 4.12 Signs is the pairing (REVIEW of guide panels). Ali has the wheel; Yuna is radio-only.
+**Lesson:** NEW: PSDP p1 Lesson one – observation (eyes-up interchange / paint). Pair 4.16 Road markings for the lane lines — not a 4.12 Signs dump. Ali has the wheel; Yuna is radio-only.
 **PSDP:** Skill eleven: highway driving – part one
-**DOL:** 4.12 Signs
+**DOL:** 4.16 Road markings
 **Cited:** PSDP p.31: explain key highway features — interchanges, highway signs and signals, lane lines and markings.
 
 **Hook:** Yuna on the radio. The highway starts.
@@ -155,33 +156,33 @@ Wind, morning, I-5 south on-ramp. You are in the acceleration stretch. The right
 
 ---
 
-## V-006 — Do Not Plant It
+## V-006 — Both Lanes to the Teeth
 
 Type: `hazard` · Ali · The Ribbon
 
-**Lesson:** REVIEW of 5.3 Merging. PSDP: do not stop unless necessary; adjust speed to find a gap.
+**Lesson:** NEW spend of 5.3 Merging (Zipper merging). Highway lane-end: both lanes to the taper, take turns at the teeth. Not III-026 city work-zone. Not V-011 merger yield.
 **PSDP:** Skill eleven: highway driving – part one
-**DOL:** 5.3 Merging
-**Cited:** PSDP p.31: There is plenty of time to merge. If a gap doesn’t present itself immediately, adjust your speed as early as possible in order to find one.
+**DOL:** 5.3 Merging (Zipper merging)
+**Cited:** DOL p.160: When two lanes merge into one, use both lanes until the designated merge point, then take turns.
 
-**Hook:** The gap is late. The paint is close.
+**Hook:** The right dies ahead. Both lanes still run.
 
-Overcast midday on the I-5 merge. You are in the last stretch of ramp. The right travel lane is a tight stack. No gap is next to you. Merge paint is a car-length ahead. The instinct is to stand on the brake and wait on the ramp until someone gifts you an empty. The other instinct is to take their door anyway. Both spend someone else's margin.
+Overcast midday on I-90 east, still the valley floor. Three lanes this way. The right is marked to die at a taper a quarter mile on — highway paint, not a city street. Both the right and the middle still move. The courtesy habit wants the middle now so you are not the late cut. The zipper wants the dying lane used until the teeth, then one-for-one. Highway speed. The stack is shorter if nobody gifts the lane early.
 
-**Decision:** There is no gap beside you. What do you do?
+**Decision:** The right dies at the taper. When do you leave it?
 
 **Options**
 
-- **a** (wrong): Stop on the ramp and wait until the right lane goes empty
-  - Result: You plant the Menace on the merge. The ramp behind you has to stop too. Highways do not clear for a standing Beetle. You made a start from zero at their speed.
-- **b** (wrong): Force the paint now and make the stack lift
-  - Result: You take their door. The sedan stands on it. Amber behind you lights. You wrote a late on a merge that still had pavement left to change speed.
-- **c** (CORRECT): Stay rolling. Change speed until a gap is real, then take it
-  - Result: You keep the wheels turning. You drop a little, then you match the next gap. The opening you take is one you made with speed, not with a stop.
-- **d** (wrong): Climb the shoulder around the stack and join from the rumble
-  - Result: The shoulder is junk and a sign post. You put the plow in the rumble to skip a count. They never had you as a sentence.
+- **a** (CORRECT): Stay in the right until the taper teeth, then take turns with the middle
+  - Result: You hold the dying lane. At the teeth you take one, give one. The middle never became a courtesy line a mile early. The taper meant the lane was still a lane until the point.
+- **b** (wrong): Move to the middle now so you are not the person who cuts at the end
+  - Result: You join the polite stack. The right stays empty and fast. Someone uses it to the teeth and you resent them for the zipper the paint already asked for. You taught the highway the wrong courtesy.
+- **c** (wrong): Straddle the skip-dash to the taper so nobody can beat you
+  - Result: You occupy two lanes at seventy. Nobody zippers. You are the blockage the taper was trying to prevent, and the stack behind you has no lane that is still a sentence.
+- **d** (wrong): Stop at the first taper mark and wait until the middle empties
+  - Result: You plant the Menace in a live highway lane. Nobody empties I-90 for a standing Beetle. The zipper happens around you, angry, and you made a start from zero at their speed.
 
-**Debrief:** If the gap is late, change speed until one appears. There is time to merge. Stay rolling until the gap is real.
+**Debrief:** Use both lanes until the merge point, then take turns. Early courtesy on a highway taper builds a longer line. Hold the dying lane until the teeth.
 
 ---
 
@@ -189,9 +190,9 @@ Overcast midday on the I-5 merge. You are in the last stretch of ramp. The right
 
 Type: `rule` · Ali · The Ribbon
 
-**Lesson:** NEW: PSDP p1 Lesson four – exiting. 4.12 Signs is REVIEW (exit panel), not a new signs lesson. No DOL Exiting heading.
+**Lesson:** NEW: PSDP p1 Lesson four – exiting. No DOL Exiting heading — dol n/a. Do not pair 4.12 Signs. Do not steal V-008’s 5.1 conditions cite.
 **PSDP:** Skill eleven: highway driving – part one
-**DOL:** 4.12 Signs
+**DOL:** n/a
 **Cited:** PSDP p.31: Identify the exit well ahead of time… don’t slow down on the highway. Start to signal four to six seconds before reaching the ramp.
 
 **Hook:** The exit is named. The highway is still fast.
@@ -301,7 +302,7 @@ Overcast midday on I-90 east, three lanes this way. You are in the right. A slow
 - **d** (wrong): Hold the right and wait until the slow box exits so you never pass
   - Result: He is through traffic. He does not exit. You travel his number for miles and the schedule pays for a pass you were allowed to take one lane at a time.
 
-**Debrief:** Change one lane at a time. Sit until the last lane is yours. You took one lane and sat.
+**Debrief:** Change one lane at a time when you pass. Sit until the last lane is yours. You took one lane and sat.
 
 ---
 
@@ -309,7 +310,7 @@ Overcast midday on I-90 east, three lanes this way. You are in the right. A slow
 
 Type: `hazard` · Ali · The Ribbon
 
-**Lesson:** PSDP p2 Lesson two – move one lane left for a merger. Pair 5.2 Space. Not the 5.3 zipper child (lane-closure take-turns).
+**Lesson:** PSDP p2 Lesson two – move one lane left for a merger (yield, not a pass). Pair 5.2 Space. Zipper take-turns lives on V-006, not here.
 **PSDP:** Skill eleven: highway driving – part two
 **DOL:** 5.2 Space
 **Cited:** PSDP p.32: Watch for merging vehicles and move one lane left to make space for them when needed.
@@ -331,7 +332,7 @@ Daylight rain, morning, I-90 east, three lanes. You are in the right. In the rig
 - **d** (CORRECT): Signal left, take the empty middle, leave him the right
   - Result: One lane. The sedan takes the right behind you. The left stays empty. She clicks once and stays quiet.
 
-**Debrief:** Watch for merging traffic and move one lane left when you have it. The empty middle became his ramp.
+**Debrief:** Yield one lane to the merger when you have it. This is not a pass. The empty middle became his ramp.
 
 ---
 
@@ -376,7 +377,7 @@ Type: `scene` · Ali · The Ribbon
 
 **Hook:** His bumper is in the glass. Again.
 
-Dusk on I-90 east, still the valley floor. The light is going and you are where you meant to be. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.
+Last daylight on I-90 east, still the valley floor. The sky is going — copper at the rim, gray over the deck — and the dash lamps are just coming up. It is dusk, not afternoon. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt catching the last light. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.
 
 **Decision:** Hollis is on your tail in the center. The right is empty. What do you do?
 

@@ -87,7 +87,8 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 | Observation | Name interchanges, highway signs, lane lines; eyes up, not on the bumper. Yuna radios the list. Ali already has the wheel. |
 | On-ramp segments | Entrance (search) → acceleration (match flow) → merge (take the gap). |
 | Ramp meters | Red = stop on the white line. Green = continue up the on-ramp. |
-| Merging | Signal, match speed, check glass and blind spots; do not stop on the ramp unless there is no other choice. If the gap is late, change speed until one appears. |
+| Merging | Signal, match speed, check glass and blind spots; do not stop on the ramp unless there is no other choice. V-005. |
+| Zipper (DOL 5.3 child) | Highway lane-end: both lanes to the taper, take turns at the teeth. V-006. Not III-026 Central. Not V-011 yield. |
 | Exiting | Pick the exit early. Do not dump speed on the highway. Signal four to six seconds before the ramp. On the ramp, tap the brakes and be at the posted ramp speed before the curve. |
 
 ### Part two — travel at speed
@@ -105,17 +106,17 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 | Card | Type | Shot | Lesson one-liner | Skill / DOL |
 |---|---|---|---|---|
-| V-001 | scene | `POV_COCKPIT` | Yuna on the radio. Eyes up: interchange, signs, paint. | eleven p1 · 4.12 Signs (REVIEW pairing) |
+| V-001 | scene | `POV_COCKPIT` | Yuna on the radio. Eyes up: interchange, paint. | eleven p1 · 4.16 Road markings |
 | V-002 | dossier | `POV_PORTRAIT` | Kit named for Tower 4: repeater, antenna, clamps. | n/a |
 | V-003 | scene | `POV_DIAGRAM` | A ramp is three pieces. Use each for its job. | eleven p1 · 5.3 Merging (NEW parent) |
 | V-004 | rule | `POV_OBJECT` | Ramp meter: red on the white line, green continues. | eleven p1 · 4.11 (Freeway ramp meters) |
 | V-005 | scene | `POV_COCKPIT` | Match their speed in the acceleration stretch, then take the gap. | eleven p1 · 5.3 Merging (REVIEW) |
-| V-006 | hazard | `POV_COCKPIT` | No gap yet — change speed. Do not plant it. | eleven p1 · 5.3 Merging (REVIEW) |
-| V-007 | rule | `POV_OBJECT` | Hold highway speed until the ramp. Signal early. | eleven p1 · 4.12 Signs (REVIEW; exiting is PSDP) |
+| V-006 | hazard | `POV_DIAGRAM` | Lane dies at a taper — both lanes to the teeth, then take turns. | eleven p1 · 5.3 Merging (Zipper merging) |
+| V-007 | rule | `POV_OBJECT` | Hold highway speed until the ramp. Signal early. | eleven p1 · n/a (PSDP exiting; no 4.12) |
 | V-008 | scene | `POV_COCKPIT` | Posted ramp speed before the curve, not on the freeway. | eleven p1 · 5.1 Speed (conditions) |
 | V-009 | scene | `POV_ROADSIDE_PROFILE` | Small hands at speed. A yank is yaw. | eleven p2 · n/a (no DOL heading; do not stretch 5.1) |
 | V-010 | rule | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · n/a (no DOL lane-change heading) |
-| V-011 | hazard | `POV_MIRROR_DOOR` | Merger on the right — give them a lane if you have one. | eleven p2 · 5.2 Space (not zipper) |
+| V-011 | hazard | `POV_MIRROR_DOOR` | Merger on the right — yield one lane. Not a pass (V-010). Not zipper (V-006). | eleven p2 · 5.2 Space |
 | V-012 | rule | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time (REVIEW) |
 | V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. Dusk grade pass. | eleven p2 · 5.2 Space (REVIEW) |
 | — | existing end-of-run beat | — | Engine `deliveryBeat` / locked door after V-013. Not a new card. | n/a |
@@ -136,7 +137,6 @@ Thirteen stubs. Play order is `seq`. The closer is the beat the game already fir
 
 - Skill twelve: driving on rural roads (gravel, farm equipment, drop-offs)
 - Skill thirteen: roundabouts (IV-015 already borrowed city Skill ten for a downtown circle)
-- `5.3 Merging (Zipper merging)` — child is now on `pack/07`, unspent. III-026 already taught zipper under the parent. Not a 14th Ribbon card.
 
 ## Not a replay of I–III
 
@@ -147,7 +147,7 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 ## Pack table changes
 
 - `pack/08_PSDP_SKILLS.json` — both Skill eleven headings (PR #132).
-- `pack/07_DOL_SECTIONS.json` — `5.1 Speed` + conditions (PR #132); **Freeway ramp meters** child (PR #141); **Zipper merging** child + **5.6 Curves** restored this pass (unspent).
+- `pack/07_DOL_SECTIONS.json` — `5.1 Speed` + conditions (PR #132); **Freeway ramp meters** child (PR #141); **Zipper merging** child spent on V-006; **5.6 Curves** still unspent.
 - `pack/36_YUNA_RADIO_VOICE.md` / `pack/37_ACT_V_CITATION_AUDIT.md` — radio voice + citation audit.
 - `pack/01_BIBLE.md` §7 — Act V driver **Ali**. §2 yaw line cites Skill eleven part two, not “Skill 13”.
 - `scripts/authoring-seat.js` — Act V ego lock is Ali.

@@ -15,7 +15,7 @@ Americanization stays `pack/23_THE_SPOKEN_DICTIONARY.md`. This file is who speak
 | `pack/34_ACT_V.md` | Beat skeleton (PR #132 / #141 stack). Points here. |
 | `pack/35_ACT_V_RESEARCH.md` | Research gates + reseat locks (PR #141). Points here. |
 | `pack/37_ACT_V_CITATION_AUDIT.md` | Citation audit. Does not change these four appearances. |
-| `pack/ACT_V_13CARD_MUTED_READ.md` | 13-card player copy for Claude text review. V-013 both clauses. |
+| `pack/ACT_V_13CARD_MUTED_READ.md` | 13-card player copy for Claude text review. V-013 is one dusk scene. |
 | `pack/21_THE_MANIFEST.md` | Manifest, mid-run radio, end-of-run beat. Act II Reyna lines stay there. |
 | `pack/23_THE_SPOKEN_DICTIONARY.md` | Swap column. Player copy never says “Skill eleven.” |
 | `pack/01_BIBLE.md` §3.3 | Yuna the person (Encore, in-ears, reflectivity). This file is Act V channel only. |
@@ -49,7 +49,7 @@ Yuna speaks on **four** Act V beats. Not a fifth.
 |---|---|---|
 | 1 | **V-001** | Full check-in. She is on the handheld. She will not be here. |
 | 2 | **V-004 result** | The appearance is the **result**. Not a second driver. Not a meter lecture. |
-| 3 | **V-011** | A radio beat on the merger card. |
+| 3 | **V-011** | A radio beat on the merger/yield card. Not the V-006 zipper. |
 | 4 | **the end beat** | Existing `deliveryBeat` / `radioCheckin` — not a new V-014. |
 
 V-007 on the #141 stubs already states the negative: *“Yuna does not come back on for this.”* That is not an appearance. Do not add her to V-002…V-003, V-005…V-010, V-012, or V-013.
@@ -132,7 +132,7 @@ The appearance lock is on this card. Citation audit copy (do not put her in the 
 - Hook: *“A car is coming up the ramp. You have a left.”*
 - Scene: *“If you hold the right you pinch him into the gore. […] One lane is the gift. The handheld clicks once — Yuna, short, not a lecture.”*
 - Correct result: *“One lane. The sedan takes the right behind you. The left stays empty. She clicks once and stays quiet.”*
-- Debrief: *“Watch for merging traffic and move one lane left when you have it.”*
+- Debrief: *“Yield one lane to the merger when you have it. This is not a pass.”*
 - Cast: `["ali", "yuna"]`
 
 She does not grade the driving. She does not mention cargo condition. If the channel is THINNED, she is quieter, not harsher.

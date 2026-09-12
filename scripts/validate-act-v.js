@@ -154,16 +154,28 @@ for (let i = 0; i < cards.length; i++) {
   const dolRaw = c.source && c.source.dol_section;
   const dol = dolRaw == null || dolRaw === "" ? "n/a" : dolRaw;
   if (/Exiting/i.test(String(dolRaw || ""))) {
-    err(id, "do not mint a DOL Exiting heading — PSDP Lesson four pairs existing 4.12 / 5.1 strings only");
+    err(id, "do not mint a DOL Exiting heading — V-007 is n/a (PSDP Lesson four); V-008 pairs 5.1 conditions");
+  }
+  if (id === "V-001" && dol !== "4.16 Road markings") {
+    err(id, "V-001 pairs 4.16 Road markings (eyes-up paint / interchange), not 4.12 Signs");
   }
   if (id === "V-004" && dol !== "4.11 Traffic light signals (Freeway ramp meters)") {
     err(id, "V-004 must cite 4.11 Traffic light signals (Freeway ramp meters), not the parent");
+  }
+  if (id === "V-006" && dol !== "5.3 Merging (Zipper merging)") {
+    err(id, "V-006 spends 5.3 Merging (Zipper merging); do not leave zipper on V-011 or on the 5.3 parent");
+  }
+  if (id === "V-007" && dol !== "n/a") {
+    err(id, "V-007 exiting is PSDP-only — dol_section n/a; do not pair 4.12 or steal V-008's 5.1");
   }
   if (id === "V-009" && dol !== "n/a") {
     err(id, "V-009 uses dol_section n/a — do not stretch a parent; DOL has no Exiting / steer-gently heading");
   }
   if (id === "V-010" && dol !== "n/a") {
     err(id, "V-010 is PSDP lane-change; no DOL lane-change heading — use n/a, not 5.3");
+  }
+  if (id === "V-011" && dol !== "5.2 Space") {
+    err(id, "V-011 stays 5.2 Space merger/yield; zipper is V-006");
   }
   if (id === "V-003" && dol !== "5.3 Merging") {
     err(id, "V-003 on-ramp segments cite 5.3 Merging parent; do not mint an On-ramp child");

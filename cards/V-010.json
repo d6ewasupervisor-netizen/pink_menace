@@ -51,7 +51,7 @@
       }
     }
   ],
-  "debrief": "Change one lane at a time. Sit until the last lane is yours. You took one lane and sat.",
+  "debrief": "Change one lane at a time when you pass. Sit until the last lane is yours. You took one lane and sat.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
     "dol_section": "n/a",
