@@ -6,7 +6,7 @@ V-004 / V-005 / V-007 stay on the muted-read regen PR. Out of scope. Do not reus
 
 | Card | Title | Camera | **Closest** | **Runner** |
 |---|---|---|---|---|
-| **V-009** | Small Hands at Speed | `POV_ROADSIDE_PROFILE` | **take 2** `V-009-take-2.png` | take 3 `V-009-take-3.png` |
+| **V-009** | Small Hands at Speed | `POV_ROADSIDE_PROFILE` | **take 31** `V-009-take-31.png` (seeded live; Claude overflow PASS d748b5d7) | take 37 `V-009-take-37.png` (FAIL — do not seed) |
 | **V-010** | One Lane, Then Sit | `POV_DIAGRAM` | **take 3** `V-010-take-3.png` | take 1 `V-010-take-1.png` |
 | **V-012** | Three Seconds Here Too | `POV_DIAGRAM` | **take 5** `V-012-take-5.png` | take 6 `V-012-take-6.png` |
 | **V-013** | Let Hollis Have It | `POV_MIRROR_REAR` | **take 6** `V-013-take-6.png` | take 4 `V-013-take-4.png` |
@@ -29,4 +29,6 @@ V-004 / V-005 / V-007 stay on the muted-read regen PR. Out of scope. Do not reus
 - **V-012 take 1:** Beetle facing the camera. **Take 4:** burned-in caption text.
 - **V-013 take 3:** more countable gap; warmer sunset wash.
 
-Do not seed. Do not live-DB. Do not merge.
+**V-009 seeded live:** take-31 only (Claude overflow PASS d748b5d7). Take-37 FAIL — do not seed. V-010 / V-012 / V-013 rows on this branch stay wave-4 picks; not this seed.
+
+Do not seed take-37. Do not live-DB any other Wave4 card from this branch.

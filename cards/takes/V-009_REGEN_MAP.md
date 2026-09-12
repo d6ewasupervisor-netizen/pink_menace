@@ -1,11 +1,13 @@
 # V-009 regen map (PR #188 FAIL → Small Hands at Speed)
 
-Card JSON is the sole brief (`cards/V-009.json`, citation-audit ≡ wave4). Do not seed.
+Card JSON is the sole brief (`cards/V-009.json`, citation-audit ≡ wave4). `image_brief` unchanged.
+
+**Seeded live:** take-31 (`cards/V-009.png`). Claude overflow PASS d748b5d7 (~8:45 AM PDT 2026-09-12) — hands readable. **Do not seed take-37** (Claude FAIL — hands smudged by door frame). PR #192 labeled take-37 closest / take-31 runner; seed the PASS take.
 
 | | File | Note |
 |---|---|---|
-| **Closest** | `V-009-take-37.png` | First land of hands + wheel + three-lane center. True LTR profile; fog line; empty rightmost; skip-dash; Menace CENTER; skip-dash; empty leftmost; concrete median. Ali in the left seat; both hands on a visible wheel rim; plow at the right; no lean; no Yuna; tubular-bar rear |
-| **Runner** | `V-009-take-31.png` | Same occupancy + true profile + empty near / empty far. Far skip-dash weaker than 37 |
+| **Winner (seeded)** | `V-009-take-31.png` | Claude overflow PASS. Same occupancy + true profile + empty near / empty far. Hands readable through near glass. Far skip-dash weaker than 37 |
+| **FAIL — do not seed** | `V-009-take-37.png` | PR #192 closest. Hands + wheel + three-lane center, but Claude FAIL: hands smudged by door frame |
 | Same class (multi-lane + driver) | `V-009-take-28.png` | Occupied, empty near + empty far, but slight 3/4 and an extra far lane |
 
 ## Why #188 failed
@@ -16,7 +18,7 @@ Take-20 / take-21 (and Wave4 take-2 / take-3) were true profile + plow-right + n
 
 Wave D (takes 23–38). Menace plates + Ali plate (`ref_ali2.png`) for the person in the seat. Ban `ref_cockpit.jpg`. No Ribbon deck. Occupied-cabin clause replaced the old “radio voice only” line that was emptying the glass.
 
-Take-37 is the first still that shows **hands + wheel + three-lane center** in true `POV_ROADSIDE_PROFILE`.
+Take-37 is the first still that shows **hands + wheel + three-lane center** in true `POV_ROADSIDE_PROFILE`. Claude muted-read FAILed it (hands smudged by door frame). Take-31 PASSed — that is the live still.
 
 ## Discard (keep in pool)
 
@@ -25,7 +27,7 @@ Take-37 is the first still that shows **hands + wheel + three-lane center** in t
 - **take-24 / take-27 / take-29 / take-30 / take-32 / take-33 / take-34 / take-36 / take-38:** occupied profile, hands/wheel readable, still two-lane (one near skip-dash, barrier hugging the far flank). Best occupancy in this band: take-32 / take-36.
 - **take-19 and earlier 3/4 / two-lane / empty-cabin takes:** stay discarded per prior maps.
 
-## Residuals (closest take-37)
+## Residuals (take-37 FAIL — do not seed)
 
 - Door-window mesh stripped so the hands read — windshield and rear mesh stay. Model would not keep door mesh *and* readable hands in this pool.
 - Far travel lane a little tight vs a full interstate lane (same class as #188 take-21).
