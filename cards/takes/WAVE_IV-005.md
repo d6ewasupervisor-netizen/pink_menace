@@ -1,7 +1,16 @@
 # IV-005 — regen after double-threat brief fix (PR #94)
 
 Branch from `cursor/fix-iv-005-double-threat-f6a6`. Card JSON is sole
-brief authority. Overcast afternoon daylight. Not seeded. No Act I–III.
+brief authority. Overcast afternoon daylight. Seeded take 97 live
+(`cards/IV-005.png`). No Act I–III.
+
+## Claude muted-read (a8a5ebe4)
+
+Take 97 — PASS. Sedan ahead in her lane with brake lights lit,
+crosswalk bars visible, pedestrian mid-crossing at the sedan's right
+rear — partly behind it. Double threat reads. Seeded take-97.
+
+Take 95 — FAIL (do not seed 95).
 
 ## Why this pass
 
@@ -29,34 +38,33 @@ take that shows pedals / boot / footwell / brake pad / cover_the_brake
 
 | Card | Lesson | Shot | Closest | Runner-up |
 |---|---|---|---|---|
-| **IV-005** | the sedan is stopped for a pedestrian still in the paint; the empty left lane is a trap, not a pass | `POV_COCKPIT` forward | `cards/takes/IV-005-take-95.png` | take 97 (muted-read) / take 90 |
+| **IV-005** | the sedan is stopped for a pedestrian still in the paint; the empty left lane is a trap, not a pass | `POV_COCKPIT` forward | `cards/takes/IV-005-take-97.png` (Claude PASS a8a5ebe4, live) | take 90 |
 
-### IV-005 take 95
+### IV-005 take 97 (Claude PASS a8a5ebe4 — seeded live)
+
+Same cabin, no pedals. Sedan ahead in her lane with brake lights lit,
+crosswalk bars visible, pedestrian mid-crossing at the sedan's right
+rear — partly behind it. Double threat reads. Live still:
+`cards/IV-005.png` (`cmp` identical to take-97).
+
+### IV-005 take 95 (Claude FAIL — do not seed)
 
 KEEP vs every prior IV-005 wave: camera looks forward through the
 windshield. Cabin lock holds (painted dash, single nacelle, unbranded
 wheel, coarse mesh). **No pedals, no boot, no footwell.** Sedan stopped
 ahead, brake lamps lit. Pedestrian is only a head / shoulder / bag on
-the right of the sedan — the first take that hits "only partly visible
-past its nose" (take-60 side). Empty left travel lane with a white
-dashed line reads as the trap. Overcast afternoon daylight.
+the right of the sedan. Empty left travel lane with a white dashed
+line.
 
-Residuals: the peek sits at the sedan's rear-right more than a
-mid-crossing stride in worn paint; crosswalk bars are missing; sedan
-is a little far; fence reads highway more than school-edge.
-
-### IV-005 take 97 (muted-read runner-up)
-
-Same cabin, no pedals. Person is mid-crossing on the right with a bag
-and worn/fresh crosswalk bars — the yield is unmistakable. Residual:
-full figure well clear of the sedan (fails "only partly visible").
+Claude FAIL: crosswalk bars missing; peek sits at the sedan's
+rear-right more than a mid-crossing stride in worn paint. Do not seed.
 
 ### IV-005 take 90
 
 Closer sedan, person nearer the body, white dashed trap lane, no
 pedals. Residual: full figure; invented plate numerals.
 
-## This pass (not seeded)
+## This pass (take 97 seeded live)
 
 `cards/takes/IV-005-take-85.png` … `take-100.png`
 
@@ -69,9 +77,10 @@ Discard:
 - 87: invented black bar in the glass
 - 92 / 96 / 98 / 100: person a full figure well clear of the nose
 - 93: coat sliver only — hide is right, too small at 390px
+- 95: Claude FAIL (do not seed)
 
-On-brief family: 95 (closest), 93 (hide sibling), 90 / 97 (person-findable).
+Winner: 97 (Claude PASS a8a5ebe4, live). Person-findable sibling: 90.
 
 ## Out of scope
 
-Live seed. IV-004. IV-012. IV-026 take-110. IV-027 / 028 / 030. Act I–III.
+IV-004. IV-012. IV-026 take-110. IV-027 / 028 / 030. Act I–III.
