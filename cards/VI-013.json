@@ -10,7 +10,7 @@
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. License lands here. End of act → Cleared beat."
+    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. License lands here. End of act \u2192 Cleared beat."
   },
   "cast": [
     "ali",
@@ -67,14 +67,13 @@
     "time_of_day": "morning",
     "tone": "quiet",
     "failure_mode": "none",
-    "winner": "take-2",
-    "forced": "live still cards/takes/VI-013-take-2.png (Claude PASS on Deac; desert landscape vs western WA flag accepted). take-1 FAIL (driver seat). take-3 FAIL (split panel) — do not seed."
+    "forced": "HOLD cast-FAIL take-2 (Overflow Claude 21aded1a: Deac solo / wrong cast). Tyson lock: Ali + Deac (+ clipboard). Do not seed take-2. Ali+Deac regen in flight (bc-11b91eab). Prior live seed from PR #211 unseeded."
   },
   "decision": "He's holding it out. What do you say?",
   "options": [
     {
       "id": "a",
-      "text": "Nothing — take it, read it, hand it back",
+      "text": "Nothing \u2014 take it, read it, hand it back",
       "correct": true,
       "result": "You read your own hours. He takes it back and clips it down. \"That's the state's form,\" he says. \"I run it out of the book because there's nobody left to run it out of anything else. You passed it.\"",
       "state_delta": {

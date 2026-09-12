@@ -1,6 +1,6 @@
 # Act VI Backcountry — wave-1 muted-read pack
 
-**Muted-read.** VI-009 take-2 and VI-013 take-2 are **seeded** (Claude PASS). Do **not** seed VI-004 / VI-011. No Act VII.
+**Muted-read.** VI-009 take-2 is **seeded** (Claude PASS). **VI-013 take-2 is HOLD cast-FAIL** (Overflow Claude 21aded1a: Deac solo / wrong cast; Tyson lock Ali+Deac + clipboard) — live unseeded; Ali+Deac regen in flight (bc-11b91eab). Do **not** seed VI-004 / VI-011. No Act VII.
 
 Map: [`WAVE1_MAP.md`](./WAVE1_MAP.md). Card JSON is the sole brief. All take paths under `cards/takes/`.
 
@@ -24,9 +24,9 @@ Priority stills also staged at `artifacts/act-vi-wave1-priority/` (same bytes as
 | **VI-004** | Off the Edge | **take-2 / take-3** (over take-1 approach-ish) | `VI-004-take-1.png` `VI-004-take-2.png` `VI-004-take-3.png` | Wheels **ALREADY OFF** — right side down on dirt, road higher on the left — mid-event. `POV_ROADSIDE_PROFILE`. |
 | **VI-009** | Look for the Others | take-1 / take-2 | `VI-009-take-1.png` `VI-009-take-2.png` | Deer **BROADSIDE IN THE LANE** at dusk, close — not roadside grazing. `POV_COCKPIT`. |
 | **VI-011** | Same Culvert | take-1 / take-2 | `VI-011-take-1.png` `VI-011-take-2.png` | Lip + soft dirt, **nothing happening**. `POV_ROADSIDE_PROFILE`. |
-| **VI-013** | The Clipboard, Again | **take-2** (passenger OK) | `VI-013-take-1.png` `VI-013-take-2.png` `VI-013-take-3.png` | Deac **passenger** + metal clipboard. **take-1** driver-seat **FAIL**. **take-3** split-panel **FAIL**. |
+| **VI-013** | The Clipboard, Again | HOLD — regen Ali+Deac | `VI-013-take-1.png` `VI-013-take-2.png` `VI-013-take-3.png` | **take-2 cast-FAIL HOLD** (Deac solo / wrong cast). Tyson lock: **Ali + Deac** (+ clipboard). **take-1** driver-seat **FAIL**. **take-3** split-panel **FAIL**. Do not seed. |
 
-Provisional closest (from map): VI-004→take-2, VI-009→take-1, VI-011→take-2, VI-013→take-2.
+Provisional closest (from map): VI-004→take-2, VI-009→take-2 (seeded), VI-011→take-2, VI-013→HOLD (regen).
 
 ---
 

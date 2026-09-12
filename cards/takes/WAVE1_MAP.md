@@ -9,13 +9,13 @@ Continuity: **Gracie in latched strapped carrier on every card**; **Deac only on
 
 | Card | Live still | Source take | Notes |
 |---|---|---|---|
-| **VI-009** Look for the Others | `cards/VI-009.png` | **`VI-009-take-2.png`** | Claude PASS. Cache `?v=a77`. |
-| **VI-013** The Clipboard, Again | `cards/VI-013.png` | **`VI-013-take-2.png`** | Claude PASS on Deac; desert vs western WA flag accepted. take-1 FAIL (driver seat). take-3 FAIL (split panel). |
+| **VI-009** Look for the Others | `cards/VI-009.png` | **`VI-009-take-2.png`** | Claude PASS. Cache `?v=a78`. |
 
-## Not seeded (FAIL / out of scope)
+## HOLD / not seeded
 
 | Card | Status |
 |---|---|
+| **VI-013** The Clipboard, Again | **HOLD cast-FAIL take-2** (Overflow Claude 21aded1a: Deac solo / wrong cast). Tyson lock: **Ali + Deac** (+ clipboard). Live `cards/VI-013.png` cleared; Postgres unseeded. Ali+Deac regen in flight ([bc-11b91eab](https://cursor.com/agents/bc-11b91eab-feca-5403-accb-058edd57f55d)). take-1 FAIL (driver seat). take-3 FAIL (split panel). **Do not seed.** |
 | **VI-004** Off the Edge | Do not seed (FAIL / not in this PASS set). |
 | **VI-011** Same Culvert | Do not seed (FAIL / not in this PASS set). |
 
@@ -35,7 +35,7 @@ Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes 
 | VI-004 | Off the Edge | POV_ROADSIDE_PROFILE | take-1…3 |
 | VI-009 | Look for the Others | POV_COCKPIT | take-1…2 (**seeded take-2**) |
 | VI-011 | Same Culvert | POV_ROADSIDE_PROFILE | take-1…2 |
-| VI-013 | The Clipboard, Again | POV_COCKPIT | take-1…3 (**seeded take-2**) |
+| VI-013 | The Clipboard, Again | POV_COCKPIT | take-1…3 (**HOLD cast-FAIL take-2 — not seeded**) |
 | VI-001 | Where the Blacktop Quits | POV_COCKPIT | take-1…2 |
 | VI-012 | Crossbuck and Nothing Else | POV_COCKPIT | take-1…2 |
 | VI-005 | Wide and Slow | POV_COCKPIT | take-1…2 |
@@ -61,6 +61,7 @@ All under `cards/takes/VI-*-take-N.png`.
 ## TODO
 
 - Formal Claude muted-read for remainder cards (PASS before seed).
+- **VI-013 take-2 cast-FAIL HOLD** — wait Ali+Deac regen (bc-11b91eab); do not reseed take-2.
 - Do **not** seed VI-004 / VI-011.
 - No Act VII.
 - Inventory: **28** take PNGs under `cards/takes/`.
