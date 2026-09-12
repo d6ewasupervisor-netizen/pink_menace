@@ -107,7 +107,7 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 | Card | Type | Shot | Lesson one-liner | Skill / DOL |
 |---|---|---|---|---|
 | V-001 | scene | `POV_COCKPIT` | Yuna on the radio. Eyes up: interchange, paint. | eleven p1 · 5.5 Focus |
-| V-002 | dossier | `POV_PORTRAIT` | Kit named for Tower 4: repeater, antenna, clamps. | n/a |
+| V-002 | dossier | `POV_PORTRAIT` | Kit named for Tower 4; Mya loaf on the dash (parked, wheels still). | n/a |
 | V-003 | scene | `POV_DIAGRAM` | A ramp is three pieces. Use each for its job. | eleven p1 · 5.3 Merging (NEW parent) |
 | V-004 | rule | `POV_OBJECT` | Ramp meter: red on the white line, green continues. | eleven p1 · 4.11 (Freeway ramp meters) |
 | V-005 | scene | `POV_COCKPIT` | Match their speed in the acceleration stretch, then take the gap. | eleven p1 · 5.3 Merging (REVIEW) |
