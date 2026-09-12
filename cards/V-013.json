@@ -48,7 +48,7 @@
   ],
   "debrief": "If you have to stop on a freeway, get well past any curve, pull as far right as you can, turn on your hazard lights, and stay inside the car with your seatbelt on.",
   "source": {
-    "psdp_skill": "Skill eleven: highway driving \u2013 part two",
+    "psdp_skill": "Skill eleven: highway driving – part two",
     "dol_section": "2.6 Occupant Protection",
     "teaching_target": "If you have to stop on a freeway, get well past any curve, pull as far right as you can, flashers on, stay inside and belted."
   },
@@ -63,7 +63,7 @@
     "camera": "POV_CHASE",
     "camera_is_the_lesson": true,
     "subject": "shoulder_stop_dusk_ribbon. Driver-eye 3/4 rear from the travel lane, looking forward along the Menace on the right shoulder past a bend",
-    "foreground": "narrow wet shoulder vs Jersey \u2014 same width as the deck plate; left of the Beetle sits on the fog line near the travel lane",
+    "foreground": "narrow wet shoulder vs Jersey — same width as the deck plate; left of the Beetle sits on the fog line near the travel lane",
     "midground": "faded-pink Beetle stopped, flashers lit, Ali alone inside and belted; stock rear, no rear plow; heading away past a readable curve",
     "background": "dusk grade over the deck plate: wet rain, streetlights the only lamps, gray-blue sky not night, blank gantry, unnamed city below; two barely-visible Quiet silhouettes standing still at the far right shoulder / curve where the light dies (not running, not close, not a herd)",
     "read": "the Menace is stopped on a narrow right shoulder past a readable curve; flashers lit; dusk streetlights only; Ali inside",
@@ -116,7 +116,7 @@
     "time_of_day": "dusk",
     "tone": "tense",
     "failure_mode": "belt",
-    "winner": "take-5",
-    "forced": "live still cards/takes/V-013-take-5.png (Claude PASS muted-read + Brad promote 2026-09-12). Master cards/V-013.png. Runner take-3 banked. Lesson copy EXACT from Claude Skill 11 JSON (PR #199). tire_soft from V-001 converts: presence +4, time +3. Yuna silent. Peak card. image_brief locked on shoulder_stop_dusk_ribbon. Replaces old playtest take-6. QP-003 mute-read only — do not seed: take-6 closest (take-5 plate + Quiet dressing), take-7 runner (take-3 plate + Quiet dressing). Live remains take-5."
+    "winner": "take-7",
+    "forced": "live still cards/takes/V-013-take-7.png (Claude overflow mute-read PASS + Brad promote 2026-09-12; QP-003 Quiet silhouette dressing on banked take-3 plate). Master cards/V-013.png. take-6 FAIL — not seeded. take-5 empty stretch superseded. Lesson copy EXACT from Claude Skill 11 JSON (PR #199). tire_soft from V-001 converts: presence +4, time +3. Yuna silent. Peak card. image_brief locked on shoulder_stop_dusk_ribbon."
   }
 }
