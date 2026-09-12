@@ -23,7 +23,7 @@ Americanization stays `pack/23_THE_SPOKEN_DICTIONARY.md`. This file is who speak
 
 **One-liner (already in pack/34 and pack/35):**
 
-> Yuna radio voice (four appearances, `cargo_rough` bands, `daylight_fail` precedence): `pack/36_YUNA_RADIO_VOICE.md`.
+> Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_fail` forces V-013 dusk — they stack): `pack/36_YUNA_RADIO_VOICE.md`.
 
 ---
 
@@ -69,7 +69,11 @@ Thresholds locked this pass. Cut points reuse presence T0 / T1 edges (`src/prese
 | **SCUFFED** | **4–8** | Shorter. Still hers. |
 | **THINNED** | **9+** | Quietest, not harshest. Hardware thinned the relay. |
 
-`src/cargo-rough.js` is the helper. `daylight_fail` is `time_cost >= 130` (same budget as `COLD_PACK`). **`daylight_fail` wins when both are set.** Do not blend lines.
+`src/cargo-rough.js` is the helper.
+
+**`daylight_fail`** (`time_cost >= 130`, same budget as `COLD_PACK`): does **not** end the run. It forces **V-013** into dusk/hazard (Ribbon in the dark — harder, still playable). The dusk grade-pass lives on V-013’s `image_brief` / `dusk_force` and paints when that card is in the dusk-forced state.
+
+**If both `cargo_rough` and `daylight_fail` are set:** dusk-force V-013 **and** `cargo_rough` still bands the existing end-of-run beat. Do not invent a hard fail. Do not collapse the two systems into one cliff.
 
 - She **never mentions cargo condition.**
 - She **never grades the driving.**
@@ -88,9 +92,9 @@ Do not mint synonyms. Do not print these names on a card face.
 | State | |
 |---|---|
 | `cargo_rough` | Selects the CLEAN / SCUFFED / THINNED band. |
-| `daylight_fail` | Separate state. |
+| `daylight_fail` | Clock-out. Forces V-013 dusk/hazard. Does not hard-end the run. |
 
-**`daylight_fail` takes precedence when both are set.**
+**If both are set:** V-013 gets dusk-force; the end beat still uses the `cargo_rough` band. No hard fail. Do not blend a “you failed daylight” closer into the cargo band.
 
 ---
 
@@ -170,7 +174,7 @@ That is Act III’s cliffhanger. It does not add a fifth Act V beat and it does 
 2. Is she in the still, in the car, or in Encore? Stop. Radio only.
 3. Does the line mention cargo condition or grade the driving? Cut it.
 4. Does the line blame Yuna for a thin channel? Cut it. Hardware thinned the relay. She is quieter.
-5. If `daylight_fail` and `cargo_rough` are both set, write the `daylight_fail` line. Do not blend.
+5. If `daylight_fail` is set, V-013 plays dusk/hazard. The end beat still uses the `cargo_rough` band. Do not hard-end. Do not blend a fail closer.
 6. Swap-column words still fail (`pack/23`). “hole” is gap. Never print “Skill eleven.”
 7. No I–III replay language. No chains / Snoqualmie / pass.
 8. Do not seed. Do not regenerate stills from this file.

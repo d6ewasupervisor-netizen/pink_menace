@@ -155,6 +155,19 @@
       "maximum": 30000,
       "description": "Hazard decision window. Default 24000. Also used on beat cards."
     },
+    "dusk_force": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "V-013 only. Applied when daylight_fail is set. Forces dusk/hazard. Does not end the run.",
+      "properties": {
+        "time_of_day": { "const": "dusk" },
+        "card_type": { "const": "hazard" },
+        "timeout_option_id": { "type": "string", "pattern": "^[a-d]$" },
+        "timeout_ms": { "type": "integer", "minimum": 4000, "maximum": 30000 },
+        "hook": { "type": "string", "minLength": 8, "maxLength": 90 },
+        "scene": { "type": "string", "minLength": 150, "maxLength": 700 }
+      }
+    },
     "tone_debrief": {
       "type": "string",
       "maxLength": 700,

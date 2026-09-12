@@ -493,7 +493,7 @@ function mountRun(app) {
           state_delta: o.state_delta || {},
         }));
 
-      const failed = card.act !== "I" && cargoDead(state, delta);
+      const failed = card.act !== "I" && cargoDead(state, delta, card.act);
       const radio = failed || card.act === "I" ? null : radioCheckin(prevState, state, card.act);
       const inReplay = Boolean(replayStep(run));
       let failDispatch = null;

@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Let Hollis Have It",
   "hook": "His bumper is in the glass. Again.",
-  "scene": "Dusk on I-90 east, still the valley floor. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.",
+  "scene": "Overcast afternoon on I-90 east, still the valley floor. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.",
   "decision": "Hollis is on your tail in the center. The right is empty. What do you do?",
   "options": [
     {
@@ -63,6 +63,14 @@
   "callback_of": null,
   "schedules_callback": false,
   "presence": 0,
+  "dusk_force": {
+    "time_of_day": "dusk",
+    "card_type": "hazard",
+    "timeout_option_id": "b",
+    "timeout_ms": 10000,
+    "hook": "Light gone. His bumper fills the glass.",
+    "scene": "Dusk on I-90 east, still the valley floor. Three lanes. The pass is a dark grade in the east — a door, not this road. Light ran out. Hollis is closer than a count, lamps already up. The right lane is empty wet asphalt. Brake-checking him in this light is a story he will finish with your rear. The highway move is still to give him a lane — same empty right, less light."
+  },
   "image_brief": {
     "camera": "POV_MIRROR_REAR",
     "camera_is_the_lesson": true,
@@ -96,9 +104,9 @@
   "variation": {
     "location_type": "highway",
     "weather": "overcast",
-    "time_of_day": "dusk",
+    "time_of_day": "afternoon",
     "tone": "tense",
     "failure_mode": "speed",
-    "forced": "Act V draft stub — no still; do not seed"
+    "forced": "Act V draft stub — no still; do not seed. image_brief is the dusk-forced grade-pass plate."
   }
 }

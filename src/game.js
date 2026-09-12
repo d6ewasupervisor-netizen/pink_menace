@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const { query, pool } = require("./db");
 const { publicFear } = require("./presence");
 const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET, timeCostOf } = require("./manifest");
+const { stampDaylightFail, applyV013DuskForce, daylightFail } = require("./cargo-rough");
 
 async function purgeExpiredPending() {
   await query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
@@ -261,7 +262,10 @@ function withActCargo(state, act) {
   return s;
 }
 
-function cargoDead(state, delta) {
+function cargoDead(state, delta, act) {
+  // Act V is a highway act: nothing is instantly fatal. Clock-out stamps
+  // daylight_fail and forces V-013 dusk/hazard; cargo_rough still bands the end beat.
+  if (act === "V") return false;
   if (delta && delta.fatal) return true;
   if (cargoFrom(state) > 0) return false;
   const d = delta || {};
@@ -401,7 +405,7 @@ function applyDelta(state, delta) {
     if (typeof v === "number") next[k] = (Number(next[k]) || 0) + v;
     else next[k] = v;
   }
-  return next;
+  return stampDaylightFail(next);
 }
 
 async function mainAnswersForRun(client, failedRunId) {
@@ -912,6 +916,7 @@ function publicState(state) {
     cold,
     warming,
     phase: cold > 0 ? "cold" : "warming",
+    daylight_fail: daylightFail(s),
     ...publicFear(s),
   };
 }
@@ -954,6 +959,7 @@ async function publicCard(cardId) {
     camera: brief.camera || null,
     timeout_option_id: extra.timeout_option_id || null,
     timeout_ms: Number(extra.timeout_ms) || 24000,
+    dusk_force: extra.dusk_force || null,
     show_cold: card.act !== "I",
     suppress_presence: QUIET_IN_FRAME.has(card.card_id),
     lot_states: extra.lot_states || null,
@@ -1002,9 +1008,13 @@ function applyLotVoice(card, lotState) {
 
 async function applySequenceTone(card, runId) {
   if (!card || !runId) return card;
-  const { rows: runRows } = await query(`SELECT lot_state FROM runs WHERE id = $1`, [runId]);
+  const { rows: runRows } = await query(`SELECT lot_state, state FROM runs WHERE id = $1`, [runId]);
   const lotState = runRows[0] && runRows[0].lot_state;
+  const runState = (runRows[0] && runRows[0].state) || {};
   if (lotState) applyLotVoice(card, lotState);
+  if (card.card_id === "V-013") {
+    card = applyV013DuskForce(card, runState);
+  }
   if (card.card_id !== "I-008") return card;
   const { rows } = await query(
     `SELECT option_id, was_correct

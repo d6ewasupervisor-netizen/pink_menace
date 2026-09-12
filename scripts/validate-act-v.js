@@ -10,7 +10,7 @@ const { assemblePrompt } = require("./compile-prompt");
 const { validateAuthoringSeat } = require("./authoring-seat");
 const { checkSpoken, checkClosers } = require("./validate-spoken");
 const { COLD_PACK, deliveryBeat, cargoFailDispatch, radioCheckin, manifestFor } = require("../src/manifest");
-const { cargoRoughBand, radioChannel } = require("../src/cargo-rough");
+const { cargoRoughBand, radioChannel, applyV013DuskForce } = require("../src/cargo-rough");
 
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^V-\d{3}\.json$/.test(f)).sort();
@@ -73,10 +73,26 @@ for (let i = 0; i < cards.length; i++) {
   if (c.variation.location_type === "mountain_pass") err(id, "mountain_pass is Act VII");
   if (["night", "deep_night"].includes(c.variation.time_of_day)) err(id, "night is Act VII");
   if (c.variation.time_of_day === "dusk" && id !== "V-013") {
-    err(id, "dusk-as-dark is Act VII; only V-013 is dusk-as-grade-pass");
+    err(id, "dusk-as-dark is Act VII; V-013 dusk is dusk_force only");
   }
-  if (id === "V-013" && c.variation.time_of_day !== "dusk") {
-    err(id, "V-013 is dusk-as-grade-pass (valley dusk; the pass stays a door)");
+  if (id === "V-013") {
+    if (c.variation.time_of_day !== "afternoon") {
+      err(id, "V-013 default is afternoon; dusk is dusk_force when daylight_fail is set");
+    }
+    const force = c.dusk_force;
+    if (!force || force.time_of_day !== "dusk" || force.card_type !== "hazard") {
+      err(id, "V-013 dusk_force must be dusk/hazard (clock-out overlay, not a hard end)");
+    }
+    if (!force || !force.timeout_option_id || !(c.options || []).some((o) => o.id === force.timeout_option_id)) {
+      err(id, "V-013 dusk_force missing timeout_option_id");
+    }
+    const forceHook = String(force.hook || "").trim().split(/\s+/).filter(Boolean);
+    if (!force.hook || forceHook.length < 1 || forceHook.length > 12) {
+      err(id, `dusk_force hook words ${forceHook.length}`);
+    }
+    if (!force.scene || force.scene.length < 150 || force.scene.length > 700) {
+      err(id, `dusk_force scene len ${force.scene && force.scene.length}`);
+    }
   }
   if (["snow", "ice", "fog"].includes(c.variation.weather)) err(id, "snow/ice/fog is Act VII");
   if (!locEnum.includes(c.variation.location_type)) err(id, "location");
@@ -122,7 +138,16 @@ for (let i = 0; i < cards.length; i++) {
     }
   }
   for (const x of c.cast || []) if (!castEnum.includes(x)) err(id, `cast ${x}`);
-  const blob = [c.title, c.hook, c.scene, c.decision, c.debrief, JSON.stringify(c.options || [])].join(" ");
+  const blob = [
+    c.title,
+    c.hook,
+    c.scene,
+    c.decision,
+    c.debrief,
+    JSON.stringify(c.options || []),
+    c.dusk_force && c.dusk_force.hook,
+    c.dusk_force && c.dusk_force.scene,
+  ].join(" ");
   if (DEFERRED_VII.test(blob)) {
     err(id, "Act VII material (chains / Snoqualmie / plow / night weather) leaked into a teaching card");
   }
@@ -218,8 +243,22 @@ if (cargoRoughBand(4) !== "SCUFFED" || cargoRoughBand(8) !== "SCUFFED") {
 if (cargoRoughBand(9) !== "THINNED") {
   errors.push("cargo_rough THINNED must start at 9");
 }
-if (radioChannel({ yaw: 9, time_cost: COLD_PACK }) !== "daylight_fail") {
-  errors.push("daylight_fail must win when the clock is dead");
+if (radioChannel({ yaw: 9, time_cost: COLD_PACK }) !== "THINNED") {
+  errors.push("clock-out must not replace cargo_rough — end beat still uses THINNED");
+}
+if (radioChannel({ yaw: 1, time_cost: COLD_PACK }) !== "CLEAN") {
+  errors.push("daylight_fail must not swallow a CLEAN cargo_rough band");
+}
+const v013 = cards.find((c) => c.card_id === "V-013");
+if (v013) {
+  const forced = applyV013DuskForce(v013, { time_cost: COLD_PACK, yaw: 9 });
+  if (forced.card_type !== "hazard" || forced.time_of_day !== "dusk") {
+    errors.push("daylight_fail must force V-013 dusk/hazard, not end the run");
+  }
+  const day = applyV013DuskForce(v013, { time_cost: 20 });
+  if (day.dusk_forced || day.card_type !== "scene") {
+    errors.push("V-013 stays a daylight scene until daylight_fail");
+  }
 }
 
 console.log("cards", cards.length, "decision", n);
