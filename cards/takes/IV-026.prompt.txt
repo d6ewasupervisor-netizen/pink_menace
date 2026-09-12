@@ -1,8 +1,9 @@
 # IV-026 — GPT Image 2 compile prompt
 # attachments: ref_car_exterior.jpg, ref_car_nose_plow.png
-# camera: take-179 family — mid-horizon street-level downtown, nose-toward (Claude-allowed this regen only)
+# camera: take-179 family — nose-toward FROM AHEAD, opposing/left lane, up-lane, chest/windshield, looking slightly back
 # take send: IV-026 · three hazards sit in the Beetle's next two lengths; the left travel lane is empty · POV_DIAGRAM
 # FAIL regen: JSON remains sole brief for hazards/lesson. Take-8 plow plate locked. Do not lift plow. Do not seed.
+# Hard brief: van + loading on the Beetle's RIGHT, FORWARD of the front wheels.
 
 IV-026. Lesson: three hazards sit in the Beetle's next two lengths; the left travel lane is empty. Shot: street-level mid-horizon downtown (take-179 camera family), nose-toward-camera so the take-8 plow reads.
 
