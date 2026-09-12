@@ -1,0 +1,102 @@
+{
+  "card_id": "V-001",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Eyes Up the Ribbon",
+  "hook": "Yuna on the radio. The highway starts.",
+  "scene": "Overcast morning on I-5 south of the Core. You have the wheel of the Menace. Nobody else is in the car. The relay kit for Tower 4 is already lashed in the back — repeater, antenna, clamps. The handheld on the floor crackles: Yuna. She will not be here. She wants the interchange, the green panels, and the paint named before you spend the ramp. The mountain is a gray smudge far east. This pavement is the Ribbon.",
+  "decision": "Yuna wants eyes up. What do you give her first?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Name the interchange, the guide panels, and the lane lines ahead",
+      "correct": true,
+      "result": "You call the stack, the green boards, and the skip-dash. She clicks once. The bumper can wait. You already know which gap the next ramp wants.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "b",
+      "text": "Watch the bumper of the car ahead so you do not hit it",
+      "correct": false,
+      "result": "You narrate chrome. The exit panel goes by unread. She has to name the ramp for you. Eyes on the bumper spent the only look that mattered.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Ask her to stay on until she can talk you through every merge",
+      "correct": false,
+      "result": "The radio is a check, not a second driver. You missed a panel waiting for a voice that will not sit in this seat.",
+      "state_delta": {
+        "time_cost": 10
+      }
+    },
+    {
+      "id": "d",
+      "text": "Slow down in the travel lane so you can read every word on the next sign",
+      "correct": false,
+      "result": "You dump speed on I-5 to finish a sentence. The stack behind you lights. The ramp is where speed dies, not here.",
+      "state_delta": {
+        "noise": 3,
+        "light": 2,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "Interchange, signs, paint — eyes up, not on the bumper. Yuna said the next panel, not the bumper.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part one",
+    "dol_section": "5.5 Focus",
+    "teaching_target": "NEW: PSDP p1 Lesson one – observation (eyes-up interchange). Pair 5.5 Focus — eyes up, not on the bumper. Not a 4.12 Signs dump. Not a 4.16 markings dump. Ali has the wheel; Yuna is radio-only.",
+    "stat_cited": "PSDP p.31: explain key highway features — interchanges, highway signs and signals, lane lines and markings."
+  },
+  "cast": ["ali", "yuna"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "camera_is_the_lesson": true,
+    "subject": "from the seat through welded mesh at three wet I-5 lanes, a green guide panel ahead, no readable city names",
+    "foreground": "worn black wheel, faded pink dash, handheld radio on the floor, no second person",
+    "midground": "mesh with a wiper-slot cut, skip-dashed white between travel lanes, pink plow bar at the bottom of the glass",
+    "background": "overcast I-5 morning, concrete median left, no mountain close, no night",
+    "read": "Ali is driving alone; three same-direction lanes run ahead through the mesh; a guide panel sits far down the road",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": [
+      "no second occupant",
+      "no clipboard in the windshield",
+      "no snow",
+      "no chain-up signs",
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no chevron hatchback"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of three southbound I-5 lanes",
+      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing toward the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

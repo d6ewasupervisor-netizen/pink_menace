@@ -1,0 +1,103 @@
+{
+  "card_id": "V-011",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Give the Ramp a Lane",
+  "hook": "A car is coming up the ramp. You have a left.",
+  "scene": "Daylight rain, morning, I-90 east, three lanes. You are in the right. In the right door glass a primer sedan is running the on-ramp, already blinking, already matching. The middle lane beside you is empty wet asphalt. If you hold the right you pinch him into the gore. If you take two lanes to be generous you write a late on someone in the left. One lane is the gift. The handheld clicks once — Yuna, short, not a lecture.",
+  "decision": "He is merging from the right. The middle is empty. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold the right and make him stop on the ramp until you pass",
+      "correct": false,
+      "result": "You pin him at the gore. He plants it. You taught the ramp that a Beetle does not share. His start from zero is now your problem a second later.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Brake hard in the right so he can have your exact paint",
+      "correct": false,
+      "result": "You dump speed on a wet highway. The stack behind you lights. You spent their brakes to give him a lane you already had to the left.",
+      "state_delta": {
+        "noise": 4,
+        "light": 2,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "c",
+      "text": "Cut to the leftmost in one sweep to give him the whole right half",
+      "correct": false,
+      "result": "You take two. A van in the left had no sentence. One empty lane was enough. You spent a second gap to look kind.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Signal left, take the empty middle, leave him the right",
+      "correct": true,
+      "result": "One lane. The sedan takes the right behind you. The left stays empty. She clicks once and stays quiet.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    }
+  ],
+  "debrief": "Yield one lane to the merger when you have it. This is not a pass. The empty middle became his ramp.",
+  "timeout_option_id": "a",
+  "timeout_ms": 10000,
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part two",
+    "dol_section": "5.2 Space",
+    "teaching_target": "PSDP p2 Lesson two – move one lane left for a merger (yield, not a pass). Pair 5.2 Space. Zipper take-turns lives on V-006, not here.",
+    "stat_cited": "PSDP p.32: Watch for merging vehicles and move one lane left to make space for them when needed."
+  },
+  "cast": ["ali", "yuna"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": true,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_MIRROR_DOOR",
+    "camera_is_the_lesson": true,
+    "subject": "from the seat looking right at the right door-mirror glass, primer sedan on the on-ramp, blinker on",
+    "foreground": "right window frame, right door-mirror housing, faded pink dash edge",
+    "midground": "sedan in the right glass, already on the ramp, same heading",
+    "background": "rain morning I-90, wet right lane, no snow, windshield dark at the edge",
+    "read": "the right door glass holds a sedan on the ramp with its blinker on; the middle lane is not in that glass",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": [
+      "no sedan in the left door glass",
+      "no snow",
+      "no clipboard in the windshield",
+      "no second occupant"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of three eastbound I-90 lanes",
+      "ego_nose_in_frame": "travel continues away; the plow is not the subject",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "rain",
+    "time_of_day": "morning",
+    "tone": "urgent",
+    "failure_mode": "inexperience",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

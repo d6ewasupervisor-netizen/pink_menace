@@ -1,0 +1,121 @@
+{
+  "card_id": "V-006",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Both Lanes to the Teeth",
+  "hook": "The right dies ahead. Both lanes still run.",
+  "scene": "Overcast midday on I-90 east, still the valley floor. Three lanes this way. The right is marked to die at a taper a quarter mile on — highway paint, not a city street. Both the right and the middle still move. The courtesy habit wants the middle now so you are not the late cut. The zipper wants the dying lane used until the teeth, then one-for-one. Highway speed. The stack is shorter if nobody gifts the lane early.",
+  "decision": "The right dies at the taper. When do you leave it?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Stay in the right until the taper teeth, then take turns with the middle",
+      "correct": true,
+      "result": "You hold the dying lane. At the teeth you take one, give one. The middle never became a courtesy line a mile early. The taper meant the lane was still a lane until the point.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Move to the middle now so you are not the person who cuts at the end",
+      "correct": false,
+      "result": "You join the polite stack. The right stays empty and fast. Someone uses it to the teeth and you resent them for the zipper the paint already asked for. You taught the highway the wrong courtesy.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 10
+      }
+    },
+    {
+      "id": "c",
+      "text": "Straddle the skip-dash to the taper so nobody can beat you",
+      "correct": false,
+      "result": "You occupy two lanes at seventy. Nobody zippers. You are the blockage the taper was trying to prevent, and the stack behind you has no lane that is still a sentence.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Stop at the first taper mark and wait until the middle empties",
+      "correct": false,
+      "result": "You plant the Menace in a live highway lane. Nobody empties I-90 for a standing Beetle. The zipper happens around you, angry, and you made a start from zero at their speed.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 12
+      }
+    }
+  ],
+  "debrief": "Use both lanes until the merge point, then take turns. Early courtesy on a highway taper builds a longer line. Hold the dying lane until the teeth.",
+  "timeout_option_id": "b",
+  "timeout_ms": 12000,
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part one",
+    "dol_section": "5.3 Merging (Zipper merging)",
+    "teaching_target": "NEW spend of 5.3 Merging (Zipper merging). Highway lane-end: both lanes to the taper, take turns at the teeth. Not III-026 city work-zone. Not V-011 merger yield.",
+    "stat_cited": "DOL p.160: When two lanes merge into one, use both lanes until the designated merge point, then take turns."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": true,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "camera_is_the_lesson": true,
+    "subject": "three eastbound I-90 lanes, pink Beetle in the right, that right dying at a taper, middle still full to the teeth",
+    "foreground": "wet skip-dash, rear of the Beetle nearer the camera, taper paint ahead",
+    "midground": "the merge teeth, one sedan in the middle taking a turn, right lane still occupied to the point",
+    "background": "overcast midday valley I-90, concrete median, no city cones, no snow",
+    "read": "the Beetle is still in the dying right; both lanes run to the taper teeth; the zipper is one-for-one there",
+    "continuity": ["diagram_style", "pink_menace_exterior"],
+    "extra_negatives": [
+      "no HOV diamond",
+      "no snow",
+      "no cutaway shuttle",
+      "no second pink Beetle",
+      "no city work-zone cones",
+      "no Ledger"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of three eastbound I-90 lanes, dying at a taper",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, away from camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "primer sedan",
+          "frame_side": "left",
+          "lane_from_left": 2,
+          "along": "beside",
+          "lengths": 0
+        },
+        {
+          "vehicle": "sedan at the taper teeth",
+          "frame_side": "same",
+          "lane_from_left": 3,
+          "along": "ahead",
+          "lengths": 3
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "midday",
+    "tone": "urgent",
+    "failure_mode": "inexperience",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

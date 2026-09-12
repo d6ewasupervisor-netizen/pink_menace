@@ -90,3 +90,9 @@ Compile prompts describing **physical build** may keep precise shape language wh
 ## 8. THE STANDING RULE
 
 Every player-facing line has to survive being read aloud by a sixteen-year-old in Kent without her stopping to wonder what a word means. If she'd stop, it's wrong — no matter how correct, how technical, or how well it scans.
+
+## 9. ACT V YUNA RADIO
+
+This file stays the Americanization pass. Act V radio voice — who speaks, how many times, how the channel thins — is `pack/36_YUNA_RADIO_VOICE.md`.
+
+Yuna is never seen and never in the car on the Ribbon. Four appearances only. No line blames her. Swap-column words still fail on those lines.

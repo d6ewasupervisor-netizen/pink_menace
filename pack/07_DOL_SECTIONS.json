@@ -1,5 +1,5 @@
 {
-  "n/a": "Allowed for dossier cards and for rules with no PSDP mapping.",
+  "n/a": "Allowed for dossier cards, PSDP-only lessons with no DOL heading (null or n/a), and rules with no PSDP mapping. Do not mint a missing DOL section.",
   "sections": [
     "n/a",
     "2.5 Vehicle Maintenance",
@@ -18,6 +18,7 @@
     "4.9 Sharing with emergency vehicles",
     "4.10 Traffic laws",
     "4.11 Traffic light signals",
+    "4.11 Traffic light signals (Freeway ramp meters)",
     "4.12 Signs",
     "4.13 Common intersections",
     "4.14 Turning",
@@ -26,11 +27,15 @@
     "4.17 Zones (School zone)",
     "4.17 Zones (Work zone)",
     "4.18 Parking",
+    "5.1 Speed",
+    "5.1 Speed (Adjusting speed for conditions)",
     "5.2 Space",
     "5.3 Merging",
+    "5.3 Merging (Zipper merging)",
     "5.4 Time (Count seconds)",
     "5.5 Focus",
     "5.6 Road and driving conditions (Slippery roads)",
+    "5.6 Road and driving conditions (Curves)",
     "5.10 Law enforcement"
   ]
 }

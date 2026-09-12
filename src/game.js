@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const { query, pool } = require("./db");
 const { publicFear } = require("./presence");
 const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET, timeCostOf } = require("./manifest");
+const { stampDaylightFail, daylightFail } = require("./cargo-rough");
 
 async function purgeExpiredPending() {
   await query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
@@ -261,7 +262,15 @@ function withActCargo(state, act) {
   return s;
 }
 
-function cargoDead(state, delta) {
+function cargoDead(state, delta, act) {
+  if (act === "V") {
+    if (delta && delta.fatal) return true;
+    // daylight_fail is the Act V fail state. It wins over cargo_rough and terminates.
+    // Empty continue (dossier) does not fire on an already-empty clock.
+    if (!daylightFail(state)) return false;
+    const d = delta || {};
+    return timeCostOf(d) > 0 || (Number(d.noise) || 0) > 0 || (Number(d.light) || 0) > 0;
+  }
   if (delta && delta.fatal) return true;
   if (cargoFrom(state) > 0) return false;
   const d = delta || {};
@@ -401,7 +410,7 @@ function applyDelta(state, delta) {
     if (typeof v === "number") next[k] = (Number(next[k]) || 0) + v;
     else next[k] = v;
   }
-  return next;
+  return stampDaylightFail(next);
 }
 
 async function mainAnswersForRun(client, failedRunId) {
@@ -912,6 +921,7 @@ function publicState(state) {
     cold,
     warming,
     phase: cold > 0 ? "cold" : "warming",
+    daylight_fail: daylightFail(s),
     ...publicFear(s),
   };
 }

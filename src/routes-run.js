@@ -493,15 +493,15 @@ function mountRun(app) {
           state_delta: o.state_delta || {},
         }));
 
-      const failed = card.act !== "I" && cargoDead(state, delta);
-      const radio = failed || card.act === "I" ? null : radioCheckin(prevState, state);
+      const failed = card.act !== "I" && cargoDead(state, delta, card.act);
+      const radio = failed || card.act === "I" ? null : radioCheckin(prevState, state, card.act);
       const inReplay = Boolean(replayStep(run));
       let failDispatch = null;
       if (failed) {
         const charges = await failCharges(client, run.id);
-        failDispatch = cargoFailDispatch(charges);
+        failDispatch = cargoFailDispatch(charges, card.act);
         state.fail_reason = failDispatch;
-        state.fail_kind = "cargo";
+        state.fail_kind = card.act === "V" && state.daylight_fail ? "daylight" : "cargo";
         state.fail_card_id = cardId;
       }
       let nextCardId = null;
@@ -657,7 +657,7 @@ function mountRun(app) {
         quiet: Boolean(fear.quiet) && !failed,
         dispatch: failDispatch,
         radio,
-        delivery: done && card.act !== "I" ? deliveryBeat(state) : null,
+        delivery: done && card.act !== "I" ? deliveryBeat(state, card.act) : null,
         debrief: card.debrief,
         driver: card.driver || "ali",
         alts,
@@ -881,7 +881,7 @@ function mountRun(app) {
       );
       const recapDelta = (recapOpt[0] && recapOpt[0].state_delta) || {};
       const recapState = applyDelta(run.state, recapDelta);
-      const radio = radioCheckin(run.state, recapState);
+      const radio = radioCheckin(run.state, recapState, actOfCardId(cardId));
       await client.query(`UPDATE runs SET state = $1::jsonb, updated_at = now() WHERE id = $2`, [
         JSON.stringify(recapState),
         run.id,
@@ -912,7 +912,7 @@ function mountRun(app) {
         state: publicState(run.state),
         time_cost: timeCostOf(recapDelta),
         radio,
-        delivery: actOfCardId(cardId) === "I" ? null : deliveryBeat(run.state),
+        delivery: actOfCardId(cardId) === "I" ? null : deliveryBeat(run.state, actOfCardId(cardId)),
       });
     } catch (err) {
       try {
