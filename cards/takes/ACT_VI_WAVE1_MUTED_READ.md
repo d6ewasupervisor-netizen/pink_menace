@@ -26,7 +26,7 @@ Priority stills also staged at `artifacts/act-vi-wave1-priority/` (same bytes as
 | **VI-011** | Same Culvert | take-1 / take-2 | `VI-011-take-1.png` `VI-011-take-2.png` | Lip + soft dirt, **nothing happening**. `POV_ROADSIDE_PROFILE`. |
 | **VI-013** | The Clipboard, Again | **take-2** (passenger OK) | `VI-013-take-1.png` `VI-013-take-2.png` `VI-013-take-3.png` | Deac **passenger** + metal clipboard. **take-1** driver-seat **FAIL**. **take-3** split-panel **FAIL**. |
 
-Provisional closest (from map): VI-004→take-2, VI-009→take-1, VI-011→take-2, VI-013→take-2.
+Provisional closest (from map): VI-004→take-2, VI-009→take-3, VI-011→take-2, VI-013→take-5. Remainder cockpit cards prefer take-3 (Gracie-in-carrier lock).
 
 ---
 
@@ -44,7 +44,7 @@ Provisional closest (from map): VI-004→take-2, VI-009→take-1, VI-011→take-
 | VI-010 | Over the Top | `VI-010-take-1.png` `VI-010-take-2.png` |
 | VI-012 | Crossbuck and Nothing Else | `VI-012-take-1.png` `VI-012-take-2.png` |
 
-**Inventory:** 28 take PNGs under `cards/takes/VI-*-take-N.png` (priority 10 + remainder 18).
+**Inventory:** 40 take PNGs under `cards/takes/VI-*-take-N.png` (wave-1 + Gracie/Deac lock regens).
 
 ---
 

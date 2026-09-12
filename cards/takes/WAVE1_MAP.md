@@ -5,16 +5,27 @@ Card JSON is the sole brief. Stills from each card's MOMENT (hook/scene), not th
 
 **Muted-read pack:** [`ACT_VI_WAVE1_MUTED_READ.md`](./ACT_VI_WAVE1_MUTED_READ.md) — muted-read only; no seed until PASS.
 
-## Closest recommendations (provisional muted-read)
+## Closest / runner (Gracie+Deac lock pass)
 
-| Card | Closest | Runner-up / bank | Residual |
+| Card | Closest | Runner | Lock note |
 |---|---|---|---|
-| **VI-004** Off the Edge | **`VI-004-take-2.png`** | take-3; take-1 bank | Prefer 2/3 for mid-event drop (wheels already off). Take-1 more approach-ish. |
-| **VI-009** Look for the Others | **`VI-009-take-1.png`** | take-2 | Deer broadside in-lane at dusk. |
-| **VI-011** Same Culvert | **`VI-011-take-2.png`** | take-1 | Lip + culvert + all tires on pavement; nothing happening. |
-| **VI-013** The Clipboard, Again | **`VI-013-take-2.png`** | — | Passenger + clipboard. **take-1 FAIL** (driver seat). **take-3 FAIL** (split panel). |
+| VI-001 | `VI-001-take-3.png` | take-1 | take-3: Gracie **inside** latched strapped carrier; take-1/2 cat loose beside carrier |
+| VI-002 | `VI-002-take-3.png` | take-1 | take-3 adds visible latched carrier + Gracie |
+| VI-003 | `VI-003-take-3.png` | take-1 | take-3 Gracie-in-carrier |
+| VI-004 | `VI-004-take-2.png` | take-3 | exterior profile — wheels already off; carrier continuity not the read |
+| VI-005 | `VI-005-take-3.png` | take-1 | take-3 Gracie-in-carrier |
+| VI-006 | `VI-006-take-3.png` | take-1 | take-3 Gracie-in-carrier |
+| VI-007 | `VI-007-take-3.png` | take-1 | take-3 Gracie-in-carrier; Ali alone |
+| VI-008 | `VI-008-take-3.png` | take-1 | take-3 Gracie-in-carrier |
+| VI-009 | `VI-009-take-3.png` | take-1 | deer broadside in-lane dusk + Gracie-in-carrier |
+| VI-010 | `VI-010-take-3.png` | take-1 | take-3 Gracie-in-carrier |
+| VI-011 | `VI-011-take-2.png` | take-1 | exterior — lip + nothing happening |
+| VI-012 | `VI-012-take-3.png` | take-1 | take-3 Gracie-in-carrier |
+| VI-013 | `VI-013-take-5.png` | take-2 | take-5: Deac **passenger** + clipboard + Gracie-in-carrier; take-1 driver FAIL; take-3/4 seating FAIL |
 
-Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes as `cards/takes/`).
+**Inventory:** 40 take PNGs under `cards/takes/` (includes Gracie/Deac lock regens).
+
+
 
 ## All takes
 
