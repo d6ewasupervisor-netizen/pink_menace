@@ -90,15 +90,24 @@
     "carrier": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
     "carrier_placement": "In the same curb-height PROFILE flank shot: locked carrier readable through the rear SIDE window mesh (rear-quarter cage on the near flank) — cage-through-glass on the side glass, not a camera looking backward. Spec: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
     "prejudge_checks": [
-      "PROFILE L→R curb-height — never hatch/rear-facing",
-      "Carrier through near-flank rear SIDE mesh only",
-      "Earn the lane: clear gap tires↔lip; nothing touching lip",
-      "Cascades-west wet PNW — reject desert",
-      "PASS banked: VI-011-take-12.png — do not regen unless asked"
+      "Camera: curb-height true PROFILE (POV_ROADSIDE_PROFILE); forward travel L→R; lip+narrowing SUBJECT ahead or at right edge; carrier through near-flank rear SIDE window mesh only — not hatch/backward",
+      "Earn the lane: Menace visibly holding MIDDLE of lane; clear gap near tires↔lip; nothing touching lip; accidental centering = FAIL",
+      "Biome: Cascades-west PNW wet (fir/moss) — reject high desert",
+      "Carrier SPEC verbatim: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle"
     ],
     "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
     "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway",
-    "camera_note": "Through rear cage = carrier readable through rear SIDE/quarter window mesh on the near flank of a curb-height PROFILE L→R shot — NOT rear-facing/hatch/backward camera."
+    "camera_note": "Through rear cage = carrier readable through rear SIDE/quarter window mesh on the near flank of a curb-height PROFILE L→R shot — NOT rear-facing/hatch/backward camera.",
+    "grade_bar": [
+      "Camera: curb-height true PROFILE (POV_ROADSIDE_PROFILE); forward travel L→R; lip+narrowing SUBJECT ahead or at right edge; carrier through near-flank rear SIDE window mesh only — not hatch/backward",
+      "Earn the lane: Menace visibly holding MIDDLE of lane; clear gap near tires↔lip; nothing touching lip; accidental centering = FAIL",
+      "Biome: Cascades-west PNW wet (fir/moss) — reject high desert",
+      "Carrier SPEC verbatim: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle"
+    ],
+    "pass_take": "VI-011-take-12.png",
+    "fail_takes": [
+      "VI-011-take-13.png"
+    ]
   },
   "variation": {
     "location_type": "rural",
