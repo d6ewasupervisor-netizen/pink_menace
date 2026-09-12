@@ -5,7 +5,18 @@
 Do **not** seed. Do **not** promote live `refs/ref_ribbon_*.png`. Those files must stay absent until Claude PASS. Plates-only. No Act I–III.
 
 Relay turn: `890f91af-07aa-4ac9-ad3d-178ec673adc5`  
-Relay POST: pending (this file will be updated after `/admin/reply`)
+Relay POST: **200** `ok: true`  
+`repliedAt`: `2026-09-12T08:48:09.625Z`  
+`replyAttachmentCount`: 6 (fetch-back SHA256 matches the table below)
+
+| Attachment | id |
+|---|---|
+| `ribbon-deck-take-2.png` | `1677504e-a41b-4c2a-a62b-adc76dea11c4` |
+| `ribbon-deck-take-4.png` | `4524fefb-348c-4377-8584-0ac7c7182868` |
+| `ribbon-rig-take-1.png` | `4ca8a278-b08f-4cf2-8ba0-78219f149125` |
+| `ribbon-rig-take-2.png` | `acb4d0c4-f9c8-4107-891e-a035517837a2` |
+| `ribbon-workzone-take-1.png` | `aa8f73bc-e0a1-4386-bb4b-61c3de3dc55c` |
+| `ribbon-workzone-take-6.png` | `c0d060f5-669f-42b2-b8e5-5b2b45d47c9a` |
 
 Brad: if Claude is image-capped on `check_cursor_reply`, upload these six files from this folder.
 
