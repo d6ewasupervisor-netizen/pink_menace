@@ -1,0 +1,32 @@
+# Y4 — Encore cockpit TARGETED rerun (wave b, candidates only)
+# NOT a fresh compile. Graft take-1's mic onto take-3's cabin.
+#
+# attachments (compile only — do not commit .tmp-y4):
+#   1. cards/takes/Y4-cockpit-rerun-take-3.png  (PR #110 closest — visual BASE)
+#   2. take-1 mic/A-pillar crop                 (mic object + position only)
+#   3. PR #14 refs/ref_encore_sheet.png         (Y3 take 12 glass lock)
+#
+# do NOT attach refs/ref_encore_cockpit.png (original Y4 take 1, sha 85bd45ee — REJECTED)
+# do NOT attach Y4 take 7 (floor shifter)
+# do NOT attach IV-002 take 3 (bench camera + stripped dash — fights take-3)
+# live plate NOT overwritten
+#
+# Brief mic is wireless ("dead wireless handheld") — no radio head, no CB, no coiled cord.
+
+TARGETED RERUN — not a fresh compile. The first attached still is take-3 and is the visual base. Keep its camera, framing, moulded closed dash, rain glass, cage, two pedals, LHD, wet empty street, and bench sliver. The only addition is the handheld microphone from the second attachment, in that attachment's position on the right cage tube.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field. Overcast Pacific Northwest daylight through intact windshield glass — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette; the only bright element is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Same over-the-wheel A1 camera as take-3: inside the enclosed 1990s three-door compact hatchback, looking forward. Left-hand drive: steering wheel on the LEFT. A small suede-wrapped three-spoke racing steering wheel across the bottom of frame. Intact factory windshield glass — a continuous real sheet filling A-pillar to A-pillar, header to cowl. Black rubber gasket. Raindrops bead on the OUTSIDE surface. Specular reflections prove the glass is a real plane. Solid roof and headliner. Welded roll-cage tubing crossing the A-pillars INSIDE this enclosed cabin, behind the glass.
+
+KEEP take-3's dashboard exactly: moulded dark plastic 1990s hatchback fascia and instrument binnacle, worn and slightly taped, CLOSED and trimmed — NOT stripped, NOT bare sheet-metal, NOT exposed harness or wiring. A single aftermarket tachometer in the binnacle, needle at rest. A toggle-switch panel with one large guarded red rocker in a small cage, clearly separate, on the right of the dash as in take-3. Ignore any exposed wiring visible in the mic crop — that crop is a rejected dash; do not copy it.
+
+ADD the mic from the second attachment, in that attachment's exact position: a black ribbed handheld wireless microphone clipped to the right vertical cage tube at the right edge of frame, standing upright on that tube, clear of the A-pillar, not crowding the windshield. Same object and height as the crop. Wireless and dead — no coiled cord, no radio head, no CB deck, no wired jack (the Y4 brief is a dead wireless handheld).
+
+Encore is an automatic: if the footwell is visible, exactly TWO pedals — a wide treadplate brake and a narrow accelerator. Empty floor left of the brake. NO clutch pedal. NO floor shifter. NO manual gear lever.
+
+Third attachment is the Encore four-view lock (PR #14 / Y3 take 12): matte black wedge three-door hatch, tape-patched panels, retroreflective chevron striping, four chrome PA horn flares on the roof OUTSIDE the glass. Do not show the roof PA horns from inside the cabin.
+
+Beyond the glass: wet empty downtown street under flat gray overcast sky. Chevron on the hood as in take-3.
+
+No open cabin, no missing windshield, no stripped bare-metal tub, no exposed dash wiring, no formula car, no dune buggy, no sky where the roof should be, no PA horns inside, no spotlights on the dash, no mesh, no bars across the glass, no clutch, no third pedal, no floor shifter, no gear stick, no right-hand drive, no radio head, no CB, no in-ears on a rear bench (do not switch to the IV-002 bench camera). No golden hour, no text, no UI. Photograph. Aspect ratio 2:3.
