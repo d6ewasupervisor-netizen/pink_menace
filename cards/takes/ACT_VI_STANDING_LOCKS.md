@@ -31,6 +31,8 @@ Dark dash default. Lit green turn arrows out. **112.0 out only if speedlike LCD*
 | VI-011 take-12 | **PASS** — Brad seeding; do not regen |
 | VI-011 take-13 | FAIL |
 | VI-004 take-5 | Seeded / leave |
+| VI-009 take-2 | cage REF — leave (seeding separately) |
+| VI-013 take-16 | seeding separately — leave |
 
 ## REF-only (out of ship queue)
 | Take | Role |
