@@ -6,7 +6,7 @@
   "card_type": "hazard",
   "title": "Off the Edge",
   "hook": "The right wheels are off the road.",
-  "scene": "The road narrows where the culvert went in and the shoulder is a four-inch drop of soft dirt, and you find it the way everyone finds it — not by deciding. The right side goes down and the car pulls hard toward the ditch and the wheel in your hands wants one thing, which is to come back up. Everything in your arms agrees with it.",
+  "scene": "The road narrows where the culvert went in and the shoulder is a four-inch drop of soft dirt, and you find it the way everyone finds it \u2014 not by deciding. The right side goes down and the car pulls hard toward the ditch and the wheel in your hands wants one thing, which is to come back up. Everything in your arms agrees with it.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
@@ -22,7 +22,7 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "mid-event soft-shoulder drop from inside the rolling Menace: cabin canted right toward the ditch, pavement lip and soft dirt rushing past on the right through the mesh; right wheels already off",
-    "foreground": "worn black wheel held straight (not yanked), cracked faded pink dash, coarse windshield mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning); simple round analog gauges only — no digital cluster readout, no lit GPS map",
+    "foreground": "worn black wheel held straight (not yanked), cracked faded pink dash, coarse windshield mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning); simple round analog gauges only \u2014 no digital cluster readout, no lit GPS map",
     "midground": "through the mesh: asphalt higher on the left, four-inch lip, soft dirt shoulder and ditch on the right mid-event; culvert narrowing ahead; motion blur on the dirt",
     "background": "overcast rural two-lane, fir edges, empty road, PNW daylight",
     "read": "the right wheels are already off on soft dirt mid-event; the car pulls toward the ditch; the wheel wants to yank back",
@@ -75,15 +75,15 @@
     "tone": "urgent",
     "failure_mode": "none",
     "winner": "take-5",
-    "forced": "live still cards/takes/VI-004-take-5.png (Claude PASS cockpit). take-11 not seeded. VI-011 not seeded."
+    "forced": "live still cards/takes/VI-004-take-5.png (Claude PASS cockpit). take-11 not seeded."
   },
   "decision": "Two wheels are off the pavement. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Turn back onto the road — get the wheels up before the ditch",
+      "text": "Turn back onto the road \u2014 get the wheels up before the ditch",
       "correct": false,
-      "result": "You pull. The tire climbs the lip, catches, and the car comes across the road with more angle than you asked for. That is how this crash happens. Not the drop — the fix.",
+      "result": "You pull. The tire climbs the lip, catches, and the car comes across the road with more angle than you asked for. That is how this crash happens. Not the drop \u2014 the fix.",
       "state_delta": {
         "noise": 5,
         "damage": 1,

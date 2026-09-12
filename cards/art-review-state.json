@@ -192,6 +192,12 @@
       "note": "HOLD cast-FAIL take-2 (Overflow Claude 21aded1a: Deac solo / wrong cast). Tyson lock Ali+Deac (+ clipboard). Unseeded live. Ali+Deac regen in flight (bc-11b91eab). Do not seed until cast PASS.",
       "pick": "take-2",
       "updated_at": "2026-09-12T22:33:41.000Z"
+    },
+    "VI-011": {
+      "tag": "PASS",
+      "note": "Claude PASS take-12: Cascades-west biome, true profile curb height, culvert subject lower third, clear gap tires-to-lip, Gracie through rear side mesh, nothing touching lip. Stationary OK (spatial). Seeded live. take-13 not seeded.",
+      "pick": "take-12",
+      "updated_at": "2026-09-12T23:12:00.000Z"
     }
   }
 }
