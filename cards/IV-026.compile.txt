@@ -1,13 +1,13 @@
 # IV-026 — GPT Image 2 compile prompt
 # attachments: ref_car_exterior.jpg, ref_car_nose_plow.png
-# camera: POV_DIAGRAM compile-overridden to take-179 mid-horizon, nose-toward FROM AHEAD, opposing/left lane (Claude-allowed this regen only)
-# take send: IV-026 · three hazards sit in the Beetle's next two lengths; the left travel lane is empty · POV_DIAGRAM (nose-toward, take-179 family)
+# camera: nose-toward FROM AHEAD, opposing/left lane, take-179 up-lane, chest/windshield, looking slightly back
+# take send: IV-026 · three hazards sit in the Beetle's next two lengths; the left travel lane is empty · POV_DIAGRAM
 
 See cards/takes/IV-026.prompt.txt for the generation prompt.
 See cards/takes/IV-026.WAVE.md for the wave, closest, and runner.
 
-FAIL regen after Claude muted-read on PR #138 takes 184 / 179. Hard brief: nose-toward from ahead in the opposing lane; van + loading beat on the Beetle's right, forward of the front wheels; camera 179-like but up-lane, chest/windshield, looking slightly back. Card JSON remains the sole scene brief (hazards / lesson / distance unchanged). JSON itself is not edited. Away/down-lane stays in JSON as a later alternate. JSON extra_negative "no toward-camera heading" is compile-overridden because preferred high-oblique+yaw and mid-horizon A both FAILED as classes for the take-8 plow read.
+FAIL regen after Claude muted-read on PR #138 takes 184 / 179. Hard brief (authoritative): nose-toward from ahead in the opposing lane; van + loading beat on the Beetle's right, forward of the front wheels; camera 179-like but up-lane, chest/windshield, looking slightly back; SIDE door; van must not out-scale the hero. Card JSON remains the sole scene brief. Away/down-lane stays in JSON as a later alternate — not deleted. JSON itself is not edited.
 
-Closest: take 220. Runner: take 195. Wave: 186–220.
+Closest: take 230. Runner: take 195. Wave: 186–232.
 
 Plow plate / LOCKS / other cards unchanged. Live plate: refs/ref_car_nose_plow.png (PR #121 take-8, sha256:c6c8ec1fe709ddb8329e7b5def830dae0959002bf838ba1afcdbaf51d63d1133).
