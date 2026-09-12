@@ -1,7 +1,8 @@
 # IV-005 — regen after double-threat brief fix (PR #94)
 
 Branch from `cursor/fix-iv-005-double-threat-f6a6`. Card JSON is sole
-brief authority. Overcast afternoon daylight. Not seeded. No Act I–III.
+brief authority. Overcast afternoon daylight. Live still is take 97
+(`cards/IV-005.png`). No Act I–III.
 
 ## Why this pass
 
@@ -29,7 +30,7 @@ take that shows pedals / boot / footwell / brake pad / cover_the_brake
 
 | Card | Lesson | Shot | Closest | Runner-up |
 |---|---|---|---|---|
-| **IV-005** | the sedan is stopped for a pedestrian still in the paint; the empty left lane is a trap, not a pass | `POV_COCKPIT` forward | `cards/takes/IV-005-take-95.png` | take 97 (muted-read) / take 90 |
+| **IV-005** | the sedan is stopped for a pedestrian still in the paint; the empty left lane is a trap, not a pass | `POV_COCKPIT` forward | `cards/takes/IV-005-take-97.png` (live PASS) | take 95 / take 90 |
 
 ### IV-005 take 95
 
@@ -56,7 +57,7 @@ full figure well clear of the sedan (fails "only partly visible").
 Closer sedan, person nearer the body, white dashed trap lane, no
 pedals. Residual: full figure; invented plate numerals.
 
-## This pass (not seeded)
+## This pass (take 97 seeded live)
 
 `cards/takes/IV-005-take-85.png` … `take-100.png`
 
@@ -74,4 +75,4 @@ On-brief family: 95 (closest), 93 (hide sibling), 90 / 97 (person-findable).
 
 ## Out of scope
 
-Live seed. IV-004. IV-012. IV-026 take-110. IV-027 / 028 / 030. Act I–III.
+IV-004. IV-012. IV-026 take-110. IV-027 / 028 / 030. Act I–III.
