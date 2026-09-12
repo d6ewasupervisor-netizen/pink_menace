@@ -11,7 +11,11 @@
 #   Menace squared in-lane; person mid-gap between the parked vehicles (not in open roadway).
 # Do NOT keep take-76 (narrow flap contradicts locked plate). Toward-camera fails the card — discard.
 # Ban: ref_car_rear_plow / flank / corner plow plates. ref_cockpit.jpg banned.
-# takes this pass: 131+
+# takes this pass: 131–150 (prior wave 108–130)
+# closest (not seeded): cards/takes/IV-004-take-144.png
+# runner-up: take 143
+# 144: away + mid-gap person (103 staging) + spray + far dozer (still right-side, not both edges)
+# toward-camera discarded (fails the card). take-76 not kept.
 # do not seed. no Act I–III.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
