@@ -1,90 +1,74 @@
-# IV-004 — regen after Claude FAIL on take 63 (PR #79)
+# IV-004 — regen against PR #91 audited brief
 
-Branch from `cursor/iv-004-nose-plow-pool-da02` so the nose-plow pool
-fix stays. **This pass:** `ref_car_nose_plow.png` is attached DIRECTLY on
-every IV-004 GenerateImage call (plus pool + `ref_car_exterior.jpg`).
-Rear / flank / corner plow plates stay banned.
+Branch from `cursor/iv-004-fullwidth-blade-2a62`. Card JSON is sole brief
+(`cards/IV-004.json` pulled from PR #91). Not seeded. No Act I–III.
 
-Card JSON is sole brief authority. Overcast PNW daylight. Not seeded.
-No Act I–III. IV-005 / IV-012 / IV-026 / IV-027 / 028 / 030 untouched.
+## NON-NEGOTIABLE SET (all, one situation)
 
-## Attachments
+This take MUST contain ALL of:
 
-| Card | Camera | Attach |
-|---|---|---|
-| IV-004 | `POV_ROADSIDE` | `ref_car_exterior.jpg` + `ref_car_nose_plow.png` (direct) |
+1. afternoon daylight (clear-cold, readable pale sky — not overcast murk,
+   not dusk, not night). Audit closed the overcast-pose vs clear-cold-scene
+   split: pose / background / variation all say the same lighting.
+2. rear-¾ away-from-camera heading (plow / blade toward the TOP of frame)
+3. full-width far-front blade matching `refs/ref_car_nose_plow.png`
+   (attach plate DIRECTLY)
+4. in-lane motion (Menace squared, tire spray)
 
-`ref_cockpit.jpg` is banned. `ref_car_rear_plow.jpg` / flank / corner plow
-plates are banned.
+Keep take-63 mid-gap person staging (not in the open roadway).
+Do NOT keep take-76. Toward-camera fails the card — discard.
 
-Compile check: IV-004 attachments are `ref_car_exterior.jpg`,
-`ref_car_nose_plow.png`.
-
-## FAIL this pass is fixing
-
-| Card | Take-63 residual | Fix |
-|---|---|---|
-| **IV-004** | Narrow flap (~1/3 width) on the right of the bull bar, not the plate's full-width blade; Beetle parked-diagonal, nose toward curb, no motion | Direct-attach nose plow plate; blade spans full bull-bar width, edges ~level with front wheels; Menace squared in-lane and moving (tire spray, nose straight); keep take-63 hazard distance |
-
-Take 67: same flap + diagonal; hazards further away. Keep take 63's scene.
+Compile: `IV004_NONNEGOTIABLE_SET` is one clause. `clear_cold` + `afternoon`
+does not also append "Overcast afternoon." Attachments stay
+`ref_car_exterior.jpg` + `ref_car_nose_plow.png`.
 
 ## Closest for Claude muted-read
 
 | Card | Lesson | Shot | Closest | Runner-up |
 |---|---|---|---|---|
-| **IV-004** | a person is stepping out from between parked cars into the travel lane | `POV_ROADSIDE` | `cards/takes/IV-004-take-103.png` | take 74 |
+| **IV-004** | a person is stepping from the parked-car gap into the lane | `POV_ROADSIDE` | `cards/takes/IV-004-take-159.png` | take 151 |
 
-### IV-004 take 103 (closest)
+### IV-004 take 159 (closest)
 
-KEEP vs take 63: the attached nose plate reached the pixels. Full-width
-blade is on the FRONT bull bar — one continuous wide flat plate, outer
-edges roughly level with the front wheels, matching `ref_car_nose_plow.png`.
-Beetle is squared in-lane and MOVING (wet tire spray). Person is between
-the rusted van and the gray sedan, one foot toward the travel lane.
-Beetle is large / short of a distant horizon (take-63 closeness class).
-Mesh, riveted door, knobbies. Overcast daylight. Clean of a rear plow.
+KEEP vs the audited set: (1) **clear-cold afternoon** — pale readable
+sky, wet pavement, not dusk. (2) heading is away — rear lid nearest
+camera, far plow toward the top of the frame. (3) squared in-lane,
+wet tire spray. (4) **take-63 staging** — houses, wet centerline,
+person between the rusted van and gray sedan (at the van, not in the
+open roadway). Beetle LARGE / short of the pair. Thin near tube.
+Mesh / knobbies. No take-76. No toward-camera.
 
-Residuals: heading is **toward camera** (geometry wants `away_from_camera`,
-plow toward the top of the frame). Person reads more in the open between
-the pair than occluded mid-step from the gap. Pair still parallel-parked
-(take-63 scene, which Claude called OK).
+Residuals: far blade is still a **left-side flap**, not both edges of
+the attached plate's full-width span. Person is at the van rather
+than one-shoe-in / torso-occluded mid-step.
 
-### IV-004 take 74 (runner-up)
+### IV-004 take 151 (runner-up)
 
-KEEP: same full-width FRONT blade + in-lane tire spray. Street is closer
-to take 63 (houses, centerline, van+sedan at the right curb, Beetle large).
-Mesh / knobbies / overcast.
+Same family as 159 (afternoon + away + spray + take-63 street / mid-gap
+person). Far flap is smaller. 160 is a slightly more ¾ sibling of 159.
 
-Residuals: also toward-camera. Person walking in the open rather than
-mid-step from the gap. Sedan and van more separated than a tight gap.
+### Same-family (away + larger far plow + afternoon)
 
-### Away-family keep (if heading is a hard reject)
+162 / 161 / 154 — larger far dozer, afternoon-ish, spray, take-63
+houses. Fail take-63 mid-gap: person walks in the open (161/162) or
+is missing (154). Do not prefer them over 159 under this instruction.
 
-`cards/takes/IV-004-take-76.png` — take-63 scene and hazard distance,
-squared in-lane, visible tire spray, clean rear. Residual: the far-front
-blade is still the take-63 **narrow flap**. This is the parked-diagonal
-fix without the plate's blade. Do not pick over 103 unless toward-camera
-is an automatic fail.
+144 (prior wave) had a better far plate + mid-gap on the 103 street,
+but it is **overcast** — fails the audited afternoon / clear-cold lock.
+Keep it as a heading+spray+mid-gap reference only.
 
-## Discard this pass
+## Discard this wave (151–162)
 
-- Rear plow / dual plow (wide plate on the near bumper): 68, 71, 73, 89, 99, 100, 102, 105, 107
-- Toward-camera, full-width front blade, weaker than 103/74: 69, 72, 75, 104
-- Away, motion, flap or no readable front blade: 70, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 97, 98, 101, 106
-- 76 kept as the away-family note above
+- Away, flap or no readable far blade: 151, 152, 153, 155, 156, 157, 158
+  (151 kept as runner-up for staging + light)
+- Away, larger far plow, person missing or in the open: 154, 161, 162
+- 160 is 159-class; keep 159
 
-## Compiler note
-
-Away + full-width front blade did not co-occur in 40 takes (68–107). The
-plate's front three-quarter is copied as a toward-camera car; dead-away
-hides the plate or shrinks it to a flap; asking for the plate's width on
-an away car often welds that plate onto the rear. Direct-attach fixed
-*what* the blade is when the nose faces the lens. It did not rotate that
-blade onto the far end of an away Beetle.
+Prior waves 108–150: 76-class flaps, rear welds, and toward-camera as
+logged. 144 remains the closest *overcast* away+mid-gap take.
 
 ## This pass (not seeded)
 
-- IV-004: `cards/takes/IV-004-take-68.png` … `take-107.png`
-- Closest: take 103
-- Runner-up: take 74
-- Away-family keep: take 76
+- IV-004: `cards/takes/IV-004-take-151.png` … `take-162.png`
+- Closest: take 159
+- Runner-up: take 151

@@ -580,7 +580,7 @@ else. No commentary. No alternatives.
 | Card contains | Attach |
 |---|---|
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
-| Pink Menace exterior | `ref_car_exterior.jpg` (silhouette / build; ignore salt-flat light) and `ref_car_nose_plow.png` (overcast square plow plate — one continuous wide flat nose blade spanning the FULL WIDTH of the front bull bar, outer edges roughly level with the front wheels; no narrow flap; no flank-mounted blade; nothing on the rear). Preserve mesh on side glass and windshield, riveted metal door panel, knobby tires on chrome wheels, faded pink + bare-metal. Never attach `ref_car_rear_plow.jpg` or any flank / corner plow plate. |
+| Pink Menace exterior | `ref_car_exterior.jpg` (silhouette / build; ignore salt-flat light) and `ref_car_nose_plow.png` (overcast square plow plate — one continuous wide flat nose blade spanning the FULL WIDTH of the front bull bar, outer edges roughly level with the front wheels; no narrow flap; no flank-mounted blade; nothing on the rear). The plate is toward-camera; on `away_from_camera` copy blade geometry only and rotate the car so the rear is nearest the lens and the full-width blade sits on the FAR front. Preserve mesh on side glass and windshield, riveted metal door panel, knobby tires on chrome wheels, faded pink + bare-metal. Never attach `ref_car_rear_plow.jpg` or any flank / corner plow plate. |
 | Pink Menace interior / `POV_COCKPIT` | `ref_menace_cabin.png` (take 16, human-verified). Never `ref_cockpit.jpg`. |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
