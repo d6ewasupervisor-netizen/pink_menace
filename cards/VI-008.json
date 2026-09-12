@@ -21,7 +21,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle",
+    "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle; cabin always shows Gracie latched/strapped in carrier",
     "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "left and right approach lanes with pavement arrows; sign board before the circle; third exit is a left",
     "background": "overcast multi-lane roundabout ahead, empty circulating lanes, no night",
@@ -48,7 +48,13 @@
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -73,7 +79,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
   },
   "decision": "Two lanes, your exit is the far side. Where do you get in line?",
   "options": [

@@ -21,11 +21,11 @@
   "schedules_callback": true,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle mid-event: right wheels already down in soft dirt below a four-inch pavement lip; left wheels still on asphalt; Gracie in latched strapped carrier inside (not in frame)",
-    "foreground": "soft dirt shoulder and the raised asphalt lip; right knobby tires below the pavement plane",
-    "midground": "Beetle in true profile traveling left-to-right; right side dropped; plow and mesh cages readable; no yank pose",
-    "background": "narrowing at a culvert, ditch beyond the dirt, overcast PNW daylight, empty rural two-lane",
-    "read": "the right wheels are already off the pavement on soft dirt; the road surface is higher on the left",
+    "subject": "faded-pink Beetle MID-EVENT soft shoulder: right wheels ALREADY OFF and down on soft dirt below a four-inch pavement lip; left wheels still on asphalt; car pulled toward ditch but still rolling; closed dark carrier latched and strapped visible through the rear side cage (Gracie inside)",
+    "foreground": "soft dirt shoulder (not a cliff bank) and the raised asphalt lip; right knobby tires below the pavement plane on soft earth — shed on shoulder, not buried under a vertical cut",
+    "midground": "Beetle in true profile traveling left-to-right; right side dropped mid-event; plow and mesh cages readable; rear side cage shows latched strapped carrier; no yank pose; not parked level; not all four wheels on asphalt",
+    "background": "narrowing at a culvert, soft ditch beyond the dirt (no cliff lip), overcast PNW daylight, empty rural two-lane, fir edges",
+    "read": "the right wheels are already off the pavement on soft dirt mid-event; the road surface is higher on the left",
     "continuity": [
       "pink_menace_exterior",
       "gracie"
@@ -49,12 +49,24 @@
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no parked beauty shot with level dry stance",
+      "no floating / levitating car",
+      "no wheel buried in a vertical dirt bank under a cliff lip",
+      "no cliff cut — soft shoulder only",
+      "no detached wheel as wreckage",
+      "no missing carrier through rear side cage"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",
-      "ego_lane_side": "right half of a two-lane rural road, right tires already off onto soft shoulder",
+      "ego_lane_side": "right half of a two-lane rural road, right tires already off onto soft shoulder mid-event",
       "ego_nose_in_frame": "the plow points toward the right of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "beside",
@@ -68,7 +80,7 @@
     "time_of_day": "morning",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
   },
   "decision": "Two wheels are off the pavement. What do you do?",
   "options": [

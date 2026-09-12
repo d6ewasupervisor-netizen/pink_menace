@@ -22,7 +22,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a single-lane roundabout entry; a sedan already circulating inside toward your entry",
+    "subject": "a single-lane roundabout entry; a sedan already circulating inside toward your entry; cabin always shows Gracie latched/strapped in carrier",
     "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "roundabout apron and circulating sedan inside the circle approaching your entry lane",
     "background": "overcast county/state junction, splitter island, no traffic signal",
@@ -50,7 +50,13 @@
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -69,7 +75,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
   },
   "decision": "You're at the entry. A car is already in the circle.",
   "options": [

@@ -21,7 +21,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "the gravel/asphalt climbs to a crest and drops away into a curve whose far end you cannot see",
+    "subject": "the gravel/asphalt climbs to a crest and drops away into a curve whose far end you cannot see; cabin always shows Gracie latched/strapped in carrier",
     "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "road rising to a blind crest; beyond the top only sky and the start of a curve",
     "background": "overcast rural ridge, fir edges, no oncoming grille yet visible",
@@ -48,7 +48,13 @@
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -67,7 +73,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
   },
   "decision": "Blind crest, then a curve. How do you take it?",
   "options": [

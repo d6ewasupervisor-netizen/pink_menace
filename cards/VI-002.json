@@ -21,7 +21,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "washboard gravel in both wheel tracks filling the windshield view; the Menace feeling loose on a surface that moves",
+    "subject": "washboard gravel in both wheel tracks filling the windshield view; the Menace feeling loose on a surface that moves; cabin always shows Gracie latched/strapped in carrier",
     "foreground": "worn black wheel, faded pink dash, coarse mesh; no second person; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "graded gravel road with corrugated washboard ridges in the tire paths; empty ahead",
     "background": "overcast rural valley, fir edges, no pavement, no other traffic",
@@ -48,7 +48,13 @@
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -67,7 +73,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
   },
   "decision": "How do you drive a surface that will not hold?",
   "options": [

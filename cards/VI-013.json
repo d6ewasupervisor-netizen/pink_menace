@@ -22,11 +22,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "Deac in the Menace passenger seat holding the metal clipboard with the hand-ruled sheet turned toward the driver",
-    "foreground": "worn black wheel rim at left edge; faded pink dash; coarse mesh; no clipboard in the glass; closed dark carrier latched and strapped on the passenger floor (Gracie inside)",
-    "midground": "Deac in the passenger seat, glasses on a cord, amber vest edge, clipboard on his knee turned so the sheet faces the driver",
-    "background": "overcast rural gravel shoulder through the mesh; Menace stopped; pass weather far off",
-    "read": "Deac is in the passenger seat with the clipboard held out; Ali is alone no longer",
+    "subject": "Ali driving (POV over her wheel); Deac in the Menace passenger seat holding the metal clipboard with the hand-ruled sheet turned toward the driver; Gracie in latched strapped carrier on the passenger floor",
+    "foreground": "worn black wheel rim at left edge (Ali driving — POV); faded pink dash; coarse mesh; no clipboard in the glass; closed dark carrier latched and strapped on the passenger floor at Deac's feet (Gracie inside, readable)",
+    "midground": "Deac in the passenger seat only — glasses on a cord, amber vest edge, metal clipboard on his knee turned so the sheet faces the driver; Ali is the POV driver (hands on wheel OK; no Deac in driver seat)",
+    "background": "overcast Pacific Northwest rural gravel shoulder through the mesh — fir edges, moss, wet gray; Menace stopped; no high-desert scrub; pass weather far off",
+    "read": "Deac is in the passenger seat with the metal clipboard held out; Ali is driving; Gracie is in the latched strapped carrier",
     "continuity": [
       "pink_menace_interior",
       "deac",
@@ -48,7 +48,18 @@
       "no night",
       "no Deac outside the car",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "no Deac alone / solo portrait",
+      "no Ali missing from the drive (POV must be driver seat)",
+      "no high-desert scrub",
+      "no arid scrub landscape",
+      "no desert GPS map",
+      "no wooden clipboard — metal clipboard only"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -67,7 +78,7 @@
     "time_of_day": "morning",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
   },
   "decision": "He's holding it out. What do you say?",
   "options": [

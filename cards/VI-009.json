@@ -21,7 +21,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a doe standing broadside in your travel lane, close, filling the next lengths through the mesh at last light",
+    "subject": "a doe standing broadside in your travel lane, close, filling the next lengths through the mesh at last light; cabin always shows Gracie latched/strapped in carrier",
     "foreground": "worn black wheel, faded pink dash, coarse mesh; hands not yet yanking; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "doe broadside across the asphalt in this lane — not grazing roadside; ditch right, empty oncoming left",
     "background": "dusk overcast rural two-lane, treeline, last light not full night",
@@ -48,7 +48,15 @@
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no digital speed readout reading as live speed",
+      "no 112.0 speedlike gauge number",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no missing carrier when cabin or cage is in frame",
+      "Ali alone — only VI-013 has a second person",
+      "no GPS navigation screen",
+      "no invented tablet on the dash"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -67,7 +75,7 @@
     "time_of_day": "dusk",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
   },
   "decision": "She's in your lane. You can't stop in time.",
   "options": [
