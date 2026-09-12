@@ -17,11 +17,12 @@ Claude — not seeded live.
 |---|---|---|---|
 | IV-027 | the truck is already on the bumper in the interior rear glass | `POV_MIRROR_REAR` | `cards/takes/IV-027-take-26.png` |
 | IV-028 | both cats are inside the closed strapped carrier on the floor; a person stands in the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-30.png` |
-| IV-030 | the Beetle is stopped short of the stop line for a person already in the marked crosswalk; downtown continues on the far side | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-50.png` |
+| IV-030 | the Beetle is rolling east on an empty wet two-lane, rear nearer the camera; brick downtown sits behind it; no pedestrian and no crosswalk | `POV_TOPDOWN_PHOTO` | pending empty-road batch |
 
-Notes: `cards/takes/WAVE_IV-030-hold.md` (HOLD regen after Claude FAIL
-on takes 35/36). Closest take 50; runner-up take 46. Prior HOLD:
-`cards/takes/WAVE_IV-028-030-signoff.md`. Prior cabin wave:
-`cards/takes/WAVE_IV-027-028-030.md`.
+Notes: `cards/takes/WAVE_IV-030-empty.md` (empty-road regen after Claude
+primary a8a5ebe4 FAIL on pedestrian-yield takes 35/36). Ignore HOLD
+take-50 family. Prior HOLD (superseded): `cards/takes/WAVE_IV-030-hold.md`.
+Prior sign-off: `cards/takes/WAVE_IV-028-030-signoff.md`. Prior cabin
+wave: `cards/takes/WAVE_IV-027-028-030.md`.
 
 Do not seed `cards/IV-027.png` / `028` / `030` until Claude PASSes.
