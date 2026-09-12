@@ -13,20 +13,22 @@
     "teaching_target": "Ledger callback of VI-004 soft shoulder: hold line; do not yank. No question \u2014 continue only."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": "VI-004",
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle holding the middle of the lane at a culvert narrowing; four-inch lip and soft dirt on the right; all tires on asphalt",
+    "subject": "faded-pink Beetle holding the middle of the lane at a culvert narrowing; four-inch lip and soft dirt on the right; all tires on asphalt; Gracie in closed carrier inside (not in frame)",
     "foreground": "soft dirt below the pavement lip and mossy ditch edge; no wheels in the dirt",
     "midground": "Beetle in true profile left-to-right; mesh cages and plow readable; travel lane held center; nothing happening",
     "background": "overcast rural culvert narrowing, empty two-lane, fir edges, no dust of a prior drop",
     "read": "the same lip and soft dirt are there; nothing is happening; the Menace holds the middle of the lane",
     "continuity": [
-      "pink_menace_exterior"
+      "pink_menace_exterior",
+      "gracie"
     ],
     "extra_negatives": [
       "no wheels off the pavement",
@@ -41,7 +43,13 @@
       "no cutaway shuttle",
       "no Encore",
       "no headlights toward camera",
-      "no night"
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

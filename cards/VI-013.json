@@ -14,6 +14,7 @@
   },
   "cast": [
     "ali",
+    "gracie",
     "deac"
   ],
   "antagonist": "none",
@@ -22,14 +23,15 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "Deac in the Menace passenger seat holding the metal clipboard with the hand-ruled sheet turned toward the driver",
-    "foreground": "worn black wheel rim at left edge; faded pink dash; coarse mesh; no clipboard in the glass",
+    "foreground": "worn black wheel rim at left edge; faded pink dash; coarse mesh; no clipboard in the glass; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "Deac in the passenger seat, glasses on a cord, amber vest edge, clipboard on his knee turned so the sheet faces the driver",
     "background": "overcast rural gravel shoulder through the mesh; Menace stopped; pass weather far off",
     "read": "Deac is in the passenger seat with the clipboard held out; Ali is alone no longer",
     "continuity": [
       "pink_menace_interior",
       "deac",
-      "deac_clipboard"
+      "deac_clipboard",
+      "gracie"
     ],
     "extra_negatives": [
       "no clipboard on the dash",
@@ -43,7 +45,10 @@
       "no Snoqualmie shield",
       "no Ledger interior",
       "no moving wheels",
-      "no night"
+      "no night",
+      "no Deac outside the car",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

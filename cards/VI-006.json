@@ -13,7 +13,8 @@
     "teaching_target": "NEW: PSDP twelve Uncontrolled intersections + DOL 4.15 Uncontrolled Intersection child."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": null,
@@ -21,12 +22,13 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "two gravel roads crossing with no stop, no yield, no paint; a dusty pickup arriving from the right at the same time",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "empty uncontrolled intersection of graded gravel; dusty pickup entering from the right approach",
     "background": "overcast section-line country, fir edges, no sign faces toward camera",
     "read": "no stop or yield faces; a pickup from the right arrives with you at the same empty cross",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no second occupant",
@@ -42,7 +44,13 @@
       "no yield sign face toward camera",
       "no traffic signal",
       "no painted stop line",
-      "no night"
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

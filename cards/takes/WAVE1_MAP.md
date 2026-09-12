@@ -1,37 +1,45 @@
 # Act VI Backcountry — wave-1 map
 
 Card JSON is the sole brief. Stills from each card's MOMENT (hook/scene), not the topic label.
-**Do not seed.** Closest / runner pending formal muted-read; provisional notes below.
+**Do not seed.** Continuity: **Gracie in closed carrier on every card**; **Deac only on VI-013**.
 
-## Takes
+## Closest recommendations (provisional muted-read)
 
-| Card | Title | Camera | Takes | Provisional note |
-|---|---|---|---|---|
-| VI-004 | Off the Edge | POV_ROADSIDE_PROFILE | `VI-004-take-1.png` … `take-3.png` | Hard: wheels already off. Prefer take-2 / take-3 over take-1 (approach-ish). |
-| VI-009 | Look for the Others | POV_COCKPIT | `VI-009-take-1.png` `take-2.png` | Hard: deer broadside in-lane at dusk. |
-| VI-011 | Same Culvert | POV_ROADSIDE_PROFILE | `VI-011-take-1.png` `take-2.png` | Hard: lip + soft dirt, nothing happening. Brief camera updated to profile. |
-| VI-013 | The Clipboard, Again | POV_COCKPIT | `VI-013-take-1.png` … `take-3.png` | Hard: Deac **passenger** + clipboard. **take-2** closest for passenger seat; take-1 driver-seat FAIL; take-3 split-panel FAIL. |
-| VI-001 | Where the Blacktop Quits | POV_COCKPIT | `VI-001-take-1.png` `take-2.png` | pavement→gravel; pass notch |
-| VI-012 | Crossbuck and Nothing Else | POV_COCKPIT | `VI-012-take-1.png` `take-2.png` | crossbuck only |
-| VI-005 | Wide and Slow | POV_COCKPIT | `VI-005-take-1.png` `take-2.png` | grain truck swinging left |
-| VI-002 | Loose Under You | POV_COCKPIT | `VI-002-take-1.png` `take-2.png` | washboard gravel |
-| VI-003 | The Pile at the Edge | POV_COCKPIT | `VI-003-take-1.png` `take-2.png` | windrow |
-| VI-006 | Nobody's In Charge Here | POV_COCKPIT | `VI-006-take-1.png` `take-2.png` | uncontrolled cross |
-| VI-007 | Five Easy Steps | POV_COCKPIT | `VI-007-take-1.png` `take-2.png` | single-lane roundabout |
-| VI-008 | Pick Your Lane Before the Circle | POV_COCKPIT | `VI-008-take-1.png` `take-2.png` | two-lane approach |
-| VI-010 | Over the Top | POV_COCKPIT | `VI-010-take-1.png` `take-2.png` | blind crest |
+| Card | Closest | Runner-up / bank | Residual |
+|---|---|---|---|
+| **VI-004** Off the Edge | **`VI-004-take-2.png`** | take-3; take-1 bank | Prefer 2/3 for mid-event drop (wheels already off). Take-1 more approach-ish. |
+| **VI-009** Look for the Others | **`VI-009-take-1.png`** | take-2 | Deer broadside in-lane at dusk. |
+| **VI-011** Same Culvert | **`VI-011-take-2.png`** | take-1 | Lip + culvert + all tires on pavement; nothing happening. |
+| **VI-013** The Clipboard, Again | **`VI-013-take-2.png`** | — | Passenger + clipboard. **take-1 FAIL** (driver seat). **take-3 FAIL** (split panel). |
 
-All paths under `cards/takes/`.
+Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes as `cards/takes/`).
 
-## Hard notes (locked into briefs)
+## All takes
 
-- **VI-004:** wheels ALREADY OFF — right side down on dirt, road higher on the left — mid-event.
-- **VI-009:** deer BROADSIDE IN THE LANE at dusk, close — not roadside grazing.
-- **VI-011:** narrowing + lip + soft dirt with NOTHING happening.
-- **VI-013:** Deac in the passenger seat with the clipboard — only Act VI card with a second person in the car.
+| Card | Title | Camera | Takes |
+|---|---|---|---|
+| VI-004 | Off the Edge | POV_ROADSIDE_PROFILE | take-1…3 |
+| VI-009 | Look for the Others | POV_COCKPIT | take-1…2 |
+| VI-011 | Same Culvert | POV_ROADSIDE_PROFILE | take-1…2 |
+| VI-013 | The Clipboard, Again | POV_COCKPIT | take-1…3 |
+| VI-001 | Where the Blacktop Quits | POV_COCKPIT | take-1…2 |
+| VI-012 | Crossbuck and Nothing Else | POV_COCKPIT | take-1…2 |
+| VI-005 | Wide and Slow | POV_COCKPIT | take-1…2 |
+| VI-002 | Loose Under You | POV_COCKPIT | take-1…2 |
+| VI-003 | The Pile at the Edge | POV_COCKPIT | take-1…2 |
+| VI-006 | Nobody's In Charge Here | POV_COCKPIT | take-1…2 |
+| VI-007 | Five Easy Steps | POV_COCKPIT | take-1…2 |
+| VI-008 | Pick Your Lane Before the Circle | POV_COCKPIT | take-1…2 |
+| VI-010 | Over the Top | POV_COCKPIT | take-1…2 |
+
+All under `cards/takes/VI-*-take-N.png`.
+
+## Brief locks
+
+- Every VI card: `continuity` includes `gracie`; closed carrier named in brief (cockpit in-frame / exterior “not in frame”).
+- Deac / `deac_clipboard` only on **VI-013**; other cards negate Deac / second person / clipboard passenger.
 
 ## TODO
 
-- Art-review muted-read picks (PASS before seed).
-- Do **not** seed Postgres; no live `cards/VI-*.png` masters; no `imageUrl` bump.
-- Cabin lock drift on some cockpit takes (invented GPS / digital cluster) — prefer takes that keep mesh + pink dash readable at 390px.
+- Formal Claude muted-read PASS before seed.
+- Do **not** seed Postgres; no live `cards/VI-*.png`; no `imageUrl` bump.

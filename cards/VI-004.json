@@ -13,20 +13,22 @@
     "teaching_target": "PSDP twelve Sharp drop-offs and gravel shoulders. Do not yank. Arms ledger VI-011. PSDP-only."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": true,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle mid-event: right wheels already down in soft dirt below a four-inch pavement lip; left wheels still on asphalt",
+    "subject": "faded-pink Beetle mid-event: right wheels already down in soft dirt below a four-inch pavement lip; left wheels still on asphalt; Gracie in closed carrier inside (not in frame)",
     "foreground": "soft dirt shoulder and the raised asphalt lip; right knobby tires below the pavement plane",
     "midground": "Beetle in true profile traveling left-to-right; right side dropped; plow and mesh cages readable; no yank pose",
     "background": "narrowing at a culvert, ditch beyond the dirt, overcast PNW daylight, empty rural two-lane",
     "read": "the right wheels are already off the pavement on soft dirt; the road surface is higher on the left",
     "continuity": [
-      "pink_menace_exterior"
+      "pink_menace_exterior",
+      "gracie"
     ],
     "extra_negatives": [
       "no approaching the shoulder still fully on pavement",
@@ -41,7 +43,13 @@
       "no cutaway shuttle",
       "no Encore",
       "no headlights toward camera",
-      "no night"
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

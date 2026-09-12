@@ -13,7 +13,8 @@
     "teaching_target": "PSDP twelve Animals: do not swerve. Not DOL 4.19 pets. Timeout = swerve."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": null,
@@ -21,12 +22,13 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "a doe standing broadside in your travel lane, close, filling the next lengths through the mesh at last light",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; hands not yet yanking",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; hands not yet yanking; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "doe broadside across the asphalt in this lane \u2014 not grazing roadside; ditch right, empty oncoming left",
     "background": "dusk overcast rural two-lane, treeline, last light not full night",
     "read": "a deer stands broadside in your lane at dusk, close; the ditch and the oncoming lane wait on either side",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no deer grazing on the roadside shoulder",
@@ -40,7 +42,13 @@
       "no cutaway shuttle",
       "no Encore",
       "no full night with only headlamps",
-      "no golden hour warm orange"
+      "no golden hour warm orange",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

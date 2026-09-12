@@ -13,7 +13,8 @@
     "teaching_target": "PSDP twelve \u2014 gravel windrow / pile at the edge. PSDP-only (n/a DOL)."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": null,
@@ -21,12 +22,13 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "a continuous ridge of loose gravel piled along the right edge for the next half mile",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "gravel windrow running the right shoulder like a rope; travel track clear left of it",
     "background": "overcast rural two-lane, soft dirt beyond the pile, no other cars",
     "read": "a grader windrow of loose gravel lines the right edge; it looks like shoulder and is not",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no second occupant",
@@ -40,7 +42,13 @@
       "no Ledger in frame",
       "no wheels already off the pavement",
       "no deer",
-      "no night"
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

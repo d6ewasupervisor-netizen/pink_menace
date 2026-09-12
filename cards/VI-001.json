@@ -40,7 +40,10 @@
       "no open carrier",
       "no parked Beetle",
       "no night",
-      "no golden hour"
+      "no golden hour",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger"
     ],
     "aspect": "2:3",
     "geometry": {

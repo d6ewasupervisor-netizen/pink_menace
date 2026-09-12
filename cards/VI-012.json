@@ -13,7 +13,8 @@
     "teaching_target": "PSDP twelve Railroad crossings + DOL 4.7 parent (not Light rail)."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": null,
@@ -21,12 +22,13 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "a white railroad crossbuck and two rails through the gravel; no gates, no bells, no lights",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "crossbuck at the crossing; rails across the gravel road; high corn left blocking the sightline up the track",
     "background": "overcast rural crossing, yellow advance X only if facing travel, empty beyond",
     "read": "only a crossbuck and rails \u2014 no gates, no bells, no lights \u2014 and corn hides the line",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no second occupant",
@@ -43,7 +45,13 @@
       "no bells hardware",
       "no light-rail street embedded downtown",
       "no train already occupying the crossing",
-      "no night"
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

@@ -14,6 +14,7 @@
   },
   "cast": [
     "ali",
+    "gracie",
     "grange_convoy"
   ],
   "antagonist": "none",
@@ -22,12 +23,13 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "a slow grain truck ahead with SMV triangle, drifting left as if inviting a pass; field gate unseen on the right",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "grain truck rear and slow-moving-vehicle triangle lit in the same lane; truck yawed slightly left",
     "background": "overcast two-lane rural, fence line and field edge right, empty oncoming half",
     "read": "the grain truck ahead is swinging left for a gate you cannot see; the open left is not a pass",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no second occupant",
@@ -41,7 +43,13 @@
       "no Ledger in frame",
       "no pass already underway",
       "no ego already in the oncoming lane",
-      "no night"
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

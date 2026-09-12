@@ -13,7 +13,8 @@
     "teaching_target": "PSDP twelve Hills and curves + DOL 5.6 (Curves). Blind crest then curve."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": null,
@@ -21,12 +22,13 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "the gravel/asphalt climbs to a crest and drops away into a curve whose far end you cannot see",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "road rising to a blind crest; beyond the top only sky and the start of a curve",
     "background": "overcast rural ridge, fir edges, no oncoming grille yet visible",
     "read": "you cannot see the other side of the hill; a curve begins beyond the crest",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no second occupant",
@@ -40,7 +42,13 @@
       "no Ledger in frame",
       "no oncoming vehicle already visible",
       "no clear view past the crest",
-      "no night"
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

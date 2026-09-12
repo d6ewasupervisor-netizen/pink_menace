@@ -13,7 +13,8 @@
     "teaching_target": "PSDP twelve Lesson one \u2013 gravel roads. DOL honest null \u2014 do not cite parent 5.6."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": null,
@@ -21,12 +22,13 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "washboard gravel in both wheel tracks filling the windshield view; the Menace feeling loose on a surface that moves",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; no second person",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; no second person; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "graded gravel road with corrugated washboard ridges in the tire paths; empty ahead",
     "background": "overcast rural valley, fir edges, no pavement, no other traffic",
     "read": "the road under the plow is loose washboard gravel, not pavement",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no second occupant",
@@ -40,7 +42,13 @@
       "no Ledger in frame",
       "no smooth asphalt ahead",
       "no night",
-      "no deer"
+      "no deer",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

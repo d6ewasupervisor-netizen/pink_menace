@@ -13,7 +13,8 @@
     "teaching_target": "NEW: PSDP thirteen Lesson three \u2013 two or more lane roundabouts. PSDP-only."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": null,
@@ -21,12 +22,13 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "left and right approach lanes with pavement arrows; sign board before the circle; third exit is a left",
     "background": "overcast multi-lane roundabout ahead, empty circulating lanes, no night",
     "read": "two lanes in; the lane choice is painted on the approach before the circle",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no second occupant",
@@ -40,7 +42,13 @@
       "no Ledger in frame",
       "no decision already inside the circle",
       "no night",
-      "no traffic signal controlling the circle"
+      "no traffic signal controlling the circle",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {

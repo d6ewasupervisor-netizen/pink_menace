@@ -14,6 +14,7 @@
   },
   "cast": [
     "ali",
+    "gracie",
     "yuna"
   ],
   "antagonist": "none",
@@ -22,12 +23,13 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "a single-lane roundabout entry; a sedan already circulating inside toward your entry",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
     "midground": "roundabout apron and circulating sedan inside the circle approaching your entry lane",
     "background": "overcast county/state junction, splitter island, no traffic signal",
     "read": "a sedan is already inside the single-lane circle coming toward your entry",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no second occupant",
@@ -42,7 +44,13 @@
       "no two-lane roundabout",
       "no traffic light",
       "no Yuna in the cabin",
-      "no night"
+      "no night",
+      "no Deac",
+      "no second person in the car",
+      "no clipboard passenger",
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier"
     ],
     "aspect": "2:3",
     "geometry": {
