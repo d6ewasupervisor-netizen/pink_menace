@@ -40,3 +40,11 @@ Dark dash default. Lit green turn arrows out. **112.0 out only if speedlike LCD*
 
 ## Delivery
 No seed from regen agents. Brad seeds after muted-read. Priority after gate: **VI-013**, then pack1 001–003/005–006, pack2 007/008/010/012 (+009).
+
+## VI-011 camera (Claude clarification — locked)
+Curb-height true **PROFILE** (`POV_ROADSIDE_PROFILE`): travel left-to-right; culvert lip+narrowing SUBJECT ahead/beside at right edge; Menace holding middle of lane; nothing touching the lip.
+
+**“Through rear cage”** = locked carrier readable through the rear **SIDE** window mesh (rear-quarter cage on the near flank) in that same profile flank shot — **not** a rear-facing / hatch / backward camera.
+
+**PASS:** `cards/takes/VI-011-take-12.png` — Brad seeding. Do not regenerate unless asked. take-13 FAIL.
+

@@ -88,15 +88,17 @@
       "ego_lane_from_left": 1
     },
     "carrier": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "carrier_placement": "In the same curb-height PROFILE flank shot: locked carrier readable through the rear SIDE window mesh (rear-quarter cage on the near flank) — NOT hatch/backward. Spec: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "carrier_placement": "In the same curb-height PROFILE flank shot: locked carrier readable through the rear SIDE window mesh (rear-quarter cage on the near flank) — cage-through-glass on the side glass, not a camera looking backward. Spec: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
     "prejudge_checks": [
-      "EARN THE LANE: clear gap between near tires and lip; centering must not look accidental",
-      "Nothing touching the lip",
+      "PROFILE L→R curb-height — never hatch/rear-facing",
       "Carrier through near-flank rear SIDE mesh only",
-      "Cascades-west wet PNW — reject desert on sight"
+      "Earn the lane: clear gap tires↔lip; nothing touching lip",
+      "Cascades-west wet PNW — reject desert",
+      "PASS banked: VI-011-take-12.png — do not regen unless asked"
     ],
     "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway"
+    "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway",
+    "camera_note": "Through rear cage = carrier readable through rear SIDE/quarter window mesh on the near flank of a curb-height PROFILE L→R shot — NOT rear-facing/hatch/backward camera."
   },
   "variation": {
     "location_type": "rural",
