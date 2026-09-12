@@ -132,13 +132,15 @@ const MENACE_PLOW_AWAY =
 
 const IV004_NONNEGOTIABLE_SET =
   "IV-004 NON-NEGOTIABLE SET — this take MUST contain ALL of the following as one situation, not separate optional descriptors: " +
-  "(1) clear-cold AFTERNOON DAYLIGHT — readable pale sky, wet pavement, not dusk, not night, not overcast murk, not golden hour; " +
-  "(2) rear-three-quarter AWAY-FROM-CAMERA heading — sloping rear engine lid nearest the camera and large; the plow / blade points toward the TOP of the frame; never toward-camera; " +
-  "(3) FULL-WIDTH FAR-FRONT blade across the FRONT black-tube bull bar matching the attached ref_car_nose_plow.png exactly — one continuous wide flat black steel plate, BOTH outer edges level with the front wheels, hanging below the bar like a snowplow; not a narrow flap; not take-76; not welded onto the rear; " +
-  "(4) IN-LANE MOTION — the Menace is squared to the lane, long axis parallel to the centerline, ROLLING, wet tire spray off the knobbies. " +
-  "Keep take-63 hazard staging: person mid-gap between the rusted van and gray sedan, torso still in the gap, one shoe in the paint, not standing in the open roadway. Beetle LARGE and still short of the person. " +
-  "A take that has the blade but faces the camera fails the card. A take that is away but wears a flap fails the card. A take that is parked or diagonal fails the card. Do not use take-76. " +
+  "(1) flat OVERCAST Act IV daylight — soft, diffuse, low-contrast gray sky, wet pavement, NO sun, NO long shadows, NO blue clear sky; not dusk, not night, not golden hour, not the clear-cold sun of take 159; " +
+  "(2) person MID-GAP between the rusted van and gray sedan with OCCLUSION — torso still hidden in the slot between those two parked cars, only one shoe and a coat hem in the travel-lane paint; not standing fully visible in the open gap; not walking in the open roadway; " +
+  "(3) rear-three-quarter AWAY-FROM-CAMERA plus IN-LANE MOTION — sloping rear engine lid nearest the camera and LARGE; the Beetle squared to the lane, long axis parallel to the centerline, ROLLING, wet tire spray off the knobbies, still short of the pair; dark nose toward the TOP of the frame; never toward-camera; " +
+  "(4) a dark nose-plow SHAPE on the FAR / leading / FRONT end — a soft or implied plow is ACCEPTABLE on this rear-¾; prefer the attached plate's full-width blade if it comes free; NEVER sacrifice overcast light or person occlusion to show both plate edges; never a narrow left-side flap on the rear; never weld a blade onto the near bumper. " +
+  "KEEP take-159 heading, tire spray, and staging mass (Beetle large / short of the pair). KEEP take-144 overcast + away family and take-63 houses / mid-gap street. Do not use take-76. Toward-camera fails the card. A parked or diagonal Beetle fails the card. " +
   "Preserve on the Menace: welded steel mesh cages on the side glass and the windshield; a riveted metal door panel; oversize knobby tires on chrome slot wheels; faded matte pink with bare-metal / oxidized steel plating. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset.";
+
+const IV004_PLOW_NEGATIVE =
+  "No narrow left-side flap hanging off the rear or left flank, no blade welded onto the near (rear) bumper, no take-76 flap, no Beetle facing the camera, no headlights or plow toward the viewer. A dark far-nose plow shape is enough — do not invent a side flap just to show a blade.";
 
 const MENACE_PLOW_NEGATIVE =
   "No side-mounted plow, no flank-mounted blade, no left-flank blade, no corner-mounted blade, no blade on a side arm ahead of the front wheel, no narrow flap plow, no small panel hanging off one side of the bull bar, no one-third-width blade, no bare bull bar with only a partial blade, no plain tube bumper without a blade, no rear-mounted plow, no blade on the engine lid, no plow welded onto the rear of the Beetle.";
@@ -373,9 +375,14 @@ function assemblePrompt(card) {
   ];
   if (deac) negs.push(LEDGER_NO_MENACE);
   if (menaceExterior) {
-    negs.push(MENACE_PLOW_NEGATIVE);
-    if (brief.geometry && brief.geometry.ego_heading === "away_from_camera") {
+    if (card.card_id === "IV-004") {
+      negs.push(IV004_PLOW_NEGATIVE);
       negs.push(MENACE_PLOW_AWAY_NEGATIVE);
+    } else {
+      negs.push(MENACE_PLOW_NEGATIVE);
+      if (brief.geometry && brief.geometry.ego_heading === "away_from_camera") {
+        negs.push(MENACE_PLOW_AWAY_NEGATIVE);
+      }
     }
   }
   if (brief.geometry) {
@@ -434,6 +441,7 @@ module.exports = {
   MENACE_PLOW,
   MENACE_PLOW_AWAY,
   IV004_NONNEGOTIABLE_SET,
+  IV004_PLOW_NEGATIVE,
   MENACE_PLOW_NEGATIVE,
   MENACE_PLOW_AWAY_NEGATIVE,
   MENACE_CABIN_BUILD,
