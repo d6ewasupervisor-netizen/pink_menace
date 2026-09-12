@@ -6,7 +6,7 @@ Parents: [https://parents.tactag.app](https://parents.tactag.app).
 
 Image cache `?v=a75`. Railway production is on this ship branch until #195 merges to `main`.
 
-Quiet presence floor (QP-001 / [#202](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/202) / [#203](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/203)): clean correct answers stay at presence **3**, never 0. Entering Act II+ shows one tap of Quiet line, then the card. No new stills. Skill 11 / Ribbon teaching frames stay Quiet-free.
+Quiet presence floor (QP-001 / [#202](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/202) / [#203](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/203)): clean correct answers stay at presence **3**, never 0. Entering Act II+ shows one tap of Quiet line, then the card. QP-003 V-013 Quiet dressing stills are mute-read only (take-6 / take-7) — live V-013 remains take-5. Do not put Quiet on V-006 / V-008.
 
 **Act V is complete (all 13).** V-009 take-37 is live (Claude overflow PASS, eyes forward). Take-31 FAIL — not used.
 

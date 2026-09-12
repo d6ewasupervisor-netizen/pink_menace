@@ -6,7 +6,7 @@ Seeded live: V-013←take-5, V-008←take-3, V-006←take-3. V-008 take-1 not se
 
 | Card | Plate | Closest | Runner | Discard |
 |---|---|---|---|---|
-| V-013 | `ref_ribbon_deck` take-4 | **take 5 PASS** | take 3 | take 2 (frontal / plow at lens); take 4 (wrong face, red lamps, wide pad) |
+| V-013 | `ref_ribbon_deck` take-4 | **take 5 PASS (live)** | take 3 | take 2 (frontal / plow at lens); take 4 (wrong face, red lamps, wide pad) |
 | V-008 | `ref_ribbon_workzone` C-1 | **take 3 PASS** | — | take 1 FAIL (do not seed); take 4 (rear bar / wrong side); take 5 (frontal plow) |
 | V-006 | `ref_ribbon_rig` take-1 | **take 3 PASS** | take 1 | take 4 (3/4 front + plow at lens); take 2 (mirrors weaker) |
 
@@ -24,6 +24,6 @@ Holds: no legible route/exit number; no snow/ice/chains; no sun/warm cast; wet s
 
 Card JSON is still the sole brief. Text now matches the Ribbon shots. Seeded to live playtest DB.
 
-- **V-013** — EXACT Claude JSON. Brad PASS promote take-5; take-3 banked. Master `cards/V-013.png`.
+- **V-013** — EXACT Claude JSON. Brad PASS promote take-5; take-3 banked. Master `cards/V-013.png`. QP-003 mute-read (not seeded): **take 6 closest** = take-5 plate + two Quiet silhouettes at the far right shoulder / curve; **take 7 runner** = same dressing on take-3. Alias `V-013-take-5-quiet.png` = take 6. Live master stays take-5.
 - **V-008** — EXACT Claude JSON. Brad PASS promote take-3 (6x left-gantry weathered blank, CLEAR TO SEED). take-1 FAIL. Master `cards/V-008.png`.
 - **V-006** — EXACT Claude JSON. Brad PASS promote take-3; take-1 banked. Master `cards/V-006.png`.
