@@ -1,6 +1,6 @@
 # Act VI Backcountry — wave-1 muted-read pack
 
-**Muted-read.** **VI-004 take-5** is **seeded** (Claude PASS cockpit). VI-009 take-2 is **seeded** (Claude PASS). **VI-013 take-2 is HOLD cast-FAIL** (Overflow Claude 21aded1a: Deac solo / wrong cast; Tyson lock Ali+Deac + clipboard) — live unseeded; Ali+Deac regen in flight (bc-11b91eab). Do **not** seed VI-011. Do **not** seed VI-004-take-11. No Act VII.
+**Muted-read.** **VI-004 take-5** is **seeded** (Claude PASS cockpit). **VI-011 take-12** is **seeded** (Claude PASS Cascades-west culvert profile). VI-009 take-2 is **seeded** (Claude PASS). **VI-013 take-2 is HOLD cast-FAIL** (Overflow Claude 21aded1a: Deac solo / wrong cast; Tyson lock Ali+Deac + clipboard) — live unseeded; Ali+Deac regen in flight (bc-11b91eab). Do **not** seed VI-011-take-13. Do **not** seed VI-004-take-11. No Act VII.
 
 Map: [`WAVE1_MAP.md`](./WAVE1_MAP.md). Card JSON is the sole brief. All take paths under `cards/takes/`.
 
@@ -23,10 +23,10 @@ Priority stills also staged at `artifacts/act-vi-wave1-priority/` (same bytes as
 |---|---|---|---|---|
 | **VI-004** | Off the Edge | **take-5 seeded** (cockpit PASS) | `VI-004-take-5.png` (+ exterior bank 1–3; other regen takes on #210) | Claude PASS: cockpit, hands on wheel, road left / grass shoulder right, motion blur verge, Gracie latched, analog cluster, **no 112.0**. `POV_COCKPIT`. **take-11 not seeded.** |
 | **VI-009** | Look for the Others | take-1 / take-2 | `VI-009-take-1.png` `VI-009-take-2.png` | Deer **BROADSIDE IN THE LANE** at dusk, close — not roadside grazing. `POV_COCKPIT`. **take-2 seeded.** |
-| **VI-011** | Same Culvert | take-1 / take-2 | `VI-011-take-1.png` `VI-011-take-2.png` | Lip + soft dirt, **nothing happening**. `POV_ROADSIDE_PROFILE`. **Do not seed.** |
+| **VI-011** | Same Culvert | **take-12 seeded** (PASS) | `VI-011-take-12.png` (+ bank 1–2; take-13 FAIL on #210) | Claude PASS: Cascades-west, curb-height profile, culvert lower third, lane position as choice, Gracie through rear side mesh. Car reads stationary — accepted. `POV_ROADSIDE_PROFILE`. **take-13 FAIL not seeded.** |
 | **VI-013** | The Clipboard, Again | HOLD — regen Ali+Deac | `VI-013-take-1.png` `VI-013-take-2.png` `VI-013-take-3.png` | **take-2 cast-FAIL HOLD** (Deac solo / wrong cast). Tyson lock: **Ali + Deac** (+ clipboard). **take-1** driver-seat **FAIL**. **take-3** split-panel **FAIL**. Do not seed. |
 
-Closest: VI-004→take-5 (**seeded**), VI-009→take-2 (seeded), VI-011→take-2 (not seeded), VI-013→HOLD (regen).
+Closest: VI-004→take-5 (**seeded**), VI-009→take-2 (seeded), VI-011→take-12 (**seeded**), VI-013→HOLD (regen).
 
 ---
 
@@ -44,7 +44,7 @@ Closest: VI-004→take-5 (**seeded**), VI-009→take-2 (seeded), VI-011→take-2
 | VI-010 | Over the Top | `VI-010-take-1.png` `VI-010-take-2.png` |
 | VI-012 | Crossbuck and Nothing Else | `VI-012-take-1.png` `VI-012-take-2.png` |
 
-**Inventory:** wave-1 takes on this branch + `VI-004-take-5.png` from regen #210. Other VI-004/011 regen takes remain on #210.
+**Inventory:** wave-1 takes on this branch + `VI-004-take-5.png` + `VI-011-take-12.png` from regen #210. take-13 and other VI-004/011 regen takes remain on #210.
 
 ---
 
@@ -62,4 +62,4 @@ Every Act VI still: **carrier latched and strapped**. When wheels are turning, *
 
 ## Out of scope
 
-No Act VII. No VI-011 seed. No VI-004-take-11 seed. Citations / `source` blocks untouched.
+No Act VII. No VI-011-take-13 seed. No VI-004-take-11 seed. Citations / `source` blocks untouched.
