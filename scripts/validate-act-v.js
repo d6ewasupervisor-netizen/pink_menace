@@ -9,6 +9,7 @@ const { validateGeometry, LEGAL_CAMERAS } = require("./geometry");
 const { assemblePrompt } = require("./compile-prompt");
 const { validateAuthoringSeat } = require("./authoring-seat");
 const { checkSpoken, checkClosers } = require("./validate-spoken");
+const { COLD_PACK, deliveryBeat, cargoFailDispatch, radioCheckin, manifestFor } = require("../src/manifest");
 
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^V-\d{3}\.json$/.test(f)).sort();
@@ -122,6 +123,30 @@ if (fs.existsSync(path.join(dir, "V-014.json"))) {
   errors.push("V-014.json must not exist — end-of-run is the existing delivery beat");
 }
 for (const e of checkClosers(cards)) errors.push(e);
+
+const CLOSER_BANNED = /\b(insulin|june|delridge|cooler|warm(?:ed|ing)?)\b/i;
+function assertRibbonCopy(label, text) {
+  if (CLOSER_BANNED.test(String(text || ""))) {
+    errors.push("closer " + label + " still uses insulin/cooler/June framing: " + JSON.stringify(text));
+  }
+}
+const manV = manifestFor("V", "Test");
+if (manV.act !== "V" || !/relay/i.test(manV.cargo) || !/repeater|antenna|clamps/i.test(manV.cargo)) {
+  errors.push("MANIFESTS.V must name the relay kit (repeater / antenna / clamps)");
+}
+assertRibbonCopy("manifest cargo", manV.cargo);
+assertRibbonCopy("manifest for", manV.for);
+assertRibbonCopy("delivery spare", deliveryBeat({ time_cost: 0 }, "V"));
+assertRibbonCopy("delivery tight", deliveryBeat({ time_cost: COLD_PACK - 3 }, "V"));
+assertRibbonCopy("delivery late", deliveryBeat({ time_cost: COLD_PACK }, "V"));
+assertRibbonCopy("fail empty", cargoFailDispatch([], "V"));
+assertRibbonCopy("fail placed", cargoFailDispatch([{ card_id: "V-005", minutes: 6, place: "the ramp" }], "V"));
+const radioLate = radioCheckin({ time_cost: COLD_PACK - 4 }, { time_cost: COLD_PACK }, "V");
+const radioCheck = radioCheckin({ time_cost: 20 }, { time_cost: 110 }, "V");
+assertRibbonCopy("radio late", radioLate && radioLate.line);
+assertRibbonCopy("radio check", radioCheck && radioCheck.line);
+const iiLate = deliveryBeat({ time_cost: COLD_PACK }, "II");
+if (!/June/i.test(iiLate)) errors.push("Act II deliveryBeat must keep June copy");
 
 console.log("cards", cards.length, "decision", n);
 console.log("answers", answers);

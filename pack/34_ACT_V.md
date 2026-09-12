@@ -22,7 +22,7 @@ First outline only. No stills. Do not seed. Do not touch Act IV art or takes.
 | WA PSDP `21WAPSDP_LR.pdf` | **Skill eleven: highway driving – part one** (pp. 33) / **part two** (pp. 34). |
 | IV-015 `teaching_target` | Already notes Skill thirteen is not on the allowlist (roundabouts → Act VI). |
 | IV-030 | Eastbound Core cliffhanger; the pass stays closed. Act V takes the freeway, not the pass. |
-| `pack/21_THE_MANIFEST.md` + `src/manifest.js` | Cooler / June / insulin are **Act II UI leftovers**. Act V does not use that fiction. End-of-run closer is the existing `deliveryBeat`, not a new card. No `MANIFESTS.V` in this PR. |
+| `pack/21_THE_MANIFEST.md` + `src/manifest.js` | Act II keeps June / insulin. **Act V** `MANIFESTS.V` + `deliveryBeat` / fail / radio use the relay kit. End-of-run closer is still the existing beat, not a new card. |
 | `pack/01_BIBLE.md` §3.2 | Ledger lock: cutaway box, roof rack with **lashed water cans + folded ramp**, lift door as loading bay. No trailer, no tow package. |
 | `pack/04_card.schema.json` `presence` | Canonical Quiet live field on the card. Do not invent `load_state`. |
 | `src/presence.js` | Run-state presence still sums from noise. Card JSON `presence` is the authored starting/situation value (0 on this daylight highway draft). |
@@ -124,6 +124,9 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 - `pack/07_DOL_SECTIONS.json` — added `5.1 Speed` and `5.1 Speed (Adjusting speed for conditions)` from the current Driver Guide body.
 - `pack/01_BIBLE.md` §7 Act V skill column — corrected to Skill eleven.
 - `scripts/authoring-seat.js` — Act V ego lock is Deac (same as III).
+- `pack/04_card.schema.json` — optional `presence` (canonical live field).
+- `scripts/seed-cards.js` — persists `presence` in `extra` (do not seed this draft).
+- `src/manifest.js` — `MANIFESTS.V` + act-aware `deliveryBeat` / fail / radio (relay kit; Act II June copy unchanged).
 
 ---
 
@@ -137,8 +140,7 @@ Load, `presence`, and card count are **locked** (above). Still open:
 4. **Ali as decider.** Jump seat only, or does she take the Ledger wheel for a subset the way III handed off?
 5. **Skill twelve/thirteen allowlist.** Add them now for Act VI stubs, or wait?
 6. **Old Ninety / Hollis budget.** One each this draft. Recur, or save Hollis for VII night tailgating?
-7. **End-of-run beat copy.** Existing `deliveryBeat` still says June / insulin. Act V needs a relay-kit line when someone patches `manifest.js` — not this seed.
-8. **Generic bible leftovers.** §2 yaw line still says “PSDP Skill 13”. Update that string, or leave the locked bible alone beyond the zone-map cell?
+7. **Generic bible leftovers.** §2 yaw line still says “PSDP Skill 13”. Update that string, or leave the locked bible alone beyond the zone-map cell?
 
 ---
 
