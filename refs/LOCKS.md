@@ -17,8 +17,20 @@ Never mix panels across takes. Winners only.
 | Convoy silhouette | G1 take 2 | `ref_convoy.png` | Round / box / wedge reads at a glance. Only take that kept Encore's PA horns; 1, 3, 4 turned them into spotlights. Overcast PNW, no salt-flat bleed. |
 | II-007 card art | take 2 | `../cards/II-007.png` | Amber lamps lit; enough pavement that the open left lane reads. Invented fallen tree is compiler drift — do not carry into later Kent cards. Takes 3–4 lit the reds/brakes and are unusable. |
 | Ledger cockpit | D4 take 2 | `ref_ledger_cockpit.png` | Locked from `cards/takes/D4-take-2.png` (1 Sep 2026). Match this cab: worn three-spoke wheel, analog cluster, bar cage, thermos in the right cup, no clipboard on the mesh. Never the old poisoned cockpit. Never a Menace ref on Deac cards. |
-| Encore cockpit | Y4 take 1 | `ref_encore_cockpit.png` | Four PA horns, mic on the cage, guarded red switch. Takes 2 and 4 turned horns into spotlights. Glass may read as missing — compiler still forces intact glass on exteriors. |
+| Encore glass / cage / roofline | Y4 take 1 | `ref_encore_cockpit.png` | Authoritative for glass, cage, and roofline **only**. Four PA horns, mic on the cage. Takes 2 and 4 turned horns into spotlights. Glass may read as missing — compiler still forces intact glass on exteriors. **Predates the dash lock. Do not use for dash / binnacle.** |
+| Encore dash / brake-cover | brake-81 / IV-001-brake take 81 | `ref_brake_cover.png` | Encore dash is per brake-81: moulded binnacle, tach-to-8, caged red rocker. Also hover posture reference (sole above brake pad with visible gap) for brake-cover frames. Same take as `cards/takes/IV-001-brake-take-81.png`. |
+| Encore footwell | verified footwell take 6 | `ref_encore_footwell.png` | Pedals / footwell geometry for brake frames. Same file as `cards/takes/encore-footwell-take-6.png`. **pedal_count: 2.** Wide treadplate brake + narrow ribbed accelerator; empty floor left of brake; no clutch. Empty plate: no foot. |
 | The Quiet — register lock | A3 take 3 | `ref_quiet.png` | Attach on every Quiet compile. Filthy, slack-shouldered, head canted, doing nothing, seen through dirty glass. Wrongness of posture and stillness — not damage. Same file as `ref_quiet_a3.png`. |
 | Quiet plates | probe keeps | `ref_quiet_a1.png` `ref_quiet_a2.png` `ref_quiet_a3.png` `ref_quiet_a4.png` `ref_quiet_a5.png` | A1 take 3 still, facing away. A2 take 1 head tilt. A3 take 3 the register. A4 take 1 lot, spread, not converging. A5 take 3 the lunge — near-legible, once in the game. A1, A2, A4 are reference, not card art. |
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
+
+## Encore plates — complementary (do not merge)
+
+Claude + owner lock. These three plates stay separate. Do **not** merge them into one image. Y4 take 1 is **not** full cockpit / dash authority.
+
+1. **Y4 take 1 / `ref_encore_cockpit.png`** — authoritative for glass, cage, and roofline **only**. Predates the dash lock; do **not** use for dash / binnacle.
+2. **brake-81 / IV-001-brake take 81 / `ref_brake_cover.png`** — Encore dash is per brake-81: moulded binnacle, tach-to-8, caged red rocker. Also hover posture reference (sole above brake pad with visible gap) for brake-cover frames.
+3. **verified footwell take 6 / `ref_encore_footwell.png`** — pedals / footwell geometry for brake frames.
+
+Do not merge plates.

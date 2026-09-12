@@ -536,7 +536,9 @@ else. No commentary. No alternatives.
 | Ledger cockpit / Deac `POV_COCKPIT` | `ref_ledger_cockpit.png` (D4 retake: clipboard off the mesh, road visible through the cage) |
 | HOV / diamond-lane geometry (III-008) | `ref_hov_median_diamond.png` — real US freeway, diamond in the leftmost lane against the median. Compile PNW wet asphalt; negate gantries, green guide signs, palm trees, arid roadside. |
 | Encore exterior | `ref_encore_sheet.png` |
-| Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` |
+| Encore glass / cage / roofline | `ref_encore_cockpit.png` — Y4 take 1. Glass, cage, and roofline **only**. Predates the dash lock; do **not** use for dash / binnacle. |
+| Encore dash / brake-cover | `ref_brake_cover.png` — brake-81 / IV-001-brake take 81. Moulded binnacle, tach-to-8, caged red rocker. Hover posture (sole above brake pad with visible gap) for brake-cover frames. |
+| Encore footwell / brake-frame pedals | `ref_encore_footwell.png` — verified footwell take 6. Pedals / footwell geometry only. Do not merge with Y4 take 1 or brake-81. |
 | Two or more vehicles in frame | `ref_convoy.png` |
 | Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
 | Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_CHASE`: from directly behind, the arm extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
@@ -544,7 +546,7 @@ else. No commentary. No alternatives.
 | `POV_DIAGRAM` (Deac) | `ref_ledger_sheet.png` only. Never `ref_car_exterior.jpg`. |
 | The Quiet in frame | `ref_quiet.png` — A3 take 3, the register lock. Continuity token `the_quiet`. Attach on every Quiet compile, including when the brief says "the Quiet" and the token was omitted. Also append the Quiet negative: no upright alert posture, no eye contact, no person looking at the lens, no walking normally, no clean clothing, no censorship smear. They never fill the frame, never a side-window close-up. A1/A2/A4 are reference, not card art. A5 once. |
 
-Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
+Ledger cockpit is locked (`ref_ledger_cockpit.png`). Encore plates are complementary — do **not** merge: glass / cage / roofline from Y4 take 1 (`ref_encore_cockpit.png`); dash / binnacle from brake-81 (`ref_brake_cover.png`); pedals from footwell take 6 (`ref_encore_footwell.png`). Y4 take 1 is **not** dash authority. Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 
 **Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.
 
