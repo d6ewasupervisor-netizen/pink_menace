@@ -66,11 +66,12 @@
   "presence": 0,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "from the seat in the leftmost of three wet highway lanes, empty middle and right ahead, no merge paint; a faster sedan is a smear in the interior rearview, closing",
-    "foreground": "worn black wheel, left stalk off, faded pink dash, handheld on the floor; interior rearview at the top of the mesh",
-    "midground": "skip-dash, empty wet middle and right lanes, pink plow bar at the bottom of the glass; in the inside mirror a period sedan closing in the same left lane",
-    "background": "rain midday valley highway, three lanes, concrete median, blank gantry, no snow, no route numbers",
-    "read": "the Beetle is in the left travel lane; the middle and right are empty wet asphalt; a sedan closes in the inside glass",
+    "camera_pose": "Option 2 high-oblique chase: camera BEHIND both cars and still BEFORE the gantry, looking FORWARD so the gantry FACE is ahead of the stack. Elevated twenty-five to forty degrees down from horizontal, not nadir. Rears nearer the camera. Not a cockpit. Not an interior rearview.",
+    "subject": "after the pass: faded-pink Beetle recovering into the right travel lane of three wet eastbound highway lanes, right rear amber signal lit; period sedan uses the left; middle empty; no merge paint",
+    "foreground": "wet skip-dash between the three same-direction lanes; solid yellow left-edge line against the concrete Jersey median on the left of the frame",
+    "midground": "pink Beetle in the rightmost travel lane, right amber signal on, rear nearer the camera; period sedan in the leftmost travel lane about one length closer to the camera; empty wet middle",
+    "background": "rain midday valley highway, three lanes, concrete median, gantry KEEP RIGHT EXCEPT TO PASS as scenery, no snow, no route numbers",
+    "read": "the Beetle has finished the pass and is recovering into the right travel lane with the right signal on; the sedan uses the left; the middle is empty wet asphalt",
     "continuity": ["pink_menace_interior"],
     "extra_negatives": [
       "no merge paint",
@@ -83,17 +84,37 @@
       "no route numbers",
       "no exit numbers",
       "no cooler",
-      "no sedan only as windshield traffic — the closing sedan belongs in the interior rearview"
+      "no Beetle still occupying the left after the pass",
+      "no both vehicles stacked in the leftmost lane",
+      "no mid-overtake freeze with the Beetle in the left",
+      "no white left-edge line against the median",
+      "no yellow centerline between the three eastbound lanes",
+      "no sedan only as windshield traffic"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "left travel lane of three eastbound I-90 lanes",
-      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing toward the top of the frame",
+      "ego_lane_side": "right travel lane of three eastbound I-90 lanes, recovering right after the pass",
+      "ego_nose_in_frame": "the plow is the far leading end, pointing toward the gantry and the top of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 3,
-      "ego_lane_from_left": 1
+      "ego_lane_from_left": 3,
+      "ego_frame_side": "right",
+      "marking_anchor": {
+        "edge": "concrete Jersey median barrier on the left of the frame",
+        "marking": "solid yellow left-edge line against that Jersey",
+        "ego_relative": "the Beetle occupies the rightmost of the three eastbound lanes, two lanes right of the yellow edge"
+      },
+      "traffic_positions": [
+        {
+          "vehicle": "period sedan",
+          "frame_side": "left",
+          "lane_from_left": 1,
+          "along": "behind",
+          "lengths": 1
+        }
+      ]
     }
   },
   "variation": {
@@ -102,6 +123,6 @@
     "time_of_day": "midday",
     "tone": "urgent",
     "failure_mode": "inexperience",
-    "forced": "Option 2 gantry-face pool (Claude 2026-09-12). Closest cards/takes/V-006-take-34.png; runner cards/takes/V-006-take-40.png. Do not seed. image_brief camera remains POV_COCKPIT. Takes 21/23 discarded (blank gantry back). Takes 25–32 Option 1 fallback only."
+    "forced": "Teach-correct POST-PASS recover-right pool (Claude 2026-09-12). Closest cards/takes/V-006-take-50.png; runner cards/takes/V-006-take-47.png. Do not seed. Take 34/40 remain FAIL. image_brief camera remains POV_COCKPIT; camera_pose is Option 2 gantry-face. Scene prose still describes the pre-recover decision moment — stills teach the correct recover-right."
   }
 }
