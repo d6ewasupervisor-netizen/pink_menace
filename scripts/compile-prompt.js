@@ -61,6 +61,51 @@ const LHD =
 const NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel.";
 
+const DAYLIGHT_NEGATIVE =
+  "No night, no full night, no city at night, no dusk-as-night, no blue hour, no black sky, no star field, no lit office towers as night key light, no sodium streetlight night, no headlights as the only illumination, no warm headlight-dominant night look, no near-black asphalt night. The sky must be readable daylight or pale overcast gray-white, not black.";
+
+const MENACE_CABIN_BUILD =
+  "Menace cabin, positive layout: a flat painted-metal dash of the period — one continuous Type 1 shelf with no recess, no tablet bay, no rectangle that could hold a screen. A single instrument nacelle, one housing only. An unbranded wheel — worn leather, plain hub, no logo, no VW roundel. A manual floor shifter with a ball knob on the tunnel. Three pedals: clutch, brake, accelerator. Coarse Menace panel mesh over the glass — thick welded panels, large openings — not Encore's fine full-windshield grid, not a flyscreen. Default: the single nacelle is angled away from the camera so no glyphs render. Only when the card brief names a readable needle or cluster-at-0, show that one period-correct dial.";
+
+const MENACE_CABIN_NEGATIVES =
+  "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no fine full-windshield flyscreen grid, no two-pedal automatic box, no missing clutch on a Menace cabin.";
+
+function wantsNight(card) {
+  const t = String((card.variation && card.variation.time_of_day) || "").toLowerCase();
+  if (!t) return false;
+  return /^(night|dusk|dark[_-]?hours)$/.test(t) || /\bnight\b/.test(t);
+}
+
+function variationLighting(card) {
+  const v = card.variation || {};
+  const tod = String(v.time_of_day || "").toLowerCase();
+  const weather = String(v.weather || "").toLowerCase();
+  const bits = [];
+  if (weather === "ice") {
+    bits.push("Ice on the pavement. Pale winter light, not a black sky.");
+  }
+  if (weather === "clear_cold") {
+    bits.push("Clear cold pale winter daylight — readable gray-white sky, not overcast murk, not golden hour, not night.");
+  }
+  if (tod === "dawn") {
+    bits.push("Dawn: pale gray-white sky, ice-at-dawn if named, not night, not blue hour, not sodium streetlight key.");
+  }
+  if (tod === "morning") {
+    bits.push("Morning daylight. Sky is pale and readable.");
+  }
+  if (tod === "midday") {
+    bits.push("Overcast midday daylight.");
+  }
+  if (tod === "afternoon") {
+    if (weather === "clear_cold") {
+      bits.push("Afternoon daylight — same clear-cold pale sky, not overcast murk, not golden hour.");
+    } else {
+      bits.push("Overcast afternoon daylight, not golden hour.");
+    }
+  }
+  return bits.join(" ");
+}
+
 const QUIET_REGISTER =
   "Match the attached Quiet plate for register only — wrongness of posture and stillness, not damage, not a wound. Filthy torn everyday clothing, slack shoulders, a canted or tilted head, standing or moving as if doing nothing. Distance and glass are their whole grammar. They never fill the frame, never appear in a side-window close-up, never make eye contact. Write them farther than the shot needs: thirty feet renders at ten to fifteen, sixty at thirty to forty. If a face must die, obscure it with motion or distance only. Near-legibility is allowed on a lunge; a fully destroyed face is duller. Do not name them as diseased.";
 
@@ -78,6 +123,30 @@ const LEDGER_DIAGRAM_NEGATIVE =
 
 const LEDGER_NO_MENACE =
   "No Volkswagen Beetle, no rounded-fender compact, no plow blade.";
+
+const MENACE_PLOW =
+  "Nose plow: match the attached overcast plate ref_car_nose_plow.png exactly for plow geometry. The plow is one continuous wide flat black steel plate on the FRONT black-tube bull bar, in front of both front wheels. The blade spans the FULL WIDTH of that bull bar — its outer edges sit roughly level with the outer faces of the front wheels. It hangs below the bull bar like a snowplow / dozer blade. It is not a narrow flap, not a small panel on one side, not a one-third-width tab with bare bull bar across the rest. No flank-mounted blade; no blade on a corner; no blade on the rear or engine lid. Preserve on the Menace: welded steel mesh cages on the side glass and the windshield; a riveted metal door panel; oversize knobby tires on chrome slot wheels; faded matte pink with bare-metal / oxidized steel plating. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset. Never attach ref_car_rear_plow.jpg or any flank / corner plow plate.";
+
+const MENACE_PLOW_AWAY =
+  "The attached ref_car_nose_plow.png is a catalog plate of the SAME car facing the lens. Copy ONLY the blade geometry from it — do not copy its toward-camera heading. Rotate the Beetle so it travels AWAY from the camera: the sloping rear engine lid and rear-window mesh are nearest the camera and large; the plate's full-width nose blade sits on the FAR / leading / FRONT bull bar and points at the TOP of the frame. From this rear-three-quarter both outer edges of that wide blade remain visible past the front corners. Never weld the plate onto the near (rear) bumper. Never shrink the far blade to a flap.";
+
+const IV004_NONNEGOTIABLE_SET =
+  "IV-004 NON-NEGOTIABLE SET — this take MUST contain ALL of the following as one situation, not separate optional descriptors: " +
+  "(1) flat OVERCAST Act IV daylight — soft, diffuse, low-contrast gray sky, wet pavement, NO sun, NO long shadows, NO blue clear sky; not dusk, not night, not golden hour, not the clear-cold sun of take 159; " +
+  "(2) person MID-GAP between the rusted van and gray sedan with OCCLUSION — torso still hidden in the slot between those two parked cars, only one shoe and a coat hem in the travel-lane paint; not standing fully visible in the open gap; not walking in the open roadway; " +
+  "(3) rear-three-quarter AWAY-FROM-CAMERA plus IN-LANE MOTION — sloping rear engine lid nearest the camera and LARGE; the Beetle squared to the lane, long axis parallel to the centerline, ROLLING, wet tire spray off the knobbies, still short of the pair; dark nose toward the TOP of the frame; never toward-camera; " +
+  "(4) a dark nose-plow SHAPE on the FAR / leading / FRONT end — a soft or implied plow is ACCEPTABLE on this rear-¾; prefer the attached plate's full-width blade if it comes free; NEVER sacrifice overcast light or person occlusion to show both plate edges; never a narrow left-side flap on the rear; never weld a blade onto the near bumper. " +
+  "KEEP take-159 heading, tire spray, and staging mass (Beetle large / short of the pair). KEEP take-144 overcast + away family and take-63 houses / mid-gap street. Do not use take-76. Toward-camera fails the card. A parked or diagonal Beetle fails the card. " +
+  "Preserve on the Menace: welded steel mesh cages on the side glass and the windshield; a riveted metal door panel; oversize knobby tires on chrome slot wheels; faded matte pink with bare-metal / oxidized steel plating. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset.";
+
+const IV004_PLOW_NEGATIVE =
+  "No narrow left-side flap hanging off the rear or left flank, no blade welded onto the near (rear) bumper, no take-76 flap, no Beetle facing the camera, no headlights or plow toward the viewer. A dark far-nose plow shape is enough — do not invent a side flap just to show a blade.";
+
+const MENACE_PLOW_NEGATIVE =
+  "No side-mounted plow, no flank-mounted blade, no left-flank blade, no corner-mounted blade, no blade on a side arm ahead of the front wheel, no narrow flap plow, no small panel hanging off one side of the bull bar, no one-third-width blade, no bare bull bar with only a partial blade, no plain tube bumper without a blade, no rear-mounted plow, no blade on the engine lid, no plow welded onto the rear of the Beetle.";
+
+const MENACE_PLOW_AWAY_NEGATIVE =
+  "No Beetle facing the camera, no headlights or plow toward the viewer, no copying the nose-plow plate's toward-camera heading onto the street car, no full-width blade on the near bumper.";
 
 const LHD_NEGATIVE =
   "No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road.";
@@ -217,6 +286,20 @@ function assemblePrompt(card) {
   }
 
   const continuityEarly = (brief.continuity || []);
+  const menaceExterior =
+    !deac &&
+    (continuityEarly.includes("pink_menace_exterior") ||
+      (cam === "POV_DIAGRAM" && card.driver !== "yuna"));
+  if (menaceExterior) {
+    if (card.card_id === "IV-004") {
+      parts.push(IV004_NONNEGOTIABLE_SET);
+    } else {
+      parts.push(MENACE_PLOW);
+      if (brief.geometry && brief.geometry.ego_heading === "away_from_camera") {
+        parts.push(MENACE_PLOW_AWAY);
+      }
+    }
+  }
   const quietNamed =
     continuityEarly.includes("the_quiet") ||
     /\bthe Quiet\b/.test(
@@ -236,6 +319,9 @@ function assemblePrompt(card) {
     }
     parts.push(register);
   }
+
+  const lighting = variationLighting(card);
+  if (lighting) parts.push(lighting);
 
   if (brief.subject) parts.push(brief.subject.replace(/\.*$/, "."));
   if (brief.foreground) parts.push(brief.foreground.replace(/\.*$/, "."));
@@ -288,6 +374,17 @@ function assemblePrompt(card) {
     LHD_NEGATIVE,
   ];
   if (deac) negs.push(LEDGER_NO_MENACE);
+  if (menaceExterior) {
+    if (card.card_id === "IV-004") {
+      negs.push(IV004_PLOW_NEGATIVE);
+      negs.push(MENACE_PLOW_AWAY_NEGATIVE);
+    } else {
+      negs.push(MENACE_PLOW_NEGATIVE);
+      if (brief.geometry && brief.geometry.ego_heading === "away_from_camera") {
+        negs.push(MENACE_PLOW_AWAY_NEGATIVE);
+      }
+    }
+  }
   if (brief.geometry) {
     const frameNeg = framePassNegatives(brief.geometry, card.driver, cam);
     if (frameNeg) negs.push(frameNeg);
@@ -302,6 +399,18 @@ function assemblePrompt(card) {
   }
   if (Array.isArray(brief.extra_negatives) && brief.extra_negatives.length) {
     negs.push(brief.extra_negatives.join(". ") + ".");
+  }
+  if (!wantsNight(card)) {
+    negs.push(DAYLIGHT_NEGATIVE);
+  }
+  const menaceCabin =
+    card.driver === "ali" &&
+    (continuity.includes("pink_menace_interior") ||
+      cam === "POV_COCKPIT" ||
+      cam === "POV_MIRROR_REAR");
+  if (menaceCabin) {
+    parts.push(MENACE_CABIN_BUILD);
+    negs.push(MENACE_CABIN_NEGATIVES);
   }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);
@@ -321,4 +430,21 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };
+module.exports = {
+  assemblePrompt,
+  FRAMING,
+  MASTER_STYLE,
+  DIAGRAM_STYLE,
+  LHD,
+  OTHER_VEHICLE_CLAUSE_LEDGER,
+  DAYLIGHT_NEGATIVE,
+  MENACE_PLOW,
+  MENACE_PLOW_AWAY,
+  IV004_NONNEGOTIABLE_SET,
+  IV004_PLOW_NEGATIVE,
+  MENACE_PLOW_NEGATIVE,
+  MENACE_PLOW_AWAY_NEGATIVE,
+  MENACE_CABIN_BUILD,
+  MENACE_CABIN_NEGATIVES,
+  wantsNight,
+};
