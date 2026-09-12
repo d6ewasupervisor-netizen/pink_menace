@@ -185,11 +185,22 @@ function assemblePrompt(card) {
       `${card.card_id}: POV_MIRROR_REAR is illegal on the Ledger — no rear window, no interior mirror; use POV_MIRROR_DOOR`
     );
   }
+  const continuity = brief.continuity || [];
+  const menaceCabin =
+    card.driver === "ali" &&
+    (continuity.includes("pink_menace_interior") ||
+      cam === "POV_COCKPIT" ||
+      cam === "POV_MIRROR_REAR");
+
   let framing = FRAMING[cam];
   if (deac && cam === "POV_COCKPIT") framing = FRAMING.POV_COCKPIT_LEDGER;
   if (deac && cam === "POV_DIAGRAM") framing = FRAMING.POV_DIAGRAM_LEDGER;
   if (deac && cam === "POV_OBJECT" && (brief.continuity || []).includes("hov_geometry")) {
     framing = FRAMING.POV_COCKPIT_LEDGER;
+  }
+  if (menaceCabin && cam === "POV_COCKPIT") {
+    framing =
+      "Camera is inside the cabin, over the wheel, looking forward through the windshield. Welded steel mesh across the top of the glass, road through the grid. Do not fill the lower left with a modern gauge cluster.";
   }
   if (typeof brief.camera_pose === "string" && brief.camera_pose.trim()) {
     framing = brief.camera_pose.trim();
@@ -222,9 +233,8 @@ function assemblePrompt(card) {
     parts.push(otherVehicleClauseLedger(card));
   }
 
-  const continuityEarly = (brief.continuity || []);
   const quietNamed =
-    continuityEarly.includes("the_quiet") ||
+    continuity.includes("the_quiet") ||
     /\bthe Quiet\b/.test(
       [brief.subject, brief.foreground, brief.midground, brief.background, brief.read]
         .filter(Boolean)
@@ -243,12 +253,6 @@ function assemblePrompt(card) {
     parts.push(register);
   }
 
-  const continuity = (brief.continuity || []);
-  const menaceCabin =
-    card.driver === "ali" &&
-    (continuity.includes("pink_menace_interior") ||
-      cam === "POV_COCKPIT" ||
-      cam === "POV_MIRROR_REAR");
   if (menaceCabin) {
     parts.push(MENACE_CABIN_BUILD);
   }
