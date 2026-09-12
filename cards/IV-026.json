@@ -67,7 +67,7 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "camera_pose": "Camera is at driver-eye height at the left curb / empty LEFT travel lane — a 45-to-60-degree left-rear three-quarter, not dead-astern and not low behind the right rear quarter. You see three faces at once: round rear (mesh, horizontal louvers, short STOCK bumper, no plow); clean riveted left flank; and the FRONT nose, large enough to read. On that far nose a black-tube bull bar carries one continuous full-width flat plow blade spanning both front tires, matching ref_car_nose_plow.png. Heading AWAY. Tight crop: two same-direction lanes on a wet downtown block. THREE hazards sit IN HER SAME right lane about TWO Beetle-lengths ahead of the nose blade. Left travel lane empty. No yellow centerline.",
+    "camera_pose": "Camera is high and slightly oblique — fifteen to twenty degrees off vertical — looking down the travel lane along the Beetle's heading. Not driver-eye height, not a 45-to-60-degree left-rear three-quarter, not street-level rear-left, not dead-astern at bumper height. Rear mesh is nearer the camera; the far leading end is the FRONT nose. From this high-oblique you read the roof, the riveted left flank, the short STOCK rear bumper (no plow), and the full-width flat plow blade on the black-tube bull bar spanning both front tires, matching ref_car_nose_plow.png. Heading AWAY down-lane. Tight crop: two same-direction lanes on a wet downtown block. THREE hazards sit IN HER SAME right lane about TWO Beetle-lengths ahead of the nose blade. Left travel lane empty. No yellow centerline.",
     "subject": "RIGHT: faded-pink Beetle heading away, full-width nose blade wrapping the far bull bar. TWO lengths ahead IN HER LANE: cargo van with open side door, person, upright bike. LEFT lane empty.",
     "foreground": "wet skip-dashed white; left curb not a yellow line; knobby spray; rear louvers; short stock rear bumper — no rear tube bar",
     "midground": "van door + person + upright bike LARGE and TIGHT in her same lane, two lengths off the plow — not on a sidewalk, not at a distant house",
@@ -100,7 +100,10 @@
       "no blade on the engine lid",
       "no second pink vehicle",
       "no pink van",
-      "no steep bird's-eye",
+      "no driver-eye left-rear three-quarter",
+      "no street-level away-¾ rear-left camera",
+      "no 45-to-60-degree rear-left camera",
+      "no nadir straight-down bird's-eye",
       "no low camera behind the right rear quarter",
       "no long empty gap before the hazards",
       "no hazards six to eight lengths ahead",
@@ -135,6 +138,6 @@
     "time_of_day": "afternoon",
     "tone": "tense",
     "failure_mode": "inexperience",
-    "forced": "Act IV daylight lock — dusk/night is Act VII Dark Hours; nose plow from live take-8 ref_car_nose_plow.png (sha c6c8ec1f). Take-110 owner-override stub is stale."
+    "forced": "Act IV daylight lock — dusk/night is Act VII Dark Hours; nose plow from live take-8 ref_car_nose_plow.png (sha c6c8ec1f). Camera class is high-oblique down-lane (POV_DIAGRAM default), not the away-¾ rear-left that produced take-114 stub/rear-plow artifacts. Take-110 owner-override stub is stale."
   }
 }
