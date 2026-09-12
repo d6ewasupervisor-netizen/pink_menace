@@ -1,0 +1,36 @@
+# IV-002 — The Naked Glass
+# image_brief authority: cards/IV-002.json (PR #12 / act-iv-text-fixes-1755)
+# attachments: /tmp/pm-plates/ref_encore_cockpit.png
+#   live lock = PR #122 Y4 b-take-2
+#   sha256 74d8d1ab8a5b12d4d30b9649354ea8bbb853a957bbadb32d4cc5029b68b8ca81
+# camera: POV_COCKPIT  camera_is_the_lesson: true
+# driver token: ali (on the bench). Vehicle lock: Encore. No Menace ref. No Encore exterior sheet.
+# takes: 9–12  (prior waves: 1–4 Batch A, 5–8 FAIL glass regen)
+# Rule 2 (PR #115): interior switchgear world-graded — exterior MUTCD exemption does not apply in-cab
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Match the attached Encore cockpit lock exactly for cabin identity — same enclosed moulded dash, same small suede-wrapped three-spoke racing wheel on the left (left-hand drive), same single analog tach, same guarded PA switch (cover down, left off), same welded roll-cage tubes at the A-pillars, same handheld wireless microphone clipped on the right cage tube at take-1 height, same intact factory windshield glass with rain beading on the OUTSIDE of a real glass plane, same solid roof / headliner. Two pedals only if the footwell appears: wide brake, narrow accelerator, empty floor left of the brake, no clutch, no floor shifter. Do not invent a different dashboard, a stripped tub, roof PA horns inside the cabin, or an open tube-frame cockpit.
+
+Camera sits on the mismatched welded rear bench, looking forward through the cabin at the windshield. The bench and a cage tube occupy the bottom of frame. The empty suede racing wheel sits ahead in midground. This is not an over-the-wheel driver's-eye crop — the bench must be in the foreground so the empty wheel and the naked glass can both read. No driver face. No body in the driver seat.
+
+Subject from the brief: bare clean windshield with intact glass and no mesh, the whole wet downtown street visible.
+
+Foreground from the brief: mismatched welded rear bench, exposed roll-cage tube, dead wireless in-ears hanging on the tube with one earpiece dangling.
+
+Midground from the brief: empty suede racing wheel, the locked moulded dash (do not rebuild a stripped tub), a guarded red PA switch left off.
+
+Background from the brief: overcast downtown Seattle through naked glass, wet pavement, no readable signs.
+
+The read: the windshield is intact glass with no mesh; the in-ears hang on the cage.
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. United States road configuration, traffic drives on the right. The hatchback is traveling away from the camera. The hatchback nose points toward the top of the frame through bare glass. Any oncoming traffic is none in frame. No vehicle faces the wrong way in its lane. Parked at the curb of a downtown block.
+
+Traffic signs are single-faced. Any sign in frame is legible only if it faces the camera's direction of travel. Signs governing a cross or opposing approach show their blank reverse side. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.
+
+cabin switchgear world-graded, desaturated, faded; no candy-red oversat on switch covers or rockers. The guarded PA switch can read as a kill switch without lighting up like a STOP face.
+
+intact window glass in all openings, no mesh, no bars, no open cabin.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. No open cabin, no missing windshield, no stripped glass, no mesh over the windshield, no bars across the glass, no window nets, no convertible, no sky where the roof should be, no PA horns inside the cabin. no windshield mesh. no bar cage over the glass. no plow blade. no pink Beetle interior. no Ledger bar cage. no candy-red switch covers, no oversaturated cabin controls, no MUTCD-red interior switchgear, no lettered switch faces. Aspect ratio 2:3.
