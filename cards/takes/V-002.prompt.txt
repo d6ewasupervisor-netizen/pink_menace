@@ -1,0 +1,23 @@
+V-002 Tower 4 — POV_PORTRAIT dossier, parked midday shoulder.
+Authority: cards/V-002.json image_brief (PR #161 / #164). Card JSON is the only brief.
+NOT a distraction / eyes-off-road lesson (that is V-001). Mya on the dash is legal because PARKED.
+Tool aspect 3:4 (seed encodes 2:3). Do not seed.
+
+Attach:
+  refs/ref_ali2.png
+  refs/ref_menace_cabin.png   (PR #75 take-16 cabin lock — period dash, single nacelle, no screen bay)
+  refs/ref_mya.jpg            (studio appearance — out-of-carrier loaf, not the grate plate)
+
+Do not attach:
+  refs/ref_cockpit.jpg        (poisoned: desert GPS tablet + digital 112.0)
+
+Hard enforcements (wave-2 FAIL hold):
+  parked / wheels still / engine still (still wipers, no motion in glass)
+  Mya = brown mackerel LOAF (tucked paws, compact oval) — not a sit, not loose chaos
+  Ali alone — no second person / no Yuna staring into the lens
+  no dual GPS; cabin lock has no tablet bay — zero nav screens
+  no digital gauge readout 112.0 (nacelle angled away, no glyphs)
+  faded pink collar = Ali's hoodie, not a cat collar
+
+Wave-2 pool (PR #164, do not pick): take-13 dual GPS; take-15 sit + 112.0.
+This regen: take-17..take-24. Closest + runner only. No seed.
