@@ -174,6 +174,18 @@
       "note": "Copy fixed: The skyline is dark and the sign is dark with it. Still already reads stopped bus + dark skyline. the bus is sitting on the wrong side of the road.",
       "pick": "b-take-2",
       "updated_at": "2026-09-01T20:18:25.286Z"
+    },
+    "IV-005": {
+      "tag": "PASS",
+      "note": "Claude (a8a5ebe4) PASS. Take 97 seeded. Sedan ahead in her lane with brake lights lit, crosswalk bars visible, pedestrian mid-crossing at the sedan's right rear — partly behind it. Double threat reads. Take 95 FAIL (do not seed). Prior live seed on PR #101 failed citation allowlist; this branch adds 4.1 + Skill ten so npm run seed -- IV-005 can write.",
+      "pick": "take-97",
+      "updated_at": "2026-09-12T01:24:00.000Z"
+    },
+    "IV-007": {
+      "tag": "PASS",
+      "note": "Claude PASS take 25 after MUTCD regen (PR #59 / seed PR #61). White/black NO TURN ON RED + signal head + stop line. Latest accepted take; supersedes wave-one take-1 (PR #37). Live DB may still hold take-1.",
+      "pick": "take-25",
+      "updated_at": "2026-09-12T01:24:00.000Z"
     }
   }
 }
