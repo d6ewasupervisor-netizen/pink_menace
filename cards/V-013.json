@@ -95,7 +95,7 @@
   },
   "variation": {
     "location_type": "highway",
-    "weather": "overcast",
+    "weather": "rain",
     "time_of_day": "dusk",
     "tone": "tense",
     "failure_mode": "speed",
