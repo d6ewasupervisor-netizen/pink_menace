@@ -124,9 +124,13 @@ PINK MENACE:
 
 PINK MENACE INTERIOR:
   "a cracked faded pink dashboard, worn black leather steering wheel with a
-  chrome center hub, round analog gauge cluster, an aftermarket navigation
-  tablet mounted center dash, a bank of illuminated rocker switches, welded
-  steel mesh across the windshield"
+  chrome center hub, round analog gauge cluster with needle dials only
+  (needles at rest when parked), an aftermarket navigation tablet mounted
+  center dash that is dark and blank unless the brief names a map, a bank
+  of illuminated rocker switches, welded steel mesh across the windshield.
+  Never a digital speed readout, never LCD digits, never 112.0, never a
+  highway-speed LED cluster. Do not attach refs/ref_cockpit.jpg — it is
+  the poisoned 112.0 + desert-GPS plate."
 
 DEAC:
   "a broad tall-shouldered 54-year-old man with dark brown skin, close-cut gray

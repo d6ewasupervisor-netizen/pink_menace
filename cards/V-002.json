@@ -38,7 +38,14 @@
       "no flatbed",
       "no fuel drums",
       "no trailer hitch",
-      "no antenna mounted as a new roof mark"
+      "no antenna mounted as a new roof mark",
+      "no digital gauge readout",
+      "no 112.0",
+      "no highway-speed LED cluster",
+      "no LCD speedometer",
+      "tablet dark/non-competing",
+      "no desert GPS",
+      "no salt-flat navigation"
     ],
     "aspect": "2:3"
   },
