@@ -141,7 +141,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 - `ref_ali1.jpg`, `ref_ali2.png` — **face, hair, glasses, jewelry.** Also the correct lighting model.
 - `ref_car_exterior.jpg` — **silhouette and build only.** The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
 - `ref_car_nose_plow.png` — **authority full-width nose plow** (PR #120 take 8, Claude muted-read PASS overflow d748b5d7). Standard full-width nose-mounted bull-bar blade; clean flanks. Take-2 FAIL and the old take-5 plate (PR #69) are out of the reference pool. `diag_nose_plow_front.png` is diagnostic only — do not attach. IV-004 takes 177 / 179 unchanged.
-- `ref_cockpit.jpg` — **interior layout and mesh screen only.** Same warning: not the lighting.
+- `ref_menace_cabin.png` — **Menace interior lock (take 16).** Flat painted-metal period dash, single nacelle, unbranded wheel, coarse panel mesh. Never `ref_cockpit.jpg` (poisoned tablet / digital 112.0-class gauge).
 - `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
 - `ref_quiet.png` — Quiet register lock (A3 take 3). Attach on every Quiet compile. Posture and stillness, not damage. They never fill the frame. Plates: `ref_quiet_a1.png`–`ref_quiet_a5.png`.
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.

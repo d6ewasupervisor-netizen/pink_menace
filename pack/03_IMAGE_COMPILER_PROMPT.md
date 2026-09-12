@@ -66,7 +66,7 @@ You MUST:
     POV_MIRROR_DOOR
   - attach the ego vehicle lock to every POV_DIAGRAM for build only; no faces.
     Ali: ref_car_exterior.jpg. Deac: ref_ledger_sheet.png. Never attach a
-    Menace lock (ref_car_exterior.jpg, ref_cockpit.jpg, Ali, Gracie) on a Deac card.
+    Menace lock (ref_car_exterior.jpg, ref_menace_cabin.png, Ali, Gracie) on a Deac card.
   - on every Deac compile, append: no Volkswagen Beetle, no rounded-fender
     compact, no plow blade.
   - on Deac POV_DIAGRAM, POV_ROADSIDE, POV_ROADSIDE_PROFILE, and POV_CHASE
@@ -123,10 +123,16 @@ PINK MENACE:
   knobby tires on chrome slot wheels"
 
 PINK MENACE INTERIOR:
-  "a cracked faded pink dashboard, worn black leather steering wheel with a
-  chrome center hub, round analog gauge cluster, an aftermarket navigation
-  tablet mounted center dash, a bank of illuminated rocker switches, welded
-  steel mesh across the windshield"
+  "Menace cabin, positive layout: a flat painted-metal dash of the period —
+  one continuous Type 1 shelf with no recess, no tablet bay, no rectangle
+  that could hold a screen. A single instrument nacelle, one housing only.
+  An unbranded wheel — worn leather, plain hub, no logo, no VW roundel.
+  A manual floor shifter with a ball knob on the tunnel. Three pedals:
+  clutch, brake, accelerator. Coarse Menace panel mesh over the glass —
+  thick welded panels, large openings — not Encore's fine full-windshield
+  grid, not a flyscreen. Default: the single nacelle is angled away from
+  the camera so no glyphs render. Only when the card brief names a readable
+  needle or cluster-at-0, show that one period-correct analog dial."
 
 DEAC:
   "a broad tall-shouldered 54-year-old man with dark brown skin, close-cut gray
@@ -527,7 +533,7 @@ else. No commentary. No alternatives.
 |---|---|
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
 | Pink Menace exterior | `ref_car_exterior.jpg` |
-| Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` |
+| Pink Menace interior / `POV_COCKPIT` | `ref_menace_cabin.png` (take 16, human-verified). Never `ref_cockpit.jpg`. |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |

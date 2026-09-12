@@ -1,0 +1,7 @@
+# authority: cards/V-008.json
+# attachments: ref_menace_cabin.png
+# camera: POV_COCKPIT
+# ribbon: none
+# do not seed
+
+See cards/V-008.compile.txt for the assembled prompt compiled from image_brief only.
