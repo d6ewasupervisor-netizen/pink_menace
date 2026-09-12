@@ -20,8 +20,10 @@ Do not seed. Do not live-DB. Plates stay in their own PRs.
 
 Holds: no legible route/exit number; no snow/ice/chains; no sun/warm cast; wet surface; no current-model hero fleet; no posterized flat-color; MUTCD orange not desaturated; left workzone gantry panel blank.
 
-## Shot / lesson conflicts (text not rewritten)
+## Lessons remapped (2026-09-12, Tyson)
 
-- V-013 lesson remains Hollis / move-over. Picture is a shoulder stop. Hollis is not in frame.
-- V-008 lesson remains posted ramp speed. Picture is a work-zone taper.
-- V-006 lesson remains keep-right after a pass. Picture is a semi alongside.
+Card JSON is still the sole brief. Text now matches the Ribbon shots. Do not seed. Do not live-DB.
+
+- **V-013** — shoulder disablement / stay in the car / stay belted. Closest PASS take-5; runner take-3 banked.
+- **V-008** — work zone speed and lane shift. Closest take-3 / runner take-1. Closest pending explicit muted-read PASS confirm.
+- **V-006** — truck blind spots / ease off, let it pass. Closest PASS take-3; runner take-1 banked.

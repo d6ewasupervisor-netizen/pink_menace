@@ -4,65 +4,63 @@
   "zone": "The Ribbon",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Let Hollis Have It",
-  "hook": "His bumper is in the glass. Again.",
-  "scene": "Last daylight rain on I-90 east, still the valley floor. The sky is going \u2014 copper at the rim, gray over the deck \u2014 and the dash lamps are just coming up. It is dusk. Three lanes. The pass is a dark grade in the east \u2014 a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view \u2014 Hollis, too close, no gap you can count. The right lane is empty wet asphalt catching the last light. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.",
-  "decision": "Hollis is on your tail in the center. The right is empty. What do you do?",
+  "title": "Flashers on the Strip",
+  "hook": "The Menace died on a strip that is not a lane.",
+  "scene": "Last daylight rain on the Ribbon, still the valley floor. The sky is going \u2014 gray over the deck, streetlights the only lamps. The Menace has stopped on a squeeze: fog line on the left, Jersey on the right, flashers already talking. There is no pad. The travel lanes still own the wet. The door handle is right there. Nobody else is in the car.",
+  "decision": "The car is dead on that strip. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Signal right, take the empty lane, let him have the center",
-      "correct": true,
-      "result": "One change. He blows past in the center. Your following distance is yours again. You did not write a brake lamp into his windshield.",
-      "state_delta": {
-        "noise": -1,
-        "time_cost": 3
-      }
-    },
-    {
-      "id": "b",
-      "text": "Tap the brakes to tell him he is too close",
+      "text": "Get out and walk the Jersey so a driver can see you",
       "correct": false,
-      "result": "Your lamps hit his glass. He stands on it or he climbs you. Either way you taught a tailgater with light. The empty lane was the sentence.",
+      "result": "One step puts you on the fog line. A pair of lamps is already too close to miss a person. The wall has no sidewalk. You left the only shell you had.",
       "state_delta": {
         "noise": 4,
-        "light": 3,
-        "time_cost": 6
-      }
-    },
-    {
-      "id": "c",
-      "text": "Hold the center and drop ten so the gap in front of you looks safer",
-      "correct": false,
-      "result": "You slow in front of a man who will not. The gap behind dies. You spent your own cushion to keep a lane he wanted.",
-      "state_delta": {
-        "noise": 2,
+        "light": 2,
         "time_cost": 8
       }
     },
     {
-      "id": "d",
-      "text": "Speed up until he cannot match the Menace",
-      "correct": false,
-      "result": "He matches. Then he matches more. You bought a race on a highway. The empty right was still empty.",
+      "id": "b",
+      "text": "Stay in the car, stay belted, keep the flashers on",
+      "correct": true,
+      "result": "You stay clipped. The flashers keep talking. Traffic owns the wet deck and you stay a shape inside steel, not a body on the line. The strip is still not a lane.",
       "state_delta": {
-        "noise": 3,
-        "time_cost": 5
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "c",
+      "text": "Unbuckle and stand at the rear so they have a body to miss",
+      "correct": false,
+      "result": "The belt comes off. You are now the tallest thing on a strip the width of a plate. The next set of lamps has no time to choose a gap.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Cross the live lanes to the median where the shoulder looks wider",
+      "correct": false,
+      "result": "You step into three wet lanes at dusk. The median is a rumor past lamps that did not plan on a person. The car you left was already off the through.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 9
       }
     }
   ],
-  "debrief": "Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your doors alone.",
+  "debrief": "If the car dies on a narrow highway shoulder, stay inside and stay belted. Flashers tell the deck you are there. Do not stand on the fog line. Ali stays clipped behind the mesh.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving \u2013 part two",
-    "dol_section": "5.2 Space",
-    "teaching_target": "REVIEW of 5.2 Space. PSDP p2 Lesson two \u2013 tailgater, move over. Do not teach truck tire or axle.",
-    "stat_cited": "PSDP p.32: Watch mirrors for tailgaters and move to another lane to let them pass."
+    "dol_section": "2.6 Occupant Protection",
+    "teaching_target": "Highway disablement on a narrow shoulder: stay in the vehicle, stay belted, flashers on. Do not stand on the fog line."
   },
   "cast": [
-    "ali",
-    "hollis"
+    "ali"
   ],
-  "antagonist": "none",
+  "antagonist": "ejection",
   "callback_of": null,
   "schedules_callback": false,
   "presence": 0,
@@ -122,7 +120,8 @@
     "weather": "rain",
     "time_of_day": "dusk",
     "tone": "tense",
-    "failure_mode": "speed",
-    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief remapped to shoulder_stop_dusk_ribbon / ref_ribbon_deck. Lesson text (Hollis / move-over) unchanged \u2014 shot/lesson conflict noted in PR. Do not seed. Do not live-DB."
+    "failure_mode": "belt",
+    "winner": "take-5",
+    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief locked on shoulder_stop_dusk_ribbon / ref_ribbon_deck. Lesson remapped 2026-09-12 (Tyson): shoulder disablement / stay in the car / stay belted. Closest PASS take-5 cards/takes/V-013-take-5.png; runner take-3 banked. Do not seed. Do not live-DB."
   }
 }

@@ -4,60 +4,58 @@
   "zone": "The Ribbon",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Posted Before the Bend",
-  "hook": "The ramp owns you. The curve is next.",
-  "scene": "Overcast morning. You have left I-5. The exit ramp is wet and tightening toward a posted 25. Your cluster still reads highway leftover. The bend is visible. If you carry sixty into a twenty-five the rear will write the number for you. If you stood on it back on the freeway, the stack already paid. The tap belongs here.",
-  "decision": "You are on the exit ramp. When are you at 25?",
+  "title": "The Cone Line",
+  "hook": "Cones and a crew. Your leftover highway number.",
+  "scene": "Overcast morning on the Ribbon. You have not left the freeway. Orange cones stand along the right fog line; two workers in yellow wait past them. The left still looks like a clean number. The gantry overhead is blank. If you carry highway leftover through people on the deck, the cones will not catch you. The next paint is a shift, not a ramp.",
+  "decision": "The work zone is already in the road. What do you do with speed and the lane?",
   "options": [
     {
       "id": "a",
-      "text": "Tap the brakes now and be at the posted number before the curve starts",
-      "correct": true,
-      "result": "You bleed the leftover here. The cluster agrees with the sign before the bend. The Beetle stays straight. The freeway behind you never had to lift.",
+      "text": "Hold highway speed \u2014 the left is still open and the cones are only on the right",
+      "correct": false,
+      "result": "You keep the leftover. The workers do not move. A cone line is not a suggestion. You write a highway number through a place that already asked for less.",
       "state_delta": {
-        "noise": -1,
-        "time_cost": 4
+        "noise": 4,
+        "time_cost": 6
       }
     },
     {
       "id": "b",
-      "text": "Hold sixty until the apex, then stand on it",
+      "text": "Cut right through the cone line to get past the crew first",
       "correct": false,
-      "result": "The rear steps out mid-bend. Yaw on a wet ramp. You spent the car to keep a number the sign already took from you.",
+      "result": "You take the work as a pass. Orange goes under the plow. One of the yellow coats has to step. The shift was a lane change you were supposed to wait for, not invent.",
       "state_delta": {
-        "noise": 4,
-        "yaw": 3,
+        "noise": 5,
+        "yaw": 2,
         "time_cost": 8
       }
     },
     {
       "id": "c",
-      "text": "Coast with no brake and let the hill take the speed out",
-      "correct": false,
-      "result": "There is no hill that saves you. You arrive at the paint still hot. The next car in the line gets your leftover.",
+      "text": "Bleed speed now and follow the cones when they take the lane",
+      "correct": true,
+      "result": "You dump the leftover before the crew. When the cones step in, you take the lane they leave you. The workers stay workers. The Beetle stays a car in a zone, not a problem in one.",
       "state_delta": {
-        "noise": 2,
-        "yaw": 1,
-        "time_cost": 6
+        "noise": -1,
+        "time_cost": 5
       }
     },
     {
       "id": "d",
-      "text": "Stop dead on the ramp so the curve is taken from a standstill",
+      "text": "Stop in the travel lane until the workers wave you through",
       "correct": false,
-      "result": "You plant the Menace on an exit ramp. The car behind you came in at ramp speed and had nowhere to put it.",
+      "result": "You plant a Beetle in a live work lane. The car behind you still has leftover. The crew did not ask for a fourth cone made of steel.",
       "state_delta": {
         "noise": 3,
         "time_cost": 10
       }
     }
   ],
-  "debrief": "On the ramp, tap the brakes and be at the posted speed before the curve. The cluster agreed with the sign before the bend.",
+  "debrief": "In a marked work zone, slow down and follow the lane the cones give you. Do not hold leftover highway speed past the crew. You lost the leftover before the shift.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving \u2013 part one",
-    "dol_section": "5.1 Speed (Adjusting speed for conditions)",
-    "teaching_target": "PSDP p1 Lesson four \u2013 posted ramp speed before the curve. Pair 5.1 conditions. Not a minted Exiting heading.",
-    "stat_cited": "PSDP p.31: Upon entering the ramp, tap the brakes and begin to slow down to the posted exit ramp speed limit before reaching the curve."
+    "dol_section": "4.17 Zones (Work zone)",
+    "teaching_target": "Work zone: reduce speed, follow the taper and lane shift, do not hold highway leftover or cut the cone line."
   },
   "cast": [
     "ali"
@@ -111,11 +109,11 @@
     }
   },
   "variation": {
-    "location_type": "highway",
+    "location_type": "work_zone",
     "weather": "overcast",
     "time_of_day": "morning",
     "tone": "tense",
     "failure_mode": "speed",
-    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief remapped to work_zone_taper_cones_ribbon / ref_ribbon_workzone. Lesson text (posted ramp speed) unchanged \u2014 shot/lesson conflict noted in PR. Do not seed. Do not live-DB."
+    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief locked on work_zone_taper_cones_ribbon / ref_ribbon_workzone. Lesson remapped 2026-09-12 (Tyson): work zone speed and lane shift. Closest take-3 cards/takes/V-008-take-3.png; runner take-1 banked. Closest pending explicit muted-read PASS confirm. Do not seed. Do not live-DB."
   }
 }
