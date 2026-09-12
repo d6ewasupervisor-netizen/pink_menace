@@ -86,6 +86,6 @@ FOR            Tower 4 — valley floor
 
 > *Relay kit delivered. Repeater, antenna, clamps. Tower 4. 41 minutes to spare.* — or — *Relay kit delivered. 3 minutes. Repeater, antenna, clamps. Tower 4.* — or — *The relay kit is late. Repeater, antenna, clamps. Tower 4 still takes it.*
 
-Fail dispatch and mid-run radio on Act V use the same kit / Tower 4, never Delridge or June. **Thin-net:** late still delivers — do not write “the kit sat” / “tomorrow.” Radio voice is **Yuna**. No tow. No new `load_state`.
+Fail dispatch and mid-run radio on Act V use the same kit / Tower 4, never Delridge or June. `daylight_fail` fail copy is light-ran-out / did-not-make-dusk — do not write “the kit sat” / “tomorrow.” Radio voice is **Yuna**. No tow. No new `load_state`.
 
-Act V Yuna radio voice — four appearances, `cargo_rough` bands CLEAN / SCUFFED / THINNED, `daylight_fail` swaps one V-013 scene clause (they stack; neither ends the run; no fail-beyond-THINNED) — is `pack/36_YUNA_RADIO_VOICE.md`. She never mentions cargo condition and never grades the driving. The thinned channel is quietest, not harshest. No line blames Yuna.
+Act V Yuna radio voice — four appearances, `cargo_rough` bands CLEAN / SCUFFED / THINNED on a successful closer, `daylight_fail` ends the run and wins when both are set — is `pack/36_YUNA_RADIO_VOICE.md`. She never mentions cargo condition and never grades the driving. She does not speak on a daylight fail. The thinned channel is quietest, not harshest. No line blames Yuna.

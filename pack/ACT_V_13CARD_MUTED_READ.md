@@ -1,8 +1,8 @@
 # Act V — 13-card muted-read (paste to Claude)
 
-Text only. No stills. Do not seed. Do not compile Ribbon plates.
+Text only. No stills. Do not seed. Do not compile Ribbon plates. Primary a8a5ebe4 is image-capped — this is the copy packet.
 
-Brad: paste this whole file. Picture muted-read waits on art. This is the **copy** review.
+Brad: paste this whole file. Picture muted-read waits on art.
 
 Authority is the card JSON on PR #151. If this file and a card disagree, the card wins.
 
@@ -10,26 +10,12 @@ Authority is the card JSON on PR #151. If this file and a card disagree, the car
 
 - Act V = Ribbon + Skill eleven. Ali alone. Yuna radio-only. Load = Tower 4 relay kit.
 - `presence` canonical. **Quiet at seventy:** they do not paint on the Ribbon the way they paint in the lot. Herd is VII. Thirteen cards + existing end beat. No V-014.
-- Building-engaging citation locks:
+- V-013 dusk = grade pass over the deck plate (geometry unchanged). One dusk card path. `daylight_fail` does not rewrite it.
+- Building-engaging locks:
   1. Allowlist + V-004 cite exact `4.11 Traffic light signals (Freeway ramp meters)` (TOC child, not a top-level section).
   2. V-009 `dol_section: "n/a"` (PSDP-only). Do not stretch a DOL parent. Validator accepts `n/a`.
-  3. **`cargo_rough` bands proposed for lock** (Tower 4 channel; end-of-run degrade only):
-     - CLEAN 0–3
-     - SCUFFED 4–8
-     - THINNED 9+
-- No fail-beyond-THINNED exists. Do not invent one.
-- **`daylight_fail`** (`time_cost >= 130`) does **not** end the run. It swaps **one clause** on V-013. Same decision, same options, same citation. That clause is the only place the overrun registers. (First Building-engaging line said “wins when both set”; later flip on this PR is the clause-swap.)
-
-## V-013 scene states (same card)
-
-Claude spec, baked:
-
-1. **Arrived at dusk on schedule** — the light is going and she's where she meant to be.
-   - Card clause: *The light is going and you are where you meant to be.*
-2. **Forced into dusk by overrun** — the light is going and she is not where she meant to be, and the reason is the last two hours.
-   - Card clause: *The light is going and you are not where you meant to be, and the reason is the last two hours.*
-
-Player copy uses *you* (Act V seat). Both states print in full under V-013 below.
+  3. **`cargo_rough` bands proposed for lock** (successful closer only): CLEAN 0–3 · SCUFFED 4–8 · THINNED 9+.
+  4. **`daylight_fail` ENDS the run** (`time_cost >= 130`). It is the end-of-run fail state. It does **not** force V-013 dusk as a continuing card. When both `cargo_rough` and `daylight_fail` are set, **`daylight_fail` wins and terminates.**
 
 ---
 
@@ -379,7 +365,7 @@ Wind, midday, I-90 east, three lanes. You want the left to pass a slow box. A se
 
 ---
 
-## V-013 (scheduled — arrived at dusk on schedule) — Let Hollis Have It
+## V-013 — Let Hollis Have It
 
 Type: `scene` · Ali · The Ribbon
 
@@ -407,46 +393,9 @@ Dusk on I-90 east, still the valley floor. The light is going and you are where 
 
 **Debrief:** Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your doors alone.
 
-**Clause:** The light is going and you are where you meant to be.
-
 ---
 
-## V-013 (overrun — daylight_fail; last two hours) — Let Hollis Have It
+## Existing end-of-run beat / fail (not a 14th card)
 
-Type: `scene` · Ali · The Ribbon
-
-**Lesson:** REVIEW of 5.2 Space. PSDP p2 Lesson two – tailgater, move over. Do not teach truck tire or axle.
-**PSDP:** Skill eleven: highway driving – part two
-**DOL:** 5.2 Space
-**Cited:** PSDP p.32: Watch mirrors for tailgaters and move to another lane to let them pass.
-
-**Hook:** His bumper is in the glass. Again.
-
-Dusk on I-90 east, still the valley floor. The light is going and you are not where you meant to be, and the reason is the last two hours. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.
-
-**Decision:** Hollis is on your tail in the center. The right is empty. What do you do?
-
-**Options**
-
-- **a** (CORRECT): Signal right, take the empty lane, let him have the center
-  - Result: One change. He blows past in the center. Your following distance is yours again. You did not write a brake lamp into his windshield.
-- **b** (wrong): Tap the brakes to tell him he is too close
-  - Result: Your lamps hit his glass. He stands on it or he climbs you. Either way you taught a tailgater with light. The empty lane was the sentence.
-- **c** (wrong): Hold the center and drop ten so the gap in front of you looks safer
-  - Result: You slow in front of a man who will not. The gap behind dies. You spent your own cushion to keep a lane he wanted.
-- **d** (wrong): Speed up until he cannot match the Menace
-  - Result: He matches. Then he matches more. You bought a race on a highway. The empty right was still empty.
-
-**Debrief:** Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your doors alone.
-
-**Clause:** The light is going and you are not where you meant to be, and the reason is the last two hours.
-
-Same decision, same options, same citation as scheduled. Only the clause above changes.
-
----
-
-## Existing end-of-run beat (not a 14th card)
-
-Engine `deliveryBeat` / `radioCheckin` after V-013. Banded by `cargo_rough` (CLEAN / SCUFFED / THINNED). Not V-014. Not a `daylight_fail` cliff.
-
-Yuna may speak here (fourth appearance). She never mentions cargo condition and never grades the driving. THINNED is quietest, not harshest.
+- **Success:** engine `deliveryBeat` / `radioCheckin` after V-013. Banded by `cargo_rough` (CLEAN / SCUFFED / THINNED). Yuna may speak (fourth appearance). She never mentions cargo condition and never grades the driving. THINNED is quietest, not harshest.
+- **`daylight_fail`:** the run ends. Fail copy is light-ran-out / did-not-make-dusk. Yuna does not speak. Not V-014.

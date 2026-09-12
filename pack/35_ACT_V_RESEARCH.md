@@ -4,11 +4,11 @@ Verbatim pull for Act V text. Do not invent headings. Do not mint Skill fourteen
 
 Citation audit (Claude settles, open vs locked): `pack/37_ACT_V_CITATION_AUDIT.md`.
 
-Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_fail` swaps one V-013 scene clause — they stack): `pack/36_YUNA_RADIO_VOICE.md`.
+Yuna radio voice (four appearances; `cargo_rough` bands a successful end beat; `daylight_fail` ends the run): `pack/36_YUNA_RADIO_VOICE.md`.
 
 Muted-read packet: `pack/ACT_V_13CARD_MUTED_READ.md`.
 
-**Locks (do not contradict):** Ali alone on the Ribbon; Yuna radio-only; load = relay hardware for **Tower 4**; `presence` canonical; **Quiet at seventy** (highway vs lot — Quiet do not paint on the Ribbon; herd is VII); 13 cards + existing end-of-run beat; cargo = thin-net (late still delivers — not a hard fail); V-013 has two scene states on the same card (one clause); `daylight_fail` swaps that clause (does not end the run); no fail-beyond-THINNED; no truck tire/axle framing; no Acts I–III replay; chains / Snoqualmie = Act VII.
+**Locks (do not contradict):** Ali alone on the Ribbon; Yuna radio-only; load = relay hardware for **Tower 4**; `presence` canonical; **Quiet at seventy** (highway vs lot — Quiet do not paint on the Ribbon; herd is VII); 13 cards + existing end-of-run beat; `cargo_rough` bands a successful closer; `daylight_fail` **ends the run** and wins when both flags are set (does not force V-013 dusk as a continuing card); V-013 dusk = grade pass over the deck plate; no truck tire/axle framing; no Acts I–III replay; chains / Snoqualmie = Act VII.
 
 ---
 

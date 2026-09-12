@@ -63,14 +63,6 @@
   "callback_of": null,
   "schedules_callback": false,
   "presence": 0,
-  "dusk_states": {
-    "scheduled": {
-      "clause": "The light is going and you are where you meant to be."
-    },
-    "overrun": {
-      "clause": "The light is going and you are not where you meant to be, and the reason is the last two hours."
-    }
-  },
   "image_brief": {
     "camera": "POV_MIRROR_REAR",
     "camera_is_the_lesson": true,
@@ -107,6 +99,6 @@
     "time_of_day": "dusk",
     "tone": "tense",
     "failure_mode": "speed",
-    "forced": "Act V draft stub — no still; do not seed. image_brief is the dusk grade-pass plate for both V-013 scene states. Only the dusk_states clause changes."
+    "forced": "Act V draft stub — no still; do not seed. image_brief is the dusk grade-pass plate. Geometry unchanged. daylight_fail ends the run — it does not rewrite this card."
   }
 }

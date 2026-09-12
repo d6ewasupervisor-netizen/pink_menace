@@ -136,7 +136,7 @@ function cargoFailDispatch(charges, act) {
     }))
     .filter((c) => c.minutes > 0 && c.place);
   if (act === "V") {
-    if (!rows.length) return "The relay kit is late. Tower 4 still takes it.";
+    if (!rows.length) return "Light ran out on the Ribbon. The relay kit did not make dusk.";
     const named = rows
       .sort((a, b) => b.minutes - a.minutes || String(a.card_id).localeCompare(String(b.card_id)))
       .slice(0, 2);
@@ -144,7 +144,7 @@ function cargoFailDispatch(charges, act) {
       const word = numberWord(c.minutes);
       return word.charAt(0).toUpperCase() + word.slice(1) + " at " + c.place + ".";
     });
-    parts.push("The kit is late. Tower 4 still takes it.");
+    parts.push("Light ran out. The kit did not make dusk.");
     return parts.join(" ");
   }
   if (!rows.length) {

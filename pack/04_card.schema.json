@@ -155,16 +155,6 @@
       "maximum": 30000,
       "description": "Hazard decision window. Default 24000. Also used on beat cards."
     },
-    "dusk_states": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "V-013 only. Two scene states on the same card (like I-008 lot_states). Same decision, options, citation. One clause swaps when daylight_fail is set. That clause is the only place the overrun registers. Does not end the run.",
-      "required": ["scheduled", "overrun"],
-      "properties": {
-        "scheduled": { "$ref": "#/$defs/duskState" },
-        "overrun": { "$ref": "#/$defs/duskState" }
-      }
-    },
     "tone_debrief": {
       "type": "string",
       "maxLength": 700,
@@ -326,14 +316,6 @@
       "properties": {
         "stop": { "type": "string", "minLength": 8, "maxLength": 120 },
         "debrief": { "type": "string", "minLength": 20, "maxLength": 400 }
-      }
-    },
-    "duskState": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["clause"],
-      "properties": {
-        "clause": { "type": "string", "minLength": 20, "maxLength": 200 }
       }
     }
   },

@@ -501,7 +501,7 @@ function mountRun(app) {
         const charges = await failCharges(client, run.id);
         failDispatch = cargoFailDispatch(charges, card.act);
         state.fail_reason = failDispatch;
-        state.fail_kind = "cargo";
+        state.fail_kind = card.act === "V" && state.daylight_fail ? "daylight" : "cargo";
         state.fail_card_id = cardId;
       }
       let nextCardId = null;

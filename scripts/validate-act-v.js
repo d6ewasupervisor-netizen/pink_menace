@@ -10,7 +10,7 @@ const { assemblePrompt } = require("./compile-prompt");
 const { validateAuthoringSeat } = require("./authoring-seat");
 const { checkSpoken, checkClosers } = require("./validate-spoken");
 const { COLD_PACK, deliveryBeat, cargoFailDispatch, radioCheckin, manifestFor } = require("../src/manifest");
-const { cargoRoughBand, radioChannel, applyV013DuskForce, V013_DUSK, V013_CLAUSE } = require("../src/cargo-rough");
+const { cargoRoughBand, radioChannel } = require("../src/cargo-rough");
 
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^V-\d{3}\.json$/.test(f)).sort();
@@ -73,24 +73,14 @@ for (let i = 0; i < cards.length; i++) {
   if (c.variation.location_type === "mountain_pass") err(id, "mountain_pass is Act VII");
   if (["night", "deep_night"].includes(c.variation.time_of_day)) err(id, "night is Act VII");
   if (c.variation.time_of_day === "dusk" && id !== "V-013") {
-    err(id, "dusk-as-dark is Act VII; only V-013 may be dusk (scheduled or overrun)");
+    err(id, "dusk-as-dark is Act VII; only V-013 may be dusk (grade pass)");
   }
   if (id === "V-013") {
     if (c.variation.time_of_day !== "dusk" || c.card_type !== "scene") {
-      err(id, "V-013 is a dusk scene; daylight_fail only swaps the scene clause");
+      err(id, "V-013 dusk is the grade-pass card path; daylight_fail ends the run and does not rewrite this card");
     }
-    const states = c.dusk_states || {};
-    if (!states.scheduled || states.scheduled.clause !== V013_CLAUSE.scheduled) {
-      err(id, "V-013 dusk_states.scheduled.clause must be the on-schedule clause");
-    }
-    if (!states.overrun || states.overrun.clause !== V013_CLAUSE.overrun) {
-      err(id, "V-013 dusk_states.overrun.clause must be the last-two-hours clause");
-    }
-    if (!c.scene.includes(V013_CLAUSE.scheduled)) {
-      err(id, "V-013 default scene must contain the scheduled clause");
-    }
-    if (c.scene.includes(V013_CLAUSE.overrun)) {
-      err(id, "V-013 default scene must not already be the overrun clause");
+    if (c.dusk_states || c.dusk_force) {
+      err(id, "V-013 is one dusk card; do not attach daylight_fail as a continuing scene state");
     }
   }
   if (["snow", "ice", "fog"].includes(c.variation.weather)) err(id, "snow/ice/fog is Act VII");
@@ -144,8 +134,6 @@ for (let i = 0; i < cards.length; i++) {
     c.decision,
     c.debrief,
     JSON.stringify(c.options || []),
-    c.dusk_states && c.dusk_states.scheduled && c.dusk_states.scheduled.clause,
-    c.dusk_states && c.dusk_states.overrun && c.dusk_states.overrun.clause,
   ].join(" ");
   if (DEFERRED_VII.test(blob)) {
     err(id, "Act VII material (chains / Snoqualmie / plow / night weather) leaked into a teaching card");
@@ -242,28 +230,14 @@ if (cargoRoughBand(4) !== "SCUFFED" || cargoRoughBand(8) !== "SCUFFED") {
 if (cargoRoughBand(9) !== "THINNED") {
   errors.push("cargo_rough THINNED must start at 9");
 }
-if (radioChannel({ yaw: 9, time_cost: COLD_PACK }) !== "THINNED") {
-  errors.push("clock-out must not replace cargo_rough — end beat still uses THINNED");
+if (radioChannel({ yaw: 9, time_cost: 20 }) !== "THINNED") {
+  errors.push("cargo_rough THINNED must still band the channel when the clock is live");
 }
-if (radioChannel({ yaw: 1, time_cost: COLD_PACK }) !== "CLEAN") {
-  errors.push("daylight_fail must not swallow a CLEAN cargo_rough band");
+if (radioChannel({ yaw: 1, time_cost: COLD_PACK }) !== "daylight_fail") {
+  errors.push("daylight_fail wins the channel when both flags are set");
 }
-const v013 = cards.find((c) => c.card_id === "V-013");
-if (v013) {
-  const scheduled = applyV013DuskForce(v013, { time_cost: 20 });
-  const forced = applyV013DuskForce(v013, { time_cost: COLD_PACK, yaw: 9 });
-  if (scheduled.dusk_state !== V013_DUSK.SCHEDULED || !scheduled.scene.includes(V013_CLAUSE.scheduled)) {
-    errors.push("on-time V-013 must keep the scheduled scene clause");
-  }
-  if (forced.dusk_state !== V013_DUSK.OVERRUN || !forced.scene.includes(V013_CLAUSE.overrun)) {
-    errors.push("daylight_fail must swap only the V-013 scene clause, not end the run");
-  }
-  if (forced.card_type !== "scene" || forced.decision !== v013.decision || forced.hook !== v013.hook) {
-    errors.push("V-013 overrun keeps the same type, hook, decision, and options");
-  }
-  if (forced.debrief !== v013.debrief) {
-    errors.push("V-013 overrun must not change debrief or citation; clause only");
-  }
+if (radioChannel({ yaw: 9, time_cost: COLD_PACK }) !== "daylight_fail") {
+  errors.push("daylight_fail wins over THINNED and terminates — it does not continue as a band");
 }
 
 console.log("cards", cards.length, "decision", n);

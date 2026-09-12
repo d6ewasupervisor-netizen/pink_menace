@@ -6,13 +6,13 @@ Research gates (verbatim quotes + unused table): `pack/35_ACT_V_RESEARCH.md`.
 
 Citation audit (open vs locked, Claude settles): `pack/37_ACT_V_CITATION_AUDIT.md`.
 
-Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_fail` swaps one V-013 scene clause — they stack): `pack/36_YUNA_RADIO_VOICE.md`.
+Yuna radio voice (four appearances; `cargo_rough` bands a successful end beat; `daylight_fail` ends the run and wins when both are set): `pack/36_YUNA_RADIO_VOICE.md`.
 
 Muted-read packet (paste to Claude): `pack/ACT_V_13CARD_MUTED_READ.md`.
 
 **Constraint (authoritative):** Act V = **The Ribbon** (I-5 / I-90) + **Skill eleven** highway material. Driver: **Ali / the Menace. Alone.** Yuna is radio-only. Daylight.
 
-**Not this act:** chains, snow, ice, fog, night, Snoqualmie Pass, Gravy the plow (Act VII). Rural / roundabouts (Act VI). **No tow, flatbed, drums, sway `load_state`, insulin, or cooler fiction.** No Deac in the cab. No Encore in frame. No truck tire/axle lesson. Load is relay hardware for **Tower 4**. Act is **13 cards + the existing end-of-run beat** (no new V-014). Cargo is a **thin net**: late still delivers.
+**Not this act:** chains, snow, ice, fog, night, Snoqualmie Pass, Gravy the plow (Act VII). Rural / roundabouts (Act VI). **No tow, flatbed, drums, sway `load_state`, insulin, or cooler fiction.** No Deac in the cab. No Encore in frame. No truck tire/axle lesson. Load is relay hardware for **Tower 4**. Act is **13 cards + the existing end-of-run beat** (no new V-014). `cargo_rough` bands a successful closer; `daylight_fail` ends the run.
 
 ---
 
@@ -62,28 +62,19 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 **Location:** every card is `location_type: highway`. Not `mountain_pass`.
 
-**Light:** daylight on V-001…V-012. **V-013 is always dusk** (grade pass over the deck plate, not dusk-as-dark / VII). Two scene states on the **same card**, like I-008’s three `lot_states`. Same decision, same options, same citation. **One clause** in the scene changes so run history is visible:
-
-| `dusk_state` | When | Clause (the only difference) |
-|---|---|---|
-| **`scheduled`** | On time (`time_cost < 130`) | *The light is going and you are where you meant to be.* |
-| **`overrun`** | `daylight_fail` (`time_cost >= 130`) | *The light is going and you are not where you meant to be, and the reason is the last two hours.* |
-
-`daylight_fail` does **not** end the run. That clause is the only place the overrun registers. Same `image_brief` plate for both.
+**Light:** daylight on V-001…V-012. **V-013 is dusk** — grade pass over the deck plate (geometry unchanged). Not dusk-as-dark (VII). That is the dusk **card path**. `daylight_fail` does **not** rewrite V-013 into a continuing overrun card.
 
 **Count:** **thirteen cards (V-001…V-013) + the existing end-of-run beat.** V-014 is not a new card.
 
-**Cargo:** thin-net. `deliveryBeat` late line still hands the kit over. Fail copy does not invent a hard “kit sat / tomorrow.”
+**Cargo:** `cargo_rough` still bands a **successful** closer (CLEAN / SCUFFED / THINNED). `daylight_fail` is the fail state.
 
-### Clock-out vs `cargo_rough` (they stack)
-
-Ending the run on clock-out would collapse two systems into one cliff — the old insulin-cooler binary the playtester never engaged with. Act V is a highway act: nothing is instantly fatal. Prefer thin-net.
+### Clock-out vs `cargo_rough` (`daylight_fail` wins)
 
 | Flag | When | What it does | What it does not do |
 |---|---|---|---|
-| `daylight_fail` | `time_cost >= 130` | Swaps the one V-013 scene clause to overrun. Same dusk grade-pass plate. | Does not end the run. Does not change decision, options, citation, or `cargo_rough`. |
-| `cargo_rough` | integer (else `yaw`) | CLEAN 0–3 / SCUFFED 4–8 / THINNED 9+ on the **existing** end-of-run beat. | Does not change V-013 light. **No fail-beyond-THINNED exists.** Do not invent one. If a later pass adds a hard fail, it is `cargo_rough`’s job and must be documented here first. |
-| **both set** | — | Overrun clause on V-013 **and** `cargo_rough` still bands the end beat. | No hard fail. No blended “you failed daylight” closer. |
+| `daylight_fail` | `time_cost >= 130` | **Ends the run.** It *is* the end-of-run fail state. `fail_kind: daylight`. | Does not force V-013 dusk as a continuing card. Does not become a cargo band. |
+| `cargo_rough` | integer (else `yaw`) | CLEAN 0–3 / SCUFFED 4–8 / THINNED 9+ on a **successful** end-of-run beat. Proposed for Claude to lock. | Does not end the run. Does not change V-013. |
+| **both set** | — | **`daylight_fail` wins and terminates.** | Do not play a thinned closer. Do not continue V-013. |
 
 ---
 
@@ -126,7 +117,7 @@ Ending the run on clock-out would collapse two systems into one cliff — the ol
 | V-010 | rule | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · n/a (no DOL lane-change heading) |
 | V-011 | hazard | `POV_MIRROR_DOOR` | Merger on the right — give them a lane if you have one. | eleven p2 · 5.2 Space (not zipper) |
 | V-012 | rule | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time (REVIEW) |
-| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. One scene clause swaps if `daylight_fail`. | eleven p2 · 5.2 Space (REVIEW) |
+| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. Dusk grade pass. | eleven p2 · 5.2 Space (REVIEW) |
 | — | existing end-of-run beat | — | Engine `deliveryBeat` / locked door after V-013. Not a new card. | n/a |
 
 Thirteen stubs. Play order is `seq`. The closer is the beat the game already fires when an act completes.
@@ -136,7 +127,7 @@ Thirteen stubs. Play order is `seq`. The closer is the beat the game already fir
 ## Explicitly deferred to Act VII
 
 - Snoqualmie Pass, chain-up, snowplow / Gravy, never-pass-a-plow
-- Night, deep night, **dusk-as-dark**, fog, ice, heavy snow. V-013 dusk (scheduled or overrun) is a grade pass over the deck plate, not VII dark. Not the Quiet herd. Not a hard end.
+- Night, deep night, **dusk-as-dark**, fog, ice, heavy snow. V-013 dusk is a grade pass over the deck plate, not VII dark. Not the Quiet herd. `daylight_fail` is a separate fail state — it does not rewrite this card.
 - Fatigue microsleep on a long wet pass (the Drift can cameo; the pass cannot)
 - Recurring lots at night (bible § visual accumulation)
 - Quiet herd (Doc 29 placement)
