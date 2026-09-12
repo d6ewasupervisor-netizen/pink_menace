@@ -1,0 +1,99 @@
+{
+  "card_id": "V-004",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "The Meter Is a Light",
+  "hook": "Red on the ramp. A white line.",
+  "scene": "Overcast morning at the foot of an I-5 on-ramp. A two-head signal hangs over a painted white stop line — a freeway ramp meter, not an intersection. The light is red. A sedan is already past it, running the acceleration stretch. Yuna clicks once and does not explain the rest. The kit in the back does not care if you roll a red here. The white line does.",
+  "decision": "The ramp meter is red. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Roll through — it is not a real light, just a suggestion for busy hours",
+      "correct": false,
+      "result": "You treat a red like weather. The sedan ahead never expected a second car on the same green. Ramp meters work like regular signals. You spent that.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Stop at the white stop line. When it turns green, continue up the on-ramp",
+      "correct": true,
+      "result": "You hold the line. Red stays red. Green comes. She clicks once. You use the rest of the ramp the way it was built — search, match, merge. The white line did the teaching.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stop under the signal, then creep around it on the shoulder to skip the wait",
+      "correct": false,
+      "result": "The shoulder is a post and a drain. You left the white line to steal a green that was not yours.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Wait until two greens so you and the next car go up together",
+      "correct": false,
+      "result": "One green is one car. You held a second cycle and made a pair on a ramp built for singles. The meter was already the rule.",
+      "state_delta": {
+        "time_cost": 12
+      }
+    }
+  ],
+  "debrief": "Red means stop on the white line. Green means continue up the on-ramp. Green gave the ramp back.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part one",
+    "dol_section": "4.11 Traffic light signals (Freeway ramp meters)",
+    "teaching_target": "LOCKED. Cite 4.11's Freeway ramp meters child, not the parent. Red = white stop line; green = continue up the on-ramp.",
+    "stat_cited": "DOL p.113: Ramp meters work like regular traffic signals. When the light is red, stop at the white stop line. When the signal turns green, you can continue along the on-ramp."
+  },
+  "cast": ["ali", "yuna"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "camera_is_the_lesson": true,
+    "subject": "a two-head ramp-meter signal over a white stop line on a wet on-ramp, red lit, no city name",
+    "foreground": "white stop line on wet asphalt, no readable word on the signal",
+    "midground": "two-head meter head on a short pole, red aspect lit",
+    "background": "overcast morning on-ramp rising away, no snow, no night",
+    "read": "the signal is red over a white stop line at the foot of the on-ramp",
+    "extra_negatives": [
+      "no intersection crossbar",
+      "no snow",
+      "no chain-up plaque",
+      "no readable city names",
+      "no person in frame"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "single-lane I-5 on-ramp at the meter stop line",
+      "ego_nose_in_frame": "travel continues away up the ramp; the plow is not the subject",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

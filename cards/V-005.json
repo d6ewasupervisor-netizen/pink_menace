@@ -1,0 +1,99 @@
+{
+  "card_id": "V-005",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Match Them Before Paint",
+  "hook": "The ramp is still yours. Their speed is not.",
+  "scene": "Wind, morning, I-5 south on-ramp. You are in the acceleration stretch. The right travel lane of the highway is a moving line of cars. A gap is forming behind a dirty day-cab. Your stalk is still off. The merge paint is coming. If you arrive slow you steal his brakes. If you arrive with no signal he never knew you were a sentence.",
+  "decision": "You are in the acceleration stretch. How do you join them?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold your ramp speed and slide over at the paint — they will lift for you",
+      "correct": false,
+      "result": "You meet the paint still slow. The day-cab stands on it. You borrowed someone else's stop to finish a merge you should have matched first.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Signal, match their speed here, then take the gap in the merge stretch",
+      "correct": true,
+      "result": "Amber talks. You run the stretch up to their number. The gap you take is one you already paid for with speed. The stalk dies after you sit.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stop now and wait for a gap that is already empty for a quarter mile",
+      "correct": false,
+      "result": "You plant it in the acceleration stretch. The ramp behind you becomes a standing start. Highways do not empty for a stopped Beetle.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 12
+      }
+    },
+    {
+      "id": "d",
+      "text": "Cut left across two highway lanes so you are not stuck on the right",
+      "correct": false,
+      "result": "You take two lanes from a ramp. The first sedan lifts. The second never had a sentence. You spent two gaps to skip the job.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "Signal in the acceleration stretch. Match their speed. Take the gap at the merge. You took their paint at their number.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part one",
+    "dol_section": "5.3 Merging",
+    "teaching_target": "REVIEW of 5.3 Merging at highway speed. PSDP p1 Lesson three – merging: signal, match flow, take the gap.",
+    "stat_cited": "PSDP p.31: In the acceleration area, signal to show intent to enter the highway and adjust speed to match the traffic flow."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "from the seat looking forward along the on-ramp, merge paint ahead, day-cab in the highway right lane",
+    "foreground": "worn black wheel, left stalk off, faded pink dash, handheld on the floor",
+    "midground": "wet acceleration asphalt, skip-dash beginning at the merge, pink plow bar at the bottom of the glass",
+    "background": "wind morning I-5, three travel lanes, no snow, no night",
+    "read": "the Beetle is still on the ramp; the day-cab is already at highway speed in the right lane",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": [
+      "no stop lamps lit on the Beetle",
+      "no snow",
+      "no clipboard in the glass",
+      "no second occupant"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "I-5 on-ramp acceleration stretch joining the right travel lane",
+      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing toward the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "wind",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "inexperience",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}
