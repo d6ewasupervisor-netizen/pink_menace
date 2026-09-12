@@ -19,6 +19,7 @@ Claude — not seeded live.
 | IV-028 | both cats' faces are at the grate of the closed strapped carrier on the true floor; a person in a dark coat is already mid-crossing the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-70.png` |
 | IV-030 | the Beetle is pointed east; the city is behind it and shut | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-15.png` |
 
-Notes: `cards/takes/WAVE_IV-027-028-030.md`.
+Notes: IV-028 this wave `cards/takes/WAVE_IV-028-carrier-crosswalk.md`.
+IV-027 / 030 still `cards/takes/WAVE_IV-027-028-030.md`.
 
 Do not seed `cards/IV-027.png` / `028` / `030` until Claude PASSes.
