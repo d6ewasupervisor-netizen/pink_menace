@@ -9,9 +9,9 @@ Card JSON is the sole brief. Stills from each card's MOMENT (hook/scene), not th
 
 | Card | Closest | Runner-up / bank | Residual |
 |---|---|---|---|
-| **VI-004** Off the Edge | **`VI-004-take-2.png`** | take-3; take-1 bank | Prefer 2/3 for mid-event drop (wheels already off). Take-1 more approach-ish. |
-| **VI-009** Look for the Others | **`VI-009-take-1.png`** | take-2 | Deer broadside in-lane at dusk. |
-| **VI-011** Same Culvert | **`VI-011-take-2.png`** | take-1 | Lip + culvert + all tires on pavement; nothing happening. |
+| **VI-004** Off the Edge | **`VI-004-take-11.png`** (in-car regen) | take-4…6; exterior 1–3 bank | Claude FAIL on parked exterior → `POV_COCKPIT` mid-event. Avoid take-8 (dash text), take-10 (112.0), take-7/12/13/14 glitch. |
+| **VI-009** Look for the Others | **`VI-009-take-1.png`** | take-2 | Deer broadside in-lane at dusk. Watch 112.0 cluster on some cockpit takes. |
+| **VI-011** Same Culvert | **`VI-011-take-4.png`** (in-car regen) | take-5/6; exterior 1–2 bank | Claude FAIL on parked exterior → `POV_COCKPIT` hold. Avoid take-3 (112.0). |
 | **VI-013** The Clipboard, Again | **`VI-013-take-2.png`** | — | Passenger + clipboard. **take-1 FAIL** (driver seat). **take-3 FAIL** (split panel). |
 
 Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes as `cards/takes/`).
@@ -20,9 +20,9 @@ Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes 
 
 | Card | Title | Camera | Takes |
 |---|---|---|---|
-| VI-004 | Off the Edge | POV_ROADSIDE_PROFILE | take-1…3 |
+| VI-004 | Off the Edge | POV_COCKPIT (regen; exterior takes 1–3 banked) | take-1…14 |
 | VI-009 | Look for the Others | POV_COCKPIT | take-1…2 |
-| VI-011 | Same Culvert | POV_ROADSIDE_PROFILE | take-1…2 |
+| VI-011 | Same Culvert | POV_COCKPIT (regen; exterior takes 1–2 banked) | take-1…7 |
 | VI-013 | The Clipboard, Again | POV_COCKPIT | take-1…3 |
 | VI-001 | Where the Blacktop Quits | POV_COCKPIT | take-1…2 |
 | VI-012 | Crossbuck and Nothing Else | POV_COCKPIT | take-1…2 |

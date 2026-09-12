@@ -21,12 +21,14 @@ Priority stills also staged at `artifacts/act-vi-wave1-priority/` (same bytes as
 
 | Card | Title | Prefer | Takes | Hard note |
 |---|---|---|---|---|
-| **VI-004** | Off the Edge | **take-2 / take-3** (over take-1 approach-ish) | `VI-004-take-1.png` `VI-004-take-2.png` `VI-004-take-3.png` | Wheels **ALREADY OFF** — right side down on dirt, road higher on the left — mid-event. `POV_ROADSIDE_PROFILE`. |
-| **VI-009** | Look for the Others | take-1 / take-2 | `VI-009-take-1.png` `VI-009-take-2.png` | Deer **BROADSIDE IN THE LANE** at dusk, close — not roadside grazing. `POV_COCKPIT`. |
-| **VI-011** | Same Culvert | take-1 / take-2 | `VI-011-take-1.png` `VI-011-take-2.png` | Lip + soft dirt, **nothing happening**. `POV_ROADSIDE_PROFILE`. |
-| **VI-013** | The Clipboard, Again | **take-2** (passenger OK) | `VI-013-take-1.png` `VI-013-take-2.png` `VI-013-take-3.png` | Deac **passenger** + metal clipboard. **take-1** driver-seat **FAIL**. **take-3** split-panel **FAIL**. |
+| **VI-004** | Off the Edge | **take-11** (in-car regen; over exterior 1–3) | `VI-004-take-4.png`…`take-14.png` (+ banked exterior 1–3) | Interior mid-event: wheels **ALREADY OFF**, cabin pulls toward ditch, wheel wants to yank. Prefer take-11. Avoid take-8 (dash text), take-10 (112.0), take-7/12/13/14 glitch. |
+| **VI-009** | Look for the Others | take-1 / take-2 | `VI-009-take-1.png` `VI-009-take-2.png` | Deer **BROADSIDE IN THE LANE** at dusk, close — not roadside grazing. `POV_COCKPIT`. Watch **112.0** cluster. |
+| **VI-011** | Same Culvert | **take-4** / take-5 / take-6 (in-car regen) | `VI-011-take-3.png`…`take-7.png` (+ banked exterior 1–2) | In-car hold: same lip, **nothing happening**, middle of lane. Avoid take-3 (**112.0**). |
+| **VI-013** | The Clipboard, Again | **take-2** (passenger OK) | `VI-013-take-1.png` `VI-013-take-2.png` `VI-013-take-3.png` | Deac **passenger** + metal clipboard. **take-1** driver-seat **FAIL**. **take-3** split-panel **FAIL**. Watch **112.0** on take-1. |
 
-Provisional closest (from map): VI-004→take-2, VI-009→take-1, VI-011→take-2, VI-013→take-2.
+Provisional closest (regen): VI-004→take-11, VI-009→take-1, VI-011→take-4, VI-013→take-2.
+
+Regen pack: `artifacts/act-vi-004-011-regen/`.
 
 ---
 
