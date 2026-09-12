@@ -50,3 +50,7 @@ Scope the grate plates to in-carrier frames only. Do **not** attach them to out-
 - **Gracie** = ginger → `ref_cat_ginger.png`
 
 Art regen is paused pending daughter feedback. Do not generate new stills from these plates until that pass.
+
+## V-004 stop bar (Act V)
+
+`presence: 0` is canonical — no Quiet. Extra geometry lock: the Menace sits **AT** the white ramp-meter stop bar (not short of it, not past it). Meter + line stay the `POV_OBJECT` lesson. Attach `ref_car_exterior.jpg` + `ref_car_nose_plow.png`. Do not seed until muted-read PASS.
