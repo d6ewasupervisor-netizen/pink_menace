@@ -57,18 +57,30 @@ Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 | V-003 | Three Pieces of Ramp | scene | take-5 · #168 | MATCH |
 | V-004 | The Meter Is a Light | rule | take-11 · #191 | MATCH |
 | V-005 | Match Them Before Paint | scene | take-5 · #184 | MATCH |
-| V-006 | Beside the Trailer | hazard | take-3 · Ribbon wave-1 (PR #198/#199) | pending seed |
+| V-006 | Beside the Trailer | hazard | take-3 · Ribbon wave-1 (PR #198/#199/#200) | MATCH |
 | V-007 | Slow On the Ramp | rule | take-18 · #185 | MATCH |
-| V-008 | The Cone Line | scene | take-3 · Ribbon wave-1 (PR #198/#199; take-1 FAIL not seeded) | pending seed |
+| V-008 | The Cone Line | scene | take-3 · Ribbon wave-1 (PR #198/#199/#200; take-1 FAIL not seeded) | MATCH |
 | V-009 | Small Hands at Speed | scene | take-37 · #197 (PR #192 PASS; take-31 not used) | MATCH |
 | V-010 | One Lane, Then Sit | rule | take-10 · #194 | MATCH |
 | V-011 | Zipper at the Closure | hazard | take-7 · #159 | MATCH |
 | V-012 | Three Seconds Here Too | rule | take-20 · #194 | MATCH |
-| V-013 | Flashers on the Strip | scene | take-5 · Ribbon wave-1 (PR #198/#199) | pending seed |
+| V-013 | Flashers on the Strip | scene | take-5 · Ribbon wave-1 (PR #198/#199/#200) | MATCH |
 
 ### V-009 status
 
 **Live.** Claude overflow (`890f91af` / `d748b5d7`) authoritative pick is **take-37 PASS** (eyes forward). **take-31 FAIL** (head turned to camera / eyes off road) — not used. File-seed + live DB: [PR #197](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/197). PR #196 take-31 seed is superseded.
+
+### Ribbon wave-1 seed (2026-09-12)
+
+**Live.** Claude PASS + Brad promote. File-seed + live DB: [PR #200](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/200). Remaps from [PR #199](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/199). Stills from [PR #198](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/198).
+
+| Card | Seeded take | webp md5 | Not seeded |
+|---|---|---|---|
+| V-013 | take-5 | `92d548a31abb5e8f7d1b5f516bd730df` | take-3 banked |
+| V-008 | take-3 | `dc7ccd313519500cb9df16b056b0340c` | take-1 FAIL |
+| V-006 | take-3 | `4d68c80a9effdfd372991f49c89af410` | take-1 banked |
+
+Independent `audit-stills --act V` → **13/13 MATCH**.
 
 ## Left unmerged (on purpose)
 
