@@ -124,9 +124,13 @@ PINK MENACE:
 
 PINK MENACE INTERIOR:
   "a cracked faded pink dashboard, worn black leather steering wheel with a
-  chrome center hub, round analog gauge cluster, an aftermarket navigation
-  tablet mounted center dash, a bank of illuminated rocker switches, welded
-  steel mesh across the windshield"
+  chrome center hub, round analog gauge cluster with needle dials only
+  (needles at rest when parked), an aftermarket navigation tablet mounted
+  center dash that is dark and blank unless the brief names a map, a bank
+  of illuminated rocker switches, welded steel mesh across the windshield.
+  Never a digital speed readout, never LCD digits, never 112.0, never a
+  highway-speed LED cluster. Do not attach refs/ref_cockpit.jpg — it is
+  the poisoned 112.0 + desert-GPS plate."
 
 DEAC:
   "a broad tall-shouldered 54-year-old man with dark brown skin, close-cut gray
@@ -527,7 +531,7 @@ else. No commentary. No alternatives.
 |---|---|
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
 | Pink Menace exterior | `ref_car_exterior.jpg` |
-| Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` |
+| Pink Menace interior / `POV_COCKPIT` | Do **not** attach `ref_cockpit.jpg` (poisoned 112.0 + desert GPS). Analog needles from the brief + LOCKS. Cabin plate still open (PR #75). |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |
