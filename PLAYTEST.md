@@ -84,11 +84,11 @@ Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 
 ### QP-003 V-013 Quiet silhouette seed (2026-09-12)
 
-**Live.** Claude overflow mute-read PASS + Brad promote **take-7**. Composites from [PR #204](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/204). Skill 11 Flashers remap intact (PR #199). **take-6 not seeded.**
+**Live.** Claude overflow mute-read PASS + Brad promote **take-7**. Composites from [PR #204](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/204). **NOT Hollis** — live V-013 is Skill 11 **Flashers on the Strip** (PR #199); Quiet silhouette dressing sits on the Flashers card. **take-6 not seeded.**
 
 | Card | Seeded take | Notes |
 |---|---|---|
-| V-013 | **take-7** | Quiet silhouettes on banked take-3 plate; replaces empty-stretch take-5 |
+| V-013 | **take-7** | Flashers card (PR #199 remap); Quiet silhouettes on banked take-3 plate; replaces empty-stretch take-5; webp md5 `2e30f11052e20e5a6b946d1e068af9db` (83990 B) |
 
 Independent `audit-stills --act V` → **13/13 MATCH**.
 

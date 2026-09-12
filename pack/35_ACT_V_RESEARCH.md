@@ -186,7 +186,7 @@ WA headings **not in `pack/08` yet** (do not add this act):
 | `4.12 Signs` | 3 | Do **not** catch-all onto V-001 or V-007. |
 | `4.10 Traffic laws` | used in I–IV (keep-right / unnecessary pass) | REVIEW on **V-006** — highway keep-right except to pass. Not a 5.3 merge/gap duplicate. |
 | `5.5 Focus` | used in I–IV | REVIEW pairing on **V-001** (observation / eyes up). Not 4.12 Signs. |
-| `5.2 Space` | 7 | V-013 tailgater (REVIEW). V-011 is zipper, not 5.2. |
+| `5.2 Space` | 7 | Historical plan: V-013 tailgater (REVIEW). **Superseded:** live V-013 is Skill 11 **Flashers on the Strip** (PR #199), **NOT Hollis**. V-011 is zipper, not 5.2. |
 | `5.10 Law enforcement` | **unused** on this `main` count (IV-019/020 are not on `main`) | Not Ribbon. |
 | `5.8 Communicating risks` | unused parent, not in `pack/07` | Low. Mentions highways. Not Skill eleven’s lesson list. |
 
@@ -249,7 +249,7 @@ Exact Act VII chain quote (`source/driver-guide.pdf` **5.6** / Slippery roads):
 | p2 Lesson two – one lane at a time | V-010 | n/a (no DOL lane-change heading) |
 | Highway zipper (work-zone / lane-closure) | V-011 | 5.3 Merging (Zipper merging) |
 | p2 Lesson three – three-second rule | V-012 | 5.4 Time (Count seconds) (REVIEW) |
-| p2 Lesson two – tailgater, move over | V-013 | 5.2 Space (REVIEW). On-schedule dusk only. |
+| p2 Lesson two – tailgater, move over | ~~V-013~~ (retired) | Historical. **Live V-013** = Skill 11 **Flashers on the Strip** (PR #199), **NOT Hollis**; QP-003 take-7 Quiet dressing on Flashers. |
 
 Dropped from PR #132: Deac ride-along, Ledger ego, Old Ninety trailer-stop (truck stopping-distance / axle-adjacent). Zipper leftover is now **V-011**. Rain is legal on Skill eleven p2 lesson four; this pass keeps two daylight-rain cards (V-007, V-011) and does not use snow.
 
@@ -261,6 +261,6 @@ Dropped from PR #132: Deac ride-along, Ledger ego, Old Ninety trailer-stop (truc
 2. No Yuna. Lock: **radio-only** (cast may list `yuna`; she is never in the still).
 3. Load was “valley drop.” Lock: **Tower 4** (same kit: repeater, antenna, mast clamps).
 4. Missing unused highway child: **ramp meters.**
-5. V-013 taught a trailer’s stopping distance — too close to truck tire/axle framing. Replaced with Hollis / move-over.
+5. V-013 taught a trailer’s stopping distance — too close to truck tire/axle framing. Replaced with Hollis / move-over. **Later remapped (PR #199):** live V-013 is Skill 11 **Flashers on the Strip**, **NOT Hollis**; QP-003 take-7 Quiet dressing sits on the Flashers card.
 6. Cargo-fail copy said the kit “sat” / “tomorrow.” Thin-net: late still delivers.
 7. `pack/08` on `main` still stops at Skill ten — Skill eleven lives on this stack only until merge.

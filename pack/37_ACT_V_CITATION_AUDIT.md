@@ -49,7 +49,7 @@ Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) 
 | V-010 | eleven p2 | `n/a` | **NEW** / PSDP alone | One lane at a time. No DOL lane-change heading. Was a false 5.3. |
 | V-011 | eleven p2 | `5.3 Merging (Zipper merging)` | **NEW** child | Highway work-zone / lane-closure zipper. Not courtesy move-over. Not V-010. Yuna radio beat. |
 | V-012 | eleven p2 | `5.4 Time (Count seconds)` | REVIEW | Three-second at highway speed (II-012 already spent the parent). |
-| V-013 | eleven p2 | `5.2 Space` | REVIEW | Tailgater / move over. On-schedule dusk grade pass. Hollis once. `daylight_fail` does not play this card. |
+| V-013 | eleven p2 | `2.6 Occupant Protection` | TEACH | **Flashers on the Strip** (PR #199) — **NOT Hollis**. Freeway stop: past curve, right, flashers, stay inside. QP-003 take-7 Quiet dressing on Flashers. `daylight_fail` does not play this card. |
 | — | existing end beat / fail | n/a | engine | Successful closer banded by `cargo_rough`. `daylight_fail` is the fail state and terminates. Not V-014. |
 
 `5.3` parent is cited **twice on one heading** (one NEW + one REVIEW). The zipper **child** is spent on V-011. V-006 left the parent for `4.10 Traffic laws`.

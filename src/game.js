@@ -60,9 +60,9 @@ async function ledgerForOrigin(client, runId, fromCard) {
   return rows[0] ? rows[0].card_id : null;
 }
 
-// Quiet already in the I-005–I-008 stills. Do not add Skill 11 / Ribbon teaching
-// frames (V-006 / V-008 / V-013). Herd is Act VII. QP-003 composites later.
-const QUIET_IN_FRAME = new Set(["I-005", "I-006", "I-007", "I-008"]);
+// Quiet already in the I-005–I-008 stills and in V-013 take-7 (QP-003 baked-in).
+// Do not overlay-composite Quiet onto V-006 / V-008. Herd is Act VII.
+const QUIET_IN_FRAME = new Set(["I-005", "I-006", "I-007", "I-008", "V-013"]);
 
 function isBeatCard(type) {
   return type === "beat";

@@ -135,31 +135,31 @@ Daylight rain, morning, I-90 east, three lanes. You are in the right. In the rig
 
 ---
 
-## V-013 — Let Hollis Have It
+## V-013 — Flashers on the Strip
+
+> **Remap lock (PR #199):** live V-013 is Skill 11 **Flashers on the Strip**, **NOT Hollis**. Older Hollis / move-over split copy is retired. QP-003 / take-7 Quiet silhouette dressing sits on this Flashers card. Authority: `cards/V-013.json`.
 
 Type: `scene` · Ali · The Ribbon
 
-**Lesson:** REVIEW of 5.2 Space. PSDP p2 Lesson two – tailgater, move over. Do not teach truck tire or axle.
+**Lesson:** Skill eleven p2 — freeway stop: past the curve, all the way right, flashers on, stay inside and belted.
 **PSDP:** Skill eleven: highway driving – part two
-**DOL:** 5.2 Space
-**Cited:** PSDP p.32: Watch mirrors for tailgaters and move to another lane to let them pass.
-**Weather:** `rain` · dusk (wet asphalt has a rain source)
+**DOL:** 2.6 Occupant Protection
+**Cited:** Claude Skill 11 JSON (PR #199). Live still: take-7 Quiet silhouette (QP-003).
+**Weather:** `rain` · dusk
 
-**Hook:** His bumper is in the glass. Again.
+**Hook:** The car starts pulling hard right.
 
-Last daylight rain on I-90 east, still the valley floor. The sky is going — copper at the rim, gray over the deck — and the dash lamps are just coming up. It is dusk, not afternoon. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt catching the last light. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.
+The car starts pulling hard right. The shoulder here is narrow, there's a curve in the road behind you, the light is going, and nobody is in the other seat.
 
-**Decision:** Hollis is on your tail in the center. The right is empty. What do you do?
+**Decision:** The car is pulling hard right. What do you do?
 
 **Options**
 
-- **a** (CORRECT): Signal right, take the empty lane, let him have the center
-  - Result: One change. He blows past in the center. Your following distance is yours again. You did not write a brake lamp into his windshield.
-- **b** (wrong): Tap the brakes to tell him he is too close
-  - Result: Your lamps hit his glass. He stands on it or he climbs you. Either way you taught a tailgater with light. The empty lane was the sentence.
-- **c** (wrong): Hold the center and drop ten so the gap in front of you looks safer
-  - Result: You slow in front of a man who will not. The gap behind dies. You spent your own cushion to keep a lane he wanted.
-- **d** (wrong): Speed up until he cannot match the Menace
-  - Result: He matches. Then he matches more. You bought a race on a highway. The empty right was still empty.
+- **a** (CORRECT): Keep it straight, get well past the curve, then pull all the way right and stay inside
+  - Result: You hold it through the bend, then take the strip: all the way right, flashers on, belt still clipped. You stay a shape inside steel. The curve is behind you, not under you.
+- **b** (wrong): Stop right here before it gets worse
+  - Result: You plant it in the bend. The next lamps come around a curve and find a Beetle with no sightline. The strip past the curve was the pad. Here is just the wall and the through.
+- **c** (wrong): Get out and look at what happened
+  - Result: You unclip and step onto a live freeway shoulder the width of a plate. A look at a soft tire is not worth a body on the fog line. The next lamps have no time.
 
-**Debrief:** Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your doors alone.
+**Debrief:** If you have to stop on a freeway, get well past any curve, pull as far right as you can, turn on your hazard lights, and stay inside the car with your seatbelt on.

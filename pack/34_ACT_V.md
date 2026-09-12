@@ -117,7 +117,7 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 | V-010 | rule | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · n/a (no DOL lane-change heading) |
 | V-011 | hazard | `POV_DIAGRAM` | Highway work-zone zipper — both lanes, then take-turns. | eleven p2 · 5.3 Merging (Zipper merging) |
 | V-012 | rule | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time (REVIEW) |
-| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. On-schedule dusk grade pass. | eleven p2 · 5.2 Space (REVIEW) |
+| V-013 | scene | `POV_CHASE` | **Flashers on the Strip** (PR #199 Skill 11 remap — **NOT Hollis**). Freeway shoulder stop; QP-003 take-7 Quiet dressing on the Flashers card. | eleven p2 · 2.6 Occupant Protection |
 | — | existing end-of-run beat | — | Engine `deliveryBeat` / locked door after V-013. Not a new card. | n/a |
 
 Thirteen stubs. Play order is `seq`. The closer is the beat the game already fires when an act completes.
@@ -164,7 +164,7 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 3. **Valley floor.** Tower 4 is the named drop. Painted cutoff stays Issaquah / last urban I-90 interchange — not the pass.
 4. **Ali as decider.** She has every wheel. No Ledger handoff.
 5. **Skill twelve/thirteen.** Wait for VI.
-6. **Hollis / Old Ninety.** Hollis once (V-013). Old Ninety parked — no trailer-stop / tire / axle card.
+6. **Hollis / Old Ninety.** Hollis is **not** live V-013 (that card remapped to Skill 11 **Flashers on the Strip**, PR #199). Old Ninety parked — no trailer-stop / tire / axle card.
 7. **Bible §2 yaw.** Updated to Skill eleven part two.
 
 ---

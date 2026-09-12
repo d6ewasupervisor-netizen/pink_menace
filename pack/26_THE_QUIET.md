@@ -76,4 +76,4 @@ If she sees them and it doesn't change how she drives, the tiers are firing but 
 
 Text only. One tap. No new cards. Fires once when entering the next act (II+), from the prior run's presence or a daylight cargo-fail. Four lines: farther / still out there / closer / daylight closed in. Never "zombies." Never "you're safe."
 
-QP-003 V-013 live still is **take-7** Quiet silhouette dressing (Claude overflow mute-read PASS + Brad promote). take-6 FAIL — not seeded. Teaching read stays Skill 11 Flashers on the Strip — two distant figures only. No Quiet on V-006 / V-008. QP-004 (V-001, V-007, V-010, Acts II–IV ambient) is later.
+QP-003 V-013 live still is **take-7** Quiet silhouette dressing (Claude overflow mute-read PASS + Brad promote). take-6 FAIL — not seeded. **NOT Hollis** — live V-013 is remapped to Skill 11 **Flashers on the Strip** (PR #199); Quiet dressing sits on that Flashers card. Teaching read stays the shoulder stop — two distant figures only. No Quiet on V-006 / V-008. QP-004 (V-001, V-007, V-010, Acts II–IV ambient) is later.
