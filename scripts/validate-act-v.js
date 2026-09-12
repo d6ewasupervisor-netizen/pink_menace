@@ -25,6 +25,7 @@ const castEnum = schema.properties.cast.items.enum;
 
 const DEFERRED_VII = /\b(snoqualmie|chain-?up|\bchains\b|gravy|snowplow|deep[_ ]night|\bfog\b|\bice\b|mountain pass)\b/i;
 const REPLAY = /\b(fred meyer|two-way left|hov diamond|the lot\b|quiet street)\b/i;
+const INVENTED_LOAD = /\b(insulin|june|delridge|fuel drums?|single-axle|flatbed|load_state|sway[- ]load|tow hitch|towing a)\b/i;
 
 const cards = files
   .map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")))
@@ -96,6 +97,9 @@ for (let i = 0; i < cards.length; i++) {
     err(id, "Act VII material (chains / Snoqualmie / plow / night weather) leaked into a teaching card");
   }
   if (REPLAY.test(blob)) err(id, "replays Act I–III stage language");
+  if (INVENTED_LOAD.test(blob)) {
+    err(id, "invented or retired load (insulin / June / flatbed / drums / tow) — keep Ledger + unnamed cooler");
+  }
   if (i >= 2 && c.card_type === cards[i - 1].card_type && c.card_type === cards[i - 2].card_type) {
     err(id, "three same types in a row");
   }

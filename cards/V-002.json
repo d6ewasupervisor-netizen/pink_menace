@@ -6,12 +6,12 @@
   "card_type": "dossier",
   "title": "The Ribbon Has a Name",
   "hook": "I-5, then I-90. The pass is closed.",
-  "scene": "The Ledger is parked on a wide paved shoulder just before the I-5 south ramp, engine still, key in. Overcast midday. Clipboard on the doghouse between the seats. The log line is I-5 south, I-90 east, valley floor only. Ali is in the jump seat. Mya is a loaf on the dash because the wheels are not turning. The mountain sits in the east as a shape, not a road. Deac taps the thermos. The schedule does not climb today.",
-  "debrief": "Parked: cluster at zero, clipboard on the doghouse between the seats, Mya on the dash. The log stops at the valley floor.",
+  "scene": "The Ledger is parked on a wide paved shoulder just before the I-5 south ramp, engine still, key in. Overcast midday. Clipboard on the doghouse between the seats, cooler beside it. The log line is I-5 south, I-90 east, valley floor only. The CARGO line still says the next drop — he has not named what is in the box. Ali is in the jump seat. Mya is a loaf on the dash because the wheels are not turning. The mountain sits in the east as a shape, not a road. The schedule does not climb today.",
+  "debrief": "Parked: cluster at zero, clipboard and cooler on the doghouse between the seats, Mya on the dash. The log stops at the valley floor.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Establish the Ribbon: I-5 then I-90 to the valley floor; the pass is not this act."
+    "teaching_target": "Establish the Ribbon and the existing cargo furniture (clipboard, cooler). CARGO line stays unnamed — the next drop. No new vehicle or load."
   },
   "cast": ["deac", "ali", "mya"],
   "antagonist": "none",
@@ -20,7 +20,7 @@
   "image_brief": {
     "camera": "POV_PORTRAIT",
     "subject": "Deac chest-up in the parked Ledger, amber vest, glasses on the cord, thermos in one hand",
-    "foreground": "dulled amber vest tape at the shoulder, clipboard edge on his thigh",
+    "foreground": "dulled amber vest tape at the shoulder, clipboard edge on his thigh, cooler not in the glass",
     "midground": "bar cage and still wipers, no motion in the glass",
     "background": "overcast midday shoulder, I-5 ramps soft and distant, no snow, no night",
     "read": "Deac is parked; the wheels are still; the mountain is only a distant shape",
@@ -30,7 +30,10 @@
       "no snow",
       "no chain-up",
       "no Encore",
-      "no Pink Menace"
+      "no Pink Menace",
+      "no flatbed",
+      "no fuel drums",
+      "no trailer hitch"
     ],
     "aspect": "2:3"
   },

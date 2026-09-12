@@ -4,7 +4,7 @@ First outline only. No stills. Do not seed. Do not touch Act IV art or takes.
 
 **Constraint (authoritative):** Act V = **The Ribbon** (I-5 / I-90) + **Skill eleven** highway material. Driver: **Deac / the Ledger**. Daylight.
 
-**Not this act:** chains, snow, ice, fog, night, Snoqualmie Pass, Gravy the plow. Those belong to **Act VII · The Dark Hours**. Rural roads and roundabouts belong to **Act VI · The Backcountry** (WA PSDP Skill twelve / Skill thirteen).
+**Not this act:** chains, snow, ice, fog, night, Snoqualmie Pass, Gravy the plow (Act VII). Rural / roundabouts (Act VI). **No invented tow, flatbed, fuel drums, or sway `load_state`.** Vehicle and cargo stay the existing Ledger + cooler model.
 
 ---
 
@@ -22,8 +22,12 @@ First outline only. No stills. Do not seed. Do not touch Act IV art or takes.
 | WA PSDP `21WAPSDP_LR.pdf` | **Skill eleven: highway driving – part one** (pp. 33) / **part two** (pp. 34). |
 | IV-015 `teaching_target` | Already notes Skill thirteen is not on the allowlist (roundabouts → Act VI). |
 | IV-030 | Eastbound Core cliffhanger; the pass stays closed. Act V takes the freeway, not the pass. |
+| `pack/21_THE_MANIFEST.md` + `src/manifest.js` | Cooler / `time_cost` / COLD tag is the cargo **mechanic**. Clipboard template is per-act. Act II still names insulin / June; Act III is the placeholder `"Deac's cargo"` / `"the next drop"`. No Act V row. |
+| `pack/01_BIBLE.md` §3.2 | Ledger lock: cutaway box, roof rack with **lashed water cans + folded ramp**, lift door as loading bay. No trailer, no tow package. |
 
 Act IV live cards cite **Skill ten: city driving**, not 11–12. The bible’s old Act IV = 11–12 / Act V = 13–14 map was the generic booklet, not the WA headings this pack copies.
+
+**Insulin hygiene (not this PR’s story job):** a later Doc 28 (not in this repo) retired insulin as recurring fiction and kept the cooler. `21` / `manifest.js` still hard-code June / insulin. Do not copy that string onto the Ribbon. Do not invent a replacement payload here — name the gap.
 
 ---
 
@@ -34,6 +38,16 @@ The Ribbon is the limited-access highway after The Core. I-5 south of downtown, 
 Deac has the wheel. Ali is in the jump seat for the watch-layer opener. Mya is not loose while rolling. The Ledger’s only rearward vision is the door mirrors — no `POV_MIRROR_REAR`.
 
 Teaching job: enter, travel, and leave a highway at speed without planting the bus, pinching a ramp, or yawing the box.
+
+---
+
+## Vehicle and cargo — existing model only
+
+**Vehicle is the Ledger as already locked.** Tall square cargo box on a van nose. Roof rack = water cans + folded ramp. Lift door is the loading bay. Yaw is the bus, not a trailer. No hitch, no single-axle flatbed, no fuel drums, no `load_state` / sway-load mechanic. Claude drafted that hardware and walked it back as invention — this skeleton must not re-introduce it.
+
+**Cargo economy is the cooler, not a new object.** `time_cost` still spends COLD. The tag in `21` stays the widget. What is *in* the cooler / the box is **unnamed**. Act III already shipped that gap (`"Deac's cargo"` / `"the next drop"`). V-002 points at the blank CARGO line. It does not fill it.
+
+Do not write insulin, June, Delridge, drums, or a tow into Act V cards. Do not add `MANIFESTS.V` in this PR.
 
 ---
 
@@ -66,7 +80,7 @@ DOL already mapped for this zone: **4.4** large vehicles, **5.1** speed, **5.3**
 | Card | Type | Shot | Lesson one-liner | Skill / DOL |
 |---|---|---|---|---|
 | V-001 | ride-along | `POV_COCKPIT` | Deac names the Ribbon: interchange, signs, paint. She watches. | eleven p1 · 4.12 Signs |
-| V-002 | dossier | `POV_PORTRAIT` | The schedule says I-5 then I-90. The pass is not this run. | n/a |
+| V-002 | dossier | `POV_PORTRAIT` | Schedule is I-5 then I-90. Cooler + clipboard are the existing load furniture; CARGO line unnamed. | n/a |
 | V-003 | scene | `POV_DIAGRAM` | A ramp is three pieces. Use each for its job. | eleven p1 · 5.3 Merging |
 | V-004 | scene | `POV_COCKPIT` | Match their speed in the acceleration stretch, then take the gap. | eleven p1 · 5.3 Merging |
 | V-005 | hazard | `POV_COCKPIT` | No gap yet — change speed. Do not plant the bus. | eleven p1 · 5.3 Merging |
@@ -112,6 +126,15 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 ---
 
 ## Open questions for Claude
+
+### Load (do not invent hardware to answer these)
+
+9. **Named replacement load.** Insulin is retired as recurring fiction; the cooler stays. Act III never named the box. What is Act V carrying, if anything, and does the clipboard CARGO line stay `"the next drop"` until you say?
+10. **Cooler on the Ribbon.** Same COLD / `time_cost` widget as II–III, or a highway run that keeps the tag but changes the copy (not the object)?
+11. **`MANIFESTS.V`.** When you name the load, add the row in `src/manifest.js` + the `21` template. This PR does not. Do not invent a second economy (`load_state`, sway, drums).
+12. **Doc 21 / June / insulin.** Spec hygiene on the live clipboard UI — out of scope here. Confirm whether Act IV/V should keep showing the Act II string until that patch.
+
+### Still open from the first draft
 
 1. **Rain on the Ribbon.** Skill eleven part two lesson four asks for highway practice in rain. Act IV locked dusk/night to VII. Is one daylight rain card (V-006 / V-010) legal, or is all weather except overcast VII?
 2. **Ride-along reprise.** V-001 is a second Deac watch-layer (highway observation). Keep it, or open on a scene so III-001 stays the only ride-along?
