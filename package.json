@@ -10,7 +10,9 @@
     "seed": "node scripts/seed-cards.js",
     "audit-stills": "node scripts/audit-stills.js",
     "playtest-prep": "node scripts/playtest-prep.js",
-    "validate-cards": "node scripts/validate-citations.js && node scripts/validate-act-ii.js && node scripts/validate-act-iii.js && node scripts/compile-images.js",
+    "validate-cards": "node scripts/validate-citations.js && node scripts/validate-act-ii.js && node scripts/validate-act-iii.js && node scripts/validate-wave-briefs.js && node scripts/compile-images.js",
+    "test-wave-briefs": "node scripts/test-wave-briefs.js",
+    "write-wave-brief": "node scripts/write-wave-brief.js",
     "playthrough": "node scripts/playthrough-readout.js",
     "art-review": "node tools/art-review/server.js --act III --card III-010",
     "sync-art-review": "node tools/art-review/sync-seeded-state.js"

@@ -4,6 +4,12 @@ For the review tool. The goal is that a note leaves the screen as a **work order
 
 ---
 
+## 0. WAVE BRIEFS — card JSON is the sole brief authority
+
+**Wave briefs list card IDs only.** A wave brief, stills batch brief, or parallel stills prompt lists card IDs and nothing else. It is not a source of frame descriptions. `image_brief` and the frame description are always read from the card JSON at compile time. Card JSON is the sole brief authority. Stale parallel briefs must not override the locked card.
+
+Full rule: `39_WAVE_BRIEFS.md`. Compile: `03_IMAGE_COMPILER_PROMPT.md`.
+
 ## 1. THE ORDER — text before pixels, every card
 
 Check in this sequence and **stop at the first failure.** Most bad frames are downstream of a bad card, and regenerating art on a broken card is wasted money.

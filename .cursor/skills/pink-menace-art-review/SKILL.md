@@ -64,6 +64,7 @@ Muted-read test for PASS: cover the text; if the picture doesn't teach `read`, i
 
 ## Regen (recompile tags only)
 
+0. Wave briefs list card IDs only. Compile `image_brief` from `cards/<id>.json`. Card JSON is the sole brief authority. Do not paste frame descriptions from a wave file, NEXT-STILLS, or a parallel stills prompt. See pack/39_WAVE_BRIEFS.md.
 1. Brief already coherent. The `read` must be a static photographable fact.
 2. Multi-lane: numbered lanes + `frame_side` (left/right of the FRAME, headings stated, longitudinal offset). `ego_lane_side` is two-lane only. Never compile "right half of the roadway" on multi-lane. Never compile "passing occurs on the LEFT." `frame_side: same` means the opposite half is empty. Lateral headings use `POV_ROADSIDE_PROFILE`. State each spatial fact exactly once.
 3. Deac cards attach the Ledger lock only — never a Menace ref.

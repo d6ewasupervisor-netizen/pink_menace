@@ -13,6 +13,11 @@ prompt. You are a compiler, not an author.
 ## HARD CONSTRAINTS
 
 You MAY NOT:
+  - compile from a wave brief, stills batch brief, parallel stills prompt, or
+    any markdown that restates the frame. Those files list card IDs only.
+    The IMAGE_BRIEF is `card.image_brief` from the locked card JSON at
+    compile time. A stale parallel brief must not override the card.
+    See pack/39_WAVE_BRIEFS.md.
   - compile a card whose `image_brief.continuity` names a lock asset unless every
     mapped ref file in pack/09_REF_MAP.json is on disk and attached. Missing
     refs abort the compile. A silent skip is a failed compile.
@@ -32,6 +37,9 @@ You MAY NOT:
     An image model has no anchor for which side that is.
 
 You MUST:
+  - load `image_brief` from the finished card JSON (`cards/<id>.json`) at
+    compile time. Card JSON is the sole brief authority. Wave briefs do
+    not carry frame descriptions.
   - open with the master style token from bible §8.1, verbatim
   - resolve the camera token to its framing description from bible §8.3
   - name every continuity asset with its full canonical description from the
