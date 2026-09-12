@@ -77,10 +77,19 @@ for (let i = 0; i < cards.length; i++) {
   }
   if (id === "V-013") {
     if (c.variation.time_of_day !== "dusk" || c.card_type !== "scene") {
-      err(id, "V-013 dusk is the grade-pass card path; daylight_fail ends the run and does not rewrite this card");
+      err(id, "V-013 dusk is the on-schedule grade-pass; daylight_fail ends the run and does not play this card");
     }
-    if (c.dusk_states || c.dusk_force) {
-      err(id, "V-013 is one dusk card; do not attach daylight_fail as a continuing scene state");
+    if (!/\bdusk\b/i.test(String(c.scene || ""))) {
+      err(id, "V-013 SCENE must acknowledge dusk (not afternoon)");
+    }
+    if (/\bafternoon\b/i.test(String(c.scene || ""))) {
+      err(id, "V-013 SCENE must not call the light afternoon");
+    }
+    if (c.dusk_states || c.dusk_force || c.overrun_scene) {
+      err(id, "V-013 is one schedule-dusk card; do not attach an overrun / daylight_fail scene state");
+    }
+    if (/force[sd]?\s+V-013|overrun forces|daylight_fail (?:forces|pushes|rewrites)/i.test(JSON.stringify(c))) {
+      err(id, "V-013 copy must not imply daylight_fail / overrun plays this card");
     }
   }
   if (["snow", "ice", "fog"].includes(c.variation.weather)) err(id, "snow/ice/fog is Act VII");
@@ -154,10 +163,22 @@ for (let i = 0; i < cards.length; i++) {
   const dolRaw = c.source && c.source.dol_section;
   const dol = dolRaw == null || dolRaw === "" ? "n/a" : dolRaw;
   if (/Exiting/i.test(String(dolRaw || ""))) {
-    err(id, "do not mint a DOL Exiting heading — PSDP Lesson four pairs existing 4.12 / 5.1 strings only");
+    err(id, "do not mint a DOL Exiting heading — V-007 is PSDP-only (dol n/a); V-008 pairs 5.1 conditions");
+  }
+  if ((id === "V-001" || id === "V-007") && dol === "4.12 Signs") {
+    err(id, "strip catch-all 4.12 Signs — V-001 cites 5.5 Focus; V-007 is PSDP exiting with dol n/a");
+  }
+  if (id === "V-001" && dol !== "5.5 Focus") {
+    err(id, "V-001 cites 5.5 Focus (observation / eyes up), not 4.12 Signs");
   }
   if (id === "V-004" && dol !== "4.11 Traffic light signals (Freeway ramp meters)") {
     err(id, "V-004 must cite 4.11 Traffic light signals (Freeway ramp meters), not the parent");
+  }
+  if (id === "V-006" && dol !== "4.10 Traffic laws") {
+    err(id, "V-006 is highway keep-right except to pass — cite 4.10 Traffic laws, not 5.3 Merging");
+  }
+  if (id === "V-007" && dol !== "n/a") {
+    err(id, "V-007 exiting is PSDP-only — dol_section n/a, not 4.12 Signs");
   }
   if (id === "V-009" && dol !== "n/a") {
     err(id, "V-009 uses dol_section n/a — do not stretch a parent; DOL has no Exiting / steer-gently heading");
@@ -167,6 +188,9 @@ for (let i = 0; i < cards.length; i++) {
   }
   if (id === "V-003" && dol !== "5.3 Merging") {
     err(id, "V-003 on-ramp segments cite 5.3 Merging parent; do not mint an On-ramp child");
+  }
+  if (id === "V-011" && dol !== "5.3 Merging (Zipper merging)") {
+    err(id, "V-011 cites 5.3 Merging (Zipper merging); not courtesy move-over and not V-010");
   }
   for (const e of validateCard(c, tables)) err(id, e.replace(`${id}: `, ""));
   for (const e of resolveCard(c).errors) err(id, e.replace(`${id}: `, ""));
@@ -182,7 +206,9 @@ if (ids.join(",") !== EXPECTED_IDS.join(",")) {
 if (fs.existsSync(path.join(dir, "V-014.json"))) {
   errors.push("V-014.json must not exist — end-of-run is the existing delivery beat");
 }
-for (const e of checkClosers(cards)) errors.push(e);
+for (const e of checkClosers(cards.filter((c) => c.card_type !== "dossier" && c.card_type !== "ride-along"))) {
+  errors.push(e);
+}
 
 const CLOSER_BANNED = /\b(insulin|june|delridge|cooler|warm(?:ed|ing)?)\b/i;
 function assertRibbonCopy(label, text) {
@@ -218,8 +244,15 @@ assertRibbonCopy("radio check", radioCheck && radioCheck.line);
 const iiLate = deliveryBeat({ time_cost: COLD_PACK }, "II");
 if (!/June/i.test(iiLate)) errors.push("Act II deliveryBeat must keep June copy");
 const RAMP_METER = "4.11 Traffic light signals (Freeway ramp meters)";
+const ZIPPER = "5.3 Merging (Zipper merging)";
 if (!tables.dol.has(RAMP_METER)) {
   errors.push("pack/07 must allowlist exact string " + JSON.stringify(RAMP_METER));
+}
+if (!tables.dol.has(ZIPPER)) {
+  errors.push("pack/07 must allowlist exact string " + JSON.stringify(ZIPPER));
+}
+if (!tables.dol.has("5.5 Focus") || !tables.dol.has("4.10 Traffic laws")) {
+  errors.push("pack/07 must keep 5.5 Focus and 4.10 Traffic laws on the allowlist");
 }
 if (cargoRoughBand(0) !== "CLEAN" || cargoRoughBand(3) !== "CLEAN") {
   errors.push("cargo_rough CLEAN must be 0–3");

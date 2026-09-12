@@ -55,7 +55,7 @@
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
     "dol_section": "5.2 Space",
-    "teaching_target": "REVIEW of 5.2 Space. PSDP p2 Lesson two – tailgater, move over. Do not teach truck tire or axle.",
+    "teaching_target": "REVIEW of 5.2 Space. PSDP p2 Lesson two – tailgater, move over. Dusk on this card is the on-schedule grade-pass only. daylight_fail ends the run via the fail end-beat and does not play or rewrite this card. Do not teach truck tire or axle.",
     "stat_cited": "PSDP p.32: Watch mirrors for tailgaters and move to another lane to let them pass."
   },
   "cast": ["ali", "hollis"],
@@ -99,6 +99,6 @@
     "time_of_day": "dusk",
     "tone": "tense",
     "failure_mode": "speed",
-    "forced": "Act V draft stub — no still; do not seed. image_brief is the dusk grade-pass plate. Geometry unchanged. daylight_fail ends the run — it does not rewrite this card."
+    "forced": "Act V draft stub — no still; do not seed. One dusk scene: on-schedule grade-pass. daylight_fail ends the run via the existing fail end-beat and does not push the player onto this card."
   }
 }

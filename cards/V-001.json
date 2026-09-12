@@ -7,7 +7,7 @@
   "title": "Eyes Up the Ribbon",
   "hook": "Yuna on the radio. The highway starts.",
   "scene": "Overcast morning on I-5 south of the Core. You have the wheel of the Menace. Nobody else is in the car. The relay kit for Tower 4 is already lashed in the back — repeater, antenna, clamps. The handheld on the floor crackles: Yuna. She will not be here. She wants the interchange, the green panels, and the paint named before you spend the ramp. The mountain is a gray smudge far east. This pavement is the Ribbon.",
-  "decision": "Yuna wants eyes up. What do you give her first?",
+  "decision": "Where do your eyes go on the approach?",
   "options": [
     {
       "id": "a",
@@ -50,11 +50,11 @@
       }
     }
   ],
-  "debrief": "Interchange, signs, paint — eyes up, not on the bumper. Yuna said the next panel, not the bumper.",
+  "debrief": "Interchange, signs, paint — eyes up, not on the bumper.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
-    "dol_section": "4.12 Signs",
-    "teaching_target": "NEW: PSDP p1 Lesson one – observation. 4.12 Signs is the pairing (REVIEW of guide panels). Ali has the wheel; Yuna is radio-only.",
+    "dol_section": "5.5 Focus",
+    "teaching_target": "NEW: PSDP p1 Lesson one – observation. Pair 5.5 Focus (REVIEW — eyes up, not on the bumper). Not 4.12 Signs. Ali has the wheel; Yuna is radio-only.",
     "stat_cited": "PSDP p.31: explain key highway features — interchanges, highway signs and signals, lane lines and markings."
   },
   "cast": ["ali", "yuna"],

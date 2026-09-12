@@ -62,7 +62,7 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 **Location:** every card is `location_type: highway`. Not `mountain_pass`.
 
-**Light:** daylight on V-001…V-012. **V-013 is dusk** — grade pass over the deck plate (geometry unchanged). Not dusk-as-dark (VII). That is the dusk **card path**. `daylight_fail` does **not** rewrite V-013 into a continuing overrun card.
+**Light:** daylight on V-001…V-012. **V-013 is dusk** — on-schedule grade pass over the deck plate (geometry unchanged). Not dusk-as-dark (VII). One dusk scene only. `daylight_fail` **ends the run** via the existing fail end-beat. It does **not** force V-013, does **not** push the player onto this card, and does **not** mint an overrun state on V-013.
 
 **Count:** **thirteen cards (V-001…V-013) + the existing end-of-run beat.** V-014 is not a new card.
 
@@ -72,9 +72,9 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 | Flag | When | What it does | What it does not do |
 |---|---|---|---|
-| `daylight_fail` | `time_cost >= 130` | **Ends the run.** It *is* the end-of-run fail state. `fail_kind: daylight`. | Does not force V-013 dusk as a continuing card. Does not become a cargo band. |
+| `daylight_fail` | `time_cost >= 130` | **Ends the run.** It *is* the end-of-run fail state. `fail_kind: daylight`. | Does not force V-013. Does not push the player onto V-013. Does not become a cargo band. |
 | `cargo_rough` | integer (else `yaw`) | CLEAN 0–3 / SCUFFED 4–8 / THINNED 9+ on a **successful** end-of-run beat. Proposed for Claude to lock. | Does not end the run. Does not change V-013. |
-| **both set** | — | **`daylight_fail` wins and terminates.** | Do not play a thinned closer. Do not continue V-013. |
+| **both set** | — | **`daylight_fail` wins and terminates.** | Do not play a thinned closer. Do not continue or force V-013. |
 
 ---
 
@@ -105,19 +105,19 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 | Card | Type | Shot | Lesson one-liner | Skill / DOL |
 |---|---|---|---|---|
-| V-001 | scene | `POV_COCKPIT` | Yuna on the radio. Eyes up: interchange, signs, paint. | eleven p1 · 4.12 Signs (REVIEW pairing) |
+| V-001 | scene | `POV_COCKPIT` | Yuna on the radio. Eyes up: interchange, signs, paint. | eleven p1 · 5.5 Focus (REVIEW pairing; not 4.12). Playable scene — V-002 is the load dossier. |
 | V-002 | dossier | `POV_PORTRAIT` | Kit named for Tower 4: repeater, antenna, clamps. | n/a |
 | V-003 | scene | `POV_DIAGRAM` | A ramp is three pieces. Use each for its job. | eleven p1 · 5.3 Merging (NEW parent) |
 | V-004 | rule | `POV_OBJECT` | Ramp meter: red on the white line, green continues. | eleven p1 · 4.11 (Freeway ramp meters) |
 | V-005 | scene | `POV_COCKPIT` | Match their speed in the acceleration stretch, then take the gap. | eleven p1 · 5.3 Merging (REVIEW) |
-| V-006 | hazard | `POV_COCKPIT` | No gap yet — change speed. Do not plant it. | eleven p1 · 5.3 Merging (REVIEW) |
-| V-007 | rule | `POV_OBJECT` | Hold highway speed until the ramp. Signal early. | eleven p1 · 4.12 Signs (REVIEW; exiting is PSDP) |
+| V-006 | hazard | `POV_COCKPIT` | Keep right except to pass. Recover right after the pass. | eleven p1 · 4.10 Traffic laws (REVIEW) |
+| V-007 | rule | `POV_OBJECT` | Hold highway speed until the ramp. Signal early. | eleven p1 · n/a (PSDP exiting; no 4.12) |
 | V-008 | scene | `POV_COCKPIT` | Posted ramp speed before the curve, not on the freeway. | eleven p1 · 5.1 Speed (conditions) |
 | V-009 | scene | `POV_ROADSIDE_PROFILE` | Small hands at speed. A yank is yaw. | eleven p2 · n/a (no DOL heading; do not stretch 5.1) |
 | V-010 | rule | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · n/a (no DOL lane-change heading) |
-| V-011 | hazard | `POV_MIRROR_DOOR` | Merger on the right — give them a lane if you have one. | eleven p2 · 5.2 Space (not zipper) |
+| V-011 | hazard | `POV_DIAGRAM` | Highway work-zone zipper — both lanes, then take-turns. | eleven p2 · 5.3 Merging (Zipper merging) |
 | V-012 | rule | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time (REVIEW) |
-| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. Dusk grade pass. | eleven p2 · 5.2 Space (REVIEW) |
+| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. On-schedule dusk grade pass. | eleven p2 · 5.2 Space (REVIEW) |
 | — | existing end-of-run beat | — | Engine `deliveryBeat` / locked door after V-013. Not a new card. | n/a |
 
 Thirteen stubs. Play order is `seq`. The closer is the beat the game already fires when an act completes.
@@ -127,7 +127,7 @@ Thirteen stubs. Play order is `seq`. The closer is the beat the game already fir
 ## Explicitly deferred to Act VII
 
 - Snoqualmie Pass, chain-up, snowplow / Gravy, never-pass-a-plow
-- Night, deep night, **dusk-as-dark**, fog, ice, heavy snow. V-013 dusk is a grade pass over the deck plate, not VII dark. Not the Quiet herd. `daylight_fail` is a separate fail state — it does not rewrite this card.
+- Night, deep night, **dusk-as-dark**, fog, ice, heavy snow. V-013 dusk is the on-schedule grade pass over the deck plate, not VII dark. Not the Quiet herd. `daylight_fail` is a separate fail state — it ends the run and does not play V-013.
 - Fatigue microsleep on a long wet pass (the Drift can cameo; the pass cannot)
 - Recurring lots at night (bible § visual accumulation)
 - Quiet herd (Doc 29 placement)
@@ -136,7 +136,7 @@ Thirteen stubs. Play order is `seq`. The closer is the beat the game already fir
 
 - Skill twelve: driving on rural roads (gravel, farm equipment, drop-offs)
 - Skill thirteen: roundabouts (IV-015 already borrowed city Skill ten for a downtown circle)
-- `5.3 Merging (Zipper merging)` — child is now on `pack/07`, unspent. III-026 already taught zipper under the parent. Not a 14th Ribbon card.
+- `5.6 Road and driving conditions (Curves)` — still unspent. Zipper child is spent on **V-011** (highway work-zone / lane-closure). III-026 stays the city-speed parent teach.
 
 ## Not a replay of I–III
 
@@ -147,7 +147,7 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 ## Pack table changes
 
 - `pack/08_PSDP_SKILLS.json` — both Skill eleven headings (PR #132).
-- `pack/07_DOL_SECTIONS.json` — `5.1 Speed` + conditions (PR #132); **Freeway ramp meters** child (PR #141); **Zipper merging** child + **5.6 Curves** restored this pass (unspent).
+- `pack/07_DOL_SECTIONS.json` — `5.1 Speed` + conditions (PR #132); **Freeway ramp meters** child (PR #141); **Zipper merging** child spent on V-011; **5.6 Curves** still unspent.
 - `pack/36_YUNA_RADIO_VOICE.md` / `pack/37_ACT_V_CITATION_AUDIT.md` — radio voice + citation audit.
 - `pack/01_BIBLE.md` §7 — Act V driver **Ali**. §2 yaw line cites Skill eleven part two, not “Skill 13”.
 - `scripts/authoring-seat.js` — Act V ego lock is Ali.
@@ -160,7 +160,7 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 ## Closed questions (this pass)
 
 1. **Rain.** Legal as daylight rain (Skill eleven p2 lesson four). V-007 / V-011. Snow/ice/fog/night stay VII.
-2. **Ride-along.** III-001 stays the only Deac ride-along. V-001 is a scene: Ali driving, Yuna radio.
+2. **Ride-along.** III-001 stays the only Deac ride-along. V-001 is a playable **scene** (decision: eyes on the approach). V-002 is the load **dossier**. Dossier would drop the observation quiz.
 3. **Valley floor.** Tower 4 is the named drop. Painted cutoff stays Issaquah / last urban I-90 interchange — not the pass.
 4. **Ali as decider.** She has every wheel. No Ledger handoff.
 5. **Skill twelve/thirteen.** Wait for VI.

@@ -4,96 +4,95 @@
   "zone": "The Ribbon",
   "driver": "ali",
   "card_type": "hazard",
-  "title": "Do Not Plant It",
-  "hook": "The gap is late. The paint is close.",
-  "scene": "Overcast midday on the I-5 merge. You are in the last stretch of ramp. The right travel lane is a tight stack. No gap is next to you. Merge paint is a car-length ahead. The instinct is to stand on the brake and wait on the ramp until someone gifts you an empty. The other instinct is to take their door anyway. Both spend someone else's margin.",
-  "decision": "There is no gap beside you. What do you do?",
+  "title": "Keep Right Except to Pass",
+  "hook": "The left is empty. You already passed.",
+  "scene": "Rain, midday, I-90 east, three lanes this way. You already passed a slow box. You are still in the left. The middle and the right are empty wet asphalt. A faster sedan is a smear in the inside glass, closing. The city habit is to own the left once you took it. The highway rule is keep right except to pass. The pass is over. The left is not a home. Nobody else is in the Menace.",
+  "decision": "The pass is done. Which lane do you keep?",
   "options": [
     {
       "id": "a",
-      "text": "Stop on the ramp and wait until the right lane goes empty",
+      "text": "Stay in the left — through traffic can live here after a pass",
       "correct": false,
-      "result": "You plant the Menace on the merge. The ramp behind you has to stop too. Highways do not clear for a standing Beetle. You made a start from zero at their speed.",
+      "result": "You camp the passing lane. The sedan stands on it behind you. You became the next slow in the left. Keep-right did not expire because you passed once.",
       "state_delta": {
         "noise": 3,
-        "time_cost": 12
-      }
-    },
-    {
-      "id": "b",
-      "text": "Force the paint now and make the stack lift",
-      "correct": false,
-      "result": "You take their door. The sedan stands on it. Amber behind you lights. You wrote a late on a merge that still had pavement left to change speed.",
-      "state_delta": {
-        "noise": 4,
-        "yaw": 1,
         "time_cost": 8
       }
     },
     {
-      "id": "c",
-      "text": "Stay rolling. Change speed until a gap is real, then take it",
+      "id": "b",
+      "text": "Signal right, recover to the right travel lane, leave the left for passing",
       "correct": true,
-      "result": "You keep the wheels turning. You drop a little, then you match the next gap. The opening you take is one you made with speed, not with a stop.",
+      "result": "Amber talks. You take the empty right and sit. The sedan uses the left and is gone. The pass was a tool. The right is the lane you keep.",
       "state_delta": {
         "noise": -1,
-        "time_cost": 6
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Drift into the middle and sit between both so nobody can pass you",
+      "correct": false,
+      "result": "You occupy the skip-dash. The sedan has no legal left. Two lanes become one because you wanted a buffer. The right was already empty.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 7
       }
     },
     {
       "id": "d",
-      "text": "Climb the shoulder around the stack and join from the rumble",
+      "text": "Slow in the left so the sedan goes around you on the right",
       "correct": false,
-      "result": "The shoulder is junk and a sign post. You put the plow in the rumble to skip a count. They never had you as a sentence.",
+      "result": "You dump speed in the passing lane. He takes the right around a Beetle that should have recovered. You taught the highway to pass you on the junk side.",
       "state_delta": {
-        "noise": 3,
-        "yaw": 2,
+        "noise": 4,
         "time_cost": 9
       }
     }
   ],
-  "debrief": "If the gap is late, change speed until one appears. There is time to merge. Stay rolling until the gap is real.",
+  "debrief": "Keep right except to pass. You gave the left back after the box.",
   "timeout_option_id": "a",
   "timeout_ms": 12000,
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
-    "dol_section": "5.3 Merging",
-    "teaching_target": "REVIEW of 5.3 Merging. PSDP: do not stop unless necessary; adjust speed to find a gap.",
-    "stat_cited": "PSDP p.31: There is plenty of time to merge. If a gap doesn’t present itself immediately, adjust your speed as early as possible in order to find one."
+    "dol_section": "4.10 Traffic laws",
+    "teaching_target": "REVIEW of 4.10 Traffic laws. Highway keep-right except to pass. Recover right after the pass. Not a 5.3 merge/gap card and not V-005 copy."
   },
   "cast": ["ali"],
   "antagonist": "none",
   "callback_of": null,
-  "schedules_callback": true,
+  "schedules_callback": false,
   "presence": 0,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "from the seat at merge paint, right highway lane a tight stack, no gap beside the hood",
-    "foreground": "worn black wheel, right foot off the brake, cluster still moving",
-    "midground": "merge paint a car-length ahead, sedan flanks with no opening, pink plow bar at the bottom of the glass",
-    "background": "overcast midday I-5, three lanes, concrete median, no snow",
-    "read": "the hood is still on the ramp; the right highway lane has no gap beside you",
+    "subject": "from the seat in the leftmost of three wet I-90 lanes, empty middle and right ahead, no merge paint",
+    "foreground": "worn black wheel, left stalk off, faded pink dash, handheld on the floor",
+    "midground": "skip-dash, empty wet right two lanes, pink plow bar at the bottom of the glass",
+    "background": "rain midday valley I-90, three lanes, concrete median, no snow",
+    "read": "the Beetle is in the left travel lane; the middle and right are empty wet asphalt",
     "continuity": ["pink_menace_interior"],
     "extra_negatives": [
-      "no Beetle brake lamps lit",
-      "no empty quarter-mile gap",
+      "no merge paint",
+      "no on-ramp",
       "no snow",
+      "no clipboard in the glass",
       "no second occupant"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "I-5 merge stretch beside the right travel lane",
+      "ego_lane_side": "left travel lane of three eastbound I-90 lanes",
       "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing toward the top of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 3,
-      "ego_lane_from_left": 3
+      "ego_lane_from_left": 1
     }
   },
   "variation": {
     "location_type": "highway",
-    "weather": "overcast",
+    "weather": "rain",
     "time_of_day": "midday",
     "tone": "urgent",
     "failure_mode": "inexperience",
