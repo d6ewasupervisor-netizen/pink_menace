@@ -20,12 +20,12 @@
   "presence": 0,
   "image_brief": {
     "camera": "POV_PORTRAIT",
-    "subject": "Ali chest-up in the parked Menace, glasses, mesh behind her, no second occupant",
-    "foreground": "faded pink collar, clipboard edge on her thigh",
+    "subject": "Ali chest-up in the parked Menace, glasses, mesh behind her, no second occupant; Mya a brown mackerel loaf on the dash",
+    "foreground": "faded pink collar, clipboard edge on her thigh, Mya loafed on the still dash",
     "midground": "welded mesh and still wipers, no motion in the glass",
     "background": "overcast midday shoulder, I-5 ramps soft and distant, no snow, no night",
-    "read": "Ali is parked alone; the wheels are still; the mountain is only a distant shape",
-    "continuity": ["ali", "pink_menace_interior"],
+    "read": "Ali is parked alone; wheels still; Mya is a loaf on the dash because the wheels are not turning",
+    "continuity": ["ali", "pink_menace_interior", "mya"],
     "extra_negatives": [
       "no moving wheels",
       "no snow",
