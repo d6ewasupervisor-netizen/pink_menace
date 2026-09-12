@@ -1,0 +1,7 @@
+# IV-026 — GPT Image 2 compile prompt
+# attachments: ref_car_exterior.jpg, ref_car_nose_plow.png
+# camera: POV_DIAGRAM (high-oblique down-lane / front-correct; plow lock unchanged)
+# take send: IV-026 · three hazards sit in the Beetle's next two lengths; the left travel lane is empty · POV_DIAGRAM
+
+See cards/takes/IV-026.prompt.txt for the full generation prompt used this wave.
+This wave overrides image_brief.camera_pose (driver-eye left-rear three-quarter) with stock POV_DIAGRAM high-oblique down-lane so the take-8 full-width nose blade can read on the FAR FRONT nose. Card JSON remains the sole scene brief. Plow plate / LOCKS / other cards unchanged.
