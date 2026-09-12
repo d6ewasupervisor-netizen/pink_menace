@@ -43,6 +43,7 @@ Same pattern for the Ledger (tall square box on a van nose, oversize side mirror
 Reject and regenerate on any miss. Do not accept "close enough"; drift compounds across an act.
 
 **Ali (face-critical only):** round wire-rim glasses present · cranberry-red hair · braided at the crown · gold hoops · flat affect, not smiling
+**Yuna (face-critical only):** attach `ref_yuna_sheet.png` + `ref_yuna.png` (verified 12 Sep 2026 — do not regen plates) · face matches those plates / IV-010 take-7 · asymmetric chin-length bob · platinum under-layer · thin braid at **her right** temple · cropped black windbreaker with reflective piping · dead in-ears (one in / one dangling unless the card says both out) · **eight takes**, hand-curate one
 **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
 **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
