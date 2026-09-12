@@ -79,6 +79,8 @@
     "weather": "overcast",
     "time_of_day": "midday",
     "tone": "procedural",
-    "failure_mode": "distraction"
+    "failure_mode": "distraction",
+    "winner": "take-70",
+    "forced": "live still cards/takes/IV-028-take-70.png (Claude PASS muted-read d748b5d7 / relay 890f91af; take 72 FAIL do not seed)"
   }
 }

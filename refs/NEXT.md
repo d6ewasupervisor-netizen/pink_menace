@@ -10,16 +10,17 @@ Y4 take 7 is not cockpit authority (PR #74).
 
 IV-026 take-110 / PR #72 stays seeded. Not this PR.
 
-Card JSON is sole brief authority. Closest takes are compiler picks for
-Claude — not seeded live.
+Card JSON is sole brief authority. IV-028 take 70 is seeded live.
+Take 72 FAIL — do not seed 72. IV-030 not seeded.
 
 | Card | Lesson (`read`) | Shot | Closest take |
 |---|---|---|---|
 | IV-027 | the truck is already on the bumper in the interior rear glass | `POV_MIRROR_REAR` | `cards/takes/IV-027-take-26.png` |
-| IV-028 | both cats' faces are at the grate of the closed strapped carrier on the true floor; a person in a dark coat is already mid-crossing the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-70.png` |
+| IV-028 | both cats' faces are at the grate of the closed strapped carrier on the true floor; a person in a dark coat is already mid-crossing the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-70.png` (PASS, live) |
 | IV-030 | the Beetle is pointed east; the city is behind it and shut | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-15.png` |
 
 Notes: IV-028 this wave `cards/takes/WAVE_IV-028-carrier-crosswalk.md`.
 IV-027 / 030 still `cards/takes/WAVE_IV-027-028-030.md`.
 
-Do not seed `cards/IV-027.png` / `028` / `030` until Claude PASSes.
+IV-028 live still is take 70 (`cards/IV-028.png`). Do not seed take 72.
+Do not seed `cards/IV-030.png` on this PR.
