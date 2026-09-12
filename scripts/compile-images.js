@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const { resolveCard, assertCompileReady } = require("./resolve-refs");
+const { resolveCard, assertCompileReady, CARD_JSON_RE } = require("./resolve-refs");
 const { assemblePrompt } = require("./compile-prompt");
 const { validateGeometry } = require("./geometry");
 const { validateAuthoringSeat } = require("./authoring-seat");
@@ -12,10 +12,21 @@ const only = process.argv.includes("--card")
   ? process.argv[process.argv.indexOf("--card") + 1]
   : null;
 
-const files = fs
-  .readdirSync(dir)
-  .filter((f) => /^(I|II|III|IV|V|VI|VII)-\d{3}\.json$/.test(f))
-  .sort();
+// Numbered cards plus named-spot stills (IV-001-brake). A silent skip here
+// is the IV-006-class attach miss: compile.txt lists a plate, resolve-refs
+// never sees the JSON, GenerateImage never consumes it.
+let files;
+if (only) {
+  const direct = `${only}.json`;
+  const abs = path.join(dir, direct);
+  if (!fs.existsSync(abs)) {
+    console.error(`COMPILE ABORT\n${only}: missing cards/${direct}`);
+    process.exit(1);
+  }
+  files = [direct];
+} else {
+  files = fs.readdirSync(dir).filter((f) => CARD_JSON_RE.test(f)).sort();
+}
 
 const errors = [];
 const rows = [];

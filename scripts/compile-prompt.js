@@ -22,6 +22,39 @@ const MASTER_STYLE =
 const DEAC_STYLE =
   "Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is transit amber. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.";
 
+const YUNA_STYLE =
+  "Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.";
+
+const ENCORE_FOOTWELL_CLAUSE =
+  "Match the attached Encore footwell lock for the pedal box exactly: EXACTLY TWO pedals — wide diamond-treadplate BRAKE on the left of the pair, narrow ribbed ACCELERATOR on the right. Empty painted floor to the LEFT of the brake — no clutch, no third pedal. That attached plate is the pedal-box authority. Do not invent a clutch from race-cab priors. Do not invent pedals from the over-the-wheel cockpit plate.";
+
+const ENCORE_COCKPIT_CABIN_CLAUSE =
+  "Match the attached Encore cockpit lock for cabin language only (moulded dash, analog cluster, one guarded PA switch left off, rain-on-glass, overcast wiper-path light). That cockpit plate is over-the-wheel; footwell is out of frame there — do not invent pedals from it. Footwell is the lock for pedals when attached.";
+
+const ENCORE_GLASS_CLAUSE =
+  "intact window glass in all openings, no mesh, no bars, no open cabin.";
+
+// Rule 2 (PR #115): MUTCD color exemption is exterior street signage only.
+// State the cabin-control color as a positive value, not only a prohibition.
+const SWITCHGEAR_POSITIVE =
+  "Cabin switch covers are faded oxidized plastic, world-graded and desaturated — the quiet worn hue of a gutted race cab, not a MUTCD STOP face. Guards, rockers, and PA kill switches stay that same faded grade.";
+
+const SWITCHGEAR_NEGATIVE =
+  "no candy-red switch covers, no oversaturated cabin controls, no MUTCD-red interior switchgear, no lettered switch faces.";
+
+const IN_CAB_CAMERAS = new Set(["POV_COCKPIT", "POV_MIRROR_REAR", "POV_MIRROR_DOOR"]);
+const IN_CAB_LOCKS = new Set([
+  "encore_cockpit",
+  "encore_footwell",
+  "ledger_cockpit",
+  "pink_menace_interior",
+]);
+
+function isInCabCompile(cam, continuity) {
+  if (IN_CAB_CAMERAS.has(cam)) return true;
+  return (continuity || []).some((t) => IN_CAB_LOCKS.has(t));
+}
+
 const DIAGRAM_STYLE =
   "Cinematic photoreal still, same world as the rest of the game. 35mm full-frame equivalent, high overhead fifteen to twenty degrees off vertical looking along travel, everything in focus enough to read lanes. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Wet asphalt, moss, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, no HDR, no glow, no lens flare. This is a photograph of real vehicles on a real street, not a map, not an infographic, not a vector diagram.";
 
@@ -192,9 +225,29 @@ function assemblePrompt(card) {
 
   const parts = [];
   if (cam === "POV_DIAGRAM") parts.push(deac ? LEDGER_DIAGRAM_STYLE : DIAGRAM_STYLE);
-  else parts.push(deac ? DEAC_STYLE : MASTER_STYLE);
+  else if (deac) parts.push(DEAC_STYLE);
+  else if (card.driver === "yuna") parts.push(YUNA_STYLE);
+  else parts.push(MASTER_STYLE);
 
   parts.push(framing);
+
+  const continuityEarly = brief.continuity || [];
+  if (continuityEarly.includes("encore_footwell")) {
+    parts.push(ENCORE_FOOTWELL_CLAUSE);
+  }
+  if (continuityEarly.includes("encore_cockpit")) {
+    parts.push(ENCORE_COCKPIT_CABIN_CLAUSE);
+  }
+  if (
+    continuityEarly.includes("encore_cockpit") ||
+    continuityEarly.includes("encore_footwell") ||
+    continuityEarly.includes("encore")
+  ) {
+    parts.push(ENCORE_GLASS_CLAUSE);
+  }
+  if (isInCabCompile(cam, continuityEarly)) {
+    parts.push(SWITCHGEAR_POSITIVE);
+  }
 
   const framed = Boolean(brief.geometry && usesFramePlacement(brief.geometry));
   if (framed) {
@@ -216,7 +269,6 @@ function assemblePrompt(card) {
     parts.push(otherVehicleClauseLedger(card));
   }
 
-  const continuityEarly = (brief.continuity || []);
   const quietNamed =
     continuityEarly.includes("the_quiet") ||
     /\bthe Quiet\b/.test(
@@ -295,7 +347,8 @@ function assemblePrompt(card) {
   if (cam === "POV_ROADSIDE_PROFILE") negs.push(PROFILE_NEGATIVE);
   if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
-  const continuity = (brief.continuity || []);
+  const continuity = brief.continuity || [];
+  if (isInCabCompile(cam, continuity)) negs.push(SWITCHGEAR_NEGATIVE);
   if (quietNamed) negs.push(QUIET_NEGATIVE);
   if (cam === "POV_MIRROR_DOOR" && continuity.includes("dutch_reach")) {
     negs.push(DUTCH_REACH_NEGATIVES);
@@ -321,4 +374,16 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };
+module.exports = {
+  assemblePrompt,
+  FRAMING,
+  MASTER_STYLE,
+  YUNA_STYLE,
+  DIAGRAM_STYLE,
+  LHD,
+  OTHER_VEHICLE_CLAUSE_LEDGER,
+  ENCORE_FOOTWELL_CLAUSE,
+  SWITCHGEAR_POSITIVE,
+  SWITCHGEAR_NEGATIVE,
+  isInCabCompile,
+};

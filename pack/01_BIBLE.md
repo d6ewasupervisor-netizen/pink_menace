@@ -147,6 +147,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
 - `ref_hand_signals.png` — three-panel left-arm plate (left / stop / right). Limb geometry is not improvised.
 - `ref_diagram_style.png` — optional overhead look lock. Diagram compiles attach `ref_car_exterior.jpg` for the Menace's build. Lighting is still overcast PNW, never the salt-flat sunset.
+- `ref_encore_footwell.png` — **Encore pedal-box lock** (encore-footwell take 6). Automatic: two pedals only. The Y4 cockpit lock is over-the-wheel and does not supply pedal count. Continuity token `encore_footwell` must resolve through `scripts/compile-images.js`.
 
 ### 8.3 Camera set (pick exactly one per card)
 

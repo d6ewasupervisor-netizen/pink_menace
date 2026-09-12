@@ -24,14 +24,25 @@ for (const id of ids) {
   const rows = JSON.parse(text.slice(0, jsonEnd + 2));
   const row = rows[0];
   const out = path.join(__dirname, "..", "cards", `${id}.compile.txt`);
+  const attach = (row.attachments || []).map((n) => `refs/${n}`);
   const body = [
     `# ${id} — GPT Image 2 compile prompt`,
-    `# attachments: ${(row.attachments || []).join(", ") || "none"}`,
+    `# image_brief authority: cards/${id}.json`,
+    `# attachments (from scripts/resolve-refs.js — official refs/, not /tmp copies):`,
+    ...attach.map((p) => `#   ${p}`),
     `# camera: ${row.camera}`,
+    attach.includes("refs/ref_encore_footwell.png")
+      ? "# pedal box lock: refs/ref_encore_footwell.png (encore-footwell take 6, pedal_count 2). Cockpit is cabin language only."
+      : null,
+    id === "IV-001-brake"
+      ? "# SEEDED LIVE: take-95. Do not overwrite cards/IV-001-brake.png or public/game/ride/IV-001/brake.webp from this compile."
+      : null,
     "",
     row.prompt,
     "",
-  ].join("\n");
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
   fs.writeFileSync(out, body);
   console.log("wrote", out);
 }

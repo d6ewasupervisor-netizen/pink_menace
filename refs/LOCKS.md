@@ -18,13 +18,24 @@ Never mix panels across takes. Winners only.
 | Convoy silhouette | G1 take 2 | `ref_convoy.png` | Round / box / wedge reads at a glance. Only take that kept Encore's PA horns; 1, 3, 4 turned them into spotlights. Overcast PNW, no salt-flat bleed. |
 | II-007 card art | take 2 | `../cards/II-007.png` | Amber lamps lit; enough pavement that the open left lane reads. Invented fallen tree is compiler drift — do not carry into later Kent cards. Takes 3–4 lit the reds/brakes and are unusable. |
 | Ledger cockpit | D4 take 2 | `ref_ledger_cockpit.png` | Locked from `cards/takes/D4-take-2.png` (1 Sep 2026). Match this cab: worn three-spoke wheel, analog cluster, bar cage, thermos in the right cup, no clipboard on the mesh. Never the old poisoned cockpit. Never a Menace ref on Deac cards. |
-| Encore cockpit | Y4 b-take-2 | `ref_encore_cockpit.png` | Locked from PR #113 `cards/takes/Y4-cockpit-rerun-b-take-2.png` (Claude muted-read PASS 12 Sep 2026). Match this cab: moulded dash intact, handheld mic on the right cage tube at take-1 height, two pedals (wide brake + narrow accel), empty floor left of brake, no clutch, no floor shifter. Y4 take 1 (`85bd45ee`, stripped tub) is superseded — not in the generator pool. b-take-1 FAIL (tighter footwell crop only) stays in the takes pool on PR #113; do not promote or attach. |
+| Encore cockpit | Y4 b-take-2 | `ref_encore_cockpit.png` | Locked from PR #113 `cards/takes/Y4-cockpit-rerun-b-take-2.png` (Claude muted-read PASS 12 Sep 2026). Match this cab: moulded dash intact, handheld mic on the right cage tube at take-1 height, two pedals (wide brake + narrow accel), empty floor left of brake, no clutch, no floor shifter. Over-the-wheel windshield plate — **do not read pedal count from this shot; attach `ref_encore_footwell.png` for the box.** Y4 take 1 (`85bd45ee`, stripped tub) is superseded — not in the generator pool. b-take-1 FAIL (tighter footwell crop only) stays in the takes pool on PR #113; do not promote or attach. |
+| Encore footwell | encore-footwell take 6 | `ref_encore_footwell.png` | Human-verified PASS by Claude 2026-09-11 (PR #46). Same bytes as `cards/takes/encore-footwell-take-6.png` (`sha256:dccf418c…`). **pedal_count: 2.** Wide diamond-treadplate brake + narrow ribbed accelerator; empty painted floor left of the brake; no clutch. Empty plate: no foot. Not a card still. Continuity token `encore_footwell`. Cockpit authority remains Y4 b-take-2. Do not treat IV-001-brake take-21 / take-91 / take-95 (or any brake take) as this plate. |
 | The Quiet — register lock | A3 take 3 | `ref_quiet.png` | Attach on every Quiet compile. Filthy, slack-shouldered, head canted, doing nothing, seen through dirty glass. Wrongness of posture and stillness — not damage. Same file as `ref_quiet_a3.png`. |
 | Quiet plates | probe keeps | `ref_quiet_a1.png` `ref_quiet_a2.png` `ref_quiet_a3.png` `ref_quiet_a4.png` `ref_quiet_a5.png` | A1 take 3 still, facing away. A2 take 1 head tilt. A3 take 3 the register. A4 take 1 lot, spread, not converging. A5 take 3 the lunge — near-legible, once in the game. A1, A2, A4 are reference, not card art. |
 | Gracie studio portrait | appearance lock | `ref_gracie.jpg` | **Appearance authority for Gracie.** Orange/ginger tabby, pink nose, amber eyes, cream chest. Studio wins over any in-carrier grate crop. |
 | Mya studio portrait | appearance lock | `ref_mya.jpg` | **Appearance authority for Mya.** Brown mackerel tabby, dark nose, green eyes, hard-striped forehead, heavier. Studio wins over any in-carrier grate crop. |
 | Cat in-carrier — ginger | IV-028 take 70 crop | `ref_cat_ginger.png` | In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Gracie. Attach **alongside** `ref_gracie.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. |
 | Cat in-carrier — mackerel | IV-028 take 70 crop | `ref_cat_mackerel.png` | In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Mya. Attach **alongside** `ref_mya.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. |
+
+## Encore footwell — locked plate
+
+Y4 b-take-2 / `ref_encore_cockpit.png` is the cockpit lock (over-the-wheel). Pedal count cannot be read from it. Encore is automatic: **two pedals only** — wide treadplate brake + narrow ribbed accelerator; empty floor left of the brake; no clutch.
+
+Winner: `cards/takes/encore-footwell-take-6.png` → `refs/ref_encore_footwell.png`. Human-verified PASS by Claude 2026-09-11.
+
+`scripts/compile-images.js` must scan named-spot JSON (`IV-001-brake.json`). A compile.txt that lists `/tmp/pm-plates/ref_encore_footwell.png` without the official resolver attaching `refs/ref_encore_footwell.png` is the same class of miss as IV-006's rear-mounted blade (plate named in comments, not consumed).
+
+Do not treat IV-001-brake take-21, take-91, take-95, or any cover-the-brake still as this plate.
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
 
