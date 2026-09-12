@@ -56,6 +56,10 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 **Live field:** `presence` is canonical. All thirteen stubs ship `presence: 0`. Do not add `load_state`.
 
+**Location:** every card is `location_type: highway`. Not `mountain_pass`.
+
+**Light:** daylight except **V-013 dusk-as-grade-pass** (valley dusk; the pass is a door). Dusk-as-dark stays Act VII.
+
 **Count:** **thirteen cards (V-001…V-013) + the existing end-of-run beat.** V-014 is not a new card.
 
 **Cargo:** thin-net. `deliveryBeat` late line still hands the kit over. Fail copy does not invent a hard “kit sat / tomorrow.”
@@ -97,11 +101,11 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 | V-006 | hazard | `POV_COCKPIT` | No gap yet — change speed. Do not plant it. | eleven p1 · 5.3 Merging (REVIEW) |
 | V-007 | rule | `POV_OBJECT` | Hold highway speed until the ramp. Signal early. | eleven p1 · 4.12 Signs (REVIEW; exiting is PSDP) |
 | V-008 | scene | `POV_COCKPIT` | Posted ramp speed before the curve, not on the freeway. | eleven p1 · 5.1 Speed (conditions) |
-| V-009 | scene | `POV_ROADSIDE_PROFILE` | Small hands at speed. A yank is yaw. | eleven p2 · 5.1 Speed (not 5.6 Curves) |
+| V-009 | scene | `POV_ROADSIDE_PROFILE` | Small hands at speed. A yank is yaw. | eleven p2 · n/a (no DOL heading; do not stretch 5.1) |
 | V-010 | rule | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · n/a (no DOL lane-change heading) |
 | V-011 | hazard | `POV_MIRROR_DOOR` | Merger on the right — give them a lane if you have one. | eleven p2 · 5.2 Space (not zipper) |
 | V-012 | rule | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time (REVIEW) |
-| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. Let him have it. | eleven p2 · 5.2 Space (REVIEW) |
+| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. Dusk-as-grade-pass. | eleven p2 · 5.2 Space (REVIEW) |
 | — | existing end-of-run beat | — | Engine `deliveryBeat` / locked door after V-013. Not a new card. | n/a |
 
 Thirteen stubs. Play order is `seq`. The closer is the beat the game already fires when an act completes.
@@ -111,7 +115,7 @@ Thirteen stubs. Play order is `seq`. The closer is the beat the game already fir
 ## Explicitly deferred to Act VII
 
 - Snoqualmie Pass, chain-up, snowplow / Gravy, never-pass-a-plow
-- Night, deep night, dusk-as-dark, fog, ice, heavy snow
+- Night, deep night, **dusk-as-dark**, fog, ice, heavy snow. **V-013 is the exception:** dusk-as-grade-pass (valley dusk; the pass stays a door). Not VII dark hours. Not the Quiet herd.
 - Fatigue microsleep on a long wet pass (the Drift can cameo; the pass cannot)
 - Recurring lots at night (bible § visual accumulation)
 - Quiet herd (Doc 29 placement)

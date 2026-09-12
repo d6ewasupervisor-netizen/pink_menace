@@ -174,7 +174,7 @@ WA headings **not in `pack/08` yet** (do not add this act):
 
 | Heading | I–IV | Act V? |
 |---|---|---|
-| **`5.1 Speed`** (+ children Excessive / Speed limits / Adjusting speed for conditions) | **unused parent.** Not on `main` `pack/07`. PR #132 added both pack strings. | **Yes — first unused parent.** |
+| **`5.1 Speed`** (+ children Excessive / Speed limits / Adjusting speed for conditions) | **unused parent.** Not on `main` `pack/07`. PR #132 added both pack strings. | Conditions child on V-008. Parent unused — V-009 is `n/a`, not a stretched 5.1. |
 | **`4.11 Traffic light signals (Freeway ramp meters)`** | unused child. Parent used **once** (III-014). | **Yes.** This pass adds the child string. |
 | **`5.3 Merging` child Zipper merging** | unused child. Parent used **once** (III-026). | **Allowlisted this audit. Unspent.** III-026 already taught zipper under the parent. Not a 14th card. |
 | `5.3 Merging` | **once** (III-026) | NEW on V-003 (on-ramp segments — parent only). REVIEW on V-005 / V-006. |
@@ -241,7 +241,7 @@ Exact Act VII chain quote (`source/driver-guide.pdf` **5.6** / Slippery roads):
 | p1 “do not stop” + sidebar gap | V-006 | 5.3 Merging (REVIEW) |
 | p1 Lesson four – exiting (don’t slow on highway) | V-007 | 4.12 Signs (REVIEW cite; exiting is PSDP-only) |
 | p1 Lesson four – posted ramp speed before the curve | V-008 | 5.1 Speed (Adjusting speed for conditions) |
-| p2 Lesson one – steering technique | V-009 | 5.1 Speed (not 5.6 Curves) |
+| p2 Lesson one – steering technique | V-009 | n/a (no DOL heading; do not stretch 5.1 or mint Exiting) |
 | p2 Lesson two – one lane at a time | V-010 | n/a (no DOL lane-change heading) |
 | p2 Lesson two – move left for a merger | V-011 | 5.2 Space (not zipper) |
 | p2 Lesson three – three-second rule | V-012 | 5.4 Time (Count seconds) (REVIEW) |

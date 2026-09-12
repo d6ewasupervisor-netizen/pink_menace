@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Let Hollis Have It",
   "hook": "His bumper is in the glass. Again.",
-  "scene": "Overcast afternoon on I-90 east, three lanes. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.",
+  "scene": "Dusk on I-90 east, still the valley floor. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.",
   "decision": "Hollis is on your tail in the center. The right is empty. What do you do?",
   "options": [
     {
@@ -69,12 +69,16 @@
     "subject": "Hollis's lifted truck filling the interior rearview, no countable gap, same lane",
     "foreground": "wet rearview glass filling the upper frame; cracked faded pink dash and welded mesh below, out of focus",
     "midground": "in the glass: lifted truck tight behind, same heading, no opening of pavement you can count",
-    "background": "overcast afternoon I-90 behind the vehicle, windshield view not the subject, no snow",
+    "background": "dusk valley I-90 behind the vehicle, a dark grade far east, windshield view not the subject, no night, no snow",
     "read": "the inside mirror is filled by a lifted truck with no gap you can count",
     "continuity": ["pink_menace_interior", "hollis"],
     "extra_negatives": [
       "no truck in a door-mirror as the subject",
       "no snow",
+      "no night",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no Quiet herd",
       "no clipboard in the windshield",
       "no second occupant"
     ],
@@ -92,7 +96,7 @@
   "variation": {
     "location_type": "highway",
     "weather": "overcast",
-    "time_of_day": "afternoon",
+    "time_of_day": "dusk",
     "tone": "tense",
     "failure_mode": "speed",
     "forced": "Act V draft stub — no still; do not seed"

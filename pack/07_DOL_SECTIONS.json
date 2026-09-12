@@ -1,5 +1,5 @@
 {
-  "n/a": "Allowed for dossier cards and for rules with no PSDP mapping.",
+  "n/a": "Allowed for dossier cards, PSDP-only lessons with no DOL heading (null or n/a), and rules with no PSDP mapping. Do not mint a missing DOL section.",
   "sections": [
     "n/a",
     "2.5 Vehicle Maintenance",

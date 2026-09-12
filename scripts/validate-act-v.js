@@ -10,6 +10,7 @@ const { assemblePrompt } = require("./compile-prompt");
 const { validateAuthoringSeat } = require("./authoring-seat");
 const { checkSpoken, checkClosers } = require("./validate-spoken");
 const { COLD_PACK, deliveryBeat, cargoFailDispatch, radioCheckin, manifestFor } = require("../src/manifest");
+const { cargoRoughBand, radioChannel } = require("../src/cargo-rough");
 
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^V-\d{3}\.json$/.test(f)).sort();
@@ -45,6 +46,9 @@ for (let i = 0; i < cards.length; i++) {
   const c = cards[i];
   const id = c.card_id;
   if (c.act !== "V" || c.zone !== "The Ribbon" || c.driver !== "ali") err(id, "act/zone/driver");
+  if (c.variation.location_type !== "highway") {
+    err(id, "Act V location_type must be highway");
+  }
   if (!Number.isInteger(c.presence) || c.presence < 0) {
     err(id, "presence must be a canonical integer >= 0 (do not invent a parallel live field)");
   }
@@ -67,7 +71,13 @@ for (let i = 0; i < cards.length; i++) {
     if (cid) answers[cid] = (answers[cid] || 0) + 1;
   }
   if (c.variation.location_type === "mountain_pass") err(id, "mountain_pass is Act VII");
-  if (["night", "deep_night", "dusk"].includes(c.variation.time_of_day)) err(id, "dusk/night is Act VII");
+  if (["night", "deep_night"].includes(c.variation.time_of_day)) err(id, "night is Act VII");
+  if (c.variation.time_of_day === "dusk" && id !== "V-013") {
+    err(id, "dusk-as-dark is Act VII; only V-013 is dusk-as-grade-pass");
+  }
+  if (id === "V-013" && c.variation.time_of_day !== "dusk") {
+    err(id, "V-013 is dusk-as-grade-pass (valley dusk; the pass stays a door)");
+  }
   if (["snow", "ice", "fog"].includes(c.variation.weather)) err(id, "snow/ice/fog is Act VII");
   if (!locEnum.includes(c.variation.location_type)) err(id, "location");
   if (!weatherEnum.includes(c.variation.weather)) err(id, "weather");
@@ -129,15 +139,16 @@ for (let i = 0; i < cards.length; i++) {
   if (i >= 2 && c.card_type === cards[i - 1].card_type && c.card_type === cards[i - 2].card_type) {
     err(id, "three same types in a row");
   }
-  const dol = c.source && c.source.dol_section;
-  if (/Exiting/i.test(String(dol || ""))) {
+  const dolRaw = c.source && c.source.dol_section;
+  const dol = dolRaw == null || dolRaw === "" ? "n/a" : dolRaw;
+  if (/Exiting/i.test(String(dolRaw || ""))) {
     err(id, "do not mint a DOL Exiting heading — PSDP Lesson four pairs existing 4.12 / 5.1 strings only");
   }
   if (id === "V-004" && dol !== "4.11 Traffic light signals (Freeway ramp meters)") {
     err(id, "V-004 must cite 4.11 Traffic light signals (Freeway ramp meters), not the parent");
   }
-  if (id === "V-009" && dol !== "5.1 Speed") {
-    err(id, "V-009 highway steer cites 5.1 Speed, not 5.6 Curves");
+  if (id === "V-009" && dol !== "n/a") {
+    err(id, "V-009 uses dol_section n/a — do not stretch a parent; DOL has no Exiting / steer-gently heading");
   }
   if (id === "V-010" && dol !== "n/a") {
     err(id, "V-010 is PSDP lane-change; no DOL lane-change heading — use n/a, not 5.3");
@@ -194,6 +205,22 @@ assertRibbonCopy("radio late", radioLate && radioLate.line);
 assertRibbonCopy("radio check", radioCheck && radioCheck.line);
 const iiLate = deliveryBeat({ time_cost: COLD_PACK }, "II");
 if (!/June/i.test(iiLate)) errors.push("Act II deliveryBeat must keep June copy");
+const RAMP_METER = "4.11 Traffic light signals (Freeway ramp meters)";
+if (!tables.dol.has(RAMP_METER)) {
+  errors.push("pack/07 must allowlist exact string " + JSON.stringify(RAMP_METER));
+}
+if (cargoRoughBand(0) !== "CLEAN" || cargoRoughBand(3) !== "CLEAN") {
+  errors.push("cargo_rough CLEAN must be 0–3");
+}
+if (cargoRoughBand(4) !== "SCUFFED" || cargoRoughBand(8) !== "SCUFFED") {
+  errors.push("cargo_rough SCUFFED must be 4–8");
+}
+if (cargoRoughBand(9) !== "THINNED") {
+  errors.push("cargo_rough THINNED must start at 9");
+}
+if (radioChannel({ yaw: 9, time_cost: COLD_PACK }) !== "daylight_fail") {
+  errors.push("daylight_fail must win when the clock is dead");
+}
 
 console.log("cards", cards.length, "decision", n);
 console.log("answers", answers);

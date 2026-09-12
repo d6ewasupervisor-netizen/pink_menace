@@ -107,8 +107,8 @@
           "description": "Exact heading from pack/08_PSDP_SKILLS.json (verbatim from the WA Parent's Supervised Driving Program), or 'n/a'. Never invent or complete a subtitle."
         },
         "dol_section": {
-          "type": "string",
-          "description": "Exact numbered heading from pack/07_DOL_SECTIONS.json (WA Driver Guide body, not a TOC regex), e.g. '4.2 Sharing with school buses'."
+          "type": ["string", "null"],
+          "description": "Exact numbered heading from pack/07_DOL_SECTIONS.json (WA Driver Guide body, not a TOC regex), e.g. '4.2 Sharing with school buses'. Null or 'n/a' when DOL has no heading (PSDP-only lessons). Do not mint a missing section."
         },
         "teaching_target": { "type": "string", "maxLength": 200 },
         "stat_cited": {

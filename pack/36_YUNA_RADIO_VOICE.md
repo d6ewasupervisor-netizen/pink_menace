@@ -59,11 +59,17 @@ V-007 on the #141 stubs already states the negative: *“Yuna does not come back
 
 Three bands. No fourth. Do not rename them.
 
-| Band | |
-|---|---|
-| **CLEAN** | |
-| **SCUFFED** | |
-| **THINNED** | |
+Thresholds locked this pass. Cut points reuse presence T0 / T1 edges (`src/presence.js`, `pack/26` §2 / Doc 29 overlay cadence) so a sloppy run scuffs the kit on the same count the Quiet appear. T4 collapse (23) stays Quiet, not cargo-fail.
+
+`cargo_rough` is a run-state integer. If the field is missing, read accumulated `yaw` (bible §2 — the Ribbon "rough" meter). Light / noise stay on `presence`.
+
+| Band | `cargo_rough` | Channel |
+|---|---|---|
+| **CLEAN** | **0–3** | Full check-in. |
+| **SCUFFED** | **4–8** | Shorter. Still hers. |
+| **THINNED** | **9+** | Quietest, not harshest. Hardware thinned the relay. |
+
+`src/cargo-rough.js` is the helper. `daylight_fail` is `time_cost >= 130` (same budget as `COLD_PACK`). **`daylight_fail` wins when both are set.** Do not blend lines.
 
 - She **never mentions cargo condition.**
 - She **never grades the driving.**
