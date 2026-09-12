@@ -6,7 +6,7 @@
   "card_type": "hazard",
   "title": "Off the Edge",
   "hook": "The right wheels are off the road.",
-  "scene": "The road narrows where the culvert went in and the shoulder is a four-inch drop of soft dirt, and you find it the way everyone finds it \u2014 not by deciding. The right side goes down and the car pulls hard toward the ditch and the wheel in your hands wants one thing, which is to come back up. Everything in your arms agrees with it.",
+  "scene": "The road narrows where the culvert went in and the shoulder is a four-inch drop of soft dirt, and you find it the way everyone finds it — not by deciding. The right side goes down and the car pulls hard toward the ditch and the wheel in your hands wants one thing, which is to come back up. Everything in your arms agrees with it.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
@@ -21,7 +21,7 @@
   "schedules_callback": true,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle mid-event: right wheels already down in soft dirt below a four-inch pavement lip; left wheels still on asphalt; Gracie in closed carrier inside (not in frame)",
+    "subject": "faded-pink Beetle mid-event: right wheels already down in soft dirt below a four-inch pavement lip; left wheels still on asphalt; Gracie in latched strapped carrier inside (not in frame)",
     "foreground": "soft dirt shoulder and the raised asphalt lip; right knobby tires below the pavement plane",
     "midground": "Beetle in true profile traveling left-to-right; right side dropped; plow and mesh cages readable; no yank pose",
     "background": "narrowing at a culvert, ditch beyond the dirt, overcast PNW daylight, empty rural two-lane",
@@ -74,9 +74,9 @@
   "options": [
     {
       "id": "a",
-      "text": "Turn back onto the road \u2014 get the wheels up before the ditch",
+      "text": "Turn back onto the road — get the wheels up before the ditch",
       "correct": false,
-      "result": "You pull. The tire climbs the lip, catches, and the car comes across the road with more angle than you asked for. That is how this crash happens. Not the drop \u2014 the fix.",
+      "result": "You pull. The tire climbs the lip, catches, and the car comes across the road with more angle than you asked for. That is how this crash happens. Not the drop — the fix.",
       "state_delta": {
         "noise": 5,
         "damage": 1,

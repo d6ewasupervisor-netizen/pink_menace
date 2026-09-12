@@ -23,7 +23,7 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "a slow grain truck ahead with SMV triangle, drifting left as if inviting a pass; field gate unseen on the right",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "grain truck rear and slow-moving-vehicle triangle lit in the same lane; truck yawed slightly left",
     "background": "overcast two-lane rural, fence line and field edge right, empty oncoming half",
     "read": "the grain truck ahead is swinging left for a gate you cannot see; the open left is not a pass",
@@ -74,7 +74,7 @@
   "options": [
     {
       "id": "a",
-      "text": "Take the gap on the right \u2014 he's making room",
+      "text": "Take the gap on the right — he's making room",
       "correct": false,
       "result": "He swung wide for a right turn into the gate. You put the Menace where the trailer is going.",
       "state_delta": {

@@ -22,7 +22,7 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "two gravel roads crossing with no stop, no yield, no paint; a dusty pickup arriving from the right at the same time",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "empty uncontrolled intersection of graded gravel; dusty pickup entering from the right approach",
     "background": "overcast section-line country, fir edges, no sign faces toward camera",
     "read": "no stop or yield faces; a pickup from the right arrives with you at the same empty cross",
@@ -75,7 +75,7 @@
   "options": [
     {
       "id": "a",
-      "text": "He's on your right \u2014 slow, look twice, let him through",
+      "text": "He's on your right — slow, look twice, let him through",
       "correct": true,
       "result": "You come off it, check both ways twice, and let him have it. He lifts a finger off the wheel.",
       "state_delta": {
@@ -85,7 +85,7 @@
     },
     {
       "id": "b",
-      "text": "You were there first \u2014 keep your speed",
+      "text": "You were there first — keep your speed",
       "correct": false,
       "result": "Uncontrolled means nobody has it by default. You arrived together and you both believed you were first.",
       "state_delta": {

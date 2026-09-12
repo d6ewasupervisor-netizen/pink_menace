@@ -22,8 +22,8 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "a doe standing broadside in your travel lane, close, filling the next lengths through the mesh at last light",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; hands not yet yanking; closed dark carrier strapped on the passenger floor (Gracie inside)",
-    "midground": "doe broadside across the asphalt in this lane \u2014 not grazing roadside; ditch right, empty oncoming left",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; hands not yet yanking; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
+    "midground": "doe broadside across the asphalt in this lane — not grazing roadside; ditch right, empty oncoming left",
     "background": "dusk overcast rural two-lane, treeline, last light not full night",
     "read": "a deer stands broadside in your lane at dusk, close; the ditch and the oncoming lane wait on either side",
     "continuity": [
@@ -75,7 +75,7 @@
       "id": "a",
       "text": "Brake straight, stay in the lane, don't swerve",
       "correct": true,
-      "result": "You brake hard and hold the wheel and hit nothing, or you hit her and keep the car. Either way you're still pointed down the road \u2014 and the second one comes out of the ditch three seconds later.",
+      "result": "You brake hard and hold the wheel and hit nothing, or you hit her and keep the car. Either way you're still pointed down the road — and the second one comes out of the ditch three seconds later.",
       "state_delta": {
         "noise": -1,
         "time_cost": 5
@@ -117,7 +117,7 @@
       }
     }
   ],
-  "debrief": "Don't swerve for an animal \u2014 slow down, be prepared to stop, and look for more. Deer travel in groups.",
+  "debrief": "Don't swerve for an animal — slow down, be prepared to stop, and look for more. Deer travel in groups.",
   "timeout_option_id": "d",
   "timeout_ms": 8000
 }

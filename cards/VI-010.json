@@ -22,7 +22,7 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "the gravel/asphalt climbs to a crest and drops away into a curve whose far end you cannot see",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "road rising to a blind crest; beyond the top only sky and the start of a curve",
     "background": "overcast rural ridge, fir edges, no oncoming grille yet visible",
     "read": "you cannot see the other side of the hill; a curve begins beyond the crest",
@@ -83,7 +83,7 @@
     },
     {
       "id": "b",
-      "text": "Keep your speed \u2014 you'll see it when you're over",
+      "text": "Keep your speed — you'll see it when you're over",
       "correct": false,
       "result": "Over the top at speed with a tractor at forty yards and nothing but reflex left.",
       "state_delta": {

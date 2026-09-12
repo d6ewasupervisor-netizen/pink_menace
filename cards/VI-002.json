@@ -10,7 +10,7 @@
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "PSDP twelve Lesson one \u2013 gravel roads. DOL honest null \u2014 do not cite parent 5.6."
+    "teaching_target": "PSDP twelve Lesson one – gravel roads. DOL honest null — do not cite parent 5.6."
   },
   "cast": [
     "ali",
@@ -22,7 +22,7 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "washboard gravel in both wheel tracks filling the windshield view; the Menace feeling loose on a surface that moves",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; no second person; closed dark carrier strapped on the passenger floor (Gracie inside)",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; no second person; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "graded gravel road with corrugated washboard ridges in the tire paths; empty ahead",
     "background": "overcast rural valley, fir edges, no pavement, no other traffic",
     "read": "the road under the plow is loose washboard gravel, not pavement",
@@ -73,7 +73,7 @@
   "options": [
     {
       "id": "a",
-      "text": "Same as pavement \u2014 the tires are the same tires",
+      "text": "Same as pavement — the tires are the same tires",
       "correct": false,
       "result": "You drive it like asphalt and the back end goes light at the first bend. Loose is loose regardless of what you are used to.",
       "state_delta": {

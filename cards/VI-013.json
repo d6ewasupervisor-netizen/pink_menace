@@ -10,7 +10,7 @@
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. License lands here. End of act \u2192 Cleared beat."
+    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. License lands here. End of act → Cleared beat."
   },
   "cast": [
     "ali",
@@ -23,7 +23,7 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "Deac in the Menace passenger seat holding the metal clipboard with the hand-ruled sheet turned toward the driver",
-    "foreground": "worn black wheel rim at left edge; faded pink dash; coarse mesh; no clipboard in the glass; closed dark carrier strapped on the passenger floor (Gracie inside)",
+    "foreground": "worn black wheel rim at left edge; faded pink dash; coarse mesh; no clipboard in the glass; closed dark carrier latched and strapped on the passenger floor (Gracie inside)",
     "midground": "Deac in the passenger seat, glasses on a cord, amber vest edge, clipboard on his knee turned so the sheet faces the driver",
     "background": "overcast rural gravel shoulder through the mesh; Menace stopped; pass weather far off",
     "read": "Deac is in the passenger seat with the clipboard held out; Ali is alone no longer",
@@ -73,7 +73,7 @@
   "options": [
     {
       "id": "a",
-      "text": "Nothing \u2014 take it, read it, hand it back",
+      "text": "Nothing — take it, read it, hand it back",
       "correct": true,
       "result": "You read your own hours. He takes it back and clips it down. \"That's the state's form,\" he says. \"I run it out of the book because there's nobody left to run it out of anything else. You passed it.\"",
       "state_delta": {

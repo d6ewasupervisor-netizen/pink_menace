@@ -6,11 +6,11 @@
   "card_type": "scene",
   "title": "Pick Your Lane Before the Circle",
   "hook": "Two lanes in. The decision is on the approach, not inside.",
-  "scene": "Bigger roundabout at the highway junction, two lanes going in, arrows painted on the approach and a sign board before them. Your exit is the third one \u2014 effectively a left. The lane you're in decides whether you can take it.",
+  "scene": "Bigger roundabout at the highway junction, two lanes going in, arrows painted on the approach and a sign board before them. Your exit is the third one — effectively a left. The lane you're in decides whether you can take it.",
   "source": {
     "psdp_skill": "Skill thirteen: roundabouts",
     "dol_section": "n/a",
-    "teaching_target": "NEW: PSDP thirteen Lesson three \u2013 two or more lane roundabouts. PSDP-only."
+    "teaching_target": "NEW: PSDP thirteen Lesson three – two or more lane roundabouts. PSDP-only."
   },
   "cast": [
     "ali",
@@ -22,7 +22,7 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier strapped on the passenger floor (Gracie inside)",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
     "midground": "left and right approach lanes with pavement arrows; sign board before the circle; third exit is a left",
     "background": "overcast multi-lane roundabout ahead, empty circulating lanes, no night",
     "read": "two lanes in; the lane choice is painted on the approach before the circle",
