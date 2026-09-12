@@ -69,6 +69,8 @@ function actEntryLocked(act, actCards, everSet) {
   const cards = (actCards && actCards[act]) || [];
   if (!cards.length) return true;
   if (cards.some((c) => everSet.has(c.card_id))) return false;
+  // Act IV is playable now without replaying I–III. Art grind is paused.
+  if (act === "IV") return false;
   const idx = ACT_ZONES.findIndex((z) => z.act === act);
   if (idx <= 0) return false;
   for (let i = idx - 1; i >= 0; i--) {
@@ -217,7 +219,7 @@ function sceneFragment(scene) {
 }
 
 function imageUrl(cardId) {
-  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a66";
+  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a67";
 }
 
 function cargoUsed(state) {
@@ -603,6 +605,77 @@ async function playAgainFrom(client, studentId, cardId) {
     run_id: freshId,
     card_id: id,
     start_seq: rebuilt.startSeq,
+  };
+}
+
+/**
+ * Abandon the active run and open a fresh run on the first card of an act.
+ * Used so Act IV can start without replaying I–III (and without a prior answer).
+ */
+async function startActFrom(client, studentId, act) {
+  const bound = String(act || "");
+  if (!bound) return { error: 400, message: "Missing act." };
+  const { rows: cards } = await client.query(
+    `SELECT card_id, seq, act FROM cards WHERE act = $1 ORDER BY seq ASC, card_id ASC`,
+    [bound]
+  );
+  if (!cards.length) return { error: 404, message: "Act not seeded." };
+
+  const { rows: catalog } = await client.query(`SELECT card_id, act FROM cards`);
+  const { rows: ever } = await client.query(
+    `SELECT DISTINCT a.card_id
+       FROM run_answers a
+       JOIN runs r ON r.id = a.run_id
+      WHERE r.student_id = $1`,
+    [studentId]
+  );
+  const actCards = {};
+  for (const c of catalog) {
+    if (!actCards[c.act]) actCards[c.act] = [];
+    actCards[c.act].push(c);
+  }
+  const everSet = new Set(ever.map((r) => r.card_id));
+  if (actEntryLocked(bound, actCards, everSet)) {
+    return { error: 409, message: "Act locked." };
+  }
+
+  const first = cards[0];
+  const startSeq = Math.max(0, Number(first.seq) - 1);
+
+  await client.query(
+    `UPDATE runs
+        SET status = 'abandoned', current_card_id = NULL, updated_at = now()
+      WHERE student_id = $1 AND status = 'active'`,
+    [studentId]
+  );
+
+  const freshId = crypto.randomUUID();
+  await client.query(
+    `INSERT INTO runs (
+       id, student_id, status, current_attempt_no, start_seq,
+       queued_callbacks, callback_debts, state, replay_plan, replay_index, review_plan, review_index
+     ) VALUES ($1, $2, 'active', 1, $3, $4, $5::jsonb, $6::jsonb, '[]'::jsonb, 0, '[]'::jsonb, 0)`,
+    [
+      freshId,
+      studentId,
+      startSeq,
+      [],
+      JSON.stringify([]),
+      JSON.stringify(withActCargo({}, bound)),
+    ]
+  );
+  await client.query(
+    `UPDATE runs
+        SET current_card_id = $1, updated_at = now()
+      WHERE id = $2`,
+    [first.card_id, freshId]
+  );
+
+  return {
+    ok: true,
+    run_id: freshId,
+    card_id: first.card_id,
+    start_seq: startSeq,
   };
 }
 
@@ -1261,6 +1334,7 @@ module.exports = {
   failRestart,
   rebuildPlayAgain,
   playAgainFrom,
+  startActFrom,
   applyDelta,
   buildReplayPlan,
   recapBeat,

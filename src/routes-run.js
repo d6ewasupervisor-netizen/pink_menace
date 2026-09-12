@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, applySequenceTone, dayNight, pickNextCard, actBoundForRun, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, playAgainFrom, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard, isBeatCard, lotKeyFromOption } = require("./game");
+const { publicCard, applySequenceTone, dayNight, pickNextCard, actBoundForRun, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, playAgainFrom, startActFrom, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard, isBeatCard, lotKeyFromOption } = require("./game");
 const { applyFear, loudDelta } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
@@ -973,6 +973,40 @@ function mountRun(app) {
       }
       console.error("play-again failed", cardId, err);
       return jsonError(res, 500, "Could not play again.");
+    } finally {
+      client.release();
+    }
+  });
+
+  app.post("/api/run/start-act", async (req, res) => {
+    if (appKind(req) !== "game") return jsonError(res, 404, "Not found.");
+    const session = await auth.requireRole(req, res, "student");
+    if (!session) return;
+    const act = String((req.body && req.body.act) || "");
+    if (!act) return jsonError(res, 400, "Missing act.");
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+      const result = await startActFrom(client, session.userId, act);
+      if (result.error) {
+        await client.query("ROLLBACK");
+        return jsonError(res, result.error, result.message || "Could not start act.");
+      }
+      await client.query("COMMIT");
+      return res.json({
+        ok: true,
+        run_id: result.run_id,
+        card_id: result.card_id,
+        start_seq: result.start_seq,
+      });
+    } catch (err) {
+      try {
+        await client.query("ROLLBACK");
+      } catch {
+        // ignore
+      }
+      console.error("start-act failed", act, err);
+      return jsonError(res, 500, "Could not start act.");
     } finally {
       client.release();
     }

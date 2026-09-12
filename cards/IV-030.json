@@ -1,0 +1,90 @@
+{
+  "card_id": "IV-030",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "The Door to the Pass",
+  "hook": "Eastbound and rolling. The street is empty.",
+  "scene": "Overcast midday daylight on a two-lane downtown street heading east, wet asphalt edge to edge. Flat gray light, no sun, no cast shadows. The Menace is rolling east in the eastbound travel lane on that wet asphalt — wheels turning, in-lane motion. The street is empty of other vehicles and empty of people. There is no marked crosswalk and no painted stop line in this stretch. Brick downtown sits behind the car to the west. Ahead, the same two-lane continues empty toward the east. Both cats are a sound in the closed carrier on the floor. The mountain pass is still closed to her.",
+  "debrief": "The Beetle is rolling east on an empty wet street. Downtown sits behind it. The eastbound continues empty ahead.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Establishing: Menace rolling east on an empty two-lane; city behind; no yield, no pedestrian, no crosswalk."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_TOPDOWN_PHOTO",
+    "camera_pose": "Shallower high-oblique aerial, about forty degrees off vertical, looking along travel so the rear of the faded pink Beetle is nearer the camera and the body recedes east away toward the top of the frame. Off-nadir, not map-flat plan-view, not eye-level, not a steep three-quarter, not a front portrait. Photoreal overcast midday: flat gray-white sky, no sun disk, no cast shadows. Continuous empty wet two-lane — no marked crosswalk, no white bars, no stop line, no pedestrian, no other vehicles. Brick downtown sits behind the car to the west, nearer the camera. Empty eastbound continues ahead. The Beetle is a small mass rolling in-lane, wheels turning. Soft implied plow on the bull-bar nose is enough; do not force a full-width blade. NOT a yield scene. NOT a stopped hold. NOT a pedestrian-in-the-paint shot.",
+    "subject": "shallower high-oblique aerial of a faded pink Beetle rolling east, rear nearer the camera, body receding away; empty wet two-lane; no person",
+    "foreground": "wet two-lane asphalt receding away from camera; rear of the Beetle nearer the lens; curb along one flank; no white crosswalk bars; no stop line",
+    "midground": "the Beetle rolling in the eastbound lane, wheels turning; empty road ahead and beside; no other vehicles; no person in the street",
+    "background": "flat overcast midday, no sun, no cast shadows; brick downtown behind the car to the west; empty eastbound continues ahead; no moss island",
+    "read": "the Beetle is rolling east on an empty wet two-lane, rear nearer the camera; brick downtown sits behind it; no pedestrian and no crosswalk",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no Encore",
+      "no Ledger",
+      "no readable highway sign",
+      "no mountain pass in frame",
+      "no isolated gravel patch",
+      "no moss island",
+      "no featureless pale expanse",
+      "no helipad",
+      "no eye-level roadside view",
+      "no three-quarter front portrait",
+      "no car facing the camera",
+      "no headlights toward the viewer",
+      "no pedestrian",
+      "no person in the street",
+      "no walker in a dark coat",
+      "no marked crosswalk",
+      "no white crosswalk bars",
+      "no painted stop line",
+      "no yield scene",
+      "no stopped Beetle",
+      "no wheels still",
+      "no parked mid-junction",
+      "no car inside a crosswalk",
+      "no umbrella",
+      "no dusk",
+      "no night",
+      "no map-flat nadir top-down",
+      "no map-flat straight-down aerial",
+      "no plan-view",
+      "no steep three-quarter",
+      "no downtown bunched in one corner",
+      "no empty horizon salt flat",
+      "no bright sunlit sky",
+      "no sun disk",
+      "no cast shadows"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "eastbound travel lane, rolling, right curb on the right of the roadway",
+      "ego_nose_in_frame": "the bull-bar nose points away from camera, receding east toward the top of the frame, down the empty eastbound",
+      "oncoming_position": "westbound half is empty of vehicles",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "overcast",
+    "time_of_day": "midday",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "winner": "take-65",
+    "forced": "live still cards/takes/IV-030-take-65.png (Claude PASS muted-read; take 61 FAIL do not seed)"
+  }
+}
