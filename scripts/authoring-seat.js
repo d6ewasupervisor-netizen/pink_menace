@@ -78,6 +78,27 @@ function briefText(fields) {
 const PARKED_RE =
   /\b(parked|parking lot|legal pad|idle at|at the curb|on a pad|stopped on|off Aurora)\b/i;
 
+const HOLDING_RE =
+  /\b(holds the|is stopped at|stopped at the|stopped short of|not rolling|not cleared for the pass)\b/i;
+
+function vehicleHolding(card) {
+  const brief = (card && card.image_brief) || {};
+  const geo = brief.geometry || {};
+  const t = [
+    card && card.hook,
+    card && card.scene,
+    brief.subject,
+    brief.foreground,
+    brief.midground,
+    brief.background,
+    brief.read,
+    geo.ego_lane_side,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  return HOLDING_RE.test(t);
+}
+
 function vehicleParked(card) {
   if (card && card.variation && card.variation.location_type === "parking_lot") return true;
   const brief = (card && card.image_brief) || {};
@@ -202,6 +223,7 @@ module.exports = {
   ACT_DRIVER,
   EGO,
   vehicleParked,
+  vehicleHolding,
   validateAuthoringSeat,
   assertAuthoringSeat,
 };

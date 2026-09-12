@@ -160,7 +160,7 @@ function egoWrongFlank(frameSide) {
   return frameSide === "left" ? "right" : "left";
 }
 
-function geometryClause(geo, driver) {
+function geometryClause(geo, driver, opts) {
   if (!geo) return "";
   const front =
     driver === "deac"
@@ -176,9 +176,12 @@ function geometryClause(geo, driver) {
     occupancy = `${vehicle} occupies the **right half of the roadway** for its direction of travel.`;
   }
   const heading = travelPhrase(geo.ego_heading);
+  const motion = opts && opts.holding
+    ? `${vehicle} is **stopped**, heading **${heading}**. Wheels are still. No motion blur. Not rolling. Not parked mid-intersection. `
+    : `${vehicle} is traveling **${heading}**. `;
   return (
     "United States road configuration, traffic drives on the right. " +
-    `${vehicle} is traveling **${heading}**. ` +
+    motion +
     occupancy +
     " " +
     front +

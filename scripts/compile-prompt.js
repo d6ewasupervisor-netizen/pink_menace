@@ -14,7 +14,7 @@ const {
   cameraOf,
   describesRoadway,
 } = require("./geometry");
-const { vehicleParked } = require("./authoring-seat");
+const { vehicleParked, vehicleHolding } = require("./authoring-seat");
 
 const MASTER_STYLE =
   "Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.";
@@ -71,7 +71,7 @@ const MENACE_CABIN_NEGATIVES =
   "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no fine full-windshield flyscreen grid, no two-pedal automatic box, no missing clutch on a Menace cabin.";
 
 const COVER_THE_BRAKE =
-  "Match the attached cover-the-brake footwell plate for POSTURE only — ignore that plate's dark cabin, black high-top, two-pedal box, and missing clutch. On THIS cabin relocate that same heel-plant / ball-hover onto the brake pad: right knee bent, thigh angled down, shin dropping about forty-five degrees, heel planted on the floor directly below the pad's lower edge, ball of the shoe hovering over the CENTER of the brake pad with visible daylight between sole and pad. The shoe is not on bare floor left of the pedal box. The brake pad is not empty to the right of the shoe. The accelerator is empty. The clutch, if this cabin has three pedals, is empty. The sole is not planted flat on the accelerator. The sole is not resting flush on the brake pad.";
+  "Match the attached cover-the-brake footwell plate for POSTURE only — ignore that plate's dark cabin, black high-top, two-pedal box, and missing clutch. On THIS cabin the sole of the boot is directly above the brake pad, overlapping it in frame, with a visible gap between them. Right knee bent, thigh angled down, shin dropping about forty-five degrees. The shoe is not on bare floor left of the pedal box. The brake pad is not empty to the right of the shoe. The accelerator is empty. The clutch, if this cabin has three pedals, is empty. The sole is not planted flat on the accelerator. The sole is not resting flush on the brake pad.";
 
 const COVER_THE_BRAKE_NEGATIVES =
   "No right foot planted flat on the accelerator. No straight nearly-horizontal right leg. No sole flush on a pedal pad. No empty floor with the foot away from the pedals. No shoe sitting left of the pedal box with the brake pad unused to its right. No cover-the-gas. No pressing the brake to the floor. No copying the attached footwell plate's dark Encore dash, black sneaker, or two-pedal automatic box onto a Menace cabin.";
@@ -205,7 +205,7 @@ function headingPhrase(heading) {
   }
 }
 
-function geometryPromptClause(geo, driver) {
+function geometryPromptClause(geo, driver, card) {
   if (!geo) return "";
   if (/not in frame/i.test(String(geo.ego_nose_in_frame || ""))) {
     return (
@@ -218,7 +218,8 @@ function geometryPromptClause(geo, driver) {
       ...geo,
       ego_heading: headingPhrase(geo.ego_heading),
     },
-    driver
+    driver,
+    { holding: vehicleHolding(card) }
   );
   const traffic = trafficPositionsClause(geo, driver);
   return [core, traffic].filter(Boolean).join(" ");
@@ -324,7 +325,7 @@ function assemblePrompt(card) {
         const traffic = trafficPositionsClause(geo, card.driver);
         if (traffic) parts.push(traffic);
       } else {
-        parts.push(geometryPromptClause(brief.geometry, card.driver));
+        parts.push(geometryPromptClause(brief.geometry, card.driver, card));
       }
     }
     parts.push(SIGN_CLAUSE);
