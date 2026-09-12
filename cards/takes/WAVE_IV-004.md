@@ -2,7 +2,16 @@
 
 Branch from `cursor/iv-004-away-fullwidth-0db6` (PR #88). Lighting locked to
 flat overcast so pose / background / variation match. Soft plow OK.
-Not seeded. No Act I–III.
+Seeded take 169 live (`cards/IV-004.png`). No Act I–III.
+
+## PASS take 169
+
+Take 169 — PASS. Flat overcast gray sky, wet pavement, no sun / long
+shadows / blue clear sky. Away rear-¾ Beetle large and short of the
+pair with wet tire spray; dark nose toward the top of frame. Person
+mid-gap between rusted van and gray sedan, torso at the van, one shoe
+in the paint — not standing in the open roadway. Soft far-nose plow.
+Seeded take-169.
 
 ## Owner decision (skipped plow poll)
 
@@ -30,9 +39,9 @@ the open.
 
 | Card | Lesson | Shot | Closest | Runner-up |
 |---|---|---|---|---|
-| **IV-004** | a person is stepping from the parked-car gap into the lane | `POV_ROADSIDE` | `cards/takes/IV-004-take-169.png` | take 171 |
+| **IV-004** | a person is stepping from the parked-car gap into the lane | `POV_ROADSIDE` | `cards/takes/IV-004-take-169.png` (PASS take-169, live) | take 171 |
 
-### IV-004 take 169 (closest)
+### IV-004 take 169 (PASS — seeded live)
 
 KEEP vs the set: (1) **flat overcast** — gray sky, wet pavement, no sun,
 no long shadows, no blue clear sky. (2) **away rear-¾** — rear lid nearest
@@ -42,9 +51,10 @@ in the slot between rusted van and gray sedan, torso at the van, one shoe
 in the paint, not standing in the open roadway. (5) **soft far-nose plow**
 — dark dozer shape on the leading end, not a left-side rear flap.
 
-Residuals: plow is a soft / implied far-nose shape, not both edges of the
-locked plate (owner accepted). Person head/shoulder still read; torso is
-at the van rather than fully boxed in the slot.
+Soft / implied far-nose plow, not both edges of the locked plate
+(owner accepted). Person head/shoulder still read; torso is at the van
+rather than fully boxed in the slot. Live still: `cards/IV-004.png`
+(`cmp` identical to take-169).
 
 ### IV-004 take 171 (runner-up)
 
@@ -69,8 +79,8 @@ Prior 159 / 151 remain the Claude FAIL (sun, unoccluded person, left flap).
 Take 144 remains the overcast away+mid-gap ancestor; 169 keeps that light
 and tightens occlusion.
 
-## This pass (not seeded)
+## This pass (take 169 seeded live)
 
 - IV-004: `cards/takes/IV-004-take-163.png` … `take-174.png`
-- Closest: take 169
+- Winner: take 169 (PASS, live)
 - Runner-up: take 171
