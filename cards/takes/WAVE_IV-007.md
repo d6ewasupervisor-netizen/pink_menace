@@ -25,3 +25,8 @@ Take 28 — FAIL (sign portrait, wrong card / no maneuver). Do not seed.
 
 `cards/takes/IV-007-take-30.png` copied to `cards/IV-007.png` (`cmp`
 identical). `variation.winner` = `take-30`.
+
+Source still: 360471 B, MD5 `55a95bd40a8edc535e973ca76a8cc80e`, 864×1152
+(JPEG bytes under `.png`, same convention as PR #114). Encoded WebP
+(`scripts/encode-still.py`): 98032 B, MD5 `81d2b3d7f9dac0cf05e8fbbed542bf72`,
+768×1152.
