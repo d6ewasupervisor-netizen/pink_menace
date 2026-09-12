@@ -1,10 +1,23 @@
-# Candidate Ribbon plates — NOT PROMOTED
+# Ribbon plates — deck + rig PROMOTED; workzone still candidates
 
-Claude locked three NEW plate briefs on 2026-09-12. This PR is generate-only. **Muted-read pending.** Do not overwrite live `refs/ref_ribbon_deck.png`, `refs/ref_ribbon_rig.png`, or `refs/ref_ribbon_workzone.png` (those files do not exist yet and must stay absent until PASS). Do not wire any of these into `pack/09_REF_MAP.json`, `pack/03_IMAGE_COMPILER_PROMPT.md`, or `scripts/compile-prompt.js`.
+Claude locked three NEW plate briefs on 2026-09-12. Candidates compiled on PR #149. Claude muted-read (image-review chat) then:
 
-Pack rule 4: plates travel in their own PR. No card art. No Act I–III. No seed. No live LOCKS promote — take/sha stay blank.
+1. **`ref_ribbon_deck` — PASS promote take-4** (not take-2). Streetlight standards along the deck needed for V-013 dusk grade. Live: `refs/ref_ribbon_deck.png`. Token `ribbon_deck`.
+2. **`ref_ribbon_rig` — PASS promote take-1** (not take-2). Period-aged, no legible livery, rain/spray, passenger car at right scale, mirrors visible for V-006. take-2 FAIL (car too far / hero angle / faint red markings). Live: `refs/ref_ribbon_rig.png`. Token `ribbon_rig`.
+3. **`ref_ribbon_workzone` — BOTH FAIL.** Cone taper runs longitudinal (parallel to the skip-dash) → reads shoulder closure, not lane shift. V-008 needs a diagonal pinch across the closed lane. **Do not promote.** No live `refs/ref_ribbon_workzone.png`. Token `ribbon_workzone` is not in `pack/09_REF_MAP.json`.
 
-## Serves (after promote — not this PR)
+Pack rule 4: plates travel in their own PR. No card art. No Act I–III. No seed. Act V draft cards on #132 / #141 / #151 do not yet name these tokens; REF_MAP + compiler attachment map are wired so compile can consume them when those cards do.
+
+## Promoted (live)
+
+| Plate | Take | File | sha256 |
+|---|---|---|---|
+| deck | **4** | `refs/ref_ribbon_deck.png` | `889a6d98409b4992eb4fee3c18421ed4934ead494b9c8b9c15334365ff7d823c` |
+| rig | **1** | `refs/ref_ribbon_rig.png` | `939b0c29e60d52c0945d7dd1abcf6eebbf43c0b8dcc3c1b0493eeb39b890148e` |
+
+Exact bytes of `refs/candidates/ribbon-deck-take-4.png` and `refs/candidates/ribbon-rig-take-1.png`. Candidate closest/runner copies stay in the pool (deck closest remains take-2; Claude promoted the runner).
+
+## Serves
 
 | Plate | Cards |
 |---|---|
@@ -86,4 +99,10 @@ Muted-read must teach, with text covered:
 
 ## LOCKS
 
-`refs/LOCKS.md` WAVE note only. Take/sha blank. Candidates are **not** live refs.
+Deck take-4 and rig take-1 are live. Workzone take/sha stay blank until a later muted-read PASS.
+
+## Workzone regen — wave C (muted-read only)
+
+Wave A (takes 1–8 + b-1) failed the diagonal-taper hard gate. Wave C is eight new takes against the locked brief plus that gate. **Do not auto-promote.** Closest + runner only.
+
+HARD GATE: the cone row must be a **diagonal pinch** across the closed lane — each successive cone steps laterally from the right-edge line toward the skip-dash as it recedes. A row parallel to the skip-dash is a FAIL (shoulder closure). Workers sit past the taper in the closed lane. Portable barrier / barrels at the closure head. Tall MUTCD orange + white collar (Act IV rain still language). Unnamed corridor. Attach the promoted deck plate for barrier/shoulder/streetlight consistency only — do not bleed the deck sedan/pickup pair as subjects.

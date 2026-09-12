@@ -535,6 +535,8 @@ else. No commentary. No alternatives.
 | The Ledger exterior | `ref_ledger_sheet.png` |
 | Ledger cockpit / Deac `POV_COCKPIT` | `ref_ledger_cockpit.png` (D4 retake: clipboard off the mesh, road visible through the cage) |
 | HOV / diamond-lane geometry (III-008) | `ref_hov_median_diamond.png` — real US freeway, diamond in the leftmost lane against the median. Compile PNW wet asphalt; negate gantries, green guide signs, palm trees, arid roadside. |
+| Ribbon elevated deck (Act V; V-002–V-005, V-012; V-013 shoulder/dusk) | `ref_ribbon_deck.png` — take 4. Continuity token `ribbon_deck`. Wet multi-lane unnamed corridor, streetlight standards, city below the Jersey. Location plate: build and deck language only. |
+| Ribbon tractor-trailer (Act V; V-006, V-007) | `ref_ribbon_rig.png` — take 1. Continuity token `ribbon_rig`. Period-aged conventional cab, west-coast mirrors, passenger-car scale. Take-2 FAIL — do not attach. Do not attach `ref_ribbon_workzone` until a muted-read PASS. |
 | Encore exterior | `ref_encore_sheet.png` |
 | Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` (Y4 b-take-2: moulded dash, take-1 mic on the right cage tube, two pedals, no floor shifter) |
 | Two or more vehicles in frame | `ref_convoy.png` |

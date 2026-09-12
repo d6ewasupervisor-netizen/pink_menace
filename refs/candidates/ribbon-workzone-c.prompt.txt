@@ -1,0 +1,28 @@
+Pink Menace LOCATION AUTHORITY PLATE candidate (not promoted).
+ref_ribbon_workzone — Act V Ribbon work zone. WAVE C regen.
+Serves V-008, V-009. MUTCD orange exempt from world-grade desaturation.
+Claude locked brief 2026-09-12. Wave A FAIL: cone row ran longitudinal along the skip-dash (shoulder closure). Wave C hard gate is a DIAGONAL PINCH. Muted-read only. Do not overwrite live refs/ref_ribbon_workzone.png.
+16:9. Reference plate, not a card still.
+Consistency ref (barrier / shoulder / streetlight language only): promoted refs/ref_ribbon_deck.png take-4. Do not copy that plate's sedan/pickup pair as subjects.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/5.6, deep focus. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. World-grade desaturation on pavement, concrete, city, and vehicles. EXCEPTION: MUTCD work-zone orange devices and hi-vis keep TRUE saturated safety orange / fluorescent lime — do not gray them out. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare. Photograph, not a 3D render, not posterized.
+
+Camera: DRIVER-EYE HEIGHT on the same elevated urban freeway deck as the attached Ribbon deck plate, looking forward along the remaining open lanes toward a RIGHT-LANE CLOSURE. Deck level, not aerial, not ground-level under the structure. Horizon through the middle of the frame. Concrete Jersey outside barrier on the right, stained and wet, city brick rooftops BELOW and BEYOND the barrier. Streetlight standards may recede along the deck.
+
+HARD GATE — DIAGONAL PINCH (this is the entire read):
+The rightmost travel lane is being CLOSED. The cone taper is a MUTCD merging taper that ANGLES ACROSS that closed lane, well ahead of the work. It is NOT a line of cones parallel to the dashed lane line. It is NOT a shoulder closure hugging the Jersey wall.
+
+Geometry, stated once, in frame space:
+- The skip-dashed white lane lines stay straight and recede toward the vanishing point (longitudinal).
+- The CONE ROW is DIAGONAL relative to those dashes. It crosses the closed right lane at a clear visible angle.
+- Nearest cones (lower-right of frame, close to camera): sit on or just left of the solid white RIGHT-EDGE line, still in the right half of the rightmost lane.
+- Mid-taper cones (middle of frame): sit in the CENTER of the rightmost travel lane — they have stepped left, off the edge line, across the closed pavement.
+- Far taper cones (upper-middle, still short of the work): sit ON the skip-dash that separates the closed right lane from the open lane to its left. The lane has been pinched shut.
+- Then the CLOSURE HEAD: orange drums / barrels and a portable concrete barrier block the remaining width of that closed lane. The open lanes to the LEFT continue straight, empty of cones.
+- The player must see the closure PULLING TRAFFIC LEFT across the closed lane — a zipper / funnel / diagonal pinch — not a channelizing line along the shoulder.
+
+Cone STYLE: standard tall US MUTCD traffic cones, 28–36 inch, TRUE saturated safety orange plastic, one or two white reflective collar bands, weathered dirt on the tops. Match Act IV rain still language (tall orange + white collar). NOT slim flexible delineators, NOT mini parking cones, NOT drums used as the taper (drums only at the head).
+
+Beyond the taper, two or three highway WORKERS in hi-vis rain jackets or vests (fluorescent lime or orange), hard hats, standing in the CLOSED lane past the barrels, not in any live lane. One weathered orange diamond warning sign on a portable stand; legend ILLEGIBLE or blank — no city name, no route number. Wet deck sheen, worn lane paint, usable paved right shoulder consistent with the Ribbon deck plate. Sparse period-aged traffic in the OPEN lanes only (1980s–1990s sedan or pickup, dull paint). Flat gray overcast. At least THREE travel lanes in ONE direction. Unnamed corridor: any gantry panels blank or peeling-illegible.
+
+NEGATIVE / HARD GATE: no cone row parallel to the skip-dash. no cones marching in a straight longitudinal line along a lane line. no cones hugging the Jersey barrier as a shoulder-only closure. no missing diagonal pinch. no desaturated orange (khaki, brown, gray cones FAIL). no inconsistent cone types in the same taper. no missing workers. no snow, ice, chains, chain-up signs, mountain grade. no route shields, no numbered exits, no city names; a single legible route number FAILS. no sunlight, no warm golden cast, no dry pavement. no current-model vehicles. no posterized or flat-color look. no HUD, no labels, no UI, no readable advertising. no Pink Menace, no Beetle, no Ledger, no Encore. do not copy the attached deck plate's specific sedan-and-pickup pair as the subject.

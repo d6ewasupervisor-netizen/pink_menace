@@ -25,6 +25,8 @@ Never mix panels across takes. Winners only.
 | Mya studio portrait | appearance lock | `ref_mya.jpg` | **Appearance authority for Mya.** Brown mackerel tabby, dark nose, green eyes, hard-striped forehead, heavier. Studio wins over any in-carrier grate crop. |
 | Cat in-carrier — ginger | IV-028 take 70 crop | `ref_cat_ginger.png` | In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Gracie. Attach **alongside** `ref_gracie.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. |
 | Cat in-carrier — mackerel | IV-028 take 70 crop | `ref_cat_mackerel.png` | In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Mya. Attach **alongside** `ref_mya.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. |
+| Ribbon elevated deck | take 4 | `ref_ribbon_deck.png` | Claude muted-read **PASS** (image-review chat) on PR #149 take 4 — not take 2. Streetlight standards along the deck for V-013 dusk grade. Exact promote of `refs/candidates/ribbon-deck-take-4.png`. `sha256:889a6d98409b4992eb4fee3c18421ed4934ead494b9c8b9c15334365ff7d823c`. Serves V-002–V-005, V-012 (V-013 shoulder/dusk). Continuity token `ribbon_deck`. |
+| Ribbon tractor-trailer | take 1 | `ref_ribbon_rig.png` | Claude muted-read **PASS** (image-review chat) on PR #149 take 1 — not take 2. Period-aged, no legible livery, rain/spray, passenger car at right scale, west-coast mirrors for V-006. Exact promote of `refs/candidates/ribbon-rig-take-1.png`. `sha256:939b0c29e60d52c0945d7dd1abcf6eebbf43c0b8dcc3c1b0493eeb39b890148e`. Serves V-006, V-007. Continuity token `ribbon_rig`. Take-2 FAIL (car too far / hero angle / faint red markings) — do not attach. |
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
 
@@ -51,15 +53,15 @@ Scope the grate plates to in-carrier frames only. Do **not** attach them to out-
 
 Art regen is paused pending daughter feedback. Do not generate new stills from these plates until that pass.
 
-## WAVE — Act V Ribbon plates (candidates only, 2026-09-12)
+## WAVE — Act V Ribbon plates (2026-09-12)
 
-Claude locked three NEW plate briefs. Candidates compiled on this plates-only PR. **Not promoted.** Do not copy to live `refs/ref_ribbon_*.png`. Do not attach in `pack/09_REF_MAP.json` or compile-prompt. Fill take/sha only after Claude muted-read PASS.
+Claude locked three NEW plate briefs. Deck + rig promoted after muted-read. Workzone still candidates — both submitted takes FAIL (longitudinal cone line, not a diagonal pinch). Do **not** copy a live `refs/ref_ribbon_workzone.png`. Do **not** attach `ribbon_workzone` in `pack/09_REF_MAP.json` or compile-prompt until a later muted-read PASS.
 
 ```
-# ref_ribbon_deck      take-__  sha ________  Ribbon elevated deck. Unnamed corridor.
-# ref_ribbon_rig       take-__  sha ________  Period-aged tractor-trailer. Ribbon scale reference.
-# ref_ribbon_workzone  take-__  sha ________  Ribbon work zone. MUTCD orange exempt from world grade.
+# ref_ribbon_deck      take-4   sha 889a6d98409b4992eb4fee3c18421ed4934ead494b9c8b9c15334365ff7d823c  PROMOTED. Streetlight standards. Unnamed corridor.
+# ref_ribbon_rig       take-1   sha 939b0c29e60d52c0945d7dd1abcf6eebbf43c0b8dcc3c1b0493eeb39b890148e  PROMOTED. Period tractor-trailer. Scale + mirrors.
+# ref_ribbon_workzone  take-__  sha ________  Ribbon work zone. MUTCD orange exempt from world grade. NOT PROMOTED.
 ```
 
-Pool: `refs/candidates/ribbon-*-take-N.png` plus closest/runner copies `refs/ref_ribbon_*_candidate.png`. Brief: `refs/CANDIDATE_RIBBON.md`.
+Pool: `refs/candidates/ribbon-*-take-N.png` plus closest/runner copies `refs/ref_ribbon_*_candidate.png`. Workzone regen wave C (if present): `refs/candidates/ribbon-workzone-c-take-N.png`. Brief: `refs/CANDIDATE_RIBBON.md`.
 
