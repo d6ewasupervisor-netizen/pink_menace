@@ -4,8 +4,12 @@
 # take send: IV-026 · three hazards sit in the Beetle's next two lengths; the left travel lane is empty · POV_ROADSIDE
 
 See cards/takes/IV-026.prompt.txt for the primary generation prompt.
-See cards/takes/IV-026.away.prompt.txt for the optional away/down-lane alternate — do not let it steal the primary wave.
-See cards/takes/IV-026.WAVE.md for the wave, closest, and runner.
+See cards/takes/IV-026.away.prompt.txt for the optional away/down-lane alternate — not generated this pass.
+See cards/takes/IV-026.WAVE.md for the wave, closest (199), and runner (194).
+
+Primary takes: IV-026-take-186.png … IV-026-take-199.png.
+Closest: cards/takes/IV-026-take-199.png
+Runner: cards/takes/IV-026-take-194.png
 
 Claude FAIL on PR #138 takes 184 and 179 is authoritative. Build from take 179's camera, not 184. Approved revision: nose-toward only from ahead of the car / opposite-lane vantage. Card JSON is now that camera. Lesson / hazards stay JSON authority: side-door van (not barn-door), person + bike in her lane, tight two-length stack.
 
