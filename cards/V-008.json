@@ -76,7 +76,12 @@
       "no I-5 travel lanes still beside the hood",
       "no snow",
       "no clipboard in the glass",
-      "no second occupant"
+      "no second occupant",
+      "no Yuna in frame",
+      "no work-zone cones",
+      "no zipper taper",
+      "no MUTCD-orange closure",
+      "no digital 112.0 readout"
     ],
     "aspect": "2:3",
     "geometry": {
