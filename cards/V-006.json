@@ -65,29 +65,35 @@
   "schedules_callback": false,
   "presence": 0,
   "image_brief": {
-    "camera": "POV_COCKPIT",
-    "subject": "from the seat in the leftmost of three wet I-90 lanes, empty middle and right ahead, no merge paint",
-    "foreground": "worn black wheel, left stalk off, faded pink dash, handheld on the floor",
-    "midground": "skip-dash, empty wet right two lanes, pink plow bar at the bottom of the glass",
-    "background": "rain midday valley I-90, three lanes, concrete median, no snow",
-    "read": "the Beetle is in the left travel lane; the middle and right are empty wet asphalt",
-    "continuity": ["pink_menace_interior"],
+    "camera": "POV_ROADSIDE",
+    "camera_is_the_lesson": true,
+    "subject": "semi_alongside_ribbon. POV_ROADSIDE just outside the driver's door at door height; period rig fills the left of frame",
+    "foreground": "wet wheel spray; faded-pink Beetle low against the trailer for scale, left door near camera",
+    "midground": "period-aged tractor-trailer filling left at door level; tall door mirrors visible; no livery",
+    "background": "wet Ribbon rain midday, unnamed corridor, no snow, no sun, no chains",
+    "read": "a period rig fills the left at door height; the Menace sits low beside it; wet spray at the wheels",
+    "continuity": ["ribbon_rig", "pink_menace_exterior"],
     "extra_negatives": [
-      "no merge paint",
-      "no on-ramp",
+      "no legible livery",
       "no snow",
-      "no clipboard in the glass",
-      "no second occupant"
+      "no sun",
+      "no chains",
+      "no Snoqualmie shield",
+      "no second occupant",
+      "no interior rearview as the subject",
+      "no route number",
+      "no clipboard in the glass"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "left travel lane of three eastbound I-90 lanes",
-      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing toward the top of the frame",
+      "ego_lane_side": "right travel lane, tight beside a tractor-trailer in the left",
+      "ego_nose_in_frame": "Beetle roof and left door near camera; plow ahead and low against the trailer",
       "oncoming_position": "none in frame",
-      "hazard_position": "ahead_same_direction",
+      "hazard_position": "beside",
       "lanes_this_direction": 3,
-      "ego_lane_from_left": 1
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
     }
   },
   "variation": {

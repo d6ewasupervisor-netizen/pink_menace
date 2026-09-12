@@ -65,28 +65,36 @@
   "schedules_callback": false,
   "presence": 0,
   "image_brief": {
-    "camera": "POV_COCKPIT",
-    "subject": "from the seat on a tightening exit ramp, advisory 25 panel ahead, curve starting",
-    "foreground": "worn black wheel, cluster still high, right foot ready over the brake",
-    "midground": "wet ramp, advisory plaque, no readable city name, pink plow bar at the bottom of the glass",
-    "background": "overcast morning, trees on the verge, I-5 already behind, no snow",
-    "read": "the cluster is still high; the ramp sign reads 25; the curve has not started under the wheels",
-    "continuity": ["pink_menace_interior"],
+    "camera": "POV_CHASE",
+    "camera_is_the_lesson": true,
+    "subject": "work_zone_taper_cones_ribbon. POV_CHASE driver's-eye height behind and slightly right of the Menace, approaching the cone taper from the left lane",
+    "foreground": "wet left-lane asphalt; rear and right flank of the faded-pink Beetle receding ahead",
+    "midground": "MUTCD-orange cones step laterally toward the skip-dash; travel lanes visibly narrow",
+    "background": "workers past the taper; left gantry panel blank at full crop; Ribbon work-zone plate, no snow",
+    "read": "cones step toward the skip-dash and pinch the lanes; workers stand past the taper; orange stays saturated",
+    "continuity": ["ribbon_workzone", "pink_menace_exterior"],
     "extra_negatives": [
-      "no I-5 travel lanes still beside the hood",
       "no snow",
-      "no clipboard in the glass",
-      "no second occupant"
+      "no sun",
+      "no chains",
+      "no Snoqualmie shield",
+      "no washed-out orange cones",
+      "no readable gantry text",
+      "no exit-ramp-only geometry",
+      "no second occupant",
+      "no route number",
+      "no clipboard in the glass"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "single-lane I-5 exit ramp, right of the gore, tightening to a curve",
-      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing into the ramp curve",
+      "ego_lane_side": "left travel lane of a narrowing Ribbon work-zone",
+      "ego_nose_in_frame": "rear of the Beetle nearest camera; plow at the far leading end",
       "oncoming_position": "none in frame",
-      "hazard_position": "none",
-      "lanes_this_direction": 1,
-      "ego_lane_from_left": 1
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 1,
+      "ego_frame_side": "left"
     }
   },
   "variation": {
