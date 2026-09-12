@@ -6,12 +6,17 @@ Brad: paste this whole file. Picture muted-read waits on art.
 
 Authority is the card JSON on PR #151. If this file and a card disagree, the card wins.
 
+Five-card split (V-001 / V-006 / V-007 / V-011 / V-013): `pack/ACT_V_FIVE_CARD_SPLIT.md`.
+
 ## Locks for this read
 
 - Act V = Ribbon + Skill eleven. Ali alone. Yuna radio-only. Load = Tower 4 relay kit.
 - `presence` canonical. **Quiet at seventy:** they do not paint on the Ribbon the way they paint in the lot. Herd is VII. Thirteen cards + existing end beat. No V-014.
 - V-013 dusk = grade pass over the deck plate (geometry unchanged). **One** dusk card path. Overrun is `daylight_fail` (end-of-run fail), not a V-013 scene variant.
 - V-006 spends `5.3 Merging (Zipper merging)`. V-011 stays merger/yield (`5.2 Space`). Do not put zipper on V-011.
+- V-001 pairs `5.5 Focus` (eyes-up). Not 4.12. Not 4.16.
+- `4.10` keep-right is **cut** from Act V (thirteen is thirteen). III-003 already taught it.
+- Workzone plate ≠ V-008 (exit-ramp posted-25). Candid attach later: V-006. Promote is a separate PR.
 - Building-engaging locks:
   1. Allowlist + V-004 cite exact `4.11 Traffic light signals (Freeway ramp meters)` (TOC child, not a top-level section).
   2. V-009 `dol_section: "n/a"` (PSDP-only). Do not stretch a DOL parent. Validator accepts `n/a`.
@@ -24,9 +29,9 @@ Authority is the card JSON on PR #151. If this file and a card disagree, the car
 
 Type: `scene` · Ali · The Ribbon
 
-**Lesson:** NEW: PSDP p1 Lesson one – observation (eyes-up interchange / paint). Pair 4.16 Road markings for the lane lines — not a 4.12 Signs dump. Ali has the wheel; Yuna is radio-only.
+**Lesson:** NEW: PSDP p1 Lesson one – observation (eyes-up interchange). Pair 5.5 Focus — eyes up, not on the bumper. Not a 4.12 Signs dump. Not a 4.16 markings dump. Ali has the wheel; Yuna is radio-only.
 **PSDP:** Skill eleven: highway driving – part one
-**DOL:** 4.16 Road markings
+**DOL:** 5.5 Focus
 **Cited:** PSDP p.31: explain key highway features — interchanges, highway signs and signals, lane lines and markings.
 
 **Hook:** Yuna on the radio. The highway starts.
@@ -220,7 +225,7 @@ Daylight rain, afternoon, I-5 south. A green exit panel sits far enough ahead th
 
 Type: `scene` · Ali · The Ribbon
 
-**Lesson:** PSDP p1 Lesson four – posted ramp speed before the curve. Pair 5.1 conditions. Not a minted Exiting heading.
+**Lesson:** PSDP p1 Lesson four – posted ramp speed before the curve. Pair 5.1 conditions. Not a minted Exiting heading. Not the Ribbon workzone plate (that plate is not this geometry).
 **PSDP:** Skill eleven: highway driving – part one
 **DOL:** 5.1 Speed (Adjusting speed for conditions)
 **Cited:** PSDP p.31: Upon entering the ramp, tap the brakes and begin to slow down to the posted exit ramp speed limit before reaching the curve.

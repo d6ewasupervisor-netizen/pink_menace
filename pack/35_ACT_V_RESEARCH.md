@@ -184,7 +184,9 @@ WA headings **not in `pack/08` yet** (do not add this act):
 | `5.4 Time (Count seconds)` | **once** (II-012) | Review at highway speed (Skill eleven p2 lesson three). Legal. |
 | `4.4 Sharing with large vehicles` | 2 (III-011, III-012) | Bible lists 4.4 on V. **Do not** spend it as truck tire/axle. Old Ninety following-distance can wait; this pass drops the V-013 trailer-stop card. |
 | `4.12 Signs` | 3 | Unused on Act V after the muted-read FAIL patch (was a catch-all). |
-| `4.16 Road markings` | used I–IV | V-001 eyes-up / interchange paint (not a 4.12 Signs dump). |
+| `4.16 Road markings` | used I–IV | Unused on Act V (Claude: only lane lines are markings; catch-all). |
+| `5.5 Focus` | used I–IV | V-001 eyes-up observation (not 4.12 / not 4.16). |
+| `4.10 Traffic laws` | used I–IV (III-003 keep-right) | **Cut from Act V.** Thirteen is thirteen. Not zipper (V-006). Not yield (V-011). |
 | `5.2 Space` | 7 | V-011 yield to a merger (NEW pairing). V-013 tailgater (REVIEW). |
 | `5.10 Law enforcement` | **unused** on this `main` count (IV-019/020 are not on `main`) | Not Ribbon. |
 | `5.8 Communicating risks` | unused parent, not in `pack/07` | Low. Mentions highways. Not Skill eleven’s lesson list. |
@@ -236,7 +238,7 @@ Exact Act VII chain quote (`source/driver-guide.pdf` **5.6** / Slippery roads):
 
 | PSDP lesson | Card | DOL |
 |---|---|---|
-| p1 Lesson one – observation | V-001 (Yuna radio; Ali already has the wheel) | 4.16 Road markings (not 4.12) |
+| p1 Lesson one – observation | V-001 (Yuna radio; Ali already has the wheel) | 5.5 Focus (not 4.12 / not 4.16) |
 | — load lock | V-002 dossier | n/a |
 | p1 Lesson two – on-ramp segments | V-003 | 5.3 Merging (NEW parent; no On-ramp child) |
 | DOL FREEWAY RAMP METERS | V-004 | 4.11 Traffic light signals (Freeway ramp meters) |

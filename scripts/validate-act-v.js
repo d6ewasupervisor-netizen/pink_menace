@@ -156,8 +156,8 @@ for (let i = 0; i < cards.length; i++) {
   if (/Exiting/i.test(String(dolRaw || ""))) {
     err(id, "do not mint a DOL Exiting heading — V-007 is n/a (PSDP Lesson four); V-008 pairs 5.1 conditions");
   }
-  if (id === "V-001" && dol !== "4.16 Road markings") {
-    err(id, "V-001 pairs 4.16 Road markings (eyes-up paint / interchange), not 4.12 Signs");
+  if (id === "V-001" && dol !== "5.5 Focus") {
+    err(id, "V-001 pairs 5.5 Focus (eyes-up observation), not 4.12 Signs or 4.16 Road markings");
   }
   if (id === "V-004" && dol !== "4.11 Traffic light signals (Freeway ramp meters)") {
     err(id, "V-004 must cite 4.11 Traffic light signals (Freeway ramp meters), not the parent");

@@ -37,7 +37,7 @@ Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) 
 
 | Card | PSDP | DOL | Status | Notes |
 |---|---|---|---|---|
-| V-001 | eleven p1 | `4.16 Road markings` | NEW observation | Lesson one. Eyes-up interchange / paint. Not a 4.12 Signs dump. Yuna radio. |
+| V-001 | eleven p1 | `5.5 Focus` | NEW observation | Lesson one. Eyes-up interchange. Not 4.12. Not 4.16 (only lane lines are markings). Yuna radio. |
 | V-002 | `n/a` | `n/a` | load lock | Dossier. Tower 4 kit. No curriculum claim. |
 | V-003 | eleven p1 | `5.3 Merging` | **NEW** parent | On-ramp segments. First 5.3 home. |
 | V-004 | eleven p1 (context) | `4.11 Traffic light signals (Freeway ramp meters)` | **LOCKED** child | Rule is DOL-only. Yuna click lives in the **result**. |
@@ -64,7 +64,8 @@ Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) 
 - `4.11 Traffic light signals (Freeway ramp meters)` — V-004 only.
 - `5.3 Merging` parent for on-ramp / merge. No `5.3 Merging (On-ramp segments)`.
 - `5.3 Merging (Zipper merging)` as an allowlist heading. **Spent on V-006.** Do not put zipper on V-011.
-- V-001 `4.16 Road markings`. V-007 `n/a`. No 4.12 catch-all on Act V.
+- V-001 `5.5 Focus` (eyes-up). V-007 `n/a`. No 4.12 / 4.16 catch-all on Act V.
+- **`4.10 Traffic laws` / keep-right is cut from Act V.** Thirteen is thirteen. III-003 already taught keep-right. Do not put it on V-006 (zipper) or V-011 (yield).
 - V-009 `n/a` (highway gentle steer / no DOL heading). Validator accepts `null` or `"n/a"`.
 - `5.6 Road and driving conditions (Curves)` as a verified heading. Unspent. Quote home for curve steering, not V-009.
 - No DOL `Exiting` heading. V-007 is `n/a`. V-008 pairs 5.1 conditions.
@@ -76,6 +77,7 @@ Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) 
 | Heading | Why it is open | Default |
 |---|---|---|
 | `5.3 Merging (Zipper merging)` | Verified child; spent on V-006 (highway taper). | Locked spent. Do not move it to V-011. Do not replay III-026. |
+| `4.10 Traffic laws` (keep-right) | Homeless after V-006 took zipper and V-011 stayed yield. | **Cut.** Thirteen is thirteen. Recite III-003 later if wanted. Do not undo zipper-on-V-006. |
 | `5.6 Road and driving conditions (Curves)` | Verified; wrong situation for V-009. | Hold for a curve card in a later act, or a V-008-adjacent regen if a curve *technique* card is ever split out. |
 | V-004 `psdp_skill` | Ramp meters are not in Skill eleven. Part one is on-ramp context only. | Keep eleven p1 as context. Do not invent a PSDP ramp-meter lesson. |
 | Printed DOL page numbers | Bodies extracted from PDF pages 113 / 157–160 / 167–168. TOC printed numbers match the section numbers, not always the folio. | `stat_cited` uses `DOL p.113` / `PSDP p.31` / `PSDP p.32` as the research stack did. |
@@ -91,7 +93,7 @@ Walked all thirteen `image_brief` blocks against Doc 29 and the plate map:
 - No Quiet in subject / read / continuity. `presence: 0` on every stub.
 - No Yuna, no Encore, no Ledger lock. V-002 is an Ali portrait, not a Yuna plate.
 - V-006 zipper is `POV_DIAGRAM` (both lanes to the teeth). V-011 stays `POV_MIRROR_DOOR` (right glass = right-side merger). V-013 `POV_MIRROR_REAR` is legal on the Menace.
-- Briefs were not rewritten. Citation status lives in `source`.
+- **Workzone plate ≠ V-008.** V-008 is an exit-ramp posted-25 cockpit. Do not claim the Ribbon workzone plate is V-008 geometry. That plate stays a location plate (promote on a separate PR). Candid teaching match if a card later attaches `ribbon_workzone`: **V-006** (lane-end taper / closure). Do not attach the token on this PR — `ribbon_workzone` is not in `pack/09` yet. V-008’s exit-ramp brief is untouched.
 
 ---
 
@@ -100,7 +102,8 @@ Walked all thirteen `image_brief` blocks against Doc 29 and the plate map:
 - V-004 correct **result**: Yuna’s click (pack/36 appearance lock).
 - V-006 rewritten as the highway zipper card (`5.3 Merging (Zipper merging)`).
 - V-011 stays merger/yield; debrief names yield vs pass. Radio beat; `cast` includes `yuna`.
-- V-001 / V-007 off `4.12 Signs`. V-013 scene dusk (one state).
+- V-001 / V-007 off `4.12 Signs`. V-001 now `5.5 Focus` (not 4.16). V-013 scene dusk (one state).
+- `4.10` keep-right cut from Act V (audit leftover). Workzone plate is not V-008.
 - `teaching_target` / `stat_cited` on the teaching cards.
 
 ---

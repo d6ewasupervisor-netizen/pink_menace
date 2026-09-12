@@ -106,7 +106,7 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 | Card | Type | Shot | Lesson one-liner | Skill / DOL |
 |---|---|---|---|---|
-| V-001 | scene | `POV_COCKPIT` | Yuna on the radio. Eyes up: interchange, paint. | eleven p1 · 4.16 Road markings |
+| V-001 | scene | `POV_COCKPIT` | Yuna on the radio. Eyes up: interchange, paint. | eleven p1 · 5.5 Focus |
 | V-002 | dossier | `POV_PORTRAIT` | Kit named for Tower 4: repeater, antenna, clamps. | n/a |
 | V-003 | scene | `POV_DIAGRAM` | A ramp is three pieces. Use each for its job. | eleven p1 · 5.3 Merging (NEW parent) |
 | V-004 | rule | `POV_OBJECT` | Ramp meter: red on the white line, green continues. | eleven p1 · 4.11 (Freeway ramp meters) |
@@ -166,12 +166,14 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 5. **Skill twelve/thirteen.** Wait for VI.
 6. **Hollis / Old Ninety.** Hollis once (V-013). Old Ninety parked — no trailer-stop / tire / axle card.
 7. **Bible §2 yaw.** Updated to Skill eleven part two.
+8. **`4.10` keep-right.** Cut from Act V. Thirteen is thirteen. III-003 already taught it. Not V-006. Not V-011.
+9. **Workzone plate.** Ribbon location plate (separate PR). Not V-008 geometry (exit-ramp posted-25). Candid teaching attach later: V-006.
 
 ---
 
 ## Production (not this PR)
 
 1. Citation audit is `pack/37_ACT_V_CITATION_AUDIT.md`. Still no pixels from this stack.
-2. Muted-read copy packet is `pack/ACT_V_13CARD_MUTED_READ.md`. Text only. No stills. Paste to Claude.
+2. Muted-read copy packet is `pack/ACT_V_13CARD_MUTED_READ.md`. Five-card split: `pack/ACT_V_FIVE_CARD_SPLIT.md`. Text only. No stills. Paste to Claude.
 3. Compile stills in one Ribbon batch. Attach **Menace** locks only. No Ledger lock on Ali cards. No Encore in frame.
 4. Seed only after a muted-read pass. Never seed from this draft.
