@@ -14,28 +14,41 @@
       "text": "Signal right, take the empty lane, let him have the center",
       "correct": true,
       "result": "One change. He blows past in the center. Your following distance is yours again. You did not write a brake lamp into his windshield.",
-      "state_delta": { "noise": -1, "time_cost": 3 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
     },
     {
       "id": "b",
       "text": "Tap the brakes to tell him he is too close",
       "correct": false,
       "result": "Your lamps hit his glass. He stands on it or he climbs you. Either way you taught a tailgater with light. The empty lane was the sentence.",
-      "state_delta": { "noise": 4, "light": 3, "time_cost": 6 }
+      "state_delta": {
+        "noise": 4,
+        "light": 3,
+        "time_cost": 6
+      }
     },
     {
       "id": "c",
       "text": "Hold the center and drop ten so the gap in front of you looks safer",
       "correct": false,
       "result": "You slow in front of a man who will not. The gap behind dies. You spent your own cushion to keep a lane he wanted.",
-      "state_delta": { "noise": 2, "time_cost": 8 }
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 8
+      }
     },
     {
       "id": "d",
       "text": "Speed up until he cannot match the Ledger",
       "correct": false,
       "result": "He matches. Then he matches more. You bought a race on a highway. The empty right was still empty.",
-      "state_delta": { "noise": 3, "time_cost": 5 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 5
+      }
     }
   ],
   "debrief": "Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your doors alone.",
@@ -44,10 +57,14 @@
     "dol_section": "5.2 Space",
     "teaching_target": "Watch mirrors for tailgaters and move to another lane to let them pass."
   },
-  "cast": ["deac", "hollis"],
+  "cast": [
+    "deac",
+    "hollis"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
+  "presence": 0,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
     "camera_is_the_lesson": true,
@@ -56,7 +73,9 @@
     "midground": "lifted truck filling the left glass, no countable gap, same heading",
     "background": "overcast afternoon I-90, windshield dark at the edge, no snow",
     "read": "the left door glass is filled by a lifted truck with no gap you can count",
-    "continuity": ["ledger_cockpit"],
+    "continuity": [
+      "ledger_cockpit"
+    ],
     "extra_negatives": [
       "no truck in the right door glass",
       "no snow",

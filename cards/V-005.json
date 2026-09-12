@@ -14,28 +14,43 @@
       "text": "Stop on the ramp and wait until the right lane goes empty",
       "correct": false,
       "result": "You plant the Ledger on the merge. The ramp behind you has to stop too. Highways do not clear for a standing bus. You made a start from zero at their speed.",
-      "state_delta": { "noise": 3, "time_cost": 12 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 12
+      }
     },
     {
       "id": "b",
       "text": "Force the paint now and make the stack lift",
       "correct": false,
       "result": "You take their door. The sedan stands on it. Amber behind you lights. You wrote a late on a merge that still had pavement left to change speed.",
-      "state_delta": { "noise": 4, "yaw": 1, "time_cost": 8 }
+      "state_delta": {
+        "noise": 4,
+        "yaw": 1,
+        "time_cost": 8
+      }
     },
     {
       "id": "c",
       "text": "Stay rolling. Change speed until a gap is real, then take it",
       "correct": true,
       "result": "You keep the wheels turning. You drop a little, then you match the next hole. The gap you take is one you made with speed, not with a stop.",
-      "state_delta": { "noise": -1, "time_cost": 6 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
     },
     {
       "id": "d",
       "text": "Climb the shoulder around the stack and join from the rumble",
       "correct": false,
       "result": "The shoulder is junk and a sign post. You put a bus in the rumble to skip a count. They never had you as a sentence.",
-      "state_delta": { "noise": 3, "yaw": 2, "damage": 1, "time_cost": 9 }
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 9
+      }
     }
   ],
   "debrief": "If the gap is late, change speed until one appears. There is time to merge. Stopping on the ramp makes the next start the hard one.",
@@ -46,10 +61,13 @@
     "dol_section": "5.3 Merging",
     "teaching_target": "Do not stop in the entrance or merge unless you must; adjust speed to find a gap."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": true,
+  "presence": 0,
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "from the seat at merge paint, right highway lane a tight stack, no gap beside the hood",
@@ -57,7 +75,9 @@
     "midground": "merge paint a bus-length ahead, sedan flanks with no hole",
     "background": "overcast midday I-5, three lanes, concrete median, no snow",
     "read": "the hood is still on the ramp; the right highway lane has no gap beside you",
-    "continuity": ["ledger_cockpit"],
+    "continuity": [
+      "ledger_cockpit"
+    ],
     "extra_negatives": [
       "no Ledger brake lamps lit",
       "no empty quarter-mile gap",

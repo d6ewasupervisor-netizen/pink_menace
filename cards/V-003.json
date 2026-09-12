@@ -14,28 +14,41 @@
       "text": "Search the highway here: find a gap and decide the speed you will need",
       "correct": true,
       "result": "You look, you pick a hole in the right lane, and you know the speed before you run at it. The next stretch is for matching. The last stretch is for the paint. Each piece did one job.",
-      "state_delta": { "noise": -1, "time_cost": 4 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
       "id": "b",
       "text": "Floor it from the first foot so you hit the highway already faster than they are",
       "correct": false,
       "result": "You light the entrance. The sedan has to lift. You arrive hot with no gap and a stack of brake lamps. The first stretch was for looking, not for a launch.",
-      "state_delta": { "noise": 3, "yaw": 1, "time_cost": 6 }
+      "state_delta": {
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 6
+      }
     },
     {
       "id": "c",
       "text": "Stop at the bottom and wait until the right lane is empty as far as you can see",
       "correct": false,
       "result": "You plant a bus at the entrance. Nobody empties a highway for you. The acceleration stretch is now a standing start. You made the merge from zero.",
-      "state_delta": { "noise": 2, "time_cost": 10 }
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 10
+      }
     },
     {
       "id": "d",
       "text": "Treat the whole ramp as the merge and slide over as soon as you see skip-dash",
       "correct": false,
       "result": "You take their paint in the middle of the run-up. You are still slow. The sedan stands on it. Merge paint is at the end, not wherever you got impatient.",
-      "state_delta": { "noise": 3, "time_cost": 7 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 7
+      }
     }
   ],
   "debrief": "Entrance to search, acceleration to match, merge to take the gap. Look through the first stretch before you run it.",
@@ -44,10 +57,13 @@
     "dol_section": "5.3 Merging",
     "teaching_target": "On-ramp has three segments: entrance (search), acceleration (match flow), merge (enter)."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
+  "presence": 0,
   "image_brief": {
     "camera": "POV_DIAGRAM",
     "camera_is_the_lesson": true,
@@ -56,7 +72,10 @@
     "midground": "acceleration stretch empty, merge paint where the ramp joins the right lane",
     "background": "overcast afternoon I-5, three travel lanes, concrete median, no extra ramps",
     "read": "the shuttle sits on the entrance; the ramp then runs, then meets the right highway lane at merge paint",
-    "continuity": ["diagram_style", "the_ledger"],
+    "continuity": [
+      "diagram_style",
+      "the_ledger"
+    ],
     "extra_negatives": [
       "no zipper work-zone teeth",
       "no HOV diamond",
@@ -74,7 +93,13 @@
       "ego_lane_from_left": 3,
       "ego_frame_side": "right",
       "traffic_positions": [
-        { "vehicle": "primer sedan", "frame_side": "same", "lane_from_left": 3, "along": "ahead", "lengths": 4 }
+        {
+          "vehicle": "primer sedan",
+          "frame_side": "same",
+          "lane_from_left": 3,
+          "along": "ahead",
+          "lengths": 4
+        }
       ]
     }
   },

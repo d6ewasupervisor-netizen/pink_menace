@@ -14,28 +14,42 @@
       "text": "Tap the brakes now and be at the posted number before the curve starts",
       "correct": true,
       "result": "You bleed the leftover here. The cluster agrees with the sign before the bend. The box stays straight. The freeway behind you never had to lift.",
-      "state_delta": { "noise": -1, "time_cost": 4 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
       "id": "b",
       "text": "Hold sixty until the apex, then stand on it",
       "correct": false,
       "result": "The rear steps out mid-bend. Yaw on a wet ramp. You spent the box to keep a number the sign already took from you.",
-      "state_delta": { "noise": 4, "yaw": 3, "time_cost": 8 }
+      "state_delta": {
+        "noise": 4,
+        "yaw": 3,
+        "time_cost": 8
+      }
     },
     {
       "id": "c",
       "text": "Coast with no brake and let the hill take the speed out",
       "correct": false,
       "result": "There is no hill that saves you. You arrive at the paint still hot. The next car in the line gets your leftover.",
-      "state_delta": { "noise": 2, "yaw": 1, "time_cost": 6 }
+      "state_delta": {
+        "noise": 2,
+        "yaw": 1,
+        "time_cost": 6
+      }
     },
     {
       "id": "d",
       "text": "Stop dead on the ramp so the curve is taken from a standstill",
       "correct": false,
       "result": "You plant a bus on an exit ramp. The car behind you came in at ramp speed and had nowhere to put it.",
-      "state_delta": { "noise": 3, "time_cost": 10 }
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 10
+      }
     }
   ],
   "debrief": "On the ramp, tap the brakes and be at the posted speed before the curve. You left the leftover on the ramp, not on I-5.",
@@ -44,10 +58,13 @@
     "dol_section": "5.1 Speed (Adjusting speed for conditions)",
     "teaching_target": "Upon entering the exit ramp, reduce to the posted ramp speed before the curve."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
+  "presence": 0,
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "from the seat on a tightening exit ramp, advisory 25 panel ahead, curve starting",
@@ -55,7 +72,9 @@
     "midground": "wet ramp, advisory plaque, no readable city name",
     "background": "overcast morning, trees on the verge, I-5 already behind, no snow",
     "read": "the cluster is still high; the ramp sign reads 25; the curve has not started under the wheels",
-    "continuity": ["ledger_cockpit"],
+    "continuity": [
+      "ledger_cockpit"
+    ],
     "extra_negatives": [
       "no I-5 travel lanes still beside the hood",
       "no snow",

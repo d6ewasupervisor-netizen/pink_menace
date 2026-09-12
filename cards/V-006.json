@@ -14,28 +14,42 @@
       "text": "Brake now in the travel lane so you arrive at the ramp already slow",
       "correct": false,
       "result": "You dump speed on I-5. The box behind you stands on it. You made a highway stop for a ramp that still had its own pavement.",
-      "state_delta": { "noise": 4, "light": 2, "time_cost": 8 }
+      "state_delta": {
+        "noise": 4,
+        "light": 2,
+        "time_cost": 8
+      }
     },
     {
       "id": "b",
       "text": "Hold highway speed past the gore and brake in the middle of the curve",
       "correct": false,
       "result": "You enter the bend still hot. The rear of the box steps out. Yaw on a wet ramp is how a schedule ends.",
-      "state_delta": { "noise": 3, "yaw": 3, "time_cost": 7 }
+      "state_delta": {
+        "noise": 3,
+        "yaw": 3,
+        "time_cost": 7
+      }
     },
     {
       "id": "c",
       "text": "Skip this exit and take the next one so you do not have to slow at all",
       "correct": false,
       "result": "You miss a named exit because slowing felt rude. The schedule just grew a loop. The ramp was the legal place to lose the number.",
-      "state_delta": { "time_cost": 14, "fuel": -1 }
+      "state_delta": {
+        "time_cost": 14,
+        "fuel": -1
+      }
     },
     {
       "id": "d",
       "text": "Hold speed on the highway, signal early, drop the number on the ramp",
       "correct": true,
       "result": "You keep their speed until the ramp owns you. The stalk talked four to six seconds back. On the ramp you tap the brakes and the curve gets the posted number.",
-      "state_delta": { "noise": -1, "time_cost": 5 }
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
     }
   ],
   "debrief": "Pick the exit early. Do not slow on the highway. Hold highway speed until the ramp owns you.",
@@ -44,10 +58,13 @@
     "dol_section": "4.12 Signs",
     "teaching_target": "Identify the exit early; do not slow on the highway; signal 4–6 seconds before the ramp."
   },
-  "cast": ["deac"],
+  "cast": [
+    "deac"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
+  "presence": 0,
   "image_brief": {
     "camera": "POV_OBJECT",
     "camera_is_the_lesson": true,

@@ -107,6 +107,7 @@ async function seedFile(filePath, tables) {
         lot_voice: raw.lot_voice || null,
         ride_along: raw.ride_along || null,
         ride_beats: raw.ride_beats || null,
+        presence: raw.presence != null ? raw.presence : 0,
       }),
     ]
   );

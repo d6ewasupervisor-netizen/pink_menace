@@ -139,6 +139,11 @@
       "type": "boolean",
       "description": "True if a wrong answer here should queue a ledger card later in this act."
     },
+    "presence": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Canonical Quiet presence on this card. Do not invent a parallel live field (no load_state). 0 unless the Quiet is in the situation."
+    },
     "timeout_option_id": {
       "type": "string",
       "pattern": "^[a-d]$",

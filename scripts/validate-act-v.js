@@ -25,7 +25,8 @@ const castEnum = schema.properties.cast.items.enum;
 
 const DEFERRED_VII = /\b(snoqualmie|chain-?up|\bchains\b|gravy|snowplow|deep[_ ]night|\bfog\b|\bice\b|mountain pass)\b/i;
 const REPLAY = /\b(fred meyer|two-way left|hov diamond|the lot\b|quiet street)\b/i;
-const INVENTED_LOAD = /\b(insulin|june|delridge|fuel drums?|single-axle|flatbed|load_state|sway[- ]load|tow hitch|towing a)\b/i;
+const INVENTED_LOAD = /\b(insulin|june|delridge|cooler|fuel drums?|single-axle|flatbed|load_state|sway[- ]load|tow hitch|towing a)\b/i;
+const EXPECTED_IDS = Array.from({ length: 13 }, (_, i) => "V-" + String(i + 1).padStart(3, "0"));
 
 const cards = files
   .map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")))
@@ -41,6 +42,9 @@ for (let i = 0; i < cards.length; i++) {
   const c = cards[i];
   const id = c.card_id;
   if (c.act !== "V" || c.zone !== "The Ribbon" || c.driver !== "deac") err(id, "act/zone/driver");
+  if (!Number.isInteger(c.presence) || c.presence < 0) {
+    err(id, "presence must be a canonical integer >= 0 (do not invent a parallel live field)");
+  }
   if (!typeEnum.includes(c.card_type)) err(id, "card_type");
   if (!c.title || c.title.length < 3 || c.title.length > 40) err(id, `title len ${c.title && c.title.length}`);
   if (c.scene.length < 150 || c.scene.length > 700) err(id, `scene len ${c.scene.length}`);
@@ -93,12 +97,12 @@ for (let i = 0; i < cards.length; i++) {
   }
   for (const x of c.cast || []) if (!castEnum.includes(x)) err(id, `cast ${x}`);
   const blob = [c.title, c.hook, c.scene, c.decision, c.debrief, JSON.stringify(c.options || [])].join(" ");
-  if (DEFERRED_VII.test(blob) && id !== "V-014") {
+  if (DEFERRED_VII.test(blob)) {
     err(id, "Act VII material (chains / Snoqualmie / plow / night weather) leaked into a teaching card");
   }
   if (REPLAY.test(blob)) err(id, "replays Act I–III stage language");
   if (INVENTED_LOAD.test(blob)) {
-    err(id, "invented or retired load (insulin / June / flatbed / drums / tow) — keep Ledger + unnamed cooler");
+    err(id, "retired or invented load (insulin / cooler / June / flatbed / drums / tow) — relay kit only");
   }
   if (i >= 2 && c.card_type === cards[i - 1].card_type && c.card_type === cards[i - 2].card_type) {
     err(id, "three same types in a row");
@@ -110,6 +114,13 @@ for (let i = 0; i < cards.length; i++) {
 }
 
 const n = cards.filter((c) => c.card_type !== "dossier" && c.card_type !== "ride-along").length;
+const ids = cards.map((c) => c.card_id);
+if (ids.join(",") !== EXPECTED_IDS.join(",")) {
+  errors.push("Act V must be V-001…V-013 plus the existing end-of-run beat, not a new V-014");
+}
+if (fs.existsSync(path.join(dir, "V-014.json"))) {
+  errors.push("V-014.json must not exist — end-of-run is the existing delivery beat");
+}
 for (const e of checkClosers(cards)) errors.push(e);
 
 console.log("cards", cards.length, "decision", n);

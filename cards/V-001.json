@@ -6,7 +6,7 @@
   "card_type": "ride-along",
   "title": "Eyes Up the Ribbon",
   "hook": "Deac has the wheel. The highway starts.",
-  "scene": "Overcast morning on I-5 south of the Core. You are in the jump seat. Deac has the wheel, the thermos, and the log. The Ledger holds the right travel lane of three. He will name the interchange, the signs, and the paint while you watch. You do not touch the wheel until he says so. The mountain is a gray smudge far east. This pavement is the Ribbon.",
+  "scene": "Overcast morning on I-5 south of the Core. You are in the jump seat. Deac has the wheel, the thermos, and the log. The relay kit that fit in the Menace is lashed in the box — repeater, antenna, clamps. The Ledger holds the right travel lane of three. He will name the interchange, the signs, and the paint while you watch. You do not touch the wheel until he says so. The mountain is a gray smudge far east. This pavement is the Ribbon.",
   "debrief": "You watched the highway before you drove it. Interchange, signs, paint, eyes up. Deac still has the next ramp.",
   "ride_along": [
     "Eyes up. Not the bumper. The next sign. Then the one after that.",
@@ -23,28 +23,68 @@
     "Your wheel. Match their speed before you share their paint."
   ],
   "ride_beats": [
-    { "look": "road", "tap": "anywhere" },
-    { "look": "right", "tap": "right" },
-    { "look": "road", "tap": "anywhere" },
-    { "look": "road", "tap": "gap" },
-    { "look": "right", "tap": "anywhere" },
-    { "look": "road", "tap": "anywhere" },
-    { "look": "left", "tap": "sweep" },
-    { "look": "road", "tap": "anywhere" },
-    { "look": "right", "tap": "right" },
-    { "look": "thermos", "tap": "thermos" },
-    { "look": "road", "tap": "anywhere" },
-    { "look": "wheel", "tap": "wheel" }
+    {
+      "look": "road",
+      "tap": "anywhere"
+    },
+    {
+      "look": "right",
+      "tap": "right"
+    },
+    {
+      "look": "road",
+      "tap": "anywhere"
+    },
+    {
+      "look": "road",
+      "tap": "gap"
+    },
+    {
+      "look": "right",
+      "tap": "anywhere"
+    },
+    {
+      "look": "road",
+      "tap": "anywhere"
+    },
+    {
+      "look": "left",
+      "tap": "sweep"
+    },
+    {
+      "look": "road",
+      "tap": "anywhere"
+    },
+    {
+      "look": "right",
+      "tap": "right"
+    },
+    {
+      "look": "thermos",
+      "tap": "thermos"
+    },
+    {
+      "look": "road",
+      "tap": "anywhere"
+    },
+    {
+      "look": "wheel",
+      "tap": "wheel"
+    }
   ],
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
     "dol_section": "4.12 Signs",
     "teaching_target": "Passenger-first highway observation: interchanges, signs, and lane lines before she takes the ramp."
   },
-  "cast": ["deac", "ali"],
+  "cast": [
+    "deac",
+    "ali"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
+  "presence": 0,
   "image_brief": {
     "camera": "POV_COCKPIT",
     "camera_is_the_lesson": true,
@@ -53,7 +93,9 @@
     "midground": "bar cage with a wiper-slot cut, skip-dashed white between travel lanes",
     "background": "overcast I-5 morning, concrete median left, no mountain close, no night",
     "read": "Deac is driving; three same-direction lanes run ahead through the cage; a guide panel sits far down the road",
-    "continuity": ["ledger_cockpit"],
+    "continuity": [
+      "ledger_cockpit"
+    ],
     "extra_negatives": [
       "no clipboard in the windshield",
       "no snow",
