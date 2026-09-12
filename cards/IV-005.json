@@ -103,6 +103,8 @@
     "weather": "overcast",
     "time_of_day": "afternoon",
     "tone": "urgent",
-    "failure_mode": "speed"
+    "failure_mode": "speed",
+    "winner": "take-97",
+    "forced": "live still cards/takes/IV-005-take-97.png (Claude PASS a8a5ebe4; take 95 FAIL do not seed)"
   }
 }
