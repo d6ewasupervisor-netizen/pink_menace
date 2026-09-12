@@ -20,7 +20,7 @@ Claude — not seeded live.
 | IV-030 | the Beetle is stopped short of the stop line for a person already in the marked crosswalk; downtown continues on the far side | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-50.png` |
 
 Notes: `cards/takes/WAVE_IV-030-hold.md` (HOLD regen after Claude FAIL
-on takes 35/36). Prefer take 36 stop/hold geometry. Prior HOLD:
+on takes 35/36). Closest take 50; runner-up take 46. Prior HOLD:
 `cards/takes/WAVE_IV-028-030-signoff.md`. Prior cabin wave:
 `cards/takes/WAVE_IV-027-028-030.md`.
 
