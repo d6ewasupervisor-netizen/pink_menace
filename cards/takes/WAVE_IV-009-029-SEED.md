@@ -37,11 +37,4 @@ Take-15 residual: right earpiece still in the ear. Do not seed.
 
 ## Live DB
 
-`DATABASE_URL` was not set in the seed environment (Railway MCP/OAuth lists production Postgres but does not return the value). File seed only.
-
-When the live URL is available:
-
-```
-npm run seed -- IV-009 IV-029
-npm run audit-stills -- --act IV
-```
+Live seed completed. `npm run seed -- IV-009 IV-029` then `npm run audit-stills -- --act IV`: 21/21 match. Live WebP matches take-12 / take-16. IV-018 and IV-010 untouched.
