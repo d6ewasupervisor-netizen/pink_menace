@@ -64,6 +64,9 @@ const NEGATIVE =
 const MENACE_COCKPIT_NEGATIVES =
   "No digital gauge readout, no LCD speedometer, no LED digits in the instrument cluster, no numerals reading 112.0 or any highway-speed digital value on the hub or dials. The Menace cluster is analog needles only. The center-dash tablet is dark and blank unless the brief names a map — no GPS desert, no salt-flat navigation, no competing screen glow. Do not match refs/ref_cockpit.jpg (poisoned 112.0 + desert GPS).";
 
+const CAT_COLLAR_SILENCE =
+  "Do not invent a collar, strap, or tag on a cat. Studio portraits and face plates are neck-bare. If the card brief does not name a collar, the cat has none.";
+
 const MENACE_INCAB = new Set(["POV_COCKPIT", "POV_PORTRAIT", "POV_MIRROR_REAR", "POV_MIRROR_DOOR", "POV_OBJECT"]);
 
 const QUIET_REGISTER =
@@ -191,7 +194,7 @@ function assemblePrompt(card) {
     framing = FRAMING.POV_COCKPIT_LEDGER;
   }
   if (typeof brief.camera_pose === "string" && brief.camera_pose.trim()) {
-    framing = brief.camera_pose.trim();
+    framing = brief.camera_pose.trim().replace(/\.*$/, ".");
   }
   if (!framing) throw new Error(`${card.card_id}: cannot compile camera ${cam}`);
 
@@ -313,6 +316,27 @@ function assemblePrompt(card) {
     (MENACE_INCAB.has(cam) || (brief.continuity || []).includes("pink_menace_interior"));
   if (aliIncab) {
     negs.push(MENACE_COCKPIT_NEGATIVES);
+    if (vehicleParked(card)) {
+      parts.push(
+        "The vehicle is parked and still: engine off, wheels not turning, analog needles at rest on zero. The road outside the windshield is static and empty — no motion blur, no road streaming past, no sense of highway speed."
+      );
+    }
+  }
+  const catNamed =
+    continuity.includes("mya") ||
+    continuity.includes("gracie") ||
+    /\b(mya|gracie|tabby|\bcat\b)\b/i.test(
+      [brief.subject, brief.foreground, brief.midground, brief.background, brief.read]
+        .filter(Boolean)
+        .join(" ")
+    );
+  const briefNamesCollar = /\bcollar\b/i.test(
+    [brief.subject, brief.foreground, brief.midground, brief.background, brief.read]
+      .filter(Boolean)
+      .join(" ")
+  );
+  if (catNamed && !briefNamesCollar) {
+    negs.push(CAT_COLLAR_SILENCE);
   }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);

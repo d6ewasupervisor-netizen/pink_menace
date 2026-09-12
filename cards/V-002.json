@@ -20,14 +20,19 @@
   "presence": 0,
   "image_brief": {
     "camera": "POV_PORTRAIT",
-    "subject": "Ali chest-up in the parked Menace, glasses, mesh behind her, no second occupant; Mya a brown mackerel loaf on the dash",
-    "foreground": "faded pink collar, clipboard edge on her thigh, Mya loafed on the still dash",
-    "midground": "welded mesh and still wipers, no motion in the glass",
-    "background": "overcast midday shoulder, I-5 ramps soft and distant, no snow, no night",
-    "read": "Ali is parked alone; wheels still; Mya is a loaf on the dash because the wheels are not turning",
+    "camera_pose": "Chest-up inside the parked Menace, Ali centered behind the silver three-spoke wheel, enough cracked pink dash in frame that a brown mackerel loaf sits on the dashboard shelf in front of the windshield mesh — not a tight headshot that crops the dash, not a passenger-seat crop.",
+    "subject": "Ali chest-up in the parked Pink Menace, glasses, centered behind a silver three-spoke wheel, clipboard on her thigh, no second occupant; Mya a brown mackerel loaf with paws tucked on the dashboard in front of the windshield",
+    "foreground": "clipboard on Ali's thigh; silver three-spoke wheel; analog needles at rest on zero; Mya loafed on the dash top in front of the glass, not on the seat, not on the floor",
+    "midground": "cracked pink/magenta dash, pink upholstery, rocker switch bank, rebar/welded mesh across the windshield; center-dash tablet dark; still wipers; no motion in the glass",
+    "background": "wide paved shoulder, engine off, empty static overcast I-5 ramps, no motion blur, no road streaming past, no snow, no night",
+    "read": "the Menace is parked and still; Ali is alone; Mya is a loaf on the dashboard because the wheels are not turning",
     "continuity": ["ali", "pink_menace_interior", "mya"],
     "extra_negatives": [
       "no moving wheels",
+      "no motion blur",
+      "no road streaming past",
+      "no highway-speed travel",
+      "cluster needles at zero",
       "no snow",
       "no chain-up",
       "no second occupant",
@@ -39,6 +44,8 @@
       "no fuel drums",
       "no trailer hitch",
       "no antenna mounted as a new roof mark",
+      "Mya not on the seat",
+      "Mya not on the floor",
       "no digital gauge readout",
       "no 112.0",
       "no highway-speed LED cluster",
@@ -55,6 +62,6 @@
     "time_of_day": "midday",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "do not seed — take-15 parked-loaf PASS then live-seed BLOCKED on 112.0 cluster (same class as V-001 take-8). Wave C closest take-17 / runner take-18 pending muted-read. No cards/V-002.png."
+    "forced": "do not seed — Wave D muted-read only. Hold take-17 cabin. Take-15 live-seed BLOCKED on 112.0 (PR #171 DO NOT MERGE). No cards/V-002.png until Claude PASS."
   }
 }

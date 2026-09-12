@@ -82,5 +82,6 @@ III-006 authored the ego from a following seat. III-026 carried a Menace into De
 4. **Clipboard is not in the glass.** It lives on the doghouse, on the thigh, or in his hands. Never on the dash, never clipped to the mesh. D4 (`ref_ledger_cockpit.png`) was retaken without the clipboard on the mesh; attach that lock on Ledger cockpits.
 5. **No unrestrained cat in a moving Ledger.** Mya on the dash only when parked.
 6. **Menace cluster is analog.** No digital gauge readout, no `112.0`, no highway-speed LED in the hub. Tablet dark / non-competing unless the brief names a map. Do not attach `refs/ref_cockpit.jpg` (poisoned 112.0 + desert GPS).
+7. **Cat collar is opt-in.** `ref_cat_mackerel.png` is face-only. If `image_brief` does not name a collar, the cat has none — do not invent a pink collar from prior takes.
 
 The compiler already appends the other-vehicle clause on Deac cards. This check is the gate that keeps a bad brief from spending a generation.

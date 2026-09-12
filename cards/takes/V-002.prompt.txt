@@ -1,10 +1,11 @@
-V-002 Tower 4 — POV_PORTRAIT, parked midday shoulder, plate ref_ribbon_deck.
-Authority: cards/V-002.json image_brief from PR #161 (Mya a brown mackerel loaf on the dash; continuity mya).
-Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_ali2.png, refs/ref_mya.jpg (studio — out-of-carrier loaf, not the grate plate), ribbon deck for PNW highway through mesh only.
-Do NOT attach refs/ref_cockpit.jpg — poisoned 112.0 digital hub + desert GPS (same FAIL class as V-001 take-8). Analog needle cluster only; tablet dark/non-competing. Do not seed.
+V-002 Tower 4 — POV_PORTRAIT, parked midday shoulder.
+Authority: cards/V-002.json image_brief (Wave D). Scene and brief both: Menace parked, Mya loaf on the dash. Brief silent on cat collar.
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_ali2.png, refs/ref_mya.jpg (studio — out-of-carrier loaf, not the grate plate). Hold take-17 cabin as base (silver three-spoke, analog cluster, dark tablet, pink dash, mesh).
+Do NOT attach refs/ref_cockpit.jpg — poisoned 112.0 digital hub + desert GPS. Do NOT attach ref_cat_mackerel.png (face-only). Analog needle cluster only; tablet dark. Do not seed. No cards/V-002.png until Claude PASS.
 
 Wave A take-1..take-8: compiled before #161; Mya absent. Keep in pool; do not pick.
-Wave B take-9..take-16: #161 brief. Closest take-15 PASSed parked-loaf then live-seed BLOCKED on 112.0 cluster. Runner take-13 FAIL. Do not seed take-15.
+Wave B take-9..take-16: #161 brief. Closest take-15 PASSed parked-loaf then live-seed BLOCKED on 112.0 cluster. Runner take-13 FAIL. Do not seed take-15. Do not revive take-15 as seed.
 Discard: take-11 (lap, not dash); take-12 (Ali only on the tablet); take-14 (no Ali face).
 Residual wave B: invented collar; salt-flat GPS; loaf often a sit; 112.0 LED in the hub.
-Wave C take-17..take-22: regen, no ref_cockpit.jpg. Closest take-17 (Ali; Mya loaf on dash; analog needles; dark tablet; clipboard; mesh; overcast highway). Runner take-18 (same class, loaf + dark tablet). Discard: take-19 (lap, not dash; invented LOAFEDED text); take-21 (outside-in window, not POV_PORTRAIT); take-22 (112.0 LED on dash + pink jumpsuit). Residual: van-like dash vs Beetle; invented collar; loaf often a sit (take-20). Do not seed. Take-15 still blocked on 112.0.
+Wave C take-17..take-22: regen, no ref_cockpit.jpg. Closest take-17 (best cabin; analog needles; dark tablet; clipboard; mesh). Runner take-18. Claude FAIL: Mya off the dash (seat/floor); both frames read MOVING. Discard: take-19 (lap); take-21 (outside-in); take-22 (112.0 LED + pink jumpsuit). Residual: van-like dash; invented collar; take-20 sit not loaf.
+Wave D take-23.. : hold take-17 cabin. Locks: parked wide paved shoulder, engine off, wheels still, cluster at zero, road static/empty; Ali centered behind silver three-spoke, clipboard on thigh; Mya loaf on dashboard in front of windshield (take-15 paws-tucked pose), not seat/floor; no cat collar; analog only, tablet dark; pink/magenta dash + pink upholstery + switch bank + rebar/welded mesh.

@@ -531,7 +531,7 @@ else. No commentary. No alternatives.
 |---|---|
 | Ali | `ref_ali2.png` (canon face — wire-rim rounds). `ref_ali1.jpg` only for the braid-over-shoulder hair variant; do not mix frame shapes. |
 | Pink Menace exterior | `ref_car_exterior.jpg` |
-| Pink Menace interior / `POV_COCKPIT` | `ref_cockpit.jpg` |
+| Pink Menace interior / `POV_COCKPIT` | Do **not** attach `ref_cockpit.jpg` (poisoned 112.0 + desert GPS). Analog needles from the brief + LOCKS. Cabin plate still open (PR #75). |
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |

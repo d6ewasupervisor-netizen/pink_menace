@@ -78,6 +78,8 @@ function resolveCard(raw) {
       continue;
     }
     for (const file of files) {
+      // Poisoned 112.0 + desert GPS — analog-only ban. Token stays; do not attach.
+      if (file === "ref_cockpit.jpg") continue;
       const abs = path.join(REFS, file);
       if (!fs.existsSync(abs)) {
         errors.push(`${id}: missing ref ${file} (continuity ${token})`);
@@ -101,7 +103,7 @@ function assertCompileReady(raw) {
     throw err;
   }
   const lockTokens = resolved.tokens.filter(
-    (t) => !isLocation(t) && !MAP.no_file.includes(t)
+    (t) => !isLocation(t) && !MAP.no_file.includes(t) && t !== "pink_menace_interior"
   );
   if (lockTokens.length && resolved.attachments.length === 0) {
     throw new Error(
