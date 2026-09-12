@@ -1,0 +1,23 @@
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is transit amber. Fine grain, slight lens vignetting, no HDR, no glow, no bloom, no lens flare. This is a photograph of a real vehicle on a real wet street — not illustration, not posterized, not flat-color, not a 3D render.
+
+Camera is at curb height, a true profile of the vehicles. You see the long near flanks. Noses point along the roadway, not at the lens. Rain at midday. Overcast pale gray-white sky, not night, not dusk.
+
+the Ledger parked at the curb traveling left-to-right in the frame, destination sign dark, Mya a brown loaf on the dash behind the cage.
+wet downtown curb and a strip of paint.
+the cutaway's square box and long-arm side mirrors; a brown mackerel tabby loafed on the dash; Deac a silhouette in the high seat, not opening a door.
+rain at midday, downtown brick, the Menace not in frame.
+
+The read: the bus is parked; the cat is loafed on the dash; the door is shut.
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Ego vehicle in this frame is the Ledger, not the Pink Menace. A classic cutaway shuttle bus, unmistakably a van-nose cutaway in silhouette — a tall square passenger box on a van cab, faded green and white transit livery ghosting under gray primer. All four of the following must be clearly visible and unmistakable: the tall square box on a van nose, oversize side mirrors on long arms on both sides, a dark / unlit destination sign above the windshield with no readable text, and a welded bar cage over the windshield with a cut wiper slot. Intact window glass in all openings — Mya is seen THROUGH the windshield glass, loafed on the dashboard inside the cab against the cargo wall, not on the hood, not outside.
+
+United States road configuration, traffic drives on the right. The Ledger is parked at the right curb of a downtown block, traveling left to right across the frame. The van nose points toward the right of the frame. Any oncoming traffic is none in frame. No vehicle faces the wrong way in its lane. The vehicle is parked and still. A brown mackerel tabby may loaf on the dash. Do not show the cat if the wheels are rolling.
+
+Traffic signs, if any appear, use real MUTCD colors (white-on-red regulatory, yellow warning, etc.); they are exempt from world-grade desaturation; weathering and dimming only. Exactly one sign face may be legible; never a double-sided sign.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin.
+
+Match attached ref_ledger_sheet.png for Ledger silhouette and build. Match attached ref_mya.jpg for the brown mackerel tabby. No Menace reference. No Encore. No Ledger cockpit plate. Exterior / through-glass only.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no posterized or flat-color artifacting, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. No headlights facing the camera, no grille toward the viewer, no vehicle coming toward the lens, no head-on view. no Deac standing outside. no open door. no clipboard in the windshield. no pink Beetle in frame. no Encore. No Volkswagen Beetle, no rounded-fender compact, no plow blade. No night, no full night, no city at night, no dusk-as-night, no blue hour, no black sky. The sky must be readable daylight or pale overcast gray-white, not black. Aspect ratio 2:3.

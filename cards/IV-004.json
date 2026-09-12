@@ -1,0 +1,116 @@
+{
+  "card_id": "IV-004",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Between the Parked",
+  "hook": "Someone steps out between the parked cars.",
+  "scene": "Clear cold afternoon on a two-lane side street off the Core. Cars are nose-in along both curbs. A figure steps out from the gap between a gray sedan and a rusted van — one shoe, then a coat, then the rest. You have the paper on your side. The person is already in your paint. The plow is the only vote that counts.",
+  "decision": "They are already between the parked cars and your lane. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold speed — they should wait, and you have the street",
+      "correct": false,
+      "result": "You keep the number. They finish the step. The plow and a coat occupy the same paint. You dump it late. They freeze. You freeze. The side street now has a story it did not need.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Honk so they step back between the cars",
+      "correct": false,
+      "result": "The horn hits the block. They flinch forward, not back. You get a louder problem and a person still in the lane. Sound does not put them between the cars again.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Cover, slow, stop if you must. Let them finish or go back",
+      "correct": true,
+      "result": "You lift and cover. They see the plow and finish across. You never argue the paper. The side street stays a side street. You roll when the gap is a gap again.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "d",
+      "text": "Swing left around them and keep the number",
+      "correct": false,
+      "result": "You take the left. Oncoming is a pickup you did not budget. You put a person and a pickup in the same second. The plow cannot split that.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 7
+      }
+    }
+  ],
+  "debrief": "A person between parked cars is already in your decision. Slow or stop. Who had the paper does not move them. You saved the side street a collision.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "4.1 Sharing with people",
+    "teaching_target": "Search gaps between parked cars; yield to a person already entering the roadway — right of way is not the question."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "camera_pose": "Flat overcast Act IV daylight — soft, diffuse, no sun, no long shadows, no blue clear sky. Wet pavement, pale gray overcast. Camera is ground level on the wet right curb, human eye height, looking along the two-lane side street in the direction of travel — a rear-three-quarter, never head-on. ONE SET, all required in the same frame: (1) flat overcast gray sky; (2) person mid-gap between the rusted van and gray sedan, torso still hidden in the slot, only one shoe in the paint — not fully visible in the open; (3) faded pink Beetle heading AWAY from camera, sloping rear engine lid nearest the lens and LARGE, squared in-lane and MOVING with wet tire spray, still short of the pair; (4) a dark nose-plow shape on the FAR front pointing at the TOP of the frame — a soft or implied plow is acceptable on this rear-¾; prefer full-width if it comes free; never sacrifice overcast or occlusion for plate edges. Never toward-camera. Never a narrow left-side flap on the rear.",
+    "subject": "a person mid-gap between a gray sedan and a rusted van — torso still hidden in the gap, only one shoe in the travel lane, not standing fully visible in the open roadway",
+    "foreground": "wet curb and a parked-car bumper closest to camera, flat overcast daylight",
+    "midground": "away Beetle rolling in-lane with tire spray; dark far-front plow shape toward the top of frame; still short of the person",
+    "background": "flat gray overcast, two-lane side street, low brick houses, no crowd",
+    "read": "a person is stepping from the parked-car gap into the lane as the away Beetle rolls toward them",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no face toward camera",
+      "no child",
+      "no crowd",
+      "no narrow left-side flap on the rear",
+      "no Beetle parked or angled diagonally across the lane",
+      "no stationary Beetle",
+      "no Beetle nose pointed at the curb",
+      "no Beetle facing the camera",
+      "no headlights or plow toward the viewer",
+      "no nose-plow plate heading copied onto the street car",
+      "no person standing in the open roadway",
+      "no person fully visible in the open gap",
+      "no take-76 narrow flap",
+      "no sun",
+      "no long shadows",
+      "no blue clear sky",
+      "no clear-cold sun",
+      "no dusk",
+      "no night",
+      "no parked Beetle"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of a two-lane side street",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, still short of the person",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside"
+    }
+  },
+  "variation": {
+    "location_type": "residential",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "inexperience"
+  }
+}
