@@ -61,6 +61,68 @@ const LHD =
 const NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel.";
 
+const DAYLIGHT_NEGATIVE =
+  "No night, no full night, no city at night, no dusk-as-night, no blue hour, no black sky, no star field, no lit office towers as night key light, no sodium streetlight night, no headlights as the only illumination, no warm headlight-dominant night look, no near-black asphalt night. The sky must be readable daylight or pale overcast gray-white, not black.";
+
+const MENACE_CABIN_BUILD =
+  "Menace cabin, positive layout: a flat painted-metal dash of the period — one continuous Type 1 shelf with no recess, no tablet bay, no rectangle that could hold a screen. A single instrument nacelle, one housing only. An unbranded wheel — worn leather, plain hub, no logo, no VW roundel. A manual floor shifter with a ball knob on the tunnel. Three pedals: clutch, brake, accelerator. Coarse Menace panel mesh over the glass — thick welded panels, large openings — not Encore's fine full-windshield grid, not a flyscreen. Default: the single nacelle is angled away from the camera so no glyphs render. Only when the card brief names a readable needle or cluster-at-0, show that one period-correct dial.";
+
+const MENACE_CABIN_NEGATIVES =
+  "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no fine full-windshield flyscreen grid, no two-pedal automatic box, no missing clutch on a Menace cabin.";
+
+function footwellOutOfFrame(card) {
+  const negs = (((card || {}).image_brief || {}).extra_negatives) || [];
+  return negs.some((n) => /no (footwell|pedals? in frame)\b/i.test(String(n)));
+}
+
+function menaceCabinBuild(card) {
+  if (!footwellOutOfFrame(card)) return MENACE_CABIN_BUILD;
+  return MENACE_CABIN_BUILD.replace(
+    " Three pedals: clutch, brake, accelerator.",
+    ""
+  );
+}
+
+function menaceCabinNegatives(card) {
+  if (!footwellOutOfFrame(card)) return MENACE_CABIN_NEGATIVES;
+  return MENACE_CABIN_NEGATIVES.replace(
+    ", no two-pedal automatic box, no missing clutch on a Menace cabin",
+    ""
+  );
+}
+
+function wantsNight(card) {
+  const t = String((card.variation && card.variation.time_of_day) || "").toLowerCase();
+  if (!t) return false;
+  return /^(night|dusk|dark[_-]?hours)$/.test(t) || /\bnight\b/.test(t);
+}
+
+function variationLighting(card) {
+  const v = card.variation || {};
+  const tod = String(v.time_of_day || "").toLowerCase();
+  const weather = String(v.weather || "").toLowerCase();
+  const bits = [];
+  if (weather === "ice") {
+    bits.push("Ice on the pavement. Pale winter light, not a black sky.");
+  }
+  if (weather === "clear_cold") {
+    bits.push("Clear cold pale winter daylight — readable gray-white sky, not overcast murk, not golden hour, not night.");
+  }
+  if (tod === "dawn") {
+    bits.push("Dawn: pale gray-white sky, ice-at-dawn if named, not night, not blue hour, not sodium streetlight key.");
+  }
+  if (tod === "morning") {
+    bits.push("Morning daylight. Sky is pale and readable.");
+  }
+  if (tod === "midday") {
+    bits.push("Overcast midday daylight.");
+  }
+  if (tod === "afternoon") {
+    bits.push("Overcast afternoon daylight, not golden hour.");
+  }
+  return bits.join(" ");
+}
+
 const QUIET_REGISTER =
   "Match the attached Quiet plate for register only — wrongness of posture and stillness, not damage, not a wound. Filthy torn everyday clothing, slack shoulders, a canted or tilted head, standing or moving as if doing nothing. Distance and glass are their whole grammar. They never fill the frame, never appear in a side-window close-up, never make eye contact. Write them farther than the shot needs: thirty feet renders at ten to fifteen, sixty at thirty to forty. If a face must die, obscure it with motion or distance only. Near-legibility is allowed on a lunge; a fully destroyed face is duller. Do not name them as diseased.";
 
@@ -237,6 +299,9 @@ function assemblePrompt(card) {
     parts.push(register);
   }
 
+  const lighting = variationLighting(card);
+  if (lighting) parts.push(lighting);
+
   if (brief.subject) parts.push(brief.subject.replace(/\.*$/, "."));
   if (brief.foreground) parts.push(brief.foreground.replace(/\.*$/, "."));
   if (brief.midground) parts.push(brief.midground.replace(/\.*$/, "."));
@@ -303,6 +368,18 @@ function assemblePrompt(card) {
   if (Array.isArray(brief.extra_negatives) && brief.extra_negatives.length) {
     negs.push(brief.extra_negatives.join(". ") + ".");
   }
+  if (!wantsNight(card)) {
+    negs.push(DAYLIGHT_NEGATIVE);
+  }
+  const menaceCabin =
+    card.driver === "ali" &&
+    (continuity.includes("pink_menace_interior") ||
+      cam === "POV_COCKPIT" ||
+      cam === "POV_MIRROR_REAR");
+  if (menaceCabin) {
+    parts.push(menaceCabinBuild(card));
+    negs.push(menaceCabinNegatives(card));
+  }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);
     const parked = vehicleParked(card);
@@ -321,4 +398,15 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };
+module.exports = {
+  assemblePrompt,
+  FRAMING,
+  MASTER_STYLE,
+  DIAGRAM_STYLE,
+  LHD,
+  OTHER_VEHICLE_CLAUSE_LEDGER,
+  DAYLIGHT_NEGATIVE,
+  MENACE_CABIN_BUILD,
+  MENACE_CABIN_NEGATIVES,
+  wantsNight,
+};

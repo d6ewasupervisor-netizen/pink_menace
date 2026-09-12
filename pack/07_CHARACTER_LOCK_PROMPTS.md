@@ -102,6 +102,19 @@ Use G1 as a silhouette test. If you can't tell the three apart at thumbnail size
 | Yuna portrait | `ref_yuna.png` |
 | Encore four-view | `ref_encore_sheet.png` |
 | Encore cockpit | `ref_encore_cockpit.png` |
+| Pink Menace cabin | `ref_menace_cabin.png` |
 | Convoy silhouette test | `ref_convoy.png` |
 
-Ali and the Menace already have refs and need nothing. Gracie and Mya are locked.
+Ali face / exterior locks exist. Menace cabin is human-verified take 16
+(`ref_menace_cabin.png`). `ref_cockpit.jpg` is the poisoned tablet still —
+do not attach. Gracie and Mya are locked.
+
+## M4 — PINK MENACE cabin (LOCKED — take 16)
+
+Pinned: flat painted-metal period dash · single instrument nacelle · nacelle angled away (no glyphs) · unbranded wheel · **manual floor shifter, ball knob** · **`pedal_count: 3`** · coarse Menace panel mesh (not Encore’s fine full-windshield grid) · no place for a screen.
+
+Encore adjacent: automatic, two pedals, no clutch (footwell take-6 / Y4 take-1). Do not lock Y4 take 7.
+
+> Cinematic photoreal still. 35mm full-frame equivalent, f/2.8, cabin sharp. Overcast Pacific Northwest daylight through the windshield — soft, diffuse, low-contrast, gray-blue. Desaturated palette; the only saturated color is cracked faded pink. Camera inside the Baja Beetle, slightly offset over an unbranded worn black leather wheel (plain hub, no logo, no VW roundel), looking forward. A flat painted-metal dash of the period — one continuous Type 1 shelf, no recess, no tablet bay. A single instrument nacelle, angled away from the camera so no glyphs render. A manual floor shifter with a black ball knob on the tunnel. Three pedals visible: clutch, brake, accelerator. Coarse Menace panel mesh — thick welded panels, large openings — over intact glass; not a fine full-windshield grid. Wet empty street beyond the panels. Empty plate: no person, no cats. No tablet, no touchscreen, no infotainment — the dash has nowhere to put one.
+>
+> *[negative block + MENACE_CABIN_NEGATIVES + DAYLIGHT_NEGATIVE]* · Aspect ratio 2:3 / tool 3:4
