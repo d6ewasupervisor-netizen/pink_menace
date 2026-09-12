@@ -20,7 +20,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 
 | Card | Title | Type | Live still (repo / PR) |
 |---|---|---|---|
-| IV-002 | One Pedal at a Time | scene | supplied footwell plate |
+| IV-002 | One Pedal at a Time | scene | take 19 · #146 |
 | IV-003 | Cover the Brake | scene | early PASS · #25 |
 | IV-004 | Between the Parked | scene | supplied parked-gap plate |
 | IV-005 | The Double Threat | hazard | take 97 · #101 / #107 |
