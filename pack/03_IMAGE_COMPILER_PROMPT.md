@@ -536,7 +536,7 @@ else. No commentary. No alternatives.
 | Ledger cockpit / Deac `POV_COCKPIT` | `ref_ledger_cockpit.png` (D4 retake: clipboard off the mesh, road visible through the cage) |
 | HOV / diamond-lane geometry (III-008) | `ref_hov_median_diamond.png` — real US freeway, diamond in the leftmost lane against the median. Compile PNW wet asphalt; negate gantries, green guide signs, palm trees, arid roadside. |
 | Encore exterior | `ref_encore_sheet.png` |
-| Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` |
+| Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` (Y4 b-take-2: moulded dash, take-1 mic on the right cage tube, two pedals, no floor shifter) |
 | Two or more vehicles in frame | `ref_convoy.png` |
 | Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
 | Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_CHASE`: from directly behind, the arm extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
