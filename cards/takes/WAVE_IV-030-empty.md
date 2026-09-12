@@ -24,6 +24,38 @@ LOCKED brief (one set):
 
 | Card | Lesson (`read`) | Shot | Closest | Runner-up |
 |---|---|---|---|---|
-| **IV-030** | the Beetle is rolling east on an empty wet two-lane, rear nearer the camera; brick downtown sits behind it; no pedestrian and no crosswalk | `POV_TOPDOWN_PHOTO` | pending | pending |
+| **IV-030** | the Beetle is rolling east on an empty wet two-lane, rear nearer the camera; brick downtown sits behind it; no pedestrian and no crosswalk | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-61.png` | take 65 |
 
-Takes start at 54. Closest / residuals land after the batch.
+### IV-030 take 61
+
+KEEP: high-oblique aerial; Beetle a small mass receding AWAY (rear
+nearer camera); in-lane motion (road blur); empty wet street; no
+pedestrian; no zebra / no stop line in the travel path; brick downtown
+on both flanks; flat overcast, no sun, no cast shadows; rear bar only
+(no blade welded to the back). Mesh on the rear glass. Not a yield
+scene. Not the HOLD take-50 family.
+
+Residuals: invented near-camera railing / ledge crop; car sits more
+center than a clear right-half eastbound; an empty junction opens
+ahead; front plow unread (allowed — soft/implied); knobbies and
+riveted door plate weak at this scale; mesh is a regular grid.
+
+### IV-030 take 65 (runner-up)
+
+KEEP: high-oblique aerial; small Beetle receding away; empty wet
+street with no crosswalk, no pedestrian, no stop line; brick downtown
+along the right curb; overcast; rear bar only.
+
+Residuals: wheels read still (the rolling #1 take 61 has); downtown
+is a right-flank row more than behind the car; wide one-way more than
+a two-lane; same weak knobbies / door plate.
+
+Discard:
+- 54 / 55 — plow blade welded to the REAR bumper
+- 56 — empty + rolling + brick, but street-level hero car
+- 57 — rear/away empty but almost no downtown
+- 58 / 60 — white bars / crosswalk ahead (yield-family leak)
+- 59 — brick canyon (best city) but distant crosswalk + parked read
+- 62 — same aerial-empty family as 65; drier, stiller
+- 63 — marked crosswalk + invented store lettering
+- 64 — rolling + empty + brick, car too large for the establishing read

@@ -17,7 +17,7 @@ Claude — not seeded live.
 |---|---|---|---|
 | IV-027 | the truck is already on the bumper in the interior rear glass | `POV_MIRROR_REAR` | `cards/takes/IV-027-take-26.png` |
 | IV-028 | both cats are inside the closed strapped carrier on the floor; a person stands in the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-30.png` |
-| IV-030 | the Beetle is rolling east on an empty wet two-lane, rear nearer the camera; brick downtown sits behind it; no pedestrian and no crosswalk | `POV_TOPDOWN_PHOTO` | pending empty-road batch |
+| IV-030 | the Beetle is rolling east on an empty wet two-lane, rear nearer the camera; brick downtown sits behind it; no pedestrian and no crosswalk | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-61.png` |
 
 Notes: `cards/takes/WAVE_IV-030-empty.md` (empty-road regen after Claude
 primary a8a5ebe4 FAIL on pedestrian-yield takes 35/36). Ignore HOLD
