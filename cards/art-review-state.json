@@ -188,10 +188,10 @@
       "updated_at": "2026-09-12T22:16:59.000Z"
     },
     "VI-013": {
-      "tag": "CANON_DRIFT",
-      "note": "HOLD cast-FAIL take-2 (Overflow Claude 21aded1a: Deac solo / wrong cast). Tyson lock Ali+Deac (+ clipboard). Unseeded live. Ali+Deac regen in flight (bc-11b91eab). Do not seed until cast PASS.",
-      "pick": "take-2",
-      "updated_at": "2026-09-12T22:33:41.000Z"
+      "tag": "PASS",
+      "note": "Claude PASS take-16 HANDOFF: Deac turning clipboard toward Ali; sheet visible ruled lines no readable words; glasses on cord; Gracie latched between them; Cascades-west. Composition note OK (not a regen ask). Seeded live. take-17 runner NOT seeded. Prior take-2 cast-FAIL not promoted.",
+      "pick": "take-16",
+      "updated_at": "2026-09-12T23:38:00.000Z"
     },
     "VI-011": {
       "tag": "PASS",
