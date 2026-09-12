@@ -15,14 +15,14 @@ First outline only. No stills. Do not seed. Do not touch Act IV art or takes.
 | Doc | What it already said |
 |---|---|
 | `pack/01_BIBLE.md` §7 | Zone is **The Ribbon** — I-5 / I-90. Skill column was stale (`13–14`). Corrected to WA Skill eleven. Driver cell this pass: **Ali**. DOL cell includes 4.4, 4.12, 5.1, 5.2, 5.3, 5.4. |
-| `pack/08_PSDP_SKILLS.json` | Both Skill eleven headings (verbatim WA PSDP TOC, en-dash). |
-| `pack/07_DOL_SECTIONS.json` | 5.1 Speed / 5.1 Speed (Adjusting speed for conditions) plus the other Act V citations. |
+| `pack/08_PSDP_SKILLS.json` | Skill eleven: official TOC / Skill ten style uses en-dash; Claude’s hyphen twins are also allowlisted. |
+| `pack/07_DOL_SECTIONS.json` | Added `4.11 Traffic light signals (Freeway ramp meters)` and `5.6 Road and driving conditions (Curves)` from `source/driver-guide.pdf`. |
 | `pack/35_ACT_V_ACCOUNTING.md` | Used / unused skill and DOL strings. No V-014. |
 | `pack/20_ACT_III_PLAN.md` | Slot-table pattern this draft copies. |
 | `pack/04_card.schema.json` | Card shape. `zone` already includes The Ribbon; `location_type` already includes `highway`. `presence` optional integer ≥ 0. |
 | `PLAYTHROUGH.md` | Act IV is the live ship. Leave it. |
 | `src/game.js` `ACT_ZONES` | Already lists Act V · The Ribbon. Unseeded = not playable. |
-| WA PSDP `21WAPSDP_LR.pdf` | **Skill eleven: highway driving – part one** (pp. 33) / **part two** (pp. 34). |
+| WA PSDP `source/25WAPSDP_LR_v3.pdf` | **Skill eleven: highway driving – part one** / **part two** (TOC; printed pp. 31–32). En-dash. |
 | IV-015 `teaching_target` | Already notes Skill thirteen is not on the allowlist (roundabouts → Act VI). |
 | IV-030 | Eastbound Core cliffhanger; the pass stays closed. Act V takes the freeway, not the pass. |
 | `pack/21_THE_MANIFEST.md` + `src/manifest.js` | Act II keeps June / insulin. **Act V** `MANIFESTS.V` + `deliveryBeat` / fail / radio use the relay kit. Radio voice is **Yuna**. End-of-run closer is still the existing beat, not a new card. |
@@ -148,7 +148,7 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 ## Pack table changes this draft
 
 - `pack/08_PSDP_SKILLS.json` — both Skill eleven headings (verbatim WA PSDP TOC).
-- `pack/07_DOL_SECTIONS.json` — `5.1 Speed` and `5.1 Speed (Adjusting speed for conditions)` from the current Driver Guide body.
+- `pack/07_DOL_SECTIONS.json` — `5.1 Speed`, `5.1 Speed (Adjusting speed for conditions)`, plus this pass: `4.11 Traffic light signals (Freeway ramp meters)`, `5.6 Road and driving conditions (Curves)`.
 - `pack/01_BIBLE.md` §7 Act V — Skill eleven; driver **Ali**; DOL 4.4 / 4.12 / 5.1 / 5.2 / 5.3 / 5.4.
 - `scripts/authoring-seat.js` — Act V ego lock is Ali (Menace).
 - `pack/04_card.schema.json` — optional `presence` (canonical live field).
@@ -158,15 +158,26 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 
 ---
 
+## OPEN — DOL headings not in the Driver Guide
+
+Do **not** invent these as `dol_section` strings. Verified sources: `source/driver-guide.pdf`, `source/25WAPSDP_LR_v3.pdf`. Detail + quotes: `pack/35_ACT_V_ACCOUNTING.md`.
+
+1. **On-ramp segments** — PSDP Skill eleven p1 lesson title. DOL has no heading with this name. Cards use `5.3 Merging`.
+2. **Exiting a highway** — PSDP Skill eleven p1 lesson four. DOL has no heading “Exiting a highway”. V-006 uses `4.12 Signs`; V-007 uses `5.1 Speed (Adjusting speed for conditions)`.
+3. **Steering gently at highway speed** — PSDP Skill eleven p2 (“steer gently on highways”). DOL has no heading with this name. Nearest verified subsection added: `5.6 Road and driving conditions (Curves)`. V-008 still cites `5.1 Speed`.
+
+**Freeway ramp meters** is **not** OPEN. Locked allowlist string: `4.11 Traffic light signals (Freeway ramp meters)`. No V-card cites it yet.
+
 ## Open questions for Claude
 
-Load, `presence`, card count, Ali alone / Yuna radio, and citation strings are **locked** (above + ACCOUNTING). Still open:
+Load, `presence`, card count, Ali alone / Yuna radio, and the Skill eleven allowlist are **locked** (above + ACCOUNTING). Still open:
 
 1. **Rain on the Ribbon.** Skill eleven part two lesson four asks for highway practice in rain. Act IV locked dusk/night to VII. Is one daylight rain card (V-006 / V-010) legal, or is all weather except overcast VII?
 2. **Eastbound cutoff.** Issaquah / Front Street / the last urban I-90 interchange — which painted place is “valley floor, pass not yet”?
 3. **Skill twelve/thirteen allowlist.** Add them now for Act VI stubs, or wait?
 4. **Old Ninety / Hollis budget.** One each this draft. Recur, or save Hollis for VII night tailgating?
 5. **Generic bible leftovers.** §2 yaw line still says “PSDP Skill 13”. Update that string, or leave the locked bible alone beyond the zone-map cell?
+6. **OPEN DOL topics above.** Cite the verified parent headings, or wait for a later official heading — do not invent.
 
 Closed this pass: ride-along reprise (III-001 stays the only one). Ali as decider (she has the wheel the whole run).
 
