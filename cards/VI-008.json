@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle; cabin always shows hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh;; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor (wheels turning)",
-    "midground": "left and right approach lanes with pavement arrows; sign board before the circle; third exit is a left",
-    "background": "overcast multi-lane roundabout ahead, empty circulating lanes, no night",
-    "read": "two lanes in; the lane choice is painted on the approach before the circle",
+    "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle; full-grid cage; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle); NO lit bidirectional dash arrow",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT — no lit turn arrows, no bidirectional arrow glow; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "midground": "two approach lanes into the roundabout; painted lane arrows on asphalt only (not lit dash indicators); if a fork sign exists it must have a readable legend or be removed",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift",
+    "read": "two approach lanes into the junction roundabout; pick your lane before the circle",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -62,7 +62,20 @@
       "no Mya",
       "no brown mackerel tabby",
       "no second cat",
-      "no large centered digital readout"
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no lit bidirectional arrow on the dash",
+      "no unlabeled fork post without legend"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -87,7 +100,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
   },
   "decision": "Two lanes, your exit is the far side. Where do you get in line?",
   "options": [

@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a doe standing BROADSIDE centered in your travel lane, full scale, close, filling the next lengths INSIDE the windshield mesh at last light (take-1 deer framing); cabin shows hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; DARK UNLIT dash — gauges present but turn arrows OFF / not glowing; no lit indicators; no speedlike digital readout; hands not yet yanking; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor (wheels turning)",
+    "subject": "a doe standing BROADSIDE centered in your travel lane, full scale, close, filling the next lengths INSIDE the full-grid windshield mesh (reopen take-1 deer framing); dark unlit dash (take-2 dash); carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT — gauges present but turn arrows OFF; no lit indicators; no speedlike digital readout; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; hands not yet yanking; carrier on passenger floor (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
     "midground": "doe broadside centered across the asphalt in THIS lane — full body readable through the mesh, not grazing roadside, not distant; ditch right, empty oncoming left",
-    "background": "dusk overcast rural two-lane PNW, treeline/fir, last light not full night",
-    "read": "a deer stands broadside centered in your lane at dusk, close and full-scale through the mesh; dark unlit dash; Gracie in hard-sided carrier",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; dusk overcast rural two-lane, treeline/fir, last light not full night",
+    "read": "a deer stands broadside centered in your lane at dusk, close and full-scale through the full-grid mesh; dark unlit dash; Gracie in carrier",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -66,7 +66,18 @@
       "no second cat",
       "no large centered digital readout",
       "no distant tiny deer",
-      "no brightly lit dash indicators"
+      "no brightly lit dash indicators",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -85,7 +96,7 @@
     "time_of_day": "dusk",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
   },
   "decision": "She's in your lane. You can't stop in time.",
   "options": [

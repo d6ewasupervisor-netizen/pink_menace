@@ -22,11 +22,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a single-lane roundabout entry; a sedan already circulating inside toward your entry; cabin always shows hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh;; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor (wheels turning)",
-    "midground": "roundabout apron and circulating sedan inside the circle approaching your entry lane",
-    "background": "overcast county/state junction, splitter island, no traffic signal",
-    "read": "a sedan is already inside the single-lane circle coming toward your entry",
+    "subject": "single-lane roundabout entry; a sedan already circulating CROSS-TRAFFIC inside toward your entry (reads as cross-traffic, not a distant car ahead); full-grid cage; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT, FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "midground": "roundabout apron; circulating sedan inside the circle approaching your entry lane as cross-traffic",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; splitter island, no traffic signal",
+    "read": "a sedan is already inside the single-lane circle coming toward your entry as cross-traffic",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -64,7 +64,20 @@
       "no Mya",
       "no brown mackerel tabby",
       "no second cat",
-      "no large centered digital readout"
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no distant car merely ahead in the same lane",
+      "no missing circulating cross-traffic in the roundabout"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -83,7 +96,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
   },
   "decision": "You're at the entry. A car is already in the circle.",
   "options": [

@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a white railroad crossbuck and two rails through the gravel; no gates, no bells, no lights; cabin always shows hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh;; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor (wheels turning)",
-    "midground": "crossbuck at the crossing; rails across the gravel road; high corn left blocking the sightline up the track",
-    "background": "overcast rural crossing, yellow advance X only if facing travel, empty beyond",
-    "read": "only a crossbuck and rails — no gates, no bells, no lights — and corn hides the line",
+    "subject": "white railroad crossbuck and two rails through the gravel; no gates, no bells, no lights; full-grid cage; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle) with restraint reading (take-3 path); teaching sign may appear in a grid opening; dash dark — no lit green arrow; if GPS/nav visible it must show PNW not desert and no erroneous right-arrow cue at the crossing",
+    "foreground": "worn black wheel, faded pink dash DARK/UNLIT — no lit green arrow, no speedlike 112; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "midground": "crossbuck at the crossing; rails across the gravel road; high corn or fir left blocking the sightline up the track",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; empty beyond",
+    "read": "only a crossbuck and rails — no gates, no bells, no lights",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -65,7 +65,21 @@
       "no Mya",
       "no brown mackerel tabby",
       "no second cat",
-      "no large centered digital readout"
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no lit green arrow at the crossing",
+      "no desert GPS map",
+      "no erroneous nav right-arrow cue as live instruction"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -84,7 +98,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
   },
   "decision": "An unmarked crossing, and you can't see up the line.",
   "options": [

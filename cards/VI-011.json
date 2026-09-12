@@ -21,10 +21,10 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle holding the middle of the lane at a culvert narrowing — culvert AS SUBJECT (take-2 framing); four-inch lip and soft dirt on the right; all tires on asphalt; nothing happening; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped visible through the rear side cage (cage-through-glass reference)",
-    "foreground": "soft dirt below the pavement lip and mossy ditch edge; culvert mouth readable as the subject; no wheels in the dirt",
-    "midground": "Beetle in true profile left-to-right; mesh cages and plow readable; travel lane held center; rear side cage is the cage-through-glass reference — hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped clearly readable through the mesh; nothing happening — absence of the drop",
-    "background": "overcast PNW rural culvert narrowing, empty two-lane, fir edges, no dust of a prior drop",
+    "subject": "STATIC exterior: faded-pink Beetle holding middle of lane at culvert narrowing — culvert lip AS SUBJECT (take-2 framing + carrier); all tires on asphalt; nothing happening; absence stays exterior (NOT cockpit motion); through rear side cage: carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "soft dirt below pavement lip and mossy ditch edge; culvert mouth readable as subject; no wheels in dirt",
+    "midground": "Beetle true profile left-to-right; FULL-GRID mesh cages and plow readable; travel lane held center; rear side cage shows carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle) — cage-through-glass reference; nothing happening",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; empty two-lane, fir edges, no dust of a prior drop",
     "read": "the same lip and soft dirt are there; nothing is happening; the Menace holds the middle of the lane; carrier readable through rear cage",
     "continuity": [
       "pink_menace_exterior",
@@ -64,7 +64,19 @@
       "no Mya",
       "no brown mackerel tabby",
       "no second cat",
-      "no large centered digital readout"
+      "no large centered digital readout",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no cockpit POV for this card"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -83,7 +95,7 @@
     "time_of_day": "morning",
     "tone": "tense",
     "failure_mode": "none",
-    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
   },
   "debrief": "Off the road: don't turn, stay straight, come back where it's level. You paid for that one already."
 }

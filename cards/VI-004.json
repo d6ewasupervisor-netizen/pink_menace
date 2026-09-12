@@ -21,11 +21,11 @@
   "schedules_callback": true,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle MID-EVENT soft shoulder at road-grade: off-camber, front-right wheel OFF the pavement down in soft dirt; shed wheel separated on grass/gravel beside a fresh rut; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped visible through the rear side cage",
-    "foreground": "road-grade camera at curb/road height; soft dirt shoulder with a fresh tire rut; shed front wheel separated on grass/gravel (not buried in a cliff bank); raised asphalt lip",
-    "midground": "Beetle in true profile left-to-right, off-camber with right side dropped mid-event; left tires still on asphalt; plow and mesh cages readable; rear side cage shows hard-sided carrier with wire grille inboard and ginger tabby behind grille, belt through handle; not parked level; not all four wheels on asphalt",
-    "background": "rural two-lane PNW overcast; culvert is LOCATION ONLY in the narrowing (not the subject / not centered as hero); soft ditch beyond dirt; fir edges; empty road",
-    "read": "mid-event soft shoulder: right side already off, off-camber, shed wheel and fresh rut readable; road higher on the left",
+    "subject": "faded-pink Beetle MID-EVENT soft shoulder at road-grade: off-camber; front-right corner shows EXPOSED HUB (no wheel on that corner); shed wheel separated on grass/gravel beside fresh rut; through rear side cage: carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "road-grade camera; soft dirt/grass shoulder with fresh rut; shed front wheel SEPARATE on grass/gravel; EXPOSED hub/axle on front-right — do not reattach a wheel to that corner",
+    "midground": "Beetle true profile left-to-right, off-camber, right side down mid-event; left tires on asphalt; plow and FULL-GRID mesh cages readable; rear side cage shows carrier (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; culvert is LOCATION ONLY (not the subject); soft ditch, not a cliff",
+    "read": "mid-event soft shoulder: exposed hub, shed wheel separated, off-camber, fresh rut; road higher on the left",
     "continuity": [
       "pink_menace_exterior",
       "gracie"
@@ -70,7 +70,22 @@
       "no brown mackerel tabby",
       "no second cat",
       "no large centered digital readout",
-      "no culvert as the hero subject"
+      "no culvert as the hero subject",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no wheel reattached to the exposed hub corner",
+      "no floating car",
+      "no cliff cut",
+      "no culvert as hero subject"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -89,7 +104,7 @@
     "time_of_day": "morning",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
   },
   "decision": "Two wheels are off the pavement. What do you do?",
   "options": [

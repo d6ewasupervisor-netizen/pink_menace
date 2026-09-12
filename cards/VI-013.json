@@ -22,11 +22,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "Ali driving LHD (her face readable at left / over-shoulder edge) and Deac in the passenger seat with the metal clipboard — BOTH faces in frame; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped latched on the rear bench / rear footwell behind the seats",
-    "foreground": "worn black LHD wheel at left; Ali's face partially readable as driver; faded pink dash DARK and UNLIT — no lit turn arrows, no large centered digital readout, no speedlike 112; coarse mesh; no clipboard in the glass",
-    "midground": "Deac in the passenger seat only — face readable, glasses on a cord, amber vest edge, metal clipboard on his knee turned toward the driver; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the rear bench/footwell behind the seats (not replacing Deac)",
-    "background": "overcast Pacific Northwest through the glass — fir, moss, wet gray gravel shoulder; Menace stopped; NO high-desert scrub; pass weather far off",
-    "read": "Ali is driving; Deac is passenger with metal clipboard; both faces readable; Gracie in hard-sided carrier on rear bench/footwell; PNW outside",
+    "subject": "Ali driving LHD (hands on wheel at frame LEFT; her face readable) and Deac in the passenger seat with the metal clipboard — BOTH faces in frame; PNW through glass; carrier on rear bench/footwell (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle)",
+    "foreground": "worn black LHD wheel at LEFT with Ali's hands on it; faded pink dash DARK/UNLIT — no lit turn arrows, no large centered digital readout; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; no clipboard in the glass",
+    "midground": "Deac in the passenger seat only — face readable, glasses on a cord, amber vest edge, metal clipboard on his knee turned toward the driver; carrier behind seats (hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visible behind the grille, belt routed through the handle) — not replacing Deac",
+    "background": "Backcountry east of Ribbon — Pacific Northwest only (fir, moss, wet gray); one continuous stretch; no arid canyon, no high desert, no NYC/Spokane drift; Menace stopped on gravel shoulder; fir, moss, wet gray — NO high-desert scrub",
+    "read": "Ali is driving (hands on wheel, frame left); Deac is passenger with metal clipboard; both faces; Gracie in carrier; PNW outside",
     "continuity": [
       "pink_menace_interior",
       "deac",
@@ -71,7 +71,19 @@
       "no large centered digital readout",
       "no Ali face missing",
       "no Deac face missing",
-      "no carrier replacing Deac in the passenger seat"
+      "no carrier replacing Deac in the passenger seat",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no low dash-level mesh band only",
+      "no missing windshield cage",
+      "no arid canyon",
+      "no high desert scrub",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "no brightly lit dash by default",
+      "no Ali hands missing from the wheel"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -90,7 +102,7 @@
     "time_of_day": "morning",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
+    "forced": "Act VI Claude overflow locks: PNW Backcountry east of Ribbon; full-grid cage; carrier SPEC verbatim; no Mya; dark dash; no seed"
   },
   "decision": "He's holding it out. What do you say?",
   "options": [
