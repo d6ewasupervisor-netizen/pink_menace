@@ -1,0 +1,47 @@
+# IV-005 — The Double Threat (forward windshield after PR #94 brief fix)
+# card_id: IV-005
+# lesson: never pass a vehicle stopped for a pedestrian (DOL 4.1)
+# read: the sedan is stopped for a pedestrian still in the paint; the empty left lane is a trap, not a pass
+# shot: POV_COCKPIT looking FORWARD through the windshield
+# attachments: refs/ref_menace_cabin.png (promoted take-16 plate — wheel / dash / mesh ONLY; generation used a forward crop that cuts the plate's pedal box)
+#              refs/ref_car_exterior.jpg (plow/mesh silhouette if glimpsed through the glass; ignore salt-flat sunset)
+# compiled from cards/IV-005.json — card JSON is sole brief authority (PR #94)
+# LOCKED SET is one set in the compile prompt below. Do not drop any item.
+# Discard any take that shows pedals / boot / footwell / brake pad / cover_the_brake / brake-81.
+# Pedestrian KEEP direction from take 60: mid-crossing to the RIGHT of the sedan, in the paint.
+# weather: overcast afternoon PNW daylight. Concealment is the stopped sedan, not dusk/fog.
+# takes this pass: 85–96
+# closest (not seeded): TBD
+# do not seed. no Act I–III. do not touch IV-004 / IV-012 / IV-026 / IV-027 / 028 / 030.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+LOCKED SET — one set, every item required, do not drop any:
+
+1. POV_COCKPIT looking FORWARD through the windshield. Camera sits over the wheel and aims at the glass and the road. The bottom of the frame is the wheel rim and the painted dash shelf. NO pedals, NO pedal box, NO clutch, NO brake pad, NO accelerator, NO boot, NO shoe, NO foot, NO shin, NO jeans in the footwell, NO floor mats as subject, NO cover_the_brake, NO brake-81 foot attachment. This is not a downward cabin-plate shot. Discard any composition that tilts down to the floor.
+
+2. A primer-gray sedan stopped directly ahead in the SAME travel lane. Its rear faces us. Brake lamps lit. We are queued behind that rear. Not headlights. Not oncoming.
+
+3. A pedestrian mid-crossing to the RIGHT of that sedan, only partly visible past its nose — take-60 direction: in the worn crosswalk paint on the sedan's right, coat and bag, not done. The sedan still hides part of them. They are not a full figure well clear of the car. They are not already in the open left lane. They are not standing at a car door facing the camera.
+
+4. The empty left travel lane is open wet asphalt, open and inviting. That empty lane is THE TRAP, not the lesson, not a pass already taken. No vehicle occupies it. No passing is underway.
+
+5. The read: the sedan is stopped for a pedestrian still in the paint; the empty left lane is a trap, not a pass. Muted-text test: if every caption were hidden, that is the first fact the eye reads at phone size.
+
+6. Menace cabin plate for wheel / dash / coarse mesh. Match the attached plate for BUILD: flat painted-metal cranberry Type 1 dash shelf, no tablet bay, no screen; a single instrument nacelle, one housing only, period-correct analog dial; an unbranded worn-leather wheel, plain hub, no logo, no VW roundel; coarse Menace panel mesh — thick welded panels, large openings — over the glass. Overcast afternoon daylight. Not dusk. Not fog used as the hide. Not lamps-up night. Y4 take 1 is Encore glass/cage/roofline only — not this cabin.
+
+7. Lesson (DOL 4.1 / Skill ten): never pass a vehicle stopped for a pedestrian. The stopped car is a wall. The person still in the paint is why it stopped. The open left is the invitation you must refuse.
+
+Camera is inside the Menace cabin, over the wheel, looking forward through the windshield. Gauges bottom-left, coarse panel mesh across the glass, road through the grid. No driver face in frame. No driver body. No legs. We are seated IN the Pink Menace — do not place a second pink Beetle in the roadway. Ignore the exterior lock's salt-flat sunset. If the plow is glimpsed at all, it is a flat blade at the very bottom of the glass pointing at the sedan's bumper, not a car in the lane.
+
+The roadway has 2 lanes in this direction. Heading: away from the camera. Ego occupies the RIGHT travel lane (lane 2 of 2). A skip-dashed white lane line separates the two same-direction lanes. The LEFT travel lane beside the sedan is empty wet asphalt — the trap. The LEFT edge of the roadway in frame is a concrete median barrier, a curb, or a crop — never a yellow centerline.
+
+MIDGROUND through the mesh: the sedan's lit brake lamps, worn faded school-edge crosswalk paint (broken/gapped bars, not a fresh bright zebra), the pedestrian only partly visible past the sedan's nose on the right, the empty inviting left lane.
+
+BACKGROUND: overcast afternoon Pacific Northwest daylight, school-edge chain-link fence out of focus, no readable sign text. Concealment is the stopped sedan, not weather.
+
+Left-hand-drive. United States, traffic drives on the right. Rear of each same-direction vehicle is nearer the camera. No headlights or grilles face the viewer.
+
+Traffic signs are single-faced. Never a double-sided sign. No readable lettering.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. No vehicle on the right passing a vehicle on the left. No vehicle passes on the right. No second pink vehicle in the roadway. No yellow centerline in frame, no double yellow, no oncoming traffic, no opposing lane visible. No dusk, no night, no fog used as the hide, no lamps-up night key. No Encore cabin — Y4 take 1 is glass/cage/roofline only. No person standing at a car door facing the camera. No pedestrian fully in the open well clear of the sedan. No vehicle already occupying the left travel lane. No passing already underway. No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no fine full-windshield flyscreen grid. No pedals, no pedal box, no clutch, no brake pad, no accelerator, no boot, no shoe, no foot, no shin, no cover_the_brake, no brake-81 foot attachment, no downward view of the floor. Aspect ratio 2:3.
