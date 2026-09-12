@@ -73,10 +73,10 @@ DOL already mapped for this zone: **4.4** large vehicles, **5.1** speed, **5.3**
 | V-006 | rule | `POV_OBJECT` | Hold highway speed until the ramp. Signal early. | eleven p1 · 4.12 Signs |
 | V-007 | scene | `POV_COCKPIT` | Posted ramp speed before the curve, not on the freeway. | eleven p1 · 5.1 Speed (conditions) |
 | V-008 | scene | `POV_ROADSIDE_PROFILE` | Small hands at speed. A yank is yaw. | eleven p2 · 5.1 Speed |
-| V-009 | scene | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · 5.3 Merging |
+| V-009 | rule | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · 5.3 Merging |
 | V-010 | hazard | `POV_MIRROR_DOOR` | Merger on the right — give them a lane if you have one. | eleven p2 · 5.3 Merging |
 | V-011 | scene | `POV_MIRROR_DOOR` | Hollis on the tail — move over. Let him have it. | eleven p2 · 5.2 Space |
-| V-012 | scene | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time |
+| V-012 | rule | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time |
 | V-013 | scene | `POV_CHASE` | Old Ninety needs more than a car length at this speed. | eleven p2 · 4.4 Large vehicles |
 | V-014 | dossier | `POV_TOPDOWN_PHOTO` | I-90 still in the valley. Chains and the pass wait for VII. | n/a |
 

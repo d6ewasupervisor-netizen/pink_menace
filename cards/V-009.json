@@ -3,7 +3,7 @@
   "act": "V",
   "zone": "The Ribbon",
   "driver": "deac",
-  "card_type": "scene",
+  "card_type": "rule",
   "title": "One Lane, Then Sit",
   "hook": "Two lanes left look faster. They are not one move.",
   "scene": "Overcast midday on I-90 east, three lanes this way. You are in the right. A slow box is ahead in your lane. The left two look empty enough to steal. The quiet-street move is to cut both in one sweep and be done. At this speed each lane is a sentence. The second lane cannot hear a stalk that already died on the first.",

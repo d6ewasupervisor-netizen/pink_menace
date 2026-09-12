@@ -38,7 +38,7 @@
       "state_delta": { "noise": 3, "yaw": 2, "damage": 1, "time_cost": 8 }
     }
   ],
-  "debrief": "At highway speed, steer gently. A yank is yaw. Steer small enough that the box never sways.",
+  "debrief": "At highway speed, steer gently. A yank is yaw. Keep the wheel small enough that the box never sways.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
     "dol_section": "5.1 Speed",

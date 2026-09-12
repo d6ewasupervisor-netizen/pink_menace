@@ -38,7 +38,7 @@
       "state_delta": { "noise": 3, "time_cost": 5 }
     }
   ],
-  "debrief": "A loaded trailer needs more than a car length at highway speed. You either dropped back or you passed and cleared. Old Ninety kept his pavement.",
+  "debrief": "A loaded trailer needs more than a car length at highway speed. You either dropped back or you passed and cleared. You took back the pavement you had borrowed.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
     "dol_section": "4.4 Sharing with large vehicles",

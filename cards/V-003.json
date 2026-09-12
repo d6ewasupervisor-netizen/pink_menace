@@ -38,7 +38,7 @@
       "state_delta": { "noise": 3, "time_cost": 7 }
     }
   ],
-  "debrief": "Entrance to search, acceleration to match, merge to take the gap. Use the first stretch to look.",
+  "debrief": "Entrance to search, acceleration to match, merge to take the gap. Look through the first stretch before you run it.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
     "dol_section": "5.3 Merging",
