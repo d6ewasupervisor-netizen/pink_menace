@@ -1,6 +1,9 @@
 V-007 Slow On the Ramp — RULE, POV_OBJECT (camera_is_the_lesson), afternoon rain.
-Authority: cards/V-007.json image_brief. Wet green EXIT ONLY gantry in the FULL situation: three travel lanes still at highway speed; Menace in the right lane, brakes dark; ramp/gore beginning. No person. No cargo. No Yuna. No posted 25 (V-008). Do not attach ribbon_rig.
-Tool aspect 3:4 (seed encodes 2:3). Attachments: ref_car_exterior.jpg + ref_car_nose_plow.png if the Beetle is in frame.
-Pool: take-1..take-10. Closest take-1 (EXIT ONLY + Menace + traffic + ramp peel). Runner take-9 (correct tail, no rear plow, traffic at speed).
-Discard: 2 warm sky; 3 overhead; 4/5 rear plow; 7 invented city text; 8 oncoming Menace; 10 black panel.
-Do not reuse PR #179 / Wave 3 sign-only pixels.
+Authority: cards/V-007.json image_brief. Menace ON the EXIT ONLY off-ramp peeling
+right; three I-5 travel lanes still at highway speed; painted chevron island
+between them. NOT Menace on the mainline (PR #181 take-1 / take-9 FAIL).
+No person. No cargo. No Yuna. No posted 25 (V-008). No rear plow.
+Tool aspect 3:4 (seed encodes 2:3). Attachments: ref_car_exterior.jpg +
+ref_car_nose_plow.png (build / nose plow only). Do not attach ribbon_rig.
+Pool: take-11.. . Do not reuse PR #181 / #179 / #173 pixels as closest.
+Do not seed.
