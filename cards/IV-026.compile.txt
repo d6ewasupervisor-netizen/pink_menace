@@ -1,13 +1,13 @@
 # IV-026 — GPT Image 2 compile prompt
 # attachments: ref_car_exterior.jpg, ref_car_nose_plow.png
-# camera: POV_DIAGRAM compile-overridden to take-179 mid-horizon street-level, nose-toward (Claude-allowed this regen only)
+# camera: POV_DIAGRAM compile-overridden to take-179 mid-horizon, nose-toward FROM AHEAD, opposing/left lane (Claude-allowed this regen only)
 # take send: IV-026 · three hazards sit in the Beetle's next two lengths; the left travel lane is empty · POV_DIAGRAM (nose-toward, take-179 family)
 
 See cards/takes/IV-026.prompt.txt for the generation prompt.
 See cards/takes/IV-026.WAVE.md for the wave, closest, and runner.
 
-FAIL regen after Claude muted-read on PR #138 takes 184 / 179. Card JSON remains the sole scene brief (hazards / lesson / distance unchanged). image_brief.camera_pose is overridden at compile only — JSON itself is not edited. JSON extra_negative "no toward-camera heading" is compile-overridden because preferred high-oblique+yaw and mid-horizon A both FAILED as classes for the take-8 plow read; nose-toward is the only class where the take-8 blade + black tube push bar read past both sides. Claude explicitly allowed that flip for this regen only.
+FAIL regen after Claude muted-read on PR #138 takes 184 / 179. Hard brief: nose-toward from ahead in the opposing lane; van + loading beat on the Beetle's right, forward of the front wheels; camera 179-like but up-lane, chest/windshield, looking slightly back. Card JSON remains the sole scene brief (hazards / lesson / distance unchanged). JSON itself is not edited. Away/down-lane stays in JSON as a later alternate. JSON extra_negative "no toward-camera heading" is compile-overridden because preferred high-oblique+yaw and mid-horizon A both FAILED as classes for the take-8 plow read.
 
-Closest: take 195. Runner: take 202. Wave: 186–211.
+Closest: take 220. Runner: take 195. Wave: 186–220.
 
 Plow plate / LOCKS / other cards unchanged. Live plate: refs/ref_car_nose_plow.png (PR #121 take-8, sha256:c6c8ec1fe709ddb8329e7b5def830dae0959002bf838ba1afcdbaf51d63d1133).
