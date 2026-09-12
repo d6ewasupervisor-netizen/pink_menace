@@ -6,11 +6,11 @@
   "card_type": "ledger",
   "title": "Same Culvert",
   "hook": "The road narrows where the culvert went in.",
-  "scene": "Ten miles on and here is the same kind of place — a narrowing, a four-inch lip, soft dirt below it. You know what it looks like now because you have already been down there once today, and the thing you remember is not the drop. It's your own arms wanting to pull.\n\nNothing happens. You hold the middle of the lane and go by it at thirty and it is the least eventful hundred feet of the afternoon, and that is the whole point. The one earlier cost you a fence post and a hubcap. This one cost nothing because you had already spent it.",
+  "scene": "Ten miles on and here is the same kind of place \u2014 a narrowing, a four-inch lip, soft dirt below it. You know what it looks like now because you have already been down there once today, and the thing you remember is not the drop. It's your own arms wanting to pull.\n\nNothing happens. You hold the middle of the lane and go by it at thirty and it is the least eventful hundred feet of the afternoon, and that is the whole point. The one earlier cost you a fence post and a hubcap. This one cost nothing because you had already spent it.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Ledger callback of VI-004 soft shoulder: hold line; do not yank. No question — continue only."
+    "teaching_target": "Ledger callback of VI-004 soft shoulder: hold line; do not yank. No question \u2014 continue only."
   },
   "cast": [
     "ali",
@@ -21,35 +21,61 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle holding the middle of the lane at a culvert narrowing; four-inch lip and soft dirt on the right; all tires on asphalt; Gracie in latched strapped carrier inside (not in frame)",
-    "foreground": "soft dirt below the pavement lip and mossy ditch edge; no wheels in the dirt",
-    "midground": "Beetle in true profile left-to-right; mesh cages and plow readable; travel lane held center; nothing happening",
-    "background": "overcast rural culvert narrowing, empty two-lane, fir edges, no dust of a prior drop",
-    "read": "the same lip and soft dirt are there; nothing is happening; the Menace holds the middle of the lane",
+    "subject": "STATIC exterior absence callback of VI-004: faded-pink Beetle visibly EARNING the MIDDLE of the travel lane at a culvert narrowing \u2014 clear gap between near tires and the soft-shoulder LIP; four-inch LIP+narrowing SUBJECT at the RIGHT edge; all tires on asphalt; NOTHING touching the lip; nothing happening",
+    "foreground": "culvert / narrowing / soft-shoulder LIP at RIGHT edge \u2014 mossy concrete lip and soft dirt below; clear empty gap from near tires to lip; no wheels in dirt; no contact with lip",
+    "midground": "Beetle curb-height true PROFILE left-to-right (NOT rear-facing/hatch); FULL-GRID mesh cages and plow readable on near flank; travel lane held CENTER with readable asphalt margin to the lip; carrier through rear SIDE/quarter window mesh on near flank \u2014 hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "background": "Cascades-west PNW wet valley \u2014 second-growth fir crowding the shoulder, blackberry and alder in the ditch, restricted sightlines, vegetation close to the road, wet gray asphalt; NOT high desert/sage/bare hills/long dry highway",
+    "read": "Menace holds the middle of the lane with a clear gap to the lip; the lip is there untouched; carrier readable through rear side cage",
     "continuity": [
       "pink_menace_exterior",
       "gracie"
     ],
     "extra_negatives": [
+      "no POV_COCKPIT",
+      "no open highway motion interior",
       "no wheels off the pavement",
       "no right tires in the dirt",
       "no mid-event drop",
       "no yank on the wheel",
-      "no second occupant",
-      "no snow on the roadway",
-      "no ice",
-      "no chain-up",
-      "no Snoqualmie shield",
-      "no cutaway shuttle",
-      "no Encore",
-      "no headlights toward camera",
-      "no night",
       "no Deac",
       "no second person in the car",
       "no clipboard passenger",
-      "no cat on the dash",
-      "no cat loose on the seat",
-      "no open carrier"
+      "no Mya",
+      "no second cat",
+      "no soft-sided carrier",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no paraphrase of carrier string",
+      "no lit GPS tablet",
+      "no digital speedlike 112 LCD",
+      "no brightly lit dash",
+      "no high desert",
+      "no sagebrush",
+      "no bare dry hills",
+      "no long dry eastern Washington highway",
+      "no arid canyon",
+      "no missing full-grid cage",
+      "no low dash-level mesh band only",
+      "no headlights toward camera",
+      "no night",
+      "no rear-facing camera",
+      "no hatch / looking backward at road already left",
+      "no open long sightlines / prairie highway",
+      "no vegetation pulled back from the shoulder",
+      "no tires kissing the lip",
+      "no car hugging the shoulder",
+      "no accidental centering / just a car on a road",
+      "no hatch camera",
+      "no bare hills",
+      "no \"ginger tabby\" wording \u2014 use orange tabby markings behind the grille",
+      "no missing full-grid windshield cage",
+      "no long dry open highway",
+      "no lit green turn arrows",
+      "no brightly lit dash by default",
+      "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -60,7 +86,17 @@
       "hazard_position": "none",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
-    }
+    },
+    "carrier": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "carrier_placement": "In the same curb-height PROFILE flank shot: locked carrier readable through the rear SIDE window mesh (rear-quarter cage on the near flank) \u2014 NOT hatch/backward. Spec: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "prejudge_checks": [
+      "EARN THE LANE: clear gap between near tires and lip; centering must not look accidental",
+      "Nothing touching the lip",
+      "Carrier through near-flank rear SIDE mesh only",
+      "Cascades-west wet PNW \u2014 reject desert on sight"
+    ],
+    "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "standing_biome": "Cascades-west PNW wet backcountry \u2014 restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway"
   },
   "variation": {
     "location_type": "rural",
@@ -68,7 +104,8 @@
     "time_of_day": "morning",
     "tone": "tense",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "live still cards/takes/VI-011-take-12.png (Claude PASS Cascades-west curb-height culvert). take-13 FAIL not seeded. No Act VII.",
+    "winner": "take-12"
   },
   "debrief": "Off the road: don't turn, stay straight, come back where it's level. You paid for that one already."
 }
