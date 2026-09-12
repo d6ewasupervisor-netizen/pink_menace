@@ -1,18 +1,18 @@
 # NEXT STILLS — IV-010 portrait regen (takes 12–19)
 
-Not seeded. No live Postgres. No `imageUrl` bump. No plate overwrite. No IV-018. No IV-029. No Act V.
+**Seeded.** Claude muted-read PASS on PR #136 take-18 (primary chat a8a5ebe4). Live plate is byte-identical to `cards/takes/IV-010-take-18.png`. Take-13 FAIL (garbled/placeholder schedule + crop) — not seeded. `imageUrl` bumped `?v=a69`. No plate overwrite. No IV-018. No IV-029. No Act V.
 
 Card JSON is sole brief authority. Plates attached: `refs/ref_yuna.png` (Y2 take 1) + `refs/ref_yuna_sheet.png` (Y1 take 6). PR #134 re-verify **PLATES OK keep** — plates not regenerated.
 
-Judged against **those plates + seeded take-7** (`cards/IV-010.png`, sha256 `64cd6a2878ee5dc364bc10c528ee8b38bf82364ed5daf0849ac2bd462f3001c5`). **Not** against PR #130 takes 11 / 9 (Claude FAIL, cousin faces).
+Judged against **those plates + previous live take-7** (`64cd6a2878ee5dc364bc10c528ee8b38bf82364ed5daf0849ac2bd462f3001c5`). **Not** against PR #130 takes 11 / 9 (Claude FAIL, cousin faces).
 
 Every take send: **card_id** + **lesson** + **shot token**.
 
-| Card | Lesson | Shot | Closest | Runner-up |
+| Card | Lesson | Shot | Seeded (Claude PASS) | Runner-up (FAIL) |
 |---|---|---|---|---|
 | **IV-010** | both in-ears are out; the taped schedule is on the door behind her | `POV_PORTRAIT` | `cards/takes/IV-010-take-18.png` | `cards/takes/IV-010-take-13.png` |
 
-Live still stays take-7 until Claude muted-read PASSes a new take. Do not promote without Claude.
+`variation.winner` / art-review pick lock take-18. Take-7 superseded.
 
 ---
 
@@ -45,21 +45,21 @@ This is the check that failed 11 / 9.
 | Cropped black windbreaker + reflective piping | yes | yes |
 | Dead in-ears | plates: right in / left dangling · take-7: both out | split — see takes |
 
-Costume checklist is not a face lock. Face lock held this wave. IEM state and door lettering are the residuals.
+Costume checklist is not a face lock. Face lock held this wave.
 
 ---
 
-## Closest — take 18
+## Seeded — take 18 (Claude PASS)
 
-KEEP vs the brief + plates + take-7: (1) **same face** as Y2 / take-7. (2) **Both ears empty.** Both buds dangling on the cord. (3) House door with a taped schedule sheet behind her. (4) Dark hatchback flank left of frame, no chevron. (5) Braid at her right temple, platinum under-layer, cropped piped windbreaker. (6) Faintly amused, chin level.
+KEEP vs the brief + plates + take-7: (1) **same face** as Y2 / take-7. (2) **Both ears empty.** Both buds dangling on the cord. (3) House door with a taped schedule sheet behind her — Claude: door schedule resolved/coherent. (4) Dark hatchback flank left of frame, no chevron. (5) Braid at her right temple, platinum under-layer, cropped piped windbreaker. (6) Colder flatter world grade. Identity matches Yuna plates.
 
-Residual: the door sheet is a printed grid with garbled title-card letters (`WEEKLYLY REHEARSAL SCHEDDELLE` / `MONNESTION`). Same text/UI class that discarded PR #130 take 10. Readable as a taped schedule at 390px; letters are invented. Expression stiller than “not still.”
+Claude muted-read preferred take-18. Live still: `cards/IV-010.png` (`cmp` identical to take 18). `variation.winner` = `take-18`.
 
-## Runner-up — take 13
+## Runner-up — take 13 (Claude FAIL)
 
 Same face lock. **Both ears empty.** Both buds on the cord. Hatchback flank clearer than 18. Taped schedule on the door. Braid side / platinum / jacket hold.
 
-Residual: same lettered garbled poster. Door reads more garage-blank than a house door. Slightly broader smile than “faintly amused.”
+Claude: garbled/placeholder schedule + crop. Do not seed.
 
 ## Same-family
 
@@ -77,14 +77,13 @@ Y2 lock bleed (right IEM in the ear) — same miss as PR #130 take 8 / 10:
 
 ---
 
-## Wave residuals (for Claude)
+## Live plate (this seed)
 
-1. **Text / UI on the door** — all eight printed a readable schedule and invented letters. Take-7’s blank taped sheet is cleaner against the negative block; this wave is more obviously a schedule. Claude should decide whether garbled title-card type fails the muted read.
-2. **Y2 one-in bleed** — 12 / 15 / 17 / 19. Do not promote.
-3. **Hatchback missing** — 12 / 14.
-4. Live `cards/IV-010.png` = take-7 **STANDS**. Do not seed. Do not bump `imageUrl`.
+| File | Bytes | MD5 | SHA256 | Size |
+|---|---|---|---|---|
+| `cards/takes/IV-010-take-18.png` / `cards/IV-010.png` | 232868 | `7ecf49c82d91859d8e9d372a85617c8f` | `4db9119ffff129d132c4b362f1cc4ed1bd9736c63c5815f878d43dcd4f7975fc` | 864×1152 |
 
----
+Take-7 (`64cd6a28…`) superseded. Take-13 stays in the takes pool — FAIL, do not promote.
 
 ## Out of scope (untouched)
 
@@ -92,4 +91,4 @@ Y2 lock bleed (right IEM in the ear) — same miss as PR #130 take 8 / 10:
 - IV-018 (seeded take 1)
 - IV-029 (take-16 PASS)
 - Act V
-- Live Postgres
+- No art regen

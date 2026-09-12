@@ -28,7 +28,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 | IV-007 | Transit Only | rule | take 30 · #119 |
 | IV-008 | The Bike in the Gap | scene | take 1 · #36 |
 | IV-009 | When Loud Is Right | convoy | take 11 · #129 |
-| IV-010 | Eleven Months | dossier | early PASS · #25 |
+| IV-010 | Eleven Months | dossier | take 18 · #136 |
 | IV-011 | Backing Into People | scene | take 98 · #58 |
 | IV-012 | The Same Crosswalk | ledger | take 32 · #76 |
 | IV-013 | Door Before You Step | scene | take 4 · #30 |
