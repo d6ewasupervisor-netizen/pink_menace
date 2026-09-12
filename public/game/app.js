@@ -153,6 +153,8 @@ function renderHome(data, opts) {
       row.append(el("p", "meta", a.practiced + " of " + a.total));
     } else if (a.complete) {
       row.append(el("p", "meta", "Done"));
+    } else {
+      row.append(el("p", "meta", a.total ? "Play · " + a.total + " cards" : "Play"));
     }
     if (!a.locked) {
       row.addEventListener("click", () => openAct(a));
@@ -1270,6 +1272,21 @@ async function playAgainCard(cardId) {
   await openLive();
 }
 
+let startActBusy = false;
+
+async function startAct(act) {
+  if (!act || startActBusy) return;
+  startActBusy = true;
+  try {
+    await PM.api("/api/run/start-act", { method: "POST", body: { act } });
+  } catch {
+    startActBusy = false;
+    return;
+  }
+  startActBusy = false;
+  await openLive();
+}
+
 function openAct(a) {
   if (!a || a.locked) return;
   if (a.complete && a.first_card_id) {
@@ -1280,7 +1297,9 @@ function openAct(a) {
     openLive();
     return;
   }
-  if (a.practiced > 0 && a.open_card_id) openReview(a.open_card_id);
+  if (a.act) {
+    startAct(a.act);
+  }
 }
 
 async function openLive() {

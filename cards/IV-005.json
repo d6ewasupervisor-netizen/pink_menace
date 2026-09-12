@@ -1,0 +1,110 @@
+{
+  "card_id": "IV-005",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "The Double Threat",
+  "hook": "The car ahead is stopped for a person.",
+  "scene": "Overcast afternoon daylight on a school-edge block. The sedan ahead is planted at a worn crosswalk. A figure is in the paint on their side — coat, bag, not done. Your left is empty asphalt — that open lane is the trap, not the rule. The clock in your head wants around them. Passing a car stopped for a person is how you meet the person the sedan was hiding. The timeout is the pass.",
+  "decision": "They are stopped at the crosswalk and your left looks empty. Do you go around?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold behind them until the person is gone and the sedan moves",
+      "correct": true,
+      "result": "You plant it. The person clears. The sedan rolls. You roll. The left stayed empty and unused. Nobody had to invent a second threat out of your plow.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "b",
+      "text": "Creep left and peek — if you can see the person you can thread it",
+      "correct": false,
+      "result": "You put the nose into the left. The person you can see is not the only person. A second coat comes off the sedan's front. You and that coat share the paint. The peek was the pass.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Tap the horn so the person hurries and the sedan can go",
+      "correct": false,
+      "result": "The horn hits a school-edge block. The person freezes in the paint. The sedan stays planted. You made sound and you still cannot go around.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Pass on the left — the person is already on their half",
+      "correct": false,
+      "result": "You take the left. The person is not done. They step into the half you claimed. The sedan hid them until you were already alongside. That is the double threat, and you drove into it.",
+      "state_delta": {
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "Never pass a vehicle stopped for a person. The car is a wall. The person you cannot see is why it stopped. Ali holds until the coat is gone.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "4.1 Sharing with people",
+    "teaching_target": "Never pass a vehicle stopped for a pedestrian; the stopped car hides a second person (double threat)."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "splitter",
+  "callback_of": null,
+  "schedules_callback": true,
+  "timeout_option_id": "d",
+  "timeout_ms": 8000,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "camera_pose": "Camera is inside the Menace cabin, over the wheel, looking forward through the windshield. Gauges bottom-left, coarse panel mesh across the glass, road through the grid. Overcast afternoon daylight — not dusk, not fog-night, not lamps-up. Cabin matches the promoted Menace plate (flat painted dash, single nacelle, unbranded wheel). Y4 take 1 is Encore glass/cage/roofline only — not this cabin.",
+    "subject": "a primer sedan stopped directly ahead in the same travel lane, brake lamps lit; a pedestrian mid-crossing in the paint to the right of that sedan, only partly visible past its nose",
+    "foreground": "Menace-plate wheel, dash, and coarse windshield mesh; looking forward through the glass at the sedan ahead",
+    "midground": "the sedan's brake lamps lit, worn crosswalk paint, a pedestrian mid-crossing only partly visible past the sedan's nose, empty left travel lane open and inviting",
+    "background": "overcast afternoon Pacific Northwest daylight, school-edge fence out of focus, no readable sign text; concealment is the stopped sedan, not weather",
+    "read": "the sedan is stopped for a pedestrian still in the paint; the empty left lane is a trap, not a pass",
+    "continuity": [
+      "pink_menace_interior",
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "No dusk, no night, no fog used as the hide, no lamps-up night key",
+      "No Encore cabin — Y4 take 1 is glass/cage/roofline only",
+      "No person standing at a car door facing the camera",
+      "No pedestrian fully in the open well clear of the sedan",
+      "No vehicle already occupying the left travel lane",
+      "No passing already underway"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two lanes this direction",
+      "ego_nose_in_frame": "the plow points at the sedan's bumper through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
+    }
+  },
+  "variation": {
+    "location_type": "school_zone",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "urgent",
+    "failure_mode": "speed",
+    "winner": "take-97",
+    "forced": "live still cards/takes/IV-005-take-97.png (Claude PASS a8a5ebe4; take 95 FAIL do not seed)"
+  }
+}

@@ -13,6 +13,10 @@ SMS login (phone + one-time PIN) via TACTAG sms-outbox. Device session lasts 45 
 
 Local: `npm start` with `DATABASE_URL` and sms-outbox env from `.env.example`. `APP_KIND=parents` serves the parent shell on localhost.
 
+## Playable now
+
+Act IV (The Core) is the live playthrough. Art regen is paused. Status, live cards, and residuals: **[PLAYTHROUGH.md](PLAYTHROUGH.md)**. Game: [ali.tactag.app](https://ali.tactag.app) — tap **Act IV · The Core**. No Act I–III replay.
+
 ## Current gate
 
 Do not generate Act II at volume until:

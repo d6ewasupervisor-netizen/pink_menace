@@ -46,7 +46,7 @@ Reject and regenerate on any miss. Do not accept "close enough"; drift compounds
 **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
 **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
-**Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
+**Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · interior switch covers world-graded (no candy-red oversat; Rule 2 MUTCD exemption is exterior street signs only) · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
 
 That last line is the one that matters. If you mute the card text and the image no longer teaches, the image failed regardless of how on-model it is.
 

@@ -1,0 +1,112 @@
+{
+  "card_id": "IV-015",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Already In the Circle",
+  "hook": "Look left. Yield to the ones already in.",
+  "scene": "Wind at morning on a downtown Seattle roundabout — raised island, truck apron, two lanes circling left. You sit at the yield line. A primer SUV is already in the circle on your left, coming around the island. Another car holds the right circle lane toward the exit you want. Yield to traffic already in. Look left on entry. Do not change lanes inside. Signal when you leave.",
+  "decision": "The SUV is already in the circle on your left. How do you enter?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Enter now and cut across both lanes to the exit you want",
+      "correct": false,
+      "result": "You take both lanes at once. The SUV is already in. The right-lane car is already in. You invent a third path through two that had the circle. Steel on a primer quarter. The lane you picked was the one you keep.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Look left, yield to the SUV already in, enter the gap, stay in your lane, signal when you leave",
+      "correct": true,
+      "result": "You look left. The SUV owns the circle until it doesn't. You take the gap. You stay in the lane you picked. Amber on before the exit. Nobody has to guess. The island stays an island.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stop in the circle until the SUV goes all the way around again",
+      "correct": false,
+      "result": "You plant it inside a live circle. The next car is already committed. Stopping in the roundabout is how a yield becomes a wreck. The SUV did not ask you to freeze the island.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "d",
+      "text": "Wave them around from the yield so you do not have to own the entry",
+      "correct": false,
+      "result": "You wave. They hesitate. The gap you had closes. The car behind you does not know why you died at a yield that already had a rule. Politeness invented a stall the circle does not use.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 8
+      }
+    }
+  ],
+  "debrief": "Yield to traffic already in the roundabout. Look left on entry. Stay in the lane you picked. Signal when you leave.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part two",
+    "dol_section": "4.15 Other intersections",
+    "teaching_target": "Yield to traffic already in the roundabout; look left on entry; do not change lanes inside; signal on exit. Downtown Seattle. Skill thirteen is not on the allowlist — Skill ten p2."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "cold_roads",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "subject": "a downtown Seattle roundabout with a raised center island and truck apron. BOTTOM of frame: pink Beetle at the south yield line. LEFT of the island: a primer SUV already circulating, coming toward the Beetle's entry.",
+    "foreground": "yield line and a painted circle; no stop sign, no signal head",
+    "midground": "the Beetle at the entry; the primer SUV already in the circle on the left; a second car in the right circulating lane near the next exit",
+    "background": "wind, morning, downtown brick, empty sidewalks, no extra cars",
+    "read": "the SUV is already in the circle on the left of the Beetle's entry; the Beetle is still at the yield",
+    "extra_negatives": [
+      "no stop sign",
+      "no traffic light",
+      "no Encore",
+      "no Ledger",
+      "no uncontrolled four-way"
+    ],
+    "continuity": [
+      "diagram_style",
+      "pink_menace_exterior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "south entry of a two-lane roundabout, right circulating lane",
+      "ego_nose_in_frame": "the plow points toward the circle at the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "primer SUV already in the circle",
+          "frame_side": "left",
+          "along": "beside",
+          "lengths": 0
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "wind",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "inexperience"
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "card_id": "IV-026",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Separate the Three",
+  "hook": "Three problems. You cannot fix all three.",
+  "scene": "Heavy rain under a flat gray overcast on a downtown block that stacked its problems. Ahead: an open van door, a person in the travel lane, a bike splitting the two. You can slow. You cannot thread all three. Hazard management is picking an order — dump speed, give the person the lane, let the bike declare, then deal with the door. Trying to fix all three in one steer is how you write a fourth.",
+  "decision": "Door, person, bike, all in the next two lengths. What do you do first?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Steer through the middle and miss all three at once",
+      "correct": false,
+      "result": "You invent a path that does not exist. The bike goes left, the person goes right, the door stays a door. You collect two of them. One steer is not three answers.",
+      "state_delta": {
+        "noise": 5,
+        "yaw": 3,
+        "damage": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "b",
+      "text": "Honk and take the left so they all have to sort themselves",
+      "correct": false,
+      "result": "The horn makes all three move at once, in three directions. You still have to pick one. You picked noise. The left had a van you did not have.",
+      "state_delta": {
+        "noise": 5,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Speed up and clear the block before they finish stacking",
+      "correct": false,
+      "result": "You add speed to a pile. The person is not done. The door is still open. Faster is how a stack becomes a crash. You did not separate anything.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Dump speed first, hold, let the person and the bike declare, then creep past the door",
+      "correct": true,
+      "result": "You plant the number. The person finishes. The bike takes a side. The door is the last thing and you creep it. Three problems, three beats. No fourth.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "You cannot fix three hazards in one move. Dump speed, separate them, take them in order. Three problems, three beats, no fourth.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "5.0 Dangers of driving",
+    "teaching_target": "When multiple hazards appear at once, reduce speed and separate them; do not try to solve all three in one steering input."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "camera_pose": "Camera is at driver-eye height at the left curb / empty LEFT travel lane — a 45-to-60-degree left-rear three-quarter, not dead-astern and not low behind the right rear quarter. You see three faces at once: round rear (mesh, horizontal louvers, short STOCK bumper, no plow); clean riveted left flank; and the FRONT nose, large enough to read. On that far nose a black-tube bull bar carries one continuous full-width flat plow blade spanning both front tires, matching ref_car_nose_plow.png. Heading AWAY. Tight crop: two same-direction lanes on a wet downtown block. THREE hazards sit IN HER SAME right lane about TWO Beetle-lengths ahead of the nose blade. Left travel lane empty. No yellow centerline.",
+    "subject": "RIGHT: faded-pink Beetle heading away, full-width nose blade wrapping the far bull bar. TWO lengths ahead IN HER LANE: cargo van with open side door, person, upright bike. LEFT lane empty.",
+    "foreground": "wet skip-dashed white; left curb not a yellow line; knobby spray; rear louvers; short stock rear bumper — no rear tube bar",
+    "midground": "van door + person + upright bike LARGE and TIGHT in her same lane, two lengths off the plow — not on a sidewalk, not at a distant house",
+    "background": "heavy overcast rain, flat gray PNW afternoon daylight, wet brick downtown storefronts with depth, no houses-on-highway, no opposing traffic",
+    "read": "three hazards sit in the Beetle's next two lengths; the left travel lane is empty",
+    "extra_negatives": [
+      "no faces",
+      "no child",
+      "no yellow centerline",
+      "no Encore",
+      "no Ledger",
+      "no dusk",
+      "no night",
+      "no deep night",
+      "no warm headlight-dominant night look",
+      "no black asphalt night",
+      "no unreadable black sky",
+      "no parked still Beetle",
+      "no cocked or yawed Beetle",
+      "no missing plow",
+      "no left-flank-only plow",
+      "no side-mounted plow",
+      "no thin left-flank plow bar",
+      "no small black blade on the left-front corner",
+      "no corner-mounted stub while the nose bull bar is empty",
+      "no blade bracketed to one front corner",
+      "no empty front bull bar",
+      "no rear-mounted plow",
+      "no blade on the rear bumper",
+      "no blade on the engine lid",
+      "no second pink vehicle",
+      "no pink van",
+      "no steep bird's-eye",
+      "no low camera behind the right rear quarter",
+      "no long empty gap before the hazards",
+      "no hazards six to eight lengths ahead",
+      "no toward-camera heading",
+      "no headlights or plow facing the viewer",
+      "no missing rear-deck louvers",
+      "no black tube bar across the rear bumper",
+      "no rear bull bar",
+      "no dead-astern camera that hides the nose blade",
+      "no hazards on the sidewalk",
+      "no suburban houses as the main set",
+      "no empty highway with no van"
+    ],
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two lanes this direction",
+      "ego_nose_in_frame": "full-width flat plow blade on the far nose bull bar, spanning both front tires, readable on this away heading",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "heavy_rain",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "inexperience",
+    "forced": "Act IV daylight lock — dusk/night is Act VII Dark Hours; live still cards/takes/IV-026-take-110.png (owner override 2026-09-11); full-width plate authority remains ref_car_nose_plow.png"
+  }
+}
