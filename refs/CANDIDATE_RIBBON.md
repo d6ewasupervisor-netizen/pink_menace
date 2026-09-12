@@ -1,10 +1,10 @@
-# Ribbon plates — deck + rig PROMOTED; workzone still candidates
+# Ribbon plates — deck + rig + workzone PROMOTED
 
 Claude locked three NEW plate briefs on 2026-09-12. Candidates compiled on PR #149. Claude muted-read (image-review chat) then:
 
 1. **`ref_ribbon_deck` — PASS promote take-4** (not take-2). Streetlight standards along the deck needed for V-013 dusk grade. Live: `refs/ref_ribbon_deck.png`. Token `ribbon_deck`.
 2. **`ref_ribbon_rig` — PASS promote take-1** (not take-2). Period-aged, no legible livery, rain/spray, passenger car at right scale, mirrors visible for V-006. take-2 FAIL (car too far / hero angle / faint red markings). Live: `refs/ref_ribbon_rig.png`. Token `ribbon_rig`.
-3. **`ref_ribbon_workzone` — BOTH FAIL.** Cone taper runs longitudinal (parallel to the skip-dash) → reads shoulder closure, not lane shift. V-008 needs a diagonal pinch across the closed lane. **Do not promote.** No live `refs/ref_ribbon_workzone.png`. Token `ribbon_workzone` is not in `pack/09_REF_MAP.json`.
+3. **`ref_ribbon_workzone` — PASS promote wave-C take-1.** Wave-A takes FAIL (longitudinal cone line). Wave-C take-2 **PASS** as runner — keep, do not attach. Live: `refs/ref_ribbon_workzone.png`. Token `ribbon_workzone`.
 
 Pack rule 4: plates travel in their own PR. No card art. No Act I–III. No seed. Act V draft cards on #132 / #141 / #151 do not yet name these tokens; REF_MAP + compiler attachment map are wired so compile can consume them when those cards do.
 
@@ -14,8 +14,9 @@ Pack rule 4: plates travel in their own PR. No card art. No Act I–III. No seed
 |---|---|---|---|
 | deck | **4** | `refs/ref_ribbon_deck.png` | `889a6d98409b4992eb4fee3c18421ed4934ead494b9c8b9c15334365ff7d823c` |
 | rig | **1** | `refs/ref_ribbon_rig.png` | `939b0c29e60d52c0945d7dd1abcf6eebbf43c0b8dcc3c1b0493eeb39b890148e` |
+| workzone | **C-1** | `refs/ref_ribbon_workzone.png` | `bf9d9462be460ea6e655ca8596a5734cb624bd2cbeadb5932434c1eaeee116a6` |
 
-Exact bytes of `refs/candidates/ribbon-deck-take-4.png` and `refs/candidates/ribbon-rig-take-1.png`. Candidate closest/runner copies stay in the pool (deck closest remains take-2; Claude promoted the runner).
+Exact bytes of `refs/candidates/ribbon-deck-take-4.png`, `refs/candidates/ribbon-rig-take-1.png`, and `refs/candidates/ribbon-workzone-c-take-1.png`. Candidate closest/runner copies stay in the pool (deck closest remains take-2; Claude promoted the runner). Workzone runner is wave-C take-2.
 
 ## Serves
 
@@ -27,7 +28,7 @@ Exact bytes of `refs/candidates/ribbon-deck-take-4.png` and `refs/candidates/rib
 
 ## Pick for muted-read
 
-Wave A (PR #149) closest/runner copies stay in `refs/candidates/` as `ribbon-{deck,rig,workzone}-take-N.png`. Live deck/rig are listed under Promoted. Workzone candidate copies below are **wave C** (not live).
+Wave A (PR #149) closest/runner copies stay in `refs/candidates/` as `ribbon-{deck,rig,workzone}-take-N.png`. Live deck/rig/workzone are listed under Promoted.
 
 | Plate | Role | File | Take | sha256 |
 |---|---|---|---|---|
@@ -35,8 +36,9 @@ Wave A (PR #149) closest/runner copies stay in `refs/candidates/` as `ribbon-{de
 | deck | wave-A closest (not lock) | `refs/ref_ribbon_deck_candidate.png` | 2 | `069a7dc3a7d9fa5effa9d31371454b5e97f8561888c29c84b4bfe731298152c0` |
 | rig | **PROMOTED** | `refs/ref_ribbon_rig.png` | 1 | `939b0c29e60d52c0945d7dd1abcf6eebbf43c0b8dcc3c1b0493eeb39b890148e` |
 | rig | wave-A runner (FAIL) | `refs/ref_ribbon_rig_candidate_runnerup.png` | 2 | `a674de7f9992d5a0ee4829e2008a8aa58772b0f1fc567d60054aac31e14de8cb` |
-| workzone C | **Closest** | `refs/ref_ribbon_workzone_candidate.png` | c-1 | `bf9d9462be460ea6e655ca8596a5734cb624bd2cbeadb5932434c1eaeee116a6` |
-| workzone C | **Runner-up** | `refs/ref_ribbon_workzone_candidate_runnerup.png` | c-2 | `5750120efc39dfef2dc8347ed2eca5461cfe16cc8112467e85a98dd246521de1` |
+| workzone C | **PROMOTED** | `refs/ref_ribbon_workzone.png` | c-1 | `bf9d9462be460ea6e655ca8596a5734cb624bd2cbeadb5932434c1eaeee116a6` |
+| workzone C | closest copy (same bytes) | `refs/ref_ribbon_workzone_candidate.png` | c-1 | `bf9d9462be460ea6e655ca8596a5734cb624bd2cbeadb5932434c1eaeee116a6` |
+| workzone C | **Runner-up PASS** | `refs/ref_ribbon_workzone_candidate_runnerup.png` | c-2 | `5750120efc39dfef2dc8347ed2eca5461cfe16cc8112467e85a98dd246521de1` |
 
 Variants: `refs/candidates/ribbon-{deck,rig,workzone}-take-1.png` … `take-8.png`. Extra probes: `ribbon-deck-b-take-1.png`, `ribbon-workzone-b-take-1.png`. Wave C: `ribbon-workzone-c-take-1.png` … `take-8.png`. Prompts: `refs/candidates/ribbon-*.prompt.txt`. All takes 16:9.
 
@@ -97,11 +99,11 @@ Muted-read (workzone C) must teach, with text covered: a diagonal cone pinch pul
 
 ## LOCKS
 
-Deck take-4 and rig take-1 are live. Workzone take/sha stay blank until a later muted-read PASS.
+Deck take-4, rig take-1, and workzone wave-C take-1 are live. Take/sha filled in `refs/LOCKS.md` from promoted file bytes. No blanks.
 
-## Workzone regen — wave C (muted-read only)
+## Workzone regen — wave C (promoted take-1)
 
-Wave A (takes 1–8 + b-1) failed the diagonal-taper hard gate. Wave C is eight new takes against the locked brief plus that gate. **Do not auto-promote.** No live `refs/ref_ribbon_workzone.png`. Token `ribbon_workzone` stays out of REF_MAP.
+Wave A (takes 1–8 + b-1) failed the diagonal-taper hard gate. Wave C is eight new takes against the locked brief plus that gate. Claude muted-read 2026-09-12: **c-1 PASS PROMOTE**; **c-2 PASS runner** (not attached). Live `refs/ref_ribbon_workzone.png`. Token `ribbon_workzone` is in REF_MAP.
 
 HARD GATE: the cone row must be a **diagonal pinch** across the closed lane — each successive cone steps laterally from the right-edge line toward the skip-dash as it recedes. A row parallel to the skip-dash is a FAIL (shoulder closure). Workers sit past the taper in the closed lane. Portable barrier / barrels at the closure head. Tall MUTCD orange + white collar (Act IV rain still language). Unnamed corridor.
 
@@ -111,8 +113,8 @@ Pure generation kept collapsing to a longitudinal shoulder line (same fail as wa
 
 | Take | File | Call | Notes |
 |---|---|---|---|
-| c-1 | `ribbon-workzone-c-take-1.png` | **closest** | Assembly. Steep pinch: near cone on the right-edge / shoulder, mid cones in the right-lane asphalt, far cones meet the barrel/barrier. Workers + portable barrier + barrels already in the closed lane. Unnamed gantry, streetlights, period sedan in an open lane. |
-| c-2 | `ribbon-workzone-c-take-2.png` | **runner-up** | Photorealize of the same layout. Cones look seated; pinch is milder than c-1 (model pulled the row a hair toward the edge). Same head language. |
+| c-1 | `ribbon-workzone-c-take-1.png` | **PASS PROMOTED** | Assembly. Steep pinch: near cone on the right-edge / shoulder, mid cones in the right-lane asphalt, far cones meet the barrel/barrier. Workers + portable barrier + barrels already in the closed lane. Unnamed gantry, streetlights, period sedan in an open lane. |
+| c-2 | `ribbon-workzone-c-take-2.png` | **runner-up PASS** | Photorealize of the same layout. Cones look seated; pinch is milder than c-1 (model pulled the row a hair toward the edge). Same head language. Keep; do not attach. |
 | c-3 | `ribbon-workzone-c-take-3.png` | keep | Assembly. Steeper / fewer cones. Same class as c-1. |
 | c-4 | `ribbon-workzone-c-take-4.png` | keep | Assembly. Seven-cone slash. |
 | c-5 | `ribbon-workzone-c-take-5.png` | keep | Assembly. Longer row; pinch still readable. |
@@ -123,7 +125,6 @@ Pure generation kept collapsing to a longitudinal shoulder line (same fail as wa
 ### Wave C residuals
 
 - **c-1 / c-3 / c-4 / c-5:** assembly tells — one hero cone sprite reused, distant cones a little crisp vs the plate grain. Geometry is the reason they exist.
-- **c-2:** most photographic; muted-read must still confirm the row is a pinch and not a right-edge channelizing line.
+- **c-2:** most photographic; pinch milder than c-1. Claude PASS as runner — keep in the pool, do not attach.
 - Shoulder width still inherited from the deck lock (present, not a full emergency lane).
 - Closure head sits in the right-center of the deck, not only against the Jersey — that is the lesson.
-- No live promote. Claude muted-read only.
