@@ -1,0 +1,11 @@
+# IV-026 — OPTIONAL alternate class (away / down-lane)
+# JSON alternate only. Do not generate this class on the 199/194 one-more-wave.
+# attachments (MUST): refs/ref_car_exterior.jpg, refs/ref_car_nose_plow.png
+# Preferred away class already FAILED as a class on #138 (162–177) and #133 (157/158).
+# Keep this file as the alternate brief only.
+
+IV-026 alternate. Same lesson: three hazards sit in the Beetle's next two lengths; the left travel lane is empty. Heading AWAY, high-oblique down-lane. Same take-8 plow lock. Same side-door van + person + bike stack in her lane.
+
+This class has repeatedly hidden the ground-level blade behind the far nose (thin offside wedge) or moved the plate to the rear. Do not spend the primary wave here.
+
+If generated: attach take-8 every compile. Blade + black tube push bar must still read past both sides. Side-door van, not barn-door. Hazards in her lane, two lengths ahead (further from camera on an away heading).

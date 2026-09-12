@@ -66,17 +66,18 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_DIAGRAM",
-    "camera_pose": "Camera is at driver-eye height at the left curb / empty LEFT travel lane — a 45-to-60-degree left-rear three-quarter, not dead-astern and not low behind the right rear quarter. You see three faces at once: round rear (mesh, horizontal louvers, short STOCK bumper, no plow); clean riveted left flank; and the FRONT nose, large enough to read. On that far nose a black-tube bull bar carries one continuous full-width flat plow blade spanning both front tires, matching ref_car_nose_plow.png. Heading AWAY. Tight crop: two same-direction lanes on a wet downtown block. THREE hazards sit IN HER SAME right lane about TWO Beetle-lengths ahead of the nose blade. Left travel lane empty. No yellow centerline.",
-    "subject": "RIGHT: faded-pink Beetle heading away, full-width nose blade wrapping the far bull bar. TWO lengths ahead IN HER LANE: cargo van with open side door, person, upright bike. LEFT lane empty.",
-    "foreground": "wet skip-dashed white; left curb not a yellow line; knobby spray; rear louvers; short stock rear bumper — no rear tube bar",
-    "midground": "van door + person + upright bike LARGE and TIGHT in her same lane, two lengths off the plow — not on a sidewalk, not at a distant house",
+    "camera": "POV_ROADSIDE",
+    "camera_pose": "Camera is at standing / driver-eye height AHEAD of the Pink Menace, planted in the empty LEFT travel lane — opposite-lane vantage matching take 179/199, moved DOWN-LANE toward the car so the Beetle occupies take-194's frame share (Beetle height at least one-third of the image; reject smaller). Slight front three-quarter: FRONT nose large and near, windshield mesh readable, a sliver of one flank. Heading TOWARD the camera. Tight crop: two same-direction lanes on a wet downtown block. THREE hazards sit IN HER SAME right lane about ONE Beetle-length AHEAD of the nose blade (closer to the camera than the plow), mid-ground right — van + person + bike in the path she is about to occupy. Left travel lane empty. No yellow centerline. Foreground tight — wet asphalt, no dead empty pavement filling the bottom third.",
+    "subject": "RIGHT: faded plate-pink Beetle toward camera, take-8 full-width nose blade. ONE length closer in HER lane: cargo van, sliding side door, person, bike. LEFT lane empty.",
+    "foreground": "tight wet asphalt, skip-dashed white, no yellow; take-8 plow large — full-width flat blade on black tube hoop, both ends past the body, lamps clear",
+    "midground": "van sliding side door + person + bike in her same right lane, ONE length off the plow, mid-ground right — loading beat, not beside, not sidewalk",
     "background": "heavy overcast rain, flat gray PNW afternoon daylight, wet brick downtown storefronts with depth, no houses-on-highway, no opposing traffic",
-    "read": "three hazards sit in the Beetle's next two lengths; the left travel lane is empty",
+    "read": "three hazards sit in the Beetle's next length; the left travel lane is empty",
     "extra_negatives": [
       "no faces",
       "no child",
       "no yellow centerline",
+      "no yellow center paint",
       "no Encore",
       "no Ledger",
       "no dusk",
@@ -101,32 +102,58 @@
       "no second pink vehicle",
       "no pink van",
       "no steep bird's-eye",
+      "no high-oblique overhead down on the nose",
+      "no take-184 overhead camera",
       "no low camera behind the right rear quarter",
       "no long empty gap before the hazards",
       "no hazards six to eight lengths ahead",
-      "no toward-camera heading",
-      "no headlights or plow facing the viewer",
+      "no gap longer than one Beetle-length",
+      "no hazards beside the Beetle",
+      "no hazards at equal depth beside the car",
+      "no empty pavement filling the bottom third",
+      "no dead empty foreground",
+      "no Beetle shorter than one-third of image height",
+      "no toy-small distant Beetle",
+      "no oversaturated candy pink",
+      "no modern van dominating the frame",
+      "no van larger than the Beetle",
+      "no person or bike floating unsupported on an empty street",
+      "no rear barn-door van",
+      "no open rear cargo doors",
+      "no van showing only its rear doors",
+      "no away heading that hides the nose blade",
       "no missing rear-deck louvers",
       "no black tube bar across the rear bumper",
       "no rear bull bar",
       "no dead-astern camera that hides the nose blade",
       "no hazards on the sidewalk",
       "no suburban houses as the main set",
-      "no empty highway with no van"
+      "no empty highway with no van",
+      "no black roofline lattice",
+      "no cargo rack",
+      "no roof bars"
     ],
     "continuity": [
       "pink_menace_exterior"
     ],
     "aspect": "2:3",
     "geometry": {
-      "ego_heading": "away_from_camera",
+      "ego_heading": "toward_camera",
       "ego_lane_side": "right travel lane of two lanes this direction",
-      "ego_nose_in_frame": "full-width flat plow blade on the far nose bull bar, spanning both front tires, readable on this away heading",
+      "ego_nose_in_frame": "full-width flat plow blade on the near nose bull bar, spanning both front tires, readable toward the camera, both ends past the body",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 2,
       "ego_lane_from_left": 2,
-      "ego_frame_side": "right"
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "gray-white cargo van with one sliding side door open",
+          "frame_side": "same",
+          "along": "ahead",
+          "lengths": 1
+        }
+      ]
     }
   },
   "variation": {
@@ -135,6 +162,6 @@
     "time_of_day": "afternoon",
     "tone": "tense",
     "failure_mode": "inexperience",
-    "forced": "Act IV daylight lock — dusk/night is Act VII Dark Hours; live still cards/takes/IV-026-take-110.png (owner override 2026-09-11); full-width plate authority remains ref_car_nose_plow.png"
+    "forced": "Act IV daylight lock — dusk/night is Act VII Dark Hours; live still remains cards/takes/IV-026-take-110.png (owner override 2026-09-11); this wave is not seeded. Camera: take-179/199 nose-toward opposite-lane class after Claude FAIL on #140 takes 199 and 194. Recipe lock: 199's ahead arrangement at 194's distance; gap ~one car length; camera down-lane so Beetle is 194's frame share (reject if Beetle height < ~1/3 of image); van mid-ground right; foreground tight; pink back to plate; yellow gone. Away/down-lane stays JSON/file alternate only (cards/takes/IV-026.away.prompt.txt) — do not generate away this wave. Full-width plate authority remains ref_car_nose_plow.png and must be attached every compile."
   }
 }
