@@ -74,7 +74,10 @@
       "no sedan beside the Beetle",
       "no HOV diamond",
       "no snow",
-      "no cutaway shuttle"
+      "no cutaway shuttle",
+      "no flat rack",
+      "no cargo platform",
+      "no rear wing"
     ],
     "aspect": "2:3",
     "geometry": {

@@ -4,6 +4,8 @@ Card JSON is the sole brief. This file only names closest / runner / residual.
 
 V-004 / V-005 / V-007 stay on the muted-read regen PR. Out of scope. Do not reuse those pixels.
 
+**Menace rear canon (this regen):** tubular bumper bar + mesh only. Flat-rack / cargo-platform deck / tail wing is **not** Menace exterior canon. Match seeded exteriors V-006 take-47 and IV-004 take-177. `ref_diagram_style.png` carries a tail wing — do not attach it on these cards.
+
 | Card | Title | Camera | **Closest** | **Runner** |
 |---|---|---|---|---|
 | **V-009** | Small Hands at Speed | `POV_ROADSIDE_PROFILE` | **take 2** `V-009-take-2.png` | take 3 `V-009-take-3.png` |
