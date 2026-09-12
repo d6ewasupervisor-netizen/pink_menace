@@ -6,7 +6,7 @@
   "card_type": "rule",
   "title": "Slow On the Ramp",
   "hook": "The exit is named. The highway is still fast.",
-  "scene": "Daylight rain, afternoon, I-5 south. A green exit panel sits far enough ahead that you can still choose. The right lane will become the ramp. Your cluster is highway speed. The curve on the ramp is tight. Dumping speed here, on the travel lanes, turns the stack behind you into a wall of lamps. The ramp is where the number dies. Yuna does not come back on for this.",
+  "scene": "Daylight rain, afternoon, I-5 south. The green EXIT ONLY panel already named the leave. You are on the ramp, peeling right off the travel lanes. Their stack on the mainline is still at highway speed. The curve ahead is tight. Dumping speed back there, on the travel lanes, would have turned that stack into a wall of lamps. The ramp is where the number dies. Yuna does not come back on for this.",
   "decision": "You have the exit. Where does the speed come off?",
   "options": [
     {
@@ -67,26 +67,41 @@
   "image_brief": {
     "camera": "POV_OBJECT",
     "camera_is_the_lesson": true,
-    "subject": "a wet green EXIT ONLY panel on a gantry, shallow depth, I-5 travel lanes soft below",
-    "foreground": "rain on the sign face, no readable city name",
-    "midground": "gantry steel, one EXIT ONLY arrow panel lit by flat daylight",
-    "background": "soft wet I-5 afternoon, no night, no snow",
-    "read": "the exit panel is already named while the travel lanes below are still at highway speed",
+    "subject": "the faded-pink Beetle already on the EXIT ONLY off-ramp peeling right; three I-5 travel lanes still at speed",
+    "foreground": "wet chevron island between the off-ramp and the travel lanes; Menace rear mesh nearer the camera",
+    "midground": "one MUTCD-green EXIT ONLY gantry panel with a downward-right arrow, no city name",
+    "background": "three wet southbound I-5 travel lanes still at highway speed on the roadway, afternoon rain, no night, no snow",
+    "read": "the Beetle is already on the exit ramp peeling right while the adjacent I-5 travel lanes stay at highway speed",
+    "continuity": ["pink_menace_exterior"],
     "extra_negatives": [
       "no readable city names",
       "no snow",
       "no chain-up plaque",
-      "no night"
+      "no night",
+      "no posted 25",
+      "no Menace in a travel lane",
+      "no plow on the tail",
+      "no pedestrian plaque",
+      "no person in frame",
+      "no Tower 4 crate"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right travel lane of three southbound I-5 lanes under the gantry",
-      "ego_nose_in_frame": "travel continues away under the sign; the plow is not the subject",
+      "ego_lane_side": "single-lane EXIT ONLY off-ramp peeling right of I-5",
+      "ego_nose_in_frame": "plow at the far leading end along the ramp; rear engine lid nearer camera",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
-      "lanes_this_direction": 3,
-      "ego_lane_from_left": 3
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1,
+      "traffic_positions": [
+        {
+          "vehicle": "ordinary cars at highway speed on I-5 travel lanes",
+          "lane": "left_of_ego",
+          "along": "beside",
+          "lengths": 0
+        }
+      ]
     }
   },
   "variation": {
