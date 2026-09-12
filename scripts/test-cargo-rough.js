@@ -4,13 +4,13 @@ const assert = require("assert");
 const {
   CARGO_ROUGH,
   V013_DUSK,
+  V013_CLAUSE,
   cargoRoughBand,
   cargoRoughFromState,
   daylightFail,
   stampDaylightFail,
   radioChannel,
   applyV013DuskForce,
-  mergeV013OverrunDelta,
 } = require("../src/cargo-rough");
 
 assert.strictEqual(CARGO_ROUGH.CLEAN_MAX, 3);
@@ -37,44 +37,31 @@ const base = {
   card_id: "V-013",
   card_type: "scene",
   time_of_day: "dusk",
-  hook: "Dusk on schedule. His bumper fills the glass.",
-  scene: "Dusk on I-90 east. You made the light — dusk on schedule.",
-  dusk_force: {
-    dusk_state: "overrun",
-    time_of_day: "dusk",
-    card_type: "hazard",
-    timeout_option_id: "b",
-    timeout_ms: 10000,
-    cargo_rough: 6,
-    hook: "Light ran out. His bumper fills the glass.",
-    scene: "Dusk on I-90 east. Light ran out. You overran the daylight.",
-    option_deltas: { b: { cargo_rough: 4 } },
+  hook: "His bumper is in the glass. Again.",
+  decision: "Hollis is on your tail in the center. The right is empty. What do you do?",
+  debrief: "Watch the glass for tailgaters and move to another lane so they can pass.",
+  scene: "Dusk on I-90 east. " + V013_CLAUSE.scheduled + " Three lanes.",
+  dusk_states: {
+    scheduled: { clause: V013_CLAUSE.scheduled },
+    overrun: { clause: V013_CLAUSE.overrun },
   },
 };
+
 const scheduled = applyV013DuskForce(base, { time_cost: 20 });
 assert.strictEqual(scheduled.card_type, "scene");
-assert.strictEqual(scheduled.time_of_day, "dusk");
 assert.strictEqual(scheduled.dusk_state, V013_DUSK.SCHEDULED);
-assert.strictEqual(scheduled.dusk_forced, false);
-assert.ok(/on schedule/i.test(scheduled.hook));
+assert.ok(scheduled.scene.includes(V013_CLAUSE.scheduled));
+assert.ok(!scheduled.scene.includes("not where you meant to be"));
+assert.strictEqual(scheduled.hook, base.hook);
+assert.strictEqual(scheduled.decision, base.decision);
 
 const forced = applyV013DuskForce(base, { time_cost: 130, yaw: 9 });
-assert.strictEqual(forced.card_type, "hazard");
-assert.strictEqual(forced.time_of_day, "dusk");
+assert.strictEqual(forced.card_type, "scene");
 assert.strictEqual(forced.dusk_state, V013_DUSK.OVERRUN);
-assert.strictEqual(forced.dusk_forced, true);
-assert.strictEqual(forced.timeout_option_id, "b");
-assert.ok(/Light ran out/i.test(forced.hook));
-
-const schedDelta = mergeV013OverrunDelta({ time_cost: 3 }, base, { time_cost: 20 }, "a");
-assert.strictEqual(schedDelta.cargo_rough || 0, 0);
-
-const overrunA = mergeV013OverrunDelta({ time_cost: 3 }, base, { time_cost: 130 }, "a");
-assert.strictEqual(overrunA.cargo_rough, 6);
-assert.strictEqual(cargoRoughBand(overrunA.cargo_rough), "SCUFFED");
-
-const overrunB = mergeV013OverrunDelta({ time_cost: 6 }, base, { time_cost: 130 }, "b");
-assert.strictEqual(overrunB.cargo_rough, 10);
-assert.strictEqual(cargoRoughBand(overrunB.cargo_rough), "THINNED");
+assert.ok(forced.scene.includes(V013_CLAUSE.overrun));
+assert.ok(!forced.scene.includes(V013_CLAUSE.scheduled));
+assert.strictEqual(forced.hook, base.hook);
+assert.strictEqual(forced.decision, base.decision);
+assert.strictEqual(forced.debrief, base.debrief);
 
 console.log("cargo_rough ok");

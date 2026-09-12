@@ -5,8 +5,8 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Let Hollis Have It",
-  "hook": "Dusk on schedule. His bumper fills the glass.",
-  "scene": "Dusk on I-90 east, still the valley floor. You made the light — dusk on schedule, the grade-pass hour. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.",
+  "hook": "His bumper is in the glass. Again.",
+  "scene": "Dusk on I-90 east, still the valley floor. The light is going and you are where you meant to be. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.",
   "decision": "Hollis is on your tail in the center. The right is empty. What do you do?",
   "options": [
     {
@@ -51,7 +51,7 @@
       }
     }
   ],
-  "debrief": "You arrived at dusk on schedule. Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your doors alone.",
+  "debrief": "Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your doors alone.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
     "dol_section": "5.2 Space",
@@ -63,21 +63,12 @@
   "callback_of": null,
   "schedules_callback": false,
   "presence": 0,
-  "dusk_force": {
-    "dusk_state": "overrun",
-    "time_of_day": "dusk",
-    "card_type": "hazard",
-    "timeout_option_id": "b",
-    "timeout_ms": 10000,
-    "cargo_rough": 6,
-    "hook": "Light ran out. His bumper fills the glass.",
-    "decision": "Light ran out. Hollis is on your tail. The right is empty. What do you do?",
-    "scene": "Dusk on I-90 east, still the valley floor — not the hour you booked. Light ran out. You overran the daylight. The pass is a dark grade in the east — a door, not this road. Hollis is closer than a count, lamps already up. The kit in the back takes every bounce. The right lane is empty wet asphalt. Brake-checking him in this light is a story he will finish with your rear. The highway move is still to give him a lane. Same empty right. Less light.",
-    "debrief": "Light ran out before this card. Watch the glass for tailgaters and move over. The kit took the extra miles.",
-    "option_deltas": {
-      "b": { "cargo_rough": 4, "yaw": 1 },
-      "c": { "cargo_rough": 3 },
-      "d": { "cargo_rough": 3 }
+  "dusk_states": {
+    "scheduled": {
+      "clause": "The light is going and you are where you meant to be."
+    },
+    "overrun": {
+      "clause": "The light is going and you are not where you meant to be, and the reason is the last two hours."
     }
   },
   "image_brief": {
@@ -116,6 +107,6 @@
     "time_of_day": "dusk",
     "tone": "tense",
     "failure_mode": "speed",
-    "forced": "Act V draft stub — no still; do not seed. image_brief is the dusk grade-pass plate for both V-013 scene states."
+    "forced": "Act V draft stub — no still; do not seed. image_brief is the dusk grade-pass plate for both V-013 scene states. Only the dusk_states clause changes."
   }
 }

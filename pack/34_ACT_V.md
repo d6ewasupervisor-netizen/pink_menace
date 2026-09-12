@@ -6,9 +6,9 @@ Research gates (verbatim quotes + unused table): `pack/35_ACT_V_RESEARCH.md`.
 
 Citation audit (open vs locked, Claude settles): `pack/37_ACT_V_CITATION_AUDIT.md`.
 
-Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_fail` forces V-013 overrun dusk — they stack): `pack/36_YUNA_RADIO_VOICE.md`.
+Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_fail` swaps one V-013 scene clause — they stack): `pack/36_YUNA_RADIO_VOICE.md`.
 
-Muted-read packet (13-card player copy, both V-013 states): `pack/38_ACT_V_MUTED_READ.md`.
+Muted-read packet (paste to Claude): `pack/ACT_V_13CARD_MUTED_READ.md`.
 
 **Constraint (authoritative):** Act V = **The Ribbon** (I-5 / I-90) + **Skill eleven** highway material. Driver: **Ali / the Menace. Alone.** Yuna is radio-only. Daylight.
 
@@ -60,14 +60,14 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 **Location:** every card is `location_type: highway`. Not `mountain_pass`.
 
-**Light:** daylight on V-001…V-012. **V-013 is always dusk** (grade pass over the deck plate, not dusk-as-dark / VII). Two visible scene states, driven by run history:
+**Light:** daylight on V-001…V-012. **V-013 is always dusk** (grade pass over the deck plate, not dusk-as-dark / VII). Two scene states on the **same card**, like I-008’s three `lot_states`. Same decision, same options, same citation. **One clause** in the scene changes so run history is visible:
 
-| `dusk_state` | When | Player-visible | Engine |
-|---|---|---|---|
-| **`scheduled`** | On time (`time_cost < 130`) | “Arrived at dusk on schedule.” Scene. | Default card copy. |
-| **`overrun`** | `daylight_fail` (`time_cost >= 130`) | “Forced into dusk by overrun.” Light ran out. Hazard. | `dusk_force` overlay. Feeds `cargo_rough`. Still playable. |
+| `dusk_state` | When | Clause (the only difference) |
+|---|---|---|
+| **`scheduled`** | On time (`time_cost < 130`) | *The light is going and you are where you meant to be.* |
+| **`overrun`** | `daylight_fail` (`time_cost >= 130`) | *The light is going and you are not where you meant to be, and the reason is the last two hours.* |
 
-Same `image_brief` plate for both. The **copy** tells the player which history they are in. `daylight_fail` = force state `overrun`. It does **not** end the run.
+`daylight_fail` does **not** end the run. That clause is the only place the overrun registers. Same `image_brief` plate for both.
 
 **Count:** **thirteen cards (V-001…V-013) + the existing end-of-run beat.** V-014 is not a new card.
 
@@ -79,9 +79,9 @@ Ending the run on clock-out would collapse two systems into one cliff — the ol
 
 | Flag | When | What it does | What it does not do |
 |---|---|---|---|
-| `daylight_fail` | `time_cost >= 130` | Forces V-013 `dusk_state: overrun` (Ribbon in the dark). Same dusk grade-pass plate. Feeds `cargo_rough` on the V-013 answer. | Does not end the run. Does not replace `cargo_rough` bands. |
+| `daylight_fail` | `time_cost >= 130` | Swaps the one V-013 scene clause to overrun. Same dusk grade-pass plate. | Does not end the run. Does not change decision, options, citation, or `cargo_rough`. |
 | `cargo_rough` | integer (else `yaw`) | CLEAN 0–3 / SCUFFED 4–8 / THINNED 9+ on the **existing** end-of-run beat. | Does not change V-013 light. **No fail-beyond-THINNED exists.** Do not invent one. If a later pass adds a hard fail, it is `cargo_rough`’s job and must be documented here first. |
-| **both set** | — | Overrun dusk on V-013 **and** `cargo_rough` still bands the end beat. | No hard fail. No blended “you failed daylight” closer. |
+| **both set** | — | Overrun clause on V-013 **and** `cargo_rough` still bands the end beat. | No hard fail. No blended “you failed daylight” closer. |
 
 ---
 
@@ -124,7 +124,7 @@ Ending the run on clock-out would collapse two systems into one cliff — the ol
 | V-010 | rule | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · n/a (no DOL lane-change heading) |
 | V-011 | hazard | `POV_MIRROR_DOOR` | Merger on the right — give them a lane if you have one. | eleven p2 · 5.2 Space (not zipper) |
 | V-012 | rule | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time (REVIEW) |
-| V-013 | scene / hazard | `POV_MIRROR_REAR` | Hollis on the tail — move over. Scheduled dusk, or overrun dusk/hazard if `daylight_fail`. | eleven p2 · 5.2 Space (REVIEW) |
+| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. One scene clause swaps if `daylight_fail`. | eleven p2 · 5.2 Space (REVIEW) |
 | — | existing end-of-run beat | — | Engine `deliveryBeat` / locked door after V-013. Not a new card. | n/a |
 
 Thirteen stubs. Play order is `seq`. The closer is the beat the game already fires when an act completes.
@@ -179,6 +179,6 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 ## Production (not this PR)
 
 1. Citation audit is `pack/37_ACT_V_CITATION_AUDIT.md`. Still no pixels from this stack.
-2. Muted-read copy packet is `pack/38_ACT_V_MUTED_READ.md`. Text only. No stills.
+2. Muted-read copy packet is `pack/ACT_V_13CARD_MUTED_READ.md`. Text only. No stills. Paste to Claude.
 3. Compile stills in one Ribbon batch. Attach **Menace** locks only. No Ledger lock on Ali cards. No Encore in frame.
 4. Seed only after a muted-read pass. Never seed from this draft.

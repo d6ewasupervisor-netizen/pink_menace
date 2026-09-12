@@ -155,37 +155,14 @@
       "maximum": 30000,
       "description": "Hazard decision window. Default 24000. Also used on beat cards."
     },
-    "dusk_force": {
+    "dusk_states": {
       "type": "object",
       "additionalProperties": false,
-      "description": "V-013 overrun state only. Applied when daylight_fail is set. Forces dusk/hazard. Does not end the run. Feeds cargo_rough. Same dusk grade-pass plate as the scheduled state.",
+      "description": "V-013 only. Two scene states on the same card (like I-008 lot_states). Same decision, options, citation. One clause swaps when daylight_fail is set. That clause is the only place the overrun registers. Does not end the run.",
+      "required": ["scheduled", "overrun"],
       "properties": {
-        "dusk_state": { "const": "overrun" },
-        "time_of_day": { "const": "dusk" },
-        "card_type": { "const": "hazard" },
-        "timeout_option_id": { "type": "string", "pattern": "^[a-d]$" },
-        "timeout_ms": { "type": "integer", "minimum": 4000, "maximum": 30000 },
-        "cargo_rough": {
-          "type": "integer",
-          "minimum": 4,
-          "maximum": 12,
-          "description": "Added on any V-013 answer in the overrun state. Feeds cargo_rough. Does not invent a fail-beyond-THINNED cliff."
-        },
-        "hook": { "type": "string", "minLength": 8, "maxLength": 90 },
-        "decision": { "type": "string", "maxLength": 200 },
-        "scene": { "type": "string", "minLength": 150, "maxLength": 700 },
-        "debrief": { "type": "string", "maxLength": 700 },
-        "option_deltas": {
-          "type": "object",
-          "additionalProperties": false,
-          "description": "Extra state_delta stacked on the chosen option when dusk_state is overrun.",
-          "properties": {
-            "a": { "$ref": "#/$defs/overrunDelta" },
-            "b": { "$ref": "#/$defs/overrunDelta" },
-            "c": { "$ref": "#/$defs/overrunDelta" },
-            "d": { "$ref": "#/$defs/overrunDelta" }
-          }
-        }
+        "scheduled": { "$ref": "#/$defs/duskState" },
+        "overrun": { "$ref": "#/$defs/duskState" }
       }
     },
     "tone_debrief": {
@@ -351,16 +328,12 @@
         "debrief": { "type": "string", "minLength": 20, "maxLength": 400 }
       }
     },
-    "overrunDelta": {
+    "duskState": {
       "type": "object",
       "additionalProperties": false,
-      "description": "Stacked onto the chosen V-013 option when dusk_state is overrun.",
+      "required": ["clause"],
       "properties": {
-        "cargo_rough": { "type": "integer", "minimum": 0, "maximum": 12 },
-        "yaw": { "type": "integer", "minimum": -3, "maximum": 5 },
-        "noise": { "type": "integer", "minimum": -3, "maximum": 5 },
-        "light": { "type": "integer", "minimum": -3, "maximum": 5 },
-        "time_cost": { "type": "integer", "minimum": 0, "maximum": 60 }
+        "clause": { "type": "string", "minLength": 20, "maxLength": 200 }
       }
     }
   },

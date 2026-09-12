@@ -10,7 +10,7 @@ const { assemblePrompt } = require("./compile-prompt");
 const { validateAuthoringSeat } = require("./authoring-seat");
 const { checkSpoken, checkClosers } = require("./validate-spoken");
 const { COLD_PACK, deliveryBeat, cargoFailDispatch, radioCheckin, manifestFor } = require("../src/manifest");
-const { cargoRoughBand, radioChannel, applyV013DuskForce, mergeV013OverrunDelta, V013_DUSK } = require("../src/cargo-rough");
+const { cargoRoughBand, radioChannel, applyV013DuskForce, V013_DUSK, V013_CLAUSE } = require("../src/cargo-rough");
 
 const dir = path.join(__dirname, "..", "cards");
 const files = fs.readdirSync(dir).filter((f) => /^V-\d{3}\.json$/.test(f)).sort();
@@ -77,32 +77,20 @@ for (let i = 0; i < cards.length; i++) {
   }
   if (id === "V-013") {
     if (c.variation.time_of_day !== "dusk" || c.card_type !== "scene") {
-      err(id, "V-013 scheduled state is dusk scene (on-time grade pass)");
+      err(id, "V-013 is a dusk scene; daylight_fail only swaps the scene clause");
     }
-    const schedBlob = [c.hook, c.scene, c.debrief].join(" ");
-    if (!/on schedule/i.test(schedBlob)) {
-      err(id, "V-013 scheduled copy must say the player arrived on schedule");
+    const states = c.dusk_states || {};
+    if (!states.scheduled || states.scheduled.clause !== V013_CLAUSE.scheduled) {
+      err(id, "V-013 dusk_states.scheduled.clause must be the on-schedule clause");
     }
-    const force = c.dusk_force;
-    if (!force || force.time_of_day !== "dusk" || force.card_type !== "hazard" || force.dusk_state !== "overrun") {
-      err(id, "V-013 dusk_force must be overrun dusk/hazard (clock-out overlay, not a hard end)");
+    if (!states.overrun || states.overrun.clause !== V013_CLAUSE.overrun) {
+      err(id, "V-013 dusk_states.overrun.clause must be the last-two-hours clause");
     }
-    if (!force || !force.timeout_option_id || !(c.options || []).some((o) => o.id === force.timeout_option_id)) {
-      err(id, "V-013 dusk_force missing timeout_option_id");
+    if (!c.scene.includes(V013_CLAUSE.scheduled)) {
+      err(id, "V-013 default scene must contain the scheduled clause");
     }
-    const forceHook = String(force.hook || "").trim().split(/\s+/).filter(Boolean);
-    if (!force.hook || forceHook.length < 1 || forceHook.length > 12) {
-      err(id, `dusk_force hook words ${forceHook.length}`);
-    }
-    if (!force.scene || force.scene.length < 150 || force.scene.length > 700) {
-      err(id, `dusk_force scene len ${force.scene && force.scene.length}`);
-    }
-    const forceBlob = [force.hook, force.scene, force.debrief, force.decision].join(" ");
-    if (!/light ran out/i.test(forceBlob) || !/overran/i.test(forceBlob)) {
-      err(id, "V-013 overrun copy must show light ran out / overran");
-    }
-    if (!(Number(force.cargo_rough) >= 4)) {
-      err(id, "V-013 overrun must feed cargo_rough (>= 4); no fail-beyond-THINNED cliff");
+    if (c.scene.includes(V013_CLAUSE.overrun)) {
+      err(id, "V-013 default scene must not already be the overrun clause");
     }
   }
   if (["snow", "ice", "fog"].includes(c.variation.weather)) err(id, "snow/ice/fog is Act VII");
@@ -156,8 +144,8 @@ for (let i = 0; i < cards.length; i++) {
     c.decision,
     c.debrief,
     JSON.stringify(c.options || []),
-    c.dusk_force && c.dusk_force.hook,
-    c.dusk_force && c.dusk_force.scene,
+    c.dusk_states && c.dusk_states.scheduled && c.dusk_states.scheduled.clause,
+    c.dusk_states && c.dusk_states.overrun && c.dusk_states.overrun.clause,
   ].join(" ");
   if (DEFERRED_VII.test(blob)) {
     err(id, "Act VII material (chains / Snoqualmie / plow / night weather) leaked into a teaching card");
@@ -262,21 +250,19 @@ if (radioChannel({ yaw: 1, time_cost: COLD_PACK }) !== "CLEAN") {
 }
 const v013 = cards.find((c) => c.card_id === "V-013");
 if (v013) {
-  const forced = applyV013DuskForce(v013, { time_cost: COLD_PACK, yaw: 9 });
-  if (forced.card_type !== "hazard" || forced.time_of_day !== "dusk" || forced.dusk_state !== V013_DUSK.OVERRUN) {
-    errors.push("daylight_fail must force V-013 overrun dusk/hazard, not end the run");
-  }
   const scheduled = applyV013DuskForce(v013, { time_cost: 20 });
-  if (scheduled.dusk_forced || scheduled.dusk_state !== V013_DUSK.SCHEDULED || scheduled.card_type !== "scene") {
-    errors.push("V-013 on-time path is scheduled dusk scene, not overrun");
+  const forced = applyV013DuskForce(v013, { time_cost: COLD_PACK, yaw: 9 });
+  if (scheduled.dusk_state !== V013_DUSK.SCHEDULED || !scheduled.scene.includes(V013_CLAUSE.scheduled)) {
+    errors.push("on-time V-013 must keep the scheduled scene clause");
   }
-  const fed = mergeV013OverrunDelta({ time_cost: 3 }, v013, { time_cost: COLD_PACK }, "a");
-  if (!(fed.cargo_rough >= 4)) {
-    errors.push("overrun V-013 must feed cargo_rough on answer");
+  if (forced.dusk_state !== V013_DUSK.OVERRUN || !forced.scene.includes(V013_CLAUSE.overrun)) {
+    errors.push("daylight_fail must swap only the V-013 scene clause, not end the run");
   }
-  const clean = mergeV013OverrunDelta({ time_cost: 3 }, v013, { time_cost: 20 }, "a");
-  if (clean.cargo_rough) {
-    errors.push("scheduled V-013 must not apply dusk_force cargo_rough");
+  if (forced.card_type !== "scene" || forced.decision !== v013.decision || forced.hook !== v013.hook) {
+    errors.push("V-013 overrun keeps the same type, hook, decision, and options");
+  }
+  if (forced.debrief !== v013.debrief) {
+    errors.push("V-013 overrun must not change debrief or citation; clause only");
   }
 }
 

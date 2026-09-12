@@ -15,7 +15,7 @@ Americanization stays `pack/23_THE_SPOKEN_DICTIONARY.md`. This file is who speak
 | `pack/34_ACT_V.md` | Beat skeleton (PR #132 / #141 stack). Points here. |
 | `pack/35_ACT_V_RESEARCH.md` | Research gates + reseat locks (PR #141). Points here. |
 | `pack/37_ACT_V_CITATION_AUDIT.md` | Citation audit. Does not change these four appearances. |
-| `pack/38_ACT_V_MUTED_READ.md` | 13-card player copy for Claude text review. V-013 printed twice. |
+| `pack/ACT_V_13CARD_MUTED_READ.md` | 13-card player copy for Claude text review. V-013 both clauses. |
 | `pack/21_THE_MANIFEST.md` | Manifest, mid-run radio, end-of-run beat. Act II Reyna lines stay there. |
 | `pack/23_THE_SPOKEN_DICTIONARY.md` | Swap column. Player copy never says “Skill eleven.” |
 | `pack/01_BIBLE.md` §3.3 | Yuna the person (Encore, in-ears, reflectivity). This file is Act V channel only. |
@@ -24,7 +24,7 @@ Americanization stays `pack/23_THE_SPOKEN_DICTIONARY.md`. This file is who speak
 
 **One-liner (already in pack/34 and pack/35):**
 
-> Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_fail` forces V-013 overrun dusk — they stack): `pack/36_YUNA_RADIO_VOICE.md`.
+> Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_fail` swaps one V-013 scene clause — they stack): `pack/36_YUNA_RADIO_VOICE.md`.
 
 ---
 
@@ -72,9 +72,9 @@ Thresholds locked this pass. Cut points reuse presence T0 / T1 edges (`src/prese
 
 `src/cargo-rough.js` is the helper.
 
-**`daylight_fail`** (`time_cost >= 130`, same budget as `COLD_PACK`): does **not** end the run. It forces **V-013** into `dusk_state: overrun` (Ribbon in the dark — harder, still playable) and feeds `cargo_rough`. The scheduled state is on-time dusk. Same dusk grade-pass plate for both; the **copy** shows which history the player is in.
+**`daylight_fail`** (`time_cost >= 130`, same budget as `COLD_PACK`): does **not** end the run. It swaps **one clause** on V-013 (same card, same decision / options / citation — like I-008 `lot_states`). That clause is the only place the overrun registers.
 
-**If both `cargo_rough` and `daylight_fail` are set:** overrun dusk on V-013 **and** `cargo_rough` still bands the existing end-of-run beat. No fail-beyond-THINNED exists. Do not invent a hard fail. Do not collapse the two systems into one cliff.
+**If both `cargo_rough` and `daylight_fail` are set:** overrun clause on V-013 **and** `cargo_rough` still bands the existing end-of-run beat. No fail-beyond-THINNED exists. Do not invent a hard fail. Do not collapse the two systems into one cliff.
 
 - She **never mentions cargo condition.**
 - She **never grades the driving.**
@@ -93,9 +93,9 @@ Do not mint synonyms. Do not print these names on a card face.
 | State | |
 |---|---|
 | `cargo_rough` | Selects the CLEAN / SCUFFED / THINNED band. |
-| `daylight_fail` | Clock-out. Forces V-013 `dusk_state: overrun`. Does not hard-end the run. Feeds `cargo_rough`. |
+| `daylight_fail` | Clock-out. Swaps the one V-013 scene clause. Does not hard-end the run. |
 
-**If both are set:** V-013 gets dusk-force; the end beat still uses the `cargo_rough` band. No hard fail. Do not blend a “you failed daylight” closer into the cargo band.
+**If both are set:** V-013 gets the overrun scene clause; the end beat still uses the `cargo_rough` band. No hard fail. Do not blend a “you failed daylight” closer into the cargo band.
 
 ---
 
@@ -175,7 +175,7 @@ That is Act III’s cliffhanger. It does not add a fifth Act V beat and it does 
 2. Is she in the still, in the car, or in Encore? Stop. Radio only.
 3. Does the line mention cargo condition or grade the driving? Cut it.
 4. Does the line blame Yuna for a thin channel? Cut it. Hardware thinned the relay. She is quieter.
-5. If `daylight_fail` is set, V-013 plays the overrun dusk/hazard state. The end beat still uses the `cargo_rough` band. Do not hard-end. Do not blend a fail closer. No fail-beyond-THINNED.
+5. If `daylight_fail` is set, V-013 swaps one scene clause. Same decision, options, citation. The end beat still uses the `cargo_rough` band. Do not hard-end. Do not blend a fail closer. No fail-beyond-THINNED.
 6. Swap-column words still fail (`pack/23`). “hole” is gap. Never print “Skill eleven.”
 7. No I–III replay language. No chains / Snoqualmie / pass.
 8. Do not seed. Do not regenerate stills from this file.

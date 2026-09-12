@@ -108,7 +108,7 @@ async function seedFile(filePath, tables) {
         ride_along: raw.ride_along || null,
         ride_beats: raw.ride_beats || null,
         presence: raw.presence != null ? raw.presence : 0,
-        dusk_force: raw.dusk_force || null,
+        dusk_states: raw.dusk_states || null,
       }),
     ]
   );

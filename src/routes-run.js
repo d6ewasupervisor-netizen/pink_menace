@@ -6,7 +6,7 @@ const { appKind } = require("./host");
 const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { publicCard, applySequenceTone, dayNight, pickNextCard, actBoundForRun, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, mergeV013OverrunDelta, cargoFailDispatch, applyDelta, failRestart, playAgainFrom, startActFrom, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard, isBeatCard, lotKeyFromOption } = require("./game");
+const { publicCard, applySequenceTone, dayNight, pickNextCard, actBoundForRun, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, playAgainFrom, startActFrom, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard, isBeatCard, lotKeyFromOption } = require("./game");
 const { applyFear, loudDelta } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
@@ -372,7 +372,7 @@ function mountRun(app) {
       }
       const cardRes = await client.query(
         `SELECT card_id, card_type, debrief, schedules_callback, callback_of, psdp_skill, dol_section,
-                act, zone, location_type, weather, time_of_day, driver, extra
+                act, zone, location_type, weather, time_of_day, driver
            FROM cards
           WHERE card_id = $1`,
         [cardId]
@@ -425,9 +425,8 @@ function mountRun(app) {
       const timedOut = Boolean(req.body && req.body.timed_out) && optionId !== "continue";
       const watch = isWatchCard(card.card_type);
       const correct = wasCorrect && !watch && !beat;
-      const rawDelta = loudDelta(option.state_delta || {}, { correct: beat ? true : correct, timedOut, dossier: watch || beat });
+      const delta = loudDelta(option.state_delta || {}, { correct: beat ? true : correct, timedOut, dossier: watch || beat });
       const prevState = withActCargo(run.state, card.act);
-      const delta = mergeV013OverrunDelta(rawDelta, card.extra, prevState, optionId);
       let state = applyDelta(prevState, delta);
       const fear = applyFear(state, delta, { correct, timedOut });
       state = fear.state;
