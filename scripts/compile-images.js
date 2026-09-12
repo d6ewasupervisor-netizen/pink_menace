@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const { resolveCard, assertCompileReady } = require("./resolve-refs");
+const { resolveCard, assertCompileReady, assertNotDiscarded } = require("./resolve-refs");
 const { assemblePrompt } = require("./compile-prompt");
 const { validateGeometry } = require("./geometry");
 const { validateAuthoringSeat } = require("./authoring-seat");
@@ -35,6 +35,7 @@ for (const f of files) {
   }
   try {
     assertCompileReady(raw);
+    assertNotDiscarded(resolved.attachments);
   } catch (err) {
     errors.push(err.message);
     continue;

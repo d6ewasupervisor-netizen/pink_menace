@@ -49,6 +49,14 @@ Three layers, and the order matters.
 
 ---
 
+## Standing locks (do not rediscover)
+
+**4. Plate PRs.** Plate promotions travel in their own PR(s). Do not bundle a plate lock with card-art stills, live seeds, or `imageUrl` bumps.
+
+**5. Discarded takes leave the pool.** A discarded take is removed from the generator's reference pool. It is not superseded-but-available — do not attach it, do not list it in `pack/09_REF_MAP.json` locks, do not keep a stale copy in `refs/`. History notes may name it; `cards/takes/DISCARDED.md` and `pack/09` `discarded` are the ban list. IV-028 take 72 (olive carrier) is discarded. The charcoal crop from take 70 is `refs/ref_carrier.png`.
+
+---
+
 ## Run order
 
 1. Lock Deac, Yuna, the Ledger, and Encore from `07_CHARACTER_LOCK_PROMPTS.md` before any card that features them. Ali and the Menace already have refs.

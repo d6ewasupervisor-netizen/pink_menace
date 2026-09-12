@@ -20,8 +20,12 @@
     "diagram_style": ["ref_diagram_style.png"],
     "the_quiet": ["ref_quiet.png"],
     "quiet_a4": ["ref_quiet_a4.png"],
-    "quiet_a5": ["ref_quiet_a5.png"]
+    "quiet_a5": ["ref_quiet_a5.png"],
+    "carrier": ["ref_carrier.png"]
   },
+  "discarded": [
+    "cards/takes/IV-028-take-72.png"
+  ],
   "no_file": [
     "marisol",
     "hollis",
@@ -31,5 +35,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. carrier → ref_carrier.png (charcoal hard-shell from IV-028 take-70 crop). discarded paths leave the generator pool entirely — do not attach them. IV-028 take-72 (olive) is discarded, not superseded-but-available."
 }

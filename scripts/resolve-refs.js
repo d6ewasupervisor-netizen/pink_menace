@@ -6,6 +6,8 @@ const path = require("path");
 const ROOT = path.join(__dirname, "..");
 const REFS = path.join(ROOT, "refs");
 const MAP = JSON.parse(fs.readFileSync(path.join(ROOT, "pack", "09_REF_MAP.json"), "utf8"));
+const BANNED_REFS = new Set(MAP.banned || []);
+const DISCARDED = new Set(MAP.discarded || []);
 
 const MENACE_LOCKS = new Set([
   "pink_menace_exterior",
@@ -17,6 +19,25 @@ const MENACE_LOCKS = new Set([
 
 function isLocation(token) {
   return /^L-\d+/.test(token);
+}
+
+function repoRel(abs) {
+  return path.relative(ROOT, abs).split(path.sep).join("/");
+}
+
+function assertNotDiscarded(filePaths) {
+  const hits = [];
+  for (const p of filePaths || []) {
+    const rel = path.isAbsolute(p) ? repoRel(p) : String(p).split(path.sep).join("/");
+    if (DISCARDED.has(rel) || BANNED_REFS.has(path.basename(rel))) {
+      hits.push(rel);
+    }
+  }
+  if (hits.length) {
+    throw new Error(
+      "discarded/banned refs are out of the generator pool: " + hits.join(", ")
+    );
+  }
 }
 
 function resolveCard(raw) {
@@ -67,6 +88,15 @@ function resolveCard(raw) {
     );
   if (quietInFrame && !tokens.includes("the_quiet")) tokens.push("the_quiet");
 
+  const carrierNamed =
+    tokens.includes("carrier") ||
+    /\bcarrier\b/i.test(
+      [brief.subject, brief.foreground, brief.midground, brief.background, brief.read, brief.camera_pose]
+        .filter(Boolean)
+        .join(" ")
+    );
+  if (carrierNamed && !tokens.includes("carrier")) tokens.push("carrier");
+
   for (const token of tokens) {
     if (isLocation(token) || MAP.no_file.includes(token)) continue;
     if (raw.driver === "deac" && MENACE_LOCKS.has(token)) continue;
@@ -78,7 +108,16 @@ function resolveCard(raw) {
       continue;
     }
     for (const file of files) {
+      if (BANNED_REFS.has(file)) {
+        errors.push(`${id}: banned ref ${file} is out of the compile pool`);
+        continue;
+      }
       const abs = path.join(REFS, file);
+      const relRefs = `refs/${file}`;
+      if (DISCARDED.has(relRefs) || DISCARDED.has(file)) {
+        errors.push(`${id}: discarded ref ${file} is out of the generator pool`);
+        continue;
+      }
       if (!fs.existsSync(abs)) {
         errors.push(`${id}: missing ref ${file} (continuity ${token})`);
         continue;
@@ -111,4 +150,11 @@ function assertCompileReady(raw) {
   return resolved;
 }
 
-module.exports = { resolveCard, assertCompileReady, REFS, MAP };
+module.exports = {
+  resolveCard,
+  assertCompileReady,
+  assertNotDiscarded,
+  REFS,
+  MAP,
+  DISCARDED,
+};
