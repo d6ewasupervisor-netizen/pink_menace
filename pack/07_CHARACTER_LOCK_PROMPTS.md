@@ -63,8 +63,10 @@ Every prompt below already carries the master style token and the negative block
 >
 > *[negative block]* · Aspect ratio 16:9
 
-## Y4 — ENCORE cockpit
+## Y4 — ENCORE glass / cage / roofline
 *(attach the chosen Y3)*
+
+Y4 take 1 / `ref_encore_cockpit.png` is authoritative for glass, cage, and roofline **only**. It predates the dash lock. Do **not** use it for dash / binnacle. Encore plates are complementary — do not merge: dash is brake-81 / `ref_brake_cover.png` (moulded binnacle, tach-to-8, caged red rocker); pedals are verified footwell take 6 / `ref_encore_footwell.png`.
 
 > Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field. Overcast Pacific Northwest daylight through the windshield — soft, diffuse, low-contrast, gray-blue. Desaturated palette; the only bright element is retroreflective silver-white. Camera inside the vehicle, over the wheel, looking forward. A small suede-wrapped racing steering wheel across the bottom of frame. Stripped dashboard, bare metal, exposed wiring loomed and taped, a single aftermarket tachometer, a toggle-switch panel with one large guarded red switch clearly separate from the others. Welded roll cage tubing crossing the A-pillars. Bare clean windshield with no mesh — wide open view. Beyond the glass, wet empty city street under flat gray sky. A dead wireless handheld microphone clipped to the cage tube at the right edge of frame. Fine grain, slight vignetting, no HDR, no glow, no lens flare.
 >
@@ -101,7 +103,9 @@ Use G1 as a silhouette test. If you can't tell the three apart at thumbnail size
 | Yuna turnaround | `ref_yuna_sheet.png` |
 | Yuna portrait | `ref_yuna.png` |
 | Encore four-view | `ref_encore_sheet.png` |
-| Encore cockpit | `ref_encore_cockpit.png` |
+| Encore glass / cage / roofline | `ref_encore_cockpit.png` — Y4 take 1. Not dash. |
+| Encore dash / brake-cover | `ref_brake_cover.png` — brake-81. Not Y4 take 1. |
+| Encore footwell | `ref_encore_footwell.png` — verified take 6. Pedals only. |
 | Convoy silhouette test | `ref_convoy.png` |
 
 Ali and the Menace already have refs and need nothing. Gracie and Mya are locked.
