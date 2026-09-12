@@ -69,7 +69,13 @@
       "no car hugging the shoulder",
       "no accidental centering / just a car on a road",
       "no hatch camera",
-      "no bare hills"
+      "no bare hills",
+      "no \"ginger tabby\" wording — use orange tabby markings behind the grille",
+      "no missing full-grid windshield cage",
+      "no long dry open highway",
+      "no lit green turn arrows",
+      "no brightly lit dash by default",
+      "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -88,7 +94,9 @@
       "Nothing touching the lip",
       "Carrier through near-flank rear SIDE mesh only",
       "Cascades-west wet PNW — reject desert on sight"
-    ]
+    ],
+    "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway"
   },
   "variation": {
     "location_type": "rural",

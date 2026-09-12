@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a doe standing broadside in your travel lane, close, filling the next lengths through the mesh at last light",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; hands not yet yanking; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
-    "midground": "doe broadside across the asphalt in this lane — not grazing roadside; ditch right, empty oncoming left",
-    "background": "dusk overcast rural two-lane, treeline, last light not full night",
-    "read": "a deer stands broadside in your lane at dusk, close; the ditch and the oncoming lane wait on either side",
+    "subject": "doe BROADSIDE centered full-scale in travel lane INSIDE full-grid windshield mesh at last light; cabin shows locked carrier: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "foreground": "worn black wheel; faded pink dash DARK/UNLIT — no lit turn arrows; gauges may show odo/trip but no speedlike 112 LCD; FULL-GRID windshield mesh (cage canon); hands not yanking; hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "midground": "doe broadside centered in THIS lane through the mesh — full body, not roadside grazing, not distant",
+    "background": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway at dusk; treeline close to road",
+    "read": "deer broadside in lane through full-grid mesh; dark dash; locked carrier with Gracie",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -48,7 +48,29 @@
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no paraphrase of carrier string",
+      "no \"ginger tabby\" wording — use orange tabby markings behind the grille",
+      "no soft-sided carrier",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no second cat",
+      "no low dash-level mesh band only",
+      "no missing full-grid windshield cage",
+      "no high desert",
+      "no sagebrush",
+      "no bare hills",
+      "no long dry open highway",
+      "no lit green turn arrows",
+      "no brightly lit dash by default",
+      "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)",
+      "no distant tiny deer",
+      "no deer grazing roadside",
+      "no lit GPS tablet"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -59,7 +81,10 @@
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
-    }
+    },
+    "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway",
+    "ref_notes": "VI-009-take-2.png = full-grid cage REF ONLY — not shippable until cabin shows locked carrier"
   },
   "variation": {
     "location_type": "rural",

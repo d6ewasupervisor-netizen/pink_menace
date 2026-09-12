@@ -52,7 +52,26 @@
       "no Ali hands missing from wheel",
       "no wheel on frame right / RHD",
       "no Deac in driver seat",
-      "no Deac solo"
+      "no Deac solo",
+      "no paraphrase of carrier string",
+      "no \"ginger tabby\" wording — use orange tabby markings behind the grille",
+      "no soft-sided carrier",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no second cat",
+      "no low dash-level mesh band only",
+      "no missing full-grid windshield cage",
+      "no high desert",
+      "no sagebrush",
+      "no bare hills",
+      "no long dry open highway",
+      "no lit green turn arrows",
+      "no brightly lit dash by default",
+      "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -68,7 +87,9 @@
       "SEAT GEOMETRY first: LHD — Ali hands on wheel at FRAME LEFT before any other grade",
       "Both faces visible (Ali + Deac)",
       "Deac passenger only — never driver"
-    ]
+    ],
+    "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway"
   },
   "variation": {
     "location_type": "rural",

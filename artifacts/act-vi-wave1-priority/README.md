@@ -1,26 +1,27 @@
-# Act VI muted-read — VI-011 GATE ONLY (lead with this)
+# Act VI muted-read pack — LEAD WITH VI-011
 
-**Do not seed. Ship queue = 0. Claude standing by for these takes.**
+**Do not seed. Ship queue = 0.**
 
-## Pre-judge checks (baked)
-1. **VI-004** — EXPOSED HUB first (do not reattach wheel). Banked PASS: `cards/takes/VI-004-take-5.png` — leave it; exposed-hub regen is separate later.
-2. **VI-013** — LHD seat geometry first: Ali hands on wheel at **frame LEFT** before any other grade.
-3. **Delivery** — lead muted-read with **VI-011** so Claude sets the carrier bar before other exteriors.
+## Carrier SPEC (verbatim)
+hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle
 
-## VI-011 closest / runner
-| Role | File |
-|---|---|
-| **Closest** | `VI-011-take-13.png` |
-| **Runner** | `VI-011-take-12.png` |
+## Delivery order
+1. **VI-011 first** (carrier / cage-through-glass bar)
+2. Then VI-004 (banked PASS), VI-009, VI-013
+3. VI-012 new take available; Pack 1 separate after brief hygiene
 
-Also at `cards/takes/VI-011-take-13.png` / `VI-011-take-12.png`.
+| Order | Role | File |
+|---|---|---|
+| 1 | **VI-011 closest** | `VI-011-take-13.png` |
+| 2 | **VI-011 runner** | `VI-011-take-12.png` |
+| 3 | VI-004 banked PASS | `VI-004-take-5.png` (leave; seeded separately) |
+| 4 | VI-009 candidate | `VI-009-take-4.png` (take-2 = cage REF only) |
+| 5 | VI-013 candidate | `VI-013-take-4.png` (LHD hands-left check) |
+| 6 | VI-012 candidate | `VI-012-take-4.png` (take-3 = restraint REF only; full regen) |
 
-### Grade bar
-- Curb-height PROFILE L→R; lip+narrowing SUBJECT at right edge
-- **Earn the lane:** clear gap near tires ↔ lip; nothing touching lip
-- Carrier through near-flank **rear SIDE** mesh (not hatch/backward)
-- Cascades-west wet PNW (fir/moss/restricted sightlines) — reject desert
-- Carrier SPEC verbatim: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle
+## REF-only (out of ship queue)
+- `cards/takes/ref/VI-009-take-2.CAGE_REF.png`
+- VI-012 take-3 restraint REF (if present) — do not retouch corn-belt into canon
 
-## Retired
-`cards/takes/retired/VI-011-take-{4,5,6}.DESERT_FAIL.png` · `VI-004-take-11.MISSING_WALL_FAIL.png`
+## 112
+Out only if speedlike LCD; odo/trip may remain.

@@ -1,21 +1,23 @@
-# Act VI WAVE1_MAP — VI-011 gate delivery
+# Act VI WAVE1_MAP — VI-011-led pack
 
-**Do not seed. Ship queue = 0.**
+**Do not seed. Ship queue = 0.** Standing locks: `ACT_VI_STANDING_LOCKS.md`
 
-## Pre-judge checks (Claude ACK)
-1. VI-004 — **EXPOSED HUB first**; never cover hub by reattaching wheel. Banked PASS: `VI-004-take-5.png` (leave). Exposed-hub regen later, separate.
-2. VI-013 — **seat geometry first**: LHD, Ali hands on wheel at frame LEFT, both faces.
-3. Delivery — **lead with VI-011** (carrier bar) before other exteriors.
+## Pre-judge
+1. VI-004 — exposed hub first (banked PASS take-5 left alone)
+2. VI-013 — LHD Ali hands frame LEFT first
+3. Delivery — **lead VI-011**
 
-## VI-011 gate (ready)
-| Closest | Runner |
-|---|---|
-| `cards/takes/VI-011-take-13.png` | `cards/takes/VI-011-take-12.png` |
+## Closest / runners
+| Card | Closest | Runner / note |
+|---|---|---|
+| **VI-011** | `VI-011-take-13.png` | `VI-011-take-12.png` — **LEAD muted-read** |
+| VI-004 | `VI-004-take-5.png` | PASS banked; leave |
+| VI-009 | `VI-009-take-4.png` | take-2 = cage REF only |
+| VI-013 | `VI-013-take-4.png` | seat geometry check |
+| VI-012 | `VI-012-take-4.png` | take-3 = restraint REF only; full regen |
 
-Pack: `artifacts/act-vi-wave1-priority/`
-
-## Standing locks
-- Cascades-west PNW wet: restricted sightlines, vegetation close to road
-- Full-grid cage; carrier SPEC verbatim (semicolon)
-- No Mya; dark dash; 112 out only if speedlike LCD
-- Mass regen of other cards paused until VI-011 muted-read clears
+## Clarifications baked
+- Carrier SPEC verbatim (no "ginger tabby" paraphrase)
+- 112 out only if speedlike LCD
+- Cascades-west restricted sightlines biome
+- VI-009-t2 / VI-012-t3 REF-only out of ship queue
