@@ -147,6 +147,8 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
 - `ref_hand_signals.png` — three-panel left-arm plate (left / stop / right). Limb geometry is not improvised.
 - `ref_diagram_style.png` — optional overhead look lock. Diagram compiles attach `ref_car_exterior.jpg` for the Menace's build. Lighting is still overcast PNW, never the salt-flat sunset.
+- `ref_ribbon_deck.png` — **Act V Ribbon elevated deck** (PR #149 take 4, Claude muted-read PASS). Unnamed corridor, streetlight standards, wet multi-lane, city below the barrier. Continuity token `ribbon_deck`. Take-2 is not the lock.
+- `ref_ribbon_rig.png` — **Act V Ribbon tractor-trailer scale** (PR #149 take 1, Claude muted-read PASS). Period-aged conventional cab, west-coast mirrors, passenger-car scale. Continuity token `ribbon_rig`. Take-2 FAIL — do not attach. `ref_ribbon_workzone` is **not** locked.
 
 ### 8.3 Camera set (pick exactly one per card)
 
