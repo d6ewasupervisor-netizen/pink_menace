@@ -10,7 +10,7 @@
   "source": {
     "psdp_skill": "Skill thirteen: roundabouts",
     "dol_section": "n/a",
-    "teaching_target": "NEW: PSDP thirteen Lesson one – five easy steps. Prefer PSDP-only (not IV-015 4.15 replay)."
+    "teaching_target": "NEW: PSDP thirteen Lesson one \u2013 five easy steps. Prefer PSDP-only (not IV-015 4.15 replay)."
   },
   "cast": [
     "ali",
@@ -21,30 +21,36 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — single-lane roundabout entry; scaffold only",
+    "subject": "a single-lane roundabout entry; a sedan already circulating inside toward your entry",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "midground": "roundabout apron and circulating sedan inside the circle approaching your entry lane",
+    "background": "overcast county/state junction, splitter island, no traffic signal",
+    "read": "a sedan is already inside the single-lane circle coming toward your entry",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no two-lane roundabout",
+      "no traffic light",
+      "no Yuna in the cabin",
+      "no night"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "ego_lane_side": "entry lane of a single-lane rural roundabout",
+      "ego_nose_in_frame": "plow points up-frame toward the circulating lane",
       "oncoming_position": "none in frame",
-      "hazard_position": "none",
+      "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
     }
@@ -55,7 +61,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "You're at the entry. A car is already in the circle.",
   "options": [
@@ -81,7 +87,7 @@
     },
     {
       "id": "c",
-      "text": "Enter now — you're moving and he can adjust",
+      "text": "Enter now \u2014 you're moving and he can adjust",
       "correct": false,
       "result": "He's already in. Traffic in the circle has it, and you just asked a stranger to brake for your entry.",
       "state_delta": {

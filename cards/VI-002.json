@@ -10,7 +10,7 @@
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "PSDP twelve Lesson one – gravel roads. DOL honest null — do not cite parent 5.6."
+    "teaching_target": "PSDP twelve Lesson one \u2013 gravel roads. DOL honest null \u2014 do not cite parent 5.6."
   },
   "cast": [
     "ali"
@@ -20,28 +20,33 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — gravel surface under the Menace; no snow",
+    "subject": "washboard gravel in both wheel tracks filling the windshield view; the Menace feeling loose on a surface that moves",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; no second person",
+    "midground": "graded gravel road with corrugated washboard ridges in the tire paths; empty ahead",
+    "background": "overcast rural valley, fir edges, no pavement, no other traffic",
+    "read": "the road under the plow is loose washboard gravel, not pavement",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no smooth asphalt ahead",
+      "no night",
+      "no deer"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "ego_lane_side": "center of a single-lane gravel county road",
+      "ego_nose_in_frame": "plow points up-frame along the gravel track",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
       "lanes_this_direction": 1,
@@ -54,13 +59,13 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "How do you drive a surface that will not hold?",
   "options": [
     {
       "id": "a",
-      "text": "Same as pavement — the tires are the same tires",
+      "text": "Same as pavement \u2014 the tires are the same tires",
       "correct": false,
       "result": "You drive it like asphalt and the back end goes light at the first bend. Loose is loose regardless of what you are used to.",
       "state_delta": {

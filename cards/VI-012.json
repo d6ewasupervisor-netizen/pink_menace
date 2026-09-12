@@ -20,30 +20,38 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — unmarked rural rail crossing; no light-rail street",
+    "subject": "a white railroad crossbuck and two rails through the gravel; no gates, no bells, no lights",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "midground": "crossbuck at the crossing; rails across the gravel road; high corn left blocking the sightline up the track",
+    "background": "overcast rural crossing, yellow advance X only if facing travel, empty beyond",
+    "read": "only a crossbuck and rails \u2014 no gates, no bells, no lights \u2014 and corn hides the line",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no crossing gates",
+      "no signal lights",
+      "no bells hardware",
+      "no light-rail street embedded downtown",
+      "no train already occupying the crossing",
+      "no night"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "ego_lane_side": "right half of a gravel road approaching an unmarked rail crossing",
+      "ego_nose_in_frame": "plow points up-frame toward the crossbuck and rails",
       "oncoming_position": "none in frame",
-      "hazard_position": "none",
+      "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
     }
@@ -54,7 +62,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "An unmarked crossing, and you can't see up the line.",
   "options": [
@@ -70,7 +78,7 @@
     },
     {
       "id": "b",
-      "text": "No gates means no active line — keep your speed",
+      "text": "No gates means no active line \u2014 keep your speed",
       "correct": false,
       "result": "The gates are missing because nobody built any. The line is live. Absence of arms is not absence of trains.",
       "state_delta": {

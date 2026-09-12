@@ -10,7 +10,7 @@
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. License lands here. End of act → Cleared beat."
+    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. License lands here. End of act \u2192 Cleared beat."
   },
   "cast": [
     "ali",
@@ -20,24 +20,41 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_PORTRAIT",
-    "subject": "TODO — Ali in the parked Menace, Backcountry dossier stub",
-    "foreground": "TODO — clipboard on thigh; scaffold only",
-    "midground": "TODO — cracked pink dash; mesh; no second occupant",
-    "background": "TODO — gravel shoulder / blacktop edge; overcast; no snow",
-    "read": "Deac with clipboard; Ali cleared; scaffold — no still",
+    "camera": "POV_COCKPIT",
+    "subject": "Deac in the Menace passenger seat holding the metal clipboard with the hand-ruled sheet turned toward the driver",
+    "foreground": "worn black wheel rim at left edge; faded pink dash; coarse mesh; no clipboard in the glass",
+    "midground": "Deac in the passenger seat, glasses on a cord, amber vest edge, clipboard on his knee turned so the sheet faces the driver",
+    "background": "overcast rural gravel shoulder through the mesh; Menace stopped; pass weather far off",
+    "read": "Deac is in the passenger seat with the clipboard held out; Ali is alone no longer",
     "continuity": [
-      "ali",
       "pink_menace_interior",
-      "deac"
+      "deac",
+      "deac_clipboard"
     ],
     "extra_negatives": [
-      "no snow",
+      "no clipboard on the dash",
+      "no clipboard on the mesh or windshield",
+      "no clipboard blocking the right half of the road",
+      "no Deac in the driver seat",
+      "no third occupant",
+      "no cat on the dash",
+      "no snow on the roadway",
       "no chain-up",
       "no Snoqualmie shield",
-      "no moving wheels"
+      "no Ledger interior",
+      "no moving wheels",
+      "no night"
     ],
-    "aspect": "2:3"
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "stopped on a rural gravel shoulder, not in a travel conflict",
+      "ego_nose_in_frame": "plow points up-frame at empty gravel through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
   },
   "variation": {
     "location_type": "rural",
@@ -45,13 +62,13 @@
     "time_of_day": "morning",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "He's holding it out. What do you say?",
   "options": [
     {
       "id": "a",
-      "text": "Nothing — take it, read it, hand it back",
+      "text": "Nothing \u2014 take it, read it, hand it back",
       "correct": true,
       "result": "You read your own hours. He takes it back and clips it down. \"That's the state's form,\" he says. \"I run it out of the book because there's nobody left to run it out of anything else. You passed it.\"",
       "state_delta": {

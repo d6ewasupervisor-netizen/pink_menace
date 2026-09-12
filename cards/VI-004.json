@@ -6,7 +6,7 @@
   "card_type": "hazard",
   "title": "Off the Edge",
   "hook": "The right wheels are off the road.",
-  "scene": "The road narrows where the culvert went in and the shoulder is a four-inch drop of soft dirt, and you find it the way everyone finds it — not by deciding. The right side goes down and the car pulls hard toward the ditch and the wheel in your hands wants one thing, which is to come back up. Everything in your arms agrees with it.",
+  "scene": "The road narrows where the culvert went in and the shoulder is a four-inch drop of soft dirt, and you find it the way everyone finds it \u2014 not by deciding. The right side goes down and the car pulls hard toward the ditch and the wheel in your hands wants one thing, which is to come back up. Everything in your arms agrees with it.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
@@ -19,31 +19,37 @@
   "callback_of": null,
   "schedules_callback": true,
   "image_brief": {
-    "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — right tires on soft shoulder; do not invent still",
+    "camera": "POV_ROADSIDE_PROFILE",
+    "subject": "faded-pink Beetle mid-event: right wheels already down in soft dirt below a four-inch pavement lip; left wheels still on asphalt",
+    "foreground": "soft dirt shoulder and the raised asphalt lip; right knobby tires below the pavement plane",
+    "midground": "Beetle in true profile traveling left-to-right; right side dropped; plow and mesh cages readable; no yank pose",
+    "background": "narrowing at a culvert, ditch beyond the dirt, overcast PNW daylight, empty rural two-lane",
+    "read": "the right wheels are already off the pavement on soft dirt; the road surface is higher on the left",
     "continuity": [
-      "pink_menace_interior"
+      "pink_menace_exterior"
     ],
     "extra_negatives": [
+      "no approaching the shoulder still fully on pavement",
+      "no all four tires on asphalt",
+      "no wheels climbing back onto the lip",
+      "no crash already finished",
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no Encore",
+      "no headlights toward camera",
+      "no night"
     ],
     "aspect": "2:3",
     "geometry": {
-      "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "right half of a two-lane rural road, right tires already off onto soft shoulder",
+      "ego_nose_in_frame": "the plow points toward the right of the frame",
       "oncoming_position": "none in frame",
-      "hazard_position": "none",
+      "hazard_position": "beside",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
     }
@@ -54,15 +60,15 @@
     "time_of_day": "morning",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "Two wheels are off the pavement. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Turn back onto the road — get the wheels up before the ditch",
+      "text": "Turn back onto the road \u2014 get the wheels up before the ditch",
       "correct": false,
-      "result": "You pull. The tire climbs the lip, catches, and the car comes across the road with more angle than you asked for. That is how this crash happens. Not the drop — the fix.",
+      "result": "You pull. The tire climbs the lip, catches, and the car comes across the road with more angle than you asked for. That is how this crash happens. Not the drop \u2014 the fix.",
       "state_delta": {
         "noise": 5,
         "damage": 1,

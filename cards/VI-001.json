@@ -10,7 +10,7 @@
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "NEW frame: Backcountry starts where the blacktop quits. PSDP twelve Lesson one – gravel roads. Ali alone. No DOL pair."
+    "teaching_target": "NEW frame: Backcountry starts where the blacktop quits. PSDP twelve Lesson one \u2013 gravel roads. Ali alone. No DOL pair."
   },
   "cast": [
     "ali",
@@ -20,24 +20,38 @@
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_PORTRAIT",
-    "subject": "TODO — Ali in the parked Menace, Backcountry dossier stub",
-    "foreground": "TODO — clipboard on thigh; scaffold only",
-    "midground": "TODO — cracked pink dash; mesh; no second occupant",
-    "background": "TODO — gravel shoulder / blacktop edge; overcast; no snow",
-    "read": "TODO — parked at the blacktop/gravel edge; Ali alone",
+    "camera": "POV_COCKPIT",
+    "subject": "blacktop ending into graded gravel through the mesh; the mountain pass notch readable ahead with weather on the ridge",
+    "foreground": "worn black wheel, faded pink dash, coarse windshield mesh; closed dark carrier strapped on the passenger floor",
+    "midground": "county blacktop giving way to washboard gravel in the wheel tracks; no other cars",
+    "background": "overcast PNW daylight; ridge ahead with snow on the pass notch; last mailbox country behind",
+    "read": "the pavement ends and the gravel begins; the pass notch on the ridge is readable ahead",
     "continuity": [
-      "ali",
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "gracie"
     ],
     "extra_negatives": [
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no chain-up",
       "no Snoqualmie shield",
-      "no moving wheels"
+      "no cat on the dash",
+      "no cat loose on the seat",
+      "no open carrier",
+      "no parked Beetle",
+      "no night",
+      "no golden hour"
     ],
-    "aspect": "2:3"
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of a two-lane county road at the blacktop/gravel edge",
+      "ego_nose_in_frame": "plow points up-frame toward the gravel and the pass notch",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
   },
   "variation": {
     "location_type": "gravel",
@@ -45,7 +59,7 @@
     "time_of_day": "morning",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "debrief": "Gravel from here. The pass is close enough to read now."
 }

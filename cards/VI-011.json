@@ -6,11 +6,11 @@
   "card_type": "ledger",
   "title": "Same Culvert",
   "hook": "The road narrows where the culvert went in.",
-  "scene": "Ten miles on and here is the same kind of place — a narrowing, a four-inch lip, soft dirt below it. You know what it looks like now because you have already been down there once today, and the thing you remember is not the drop. It's your own arms wanting to pull.\n\nNothing happens. You hold the middle of the lane and go by it at thirty and it is the least eventful hundred feet of the afternoon, and that is the whole point. The one earlier cost you a fence post and a hubcap. This one cost nothing because you had already spent it.",
+  "scene": "Ten miles on and here is the same kind of place \u2014 a narrowing, a four-inch lip, soft dirt below it. You know what it looks like now because you have already been down there once today, and the thing you remember is not the drop. It's your own arms wanting to pull.\n\nNothing happens. You hold the middle of the lane and go by it at thirty and it is the least eventful hundred feet of the afternoon, and that is the whole point. The one earlier cost you a fence post and a hubcap. This one cost nothing because you had already spent it.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Ledger callback of VI-004 soft shoulder: hold line; do not yank. No question — continue only."
+    "teaching_target": "Ledger callback of VI-004 soft shoulder: hold line; do not yank. No question \u2014 continue only."
   },
   "cast": [
     "ali"
@@ -20,28 +20,33 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — soft shoulder callback; same teach as VI-004",
+    "subject": "the same kind of culvert narrowing ahead: four-inch lip and soft dirt below, empty of any drop event",
+    "foreground": "worn black wheel held straight, faded pink dash, coarse mesh; Ali alone",
+    "midground": "travel lane held in the middle; pavement lip and soft dirt visible on the right but tires stay on asphalt",
+    "background": "overcast rural narrowing at a culvert, ditch beyond, no other cars, no dust of a prior off",
+    "read": "the same lip and soft dirt are there; nothing is happening; the Menace holds the middle of the lane",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
+      "no wheels off the pavement",
+      "no right tires in the dirt",
+      "no mid-event drop",
+      "no yank on the wheel",
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no Encore",
+      "no night"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "ego_lane_side": "center of the travel lane on a two-lane rural road at a culvert narrowing",
+      "ego_nose_in_frame": "plow points up-frame along the held center line of the lane",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
       "lanes_this_direction": 1,
@@ -54,7 +59,7 @@
     "time_of_day": "morning",
     "tone": "tense",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "debrief": "Off the road: don't turn, stay straight, come back where it's level. You paid for that one already."
 }

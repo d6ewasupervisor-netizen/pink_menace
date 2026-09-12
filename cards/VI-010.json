@@ -20,28 +20,33 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — blind crest with curve beyond; scaffold only",
+    "subject": "the gravel/asphalt climbs to a crest and drops away into a curve whose far end you cannot see",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "midground": "road rising to a blind crest; beyond the top only sky and the start of a curve",
+    "background": "overcast rural ridge, fir edges, no oncoming grille yet visible",
+    "read": "you cannot see the other side of the hill; a curve begins beyond the crest",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no oncoming vehicle already visible",
+      "no clear view past the crest",
+      "no night"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "ego_lane_side": "right half of a two-lane rural road climbing to a crest",
+      "ego_nose_in_frame": "plow points up-frame at the blind crest",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
       "lanes_this_direction": 1,
@@ -54,7 +59,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "Blind crest, then a curve. How do you take it?",
   "options": [
@@ -70,7 +75,7 @@
     },
     {
       "id": "b",
-      "text": "Keep your speed — you'll see it when you're over",
+      "text": "Keep your speed \u2014 you'll see it when you're over",
       "correct": false,
       "result": "Over the top at speed with a tractor at forty yards and nothing but reflex left.",
       "state_delta": {

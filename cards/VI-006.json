@@ -20,28 +20,35 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — rural uncontrolled intersection; no stop/yield faces",
+    "subject": "two gravel roads crossing with no stop, no yield, no paint; a dusty pickup arriving from the right at the same time",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "midground": "empty uncontrolled intersection of graded gravel; dusty pickup entering from the right approach",
+    "background": "overcast section-line country, fir edges, no sign faces toward camera",
+    "read": "no stop or yield faces; a pickup from the right arrives with you at the same empty cross",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no stop sign face toward camera",
+      "no yield sign face toward camera",
+      "no traffic signal",
+      "no painted stop line",
+      "no night"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "ego_lane_side": "approaching an unmarked gravel crossroads in the right half",
+      "ego_nose_in_frame": "plow points up-frame into the empty cross",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
       "lanes_this_direction": 1,
@@ -54,13 +61,13 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "No signs, and you'll both arrive together. Who goes?",
   "options": [
     {
       "id": "a",
-      "text": "He's on your right — slow, look twice, let him through",
+      "text": "He's on your right \u2014 slow, look twice, let him through",
       "correct": true,
       "result": "You come off it, check both ways twice, and let him have it. He lifts a finger off the wheel.",
       "state_delta": {
@@ -70,7 +77,7 @@
     },
     {
       "id": "b",
-      "text": "You were there first — keep your speed",
+      "text": "You were there first \u2014 keep your speed",
       "correct": false,
       "result": "Uncontrolled means nobody has it by default. You arrived together and you both believed you were first.",
       "state_delta": {

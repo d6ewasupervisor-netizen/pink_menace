@@ -6,11 +6,11 @@
   "card_type": "scene",
   "title": "Pick Your Lane Before the Circle",
   "hook": "Two lanes in. The decision is on the approach, not inside.",
-  "scene": "Bigger roundabout at the highway junction, two lanes going in, arrows painted on the approach and a sign board before them. Your exit is the third one — effectively a left. The lane you're in decides whether you can take it.",
+  "scene": "Bigger roundabout at the highway junction, two lanes going in, arrows painted on the approach and a sign board before them. Your exit is the third one \u2014 effectively a left. The lane you're in decides whether you can take it.",
   "source": {
     "psdp_skill": "Skill thirteen: roundabouts",
     "dol_section": "n/a",
-    "teaching_target": "NEW: PSDP thirteen Lesson three – two or more lane roundabouts. PSDP-only."
+    "teaching_target": "NEW: PSDP thirteen Lesson three \u2013 two or more lane roundabouts. PSDP-only."
   },
   "cast": [
     "ali"
@@ -20,32 +20,43 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — two-lane roundabout; lane arrows; scaffold only",
+    "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "midground": "left and right approach lanes with pavement arrows; sign board before the circle; third exit is a left",
+    "background": "overcast multi-lane roundabout ahead, empty circulating lanes, no night",
+    "read": "two lanes in; the lane choice is painted on the approach before the circle",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no decision already inside the circle",
+      "no night",
+      "no traffic signal controlling the circle"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "ego_lane_side": "right approach lane of two lanes into a roundabout",
+      "ego_nose_in_frame": "plow points up-frame toward the roundabout",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
-      "lanes_this_direction": 1,
-      "ego_lane_from_left": 1
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "marking_anchor": {
+        "edge": "right curb of the roundabout approach",
+        "marking": "two approach lanes with painted turn arrows before the circle",
+        "ego_relative": "ego occupies the right approach lane of the two painted lanes"
+      }
     }
   },
   "variation": {
@@ -54,7 +65,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "Two lanes, your exit is the far side. Where do you get in line?",
   "options": [

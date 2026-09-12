@@ -20,29 +20,34 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — deer in rural roadway; do not invent still",
+    "subject": "a doe standing broadside in your travel lane, close, filling the next lengths through the mesh at last light",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; hands not yet yanking",
+    "midground": "doe broadside across the asphalt in this lane \u2014 not grazing roadside; ditch right, empty oncoming left",
+    "background": "dusk overcast rural two-lane, treeline, last light not full night",
+    "read": "a deer stands broadside in your lane at dusk, close; the ditch and the oncoming lane wait on either side",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
+      "no deer grazing on the roadside shoulder",
+      "no deer already past or leaping clear",
+      "no herd filling the frame",
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no Encore",
+      "no full night with only headlamps",
+      "no golden hour warm orange"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
-      "oncoming_position": "none in frame",
+      "ego_lane_side": "right half of a two-lane rural road",
+      "ego_nose_in_frame": "plow points up-frame at the doe already in the lane",
+      "oncoming_position": "left half empty; no oncoming vehicle in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
@@ -54,7 +59,7 @@
     "time_of_day": "dusk",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "She's in your lane. You can't stop in time.",
   "options": [
@@ -62,7 +67,7 @@
       "id": "a",
       "text": "Brake straight, stay in the lane, don't swerve",
       "correct": true,
-      "result": "You brake hard and hold the wheel and hit nothing, or you hit her and keep the car. Either way you're still pointed down the road — and the second one comes out of the ditch three seconds later.",
+      "result": "You brake hard and hold the wheel and hit nothing, or you hit her and keep the car. Either way you're still pointed down the road \u2014 and the second one comes out of the ditch three seconds later.",
       "state_delta": {
         "noise": -1,
         "time_cost": 5
@@ -104,7 +109,7 @@
       }
     }
   ],
-  "debrief": "Don't swerve for an animal — slow down, be prepared to stop, and look for more. Deer travel in groups.",
+  "debrief": "Don't swerve for an animal \u2014 slow down, be prepared to stop, and look for more. Deer travel in groups.",
   "timeout_option_id": "d",
   "timeout_ms": 8000
 }

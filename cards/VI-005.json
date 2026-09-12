@@ -21,30 +21,35 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
-    "foreground": "TODO — wheel and dash; scaffold only",
-    "midground": "TODO — rural road ahead through mesh",
-    "background": "TODO — overcast valley floor; no snow; no night",
-    "read": "TODO — slow grain / ag vehicle ahead on rural road",
+    "subject": "a slow grain truck ahead with SMV triangle, drifting left as if inviting a pass; field gate unseen on the right",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh",
+    "midground": "grain truck rear and slow-moving-vehicle triangle lit in the same lane; truck yawed slightly left",
+    "background": "overcast two-lane rural, fence line and field edge right, empty oncoming half",
+    "read": "the grain truck ahead is swinging left for a gate you cannot see; the open left is not a pass",
     "continuity": [
       "pink_menace_interior"
     ],
     "extra_negatives": [
       "no second occupant",
-      "no snow",
+      "no snow on the roadway",
       "no ice",
       "no chain-up",
       "no Snoqualmie shield",
       "no cutaway shuttle",
-      "no chevron hatchback"
+      "no chevron hatchback",
+      "no Encore",
+      "no Ledger in frame",
+      "no pass already underway",
+      "no ego already in the oncoming lane",
+      "no night"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
-      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
-      "oncoming_position": "none in frame",
-      "hazard_position": "none",
+      "ego_lane_side": "right half of a two-lane rural road",
+      "ego_nose_in_frame": "plow points up-frame toward the grain truck ahead",
+      "oncoming_position": "left half empty; no oncoming vehicle in frame",
+      "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
     }
@@ -55,13 +60,13 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI scaffold — no still; do not seed"
+    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
   },
   "decision": "He's moved left and slowed. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Take the gap on the right — he's making room",
+      "text": "Take the gap on the right \u2014 he's making room",
       "correct": false,
       "result": "He swung wide for a right turn into the gate. You put the Menace where the trailer is going.",
       "state_delta": {
