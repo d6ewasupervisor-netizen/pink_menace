@@ -91,7 +91,7 @@
     "time_of_day": "afternoon",
     "tone": "procedural",
     "failure_mode": "inexperience",
-    "winner": "user-footwell",
-    "forced": "live still cards/IV-002.png from supplied footwell plate; three pedals, both feet on the floor"
+    "winner": "take-19",
+    "forced": "live still cards/takes/IV-002-take-19.png (Claude overflow muted-read PASS; take-21 FAIL Walkman prop + white rocker vs red on plate; demoted, not deleted)"
   }
 }

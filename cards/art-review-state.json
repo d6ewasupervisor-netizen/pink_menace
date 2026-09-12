@@ -175,9 +175,15 @@
       "pick": "b-take-2",
       "updated_at": "2026-09-01T20:18:25.286Z"
     },
+    "IV-002": {
+      "tag": "PASS",
+      "note": "Claude overflow muted-read PASS take-19. Seeded as live still. take-21 FAIL (Walkman prop + white rocker vs red on plate); demoted, not deleted.",
+      "pick": "take-19",
+      "updated_at": "2026-09-12T08:27:00.000Z"
+    },
     "IV-009": {
       "tag": "PASS",
-      "note": "Claude muted-read PASS take-11. Live still cards/IV-009.png is byte-identical. Take-21/19 are IV-002 takes and do not change this card.",
+      "note": "Claude muted-read PASS take-11. Live still cards/IV-009.png is byte-identical.",
       "pick": "take-11",
       "updated_at": "2026-09-12T08:24:00.000Z"
     }
