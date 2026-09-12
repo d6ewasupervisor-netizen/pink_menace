@@ -1,0 +1,107 @@
+{
+  "card_id": "V-006",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Keep Right Except to Pass",
+  "hook": "The left is empty. You already passed.",
+  "scene": "Rain, midday, I-90 east, three lanes this way. You already passed a slow box. You are still in the left. The middle and the right are empty wet asphalt. A faster sedan is a smear in the inside glass, closing. The city habit is to own the left once you took it. The highway rule is keep right except to pass. The pass is over. The left is not a home. Nobody else is in the Menace.",
+  "decision": "The pass is done. Which lane do you keep?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Stay in the left — through traffic can live here after a pass",
+      "correct": false,
+      "result": "You camp the passing lane. The sedan stands on it behind you. You became the next slow in the left. Keep-right did not expire because you passed once.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Signal right, recover to the right travel lane, leave the left for passing",
+      "correct": true,
+      "result": "Amber talks. You take the empty right and sit. The sedan uses the left and is gone. The pass was a tool. The right is the lane you keep.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Drift into the middle and sit between both so nobody can pass you",
+      "correct": false,
+      "result": "You occupy the skip-dash. The sedan has no legal left. Two lanes become one because you wanted a buffer. The right was already empty.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Slow in the left so the sedan goes around you on the right",
+      "correct": false,
+      "result": "You dump speed in the passing lane. He takes the right around a Beetle that should have recovered. You taught the highway to pass you on the junk side.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "Keep right except to pass. You gave the left back after the box.",
+  "timeout_option_id": "a",
+  "timeout_ms": 12000,
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part one",
+    "dol_section": "4.10 Traffic laws",
+    "teaching_target": "REVIEW of 4.10 Traffic laws. Highway keep-right except to pass. Recover right after the pass. Not a 5.3 merge/gap card and not V-005 copy."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "from the seat in the leftmost of three wet highway lanes, empty middle and right ahead, no merge paint; a faster sedan is a smear in the interior rearview, closing",
+    "foreground": "worn black wheel, left stalk off, faded pink dash, handheld on the floor; interior rearview at the top of the mesh",
+    "midground": "skip-dash, empty wet middle and right lanes, pink plow bar at the bottom of the glass; in the inside mirror a period sedan closing in the same left lane",
+    "background": "rain midday valley highway, three lanes, concrete median, blank gantry, no snow, no route numbers",
+    "read": "the Beetle is in the left travel lane; the middle and right are empty wet asphalt; a sedan closes in the inside glass",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": [
+      "no merge paint",
+      "no on-ramp",
+      "no tractor-trailer",
+      "no semi alongside",
+      "no snow",
+      "no clipboard in the glass",
+      "no second occupant",
+      "no route numbers",
+      "no exit numbers",
+      "no cooler",
+      "no sedan only as windshield traffic — the closing sedan belongs in the interior rearview"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "left travel lane of three eastbound I-90 lanes",
+      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing toward the top of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "rain",
+    "time_of_day": "midday",
+    "tone": "urgent",
+    "failure_mode": "inexperience",
+    "forced": "High-oblique fallback pool (Claude 2026-09-12). Closest cards/takes/V-006-take-23.png; runner cards/takes/V-006-take-21.png. Do not seed. image_brief camera remains POV_COCKPIT — these takes compile the same read from behind and above."
+  }
+}
