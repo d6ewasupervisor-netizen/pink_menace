@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const { briefAsksCoverTheBrake } = require("./compile-prompt");
 
 const ROOT = path.join(__dirname, "..");
 const REFS = path.join(ROOT, "refs");
@@ -66,6 +67,9 @@ function resolveCard(raw) {
         .join(" ")
     );
   if (quietInFrame && !tokens.includes("the_quiet")) tokens.push("the_quiet");
+  if (briefAsksCoverTheBrake(brief) && !tokens.includes("cover_the_brake")) {
+    tokens.push("cover_the_brake");
+  }
 
   for (const token of tokens) {
     if (isLocation(token) || MAP.no_file.includes(token)) continue;

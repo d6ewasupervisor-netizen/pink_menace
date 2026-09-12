@@ -82,6 +82,21 @@ const LEDGER_NO_MENACE =
 const LHD_NEGATIVE =
   "No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road.";
 
+const COVER_THE_BRAKE =
+  "Match the attached cover-the-brake footwell plate for POSTURE only — ignore that plate's dark cabin, black high-top, two-pedal box, and missing clutch. On THIS three-pedal Menace cabin name the pedal as the MIDDLE of three (clutch left, that middle pedal, accelerator right). Do not say only \"brake.\" Work-boot sole LIFTED above the MIDDLE of three pedals, overlapping that middle pad in frame, with visible DAYLIGHT between sole and pad. Heel planted on the floor directly below that middle pedal. Left pedal empty. Right pedal empty. Sole is not flush on the pad. Sole is not on the left pedal.";
+
+const COVER_THE_BRAKE_NEGATIVES =
+  "No boot on the LEFT of three pedals. No sole flush or flat on the middle pedal. No unused middle and right pads sitting empty to the right of a clutch-planted shoe. No pressing the middle pedal to the floor. No copying the attached footwell plate's dark Encore dash, black sneaker, or two-pedal automatic box onto a Menace cabin.";
+
+function briefAsksCoverTheBrake(brief) {
+  if (!brief) return false;
+  if ((brief.continuity || []).includes("cover_the_brake")) return true;
+  const text = [brief.subject, brief.foreground, brief.midground, brief.read, brief.camera_pose]
+    .filter(Boolean)
+    .join(" ");
+  return /cover(?:ing)? the brake|middle of three pedals/i.test(text);
+}
+
 const CHASE_CLAUSE =
   "Chase camera: camera vehicle and subject travel the same direction. The rear of the subject — back doors, rear bumper — is nearest the camera and occupies a large fraction of the frame. The body recedes away from the camera toward the top of the frame. The subject's front, grille, windshield, and headlights are not visible from this position.";
 
@@ -300,6 +315,10 @@ function assemblePrompt(card) {
   if (cam === "POV_MIRROR_DOOR" && continuity.includes("dutch_reach")) {
     negs.push(DUTCH_REACH_NEGATIVES);
   }
+  if (briefAsksCoverTheBrake(brief)) {
+    parts.push(COVER_THE_BRAKE);
+    negs.push(COVER_THE_BRAKE_NEGATIVES);
+  }
   if (Array.isArray(brief.extra_negatives) && brief.extra_negatives.length) {
     negs.push(brief.extra_negatives.join(". ") + ".");
   }
@@ -321,4 +340,14 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };
+module.exports = {
+  assemblePrompt,
+  FRAMING,
+  MASTER_STYLE,
+  DIAGRAM_STYLE,
+  LHD,
+  OTHER_VEHICLE_CLAUSE_LEDGER,
+  COVER_THE_BRAKE,
+  COVER_THE_BRAKE_NEGATIVES,
+  briefAsksCoverTheBrake,
+};

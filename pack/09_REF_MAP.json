@@ -19,6 +19,7 @@
     "hand_signals": ["ref_hand_signals.png"],
     "diagram_style": ["ref_diagram_style.png"],
     "the_quiet": ["ref_quiet.png"],
+    "cover_the_brake": ["ref_brake_cover.png"],
     "quiet_a4": ["ref_quiet_a4.png"],
     "quiet_a5": ["ref_quiet_a5.png"]
   },
@@ -31,5 +32,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. cover_the_brake attaches ref_brake_cover.png (brake-81) for POSTURE only — never Menace cabin or pedal-count authority. Name the pedal as the middle of three; do not say only brake."
 }
