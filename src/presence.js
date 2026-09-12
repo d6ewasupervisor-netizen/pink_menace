@@ -12,6 +12,16 @@ const AFTER_COLLAPSE = 16;
 const TIMED_WEIGHT = 3;
 const CLEAN_DECAY = 2;
 const WRONG_NOISE_FLOOR = 3;
+const PRESENCE_FLOOR = 3;
+
+// QP-002 — act-boundary text only. T0–T3 are the daylight presence bands.
+// Cargo-fail in daylight uses the closest tier. Never "you're safe." Never "zombies."
+const ACT_REVEAL = [
+  "The Quiet are still out there. Farther now. Not gone.",
+  "The Quiet are still out there. They didn't leave the streets.",
+  "The Quiet are closer. The next road already has them.",
+  "Daylight didn't hide you. The Quiet closed in. They're closer still.",
+];
 
 function num(v) {
   const n = Number(v);
@@ -55,34 +65,62 @@ function dispatchFor(delta, timedOut) {
   return "KILO. Ledger. You went loud. They're on the glass. You are dark. Copy.";
 }
 
+function floorPresence(presence) {
+  return Math.max(PRESENCE_FLOOR, num(presence));
+}
+
 function applyFear(state, delta, opts) {
   const next = { ...(state || {}) };
   const timedOut = Boolean(opts && opts.timedOut);
   const correct = Boolean(opts && opts.correct);
   const add = addedFrom(delta, timedOut);
   let presence = num(next.presence) + add;
-  if (correct && add === 0) presence = Math.max(0, presence - CLEAN_DECAY);
-  next.max_presence = Math.max(num(next.max_presence), presence);
-  next.presence = presence;
-  if (tierOf(presence) >= 3) next.handprints = true;
+  if (correct && add === 0) presence -= CLEAN_DECAY;
+  const peaked = presence;
   let quiet = false;
   if (presence >= COLLAPSE_AT) {
     quiet = true;
-    next.presence = AFTER_COLLAPSE;
+    presence = AFTER_COLLAPSE;
     next.handprints = true;
     next.drew = num(next.drew) + 1;
   }
+  presence = floorPresence(presence);
+  next.presence = presence;
+  next.max_presence = Math.max(num(next.max_presence), peaked, presence);
+  if (tierOf(presence) >= 3) next.handprints = true;
   return { state: next, quiet, add };
 }
 
 function publicFear(state) {
   const s = state || {};
-  const presence = num(s.presence);
+  const presence = floorPresence(s.presence);
   return {
     presence,
     tier: tierOf(presence),
     handprints: Boolean(s.handprints),
   };
+}
+
+function daylightFail(state) {
+  const s = state || {};
+  return Boolean(s.fail_kind === "cargo" || s.cargo_fail_reason || num(s.drew) > 0);
+}
+
+function actRevealTier(state) {
+  if (daylightFail(state)) return 3;
+  return Math.min(3, tierOf(state && state.presence));
+}
+
+function actRevealCopy(state) {
+  return ACT_REVEAL[actRevealTier(state)] || ACT_REVEAL[0];
+}
+
+// First card of an act after I. Text-only; caller shows once. No new cards.
+function actBoundaryReveal(card, answersInAct, fearState, opts) {
+  if (!card || card.act === "I") return null;
+  if (opts && (opts.pending || opts.recap || opts.hold || opts.review)) return null;
+  if ((Number(answersInAct) || 0) > 0) return null;
+  return actRevealCopy(fearState);
 }
 
 module.exports = {
@@ -91,10 +129,16 @@ module.exports = {
   TIMED_WEIGHT,
   CLEAN_DECAY,
   WRONG_NOISE_FLOOR,
+  PRESENCE_FLOOR,
+  ACT_REVEAL,
   tierOf,
   addedFrom,
   loudDelta,
   dispatchFor,
   applyFear,
   publicFear,
+  floorPresence,
+  actRevealTier,
+  actRevealCopy,
+  actBoundaryReveal,
 };
