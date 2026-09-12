@@ -21,8 +21,8 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "blacktop ending into graded gravel through the mesh; the mountain pass notch readable ahead with weather on the ridge; cabin always shows Gracie latched/strapped in carrier",
-    "foreground": "worn black wheel, faded pink dash, coarse windshield mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
+    "subject": "blacktop ending into graded gravel through the mesh; the mountain pass notch readable ahead with weather on the ridge; cabin always shows hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped",
+    "foreground": "worn black wheel, faded pink dash, coarse windshield mesh;; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor (wheels turning)",
     "midground": "county blacktop giving way to washboard gravel in the wheel tracks; no other cars",
     "background": "overcast PNW daylight; ridge ahead with snow on the pass notch; last mailbox country behind",
     "read": "the pavement ends and the gravel begins; the pass notch on the ridge is readable ahead",
@@ -49,7 +49,15 @@
       "no lit green turn arrows",
       "no both turn indicators illuminated",
       "no missing carrier when cabin or cage is in frame",
-      "Ali alone — only VI-013 has a second person"
+      "Ali alone — only VI-013 has a second person",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -68,7 +76,7 @@
     "time_of_day": "morning",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
+    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
   },
   "debrief": "Gravel from here. The pass is close enough to read now."
 }

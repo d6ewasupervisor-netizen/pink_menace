@@ -21,8 +21,8 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a continuous ridge of loose gravel piled along the right edge for the next half mile; cabin always shows Gracie latched/strapped in carrier",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
+    "subject": "a continuous ridge of loose gravel piled along the right edge for the next half mile; cabin always shows hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh;; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor (wheels turning)",
     "midground": "gravel windrow running the right shoulder like a rope; travel track clear left of it",
     "background": "overcast rural two-lane, soft dirt beyond the pile, no other cars",
     "read": "a grader windrow of loose gravel lines the right edge; it looks like shoulder and is not",
@@ -54,7 +54,15 @@
       "no lit green turn arrows",
       "no both turn indicators illuminated",
       "no missing carrier when cabin or cage is in frame",
-      "Ali alone — only VI-013 has a second person"
+      "Ali alone — only VI-013 has a second person",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -73,7 +81,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
+    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
   },
   "decision": "The windrow is on your right. Where do you put the tires?",
   "options": [

@@ -21,11 +21,11 @@
   "schedules_callback": true,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle MID-EVENT soft shoulder: right wheels ALREADY OFF and down on soft dirt below a four-inch pavement lip; left wheels still on asphalt; car pulled toward ditch but still rolling; closed dark carrier latched and strapped visible through the rear side cage (Gracie inside)",
-    "foreground": "soft dirt shoulder (not a cliff bank) and the raised asphalt lip; right knobby tires below the pavement plane on soft earth — shed on shoulder, not buried under a vertical cut",
-    "midground": "Beetle in true profile traveling left-to-right; right side dropped mid-event; plow and mesh cages readable; rear side cage shows latched strapped carrier; no yank pose; not parked level; not all four wheels on asphalt",
-    "background": "narrowing at a culvert, soft ditch beyond the dirt (no cliff lip), overcast PNW daylight, empty rural two-lane, fir edges",
-    "read": "the right wheels are already off the pavement on soft dirt mid-event; the road surface is higher on the left",
+    "subject": "faded-pink Beetle MID-EVENT soft shoulder at road-grade: off-camber, front-right wheel OFF the pavement down in soft dirt; shed wheel separated on grass/gravel beside a fresh rut; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped visible through the rear side cage",
+    "foreground": "road-grade camera at curb/road height; soft dirt shoulder with a fresh tire rut; shed front wheel separated on grass/gravel (not buried in a cliff bank); raised asphalt lip",
+    "midground": "Beetle in true profile left-to-right, off-camber with right side dropped mid-event; left tires still on asphalt; plow and mesh cages readable; rear side cage shows hard-sided carrier with wire grille inboard and ginger tabby behind grille, belt through handle; not parked level; not all four wheels on asphalt",
+    "background": "rural two-lane PNW overcast; culvert is LOCATION ONLY in the narrowing (not the subject / not centered as hero); soft ditch beyond dirt; fir edges; empty road",
+    "read": "mid-event soft shoulder: right side already off, off-camber, shed wheel and fresh rut readable; road higher on the left",
     "continuity": [
       "pink_menace_exterior",
       "gracie"
@@ -61,12 +61,21 @@
       "no wheel buried in a vertical dirt bank under a cliff lip",
       "no cliff cut — soft shoulder only",
       "no detached wheel as wreckage",
-      "no missing carrier through rear side cage"
+      "no missing carrier through rear side cage",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no culvert as the hero subject"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",
-      "ego_lane_side": "right half of a two-lane rural road, right tires already off onto soft shoulder mid-event",
+      "ego_lane_side": "right half of a two-lane rural road, front-right tire already off onto soft shoulder mid-event, off-camber",
       "ego_nose_in_frame": "the plow points toward the right of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "beside",
@@ -80,7 +89,7 @@
     "time_of_day": "morning",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
+    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
   },
   "decision": "Two wheels are off the pavement. What do you do?",
   "options": [

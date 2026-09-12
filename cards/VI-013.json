@@ -22,16 +22,17 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "Ali driving (POV over her wheel); Deac in the Menace passenger seat holding the metal clipboard with the hand-ruled sheet turned toward the driver; Gracie in latched strapped carrier on the passenger floor",
-    "foreground": "worn black wheel rim at left edge (Ali driving — POV); faded pink dash; coarse mesh; no clipboard in the glass; closed dark carrier latched and strapped on the passenger floor at Deac's feet (Gracie inside, readable)",
-    "midground": "Deac in the passenger seat only — glasses on a cord, amber vest edge, metal clipboard on his knee turned so the sheet faces the driver; Ali is the POV driver (hands on wheel OK; no Deac in driver seat)",
-    "background": "overcast Pacific Northwest rural gravel shoulder through the mesh — fir edges, moss, wet gray; Menace stopped; no high-desert scrub; pass weather far off",
-    "read": "Deac is in the passenger seat with the metal clipboard held out; Ali is driving; Gracie is in the latched strapped carrier",
+    "subject": "Ali driving LHD (her face readable at left / over-shoulder edge) and Deac in the passenger seat with the metal clipboard — BOTH faces in frame; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped latched on the rear bench / rear footwell behind the seats",
+    "foreground": "worn black LHD wheel at left; Ali's face partially readable as driver; faded pink dash DARK and UNLIT — no lit turn arrows, no large centered digital readout, no speedlike 112; coarse mesh; no clipboard in the glass",
+    "midground": "Deac in the passenger seat only — face readable, glasses on a cord, amber vest edge, metal clipboard on his knee turned toward the driver; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the rear bench/footwell behind the seats (not replacing Deac)",
+    "background": "overcast Pacific Northwest through the glass — fir, moss, wet gray gravel shoulder; Menace stopped; NO high-desert scrub; pass weather far off",
+    "read": "Ali is driving; Deac is passenger with metal clipboard; both faces readable; Gracie in hard-sided carrier on rear bench/footwell; PNW outside",
     "continuity": [
       "pink_menace_interior",
       "deac",
       "deac_clipboard",
-      "gracie"
+      "gracie",
+      "ali"
     ],
     "extra_negatives": [
       "no clipboard on the dash",
@@ -59,7 +60,18 @@
       "no high-desert scrub",
       "no arid scrub landscape",
       "no desert GPS map",
-      "no wooden clipboard — metal clipboard only"
+      "no wooden clipboard — metal clipboard only",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no Ali face missing",
+      "no Deac face missing",
+      "no carrier replacing Deac in the passenger seat"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -78,7 +90,7 @@
     "time_of_day": "morning",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
+    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
   },
   "decision": "He's holding it out. What do you say?",
   "options": [

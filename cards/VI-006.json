@@ -21,8 +21,8 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "two gravel roads crossing with no stop, no yield, no paint; a dusty pickup arriving from the right at the same time; cabin always shows Gracie latched/strapped in carrier",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
+    "subject": "two gravel roads crossing with no stop, no yield, no paint; a dusty pickup arriving from the right at the same time; cabin always shows hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh;; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor (wheels turning)",
     "midground": "empty uncontrolled intersection of graded gravel; dusty pickup entering from the right approach",
     "background": "overcast section-line country, fir edges, no sign faces toward camera",
     "read": "no stop or yield faces; a pickup from the right arrives with you at the same empty cross",
@@ -56,7 +56,15 @@
       "no lit green turn arrows",
       "no both turn indicators illuminated",
       "no missing carrier when cabin or cage is in frame",
-      "Ali alone — only VI-013 has a second person"
+      "Ali alone — only VI-013 has a second person",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -75,7 +83,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
+    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
   },
   "decision": "No signs, and you'll both arrive together. Who goes?",
   "options": [

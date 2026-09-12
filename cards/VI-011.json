@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE_PROFILE",
-    "subject": "faded-pink Beetle holding the middle of the lane at a culvert narrowing (culvert as subject); four-inch lip and soft dirt on the right; all tires on asphalt; nothing happening; closed dark carrier latched and strapped visible through the rear side cage (Gracie inside)",
-    "foreground": "soft dirt below the pavement lip and mossy ditch edge; no wheels in the dirt; culvert mouth readable",
-    "midground": "Beetle in true profile left-to-right; mesh cages and plow readable; travel lane held center; rear side cage shows latched strapped carrier; nothing happening — absence of the drop",
+    "subject": "faded-pink Beetle holding the middle of the lane at a culvert narrowing — culvert AS SUBJECT (take-2 framing); four-inch lip and soft dirt on the right; all tires on asphalt; nothing happening; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped visible through the rear side cage (cage-through-glass reference)",
+    "foreground": "soft dirt below the pavement lip and mossy ditch edge; culvert mouth readable as the subject; no wheels in the dirt",
+    "midground": "Beetle in true profile left-to-right; mesh cages and plow readable; travel lane held center; rear side cage is the cage-through-glass reference — hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped clearly readable through the mesh; nothing happening — absence of the drop",
     "background": "overcast PNW rural culvert narrowing, empty two-lane, fir edges, no dust of a prior drop",
-    "read": "the same lip and soft dirt are there; nothing is happening; the Menace holds the middle of the lane",
+    "read": "the same lip and soft dirt are there; nothing is happening; the Menace holds the middle of the lane; carrier readable through rear cage",
     "continuity": [
       "pink_menace_exterior",
       "gracie"
@@ -56,7 +56,15 @@
       "no both turn indicators illuminated",
       "no missing carrier when cabin or cage is in frame",
       "Ali alone — only VI-013 has a second person",
-      "no missing carrier through rear side cage"
+      "no missing carrier through rear side cage",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -75,7 +83,7 @@
     "time_of_day": "morning",
     "tone": "tense",
     "failure_mode": "none",
-    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
+    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
   },
   "debrief": "Off the road: don't turn, stay straight, come back where it's level. You paid for that one already."
 }

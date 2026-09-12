@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a doe standing broadside in your travel lane, close, filling the next lengths through the mesh at last light; cabin always shows Gracie latched/strapped in carrier",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; hands not yet yanking; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
-    "midground": "doe broadside across the asphalt in this lane — not grazing roadside; ditch right, empty oncoming left",
-    "background": "dusk overcast rural two-lane, treeline, last light not full night",
-    "read": "a deer stands broadside in your lane at dusk, close; the ditch and the oncoming lane wait on either side",
+    "subject": "a doe standing BROADSIDE centered in your travel lane, full scale, close, filling the next lengths INSIDE the windshield mesh at last light (take-1 deer framing); cabin shows hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor",
+    "foreground": "worn black wheel, faded pink dash, coarse mesh; DARK UNLIT dash — gauges present but turn arrows OFF / not glowing; no lit indicators; no speedlike digital readout; hands not yet yanking; hard-sided pet carrier; wire grille door facing inboard; Gracie (ginger orange tabby) markings visible behind the grille; seatbelt routed through the carrier handle; latched and strapped on the passenger floor (wheels turning)",
+    "midground": "doe broadside centered across the asphalt in THIS lane — full body readable through the mesh, not grazing roadside, not distant; ditch right, empty oncoming left",
+    "background": "dusk overcast rural two-lane PNW, treeline/fir, last light not full night",
+    "read": "a deer stands broadside centered in your lane at dusk, close and full-scale through the mesh; dark unlit dash; Gracie in hard-sided carrier",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -56,7 +56,17 @@
       "no missing carrier when cabin or cage is in frame",
       "Ali alone — only VI-013 has a second person",
       "no GPS navigation screen",
-      "no invented tablet on the dash"
+      "no invented tablet on the dash",
+      "no soft-sided carrier",
+      "no carrier door facing outboard/camera unless brief says otherwise",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no large centered digital readout",
+      "no distant tiny deer",
+      "no brightly lit dash indicators"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -75,7 +85,7 @@
     "time_of_day": "dusk",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI Claude muted-read (21aded1a): carrier/cast/speed locks; stills pending muted-read; do not seed"
+    "forced": "Act VI Claude follow-up (21aded1a): carrier SPEC locked; zero ship prior priority; stills pending muted-read; do not seed; no Mya"
   },
   "decision": "She's in your lane. You can't stop in time.",
   "options": [
