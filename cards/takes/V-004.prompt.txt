@@ -4,7 +4,9 @@ Extra gate: Menace AT the white ramp-meter stop bar — not short of it, not pas
 Meter + line remain the lesson. No person. No cargo. No Yuna.
 Tool aspect 3:4 (seed encodes 2:3).
 Attachments: ref_car_exterior.jpg + ref_car_nose_plow.png (build / nose plow only).
-Pool: take-7..take-14 (this pass). PR #181 takes 1–6 stay in the pool; do not pick
-them — they omit the ego.
+Pool: take-7..take-14 (this pass). Closest take-11 (Menace ON the bar; ramp /
+mainline split). Runner take-9 (same class).
+PR #181 takes 1–6 stay in the pool; do not pick them — they omit the ego.
+Discard: take-12 rear plow; take-14 short of the bar; 7/8/10 highway-not-ramp.
 Do not reuse PR #181 / #179 empty-ramp pixels as closest.
 Do not seed.
