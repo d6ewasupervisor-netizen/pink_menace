@@ -190,7 +190,7 @@ WA headings **not in `pack/08` yet** (do not add this act):
 | `5.10 Law enforcement` | **unused** on this `main` count (IV-019/020 are not on `main`) | Not Ribbon. |
 | `5.8 Communicating risks` | unused parent, not in `pack/07` | Low. Mentions highways. Not Skill eleven’s lesson list. |
 
-DOL cited on live IV cards but **missing from `main` `pack/07`**: `4.5 Sharing with motorcycles` (IV-008), `4.15 Other intersections` (IV-015), `4.19 Transporting (Animals)` (IV-018), `5.0 Dangers of driving` (IV-026). Not Act V work.
+DOL cited on live IV cards — now allowlisted so `validate-citations` is green: `4.5 Sharing with motorcycles` (IV-008), `4.15 Other intersections` (IV-015), `4.19 Transporting (Animals)` (IV-018), `5.0 Dangers of driving` (IV-026). Not Act V teaching.
 
 ### Not Act V (park)
 
