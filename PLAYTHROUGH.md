@@ -36,7 +36,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 | IV-016 | He Does Not Get Out | dossier | take 17 · #111 |
 | IV-017 | The Conversation | dossier | early PASS · #25 |
 | IV-018 | Two on the Seat | scene | early PASS · #25 |
-| IV-026 | Separate the Three | scene | take 110 · #72 |
+| IV-026 | Separate the Three | scene | take 230 · #142 |
 | IV-027 | Space With No Space | scene | take 49 · #82 |
 | IV-028 | Both in the Carrier | dossier | take 70 · #108 |
 | IV-030 | The Door to the Pass | dossier | take 65 · #106 |
@@ -45,7 +45,7 @@ Dossiers are continue-only (no quiz options). That is intended.
 
 ## Known residuals (play anyway)
 
-- **IV-026** — old plow stub (take 110). Later high-oblique / take-8 plow regen (#125, #128, including take 142) is **unmerged**. Do not regenerate.
+- **IV-026** — take 230 seeded (Claude muted-read PASS on PR #142). Nose-toward from ahead; take-8 plow. Take 110 (plow stub) superseded. Do not regenerate.
 - **IV-007** — composition drift on take 30 vs later weather/MUTCD regen (#114). Live still is the seeded PASS. Do not regenerate.
 - **IV-001** — not a live card. Ride stills (`count-in`, `handoff`, `brake`) exist as assets only. The Core opens at IV-002.
 - **Unfinished / unseeded** — IV-014, IV-019–025, IV-029. PR #130 (parallel 018/010/029) stays unmerged. Sequence skips them.
