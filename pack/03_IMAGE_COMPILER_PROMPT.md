@@ -26,6 +26,9 @@ You MAY NOT:
   - add a mood, a color, or a time of day the brief did not specify
   - add text, logos, watermarks, HUD, or UI unless the brief's `read` requires
     a sign face or gauge
+  - treat interior cabin switchgear, switch covers, rockers, or guards as
+    regulatory signage, or exempt them from world grade. Candy-red oversat
+    on a cabin control is a failed compile.
   - depict anything in bible §9 FORBIDDEN
   - emit role-relative spatial terms: driver's side, driver-side, passenger
     side, passenger-side, near side, off side, driver's window, driver's door.
@@ -88,7 +91,33 @@ You MUST:
   - end with the negative block
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
+  - world-grade every interior cabin control as a positive value. Switch
+    covers are faded oxidized plastic, desaturated — the quiet worn hue of
+    a gutted race cab, not a MUTCD STOP face. Rule 2's regulatory-sign
+    exemption from world grade applies to EXTERIOR MUTCD / street signage
+    only. IV-007's existing narrow legible-text exception stays on exterior
+    regulatory sign faces only; do not extend it to cabin controls.
   - if the brief names a hand or arm, require a visible attached shoulder and torso in the same frame, or drop the body part and show only the object. Never a detached limb.
+  - compile a named-spot still (`IV-001-brake.json` and any
+    `ACT-NNN-name.json`) through `scripts/compile-images.js`. Continuity
+    tokens that are only listed in a hand compile.txt are not attached.
+
+## Rule 2 — switch-cover color is a positive grade
+
+MUTCD-correct color is legal only on **exterior** street signage. Interior
+cabin switchgear is not a sign. Compile the cover as a value, not only a ban:
+
+  positive: "Cabin switch covers are faded oxidized plastic, world-graded
+             and desaturated — the quiet worn hue of a gutted race cab,
+             not a MUTCD STOP face."
+  negative: "no candy-red switch covers, no oversaturated cabin controls,
+             no MUTCD-red interior switchgear, no lettered switch faces"
+
+IV-007's existing narrow legible-text exception stays on exterior regulatory
+sign faces only. Do not letter cabin controls under it.
+
+`scripts/compile-prompt.js` emits both clauses on in-cab compiles (cockpit /
+mirror cameras, or continuity that names a cockpit or footwell lock).
 
 ## ASSEMBLY ORDER
 
@@ -536,7 +565,8 @@ else. No commentary. No alternatives.
 | Ledger cockpit / Deac `POV_COCKPIT` | `ref_ledger_cockpit.png` (D4 retake: clipboard off the mesh, road visible through the cage) |
 | HOV / diamond-lane geometry (III-008) | `ref_hov_median_diamond.png` — real US freeway, diamond in the leftmost lane against the median. Compile PNW wet asphalt; negate gantries, green guide signs, palm trees, arid roadside. |
 | Encore exterior | `ref_encore_sheet.png` |
-| Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` (Y4 b-take-2: moulded dash, take-1 mic on the right cage tube, two pedals, no floor shifter) |
+| Encore cockpit / Yuna `POV_COCKPIT` | `ref_encore_cockpit.png` (Y4 b-take-2: moulded dash, take-1 mic on the right cage tube, two pedals, no floor shifter). Over-the-wheel — do not read pedal count from this plate. |
+| Encore footwell | `ref_encore_footwell.png` — locked empty pedal-box plate (encore-footwell take 6; Claude PASS 2026-09-11). Continuity token `encore_footwell`. Automatic only. **pedal_count: 2.** Wide treadplate brake + narrow ribbed accelerator. Empty floor left of the brake. No clutch. Never invent a third pedal. Never attach a Menace cockpit or pink mat. Never treat an IV-001-brake take as this lock. Cockpit authority remains Y4 b-take-2. |
 | Two or more vehicles in frame | `ref_convoy.png` |
 | Door zone / Dutch Reach family | `ref_dutch_reach.png`, `ref_dutch_reach_topdown.png` |
 | Hand signals (II-006 / II-016 / II-022) | `ref_hand_signals.png` — three-panel instructional plate. Attach with Deac and the Ledger. Camera is `POV_CHASE`: from directly behind, the arm extending from the window on the left side of the frame. Left-hand drive. The right side of the vehicle is closed and has no arm. |
@@ -545,6 +575,8 @@ else. No commentary. No alternatives.
 | The Quiet in frame | `ref_quiet.png` — A3 take 3, the register lock. Continuity token `the_quiet`. Attach on every Quiet compile, including when the brief says "the Quiet" and the token was omitted. Also append the Quiet negative: no upright alert posture, no eye contact, no person looking at the lens, no walking normally, no clean clothing, no censorship smear. They never fill the frame, never a side-window close-up. A1/A2/A4 are reference, not card art. A5 once. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
+
+**Encore footwell.** `ref_encore_footwell.png` (encore-footwell take 6) is the locked empty pedal-box plate. Encore is automatic: pedal_count 2 — wide treadplate brake, narrow ribbed accelerator, empty floor left of the brake. No clutch. The Y4 cockpit lock is over-the-wheel and cannot supply pedal count. Named-spot stills must compile through `scripts/compile-images.js` so `encore_footwell` actually attaches; a `/tmp/pm-plates/` comment is not consumption. Do not compile a third pedal. Do not attach Menace interior refs. Do not treat IV-001-brake takes as this lock.
 
 **Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.
 
@@ -556,6 +588,6 @@ Do not accept "close enough"; drift compounds across an act.
 - **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
 - **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 - **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
-- **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
+- **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · interior switch covers faded oxidized plastic (Rule 2 MUTCD exemption is exterior street signs only) · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
 
 If you mute the card text and the image no longer teaches, the image failed regardless of how on-model it is.

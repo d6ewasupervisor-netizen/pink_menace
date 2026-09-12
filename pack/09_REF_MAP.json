@@ -14,6 +14,7 @@
     "hov_geometry": ["ref_hov_median_diamond.png"],
     "encore": ["ref_encore_sheet.png"],
     "encore_cockpit": ["ref_encore_cockpit.png"],
+    "encore_footwell": ["ref_encore_footwell.png"],
     "convoy": ["ref_convoy.png"],
     "dutch_reach": ["ref_dutch_reach.png", "ref_dutch_reach_topdown.png"],
     "hand_signals": ["ref_hand_signals.png"],
@@ -31,5 +32,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. encore_footwell → ref_encore_footwell.png is the locked empty pedal-box plate (encore-footwell take 6, pedal_count 2). Cockpit authority remains Y4 b-take-2 / ref_encore_cockpit.png (over-the-wheel; do not read pedal count from it). Named-spot stills such as IV-001-brake.json must be in the compile-images scan or the token is comment-only."
 }

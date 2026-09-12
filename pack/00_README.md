@@ -51,7 +51,7 @@ Three layers, and the order matters.
 
 ## Standing locks (do not rediscover)
 
-**Rule 2 — world grade. Regulatory-sign exemption is exterior MUTCD / street signage only.** The world stays desaturated (bible §8.1). MUTCD-correct color on a regulatory face is legal only on **exterior** street signage. Interior cabin switchgear and switch covers stay world-graded — desaturated, no candy-red oversat. They are not signs. IV-007's existing narrow legible-text exception stays on **exterior** regulatory sign faces only; do not extend it to cabin controls. See `03_IMAGE_COMPILER_PROMPT.md`.
+**Rule 2 — world grade. Regulatory-sign exemption is exterior MUTCD / street signage only.** The world stays desaturated (bible §8.1). MUTCD-correct color on a regulatory face is legal only on **exterior** street signage. Interior cabin switch covers compile as a **positive** grade: faded oxidized plastic, world-graded and desaturated — the quiet worn hue of a gutted race cab, not a MUTCD STOP face. They are not signs. IV-007's existing narrow legible-text exception stays on **exterior** regulatory sign faces only; do not extend it to cabin controls. See `03_IMAGE_COMPILER_PROMPT.md`.
 
 ---
 

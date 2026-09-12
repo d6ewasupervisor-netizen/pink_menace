@@ -19,6 +19,10 @@ function isLocation(token) {
   return /^L-\d+/.test(token);
 }
 
+// Numbered cards plus named-spot stills (IV-001-brake). compile-images must
+// scan these or continuity tokens never resolve and plates stay comment-only.
+const CARD_JSON_RE = /^(I|II|III|IV|V|VI|VII)-\d{3}(?:-[a-z][a-z0-9]*)?\.json$/;
+
 function resolveCard(raw) {
   const id = raw.card_id || "(missing card_id)";
   const tokens = [...((raw.image_brief && raw.image_brief.continuity) || [])];
@@ -111,4 +115,4 @@ function assertCompileReady(raw) {
   return resolved;
 }
 
-module.exports = { resolveCard, assertCompileReady, REFS, MAP };
+module.exports = { resolveCard, assertCompileReady, REFS, MAP, CARD_JSON_RE };
