@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle; FULL-GRID cage; locked carrier: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle; NO lit bidirectional dash arrow",
+    "subject": "TRUE multi-lane roundabout ahead: raised central island + two-lane circulating roadway clearly visible through the cage; TWO painted approach lanes BEFORE the circle with large white pavement lane-choice arrows (left lane left/through-left arrow; right lane through-right/right arrow) and a lane-assignment sign board on the approach; ego in the right approach lane still short of the yield line; FULL-GRID cage; locked carrier: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle; NO lit bidirectional dash arrow",
     "foreground": "worn black wheel; faded pink dash DARK/UNLIT — no lit green turn arrows; odo/trip OK; no speedlike 112 LCD; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; locked carrier on passenger floor: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "midground": "left and right approach lanes with pavement arrows; sign board before the circle; third exit is a left; wet asphalt",
-    "background": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway; multi-lane roundabout ahead with fir edges; empty circulating lanes; no night",
-    "read": "two approach lanes into the junction roundabout; pick your lane before the circle; locked carrier; dark dash",
+    "midground": "two side-by-side approach lanes divided by a white dashed lane line (NOT a yellow centerline); large painted turn arrows on each approach lane BEFORE the yield line / circle entry; roundabout lane-use sign board facing travel; raised circular island with curb visible ahead; two empty circulating lanes around the island; wet asphalt; third exit is a left",
+    "background": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway; highway-junction multi-lane roundabout with fir crowding the circle edges; empty circulating lanes; no night",
+    "read": "two approach lanes with painted lane-choice arrows BEFORE a visible multi-lane roundabout circle — pick your lane before you enter; locked carrier; dark dash",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -75,13 +75,20 @@
       "no Spokane urban drift",
       "Ali alone — only VI-013 has a second person",
       "no lit bidirectional dash arrow",
-      "no lit green turn arrows on dash"
+      "no lit green turn arrows on dash",
+      "no straight forest road without a roundabout circle",
+      "no arrows on a normal two-way road with no island",
+      "no missing raised central island",
+      "no single-lane-only entry",
+      "no yield sharks without a visible circular island",
+      "no double yellow centerline on the approach",
+      "geometry REF: VI-007-take-9 island/circle shape — but TWO approach lanes + painted lane arrows before the circle (not single-lane yield sharks)"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right approach lane of two lanes into a roundabout",
-      "ego_nose_in_frame": "plow points up-frame toward the roundabout",
+      "ego_nose_in_frame": "plow points up-frame toward the raised central island of the multi-lane roundabout",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
       "lanes_this_direction": 2,
@@ -89,8 +96,8 @@
       "ego_frame_side": "right",
       "marking_anchor": {
         "edge": "right curb of the roundabout approach",
-        "marking": "two approach lanes with painted turn arrows before the circle",
-        "ego_relative": "ego occupies the right approach lane of the two painted lanes"
+        "marking": "two approach lanes with painted lane-choice arrows BEFORE the yield line into a visible multi-lane circular island",
+        "ego_relative": "ego occupies the right approach lane of the two painted lanes, still short of the circle"
       }
     },
     "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
