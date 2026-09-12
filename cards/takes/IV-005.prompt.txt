@@ -10,8 +10,11 @@
 # Discard any take that shows pedals / boot / footwell / brake pad / cover_the_brake / brake-81.
 # Pedestrian KEEP direction from take 60: mid-crossing to the RIGHT of the sedan, in the paint.
 # weather: overcast afternoon PNW daylight. Concealment is the stopped sedan, not dusk/fog.
-# takes this pass: 85–96
-# closest (not seeded): TBD
+# takes this pass: 85–100
+# closest (not seeded): cards/takes/IV-005-take-95.png
+# runner-up: take 97 (muted-read) / take 90
+# 95: forward cabin lock, no pedals, sedan brake lamps, person only partly visible on the right, empty left is the trap
+# residual: peek is rear-right more than mid-crossing in worn paint; no crosswalk bars; sedan a little far
 # do not seed. no Act I–III. do not touch IV-004 / IV-012 / IV-026 / IV-027 / 028 / 030.
 
 Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
