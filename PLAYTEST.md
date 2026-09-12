@@ -4,13 +4,13 @@
 
 Parents: [https://parents.tactag.app](https://parents.tactag.app).
 
-Image cache `?v=a75`. Railway production is on this ship branch until #195 merges to `main`.
+Image cache `?v=a76`. Railway production is on this ship branch until #195 merges to `main`.
 
-Quiet presence floor (QP-001 / [#202](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/202) / [#203](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/203)): clean correct answers stay at presence **3**, never 0. Entering Act II+ shows one tap of Quiet line, then the card. QP-003 V-013 Quiet dressing stills are mute-read only (take-6 / take-7) — live V-013 remains take-5. Do not put Quiet on V-006 / V-008.
+Quiet presence floor (QP-001 / [#202](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/202) / [#203](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/203)): clean correct answers stay at presence **3**, never 0. Entering Act II+ shows one tap of Quiet line, then the card. QP-003 V-013 Quiet dressing is **live take-7** (Claude overflow mute-read PASS + Brad promote). take-6 FAIL — not seeded. No Quiet on V-006 / V-008.
 
 **Act V is complete (all 13).** V-009 take-37 is live (Claude overflow PASS, eyes forward). Take-31 FAIL — not used.
 
-Ribbon wave-1 stills + Skill 11 remaps (PR #198 / #199): V-013 take-5, V-008 take-3, V-006 take-3. V-008 take-1 FAIL — not seeded.
+Ribbon wave-1 stills + Skill 11 remaps (PR #198 / #199 / #200): V-008 take-3, V-006 take-3. V-013 superseded by QP-003 **take-7**. V-008 take-1 FAIL — not seeded.
 
 ## How to play
 
@@ -66,7 +66,7 @@ Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 | V-010 | One Lane, Then Sit | rule | take-10 · #194 | MATCH |
 | V-011 | Zipper at the Closure | hazard | take-7 · #159 | MATCH |
 | V-012 | Three Seconds Here Too | rule | take-20 · #194 | MATCH |
-| V-013 | Flashers on the Strip | scene | take-5 · Ribbon wave-1 (PR #198/#199/#200) | MATCH |
+| V-013 | Flashers on the Strip | scene | take-7 · QP-003 Quiet silhouette (take-6 FAIL not seeded; take-5 superseded) | MATCH |
 
 ### V-009 status
 
@@ -78,9 +78,17 @@ Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 
 | Card | Seeded take | webp md5 | Not seeded |
 |---|---|---|---|
-| V-013 | take-5 | `92d548a31abb5e8f7d1b5f516bd730df` | take-3 banked |
+| V-013 | take-5 (superseded by take-7 below) | `92d548a31abb5e8f7d1b5f516bd730df` | take-3 banked; take-6 FAIL |
 | V-008 | take-3 | `dc7ccd313519500cb9df16b056b0340c` | take-1 FAIL |
 | V-006 | take-3 | `4d68c80a9effdfd372991f49c89af410` | take-1 banked |
+
+### QP-003 V-013 Quiet silhouette seed (2026-09-12)
+
+**Live.** Claude overflow mute-read PASS + Brad promote **take-7**. Composites from [PR #204](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/204). Skill 11 Flashers remap intact (PR #199). **take-6 not seeded.**
+
+| Card | Seeded take | Notes |
+|---|---|---|
+| V-013 | **take-7** | Quiet silhouettes on banked take-3 plate; replaces empty-stretch take-5 |
 
 Independent `audit-stills --act V` → **13/13 MATCH**.
 
