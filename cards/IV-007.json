@@ -1,0 +1,118 @@
+{
+  "card_id": "IV-007",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "Transit Only",
+  "hook": "One-way. No turn on red. Transit only.",
+  "scene": "Wet overcast on a downtown block. Three faces sit over the same intersection: a black-and-white ONE WAY arrow, a NO TURN ON RED, and a TRANSIT ONLY over the left lane. The left is empty and faster. Your clock likes empty. The paint and the faces already spent that argument. The Menace is one car. Transit only is not a suggestion for a Beetle with a plow.",
+  "decision": "The left is empty and posted transit only. Which restriction do you obey?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Stay out of the transit lane, no turn on red, go the way the one-way points",
+      "correct": true,
+      "result": "You hold the general lane. Red stays red for your right. The empty transit lane stays empty. A bus remnant takes it two breaths later. The faces were the sentence.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "b",
+      "text": "Take the empty transit lane \u2014 nothing is coming and you are through traffic",
+      "correct": false,
+      "result": "You take the diamond's cousin. A bus remnant is already committed. You write a Beetle into a lane that was never yours. The remnant has to lift. Downtown remembers the plow in the wrong paint.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "c",
+      "text": "Turn right on the red \u2014 the one-way is clear and waiting costs you the block",
+      "correct": false,
+      "result": "You take the red. The sign said no. A figure you did not have is already in that crosswalk. You invent a stop you were told not to skip.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Go the wrong way on the one-way for one block to skip the transit restriction",
+      "correct": false,
+      "result": "You point the plow at oncoming. Wet pavement and a pair of lamps. One-way is not a puzzle you get to rewrite because the left was posted.",
+      "state_delta": {
+        "noise": 5,
+        "yaw": 2,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "Downtown signs stack. One-way, no turn on red, transit only \u2014 each one is in force even if the lane looks empty. Stay out of the transit lane.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving \u2013 part one",
+    "dol_section": "4.12 Signs",
+    "teaching_target": "Obey stacked downtown signs: one-way direction, no turn on red, and transit-only lane restrictions."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "three regulatory sign faces over one intersection plus one US traffic signal head and one painted stop line: ONE WAY with a right-pointing arrow (MUTCD R6-1: black ground, white legend, white arrow), NO TURN ON RED (MUTCD R10-11: white ground, black legend, black border \u2014 not inverted, not red ground, not red letters), TRANSIT ONLY (white ground, black legend) \u2014 each legend spelled exactly once with spaces between words",
+    "foreground": "wet sheeting, rain beads, shallow depth, the three faces readable; a single solid white stop line painted across the wet approach in the lower frame",
+    "midground": "empty wet transit lane occupying the LEFT of the FRAME under the TRANSIT ONLY face; one three-section vehicle signal head in frame beside the NO TURN ON RED face, red indication lit, yellow and green dark",
+    "background": "overcast downtown, wet general pavement occupying the RIGHT of the FRAME, no snow, no extra traffic, no other text",
+    "read": "the three faces are ONE WAY, NO TURN ON RED, and TRANSIT ONLY",
+    "continuity": [],
+    "extra_negatives": [
+      "no extra sign text",
+      "no street name",
+      "no advertisements",
+      "no snow",
+      "no falling snow",
+      "no snow on the sheeting",
+      "no snowbanks",
+      "no letter doubling",
+      "no ONEWAYWAY",
+      "no NOTURNONREDDED",
+      "no TRANSITONLYLY",
+      "no doubled letters on any face",
+      "no inverted NO TURN ON RED",
+      "no red-ground NO TURN ON RED",
+      "no black-ground NO TURN ON RED",
+      "no white letters on the NO TURN ON RED face",
+      "no red letters on the NO TURN ON RED face",
+      "no missing signal head",
+      "no missing stop line",
+      "no diamond pavement marking",
+      "no bus",
+      "no green lane paint",
+      "no ego vehicle",
+      "no role-relative left lane or right of the transit lane"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "toward_camera",
+      "ego_lane_side": "not in frame; TRANSIT ONLY sits over the LEFT of the FRAME",
+      "ego_nose_in_frame": "the plow is not in frame; implied travel is toward the sign faces",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "wry",
+    "failure_mode": "none",
+    "winner": "take-30",
+    "forced": "live still cards/takes/IV-007-take-30.png (Claude PASS after weather+MUTCD text exception; supersedes take-25; take-28 runner-up not seeded)"
+  }
+}
