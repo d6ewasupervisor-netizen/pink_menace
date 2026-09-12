@@ -8,6 +8,8 @@ V-004 / V-005 / V-007 stay on the muted-read regen PR. Out of scope. Do not reus
 
 V-010 / V-012 rows below are the **tubular-bar regen** picks (takes 7+). Wave-4 takes 1–6 stay in the pool; they carry the tail-wing residual.
 
+**Seeded live (this PR):** V-010 take-10 and V-012 take-20 only. Take-9 and take-18 are FAIL runners — do not seed. V-009 / V-013 stay unseeded.
+
 | Card | Title | Camera | **Closest** | **Runner** |
 |---|---|---|---|---|
 | **V-009** | Small Hands at Speed | `POV_ROADSIDE_PROFILE` | **take 2** `V-009-take-2.png` | take 3 `V-009-take-3.png` |
@@ -38,4 +40,4 @@ V-010 / V-012 rows below are the **tubular-bar regen** picks (takes 7+). Wave-4 
 - **V-012 take 16 / 17:** tubular rear but sedan ahead, not behind.
 - **V-013 take 3:** more countable gap; warmer sunset wash.
 
-Do not seed. Do not live-DB. Do not merge.
+V-010 take-10 and V-012 take-20 are file-seeded and live-DB. Do not seed take-9 or take-18. Do not seed V-009 or V-013. No Acts I–III.
