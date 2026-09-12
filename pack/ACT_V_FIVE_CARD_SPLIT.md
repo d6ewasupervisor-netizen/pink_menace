@@ -143,10 +143,11 @@ Type: `scene` · Ali · The Ribbon
 **PSDP:** Skill eleven: highway driving – part two
 **DOL:** 5.2 Space
 **Cited:** PSDP p.32: Watch mirrors for tailgaters and move to another lane to let them pass.
+**Weather:** `rain` · dusk (wet asphalt has a rain source)
 
 **Hook:** His bumper is in the glass. Again.
 
-Last daylight on I-90 east, still the valley floor. The sky is going — copper at the rim, gray over the deck — and the dash lamps are just coming up. It is dusk, not afternoon. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt catching the last light. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.
+Last daylight rain on I-90 east, still the valley floor. The sky is going — copper at the rim, gray over the deck — and the dash lamps are just coming up. It is dusk, not afternoon. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt catching the last light. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.
 
 **Decision:** Hollis is on your tail in the center. The right is empty. What do you do?
 
