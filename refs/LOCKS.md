@@ -63,5 +63,5 @@ Claude locked three NEW plate briefs. Deck + rig promoted after muted-read. Work
 # ref_ribbon_workzone  take-__  sha ________  Ribbon work zone. MUTCD orange exempt from world grade. NOT PROMOTED.
 ```
 
-Pool: `refs/candidates/ribbon-*-take-N.png` plus closest/runner copies `refs/ref_ribbon_*_candidate.png`. Workzone regen wave C (if present): `refs/candidates/ribbon-workzone-c-take-N.png`. Brief: `refs/CANDIDATE_RIBBON.md`.
+Pool: `refs/candidates/ribbon-*-take-N.png` plus closest/runner copies `refs/ref_ribbon_*_candidate.png`. Workzone wave C closest `ribbon-workzone-c-take-1.png` / runner `c-take-2.png` — muted-read only, not live. Brief: `refs/CANDIDATE_RIBBON.md`.
 
