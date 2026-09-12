@@ -6,7 +6,7 @@
   "card_type": "hazard",
   "title": "Give the Ramp a Lane",
   "hook": "A car is coming up the ramp. You have a left.",
-  "scene": "Daylight rain, morning, I-90 east, three lanes. You are in the right. In the right door glass a primer sedan is running the on-ramp, already blinking, already matching. The middle lane beside you is empty wet asphalt. If you hold the right you pinch him into the gore. If you take two lanes to be generous you write a late on someone in the left. One lane is the gift.",
+  "scene": "Daylight rain, morning, I-90 east, three lanes. You are in the right. In the right door glass a primer sedan is running the on-ramp, already blinking, already matching. The middle lane beside you is empty wet asphalt. If you hold the right you pinch him into the gore. If you take two lanes to be generous you write a late on someone in the left. One lane is the gift. The handheld clicks once — Yuna, short, not a lecture.",
   "decision": "He is merging from the right. The middle is empty. What do you do?",
   "options": [
     {
@@ -45,7 +45,7 @@
       "id": "d",
       "text": "Signal left, take the empty middle, leave him the right",
       "correct": true,
-      "result": "One lane. The sedan takes the right behind you. The left stays empty. You made space without writing a late on anyone else.",
+      "result": "One lane. The sedan takes the right behind you. The left stays empty. She clicks once and stays quiet.",
       "state_delta": {
         "noise": -1,
         "time_cost": 4
@@ -57,10 +57,11 @@
   "timeout_ms": 10000,
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
-    "dol_section": "5.3 Merging",
-    "teaching_target": "Watch for merging vehicles and move one lane left to make space when needed."
+    "dol_section": "5.2 Space",
+    "teaching_target": "PSDP p2 Lesson two – move one lane left for a merger. Pair 5.2 Space. Not the 5.3 zipper child (lane-closure take-turns).",
+    "stat_cited": "PSDP p.32: Watch for merging vehicles and move one lane left to make space for them when needed."
   },
-  "cast": ["ali"],
+  "cast": ["ali", "yuna"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": true,

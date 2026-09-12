@@ -54,8 +54,9 @@
   "debrief": "Change one lane at a time. Sit until the last lane is yours. You took one lane and sat.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
-    "dol_section": "5.3 Merging",
-    "teaching_target": "On the highway, change lanes one at a time only."
+    "dol_section": "n/a",
+    "teaching_target": "NEW. PSDP p2 Lesson two – change lanes one at a time only. No DOL lane-change heading; do not reuse 5.3 Merging.",
+    "stat_cited": "PSDP p.32: Change lanes one at a time only."
   },
   "cast": ["ali"],
   "antagonist": "none",

@@ -4,6 +4,10 @@ First outline only. No stills. Do not seed. Do not touch Act IV art or takes.
 
 Research gates (verbatim quotes + unused table): `pack/35_ACT_V_RESEARCH.md`.
 
+Citation audit (open vs locked, Claude settles): `pack/37_ACT_V_CITATION_AUDIT.md`.
+
+Yuna radio voice (four appearances, `cargo_rough` bands, `daylight_fail` precedence): `pack/36_YUNA_RADIO_VOICE.md`.
+
 **Constraint (authoritative):** Act V = **The Ribbon** (I-5 / I-90) + **Skill eleven** highway material. Driver: **Ali / the Menace. Alone.** Yuna is radio-only. Daylight.
 
 **Not this act:** chains, snow, ice, fog, night, Snoqualmie Pass, Gravy the plow (Act VII). Rural / roundabouts (Act VI). **No tow, flatbed, drums, sway `load_state`, insulin, or cooler fiction.** No Deac in the cab. No Encore in frame. No truck tire/axle lesson. Load is relay hardware for **Tower 4**. Act is **13 cards + the existing end-of-run beat** (no new V-014). Cargo is a **thin net**: late still delivers.
@@ -85,19 +89,19 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 | Card | Type | Shot | Lesson one-liner | Skill / DOL |
 |---|---|---|---|---|
-| V-001 | scene | `POV_COCKPIT` | Yuna on the radio. Eyes up: interchange, signs, paint. | eleven p1 · 4.12 Signs |
+| V-001 | scene | `POV_COCKPIT` | Yuna on the radio. Eyes up: interchange, signs, paint. | eleven p1 · 4.12 Signs (REVIEW pairing) |
 | V-002 | dossier | `POV_PORTRAIT` | Kit named for Tower 4: repeater, antenna, clamps. | n/a |
-| V-003 | scene | `POV_DIAGRAM` | A ramp is three pieces. Use each for its job. | eleven p1 · 5.3 Merging |
+| V-003 | scene | `POV_DIAGRAM` | A ramp is three pieces. Use each for its job. | eleven p1 · 5.3 Merging (NEW parent) |
 | V-004 | rule | `POV_OBJECT` | Ramp meter: red on the white line, green continues. | eleven p1 · 4.11 (Freeway ramp meters) |
-| V-005 | scene | `POV_COCKPIT` | Match their speed in the acceleration stretch, then take the gap. | eleven p1 · 5.3 Merging |
-| V-006 | hazard | `POV_COCKPIT` | No gap yet — change speed. Do not plant it. | eleven p1 · 5.3 Merging |
-| V-007 | rule | `POV_OBJECT` | Hold highway speed until the ramp. Signal early. | eleven p1 · 4.12 Signs |
+| V-005 | scene | `POV_COCKPIT` | Match their speed in the acceleration stretch, then take the gap. | eleven p1 · 5.3 Merging (REVIEW) |
+| V-006 | hazard | `POV_COCKPIT` | No gap yet — change speed. Do not plant it. | eleven p1 · 5.3 Merging (REVIEW) |
+| V-007 | rule | `POV_OBJECT` | Hold highway speed until the ramp. Signal early. | eleven p1 · 4.12 Signs (REVIEW; exiting is PSDP) |
 | V-008 | scene | `POV_COCKPIT` | Posted ramp speed before the curve, not on the freeway. | eleven p1 · 5.1 Speed (conditions) |
-| V-009 | scene | `POV_ROADSIDE_PROFILE` | Small hands at speed. A yank is yaw. | eleven p2 · 5.1 Speed |
-| V-010 | rule | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · 5.3 Merging |
-| V-011 | hazard | `POV_MIRROR_DOOR` | Merger on the right — give them a lane if you have one. | eleven p2 · 5.3 Merging |
-| V-012 | rule | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time |
-| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. Let him have it. | eleven p2 · 5.2 Space |
+| V-009 | scene | `POV_ROADSIDE_PROFILE` | Small hands at speed. A yank is yaw. | eleven p2 · 5.1 Speed (not 5.6 Curves) |
+| V-010 | rule | `POV_DIAGRAM` | One lane, sit, then the next. | eleven p2 · n/a (no DOL lane-change heading) |
+| V-011 | hazard | `POV_MIRROR_DOOR` | Merger on the right — give them a lane if you have one. | eleven p2 · 5.2 Space (not zipper) |
+| V-012 | rule | `POV_DIAGRAM` | Count three on the pavement before you take a highway gap. | eleven p2 · 5.4 Time (REVIEW) |
+| V-013 | scene | `POV_MIRROR_REAR` | Hollis on the tail — move over. Let him have it. | eleven p2 · 5.2 Space (REVIEW) |
 | — | existing end-of-run beat | — | Engine `deliveryBeat` / locked door after V-013. Not a new card. | n/a |
 
 Thirteen stubs. Play order is `seq`. The closer is the beat the game already fires when an act completes.
@@ -116,7 +120,7 @@ Thirteen stubs. Play order is `seq`. The closer is the beat the game already fir
 
 - Skill twelve: driving on rural roads (gravel, farm equipment, drop-offs)
 - Skill thirteen: roundabouts (IV-015 already borrowed city Skill ten for a downtown circle)
-- `5.3` zipper child
+- `5.3 Merging (Zipper merging)` — child is now on `pack/07`, unspent. III-026 already taught zipper under the parent. Not a 14th Ribbon card.
 
 ## Not a replay of I–III
 
@@ -127,7 +131,8 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 ## Pack table changes
 
 - `pack/08_PSDP_SKILLS.json` — both Skill eleven headings (PR #132).
-- `pack/07_DOL_SECTIONS.json` — `5.1 Speed` + conditions (PR #132); **Freeway ramp meters** child (this pass).
+- `pack/07_DOL_SECTIONS.json` — `5.1 Speed` + conditions (PR #132); **Freeway ramp meters** child (PR #141); **Zipper merging** child + **5.6 Curves** restored this pass (unspent).
+- `pack/36_YUNA_RADIO_VOICE.md` / `pack/37_ACT_V_CITATION_AUDIT.md` — radio voice + citation audit.
 - `pack/01_BIBLE.md` §7 — Act V driver **Ali**. §2 yaw line cites Skill eleven part two, not “Skill 13”.
 - `scripts/authoring-seat.js` — Act V ego lock is Ali.
 - `pack/04_card.schema.json` — optional `presence`.
@@ -150,6 +155,6 @@ No lot start, no quiet-street backing, no Central zipper / HOV diamond / two-way
 
 ## Production (not this PR)
 
-1. Human citation pass before pixels.
+1. Citation audit is `pack/37_ACT_V_CITATION_AUDIT.md`. Still no pixels from this stack.
 2. Compile stills in one Ribbon batch. Attach **Menace** locks only. No Ledger lock on Ali cards. No Encore in frame.
 3. Seed only after a muted-read pass. Never seed from this draft.

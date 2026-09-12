@@ -23,7 +23,7 @@
       "id": "b",
       "text": "Stop at the white stop line. When it turns green, continue up the on-ramp",
       "correct": true,
-      "result": "You hold the line. Red stays red. Green comes. You use the rest of the ramp the way it was built — search, match, merge. The meter did one job.",
+      "result": "You hold the line. Red stays red. Green comes. She clicks once. You use the rest of the ramp the way it was built — search, match, merge. The white line did the teaching.",
       "state_delta": {
         "noise": -1,
         "time_cost": 5
@@ -54,7 +54,8 @@
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
     "dol_section": "4.11 Traffic light signals (Freeway ramp meters)",
-    "teaching_target": "Freeway ramp meters work like regular signals: red = stop at the white stop line; green = continue along the on-ramp."
+    "teaching_target": "LOCKED. Cite 4.11's Freeway ramp meters child, not the parent. Red = white stop line; green = continue up the on-ramp.",
+    "stat_cited": "DOL p.113: Ramp meters work like regular traffic signals. When the light is red, stop at the white stop line. When the signal turns green, you can continue along the on-ramp."
   },
   "cast": ["ali", "yuna"],
   "antagonist": "none",

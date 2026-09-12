@@ -1,0 +1,99 @@
+# 37 — Act V citation audit
+
+Text/pack only. No stills. Do not seed. Do not compile Ribbon plates.
+
+Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) and `source/driver-guide.pdf` (TOC PDF 11 / 13; bodies as cited). Stack continues PR #141. Yuna radio voice: `pack/36_YUNA_RADIO_VOICE.md`. Beat skeleton: `pack/34_ACT_V.md`. Research gates: `pack/35_ACT_V_RESEARCH.md`. Quiet placement (Doc 29): herd stays Act VII; all thirteen stubs keep `presence: 0` and no Quiet in `image_brief`.
+
+`image_brief` on each card JSON stays the sole brief authority. This pass does not rewrite briefs.
+
+---
+
+## Claude’s five settles (locked this pass)
+
+| Flag | Verified home | Locked string | What we did |
+|---|---|---|---|
+| **5.3 twice (on-ramp segments + zipper)** | On-ramp segments live only in PSDP p1 Lesson two. DOL body that says the on-ramp is **5.3 \| MERGING** (PDF 160). There is **no** DOL heading “On-ramp segments.” Zipper is the TOC child under 5.3 (PDF 13 / body PDF 160–161). | `5.3 Merging` (parent, already on pack). `5.3 Merging (Zipper merging)` (child, added this pass). | **Do not mint** `5.3 Merging (On-ramp segments)`. V-003 is the NEW parent spend. V-005 / V-006 are REVIEW of the same parent (PSDP Lessons three + sidebar), not a second heading. Zipper child is **allowlisted and unspent** — III-026 already taught zipper at city speed under the parent; a highway lane-closure zipper is leftover, not a 14th card and not V-011 (courtesy move-over is not take-turns). |
+| **4.11 ramp-meter child** | TOC: `4.11 Traffic light signals` → **Freeway ramp meters**. Body heading **FREEWAY RAMP METERS** (PDF 113). Not in Skill eleven. | `4.11 Traffic light signals (Freeway ramp meters)` | V-004 cites the **child**, not the parent (parent already used once on III-014). |
+| **5.1 for gentle steering, or 5.6 Curves** | PSDP p2 Lesson one is the highway-speed teaching: “steer gently on highways.” DOL has **no** “steering gently” heading. **5.6 Curves** (PDF 167–168) is the nearest official *quote* (“Gentle steering. Steer smoothly…”) but that subsection is **in the curve**, not a straight-lane gust. 5.1 Speed (PDF 157) is control-at-speed. | `5.1 Speed` on V-009. `5.6 Road and driving conditions (Curves)` restored to the allowlist, **unused**. | V-009 stays on **5.1**. Citing Curves on a straight I-90 gust would be the Act IV class of picture/cite mismatch. Curves stays locked for a later curve card. |
+| **Exiting on PSDP alone (do not mint DOL Exiting)** | PSDP p1 Lesson four – exiting (printed p. 31). Driver Guide has **no** numbered Exiting / exit-ramp heading. PDF hits for “Exiting” are **parking** (pp. 146–147) and **Exiting the curve** (p. 168). | none new | Do **not** add `5.x Exiting`. On the #141 stack the exiting lesson is V-007 + V-008, not V-009 (V-009 is steering). V-007 pairs REVIEW `4.12 Signs` (exit panel). V-008 pairs `5.1 Speed (Adjusting speed for conditions)` (posted ramp speed). |
+| **V-007 is review, not a new lesson claim** | `4.12 Signs` is already used three times in I–IV. The **new** lesson on V-007 is PSDP exiting. | `4.12 Signs` | `teaching_target` now says REVIEW of 4.12 / NEW exiting. Player copy still teaches the exit. |
+
+---
+
+## Card → cite (after this pass)
+
+| Card | PSDP | DOL | Status | Notes |
+|---|---|---|---|---|
+| V-001 | eleven p1 | `4.12 Signs` | REVIEW pairing / NEW observation | Lesson one. Ali driving; Yuna radio. |
+| V-002 | `n/a` | `n/a` | load lock | Dossier. Tower 4 kit. No curriculum claim. |
+| V-003 | eleven p1 | `5.3 Merging` | **NEW** parent | On-ramp segments. First 5.3 home. |
+| V-004 | eleven p1 (context) | `4.11 Traffic light signals (Freeway ramp meters)` | **LOCKED** child | Rule is DOL-only. Yuna click lives in the **result**. |
+| V-005 | eleven p1 | `5.3 Merging` | REVIEW | Lesson three – merging (same parent as V-003). |
+| V-006 | eleven p1 | `5.3 Merging` | REVIEW | “Do not stop” + speed-to-gap sidebar. |
+| V-007 | eleven p1 | `4.12 Signs` | REVIEW cite / NEW exiting | PSDP Lesson four. Not a new signs lesson. |
+| V-008 | eleven p1 | `5.1 Speed (Adjusting speed for conditions)` | LOCKED pairing | Posted ramp speed before the curve. Still no Exiting heading. |
+| V-009 | eleven p2 | `5.1 Speed` | **NEW** | Gentle steer at speed. Not Curves. Not exiting. |
+| V-010 | eleven p2 | `n/a` | **NEW** / PSDP alone | One lane at a time. No DOL lane-change heading. Was a false 5.3. |
+| V-011 | eleven p2 | `5.2 Space` | NEW pairing | Move left for a merger. Not zipper. Yuna radio beat. |
+| V-012 | eleven p2 | `5.4 Time (Count seconds)` | REVIEW | Three-second at highway speed (II-012 already spent the parent). |
+| V-013 | eleven p2 | `5.2 Space` | REVIEW | Tailgater / move over. Hollis once. No 4.4 tire/axle. |
+| — | existing end beat | n/a | engine | `deliveryBeat` / `radioCheckin`. `cargo_rough` bands + `daylight_fail` wins. Not V-014. |
+
+`5.3` parent is cited **three times on one heading** (one NEW + two REVIEW), not as two invented children. The second **heading** Claude named is the zipper **child**, which is locked on the allowlist and not spent.
+
+---
+
+## Open vs locked
+
+### Locked (do not reopen)
+
+- Skill eleven strings (en-dash, TOC verbatim) in `pack/08_PSDP_SKILLS.json`. No hyphen aliases. No Skill twelve / thirteen / fourteen.
+- `4.11 Traffic light signals (Freeway ramp meters)` — V-004 only.
+- `5.3 Merging` parent for on-ramp / merge. No `5.3 Merging (On-ramp segments)`.
+- `5.3 Merging (Zipper merging)` as an allowlist heading. Unspent on V-001…V-013.
+- `5.1 Speed` on V-009 (highway gentle steer).
+- `5.6 Road and driving conditions (Curves)` as a verified heading. Unspent. Quote home for curve steering, not V-009.
+- No DOL `Exiting` heading. V-007 / V-008 pair existing strings only.
+- `presence` canonical. Thirteen cards + existing end beat. Ali alone. Yuna radio-only. Load = relay kit for Tower 4. Chains / Snoqualmie = VII.
+- Card JSON `image_brief` is the brief. Doc 29 Quiet plates are not Ribbon stills.
+
+### Open leftovers (not a Tyson block)
+
+| Heading | Why it is open | Default |
+|---|---|---|
+| `5.3 Merging (Zipper merging)` | Verified child; III-026 already taught zipper under the parent. | Leave unspent. Recite III-026 later if wanted. Do not steal a Skill eleven card. |
+| `5.6 Road and driving conditions (Curves)` | Verified; wrong situation for V-009. | Hold for a curve card in a later act, or a V-008-adjacent regen if a curve *technique* card is ever split out. |
+| V-004 `psdp_skill` | Ramp meters are not in Skill eleven. Part one is on-ramp context only. | Keep eleven p1 as context. Do not invent a PSDP ramp-meter lesson. |
+| Printed DOL page numbers | Bodies extracted from PDF pages 113 / 157–160 / 167–168. TOC printed numbers match the section numbers, not always the folio. | `stat_cited` uses `DOL p.113` / `PSDP p.31` / `PSDP p.32` as the research stack did. |
+
+Nothing here needs Tyson. Zipper and Curves stay on the pack so a later writer cannot mint a near-miss string.
+
+---
+
+## Image briefs / Doc 29
+
+Walked all thirteen `image_brief` blocks against Doc 29 and the plate map:
+
+- No Quiet in subject / read / continuity. `presence: 0` on every stub.
+- No Yuna, no Encore, no Ledger lock. V-002 is an Ali portrait, not a Yuna plate.
+- V-011 stays `POV_MIRROR_DOOR` (right glass = right-side merger). V-013 `POV_MIRROR_REAR` is legal on the Menace.
+- Briefs were not rewritten. Citation status lives in `source`.
+
+---
+
+## Copy touched (not art)
+
+- V-004 correct **result**: Yuna’s click (pack/36 appearance lock).
+- V-011 scene + correct result: radio beat; `cast` includes `yuna`. She does not grade the driving or mention cargo.
+- `teaching_target` / `stat_cited` on the teaching cards.
+
+---
+
+## Validate
+
+```
+node scripts/validate-act-v.js
+node scripts/validate-citations.js
+```
+
+Do not seed. Do not promote plates.

@@ -55,7 +55,8 @@
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
     "dol_section": "5.3 Merging",
-    "teaching_target": "On-ramp has three segments: entrance (search), acceleration (match flow), merge (enter)."
+    "teaching_target": "NEW. PSDP p1 Lesson two – on-ramp segments. Cite 5.3 Merging parent; do not mint an On-ramp segments DOL child.",
+    "stat_cited": "PSDP p.31: Explain the three segments of on-ramps, and how they’re used: Entrance area… Acceleration area… Merge area."
   },
   "cast": ["ali"],
   "antagonist": "none",

@@ -31,9 +31,11 @@
     "5.1 Speed (Adjusting speed for conditions)",
     "5.2 Space",
     "5.3 Merging",
+    "5.3 Merging (Zipper merging)",
     "5.4 Time (Count seconds)",
     "5.5 Focus",
     "5.6 Road and driving conditions (Slippery roads)",
+    "5.6 Road and driving conditions (Curves)",
     "5.10 Law enforcement"
   ]
 }

@@ -58,7 +58,8 @@
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
     "dol_section": "5.3 Merging",
-    "teaching_target": "Do not stop in the entrance or merge unless you must; adjust speed to find a gap."
+    "teaching_target": "REVIEW of 5.3 Merging. PSDP: do not stop unless necessary; adjust speed to find a gap.",
+    "stat_cited": "PSDP p.31: There is plenty of time to merge. If a gap doesn’t present itself immediately, adjust your speed as early as possible in order to find one."
   },
   "cast": ["ali"],
   "antagonist": "none",

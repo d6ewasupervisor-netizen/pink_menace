@@ -129,6 +129,22 @@ for (let i = 0; i < cards.length; i++) {
   if (i >= 2 && c.card_type === cards[i - 1].card_type && c.card_type === cards[i - 2].card_type) {
     err(id, "three same types in a row");
   }
+  const dol = c.source && c.source.dol_section;
+  if (/Exiting/i.test(String(dol || ""))) {
+    err(id, "do not mint a DOL Exiting heading — PSDP Lesson four pairs existing 4.12 / 5.1 strings only");
+  }
+  if (id === "V-004" && dol !== "4.11 Traffic light signals (Freeway ramp meters)") {
+    err(id, "V-004 must cite 4.11 Traffic light signals (Freeway ramp meters), not the parent");
+  }
+  if (id === "V-009" && dol !== "5.1 Speed") {
+    err(id, "V-009 highway steer cites 5.1 Speed, not 5.6 Curves");
+  }
+  if (id === "V-010" && dol !== "n/a") {
+    err(id, "V-010 is PSDP lane-change; no DOL lane-change heading — use n/a, not 5.3");
+  }
+  if (id === "V-003" && dol !== "5.3 Merging") {
+    err(id, "V-003 on-ramp segments cite 5.3 Merging parent; do not mint an On-ramp child");
+  }
   for (const e of validateCard(c, tables)) err(id, e.replace(`${id}: `, ""));
   for (const e of resolveCard(c).errors) err(id, e.replace(`${id}: `, ""));
   for (const e of validateAuthoringSeat(c)) err(id, e.replace(`${id}: `, ""));

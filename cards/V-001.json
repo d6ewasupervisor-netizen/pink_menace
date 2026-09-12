@@ -54,7 +54,8 @@
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
     "dol_section": "4.12 Signs",
-    "teaching_target": "Highway observation: interchanges, signs, and lane lines. Ali already has the wheel; Yuna is radio-only."
+    "teaching_target": "NEW: PSDP p1 Lesson one – observation. 4.12 Signs is the pairing (REVIEW of guide panels). Ali has the wheel; Yuna is radio-only.",
+    "stat_cited": "PSDP p.31: explain key highway features — interchanges, highway signs and signals, lane lines and markings."
   },
   "cast": ["ali", "yuna"],
   "antagonist": "none",
