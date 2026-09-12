@@ -23,8 +23,8 @@ Never mix panels across takes. Winners only.
 | Quiet plates | probe keeps | `ref_quiet_a1.png` `ref_quiet_a2.png` `ref_quiet_a3.png` `ref_quiet_a4.png` `ref_quiet_a5.png` | A1 take 3 still, facing away. A2 take 1 head tilt. A3 take 3 the register. A4 take 1 lot, spread, not converging. A5 take 3 the lunge — near-legible, once in the game. A1, A2, A4 are reference, not card art. |
 | Gracie studio portrait | appearance lock | `ref_gracie.jpg` | **Appearance authority for Gracie.** Orange/ginger tabby, pink nose, amber eyes, cream chest. Studio wins over any in-carrier grate crop. |
 | Mya studio portrait | appearance lock | `ref_mya.jpg` | **Appearance authority for Mya.** Brown mackerel tabby, dark nose, green eyes, hard-striped forehead, heavier. Studio wins over any in-carrier grate crop. |
-| Cat in-carrier — ginger | IV-028 take 70 crop | `ref_cat_ginger.png` | In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Gracie. Attach **alongside** `ref_gracie.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. |
-| Cat in-carrier — mackerel | IV-028 take 70 crop | `ref_cat_mackerel.png` | In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Mya. Attach **alongside** `ref_mya.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. |
+| Cat in-carrier — ginger | IV-028 take 70 crop | `ref_cat_ginger.png` | Face-only identity. In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Gracie. Attach **alongside** `ref_gracie.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. Does **not** authorize collar, body, or pose. |
+| Cat in-carrier — mackerel | IV-028 take 70 crop | `ref_cat_mackerel.png` | Face-only identity. In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Mya. Attach **alongside** `ref_mya.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. Does **not** authorize collar, body, or pose. Silent on cat collar → no collar. |
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
 
@@ -45,6 +45,10 @@ Out of the reference pool (winners only):
 Studio portraits (`ref_gracie.jpg` / `ref_mya.jpg`) remain the appearance authority for Gracie and Mya. `ref_cat_ginger.png` and `ref_cat_mackerel.png` are in-carrier framing references only — attach alongside studio refs, never instead of them. If a compile would pull both and they disagree, studio wins.
 
 Scope the grate plates to in-carrier frames only. Do **not** attach them to out-of-carrier frames (e.g. Mya on the dash in IV-016) or the generator may ghost mesh onto the face.
+
+**Face-only — no collar / body / pose authority.** Cat reference plates, including `ref_cat_mackerel.png`, are face crops for identity. They do not authorize a collar, a body, or a pose. Those facts come from card JSON or an explicit LOCKS body rule, never from the face plate. A pink cat collar was consistency-tracking, not canon. If card JSON and LOCKS are silent on a cat collar, the conservative default is **no collar**.
+
+V-002 `image_brief` "faded pink collar" is Ali's hoodie collar. It does not put a collar on Mya. Do not invent a pink cat collar.
 
 - **Mya** = mackerel → `ref_cat_mackerel.png`
 - **Gracie** = ginger → `ref_cat_ginger.png`
