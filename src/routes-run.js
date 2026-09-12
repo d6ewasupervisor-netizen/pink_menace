@@ -7,7 +7,7 @@ const { initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
 const { publicCard, applySequenceTone, dayNight, pickNextCard, actBoundForRun, queueCallback, onMainAnswered, clearCallback, pendingOutcome, reviewCard, progressFor, neighborsAnsweredForStudent, firstAnswerForStudent, canViewImage, CAST, portraitCardId, publicState, cargoDead, cargoFailDispatch, applyDelta, failRestart, playAgainFrom, startActFrom, recapBeat, holdBeat, replayStep, reviewStep, advanceReplayPlan, advanceHold, reopenIfMoreCards, withActCargo, persistActCargo, actOfCardId, bankHoldMinutes, REVIEW_MIN, isWatchCard, isBeatCard, lotKeyFromOption } = require("./game");
-const { applyFear, loudDelta } = require("./presence");
+const { applyFear, loudDelta, actBoundaryReveal } = require("./presence");
 const { radioCheckin, deliveryBeat, manifestFor, timeCostOf } = require("./manifest");
 
 // Cookie expiry mid-run: new OTP, same user, same active row. current_card_id stays.
@@ -72,6 +72,28 @@ async function answeredInAct(runId, act) {
     [runId, act]
   );
   return (rows[0] && rows[0].n) || 0;
+}
+
+async function priorFearState(studentId, currentRunId) {
+  const { rows } = await query(
+    `SELECT state, cargo_fail_reason
+       FROM runs
+      WHERE student_id = $1 AND ($2::uuid IS NULL OR id <> $2)
+      ORDER BY updated_at DESC
+      LIMIT 1`,
+    [studentId, currentRunId || null]
+  );
+  const row = rows[0];
+  if (!row) return null;
+  const state = { ...(row.state || {}) };
+  if (row.cargo_fail_reason && !state.fail_kind) state.fail_kind = "cargo";
+  if (row.cargo_fail_reason && !state.cargo_fail_reason) state.cargo_fail_reason = row.cargo_fail_reason;
+  return state;
+}
+
+async function actRevealFor(run, card, session, answersInAct, flags) {
+  const prior = await priorFearState(session && session.userId, run && run.id);
+  return actBoundaryReveal(card, answersInAct, prior || (run && run.state), flags);
 }
 
 function withManifest(payload, run, card, session, answersInAct) {
@@ -184,6 +206,7 @@ function mountRun(app) {
           previous_card_id: neighbors.previous_card_id,
           next_card_id: neighbors.next_card_id,
           state: publicState(run.state),
+          act_reveal: await actRevealFor(run, card, session, n, { pending: true }),
           ...card,
         }, run, card, session, n));
       }
@@ -205,6 +228,10 @@ function mountRun(app) {
         previous_card_id: neighbors.previous_card_id,
         next_card_id: neighbors.next_card_id,
         state: publicState(run.state),
+        act_reveal: await actRevealFor(run, card, session, n, {
+          recap: Boolean(card.recap),
+          hold: Boolean(card.hold),
+        }),
         ...card,
       }, run, card, session, n));
     } catch (err) {

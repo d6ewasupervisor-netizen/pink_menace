@@ -49,9 +49,14 @@ Never shown as a number. She reads it from the world.
 ```
 add    = max(0, Δnoise)   // light, yaw, timeout do not summon
 P      = P + add
-if correct and add == 0: P = max(0, P - 2)
+if correct and add == 0: P = P - 2
+P      = max(3, P)        // QP-001 presence floor. Clean runs stay at T0 whisper; never 0.
 if P >= 23: collapse beat, then clamp P to 16 (stay T3)
 ```
+
+The floor is not a new scale. T0–T4 and handprints above 3 are unchanged. A correct quiet card at presence 3 (e.g. a V-004 correct path) stays at 3.
+
+**Act-boundary reveal (QP-002).** Text only, one tap, no new cards. When she enters the next act (not Act I), a four-tier line fires from the prior run's presence / daylight-fail: farther (T0), still out there (T1), closer (T2), daylight-fail / T3. The Quiet are never gone. Do not say she is safe. Skill 11 / Ribbon teaching stills stay Quiet-free; V-013 composites are later.
 
 Cargo, time_cost, and the existing meters are unchanged. Presence does not block progress. A collapse is a scare beat, not a wipe, and not a completed-run lock.
 

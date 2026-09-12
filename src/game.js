@@ -2,7 +2,7 @@
 
 const crypto = require("crypto");
 const { query, pool } = require("./db");
-const { publicFear } = require("./presence");
+const { publicFear, floorPresence } = require("./presence");
 const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET, timeCostOf } = require("./manifest");
 const { stampDaylightFail, daylightFail } = require("./cargo-rough");
 
@@ -60,6 +60,8 @@ async function ledgerForOrigin(client, runId, fromCard) {
   return rows[0] ? rows[0].card_id : null;
 }
 
+// Quiet already in the I-005–I-008 stills. Do not add Skill 11 / Ribbon teaching
+// frames (V-006 / V-008 / V-013). Herd is Act VII. QP-003 composites later.
 const QUIET_IN_FRAME = new Set(["I-005", "I-006", "I-007", "I-008"]);
 
 function isBeatCard(type) {
@@ -247,6 +249,7 @@ function actOfCardId(cardId) {
 
 function withActCargo(state, act) {
   const s = { ...(state || {}) };
+  s.presence = floorPresence(s.presence);
   if (!act) return s;
   if (s.cargo_act === act) return s;
   if (!s.cargo_act && act === "II") {
@@ -404,12 +407,13 @@ function applyDelta(state, delta) {
   const d = delta || {};
   for (const [k, v] of Object.entries(d)) {
     if (k === "presence" || k === "handprints" || k === "drew" || k === "fatal") {
-      next[k] = v;
+      next[k] = k === "presence" ? floorPresence(v) : v;
       continue;
     }
     if (typeof v === "number") next[k] = (Number(next[k]) || 0) + v;
     else next[k] = v;
   }
+  next.presence = floorPresence(next.presence);
   return stampDaylightFail(next);
 }
 
