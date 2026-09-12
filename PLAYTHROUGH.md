@@ -14,7 +14,7 @@ Railway deploys `pink_menace` from `main`. Merge the ship PR to update the live 
 
 Parents: [https://parents.tactag.app](https://parents.tactag.app).
 
-## Live Act IV cards (20, all stills in Postgres)
+## Live Act IV cards (21 in repo; live Postgres is the prior 20 until this seed runs)
 
 Play order is `seq`. Gaps are unsown, not broken.
 
@@ -27,7 +27,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 | IV-006 | Tracks in the Lane | scene | take 11 · #127 |
 | IV-007 | Transit Only | rule | take 30 · #119 |
 | IV-008 | The Bike in the Gap | scene | take 1 · #36 |
-| IV-009 | When Loud Is Right | convoy | take 11 · #129 |
+| IV-009 | When Loud Is Right | convoy | take 12 · this seed (file; was take 11 · #129) |
 | IV-010 | Eleven Months | dossier | early PASS · #25 |
 | IV-011 | Backing Into People | scene | take 98 · #58 |
 | IV-012 | The Same Crosswalk | ledger | take 32 · #76 |
@@ -39,6 +39,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 | IV-026 | Separate the Three | scene | take 110 · #72 |
 | IV-027 | Space With No Space | scene | take 49 · #82 |
 | IV-028 | Both in the Carrier | dossier | take 70 · #108 |
+| IV-029 | When Not To Be Loud | dossier | take 16 · this seed (file) |
 | IV-030 | The Door to the Pass | dossier | take 65 · #106 |
 
 Dossiers are continue-only (no quiz options). That is intended.
@@ -48,7 +49,7 @@ Dossiers are continue-only (no quiz options). That is intended.
 - **IV-026** — old plow stub (take 110). Later high-oblique / take-8 plow regen (#125, #128, including take 142) is **unmerged**. Do not regenerate.
 - **IV-007** — composition drift on take 30 vs later weather/MUTCD regen (#114). Live still is the seeded PASS. Do not regenerate.
 - **IV-001** — not a live card. Ride stills (`count-in`, `handoff`, `brake`) exist as assets only. The Core opens at IV-002.
-- **Unfinished / unseeded** — IV-014, IV-019–025, IV-029. PR #130 (parallel 018/010/029) stays unmerged. Sequence skips them.
+- **Unfinished / unseeded** — IV-014, IV-019–025. PR #130 stays unmerged except IV-009 take-12 and IV-029 take-16 (Claude PASS). Do not reopen IV-018 or IV-010.
 
 ## Plates / LOCKS stacked with this ship
 
