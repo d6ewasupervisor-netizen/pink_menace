@@ -1,0 +1,13 @@
+Pink Menace LOCATION AUTHORITY PLATE candidate (not promoted).
+ref_ribbon_workzone — Act V Ribbon work zone. Shoulder / emergency authority.
+Serves V-008, V-009. MUTCD orange exempt from world-grade desaturation.
+Claude locked brief 2026-09-12. Muted-read pending. Do not overwrite live refs/ref_ribbon_workzone.png.
+16:9. Reference plate, not a card still.
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/5.6, deep focus. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. World-grade desaturation on pavement, concrete, city, and vehicles. EXCEPTION: MUTCD work-zone orange devices and hi-vis keep TRUE saturated safety orange / fluorescent lime — do not gray them out. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare. Photograph, not a 3D render, not posterized.
+
+Camera: DRIVER-EYE HEIGHT on the same elevated urban freeway deck, looking forward along the remaining open lanes toward a lane closure. Deck level, not aerial, not ground-level under the structure.
+
+Subject: a LANE CLOSURE on the wet elevated deck. A long CONE TAPER starts well ahead of camera and pinches one travel lane closed before the closure head. Cone STYLE must match the seeded Act II / Act IV rain work-zone stills: standard tall US MUTCD traffic cones, orange plastic, one or two white reflective collar bands, classic 28–36 inch silhouette — NOT slim flexible delineators, NOT mini parking cones, NOT drums used as the taper. TRUE MUTCD orange, weathered on top (dirt, scuffs) but still orange, never desaturated khaki. At the CLOSURE HEAD: orange drums and/or a portable concrete barrier. Beyond the taper, two or three highway WORKERS in hi-vis rain jackets or vests (fluorescent lime or orange), hard hats, standing in the closed lane, not in the live lane. One weathered orange diamond warning sign on a portable stand; legend ILLEGIBLE or blank — no city name, no route number. Wet deck sheen, worn lane paint, concrete outside barrier, and a usable paved right shoulder consistent with the Ribbon deck plate. Low brick/masonry city below/beyond the barrier. Sparse period-aged traffic in the open lanes. Flat gray overcast.
+
+NEGATIVE / HARD GATE: no desaturated orange (khaki, brown, gray cones FAIL). No inconsistent cone types in the same taper. No missing workers. No snow, ice, chains, chain-up signs, mountain grade. No route shields, no numbered exits, no city names; a single legible route number FAILS. No sunlight, no warm golden cast, no dry pavement. No current-model vehicles. No posterized or flat-color look. No HUD, no labels, no UI, no readable advertising. No Pink Menace, no Beetle, no Ledger, no Encore.
