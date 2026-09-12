@@ -6,8 +6,8 @@
 See cards/takes/IV-026.prompt.txt for the generation prompt.
 See cards/takes/IV-026.WAVE.md for the wave, closest, and runner.
 
-FAIL regen after Claude muted-read on PR #138 takes 184 / 179. Hard brief (authoritative): nose-toward from ahead in the opposing lane; van + loading beat on the Beetle's right, forward of the front wheels; camera 179-like but up-lane, chest/windshield, looking slightly back; SIDE door; van must not out-scale the hero. Card JSON remains the sole scene brief. Away/down-lane stays in JSON as a later alternate — not deleted. JSON itself is not edited.
+FAIL regen after Claude muted-read on PR #140 takes 199 / 194 (image-review chat dd770651, 2026-09-12). Hard brief (authoritative): 199's ARRANGEMENT at 194's DISTANCE — close the gap to about one car length; camera down-lane so Beetle frame height ≥ 1/3 of image; van mid-ground right; foreground tightens; pink back to plate; yellow center paint gone. Nose-toward from ahead in the opposing lane; van + loading beat on the Beetle's right, forward of the front wheels; camera 179-like but up-lane, chest/windshield, looking slightly back; SIDE door; loading beat alive. Card JSON remains the sole scene brief. Away/down-lane stays in JSON as a later alternate — not deleted. JSON itself is not edited.
 
-Closest: take 230. Runner: take 195. Wave: 186–232.
+Wave starts at take 233 (highest prior IV-026 take on the branch was 232). Closest / runner to be filled after the wave.
 
 Plow plate / LOCKS / other cards unchanged. Live plate: refs/ref_car_nose_plow.png (PR #121 take-8, sha256:c6c8ec1fe709ddb8329e7b5def830dae0959002bf838ba1afcdbaf51d63d1133).
