@@ -4,5 +4,6 @@ Ali alone. No cargo. No Yuna. presence 0.
 Menace rear: tubular bar / mesh only. No flat rack, no cargo platform. Match V-006 take-47 / IV-004 take-177 rear.
 Tool aspect 3:4 (seed encodes 2:3). Attachments: ref_car_exterior.jpg, ref_car_nose_plow.png. Ban ref_diagram_style.png (wing residual). Ban ref_cockpit.jpg.
 
+Seeded take-20 (Claude overflow PASS ~8:24 AM PDT of PR #190 tubular-bar regen). Prefer take-20 over take-6 from #189.
 Pool: take-7..take-20 tubular-bar regen. Closest take-20. Runner take-18.
-Do not seed.
+Do not seed take-18. Do not seed V-009.

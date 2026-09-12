@@ -38,4 +38,9 @@ V-010 / V-012 rows below are the **tubular-bar regen** picks (takes 7+). Wave-4 
 - **V-012 take 16 / 17:** tubular rear but sedan ahead, not behind.
 - **V-013 take 3:** more countable gap; warmer sunset wash.
 
-Do not seed. Do not live-DB. Do not merge.
+## Seeded (Claude overflow PASS ~8:24 AM PDT)
+
+- **V-010 take 10** → `cards/V-010.png` (live-DB). Take 9 remains runner — not seeded.
+- **V-012 take 20** → `cards/V-012.png` (live-DB). Take 18 remains runner — not seeded. Prefer take-20 over take-6 from #189.
+
+Do not seed take-9 or take-18. Do not seed V-009. No Acts I–III.
