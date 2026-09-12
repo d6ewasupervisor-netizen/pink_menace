@@ -70,6 +70,27 @@ const MENACE_CABIN_BUILD =
 const MENACE_CABIN_NEGATIVES =
   "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no fine full-windshield flyscreen grid, no two-pedal automatic box, no missing clutch on a Menace cabin.";
 
+function footwellOutOfFrame(card) {
+  const negs = (((card || {}).image_brief || {}).extra_negatives) || [];
+  return negs.some((n) => /no (footwell|pedals? in frame)\b/i.test(String(n)));
+}
+
+function menaceCabinBuild(card) {
+  if (!footwellOutOfFrame(card)) return MENACE_CABIN_BUILD;
+  return MENACE_CABIN_BUILD.replace(
+    " Three pedals: clutch, brake, accelerator.",
+    ""
+  );
+}
+
+function menaceCabinNegatives(card) {
+  if (!footwellOutOfFrame(card)) return MENACE_CABIN_NEGATIVES;
+  return MENACE_CABIN_NEGATIVES.replace(
+    ", no two-pedal automatic box, no missing clutch on a Menace cabin",
+    ""
+  );
+}
+
 function wantsNight(card) {
   const t = String((card.variation && card.variation.time_of_day) || "").toLowerCase();
   if (!t) return false;
@@ -356,8 +377,8 @@ function assemblePrompt(card) {
       cam === "POV_COCKPIT" ||
       cam === "POV_MIRROR_REAR");
   if (menaceCabin) {
-    parts.push(MENACE_CABIN_BUILD);
-    negs.push(MENACE_CABIN_NEGATIVES);
+    parts.push(menaceCabinBuild(card));
+    negs.push(menaceCabinNegatives(card));
   }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);
