@@ -27,6 +27,7 @@ Never mix panels across takes. Winners only.
 | Cat in-carrier — mackerel | IV-028 take 70 crop | `ref_cat_mackerel.png` | In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Mya. Attach **alongside** `ref_mya.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. |
 | Ribbon elevated deck | take 4 | `ref_ribbon_deck.png` | Claude muted-read **PASS** (image-review chat) on PR #149 take 4 — not take 2. Streetlight standards along the deck for V-013 dusk grade. Exact promote of `refs/candidates/ribbon-deck-take-4.png`. `sha256:889a6d98409b4992eb4fee3c18421ed4934ead494b9c8b9c15334365ff7d823c`. Serves V-002–V-005, V-012 (V-013 shoulder/dusk). Continuity token `ribbon_deck`. |
 | Ribbon tractor-trailer | take 1 | `ref_ribbon_rig.png` | Claude muted-read **PASS** (image-review chat) on PR #149 take 1 — not take 2. Period-aged, no legible livery, rain/spray, passenger car at right scale, west-coast mirrors for V-006. Exact promote of `refs/candidates/ribbon-rig-take-1.png`. `sha256:939b0c29e60d52c0945d7dd1abcf6eebbf43c0b8dcc3c1b0493eeb39b890148e`. Serves V-006, V-007. Continuity token `ribbon_rig`. Take-2 FAIL (car too far / hero angle / faint red markings) — do not attach. |
+| Ribbon work zone | wave C take 1 | `ref_ribbon_workzone.png` | Claude muted-read **PASS** (image-review chat) on PR #152 wave C closest — not take-2. Diagonal MUTCD-orange cone pinch across the closed lane; workers past the taper; orange exempt from world grade. Exact promote of `refs/candidates/ribbon-workzone-c-take-1.png`. `sha256:bf9d9462be460ea6e655ca8596a5734cb624bd2cbeadb5932434c1eaeee116a6`. Serves V-008, V-009. Continuity token `ribbon_workzone`. Wave-C take-2 stays runner-up candidate only — do not attach. |
 
 Ali face: prefer `ref_ali2.png` (wire-rim rounds + raglan hoodie). `ref_ali1.jpg` has thick black frames — do not mix.
 
@@ -55,13 +56,13 @@ Art regen is paused pending daughter feedback. Do not generate new stills from t
 
 ## WAVE — Act V Ribbon plates (2026-09-12)
 
-Claude locked three NEW plate briefs. Deck + rig promoted after muted-read. Workzone still candidates — both submitted takes FAIL (longitudinal cone line, not a diagonal pinch). Do **not** copy a live `refs/ref_ribbon_workzone.png`. Do **not** attach `ribbon_workzone` in `pack/09_REF_MAP.json` or compile-prompt until a later muted-read PASS.
+Claude locked three NEW plate briefs. Deck, rig, and workzone promoted after muted-read.
 
 ```
 # ref_ribbon_deck      take-4   sha 889a6d98409b4992eb4fee3c18421ed4934ead494b9c8b9c15334365ff7d823c  PROMOTED. Streetlight standards. Unnamed corridor.
 # ref_ribbon_rig       take-1   sha 939b0c29e60d52c0945d7dd1abcf6eebbf43c0b8dcc3c1b0493eeb39b890148e  PROMOTED. Period tractor-trailer. Scale + mirrors.
-# ref_ribbon_workzone  take-__  sha ________  Ribbon work zone. MUTCD orange exempt from world grade. NOT PROMOTED.
+# ref_ribbon_workzone  take-c-1 sha bf9d9462be460ea6e655ca8596a5734cb624bd2cbeadb5932434c1eaeee116a6  PROMOTED. Diagonal MUTCD-orange pinch. Wave-C take-2 runner-up only.
 ```
 
-Pool: `refs/candidates/ribbon-*-take-N.png` plus closest/runner copies `refs/ref_ribbon_*_candidate.png`. Workzone wave C closest `ribbon-workzone-c-take-1.png` / runner `c-take-2.png` — muted-read only, not live. Brief: `refs/CANDIDATE_RIBBON.md`.
+Pool: `refs/candidates/ribbon-*-take-N.png` plus closest/runner copies `refs/ref_ribbon_*_candidate.png`. Workzone wave-C runner `ribbon-workzone-c-take-2.png` stays candidate only. Brief: `refs/CANDIDATE_RIBBON.md`.
 
