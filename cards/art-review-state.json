@@ -175,6 +175,12 @@
       "pick": "b-take-2",
       "updated_at": "2026-09-01T20:18:25.286Z"
     },
+    "VI-004": {
+      "tag": "PASS",
+      "note": "Claude PASS take-5 cockpit: hands on wheel, road left / grass shoulder right, motion blur in verge, Gracie latched in carrier, analog cluster, no 112.0. Seeded live. take-11 not seeded.",
+      "pick": "take-5",
+      "updated_at": "2026-09-12T22:51:00.000Z"
+    },
     "VI-009": {
       "tag": "PASS",
       "note": "Claude PASS; seeded take-2 as live still.",
