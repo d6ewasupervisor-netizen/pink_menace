@@ -5,13 +5,13 @@
   "driver": "ali",
   "card_type": "dossier",
   "title": "Both in the Carrier",
-  "hook": "Both cats are boxed. The street ahead is empty.",
-  "scene": "Overcast midday on a two-lane downtown street. The Menace is in the right travel lane, moving. The carrier sits on the floor to the right of the tunnel, door latched, a strap around the box and the seat post. Gracie and Mya are both inside — orange with a cream chest, brown with a dark stripe — visible through the grate. Ahead through the mesh, the wet two-lane continues empty: skip-dashed paint, brick storefronts, no person in the road. The full-width nose plow on the front bull bar points down the travel lane. The right foot covers the brake — heel planted, ball hovering. The cats are cargo in a closed box. The street stays readable because the load stays on the floor.",
-  "debrief": "Animals ride in a closed, strapped carrier. The load stays on the floor so the street stays visible.",
+  "hook": "Both cats are boxed. A person is in the crosswalk.",
+  "scene": "Overcast midday on a two-lane downtown street. The Menace is in the right travel lane, moving. The carrier sits on the true floor to the right of the tunnel — not seat-height — door latched, a readable strap around the box and the seat post. Gracie and Mya are both inside — orange with a cream chest, brown with a dark stripe — visible through the grate. Ahead through the mesh, a person in a dark coat is already in the marked crosswalk, one shoe on the white paint. The full-width nose plow on the front bull bar points at that person. The right foot covers the brake: the sole of the boot is directly above the brake pad, overlapping it in frame, with a visible gap between them. The cats are cargo in a closed box. The street stays readable because the load stays on the floor.",
+  "debrief": "Animals ride in a closed, strapped carrier. The person in the crosswalk is what you see when the load stays on the floor.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Pets ride in a closed, strapped carrier while moving; the load stays on the floor so the street stays visible."
+    "teaching_target": "Pets ride in a closed, strapped carrier while moving; the load stays on the floor so the marked-crosswalk person stays visible."
   },
   "cast": [
     "ali",
@@ -23,11 +23,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "closed carrier on the floor to the right of the tunnel, door latched, strap to the seat post; both cats visible through the grate",
-    "foreground": "worn wheel, faded pink dash, coarse panel mesh over the glass, full-width nose plow at the windshield base, a right foot covering the brake",
-    "midground": "the latched strapped carrier on the floor; through the mesh, the empty right travel lane continues downtown",
-    "background": "overcast midday, two-lane downtown street, wet asphalt, skip-dashed paint, brick storefronts, travel lane empty ahead",
-    "read": "both cats are inside the closed strapped carrier on the floor",
+    "subject": "closed carrier true-floor-planted to the right of the tunnel, door latched, readable strap to the seat post; both cats visible through the grate",
+    "foreground": "worn wheel, faded pink dash matching the Menace cabin plate, coarse panel mesh over the glass, full-width nose plow at the windshield base, a right foot covering the brake: the sole of the boot is directly above the brake pad, overlapping it in frame, with a visible gap between them",
+    "midground": "the latched strapped carrier on the true floor, not seat-height; through the mesh, a person in a dark coat already in the marked crosswalk in the same travel lane",
+    "background": "overcast midday, two-lane downtown street, wet asphalt, skip-dashed paint, brick storefronts, travel lane continuing past the person",
+    "read": "both cats are inside the closed strapped carrier on the floor; a person stands in the marked crosswalk ahead",
     "continuity": [
       "pink_menace_interior",
       "gracie",
@@ -39,16 +39,15 @@
       "no cats on the dash",
       "no open carrier door",
       "no carrier on the dash",
+      "no carrier at seat height",
       "no parking-lot stall paint",
       "no empty lot through the glass",
-      "no person in a crosswalk",
-      "no pedestrian in the road",
-      "no marked-crosswalk hazard",
       "no second Beetle",
       "no pink car ahead through the glass",
       "no other vehicle in the travel lane",
       "No boot on bare floor left of the pedal box",
       "No unused brake pad sitting empty to the right of the shoe",
+      "No boot flat on bare floor left of the pedal box",
       "No black high-top, no dark Encore two-pedal dash copied from the footwell plate",
       "no Deac",
       "no Ledger",
@@ -59,9 +58,9 @@
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of a two-lane downtown street",
-      "ego_nose_in_frame": "the full-width nose plow on the front bull bar points down the empty travel lane through the mesh",
+      "ego_nose_in_frame": "the full-width nose plow on the front bull bar points at the person in the crosswalk through the mesh",
       "oncoming_position": "none in frame",
-      "hazard_position": "none",
+      "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
     }
