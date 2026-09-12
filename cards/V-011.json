@@ -1,0 +1,125 @@
+{
+  "card_id": "V-011",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Zipper at the Closure",
+  "hook": "The right dies. Both lanes still run.",
+  "scene": "Daylight rain, morning, I-90 east. A work zone ate the right in a half mile. Both lanes still run. Cones pinch toward the closure paint. The early-move habit wants the left now, to be polite, to be first. The zipper wants both lanes used until the teeth, then one-for-one. This is not a courtesy slide and it is not two lanes in one sweep. The handheld clicks once — Yuna, short, not a lecture.",
+  "decision": "The right lane ends ahead. When do you zipper?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Use the right until the closure paint, then take turns with the left",
+      "correct": true,
+      "result": "You use the lane until it ends. At the teeth you take one, give one. The stack is shorter than the polite line that started a mile early. She clicks once and stays quiet.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Move left now so you are not the person who cuts at the end",
+      "correct": false,
+      "result": "You join the polite line. The right stays empty and angry. Someone late uses it and you resent them for doing the zipper. Early courtesy built the longer stack.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 10
+      }
+    },
+    {
+      "id": "c",
+      "text": "Straddle both lanes until the last cone so nobody can beat you",
+      "correct": false,
+      "result": "You occupy two lanes in a highway work zone. Nobody zippers. You are the blockage the cones were trying to prevent.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Brake in the right and wave the left through so they go first",
+      "correct": false,
+      "result": "You plant the Menace to look kind. The right stack lights. Take-turns is one-for-one at the teeth, not a courtesy stop in a live lane.",
+      "state_delta": {
+        "noise": 3,
+        "light": 2,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "Use both lanes until the closure, then take turns. The zipper is take-turns, not an early courtesy move.",
+  "timeout_option_id": "b",
+  "timeout_ms": 10000,
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part two",
+    "dol_section": "5.3 Merging (Zipper merging)",
+    "teaching_target": "NEW. Cite 5.3 Merging (Zipper merging). Highway work-zone / lane-closure take-turns. Not courtesy move-over. Not V-010 one-lane-at-a-time.",
+    "stat_cited": "DOL p.160–161: zipper merging — use both lanes until the designated merge, then alternate."
+  },
+  "cast": ["ali", "yuna"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": true,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_CHASE",
+    "camera_is_the_lesson": true,
+    "subject": "driver's-eye height behind the faded pink Beetle approaching a work-zone taper; Beetle still in the dying right; left lane still occupied to the teeth",
+    "foreground": "wet travel-lane asphalt, rear of the Beetle nearer the camera",
+    "midground": "MUTCD orange cones with white collars stepping laterally toward the skip-dash, lanes visibly narrowing, closure paint at the teeth",
+    "background": "daylight rain morning, workers past the taper, left gantry panel blank at full crop, wet overcast unnamed corridor",
+    "read": "both lanes are still in use up to the closure teeth; the Beetle has not gifted the right early",
+    "continuity": ["pink_menace_exterior"],
+    "extra_negatives": [
+      "no HOV diamond",
+      "no snow",
+      "no cutaway shuttle",
+      "no second pink Beetle",
+      "no courtesy empty right a mile early",
+      "no route numbers",
+      "no exit numbers",
+      "no second occupant",
+      "no cooler"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of two eastbound I-90 lanes, approaching a right-lane end",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, away from camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "vehicle in the continuing left lane",
+          "frame_side": "left",
+          "lane_from_left": 1,
+          "along": "beside",
+          "lengths": 0
+        },
+        {
+          "vehicle": "vehicle ahead at the closure teeth",
+          "frame_side": "same",
+          "lane_from_left": 2,
+          "along": "ahead",
+          "lengths": 1
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "rain",
+    "time_of_day": "morning",
+    "tone": "urgent",
+    "failure_mode": "inexperience",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

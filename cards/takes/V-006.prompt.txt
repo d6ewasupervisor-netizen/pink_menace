@@ -1,0 +1,7 @@
+V-006 Keep Right Except to Pass — POV_COCKPIT, rain midday, plate ref_ribbon_deck.
+Authority: cards/V-006.json image_brief (fail-fix PASS + sedan smear in inside glass).
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_cockpit.jpg (layout/mesh only), refs/ref_car_nose_plow.png (plow bar), .tmp-ribbon-plates/ref_ribbon_deck.png.
+
+Pool: take-1..take-4. Closest take-4. Runner take-1. Residual: sedan not a close smear; take-2 second Beetle; take-3 dash wall.
+
+Regen 2: closest take-8 (sedan in inside mirror AND empty lanes). Runner take-6 (mirror gate strong, lanes cropped). Extra gate: sedan must read in the interior rearview.
