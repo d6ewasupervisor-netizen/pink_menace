@@ -5,3 +5,4 @@ Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_cockpit.jpg (layout/mesh on
 Pool: take-1..take-4. Closest take-4. Runner take-1. Residual: sedan not a close smear; take-2 second Beetle; take-3 dash wall.
 
 Regen 2: closest take-8 (sedan in inside mirror AND empty lanes). Runner take-6 (mirror gate strong, lanes cropped). Extra gate: sedan must read in the interior rearview.
+Held: Claude FAIL muted-read 794631a4. Both takes fail (wrong lane count / ego / setting). Do not seed.

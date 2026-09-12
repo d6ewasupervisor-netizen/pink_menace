@@ -5,3 +5,4 @@ Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_cockpit.jpg (interior layou
 Pool: take-1..take-5. Closest take-4. Runner take-5. Residual: gap still countable.
 
 Regen 2: closest take-8, runner take-6. Residual: gap still countable; dusk rim warm.
+Seeded live: take-8 (Claude PASS muted-read 794631a4). Runner take-6 not seeded.
