@@ -2,7 +2,8 @@
 
 Card JSON is the sole brief. This file only names closest / runner / residual.
 Claude-accepted 2026-09-12: compile authority matches the named Ribbon shots.
-Do not seed. Do not live-DB. Plates stay in their own PRs.
+PASS promotes live-seeded 2026-09-12: V-013 take-5, V-008 take-3, V-006 take-3.
+Banked runners stay files-only. Do not seed V-008 take-1 (FAIL). Plates stay in their own PRs.
 
 | Card | Plate | Closest | Runner | Discard |
 |---|---|---|---|---|
@@ -22,8 +23,8 @@ Holds: no legible route/exit number; no snow/ice/chains; no sun/warm cast; wet s
 
 ## Lessons remapped (2026-09-12, Tyson)
 
-Card JSON is still the sole brief. Text now matches the Ribbon shots. Do not seed. Do not live-DB.
+Card JSON is still the sole brief. Text now matches the Ribbon shots. PASS masters live-seeded 2026-09-12.
 
-- **V-013** — EXACT Claude JSON. Brad PASS promote take-5; take-3 banked. Master `cards/V-013.png`.
-- **V-008** — EXACT Claude JSON. Brad PASS promote take-3 (6x left-gantry weathered blank, CLEAR TO SEED). take-1 FAIL. Master `cards/V-008.png`.
-- **V-006** — EXACT Claude JSON. Brad PASS promote take-3; take-1 banked. Master `cards/V-006.png`.
+- **V-013** — EXACT Claude JSON. Brad PASS promote take-5 live-seeded. take-3 banked files-only. Master `cards/V-013.png`.
+- **V-008** — EXACT Claude JSON. Brad PASS promote take-3 live-seeded (6x left-gantry weathered blank, not bright white). take-1 FAIL not seeded. Master `cards/V-008.png`.
+- **V-006** — EXACT Claude JSON. Brad PASS promote take-3 live-seeded. take-1 banked files-only. Master `cards/V-006.png`.
