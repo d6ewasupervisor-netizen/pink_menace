@@ -2,7 +2,7 @@
   "locks": {
     "ali": ["ref_ali2.png"],
     "ali_face": ["ref_ali2.png"],
-    "pink_menace_exterior": ["ref_car_exterior.jpg"],
+    "pink_menace_exterior": ["ref_car_exterior.jpg", "ref_car_nose_plow.png"],
     "pink_menace_interior": ["ref_menace_cabin.png"],
     "gracie": ["ref_gracie.jpg"],
     "mya": ["ref_mya.jpg"],

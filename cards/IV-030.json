@@ -5,13 +5,13 @@
   "driver": "ali",
   "card_type": "dossier",
   "title": "The Door to the Pass",
-  "hook": "Hold eastbound. She is not cleared for the pass.",
-  "scene": "Clear cold morning on a two-lane street at the last downtown block, heading east. The Menace is STOPPED in the eastbound travel lane at the painted stop line — the last downtown crosswalk edge — on wet asphalt between the lane paint and the right curb. Wheels are still. A pedestrian is stepping off the curb into that marked crosswalk ahead of the plow; that is why she holds. The full-width nose plow sits on the front bull bar and points east. Behind the car, west, brick downtown blocks line the left third of this same street. Ahead, east, the same two-lane continues with wet paint and no other playable vehicles. Both cats are a sound in the closed carrier on the floor. Hold. You are not cleared for the pass.",
-  "debrief": "Downtown sits behind the Beetle. She is stopped at the last crosswalk. She is not cleared for the pass.",
+  "hook": "Hold eastbound. A walker is already in the paint.",
+  "scene": "Overcast midday daylight on a two-lane downtown street heading east, wet asphalt edge to edge. Flat gray light, no sun, no cast shadows. The Menace is STOPPED short of the stop line, blade CLEAR of the white crosswalk bars — not rolling, no tire spray, not parked in the junction, not inside the markings. The full-width nose plow on the front bull bar points east at a person in a dark coat already on the white bars ahead of the plow. That walker is the hold reason. Brick downtown blocks occupy the left third of the frame and continue across the far sidewalk so the street does not open onto an empty horizon. She is not cleared for the pass. Both cats are a sound in the closed carrier on the floor.",
+  "debrief": "The Beetle is stopped short of the bars. A person is already in the crosswalk. Brick downtown shares that wet street on the left and continues on the far side. She is not cleared for the pass.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Hold the eastbound at the last downtown stop line; a pedestrian stepping off the curb is why she is not cleared; city on the left shares that street; empty eastbound continues right."
+    "teaching_target": "Hold short of the stop line for a person already in the marked crosswalk; blade clear of the bars; not in-lane motion."
   },
   "cast": [
     "ali"
@@ -21,12 +21,12 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_TOPDOWN_PHOTO",
-    "camera_pose": "Shallower high-oblique aerial photograph, about forty degrees off vertical, looking along a wet two-lane street that crosses the full frame from the left edge to the right edge so the pavement has readable depth. Not map-flat top-down. Not eye-level. Not a three-quarter front portrait. The Beetle is a small mass in the lower half of the frame.",
-    "subject": "shallower high-oblique (~40° off vertical) aerial of a faded pink Beetle STOPPED at the eastbound stop line / last downtown crosswalk edge on a wet two-lane street that crosses the frame left to right; full-width nose plow on the front bull bar points right; wheels still",
-    "foreground": "continuous wet two-lane asphalt left-to-right to both frame edges; skip-dashed paint; painted stop line and marked crosswalk; right curb and sidewalk along the bottom of the frame",
-    "midground": "the Beetle is stopped short of the stop line and crosswalk edge in the eastbound lane in the lower half, not past the paint, not rolling, not parked mid-intersection; a pedestrian is stepping off the curb into the marked crosswalk ahead of the plow",
-    "background": "pale overcast daylight, continuous; left third: brick downtown blocks whose sidewalks meet this street; right third: the same two-lane continues east, empty, pale readable sky",
-    "read": "the Beetle is stopped at the last downtown crosswalk holding eastbound; a pedestrian stepping off the curb is why she is not cleared for the pass; downtown shares that street on the left",
+    "camera_pose": "Shallower high-oblique aerial photograph, about forty degrees off vertical — not map-flat nadir, not eye-level, not a steep three-quarter. Photoreal overcast midday daylight with readable depth: flat gray-white sky, no sun disk, no cast shadows. Looking along a wet two-lane downtown street that crosses the full frame from the left edge to the right edge. The faded pink Beetle is a small mass in the lower half, STOPPED short of the stop line / marked-crosswalk bars, heading left-to-right. The full-width nose plow on the front bull bar points right; the blade is CLEAR of the white bars. Hold reason: a person in a dark coat already in the paint ahead of the plow. NOT in-lane motion: no tire spray, no rolling. Brick downtown occupies the left third and continues across the far sidewalk so the street does not open onto an empty horizon.",
+    "subject": "shallower high-oblique (~40° off vertical) aerial of a faded pink Beetle STOPPED short of the eastbound stop line; full-width nose plow on the front bull bar points right, blade CLEAR of the white bars; wheels still; a person already in the marked crosswalk ahead of the plow",
+    "foreground": "continuous wet two-lane asphalt left-to-right to both frame edges; skip-dashed paint; painted stop line and marked crosswalk; right curb and sidewalk along the bottom of the frame; depth, not a map-flat top-down",
+    "midground": "the Beetle is held short of the bars in the eastbound lane in the lower half — not on the paint, not rolling, no tire spray, not parked mid-junction; a person in a dark coat already on the marked crosswalk bars ahead of the plow",
+    "background": "flat overcast midday daylight, no sun, no cast shadows; left third: brick downtown blocks whose sidewalks meet this street; far sidewalk across the westbound half continues the same brick downtown so the street does not open onto an empty horizon; the two-lane continues left-to-right past the person",
+    "read": "the Beetle is stopped short of the stop line for a person already in the marked crosswalk; brick downtown occupies the left third and continues on the far side of the same wet street",
     "continuity": [
       "pink_menace_exterior"
     ],
@@ -42,20 +42,35 @@
       "no eye-level roadside view",
       "no three-quarter front portrait",
       "no car facing the camera",
+      "no car parked square in the intersection",
+      "no car stopped mid-junction",
+      "no in-lane motion",
+      "no tire spray",
+      "no rolling Beetle",
       "no rolling wheels",
       "no motion blur",
-      "no in-lane motion",
-      "no car past the crosswalk",
-      "no parked mid-intersection",
+      "no car inside the crosswalk",
+      "no nose or plow across the white bars",
+      "no dusk",
+      "no night",
       "no map-flat nadir top-down",
-      "no isolated car on empty pavement without a hold reason"
+      "no map-flat straight-down aerial",
+      "no steep three-quarter",
+      "no downtown as a single corner fragment",
+      "no empty horizon",
+      "no empty far sidewalk",
+      "no bright sunlit sky",
+      "no cast shadows",
+      "no umbrella",
+      "no empty crosswalk with no person",
+      "no hold without a visible reason"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "left_to_right",
-      "ego_lane_side": "eastbound travel lane, lower half of the two-lane street, stopped at the stop line / last downtown crosswalk edge, right curb along the bottom of the frame",
-      "ego_nose_in_frame": "the full-width nose plow on the front bull bar points toward the right edge of the frame, down the eastbound lane, short of the crosswalk",
-      "oncoming_position": "westbound half in the upper part of the street is empty",
+      "ego_lane_side": "eastbound travel lane, lower half of the two-lane street, stopped short of the stop line / last downtown crosswalk edge, right curb along the bottom of the frame",
+      "ego_nose_in_frame": "the full-width nose plow on the front bull bar points toward the right edge of the frame, down the eastbound lane, blade CLEAR of the white bars, short of the crosswalk",
+      "oncoming_position": "westbound half in the upper part of the street is empty of vehicles; brick downtown continues on the far sidewalk",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
@@ -63,8 +78,8 @@
   },
   "variation": {
     "location_type": "downtown",
-    "weather": "clear_cold",
-    "time_of_day": "morning",
+    "weather": "overcast",
+    "time_of_day": "midday",
     "tone": "procedural",
     "failure_mode": "none"
   }
