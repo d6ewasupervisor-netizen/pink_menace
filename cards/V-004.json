@@ -66,26 +66,36 @@
     "camera": "POV_OBJECT",
     "camera_is_the_lesson": true,
     "subject": "a two-head ramp-meter signal over a white stop line on a wet on-ramp, red lit, no city name",
-    "foreground": "white stop line on wet asphalt, no readable word on the signal",
+    "foreground": "white stop line across the ramp lane on wet asphalt, no readable word on the signal",
     "midground": "two-head meter head on a short pole, red aspect lit",
     "background": "overcast morning on-ramp rising away, no snow, no night",
     "read": "the signal is red over a white stop line at the foot of the on-ramp",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
     "extra_negatives": [
       "no intersection crossbar",
       "no snow",
       "no chain-up plaque",
       "no readable city names",
-      "no person in frame"
+      "no person in frame",
+      "not short of the stop bar",
+      "not past the stop bar"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "single-lane I-5 on-ramp at the meter stop line",
-      "ego_nose_in_frame": "travel continues away up the ramp; the plow is not the subject",
+      "ego_nose_in_frame": "Menace held AT the white stop bar — bumper and plow on the line, not short, not past; plow is not the lesson",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
       "lanes_this_direction": 1,
-      "ego_lane_from_left": 1
+      "ego_lane_from_left": 1,
+      "marking_anchor": {
+        "edge": "right-shoulder meter pole beside the single-lane on-ramp",
+        "marking": "painted white stop bar crossing the ramp lane at the pole",
+        "ego_relative": "the Menace is stopped AT that stop bar"
+      }
     }
   },
   "variation": {

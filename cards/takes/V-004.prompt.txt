@@ -1,6 +1,12 @@
 V-004 The Meter Is a Light — RULE, POV_OBJECT (camera_is_the_lesson), overcast morning.
-Authority: cards/V-004.json image_brief. Full situation: two-head ramp meter BESIDE a metered I-5 on-ramp, red lit, white stop line; highway mainline visible beyond. No person. No cargo. No Yuna.
-Tool aspect 3:4 (seed encodes 2:3). Attachments: none.
-Pool: take-1..take-6. Closest take-1 (meter beside wet lane, stop line, mainline beyond). Runner take-5 (separate ramp rising to freeway).
-Discard: take-2 (L-paint); take-3 (green lit); take-4 (freeway shoulder).
-Do not reuse PR #179 / Wave 3 rural-two-lane pixels.
+Authority: cards/V-004.json image_brief. presence: 0 is canonical (no Quiet).
+Extra gate: Menace AT the white ramp-meter stop bar — not short of it, not past it.
+Meter + line remain the lesson. No person. No cargo. No Yuna.
+Tool aspect 3:4 (seed encodes 2:3).
+Attachments: ref_car_exterior.jpg + ref_car_nose_plow.png (build / nose plow only).
+Pool: take-7..take-14 (this pass). Closest take-11 (Menace ON the bar; ramp /
+mainline split). Runner take-9 (same class).
+PR #181 takes 1–6 stay in the pool; do not pick them — they omit the ego.
+Discard: take-12 rear plow; take-14 short of the bar; 7/8/10 highway-not-ramp.
+Do not reuse PR #181 / #179 empty-ramp pixels as closest.
+Do not seed.
