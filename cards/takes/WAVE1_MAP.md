@@ -1,18 +1,30 @@
 # Act VI Backcountry — wave-1 map
 
 Card JSON is the sole brief. Stills from each card's MOMENT (hook/scene), not the topic label.
-**Do not seed.** Continuity: **Gracie in latched strapped carrier on every card**; **Deac only on VI-013**.
+Continuity: **Gracie in latched strapped carrier on every card**; **Deac only on VI-013**.
 
-**Muted-read pack:** [`ACT_VI_WAVE1_MUTED_READ.md`](./ACT_VI_WAVE1_MUTED_READ.md) — muted-read only; no seed until PASS.
+**Muted-read pack:** [`ACT_VI_WAVE1_MUTED_READ.md`](./ACT_VI_WAVE1_MUTED_READ.md).
 
-## Closest recommendations (provisional muted-read)
+## Seeded (Claude PASS)
+
+| Card | Live still | Source take | Notes |
+|---|---|---|---|
+| **VI-009** Look for the Others | `cards/VI-009.png` | **`VI-009-take-2.png`** | Claude PASS. Cache `?v=a77`. |
+| **VI-013** The Clipboard, Again | `cards/VI-013.png` | **`VI-013-take-2.png`** | Claude PASS on Deac; desert vs western WA flag accepted. take-1 FAIL (driver seat). take-3 FAIL (split panel). |
+
+## Not seeded (FAIL / out of scope)
+
+| Card | Status |
+|---|---|
+| **VI-004** Off the Edge | Do not seed (FAIL / not in this PASS set). |
+| **VI-011** Same Culvert | Do not seed (FAIL / not in this PASS set). |
+
+## Closest recommendations (remainder — provisional)
 
 | Card | Closest | Runner-up / bank | Residual |
 |---|---|---|---|
-| **VI-004** Off the Edge | **`VI-004-take-2.png`** | take-3; take-1 bank | Prefer 2/3 for mid-event drop (wheels already off). Take-1 more approach-ish. |
-| **VI-009** Look for the Others | **`VI-009-take-1.png`** | take-2 | Deer broadside in-lane at dusk. |
-| **VI-011** Same Culvert | **`VI-011-take-2.png`** | take-1 | Lip + culvert + all tires on pavement; nothing happening. |
-| **VI-013** The Clipboard, Again | **`VI-013-take-2.png`** | — | Passenger + clipboard. **take-1 FAIL** (driver seat). **take-3 FAIL** (split panel). |
+| **VI-004** Off the Edge | **`VI-004-take-2.png`** | take-3; take-1 bank | Prefer 2/3 for mid-event drop (wheels already off). Take-1 more approach-ish. **Do not seed.** |
+| **VI-011** Same Culvert | **`VI-011-take-2.png`** | take-1 | Lip + culvert + all tires on pavement; nothing happening. **Do not seed.** |
 
 Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes as `cards/takes/`).
 
@@ -21,9 +33,9 @@ Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes 
 | Card | Title | Camera | Takes |
 |---|---|---|---|
 | VI-004 | Off the Edge | POV_ROADSIDE_PROFILE | take-1…3 |
-| VI-009 | Look for the Others | POV_COCKPIT | take-1…2 |
+| VI-009 | Look for the Others | POV_COCKPIT | take-1…2 (**seeded take-2**) |
 | VI-011 | Same Culvert | POV_ROADSIDE_PROFILE | take-1…2 |
-| VI-013 | The Clipboard, Again | POV_COCKPIT | take-1…3 |
+| VI-013 | The Clipboard, Again | POV_COCKPIT | take-1…3 (**seeded take-2**) |
 | VI-001 | Where the Blacktop Quits | POV_COCKPIT | take-1…2 |
 | VI-012 | Crossbuck and Nothing Else | POV_COCKPIT | take-1…2 |
 | VI-005 | Wide and Slow | POV_COCKPIT | take-1…2 |
@@ -48,6 +60,7 @@ All under `cards/takes/VI-*-take-N.png`.
 
 ## TODO
 
-- Formal Claude muted-read via `ACT_VI_WAVE1_MUTED_READ.md` (PASS before seed).
-- Do **not** seed Postgres; no live `cards/VI-*.png`; no `imageUrl` bump.
+- Formal Claude muted-read for remainder cards (PASS before seed).
+- Do **not** seed VI-004 / VI-011.
+- No Act VII.
 - Inventory: **28** take PNGs under `cards/takes/`.

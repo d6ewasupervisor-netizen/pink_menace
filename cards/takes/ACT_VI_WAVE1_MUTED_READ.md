@@ -1,6 +1,6 @@
 # Act VI Backcountry — wave-1 muted-read pack
 
-**Muted-read only. Do not seed Postgres. Do not promote live `cards/VI-*.png`. No `imageUrl` bump until PASS.**
+**Muted-read.** VI-009 take-2 and VI-013 take-2 are **seeded** (Claude PASS). Do **not** seed VI-004 / VI-011. No Act VII.
 
 Map: [`WAVE1_MAP.md`](./WAVE1_MAP.md). Card JSON is the sole brief. All take paths under `cards/takes/`.
 

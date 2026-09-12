@@ -67,7 +67,8 @@
     "time_of_day": "morning",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "winner": "take-2",
+    "forced": "live still cards/takes/VI-013-take-2.png (Claude PASS on Deac; desert landscape vs western WA flag accepted). take-1 FAIL (driver seat). take-3 FAIL (split panel) — do not seed."
   },
   "decision": "He's holding it out. What do you say?",
   "options": [

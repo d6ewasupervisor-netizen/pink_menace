@@ -67,7 +67,8 @@
     "time_of_day": "dusk",
     "tone": "urgent",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "winner": "take-2",
+    "forced": "live still cards/takes/VI-009-take-2.png (Claude PASS). take-1 not seeded."
   },
   "decision": "She's in your lane. You can't stop in time.",
   "options": [
