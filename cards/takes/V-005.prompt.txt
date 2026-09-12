@@ -1,0 +1,7 @@
+V-005 Match Them Before Paint — SCENE, POV_COCKPIT, wind morning I-5 on-ramp.
+Authority: cards/V-005.json image_brief. pink_menace_interior → ref_menace_cabin.png (cabin layout only; ignore empty road in the plate). No Yuna. No cargo. No 112.0. No ref_cockpit.jpg.
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_menace_cabin.png, refs/ref_car_nose_plow.png.
+Claude geometry: still on the acceleration stretch; signaling + speed-matching alongside a dirty day-cab; gap at the merge paint before the gore.
+Pool: take-1..take-11. Closest take-9 (plow + left amber + truck left-rear + chevrons). Runner take-5 (mesh + rear truck + chevrons).
+Discard: 1–2/6/8/10 empty-highway; 3 MERGE word; 4 second Beetle; 7 oncoming grille; 11 modern VW cabin.
+Do not reuse PR #179 / Wave 3 empty-highway cockpit pixels.
