@@ -6,9 +6,9 @@ Do not seed. Do not live-DB. Plates stay in their own PRs.
 
 | Card | Plate | Closest | Runner | Discard |
 |---|---|---|---|---|
-| V-013 | `ref_ribbon_deck` take-4 | **take 5** | take 3 | take 2 (frontal / plow at lens); take 4 (wrong face, red lamps, wide pad) |
-| V-008 | `ref_ribbon_workzone` C-1 | **take 3** | take 1 | take 4 (rear bar / wrong side); take 5 (frontal plow) |
-| V-006 | `ref_ribbon_rig` take-1 | **take 3** | take 1 | take 4 (3/4 front + plow at lens); take 2 (mirrors weaker) |
+| V-013 | `ref_ribbon_deck` take-4 | **take 5 PASS** | take 3 | take 2 (frontal / plow at lens); take 4 (wrong face, red lamps, wide pad) |
+| V-008 | `ref_ribbon_workzone` C-1 | **take 3 PASS** | — | take 1 FAIL (do not seed); take 4 (rear bar / wrong side); take 5 (frontal plow) |
+| V-006 | `ref_ribbon_rig` take-1 | **take 3 PASS** | take 1 | take 4 (3/4 front + plow at lens); take 2 (mirrors weaker) |
 
 ## Residuals already visible
 
@@ -20,8 +20,10 @@ Do not seed. Do not live-DB. Plates stay in their own PRs.
 
 Holds: no legible route/exit number; no snow/ice/chains; no sun/warm cast; wet surface; no current-model hero fleet; no posterized flat-color; MUTCD orange not desaturated; left workzone gantry panel blank.
 
-## Shot / lesson conflicts (text not rewritten)
+## Lessons remapped (2026-09-12, Tyson)
 
-- V-013 lesson remains Hollis / move-over. Picture is a shoulder stop. Hollis is not in frame.
-- V-008 lesson remains posted ramp speed. Picture is a work-zone taper.
-- V-006 lesson remains keep-right after a pass. Picture is a semi alongside.
+Card JSON is still the sole brief. Text now matches the Ribbon shots. Do not seed. Do not live-DB.
+
+- **V-013** — EXACT Claude JSON. Brad PASS promote take-5; take-3 banked. Master `cards/V-013.png`.
+- **V-008** — EXACT Claude JSON. Brad PASS promote take-3 (6x left-gantry weathered blank, CLEAR TO SEED). take-1 FAIL. Master `cards/V-008.png`.
+- **V-006** — EXACT Claude JSON. Brad PASS promote take-3; take-1 banked. Master `cards/V-006.png`.

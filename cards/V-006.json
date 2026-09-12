@@ -4,60 +4,58 @@
   "zone": "The Ribbon",
   "driver": "ali",
   "card_type": "hazard",
-  "title": "Keep Right Except to Pass",
-  "hook": "The left is empty. You already passed.",
-  "scene": "Rain, midday, I-90 east, three lanes this way. You already passed a slow box. You are still in the left. The middle and the right are empty wet asphalt. A faster sedan is a smear in the inside glass, closing. The city habit is to own the left once you took it. The highway rule is keep right except to pass. The pass is over. The left is not a home. Nobody else is in the Menace.",
-  "decision": "The pass is done. Which lane do you keep?",
+  "title": "Beside the Trailer",
+  "hook": "A rig sits level with your door.",
+  "scene": "A rig comes up on your left and sits there, level with your door. You can't find the driver's face in either mirror.",
+  "decision": "You can't find his face in either mirror. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Stay in the left \u2014 through traffic can live here after a pass",
+      "text": "Hold your speed and stay alongside",
       "correct": false,
-      "result": "You camp the passing lane. The sedan stands on it behind you. You became the next slow in the left. Keep-right did not expire because you passed once.",
+      "result": "You hold the door. He still cannot see you in either mirror. The trailer walks with you. If he needs your lane he will take it. You stayed in the blind spot.",
       "state_delta": {
-        "noise": 3,
-        "time_cost": 8
+        "noise": 1,
+        "light": 0,
+        "yaw": 1,
+        "time_cost": 1,
+        "passenger_stress": 1
       }
     },
     {
       "id": "b",
-      "text": "Signal right, recover to the right travel lane, leave the left for passing",
+      "text": "Ease off and let it get clear",
       "correct": true,
-      "result": "Amber talks. You take the empty right and sit. The sedan uses the left and is gone. The pass was a tool. The right is the lane you keep.",
+      "result": "You lift. The rig walks forward until both door mirrors can own a Beetle. You can find his face again. You let it pass. Cheaper on every axis than holding or punching it.",
       "state_delta": {
-        "noise": -1,
-        "time_cost": 5
+        "noise": 0,
+        "light": 0,
+        "yaw": 0,
+        "time_cost": 1,
+        "passenger_stress": 0
       }
     },
     {
       "id": "c",
-      "text": "Drift into the middle and sit between both so nobody can pass you",
+      "text": "Accelerate to clear the front of it",
       "correct": false,
-      "result": "You occupy the skip-dash. The sedan has no legal left. Two lanes become one because you wanted a buffer. The right was already empty.",
+      "result": "You stay in the blind spot longer, only faster. The Beetle walks rough in his spray. If he drifts you meet the trailer at speed. Ease off was the cheaper clear.",
       "state_delta": {
         "noise": 3,
-        "yaw": 1,
-        "time_cost": 7
-      }
-    },
-    {
-      "id": "d",
-      "text": "Slow in the left so the sedan goes around you on the right",
-      "correct": false,
-      "result": "You dump speed in the passing lane. He takes the right around a Beetle that should have recovered. You taught the highway to pass you on the junk side.",
-      "state_delta": {
-        "noise": 4,
-        "time_cost": 9
+        "light": 0,
+        "yaw": 2,
+        "time_cost": 1,
+        "passenger_stress": 1
       }
     }
   ],
-  "debrief": "Keep right except to pass. You gave the left back after the box.",
+  "debrief": "Stay out of a large truck's blind spots. If you can't see the driver's mirrors, the driver can't see you \u2014 ease off and let it pass.",
   "timeout_option_id": "a",
   "timeout_ms": 12000,
   "source": {
     "psdp_skill": "Skill eleven: highway driving \u2013 part one",
-    "dol_section": "4.10 Traffic laws",
-    "teaching_target": "REVIEW of 4.10 Traffic laws. Highway keep-right except to pass. Recover right after the pass. Not a 5.3 merge/gap card and not V-005 copy."
+    "dol_section": "4.4 Sharing with large vehicles",
+    "teaching_target": "Stay out of a large truck's blind spots. If you can't see the driver's mirrors, ease off and let it pass."
   },
   "cast": [
     "ali"
@@ -124,6 +122,7 @@
     "time_of_day": "midday",
     "tone": "urgent",
     "failure_mode": "inexperience",
-    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief remapped to semi_alongside_ribbon / ref_ribbon_rig. Lesson text (keep-right after pass) unchanged \u2014 shot/lesson conflict noted in PR. Do not seed. Do not live-DB."
+    "winner": "take-3",
+    "forced": "live still cards/takes/V-006-take-3.png (Brad PASS promote 2026-09-12). Master cards/V-006.png. Runner take-1 banked. Lesson copy EXACT from Claude Skill 11 JSON. cargo_rough mapped to passenger_stress (a1/b0/c1). image_brief locked on semi_alongside_ribbon. Do not live-DB."
   }
 }
