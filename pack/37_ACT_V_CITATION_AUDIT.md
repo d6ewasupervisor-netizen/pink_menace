@@ -11,11 +11,11 @@ Screenshot of the numbered list cut off mid-item 3. Item 4+ inferred from the sa
 | 1 | `4.11 Traffic light signals (Freeway ramp meters)` exactly (TOC sub-entry, not its own section) | In `pack/07`. V-004 cites it. Validator requires the exact string. |
 | 2 | V-009 `dol_section: "n/a"` — do not stretch a parent; DOL has no Exiting section | V-009 is n/a. Validator accepts `null` or `"n/a"`. On this stack V-009 still *teaches* PSDP p2 steering (no DOL heading — same class as exiting). Exiting copy stays V-007 (4.12 REVIEW) + V-008 (5.1 conditions). No minted Exiting heading. |
 | 3 | Three `cargo_rough` band thresholds | **CLEAN 0–3 · SCUFFED 4–8 · THINNED 9+**. Reuses presence T0/T1 edges. End-beat degrade only — not an instant fail. |
-| 4 (flipped) | `daylight_fail` | Clock-out (`time_cost >= 130`) **does not end the run**. Forces **V-013 dusk/hazard** (harder, still playable). Dusk grade-pass over the deck plate when that card is dusk-forced. Ending the run would collapse two systems into one cliff (old insulin-cooler binary). |
-| both set | Priority | Dusk-force V-013 **and** `cargo_rough` still bands the existing end beat. No hard fail. Do not collapse the two systems. |
+| 4 (flipped) | `daylight_fail` | Clock-out (`time_cost >= 130`) **does not end the run**. Forces V-013 **`dusk_state: overrun`** (hazard; Ribbon in the dark; feeds `cargo_rough`). Scheduled state is on-time dusk. Same grade-pass plate. Ending the run would collapse two systems into one cliff (old insulin-cooler binary). |
+| both set | Priority | Overrun dusk on V-013 **and** `cargo_rough` still bands the existing end beat. No fail-beyond-THINNED. No hard fail. |
 | lock line | `presence` canonical + `location_type: highway` | All thirteen. Validator requires both. |
 
-Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) and `source/driver-guide.pdf` (TOC PDF 11 / 13; bodies as cited). Stack continues PR #141. Yuna radio voice: `pack/36_YUNA_RADIO_VOICE.md`. Beat skeleton: `pack/34_ACT_V.md`. Research gates: `pack/35_ACT_V_RESEARCH.md`. Quiet placement (Doc 29): herd stays Act VII; all thirteen stubs keep `presence: 0` and no Quiet in `image_brief`.
+Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) and `source/driver-guide.pdf` (TOC PDF 11 / 13; bodies as cited). Stack continues PR #141. Yuna radio voice: `pack/36_YUNA_RADIO_VOICE.md`. Beat skeleton: `pack/34_ACT_V.md`. Research gates: `pack/35_ACT_V_RESEARCH.md`. Muted-read copy: `pack/38_ACT_V_MUTED_READ.md`. Quiet placement (Doc 29): herd stays Act VII; all thirteen stubs keep `presence: 0` and no Quiet in `image_brief`.
 
 `image_brief` on each card JSON stays the sole brief authority. This pass does not rewrite briefs.
 
@@ -49,7 +49,7 @@ Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) 
 | V-010 | eleven p2 | `n/a` | **NEW** / PSDP alone | One lane at a time. No DOL lane-change heading. Was a false 5.3. |
 | V-011 | eleven p2 | `5.2 Space` | NEW pairing | Move left for a merger. Not zipper. Yuna radio beat. |
 | V-012 | eleven p2 | `5.4 Time (Count seconds)` | REVIEW | Three-second at highway speed (II-012 already spent the parent). |
-| V-013 | eleven p2 | `5.2 Space` | REVIEW | Tailgater / move over. Default afternoon. `dusk_force` if `daylight_fail`. Hollis once. |
+| V-013 | eleven p2 | `5.2 Space` | REVIEW | Tailgater / move over. Two dusk states: `scheduled` (on time) / `overrun` (`daylight_fail`). Hollis once. |
 | — | existing end beat | n/a | engine | `deliveryBeat` / `radioCheckin`. Banded by `cargo_rough`. Not V-014. Not a `daylight_fail` cliff. |
 
 `5.3` parent is cited **three times on one heading** (one NEW + two REVIEW), not as two invented children. The second **heading** Claude named is the zipper **child**, which is locked on the allowlist and not spent.

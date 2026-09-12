@@ -1,8 +1,10 @@
 "use strict";
 
-// Act V degrade — not a hard fail. Nothing on the Ribbon is instantly fatal.
-// cargo_rough bands the end-of-run beat. daylight_fail forces V-013 dusk/hazard.
-// Both may be set. They stack. Do not collapse them into one cliff.
+// Act V degrade — not a hard fail. Prefer thin-net.
+// cargo_rough bands the end-of-run beat (CLEAN / SCUFFED / THINNED).
+// No fail-beyond-THINNED exists. Do not invent one.
+// daylight_fail forces V-013 into the overrun dusk/hazard state. It does not end the run.
+// Both flags may be set. They stack.
 
 const CARGO_ROUGH = {
   CLEAN_MAX: 3,
@@ -10,6 +12,11 @@ const CARGO_ROUGH = {
 };
 
 const DAYLIGHT_FAIL_AT = 130; // same budget as COLD_PACK — clock out, still playable
+
+const V013_DUSK = {
+  SCHEDULED: "scheduled",
+  OVERRUN: "overrun",
+};
 
 function num(v) {
   const n = Number(v);
@@ -47,7 +54,13 @@ function radioChannel(state) {
 
 function applyV013DuskForce(card, state) {
   if (!card || card.card_id !== "V-013") return card;
-  if (!daylightFail(state)) return card;
+  if (!daylightFail(state)) {
+    const scheduled = { ...card };
+    scheduled.dusk_state = V013_DUSK.SCHEDULED;
+    scheduled.dusk_forced = false;
+    scheduled.time_of_day = scheduled.time_of_day || "dusk";
+    return scheduled;
+  }
   const force = card.dusk_force || {};
   const next = { ...card };
   next.time_of_day = force.time_of_day || "dusk";
@@ -55,22 +68,39 @@ function applyV013DuskForce(card, state) {
   next.card_type = force.card_type || "hazard";
   next.timeout_option_id = force.timeout_option_id || next.timeout_option_id || "b";
   next.timeout_ms = Number(force.timeout_ms) || next.timeout_ms || 10000;
+  next.dusk_state = V013_DUSK.OVERRUN;
   next.dusk_forced = true;
   if (force.scene) next.scene = force.scene;
-  else if (next.scene && !/^Dusk\b/i.test(next.scene)) {
-    next.scene = next.scene.replace(/^(Overcast afternoon|Afternoon)/i, "Dusk");
-  }
   if (force.hook) next.hook = force.hook;
+  if (force.decision) next.decision = force.decision;
+  if (force.debrief) next.debrief = force.debrief;
+  return next;
+}
+
+function mergeV013OverrunDelta(delta, extra, state, optionId) {
+  if (!daylightFail(state)) return delta || {};
+  const force = (extra && extra.dusk_force) || {};
+  const next = { ...(delta || {}) };
+  const bump = num(force.cargo_rough);
+  if (bump) next.cargo_rough = num(next.cargo_rough) + bump;
+  const per = force.option_deltas && optionId && force.option_deltas[optionId];
+  if (per && typeof per === "object") {
+    for (const [k, v] of Object.entries(per)) {
+      if (typeof v === "number") next[k] = num(next[k]) + v;
+    }
+  }
   return next;
 }
 
 module.exports = {
   CARGO_ROUGH,
   DAYLIGHT_FAIL_AT,
+  V013_DUSK,
   cargoRoughFromState,
   cargoRoughBand,
   daylightFail,
   stampDaylightFail,
   radioChannel,
   applyV013DuskForce,
+  mergeV013OverrunDelta,
 };

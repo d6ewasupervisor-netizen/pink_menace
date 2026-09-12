@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const { query, pool } = require("./db");
 const { publicFear } = require("./presence");
 const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET, timeCostOf } = require("./manifest");
-const { stampDaylightFail, applyV013DuskForce, daylightFail } = require("./cargo-rough");
+const { stampDaylightFail, applyV013DuskForce, mergeV013OverrunDelta, daylightFail } = require("./cargo-rough");
 
 async function purgeExpiredPending() {
   await query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
@@ -960,6 +960,7 @@ async function publicCard(cardId) {
     timeout_option_id: extra.timeout_option_id || null,
     timeout_ms: Number(extra.timeout_ms) || 24000,
     dusk_force: extra.dusk_force || null,
+    dusk_state: extra.dusk_state || null,
     show_cold: card.act !== "I",
     suppress_presence: QUIET_IN_FRAME.has(card.card_id),
     lot_states: extra.lot_states || null,
@@ -1330,6 +1331,7 @@ module.exports = {
   withActCargo,
   persistActCargo,
   cargoDead,
+  mergeV013OverrunDelta,
   cargoFailDispatch,
   checkpointKeep,
   checkpointStartSeq,

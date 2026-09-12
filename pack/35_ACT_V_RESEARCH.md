@@ -4,9 +4,11 @@ Verbatim pull for Act V text. Do not invent headings. Do not mint Skill fourteen
 
 Citation audit (Claude settles, open vs locked): `pack/37_ACT_V_CITATION_AUDIT.md`.
 
-Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_fail` forces V-013 dusk — they stack): `pack/36_YUNA_RADIO_VOICE.md`.
+Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_fail` forces V-013 overrun dusk — they stack): `pack/36_YUNA_RADIO_VOICE.md`.
 
-**Locks (do not contradict):** Ali alone on the Ribbon; Yuna radio-only; load = relay hardware for **Tower 4**; `presence` canonical; 13 cards + existing end-of-run beat; cargo = thin-net (late still delivers — not a hard fail); `daylight_fail` dusk-forces V-013 (does not end the run); no truck tire/axle framing; no Acts I–III replay; chains / Snoqualmie = Act VII.
+Muted-read packet: `pack/38_ACT_V_MUTED_READ.md`.
+
+**Locks (do not contradict):** Ali alone on the Ribbon; Yuna radio-only; load = relay hardware for **Tower 4**; `presence` canonical; 13 cards + existing end-of-run beat; cargo = thin-net (late still delivers — not a hard fail); V-013 has two dusk states (`scheduled` / `overrun`); `daylight_fail` forces overrun (does not end the run); no fail-beyond-THINNED; no truck tire/axle framing; no Acts I–III replay; chains / Snoqualmie = Act VII.
 
 ---
 

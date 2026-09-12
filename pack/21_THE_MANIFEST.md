@@ -88,4 +88,4 @@ FOR            Tower 4 — valley floor
 
 Fail dispatch and mid-run radio on Act V use the same kit / Tower 4, never Delridge or June. **Thin-net:** late still delivers — do not write “the kit sat” / “tomorrow.” Radio voice is **Yuna**. No tow. No new `load_state`.
 
-Act V Yuna radio voice — four appearances, `cargo_rough` bands CLEAN / SCUFFED / THINNED, `daylight_fail` dusk-force on V-013 (they stack; neither ends the run) — is `pack/36_YUNA_RADIO_VOICE.md`. She never mentions cargo condition and never grades the driving. The thinned channel is quietest, not harshest. No line blames Yuna.
+Act V Yuna radio voice — four appearances, `cargo_rough` bands CLEAN / SCUFFED / THINNED, `daylight_fail` forces V-013 overrun dusk (they stack; neither ends the run; no fail-beyond-THINNED) — is `pack/36_YUNA_RADIO_VOICE.md`. She never mentions cargo condition and never grades the driving. The thinned channel is quietest, not harshest. No line blames Yuna.
