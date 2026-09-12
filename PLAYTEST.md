@@ -4,9 +4,9 @@
 
 Parents: [https://parents.tactag.app](https://parents.tactag.app).
 
-Image cache `?v=a71`. Railway production is on this ship branch until #195 merges to `main`.
+Image cache `?v=a74`. Railway production is on this ship branch until #195 merges to `main`.
 
-**Act V is complete (all 13).** V-009 take-31 is live (Claude PASS). Take-37 FAIL — not seeded.
+**Act V is complete (all 13).** V-009 take-37 is live (Claude overflow PASS, eyes forward). Take-31 FAIL — not used.
 
 No new art was generated for this ship. Stills are the already-seeded live Postgres plates.
 
@@ -60,7 +60,7 @@ Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 | V-006 | Keep Right Except to Pass | hazard | take-47 · #177 | MATCH |
 | V-007 | Slow On the Ramp | rule | take-18 · #185 | MATCH |
 | V-008 | Posted Before the Bend | scene | take-7 · #180 | MATCH |
-| V-009 | Small Hands at Speed | scene | take-31 · #196 (PR #192 PASS) | MATCH |
+| V-009 | Small Hands at Speed | scene | take-37 · #197 (PR #192 PASS; take-31 not used) | MATCH |
 | V-010 | One Lane, Then Sit | rule | take-10 · #194 | MATCH |
 | V-011 | Zipper at the Closure | hazard | take-7 · #159 | MATCH |
 | V-012 | Three Seconds Here Too | rule | take-20 · #194 | MATCH |
@@ -68,7 +68,7 @@ Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 
 ### V-009 status
 
-**Live.** Claude overflow PASS on PR #192 take-31 (hands readable). Take-37 FAIL (hands smudged by door frame) — not seeded. File-seed + live DB: [PR #196](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/196).
+**Live.** Claude overflow (`890f91af` / `d748b5d7`) authoritative pick is **take-37 PASS** (eyes forward). **take-31 FAIL** (head turned to camera / eyes off road) — not used. File-seed + live DB: [PR #197](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/197). PR #196 take-31 seed is superseded.
 
 ## Left unmerged (on purpose)
 

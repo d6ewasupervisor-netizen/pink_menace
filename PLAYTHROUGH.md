@@ -58,7 +58,7 @@ Dossiers are continue-only (no quiz options). That is intended.
 | V-006 | Keep Right Except to Pass | hazard | take 47 · #177 |
 | V-007 | Slow On the Ramp | rule | take 18 · #185 |
 | V-008 | Posted Before the Bend | scene | take 7 · #180 |
-| V-009 | Small Hands at Speed | scene | take 31 · #196 (PR #192 PASS; take-37 FAIL) |
+| V-009 | Small Hands at Speed | scene | take 37 · #197 (PR #192 PASS; take-31 not used) |
 | V-010 | One Lane, Then Sit | rule | take 10 · #194 |
 | V-011 | Zipper at the Closure | hazard | take 7 · #159 |
 | V-012 | Three Seconds Here Too | rule | take 20 · #194 |
