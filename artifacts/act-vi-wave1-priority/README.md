@@ -1,10 +1,12 @@
-# Act VI muted-read — VI-011 GATE ONLY (FROZEN)
+# Act VI priority (post–VI-011 gate clear)
 
-**Claude standing by. Do not seed. No mass regen until VI-011 muted-read clears.**
+**Do not seed from this agent.** Brad seeds after muted-read.
 
-| Role | Path |
-|---|---|
-| **Closest** | `VI-011-take-13.png` → also `cards/takes/VI-011-take-13.png` |
-| **Runner** | `VI-011-take-12.png` → also `cards/takes/VI-011-take-12.png` |
+| Card | Closest candidate | Runner | Note |
+|---|---|---|---|
+| VI-011 | `VI-011-take-12.png` | — | **PASS** — already seeding; do not regen |
+| VI-013 | `VI-013-take-5.png` | take-6 | LHD Ali hands left + Deac; take-6 has 112 risk |
+| VI-009 | `VI-009-take-5.png` | take-4 | deer + full-grid + carrier |
+| VI-012 | `VI-012-take-5.png` | take-4 | full regen; take-3 REF only |
 
-PR: https://github.com/d6ewasupervisor-netizen/pink_menace/pull/210
+Remainder batch: `artifacts/act-vi-wave1-remainder/`
