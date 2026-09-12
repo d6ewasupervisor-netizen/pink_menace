@@ -4,11 +4,9 @@
 
 Parents: [https://parents.tactag.app](https://parents.tactag.app).
 
-Railway deploys `pink_menace` from `main`. Merge this ship PR to update the live host. Image cache `?v=a70`.
+Image cache `?v=a71`. Railway production is on this ship branch until #195 merges to `main`.
 
-**Verified this revision:** `audit-stills --act IV` → 21/21 MATCH. `audit-stills --act V` → 12/12 MATCH (V-009 has no PNG and no live row). Act-gate: IV and V open, II still locked. Rolled-back `startActFrom` lands on IV-002 / V-001 with stills.
-
-Both acts are unlocked without an I–III replay. Sequence skips unsown numbers.
+**Act V is complete (all 13).** V-009 take-31 is live (Claude PASS). Take-37 FAIL — not seeded.
 
 No new art was generated for this ship. Stills are the already-seeded live Postgres plates.
 
@@ -16,8 +14,7 @@ No new art was generated for this ship. Stills are the already-seeded live Postg
 
 1. Log in as the student on [ali.tactag.app](https://ali.tactag.app).
 2. On home, **Act IV · The Core** and **Act V · The Ribbon** both show Play.
-3. Act IV starts on **IV-002**. Act V starts on **V-001**.
-4. **V-009 is not in the run.** It is not seeded. The sequence jumps V-008 → V-010.
+3. Act IV starts on **IV-002**. Act V starts on **V-001** and runs V-001 through V-013.
 
 ## Act IV — The Core (21 live cards)
 
@@ -49,7 +46,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 
 Unfinished / unseeded: IV-001 (ride assets only), IV-014, IV-019–025.
 
-## Act V — The Ribbon (12 live cards)
+## Act V — The Ribbon (13 live cards, complete)
 
 Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 
@@ -63,7 +60,7 @@ Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 | V-006 | Keep Right Except to Pass | hazard | take-47 · #177 | MATCH |
 | V-007 | Slow On the Ramp | rule | take-18 · #185 | MATCH |
 | V-008 | Posted Before the Bend | scene | take-7 · #180 | MATCH |
-| **V-009** | Small Hands at Speed | — | **NOT LIVE** | **MISSING** |
+| V-009 | Small Hands at Speed | scene | take-31 · #196 (PR #192 PASS) | MATCH |
 | V-010 | One Lane, Then Sit | rule | take-10 · #194 | MATCH |
 | V-011 | Zipper at the Closure | hazard | take-7 · #159 | MATCH |
 | V-012 | Three Seconds Here Too | rule | take-20 · #194 | MATCH |
@@ -71,7 +68,7 @@ Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 
 ### V-009 status
 
-**Not seeded. Do not invent a still.** Hands-on-wheel regen is [PR #192](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/192), awaiting Claude PASS. The run skips V-009. Card JSON is in the repo for the 13-card text set only — no `cards/V-009.png`, no live row.
+**Live.** Claude overflow PASS on PR #192 take-31 (hands readable). Take-37 FAIL (hands smudged by door frame) — not seeded. File-seed + live DB: [PR #196](https://github.com/d6ewasupervisor-netizen/pink_menace/pull/196).
 
 ## Left unmerged (on purpose)
 
@@ -81,7 +78,6 @@ DNM / unfinished regen — do not land:
 - #189 V-012 take-6 (superseded by take-20)
 - #193 duplicate V-010/V-012 seed
 - #165 / #171 other DNM seeds
-- #192 V-009 hands regen (no PASS yet)
 - IV-026 older high-oblique waves (#125, #128) — live is take-230
 - #130 parallel 018/010/029 regen leftovers
 - #135 IV-009 take-12 — live stayed on take-11 after #146
@@ -90,6 +86,5 @@ DNM / unfinished regen — do not land:
 
 - IV-007 composition drift vs later MUTCD regen (#114). Live still is take-30.
 - IV-004 is the supplied parked-gap plate, not a later plow regen.
-- V-009 hole in the Ribbon sequence.
 
 Do not reseed live Postgres on merge unless a play-blocker appears. Stills are already in the DB.
