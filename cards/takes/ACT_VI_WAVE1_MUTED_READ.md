@@ -46,7 +46,7 @@ Regen pack: `artifacts/act-vi-004-011-regen/`.
 | VI-010 | Over the Top | `VI-010-take-1.png` `VI-010-take-2.png` |
 | VI-012 | Crossbuck and Nothing Else | `VI-012-take-1.png` `VI-012-take-2.png` |
 
-**Inventory:** 28 take PNGs under `cards/takes/VI-*-take-N.png` (priority 10 + remainder 18).
+**Inventory:** wave-1 takes plus VI-004/011 in-car regen (`VI-004-take-4…14`, `VI-011-take-3…7`). See `artifacts/act-vi-004-011-regen/`.
 
 ---
 

@@ -50,4 +50,4 @@ All under `cards/takes/VI-*-take-N.png`.
 
 - Formal Claude muted-read via `ACT_VI_WAVE1_MUTED_READ.md` (PASS before seed).
 - Do **not** seed Postgres; no live `cards/VI-*.png`; no `imageUrl` bump.
-- Inventory: **28** take PNGs under `cards/takes/`.
+- Inventory: wave-1 base + VI-004/011 in-car regen takes under `cards/takes/` (see `artifacts/act-vi-004-011-regen/`).
