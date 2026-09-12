@@ -11,8 +11,13 @@ Take 10 (runner-up) rejected — nacelle lost behind the wheel rim. Not promoted
 
 `pink_menace_interior` attaches `ref_menace_cabin.png` only.
 
-`ref_cockpit.jpg` is the poisoned interior (desert GPS tablet, three-gauge
-gibberish, VW-ish hub). Out of the compile pool. Do not attach.
+`ref_cockpit.jpg` is the poisoned interior (desert GPS tablet, digital
+112.0-class gauge, VW-ish hub). **Locked out** of every Menace interior
+compile. Do not attach. Do not match.
+
+Tyson deferred a new plate pick (skipped). Claude 12 Sep 2026: keep this
+file as cabin authority; ban 112.0-class digital readouts; cats follow the
+Mya studio plate only (no unauthorized pink collar).
 
 ## Pinned cabin (card JSON still wins on a named needle)
 

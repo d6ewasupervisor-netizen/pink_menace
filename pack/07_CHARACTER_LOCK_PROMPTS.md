@@ -117,4 +117,6 @@ Encore adjacent: automatic, two pedals, no clutch (`ref_encore_cockpit.png` Y4 b
 
 > Cinematic photoreal still. 35mm full-frame equivalent, f/2.8, cabin sharp. Overcast Pacific Northwest daylight through the windshield — soft, diffuse, low-contrast, gray-blue. Desaturated palette; the only saturated color is cracked faded pink. Camera inside the Baja Beetle, slightly offset over an unbranded worn black leather wheel (plain hub, no logo, no VW roundel), looking forward. A flat painted-metal dash of the period — one continuous Type 1 shelf, no recess, no tablet bay. A single instrument nacelle, angled away from the camera so no glyphs render. A manual floor shifter with a black ball knob on the tunnel. Three pedals visible: clutch, brake, accelerator. Coarse Menace panel mesh — thick welded panels, large openings — over intact glass; not a fine full-windshield grid. Wet empty street beyond the panels. Empty plate: no person, no cats. No tablet, no touchscreen, no infotainment — the dash has nowhere to put one.
 >
-> *[negative block + MENACE_CABIN_NEGATIVES]* · Aspect ratio 2:3 / tool 3:4
+> *[negative block + MENACE_CABIN_NEGATIVES + CAT_PLATE_NEGATIVES]* · Aspect ratio 2:3 / tool 3:4
+>
+> Locked out: `ref_cockpit.jpg`. Ban digital 112.0-class gauge readouts. Cats follow studio plates only — Mya’s plate has no collar.

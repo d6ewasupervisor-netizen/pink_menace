@@ -194,8 +194,10 @@ specifically to fight this and you must never omit it.
 
 `refs/ref_menace_cabin.png` is the live `pink_menace_interior` lock. Claude
 muted-read PASS 2026-09-11 on PR #73 candidate take 16. Stop attaching
-`ref_cockpit.jpg` (poisoned tablet / gibberish cluster / VW-ish hub). That
-file is banned from the compile pool.
+`ref_cockpit.jpg` (poisoned tablet / 112.0-class digital gauge / VW-ish hub).
+That file is **locked out** of every Menace interior compile (hard deny +
+`banned` in `pack/09_REF_MAP.json`). Tyson deferred a new plate pick; keep
+take 16.
 
 Ali `pink_menace_interior` / `POV_COCKPIT` / `POV_MIRROR_REAR` compiles attach
 `ref_menace_cabin.png` and MUST state the **positive** cabin (so a screen
@@ -205,10 +207,16 @@ Positive (`MENACE_CABIN_BUILD`): the live PINK MENACE INTERIOR string above.
 
 Negatives (`MENACE_CABIN_NEGATIVES`): no touchscreen / tablet / infotainment /
 dash cutout / VW roundel / three-gauge modern cluster / invented numerals /
-fine full-windshield flyscreen / two-pedal automatic box.
+**no digital 112.0-class gauge readout** / fine full-windshield flyscreen /
+two-pedal automatic box / never attach `ref_cockpit.jpg`.
 
 **Gauge treatment is pinned:** prefer nacelle angled away (no glyphs).
-Alternate: one period-correct dial. Card JSON wins when it names the needle.
+Ban digital 112.0-class speedometers / LED / LCD clusters. Alternate: one
+period-correct analog dial. Card JSON wins when it names a needle.
+
+**Cat collar:** Mya follows `ref_mya.jpg` only (no collar on that plate).
+Never put a pink / cranberry pet collar on a cat. Ali’s faded pink hoodie
+collar is not a cat collar.
 
 **Shifter is pinned:** manual, floor, ball knob, `pedal_count: 3`.
 

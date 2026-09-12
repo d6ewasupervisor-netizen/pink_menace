@@ -142,7 +142,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 - `ref_car_exterior.jpg` — **silhouette and build only.** The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
 - `ref_car_nose_plow.png` — **authority full-width nose plow** (PR #120 take 8, Claude muted-read PASS overflow d748b5d7). Standard full-width nose-mounted bull-bar blade; clean flanks. Take-2 FAIL and the old take-5 plate (PR #69) are out of the reference pool. `diag_nose_plow_front.png` is diagnostic only — do not attach. IV-004 takes 177 / 179 unchanged.
 - `ref_menace_cabin.png` — **interior layout and mesh only** (take 16, human-verified). Flat period dash, single nacelle, unbranded wheel, manual floor shifter, three pedals. Same warning: not the lighting. Never attach `ref_cockpit.jpg` (poisoned tablet / gibberish cluster).
-- `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact.
+- `ref_gracie.jpg`, `ref_mya.jpg` — cat markings, exact. Mya’s plate has no collar; do not invent a pink pet collar.
 - `ref_quiet.png` — Quiet register lock (A3 take 3). Attach on every Quiet compile. Posture and stillness, not damage. They never fill the frame. Plates: `ref_quiet_a1.png`–`ref_quiet_a5.png`.
 - `ref_dutch_reach*.png` — instructional diagram only, for the door-zone card family.
 - `ref_hand_signals.png` — three-panel left-arm plate (left / stop / right). Limb geometry is not improvised.
@@ -152,7 +152,7 @@ One accent per frame. If two drivers appear in the same shot, the accent belongs
 
 | Token | Framing | Use for |
 |---|---|---|
-| `POV_COCKPIT` | Over the wheel, gauges bottom-left, mesh screen top, road through the grid | Decision moments while moving; hazard ahead or oncoming |
+| `POV_COCKPIT` | Over the wheel, mesh screen top, road through the grid. Menace: attach `ref_menace_cabin.png`; nacelle angled away; **no digital 112.0-class gauge**. Never `ref_cockpit.jpg`. | Decision moments while moving; hazard ahead or oncoming |
 | `POV_MIRROR_REAR` | Interior rearview, wide, upper frame. Glass shows the road **behind**. Windshield dark, defocused, or cropped out. | Following distance, tailgating, anything about a vehicle **behind** — **only on a vehicle that has a rear window.** Ali's Beetle. **Illegal on Deac / the Ledger.** Prefer this over the door mirror when the ego can actually see through it. |
 | `POV_MIRROR_DOOR` | The door mirror on the hazard's side, subject in the glass, vehicle flank in foreground | Blind zones, lane changes, backing sightlines. **On the Ledger this is the only rearward camera.** Left door for a hazard behind or left; right door for a hazard on the curb side. |
 | `POV_TOPDOWN_PHOTO` | Photoreal aerial | Establishing shots only — **never** a lane rule |
