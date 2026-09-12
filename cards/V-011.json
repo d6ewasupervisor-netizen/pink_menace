@@ -4,62 +4,62 @@
   "zone": "The Ribbon",
   "driver": "ali",
   "card_type": "hazard",
-  "title": "Give the Ramp a Lane",
-  "hook": "A car is coming up the ramp. You have a left.",
-  "scene": "Daylight rain, morning, I-90 east, three lanes. You are in the right. In the right door glass a primer sedan is running the on-ramp, already blinking, already matching. The middle lane beside you is empty wet asphalt. If you hold the right you pinch him into the gore. If you take two lanes to be generous you write a late on someone in the left. One lane is the gift. The handheld clicks once — Yuna, short, not a lecture.",
-  "decision": "He is merging from the right. The middle is empty. What do you do?",
+  "title": "Zipper at the Closure",
+  "hook": "The right dies. Both lanes still run.",
+  "scene": "Daylight rain, morning, I-90 east. A work zone ate the right in a half mile. Both lanes still run. Cones pinch toward the closure paint. The early-move habit wants the left now, to be polite, to be first. The zipper wants both lanes used until the teeth, then one-for-one. This is not a courtesy slide and it is not two lanes in one sweep. The handheld clicks once — Yuna, short, not a lecture.",
+  "decision": "The right lane ends ahead. When do you zipper?",
   "options": [
     {
       "id": "a",
-      "text": "Hold the right and make him stop on the ramp until you pass",
-      "correct": false,
-      "result": "You pin him at the gore. He plants it. You taught the ramp that a Beetle does not share. His start from zero is now your problem a second later.",
+      "text": "Use the right until the closure paint, then take turns with the left",
+      "correct": true,
+      "result": "You use the lane until it ends. At the teeth you take one, give one. The stack is shorter than the polite line that started a mile early. She clicks once and stays quiet.",
       "state_delta": {
-        "noise": 3,
-        "time_cost": 8
-      }
-    },
-    {
-      "id": "b",
-      "text": "Brake hard in the right so he can have your exact paint",
-      "correct": false,
-      "result": "You dump speed on a wet highway. The stack behind you lights. You spent their brakes to give him a lane you already had to the left.",
-      "state_delta": {
-        "noise": 4,
-        "light": 2,
-        "time_cost": 7
-      }
-    },
-    {
-      "id": "c",
-      "text": "Cut to the leftmost in one sweep to give him the whole right half",
-      "correct": false,
-      "result": "You take two. A van in the left had no sentence. One empty lane was enough. You spent a second gap to look kind.",
-      "state_delta": {
-        "noise": 3,
-        "yaw": 1,
+        "noise": -1,
         "time_cost": 6
       }
     },
     {
-      "id": "d",
-      "text": "Signal left, take the empty middle, leave him the right",
-      "correct": true,
-      "result": "One lane. The sedan takes the right behind you. The left stays empty. She clicks once and stays quiet.",
+      "id": "b",
+      "text": "Move left now so you are not the person who cuts at the end",
+      "correct": false,
+      "result": "You join the polite line. The right stays empty and angry. Someone late uses it and you resent them for doing the zipper. Early courtesy built the longer stack.",
       "state_delta": {
-        "noise": -1,
-        "time_cost": 4
+        "noise": 2,
+        "time_cost": 10
+      }
+    },
+    {
+      "id": "c",
+      "text": "Straddle both lanes until the last cone so nobody can beat you",
+      "correct": false,
+      "result": "You occupy two lanes in a highway work zone. Nobody zippers. You are the blockage the cones were trying to prevent.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Brake in the right and wave the left through so they go first",
+      "correct": false,
+      "result": "You plant the Menace to look kind. The right stack lights. Take-turns is one-for-one at the teeth, not a courtesy stop in a live lane.",
+      "state_delta": {
+        "noise": 3,
+        "light": 2,
+        "time_cost": 9
       }
     }
   ],
-  "debrief": "Watch for merging traffic and move one lane left when you have it. The empty middle became his ramp.",
-  "timeout_option_id": "a",
+  "debrief": "Use both lanes until the closure, then take turns. The zipper is take-turns, not an early courtesy move.",
+  "timeout_option_id": "b",
   "timeout_ms": 10000,
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
-    "dol_section": "5.2 Space",
-    "teaching_target": "PSDP p2 Lesson two – move one lane left for a merger. Pair 5.2 Space. Not the 5.3 zipper child (lane-closure take-turns).",
-    "stat_cited": "PSDP p.32: Watch for merging vehicles and move one lane left to make space for them when needed."
+    "dol_section": "5.3 Merging (Zipper merging)",
+    "teaching_target": "NEW. Cite 5.3 Merging (Zipper merging). Highway work-zone / lane-closure take-turns. Not courtesy move-over. Not V-010 one-lane-at-a-time.",
+    "stat_cited": "DOL p.160–161: zipper merging — use both lanes until the designated merge, then alternate."
   },
   "cast": ["ali", "yuna"],
   "antagonist": "none",
@@ -67,29 +67,47 @@
   "schedules_callback": true,
   "presence": 0,
   "image_brief": {
-    "camera": "POV_MIRROR_DOOR",
+    "camera": "POV_DIAGRAM",
     "camera_is_the_lesson": true,
-    "subject": "from the seat looking right at the right door-mirror glass, primer sedan on the on-ramp, blinker on",
-    "foreground": "right window frame, right door-mirror housing, faded pink dash edge",
-    "midground": "sedan in the right glass, already on the ramp, same heading",
-    "background": "rain morning I-90, wet right lane, no snow, windshield dark at the edge",
-    "read": "the right door glass holds a sedan on the ramp with its blinker on; the middle lane is not in that glass",
-    "continuity": ["pink_menace_interior"],
+    "subject": "two eastbound I-90 lanes still full, right lane ending at closure paint, pink Beetle still in the right",
+    "foreground": "wet work-zone asphalt and skip-dash, rear of the Beetle nearer the camera",
+    "midground": "the closure teeth, one vehicle from each lane taking a turn",
+    "background": "rain morning valley I-90, cones, torn-up right, no snow",
+    "read": "both lanes are still in use up to the closure; the zipper is take-turns at the teeth",
+    "continuity": ["diagram_style", "pink_menace_exterior"],
     "extra_negatives": [
-      "no sedan in the left door glass",
+      "no HOV diamond",
       "no snow",
-      "no clipboard in the windshield",
-      "no second occupant"
+      "no cutaway shuttle",
+      "no second pink Beetle",
+      "no courtesy empty right a mile early"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right travel lane of three eastbound I-90 lanes",
-      "ego_nose_in_frame": "travel continues away; the plow is not the subject",
+      "ego_lane_side": "right travel lane of two eastbound I-90 lanes, approaching a right-lane end",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, away from camera",
       "oncoming_position": "none in frame",
-      "hazard_position": "beside",
-      "lanes_this_direction": 3,
-      "ego_lane_from_left": 3
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "vehicle in the continuing left lane",
+          "frame_side": "left",
+          "lane_from_left": 1,
+          "along": "beside",
+          "lengths": 0
+        },
+        {
+          "vehicle": "vehicle ahead at the closure teeth",
+          "frame_side": "same",
+          "lane_from_left": 2,
+          "along": "ahead",
+          "lengths": 1
+        }
+      ]
     }
   },
   "variation": {

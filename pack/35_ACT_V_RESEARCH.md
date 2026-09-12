@@ -8,7 +8,7 @@ Yuna radio voice (four appearances; `cargo_rough` bands a successful end beat; `
 
 Muted-read packet: `pack/ACT_V_13CARD_MUTED_READ.md`.
 
-**Locks (do not contradict):** Ali alone on the Ribbon; Yuna radio-only; load = relay hardware for **Tower 4**; `presence` canonical; **Quiet at seventy** (highway vs lot — Quiet do not paint on the Ribbon; herd is VII); 13 cards + existing end-of-run beat; `cargo_rough` bands a successful closer; `daylight_fail` **ends the run** and wins when both flags are set (does not force V-013 dusk as a continuing card); V-013 dusk = grade pass over the deck plate; no truck tire/axle framing; no Acts I–III replay; chains / Snoqualmie = Act VII.
+**Locks (do not contradict):** Ali alone on the Ribbon; Yuna radio-only; load = relay hardware for **Tower 4**; `presence` canonical; **Quiet at seventy** (highway vs lot — Quiet do not paint on the Ribbon; herd is VII); 13 cards + existing end-of-run beat; `cargo_rough` bands a successful closer; `daylight_fail` **ends the run** and wins when both flags are set (does **not** force V-013 and does **not** push the player onto that card); V-013 dusk = on-schedule grade pass over the deck plate (one scene; no overrun state); no truck tire/axle framing; no Acts I–III replay; chains / Snoqualmie = Act VII.
 
 ---
 
@@ -90,7 +90,7 @@ Also on p. 31, **Lesson three – merging**: “Do not completely stop in the en
 | Doc | `source/25WAPSDP_LR_v3.pdf` printed p. 31 |
 | Pack heading to cite | `Skill eleven: highway driving – part one` |
 | Body heading | **Lesson four – exiting** |
-| Pair DOL | `4.12 Signs` (exit panels) and/or `5.1 Speed (Adjusting speed for conditions)` (posted ramp speed) |
+| Pair DOL | Exiting itself is PSDP-only (`n/a` on V-007). Posted ramp speed still pairs `5.1 Speed (Adjusting speed for conditions)` on V-008. Do not stretch `4.12 Signs`. |
 
 Verbatim (p. 31):
 
@@ -178,13 +178,15 @@ WA headings **not in `pack/08` yet** (do not add this act):
 |---|---|---|
 | **`5.1 Speed`** (+ children Excessive / Speed limits / Adjusting speed for conditions) | **unused parent.** Not on `main` `pack/07`. PR #132 added both pack strings. | Conditions child on V-008. Parent unused — V-009 is `n/a`, not a stretched 5.1. |
 | **`4.11 Traffic light signals (Freeway ramp meters)`** | unused child. Parent used **once** (III-014). | **Yes.** This pass adds the child string. |
-| **`5.3 Merging` child Zipper merging** | unused child. Parent used **once** (III-026). | **Allowlisted this audit. Unspent.** III-026 already taught zipper under the parent. Not a 14th card. |
-| `5.3 Merging` | **once** (III-026) | NEW on V-003 (on-ramp segments — parent only). REVIEW on V-005 / V-006. |
+| **`5.3 Merging` child Zipper merging** | unused child before this pass. Parent used **once** (III-026). | **Spent on V-011.** Highway work-zone / lane-closure zipper. III-026 stays the city-speed parent teach. |
+| `5.3 Merging` | **once** (III-026) | NEW on V-003 (on-ramp segments — parent only). REVIEW on V-005 only. V-006 is now `4.10 Traffic laws`. |
 | **`5.6 Road and driving conditions (Curves)`** | unused child (restored this audit). | **Allowlisted. Unspent.** Quote home for gentle steering *in a curve*. V-009 is `n/a`, not a stretched 5.1. |
 | `5.4 Time (Count seconds)` | **once** (II-012) | Review at highway speed (Skill eleven p2 lesson three). Legal. |
 | `4.4 Sharing with large vehicles` | 2 (III-011, III-012) | Bible lists 4.4 on V. **Do not** spend it as truck tire/axle. Old Ninety following-distance can wait; this pass drops the V-013 trailer-stop card. |
-| `4.12 Signs` | 3 | Exit / guide panels. Review OK. |
-| `5.2 Space` | 7 | V-011 move-left for a merger (NEW pairing). V-013 tailgater (REVIEW). |
+| `4.12 Signs` | 3 | Do **not** catch-all onto V-001 or V-007. |
+| `4.10 Traffic laws` | used in I–IV (keep-right / unnecessary pass) | REVIEW on **V-006** — highway keep-right except to pass. Not a 5.3 merge/gap duplicate. |
+| `5.5 Focus` | used in I–IV | REVIEW pairing on **V-001** (observation / eyes up). Not 4.12 Signs. |
+| `5.2 Space` | 7 | V-013 tailgater (REVIEW). V-011 is zipper, not 5.2. |
 | `5.10 Law enforcement` | **unused** on this `main` count (IV-019/020 are not on `main`) | Not Ribbon. |
 | `5.8 Communicating risks` | unused parent, not in `pack/07` | Low. Mentions highways. Not Skill eleven’s lesson list. |
 
@@ -235,21 +237,21 @@ Exact Act VII chain quote (`source/driver-guide.pdf` **5.6** / Slippery roads):
 
 | PSDP lesson | Card | DOL |
 |---|---|---|
-| p1 Lesson one – observation | V-001 (Yuna radio; Ali already has the wheel) | 4.12 Signs (REVIEW pairing) |
+| p1 Lesson one – observation | V-001 scene (Yuna radio; Ali already has the wheel) | 5.5 Focus (REVIEW pairing; not 4.12) |
 | — load lock | V-002 dossier | n/a |
 | p1 Lesson two – on-ramp segments | V-003 | 5.3 Merging (NEW parent; no On-ramp child) |
 | DOL FREEWAY RAMP METERS | V-004 | 4.11 Traffic light signals (Freeway ramp meters) |
 | p1 Lesson three – merging (match / signal) | V-005 | 5.3 Merging (REVIEW) |
-| p1 “do not stop” + sidebar gap | V-006 | 5.3 Merging (REVIEW) |
-| p1 Lesson four – exiting (don’t slow on highway) | V-007 | 4.12 Signs (REVIEW cite; exiting is PSDP-only) |
+| Highway keep-right except to pass | V-006 | 4.10 Traffic laws (REVIEW). Not a V-005 merge/gap duplicate. |
+| p1 Lesson four – exiting (don’t slow on highway) | V-007 | n/a (PSDP-only; no 4.12) |
 | p1 Lesson four – posted ramp speed before the curve | V-008 | 5.1 Speed (Adjusting speed for conditions) |
 | p2 Lesson one – steering technique | V-009 | n/a (no DOL heading; do not stretch 5.1 or mint Exiting) |
 | p2 Lesson two – one lane at a time | V-010 | n/a (no DOL lane-change heading) |
-| p2 Lesson two – move left for a merger | V-011 | 5.2 Space (not zipper) |
+| Highway zipper (work-zone / lane-closure) | V-011 | 5.3 Merging (Zipper merging) |
 | p2 Lesson three – three-second rule | V-012 | 5.4 Time (Count seconds) (REVIEW) |
-| p2 Lesson two – tailgater, move over | V-013 | 5.2 Space (REVIEW) |
+| p2 Lesson two – tailgater, move over | V-013 | 5.2 Space (REVIEW). On-schedule dusk only. |
 
-Dropped from PR #132: Deac ride-along, Ledger ego, Old Ninety trailer-stop (truck stopping-distance / axle-adjacent). Zipper leftover. Rain is legal on Skill eleven p2 lesson four; this pass keeps two daylight-rain cards (V-007, V-011) and does not use snow.
+Dropped from PR #132: Deac ride-along, Ledger ego, Old Ninety trailer-stop (truck stopping-distance / axle-adjacent). Zipper leftover is now **V-011**. Rain is legal on Skill eleven p2 lesson four; this pass keeps two daylight-rain cards (V-007, V-011) and does not use snow.
 
 ---
 

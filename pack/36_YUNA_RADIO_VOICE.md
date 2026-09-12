@@ -15,7 +15,7 @@ Americanization stays `pack/23_THE_SPOKEN_DICTIONARY.md`. This file is who speak
 | `pack/34_ACT_V.md` | Beat skeleton (PR #132 / #141 stack). Points here. |
 | `pack/35_ACT_V_RESEARCH.md` | Research gates + reseat locks (PR #141). Points here. |
 | `pack/37_ACT_V_CITATION_AUDIT.md` | Citation audit. Does not change these four appearances. |
-| `pack/ACT_V_13CARD_MUTED_READ.md` | 13-card player copy for Claude text review. V-013 both clauses. |
+| `pack/ACT_V_13CARD_MUTED_READ.md` | 13-card player copy for Claude text review. V-013 one schedule-dusk scene. |
 | `pack/21_THE_MANIFEST.md` | Manifest, mid-run radio, end-of-run beat. Act II Reyna lines stay there. |
 | `pack/23_THE_SPOKEN_DICTIONARY.md` | Swap column. Player copy never says “Skill eleven.” |
 | `pack/01_BIBLE.md` §3.3 | Yuna the person (Encore, in-ears, reflectivity). This file is Act V channel only. |
@@ -49,7 +49,7 @@ Yuna speaks on **four** Act V beats. Not a fifth.
 |---|---|---|
 | 1 | **V-001** | Full check-in. She is on the handheld. She will not be here. |
 | 2 | **V-004 result** | The appearance is the **result**. Not a second driver. Not a meter lecture. |
-| 3 | **V-011** | A radio beat on the merger card. |
+| 3 | **V-011** | A radio beat on the highway zipper card. |
 | 4 | **the end beat** | Existing `deliveryBeat` / `radioCheckin` — not a new V-014. |
 
 V-007 on the #141 stubs already states the negative: *“Yuna does not come back on for this.”* That is not an appearance. Do not add her to V-002…V-003, V-005…V-010, V-012, or V-013.
@@ -72,7 +72,7 @@ Thresholds locked this pass. Cut points reuse presence T0 / T1 edges (`src/prese
 
 `src/cargo-rough.js` is the helper.
 
-**`daylight_fail`** (`time_cost >= 130`, same budget as `COLD_PACK`): **ends the run.** It is the end-of-run fail state. It does **not** force V-013 dusk as a continuing card. V-013 dusk stays the grade-pass card path.
+**`daylight_fail`** (`time_cost >= 130`, same budget as `COLD_PACK`): **ends the run.** It is the end-of-run fail state. It does **not** force V-013 and does **not** push the player onto that card. V-013 dusk is the on-schedule grade-pass only.
 
 **If both `cargo_rough` and `daylight_fail` are set:** `daylight_fail` **wins and terminates.** Do not play a THINNED closer. She does not speak a fail closer that blames her.
 
@@ -109,10 +109,10 @@ From `cards/V-001.json` on the #141 stack:
 
 - Hook: *“Yuna on the radio. The highway starts.”*
 - Scene: *“You have the wheel of the Menace. Nobody else is in the car. […] The handheld on the floor crackles: Yuna. She will not be here. She wants the interchange, the green panels, and the paint named before you spend the ramp.”*
-- Decision: *“Yuna wants eyes up. What do you give her first?”*
+- Decision: *“Where do your eyes go on the approach?”*
 - Correct result: *“You call the stack, the green boards, and the skip-dash. She clicks once.”*
 - Wrong result (c): *“The radio is a check, not a second driver. You missed a panel waiting for a voice that will not sit in this seat.”*
-- Debrief: *“Yuna said the next panel, not the bumper.”*
+- Debrief: *“Interchange, signs, paint — eyes up, not on the bumper.”*
 - Teaching target: *“Ali already has the wheel; Yuna is radio-only.”*
 - Still: handheld on the floor; **no second person / no second occupant.** She is not in the glass.
 
@@ -125,14 +125,14 @@ The locked appearance is the **result**. Scene may still name the click; the res
 
 That click is the voice: short, not a lecture, not a grade. The meter rule stays on the white line. Do not move her into the still (`POV_OBJECT` is the signal and the line). Cast may list `yuna`.
 
-### V-011 — merger card; radio beat
+### V-011 — zipper card; radio beat
 
 The appearance lock is on this card. Citation audit copy (do not put her in the still):
 
-- Hook: *“A car is coming up the ramp. You have a left.”*
-- Scene: *“If you hold the right you pinch him into the gore. […] One lane is the gift. The handheld clicks once — Yuna, short, not a lecture.”*
-- Correct result: *“One lane. The sedan takes the right behind you. The left stays empty. She clicks once and stays quiet.”*
-- Debrief: *“Watch for merging traffic and move one lane left when you have it.”*
+- Hook: *“The right dies. Both lanes still run.”*
+- Scene: *“The zipper wants both lanes used until the teeth, then one-for-one. […] The handheld clicks once — Yuna, short, not a lecture.”*
+- Correct result: *“You use the lane until it ends. At the teeth you take one, give one. […] She clicks once and stays quiet.”*
+- Debrief: *“Use both lanes until the closure, then take turns.”*
 - Cast: `["ali", "yuna"]`
 
 She does not grade the driving. She does not mention cargo condition. If the channel is THINNED, she is quieter, not harsher.
@@ -175,7 +175,7 @@ That is Act III’s cliffhanger. It does not add a fifth Act V beat and it does 
 2. Is she in the still, in the car, or in Encore? Stop. Radio only.
 3. Does the line mention cargo condition or grade the driving? Cut it.
 4. Does the line blame Yuna for a thin channel? Cut it. Hardware thinned the relay. She is quieter.
-5. If `daylight_fail` is set, the run ends. Do not write V-013 as a continuing dusk-force card. Do not blend a fail closer into a cargo band. She does not speak on the fail.
+5. If `daylight_fail` is set, the run ends. Do not write V-013 as a continuing dusk-force card and do not push the player onto it. Do not blend a fail closer into a cargo band. She does not speak on the fail.
 6. Swap-column words still fail (`pack/23`). “hole” is gap. Never print “Skill eleven.”
 7. No I–III replay language. No chains / Snoqualmie / pass.
 8. Do not seed. Do not regenerate stills from this file.

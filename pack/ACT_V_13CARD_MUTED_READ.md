@@ -10,12 +10,12 @@ Authority is the card JSON on PR #151. If this file and a card disagree, the car
 
 - Act V = Ribbon + Skill eleven. Ali alone. Yuna radio-only. Load = Tower 4 relay kit.
 - `presence` canonical. **Quiet at seventy:** they do not paint on the Ribbon the way they paint in the lot. Herd is VII. Thirteen cards + existing end beat. No V-014.
-- V-013 dusk = grade pass over the deck plate (geometry unchanged). One dusk card path. `daylight_fail` does not rewrite it.
+- V-013 dusk = on-schedule grade pass over the deck plate (geometry unchanged). One dusk scene. `daylight_fail` ends the run and does not play this card.
 - Building-engaging locks:
   1. Allowlist + V-004 cite exact `4.11 Traffic light signals (Freeway ramp meters)` (TOC child, not a top-level section).
   2. V-009 `dol_section: "n/a"` (PSDP-only). Do not stretch a DOL parent. Validator accepts `n/a`.
   3. **`cargo_rough` bands proposed for lock** (successful closer only): CLEAN 0–3 · SCUFFED 4–8 · THINNED 9+.
-  4. **`daylight_fail` ENDS the run** (`time_cost >= 130`). It is the end-of-run fail state. It does **not** force V-013 dusk as a continuing card. When both `cargo_rough` and `daylight_fail` are set, **`daylight_fail` wins and terminates.**
+  4. **`daylight_fail` ENDS the run** (`time_cost >= 130`). It is the end-of-run fail state. It does **not** force V-013 and does **not** push the player onto that card. When both `cargo_rough` and `daylight_fail` are set, **`daylight_fail` wins and terminates.**
 
 ---
 
@@ -23,16 +23,16 @@ Authority is the card JSON on PR #151. If this file and a card disagree, the car
 
 Type: `scene` · Ali · The Ribbon
 
-**Lesson:** NEW: PSDP p1 Lesson one – observation. 4.12 Signs is the pairing (REVIEW of guide panels). Ali has the wheel; Yuna is radio-only.
+**Lesson:** NEW: PSDP p1 Lesson one – observation. Pair 5.5 Focus (REVIEW — eyes up, not on the bumper). Not 4.12 Signs. Ali has the wheel; Yuna is radio-only.
 **PSDP:** Skill eleven: highway driving – part one
-**DOL:** 4.12 Signs
+**DOL:** 5.5 Focus
 **Cited:** PSDP p.31: explain key highway features — interchanges, highway signs and signals, lane lines and markings.
 
 **Hook:** Yuna on the radio. The highway starts.
 
 Overcast morning on I-5 south of the Core. You have the wheel of the Menace. Nobody else is in the car. The relay kit for Tower 4 is already lashed in the back — repeater, antenna, clamps. The handheld on the floor crackles: Yuna. She will not be here. She wants the interchange, the green panels, and the paint named before you spend the ramp. The mountain is a gray smudge far east. This pavement is the Ribbon.
 
-**Decision:** Yuna wants eyes up. What do you give her first?
+**Decision:** Where do your eyes go on the approach?
 
 **Options**
 
@@ -45,7 +45,7 @@ Overcast morning on I-5 south of the Core. You have the wheel of the Menace. Nob
 - **d** (wrong): Slow down in the travel lane so you can read every word on the next sign
   - Result: You dump speed on I-5 to finish a sentence. The stack behind you lights. The ramp is where speed dies, not here.
 
-**Debrief:** Interchange, signs, paint — eyes up, not on the bumper. Yuna said the next panel, not the bumper.
+**Debrief:** Interchange, signs, paint — eyes up, not on the bumper.
 
 ---
 
@@ -155,33 +155,32 @@ Wind, morning, I-5 south on-ramp. You are in the acceleration stretch. The right
 
 ---
 
-## V-006 — Do Not Plant It
+## V-006 — Keep Right Except to Pass
 
 Type: `hazard` · Ali · The Ribbon
 
-**Lesson:** REVIEW of 5.3 Merging. PSDP: do not stop unless necessary; adjust speed to find a gap.
+**Lesson:** REVIEW of 4.10 Traffic laws. Highway keep-right except to pass. Recover right after the pass. Not a 5.3 merge/gap card and not V-005 copy.
 **PSDP:** Skill eleven: highway driving – part one
-**DOL:** 5.3 Merging
-**Cited:** PSDP p.31: There is plenty of time to merge. If a gap doesn’t present itself immediately, adjust your speed as early as possible in order to find one.
+**DOL:** 4.10 Traffic laws
 
-**Hook:** The gap is late. The paint is close.
+**Hook:** The left is empty. You already passed.
 
-Overcast midday on the I-5 merge. You are in the last stretch of ramp. The right travel lane is a tight stack. No gap is next to you. Merge paint is a car-length ahead. The instinct is to stand on the brake and wait on the ramp until someone gifts you an empty. The other instinct is to take their door anyway. Both spend someone else's margin.
+Rain, midday, I-90 east, three lanes this way. You already passed a slow box. You are still in the left. The middle and the right are empty wet asphalt. A faster sedan is a smear in the inside glass, closing. The city habit is to own the left once you took it. The highway rule is keep right except to pass. The pass is over. The left is not a home. Nobody else is in the Menace.
 
-**Decision:** There is no gap beside you. What do you do?
+**Decision:** The pass is done. Which lane do you keep?
 
 **Options**
 
-- **a** (wrong): Stop on the ramp and wait until the right lane goes empty
-  - Result: You plant the Menace on the merge. The ramp behind you has to stop too. Highways do not clear for a standing Beetle. You made a start from zero at their speed.
-- **b** (wrong): Force the paint now and make the stack lift
-  - Result: You take their door. The sedan stands on it. Amber behind you lights. You wrote a late on a merge that still had pavement left to change speed.
-- **c** (CORRECT): Stay rolling. Change speed until a gap is real, then take it
-  - Result: You keep the wheels turning. You drop a little, then you match the next gap. The opening you take is one you made with speed, not with a stop.
-- **d** (wrong): Climb the shoulder around the stack and join from the rumble
-  - Result: The shoulder is junk and a sign post. You put the plow in the rumble to skip a count. They never had you as a sentence.
+- **a** (wrong): Stay in the left — through traffic can live here after a pass
+  - Result: You camp the passing lane. The sedan stands on it behind you. You became the next slow in the left. Keep-right did not expire because you passed once.
+- **b** (CORRECT): Signal right, recover to the right travel lane, leave the left for passing
+  - Result: Amber talks. You take the empty right and sit. The sedan uses the left and is gone. The pass was a tool. The right is the lane you keep.
+- **c** (wrong): Drift into the middle and sit between both so nobody can pass you
+  - Result: You occupy the skip-dash. The sedan has no legal left. Two lanes become one because you wanted a buffer. The right was already empty.
+- **d** (wrong): Slow in the left so the sedan goes around you on the right
+  - Result: You dump speed in the passing lane. He takes the right around a Beetle that should have recovered. You taught the highway to pass you on the junk side.
 
-**Debrief:** If the gap is late, change speed until one appears. There is time to merge. Stay rolling until the gap is real.
+**Debrief:** Keep right except to pass. You gave the left back after the box.
 
 ---
 
@@ -189,9 +188,9 @@ Overcast midday on the I-5 merge. You are in the last stretch of ramp. The right
 
 Type: `rule` · Ali · The Ribbon
 
-**Lesson:** NEW: PSDP p1 Lesson four – exiting. 4.12 Signs is REVIEW (exit panel), not a new signs lesson. No DOL Exiting heading.
+**Lesson:** NEW. PSDP p1 Lesson four – exiting. dol n/a: no DOL Exiting heading. Do not stretch 4.12 Signs.
 **PSDP:** Skill eleven: highway driving – part one
-**DOL:** 4.12 Signs
+**DOL:** n/a
 **Cited:** PSDP p.31: Identify the exit well ahead of time… don’t slow down on the highway. Start to signal four to six seconds before reaching the ramp.
 
 **Hook:** The exit is named. The highway is still fast.
@@ -305,33 +304,33 @@ Overcast midday on I-90 east, three lanes this way. You are in the right. A slow
 
 ---
 
-## V-011 — Give the Ramp a Lane
+## V-011 — Zipper at the Closure
 
 Type: `hazard` · Ali · The Ribbon
 
-**Lesson:** PSDP p2 Lesson two – move one lane left for a merger. Pair 5.2 Space. Not the 5.3 zipper child (lane-closure take-turns).
+**Lesson:** NEW. Cite 5.3 Merging (Zipper merging). Highway work-zone / lane-closure take-turns. Not courtesy move-over. Not V-010 one-lane-at-a-time.
 **PSDP:** Skill eleven: highway driving – part two
-**DOL:** 5.2 Space
-**Cited:** PSDP p.32: Watch for merging vehicles and move one lane left to make space for them when needed.
+**DOL:** 5.3 Merging (Zipper merging)
+**Cited:** DOL p.160–161: zipper merging — use both lanes until the designated merge, then alternate.
 
-**Hook:** A car is coming up the ramp. You have a left.
+**Hook:** The right dies. Both lanes still run.
 
-Daylight rain, morning, I-90 east, three lanes. You are in the right. In the right door glass a primer sedan is running the on-ramp, already blinking, already matching. The middle lane beside you is empty wet asphalt. If you hold the right you pinch him into the gore. If you take two lanes to be generous you write a late on someone in the left. One lane is the gift. The handheld clicks once — Yuna, short, not a lecture.
+Daylight rain, morning, I-90 east. A work zone ate the right in a half mile. Both lanes still run. Cones pinch toward the closure paint. The early-move habit wants the left now, to be polite, to be first. The zipper wants both lanes used until the teeth, then one-for-one. This is not a courtesy slide and it is not two lanes in one sweep. The handheld clicks once — Yuna, short, not a lecture.
 
-**Decision:** He is merging from the right. The middle is empty. What do you do?
+**Decision:** The right lane ends ahead. When do you zipper?
 
 **Options**
 
-- **a** (wrong): Hold the right and make him stop on the ramp until you pass
-  - Result: You pin him at the gore. He plants it. You taught the ramp that a Beetle does not share. His start from zero is now your problem a second later.
-- **b** (wrong): Brake hard in the right so he can have your exact paint
-  - Result: You dump speed on a wet highway. The stack behind you lights. You spent their brakes to give him a lane you already had to the left.
-- **c** (wrong): Cut to the leftmost in one sweep to give him the whole right half
-  - Result: You take two. A van in the left had no sentence. One empty lane was enough. You spent a second gap to look kind.
-- **d** (CORRECT): Signal left, take the empty middle, leave him the right
-  - Result: One lane. The sedan takes the right behind you. The left stays empty. She clicks once and stays quiet.
+- **a** (CORRECT): Use the right until the closure paint, then take turns with the left
+  - Result: You use the lane until it ends. At the teeth you take one, give one. The stack is shorter than the polite line that started a mile early. She clicks once and stays quiet.
+- **b** (wrong): Move left now so you are not the person who cuts at the end
+  - Result: You join the polite line. The right stays empty and angry. Someone late uses it and you resent them for doing the zipper. Early courtesy built the longer stack.
+- **c** (wrong): Straddle both lanes until the last cone so nobody can beat you
+  - Result: You occupy two lanes in a highway work zone. Nobody zippers. You are the blockage the cones were trying to prevent.
+- **d** (wrong): Brake in the right and wave the left through so they go first
+  - Result: You plant the Menace to look kind. The right stack lights. Take-turns is one-for-one at the teeth, not a courtesy stop in a live lane.
 
-**Debrief:** Watch for merging traffic and move one lane left when you have it. The empty middle became his ramp.
+**Debrief:** Use both lanes until the closure, then take turns. The zipper is take-turns, not an early courtesy move.
 
 ---
 
@@ -369,7 +368,7 @@ Wind, midday, I-90 east, three lanes. You want the left to pass a slow box. A se
 
 Type: `scene` · Ali · The Ribbon
 
-**Lesson:** REVIEW of 5.2 Space. PSDP p2 Lesson two – tailgater, move over. Do not teach truck tire or axle.
+**Lesson:** REVIEW of 5.2 Space. PSDP p2 Lesson two – tailgater, move over. Dusk on this card is the on-schedule grade-pass only. daylight_fail ends the run and does not play this card. Do not teach truck tire or axle.
 **PSDP:** Skill eleven: highway driving – part two
 **DOL:** 5.2 Space
 **Cited:** PSDP p.32: Watch mirrors for tailgaters and move to another lane to let them pass.
