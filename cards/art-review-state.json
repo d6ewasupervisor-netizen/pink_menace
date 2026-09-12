@@ -188,10 +188,10 @@
       "updated_at": "2026-09-12T10:48:00.000Z"
     },
     "V-006": {
-      "tag": "PASS",
-      "note": "Claude muted-read PASS (a8a5ebe4). High-oblique take 21 seeded live. Three lanes, left-ego, sedan closing in the same left lane. Take 23 runner-up do not seed (same geometry, sedan further back / weaker closing pressure). Three-lane interior takes stay FAIL / unseeded.",
+      "tag": "STYLE",
+      "note": "Claude FAIL direct-pixel verify (a8a5ebe4). Take 21: unreadable gantry back + desaturated left edge. Do not seed. Take 23 runner-up only. Cockpit/interior takes stay FAIL. Held for regen.",
       "pick": "take-21",
-      "updated_at": "2026-09-12T11:21:00.000Z"
+      "updated_at": "2026-09-12T11:28:00.000Z"
     }
   }
 }

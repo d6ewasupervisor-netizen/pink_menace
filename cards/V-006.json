@@ -102,7 +102,6 @@
     "time_of_day": "midday",
     "tone": "urgent",
     "failure_mode": "inexperience",
-    "winner": "take-21",
-    "forced": "live still cards/takes/V-006-take-21.png (Claude PASS muted-read a8a5ebe4; take 23 runner-up do not seed)"
+    "forced": "Claude FAIL muted-read a8a5ebe4 direct-pixel verify — do not seed. Take 21: unreadable gantry back + desaturated left edge. Take 23 runner only. Cockpit/interior takes also FAIL. Held."
   }
 }
