@@ -1,0 +1,53 @@
+{
+  "card_id": "V-002",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "Tower 4",
+  "hook": "The kit is for Tower 4.",
+  "scene": "The Menace is parked on a wide paved shoulder just before the I-5 south ramp, engine still, key in. Overcast midday. Clipboard on your thigh. The log line is I-5 south, I-90 east, valley floor only — Tower 4. CARGO is the relay kit that already fits this car: repeater set, antenna, mast clamps, lashed in the back. Nobody in the other seat. Mya is a loaf on the dash because the wheels are not turning. The mountain sits in the east as a shape, not a road. The schedule does not climb today.",
+  "debrief": "Parked: cluster at zero, clipboard on your thigh, Mya on the dash. The kit sits lashed in the back for Tower 4.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Establish the Ribbon and the locked load: relay kit (repeater, antenna, mast clamps) for Tower 4, riding in the Menace. Ali alone."
+  },
+  "cast": ["ali", "mya"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "Ali chest-up in the parked Menace, glasses, mesh behind her, no second occupant; Mya a brown mackerel loaf on the dash",
+    "foreground": "faded pink collar, clipboard edge on her thigh, Mya loafed on the still dash",
+    "midground": "welded mesh and still wipers, no motion in the glass",
+    "background": "overcast midday shoulder, I-5 ramps soft and distant, no snow, no night",
+    "read": "Ali is parked alone; wheels still; Mya is a loaf on the dash because the wheels are not turning",
+    "continuity": ["ali", "pink_menace_interior", "mya"],
+    "extra_negatives": [
+      "no moving wheels",
+      "no snow",
+      "no chain-up",
+      "no second occupant",
+      "no cutaway shuttle",
+      "no chevron hatchback",
+      "no cooler",
+      "no insulin pack",
+      "no flatbed",
+      "no fuel drums",
+      "no trailer hitch",
+      "no antenna mounted as a new roof mark"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "midday",
+    "tone": "quiet",
+    "failure_mode": "none",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}
