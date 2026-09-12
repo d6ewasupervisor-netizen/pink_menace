@@ -294,7 +294,11 @@
         },
         "forced": {
           "type": "string",
-          "description": "If an axis had to repeat, name it and why."
+          "description": "If an axis had to repeat, name it and why. After a PASS seed, points at the live take and names any discarded runner-up."
+        },
+        "winner": {
+          "type": "string",
+          "description": "Seeded live take id (e.g. take-21). Optional until a muted-read PASS is locked."
         }
       }
     }

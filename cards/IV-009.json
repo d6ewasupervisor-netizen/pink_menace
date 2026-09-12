@@ -1,0 +1,106 @@
+{
+  "card_id": "IV-009",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "yuna",
+  "card_type": "convoy",
+  "title": "When Loud Is Right",
+  "hook": "She wants the PA. The block is only tight.",
+  "scene": "Ice at midday in a work pinch downtown. You have Encore. Ali is on the welded bench — an audience, which is the problem. A dump and a cone line have the block down to a crawl. The guarded red switch is under your hand. The four horns on the roof would clear this in a breath. They would also tell the whole Core you wanted a show. Loud is for a dying block. This one is only tight.",
+  "decision": "The block is pinched and Ali is watching. Do you run the PA?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hit the PA and clear the pinch — they will move if you make them",
+      "correct": false,
+      "result": "The horns take the block. Cones jump. The dump stands on it. Something at the far end of the pinch turns toward the sound. You bought a show and a new problem. Ali did not need the concert.",
+      "state_delta": {
+        "noise": 5,
+        "passenger_stress": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Hand Ali the wheel so you can stand up and shout the dump back",
+      "correct": false,
+      "result": "You invent a driver change in a live pinch. Ali has the suede wheel and no count-in. The dump does not care who is talking. You made passengers out of a crawl.",
+      "state_delta": {
+        "noise": 3,
+        "passenger_stress": 4,
+        "yaw": 2,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "c",
+      "text": "Leave the PA dead. Count a gap, take it, keep the horns for a block that is dying",
+      "correct": true,
+      "result": "The red switch stays off. You take a counted gap and slip the pinch. Ali stays on the bench. The horns stay a tool you did not spend on a show. The block stays only tight.",
+      "state_delta": {
+        "noise": -1,
+        "passenger_stress": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "d",
+      "text": "Tap a count-in on the horn so the dump knows you are serious",
+      "correct": false,
+      "result": "A rhythm on the horn is still a horn. The dump hears a dare. He holds. You wrote noise on ice and taught Ali that loud is how you ask.",
+      "state_delta": {
+        "noise": 4,
+        "passenger_stress": 2,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "Loud is right when a block is dying and the horns buy people a path. A tight pinch is not that. Yuna keeps the horns for a dying block.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Do not use a horn or PA to force a path in ordinary congestion; loud is for a true emergency, not an audience."
+  },
+  "cast": [
+    "yuna",
+    "ali"
+  ],
+  "antagonist": "load",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "from the seat looking forward: guarded red PA switch still off, a dump and cone line pinching the block, no mesh on the glass",
+    "foreground": "suede racing wheel, stripped dash, the red guarded switch under a hand that has not thrown it",
+    "midground": "welded roll cage, ice on bare glass, dump truck ahead in the pinch, cones leaning",
+    "background": "ice, midday, downtown work pinch, no readable signs",
+    "read": "the PA switch is still off; the block ahead is a cone pinch, not a dying street",
+    "continuity": [
+      "encore_cockpit"
+    ],
+    "extra_negatives": [
+      "no windshield mesh",
+      "no bar cage over the glass",
+      "no Encore exterior",
+      "no horn flares in frame",
+      "no plow"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "left travel lane of a two-lane work pattern",
+      "ego_nose_in_frame": "the hatchback nose points toward the top of the frame through bare glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction"
+    }
+  },
+  "variation": {
+    "location_type": "work_zone",
+    "weather": "ice",
+    "time_of_day": "midday",
+    "tone": "warm",
+    "failure_mode": "passengers",
+    "winner": "take-11",
+    "forced": "live still cards/takes/IV-009-take-11.png (Claude muted-read PASS)"
+  }
+}
