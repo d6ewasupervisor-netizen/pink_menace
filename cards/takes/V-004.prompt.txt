@@ -1,0 +1,4 @@
+V-004 The Meter Is a Light — RULE, POV_OBJECT (camera_is_the_lesson), overcast morning.
+Authority: cards/V-004.json image_brief. Full situation: two-head ramp meter BESIDE a metered I-5 on-ramp, red lit, white stop line; highway mainline visible beyond. No person. No cargo. No Yuna.
+Tool aspect 3:4 (seed encodes 2:3). Attachments: none.
+Do not reuse PR #179 / Wave 3 rural-two-lane pixels.
