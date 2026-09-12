@@ -76,4 +76,4 @@ If she sees them and it doesn't change how she drives, the tiers are firing but 
 
 Text only. One tap. No new cards. Fires once when entering the next act (II+), from the prior run's presence or a daylight cargo-fail. Four lines: farther / still out there / closer / daylight closed in. Never "zombies." Never "you're safe."
 
-QP-003/004 silhouette composites (V-013, V-001, V-007, V-010, Acts II–IV ambient) are later. Do not put Quiet figures on Skill 11 / Ribbon teaching stills.
+QP-003 V-013 Quiet dressing stills are a mute-read pass (`cards/takes/V-013-take-6.png` closest, take-7 runner). Do not live-seed until Brad/Claude. Teaching read stays the shoulder stop — two distant silhouettes only, no Quiet on V-006 / V-008. QP-004 (V-001, V-007, V-010, Acts II–IV ambient) is later.
