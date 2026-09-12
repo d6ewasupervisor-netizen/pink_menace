@@ -5,12 +5,12 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Loose Under You",
-  "hook": "TODO — gravel under tires.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "hook": "The tires are turning on something that moves.",
+  "scene": "Gravel, washboarded in the wheel tracks, the Menace loose under you in a way pavement never is. Nothing here is holding the way you are used to anymore.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "PSDP twelve Lesson one – gravel roads. DOL honest null — do not cite parent 5.6. Scaffold."
+    "teaching_target": "PSDP twelve Lesson one – gravel roads. DOL honest null — do not cite parent 5.6."
   },
   "cast": [
     "ali"
@@ -56,47 +56,49 @@
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "decision": "TODO — Claude: write the decision?",
+  "decision": "How do you drive a surface that will not hold?",
   "options": [
     {
       "id": "a",
-      "text": "TODO — correct: teaching answer",
-      "correct": true,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "text": "Same as pavement — the tires are the same tires",
+      "correct": false,
+      "result": "You drive it like asphalt and the back end goes light at the first bend. Loose is loose regardless of what you are used to.",
       "state_delta": {
-        "time_cost": 4
+        "noise": 3,
+        "time_cost": 8
       }
     },
     {
       "id": "b",
-      "text": "TODO — option b",
-      "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "text": "Slow down, no sudden steering, gentle on both pedals, six seconds back",
+      "correct": true,
+      "result": "You come off the number. The inputs get small. The gap you keep is twice what the street asked for and the car stays under you the whole way.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": -1,
+        "time_cost": 4
       }
     },
     {
       "id": "c",
-      "text": "TODO — option c",
+      "text": "Speed up so the tires skim the top instead of digging in",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You go faster on the theory that speed floats. The washboard starts steering for you.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 8
       }
     },
     {
       "id": "d",
-      "text": "TODO — option d",
+      "text": "Ride the brake so you are always ready to stop",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "A dragged brake on gravel is a locked wheel waiting. You gave up the one thing you had, which was rolling.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 2,
+        "time_cost": 8
       }
     }
   ],
-  "debrief": "TODO — Claude: write debrief."
+  "debrief": "Gravel: slow down, steer and brake gently, and double your following distance."
 }

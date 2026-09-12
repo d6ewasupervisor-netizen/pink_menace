@@ -5,12 +5,12 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "The Pile at the Edge",
-  "hook": "TODO — pile at the edge.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "hook": "Somebody left a ridge of gravel along the shoulder.",
+  "scene": "A windrow runs the right edge for the next half mile — loose gravel piled where the grader pushed it and never came back. It looks like shoulder. It is a rope laid along the road.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "PSDP twelve — gravel windrow / pile at the edge. PSDP-only (n/a DOL). Scaffold."
+    "teaching_target": "PSDP twelve — gravel windrow / pile at the edge. PSDP-only (n/a DOL)."
   },
   "cast": [
     "ali"
@@ -56,47 +56,50 @@
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "decision": "TODO — Claude: write the decision?",
+  "decision": "The windrow is on your right. Where do you put the tires?",
   "options": [
     {
       "id": "a",
-      "text": "TODO — correct: teaching answer",
+      "text": "Left of it, in the graded track, and give it room",
       "correct": true,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You stay in the part somebody meant you to drive on. The pile sits out there being a pile.",
       "state_delta": {
+        "noise": -1,
         "time_cost": 4
       }
     },
     {
       "id": "b",
-      "text": "TODO — option b",
+      "text": "Straddle it so you are using the full width",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "One wheel in loose and one in packed, and the car starts arguing with itself about which way is straight.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 8
       }
     },
     {
       "id": "c",
-      "text": "TODO — option c",
+      "text": "Ride the far right so oncoming traffic has all the room it wants",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You put the right side into the windrow to be generous. It takes the wheel out of your hands and points you at the ditch.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 4,
+        "damage": 1,
+        "time_cost": 9
       }
     },
     {
       "id": "d",
-      "text": "TODO — option d",
+      "text": "It's only gravel — drive normally",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "It is gravel that is six inches deep in a line. That is not the same gravel you are already on.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 2,
+        "time_cost": 8
       }
     }
   ],
-  "debrief": "TODO — Claude: write debrief."
+  "debrief": "Watch for windrows — piled gravel at the road edge grabs a wheel."
 }

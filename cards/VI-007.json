@@ -4,16 +4,17 @@
   "zone": "The Backcountry",
   "driver": "ali",
   "card_type": "rule",
-  "title": "Roundabout Five Steps",
-  "hook": "TODO — roundabout ahead.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "title": "Five Easy Steps",
+  "hook": "A circle with nobody in charge of it.",
+  "scene": "A single-lane roundabout where the county road meets the state route, and a sedan is already inside it coming around toward your entry. You have never liked these. Yuna says they're the safest intersection anyone builds, which is easy to say on a radio.",
   "source": {
     "psdp_skill": "Skill thirteen: roundabouts",
     "dol_section": "n/a",
-    "teaching_target": "NEW: PSDP thirteen Lesson one – five easy steps. Prefer PSDP-only (not IV-015 4.15 replay). Scaffold."
+    "teaching_target": "NEW: PSDP thirteen Lesson one – five easy steps. Prefer PSDP-only (not IV-015 4.15 replay)."
   },
   "cast": [
-    "ali"
+    "ali",
+    "yuna"
   ],
   "antagonist": "none",
   "callback_of": null,
@@ -56,47 +57,48 @@
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "decision": "TODO — Claude: write the decision?",
+  "decision": "You're at the entry. A car is already in the circle.",
   "options": [
     {
       "id": "a",
-      "text": "TODO — correct: teaching answer",
+      "text": "Slow to about fifteen, yield to him, then take the gap behind",
       "correct": true,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You come down to fifteen, look left, and let him have it. Then the gap opens and you go without stopping again.",
       "state_delta": {
-        "time_cost": 4
+        "noise": -1,
+        "time_cost": 5
       }
     },
     {
       "id": "b",
-      "text": "TODO — option b",
+      "text": "Stop at the line and wait for the whole circle to clear",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "Nobody empties a roundabout. You stop, then stop again, and the three cars behind you inherit it.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 2,
+        "time_cost": 10
       }
     },
     {
       "id": "c",
-      "text": "TODO — option c",
+      "text": "Enter now — you're moving and he can adjust",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "He's already in. Traffic in the circle has it, and you just asked a stranger to brake for your entry.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 3,
+        "time_cost": 8
       }
     },
     {
       "id": "d",
-      "text": "TODO — option d",
+      "text": "Enter, then change lanes inside to reach your exit sooner",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "Single lane, and you came in planning to move around in there. There is nowhere left to sort it.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 2,
+        "time_cost": 8
       }
     }
   ],
-  "debrief": "TODO — Claude: write debrief."
+  "debrief": "Slow down, look left, yield to traffic already in the roundabout, don't stop inside, and signal your exit."
 }

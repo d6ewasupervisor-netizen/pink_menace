@@ -4,13 +4,13 @@
   "zone": "The Backcountry",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Blind Crest Then Curve",
-  "hook": "TODO — crest then curve.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "title": "Over the Top",
+  "hook": "You can't see the other side of the hill.",
+  "scene": "The road climbs to a crest and drops away, and beyond it a curve you can't see the far end of. Whatever is on the other side is already coming toward you.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "5.6 Road and driving conditions (Curves)",
-    "teaching_target": "PSDP twelve Hills and curves + DOL 5.6 (Curves). Blind crest then curve. Scaffold."
+    "teaching_target": "PSDP twelve Hills and curves + DOL 5.6 (Curves). Blind crest then curve."
   },
   "cast": [
     "ali"
@@ -56,47 +56,49 @@
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "decision": "TODO — Claude: write the decision?",
+  "decision": "Blind crest, then a curve. How do you take it?",
   "options": [
     {
       "id": "a",
-      "text": "TODO — correct: teaching answer",
+      "text": "Slow before the crest, move right, look as far through as you can",
       "correct": true,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You come off it early, hold right, and the far side turns out to have a tractor in the middle of the road with the sun behind it.",
       "state_delta": {
-        "time_cost": 4
+        "noise": -1,
+        "time_cost": 5
       }
     },
     {
       "id": "b",
-      "text": "TODO — option b",
+      "text": "Keep your speed — you'll see it when you're over",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "Over the top at speed with a tractor at forty yards and nothing but reflex left.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 3,
+        "time_cost": 8
       }
     },
     {
       "id": "c",
-      "text": "TODO — option c",
+      "text": "Move left for a better view around the curve",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You improve your sightline by putting the Menace in the oncoming lane on a blind hill.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 4,
+        "time_cost": 8
       }
     },
     {
       "id": "d",
-      "text": "TODO — option d",
+      "text": "Brake in the middle of the curve once you can see",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "Braking mid-bend on gravel is how the back end goes around. The curve owns the car now.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 8
       }
     }
   ],
-  "debrief": "TODO — Claude: write debrief."
+  "debrief": "Slow down before a crest or a curve, move to the right, and watch for what's coming."
 }

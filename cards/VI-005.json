@@ -4,13 +4,13 @@
   "zone": "The Backcountry",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Grain Truck",
-  "hook": "TODO — slow ag vehicle.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "title": "Wide and Slow",
+  "hook": "A grain truck, swinging out for a gate you cannot see.",
+  "scene": "A truck ahead doing thirty with a load and a slow-moving triangle. It drifts left, which on a two-lane looks like an invitation. There is a field entrance somewhere on the right that you have no way of knowing about and he does.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "4.8 Sharing with agricultural vehicles",
-    "teaching_target": "NEW: PSDP twelve Large/slow vehicles + DOL 4.8 agricultural vehicles. Scaffold."
+    "teaching_target": "NEW: PSDP twelve Large/slow vehicles + DOL 4.8 agricultural vehicles."
   },
   "cast": [
     "ali",
@@ -57,47 +57,49 @@
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "decision": "TODO — Claude: write the decision?",
+  "decision": "He's moved left and slowed. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "TODO — correct: teaching answer",
-      "correct": true,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "text": "Take the gap on the right — he's making room",
+      "correct": false,
+      "result": "He swung wide for a right turn into the gate. You put the Menace where the trailer is going.",
       "state_delta": {
-        "time_cost": 4
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
       }
     },
     {
       "id": "b",
-      "text": "TODO — option b",
-      "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "text": "Stay back until you can see his mirrors and know where he's going",
+      "correct": true,
+      "result": "You hold. His signal comes on late, the trailer swings, and the gate appears. From back here it was obvious.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": -1,
+        "time_cost": 5
       }
     },
     {
       "id": "c",
-      "text": "TODO — option c",
+      "text": "Pass on the left immediately, before he slows more",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "Blind crest coming and a farm truck beside you. You cannot finish it. The pass dies unfinished.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 3,
+        "time_cost": 8
       }
     },
     {
       "id": "d",
-      "text": "TODO — option d",
+      "text": "Sound the horn so he knows you're behind",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You make noise on a country road. He already knew. The horn did not buy you information.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 2,
+        "time_cost": 7
       }
     }
   ],
-  "debrief": "TODO — Claude: write debrief."
+  "debrief": "Farm equipment makes wide turns at unmarked entrances. Make sure the driver can see you before you pass."
 }

@@ -4,13 +4,13 @@
   "zone": "The Backcountry",
   "driver": "ali",
   "card_type": "hazard",
-  "title": "Do Not Swerve",
-  "hook": "TODO — deer in the road.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "title": "Look for the Others",
+  "hook": "A deer in the road, and it is not alone.",
+  "scene": "Last light. A doe is standing in your lane, broadside, doing what they do, which is nothing. Ditch on the right, oncoming lane on the left, and your hands have already decided which one they like.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "PSDP twelve Animals: do not swerve. Not DOL 4.19 pets. Timeout = swerve. Scaffold."
+    "teaching_target": "PSDP twelve Animals: do not swerve. Not DOL 4.19 pets. Timeout = swerve."
   },
   "cast": [
     "ali"
@@ -51,54 +51,60 @@
   "variation": {
     "location_type": "rural",
     "weather": "overcast",
-    "time_of_day": "morning",
+    "time_of_day": "dusk",
     "tone": "urgent",
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "decision": "TODO — Claude: write the decision?",
+  "decision": "She's in your lane. You can't stop in time.",
   "options": [
     {
       "id": "a",
-      "text": "TODO — correct: brake straight; do not swerve",
+      "text": "Brake straight, stay in the lane, don't swerve",
       "correct": true,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You brake hard and hold the wheel and hit nothing, or you hit her and keep the car. Either way you're still pointed down the road — and the second one comes out of the ditch three seconds later.",
       "state_delta": {
-        "time_cost": 4
+        "noise": -1,
+        "time_cost": 5
       }
     },
     {
       "id": "b",
-      "text": "TODO — timeout fail: swerve around the deer",
+      "text": "Swerve left into the oncoming lane",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "The worst crashes are people who missed an animal and found a truck. Oncoming finds you first.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 5,
+        "damage": 1,
+        "time_cost": 9
       }
     },
     {
       "id": "c",
-      "text": "TODO — option c",
+      "text": "Swerve right onto the shoulder",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "Soft shoulder, a ditch, and a Beetle rolling into it. The ditch takes the car the deer never needed.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 4,
+        "damage": 1,
+        "yaw": 1,
+        "time_cost": 9
       }
     },
     {
       "id": "d",
-      "text": "TODO — option d",
+      "text": "Swerve",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "Your hands did it. That is the whole reason this card exists. The swerve was the decision.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 5,
+        "damage": 1,
+        "yaw": 1,
+        "time_cost": 9
       }
     }
   ],
-  "debrief": "TODO — Claude: write debrief.",
-  "timeout_option_id": "b",
+  "debrief": "Don't swerve for an animal — slow down, be prepared to stop, and look for more. Deer travel in groups.",
+  "timeout_option_id": "d",
   "timeout_ms": 8000
 }

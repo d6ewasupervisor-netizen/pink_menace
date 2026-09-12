@@ -386,6 +386,13 @@ function mountRun(app) {
         optionId = "continue";
       }
       if (!optionId) {
+        const emptyProbe = await client.query(
+          `SELECT 1 FROM card_options WHERE card_id = $1 LIMIT 1`,
+          [cardId]
+        );
+        if (!emptyProbe.rows.length) optionId = "continue";
+      }
+      if (!optionId) {
         await client.query("ROLLBACK");
         return jsonError(res, 400, "Missing answer.");
       }
@@ -400,6 +407,16 @@ function mountRun(app) {
           [cardId, optionId]
         );
         option = optRes.rows[0];
+      }
+      // Optionless ledger (e.g. VI-011): UI continueOnly posts "continue"; synthesize like a dossier.
+      if (!option && optionId === "continue") {
+        const emptyOpts = await client.query(
+          `SELECT 1 FROM card_options WHERE card_id = $1 LIMIT 1`,
+          [cardId]
+        );
+        if (!emptyOpts.rows.length) {
+          option = { option_id: "continue", is_correct: true, result: "", state_delta: {} };
+        }
       }
       if (!option) {
         await client.query("ROLLBACK");

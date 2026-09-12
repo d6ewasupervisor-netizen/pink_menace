@@ -4,13 +4,13 @@
   "zone": "The Backcountry",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Clearance Drive",
-  "hook": "TODO — Deac has the board.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "title": "The Clipboard, Again",
+  "hook": "He's in the seat beside you with the log.",
+  "scene": "Deac in the passenger seat for the first time since Central, the metal clipboard on his knee and the same hand-ruled sheet he has been carrying since Kent. He is not talking. He says drive to the crossing and turn around, and then he says nothing for eleven miles while you do gravel and a crest and a roundabout, and the only sound is the pen.\n\nAt the end he turns the sheet around so you can see it, which he has never done, and there are hours in the left column and a line at the bottom with his initials on it.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
-    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. Ali drives. End of act → Cleared beat. Scaffold."
+    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. License lands here. End of act → Cleared beat."
   },
   "cast": [
     "ali",
@@ -25,13 +25,13 @@
     "foreground": "TODO — clipboard on thigh; scaffold only",
     "midground": "TODO — cracked pink dash; mesh; no second occupant",
     "background": "TODO — gravel shoulder / blacktop edge; overcast; no snow",
-    "read": "TODO — Deac with clipboard; Ali cleared; no still",
+    "read": "Deac with clipboard; Ali cleared; scaffold — no still",
     "continuity": [
       "ali",
-      "pink_menace_interior"
+      "pink_menace_interior",
+      "deac"
     ],
     "extra_negatives": [
-      "no second occupant",
       "no snow",
       "no chain-up",
       "no Snoqualmie shield",
@@ -47,47 +47,48 @@
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "decision": "TODO — Claude: write the decision?",
+  "decision": "He's holding it out. What do you say?",
   "options": [
     {
       "id": "a",
-      "text": "TODO — correct: teaching answer",
+      "text": "Nothing — take it, read it, hand it back",
       "correct": true,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You read your own hours. He takes it back and clips it down. \"That's the state's form,\" he says. \"I run it out of the book because there's nobody left to run it out of anything else. You passed it.\"",
       "state_delta": {
+        "noise": -1,
         "time_cost": 4
       }
     },
     {
       "id": "b",
-      "text": "TODO — option b",
+      "text": "Ask which parts you got wrong",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "\"You want the list, I'll give you the list.\" He does. It is short and it is not the point right now.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 1,
+        "time_cost": 7
       }
     },
     {
       "id": "c",
-      "text": "TODO — option c",
+      "text": "Ask if this means you can take the pass",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "\"It means you can drive. What the mountain does about it is the mountain's business.\"",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 1,
+        "time_cost": 6
       }
     },
     {
       "id": "d",
-      "text": "TODO — option d",
+      "text": "Tell him you were nervous",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "He looks at the sheet. \"Everybody is. I wrote down what you did, not what you felt.\"",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 1,
+        "time_cost": 6
       }
     }
   ],
-  "debrief": "TODO — Claude: write debrief."
+  "debrief": "The state's knowledge and skills standards are the standard, whoever holds the clipboard."
 }

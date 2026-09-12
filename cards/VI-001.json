@@ -5,15 +5,16 @@
   "driver": "ali",
   "card_type": "dossier",
   "title": "Where the Blacktop Quits",
-  "hook": "TODO — blacktop ends.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "hook": "The pavement ends and the mountain gets a face.",
+  "scene": "The county road gives up about four miles past the last mailbox, and what replaces it is gravel that somebody graded in the spring and nobody has touched since. You are alone. Gracie is in the carrier, latched, strapped, because the wheels are turning. For five acts the pass has been a gray smudge you could cover with a thumb. From here it has snow on it and weather sitting down on the ridge like something settling in, and you can see which notch the road goes through.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
     "teaching_target": "NEW frame: Backcountry starts where the blacktop quits. PSDP twelve Lesson one – gravel roads. Ali alone. No DOL pair."
   },
   "cast": [
-    "ali"
+    "ali",
+    "gracie"
   ],
   "antagonist": "none",
   "callback_of": null,
@@ -46,5 +47,5 @@
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "debrief": "TODO — Claude: write dossier debrief."
+  "debrief": "Gravel from here. The pass is close enough to read now."
 }

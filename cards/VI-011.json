@@ -4,13 +4,13 @@
   "zone": "The Backcountry",
   "driver": "ali",
   "card_type": "ledger",
-  "title": "The Shoulder Again",
-  "hook": "TODO — shoulder comes back.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "title": "Same Culvert",
+  "hook": "The road narrows where the culvert went in.",
+  "scene": "Ten miles on and here is the same kind of place — a narrowing, a four-inch lip, soft dirt below it. You know what it looks like now because you have already been down there once today, and the thing you remember is not the drop. It's your own arms wanting to pull.\n\nNothing happens. You hold the middle of the lane and go by it at thirty and it is the least eventful hundred feet of the afternoon, and that is the whole point. The one earlier cost you a fence post and a hubcap. This one cost nothing because you had already spent it.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Ledger callback of VI-004 soft shoulder: hold line; do not yank. Scaffold."
+    "teaching_target": "Ledger callback of VI-004 soft shoulder: hold line; do not yank. No question — continue only."
   },
   "cast": [
     "ali"
@@ -56,47 +56,5 @@
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "decision": "TODO — Claude: write the decision?",
-  "options": [
-    {
-      "id": "a",
-      "text": "TODO — correct: teaching answer",
-      "correct": true,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
-      "state_delta": {
-        "time_cost": 4
-      }
-    },
-    {
-      "id": "b",
-      "text": "TODO — option b",
-      "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
-      "state_delta": {
-        "time_cost": 8,
-        "noise": 2
-      }
-    },
-    {
-      "id": "c",
-      "text": "TODO — option c",
-      "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
-      "state_delta": {
-        "time_cost": 8,
-        "noise": 2
-      }
-    },
-    {
-      "id": "d",
-      "text": "TODO — option d",
-      "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
-      "state_delta": {
-        "time_cost": 8,
-        "noise": 2
-      }
-    }
-  ],
-  "debrief": "TODO — Claude: write debrief."
+  "debrief": "Off the road: don't turn, stay straight, come back where it's level. You paid for that one already."
 }

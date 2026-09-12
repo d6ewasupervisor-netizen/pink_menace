@@ -4,9 +4,9 @@
   "zone": "The Backcountry",
   "driver": "ali",
   "card_type": "hazard",
-  "title": "Soft Shoulder",
-  "hook": "TODO — right wheels drop.",
-  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "title": "Off the Edge",
+  "hook": "The right wheels are off the road.",
+  "scene": "The road narrows where the culvert went in and the shoulder is a four-inch drop of soft dirt, and you find it the way everyone finds it — not by deciding. The right side goes down and the car pulls hard toward the ditch and the wheel in your hands wants one thing, which is to come back up. Everything in your arms agrees with it.",
   "source": {
     "psdp_skill": "Skill twelve: driving on rural roads",
     "dol_section": "n/a",
@@ -56,49 +56,56 @@
     "failure_mode": "none",
     "forced": "Act VI scaffold — no still; do not seed"
   },
-  "decision": "TODO — Claude: write the decision?",
+  "decision": "Two wheels are off the pavement. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "TODO — correct: ease off / don’t yank",
-      "correct": true,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "text": "Turn back onto the road — get the wheels up before the ditch",
+      "correct": false,
+      "result": "You pull. The tire climbs the lip, catches, and the car comes across the road with more angle than you asked for. That is how this crash happens. Not the drop — the fix.",
       "state_delta": {
-        "time_cost": 4
+        "noise": 5,
+        "damage": 1,
+        "yaw": 2,
+        "time_cost": 9
       }
     },
     {
       "id": "b",
-      "text": "TODO — timeout fail: yank the wheel back",
-      "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "text": "Don't turn. Off the gas, hold it straight, find a flat spot and come back when it's clear",
+      "correct": true,
+      "result": "You keep the wheel where it is, which is the hardest thing in the car. The Menace runs the dirt straight, slowing. Twenty yards on the shoulder comes back up level and you signal and steer on, and the whole thing ends up being nothing.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": -1,
+        "time_cost": 5
       }
     },
     {
       "id": "c",
-      "text": "TODO — option c",
+      "text": "Brake hard before you lose more of it",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You stand on it with two wheels on dirt and two on asphalt, and the two that grip swing the car around the two that don't.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 4,
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 8
       }
     },
     {
       "id": "d",
-      "text": "TODO — option d",
+      "text": "Jerk it back",
       "correct": false,
-      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "result": "You do it before you decide to. The tire catches the lip and the car is across the centerline and you are a passenger for the part that matters.",
       "state_delta": {
-        "time_cost": 8,
-        "noise": 2
+        "noise": 5,
+        "damage": 1,
+        "yaw": 2,
+        "time_cost": 9
       }
     }
   ],
-  "debrief": "TODO — Claude: write debrief.",
-  "timeout_option_id": "b",
+  "debrief": "If you run off the road: don't turn the wheel, ease off the gas, stay straight, and come back on where it's level. Arms VI-011.",
+  "timeout_option_id": "d",
   "timeout_ms": 10000
 }
