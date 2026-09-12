@@ -1,0 +1,8 @@
+V-002 Tower 4 — POV_PORTRAIT, parked midday shoulder, plate ref_ribbon_deck.
+Authority: cards/V-002.json image_brief from PR #161 (Mya a brown mackerel loaf on the dash; continuity mya).
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_ali2.png, refs/ref_cockpit.jpg, refs/ref_mya.jpg (studio — out-of-carrier loaf, not the grate plate), .tmp-ribbon-plates/ref_ribbon_deck.png.
+
+Wave A take-1..take-8: compiled before #161; Mya absent. Keep in pool; do not pick.
+Wave B take-9..take-16: #161 brief. Closest take-15 (Ali in frame; Mya loafed on the dash; clipboard; parked highway). Runner take-13 (loaf + Ali + clipboard).
+Discard: take-11 (lap, not dash); take-12 (Ali only on the tablet); take-14 (no Ali face).
+Residual: invented collar on the cat; salt-flat GPS on several; loaf is often a sit.

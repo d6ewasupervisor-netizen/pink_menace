@@ -1,0 +1,7 @@
+V-003 Three Pieces of Ramp — POV_DIAGRAM, I-5 on-ramp three stretches, plate ref_ribbon_deck.
+Authority: cards/V-003.json image_brief (fail-fix / citation stack).
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_diagram_style.png, refs/ref_car_exterior.jpg, refs/ref_car_nose_plow.png, .tmp-ribbon-plates/ref_ribbon_deck.png.
+
+Pool: take-1..take-8. Closest take-5 (overhead; plow at the far leading end; sedan ahead same lane). Runner take-7 (same class).
+Discard: take-1/3 (plow on the rear); take-6 (side-mounted blade); take-8 (chase height, sedan in the other lane).
+Residual: the three-stretch on-ramp never rendered — all takes are a straight highway; yellow centerline; two lanes not three.
