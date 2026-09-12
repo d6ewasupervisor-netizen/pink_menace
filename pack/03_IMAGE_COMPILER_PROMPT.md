@@ -65,8 +65,10 @@ You MUST:
   - append the mirror clause and mirror negatives to POV_MIRROR_REAR and
     POV_MIRROR_DOOR
   - attach the ego vehicle lock to every POV_DIAGRAM for build only; no faces.
-    Ali: ref_car_exterior.jpg. Deac: ref_ledger_sheet.png. Never attach a
-    Menace lock (ref_car_exterior.jpg, ref_cockpit.jpg, Ali, Gracie) on a Deac card.
+    Ali: ref_car_exterior.jpg plus the live take-8 plate ref_car_nose_plow.png.
+    Deac: ref_ledger_sheet.png. Never attach a Menace lock
+    (ref_car_exterior.jpg, ref_car_nose_plow.png, ref_cockpit.jpg, Ali, Gracie)
+    on a Deac card. Never attach diag_nose_plow_front or ref_car_rear_plow.
   - on every Deac compile, append: no Volkswagen Beetle, no rounded-fender
     compact, no plow blade.
   - on Deac POV_DIAGRAM, POV_ROADSIDE, POV_ROADSIDE_PROFILE, and POV_CHASE
