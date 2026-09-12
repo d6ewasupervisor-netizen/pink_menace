@@ -83,6 +83,8 @@
     "weather": "overcast",
     "time_of_day": "midday",
     "tone": "procedural",
-    "failure_mode": "none"
+    "failure_mode": "none",
+    "winner": "take-65",
+    "forced": "live still cards/takes/IV-030-take-65.png (Claude PASS muted-read; take 61 FAIL do not seed)"
   }
 }
