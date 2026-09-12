@@ -6,4 +6,4 @@ Pool: take-1..take-4. Closest take-4. Runner take-1. Residual: sedan not a close
 
 Regen 2: closest take-8 (sedan in inside mirror AND empty lanes). Runner take-6 (mirror gate strong, lanes cropped). Extra gate: sedan must read in the interior rearview.
 Held cockpit/interior: Claude FAIL muted-read 794631a4 (wrong lane count / ego / setting). Three-lane interior regen (PR #162 takes 25/14) also FAIL — do not seed.
-High-oblique fallback (PR #163): pool take-9..take-24. Claude PASS muted-read a8a5ebe4: take-21 seeded live. Take-23 same geometry, sedan further back / weaker closing pressure — runner only, do not seed.
+High-oblique fallback (PR #163): pool take-9..take-24. Claude FAIL direct-pixel verify a8a5ebe4 on take-21 (unreadable gantry back + desaturated left edge). Do not seed. Take-23 runner only. Held for regen.
