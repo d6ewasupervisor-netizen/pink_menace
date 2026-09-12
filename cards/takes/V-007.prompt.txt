@@ -1,9 +1,11 @@
 V-007 Slow On the Ramp — RULE, POV_OBJECT (camera_is_the_lesson), afternoon rain.
 Authority: cards/V-007.json image_brief. Menace ON the EXIT ONLY off-ramp peeling
-right; three I-5 travel lanes still at highway speed; painted chevron island
-between them. NOT Menace on the mainline (PR #181 take-1 / take-9 FAIL).
+right; I-5 travel lanes still at highway speed; painted chevron island.
+NOT Menace on the mainline (PR #181 take-1 / take-9 FAIL).
 No person. No cargo. No Yuna. No posted 25 (V-008). No rear plow.
 Tool aspect 3:4 (seed encodes 2:3). Attachments: ref_car_exterior.jpg +
 ref_car_nose_plow.png (build / nose plow only). Do not attach ribbon_rig.
-Pool: take-11.. . Do not reuse PR #181 / #179 / #173 pixels as closest.
+Pool: take-11..take-24. Closest take-16 (ramp peel + traffic at speed + no rear
+plow). Runner take-18 (chevron split, no rear plow, parallel residual).
+Do not reuse PR #181 / #179 / #173 pixels as closest.
 Do not seed.
