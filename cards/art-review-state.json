@@ -174,6 +174,24 @@
       "note": "Copy fixed: The skyline is dark and the sign is dark with it. Still already reads stopped bus + dark skyline. the bus is sitting on the wrong side of the road.",
       "pick": "b-take-2",
       "updated_at": "2026-09-01T20:18:25.286Z"
+    },
+    "V-011": {
+      "tag": "PASS",
+      "note": "Claude muted-read PASS (794631a4). Take 7 seeded live. Driver's-eye zipper: Beetle rear clean (no plow), left lane live to the teeth, MUTCD orange, blank gantry. Take 6 runner-up do not seed.",
+      "pick": "take-7",
+      "updated_at": "2026-09-12T10:48:00.000Z"
+    },
+    "V-013": {
+      "tag": "PASS",
+      "note": "Claude muted-read PASS (794631a4). Take 8 seeded live. Interior rearview filled by Hollis facing the glass; empty right strip; dusk rain; pink dash + mesh. Take 6 runner-up do not seed.",
+      "pick": "take-8",
+      "updated_at": "2026-09-12T10:48:00.000Z"
+    },
+    "V-006": {
+      "tag": "GEOMETRY_WRONG",
+      "note": "Claude muted-read FAIL (794631a4). Both takes fail — wrong lane count / ego / setting. Held. Do not seed.",
+      "pick": "take-8",
+      "updated_at": "2026-09-12T10:48:00.000Z"
     }
   }
 }
