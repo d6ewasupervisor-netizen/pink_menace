@@ -1,0 +1,37 @@
+# IV-018 — Two on the Seat
+# image_brief authority: cards/IV-018.json (latest Act IV text; cats ON the seat)
+# attachments: refs/ref_cockpit.jpg, refs/ref_gracie.jpg, refs/ref_mya.jpg
+#   studio portraits = appearance authority
+#   NOT attached: refs/ref_carrier.png, refs/ref_cat_ginger.png, refs/ref_cat_mackerel.png
+#   reason: brief extra_negatives = no carrier in frame; cats are on the passenger seat
+#   grate plates are IN-CARRIER framing refs only — mesh would ghost onto the face
+# camera: POV_COCKPIT  driver: ali  identity-free (no face)
+# continuity: pink_menace_interior, gracie, mya
+# card_id: IV-018
+# lesson: both cats are on the seat; the speedometer reads 0
+# shot: POV_COCKPIT
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is inside the cabin, over the wheel, looking forward through the windshield. Gauges bottom-left, welded steel mesh across the top of the glass, road through the grid. No driver face.
+
+Match the attached Menace cockpit lock for cabin build only — cracked faded pink dashboard, worn black leather steering wheel with a chrome center hub, round analog gauge cluster, an aftermarket navigation tablet mounted center dash (screen dark and blank — no map, no letters), a bank of illuminated rocker switches, welded steel mesh across the windshield. Do not carry the lock's salt-flat sunset or desert. This frame is ice at night.
+
+Subject from the brief: both cats on the passenger seat — orange tabby Gracie with cream chest and amber-green eyes, brown mackerel Mya with a dark dorsal stripe and green eyes, heavy build matching her studio photo, not obese — neither belted, no carrier in frame.
+
+The passenger seat occupies the RIGHT of the cabin (left-hand drive: wheel on the left, passenger seat on the right). Both cats sit on that seat cushion, settled, bodies fully visible. They are not on the dash, not on a lap, not between the wheel and the camera, not in a carrier.
+
+Foreground from the brief: worn black wheel, faded pink dash, mesh over the windshield, cluster at 0.
+
+Midground from the brief: the two cats settled, neither on the dash, neither belted.
+
+Background from the brief: ice, night, downtown curb through the mesh, Ledger gone from the glass.
+
+The read: both cats are on the seat; the speedometer reads 0.
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. The vehicle is parked at the curb, not in a travel lane. The plow points at empty ice through the mesh. No oncoming traffic in frame. Traffic signs are single-faced. Exactly one sign face may be legible; if a second would be, crop it.
+
+Photoreal photograph, fine grain, no posterized flat color, no illustration, no 3D-render look.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. no cats on the dash. no cat wearing a belt. no obese Mya. no cats on the lap. no Quiet. no Deac in frame. no carrier in frame. no open carrier. no GPS map. no letters on the tablet. no white plastic carrier. no wire grate over a cat face. Aspect ratio 2:3.
