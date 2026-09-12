@@ -6,3 +6,4 @@ Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_cockpit.jpg (layout/mesh on
 Pool: take-1..take-8. Closest take-8 (most road through mesh + far guide panel). Runner take-5 (mesh + blank tablet + panel).
 Discard: take-1/2 dash wall; take-3 no mesh + desert GPS.
 Residual: two-lane yellow instead of three same-direction; dash still large; radio on the dash not the floor; no plow bar at the bottom of the glass; salt-flat GPS bleed on most takes.
+Seeded live (card art only): take-5 (Claude PASS muted-read d748b5d7). Take 8 FAIL (112.0 digital gauge + distracting tablet map) not seeded. Not a Menace cabin plate / LOCKS authority.
