@@ -5,58 +5,53 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Flashers on the Strip",
-  "hook": "Past the curve. All the way right. The right rear went soft.",
-  "scene": "Last daylight rain on the Ribbon. The right rear went soft past the last bend \u2014 a pull toward the Jersey, not a pad. You are already all the way right: fog line on the left of the Beetle, wall on the right, flashers talking. The curve is behind you. The light is going. Streetlights are the only lamps. The door wants a look. There is no second person.",
-  "decision": "You are stopped on that strip. What do you do?",
+  "hook": "The car starts pulling hard right.",
+  "scene": "The car starts pulling hard right. The shoulder here is narrow, there's a curve in the road behind you, the light is going, and nobody is in the other seat.",
+  "decision": "The car is pulling hard right. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Stay in the car, stay belted, keep the flashers on",
+      "text": "Keep it straight, get well past the curve, then pull all the way right and stay inside",
       "correct": true,
-      "result": "You stay clipped. The flashers keep talking. Traffic owns the wet deck and you stay a shape inside steel, not a body on the line. The strip is still not a lane.",
+      "result": "You hold it through the bend, then take the strip: all the way right, flashers on, belt still clipped. You stay a shape inside steel. The curve is behind you, not under you.",
       "state_delta": {
-        "noise": -1,
-        "time_cost": 4
+        "noise": 1,
+        "light": 2,
+        "yaw": 2,
+        "time_cost": 5
       }
     },
     {
       "id": "b",
-      "text": "Walk the Jersey so a driver can see you",
+      "text": "Stop right here before it gets worse",
       "correct": false,
-      "result": "One step puts you on the fog line. A pair of lamps is already too close to miss a person. The wall has no sidewalk. You left the only shell you had.",
+      "result": "You plant it in the bend. The next lamps come around a curve and find a Beetle with no sightline. The strip past the curve was the pad. Here is just the wall and the through.",
       "state_delta": {
-        "noise": 4,
+        "noise": 0,
         "light": 2,
-        "time_cost": 8
+        "yaw": 1,
+        "time_cost": 6
       }
     },
     {
       "id": "c",
-      "text": "Get out and look",
+      "text": "Get out and look at what happened",
       "correct": false,
-      "result": "You unclip and step into a live freeway shoulder the width of a plate. The next lamps have no time. A look at a soft tire is not worth a body on the fog line.",
+      "result": "You unclip and step onto a live freeway shoulder the width of a plate. A look at a soft tire is not worth a body on the fog line. The next lamps have no time.",
       "state_delta": {
-        "noise": 5,
-        "time_cost": 10,
+        "noise": 0,
+        "light": 2,
+        "yaw": 0,
+        "time_cost": 9,
         "fatal": true
-      }
-    },
-    {
-      "id": "d",
-      "text": "Cross the live lanes to the median where the shoulder looks wider",
-      "correct": false,
-      "result": "You step into three wet lanes at dusk. The median is a rumor past lamps that did not plan on a person. The car you left was already off the through.",
-      "state_delta": {
-        "noise": 5,
-        "time_cost": 9
       }
     }
   ],
-  "debrief": "Past the curve, all the way right, flashers on: stay inside and stay belted. Do not get out to look. Ali stays clipped behind the mesh.",
+  "debrief": "If you have to stop on a freeway, get well past any curve, pull as far right as you can, turn on your hazard lights, and stay inside the car with your seatbelt on.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving \u2013 part two",
     "dol_section": "2.6 Occupant Protection",
-    "teaching_target": "Highway disablement past a curve, all the way right: stay in the vehicle, stay belted, flashers on. Get-out-and-look is fatal on a live shoulder."
+    "teaching_target": "If you have to stop on a freeway, get well past any curve, pull as far right as you can, flashers on, stay inside and belted."
   },
   "cast": [
     "ali"
@@ -123,6 +118,6 @@
     "tone": "tense",
     "failure_mode": "belt",
     "winner": "take-5",
-    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief locked on shoulder_stop_dusk_ribbon / ref_ribbon_deck. Lesson remapped 2026-09-12 (Tyson / Claude overflow dd770651): past the curve, all the way right, flashers, stay inside and belted. tire_soft note kept (right rear went soft). Closest PASS take-5 cards/takes/V-013-take-5.png; runner take-3 banked. Do not seed. Do not live-DB."
+    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief locked on shoulder_stop_dusk_ribbon / ref_ribbon_deck. Lesson copy EXACT from Claude overflow dd770651 attached Act V JSON. tire_soft from V-001 converts this card: presence +4, time +3. Yuna is silent. Peak card of the act. Claude option presence a9/b13/c16 (C highest; fatal on live shoulder). Closest PASS take-5 cards/takes/V-013-take-5.png; runner take-3 banked. Do not seed. Do not live-DB."
   }
 }

@@ -24,6 +24,6 @@ Holds: no legible route/exit number; no snow/ice/chains; no sun/warm cast; wet s
 
 Card JSON is still the sole brief. Text now matches the Ribbon shots. Do not seed. Do not live-DB.
 
-- **V-013** — past the curve, all the way right, flashers, stay inside and belted (`tire_soft`). Option C is get-out-and-look (fatal). Closest PASS take-5; runner take-3 banked.
-- **V-008** — work zone speed and early lane shift. Options: move early / hold speed and force it / brake hard at taper. Closest take-3 / runner take-1. Pending Brad left-gantry 6x check / explicit PASS.
-- **V-006** — truck blind spots / ease off and let it pass (neither door mirror has you). Options: hold alongside / ease off / accelerate past. Closest PASS take-3; runner take-1 banked.
+- **V-013** — EXACT Claude JSON: past the curve, all the way right, flashers, stay inside and belted. Option C = "Get out and look at what happened" (fatal). `tire_soft` from V-001 converts (+4 presence, +3 time). Closest PASS take-5; runner take-3 banked.
+- **V-008** — EXACT Claude JSON: move over early and take the posted speed / hold speed until the cones force you / brake hard at the taper and squeeze in. Closest take-3 / runner take-1. Pending Brad left-gantry 6x check.
+- **V-006** — EXACT Claude JSON: hold alongside / ease off and let it get clear / accelerate to clear the front. cargo_rough on a and c. Closest PASS take-3; runner take-1 banked.
