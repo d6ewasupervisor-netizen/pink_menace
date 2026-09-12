@@ -62,6 +62,7 @@
     "time_of_day": "midday",
     "tone": "quiet",
     "failure_mode": "none",
-    "forced": "do not seed — Wave D muted-read only. Closest take-29 / runner take-23. Hold take-17 cabin. Take-15 live-seed BLOCKED on 112.0 (PR #171 DO NOT MERGE). No cards/V-002.png until Claude PASS."
+    "winner": "take-29",
+    "forced": "live still cards/takes/V-002-take-29.png (Claude PASS muted-read Wave D d748b5d7 2026-09-12). Parked + Mya loaf on dash; bare neck / no collar. Runner take-23 also PASS — do not seed. Take-15 still blocked on 112.0."
   }
 }
