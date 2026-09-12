@@ -2,4 +2,7 @@ V-010 One Lane, Then Sit — RULE, POV_DIAGRAM (camera_is_the_lesson), overcast 
 Authority: cards/V-010.json image_brief. Completed onto 3-lane I-90; Menace holding in the right behind a slow box; middle and left empty. Not a lane-closure sign.
 Ali alone. No cargo. No Yuna. presence 0.
 Tool aspect 3:4 (seed encodes 2:3). Attachments: ref_diagram_style.png, ref_car_exterior.jpg, ref_car_nose_plow.png.
+
+Pool: take-1..take-6. Closest take-3 (same-lane stack, sitting, median). Runner take-1.
+Discard: take-4 (second pink Beetle). Residual: two lanes; tail bar.
 Do not seed.
