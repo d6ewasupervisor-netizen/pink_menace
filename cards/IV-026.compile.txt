@@ -1,0 +1,19 @@
+# IV-026 — GPT Image 2 compile prompt
+# attachments: ref_car_exterior.jpg, ref_car_nose_plow.png
+# camera: POV_DIAGRAM (preferred: high-oblique down-lane + 25–35° body yaw; plow lock unchanged)
+# take send: IV-026 · three hazards sit in the Beetle's next two lengths; the left travel lane is empty · POV_DIAGRAM
+
+See cards/takes/IV-026.prompt.txt for the preferred generation prompt.
+See cards/takes/IV-026.WAVE.md for the wave, fallbacks, closest, and runner.
+
+Framing-only recompile after Claude FAIL on PR #133 takes 158 / 157. Those held nose-away / down-lane, but high-oblique aligned with the lane hid the ground-level blade behind the nose (thin dark offside wedge; push bar not resolving; 157 also grew a black roofline lattice).
+
+Preferred (162–169): stock POV_DIAGRAM high-oblique down-lane, Beetle yawed 25–35° off the lane axis. FAIL as a class — generator stayed lane-aligned; blade stayed a thin bar or jumped to the rear.
+
+Fallback A (170–177): camera 15–20° above horizon, blade against the road, still away. FAIL as a class — front stub or rear plate.
+
+Fallback B (178–185): last-resort up-lane nose-toward-camera. Brief conflict with JSON away heading. Only class where take-8 blade + tubular push bar read past both sides. Closest 184 / runner 179.
+
+Card JSON remains the sole scene brief (hazards / lesson / distance unchanged). image_brief.camera_pose is overridden at compile only. JSON itself is not edited. JSON extra_negative "no cocked or yawed Beetle" is compile-overridden on the preferred prompt because that yaw is framing to reveal the locked plow, not a lesson change.
+
+Plow plate / LOCKS / other cards unchanged. Live plate: refs/ref_car_nose_plow.png (PR #121 take-8, sha256:c6c8ec1fe709ddb8329e7b5def830dae0959002bf838ba1afcdbaf51d63d1133).
