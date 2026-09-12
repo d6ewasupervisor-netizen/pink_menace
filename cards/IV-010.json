@@ -42,6 +42,8 @@
     "weather": "overcast",
     "time_of_day": "afternoon",
     "tone": "quiet",
-    "failure_mode": "none"
+    "failure_mode": "none",
+    "winner": "take-18",
+    "forced": "live still cards/takes/IV-010-take-18.png (Claude muted-read PASS a8a5ebe4; take-13 FAIL do not seed)"
   }
 }
