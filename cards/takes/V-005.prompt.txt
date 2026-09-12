@@ -1,0 +1,7 @@
+V-005 Match Them Before Paint — SCENE, POV_COCKPIT, wind morning I-5 on-ramp.
+Authority: cards/V-005.json image_brief. pink_menace_interior → ref_menace_cabin.png (not ref_cockpit.jpg). No Yuna. No cargo.
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_menace_cabin.png, refs/ref_car_nose_plow.png.
+
+Pool: take-1..take-6. Closest take-1 (mesh + cabin + radio on the floor + truck ahead). Runner take-4 (mesh + cabin + truck).
+Discard: take-2 / take-5 / take-6 (no mesh); take-3 (invented dash radio).
+Residual: already on the highway, not the ramp; no plow bar; not a dirty day-cab at the merge.
