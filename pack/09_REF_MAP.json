@@ -20,7 +20,10 @@
     "diagram_style": ["ref_diagram_style.png"],
     "the_quiet": ["ref_quiet.png"],
     "quiet_a4": ["ref_quiet_a4.png"],
-    "quiet_a5": ["ref_quiet_a5.png"]
+    "quiet_a5": ["ref_quiet_a5.png"],
+    "ribbon_deck": ["ref_ribbon_deck.png"],
+    "ribbon_rig": ["ref_ribbon_rig.png"],
+    "ribbon_workzone": ["ref_ribbon_workzone.png"]
   },
   "no_file": [
     "marisol",
