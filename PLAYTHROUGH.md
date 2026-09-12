@@ -36,7 +36,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 | IV-016 | He Does Not Get Out | dossier | take 17 · #111 |
 | IV-017 | The Conversation | dossier | early PASS · #25 |
 | IV-018 | Two on the Seat | scene | early PASS · #25 |
-| IV-026 | Separate the Three | scene | take 230 · #142 |
+| IV-026 | Separate the Three | scene | take 230 · #145 |
 | IV-027 | Space With No Space | scene | take 49 · #82 |
 | IV-028 | Both in the Carrier | dossier | take 70 · #108 |
 | IV-030 | The Door to the Pass | dossier | take 65 · #106 |
