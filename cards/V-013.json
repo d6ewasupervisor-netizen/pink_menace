@@ -5,23 +5,12 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Flashers on the Strip",
-  "hook": "The Menace died on a strip that is not a lane.",
-  "scene": "Last daylight rain on the Ribbon, still the valley floor. The sky is going \u2014 gray over the deck, streetlights the only lamps. The Menace has stopped on a squeeze: fog line on the left, Jersey on the right, flashers already talking. There is no pad. The travel lanes still own the wet. The door handle is right there. Nobody else is in the car.",
-  "decision": "The car is dead on that strip. What do you do?",
+  "hook": "Past the curve. All the way right. The right rear went soft.",
+  "scene": "Last daylight rain on the Ribbon. The right rear went soft past the last bend \u2014 a pull toward the Jersey, not a pad. You are already all the way right: fog line on the left of the Beetle, wall on the right, flashers talking. The curve is behind you. The light is going. Streetlights are the only lamps. The door wants a look. There is no second person.",
+  "decision": "You are stopped on that strip. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Get out and walk the Jersey so a driver can see you",
-      "correct": false,
-      "result": "One step puts you on the fog line. A pair of lamps is already too close to miss a person. The wall has no sidewalk. You left the only shell you had.",
-      "state_delta": {
-        "noise": 4,
-        "light": 2,
-        "time_cost": 8
-      }
-    },
-    {
-      "id": "b",
       "text": "Stay in the car, stay belted, keep the flashers on",
       "correct": true,
       "result": "You stay clipped. The flashers keep talking. Traffic owns the wet deck and you stay a shape inside steel, not a body on the line. The strip is still not a lane.",
@@ -31,13 +20,25 @@
       }
     },
     {
-      "id": "c",
-      "text": "Unbuckle and stand at the rear so they have a body to miss",
+      "id": "b",
+      "text": "Walk the Jersey so a driver can see you",
       "correct": false,
-      "result": "The belt comes off. You are now the tallest thing on a strip the width of a plate. The next set of lamps has no time to choose a gap.",
+      "result": "One step puts you on the fog line. A pair of lamps is already too close to miss a person. The wall has no sidewalk. You left the only shell you had.",
       "state_delta": {
         "noise": 4,
-        "time_cost": 7
+        "light": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Get out and look",
+      "correct": false,
+      "result": "You unclip and step into a live freeway shoulder the width of a plate. The next lamps have no time. A look at a soft tire is not worth a body on the fog line.",
+      "state_delta": {
+        "noise": 5,
+        "time_cost": 10,
+        "fatal": true
       }
     },
     {
@@ -51,11 +52,11 @@
       }
     }
   ],
-  "debrief": "If the car dies on a narrow highway shoulder, stay inside and stay belted. Flashers tell the deck you are there. Do not stand on the fog line. Ali stays clipped behind the mesh.",
+  "debrief": "Past the curve, all the way right, flashers on: stay inside and stay belted. Do not get out to look. Ali stays clipped behind the mesh.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving \u2013 part two",
     "dol_section": "2.6 Occupant Protection",
-    "teaching_target": "Highway disablement on a narrow shoulder: stay in the vehicle, stay belted, flashers on. Do not stand on the fog line."
+    "teaching_target": "Highway disablement past a curve, all the way right: stay in the vehicle, stay belted, flashers on. Get-out-and-look is fatal on a live shoulder."
   },
   "cast": [
     "ali"
@@ -122,6 +123,6 @@
     "tone": "tense",
     "failure_mode": "belt",
     "winner": "take-5",
-    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief locked on shoulder_stop_dusk_ribbon / ref_ribbon_deck. Lesson remapped 2026-09-12 (Tyson): shoulder disablement / stay in the car / stay belted. Closest PASS take-5 cards/takes/V-013-take-5.png; runner take-3 banked. Do not seed. Do not live-DB."
+    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief locked on shoulder_stop_dusk_ribbon / ref_ribbon_deck. Lesson remapped 2026-09-12 (Tyson / Claude overflow dd770651): past the curve, all the way right, flashers, stay inside and belted. tire_soft note kept (right rear went soft). Closest PASS take-5 cards/takes/V-013-take-5.png; runner take-3 banked. Do not seed. Do not live-DB."
   }
 }

@@ -6,17 +6,17 @@
   "card_type": "hazard",
   "title": "Beside the Trailer",
   "hook": "A period rig fills your left at door height.",
-  "scene": "Rain, midday, the Ribbon, three lanes this way. A period-aged tractor fills the left of the frame at your door. The Menace sits low beside the trailer. Spray is already on the roof. His big west-coast mirrors on the doors sit far ahead. Holding this door is a place he cannot see. Nobody else is in the Menace.",
+  "scene": "Rain, midday, the Ribbon, three lanes this way. A period-aged tractor fills the left of the frame at your door. The Menace sits low beside the trailer. Spray is already on the roof. His big west-coast mirrors on the doors sit far ahead \u2014 both of them, and you are in neither. Holding this door is a place he cannot see.",
   "decision": "You are beside the trailer. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Hold the door and match his speed so you stay even",
+      "text": "Hold alongside and match his speed",
       "correct": false,
-      "result": "You live in the no-zone. He starts a move that needs your lane. You are the car in the statistic. He never had you in the glass.",
+      "result": "You live in the no-zone. He starts a move that needs your lane. You are the car in the statistic. He never had you in either mirror.",
       "state_delta": {
-        "noise": 4,
-        "yaw": 2,
+        "noise": 3,
+        "yaw": 1,
         "time_cost": 8
       }
     },
@@ -24,36 +24,26 @@
       "id": "b",
       "text": "Ease off, drop back, let the truck pull ahead",
       "correct": true,
-      "result": "You lift. The trailer walks forward. His door mirrors can own a Beetle again. The spray stays on his wheels, not your roof. You let him pass.",
+      "result": "You lift. The trailer walks forward. Both door mirrors can own a Beetle again. The spray stays on his wheels, not your roof. You let him pass.",
       "state_delta": {
         "noise": -1,
-        "time_cost": 5
+        "time_cost": 3
       }
     },
     {
       "id": "c",
-      "text": "Squeeze closer so the spray makes him notice you",
+      "text": "Accelerate past and clear the nose",
       "correct": false,
-      "result": "You close a gap that was already a blind spot. He cannot see a pink roof against a trailer. Closer is not a signal. It is a scrape waiting for his next inch.",
+      "result": "You stay in the blind spot longer, only faster. The Beetle walks rough in his spray. If he drifts you meet the trailer at speed. Ease off was cheaper on every axis.",
       "state_delta": {
         "noise": 5,
         "yaw": 2,
-        "damage": 1,
-        "time_cost": 7
-      }
-    },
-    {
-      "id": "d",
-      "text": "Punch it and race the cab until you clear the nose",
-      "correct": false,
-      "result": "You stay in the blind spot longer, only faster. If he drifts you meet the trailer at speed. Ease off was the shorter time beside him.",
-      "state_delta": {
-        "noise": 4,
+        "passenger_stress": 2,
         "time_cost": 6
       }
     }
   ],
-  "debrief": "Never stay beside a truck. You are in a blind spot he cannot see. Ease off and let him pull ahead. Leave the door; let him take the lane.",
+  "debrief": "Never stay beside a truck. You are in a blind spot he cannot see from either mirror. Ease off and let him pull ahead. Leave the door; let him take the lane.",
   "timeout_option_id": "a",
   "timeout_ms": 12000,
   "source": {
@@ -127,6 +117,6 @@
     "tone": "urgent",
     "failure_mode": "inexperience",
     "winner": "take-3",
-    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief locked on semi_alongside_ribbon / ref_ribbon_rig. Lesson remapped 2026-09-12 (Tyson): truck blind spots / ease off, let it pass. Closest PASS take-3 cards/takes/V-006-take-3.png; runner take-1 banked. Do not seed. Do not live-DB."
+    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief locked on semi_alongside_ribbon / ref_ribbon_rig. Lesson remapped 2026-09-12 (Tyson / Claude overflow dd770651): truck blind spots / ease off and let it pass (neither door mirror has you). Closest PASS take-3 cards/takes/V-006-take-3.png; runner take-1 banked. Do not seed. Do not live-DB."
   }
 }
