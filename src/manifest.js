@@ -154,8 +154,7 @@ function deliveryBeat(stateOrCold, act) {
       "The sheet goes in the glovebox with the affidavit and the log from Kent, and for the first time since the lot in Kent the thing you drove out there to get is actually in the car. " +
       "Then the radio, and it's Yuna, and she isn't leading with it because she never does: the pass is shut. Four feet on the ridge in two days, or something moving on the east slope that the plows won't go near — the reason changes depending on who is telling it and both versions end with the same closed gate. " +
       "You are cleared to drive a road that will not let you on it. " +
-      "Two hundred and eighty miles east, your mother is awake and does not know yet. " +
-      "Act VII: THE DARK HOURS — locked."
+      "Two hundred and eighty miles east, your mother is awake and does not know yet."
     );
   }
   if (n <= 0) return "Delivered warm. June took it anyway.";
