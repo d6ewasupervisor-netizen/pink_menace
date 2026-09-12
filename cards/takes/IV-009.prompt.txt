@@ -1,0 +1,43 @@
+# IV-009 — When Loud Is Right
+# image_brief authority: cards/IV-009.json
+# driver token CONFIRMED from card JSON: yuna (not ali)
+# attachments: /tmp/pm-plates/ref_encore_cockpit.png
+#   live lock = PR #122 Y4 b-take-2
+#   sha256 74d8d1ab8a5b12d4d30b9649354ea8bbb853a957bbadb32d4cc5029b68b8ca81
+#   used from /tmp only — this PR does not overwrite refs/ref_encore_cockpit.png
+# camera: POV_COCKPIT  driver: yuna  identity-free (no face)
+# continuity: encore_cockpit only — do not attach the Encore exterior sheet
+# extra_negatives: no Encore exterior, no horn flares in frame
+# card_id: IV-009
+# lesson: the PA switch is still off; the block ahead is a cone pinch, not a dying street
+# shot: POV_COCKPIT
+# Rule 2 (PR #115): interior switchgear world-graded
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Match the attached Encore cockpit lock exactly for cabin identity — same enclosed moulded dash, same small suede-wrapped three-spoke racing wheel on the left (left-hand drive), same single analog tach, same guarded PA switch (cover down, left off), same welded roll-cage tubes at the A-pillars, same handheld wireless microphone clipped on the right cage tube, same intact factory windshield glass with ice beading on the OUTSIDE of a real glass plane, same solid roof / headliner. Two pedals only if the footwell appears: wide brake and narrow accelerator, empty floor left of the brake, no clutch, no floor shifter. Do not invent a different dashboard, roof PA horns inside the cabin, or an open tube-frame cockpit.
+
+Camera is inside Encore, over the wheel, looking forward through the windshield — the seat is behind the camera, not in frame. No driver face.
+
+Subject from the brief: from the seat looking forward: guarded red PA switch still off, a dump and cone line pinching the block, no mesh on the glass.
+
+Foreground from the brief: suede racing wheel, stripped dash, the red guarded switch under a hand that has not thrown it. If a hand or forearm is shown, require a visible attached shoulder and torso sliver in the same frame — never a detached limb. The hand rests on the switch guard; the cover is still down; the switch has not been thrown.
+
+Midground from the brief: welded roll cage, ice on bare glass, dump truck ahead in the pinch, cones leaning.
+
+The dump truck is close — a work pinch, not an empty lot. A single line of traffic cones leans in from both edges of the remaining lane and pinches the dump so only a crawl-width gap remains. Ice sheen on the glass and the pavement. Midday, downtown, overcast.
+
+Background from the brief: ice, midday, downtown work pinch, no readable signs.
+
+The read: the PA switch is still off; the block ahead is a cone pinch, not a dying street.
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. The hatchback occupies the left travel lane of a two-lane work pattern; the nose points toward the top of the frame through bare glass; no oncoming traffic in frame. Hazard ahead, same direction. Traffic signs are single-faced. Exactly one sign face may be legible; if a second would be, crop it.
+
+cabin switchgear world-graded, desaturated, faded; no candy-red oversat on switch covers or rockers. The guarded PA switch can read as a kill switch without lighting up like a STOP face.
+
+intact window glass in all openings, no mesh, no bars, no open cabin.
+
+Photoreal photograph, fine grain, no posterized flat color, no illustration, no 3D-render look.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. No open cabin, no missing windshield, no stripped glass, no mesh over the windshield, no bars across the glass, no window nets, no convertible, no sky where the roof should be, no PA horns inside the cabin. no windshield mesh. no bar cage over the glass. no Encore exterior. no horn flares in frame. no plow. no candy-red switch covers, no oversaturated cabin controls, no MUTCD-red interior switchgear, no lettered switch faces. no third pedal. no clutch. no floor shifter. no scattered cone pile. no empty parking lot. Aspect ratio 2:3.

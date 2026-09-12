@@ -1,0 +1,31 @@
+# IV-029 — When Not To Be Loud
+# image_brief authority: cards/IV-029.json
+# attachments: refs/ref_yuna_sheet.png, refs/ref_yuna.png
+# camera: POV_PORTRAIT (face-critical)  driver: yuna
+# continuity: yuna
+# card_id: IV-029
+# lesson: both in-ears are out; this is a portrait of Yuna only
+# shot: POV_PORTRAIT
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Rain at night, downtown, wet asphalt catching streetlight; desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only bright element in frame is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is chest-up, subject centered, background compressed.
+
+Subject from the brief: Yuna chest-up, platinum under-layer, right-temple braid, dead in-ears around her neck both out, not smiling — person only, no hardware on her body.
+
+Subject identity: a 17-year-old woman with light-medium skin and no glasses, an asymmetric chin-length bob, jet black on top with a platinum under-layer, a single thin braid at her RIGHT temple with retroreflective tape woven into it, wearing a cropped black windbreaker with retroreflective piping down both sleeves, squared stage-trained posture. Match the attached Yuna lock for face and braid side. Dead wireless in-ear monitors around her neck with BOTH earpieces OUT and dangling on the cord — neither earpiece is in an ear. The jacket zipper and the in-ear cord are the only objects on her. Not smiling. Chin level. Rain on the shoulder.
+
+Foreground from the brief: cropped black windbreaker with retroreflective sleeve piping, rain on the shoulder.
+
+Midground from the brief: her face, no glasses, chin level, both in-ears dangling on the cord around her neck.
+
+Background from the brief: rain, night, a work pinch of cones, hatchback flank out of focus with no readable chevron.
+
+THIS IS A PORTRAIT OF A PERSON ONLY. No switch, no rocker, no device, no gadget, no badge, no pack, no clip on her chest or clothing. No PA switch in frame — not on her, not floating, not in the background as a readable object.
+
+The read: both in-ears are out; this is a portrait of Yuna only.
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Photoreal photograph, fine grain, no posterized flat color, no illustration, no 3D-render look.
+
+No smile. No bandage. No blood. No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. no Encore four-view. no horn flares as the subject. no chevron readable. no mesh. no Menace. no switch on clothing. no device on her chest. no hardware attached to the person. no props composited on the body. no PA switch in frame. no earpiece in either ear. Aspect ratio 2:3.
