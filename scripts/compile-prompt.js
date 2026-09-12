@@ -169,7 +169,16 @@ function geometryPromptClause(geo, driver) {
   return [core, traffic].filter(Boolean).join(" ");
 }
 
-function assemblePrompt(card) {
+function assertNoWaveOverlay(card, overlay) {
+  if (overlay == null) return;
+  const id = (card && card.card_id) || "?";
+  throw new Error(
+    `${id}: card JSON is the sole brief authority — wave briefs cannot override image_brief`
+  );
+}
+
+function assemblePrompt(card, overlay) {
+  assertNoWaveOverlay(card, overlay);
   const brief = card.image_brief;
   if (!brief) throw new Error(`${card.card_id}: missing image_brief`);
   const cam = cameraOf(card);
@@ -321,4 +330,12 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };
+module.exports = {
+  assemblePrompt,
+  assertNoWaveOverlay,
+  FRAMING,
+  MASTER_STYLE,
+  DIAGRAM_STYLE,
+  LHD,
+  OTHER_VEHICLE_CLAUSE_LEDGER,
+};

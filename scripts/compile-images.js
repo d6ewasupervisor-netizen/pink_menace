@@ -7,6 +7,12 @@ const { assemblePrompt } = require("./compile-prompt");
 const { validateGeometry } = require("./geometry");
 const { validateAuthoringSeat } = require("./authoring-seat");
 
+// Sole brief authority: cards/*.json. Wave briefs list IDs; they cannot supply image_brief.
+if (process.argv.includes("--wave-brief") || process.argv.includes("--brief")) {
+  console.error("card JSON is the sole brief authority — do not pass a wave brief");
+  process.exit(2);
+}
+
 const dir = path.join(__dirname, "..", "cards");
 const only = process.argv.includes("--card")
   ? process.argv[process.argv.indexOf("--card") + 1]

@@ -47,11 +47,15 @@ Three layers, and the order matters.
 
 `24_ART_REVIEW_RUBRIC.md` is the still-vs-copy review: tag as a work order, text before pixels, never generate on `CARD_BROKEN` / `WRONG_CAMERA`. Tool: `npm run art-review`.
 
+`39_WAVE_BRIEFS.md` is the stills-wave lock: wave briefs list card IDs only; compile reads `image_brief` from card JSON.
+
 ---
 
 ## Standing locks (do not rediscover)
 
 **Rule 2 — world grade. Regulatory-sign exemption is exterior MUTCD / street signage only.** The world stays desaturated (bible §8.1). MUTCD-correct color on a regulatory face is legal only on **exterior** street signage. Interior cabin switchgear and switch covers stay world-graded — desaturated, no candy-red oversat. They are not signs. IV-007's existing narrow legible-text exception stays on **exterior** regulatory sign faces only; do not extend it to cabin controls. See `03_IMAGE_COMPILER_PROMPT.md`.
+
+**Wave briefs list card IDs only.** A wave brief, stills batch brief, or parallel stills prompt lists card IDs and nothing else. It is not a source of frame descriptions. `image_brief` and the frame description are always read from the card JSON at compile time. Card JSON is the sole brief authority. Stale parallel briefs must not override the locked card. See `39_WAVE_BRIEFS.md` and `03_IMAGE_COMPILER_PROMPT.md`.
 
 ---
 
