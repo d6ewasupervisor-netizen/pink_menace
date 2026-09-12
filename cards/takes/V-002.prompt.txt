@@ -21,3 +21,12 @@ Hard enforcements (wave-2 FAIL hold):
 
 Wave-2 pool (PR #164, do not pick): take-13 dual GPS; take-15 sit + 112.0.
 This regen: take-17..take-24. Closest + runner only. No seed.
+
+Closest: cards/takes/V-002-take-20.png
+  Ali chest-up, faded pink hoodie collar, clipboard on thigh, parked shoulder through mesh.
+  Mya a compact tucked-paw loaf on the still dash. No GPS, no 112.0, no second person.
+Runner: cards/takes/V-002-take-17.png
+  Same class (parked / loaf-adjacent / Ali alone / no nav / no 112.0). Residual: wheel through face; paws forward.
+
+Discard: take-19 (no Ali), take-22 (sit on lap), take-23 (upright sit), take-24 (no cat).
+Keep in pool, do not pick: take-18 (cabin lock clean, gray jacket, sphinx), take-21 (sphinx + fine mesh).
