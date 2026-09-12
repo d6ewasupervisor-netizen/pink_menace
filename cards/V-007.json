@@ -1,0 +1,99 @@
+{
+  "card_id": "V-007",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "Slow On the Ramp",
+  "hook": "The exit is named. The highway is still fast.",
+  "scene": "Daylight rain, afternoon, I-5 south. A green exit panel sits far enough ahead that you can still choose. The right lane will become the ramp. Your cluster is highway speed. The curve on the ramp is tight. Dumping speed here, on the travel lanes, turns the stack behind you into a wall of lamps. The ramp is where the number dies. Yuna does not come back on for this.",
+  "decision": "You have the exit. Where does the speed come off?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Brake now in the travel lane so you arrive at the ramp already slow",
+      "correct": false,
+      "result": "You dump speed on I-5. The car behind you stands on it. You made a highway stop for a ramp that still had its own pavement.",
+      "state_delta": {
+        "noise": 4,
+        "light": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Hold highway speed past the gore and brake in the middle of the curve",
+      "correct": false,
+      "result": "You enter the bend still hot. The rear steps out. Yaw on a wet ramp is how a schedule ends, even with a late kit that still delivers.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 3,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "c",
+      "text": "Skip this exit and take the next one so you do not have to slow at all",
+      "correct": false,
+      "result": "You miss a named exit because slowing felt rude. Tower 4 just grew a loop. The ramp was the legal place to lose the number.",
+      "state_delta": {
+        "time_cost": 14,
+        "fuel": -1
+      }
+    },
+    {
+      "id": "d",
+      "text": "Hold speed on the highway, signal early, drop the number on the ramp",
+      "correct": true,
+      "result": "You keep their speed until the ramp owns you. The stalk talked four to six seconds back. On the ramp you tap the brakes and the curve gets the posted number.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    }
+  ],
+  "debrief": "Pick the exit early. Do not slow on the highway. You took the leftover off on the ramp.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part one",
+    "dol_section": "4.12 Signs",
+    "teaching_target": "Identify the exit early; do not slow on the highway; signal 4–6 seconds before the ramp."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "camera_is_the_lesson": true,
+    "subject": "a wet green EXIT ONLY panel on a gantry, shallow depth, I-5 travel lanes soft below",
+    "foreground": "rain on the sign face, no readable city name",
+    "midground": "gantry steel, one EXIT ONLY arrow panel lit by flat daylight",
+    "background": "soft wet I-5 afternoon, no night, no snow",
+    "read": "the exit panel is already named while the travel lanes below are still at highway speed",
+    "extra_negatives": [
+      "no readable city names",
+      "no snow",
+      "no chain-up plaque",
+      "no night"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of three southbound I-5 lanes under the gantry",
+      "ego_nose_in_frame": "travel continues away under the sign; the plow is not the subject",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "rain",
+    "time_of_day": "afternoon",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}
