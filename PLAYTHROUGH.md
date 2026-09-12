@@ -27,7 +27,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 | IV-006 | Tracks in the Lane | scene | take 11 · #127 |
 | IV-007 | Transit Only | rule | take 30 · #119 |
 | IV-008 | The Bike in the Gap | scene | take 1 · #36 |
-| IV-009 | When Loud Is Right | convoy | take 12 · this seed (file; was take 11 · #129) |
+| IV-009 | When Loud Is Right | convoy | take 12 · #135 (file; was take 11 · #129) |
 | IV-010 | Eleven Months | dossier | early PASS · #25 |
 | IV-011 | Backing Into People | scene | take 98 · #58 |
 | IV-012 | The Same Crosswalk | ledger | take 32 · #76 |
@@ -39,7 +39,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 | IV-026 | Separate the Three | scene | take 110 · #72 |
 | IV-027 | Space With No Space | scene | take 49 · #82 |
 | IV-028 | Both in the Carrier | dossier | take 70 · #108 |
-| IV-029 | When Not To Be Loud | dossier | take 16 · this seed (file) |
+| IV-029 | When Not To Be Loud | dossier | take 16 · #135 (file) |
 | IV-030 | The Door to the Pass | dossier | take 65 · #106 |
 
 Dossiers are continue-only (no quiz options). That is intended.
