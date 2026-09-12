@@ -1,0 +1,39 @@
+# IV-018 — Two on the Seat
+# card_id: IV-018
+# lesson (read): both cats are on the seat; the speedometer reads 0
+# shot token: POV_COCKPIT
+# driver: ali  continuity: pink_menace_interior, gracie, mya
+# image_brief authority: cards/IV-018.json (PR #22 — carrier spoiler: NO carrier in frame)
+# attachments (this compile):
+#   /tmp/iv-cabin/ref_menace_cabin.png  — live Menace cabin (PR #75 take-16). NOT committed.
+#   refs/ref_gracie.jpg                 — studio appearance lock (Gracie)
+#   refs/ref_mya.jpg                    — studio appearance lock (Mya)
+# NOT attached (JSON is out-of-carrier; grate would ghost onto faces):
+#   refs/ref_carrier.png, refs/ref_cat_ginger.png, refs/ref_cat_mackerel.png
+#   refs/ref_cockpit.jpg is poisoned (GPS tablet) — out of pool
+# LOCKS.md on main does not yet record studio-wins / in-carrier-only / Mya=mackerel.
+# Those lines live on PR #118. Not bundled here.
+# takes: 9–12  (prior wave: 1–8 Batch B, old in-carrier brief)
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Ice at night, downtown curb through windshield mesh. Cabin lit only by dim instruments and cold street spill. Desaturated palette: wet ice gray, oxidized steel, faded pink. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare. Photoreal continuous-tone photograph — no posterization, no flat-color cel shading, no vector graphic look.
+
+Match the attached Menace cabin lock exactly for cabin identity — same flat painted-metal faded-pink Type 1 dash shelf, same worn black unbranded three-spoke wheel on the left (left-hand drive), same single analog instrument nacelle, same coarse welded mesh over the windshield (not a fine full-windshield grid), same manual floor shifter, three pedals if the footwell appears. Do not invent a GPS tablet, a screen bay, a VW roundel, or a different dashboard.
+
+Camera is inside the Pink Menace, over the wheel, looking forward through the mesh — the seat is behind the camera, not in frame. No driver face. Identity-free cockpit.
+
+Subject from the brief: both cats on the passenger seat — orange tabby Gracie with cream chest, brown mackerel Mya with a dark dorsal stripe — neither belted, no carrier in frame. Match the attached studio cat portraits for coat, face, and proportion: Gracie slim orange/ginger, pink nose, cream chest; Mya brown mackerel, dark nose, green eyes, hard-striped forehead, only slightly heavier, not obese. Both settled on the RIGHT of the cabin, on the passenger seat cushion, bodies fully on the seat. Not on the dash. Not on a lap. Not between the wheel and the camera.
+
+Foreground from the brief: worn black wheel, faded pink dash, mesh over the windshield, cluster at 0. One period-correct analog speedometer needle resting on 0.
+
+Midground from the brief: the two cats settled, neither on the dash, neither belted.
+
+Background from the brief: ice, night, downtown curb through the mesh, Ledger gone from the glass. Empty iced curb and dark brick. The plow points at empty ice through the mesh.
+
+The read: both cats are on the seat; the speedometer reads 0.
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. Parked at the curb, not in a travel lane. The pink vehicle is traveling away from the camera. Its front — black tube bull bar and wide flat plow blade — points at empty ice through the mesh. No oncoming traffic in frame.
+
+Traffic signs are single-faced. Exactly one sign face may be legible; if a second would be, crop it.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. no cats on the dash. no cat wearing a belt. no obese Mya. no cats on the lap. no Quiet. no Deac in frame. no carrier in frame. no open carrier. no GPS map. no tablet. no screen bay. Aspect ratio 2:3.
