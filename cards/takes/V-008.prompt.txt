@@ -1,0 +1,24 @@
+# V-008 — GPT Image 2 compile prompt
+# attachments: ref_ribbon_workzone.png, ref_car_exterior.jpg
+# camera: POV_CHASE
+# shot: work_zone_taper_cones_ribbon
+# plate: ref_ribbon_workzone (wave-C take-1 authority)
+# gates: cones step laterally toward the skip-dash; open lanes visibly narrowing;
+#   workers legible as people past the taper; MUTCD orange undesaturated;
+#   left gantry panel blank at full crop; wet/overcast; unnamed corridor
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Wet surface. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated colors in frame are cranberry pink on the Beetle and MUTCD orange on the cones (orange stays saturated — do not wash it out). Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is driver's-eye height behind and slightly to the right of the subject vehicle, traveling the same direction, approaching the taper from the left open lane. The Beetle's rear and right flank are the nearest dominant mass and large enough to read; the body recedes away. Never oncoming. The subject's front grille and headlights are not in frame.
+
+Match the attached work-zone plate for world grade and cone language: tall MUTCD orange cones with white collars on wet asphalt, portable concrete barrier, workers in yellow-green vests and hardhats standing past the taper as people (not blobs), blank overhead gantry — the LEFT gantry panel must read blank / no legible text at full crop. Unnamed corridor. Brick city below the Jersey. No route shield. No exit number.
+
+work_zone_taper_cones_ribbon. A classic VW Beetle, unmistakably a Beetle — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. Welded steel mesh cages over the windows, riveted raw-steel plating, oversize knobby tires. The Beetle occupies the LEFT remaining open lane. Cones STEP LATERALLY toward the skip-dash so the open lanes visibly narrow — a diagonal zipper pinch across the closing lane, not a parallel row hugging the shoulder. Workers stand past that taper.
+
+The read: cones step toward the skip-dash and pinch the lanes; workers stand past the taper; orange stays saturated.
+
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. Traffic signs are single-faced. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs. No right-hand drive. No yellow centerline, no double yellow, no oncoming traffic. The LEFT edge of the roadway in frame is a concrete median barrier, a curb, or a crop — never a centerline. No front grille facing the camera, no headlights facing the camera, no subject coming toward the lens. No snow. No ice. No sun. No chains. No Snoqualmie shield. No washed-out orange cones. No cones only as a parallel shoulder row. No readable gantry text. No route number. No exit number. No exit-ramp-only geometry. No second occupant. No current-model vehicles. No posterized flat-color. No dry pavement. No clipboard in the glass. No insulin cooler. Aspect ratio 2:3.

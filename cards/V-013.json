@@ -4,93 +4,110 @@
   "zone": "The Ribbon",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Let Hollis Have It",
-  "hook": "His bumper is in the glass. Again.",
-  "scene": "Last daylight rain on I-90 east, still the valley floor. The sky is going — copper at the rim, gray over the deck — and the dash lamps are just coming up. It is dusk. Three lanes. The pass is a dark grade in the east — a door, not this road. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt catching the last light. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.",
-  "decision": "Hollis is on your tail in the center. The right is empty. What do you do?",
+  "title": "Flashers on the Strip",
+  "hook": "The car starts pulling hard right.",
+  "scene": "The car starts pulling hard right. The shoulder here is narrow, there's a curve in the road behind you, the light is going, and nobody is in the other seat.",
+  "decision": "The car is pulling hard right. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Signal right, take the empty lane, let him have the center",
+      "text": "Keep it straight, get well past the curve, then pull all the way right and stay inside",
       "correct": true,
-      "result": "One change. He blows past in the center. Your following distance is yours again. You did not write a brake lamp into his windshield.",
+      "result": "You hold it through the bend, then take the strip: all the way right, flashers on, belt still clipped. You stay a shape inside steel. The curve is behind you, not under you.",
       "state_delta": {
-        "noise": -1,
-        "time_cost": 3
+        "noise": 1,
+        "light": 2,
+        "yaw": 2,
+        "time_cost": 5
       }
     },
     {
       "id": "b",
-      "text": "Tap the brakes to tell him he is too close",
+      "text": "Stop right here before it gets worse",
       "correct": false,
-      "result": "Your lamps hit his glass. He stands on it or he climbs you. Either way you taught a tailgater with light. The empty lane was the sentence.",
+      "result": "You plant it in the bend. The next lamps come around a curve and find a Beetle with no sightline. The strip past the curve was the pad. Here is just the wall and the through.",
       "state_delta": {
-        "noise": 4,
-        "light": 3,
+        "noise": 0,
+        "light": 2,
+        "yaw": 1,
         "time_cost": 6
       }
     },
     {
       "id": "c",
-      "text": "Hold the center and drop ten so the gap in front of you looks safer",
+      "text": "Get out and look at what happened",
       "correct": false,
-      "result": "You slow in front of a man who will not. The gap behind dies. You spent your own cushion to keep a lane he wanted.",
+      "result": "You unclip and step onto a live freeway shoulder the width of a plate. A look at a soft tire is not worth a body on the fog line. The next lamps have no time.",
       "state_delta": {
-        "noise": 2,
-        "time_cost": 8
-      }
-    },
-    {
-      "id": "d",
-      "text": "Speed up until he cannot match the Menace",
-      "correct": false,
-      "result": "He matches. Then he matches more. You bought a race on a highway. The empty right was still empty.",
-      "state_delta": {
-        "noise": 3,
-        "time_cost": 5
+        "noise": 0,
+        "light": 2,
+        "yaw": 0,
+        "time_cost": 9
       }
     }
   ],
-  "debrief": "Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your doors alone.",
+  "debrief": "If you have to stop on a freeway, get well past any curve, pull as far right as you can, turn on your hazard lights, and stay inside the car with your seatbelt on.",
   "source": {
-    "psdp_skill": "Skill eleven: highway driving – part two",
-    "dol_section": "5.2 Space",
-    "teaching_target": "REVIEW of 5.2 Space. PSDP p2 Lesson two – tailgater, move over. Do not teach truck tire or axle.",
-    "stat_cited": "PSDP p.32: Watch mirrors for tailgaters and move to another lane to let them pass."
+    "psdp_skill": "Skill eleven: highway driving \u2013 part two",
+    "dol_section": "2.6 Occupant Protection",
+    "teaching_target": "If you have to stop on a freeway, get well past any curve, pull as far right as you can, flashers on, stay inside and belted."
   },
-  "cast": ["ali", "hollis"],
-  "antagonist": "none",
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "ejection",
   "callback_of": null,
   "schedules_callback": false,
   "presence": 0,
   "image_brief": {
-    "camera": "POV_MIRROR_REAR",
+    "camera": "POV_CHASE",
     "camera_is_the_lesson": true,
-    "subject": "Hollis's lifted truck filling the interior rearview, no countable gap, same lane",
-    "foreground": "wet rearview glass filling the upper frame; cracked faded pink dash and welded mesh below, out of focus",
-    "midground": "in the glass: lifted truck tight behind, same heading, no opening of pavement you can count",
-    "background": "last-daylight rain dusk on valley I-90 behind the vehicle, wet asphalt, sky going copper-gray, a dark grade far east, windshield view not the subject, no afternoon sun, no night, no snow",
-    "read": "the inside mirror is filled by a lifted truck with no gap you can count",
-    "continuity": ["pink_menace_interior", "hollis"],
+    "subject": "shoulder_stop_dusk_ribbon. Driver-eye 3/4 rear from the travel lane, looking forward along the Menace on the right shoulder past a bend",
+    "foreground": "narrow wet shoulder vs Jersey \u2014 same width as the deck plate; left of the Beetle sits on the fog line near the travel lane",
+    "midground": "faded-pink Beetle stopped, flashers lit, Ali alone inside and belted; stock rear, no rear plow; heading away past a readable curve",
+    "background": "dusk grade over the deck plate: wet rain, streetlights the only lamps, gray-blue sky not night, blank gantry, unnamed city below",
+    "read": "the Menace is stopped on a narrow right shoulder past a readable curve; flashers lit; dusk streetlights only; Ali inside",
+    "continuity": [
+      "ribbon_deck",
+      "pink_menace_exterior"
+    ],
     "extra_negatives": [
-      "no truck in a door-mirror as the subject",
+      "no second person",
+      "no Ali outside the car",
+      "no unbelted driver",
+      "no shoulder wider than the deck plate",
+      "no full emergency lane",
+      "no dead-straight deck with no readable curve",
+      "no rear-mounted plow or rear blade",
+      "no route number",
+      "no exit number",
       "no snow",
-      "no night",
+      "no ice",
+      "no chains",
       "no chain-up",
       "no Snoqualmie shield",
-      "no Quiet herd",
+      "no sun",
+      "no warm cast",
+      "no golden hour",
+      "no night-black sky",
+      "no current-model vehicles",
+      "no posterized flat-color",
+      "no dry pavement",
+      "no interior rearview as the subject",
       "no clipboard in the windshield",
-      "no second occupant"
+      "no Quiet herd",
+      "no insulin cooler"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "center travel lane of three eastbound I-90 lanes",
-      "ego_nose_in_frame": "travel continues away; the plow is not in frame",
+      "ego_lane_side": "narrow right shoulder, car near the travel-lane fog line",
+      "ego_nose_in_frame": "three-quarter rear; stock engine lid nearest; plow far ahead if seen",
       "oncoming_position": "none in frame",
-      "hazard_position": "behind",
+      "hazard_position": "none",
       "lanes_this_direction": 3,
-      "ego_lane_from_left": 2
+      "ego_lane_from_left": 3,
+      "ego_frame_side": "right"
     }
   },
   "variation": {
@@ -98,8 +115,8 @@
     "weather": "rain",
     "time_of_day": "dusk",
     "tone": "tense",
-    "failure_mode": "speed",
-    "winner": "take-6",
-    "forced": "live still cards/takes/V-013-take-6.png (Claude overflow PASS muted-read PR #182 Wave 4; take-4 runner). Prefer take-6 over previously live take-8. Do not seed V-009/V-010/V-012/V-007."
+    "failure_mode": "belt",
+    "winner": "take-5",
+    "forced": "live still cards/takes/V-013-take-5.png (Claude PASS muted-read + Brad promote 2026-09-12). Master cards/V-013.png. Runner take-3 banked. Lesson copy EXACT from Claude Skill 11 JSON (PR #199). tire_soft from V-001 converts: presence +4, time +3. Yuna silent. Peak card. image_brief locked on shoulder_stop_dusk_ribbon. Replaces playtest take-6."
   }
 }

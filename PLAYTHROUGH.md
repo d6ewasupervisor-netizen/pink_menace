@@ -55,14 +55,14 @@ Dossiers are continue-only (no quiz options). That is intended.
 | V-003 | Three Pieces of Ramp | scene | take 5 · #168 |
 | V-004 | The Meter Is a Light | rule | take 11 · #191 |
 | V-005 | Match Them Before Paint | scene | take 5 · #184 |
-| V-006 | Keep Right Except to Pass | hazard | take 47 · #177 |
+| V-006 | Beside the Trailer | hazard | take 3 · Ribbon wave-1 (#198/#199) |
 | V-007 | Slow On the Ramp | rule | take 18 · #185 |
-| V-008 | Posted Before the Bend | scene | take 7 · #180 |
+| V-008 | The Cone Line | scene | take 3 · Ribbon wave-1 (#198/#199; take-1 FAIL not seeded) |
 | V-009 | Small Hands at Speed | scene | take 37 · #197 (PR #192 PASS; take-31 not used) |
 | V-010 | One Lane, Then Sit | rule | take 10 · #194 |
 | V-011 | Zipper at the Closure | hazard | take 7 · #159 |
 | V-012 | Three Seconds Here Too | rule | take 20 · #194 |
-| V-013 | Let Hollis Have It | scene | take 6 · #186 |
+| V-013 | Flashers on the Strip | scene | take 5 · Ribbon wave-1 (#198/#199) |
 
 ## Known residuals (play anyway)
 

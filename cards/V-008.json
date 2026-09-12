@@ -4,98 +4,113 @@
   "zone": "The Ribbon",
   "driver": "ali",
   "card_type": "scene",
-  "title": "Posted Before the Bend",
-  "hook": "The ramp owns you. The curve is next.",
-  "scene": "Overcast morning. You have left I-5. The exit ramp is wet and tightening toward a posted 25. Your cluster still reads highway leftover. The bend is visible. If you carry sixty into a twenty-five the rear will write the number for you. If you stood on it back on the freeway, the stack already paid. The tap belongs here.",
-  "decision": "You are on the exit ramp. When are you at 25?",
+  "title": "The Cone Line",
+  "hook": "Orange starts a long way out.",
+  "scene": "Orange starts a long way out. The cones walk left across the right lane ahead of you and there are two people in hi-viz past the taper.",
+  "decision": "The cones are walking left. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Tap the brakes now and be at the posted number before the curve starts",
+      "text": "Move over early and take the posted speed",
       "correct": true,
-      "result": "You bleed the leftover here. The cluster agrees with the sign before the bend. The Beetle stays straight. The freeway behind you never had to lift.",
+      "result": "You take the shift while the cones are still a line, not a wall. The number comes down. The two in hi-viz stay on their feet. You are in the lane they left you before the pinch finished.",
       "state_delta": {
-        "noise": -1,
-        "time_cost": 4
+        "noise": 0,
+        "light": 0,
+        "yaw": 0,
+        "time_cost": 3
       }
     },
     {
       "id": "b",
-      "text": "Hold sixty until the apex, then stand on it",
+      "text": "Hold speed until the cones force you over",
       "correct": false,
-      "result": "The rear steps out mid-bend. Yaw on a wet ramp. You spent the car to keep a number the sign already took from you.",
+      "result": "You keep the leftover until the taper is a wall. Then you have to take it late, next to people on foot. The cones already asked. You made them force it.",
       "state_delta": {
-        "noise": 4,
-        "yaw": 3,
-        "time_cost": 8
+        "noise": 1,
+        "light": 0,
+        "yaw": 2,
+        "time_cost": 2
       }
     },
     {
       "id": "c",
-      "text": "Coast with no brake and let the hill take the speed out",
+      "text": "Brake hard at the taper and squeeze in",
       "correct": false,
-      "result": "There is no hill that saves you. You arrive at the paint still hot. The next car in the line gets your leftover.",
+      "result": "You stand on it at the pinch and cut in. The car behind you still has leftover. One yellow coat has to move. The posted number was a long way out.",
       "state_delta": {
-        "noise": 2,
-        "yaw": 1,
-        "time_cost": 6
-      }
-    },
-    {
-      "id": "d",
-      "text": "Stop dead on the ramp so the curve is taken from a standstill",
-      "correct": false,
-      "result": "You plant the Menace on an exit ramp. The car behind you came in at ramp speed and had nowhere to put it.",
-      "state_delta": {
-        "noise": 3,
-        "time_cost": 10
+        "noise": 1,
+        "light": 0,
+        "yaw": 3,
+        "time_cost": 4,
+        "passenger_stress": 1
       }
     }
   ],
-  "debrief": "On the ramp, tap the brakes and be at the posted speed before the curve. The cluster agreed with the sign before the bend.",
+  "debrief": "Reduce your speed to the posted work zone limit and move over early. Fines double and workers are on foot past the taper.",
   "source": {
-    "psdp_skill": "Skill eleven: highway driving – part one",
-    "dol_section": "5.1 Speed (Adjusting speed for conditions)",
-    "teaching_target": "PSDP p1 Lesson four – posted ramp speed before the curve. Pair 5.1 conditions. Not a minted Exiting heading.",
-    "stat_cited": "PSDP p.31: Upon entering the ramp, tap the brakes and begin to slow down to the posted exit ramp speed limit before reaching the curve."
+    "psdp_skill": "Skill eleven: highway driving \u2013 part one",
+    "dol_section": "4.17 Zones (Work zone)",
+    "teaching_target": "Reduce speed to the posted work zone limit and move over early. Fines double; workers are on foot past the taper."
   },
-  "cast": ["ali"],
+  "cast": [
+    "ali"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "presence": 0,
   "image_brief": {
-    "camera": "POV_COCKPIT",
-    "subject": "from the seat on a tightening exit ramp, advisory 25 panel ahead, curve starting",
-    "foreground": "worn black wheel, cluster still high, right foot ready over the brake",
-    "midground": "wet ramp, advisory plaque, no readable city name, pink plow bar at the bottom of the glass",
-    "background": "overcast morning, trees on the verge, I-5 already behind, no snow",
-    "read": "the cluster is still high; the ramp sign reads 25; the curve has not started under the wheels",
-    "continuity": ["pink_menace_interior"],
+    "camera": "POV_CHASE",
+    "camera_is_the_lesson": true,
+    "subject": "work_zone_taper_cones_ribbon. Driver-eye chase behind and slightly right of the Menace, approaching the taper from the left lane",
+    "foreground": "wet left-lane asphalt; rear and right flank of the faded-pink Beetle receding, large enough to read as the Menace",
+    "midground": "MUTCD-orange cones with white collars step laterally toward the skip-dash; open lanes visibly narrow",
+    "background": "workers as people past the taper; left gantry panel blank at full crop; wet overcast unnamed Ribbon; no snow",
+    "read": "cones step toward the skip-dash and pinch the lanes; workers stand past the taper; orange stays saturated",
+    "continuity": [
+      "ribbon_workzone",
+      "pink_menace_exterior"
+    ],
     "extra_negatives": [
-      "no I-5 travel lanes still beside the hood",
       "no snow",
+      "no ice",
+      "no sun",
+      "no warm cast",
+      "no chains",
+      "no Snoqualmie shield",
+      "no washed-out or desaturated orange cones",
+      "no cones only as a parallel shoulder row",
+      "no readable gantry text",
+      "no legible route number",
+      "no exit number",
+      "no exit-ramp-only geometry",
+      "no second occupant",
+      "no current-model vehicles",
+      "no posterized flat-color",
+      "no dry pavement",
       "no clipboard in the glass",
-      "no second occupant"
+      "no insulin cooler"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "single-lane I-5 exit ramp, right of the gore, tightening to a curve",
-      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing into the ramp curve",
+      "ego_lane_side": "left travel lane of a narrowing Ribbon work-zone",
+      "ego_nose_in_frame": "rear of the Beetle nearest camera; plow at the far leading end",
       "oncoming_position": "none in frame",
-      "hazard_position": "none",
-      "lanes_this_direction": 1,
-      "ego_lane_from_left": 1
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 1,
+      "ego_frame_side": "left"
     }
   },
   "variation": {
-    "location_type": "highway",
+    "location_type": "work_zone",
     "weather": "overcast",
     "time_of_day": "morning",
     "tone": "tense",
     "failure_mode": "speed",
-    "winner": "take-7",
-    "forced": "live still cards/takes/V-008-take-7.png (Claude PASS muted-read overflow PR #179 Wave 3). Take-8 FAIL — do not seed. V-004 / V-005 / V-007 remain FAIL — do not seed."
+    "winner": "take-3",
+    "forced": "live still cards/takes/V-008-take-3.png (Claude PASS muted-read + Brad 2026-09-12: 6x left-gantry weathered blank, not bright white; CLEAR TO SEED). Master cards/V-008.png. take-1 FAIL do not seed. Lesson copy EXACT from Claude Skill 11 JSON (PR #199). image_brief locked on work_zone_taper_cones_ribbon. Replaces playtest take-7."
   }
 }

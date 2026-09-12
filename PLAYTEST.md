@@ -4,11 +4,11 @@
 
 Parents: [https://parents.tactag.app](https://parents.tactag.app).
 
-Image cache `?v=a74`. Railway production is on this ship branch until #195 merges to `main`.
+Image cache `?v=a75`. Railway production is on this ship branch until #195 merges to `main`.
 
 **Act V is complete (all 13).** V-009 take-37 is live (Claude overflow PASS, eyes forward). Take-31 FAIL — not used.
 
-No new art was generated for this ship. Stills are the already-seeded live Postgres plates.
+Ribbon wave-1 stills + Skill 11 remaps (PR #198 / #199): V-013 take-5, V-008 take-3, V-006 take-3. V-008 take-1 FAIL — not seeded.
 
 ## How to play
 
@@ -57,14 +57,14 @@ Highway / Skill eleven. Ali. Relay kit cargo. Yuna is radio-only.
 | V-003 | Three Pieces of Ramp | scene | take-5 · #168 | MATCH |
 | V-004 | The Meter Is a Light | rule | take-11 · #191 | MATCH |
 | V-005 | Match Them Before Paint | scene | take-5 · #184 | MATCH |
-| V-006 | Keep Right Except to Pass | hazard | take-47 · #177 | MATCH |
+| V-006 | Beside the Trailer | hazard | take-3 · Ribbon wave-1 (PR #198/#199) | pending seed |
 | V-007 | Slow On the Ramp | rule | take-18 · #185 | MATCH |
-| V-008 | Posted Before the Bend | scene | take-7 · #180 | MATCH |
+| V-008 | The Cone Line | scene | take-3 · Ribbon wave-1 (PR #198/#199; take-1 FAIL not seeded) | pending seed |
 | V-009 | Small Hands at Speed | scene | take-37 · #197 (PR #192 PASS; take-31 not used) | MATCH |
 | V-010 | One Lane, Then Sit | rule | take-10 · #194 | MATCH |
 | V-011 | Zipper at the Closure | hazard | take-7 · #159 | MATCH |
 | V-012 | Three Seconds Here Too | rule | take-20 · #194 | MATCH |
-| V-013 | Let Hollis Have It | scene | take-6 · #186 | MATCH |
+| V-013 | Flashers on the Strip | scene | take-5 · Ribbon wave-1 (PR #198/#199) | pending seed |
 
 ### V-009 status
 
