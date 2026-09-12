@@ -1,0 +1,50 @@
+{
+  "card_id": "VI-001",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "Where the Blacktop Quits",
+  "hook": "TODO — blacktop ends.",
+  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "n/a",
+    "teaching_target": "NEW frame: Backcountry starts where the blacktop quits. PSDP twelve Lesson one – gravel roads. Ali alone. No DOL pair."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "TODO — Ali in the parked Menace, Backcountry dossier stub",
+    "foreground": "TODO — clipboard on thigh; scaffold only",
+    "midground": "TODO — cracked pink dash; mesh; no second occupant",
+    "background": "TODO — gravel shoulder / blacktop edge; overcast; no snow",
+    "read": "TODO — parked at the blacktop/gravel edge; Ali alone",
+    "continuity": [
+      "ali",
+      "pink_menace_interior"
+    ],
+    "extra_negatives": [
+      "no second occupant",
+      "no snow",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no moving wheels"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "gravel",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "quiet",
+    "failure_mode": "none",
+    "forced": "Act VI scaffold — no still; do not seed"
+  },
+  "debrief": "TODO — Claude: write dossier debrief."
+}

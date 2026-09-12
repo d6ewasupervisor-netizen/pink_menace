@@ -16,6 +16,7 @@ const ACT_DRIVER = {
   I: "ali",
   II: "ali",
   III: "deac",
+  VI: "ali",
 };
 
 const EGO = {

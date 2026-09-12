@@ -14,13 +14,17 @@
     "4.3 Sharing with transit buses",
     "4.4 Sharing with large vehicles",
     "4.6 Sharing with bicyclists",
+    "4.7 Sharing the road with trains",
     "4.7 Sharing the road with trains (Light rail)",
+    "4.8 Sharing with agricultural vehicles",
     "4.9 Sharing with emergency vehicles",
     "4.10 Traffic laws",
     "4.11 Traffic light signals",
     "4.12 Signs",
     "4.13 Common intersections",
     "4.14 Turning",
+    "4.15 Other intersections",
+    "4.15 Other intersections (Uncontrolled Intersection)",
     "4.16 Road markings",
     "4.16 Road markings (HOV / Carpool lane)",
     "4.17 Zones (School zone)",
@@ -31,6 +35,7 @@
     "5.4 Time (Count seconds)",
     "5.5 Focus",
     "5.6 Road and driving conditions (Slippery roads)",
+    "5.6 Road and driving conditions (Curves)",
     "5.10 Law enforcement"
   ]
 }

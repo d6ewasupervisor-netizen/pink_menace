@@ -16,6 +16,11 @@ const MANIFESTS = {
     cargo: "Deac's cargo",
     for: "the next drop",
   },
+  VI: {
+    run: "The Backcountry — valley floor",
+    cargo: "TODO — Claude: Backcountry load",
+    for: "Clearance — Deac clipboard",
+  },
 };
 
 const FAIL_PLACE = {
@@ -138,9 +143,14 @@ function cargoFailDispatch(charges) {
   return parts.join(" ");
 }
 
-function deliveryBeat(stateOrCold) {
+function deliveryBeat(stateOrCold, act) {
   const state = stateOrCold && typeof stateOrCold === "object" ? stateOrCold : { time_cost: COLD_PACK - (Number(stateOrCold) || 0) };
   const n = coldFrom(state);
+  if (act === "VI") {
+    // End beat (not a VI-014 card): Cleared — and the pass is shut.
+    if (n <= 0) return "TODO — Cleared late. The pass is shut.";
+    return "TODO — Cleared. The pass is shut. (Claude: fill end beat)";
+  }
   if (n <= 0) return "Delivered warm. June took it anyway.";
   if (n >= 10) return "Delivered. " + n + " minutes to spare.";
   if (n === 1) return "Delivered. 1 minute. June didn't ask what took so long.";

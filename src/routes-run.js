@@ -657,7 +657,7 @@ function mountRun(app) {
         quiet: Boolean(fear.quiet) && !failed,
         dispatch: failDispatch,
         radio,
-        delivery: done && card.act !== "I" ? deliveryBeat(state) : null,
+        delivery: done && card.act !== "I" ? deliveryBeat(state, card.act) : null,
         debrief: card.debrief,
         driver: card.driver || "ali",
         alts,
@@ -912,7 +912,7 @@ function mountRun(app) {
         state: publicState(run.state),
         time_cost: timeCostOf(recapDelta),
         radio,
-        delivery: actOfCardId(cardId) === "I" ? null : deliveryBeat(run.state),
+        delivery: actOfCardId(cardId) === "I" ? null : deliveryBeat(run.state, actOfCardId(cardId)),
       });
     } catch (err) {
       try {

@@ -1,0 +1,102 @@
+{
+  "card_id": "VI-003",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Pile at the Edge",
+  "hook": "TODO — pile at the edge.",
+  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "n/a",
+    "teaching_target": "PSDP twelve — gravel windrow / pile at the edge. PSDP-only (n/a DOL). Scaffold."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "TODO — Ali alone in the Menace, Backcountry stub (no still)",
+    "foreground": "TODO — wheel and dash; scaffold only",
+    "midground": "TODO — rural road ahead through mesh",
+    "background": "TODO — overcast valley floor; no snow; no night",
+    "read": "TODO — gravel pile / windrow along the edge",
+    "continuity": [
+      "pink_menace_interior"
+    ],
+    "extra_negatives": [
+      "no second occupant",
+      "no snow",
+      "no ice",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no chevron hatchback"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right lane of a two-lane rural road (scaffold)",
+      "ego_nose_in_frame": "plow bar at the bottom of the glass, pointing up-frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "gravel",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act VI scaffold — no still; do not seed"
+  },
+  "decision": "TODO — Claude: write the decision?",
+  "options": [
+    {
+      "id": "a",
+      "text": "TODO — correct: teaching answer",
+      "correct": true,
+      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "state_delta": {
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "b",
+      "text": "TODO — option b",
+      "correct": false,
+      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "state_delta": {
+        "time_cost": 8,
+        "noise": 2
+      }
+    },
+    {
+      "id": "c",
+      "text": "TODO — option c",
+      "correct": false,
+      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "state_delta": {
+        "time_cost": 8,
+        "noise": 2
+      }
+    },
+    {
+      "id": "d",
+      "text": "TODO — option d",
+      "correct": false,
+      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "state_delta": {
+        "time_cost": 8,
+        "noise": 2
+      }
+    }
+  ],
+  "debrief": "TODO — Claude: write debrief."
+}

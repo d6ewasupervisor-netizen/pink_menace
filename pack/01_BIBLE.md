@@ -123,7 +123,7 @@ Never teach a rule abstractly. Attach it to one of these.
 | III | **Central** — multi-lane, Central Ave, Kent | 9–10 | 4.13, 4.16, 5.2, 5.3 | Deac |
 | IV | **The Core** — downtown Seattle | 11–12 | 4.1, 4.2, 4.3, 4.6, 4.7, 4.17 | Yuna |
 | V | **The Ribbon** — I-5 / I-90 | 13–14 | 4.4, 5.1, 5.3, 5.4 | Deac |
-| VI | **The Backcountry** — Palouse, gravel, roundabouts | Rural, Roundabouts | 4.8, 4.15, 5.6 | Yuna |
+| VI | **The Backcountry** — Palouse, gravel, roundabouts | twelve–thirteen | 4.8, 4.15, 5.6 | Ali |
 | VII | **The Dark Hours** — night, rain, fog, Snoqualmie snow | Other conditions | 3.1, 5.6, 5.7, 5.9, 5.10 | All three |
 
 Acts are gated. You do not reach The Ribbon until Central is clean — same rule the PSDP gives parents on p.1: do not advance until the prior skill has been practiced many times.

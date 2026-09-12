@@ -1,0 +1,93 @@
+{
+  "card_id": "VI-013",
+  "act": "VI",
+  "zone": "The Backcountry",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Clearance Drive",
+  "hook": "TODO — Deac has the board.",
+  "scene": "TODO — Claude: write Act VI Backcountry scene. Ali alone in the Menace. Valley floor east of the Ribbon. Yuna radio-only if at all. No chains, no Snoqualmie, no snow or ice. Scaffold shell only — replace this copy.",
+  "source": {
+    "psdp_skill": "Skill twelve: driving on rural roads",
+    "dol_section": "n/a",
+    "teaching_target": "Clearance drive: Deac clipboard; she is cleared. Ali drives. End of act → Cleared beat. Scaffold."
+  },
+  "cast": [
+    "ali",
+    "deac"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "TODO — Ali in the parked Menace, Backcountry dossier stub",
+    "foreground": "TODO — clipboard on thigh; scaffold only",
+    "midground": "TODO — cracked pink dash; mesh; no second occupant",
+    "background": "TODO — gravel shoulder / blacktop edge; overcast; no snow",
+    "read": "TODO — Deac with clipboard; Ali cleared; no still",
+    "continuity": [
+      "ali",
+      "pink_menace_interior"
+    ],
+    "extra_negatives": [
+      "no second occupant",
+      "no snow",
+      "no chain-up",
+      "no Snoqualmie shield",
+      "no moving wheels"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "rural",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "quiet",
+    "failure_mode": "none",
+    "forced": "Act VI scaffold — no still; do not seed"
+  },
+  "decision": "TODO — Claude: write the decision?",
+  "options": [
+    {
+      "id": "a",
+      "text": "TODO — correct: teaching answer",
+      "correct": true,
+      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "state_delta": {
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "b",
+      "text": "TODO — option b",
+      "correct": false,
+      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "state_delta": {
+        "time_cost": 8,
+        "noise": 2
+      }
+    },
+    {
+      "id": "c",
+      "text": "TODO — option c",
+      "correct": false,
+      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "state_delta": {
+        "time_cost": 8,
+        "noise": 2
+      }
+    },
+    {
+      "id": "d",
+      "text": "TODO — option d",
+      "correct": false,
+      "result": "TODO — Claude: write result copy for this option (scaffold). Keep Backcountry voice; no chains or pass climb.",
+      "state_delta": {
+        "time_cost": 8,
+        "noise": 2
+      }
+    }
+  ],
+  "debrief": "TODO — Claude: write debrief."
+}
