@@ -4,7 +4,9 @@
 
 Parents: [https://parents.tactag.app](https://parents.tactag.app).
 
-Railway deploys `pink_menace` from `main`. Merge the ship PR to update the live host. Image cache `?v=a70`.
+Railway deploys `pink_menace` from `main`. Merge this ship PR to update the live host. Image cache `?v=a70`.
+
+**Verified this revision:** `audit-stills --act IV` → 21/21 MATCH. `audit-stills --act V` → 12/12 MATCH (V-009 has no PNG and no live row). Act-gate: IV and V open, II still locked. Rolled-back `startActFrom` lands on IV-002 / V-001 with stills.
 
 Both acts are unlocked without an I–III replay. Sequence skips unsown numbers.
 
