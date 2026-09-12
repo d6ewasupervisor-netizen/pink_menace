@@ -4,7 +4,7 @@
 
 Map: [`WAVE1_MAP.md`](./WAVE1_MAP.md). Card JSON is the sole brief. All take paths under `cards/takes/`.
 
-Priority stills also staged at `artifacts/act-vi-wave1-priority/` (same bytes as `cards/takes/` — Brad direct-uploads; agents do not attach/post reply images).
+Priority stills staged at `artifacts/act-vi-wave1-priority/` (same bytes as closest/runners below).
 
 ---
 
@@ -13,50 +13,31 @@ Priority stills also staged at `artifacts/act-vi-wave1-priority/` (same bytes as
 1. Cover the card text. Judge each still at **390px** against the brief `read`.
 2. Tag + closest take only (`PASS` / fail tags per `pack/24_ART_REVIEW_RUBRIC.md`).
 3. **No seed** until a card is `PASS` with a picked take.
-4. Prefer takes that keep mesh + pink dash readable (cabin lock drift / invented GPS on some cockpit takes).
+4. Carrier SPEC: hard-sided; grille inboard; ginger Gracie behind grille; belt through handle. No Mya.
 
 ---
 
-## Priority (hard notes from Claude)
+## Priority (Claude follow-up 21aded1a — ready for muted-read)
 
-| Card | Title | Prefer | Takes | Hard note |
+| Card | Title | Closest | Runner | Hard note |
 |---|---|---|---|---|
-| **VI-004** | Off the Edge | **take-2 / take-3** (over take-1 approach-ish) | `VI-004-take-1.png` `VI-004-take-2.png` `VI-004-take-3.png` | Wheels **ALREADY OFF** — right side down on dirt, road higher on the left — mid-event. `POV_ROADSIDE_PROFILE`. |
-| **VI-009** | Look for the Others | take-1 / take-2 | `VI-009-take-1.png` `VI-009-take-2.png` | Deer **BROADSIDE IN THE LANE** at dusk, close — not roadside grazing. `POV_COCKPIT`. |
-| **VI-011** | Same Culvert | take-1 / take-2 | `VI-011-take-1.png` `VI-011-take-2.png` | Lip + soft dirt, **nothing happening**. `POV_ROADSIDE_PROFILE`. |
-| **VI-013** | The Clipboard, Again | **take-2** (passenger OK) | `VI-013-take-1.png` `VI-013-take-2.png` `VI-013-take-3.png` | Deac **passenger** + metal clipboard. **take-1** driver-seat **FAIL**. **take-3** split-panel **FAIL**. |
-
-Provisional closest (from map): VI-004→take-2, VI-009→take-3, VI-011→take-2, VI-013→take-5. Remainder cockpit cards prefer take-3 (Gracie-in-carrier lock).
+| **VI-004** | Off the Edge | **take-7** | take-6 | Soft shoulder mid-event; road-grade; off-camber; shed wheel separated; fresh rut; culvert location only; carrier through rear cage. **take-2 RETIRED** (not 011 stock). |
+| **VI-009** | Look for the Others | **take-7** | take-4 | Deer centered full-scale inside mesh + dark unlit dash + carrier. No lit turn arrows. No speedlike 112. |
+| **VI-011** | Same Culvert | **take-6** | take-4 | Culvert as subject + carrier through cage (cage-through-glass ref). All tires on asphalt; nothing happening. |
+| **VI-013** | The Clipboard, Again | **take-8** | take-7 | Ali driving LHD; Deac passenger with metal clipboard; both faces; Gracie latched rear/center carrier; PNW through glass; dash unlit. |
 
 ---
 
-## Remainder (2 takes each)
+## Continuity locks
 
-| Card | Title | Takes |
-|---|---|---|
-| VI-001 | Where the Blacktop Quits | `VI-001-take-1.png` `VI-001-take-2.png` |
-| VI-002 | Loose Under You | `VI-002-take-1.png` `VI-002-take-2.png` |
-| VI-003 | The Pile at the Edge | `VI-003-take-1.png` `VI-003-take-2.png` |
-| VI-005 | Wide and Slow | `VI-005-take-1.png` `VI-005-take-2.png` |
-| VI-006 | Nobody's In Charge Here | `VI-006-take-1.png` `VI-006-take-2.png` |
-| VI-007 | Five Easy Steps | `VI-007-take-1.png` `VI-007-take-2.png` |
-| VI-008 | Pick Your Lane Before the Circle | `VI-008-take-1.png` `VI-008-take-2.png` |
-| VI-010 | Over the Top | `VI-010-take-1.png` `VI-010-take-2.png` |
-| VI-012 | Crossbuck and Nothing Else | `VI-012-take-1.png` `VI-012-take-2.png` |
-
-**Inventory:** 40 take PNGs under `cards/takes/VI-*-take-N.png` (wave-1 + Gracie/Deac lock regens).
-
----
-
-## Continuity locks (Claude)
-
-### Gracie
-
-Every Act VI still: **carrier latched and strapped**. When wheels are turning, **Gracie is in the carrier** (continuity object — readable on cockpit floors; exterior profile stills keep it as continuity even if not in frame).
+### Gracie carrier SPEC
+Hard-sided; wire grille door facing inboard; Gracie’s orange tabby markings visible behind the grille; belt routed through the handle. Ginger only. No Mya.
 
 ### Deac
+**Only VI-013** — passenger + metal clipboard. All other cards: Ali alone.
 
-**Only VI-013** has a second person: Deac in the **passenger** seat with the **metal clipboard**. All other cards: **Ali alone** (`no Deac` / `no second person in the car` / `no clipboard passenger`).
+### Speed / arrows
+No 112.0-as-live-speed. No lit green turn arrows.
 
 ---
 
