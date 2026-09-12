@@ -26,6 +26,9 @@ You MAY NOT:
   - add a mood, a color, or a time of day the brief did not specify
   - add text, logos, watermarks, HUD, or UI unless the brief's `read` requires
     a sign face or gauge
+  - treat interior cabin switchgear, switch covers, rockers, or guards as
+    regulatory signage, or exempt them from world grade. Candy-red oversat
+    on a cabin control is a failed compile.
   - depict anything in bible §9 FORBIDDEN
   - emit role-relative spatial terms: driver's side, driver-side, passenger
     side, passenger-side, near side, off side, driver's window, driver's door.
@@ -88,7 +91,44 @@ You MUST:
   - end with the negative block
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
+  - world-grade every interior cabin control. Rule 2's regulatory-sign
+    exemption from world grade applies to EXTERIOR MUTCD / street signage
+    only. Switch covers stay desaturated — no candy-red oversat. IV-007's
+    existing narrow legible-text exception stays on exterior regulatory
+    sign faces only; do not extend it to cabin controls.
   - if the brief names a hand or arm, require a visible attached shoulder and torso in the same frame, or drop the body part and show only the object. Never a detached limb.
+
+## RULE 2 — WORLD GRADE, EXTERIOR MUTCD ONLY
+
+The world is desaturated (bible §8.1). The only saturated color is the
+driver's signature accent. That is the grade.
+
+Regulatory-sign exemption from the grade: EXTERIOR MUTCD / street
+signage only. A street-side regulatory face (STOP, YIELD, ONE WAY,
+NO TURN ON RED, TRANSIT ONLY, speed limit, no-parking) may keep
+MUTCD-correct color so the face is recognizable. Nothing inside a
+cabin inherits that exemption.
+
+Interior switchgear stays world-graded. Switch covers, rockers, guards,
+PA kill switches, illuminated banks — faded, oxidized, desaturated. No
+candy-red oversat. A guarded red switch in Y4 / the Encore cockpit is
+still a cabin control: name the guard, keep the hue quiet. Red switch
+covers that come back oversaturated are this rule failing.
+
+IV-007's existing narrow legible-text exception is the same fence, not
+a second one. Legible legend is permitted on an **exterior** regulatory
+sign face where the card teaches sign recognition. Do not extend that
+exception to cabin controls — no lettered switch covers, no in-cab
+legends, no saturating a rocker because a street sign is allowed to
+be red.
+
+Append on every cockpit or in-cab compile:
+
+  positive: "cabin switchgear world-graded, desaturated, faded; no
+  candy-red oversat on switch covers or rockers"
+  negative: "no candy-red switch covers, no oversaturated cabin
+  controls, no MUTCD-red interior switchgear, no lettered switch
+  faces"
 
 ## ASSEMBLY ORDER
 
@@ -277,6 +317,22 @@ the target in one pass so the fill and the placement happen together — shiftin
 pixels alone leaves a hole.
 
 When a geometry card fails twice, stop regenerating and composite.
+
+### 7. Cabin switchgear stays world-graded
+Rule 2's regulatory-sign exemption from world grade is EXTERIOR MUTCD /
+street signage only. Interior switch covers are not signs. They stay
+desaturated — faded, oxidized, no candy-red oversat. Y4's guarded red
+PA switch is the proof: the guard can read as a kill switch without
+lighting up like a STOP face.
+
+IV-007's existing narrow legible-text exception stays on exterior
+regulatory sign faces only. Do not letter cabin controls under it.
+
+  positive (every in-cab compile): "cabin switchgear world-graded,
+             desaturated, faded; no candy-red oversat on covers or rockers"
+  negative: "no candy-red switch covers, no oversaturated cabin
+             controls, no MUTCD-red interior switchgear, no lettered
+             switch faces"
 
 ## THE DRIVE-SIDE PROBLEM
 
@@ -556,6 +612,6 @@ Do not accept "close enough"; drift compounds across an act.
 - **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
 - **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 - **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh
-- **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
+- **Every frame:** overcast, no golden hour · only the driver's signature accent is saturated · interior switch covers world-graded (no candy-red oversat; Rule 2 MUTCD exemption is exterior street signs only) · no text or UI · nothing invented that the brief didn't name · `read` element legible with the text muted
 
 If you mute the card text and the image no longer teaches, the image failed regardless of how on-model it is.

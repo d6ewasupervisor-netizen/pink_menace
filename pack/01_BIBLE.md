@@ -137,6 +137,8 @@ Acts are gated. You do not reach The Ribbon until Central is clean — same rule
 
 One accent per frame. If two drivers appear in the same shot, the accent belongs to whoever is driving.
 
+**Rule 2 — world grade, regulatory-sign exemption.** Everything that is not the driver's signature accent stays world-graded (desaturated). The exemption from that grade is **exterior MUTCD / street signage only** — a STOP, YIELD, ONE WAY, NO TURN ON RED, TRANSIT ONLY, or other street-side regulatory face may keep MUTCD-correct color so the face is recognizable. Interior cabin switchgear, switch covers, rockers, guards, and any in-cab control stay world-graded: faded, oxidized, desaturated. No candy-red oversat. A red switch cover is not a street sign. IV-007's existing narrow legible-text exception is the same fence: **exterior** regulatory sign faces only. Do not letter or saturate cabin controls under that exception.
+
 ### 8.2 Reference discipline — read this or you will get sunsets forever
 - `ref_ali1.jpg`, `ref_ali2.png` — **face, hair, glasses, jewelry.** Also the correct lighting model.
 - `ref_car_exterior.jpg` — **silhouette and build only.** The golden-hour salt flat in that image is **NOT** the game's lighting or environment. Never carry it forward.
