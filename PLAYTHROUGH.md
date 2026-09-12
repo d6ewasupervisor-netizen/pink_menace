@@ -20,9 +20,9 @@ Play order is `seq`. Gaps are unsown, not broken.
 
 | Card | Title | Type | Live still (repo / PR) |
 |---|---|---|---|
-| IV-002 | The Naked Glass | dossier | take 21 · #129 |
+| IV-002 | One Pedal at a Time | scene | supplied footwell plate |
 | IV-003 | Cover the Brake | scene | early PASS · #25 |
-| IV-004 | Between the Parked | scene | take 177 · #112 |
+| IV-004 | Between the Parked | scene | supplied parked-gap plate |
 | IV-005 | The Double Threat | hazard | take 97 · #101 / #107 |
 | IV-006 | Tracks in the Lane | scene | take 11 · #127 |
 | IV-007 | Transit Only | rule | take 30 · #119 |

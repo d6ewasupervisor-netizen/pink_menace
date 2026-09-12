@@ -3,57 +3,95 @@
   "act": "IV",
   "zone": "The Core",
   "driver": "ali",
-  "card_type": "dossier",
-  "title": "The Naked Glass",
-  "hook": "The glass has no mesh.",
-  "scene": "You are on the welded bench in Encore, still downtown, engine dead. Yuna's wheel is empty. The windshield is just glass — no mesh, no bars, the whole street in your face. The bench under you came out of another car. Dead in-ears hang on the cage tube, one earpiece in the loop, one dangling. She chose to see the block and let the block see her. The Menace is a street over. You have not walked to it yet.",
-  "debrief": "Encore has no mesh. Intact glass, a bench welded in for people, dead in-ears on the cage. The mesh is back on the next street.",
+  "card_type": "scene",
+  "title": "One Pedal at a Time",
+  "hook": "Left foot is for a clutch. That's it.",
+  "scene": "You are in the Menace now. Yuna's car had two pedals. This floor has three: clutch on the left, brake in the middle, gas on the right. Both of your feet are on the painted floor, not on anything. The left foot only works a pedal if the car has a clutch. Everything else is the right foot, and only one of those pedals at a time. Two feet on two pedals is how you fight the car.",
+  "decision": "Which feet work the pedals?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Left foot on the brake, right foot on the gas, so you can switch faster",
+      "correct": false,
+      "result": "You plant both. The pads and the engine fight. The Menace hops. The stack behind you stands on it. Two pedals at once is not faster. It is how you lose the front and the rear in the same second.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "b",
+      "text": "Right foot for gas and brake, one at a time. Left foot only on a clutch",
+      "correct": true,
+      "result": "Left foot stays on the floor unless you need the clutch. Right foot takes the gas or the brake, never both. Encore had two pedals. The Menace has three. The rule did not change — only whether a clutch exists.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 2
+      }
+    },
+    {
+      "id": "c",
+      "text": "Left foot covers the brake on every car, automatic or not",
+      "correct": false,
+      "result": "You drop the left foot on the brake because it feels ready. The lamps light. Someone behind dumps speed for a stop you did not mean. Left foot is not a brake foot. The only pedal it is allowed to touch is a clutch.",
+      "state_delta": {
+        "light": 2,
+        "noise": 2,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "d",
+      "text": "Rest the left foot on the clutch so you are always ready",
+      "correct": false,
+      "result": "You leave the left foot on the left pedal. The clutch is already a little in. The Menace smells like a slip. Ready is the floor. The pedal is a choice, not a shelf.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 4
+      }
+    }
+  ],
+  "debrief": "Left foot stays on the floor unless you need the clutch. Right foot does one pedal. You kept the Menace from fighting itself.",
   "source": {
-    "psdp_skill": "n/a",
-    "dol_section": "n/a",
-    "teaching_target": "Establish Encore's cab: no mesh, intact glass, passenger bench, dead in-ears; she chose visibility over armor."
+    "psdp_skill": "Skill two: moving, steering, and stopping",
+    "dol_section": "4.10 Traffic laws",
+    "teaching_target": "Left foot works a pedal only on a manual (the clutch). Otherwise right foot only, and only one pedal at a time."
   },
   "cast": [
-    "ali",
-    "yuna"
+    "ali"
   ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
-    "camera": "POV_COCKPIT",
+    "camera": "POV_OBJECT",
     "camera_is_the_lesson": true,
-    "subject": "bare clean windshield with intact glass and no mesh, the whole wet downtown street visible",
-    "foreground": "mismatched welded rear bench, exposed roll-cage tube, dead wireless in-ears hanging on the tube with one earpiece dangling",
-    "midground": "empty suede racing wheel, stripped metal dash, a guarded red PA switch left off",
-    "background": "overcast downtown Seattle through naked glass, wet pavement, no readable signs",
-    "read": "the windshield is intact glass with no mesh; the in-ears hang on the cage",
+    "subject": "two black dress shoes on a faded pink painted floor, both off the pedals, three pedals in the upper frame",
+    "foreground": "left shoe and right shoe on the floor, black socks, dark pants at the edges, neither sole on a pedal",
+    "midground": "empty painted floor between the shoes and the pedal box",
+    "background": "three worn pedals: clutch left, brake center, gas right; dark kick panel, no dash, no windshield",
+    "read": "both feet are on the floor; three pedals sit ahead; neither foot is on a pedal",
     "continuity": [
-      "encore_cockpit"
+      "pink_menace_interior"
     ],
     "extra_negatives": [
-      "no windshield mesh",
-      "no bar cage over the glass",
-      "no plow blade",
-      "no pink Beetle interior",
-      "no Ledger bar cage"
+      "no foot on a pedal",
+      "no face",
+      "no windshield",
+      "no dash gauges",
+      "no Encore roll cage",
+      "no two-pedal automatic box"
     ],
-    "aspect": "2:3",
-    "geometry": {
-      "ego_heading": "away_from_camera",
-      "ego_lane_side": "parked at the curb of a downtown block",
-      "ego_nose_in_frame": "the hatchback nose points toward the top of the frame through bare glass",
-      "oncoming_position": "none in frame",
-      "hazard_position": "none"
-    }
+    "aspect": "2:3"
   },
   "variation": {
     "location_type": "downtown",
     "weather": "overcast",
-    "time_of_day": "morning",
-    "tone": "quiet",
-    "failure_mode": "none",
-    "winner": "take-21",
-    "forced": "live still cards/takes/IV-002-take-21.png (Claude muted-read prefer over take-19; take-19 demoted from pick, wave notes kept)"
+    "time_of_day": "afternoon",
+    "tone": "procedural",
+    "failure_mode": "inexperience",
+    "winner": "user-footwell",
+    "forced": "live still cards/IV-002.png from supplied footwell plate; three pedals, both feet on the floor"
   }
 }
