@@ -79,6 +79,12 @@ const LEDGER_DIAGRAM_NEGATIVE =
 const LEDGER_NO_MENACE =
   "No Volkswagen Beetle, no rounded-fender compact, no plow blade.";
 
+const MENACE_PLOW =
+  "Nose plow: match the attached live take-8 plate ref_car_nose_plow.png (sha c6c8ec1f). The plow is one continuous flat blade spanning the entire nose on the black-tube bull bar, in front of both front tires, clean flanks, no side outrigger. On an away or rear-three-quarter heading force that same full-width blade to stay readable on the far nose — offset the camera until both front tires and the continuous plate can be seen. If the far nose is truly occluded, a soft implied far-nose edge of that same full-width blade is acceptable. A discrete left-front corner stub with an empty bull bar is not. No flank-mounted blade. Preserve on the Menace: welded steel mesh cages on the side glass and the windshield; a riveted metal door panel; oversize knobby tires on chrome slot wheels; faded matte pink with bare-metal / oxidized steel plating; horizontal louvers on the rear engine lid. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset. Never attach ref_car_rear_plow or diag_nose_plow_front.";
+
+const MENACE_PLOW_NEGATIVE =
+  "No side-mounted plow, no flank-mounted blade, no left-flank blade, no blade on a side arm ahead of the front wheel, no side outrigger, no small black blade bracketed to the left-front corner, no corner-mounted stub, no empty nose bull bar, no blade on only one side of the bull bar, no plain tube bumper without a blade, no rear-mounted plow, no blade on the engine lid.";
+
 const LHD_NEGATIVE =
   "No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road.";
 
@@ -191,8 +197,17 @@ function assemblePrompt(card) {
   if (!framing) throw new Error(`${card.card_id}: cannot compile camera ${cam}`);
 
   const parts = [];
-  if (cam === "POV_DIAGRAM") parts.push(deac ? LEDGER_DIAGRAM_STYLE : DIAGRAM_STYLE);
-  else parts.push(deac ? DEAC_STYLE : MASTER_STYLE);
+  if (cam === "POV_DIAGRAM") {
+    if (card.card_id === "IV-026") {
+      parts.push(
+        "Cinematic photoreal still, same world as the rest of the game. 35mm full-frame equivalent, driver-eye height in the empty left travel lane, a mild left-rear three-quarter — not dead-astern, not low behind the right rear quarter, not a steep bird's-eye — offset enough that the far full-width nose blade on the front bull bar is actually visible wrapping across both front tires. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Wet asphalt, moss, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, no HDR, no glow, no lens flare. This is a photograph of real vehicles on a real street, not a map, not an infographic, not a vector diagram."
+      );
+    } else {
+      parts.push(deac ? LEDGER_DIAGRAM_STYLE : DIAGRAM_STYLE);
+    }
+  } else {
+    parts.push(deac ? DEAC_STYLE : MASTER_STYLE);
+  }
 
   parts.push(framing);
 
@@ -217,6 +232,18 @@ function assemblePrompt(card) {
   }
 
   const continuityEarly = (brief.continuity || []);
+  const menaceExterior =
+    !deac &&
+    (continuityEarly.includes("pink_menace_exterior") ||
+      (cam === "POV_DIAGRAM" && card.driver !== "yuna"));
+  if (menaceExterior) {
+    parts.push(MENACE_PLOW);
+  }
+  if (card.card_id === "IV-026") {
+    parts.push(
+      "The Beetle is in readable mid-motion on a wet downtown block: rolling straight away toward three LARGE hazards in her SAME travel lane about two Beetle-lengths ahead of the nose blade — a cargo van with its side door open into her path, a person standing in that lane, an upright bicycle in that lane — tight, immediate, not on the sidewalk, not at a distant house, not six-to-eight lengths up the block. Wet knobby tire spray, wheels mid-roll, not parked still. Body parallel to the skip-dashed line. Camera is driver-eye in the empty LEFT lane, mild left-rear three-quarter so BOTH lanes read and the FRONT bull bar is visible. That front black-tube bull bar MUST carry one continuous full-width flat plate blade spanning BOTH front tires — match attached live take-8 plate ref_car_nose_plow.png. Do not invent a small black blade on the left-front corner. Do not flip the car toward the camera to show the plate. If the far nose is occluded, keep a soft implied far-nose edge of the same full-width blade — never a corner stub. Do not put a black tube bar across the REAR — the rear is the stock short Beetle bumper plus horizontal engine-lid louvers. Left flank is riveted plate only. Preserve mesh cages on side glass and windshield, riveted door plate, knobby tires on chrome slot wheels, faded pink + bare metal. Attach only ref_car_exterior.jpg and ref_car_nose_plow.png; do not attach ref_diagram_style.png, ref_car_rear_plow, or diag_nose_plow_front."
+    );
+  }
   const quietNamed =
     continuityEarly.includes("the_quiet") ||
     /\bthe Quiet\b/.test(
@@ -288,6 +315,7 @@ function assemblePrompt(card) {
     LHD_NEGATIVE,
   ];
   if (deac) negs.push(LEDGER_NO_MENACE);
+  if (menaceExterior) negs.push(MENACE_PLOW_NEGATIVE);
   if (brief.geometry) {
     const frameNeg = framePassNegatives(brief.geometry, card.driver, cam);
     if (frameNeg) negs.push(frameNeg);
