@@ -110,6 +110,7 @@
     "time_of_day": "afternoon",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act V draft stub — no still; do not seed"
+    "winner": "take-18",
+    "forced": "live still cards/takes/V-007-take-18.png (Claude overflow PASS; take 16 FAIL do not seed)"
   }
 }

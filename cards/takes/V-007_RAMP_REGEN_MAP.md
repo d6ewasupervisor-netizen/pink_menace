@@ -1,17 +1,20 @@
-# V-007 ramp-peel regen (not a compile brief)
+# V-007 ramp-peel seed (take-18 PASS)
 
-Fresh stills after Claude overflow FAIL on PR #181 take-1 / take-9 (Menace on the **mainline**).
-Card JSON is the sole brief. Do not reuse #181 / #179 / #173 pixels as closest.
-**V-008 is out of scope.** Do not seed.
+Claude overflow muted-read of PR #183: **take-18 PASS**; **take-16 FAIL**.
+File-seed `cards/V-007.png` from `cards/takes/V-007-take-18.png` only.
+**Do not seed take-16.** **V-008 is out of scope.**
 
-| Card | Title | Camera | **Closest** | **Runner** |
+| Card | Title | Camera | **Winner** | **Do not seed** |
 |---|---|---|---|---|
-| **V-007** | Slow On the Ramp | `POV_OBJECT` | **take 16** `V-007-take-16.png` | take 18 `V-007-take-18.png` |
+| **V-007** | Slow On the Ramp | `POV_OBJECT` | **take 18** `V-007-take-18.png` | take 16 `V-007-take-16.png` |
 
-## Residuals already visible
+## Winner — take 18
 
-- **V-007 take 16:** Menace on the right-hand pavement; painted chevron island; ordinary cars still at speed going **straight** on the left; the right roadway **peels/curves away**. Rear engine lid nearest camera, mesh, **no rear plow**. Residual: front nose plow not visible from dead astern; mainline reads two-lane more than three; EXIT ONLY stacked with an up-right arrow; sign is a right-side panel, not a full gantry.
-- **V-007 take 18 (runner):** Menace right of a chevron hash; travel on the left still at speed; mesh; **no rear plow**. Residual: the right pavement stays parallel (collector) instead of peeling; no nose plow.
+Menace right of a painted chevron hash. Ordinary cars still at speed on the left travel lanes. Rear engine lid nearest camera, mesh, **no rear plow**. EXIT ONLY panel with a downward arrow. Residual: the right pavement stays more parallel (collector) than a hard peel; front nose plow not visible from dead astern.
+
+## FAIL — take 16 (do not seed)
+
+Menace on the right-hand pavement with a clearer peel/curve. Residual that failed overflow: EXIT ONLY stacked with an up-right arrow; mainline reads two-lane more than three; sedan beside reads same-roadway.
 
 ## Discard (keep in pool, do not pick)
 
@@ -27,4 +30,4 @@ Card JSON is the sole brief. Do not reuse #181 / #179 / #173 pixels as closest.
 - **Take 22:** invented `EXIT ONLY` plate; yellow centerline.
 - **Take 23 / 24:** take-16 peel, but plow mounted on the **rear**.
 
-Do not seed. Do not live-DB. Do not merge. Do not touch V-008.
+Do not seed take-16. Do not touch V-008. No Acts I–III.
