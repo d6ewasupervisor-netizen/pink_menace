@@ -1,0 +1,76 @@
+{
+  "card_id": "IV-030",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "ali",
+  "card_type": "dossier",
+  "title": "The Door to the Pass",
+  "hook": "Hold eastbound. A walker is already in the paint.",
+  "scene": "Overcast midday daylight on a two-lane downtown street heading east, wet asphalt edge to edge. The Menace is STOPPED at the stop line, nose at the marked-crosswalk edge — not rolling, no tire spray, not parked in the junction. The full-width nose plow on the front bull bar points east at a person in a dark coat already on the white bars. That walker is the hold reason. Brick downtown blocks occupy the left third of the frame, their sidewalks meeting this same roadway. She is not cleared for the pass. Both cats are a sound in the closed carrier on the floor.",
+  "debrief": "The Beetle is stopped at the stop line. A person is already in the crosswalk. Brick downtown shares that wet street on the left. She is not cleared for the pass.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Hold at the stop line for a person already in the marked crosswalk; not in-lane motion."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_TOPDOWN_PHOTO",
+    "camera_pose": "Shallower high-oblique — not map-flat straight-down, not a steep three-quarter. Photoreal daylight aerial with readable depth. Overcast midday, pale gray-white sky. The faded pink Beetle is STOPPED at the stop line / marked-crosswalk edge, heading left-to-right. Full-width nose plow on the front bull bar points right at the hold reason: a person already in the paint (or cross traffic / a signal — a visible reason she is not cleared). NOT in-lane motion: no tire spray, no rolling. Continuous wet asphalt left edge to right edge. Brick downtown occupies the left third and shares this same street.",
+    "subject": "faded pink Beetle STOPPED at the stop line, nose at the crosswalk edge; full-width nose plow points right at a person already in the marked crosswalk",
+    "foreground": "unbroken wet asphalt to every frame edge; skip-dashed two-lane paint; stop line; right curb along the bottom; depth, not a map-flat top-down",
+    "midground": "Beetle held short of the bars, not rolling, no tire spray, not parked mid-junction; person in a dark coat already on the marked crosswalk bars",
+    "background": "overcast midday daylight; left third: brick downtown blocks whose sidewalks meet this street; the two-lane continues left-to-right past the person",
+    "read": "the Beetle is stopped at the stop line for a person already in the marked crosswalk; brick downtown occupies the left third of the same wet street",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no Encore",
+      "no Ledger",
+      "no readable highway sign",
+      "no mountain pass in frame",
+      "no isolated gravel patch",
+      "no moss island",
+      "no featureless pale expanse",
+      "no helipad",
+      "no eye-level roadside view",
+      "no three-quarter front portrait",
+      "no car facing the camera",
+      "no car parked square in the intersection",
+      "no car stopped mid-junction",
+      "no in-lane motion",
+      "no tire spray",
+      "no rolling Beetle",
+      "no dusk",
+      "no night",
+      "no map-flat straight-down aerial",
+      "no steep three-quarter",
+      "no downtown as a single corner fragment",
+      "no empty crosswalk with no person",
+      "no hold without a visible reason"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "eastbound travel lane, lower half of the two-lane street, right curb along the bottom of the frame",
+      "ego_nose_in_frame": "the full-width nose plow on the front bull bar points right, stopped at the stop line, at the person in the marked crosswalk",
+      "oncoming_position": "westbound half in the upper part of the street is empty",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "overcast",
+    "time_of_day": "midday",
+    "tone": "procedural",
+    "failure_mode": "none"
+  }
+}
