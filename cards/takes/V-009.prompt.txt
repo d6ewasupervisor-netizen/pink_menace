@@ -11,5 +11,5 @@ BAN ref_cockpit.jpg. No separate ref_car_sheet file — exterior jpg is the lock
 PR #188 take-20 / take-21 FAIL: empty cabin, no hands/wheel/driver (same ground as Wave4 take-2/3).
 Keep the three-lane stack. Occupied cabin is the FAIL fix.
 Regen pool: take-23..take-38.
-Closest take-37. Runner take-31. Same-class take-28.
-Do not seed.
+Closest take-37 (Claude FAIL — hands smudged by door frame). Runner take-31 (Claude overflow PASS d748b5d7). Same-class take-28.
+Seeded live: take-31. Do not seed take-37.
