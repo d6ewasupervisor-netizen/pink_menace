@@ -19,7 +19,7 @@ const MANIFESTS = {
   V: {
     run: "The Ribbon — I-5 / I-90",
     cargo: "Relay kit — repeater, antenna, clamps",
-    for: "the valley drop",
+    for: "Tower 4 — valley floor",
   },
 };
 
@@ -107,10 +107,10 @@ function radioCheckin(prevState, nextState, act) {
   const after = coldFrom(nextState);
   if (act === "V") {
     if (before > 0 && after <= 0) {
-      return { who: "deac", line: "The relay kit is late. How far out?" };
+      return { who: "yuna", line: "The relay kit is late. Tower 4 still wants it. How far out?" };
     }
     if (before > 30 && after <= 30) {
-      return { who: "deac", line: "Valley drop, checking. How far out?" };
+      return { who: "yuna", line: "Tower 4, checking. How far out?" };
     }
     return null;
   }
@@ -136,7 +136,7 @@ function cargoFailDispatch(charges, act) {
     }))
     .filter((c) => c.minutes > 0 && c.place);
   if (act === "V") {
-    if (!rows.length) return "The relay kit sat. The valley drop is tomorrow.";
+    if (!rows.length) return "The relay kit is late. Tower 4 still takes it.";
     const named = rows
       .sort((a, b) => b.minutes - a.minutes || String(a.card_id).localeCompare(String(b.card_id)))
       .slice(0, 2);
@@ -144,7 +144,7 @@ function cargoFailDispatch(charges, act) {
       const word = numberWord(c.minutes);
       return word.charAt(0).toUpperCase() + word.slice(1) + " at " + c.place + ".";
     });
-    parts.push("The kit sat. The valley drop is tomorrow.");
+    parts.push("The kit is late. Tower 4 still takes it.");
     return parts.join(" ");
   }
   if (!rows.length) {
@@ -168,10 +168,10 @@ function deliveryBeat(stateOrCold, act) {
   const state = stateOrCold && typeof stateOrCold === "object" ? stateOrCold : { time_cost: COLD_PACK - (Number(stateOrCold) || 0) };
   const n = coldFrom(state);
   if (act === "V") {
-    if (n <= 0) return "The relay kit is late. Repeater, antenna, clamps. The valley drop still takes it.";
-    if (n >= 10) return "Relay kit delivered. Repeater, antenna, clamps. " + n + " minutes to spare.";
-    if (n === 1) return "Relay kit delivered. 1 minute. Repeater, antenna, clamps.";
-    return "Relay kit delivered. " + n + " minutes. Repeater, antenna, clamps.";
+    if (n <= 0) return "The relay kit is late. Repeater, antenna, clamps. Tower 4 still takes it.";
+    if (n >= 10) return "Relay kit delivered. Repeater, antenna, clamps. Tower 4. " + n + " minutes to spare.";
+    if (n === 1) return "Relay kit delivered. 1 minute. Repeater, antenna, clamps. Tower 4.";
+    return "Relay kit delivered. " + n + " minutes. Repeater, antenna, clamps. Tower 4.";
   }
   if (n <= 0) return "Delivered warm. June took it anyway.";
   if (n >= 10) return "Delivered. " + n + " minutes to spare.";

@@ -2,92 +2,85 @@
   "card_id": "V-005",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
-  "card_type": "hazard",
-  "title": "Do Not Plant It",
-  "hook": "The gap is late. The paint is close.",
-  "scene": "Overcast midday on the I-5 merge. You are in the last stretch of ramp. The right travel lane is a tight stack. No hole is next to you. Merge paint is a bus-length ahead. The instinct is to stand on the brake and wait on the ramp until someone gifts you an empty. The other instinct is to take their door anyway. Both spend someone else's margin.",
-  "decision": "There is no gap beside you. What do you do?",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Match Them Before Paint",
+  "hook": "The ramp is still yours. Their speed is not.",
+  "scene": "Wind, morning, I-5 south on-ramp. You are in the acceleration stretch. The right travel lane of the highway is a moving line of cars. A gap is forming behind a dirty day-cab. Your stalk is still off. The merge paint is coming. If you arrive slow you steal his brakes. If you arrive with no signal he never knew you were a sentence.",
+  "decision": "You are in the acceleration stretch. How do you join them?",
   "options": [
     {
       "id": "a",
-      "text": "Stop on the ramp and wait until the right lane goes empty",
+      "text": "Hold your ramp speed and slide over at the paint — they will lift for you",
       "correct": false,
-      "result": "You plant the Ledger on the merge. The ramp behind you has to stop too. Highways do not clear for a standing bus. You made a start from zero at their speed.",
+      "result": "You meet the paint still slow. The day-cab stands on it. You borrowed someone else's stop to finish a merge you should have matched first.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "b",
+      "text": "Signal, match their speed here, then take the gap in the merge stretch",
+      "correct": true,
+      "result": "Amber talks. You run the stretch up to their number. The gap you take is one you already paid for with speed. The stalk dies after you sit.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stop now and wait for a gap that is already empty for a quarter mile",
+      "correct": false,
+      "result": "You plant it in the acceleration stretch. The ramp behind you becomes a standing start. Highways do not empty for a stopped Beetle.",
       "state_delta": {
         "noise": 3,
         "time_cost": 12
       }
     },
     {
-      "id": "b",
-      "text": "Force the paint now and make the stack lift",
+      "id": "d",
+      "text": "Cut left across two highway lanes so you are not stuck on the right",
       "correct": false,
-      "result": "You take their door. The sedan stands on it. Amber behind you lights. You wrote a late on a merge that still had pavement left to change speed.",
+      "result": "You take two lanes from a ramp. The first sedan lifts. The second never had a sentence. You spent two gaps to skip the job.",
       "state_delta": {
         "noise": 4,
-        "yaw": 1,
-        "time_cost": 8
-      }
-    },
-    {
-      "id": "c",
-      "text": "Stay rolling. Change speed until a gap is real, then take it",
-      "correct": true,
-      "result": "You keep the wheels turning. You drop a little, then you match the next hole. The gap you take is one you made with speed, not with a stop.",
-      "state_delta": {
-        "noise": -1,
-        "time_cost": 6
-      }
-    },
-    {
-      "id": "d",
-      "text": "Climb the shoulder around the stack and join from the rumble",
-      "correct": false,
-      "result": "The shoulder is junk and a sign post. You put a bus in the rumble to skip a count. They never had you as a sentence.",
-      "state_delta": {
-        "noise": 3,
         "yaw": 2,
-        "damage": 1,
-        "time_cost": 9
+        "time_cost": 7
       }
     }
   ],
-  "debrief": "If the gap is late, change speed until one appears. There is time to merge. Stopping on the ramp makes the next start the hard one.",
-  "timeout_option_id": "a",
-  "timeout_ms": 12000,
+  "debrief": "Signal in the acceleration stretch. Match their speed. Take the gap at the merge. You took their paint at their number.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
     "dol_section": "5.3 Merging",
-    "teaching_target": "Do not stop in the entrance or merge unless you must; adjust speed to find a gap."
+    "teaching_target": "On the acceleration area, signal and match traffic flow; enter in the merge area; do not stop on the ramp."
   },
-  "cast": [
-    "deac"
-  ],
+  "cast": ["ali"],
   "antagonist": "none",
   "callback_of": null,
-  "schedules_callback": true,
+  "schedules_callback": false,
   "presence": 0,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "from the seat at merge paint, right highway lane a tight stack, no gap beside the hood",
-    "foreground": "transit wheel, right foot off the brake, cluster still moving",
-    "midground": "merge paint a bus-length ahead, sedan flanks with no hole",
-    "background": "overcast midday I-5, three lanes, concrete median, no snow",
-    "read": "the hood is still on the ramp; the right highway lane has no gap beside you",
-    "continuity": [
-      "ledger_cockpit"
-    ],
+    "subject": "from the seat looking forward along the on-ramp, merge paint ahead, day-cab in the highway right lane",
+    "foreground": "worn black wheel, left stalk off, faded pink dash, handheld on the floor",
+    "midground": "wet acceleration asphalt, skip-dash beginning at the merge, pink plow bar at the bottom of the glass",
+    "background": "wind morning I-5, three travel lanes, no snow, no night",
+    "read": "the Beetle is still on the ramp; the day-cab is already at highway speed in the right lane",
+    "continuity": ["pink_menace_interior"],
     "extra_negatives": [
-      "no Ledger brake lamps lit",
-      "no empty quarter-mile gap",
-      "no snow"
+      "no stop lamps lit on the Beetle",
+      "no snow",
+      "no clipboard in the glass",
+      "no second occupant"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "I-5 merge stretch beside the right travel lane",
-      "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+      "ego_lane_side": "I-5 on-ramp acceleration stretch joining the right travel lane",
+      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing toward the top of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 3,
@@ -96,9 +89,9 @@
   },
   "variation": {
     "location_type": "highway",
-    "weather": "overcast",
-    "time_of_day": "midday",
-    "tone": "urgent",
+    "weather": "wind",
+    "time_of_day": "morning",
+    "tone": "tense",
     "failure_mode": "inexperience",
     "forced": "Act V draft stub — no still; do not seed"
   }

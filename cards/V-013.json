@@ -2,112 +2,98 @@
   "card_id": "V-013",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
+  "driver": "ali",
   "card_type": "scene",
-  "title": "His Stopping Distance",
-  "hook": "Old Ninety is ahead. Your nose is close.",
-  "scene": "Wind, morning, I-5 south, three lanes. A rogue semi with a dirty number that used to be ninety holds the right. You sit in the same lane, a car length off his trailer doors. At city speed that gap felt like plenty. At this number he cannot stop for you, and you just borrowed the only pavement he had. The left is open enough to leave or to drop back until you can count more than a car.",
-  "decision": "You are a car length off his trailer at highway speed. Where do you sit?",
+  "title": "Let Hollis Have It",
+  "hook": "His bumper is in the glass. Again.",
+  "scene": "Overcast afternoon on I-90 east, three lanes. You are in the center, holding a clean number. In the inside mirror a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your rear. The highway move is to give him a lane and let him be someone else's problem.",
+  "decision": "Hollis is on your tail in the center. The right is empty. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Hold the car length — if he can roll, you can roll",
-      "correct": false,
-      "result": "His brake lamps come on for a dead van you cannot see. You have his leftover and no more. You borrowed a loaded trailer's stopping distance.",
+      "text": "Signal right, take the empty lane, let him have the center",
+      "correct": true,
+      "result": "One change. He blows past in the center. Your following distance is yours again. You did not write a brake lamp into his windshield.",
       "state_delta": {
-        "noise": 4,
-        "time_cost": 8
+        "noise": -1,
+        "time_cost": 3
       }
     },
     {
       "id": "b",
-      "text": "Tuck left and cruise beside the trailer so you are not behind him",
+      "text": "Tap the brakes to tell him he is too close",
       "correct": false,
-      "result": "You live in the place he cannot see. He starts a move that needs your lane. You are the car in the statistic again, at a higher number.",
+      "result": "Your lamps hit his glass. He stands on it or he climbs you. Either way you taught a tailgater with light. The empty lane was the sentence.",
       "state_delta": {
-        "noise": 3,
-        "yaw": 1,
-        "time_cost": 7
-      }
-    },
-    {
-      "id": "c",
-      "text": "Drop back until you can count three or more, or pass once and clear",
-      "correct": true,
-      "result": "You give him pavement he can actually use. Or you pass once, all the way, and you do not sit on his door. Either way you stop borrowing his stop.",
-      "state_delta": {
-        "noise": -1,
+        "noise": 4,
+        "light": 3,
         "time_cost": 6
       }
     },
     {
-      "id": "d",
-      "text": "Close up so no one can cut in between you and the trailer",
+      "id": "c",
+      "text": "Hold the center and drop ten so the gap in front of you looks safer",
       "correct": false,
-      "result": "You erase the last of his margin to keep a hole closed. The next brake is still his. You made it yours.",
+      "result": "You slow in front of a man who will not. The gap behind dies. You spent your own cushion to keep a lane he wanted.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Speed up until he cannot match the Menace",
+      "correct": false,
+      "result": "He matches. Then he matches more. You bought a race on a highway. The empty right was still empty.",
       "state_delta": {
         "noise": 3,
         "time_cost": 5
       }
     }
   ],
-  "debrief": "A loaded trailer needs more than a car length at highway speed. You either dropped back or you passed and cleared. You took back the pavement you had borrowed.",
+  "debrief": "Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your doors alone.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
-    "dol_section": "4.4 Sharing with large vehicles",
-    "teaching_target": "Give large vehicles extra following distance at highway speed; do not sit a car length off a loaded trailer."
+    "dol_section": "5.2 Space",
+    "teaching_target": "Watch mirrors for tailgaters and move to another lane to let them pass."
   },
-  "cast": [
-    "deac",
-    "old_ninety"
-  ],
+  "cast": ["ali", "hollis"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "presence": 0,
   "image_brief": {
-    "camera": "POV_CHASE",
-    "subject": "from behind the Ledger, the shuttle's rear nearer the camera, dirty semi trailer a car length ahead in the same right lane",
-    "foreground": "wet I-5 asphalt, rear of the gray cutaway box",
-    "midground": "trailer doors close ahead, too little pavement between box and trailer",
-    "background": "wind morning I-5, three lanes, concrete median, no snow",
-    "read": "only a car length of wet asphalt sits between the shuttle's nose and the trailer doors",
-    "continuity": [
-      "the_ledger"
-    ],
+    "camera": "POV_MIRROR_REAR",
+    "camera_is_the_lesson": true,
+    "subject": "Hollis's lifted truck filling the interior rearview, no countable gap, same lane",
+    "foreground": "wet rearview glass filling the upper frame; cracked faded pink dash and welded mesh below, out of focus",
+    "midground": "in the glass: lifted truck tight behind, same heading, no opening of pavement you can count",
+    "background": "overcast afternoon I-90 behind the vehicle, windshield view not the subject, no snow",
+    "read": "the inside mirror is filled by a lifted truck with no gap you can count",
+    "continuity": ["pink_menace_interior", "hollis"],
     "extra_negatives": [
-      "no second cutaway",
-      "no Ledger marks on the semi",
+      "no truck in a door-mirror as the subject",
       "no snow",
-      "no headlights toward camera"
+      "no clipboard in the windshield",
+      "no second occupant"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "right travel lane of three southbound I-5 lanes",
-      "ego_nose_in_frame": "the van nose points away, toward the trailer and the top of the frame",
+      "ego_lane_side": "center travel lane of three eastbound I-90 lanes",
+      "ego_nose_in_frame": "travel continues away; the plow is not in frame",
       "oncoming_position": "none in frame",
-      "hazard_position": "ahead_same_direction",
+      "hazard_position": "behind",
       "lanes_this_direction": 3,
-      "ego_lane_from_left": 3,
-      "ego_frame_side": "right",
-      "traffic_positions": [
-        {
-          "vehicle": "semi tractor-trailer",
-          "frame_side": "same",
-          "lane_from_left": 3,
-          "along": "ahead",
-          "lengths": 1
-        }
-      ]
+      "ego_lane_from_left": 2
     }
   },
   "variation": {
     "location_type": "highway",
-    "weather": "wind",
-    "time_of_day": "morning",
-    "tone": "grim",
-    "failure_mode": "inexperience",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "speed",
     "forced": "Act V draft stub — no still; do not seed"
   }
 }

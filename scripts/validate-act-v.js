@@ -27,6 +27,8 @@ const castEnum = schema.properties.cast.items.enum;
 const DEFERRED_VII = /\b(snoqualmie|chain-?up|\bchains\b|gravy|snowplow|deep[_ ]night|\bfog\b|\bice\b|mountain pass)\b/i;
 const REPLAY = /\b(fred meyer|two-way left|hov diamond|the lot\b|quiet street)\b/i;
 const INVENTED_LOAD = /\b(insulin|june|delridge|cooler|fuel drums?|single-axle|flatbed|load_state|sway[- ]load|tow hitch|towing a)\b/i;
+const TRUCK_TIRE_AXLE = /\b(truck (?:tire|tyre|axle)|trailer axle|drive axle|the duals?\b)\b/i;
+const OTHER_EGO = /\b(the ledger|cutaway shuttle|encore|deac has the wheel)\b/i;
 const EXPECTED_IDS = Array.from({ length: 13 }, (_, i) => "V-" + String(i + 1).padStart(3, "0"));
 
 const cards = files
@@ -42,7 +44,7 @@ const answers = { a: 0, b: 0, c: 0, d: 0 };
 for (let i = 0; i < cards.length; i++) {
   const c = cards[i];
   const id = c.card_id;
-  if (c.act !== "V" || c.zone !== "The Ribbon" || c.driver !== "deac") err(id, "act/zone/driver");
+  if (c.act !== "V" || c.zone !== "The Ribbon" || c.driver !== "ali") err(id, "act/zone/driver");
   if (!Number.isInteger(c.presence) || c.presence < 0) {
     err(id, "presence must be a canonical integer >= 0 (do not invent a parallel live field)");
   }
@@ -75,7 +77,20 @@ for (let i = 0; i < cards.length; i++) {
   if (!camEnum.includes(c.image_brief.camera) || !LEGAL_CAMERAS.includes(c.image_brief.camera)) {
     err(id, "camera");
   }
-  if (c.image_brief.camera === "POV_MIRROR_REAR") err(id, "POV_MIRROR_REAR illegal on Ledger");
+  const briefBlob = [
+    c.image_brief.subject,
+    c.image_brief.foreground,
+    c.image_brief.midground,
+    c.image_brief.background,
+    c.image_brief.read,
+    (c.image_brief.continuity || []).join(" "),
+  ].join(" ");
+  if (/\b(yuna|encore)\b/i.test(briefBlob)) {
+    err(id, "Yuna is radio-only — do not put her or Encore in the still");
+  }
+  if (/\b(ledger_cockpit|the_ledger)\b/i.test((c.image_brief.continuity || []).join(" "))) {
+    err(id, "Act V ego is the Menace — no Ledger lock");
+  }
   for (const e of validateGeometry(c)) err(id, e.replace(`${id}: `, ""));
   try {
     assemblePrompt(c);
@@ -105,6 +120,12 @@ for (let i = 0; i < cards.length; i++) {
   if (INVENTED_LOAD.test(blob)) {
     err(id, "retired or invented load (insulin / cooler / June / flatbed / drums / tow) — relay kit only");
   }
+  if (TRUCK_TIRE_AXLE.test(blob)) {
+    err(id, "no truck tire/axle framing on the Ribbon");
+  }
+  if (OTHER_EGO.test(blob)) {
+    err(id, "Ali alone — no Ledger / Encore / Deac-at-the-wheel in player copy");
+  }
   if (i >= 2 && c.card_type === cards[i - 1].card_type && c.card_type === cards[i - 2].card_type) {
     err(id, "three same types in a row");
   }
@@ -133,6 +154,16 @@ function assertRibbonCopy(label, text) {
 const manV = manifestFor("V", "Test");
 if (manV.act !== "V" || !/relay/i.test(manV.cargo) || !/repeater|antenna|clamps/i.test(manV.cargo)) {
   errors.push("MANIFESTS.V must name the relay kit (repeater / antenna / clamps)");
+}
+if (!/tower 4/i.test(manV.for)) {
+  errors.push("MANIFESTS.V.for must name Tower 4");
+}
+if (/sat|tomorrow/i.test(cargoFailDispatch([], "V") + cargoFailDispatch([{ card_id: "V-005", minutes: 6, place: "the ramp" }], "V"))) {
+  errors.push("Act V cargo fail must stay thin-net (late still delivers; no sat/tomorrow)");
+}
+const radioWho = radioCheckin({ time_cost: COLD_PACK - 4 }, { time_cost: COLD_PACK }, "V");
+if (!radioWho || radioWho.who !== "yuna") {
+  errors.push("Act V radio must be Yuna");
 }
 assertRibbonCopy("manifest cargo", manV.cargo);
 assertRibbonCopy("manifest for", manV.for);

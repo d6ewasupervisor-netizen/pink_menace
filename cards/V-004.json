@@ -2,28 +2,28 @@
   "card_id": "V-004",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
-  "card_type": "scene",
-  "title": "Match Them Before Paint",
-  "hook": "The ramp is still yours. Their speed is not.",
-  "scene": "Wind, morning, I-5 south on-ramp. You are in the acceleration stretch. The right travel lane of the highway is a moving line of boxes. A gap is forming behind a dirty day-cab. Your stalk is still off. The merge paint is coming. If you arrive slow you steal his brakes. If you arrive with no signal he never knew you were a sentence.",
-  "decision": "You are in the acceleration stretch. How do you join them?",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "The Meter Is a Light",
+  "hook": "Red on the ramp. A white line.",
+  "scene": "Overcast morning at the foot of an I-5 on-ramp. A two-head signal hangs over a painted white stop line — a freeway ramp meter, not an intersection. The light is red. A sedan is already past it, running the acceleration stretch. Yuna clicks once and does not explain the rest. The kit in the back does not care if you roll a red here. The white line does.",
+  "decision": "The ramp meter is red. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Hold your ramp speed and slide over at the paint — they will lift for a bus",
+      "text": "Roll through — it is not a real light, just a suggestion for busy hours",
       "correct": false,
-      "result": "You meet the paint still slow. The day-cab stands on it. You borrowed a truck's stopping distance to finish a merge you should have matched first.",
+      "result": "You treat a red like weather. The sedan ahead never expected a second car on the same green. Ramp meters work like regular signals. You spent that.",
       "state_delta": {
-        "noise": 4,
-        "time_cost": 8
+        "noise": 3,
+        "time_cost": 6
       }
     },
     {
       "id": "b",
-      "text": "Signal, match their speed here, then take the gap in the merge stretch",
+      "text": "Stop at the white stop line. When it turns green, continue up the on-ramp",
       "correct": true,
-      "result": "Amber talks. You run the stretch up to their number. The gap you take is one you already paid for with speed. The stalk dies after you sit.",
+      "result": "You hold the line. Red stays red. Green comes. You use the rest of the ramp the way it was built — search, match, merge. The meter did one job.",
       "state_delta": {
         "noise": -1,
         "time_cost": 5
@@ -31,71 +31,68 @@
     },
     {
       "id": "c",
-      "text": "Stop now and wait for a hole that is already empty for a quarter mile",
+      "text": "Stop under the signal, then creep around it on the shoulder to skip the wait",
       "correct": false,
-      "result": "You plant it in the acceleration stretch. The ramp behind you becomes a standing start. Highways do not empty for a stopped bus.",
+      "result": "The shoulder is a post and a drain. You left the white line to steal a green that was not yours.",
       "state_delta": {
         "noise": 3,
-        "time_cost": 12
+        "yaw": 1,
+        "time_cost": 8
       }
     },
     {
       "id": "d",
-      "text": "Cut left across two highway lanes so you are not stuck on the right",
+      "text": "Wait until two greens so you and the next car go up together",
       "correct": false,
-      "result": "You take two lanes from a ramp. The first sedan lifts. The second never had a sentence. You spent two gaps to skip the job.",
+      "result": "One green is one car. You held a second cycle and made a pair on a ramp built for singles. The meter was already the rule.",
       "state_delta": {
-        "noise": 4,
-        "yaw": 2,
-        "time_cost": 7
+        "time_cost": 12
       }
     }
   ],
-  "debrief": "Signal in the acceleration stretch. Match their speed. Take the gap at the merge. You took their paint at their number.",
+  "debrief": "Red means stop on the white line. Green means continue up the on-ramp. Green gave the ramp back.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
-    "dol_section": "5.3 Merging",
-    "teaching_target": "On the acceleration area, signal and match traffic flow; enter in the merge area; do not stop on the ramp."
+    "dol_section": "4.11 Traffic light signals (Freeway ramp meters)",
+    "teaching_target": "Freeway ramp meters work like regular signals: red = stop at the white stop line; green = continue along the on-ramp."
   },
-  "cast": [
-    "deac"
-  ],
+  "cast": ["ali", "yuna"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "presence": 0,
   "image_brief": {
-    "camera": "POV_COCKPIT",
-    "subject": "from the seat looking forward along the on-ramp, merge paint ahead, day-cab in the highway right lane",
-    "foreground": "transit wheel, left stalk off, thermos on the doghouse between the seats",
-    "midground": "wet acceleration asphalt, skip-dash beginning at the merge",
-    "background": "wind morning I-5, three travel lanes, no snow, no night",
-    "read": "the shuttle is still on the ramp; the day-cab is already at highway speed in the right lane",
-    "continuity": [
-      "ledger_cockpit"
-    ],
+    "camera": "POV_OBJECT",
+    "camera_is_the_lesson": true,
+    "subject": "a two-head ramp-meter signal over a white stop line on a wet on-ramp, red lit, no city name",
+    "foreground": "white stop line on wet asphalt, no readable word on the signal",
+    "midground": "two-head meter head on a short pole, red aspect lit",
+    "background": "overcast morning on-ramp rising away, no snow, no night",
+    "read": "the signal is red over a white stop line at the foot of the on-ramp",
     "extra_negatives": [
-      "no stop lamps lit on the Ledger",
+      "no intersection crossbar",
       "no snow",
-      "no clipboard in the glass"
+      "no chain-up plaque",
+      "no readable city names",
+      "no person in frame"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "I-5 on-ramp acceleration stretch joining the right travel lane",
-      "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+      "ego_lane_side": "single-lane I-5 on-ramp at the meter stop line",
+      "ego_nose_in_frame": "travel continues away up the ramp; the plow is not the subject",
       "oncoming_position": "none in frame",
-      "hazard_position": "ahead_same_direction",
-      "lanes_this_direction": 3,
-      "ego_lane_from_left": 3
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
     }
   },
   "variation": {
     "location_type": "highway",
-    "weather": "wind",
+    "weather": "overcast",
     "time_of_day": "morning",
-    "tone": "tense",
-    "failure_mode": "inexperience",
+    "tone": "procedural",
+    "failure_mode": "none",
     "forced": "Act V draft stub — no still; do not seed"
   }
 }

@@ -2,85 +2,61 @@
   "card_id": "V-001",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
-  "card_type": "ride-along",
+  "driver": "ali",
+  "card_type": "scene",
   "title": "Eyes Up the Ribbon",
-  "hook": "Deac has the wheel. The highway starts.",
-  "scene": "Overcast morning on I-5 south of the Core. You are in the jump seat. Deac has the wheel, the thermos, and the log. The relay kit that fit in the Menace is lashed in the box — repeater, antenna, clamps. The Ledger holds the right travel lane of three. He will name the interchange, the signs, and the paint while you watch. You do not touch the wheel until he says so. The mountain is a gray smudge far east. This pavement is the Ribbon.",
-  "debrief": "You watched the highway before you drove it. Interchange, signs, paint, eyes up. Deac still has the next ramp.",
-  "ride_along": [
-    "Eyes up. Not the bumper. The next sign. Then the one after that.",
-    "That stack of ramps is an interchange. We pick one gap and we commit.",
-    "The green panels name the cities. I-5 south until the I-90 east split.",
-    "Skip-dash is a legal change if the gap is real. Solid white is not.",
-    "Right lane dies into the next ramp. Through traffic holds left of that.",
-    "Count three on the pavement. At this speed three is a long piece of road.",
-    "Left glass. Right glass. Then the road. The box has no window behind us.",
-    "Do not slow on this pavement to read a sign. The ramp is where speed dies.",
-    "Someone is coming up the on-ramp on the right. We give them a lane if we have one.",
-    "Thermos. I drink when the wheels are straight and the gap is already ours.",
-    "You will take the next ramp. I talk you onto it. You do not stop on it.",
-    "Your wheel. Match their speed before you share their paint."
-  ],
-  "ride_beats": [
+  "hook": "Yuna on the radio. The highway starts.",
+  "scene": "Overcast morning on I-5 south of the Core. You have the wheel of the Menace. Nobody else is in the car. The relay kit for Tower 4 is already lashed in the back — repeater, antenna, clamps. The handheld on the floor crackles: Yuna. She will not be here. She wants the interchange, the green panels, and the paint named before you spend the ramp. The mountain is a gray smudge far east. This pavement is the Ribbon.",
+  "decision": "Yuna wants eyes up. What do you give her first?",
+  "options": [
     {
-      "look": "road",
-      "tap": "anywhere"
+      "id": "a",
+      "text": "Name the interchange, the guide panels, and the lane lines ahead",
+      "correct": true,
+      "result": "You call the stack, the green boards, and the skip-dash. She clicks once. The bumper can wait. You already know which gap the next ramp wants.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
     },
     {
-      "look": "right",
-      "tap": "right"
+      "id": "b",
+      "text": "Watch the bumper of the car ahead so you do not hit it",
+      "correct": false,
+      "result": "You narrate chrome. The exit panel goes by unread. She has to name the ramp for you. Eyes on the bumper spent the only look that mattered.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 8
+      }
     },
     {
-      "look": "road",
-      "tap": "anywhere"
+      "id": "c",
+      "text": "Ask her to stay on until she can talk you through every merge",
+      "correct": false,
+      "result": "The radio is a check, not a second driver. You missed a panel waiting for a voice that will not sit in this seat.",
+      "state_delta": {
+        "time_cost": 10
+      }
     },
     {
-      "look": "road",
-      "tap": "gap"
-    },
-    {
-      "look": "right",
-      "tap": "anywhere"
-    },
-    {
-      "look": "road",
-      "tap": "anywhere"
-    },
-    {
-      "look": "left",
-      "tap": "sweep"
-    },
-    {
-      "look": "road",
-      "tap": "anywhere"
-    },
-    {
-      "look": "right",
-      "tap": "right"
-    },
-    {
-      "look": "thermos",
-      "tap": "thermos"
-    },
-    {
-      "look": "road",
-      "tap": "anywhere"
-    },
-    {
-      "look": "wheel",
-      "tap": "wheel"
+      "id": "d",
+      "text": "Slow down in the travel lane so you can read every word on the next sign",
+      "correct": false,
+      "result": "You dump speed on I-5 to finish a sentence. The stack behind you lights. The ramp is where speed dies, not here.",
+      "state_delta": {
+        "noise": 3,
+        "light": 2,
+        "time_cost": 7
+      }
     }
   ],
+  "debrief": "Interchange, signs, paint — eyes up, not on the bumper. Yuna said the next panel, not the bumper.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part one",
     "dol_section": "4.12 Signs",
-    "teaching_target": "Passenger-first highway observation: interchanges, signs, and lane lines before she takes the ramp."
+    "teaching_target": "Highway observation: interchanges, signs, and lane lines. Ali already has the wheel; Yuna is radio-only."
   },
-  "cast": [
-    "deac",
-    "ali"
-  ],
+  "cast": ["ali", "yuna"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -88,25 +64,26 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "camera_is_the_lesson": true,
-    "subject": "from the high seat looking forward through the bar cage at three wet I-5 lanes, a green guide panel ahead, no readable city names",
-    "foreground": "worn transit wheel, analog cluster moving, thermos on the doghouse between the seats",
-    "midground": "bar cage with a wiper-slot cut, skip-dashed white between travel lanes",
+    "subject": "from the seat through welded mesh at three wet I-5 lanes, a green guide panel ahead, no readable city names",
+    "foreground": "worn black wheel, faded pink dash, handheld radio on the floor, no second person",
+    "midground": "mesh with a wiper-slot cut, skip-dashed white between travel lanes, pink plow bar at the bottom of the glass",
     "background": "overcast I-5 morning, concrete median left, no mountain close, no night",
-    "read": "Deac is driving; three same-direction lanes run ahead through the cage; a guide panel sits far down the road",
-    "continuity": [
-      "ledger_cockpit"
-    ],
+    "read": "Ali is driving alone; three same-direction lanes run ahead through the mesh; a guide panel sits far down the road",
+    "continuity": ["pink_menace_interior"],
     "extra_negatives": [
+      "no second occupant",
       "no clipboard in the windshield",
       "no snow",
       "no chain-up signs",
-      "no Snoqualmie shield"
+      "no Snoqualmie shield",
+      "no cutaway shuttle",
+      "no chevron hatchback"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of three southbound I-5 lanes",
-      "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing toward the top of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
       "lanes_this_direction": 3,

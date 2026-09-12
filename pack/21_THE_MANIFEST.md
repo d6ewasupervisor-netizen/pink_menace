@@ -79,11 +79,11 @@ Act II copy above stays. The Ribbon does **not** inherit June / insulin / cooler
 ```
 RUN            The Ribbon — I-5 / I-90
 CARGO          Relay kit — repeater, antenna, clamps
-FOR            the valley drop
+FOR            Tower 4 — valley floor
 ```
 
 `deliveryBeat(..., "V")` (existing end-of-run beat, not a new card):
 
-> *Relay kit delivered. Repeater, antenna, clamps. 41 minutes to spare.* — or — *Relay kit delivered. 3 minutes. Repeater, antenna, clamps.* — or — *The relay kit is late. Repeater, antenna, clamps. The valley drop still takes it.*
+> *Relay kit delivered. Repeater, antenna, clamps. Tower 4. 41 minutes to spare.* — or — *Relay kit delivered. 3 minutes. Repeater, antenna, clamps. Tower 4.* — or — *The relay kit is late. Repeater, antenna, clamps. Tower 4 still takes it.*
 
-Fail dispatch and mid-run radio on Act V use the same kit / valley drop, never Delridge or June. No tow. No new `load_state`.
+Fail dispatch and mid-run radio on Act V use the same kit / Tower 4, never Delridge or June. **Thin-net:** late still delivers — do not write “the kit sat” / “tomorrow.” Radio voice is **Yuna**. No tow. No new `load_state`.
