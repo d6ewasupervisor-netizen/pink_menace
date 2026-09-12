@@ -102,6 +102,7 @@
     "time_of_day": "midday",
     "tone": "urgent",
     "failure_mode": "inexperience",
-    "forced": "Claude FAIL muted-read 794631a4 — do not seed. Both takes fail (wrong lane count / ego / setting). Held."
+    "winner": "take-21",
+    "forced": "live still cards/takes/V-006-take-21.png (Claude PASS muted-read a8a5ebe4; take 23 runner-up do not seed)"
   }
 }

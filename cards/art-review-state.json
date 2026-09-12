@@ -188,10 +188,10 @@
       "updated_at": "2026-09-12T10:48:00.000Z"
     },
     "V-006": {
-      "tag": "GEOMETRY_WRONG",
-      "note": "Claude muted-read FAIL (794631a4). Both takes fail — wrong lane count / ego / setting. Held. Do not seed.",
-      "pick": "take-8",
-      "updated_at": "2026-09-12T10:48:00.000Z"
+      "tag": "PASS",
+      "note": "Claude muted-read PASS (a8a5ebe4). High-oblique take 21 seeded live. Three lanes, left-ego, sedan closing in the same left lane. Take 23 runner-up do not seed (same geometry, sedan further back / weaker closing pressure). Three-lane interior takes stay FAIL / unseeded.",
+      "pick": "take-21",
+      "updated_at": "2026-09-12T11:21:00.000Z"
     }
   }
 }
