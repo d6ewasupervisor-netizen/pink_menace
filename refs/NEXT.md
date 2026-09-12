@@ -16,7 +16,7 @@ Claude — not seeded live.
 | Card | Lesson (`read`) | Shot | Closest take |
 |---|---|---|---|
 | IV-027 | the truck is already on the bumper in the interior rear glass | `POV_MIRROR_REAR` | `cards/takes/IV-027-take-26.png` |
-| IV-028 | both cats' faces are at the grate of the closed strapped carrier on the true floor; a person in a dark coat is already mid-crossing the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-19.png` |
+| IV-028 | both cats' faces are at the grate of the closed strapped carrier on the true floor; a person in a dark coat is already mid-crossing the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-70.png` |
 | IV-030 | the Beetle is pointed east; the city is behind it and shut | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-15.png` |
 
 Notes: `cards/takes/WAVE_IV-027-028-030.md`.
