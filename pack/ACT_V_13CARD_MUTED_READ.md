@@ -9,13 +9,16 @@ Authority is the card JSON on PR #151. If this file and a card disagree, the car
 ## Locks for this read
 
 - Act V = Ribbon + Skill eleven. Ali alone. Yuna radio-only. Load = Tower 4 relay kit.
-- `presence` canonical. Thirteen cards + existing end beat. No V-014.
-- **`cargo_rough` bands** (end-of-run degrade only — not an instant fail):
-  - CLEAN 0–3
-  - SCUFFED 4–8
-  - THINNED 9+
+- `presence` canonical. **Quiet at seventy:** they do not paint on the Ribbon the way they paint in the lot. Herd is VII. Thirteen cards + existing end beat. No V-014.
+- Building-engaging citation locks:
+  1. Allowlist + V-004 cite exact `4.11 Traffic light signals (Freeway ramp meters)` (TOC child, not a top-level section).
+  2. V-009 `dol_section: "n/a"` (PSDP-only). Do not stretch a DOL parent. Validator accepts `n/a`.
+  3. **`cargo_rough` bands proposed for lock** (Tower 4 channel; end-of-run degrade only):
+     - CLEAN 0–3
+     - SCUFFED 4–8
+     - THINNED 9+
 - No fail-beyond-THINNED exists. Do not invent one.
-- **`daylight_fail`** (`time_cost >= 130`) does **not** end the run. It swaps **one clause** on V-013. Same decision, same options, same citation. That clause is the only place the overrun registers.
+- **`daylight_fail`** (`time_cost >= 130`) does **not** end the run. It swaps **one clause** on V-013. Same decision, same options, same citation. That clause is the only place the overrun registers. (First Building-engaging line said “wins when both set”; later flip on this PR is the clause-swap.)
 
 ## V-013 scene states (same card)
 

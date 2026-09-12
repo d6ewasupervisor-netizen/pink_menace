@@ -8,12 +8,12 @@ Screenshot of the numbered list cut off mid-item 3. Item 4+ inferred from the sa
 
 | # | Confirm | Bake |
 |---|---|---|
-| 1 | `4.11 Traffic light signals (Freeway ramp meters)` exactly (TOC sub-entry, not its own section) | In `pack/07`. V-004 cites it. Validator requires the exact string. |
-| 2 | V-009 `dol_section: "n/a"` — do not stretch a parent; DOL has no Exiting section | V-009 is n/a. Validator accepts `null` or `"n/a"`. On this stack V-009 still *teaches* PSDP p2 steering (no DOL heading — same class as exiting). Exiting copy stays V-007 (4.12 REVIEW) + V-008 (5.1 conditions). No minted Exiting heading. |
-| 3 | Three `cargo_rough` band thresholds | **CLEAN 0–3 · SCUFFED 4–8 · THINNED 9+**. Reuses presence T0/T1 edges. End-beat degrade only — not an instant fail. |
-| 4 (flipped) | `daylight_fail` | Clock-out (`time_cost >= 130`) **does not end the run**. Swaps **one V-013 scene clause** (same decision / options / citation). That clause is the only place the overrun registers. |
-| both set | Priority | Overrun clause on V-013 **and** `cargo_rough` still bands the existing end beat. No fail-beyond-THINNED. No hard fail. |
-| lock line | `presence` canonical + `location_type: highway` | All thirteen. Validator requires both. |
+| 1 | `4.11 Traffic light signals (Freeway ramp meters)` exactly (TOC sub-entry / child of 4.11, not its own top-level section) | In `pack/07` next to the parent. V-004 cites the **child**. Validator requires the exact string. |
+| 2 | V-009 exiting: `dol_section: "n/a"` (PSDP-only). Do **not** stretch a DOL parent. | V-009 is `n/a`. Validator accepts `null` or `"n/a"` (`pack/07` + `scripts/validate-citations.js`). On this stack V-009 *teaches* PSDP p2 steering (no DOL heading — same class as no Exiting heading). Exiting copy stays V-007 (4.12 REVIEW) + V-008 (5.1 conditions). No minted Exiting heading. |
+| 3 | Propose concrete `cargo_rough` bands (clean → scuffed → thinned on the Tower 4 channel) | **Proposed for lock:** CLEAN **0–3** · SCUFFED **4–8** · THINNED **9+**. Same edges as presence T0/T1. End-beat degrade only — not an instant fail. |
+| 4 (first lock said “wins”) | `daylight_fail` | First Building-engaging line was “wins when both set.” **Later flip (authoritative on this PR):** clock-out does **not** end the run. It swaps **one V-013 scene clause**. That clause is the only place the overrun registers. |
+| both set | Priority | Overrun clause on V-013 **and** `cargo_rough` still bands the existing end beat. No fail-beyond-THINNED. Do not collapse into one cliff. |
+| also locked | `presence` canonical · highway vs lot (**Quiet at seventy**) · V-013 dusk = grade pass over the deck plate (geometry unchanged) · load = Tower 4 relay hardware · Yuna radio-only · 13 cards + existing end beat · engine names `cargo_rough` + `daylight_fail` | All thirteen `presence: 0`, `location_type: highway`. Quiet herd is VII — they do not paint on the Ribbon at seventy the way they paint in the lot. |
 
 Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) and `source/driver-guide.pdf` (TOC PDF 11 / 13; bodies as cited). Stack continues PR #141. Yuna radio voice: `pack/36_YUNA_RADIO_VOICE.md`. Beat skeleton: `pack/34_ACT_V.md`. Research gates: `pack/35_ACT_V_RESEARCH.md`. Muted-read copy: `pack/ACT_V_13CARD_MUTED_READ.md`. Quiet placement (Doc 29): herd stays Act VII; all thirteen stubs keep `presence: 0` and no Quiet in `image_brief`.
 
@@ -67,7 +67,7 @@ Audited against `source/25WAPSDP_LR_v3.pdf` (printed pp. 31–32 = PDF 38–39) 
 - V-009 `n/a` (highway gentle steer / no DOL heading). Validator accepts `null` or `"n/a"`.
 - `5.6 Road and driving conditions (Curves)` as a verified heading. Unspent. Quote home for curve steering, not V-009.
 - No DOL `Exiting` heading. V-007 / V-008 pair existing strings only.
-- `presence` canonical. Thirteen cards + existing end beat. Ali alone. Yuna radio-only. Load = relay kit for Tower 4. Chains / Snoqualmie = VII.
+- `presence` canonical. **Quiet at seventy** (highway vs lot). Thirteen cards + existing end beat. Ali alone. Yuna radio-only. Load = relay kit for Tower 4. Chains / Snoqualmie = VII.
 - Card JSON `image_brief` is the brief. Doc 29 Quiet plates are not Ribbon stills.
 
 ### Open leftovers (not a Tyson block)

@@ -8,7 +8,7 @@ Yuna radio voice (four appearances; `cargo_rough` bands the end beat; `daylight_
 
 Muted-read packet: `pack/ACT_V_13CARD_MUTED_READ.md`.
 
-**Locks (do not contradict):** Ali alone on the Ribbon; Yuna radio-only; load = relay hardware for **Tower 4**; `presence` canonical; 13 cards + existing end-of-run beat; cargo = thin-net (late still delivers — not a hard fail); V-013 has two scene states on the same card (one clause); `daylight_fail` swaps that clause (does not end the run); no fail-beyond-THINNED; no truck tire/axle framing; no Acts I–III replay; chains / Snoqualmie = Act VII.
+**Locks (do not contradict):** Ali alone on the Ribbon; Yuna radio-only; load = relay hardware for **Tower 4**; `presence` canonical; **Quiet at seventy** (highway vs lot — Quiet do not paint on the Ribbon; herd is VII); 13 cards + existing end-of-run beat; cargo = thin-net (late still delivers — not a hard fail); V-013 has two scene states on the same card (one clause); `daylight_fail` swaps that clause (does not end the run); no fail-beyond-THINNED; no truck tire/axle framing; no Acts I–III replay; chains / Snoqualmie = Act VII.
 
 ---
 
@@ -180,7 +180,7 @@ WA headings **not in `pack/08` yet** (do not add this act):
 | **`4.11 Traffic light signals (Freeway ramp meters)`** | unused child. Parent used **once** (III-014). | **Yes.** This pass adds the child string. |
 | **`5.3 Merging` child Zipper merging** | unused child. Parent used **once** (III-026). | **Allowlisted this audit. Unspent.** III-026 already taught zipper under the parent. Not a 14th card. |
 | `5.3 Merging` | **once** (III-026) | NEW on V-003 (on-ramp segments — parent only). REVIEW on V-005 / V-006. |
-| **`5.6 Road and driving conditions (Curves)`** | unused child (restored this audit). | **Allowlisted. Unspent.** Quote home for gentle steering *in a curve*. V-009 cites `5.1 Speed` instead. |
+| **`5.6 Road and driving conditions (Curves)`** | unused child (restored this audit). | **Allowlisted. Unspent.** Quote home for gentle steering *in a curve*. V-009 is `n/a`, not a stretched 5.1. |
 | `5.4 Time (Count seconds)` | **once** (II-012) | Review at highway speed (Skill eleven p2 lesson three). Legal. |
 | `4.4 Sharing with large vehicles` | 2 (III-011, III-012) | Bible lists 4.4 on V. **Do not** spend it as truck tire/axle. Old Ninety following-distance can wait; this pass drops the V-013 trailer-stop card. |
 | `4.12 Signs` | 3 | Exit / guide panels. Review OK. |

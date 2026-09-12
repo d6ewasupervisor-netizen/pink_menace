@@ -58,6 +58,8 @@ Teaching job: enter, travel, and leave a highway at speed without planting the B
 
 **Live field:** `presence` is canonical. All thirteen stubs ship `presence: 0`. Do not add `load_state`.
 
+**Quiet at seventy:** highway vs lot. The Quiet that work in the lot do not paint on the Ribbon at highway speed. These thirteen stay `presence: 0` and keep Quiet out of `image_brief`. The herd is Act VII.
+
 **Location:** every card is `location_type: highway`. Not `mountain_pass`.
 
 **Light:** daylight on V-001…V-012. **V-013 is always dusk** (grade pass over the deck plate, not dusk-as-dark / VII). Two scene states on the **same card**, like I-008’s three `lot_states`. Same decision, same options, same citation. **One clause** in the scene changes so run history is visible:
