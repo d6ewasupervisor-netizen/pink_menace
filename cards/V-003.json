@@ -2,18 +2,18 @@
   "card_id": "V-003",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
+  "driver": "ali",
   "card_type": "scene",
   "title": "Three Pieces of Ramp",
   "hook": "The ramp is three jobs. Not one lane.",
-  "scene": "Overcast afternoon on the I-5 south on-ramp. From above you can see the whole thing: a short entrance where you search the highway, a longer acceleration stretch, then merge paint where the ramp joins the right travel lane. The Ledger is still in the entrance. A sedan is already at speed in the right lane of the highway. The schedule wants you in that lane. The ramp is not a single shove.",
+  "scene": "Overcast afternoon on the I-5 south on-ramp. From above you can see the whole thing: a short entrance where you search the highway, a longer acceleration stretch, then merge paint where the ramp joins the right travel lane. The Menace is still in the entrance. A sedan is already at speed in the right lane of the highway. The schedule wants you in that lane. The ramp is not a single shove.",
   "decision": "You are in the entrance stretch. What is this piece of ramp for?",
   "options": [
     {
       "id": "a",
       "text": "Search the highway here: find a gap and decide the speed you will need",
       "correct": true,
-      "result": "You look, you pick a hole in the right lane, and you know the speed before you run at it. The next stretch is for matching. The last stretch is for the paint. Each piece did one job.",
+      "result": "You look, you pick a gap in the right lane, and you know the speed before you run at it. The next stretch is for matching. The last stretch is for the paint. Each piece did one job.",
       "state_delta": {
         "noise": -1,
         "time_cost": 4
@@ -34,7 +34,7 @@
       "id": "c",
       "text": "Stop at the bottom and wait until the right lane is empty as far as you can see",
       "correct": false,
-      "result": "You plant a bus at the entrance. Nobody empties a highway for you. The acceleration stretch is now a standing start. You made the merge from zero.",
+      "result": "You plant the Menace at the entrance. Nobody empties a highway for you. The acceleration stretch is now a standing start. You made the merge from zero.",
       "state_delta": {
         "noise": 2,
         "time_cost": 10
@@ -57,9 +57,7 @@
     "dol_section": "5.3 Merging",
     "teaching_target": "On-ramp has three segments: entrance (search), acceleration (match flow), merge (enter)."
   },
-  "cast": [
-    "deac"
-  ],
+  "cast": ["ali"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -67,26 +65,24 @@
   "image_brief": {
     "camera": "POV_DIAGRAM",
     "camera_is_the_lesson": true,
-    "subject": "I-5 on-ramp in three stretches, Ledger still on the entrance, sedan in the highway right lane",
-    "foreground": "wet ramp asphalt nearer the camera, van-nose box on the entrance",
+    "subject": "I-5 on-ramp in three stretches, faded pink Beetle still on the entrance, sedan in the highway right lane",
+    "foreground": "wet ramp asphalt nearer the camera, plow on the entrance",
     "midground": "acceleration stretch empty, merge paint where the ramp joins the right lane",
     "background": "overcast afternoon I-5, three travel lanes, concrete median, no extra ramps",
-    "read": "the shuttle sits on the entrance; the ramp then runs, then meets the right highway lane at merge paint",
-    "continuity": [
-      "diagram_style",
-      "the_ledger"
-    ],
+    "read": "the Beetle sits on the entrance; the ramp then runs, then meets the right highway lane at merge paint",
+    "continuity": ["diagram_style", "pink_menace_exterior"],
     "extra_negatives": [
       "no zipper work-zone teeth",
       "no HOV diamond",
       "no snow",
-      "no second cutaway shuttle"
+      "no Ledger",
+      "no Encore"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "on-ramp entrance joining the right of three southbound lanes",
-      "ego_nose_in_frame": "the van nose points toward the top of the frame, up the ramp",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, up the ramp",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 3,

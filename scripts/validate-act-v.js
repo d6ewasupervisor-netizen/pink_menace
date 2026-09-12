@@ -27,6 +27,8 @@ const castEnum = schema.properties.cast.items.enum;
 const DEFERRED_VII = /\b(snoqualmie|chain-?up|\bchains\b|gravy|snowplow|deep[_ ]night|\bfog\b|\bice\b|mountain pass)\b/i;
 const REPLAY = /\b(fred meyer|two-way left|hov diamond|the lot\b|quiet street)\b/i;
 const INVENTED_LOAD = /\b(insulin|june|delridge|cooler|fuel drums?|single-axle|flatbed|load_state|sway[- ]load|tow hitch|towing a)\b/i;
+const CAB_LEAK = /\b(deac|ledger|jump seat|cutaway shuttle|doghouse)\b/i;
+const ALLOWED_CAST = new Set(["ali", "yuna", "hollis", "old_ninety"]);
 const EXPECTED_IDS = Array.from({ length: 13 }, (_, i) => "V-" + String(i + 1).padStart(3, "0"));
 
 const cards = files
@@ -42,7 +44,8 @@ const answers = { a: 0, b: 0, c: 0, d: 0 };
 for (let i = 0; i < cards.length; i++) {
   const c = cards[i];
   const id = c.card_id;
-  if (c.act !== "V" || c.zone !== "The Ribbon" || c.driver !== "deac") err(id, "act/zone/driver");
+  if (c.act !== "V" || c.zone !== "The Ribbon" || c.driver !== "ali") err(id, "act/zone/driver");
+  if (c.card_type === "ride-along") err(id, "Act V is Ali alone / Yuna radio — III-001 stays the only ride-along");
   if (!Number.isInteger(c.presence) || c.presence < 0) {
     err(id, "presence must be a canonical integer >= 0 (do not invent a parallel live field)");
   }
@@ -75,7 +78,6 @@ for (let i = 0; i < cards.length; i++) {
   if (!camEnum.includes(c.image_brief.camera) || !LEGAL_CAMERAS.includes(c.image_brief.camera)) {
     err(id, "camera");
   }
-  if (c.image_brief.camera === "POV_MIRROR_REAR") err(id, "POV_MIRROR_REAR illegal on Ledger");
   for (const e of validateGeometry(c)) err(id, e.replace(`${id}: `, ""));
   try {
     assemblePrompt(c);
@@ -96,8 +98,12 @@ for (let i = 0; i < cards.length; i++) {
       err(id, "hazard missing timeout_option_id");
     }
   }
-  for (const x of c.cast || []) if (!castEnum.includes(x)) err(id, `cast ${x}`);
+  for (const x of c.cast || []) {
+    if (!castEnum.includes(x)) err(id, `cast ${x}`);
+    if (!ALLOWED_CAST.has(x)) err(id, `cast ${x} — Ali alone / Yuna radio (Hollis / Old Ninety ok)`);
+  }
   const blob = [c.title, c.hook, c.scene, c.decision, c.debrief, JSON.stringify(c.options || [])].join(" ");
+  if (CAB_LEAK.test(blob)) err(id, "Deac / Ledger / jump seat leaked into Ali-alone copy");
   if (DEFERRED_VII.test(blob)) {
     err(id, "Act VII material (chains / Snoqualmie / plow / night weather) leaked into a teaching card");
   }
@@ -145,6 +151,8 @@ const radioLate = radioCheckin({ time_cost: COLD_PACK - 4 }, { time_cost: COLD_P
 const radioCheck = radioCheckin({ time_cost: 20 }, { time_cost: 110 }, "V");
 assertRibbonCopy("radio late", radioLate && radioLate.line);
 assertRibbonCopy("radio check", radioCheck && radioCheck.line);
+if (!radioLate || radioLate.who !== "yuna") errors.push("Act V late radio must be Yuna");
+if (!radioCheck || radioCheck.who !== "yuna") errors.push("Act V check radio must be Yuna");
 const iiLate = deliveryBeat({ time_cost: COLD_PACK }, "II");
 if (!/June/i.test(iiLate)) errors.push("Act II deliveryBeat must keep June copy");
 

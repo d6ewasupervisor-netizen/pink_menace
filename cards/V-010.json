@@ -2,7 +2,7 @@
   "card_id": "V-010",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
+  "driver": "ali",
   "card_type": "hazard",
   "title": "Give the Ramp a Lane",
   "hook": "A car is coming up the ramp. You have a left.",
@@ -13,7 +13,7 @@
       "id": "a",
       "text": "Hold the right and make him stop on the ramp until you pass",
       "correct": false,
-      "result": "You pin him at the gore. He plants it. You taught the ramp that a bus does not share. His start from zero is now your problem a second later.",
+      "result": "You pin him at the gore. He plants it. You taught the ramp that you do not share. His start from zero is now your problem a second later.",
       "state_delta": {
         "noise": 3,
         "time_cost": 8
@@ -52,7 +52,7 @@
       }
     }
   ],
-  "debrief": "Watch for merging traffic and move one lane left when you have it. You gave the ramp a lane and kept the left clean.",
+  "debrief": "Watch for merging traffic and move one lane left when you have it. You saved his start.",
   "timeout_option_id": "a",
   "timeout_ms": 10000,
   "source": {
@@ -60,9 +60,7 @@
     "dol_section": "5.3 Merging",
     "teaching_target": "Watch for merging vehicles and move one lane left to make space when needed."
   },
-  "cast": [
-    "deac"
-  ],
+  "cast": ["ali"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": true,
@@ -71,23 +69,23 @@
     "camera": "POV_MIRROR_DOOR",
     "camera_is_the_lesson": true,
     "subject": "from the seat looking right at the right door-mirror glass, primer sedan on the on-ramp, blinker on",
-    "foreground": "right window frame, oversize right door-mirror housing, doghouse between the seats",
+    "foreground": "right window frame, right door-mirror housing, faded pink dash, empty passenger seat",
     "midground": "sedan in the right glass, already on the ramp, same heading",
     "background": "rain morning I-90, wet right lane, no snow, windshield dark at the edge",
     "read": "the right door glass holds a sedan on the ramp with its blinker on; the middle lane is not in that glass",
-    "continuity": [
-      "ledger_cockpit"
-    ],
+    "continuity": ["pink_menace_interior"],
     "extra_negatives": [
       "no sedan in the left door glass",
       "no snow",
-      "no clipboard in the windshield"
+      "no Deac",
+      "no Ledger",
+      "no cats on the dash"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of three eastbound I-90 lanes",
-      "ego_nose_in_frame": "travel continues away; the van nose is not the subject",
+      "ego_nose_in_frame": "travel continues away; the plow is not the subject",
       "oncoming_position": "none in frame",
       "hazard_position": "beside",
       "lanes_this_direction": 3,

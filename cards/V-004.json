@@ -2,7 +2,7 @@
   "card_id": "V-004",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
+  "driver": "ali",
   "card_type": "scene",
   "title": "Match Them Before Paint",
   "hook": "The ramp is still yours. Their speed is not.",
@@ -11,7 +11,7 @@
   "options": [
     {
       "id": "a",
-      "text": "Hold your ramp speed and slide over at the paint — they will lift for a bus",
+      "text": "Hold your ramp speed and slide over at the paint — they will lift for you",
       "correct": false,
       "result": "You meet the paint still slow. The day-cab stands on it. You borrowed a truck's stopping distance to finish a merge you should have matched first.",
       "state_delta": {
@@ -33,7 +33,7 @@
       "id": "c",
       "text": "Stop now and wait for a hole that is already empty for a quarter mile",
       "correct": false,
-      "result": "You plant it in the acceleration stretch. The ramp behind you becomes a standing start. Highways do not empty for a stopped bus.",
+      "result": "You plant it in the acceleration stretch. The ramp behind you becomes a standing start. Highways do not empty for a stopped car.",
       "state_delta": {
         "noise": 3,
         "time_cost": 12
@@ -57,9 +57,7 @@
     "dol_section": "5.3 Merging",
     "teaching_target": "On the acceleration area, signal and match traffic flow; enter in the merge area; do not stop on the ramp."
   },
-  "cast": [
-    "deac"
-  ],
+  "cast": ["ali"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -67,23 +65,23 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "from the seat looking forward along the on-ramp, merge paint ahead, day-cab in the highway right lane",
-    "foreground": "transit wheel, left stalk off, thermos on the doghouse between the seats",
-    "midground": "wet acceleration asphalt, skip-dash beginning at the merge",
+    "foreground": "worn black leather wheel, left stalk off, faded pink dash, empty passenger seat",
+    "midground": "wet acceleration asphalt through the mesh, skip-dash beginning at the merge",
     "background": "wind morning I-5, three travel lanes, no snow, no night",
-    "read": "the shuttle is still on the ramp; the day-cab is already at highway speed in the right lane",
-    "continuity": [
-      "ledger_cockpit"
-    ],
+    "read": "the Beetle is still on the ramp; the day-cab is already at highway speed in the right lane",
+    "continuity": ["pink_menace_interior"],
     "extra_negatives": [
-      "no stop lamps lit on the Ledger",
+      "no stop lamps lit on the Menace",
       "no snow",
-      "no clipboard in the glass"
+      "no Deac",
+      "no Ledger",
+      "no cats on the dash"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "I-5 on-ramp acceleration stretch joining the right travel lane",
-      "ego_nose_in_frame": "the van nose points toward the top of the frame through the cage",
+      "ego_nose_in_frame": "the plow points toward the top of the frame through the mesh",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 3,

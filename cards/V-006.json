@@ -2,7 +2,7 @@
   "card_id": "V-006",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
+  "driver": "ali",
   "card_type": "rule",
   "title": "Slow On the Ramp",
   "hook": "The exit is named. The highway is still fast.",
@@ -13,7 +13,7 @@
       "id": "a",
       "text": "Brake now in the travel lane so you arrive at the ramp already slow",
       "correct": false,
-      "result": "You dump speed on I-5. The box behind you stands on it. You made a highway stop for a ramp that still had its own pavement.",
+      "result": "You dump speed on I-5. The car behind you stands on it. You made a highway stop for a ramp that still had its own pavement.",
       "state_delta": {
         "noise": 4,
         "light": 2,
@@ -24,7 +24,7 @@
       "id": "b",
       "text": "Hold highway speed past the gore and brake in the middle of the curve",
       "correct": false,
-      "result": "You enter the bend still hot. The rear of the box steps out. Yaw on a wet ramp is how a schedule ends.",
+      "result": "You enter the bend still hot. The rear of the Menace steps out. Yaw on a wet ramp is how a schedule ends.",
       "state_delta": {
         "noise": 3,
         "yaw": 3,
@@ -58,9 +58,7 @@
     "dol_section": "4.12 Signs",
     "teaching_target": "Identify the exit early; do not slow on the highway; signal 4–6 seconds before the ramp."
   },
-  "cast": [
-    "deac"
-  ],
+  "cast": ["ali"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -77,13 +75,14 @@
       "no readable city names",
       "no snow",
       "no chain-up plaque",
-      "no night"
+      "no night",
+      "no Snoqualmie shield"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of three southbound I-5 lanes under the gantry",
-      "ego_nose_in_frame": "travel continues away under the sign, van nose not the subject",
+      "ego_nose_in_frame": "travel continues away under the sign, plow not the subject",
       "oncoming_position": "none in frame",
       "hazard_position": "none",
       "lanes_this_direction": 3,

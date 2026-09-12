@@ -2,7 +2,7 @@
   "card_id": "V-009",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
+  "driver": "ali",
   "card_type": "rule",
   "title": "One Lane, Then Sit",
   "hook": "Two lanes left look faster. They are not one move.",
@@ -24,7 +24,7 @@
       "id": "b",
       "text": "Pass him on the right shoulder so you never change lanes at all",
       "correct": false,
-      "result": "The shoulder is a drain and a post. You put a bus in the junk to skip a legal change.",
+      "result": "The shoulder is a drain and a post. You put the Menace in the junk to skip a legal change.",
       "state_delta": {
         "noise": 3,
         "yaw": 2,
@@ -52,15 +52,13 @@
       }
     }
   ],
-  "debrief": "Change one lane at a time. Sit until the last lane is yours. Then talk to the next one. Deac would count that as two sentences.",
+  "debrief": "Change one lane at a time. Sit until the last lane is yours. Then talk to the next one. Two sentences, not one sweep.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
     "dol_section": "5.3 Merging",
     "teaching_target": "On the highway, change lanes one at a time only."
   },
-  "cast": [
-    "deac"
-  ],
+  "cast": ["ali"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
@@ -68,26 +66,24 @@
   "image_brief": {
     "camera": "POV_DIAGRAM",
     "camera_is_the_lesson": true,
-    "subject": "three eastbound I-90 lanes, Ledger in the right, slow box ahead in the same lane, middle and left empty",
-    "foreground": "wet skip-dash, rear of the shuttle box nearer the camera",
+    "subject": "three eastbound I-90 lanes, faded pink Beetle in the right, slow box ahead in the same lane, middle and left empty",
+    "foreground": "wet skip-dash, rear of the Beetle nearer the camera",
     "midground": "slow box ahead in the right, two empty lanes to the left of frame",
     "background": "overcast midday valley I-90, concrete median, no snow",
-    "read": "the shuttle and the slow box share the right lane; the middle and left are empty wet asphalt",
-    "continuity": [
-      "diagram_style",
-      "the_ledger"
-    ],
+    "read": "the Beetle and the slow box share the right lane; the middle and left are empty wet asphalt",
+    "continuity": ["diagram_style", "pink_menace_exterior"],
     "extra_negatives": [
       "no vehicle already in the middle",
       "no HOV diamond",
       "no snow",
-      "no second cutaway shuttle"
+      "no Ledger",
+      "no Encore"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of three eastbound I-90 lanes",
-      "ego_nose_in_frame": "the van nose points toward the top of the frame, away from camera",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, away from camera",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 3,

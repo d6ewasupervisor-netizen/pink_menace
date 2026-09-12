@@ -86,4 +86,4 @@ FOR            the valley drop
 
 > *Relay kit delivered. Repeater, antenna, clamps. 41 minutes to spare.* — or — *Relay kit delivered. 3 minutes. Repeater, antenna, clamps.* — or — *The relay kit is late. Repeater, antenna, clamps. The valley drop still takes it.*
 
-Fail dispatch and mid-run radio on Act V use the same kit / valley drop, never Delridge or June. No tow. No new `load_state`.
+Fail dispatch and mid-run radio on Act V use the same kit / valley drop, never Delridge or June. Radio voice is **Yuna**. No tow. No new `load_state`.

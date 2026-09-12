@@ -107,10 +107,10 @@ function radioCheckin(prevState, nextState, act) {
   const after = coldFrom(nextState);
   if (act === "V") {
     if (before > 0 && after <= 0) {
-      return { who: "deac", line: "The relay kit is late. How far out?" };
+      return { who: "yuna", line: "The relay kit is late. How far out?" };
     }
     if (before > 30 && after <= 30) {
-      return { who: "deac", line: "Valley drop, checking. How far out?" };
+      return { who: "yuna", line: "Valley drop, checking. How far out?" };
     }
     return null;
   }

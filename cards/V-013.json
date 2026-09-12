@@ -2,7 +2,7 @@
   "card_id": "V-013",
   "act": "V",
   "zone": "The Ribbon",
-  "driver": "deac",
+  "driver": "ali",
   "card_type": "scene",
   "title": "His Stopping Distance",
   "hook": "Old Ninety is ahead. Your nose is close.",
@@ -44,7 +44,7 @@
       "id": "d",
       "text": "Close up so no one can cut in between you and the trailer",
       "correct": false,
-      "result": "You erase the last of his margin to keep a hole closed. The next brake is still his. You made it yours.",
+      "result": "You erase the last of his margin to keep a gap closed. The next brake is still his. You made it yours.",
       "state_delta": {
         "noise": 3,
         "time_cost": 5
@@ -57,27 +57,23 @@
     "dol_section": "4.4 Sharing with large vehicles",
     "teaching_target": "Give large vehicles extra following distance at highway speed; do not sit a car length off a loaded trailer."
   },
-  "cast": [
-    "deac",
-    "old_ninety"
-  ],
+  "cast": ["ali", "old_ninety"],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": false,
   "presence": 0,
   "image_brief": {
     "camera": "POV_CHASE",
-    "subject": "from behind the Ledger, the shuttle's rear nearer the camera, dirty semi trailer a car length ahead in the same right lane",
-    "foreground": "wet I-5 asphalt, rear of the gray cutaway box",
-    "midground": "trailer doors close ahead, too little pavement between box and trailer",
+    "subject": "from behind the faded pink Beetle, the hatch nearer the camera, dirty semi trailer a car length ahead in the same right lane",
+    "foreground": "wet I-5 asphalt, rear of the faded pink Beetle",
+    "midground": "trailer doors close ahead, too little pavement between plow and trailer",
     "background": "wind morning I-5, three lanes, concrete median, no snow",
-    "read": "only a car length of wet asphalt sits between the shuttle's nose and the trailer doors",
-    "continuity": [
-      "the_ledger"
-    ],
+    "read": "only a car length of wet asphalt sits between the Beetle's plow and the trailer doors",
+    "continuity": ["pink_menace_exterior"],
     "extra_negatives": [
-      "no second cutaway",
-      "no Ledger marks on the semi",
+      "no Ledger",
+      "no Encore",
+      "no Menace marks on the semi",
       "no snow",
       "no headlights toward camera"
     ],
@@ -85,7 +81,7 @@
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of three southbound I-5 lanes",
-      "ego_nose_in_frame": "the van nose points away, toward the trailer and the top of the frame",
+      "ego_nose_in_frame": "the plow points away, toward the trailer and the top of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 3,
