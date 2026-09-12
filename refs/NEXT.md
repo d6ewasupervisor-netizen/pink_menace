@@ -16,10 +16,11 @@ Claude — not seeded live.
 | Card | Lesson (`read`) | Shot | Closest take |
 |---|---|---|---|
 | IV-027 | the truck is already on the bumper in the interior rear glass | `POV_MIRROR_REAR` | `cards/takes/IV-027-take-26.png` |
-| IV-028 | both cats are inside the closed strapped carrier on the floor | `POV_COCKPIT` | `cards/takes/IV-028-take-26.png` |
-| IV-030 | the Beetle holds the eastbound; downtown shares that street on the left; she is not cleared for the pass | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-25.png` |
+| IV-028 | both cats are inside the closed strapped carrier on the true floor; a person in a dark coat is already in the marked crosswalk ahead | `POV_COCKPIT` | `cards/takes/IV-028-take-29.png` |
+| IV-030 | the Beetle is rolling eastbound toward a person already in the marked crosswalk; brick blocks share the street on the left; she is not cleared for the pass | `POV_TOPDOWN_PHOTO` | `cards/takes/IV-030-take-37.png` |
 
-Notes: `cards/takes/WAVE_IV-028-030-signoff.md` (this regen). Prior cabin
+Notes: `cards/takes/WAVE_IV-028-030-fail-regen.md` (this regen). Prior
+sign-off wave: `cards/takes/WAVE_IV-028-030-signoff.md`. Prior cabin
 wave: `cards/takes/WAVE_IV-027-028-030.md`.
 
 Do not seed `cards/IV-027.png` / `028` / `030` until Claude PASSes.
