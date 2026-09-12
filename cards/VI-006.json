@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "two gravel roads crossing with no stop, no yield, no paint; a dusty pickup arriving from the right at the same time",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
-    "midground": "empty uncontrolled intersection of graded gravel; dusty pickup entering from the right approach",
-    "background": "overcast section-line country, fir edges, no sign faces toward camera",
-    "read": "no stop or yield faces; a pickup from the right arrives with you at the same empty cross",
+    "subject": "two gravel roads crossing with no stop, no yield, no paint; a dusty pickup arriving from the right at the same time; FULL-GRID cage; locked carrier: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "foreground": "worn black wheel; faded pink dash DARK/UNLIT — no lit green turn arrows; odo/trip OK; no speedlike 112 LCD; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; locked carrier on passenger floor: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "midground": "empty uncontrolled intersection of graded gravel; dusty pickup entering from the right approach; vegetation crowding all four corners",
+    "background": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway; section-line cross with fir edges; no sign faces toward camera",
+    "read": "no stop or yield; a pickup arrives from the right at the same time; locked carrier; dark dash",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -40,11 +40,8 @@
       "no chevron hatchback",
       "no Encore",
       "no Ledger in frame",
-      "no stop sign face toward camera",
-      "no yield sign face toward camera",
-      "no traffic signal",
-      "no painted stop line",
       "no night",
+      "no golden hour",
       "no Deac",
       "no second person in the car",
       "no clipboard passenger",
@@ -60,6 +57,7 @@
       "no empty carrier with no cat visible behind grille",
       "no belt not routed through handle",
       "no Mya",
+      "no brown mackerel tabby",
       "no second cat",
       "no low dash-level mesh band only",
       "no missing full-grid windshield cage",
@@ -67,9 +65,19 @@
       "no sagebrush",
       "no bare hills",
       "no long dry open highway",
+      "no open western rural prairie",
       "no lit green turn arrows",
+      "no both turn indicators illuminated",
       "no brightly lit dash by default",
-      "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)"
+      "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "Ali alone — only VI-013 has a second person",
+      "no stop sign face toward camera",
+      "no yield sign face toward camera",
+      "no yield face toward camera",
+      "no painted stop bar"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -82,7 +90,10 @@
       "ego_lane_from_left": 1
     },
     "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway"
+    "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway",
+    "standing_cage": "FULL-GRID windshield mesh — VI-009 take-2 is cage REF only",
+    "standing_dash": "dark dash default; speedlike 112 LCD OUT; odo/trip on tach OK",
+    "standing_cast": "Ali alone; Mya not in Act VI wave-1"
   },
   "variation": {
     "location_type": "rural",
@@ -90,7 +101,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "Act VI wave-1 remainder: Cascades-west PNW; full-grid cage; carrier SPEC verbatim; Ali alone; no Mya; dark dash; no seed"
   },
   "decision": "No signs, and you'll both arrive together. Who goes?",
   "options": [

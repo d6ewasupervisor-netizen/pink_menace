@@ -3,9 +3,9 @@
 Applies to **ALL** remaining Act VI stills (compiler + briefs), not per-card only.
 
 ## Geography (standing)
-Western Washington backcountry — wet, close, overgrown, short sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch line. **Restricted sightlines, vegetation close to the road.**
+**Cascades-west PNW** — wet, close, overgrown, short sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch line. **Restricted sightlines, vegetation close to the road.**
 
-Compiler skew: “rural” → open western landscapes (sage, dry grass, long straight highways). That kills the lesson. Reject high desert / open western rural on sight.
+Compiler skew: “rural” → open western landscapes (sage, dry grass, long straight highways). That kills the lesson. Reject high desert / sage / open western rural / long dry highways on sight.
 
 Wired into `scripts/compile-prompt.js` as `ACT_VI_GEOGRAPHY` for every VI card.
 

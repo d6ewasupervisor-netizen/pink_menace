@@ -21,7 +21,7 @@ const MASTER_STYLE =
 
 /** Act VI standing geography — “rural” must not skew to open western landscapes. */
 const ACT_VI_GEOGRAPHY =
-  "Act VI geography lock: western Washington backcountry — wet, close, overgrown, short sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch line; restricted sightlines, vegetation close to the road. Do NOT depict sage, dry grass, bare hills, arid canyon, or long straight open highways — open country kills the lesson.";
+  "Act VI geography lock: Cascades-west PNW — wet, close, overgrown, short sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch line; restricted sightlines, vegetation close to the road. Do NOT depict sage, dry grass, bare hills, arid canyon, high desert, or long straight open western highways — open country kills the lesson.";
 
 const ACT_VI_GEOGRAPHY_NEGS =
   "no sagebrush, no dry-grass prairie, no bare hills, no high desert, no arid canyon, no long straight open western highway, no eastern-Washington open country";

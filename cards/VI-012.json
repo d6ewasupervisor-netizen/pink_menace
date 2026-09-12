@@ -22,10 +22,10 @@
   "image_brief": {
     "camera": "POV_COCKPIT",
     "subject": "white railroad crossbuck and two rails through gravel; no gates/bells/lights; FULL-GRID windshield mesh; locked carrier: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "foreground": "worn black wheel; faded pink dash DARK/UNLIT — no lit green arrow; odo/trip OK; no speedlike 112 LCD; FULL-GRID mesh; hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "midground": "crossbuck and rails across gravel; sightline up track blocked by close vegetation",
+    "foreground": "worn black wheel; faded pink dash DARK/UNLIT — no lit green turn arrows; odo/trip OK; no speedlike 112 LCD; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; locked carrier on passenger floor: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "midground": "crossbuck and rails across gravel; sightline up track blocked by close fir/blackberry vegetation (Cascades-west, not corn)",
     "background": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway at unmarked rural crossing",
-    "read": "only crossbuck and rails — no gates/bells/lights; locked carrier; dark dash",
+    "read": "only a crossbuck and rails — no gates, no bells, no lights; locked carrier; dark dash",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -40,12 +40,8 @@
       "no chevron hatchback",
       "no Encore",
       "no Ledger in frame",
-      "no crossing gates",
-      "no signal lights",
-      "no bells hardware",
-      "no light-rail street embedded downtown",
-      "no train already occupying the crossing",
       "no night",
+      "no golden hour",
       "no Deac",
       "no second person in the car",
       "no clipboard passenger",
@@ -61,6 +57,7 @@
       "no empty carrier with no cat visible behind grille",
       "no belt not routed through handle",
       "no Mya",
+      "no brown mackerel tabby",
       "no second cat",
       "no low dash-level mesh band only",
       "no missing full-grid windshield cage",
@@ -68,13 +65,24 @@
       "no sagebrush",
       "no bare hills",
       "no long dry open highway",
+      "no open western rural prairie",
       "no lit green turn arrows",
+      "no both turn indicators illuminated",
       "no brightly lit dash by default",
       "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "Ali alone — only VI-013 has a second person",
+      "no crossing gates",
+      "no bells hardware",
+      "no train already occupying the crossing",
       "no corn-belt / midwestern farmscape",
-      "no low-band cage only",
       "no lit green arrow at crossing",
-      "no desert GPS"
+      "no low-band cage only",
+      "no desert GPS",
+      "no signal lights",
+      "no light-rail street embedded downtown"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -88,7 +96,10 @@
     },
     "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
     "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway",
-    "ref_notes": "VI-012-take-3.png = carrier-restraint routing REF ONLY — out of ship queue; do not retouch corn-belt/low-band into canon; full regen required"
+    "ref_notes": "VI-012-take-3.png = carrier-restraint routing REF ONLY — out of ship queue; do not retouch corn-belt/low-band into canon; full regen required",
+    "standing_cage": "FULL-GRID windshield mesh — VI-009 take-2 is cage REF only",
+    "standing_dash": "dark dash default; speedlike 112 LCD OUT; odo/trip on tach OK",
+    "standing_cast": "Ali alone; Mya not in Act VI wave-1"
   },
   "variation": {
     "location_type": "rail_crossing",
@@ -96,7 +107,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "Act VI wave-1 remainder: Cascades-west PNW; full-grid cage; carrier SPEC verbatim; Ali alone; no Mya; dark dash; no seed"
   },
   "decision": "An unmarked crossing, and you can't see up the line.",
   "options": [
