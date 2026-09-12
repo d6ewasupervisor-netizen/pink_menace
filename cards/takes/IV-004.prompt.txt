@@ -1,45 +1,41 @@
-# IV-004 — Between the Parked (NON-NEGOTIABLE SET after Claude FAIL on 103/74)
+# IV-004 — Between the Parked (PR #91 audited brief + NON-NEGOTIABLE SET)
 # attachments (DIRECT): refs/ref_car_exterior.jpg, refs/ref_car_nose_plow.png
-# start-from: cards/takes/IV-004-take-103.png (hazard staging + plow quality)
-# compiled from cards/IV-004.json — card JSON is sole brief authority
-# NON-NEGOTIABLE SET (ALL THREE, one situation — not separate descriptors):
-#   1. away-from-camera heading (plow / blade toward the TOP of frame)
-#   2. full-width nose blade across the black tube bull bar matching ref_car_nose_plow.png
-#   3. in-lane motion (Menace squared, tire spray)
-# Closest-take instruction: start from take-103 hazard staging and plow quality;
-#   heading REVERSED to away-from-camera with blade toward top of frame;
-#   Menace squared in-lane; person mid-gap between the parked vehicles (not in open roadway).
-# Do NOT keep take-76 (narrow flap contradicts locked plate). Toward-camera fails the card — discard.
-# Ban: ref_car_rear_plow / flank / corner plow plates. ref_cockpit.jpg banned.
-# takes this pass: 131–150 (prior wave 108–130)
-# closest (not seeded): cards/takes/IV-004-take-144.png
-# runner-up: take 143
-# 144: away + mid-gap person (103 staging) + spray + far dozer (still right-side, not both edges)
-# toward-camera discarded (fails the card). take-76 not kept.
+# start-from: cards/takes/IV-004-take-63.png (mid-gap person staging) + take-103 (plow quality)
+# compiled from cards/IV-004.json (pulled from PR #91) — card JSON is sole brief authority
+# Lighting: clear-cold afternoon daylight in pose/background/variation (audit closed the
+#   overcast-pose vs clear-cold-scene split). Not dusk, not night, not overcast murk.
+# NON-NEGOTIABLE SET (ALL, one situation):
+#   1. afternoon daylight
+#   2. rear-¾ away-from-camera heading (blade toward TOP of frame)
+#   3. full-width far-front blade matching ref_car_nose_plow.png (direct-attach)
+#   4. in-lane tire spray (Menace squared, rolling)
+# Keep take-63 mid-gap person staging (not in the open roadway).
+# Do NOT keep take-76. Toward-camera fails the card — discard.
+# takes this pass: 151+
 # do not seed. no Act I–III.
 
-Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Clear cold afternoon daylight — readable pale sky, wet pavement, not overcast murk, not dusk, not night, not golden hour. Desaturated palette: wet asphalt gray, moss green, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
 
-Camera is ground level, outside the car, human eye height, standing on the wet right curb looking along the two-lane side street in the direction of travel — a rear-three-quarter, never head-on. Overcast daylight, wet pavement.
+Clear cold afternoon daylight, wet pavement, readable pale sky — not dusk, not night. Camera is ground level on the wet right curb, human eye height, looking along the two-lane side street in the direction of travel — a rear-three-quarter, never head-on.
 
-START FROM the attached IV-004-take-103.png. Keep its hazard staging and plow quality: Beetle LARGE, still short of the pair; rusted van and gray sedan at the right; person MID-GAP between those two parked vehicles (torso still in the gap, one shoe on travel-lane asphalt — not walking in the open roadway); the plow is the attached plate's full-width blade. Then REVERSE heading only.
+KEEP take-63 hazard staging from the attached IV-004-take-63.png: person MID-GAP between the rusted van and gray sedan, torso still in the gap, one shoe in the paint, not standing in the open roadway. Houses, wet centerline, Beetle LARGE and still short of the pair. FIX take-63's parked-diagonal and narrow flap.
 
-IV-004 NON-NEGOTIABLE SET — this take MUST contain ALL THREE as one situation:
+KEEP take-103 / ref_car_nose_plow.png plow QUALITY: one continuous full-width black blade. Do not copy take-103's toward-camera heading.
 
-1. AWAY-FROM-CAMERA HEADING. Rotate the take-103 Beetle 180 degrees. The sloping REAR engine lid and rear-window mesh are nearer the camera and large. The plow / blade points toward the TOP of the frame. Not toward the lens.
+IV-004 NON-NEGOTIABLE SET — this take MUST contain ALL of these as one situation:
 
-2. FULL-WIDTH NOSE BLADE across the FRONT black-tube bull bar matching the attached ref_car_nose_plow.png exactly. One continuous wide flat black steel plate. Outer edges roughly level with the front wheels. Hangs below the bar like a snowplow. The SAME blade quality as take-103, now on the FAR nose. Not a narrow flap. Not take-76. Not a one-third-width tab. Not welded onto the rear bumper.
+1. AFTERNOON DAYLIGHT. Clear cold, readable pale sky. Not dusk. Not night. Not overcast murk.
 
-3. IN-LANE MOTION. The Menace is squared to the lane — long axis parallel to the centerline, wheels tracking straight up the wet lane. ROLLING — wet tire spray off the knobbies. Not parked. Not diagonal. Not nose-to-curb.
+2. REAR-THREE-QUARTER AWAY-FROM-CAMERA. Sloping rear engine lid nearest the camera and large. The plow / blade points toward the TOP of the frame. Never toward-camera. Never head-on.
+
+3. FULL-WIDTH FAR-FRONT BLADE on the FRONT black-tube bull bar matching the attached ref_car_nose_plow.png. One continuous wide flat black steel plate. BOTH outer edges level with the front wheels. Hangs below the bar like a snowplow. Not a narrow flap. Not take-76. Not welded onto the rear bumper.
+
+4. IN-LANE TIRE SPRAY. Menace squared to the lane, long axis parallel to the centerline, ROLLING, wet tire spray off the knobbies. Not parked. Not diagonal.
 
 A take that has the blade but faces the camera fails the card. A take that is away but wears a flap fails the card. A take that is parked or diagonal fails the card.
 
-The person stays mid-gap between the van and the sedan, not in the open roadway. Coat and shoes only. Face away from camera.
-
-ref_car_exterior.jpg is Beetle silhouette and build only. Ignore its salt-flat sunset. Preserve mesh cages, riveted door, knobby tires, faded pink.
-
-The read: a person is stepping out from between parked cars into the travel lane.
+The read: a person is stepping from the parked-car gap into the lane as the away Beetle rolls toward them with a full-width nose blade.
 
 Left-hand-drive. United States, traffic drives on the right. Oncoming half empty. Signs blank. No license-plate numbers.
 
-No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs. No right-hand drive. No face toward camera. No child. No crowd. No person standing fully in the open roadway. No Beetle already even with or past the person. No Beetle facing the camera. No headlights or plow toward the viewer. No plow blade on the rear. No flank-mounted blade. No corner-mounted blade. No narrow flap. No take-76. No one-third-width blade. No Beetle parked or angled diagonally. No stationary Beetle. No Beetle nose pointed at the curb. No second pink car. No night. Sky is pale overcast gray-white. Aspect ratio 2:3.
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs. No right-hand drive. No face toward camera. No child. No crowd. No person standing fully in the open roadway. No Beetle already even with or past the person. No Beetle facing the camera. No headlights or plow toward the viewer. No plow blade on the rear. No flank-mounted blade. No corner-mounted blade. No narrow flap. No take-76. No one-third-width blade. No Beetle parked or angled diagonally. No stationary Beetle. No Beetle nose pointed at the curb. No dusk. No night. No second pink car. Aspect ratio 2:3.

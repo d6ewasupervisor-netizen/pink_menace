@@ -66,12 +66,12 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "camera_pose": "Camera is ground level, outside the car, human eye height, standing on the wet right curb looking along the two-lane side street in the direction of travel — a rear-three-quarter, never head-on. The sloping rear engine lid of the pink Beetle is nearer the camera and large. The full-width nose plow is on the FAR front, pointing at the top of the frame. Overcast daylight, wet pavement.",
+    "camera_pose": "Clear cold afternoon daylight, wet pavement, readable pale sky — not dusk, not night. Camera is ground level on the wet right curb, human eye height, looking along the two-lane side street in the direction of travel — a rear-three-quarter, never head-on. ONE SET, all three required in the same frame: (1) faded pink Beetle heading AWAY from camera, sloping rear engine lid nearest the lens and large; (2) full-width nose blade on the FAR front black-tube bull bar, both outer edges level with the front wheels, pointing at the TOP of the frame; (3) squared in-lane and MOVING with wet tire spray, still short of the person. Keep take-63 hazard staging: person mid-gap between the rusted van and gray sedan, one shoe in the paint, not standing in the open roadway. Never toward-camera. Never a narrow flap.",
     "subject": "a person mid-gap between a gray sedan and a rusted van — torso still in the gap, one shoe in the travel lane, not standing in the open roadway",
-    "foreground": "wet curb and a parked-car bumper closest to camera",
-    "midground": "IV-004 NON-NEGOTIABLE SET (all three, one situation): (1) pink Beetle heading away from camera, rear lid nearest the lens, full-width front plow toward the TOP of the frame; (2) that plow is the attached plate's full-width blade across the far black-tube bull bar; (3) squared in-lane and rolling with wet tire spray — still short of the person",
-    "background": "clear cold afternoon, two-lane side street, low brick, no crowd",
-    "read": "a person is stepping out from between parked cars into the travel lane",
+    "foreground": "wet curb and a parked-car bumper closest to camera, afternoon daylight",
+    "midground": "away Beetle rolling in-lane with tire spray; full-width far-front plow toward the top of frame; still short of the person",
+    "background": "clear cold afternoon daylight, two-lane side street, low brick houses, no crowd",
+    "read": "a person is stepping from the parked-car gap into the lane as the away Beetle rolls toward them with a full-width nose blade",
     "continuity": [
       "pink_menace_exterior"
     ],
@@ -87,7 +87,10 @@
       "no headlights or plow toward the viewer",
       "no nose-plow plate heading copied onto the street car",
       "no person standing in the open roadway",
-      "no take-76 narrow flap"
+      "no take-76 narrow flap",
+      "no dusk",
+      "no night",
+      "no parked Beetle"
     ],
     "aspect": "2:3",
     "geometry": {

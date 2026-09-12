@@ -97,7 +97,11 @@ function variationLighting(card) {
     bits.push("Overcast midday daylight.");
   }
   if (tod === "afternoon") {
-    bits.push("Overcast afternoon daylight, not golden hour.");
+    if (weather === "clear_cold") {
+      bits.push("Afternoon daylight — same clear-cold pale sky, not overcast murk, not golden hour.");
+    } else {
+      bits.push("Overcast afternoon daylight, not golden hour.");
+    }
   }
   return bits.join(" ");
 }
@@ -127,12 +131,13 @@ const MENACE_PLOW_AWAY =
   "The attached ref_car_nose_plow.png is a catalog plate of the SAME car facing the lens. Copy ONLY the blade geometry from it — do not copy its toward-camera heading. Rotate the Beetle so it travels AWAY from the camera: the sloping rear engine lid and rear-window mesh are nearest the camera and large; the plate's full-width nose blade sits on the FAR / leading / FRONT bull bar and points at the TOP of the frame. From this rear-three-quarter both outer edges of that wide blade remain visible past the front corners. Never weld the plate onto the near (rear) bumper. Never shrink the far blade to a flap.";
 
 const IV004_NONNEGOTIABLE_SET =
-  "IV-004 NON-NEGOTIABLE SET — this take MUST contain ALL THREE as one situation, not separate optional descriptors: " +
-  "(1) away-from-camera heading — the plow / blade points toward the TOP of the frame; the sloping rear engine lid is nearer the camera and large; " +
-  "(2) full-width nose blade across the FRONT black-tube bull bar matching the attached ref_car_nose_plow.png exactly — one continuous wide flat black steel plate, outer edges roughly level with the front wheels, hanging below the bar like a snowplow; not a narrow flap; not a one-third-width tab; not welded onto the rear; " +
-  "(3) in-lane motion — the Menace is squared to the lane, long axis parallel to the centerline, ROLLING, wet tire spray off the knobbies. " +
-  "A take that has the blade but faces the camera fails the card. A take that is away but wears a flap fails the card. A take that is parked or diagonal fails the card. " +
-  "Start from take-103 hazard staging and plow quality; reverse heading only. Person is mid-gap between the parked van and sedan, not in the open roadway. Do not use take-76. " +
+  "IV-004 NON-NEGOTIABLE SET — this take MUST contain ALL of the following as one situation, not separate optional descriptors: " +
+  "(1) clear-cold AFTERNOON DAYLIGHT — readable pale sky, wet pavement, not dusk, not night, not overcast murk, not golden hour; " +
+  "(2) rear-three-quarter AWAY-FROM-CAMERA heading — sloping rear engine lid nearest the camera and large; the plow / blade points toward the TOP of the frame; never toward-camera; " +
+  "(3) FULL-WIDTH FAR-FRONT blade across the FRONT black-tube bull bar matching the attached ref_car_nose_plow.png exactly — one continuous wide flat black steel plate, BOTH outer edges level with the front wheels, hanging below the bar like a snowplow; not a narrow flap; not take-76; not welded onto the rear; " +
+  "(4) IN-LANE MOTION — the Menace is squared to the lane, long axis parallel to the centerline, ROLLING, wet tire spray off the knobbies. " +
+  "Keep take-63 hazard staging: person mid-gap between the rusted van and gray sedan, torso still in the gap, one shoe in the paint, not standing in the open roadway. Beetle LARGE and still short of the person. " +
+  "A take that has the blade but faces the camera fails the card. A take that is away but wears a flap fails the card. A take that is parked or diagonal fails the card. Do not use take-76. " +
   "Preserve on the Menace: welded steel mesh cages on the side glass and the windshield; a riveted metal door panel; oversize knobby tires on chrome slot wheels; faded matte pink with bare-metal / oxidized steel plating. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset.";
 
 const MENACE_PLOW_NEGATIVE =
