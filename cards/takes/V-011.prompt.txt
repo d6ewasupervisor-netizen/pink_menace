@@ -1,0 +1,3 @@
+V-011 Zipper at the Closure — POV_CHASE driver's-eye, work-zone taper, plate ref_ribbon_workzone.
+Authority: cards/V-011.json image_brief (fail-fix PASS + driver's-eye frame).
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_car_exterior.jpg (build only), refs/ref_car_nose_plow.png, .tmp-ribbon-plates/ref_ribbon_workzone.png.

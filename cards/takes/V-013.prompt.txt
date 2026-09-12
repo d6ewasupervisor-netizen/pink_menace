@@ -1,0 +1,3 @@
+V-013 Let Hollis Have It — POV_MIRROR_REAR, dusk/rain grade over ref_ribbon_deck.
+Authority: cards/V-013.json image_brief (fail-fix PASS + empty-right + no shoulder-stop).
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_cockpit.jpg (interior layout/mesh only — ignore salt-flat light), .tmp-ribbon-plates/ref_ribbon_deck.png (deck world: 3 lanes, blank gantry, streetlight run, tight shoulder, brick city).
