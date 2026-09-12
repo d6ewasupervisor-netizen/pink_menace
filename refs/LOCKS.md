@@ -53,4 +53,4 @@ Art regen is paused pending daughter feedback. Do not generate new stills from t
 
 ## V-004 stop bar (Act V)
 
-`presence: 0` is canonical — no Quiet. Extra geometry lock: the Menace sits **AT** the white ramp-meter stop bar (not short of it, not past it). Meter + line stay the `POV_OBJECT` lesson. Attach `ref_car_exterior.jpg` + `ref_car_nose_plow.png`. Do not seed until muted-read PASS.
+`presence: 0` is canonical — no Quiet. Extra geometry lock: the Menace sits **AT** the white ramp-meter stop bar (not short of it, not past it). Meter + line stay the `POV_OBJECT` lesson. Attach `ref_car_exterior.jpg` + `ref_car_nose_plow.png`. Live still is take-11 (`cards/V-004.png`). Do not seed take-9.

@@ -1,8 +1,10 @@
-# V-004 stop-bar regen take map (not a compile brief)
+# V-004 stop-bar seed (take-11 PASS)
 
-Fresh compiles after Claude asked for Menace **AT the stop bar** (PR #181 / #184 take-1 left the ramp empty). Card JSON is the sole brief. `presence: 0` is canonical — no Quiet. Do not seed. Do not live-DB.
+Claude overflow muted-read of PR #187: **take-11 PASS**; **take-9 runner** (do not seed).
+File-seed `cards/V-004.png` from `cards/takes/V-004-take-11.png` only.
+Replaces live take-1 (empty meter FAIL from #184). `presence: 0` is canonical — no Quiet.
 
-| Card | Title | Camera | **Closest** | **Runner** |
+| Card | Title | Camera | **Winner** | **Do not seed** |
 |---|---|---|---|---|
 | **V-004** | The Meter Is a Light | `POV_OBJECT` | **take 11** `V-004-take-11.png` | take 9 `V-004-take-9.png` |
 
@@ -24,4 +26,4 @@ Same class: Menace **AT** the bar, red two-head, wet asphalt, mainline beyond th
 - **Take 13:** at the bar + mainline motion; closer truck and a yellow line. Keep as alternate, not closest.
 - **Take 14:** Menace **short** of the stop bar — extra-gate fail.
 
-Do not seed. Do not reuse #181 / #179 empty-ramp pixels as closest.
+Do not seed take-9. Do not reuse #181 / #179 / #184 empty-ramp pixels. No Acts I–III.
