@@ -1,0 +1,9 @@
+V-008 Posted Before the Bend — SCENE, POV_COCKPIT, overcast morning exit ramp.
+Authority: cards/V-008.json image_brief (citation stack). NOT the PR #173 chase / work-zone brief.
+pink_menace_interior → ref_menace_cabin.png. No Yuna. No cargo. No clipboard in glass. No I-5 beside the hood.
+Tool aspect 3:4 (seed encodes 2:3). Attach: refs/ref_menace_cabin.png, refs/ref_car_nose_plow.png.
+
+Pool: take-1..take-8. Closest take-8 (mesh + large advisory 25 + cabin; curve not under the wheels). Runner take-7 (mesh + readable 25).
+Keep: take-1 (foot over the brake + 25 + mesh). Discard: take-4 (AHEADTO plaque); take-5 (ADVISORY misspell, no mesh); take-6 (no mesh).
+Residual: cluster not high; no plow bar; 25 near in the mesh; bend weak.
+Do not reuse PR #173 take-5 / take-6 pixels.

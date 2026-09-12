@@ -1,0 +1,100 @@
+{
+  "card_id": "V-008",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Posted Before the Bend",
+  "hook": "The ramp owns you. The curve is next.",
+  "scene": "Overcast morning. You have left I-5. The exit ramp is wet and tightening toward a posted 25. Your cluster still reads highway leftover. The bend is visible. If you carry sixty into a twenty-five the rear will write the number for you. If you stood on it back on the freeway, the stack already paid. The tap belongs here.",
+  "decision": "You are on the exit ramp. When are you at 25?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Tap the brakes now and be at the posted number before the curve starts",
+      "correct": true,
+      "result": "You bleed the leftover here. The cluster agrees with the sign before the bend. The Beetle stays straight. The freeway behind you never had to lift.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "b",
+      "text": "Hold sixty until the apex, then stand on it",
+      "correct": false,
+      "result": "The rear steps out mid-bend. Yaw on a wet ramp. You spent the car to keep a number the sign already took from you.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Coast with no brake and let the hill take the speed out",
+      "correct": false,
+      "result": "There is no hill that saves you. You arrive at the paint still hot. The next car in the line gets your leftover.",
+      "state_delta": {
+        "noise": 2,
+        "yaw": 1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Stop dead on the ramp so the curve is taken from a standstill",
+      "correct": false,
+      "result": "You plant the Menace on an exit ramp. The car behind you came in at ramp speed and had nowhere to put it.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 10
+      }
+    }
+  ],
+  "debrief": "On the ramp, tap the brakes and be at the posted speed before the curve. The cluster agreed with the sign before the bend.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part one",
+    "dol_section": "5.1 Speed (Adjusting speed for conditions)",
+    "teaching_target": "PSDP p1 Lesson four – posted ramp speed before the curve. Pair 5.1 conditions. Not a minted Exiting heading.",
+    "stat_cited": "PSDP p.31: Upon entering the ramp, tap the brakes and begin to slow down to the posted exit ramp speed limit before reaching the curve."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "from the seat on a tightening exit ramp, advisory 25 panel ahead, curve starting",
+    "foreground": "worn black wheel, cluster still high, right foot ready over the brake",
+    "midground": "wet ramp, advisory plaque, no readable city name, pink plow bar at the bottom of the glass",
+    "background": "overcast morning, trees on the verge, I-5 already behind, no snow",
+    "read": "the cluster is still high; the ramp sign reads 25; the curve has not started under the wheels",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": [
+      "no I-5 travel lanes still beside the hood",
+      "no snow",
+      "no clipboard in the glass",
+      "no second occupant"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "single-lane I-5 exit ramp, right of the gore, tightening to a curve",
+      "ego_nose_in_frame": "the plow is a pink bar at the bottom of the glass, pointing into the ramp curve",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 1,
+      "ego_lane_from_left": 1
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "speed",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

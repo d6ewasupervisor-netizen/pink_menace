@@ -1,0 +1,7 @@
+V-007 Slow On the Ramp — RULE, POV_OBJECT (camera_is_the_lesson), afternoon rain.
+Authority: cards/V-007.json image_brief. Isolated wet green EXIT ONLY gantry panel. No person. No cargo. No Yuna. Do not attach ribbon_rig.
+Tool aspect 3:4 (seed encodes 2:3). Attachments: none.
+
+Pool: take-1..take-6. Closest take-5 (EXIT ONLY spelled; rain; lanes below still moving). Runner take-2 (isolated object, rain, lanes — lettering residual).
+Discard: take-1 (yellow centerline); take-3 (right-turn arrow); take-4 / take-6 (garbled EXEIT).
+Residual: one panel, not a full gantry; two lanes not three.
