@@ -26,10 +26,15 @@ assert.strictEqual(cargoDead({ time_cost: 140 }, {}), false, "dossier continue m
 assert.strictEqual(cargoDead({ time_cost: 140 }, { time_cost: 4 }), true);
 assert.strictEqual(cargoDead({ time_cost: 4 }, { time_cost: 4 }), false);
 assert.strictEqual(cargoDead({ time_cost: CARGO_BUDGET }, { fatal: true }), true);
+assert.strictEqual(cargoDead({ time_cost: 130 }, { time_cost: 4 }, "V"), true, "Act V daylight_fail ends the run");
+assert.strictEqual(cargoDead({ time_cost: 130 }, {}, "V"), false, "Act V dossier continue does not fire daylight_fail");
+assert.strictEqual(cargoDead({ time_cost: CARGO_BUDGET }, { fatal: true }, "V"), true);
 
 const live = publicState(intoIII);
 assert.ok(live.cold > 0);
 assert.ok(!(live.cold <= 0 && live.warming <= 0));
+assert.strictEqual(publicState({ time_cost: 20 }).daylight_fail, false);
+assert.strictEqual(publicState({ time_cost: 130 }).daylight_fail, true);
 
 console.log("ok");
 pool.end();

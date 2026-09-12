@@ -1,0 +1,55 @@
+{
+  "card_id": "IV-029",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "yuna",
+  "card_type": "dossier",
+  "title": "When Not To Be Loud",
+  "hook": "Loud is for a dying block.",
+  "scene": "Rain at night, Encore idling in a work pinch she already refused to clear with the horns. Dead in-ears around her neck, both out. She looks at you, not at the red switch. Loud is the horns when a block is dying. Loud is not clearing a street because she can. She does not take a bow for a tight pinch. She does not ask you to clap. That is the thesis. She is done being an audience cue.",
+  "debrief": "Loud is for a dying block. She does not spend the horns on a tight street. Yuna does not ask you to clap.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Yuna thesis: when not to be loud. Replaces the III-029 pass-decline duplicate. Convoy/story beat — do not stretch Skill ten."
+  },
+  "cast": [
+    "yuna"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_PORTRAIT",
+    "subject": "Yuna chest-up, platinum under-layer, right-temple braid, dead in-ears around her neck both out, not smiling — person only, no hardware on her body",
+    "foreground": "cropped black windbreaker with retroreflective sleeve piping, rain on the shoulder",
+    "midground": "her face, no glasses, chin level, both in-ears dangling on the cord around her neck",
+    "background": "rain, night, a work pinch of cones, hatchback flank out of focus with no readable chevron",
+    "read": "both in-ears are out; this is a portrait of Yuna only",
+    "continuity": [
+      "yuna"
+    ],
+    "extra_negatives": [
+      "no Encore four-view",
+      "no horn flares as the subject",
+      "no chevron readable",
+      "no mesh",
+      "no Menace",
+      "no switch on clothing",
+      "no device on her chest",
+      "no hardware attached to the person",
+      "no props composited on the body",
+      "no PA switch in frame"
+    ],
+    "aspect": "2:3"
+  },
+  "variation": {
+    "location_type": "work_zone",
+    "weather": "rain",
+    "time_of_day": "night",
+    "tone": "wry",
+    "failure_mode": "none",
+    "winner": "take-16",
+    "forced": "live still cards/takes/IV-029-take-16.png (Claude muted-read PASS; preferred over take-15 — right IEM still in)"
+  }
+}

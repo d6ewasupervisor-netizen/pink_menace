@@ -15,7 +15,7 @@ Local: `npm start` with `DATABASE_URL` and sms-outbox env from `.env.example`. `
 
 ## Playable now
 
-Act IV (The Core) is the live playthrough. Art regen is paused. Status, live cards, and residuals: **[PLAYTHROUGH.md](PLAYTHROUGH.md)**. Game: [ali.tactag.app](https://ali.tactag.app) — tap **Act IV · The Core**. No Act I–III replay.
+Act IV (The Core) and Act V (The Ribbon) are the live playthrough. Art regen is paused. Status, live cards, and residuals: **[PLAYTEST.md](PLAYTEST.md)** · **[PLAYTHROUGH.md](PLAYTHROUGH.md)**. Game: [ali.tactag.app](https://ali.tactag.app) — tap **Act IV · The Core** or **Act V · The Ribbon**. V-009 is not seeded. No Act I–III replay.
 
 ## Current gate
 

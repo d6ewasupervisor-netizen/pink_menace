@@ -67,3 +67,25 @@ Accumulated, attributed, human. The death stops reading as punishment for the la
 ## The principle, for the pack
 
 This is the same failure class as the fear system before the tiers shipped: **a mechanic that isn't perceived doesn't exist.** The economy was real, the stakes were real, and to the player there were none. Going forward the test for any system is not "does it work" but "did she see it work" — and the playtest question for this one is already written: does she ever mention the medicine unprompted. The day she says "I almost lost the insulin," the manifest did its job.
+
+---
+
+## Act V — The Ribbon (locked load)
+
+Act II copy above stays. The Ribbon does **not** inherit June / insulin / cooler fiction.
+
+`src/manifest.js` `MANIFESTS.V`:
+
+```
+RUN            The Ribbon — I-5 / I-90
+CARGO          Relay kit — repeater, antenna, clamps
+FOR            Tower 4 — valley floor
+```
+
+`deliveryBeat(..., "V")` (existing end-of-run beat, not a new card):
+
+> *Relay kit delivered. Repeater, antenna, clamps. Tower 4. 41 minutes to spare.* — or — *Relay kit delivered. 3 minutes. Repeater, antenna, clamps. Tower 4.* — or — *The relay kit is late. Repeater, antenna, clamps. Tower 4 still takes it.*
+
+Fail dispatch and mid-run radio on Act V use the same kit / Tower 4, never Delridge or June. `daylight_fail` fail copy is light-ran-out / did-not-make-dusk — do not write “the kit sat” / “tomorrow.” Radio voice is **Yuna**. No tow. No new `load_state`.
+
+Act V Yuna radio voice — four appearances, `cargo_rough` bands CLEAN / SCUFFED / THINNED on a successful closer, `daylight_fail` ends the run and wins when both are set — is `pack/36_YUNA_RADIO_VOICE.md`. She never mentions cargo condition and never grades the driving. She does not speak on a daylight fail. The thinned channel is quietest, not harshest. No line blames Yuna.
