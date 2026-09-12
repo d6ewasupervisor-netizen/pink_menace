@@ -505,6 +505,7 @@ const PMFeel = (() => {
   // Handprints only. The figure/scene overlays (walkers, mirror reflections,
   // eyeshine, zone stills) were pulled — the grime on the glass is the whole read.
   // I-005 through I-008 already have the Quiet in the photograph. No overlay there.
+  // Do not composite Quiet into Skill 11 / Ribbon teaching stills (V-006 / V-008 / V-013).
   function paintFear(state, extras) {
     const root = document.getElementById("fear-root");
     if (!root) return;
