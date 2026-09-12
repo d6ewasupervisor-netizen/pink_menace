@@ -1,0 +1,4 @@
+V-009 Small Hands at Speed — SCENE, POV_ROADSIDE_PROFILE, wind afternoon.
+Authority: cards/V-009.json image_brief. Center-lane profile, no lean, nose plow. Ali alone. No cargo. No Yuna. presence 0.
+Tool aspect 3:4 (seed encodes 2:3). Attachments: ref_car_exterior.jpg, ref_car_nose_plow.png.
+Do not seed.

@@ -1,0 +1,103 @@
+{
+  "card_id": "V-009",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Small Hands at Speed",
+  "hook": "The lane is straight. The wheel wants a yank.",
+  "scene": "Wind, afternoon, I-90 east still in the valley. Three lanes this way. The Menace sits in the center. A gust leans you a hand's width toward the skip-dash. The side-street habit is a big correction. At this speed a yank is yaw, and yaw is the thing that draws. The paint is still yours if the hands stay small.",
+  "decision": "The gust moved you. How do you put the Beetle back?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Yank the wheel back to center the way you would on a side street",
+      "correct": false,
+      "result": "The Beetle steps the other way. Yaw at highway speed. The right side kisses the rumble. You taught the wind it could have you.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 3,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Ease a few degrees, hold, let the car settle in the lane",
+      "correct": true,
+      "result": "The wheel moves a little. The car comes back without a sway. The skip-dash stays a line, not a fight. Small hands kept Tower 4 quiet.",
+      "state_delta": {
+        "noise": -1,
+        "yaw": -1,
+        "time_cost": 3
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stand on the brake first so the correction happens at a lower number",
+      "correct": false,
+      "result": "You dump speed in the center lane. The stack behind you lights up. You spent their brakes to fix a lean a quiet wheel would have eaten.",
+      "state_delta": {
+        "noise": 3,
+        "light": 2,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Steer onto the left rumble so you have a bigger target to recover from",
+      "correct": false,
+      "result": "You put the right rear on the rumble on purpose. The car hops. Recovery from a rumble at this speed is the crash the gust was not.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    }
+  ],
+  "debrief": "At highway speed, steer gently. A yank is yaw. Keep the wheel small at this speed.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part two",
+    "dol_section": "n/a",
+    "teaching_target": "NEW. PSDP p2 Lesson one – steer gently. dol n/a: no DOL heading. Do not stretch 5.1 or mint Exiting.",
+    "stat_cited": "PSDP p.32: At fast highway speeds, excessive steering can be dangerous and lead to loss of control. Remind your teen to steer gently on highways."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_ROADSIDE_PROFILE",
+    "subject": "true profile of the faded pink Beetle in the center of three eastbound I-90 lanes, long near flank, nose along the road",
+    "foreground": "wet shoulder verge, no person",
+    "midground": "pink Beetle, skip-dash along the near flank, body not leaning hard, plow at the nose",
+    "background": "wind afternoon valley I-90, trees, no mountain close, no snow",
+    "read": "the Beetle's long flank is in the center lane; the wheel correction is not visible as a lean",
+    "continuity": ["pink_menace_exterior"],
+    "extra_negatives": [
+      "no headlights toward camera",
+      "no snow",
+      "no second pink Beetle",
+      "no cutaway shuttle"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "center travel lane of three eastbound I-90 lanes",
+      "ego_nose_in_frame": "the plow points at the RIGHT edge of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "wind",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "speed",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

@@ -1,0 +1,4 @@
+V-013 Let Hollis Have It — SCENE, POV_MIRROR_REAR (camera_is_the_lesson), rain dusk.
+Authority: cards/V-013.json image_brief. Lifted truck fills the interior rearview; no countable gap. Cabin plate, not ref_cockpit.jpg. Mesh. No 112.0. No Yuna. No cargo. presence 0.
+Tool aspect 3:4 (seed encodes 2:3). Attachments: .tmp-act-v-refs/ref_menace_cabin.png, .tmp-act-v-refs/ref_ribbon_deck.png.
+Do not seed.
