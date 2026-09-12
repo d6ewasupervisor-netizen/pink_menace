@@ -12,7 +12,7 @@ hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visi
 - Cage: FULL GRID (VI-009 canon)
 - Dash: dark/unlit default; no lit green arrows; 112 speedlike OUT
 - VI-004: exposed hub — do not reattach wheel
-- VI-013: Ali hands on wheel frame-left (LHD)
+- VI-013: **THE HANDOFF** — metal clipboard turned toward Ali; glasses on cord; Cascades-west; carrier; analog; no 112 / no lit tablet
 
 | Order | File | Role |
 |---|---|---|
@@ -22,7 +22,7 @@ hard-sided, wire grille door facing inboard, Gracie's orange tabby markings visi
 | 4 | `VI-004-take-9.png` | Runner — exposed hub (carrier weaker) |
 | 5 | `VI-009-take-8.png` | **Closest** — deer through full-grid + dark dash + carrier |
 | 6 | `VI-009-take-7.png` | Runner |
-| 7 | `VI-013-take-10.png` | **Closest** — Ali LHD hands left + Deac clipboard + carrier + PNW |
-| 8 | `VI-013-take-8.png` | Runner |
+| 7 | `VI-013-take-16.png` | **Closest HANDOFF** — metal clipboard turned toward Ali; glasses on cord; carrier; Cascades-west |
+| 8 | `VI-013-take-17.png` | Runner HANDOFF — metal board + analog cluster + mist fir |
 
 Retired: `cards/takes/retired/VI-004-take-2.RETIRED.png` (not 011 stock).
