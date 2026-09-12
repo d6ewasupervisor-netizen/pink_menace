@@ -107,6 +107,23 @@ const LEDGER_PARKED_CAT =
 
 const LEDGER_INCAB = new Set(["POV_COCKPIT", "POV_OBJECT", "POV_MIRROR_DOOR", "POV_PORTRAIT"]);
 
+const CARRIER_LOCK =
+  "Pet carrier lock: a charcoal / near-black hard-shell airline crate — not olive, not drab green, not faded pink, not a color that matches the Menace dash. Wire grate door facing the lens with a visible latch block on the grate. A webbing strap runs across the top of the shell. Match the attached carrier plate for color and hardware.";
+
+const CARRIER_NEGATIVES =
+  "No olive carrier, no olive-drab crate, no army-green pet box, no khaki carrier, no pink carrier blending into the dash, no soft-sided fabric carrier, no missing grate, no open carrier door unless the brief names it open.";
+
+function carrierInBrief(card) {
+  const brief = (card && card.image_brief) || {};
+  const tokens = brief.continuity || [];
+  if (tokens.includes("carrier")) return true;
+  return /\bcarrier\b/i.test(
+    [brief.subject, brief.foreground, brief.midground, brief.background, brief.read, brief.camera_pose]
+      .filter(Boolean)
+      .join(" ")
+  );
+}
+
 function otherVehicleClauseLedger(card) {
   if (card && Array.isArray(card.cast) && card.cast.includes("old_ninety")) {
     return (
@@ -247,6 +264,9 @@ function assemblePrompt(card) {
       "Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied."
     );
   }
+  if (carrierInBrief(card)) {
+    parts.push(CARRIER_LOCK);
+  }
   if (deac && cam === "POV_PORTRAIT") {
     parts.push(
       "Subject identity: a broad tall-shouldered 54-year-old man with dark brown skin, close-cut gray hair receding at the temples, a short gray beard, deep-set tired eyes with reddened lids, wearing a faded charcoal transit operator's jacket with a worn-off patch over a dulled amber high-visibility safety vest grimy and taped at one shoulder, half-frame reading glasses hanging on a cord against his chest. No smile. No bandage. No blood."
@@ -302,6 +322,9 @@ function assemblePrompt(card) {
   }
   if (Array.isArray(brief.extra_negatives) && brief.extra_negatives.length) {
     negs.push(brief.extra_negatives.join(". ") + ".");
+  }
+  if (carrierInBrief(card)) {
+    negs.push(CARRIER_NEGATIVES);
   }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);

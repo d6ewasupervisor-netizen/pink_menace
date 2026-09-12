@@ -1,0 +1,20 @@
+# Y4 — Encore cockpit rerun (candidates only)
+# attachments: /tmp PR #14 ref_encore_sheet (Y3 take 12 glass lock)
+#              seeded Encore interior IV-002 take 3
+# do NOT attach refs/ref_encore_cockpit.png (Y4 take 1, sha 85bd45ee — REJECTED)
+# do NOT attach Y4 take 7 (floor shifter)
+# live plate NOT overwritten
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field. Overcast Pacific Northwest daylight through intact windshield glass — soft, diffuse, low-contrast, gray-blue ambient. Desaturated palette; the only bright element is retroreflective silver-white. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Enclosed 1990s three-door compact hatchback cabin matching the attached four-view lock: matte black body, tape-patched panels, retroreflective chevron striping, four chrome PA horn flares on the roof OUTSIDE the glass. Intact factory windshield glass — a continuous real sheet of automotive glass filling the windshield from A-pillar to A-pillar and from the header down to the cowl. Black rubber gasket frames the glass. Windshield wipers rest at the bottom. Raindrops bead on the OUTSIDE surface. Specular reflections prove the glass is a real plane. Solid roof and headliner. Weather stays outside the glass.
+
+Camera inside the cabin, over the wheel, looking forward THROUGH that intact glass. Left-hand drive: steering wheel on the LEFT. A small suede-wrapped racing steering wheel across the bottom of frame.
+
+Match seeded Encore card interiors, not a stripped open-air race tub: moulded dark plastic 1990s hatchback dash and instrument binnacle, worn and slightly taped, NOT bare sheet-metal with no fascia. A single aftermarket tachometer in the binnacle, needle at rest. A toggle-switch panel with one large guarded red rocker in a small cage, clearly separate. Welded roll-cage tubing crossing the A-pillars INSIDE this enclosed cabin, behind the glass. A dead wireless handheld microphone clipped to the cage tube at the right edge of frame.
+
+Encore is an automatic: if the footwell is visible, exactly TWO pedals — a wide treadplate brake and a narrow accelerator. Empty floor left of the brake. NO clutch pedal. NO floor shifter. NO manual gear lever.
+
+Beyond the glass: wet empty downtown street under flat gray overcast sky. Do not show the roof PA horns from inside the cabin.
+
+No open cabin, no missing windshield, no stripped bare-metal tub, no formula car, no dune buggy, no sky where the roof should be, no PA horns inside, no spotlights on the dash, no mesh, no bars across the glass, no clutch, no third pedal, no floor shifter, no gear stick, no right-hand drive. Standard negatives. Aspect ratio 2:3.

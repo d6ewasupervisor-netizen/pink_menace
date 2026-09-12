@@ -67,6 +67,10 @@ You MUST:
   - attach the ego vehicle lock to every POV_DIAGRAM for build only; no faces.
     Ali: ref_car_exterior.jpg. Deac: ref_ledger_sheet.png. Never attach a
     Menace lock (ref_car_exterior.jpg, ref_cockpit.jpg, Ali, Gracie) on a Deac card.
+  - never attach a path listed in pack/09_REF_MAP.json `discarded`. Discarded
+    takes are out of the generator pool — not superseded-but-available.
+    IV-028 take-72 (olive carrier) is discarded. Carrier compiles attach
+    `ref_carrier.png` only (charcoal hard-shell, grate, latch block, top strap).
   - on every Deac compile, append: no Volkswagen Beetle, no rounded-fender
     compact, no plow blade.
   - on Deac POV_DIAGRAM, POV_ROADSIDE, POV_ROADSIDE_PROFILE, and POV_CHASE
@@ -543,6 +547,7 @@ else. No commentary. No alternatives.
 | `POV_DIAGRAM` (Ali) | `ref_car_exterior.jpg` for Beetle build and plow. Overcast PNW lighting — never the salt-flat sunset. No faces. |
 | `POV_DIAGRAM` (Deac) | `ref_ledger_sheet.png` only. Never `ref_car_exterior.jpg`. |
 | The Quiet in frame | `ref_quiet.png` — A3 take 3, the register lock. Continuity token `the_quiet`. Attach on every Quiet compile, including when the brief says "the Quiet" and the token was omitted. Also append the Quiet negative: no upright alert posture, no eye contact, no person looking at the lens, no walking normally, no clean clothing, no censorship smear. They never fill the frame, never a side-window close-up. A1/A2/A4 are reference, not card art. A5 once. |
+| Pet carrier | `ref_carrier.png` — charcoal / near-black hard-shell from IV-028 take-70 crop. Continuity token `carrier` (auto-attached when the brief names a carrier). Never olive. Never attach `cards/takes/IV-028-take-72.png`. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
 
