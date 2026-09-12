@@ -1,0 +1,103 @@
+{
+  "card_id": "V-005",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Do Not Plant It",
+  "hook": "The gap is late. The paint is close.",
+  "scene": "Overcast midday on the I-5 merge. You are in the last stretch of ramp. The right travel lane is a tight stack. No hole is next to you. Merge paint is a car-length ahead. The instinct is to stand on the brake and wait on the ramp until someone gifts you an empty. The other instinct is to take their door anyway. Both spend someone else's margin.",
+  "decision": "There is no gap beside you. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Stop on the ramp and wait until the right lane goes empty",
+      "correct": false,
+      "result": "You plant the Menace on the merge. The ramp behind you has to stop too. Highways do not clear for a standing car. You made a start from zero at their speed.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 12
+      }
+    },
+    {
+      "id": "b",
+      "text": "Force the paint now and make the stack lift",
+      "correct": false,
+      "result": "You take their door. The sedan stands on it. Amber behind you lights. You wrote a late on a merge that still had pavement left to change speed.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Stay rolling. Change speed until a gap is real, then take it",
+      "correct": true,
+      "result": "You keep the wheels turning. You drop a little, then you match the next gap. The one you take is one you made with speed, not with a stop.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Climb the shoulder around the stack and join from the rumble",
+      "correct": false,
+      "result": "The shoulder is junk and a sign post. You put the Menace in the rumble to skip a count. They never had you as a sentence.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "If the gap is late, change speed until one appears. There is time to merge. Stopping on the ramp makes the next start the hard one.",
+  "timeout_option_id": "a",
+  "timeout_ms": 12000,
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part one",
+    "dol_section": "5.3 Merging",
+    "teaching_target": "Do not stop in the entrance or merge unless you must; adjust speed to find a gap."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": true,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "from the seat at merge paint, right highway lane a tight stack, no gap beside the hood",
+    "foreground": "worn black leather wheel, right foot off the brake, cluster still moving",
+    "midground": "merge paint a car-length ahead through the mesh, sedan flanks with no gap",
+    "background": "overcast midday I-5, three lanes, concrete median, no snow",
+    "read": "the hood is still on the ramp; the right highway lane has no gap beside you",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": [
+      "no Menace brake lamps lit",
+      "no empty quarter-mile gap",
+      "no snow",
+      "no Deac",
+      "no Ledger"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "I-5 merge stretch beside the right travel lane",
+      "ego_nose_in_frame": "the plow points toward the top of the frame through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "midday",
+    "tone": "urgent",
+    "failure_mode": "inexperience",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

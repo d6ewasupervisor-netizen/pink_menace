@@ -1,0 +1,111 @@
+{
+  "card_id": "V-009",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "One Lane, Then Sit",
+  "hook": "Two lanes left look faster. They are not one move.",
+  "scene": "Overcast midday on I-90 east, three lanes this way. You are in the right. A slow box is ahead in your lane. The left two look empty enough to steal. The quiet-street move is to cut both in one sweep and be done. At this speed each lane is a sentence. The second lane cannot hear a stalk that already died on the first.",
+  "decision": "You need left of this box. How many lanes do you take?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Sweep left across both empty lanes in one motion and sit in the leftmost",
+      "correct": false,
+      "result": "You cut two. A sedan you did not own was filling the middle. He lifts. One stalk cannot buy two lanes at this speed.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 1,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "b",
+      "text": "Pass him on the right shoulder so you never change lanes at all",
+      "correct": false,
+      "result": "The shoulder is a drain and a post. You put the Menace in the junk to skip a legal change.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "damage": 1,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Take the middle, sit until the box is in the right glass, then take the left",
+      "correct": true,
+      "result": "One lane. You sit. The box shows in the right door glass. Then the next lane, its own stalk, its own gap. Two sentences. Nobody lifted.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Hold the right and wait until the slow box exits so you never pass",
+      "correct": false,
+      "result": "He is through traffic. He does not exit. You travel his number for miles and the schedule pays for a pass you were allowed to take one lane at a time.",
+      "state_delta": {
+        "time_cost": 16
+      }
+    }
+  ],
+  "debrief": "Change one lane at a time. Sit until the last lane is yours. Then talk to the next one. Two sentences, not one sweep.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part two",
+    "dol_section": "5.3 Merging",
+    "teaching_target": "On the highway, change lanes one at a time only."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "camera_is_the_lesson": true,
+    "subject": "three eastbound I-90 lanes, faded pink Beetle in the right, slow box ahead in the same lane, middle and left empty",
+    "foreground": "wet skip-dash, rear of the Beetle nearer the camera",
+    "midground": "slow box ahead in the right, two empty lanes to the left of frame",
+    "background": "overcast midday valley I-90, concrete median, no snow",
+    "read": "the Beetle and the slow box share the right lane; the middle and left are empty wet asphalt",
+    "continuity": ["diagram_style", "pink_menace_exterior"],
+    "extra_negatives": [
+      "no vehicle already in the middle",
+      "no HOV diamond",
+      "no snow",
+      "no Ledger",
+      "no Encore"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of three eastbound I-90 lanes",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, away from camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "slow box truck",
+          "frame_side": "same",
+          "lane_from_left": 3,
+          "along": "ahead",
+          "lengths": 2
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "midday",
+    "tone": "procedural",
+    "failure_mode": "speed",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

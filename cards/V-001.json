@@ -1,0 +1,101 @@
+{
+  "card_id": "V-001",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Eyes Up the Ribbon",
+  "hook": "Yuna names the next sign. You drive.",
+  "scene": "Overcast morning on I-5 south of the Core. You are alone in the Menace. The relay kit is lashed behind the seats — repeater, antenna, clamps. Yuna is on the radio, not in the cab. She names the interchange, the green panels, and the paint while you hold the right travel lane of three. You do not look down at the bumper to feel safe. The mountain is a gray smudge far east. This pavement is the Ribbon.",
+  "decision": "Yuna is naming signs. Where do your eyes go?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Watch the bumper so you know you are still in the lane",
+      "correct": false,
+      "result": "You stare at the hood. A green panel goes by unread. Yuna has to say the exit twice. Eyes on the bumper is how you miss the highway you are already on.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Next sign, then the one after, then the paint and the gap",
+      "correct": true,
+      "result": "You take the next panel, then the one behind it, then the skip-dash. Yuna does not have to repeat the city. Eyes up named the Ribbon before you used it.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "c",
+      "text": "Watch the mountain so you know how far the climb still is",
+      "correct": false,
+      "result": "The mountain is a shape, not a road. You miss the I-90 split while you stare east. The schedule today stops at the valley floor. Eyes belong on the next sign.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "d",
+      "text": "Watch the radio so you do not miss a word she says",
+      "correct": false,
+      "result": "You look down at a speaker. The right lane starts to die into a ramp you did not name. Yuna can talk. Your eyes still have to own the pavement.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "You watched the highway before you used it. Interchange, signs, paint, eyes up. Yuna stayed on the radio.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part one",
+    "dol_section": "4.12 Signs",
+    "teaching_target": "Highway observation first: interchanges, signs, and lane lines, eyes up, not on the bumper."
+  },
+  "cast": ["ali", "yuna"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "camera_is_the_lesson": true,
+    "subject": "from the seat looking forward through welded mesh at three wet I-5 lanes, a green guide panel ahead, no readable city names",
+    "foreground": "worn black leather wheel rim, cracked faded pink dash, empty passenger seat",
+    "midground": "mesh over real windshield glass, skip-dashed white between travel lanes",
+    "background": "overcast I-5 morning, concrete median left, no mountain close, no night",
+    "read": "Ali is driving alone; three same-direction lanes run ahead through the mesh; a guide panel sits far down the road",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": [
+      "no Deac",
+      "no Ledger",
+      "no Encore",
+      "no cats on the dash",
+      "no snow",
+      "no chain-up signs",
+      "no Snoqualmie shield"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of three southbound I-5 lanes",
+      "ego_nose_in_frame": "the plow points toward the top of the frame through the mesh",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "none",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

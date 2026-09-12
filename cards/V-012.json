@@ -1,0 +1,115 @@
+{
+  "card_id": "V-012",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "rule",
+  "title": "Three Seconds Here Too",
+  "hook": "The gap looks big. Count it anyway.",
+  "scene": "Wind, midday, I-90 east, three lanes. You want the left to pass a slow box. A sedan is coming up that left, not yet beside you. The gap looks like highway space — long pavement, easy. At this speed a car covers that pavement before you finish the thought. The same three-second count you used on quiet streets is the count for a merge, a change, and an exit. If you cannot count it, it is not a gap.",
+  "decision": "The left looks open. When is it yours?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Take it now — at highway speed a long gap is already enough",
+      "correct": false,
+      "result": "You go. The sedan is in your left door before the stalk finishes. A long-looking gap at this speed was one second. You spent his brakes.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "b",
+      "text": "Watch a mark on the pavement. If you can count three before you reach it, take the gap",
+      "correct": true,
+      "result": "You pick a stain. One. Two. Three. The sedan is still back. The gap is real. You take one lane and sit.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Wait until you cannot see the sedan at all, even far back",
+      "correct": false,
+      "result": "You wait for an empty highway. The left never empties. The slow box stays your number. Three seconds was the test, not a deserted road.",
+      "state_delta": {
+        "time_cost": 14
+      }
+    },
+    {
+      "id": "d",
+      "text": "Count one and go — three is a city number, not a highway number",
+      "correct": false,
+      "result": "One second at this speed is a car length you do not have. He lifts. The count did not change because the pavement got faster.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 6
+      }
+    }
+  ],
+  "debrief": "Use a three-second count to merge, change lanes, or exit. If you cannot count it, it is not a gap. You waited until three was true.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part two",
+    "dol_section": "5.4 Time (Count seconds)",
+    "teaching_target": "Apply the three-second rule to merging, lane changes, and exiting at highway speed."
+  },
+  "cast": ["ali"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_DIAGRAM",
+    "camera_is_the_lesson": true,
+    "subject": "three I-90 lanes, faded pink Beetle in the right, slow box ahead same lane, sedan far back in the middle",
+    "foreground": "wet skip-dash, rear of the Beetle nearer the camera",
+    "midground": "slow box ahead in the right, sedan behind in the middle with a long gap",
+    "background": "wind midday valley I-90, concrete median, no snow",
+    "read": "a long gap sits in the middle lane between the Beetle and a sedan still far back",
+    "continuity": ["diagram_style", "pink_menace_exterior"],
+    "extra_negatives": [
+      "no sedan beside the Beetle",
+      "no HOV diamond",
+      "no snow",
+      "no Ledger",
+      "no Encore"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right travel lane of three eastbound I-90 lanes",
+      "ego_nose_in_frame": "the plow points toward the top of the frame, away from camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 3,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "slow box truck",
+          "frame_side": "same",
+          "lane_from_left": 3,
+          "along": "ahead",
+          "lengths": 2
+        },
+        {
+          "vehicle": "primer sedan",
+          "frame_side": "left",
+          "lane_from_left": 2,
+          "along": "behind",
+          "lengths": 4
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "wind",
+    "time_of_day": "midday",
+    "tone": "procedural",
+    "failure_mode": "inexperience",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}

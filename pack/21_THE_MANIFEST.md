@@ -67,3 +67,23 @@ Accumulated, attributed, human. The death stops reading as punishment for the la
 ## The principle, for the pack
 
 This is the same failure class as the fear system before the tiers shipped: **a mechanic that isn't perceived doesn't exist.** The economy was real, the stakes were real, and to the player there were none. Going forward the test for any system is not "does it work" but "did she see it work" — and the playtest question for this one is already written: does she ever mention the medicine unprompted. The day she says "I almost lost the insulin," the manifest did its job.
+
+---
+
+## Act V — The Ribbon (locked load)
+
+Act II copy above stays. The Ribbon does **not** inherit June / insulin / cooler fiction.
+
+`src/manifest.js` `MANIFESTS.V`:
+
+```
+RUN            The Ribbon — I-5 / I-90
+CARGO          Relay kit — repeater, antenna, clamps
+FOR            the valley drop
+```
+
+`deliveryBeat(..., "V")` (existing end-of-run beat, not a new card):
+
+> *Relay kit delivered. Repeater, antenna, clamps. 41 minutes to spare.* — or — *Relay kit delivered. 3 minutes. Repeater, antenna, clamps.* — or — *The relay kit is late. Repeater, antenna, clamps. The valley drop still takes it.*
+
+Fail dispatch and mid-run radio on Act V use the same kit / valley drop, never Delridge or June. Radio voice is **Yuna**. No tow. No new `load_state`.

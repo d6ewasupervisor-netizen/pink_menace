@@ -1,0 +1,100 @@
+{
+  "card_id": "V-011",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Let Hollis Have It",
+  "hook": "His bumper is in the glass. Again.",
+  "scene": "Overcast afternoon on I-90 east, three lanes. You are in the center, holding a clean number. In the interior rearview a lifted truck fills the view — Hollis, too close, no gap you can count. The right lane is empty wet asphalt. Brake-checking him is a story he will finish with your hatch. The highway move is to give him a lane and let him be someone else's problem.",
+  "decision": "Hollis is on your tail in the center. The right is empty. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Signal right, take the empty lane, let him have the center",
+      "correct": true,
+      "result": "One change. He blows past in the center. Your following distance is yours again. You did not write a brake lamp into his windshield.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
+    },
+    {
+      "id": "b",
+      "text": "Tap the brakes to tell him he is too close",
+      "correct": false,
+      "result": "Your lamps hit his glass. He stands on it or he climbs you. Either way you taught a tailgater with light. The empty lane was the sentence.",
+      "state_delta": {
+        "noise": 4,
+        "light": 3,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "c",
+      "text": "Hold the center and drop ten so the gap in front of you looks safer",
+      "correct": false,
+      "result": "You slow in front of a man who will not. The gap behind dies. You spent your own cushion to keep a lane he wanted.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "d",
+      "text": "Speed up until he cannot match the Menace",
+      "correct": false,
+      "result": "He matches. Then he matches more. You bought a race on a highway. The empty right was still empty.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 5
+      }
+    }
+  ],
+  "debrief": "Watch the glass for tailgaters and move to another lane so they can pass. Hollis took the center and left your hatch alone.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part two",
+    "dol_section": "5.2 Space",
+    "teaching_target": "Watch mirrors for tailgaters and move to another lane to let them pass."
+  },
+  "cast": ["ali", "hollis"],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_MIRROR_REAR",
+    "camera_is_the_lesson": true,
+    "subject": "Hollis's lifted truck filling the interior rearview, no countable gap, same heading",
+    "foreground": "wet rearview glass filling the upper frame; cracked faded pink dashboard and a slice of welded steel mesh below, dark and out of focus",
+    "midground": "in the glass: lifted truck tight behind in the same lane, bumper large",
+    "background": "overcast afternoon I-90 behind the vehicle, no snow, windshield view not the subject",
+    "read": "the following truck is unmistakably large and close within the mirror glass",
+    "continuity": ["pink_menace_interior"],
+    "extra_negatives": [
+      "no truck in a door glass as the subject",
+      "no snow",
+      "no Deac",
+      "no Ledger",
+      "no cats on the dash"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "center travel lane of three eastbound I-90 lanes",
+      "ego_nose_in_frame": "the plow is not in frame; the vehicle is traveling forward, away from the truck in the glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "behind",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 2
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "afternoon",
+    "tone": "tense",
+    "failure_mode": "speed",
+    "forced": "Act V draft stub — no still; do not seed"
+  }
+}
