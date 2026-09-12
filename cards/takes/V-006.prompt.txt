@@ -1,0 +1,25 @@
+# V-006 — GPT Image 2 compile prompt
+# attachments: ref_ribbon_rig.png, ref_car_exterior.jpg
+# camera: POV_ROADSIDE
+# shot: semi_alongside_ribbon
+# plate: ref_ribbon_rig (take-1 authority for the RIG, not the camera)
+# gates (binary): rig mirrors visible; Menace low against the rig for scale;
+#   period-aged; no legible livery; wet spray off the rig's wheels
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Wet rain. Desaturated palette: wet asphalt gray, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is just outside the Beetle's left door, at door / window height — human seated-eye height, not a hero worm's-eye, not a 3/4 beauty pass of the truck nose. Looking along the gap between the two vehicles. The rig FILLS the left of frame at door level. The Beetle is low and small against the trailer for scale; its left door, mesh window, and roof sit near the camera on the right of frame.
+
+Match the attached rig plate for the TRUCK ONLY: period conventional long-nose tractor, rust and oxidation, west-coast mirrors on tall arms, plain unlettered white dry-van trailer, wet spray at the wheels, no legible livery. Do NOT copy the plate's 3/4 front-left hero angle or the plate's distant hatchback. This camera is door-height beside the Menace.
+
+semi_alongside_ribbon. A classic VW Beetle, unmistakably a Beetle — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. Welded steel mesh cages over the windows, riveted raw-steel plating on the left door, oversize knobby tires. Ali alone inside if seen — a silhouette, no second occupant. Load if visible is relay hardware, never an insulin cooler.
+
+Both vehicles travel the same direction. Rears nearer the camera if the long flanks recede; the truck's LEFT door and BOTH west-coast mirrors must be in frame and readable. Wet spray comes off the rig's wheels onto wet asphalt. Period-aged only — no current-model tractor, no current-model car.
+
+The read: a period rig fills the left at door height; the Menace sits low beside it; wet spray at the wheels; mirrors visible.
+
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. Traffic signs are single-faced. Never depict a double-sided sign. No route number. No exit number.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs. No right-hand drive. No yellow centerline, no double yellow, no oncoming traffic. The LEFT edge of the roadway in frame is a concrete median barrier, a curb, or a crop — never a centerline. No hero three-quarter of the rig grille as the camera. No cropped or missing rig door mirrors. No current-model truck or car. No snow. No ice. No sun. No chains. No Snoqualmie shield. No second occupant. No interior rearview as the subject. No posterized flat-color. No dry pavement. No clipboard in the glass. No insulin cooler. No legible livery. Aspect ratio 2:3.

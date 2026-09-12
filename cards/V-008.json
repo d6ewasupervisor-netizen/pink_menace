@@ -1,0 +1,121 @@
+{
+  "card_id": "V-008",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Posted Before the Bend",
+  "hook": "The ramp owns you. The curve is next.",
+  "scene": "Overcast morning. You have left I-5. The exit ramp is wet and tightening toward a posted 25. Your cluster still reads highway leftover. The bend is visible. If you carry sixty into a twenty-five the rear will write the number for you. If you stood on it back on the freeway, the stack already paid. The tap belongs here.",
+  "decision": "You are on the exit ramp. When are you at 25?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Tap the brakes now and be at the posted number before the curve starts",
+      "correct": true,
+      "result": "You bleed the leftover here. The cluster agrees with the sign before the bend. The Beetle stays straight. The freeway behind you never had to lift.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "b",
+      "text": "Hold sixty until the apex, then stand on it",
+      "correct": false,
+      "result": "The rear steps out mid-bend. Yaw on a wet ramp. You spent the car to keep a number the sign already took from you.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 3,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Coast with no brake and let the hill take the speed out",
+      "correct": false,
+      "result": "There is no hill that saves you. You arrive at the paint still hot. The next car in the line gets your leftover.",
+      "state_delta": {
+        "noise": 2,
+        "yaw": 1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Stop dead on the ramp so the curve is taken from a standstill",
+      "correct": false,
+      "result": "You plant the Menace on an exit ramp. The car behind you came in at ramp speed and had nowhere to put it.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 10
+      }
+    }
+  ],
+  "debrief": "On the ramp, tap the brakes and be at the posted speed before the curve. The cluster agreed with the sign before the bend.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving \u2013 part one",
+    "dol_section": "5.1 Speed (Adjusting speed for conditions)",
+    "teaching_target": "PSDP p1 Lesson four \u2013 posted ramp speed before the curve. Pair 5.1 conditions. Not a minted Exiting heading.",
+    "stat_cited": "PSDP p.31: Upon entering the ramp, tap the brakes and begin to slow down to the posted exit ramp speed limit before reaching the curve."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_CHASE",
+    "camera_is_the_lesson": true,
+    "subject": "work_zone_taper_cones_ribbon. Driver-eye chase behind and slightly right of the Menace, approaching the taper from the left lane",
+    "foreground": "wet left-lane asphalt; rear and right flank of the faded-pink Beetle receding, large enough to read as the Menace",
+    "midground": "MUTCD-orange cones with white collars step laterally toward the skip-dash; open lanes visibly narrow",
+    "background": "workers as people past the taper; left gantry panel blank at full crop; wet overcast unnamed Ribbon; no snow",
+    "read": "cones step toward the skip-dash and pinch the lanes; workers stand past the taper; orange stays saturated",
+    "continuity": [
+      "ribbon_workzone",
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no snow",
+      "no ice",
+      "no sun",
+      "no warm cast",
+      "no chains",
+      "no Snoqualmie shield",
+      "no washed-out or desaturated orange cones",
+      "no cones only as a parallel shoulder row",
+      "no readable gantry text",
+      "no legible route number",
+      "no exit number",
+      "no exit-ramp-only geometry",
+      "no second occupant",
+      "no current-model vehicles",
+      "no posterized flat-color",
+      "no dry pavement",
+      "no clipboard in the glass",
+      "no insulin cooler"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "left travel lane of a narrowing Ribbon work-zone",
+      "ego_nose_in_frame": "rear of the Beetle nearest camera; plow at the far leading end",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 1,
+      "ego_frame_side": "left"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "speed",
+    "forced": "Act V Ribbon wave-1 stills (option A, Claude-accepted 2026-09-12). image_brief remapped to work_zone_taper_cones_ribbon / ref_ribbon_workzone. Lesson text (posted ramp speed) unchanged \u2014 shot/lesson conflict noted in PR. Do not seed. Do not live-DB."
+  }
+}
