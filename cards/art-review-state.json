@@ -176,10 +176,16 @@
       "updated_at": "2026-09-01T20:18:25.286Z"
     },
     "V-002": {
-      "tag": "UNREVIEWED",
-      "note": "Wave D muted-read only. Closest take-29 (Mya loaf on dash, no collar, analog/dark tablet, parked/static). Runner take-23. Take-15 live-seed blocked on 112.0. Do not seed. No cards/V-002.png until Claude PASS.",
+      "tag": "PASS",
+      "note": "Claude muted-read PASS (Wave D, d748b5d7 2026-09-12). Take 29 seeded live: parked + Mya loaf on dash; bare neck / no collar; analog/dark tablet. Runner take-23 also PASS — do not seed. Take-15 still blocked on 112.0.",
       "pick": "take-29",
-      "updated_at": "2026-09-12T12:25:00.000Z"
+      "updated_at": "2026-09-12T12:56:00.000Z"
+    },
+    "V-006": {
+      "tag": "PASS",
+      "note": "Claude muted-read PASS (d748b5d7 2026-09-12). Take 47 seeded live — stronger teaching frame for post-pass recover-right. Runner take-50 also PASS — do not seed. Take 34/40 remain FAIL.",
+      "pick": "take-47",
+      "updated_at": "2026-09-12T12:56:00.000Z"
     }
   }
 }

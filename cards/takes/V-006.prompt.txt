@@ -1,0 +1,45 @@
+# V-006 — teach-correct POST-PASS recover-right compile (2026-09-12)
+# Authority: cards/V-006.json image_brief after recover-right geometry/read tweak.
+# Camera class: Option 2 (PR #167) — behind the cars, short of the gantry,
+# looking FORWARD at the panel FACE. Staging fix, not a camera-token change.
+# Locked teach: keep-right-except-to-pass / DOL 4.10. Correct answer Claude
+# named: Signal right, recover to the right travel lane.
+# Frame TEACHES CORRECT behavior (post-pass recover-right). Not spot-violation.
+# Not mid-overtake. Take 34/40 remain FAIL (both cars camped left).
+# Card scene prose still says "you are still in the left" — stills follow the
+# teach-correct lock; brief geometry/read aligned. Do not rewrite card prose.
+# Attachments: refs/ref_car_exterior.jpg, refs/ref_car_nose_plow.png
+# Tool aspect 3:4 (brief encodes 2:3). Do not seed.
+
+Cinematic photoreal still, same world as the rest of the game. 35mm full-frame equivalent, elevated three-quarter looking FORWARD down the highway, everything in focus enough to read three lanes, the right signal, and the gantry legend. Overcast Pacific Northwest daylight — soft, diffuse, low-contrast, gray-blue ambient. Wet asphalt, moss, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, no HDR, no glow, no lens flare. This is a photograph of real vehicles on a real highway, not a map, not an infographic, not a vector diagram.
+
+CAMERA (Option 2, do not invert): The camera is BEHIND both cars and still BEFORE the gantry — west of the cars, west of the gantry. Elevated chase / high-oblique, twenty-five to forty degrees down from horizontal, not nadir, not fifteen degrees off vertical. Look FORWARD past the cars at the gantry FACE ahead of them. The gantry panel is a large readable rectangle in the upper midground AHEAD of both vehicles, not a thin bar, not a blank gray back. Cars travel AWAY from the camera. Rear of the period sedan is nearest the camera on the LEFT of the frame; rear of the pink Beetle is farther, on the RIGHT of the frame, toward the gantry. Not a cockpit. Not an interior rearview. Not looking back at headlights. Not camera past the gantry.
+
+GANTRY (scenery, not the lesson): One overhead panel spans the three eastbound lanes AHEAD of both cars. The west FACE is toward the camera. White rectangular regulatory panel. Three lines of letters with spaces between words, exactly: KEEP RIGHT / EXCEPT TO / PASS. No smashed words. No I-90 shield, no route numbers, no exit numbers. Exactly one sign face. Never the blank gray back.
+
+ROAD / SUBJECT (stated once): Three wet eastbound travel lanes. Concrete Jersey barrier on the LEFT of the FRAME (median). A bright solid yellow left-edge line runs against that Jersey — high contrast, yellow not white, not faded into wet asphalt. White skip-dash separates the three same-direction lanes. No yellow paint between those three lanes.
+
+On the RIGHT side of the frame: faded-pink VW Beetle in the rightmost travel lane (lane 3), traveling away. The Beetle has already finished the pass and is recovering into that right travel lane. The amber turn signal on the right of the Beetle's rear is lit. Stock chrome rear bumper, no rear plow.
+
+On the LEFT side of the frame: one ordinary period sedan in the leftmost travel lane (lane 1), traveling away, about one vehicle length closer to the camera than the Beetle. The sedan uses the left. Middle lane empty wet asphalt. Clear wet asphalt ahead of both cars. No other vehicles.
+
+The read: the Beetle has finished the pass and is recovering into the right travel lane with the right signal on; the sedan uses the left; the middle is empty wet asphalt. Muted-text test: if every caption and UI label were hidden, those facts must still be the first thing the eye reads.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. United States road configuration, traffic drives on the right. The pink vehicle is traveling away from the camera. The roadway has 3 lanes in this direction. The pink vehicle occupies lane 3, the rightmost. Its front — identified by the black tube bull bar and wide flat plow blade — is the far leading end, pointing toward the gantry and the top of the frame. Any oncoming traffic is none in frame. No vehicle faces the wrong way in its lane. Period sedan occupies lane 1 and is behind the Beetle by 1 vehicle length. Traffic signs are single-faced. The one sign in frame is the gantry legend facing the camera.
+
+The solid yellow left-edge line is anchored to the concrete Jersey median barrier on the left of the frame, not to a compass direction. The Beetle occupies the rightmost of the three eastbound lanes, two lanes right of the yellow edge.
+
+Ego vehicle: a classic VW Beetle, unmistakably a Beetle in silhouette — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. All four of the following must be clearly visible and unmistakable: welded steel mesh cages over the windows, a black tube bull bar carrying a wide flat plow blade at the front, riveted raw-steel plating over the door on the left side of the vehicle and the rear quarter panel, and oversize knobby tires on chrome slot wheels. Use ref_car_exterior.jpg for Beetle silhouette and build only; never carry its salt-flat sunset. Nose plow: match the attached live take-8 plate ref_car_nose_plow.png. The plow is one continuous flat blade spanning the entire nose on the black-tube bull bar, in front of both front tires, clean flanks, no side outrigger. Do not put a black tube bar or plow across the REAR — the rear is the stock short Beetle bumper plus horizontal engine-lid louvers. Other traffic is one ordinary period sedan, desaturated gray or primer, factory door mirrors only. No second Volkswagen Beetle, no second pink car, no plow on the sedan. Rain midday, wet asphalt, valley highway, concrete median, no snow.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No stick figures, no vector icons, no infographic, no textbook schematic, no flat cartoon cars, no board-game tokens, no UI overlay, no floating arrows that are not painted on the pavement. No captions, no watermarks. No two vehicles in the same lane facing each other. No gore, no crowds, no firearms. This is a photograph. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. No vehicle on the right passing a vehicle on the left. No vehicle passes on the right. no merge paint. no on-ramp. no tractor-trailer. no semi alongside. no snow. no clipboard in the glass. no second occupant. no route numbers. no exit numbers. no cooler. no sedan only as windshield traffic. no interior rearview. no second pink vehicle. no cockpit wheel filling the frame. no two-lane road. no four-lane road. no Beetle in the left travel lane. no Beetle in the middle lane. no sedan in the right travel lane. no sedan in the middle lane. no both vehicles stacked in the leftmost lane. no mid-overtake freeze with the Beetle occupying the left. no white left-edge line against the median. no yellow centerline between the three eastbound lanes. no double yellow between same-direction lanes. no rear plow. no blank gray gantry back as the only panel. no text invented on the back of the panel. no camera past the gantry looking at the back. no headlights toward camera. Aspect ratio 2:3.
+
+# Pool: take-41..take-56 teach-correct POST-PASS recover-right.
+# Winner (Claude): take-47 (stronger teaching frame for post-pass recover-right).
+# Runner: take-50 (same class; also PASS — do not seed).
+# Same-class backup: 53, 54, 48, 46.
+# Discard: 41/45/55 Beetle in the middle (wrong answer C); 52 rear plow;
+# 49/51 black digital gantry. Take 34/40 remain FAIL — do not pick as PASS.
+# Residual: most recover-right takes read as two travel lanes (model puts the
+# Beetle in the middle when forced to three). Gantry letters still smashed
+# (EXCEPTTO / PASSS) — scenery, not the lesson. Right signal not a hard flash.
+# Seeded live: take-47 (Claude PASS muted-read d748b5d7 2026-09-12). Runner take-50 not seeded.
