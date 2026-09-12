@@ -4,15 +4,21 @@ Card JSON is the sole brief. Stills from each card's MOMENT (hook/scene), not th
 Continuity: **Gracie in latched strapped carrier on every card**; **Deac only on VI-013**.
 
 **Muted-read pack:** [`ACT_VI_WAVE1_MUTED_READ.md`](./ACT_VI_WAVE1_MUTED_READ.md).
+**Remainder map:** [`WAVE1_REMAINDER_MAP.md`](./WAVE1_REMAINDER_MAP.md).
 
 ## Seeded (Claude PASS)
 
 | Card | Live still | Source take | Notes |
 |---|---|---|---|
-| **VI-004** Off the Edge | `cards/VI-004.png` | **`VI-004-take-5.png`** | Claude PASS cockpit (hands on wheel; road left / grass shoulder right; motion blur verge; Gracie latched; analog cluster; no 112.0). Cache `?v=a79` → still live under `?v=a81`. **take-11 not seeded.** |
-| **VI-009** Look for the Others | `cards/VI-009.png` | **`VI-009-take-2.png`** | Claude PASS. Cache `?v=a78` → still live under `?v=a81`. |
-| **VI-011** Same Culvert | `cards/VI-011.png` | **`VI-011-take-12.png`** | Claude PASS (Cascades-west; curb-height profile; culvert lower third; lane position as choice; Gracie through rear side mesh). Cache `?v=a80` → still live under `?v=a81`. **take-13 FAIL not seeded.** |
-| **VI-013** The Clipboard, Again | `cards/VI-013.png` | **`VI-013-take-16.png`** | Claude PASS HANDOFF (clipboard toward Ali; ruled sheet no readable words; glasses on cord; Gracie latched; Cascades-west). Cache `?v=a81`. **take-17 NOT seeded.** |
+| **VI-004** Off the Edge | `cards/VI-004.png` | **`VI-004-take-5.png`** | Claude PASS cockpit (hands on wheel; road left / grass shoulder right; motion blur verge; Gracie latched; analog cluster; no 112.0). Cache `?v=a79` → still live under `?v=a82`. **take-11 not seeded.** |
+| **VI-009** Look for the Others | `cards/VI-009.png` | **`VI-009-take-2.png`** | Claude PASS. Cache `?v=a78` → still live under `?v=a82`. |
+| **VI-011** Same Culvert | `cards/VI-011.png` | **`VI-011-take-12.png`** | Claude PASS (Cascades-west; curb-height profile; culvert lower third; lane position as choice; Gracie through rear side mesh). Cache `?v=a80` → still live under `?v=a82`. **take-13 FAIL not seeded.** |
+| **VI-013** The Clipboard, Again | `cards/VI-013.png` | **`VI-013-take-16.png`** | Claude PASS HANDOFF (clipboard toward Ali; ruled sheet no readable words; glasses on cord; Gracie latched; Cascades-west). Cache `?v=a81` → still live under `?v=a82`. **take-17 NOT seeded.** |
+| **VI-001** Where the Blacktop Quits | `cards/VI-001.png` | **`VI-001-take-6.png`** | Claude PASS Cascades-west blacktop→gravel / pass notch. Cache `?v=a82`. |
+| **VI-002** Loose Under You | `cards/VI-002.png` | **`VI-002-take-6.png`** | Claude PASS washboard (NOT take-8 FAIL 112.0). Cache `?v=a82`. |
+| **VI-003** The Pile at the Edge | `cards/VI-003.png` | **`VI-003-take-7.png`** | Claude PASS gravel pile (NOT take-9 hood carrier FAIL). Cache `?v=a82`. |
+| **VI-005** Wide and Slow | `cards/VI-005.png` | **`VI-005-take-7.png`** | Claude PASS SMV grain truck (NOT take-8 FAIL 112.0). Cache `?v=a82`. |
+| **VI-006** Nobody's In Charge Here | `cards/VI-006.png` | **`VI-006-take-6.png`** | Claude PASS uncontrolled cross (NOT take-7 parked pickup FAIL). Cache `?v=a82`. |
 
 ## Not seeded / banked
 
@@ -20,6 +26,11 @@ Continuity: **Gracie in latched strapped carrier on every card**; **Deac only on
 |---|---|
 | VI-013 take-17 | Runner — **not seeded** (take-16 PASS only). |
 | VI-013 take-2 | Prior cast-FAIL HOLD — **not promoted**. |
+| VI-002 take-8 | FAIL 112.0 — **not seeded**. |
+| VI-003 take-9 | Hood carrier FAIL — **not seeded**. |
+| VI-005 take-8 | FAIL 112.0 — **not seeded**. |
+| VI-006 take-7 | Parked pickup FAIL — **not seeded**. |
+| VI-007 / 008 / 010 / 012 | Pack2 — **not seeded**. |
 
 Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes as `cards/takes/` where present).
 
@@ -31,17 +42,17 @@ Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes 
 | VI-009 | Look for the Others | POV_COCKPIT | take-1…2 (**seeded take-2**) |
 | VI-011 | Same Culvert | POV_ROADSIDE_PROFILE | take-1…2 bank + **take-12 seeded**; take-13 FAIL not promoted (regen on #210) |
 | VI-013 | The Clipboard, Again | POV_COCKPIT | take-1…3 bank + handoff takes 11–18 on #216; **take-16 seeded**; take-17 runner not seeded |
-| VI-001 | Where the Blacktop Quits | POV_COCKPIT | take-1…2 |
-| VI-012 | Crossbuck and Nothing Else | POV_COCKPIT | take-1…2 |
-| VI-005 | Wide and Slow | POV_COCKPIT | take-1…2 |
-| VI-002 | Loose Under You | POV_COCKPIT | take-1…2 |
-| VI-003 | The Pile at the Edge | POV_COCKPIT | take-1…2 |
-| VI-006 | Nobody's In Charge Here | POV_COCKPIT | take-1…2 |
-| VI-007 | Five Easy Steps | POV_COCKPIT | take-1…2 |
-| VI-008 | Pick Your Lane Before the Circle | POV_COCKPIT | take-1…2 |
-| VI-010 | Over the Top | POV_COCKPIT | take-1…2 |
+| VI-001 | Where the Blacktop Quits | POV_COCKPIT | take-1…2 bank + **take-6 seeded** (from #217) |
+| VI-002 | Loose Under You | POV_COCKPIT | take-1…2 bank + **take-6 seeded** (NOT take-8; from #217) |
+| VI-003 | The Pile at the Edge | POV_COCKPIT | take-1…2 bank + **take-7 seeded** (NOT take-9; from #217) |
+| VI-005 | Wide and Slow | POV_COCKPIT | take-1…2 bank + **take-7 seeded** (NOT take-8; from #217) |
+| VI-006 | Nobody's In Charge Here | POV_COCKPIT | take-1…2 bank + **take-6 seeded** (NOT take-7; from #217) |
+| VI-012 | Crossbuck and Nothing Else | POV_COCKPIT | take-1…2 bank + Cascades takes on #217 — **not seeded** |
+| VI-007 | Five Easy Steps | POV_COCKPIT | take-1…2 bank + Cascades takes on #217 — **not seeded** |
+| VI-008 | Pick Your Lane Before the Circle | POV_COCKPIT | take-1…2 bank + Cascades takes on #217 — **not seeded** |
+| VI-010 | Over the Top | POV_COCKPIT | take-1…2 bank + Cascades takes on #217 — **not seeded** |
 
-All under `cards/takes/VI-*-take-N.png` (this branch carries VI-004-take-5 + VI-011-take-12 from regen #210 + VI-013-take-16 from #216; take-17 and other takes remain on source PRs).
+All under `cards/takes/VI-*-take-N.png` (this branch carries pack1 PASS takes from #217 + prior seeded stills; pack2 takes remain on source PR).
 
 ## Brief locks
 
@@ -49,6 +60,7 @@ All under `cards/takes/VI-*-take-N.png` (this branch carries VI-004-take-5 + VI-
 - Deac / `deac_clipboard` only on **VI-013**; other cards negate Deac / second person / clipboard passenger.
 - **VI-004** live brief is `POV_COCKPIT` mid-event (from #210 rewrite); exterior profile brief superseded.
 - **VI-011** live brief is earn-the-lane Cascades-west curb-height profile + carrier through rear side mesh (from #210 rewrite).
+- Pack1 VI-001/002/003/005/006 live briefs are Cascades-west remainder locks from #217.
 
 ## Continuity locks (Claude)
 
@@ -57,7 +69,9 @@ All under `cards/takes/VI-*-take-N.png` (this branch carries VI-004-take-5 + VI-
 
 ## TODO
 
-- Formal Claude muted-read for remainder cards (PASS before seed).
+- Formal Claude muted-read for pack2 (007/008/010/012) before seed.
+- Pack1 VI-001/002/003/005/006 Claude PASS **seeded**.
 - Do **not** seed VI-013-take-17. Do **not** reseed cast-FAIL take-2.
 - Do **not** seed VI-011-take-13. Do **not** seed VI-004-take-11.
+- Do **not** seed FAIL takes (002-8 / 003-9 / 005-8 / 006-7).
 - No Act VII.

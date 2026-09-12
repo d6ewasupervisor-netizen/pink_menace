@@ -1,6 +1,6 @@
 # Act VI Backcountry — wave-1 muted-read pack
 
-**Muted-read.** **VI-004 take-5** is **seeded** (Claude PASS cockpit). **VI-011 take-12** is **seeded** (Claude PASS Cascades-west culvert profile). VI-009 take-2 is **seeded** (Claude PASS). **VI-013 take-16** is **seeded** (Claude PASS HANDOFF). Do **not** seed VI-013-take-17. Do **not** seed VI-011-take-13. Do **not** seed VI-004-take-11. No Act VII.
+**Muted-read.** **VI-004 take-5** is **seeded** (Claude PASS cockpit). **VI-011 take-12** is **seeded** (Claude PASS Cascades-west culvert profile). VI-009 take-2 is **seeded** (Claude PASS). **VI-013 take-16** is **seeded** (Claude PASS HANDOFF). Pack1 **VI-001/002/003/005/006** Claude PASS **seeded**. Do **not** seed VI-013-take-17. Do **not** seed VI-011-take-13. Do **not** seed VI-004-take-11. Do **not** seed 007/008/010/012. No Act VII.
 
 Map: [`WAVE1_MAP.md`](./WAVE1_MAP.md). Card JSON is the sole brief. All take paths under `cards/takes/`.
 
@@ -26,25 +26,30 @@ Priority stills also staged at `artifacts/act-vi-wave1-priority/` (same bytes as
 | **VI-011** | Same Culvert | **take-12 seeded** (PASS) | `VI-011-take-12.png` (+ bank 1–2; take-13 FAIL on #210) | Claude PASS: Cascades-west, curb-height profile, culvert lower third, lane position as choice, Gracie through rear side mesh. Car reads stationary — accepted. `POV_ROADSIDE_PROFILE`. **take-13 FAIL not seeded.** |
 | **VI-013** | The Clipboard, Again | **take-16 seeded** (HANDOFF PASS) | `VI-013-take-16.png` (+ bank 1–3; handoff 11–18 on #216) | Claude PASS: Deac turning clipboard toward Ali; sheet ruled lines no readable words; glasses on cord; Gracie latched between them; Cascades-west. Composition note OK. `POV_COCKPIT`. **take-17 NOT seeded.** |
 
-Closest: VI-004→take-5 (**seeded**), VI-009→take-2 (seeded), VI-011→take-12 (**seeded**), VI-013→take-16 (**seeded**).
+Closest: VI-004→take-5 (**seeded**), VI-009→take-2 (seeded), VI-011→take-12 (**seeded**), VI-013→take-16 (**seeded**), VI-001→take-6 / VI-002→take-6 / VI-003→take-7 / VI-005→take-7 / VI-006→take-6 (**seeded**).
 
 ---
 
-## Remainder (2 takes each)
+## Pack1 seeded (Claude PASS)
+
+| Card | Title | Seeded | NOT seeded |
+|---|---|---|---|
+| VI-001 | Where the Blacktop Quits | **take-6** | — |
+| VI-002 | Loose Under You | **take-6** | take-8 FAIL 112.0 |
+| VI-003 | The Pile at the Edge | **take-7** | take-9 hood carrier FAIL |
+| VI-005 | Wide and Slow | **take-7** | take-8 FAIL 112.0 |
+| VI-006 | Nobody's In Charge Here | **take-6** | take-7 parked pickup FAIL |
+
+## Pack2 remainder — not seeded
 
 | Card | Title | Takes |
 |---|---|---|
-| VI-001 | Where the Blacktop Quits | `VI-001-take-1.png` `VI-001-take-2.png` |
-| VI-002 | Loose Under You | `VI-002-take-1.png` `VI-002-take-2.png` |
-| VI-003 | The Pile at the Edge | `VI-003-take-1.png` `VI-003-take-2.png` |
-| VI-005 | Wide and Slow | `VI-005-take-1.png` `VI-005-take-2.png` |
-| VI-006 | Nobody's In Charge Here | `VI-006-take-1.png` `VI-006-take-2.png` |
-| VI-007 | Five Easy Steps | `VI-007-take-1.png` `VI-007-take-2.png` |
-| VI-008 | Pick Your Lane Before the Circle | `VI-008-take-1.png` `VI-008-take-2.png` |
-| VI-010 | Over the Top | `VI-010-take-1.png` `VI-010-take-2.png` |
-| VI-012 | Crossbuck and Nothing Else | `VI-012-take-1.png` `VI-012-take-2.png` |
+| VI-007 | Five Easy Steps | banked on #217 — **not seeded** |
+| VI-008 | Pick Your Lane Before the Circle | banked on #217 — **not seeded** |
+| VI-010 | Over the Top | banked on #217 — **not seeded** |
+| VI-012 | Crossbuck and Nothing Else | banked on #217 — **not seeded** |
 
-**Inventory:** wave-1 takes on this branch + `VI-004-take-5.png` + `VI-011-take-12.png` from regen #210 + `VI-013-take-16.png` from #216. take-17 and other takes remain on source PRs.
+**Inventory:** pack1 PASS takes on this branch + `VI-004-take-5.png` + `VI-011-take-12.png` from regen #210 + `VI-013-take-16.png` from #216. Pack2 takes remain on #217.
 
 ---
 

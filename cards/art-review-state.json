@@ -198,6 +198,36 @@
       "note": "Claude PASS take-12: Cascades-west, curb-height profile, culvert lower third, lane position as choice, Gracie through rear side mesh. Car reads stationary but not worth another round. take-13 FAIL (gravel pull-out / old-growth; culvert hard to see; road not lane-legible). Seeded live. take-13 not seeded.",
       "pick": "take-12",
       "updated_at": "2026-09-12T23:12:00.000Z"
+    },
+    "VI-001": {
+      "tag": "PASS",
+      "note": "Claude PASS take-6 Cascades-west blacktop\u2192gravel / pass notch; full-grid cage; carrier latched; dark dash; no 112. Seeded live.",
+      "pick": "take-6",
+      "updated_at": "2026-09-12T23:55:32.000Z"
+    },
+    "VI-002": {
+      "tag": "PASS",
+      "note": "Claude PASS take-6 Cascades-west washboard; runner beats Cursor closest take-8 (FAIL 112.0). Seeded live. take-8 NOT seeded.",
+      "pick": "take-6",
+      "updated_at": "2026-09-12T23:55:32.000Z"
+    },
+    "VI-003": {
+      "tag": "PASS",
+      "note": "Claude PASS take-7 Cascades-west gravel pile/windrow; runner beats Cursor closest take-9 (hood carrier FAIL). Seeded live. take-9 NOT seeded.",
+      "pick": "take-7",
+      "updated_at": "2026-09-12T23:55:32.000Z"
+    },
+    "VI-005": {
+      "tag": "PASS",
+      "note": "Claude PASS take-7 Cascades-west SMV grain truck; take-8 FAIL 112.0 not seeded. Seeded live.",
+      "pick": "take-7",
+      "updated_at": "2026-09-12T23:55:32.000Z"
+    },
+    "VI-006": {
+      "tag": "PASS",
+      "note": "Claude PASS take-6 Cascades-west uncontrolled cross + pickup from right; runner beats Cursor closest take-7 (parked pickup FAIL). Seeded live. take-7 NOT seeded.",
+      "pick": "take-6",
+      "updated_at": "2026-09-12T23:55:32.000Z"
     }
   }
 }
