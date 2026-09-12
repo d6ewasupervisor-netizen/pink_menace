@@ -18,11 +18,12 @@ Never mix panels across takes. Winners only.
 | Convoy silhouette | G1 take 2 | `ref_convoy.png` | Round / box / wedge reads at a glance. Only take that kept Encore's PA horns; 1, 3, 4 turned them into spotlights. Overcast PNW, no salt-flat bleed. |
 | II-007 card art | take 2 | `../cards/II-007.png` | Amber lamps lit; enough pavement that the open left lane reads. Invented fallen tree is compiler drift — do not carry into later Kent cards. Takes 3–4 lit the reds/brakes and are unusable. |
 | Ledger cockpit | D4 take 2 | `ref_ledger_cockpit.png` | Locked from `cards/takes/D4-take-2.png` (1 Sep 2026). Match this cab: worn three-spoke wheel, analog cluster, bar cage, thermos in the right cup, no clipboard on the mesh. Never the old poisoned cockpit. Never a Menace ref on Deac cards. |
+| Pink Menace cabin | take 16 (human-verified) | `ref_menace_cabin.png` | Tyson deferred a new plate pick (skipped). Proceed with PR #75 / PR #73 take 16. Claude muted-read PASS 2026-09-11. Promoted bytes: `sha256:3576270ee32f8759060cf63cfdf7a74e4ed32308f3907696bce0de4ef24c5a46`. Flat painted-metal period dash (no screen bay); single nacelle; unbranded wheel; coarse panel mesh. **Menace = manual, floor shifter, three pedals.** **`ref_cockpit.jpg` is locked out** of every Menace interior compile (tablet / 112.0-class digital gauge / desert GPS). Ban digital 112.0-class readouts. |
 | Encore cockpit | Y4 b-take-2 | `ref_encore_cockpit.png` | Locked from PR #113 `cards/takes/Y4-cockpit-rerun-b-take-2.png` (Claude muted-read PASS 12 Sep 2026). Match this cab: moulded dash intact, handheld mic on the right cage tube at take-1 height, two pedals (wide brake + narrow accel), empty floor left of brake, no clutch, no floor shifter. Y4 take 1 (`85bd45ee`, stripped tub) is superseded — not in the generator pool. b-take-1 FAIL (tighter footwell crop only) stays in the takes pool on PR #113; do not promote or attach. |
 | The Quiet — register lock | A3 take 3 | `ref_quiet.png` | Attach on every Quiet compile. Filthy, slack-shouldered, head canted, doing nothing, seen through dirty glass. Wrongness of posture and stillness — not damage. Same file as `ref_quiet_a3.png`. |
 | Quiet plates | probe keeps | `ref_quiet_a1.png` `ref_quiet_a2.png` `ref_quiet_a3.png` `ref_quiet_a4.png` `ref_quiet_a5.png` | A1 take 3 still, facing away. A2 take 1 head tilt. A3 take 3 the register. A4 take 1 lot, spread, not converging. A5 take 3 the lunge — near-legible, once in the game. A1, A2, A4 are reference, not card art. |
 | Gracie studio portrait | appearance lock | `ref_gracie.jpg` | **Appearance authority for Gracie.** Orange/ginger tabby, pink nose, amber eyes, cream chest. Studio wins over any in-carrier grate crop. |
-| Mya studio portrait | appearance lock | `ref_mya.jpg` | **Appearance authority for Mya.** Brown mackerel tabby, dark nose, green eyes, hard-striped forehead, heavier. Studio wins over any in-carrier grate crop. |
+| Mya studio portrait | appearance lock | `ref_mya.jpg` | **Appearance authority for Mya.** Brown mackerel tabby, dark nose, green eyes, hard-striped forehead, heavier. Studio plate has **no collar**. Do not invent a pink / cranberry pet collar. Studio wins over any in-carrier grate crop. |
 | Cat in-carrier — ginger | IV-028 take 70 crop | `ref_cat_ginger.png` | In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Gracie. Attach **alongside** `ref_gracie.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. |
 | Cat in-carrier — mackerel | IV-028 take 70 crop | `ref_cat_mackerel.png` | In-carrier framing only (PR #117 / #118). Wire grate baked into the plate. Coat = Mya. Attach **alongside** `ref_mya.jpg`, never instead. Studio wins if they disagree. Do not attach on out-of-carrier frames. |
 
@@ -39,6 +40,28 @@ Out of the reference pool (winners only):
 - PR #120 take 2 / `ref_car_nose_plow_candidate_runnerup.png` — **FAIL**. Do not attach.
 - Old take-5 live plate (PR #69) — superseded. Do not attach those bytes.
 - `refs/diag_nose_plow_front.png` (PR #116) — diagnostic only. Not a lock. Not a compile attachment. Do not promote.
+
+## Pink Menace cabin — authority (take 16)
+
+**Live plate:** `refs/ref_menace_cabin.png` — exact bytes of PR #73 candidate take 16. Claude muted-read PASS 2026-09-11. `pink_menace_interior` attaches this file only.
+
+Pinned cabin (card JSON still wins on a named needle):
+
+- Flat painted-metal period dash — continuous Type 1 shelf, no screen bay
+- Single instrument nacelle (default: angled away, no glyphs)
+- Unbranded wheel — no VW roundel
+- Manual floor shifter, ball knob, three pedals
+- Coarse Menace panel mesh — not Encore’s fine full-windshield grid
+
+**Encore (adjacent, not a contradiction):** automatic, two pedals, no clutch. Already locked via `ref_encore_cockpit.png` (Y4 b-take-2). Do not read Menace pedal count from the Encore plate.
+
+**Locked out of every Menace interior compile** (hard deny in `scripts/resolve-refs.js` plus `pack/09_REF_MAP.json` `banned`):
+
+- `refs/ref_cockpit.jpg` — poisoned tablet / digital 112.0-class gauge / desert GPS. Do not attach. Do not match.
+
+**Gauge lock:** no digital 112.0-class readouts on Menace cockpit stills. Default nacelle angled away (no glyphs). One period-correct analog dial only when the card brief names a needle.
+
+**Cat collar lock:** Mya follows `ref_mya.jpg` only — that plate has no collar. A “faded pink collar” in a Menace portrait is Ali’s hoodie, never a pet collar.
 
 ## Cat identity plates — studio wins, in-carrier only (PR #118)
 

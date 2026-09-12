@@ -61,6 +61,15 @@ const LHD =
 const NEGATIVE =
   "No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel.";
 
+const MENACE_CABIN_BUILD =
+  "Menace cabin, positive layout: a flat painted-metal dash of the period — one continuous Type 1 shelf with no recess, no tablet bay, no rectangle that could hold a screen. A single instrument nacelle, one housing only. An unbranded wheel — worn leather, plain hub, no logo, no VW roundel. A manual floor shifter with a ball knob on the tunnel. Three pedals: clutch, brake, accelerator. Coarse Menace panel mesh over the glass — thick welded panels, large openings — not Encore's fine full-windshield grid, not a flyscreen. Default: the single nacelle is angled away from the camera so no glyphs render. Only when the card brief names a readable needle or cluster-at-0, show that one period-correct dial.";
+
+const MENACE_CABIN_NEGATIVES =
+  "No rectangular touchscreen, no tablet, no infotainment, no GPS, no navigation screen, no glass panel in the dash, no dash cutout for a screen, no VW roundel, no Volkswagen logo on the wheel, no emblem on the hub, no three-gauge modern cluster, no invented gauge numerals, no GPS text, no digital speedometer, no LED cluster, no LCD odometer, no 112.0 readout, no 112-class digital gauge, no fine full-windshield flyscreen grid, no two-pedal automatic box, no missing clutch on a Menace cabin. Never attach or match refs/ref_cockpit.jpg.";
+
+const CAT_PLATE_NEGATIVES =
+  "Cats match the attached studio plate only. No pink collar on a cat, no cranberry collar, no faded pink pet collar, no invented tagged collar. Mya follows ref_mya.jpg — that plate has no collar; do not add one. Gracie follows ref_gracie.jpg only.";
+
 const QUIET_REGISTER =
   "Match the attached Quiet plate for register only — wrongness of posture and stillness, not damage, not a wound. Filthy torn everyday clothing, slack shoulders, a canted or tilted head, standing or moving as if doing nothing. Distance and glass are their whole grammar. They never fill the frame, never appear in a side-window close-up, never make eye contact. Write them farther than the shot needs: thirty feet renders at ten to fifteen, sixty at thirty to forty. If a face must die, obscure it with motion or distance only. Near-legibility is allowed on a lunge; a fully destroyed face is duller. Do not name them as diseased.";
 
@@ -179,11 +188,22 @@ function assemblePrompt(card) {
       `${card.card_id}: POV_MIRROR_REAR is illegal on the Ledger — no rear window, no interior mirror; use POV_MIRROR_DOOR`
     );
   }
+  const continuity = brief.continuity || [];
+  const menaceCabin =
+    card.driver === "ali" &&
+    (continuity.includes("pink_menace_interior") ||
+      cam === "POV_COCKPIT" ||
+      cam === "POV_MIRROR_REAR");
+
   let framing = FRAMING[cam];
   if (deac && cam === "POV_COCKPIT") framing = FRAMING.POV_COCKPIT_LEDGER;
   if (deac && cam === "POV_DIAGRAM") framing = FRAMING.POV_DIAGRAM_LEDGER;
   if (deac && cam === "POV_OBJECT" && (brief.continuity || []).includes("hov_geometry")) {
     framing = FRAMING.POV_COCKPIT_LEDGER;
+  }
+  if (menaceCabin && cam === "POV_COCKPIT") {
+    framing =
+      "Camera is inside the cabin, over the wheel, looking forward through the windshield. Welded steel mesh across the top of the glass, road through the grid. Do not fill the lower left with a modern gauge cluster.";
   }
   if (typeof brief.camera_pose === "string" && brief.camera_pose.trim()) {
     framing = brief.camera_pose.trim();
@@ -216,9 +236,8 @@ function assemblePrompt(card) {
     parts.push(otherVehicleClauseLedger(card));
   }
 
-  const continuityEarly = (brief.continuity || []);
   const quietNamed =
-    continuityEarly.includes("the_quiet") ||
+    continuity.includes("the_quiet") ||
     /\bthe Quiet\b/.test(
       [brief.subject, brief.foreground, brief.midground, brief.background, brief.read]
         .filter(Boolean)
@@ -235,6 +254,10 @@ function assemblePrompt(card) {
         );
     }
     parts.push(register);
+  }
+
+  if (menaceCabin) {
+    parts.push(MENACE_CABIN_BUILD);
   }
 
   if (brief.subject) parts.push(brief.subject.replace(/\.*$/, "."));
@@ -295,13 +318,18 @@ function assemblePrompt(card) {
   if (cam === "POV_ROADSIDE_PROFILE") negs.push(PROFILE_NEGATIVE);
   if (cam === "POV_CHASE") negs.push(CHASE_NEGATIVE);
   if (cam === "POV_MIRROR_REAR" || cam === "POV_MIRROR_DOOR") negs.push(MIRROR_NEGATIVES);
-  const continuity = (brief.continuity || []);
   if (quietNamed) negs.push(QUIET_NEGATIVE);
   if (cam === "POV_MIRROR_DOOR" && continuity.includes("dutch_reach")) {
     negs.push(DUTCH_REACH_NEGATIVES);
   }
   if (Array.isArray(brief.extra_negatives) && brief.extra_negatives.length) {
     negs.push(brief.extra_negatives.join(". ") + ".");
+  }
+  if (menaceCabin) {
+    negs.push(MENACE_CABIN_NEGATIVES);
+  }
+  if (continuity.includes("mya") || continuity.includes("gracie")) {
+    negs.push(CAT_PLATE_NEGATIVES);
   }
   if (deac && LEDGER_INCAB.has(cam)) {
     negs.push(LEDGER_CLIPBOARD_NEGATIVES);
@@ -321,4 +349,14 @@ function assemblePrompt(card) {
   return parts.join(" ");
 }
 
-module.exports = { assemblePrompt, FRAMING, MASTER_STYLE, DIAGRAM_STYLE, LHD, OTHER_VEHICLE_CLAUSE_LEDGER };
+module.exports = {
+  assemblePrompt,
+  FRAMING,
+  MASTER_STYLE,
+  DIAGRAM_STYLE,
+  LHD,
+  OTHER_VEHICLE_CLAUSE_LEDGER,
+  MENACE_CABIN_BUILD,
+  MENACE_CABIN_NEGATIVES,
+  CAT_PLATE_NEGATIVES,
+};

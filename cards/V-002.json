@@ -21,7 +21,7 @@
   "image_brief": {
     "camera": "POV_PORTRAIT",
     "subject": "Ali chest-up in the parked Menace, glasses, mesh behind her, no second occupant; Mya a brown mackerel loaf on the dash",
-    "foreground": "faded pink collar, clipboard edge on her thigh, Mya loafed on the still dash",
+    "foreground": "Ali's faded pink hoodie collar, clipboard edge on her thigh, Mya loafed on the still dash — Mya matches ref_mya.jpg, no collar on the cat",
     "midground": "welded mesh and still wipers, no motion in the glass",
     "background": "overcast midday shoulder, I-5 ramps soft and distant, no snow, no night",
     "read": "Ali is parked alone; wheels still; Mya is a loaf on the dash because the wheels are not turning",
@@ -38,7 +38,9 @@
       "no flatbed",
       "no fuel drums",
       "no trailer hitch",
-      "no antenna mounted as a new roof mark"
+      "no antenna mounted as a new roof mark",
+      "no pink collar on the cat",
+      "no digital 112.0 gauge readout"
     ],
     "aspect": "2:3"
   },

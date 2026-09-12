@@ -3,7 +3,7 @@
     "ali": ["ref_ali2.png"],
     "ali_face": ["ref_ali2.png"],
     "pink_menace_exterior": ["ref_car_exterior.jpg"],
-    "pink_menace_interior": ["ref_cockpit.jpg"],
+    "pink_menace_interior": ["ref_menace_cabin.png"],
     "gracie": ["ref_gracie.jpg"],
     "mya": ["ref_mya.jpg"],
     "deac": ["ref_deac_sheet.png", "ref_deac.png"],
@@ -31,5 +31,6 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
+  "banned": ["ref_cockpit.jpg"],
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. pink_menace_interior attaches ref_menace_cabin.png only (PR #75 take 16; Tyson deferred a new pick). ref_cockpit.jpg is locked out — poisoned tablet / digital 112.0-class gauge. Menace = manual, floor shifter, three pedals. Encore = automatic, two pedals, no clutch. Mya follows ref_mya.jpg only (no pink collar)."
 }
