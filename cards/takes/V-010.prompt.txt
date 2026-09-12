@@ -5,4 +5,4 @@ Menace rear: tubular bar / mesh only. No flat rack, no cargo platform. Match V-0
 Tool aspect 3:4 (seed encodes 2:3). Attachments: ref_car_exterior.jpg, ref_car_nose_plow.png. Ban ref_diagram_style.png (wing residual). Ban ref_cockpit.jpg.
 
 Pool: take-7..take-14 tubular-bar regen. Closest take-10. Runner take-9.
-Do not seed.
+Seeded live: take-10. Do not seed take-9.
