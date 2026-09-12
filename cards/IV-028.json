@@ -5,30 +5,30 @@
   "driver": "ali",
   "card_type": "dossier",
   "title": "Both in the Carrier",
-  "hook": "Both cats are boxed. The street ahead is ordinary.",
-  "scene": "Overcast midday on an ordinary two-lane downtown street. The Menace is rolling in the right travel lane. The hard-sided carrier sits CLOSE on the true floor to the right of the tunnel — not on the seat, not on the dash. The door latch is shut and readable. A webbing strap wraps the box and ties to the seat post. Gracie and Mya are both inside — orange tabby with a cream chest, brown mackerel with a dark dorsal stripe — both faces at the grate. Ahead through the mesh the street is ordinary: wet asphalt, brick storefronts, no one in the paint. The cats are cargo. Nobody names the lot.",
-  "debrief": "Both cats ride in a closed, strapped carrier. The street stays ordinary because the load stayed on the floor.",
+  "hook": "Both cats are boxed. A person is in the crosswalk.",
+  "scene": "Overcast midday on a two-lane downtown street. The Menace is rolling in the right travel lane. The carrier sits CLOSE on the true floor right of the tunnel — not on the seat, not on the dash. The box is olive-drab or charcoal, contrasting the faded-pink dash. The door latch is shut and readable. A webbing strap wraps the body of the box and ties to the seat post. Gracie and Mya are both inside — orange with a cream chest, brown with a dark stripe — both faces at the grate. Ahead through the mesh a person in a dark coat is already mid-crossing the marked crosswalk in this lane, one shoe on the white bars. The cats are cargo. The person in the paint is the decision.",
+  "debrief": "Animals ride in a closed, strapped carrier on the floor. The person in the crosswalk is the decision you can see because the load stayed down.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Mya beat: both cats boxed in a closed strapped carrier; ordinary street ahead; nobody names the lot."
+    "teaching_target": "Pets ride in a closed strapped carrier on the floor; a person already in the marked crosswalk stays visible ahead."
   },
   "cast": [
     "ali",
     "gracie",
     "mya"
   ],
-  "antagonist": "none",
+  "antagonist": "load",
   "callback_of": null,
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "camera_pose": "Camera is inside the Menace cabin, low and close to the passenger-floor carrier — not a wide over-the-wheel road shot, not a look down the pedal box. The closed hard-sided carrier fills the lower two-thirds: grate facing the lens, both cats' faces at the wire, door latch and seat-post strap large enough to read at phone size. Upper third is coarse Menace panel mesh and an ordinary downtown street through intact glass. Overcast midday daylight. Cabin matches the promoted Menace plate (flat painted dash, single nacelle, unbranded wheel, ball-knob floor shifter). Footwell, pedals, boots, shoes, and any hover are out of frame below. Do not attach a footwell plate, a brake-cover plate, or Encore Y4 glass as this cabin.",
-    "subject": "closed hard-sided carrier CLOSE on the true floor right of the tunnel; Gracie orange tabby cream chest and Mya brown mackerel dark stripe, both faces at the grate",
-    "foreground": "carrier door latch shut and readable; webbing strap around the box tied to the seat post, buckle visible; footwell cropped out of frame",
-    "midground": "Menace cabin: unbranded wheel, flat painted dash, single nacelle, ball-knob shifter, coarse panel mesh; ordinary downtown street through the glass",
-    "background": "overcast midday, wet two-lane downtown street, brick storefronts, empty travel lane, faint unused crosswalk bars as street paint only",
-    "read": "both cats' faces are at the grate of the closed strapped carrier; the strap and latch are readable; the street ahead is ordinary",
+    "camera_pose": "Camera is inside the Menace cabin, low and close to the passenger-floor carrier — not a wide over-the-wheel road shot, not a look down the pedal box. The closed hard-sided carrier fills the lower two-thirds: grate facing the lens, both cats' faces at the wire, door latch and seat-post body strap large enough to read at phone size. Upper third is coarse Menace panel mesh and, through intact glass, a high-contrast marked zebra crosswalk in this same lane with a person in a dark coat already mid-crossing in profile, one shoe on the white bars. Overcast midday daylight. Cabin matches the promoted Menace plate (flat painted dash, single nacelle, unbranded wheel, ball-knob floor shifter). Footwell, pedals, boots, shoes, and any hover are out of frame below. Do not attach a footwell plate, a brake-cover plate, or Encore Y4 glass as this cabin.",
+    "subject": "closed olive-drab or charcoal carrier CLOSE on the true floor right of the tunnel; Gracie orange tabby cream chest and Mya brown mackerel dark stripe, both faces at the grate",
+    "foreground": "carrier door latch shut and readable; webbing strap wraps the box body and ties to the seat post, buckle visible; footwell cropped out of frame",
+    "midground": "Menace cabin: unbranded wheel, flat painted dash, single nacelle, ball-knob shifter, coarse panel mesh; person in a dark coat mid-crossing marked bars",
+    "background": "overcast midday, wet two-lane downtown street, brick storefronts, marked zebra crosswalk in this lane, pedestrian already in the paint",
+    "read": "both cats' faces are at the grate of the closed strapped carrier on the true floor; a person in a dark coat is already mid-crossing the marked crosswalk ahead",
     "continuity": [
       "pink_menace_interior",
       "gracie",
@@ -40,11 +40,12 @@
       "no open carrier door",
       "no carrier on the dash",
       "no carrier on the seat or seat-base height",
+      "no pink carrier blending into the dash",
+      "no carrier color matching the faded-pink dash",
       "no parking-lot stall paint",
       "no empty lot through the glass",
-      "no person in a crosswalk",
-      "no pedestrian in the road",
-      "no marked-crosswalk hazard tableau",
+      "no empty travel lane with no person in the crosswalk",
+      "no empty street through the glass",
       "no second Beetle",
       "no pink car ahead through the glass",
       "no other vehicle in the travel lane",
@@ -66,9 +67,9 @@
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right travel lane of a two-lane downtown street",
-      "ego_nose_in_frame": "a thin plow sliver at the glass base or cropped; ordinary street through the mesh",
+      "ego_nose_in_frame": "a thin plow sliver at the glass base or cropped; marked crosswalk and mid-crossing pedestrian through the mesh",
       "oncoming_position": "none in frame",
-      "hazard_position": "none",
+      "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
     }
@@ -77,7 +78,7 @@
     "location_type": "downtown",
     "weather": "overcast",
     "time_of_day": "midday",
-    "tone": "quiet",
-    "failure_mode": "none"
+    "tone": "procedural",
+    "failure_mode": "distraction"
   }
 }
