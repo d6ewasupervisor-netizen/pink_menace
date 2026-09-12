@@ -531,7 +531,7 @@ else. No commentary. No alternatives.
 | Gracie | `ref_gracie.jpg` |
 | Mya | `ref_mya.jpg` |
 | Deac | `ref_deac_sheet.png`, `ref_deac.png` |
-| Yuna | `ref_yuna_sheet.png`, `ref_yuna.png` |
+| Yuna | `ref_yuna_sheet.png`, `ref_yuna.png` — verified 12 Sep 2026 (PLATES OK keep). Attach both on every face-critical Yuna compile. Do not regen plates. Eight takes (pack/12). |
 | The Ledger exterior | `ref_ledger_sheet.png` |
 | Ledger cockpit / Deac `POV_COCKPIT` | `ref_ledger_cockpit.png` (D4 retake: clipboard off the mesh, road visible through the cage) |
 | HOV / diamond-lane geometry (III-008) | `ref_hov_median_diamond.png` — real US freeway, diamond in the leftmost lane against the median. Compile PNW wet asphalt; negate gantries, green guide signs, palm trees, arid roadside. |
@@ -553,6 +553,7 @@ Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_coc
 Do not accept "close enough"; drift compounds across an act.
 
 - **Ali (face-critical only):** round wire-rim glasses · cranberry-red hair · braided at the crown · gold hoops · flat affect, not smiling
+- **Yuna (face-critical only):** attach both Yuna plates · face = plate / IV-010 take-7 · asymmetric chin-length bob · platinum under-layer · thin braid at her right temple · cropped black windbreaker with reflective piping · dead in-ears · eight takes
 - **Menace:** mesh cages · plow blade · riveted door plate · knobby tires on slot wheels
 - **Ledger:** box on van nose · big side mirrors both sides · amber destination sign · windshield bar cage
 - **Encore:** four horn flares (not spotlights) · chevron striping · glass present, no mesh

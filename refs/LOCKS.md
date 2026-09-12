@@ -11,8 +11,8 @@ Never mix panels across takes. Winners only.
 | Diagram language | style lock | `ref_diagram_style.png` | Optional. Overhead photoreal look. Ali diagrams attach `ref_car_exterior.jpg` for Beetle build. Deac diagrams attach `ref_ledger_sheet.png` and never a Menace ref. |
 | Deac turnaround | D1 take 2 | `ref_deac_sheet.png` | Glasses on cord in all three panels; vest taped at the shoulder. |
 | Deac portrait | D2 take 2 | `ref_deac.png` | Clipboard is the PSDP log; glasses on chest; amber vest only saturated color. |
-| Yuna turnaround | Y1 take 6 | `ref_yuna_sheet.png` | First four takes put the braid on her left. Take 6: braid at her right temple, right IEM in, left dangling, platinum under-layer. |
-| Yuna portrait | Y2 take 1 | `ref_yuna.png` | Right IEM in, left dangling; retroreflective piping flares; matches take-6 sheet. |
+| Yuna turnaround | Y1 take 6 | `ref_yuna_sheet.png` | First four takes put the braid on her left. Take 6: braid at her right temple, right IEM in, left dangling, platinum under-layer. **Re-verified 12 Sep 2026 vs canon + IV-010 take-7 — PLATES OK keep. Do not regen.** |
+| Yuna portrait | Y2 take 1 | `ref_yuna.png` | Right IEM in, left dangling; retroreflective piping flares; matches take-6 sheet. **Re-verified 12 Sep 2026 vs canon + IV-010 take-7 — PLATES OK keep. Do not regen.** |
 | Ledger four-view | D3 take 2 | `ref_ledger_sheet.png` | Oversize convex mirrors are the silhouette; amber destination sign with no readable text. |
 | Encore four-view | Y3 take 3 | `ref_encore_sheet.png` | Wedge + four roof horns + chevrons; no mesh. All four takes stripped the glass — bible wants glass with no mesh. Silhouette still reads. Rerun before cockpit lock if glass matters. |
 | Convoy silhouette | G1 take 2 | `ref_convoy.png` | Round / box / wedge reads at a glance. Only take that kept Encore's PA horns; 1, 3, 4 turned them into spotlights. Overcast PNW, no salt-flat bleed. |
@@ -50,3 +50,11 @@ Scope the grate plates to in-carrier frames only. Do **not** attach them to out-
 - **Gracie** = ginger → `ref_cat_ginger.png`
 
 Art regen is paused pending daughter feedback. Do not generate new stills from these plates until that pass.
+
+## Yuna plates — re-verified 12 Sep 2026 (PLATES OK keep)
+
+Live `ref_yuna.png` (Y2 take 1) and `ref_yuna_sheet.png` (Y1 take 6) are the original 3adfb3a lock bytes. They match bible §3.3 / pack/07 Y1–Y2 and the seeded IV-010 take-7 face (`cards/IV-010.png` = `cards/takes/IV-010-take-7.png` from `0ec0273`, sha256 `64cd6a2878ee5dc364bc10c528ee8b38bf82364ed5daf0849ac2bd462f3001c5`). Audit: `refs/YUNA_PLATE_REVERIFY.md`.
+
+**Do not regenerate these plates.** A new take that hits the costume checklist is not identity. Face-critical Yuna cards (`POV_PORTRAIT`, close `POV_ROADSIDE`) must attach both files (`pack/09` token `yuna`) and run **eight takes**, hand-curate one (pack/12). Send the eight for Claude muted-read. Do not promote without Claude.
+
+PR #130 IV-010 takes 11 / 9 are **FAIL** (identity drift vs this plate / take-7). Seeded take-7 **STANDS**. Next portrait work is a separate card-art PR — never bundle with a plate rewrite.
