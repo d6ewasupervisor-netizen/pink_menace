@@ -68,25 +68,29 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "both cats on the passenger seat — orange tabby Gracie with cream chest, brown mackerel Mya with a dark dorsal stripe — neither belted, no carrier in frame",
-    "foreground": "worn black wheel, faded pink dash, mesh over the windshield, cluster at 0",
-    "midground": "the two cats settled, neither on the dash, neither belted",
+    "subject": "the closed hard-shell carrier — clipped and latched — with both cats visible through the grille: orange tabby Gracie (cream chest) and brown mackerel Mya (dark dorsal stripe)",
+    "foreground": "worn black wheel, faded pink dash, mesh over the windshield, cluster at 0; carrier door latch and shell clips readable",
+    "midground": "carrier stowed as the secured load; both faces at the grille — neither cat loose on the seat, dash, or lap",
     "background": "ice, night, downtown curb through the mesh, Ledger gone from the glass",
-    "read": "both cats are on the seat; the speedometer reads 0",
+    "read": "both cats are inside a closed, clipped carrier; you can see them through the grille; the speedometer reads 0 — clip both, stow it, then roll (not the loose-on-seat violation)",
     "continuity": [
       "pink_menace_interior",
       "gracie",
       "mya"
     ],
     "extra_negatives": [
+      "no cats loose on the seat",
       "no cats on the dash",
       "no cat wearing a belt",
       "no obese Mya",
       "no cats on the lap",
       "no Quiet",
       "no Deac in frame",
-      "no carrier in frame",
-      "no open carrier"
+      "no open carrier",
+      "no unlatched or unclipped carrier",
+      "no empty carrier",
+      "no carrier with only one cat visible",
+      "no cats outside the carrier"
     ],
     "aspect": "2:3",
     "geometry": {
