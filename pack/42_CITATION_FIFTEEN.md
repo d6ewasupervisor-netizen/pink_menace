@@ -18,7 +18,7 @@ Guide bodies checked: `source/driver-guide.pdf` **5.2 Space** (p.159), **5.3 Mer
 | **II-018** | `5.5 Focus` → **`4.19 Transporting (Animals)`** | Pet restraint before roll. DOL 4.19 body (loose animals distract). Same class as IV-018. PSDP stays `n/a`. |
 | **III-004** | `5.5 Focus` → **`n/a`** | Mirror + OTS before lane change is **Skill nine** look procedure (p1 Lesson four). Not distraction Focus. PSDP carries it. |
 | **III-007** | `5.2 Space` → **`5.3 Merging`** | **Confirmed 5.3.** See §III-007 below. |
-| **III-018** | `5.2 Space` → **`n/a`** | “Whole front in glass” is Skill nine p2 pass-complete cue. 5.2 Space does not teach that mirror recovery. PSDP-only. |
+| **III-018** | `5.2 Space` → **`5.2 Space`** | **Claude revert.** Pass-completion card; 5.2 was correct. Keep the Space cite (do not null). |
 
 ### III-007 — why `5.3 Merging`, not `5.2 Space`
 
@@ -48,7 +48,7 @@ Card decision: *A gap just opened between them. Do you take it?* Teaching langua
 
 ---
 
-## Five honest `n/a` teaching_targets (FAIL class)
+## Four honest `n/a` teaching_targets (FAIL class)
 
 | card | Why no DOL home (in `teaching_target`) |
 |---|---|
@@ -56,7 +56,8 @@ Card decision: *A gap just opened between them. Do you take it?* Teaching langua
 | **I-007** | Antagonist lunge beat — lived experience; no curriculum home. |
 | **I-008** | Story rule (sound draws them) / lot closer — not Focus attention. |
 | **III-004** | Skill nine look procedure carries mirror+OTS; no separate DOL glance heading. |
-| **III-018** | Skill nine pass-complete cue; 5.2 does not teach “whole front in glass.” |
+
+III-018 stays on **`5.2 Space`** (Claude).
 
 ---
 
@@ -71,5 +72,5 @@ Card decision: *A gap just opened between them. Do you take it?* Teaching langua
 
 ```bash
 node scripts/validate-citations.js
-# II-027 should cite 4.17; seven FAIL remaps remain n/a or 4.19 / 5.3 as above
+# II-027 → 4.17; I-006/007/008 + III-004 → n/a; II-018 → 4.19; III-007 → 5.3; III-018 → 5.2 Space
 ```
