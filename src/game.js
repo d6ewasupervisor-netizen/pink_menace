@@ -219,7 +219,7 @@ function sceneFragment(scene) {
 }
 
 function imageUrl(cardId) {
-  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a81";
+  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a82";
 }
 
 function cargoUsed(state) {

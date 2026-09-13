@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "the gravel/asphalt climbs to a crest and drops away into a curve whose far end you cannot see",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
-    "midground": "road rising to a blind crest; beyond the top only sky and the start of a curve",
-    "background": "overcast rural ridge, fir edges, no oncoming grille yet visible",
-    "read": "you cannot see the other side of the hill; a curve begins beyond the crest",
+    "subject": "gravel/asphalt climbs to a crest and drops into a curve whose far end you cannot see; FULL-GRID cage; locked carrier: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle; PNW conifers on NATURAL side slopes (not built berms)",
+    "foreground": "worn black wheel; faded pink dash DARK/UNLIT \u2014 no lit green turn arrows; odo/trip OK; no speedlike 112 LCD; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) \u2014 not a low dash-level band; missing windshield cage is a hard FAIL; locked carrier on passenger floor: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "midground": "road rising to a blind crest; beyond the top only sky and the start of a curve; second-growth fir crowding both flanks",
+    "background": "Cascades-west PNW wet backcountry \u2014 restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway; natural conifer slopes; no oncoming grille yet visible",
+    "read": "you cannot see the other side of the hill; a curve begins beyond the crest; locked carrier; dark dash",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -40,15 +40,42 @@
       "no chevron hatchback",
       "no Encore",
       "no Ledger in frame",
-      "no oncoming vehicle already visible",
-      "no clear view past the crest",
       "no night",
+      "no golden hour",
       "no Deac",
       "no second person in the car",
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no paraphrase of carrier string",
+      "no \"ginger tabby\" wording \u2014 use orange tabby markings behind the grille",
+      "no soft-sided carrier",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no low dash-level mesh band only",
+      "no missing full-grid windshield cage",
+      "no high desert",
+      "no sagebrush",
+      "no bare hills",
+      "no long dry open highway",
+      "no open western rural prairie",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no brightly lit dash by default",
+      "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "Ali alone \u2014 only VI-013 has a second person",
+      "no built earth berm walls",
+      "no long open desert ridge"
     ],
     "aspect": "2:3",
     "geometry": {
@@ -59,7 +86,12 @@
       "hazard_position": "none",
       "lanes_this_direction": 1,
       "ego_lane_from_left": 1
-    }
+    },
+    "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "standing_biome": "Cascades-west PNW wet backcountry \u2014 restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway",
+    "standing_cage": "FULL-GRID windshield mesh \u2014 VI-009 take-2 is cage REF only",
+    "standing_dash": "dark dash default; speedlike 112 LCD OUT; odo/trip on tach OK",
+    "standing_cast": "Ali alone; Mya not in Act VI wave-1"
   },
   "variation": {
     "location_type": "rural",
@@ -67,7 +99,8 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "live still cards/takes/VI-010-take-8.png (Claude PASS: blind crest). take-7 FAIL (farm implement visible + 112 cluster) not seeded.",
+    "winner": "take-8"
   },
   "decision": "Blind crest, then a curve. How do you take it?",
   "options": [
@@ -83,7 +116,7 @@
     },
     {
       "id": "b",
-      "text": "Keep your speed — you'll see it when you're over",
+      "text": "Keep your speed \u2014 you'll see it when you're over",
       "correct": false,
       "result": "Over the top at speed with a tractor at forty yards and nothing but reflex left.",
       "state_delta": {
