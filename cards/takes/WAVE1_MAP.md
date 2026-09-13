@@ -9,18 +9,19 @@ Continuity: **Gracie in latched strapped carrier on every card**; **Deac only on
 
 | Card | Live still | Source take | Notes |
 |---|---|---|---|
-| **VI-004** Off the Edge | `cards/VI-004.png` | **`VI-004-take-5.png`** | Claude PASS cockpit (hands on wheel; road left / grass shoulder right; motion blur verge; Gracie latched; analog cluster; no 112.0). Cache `?v=a79` → still live under `?v=a84`. **take-11 not seeded.** |
-| **VI-009** Look for the Others | `cards/VI-009.png` | **`VI-009-take-2.png`** | Claude PASS. Cache `?v=a78` → still live under `?v=a84`. |
-| **VI-011** Same Culvert | `cards/VI-011.png` | **`VI-011-take-12.png`** | Claude PASS (Cascades-west; curb-height profile; culvert lower third; lane position as choice; Gracie through rear side mesh). Cache `?v=a80` → still live under `?v=a84`. **take-13 FAIL not seeded.** |
-| **VI-013** The Clipboard, Again | `cards/VI-013.png` | **`VI-013-take-16.png`** | Claude PASS HANDOFF (clipboard toward Ali; ruled sheet no readable words; glasses on cord; Gracie latched; Cascades-west). Cache `?v=a81` → still live under `?v=a84`. **take-17 NOT seeded.** |
-| **VI-007** Five Easy Steps | `cards/VI-007.png` | **`VI-007-take-9.png`** | Claude PASS (roundabout geometry reads). Cache `?v=a82` → still live under `?v=a84`. **take-8 FAIL not seeded.** |
-| **VI-010** Over the Top | `cards/VI-010.png` | **`VI-010-take-8.png`** | Claude PASS (blind crest). Cache `?v=a82` → still live under `?v=a84`. **take-7 FAIL not seeded.** |
-| **VI-012** Crossbuck and Nothing Else | `cards/VI-012.png` | **`VI-012-take-8.png`** | Claude PASS (crossbuck + rails). Cache `?v=a82` → still live under `?v=a84`. **take-7 FAIL not seeded.** |
-| **VI-001** Where the Blacktop Quits | `cards/VI-001.png` | **`VI-001-take-6.png`** | Claude PASS (blacktop→gravel / pass notch; carrier+full-grid). Cache `?v=a83` → still live under `?v=a84`. **take-7 FAIL not seeded.** |
-| **VI-002** Loose Under You | `cards/VI-002.png` | **`VI-002-take-8.png`** | Claude PASS (empty washboard ruts). Cache `?v=a83` → still live under `?v=a84`. **take-6 FAIL (112.0) not seeded.** |
-| **VI-005** Wide and Slow | `cards/VI-005.png` | **`VI-005-take-7.png`** | Claude PASS (SMV grain truck ahead). Cache `?v=a83` → still live under `?v=a84`. **take-8 FAIL (112.0) not seeded.** |
-| **VI-006** Nobody's In Charge Here | `cards/VI-006.png` | **`VI-006-take-6.png`** | Claude PASS (uncontrolled gravel cross). Cache `?v=a83` → still live under `?v=a84`. **take-7 FAIL (pickup L-to-R / yield-to-right gone) not seeded.** |
-| **VI-003** The Pile at the Edge | `cards/VI-003.png` | **`VI-003-take-13.png`** | Claude PASS (continuous ridge of loose pale gravel along the right edge at road level; carrier inboard; no 112). Cache `?v=a84`. **takes 10/11/12/14 FAIL not seeded.** |
+| **VI-004** Off the Edge | `cards/VI-004.png` | **`VI-004-take-5.png`** | Claude PASS cockpit (hands on wheel; road left / grass shoulder right; motion blur verge; Gracie latched; analog cluster; no 112.0). Cache `?v=a79` → still live under `?v=a85`. **take-11 not seeded.** |
+| **VI-009** Look for the Others | `cards/VI-009.png` | **`VI-009-take-2.png`** | Claude PASS. Cache `?v=a78` → still live under `?v=a85`. |
+| **VI-011** Same Culvert | `cards/VI-011.png` | **`VI-011-take-12.png`** | Claude PASS (Cascades-west; curb-height profile; culvert lower third; lane position as choice; Gracie through rear side mesh). Cache `?v=a80` → still live under `?v=a85`. **take-13 FAIL not seeded.** |
+| **VI-013** The Clipboard, Again | `cards/VI-013.png` | **`VI-013-take-16.png`** | Claude PASS HANDOFF (clipboard toward Ali; ruled sheet no readable words; glasses on cord; Gracie latched; Cascades-west). Cache `?v=a81` → still live under `?v=a85`. **take-17 NOT seeded.** |
+| **VI-007** Five Easy Steps | `cards/VI-007.png` | **`VI-007-take-9.png`** | Claude PASS (roundabout geometry reads). Cache `?v=a82` → still live under `?v=a85`. **take-8 FAIL not seeded.** |
+| **VI-010** Over the Top | `cards/VI-010.png` | **`VI-010-take-8.png`** | Claude PASS (blind crest). Cache `?v=a82` → still live under `?v=a85`. **take-7 FAIL not seeded.** |
+| **VI-012** Crossbuck and Nothing Else | `cards/VI-012.png` | **`VI-012-take-8.png`** | Claude PASS (crossbuck + rails). Cache `?v=a82` → still live under `?v=a85`. **take-7 FAIL not seeded.** |
+| **VI-001** Where the Blacktop Quits | `cards/VI-001.png` | **`VI-001-take-6.png`** | Claude PASS (blacktop→gravel / pass notch; carrier+full-grid). Cache `?v=a83` → still live under `?v=a85`. **take-7 FAIL not seeded.** |
+| **VI-002** Loose Under You | `cards/VI-002.png` | **`VI-002-take-8.png`** | Claude PASS (empty washboard ruts). Cache `?v=a83` → still live under `?v=a85`. **take-6 FAIL (112.0) not seeded.** |
+| **VI-005** Wide and Slow | `cards/VI-005.png` | **`VI-005-take-7.png`** | Claude PASS (SMV grain truck ahead). Cache `?v=a83` → still live under `?v=a85`. **take-8 FAIL (112.0) not seeded.** |
+| **VI-006** Nobody's In Charge Here | `cards/VI-006.png` | **`VI-006-take-6.png`** | Claude PASS (uncontrolled gravel cross). Cache `?v=a83` → still live under `?v=a85`. **take-7 FAIL (pickup L-to-R / yield-to-right gone) not seeded.** |
+| **VI-003** The Pile at the Edge | `cards/VI-003.png` | **`VI-003-take-13.png`** | Claude PASS (continuous ridge of loose pale gravel along the right edge at road level; carrier inboard; no 112). Cache `?v=a84` → still live under `?v=a85`. **takes 10/11/12/14 FAIL not seeded.** |
+| **VI-008** Pick Your Lane Before the Circle | `cards/VI-008.png` | **`VI-008-take-15.png`** | Claude PASS (multi-lane roundabout approach — two approach lanes + central island + circulating cross-traffic; carrier inboard; dark dash; no 112). Cache `?v=a85`. **take-16 FAIL not seeded.** |
 
 ## Not seeded / banked
 
@@ -36,7 +37,7 @@ Continuity: **Gracie in latched strapped carrier on every card**; **Deac only on
 | VI-005 take-8 | FAIL (112.0) — **not seeded**. |
 | VI-006 take-7 | FAIL (pickup L-to-R / yield-to-right gone) — **not seeded**. |
 | VI-003 take-10/11/12/14 | FAIL (shoulder spill / earthen berm, not gravel windrow) — **not seeded**. |
-| VI-008 | BOTH FAIL — **not seeded** (separate regen). |
+| VI-008 take-16 | FAIL (single-lane / VI-007 geometry: yield triangles, no lane divider) — **not seeded**. |
 
 Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes as `cards/takes/` where present).
 
@@ -56,9 +57,9 @@ Flat pack for Claude muted-read: `artifacts/act-vi-wave1-priority/` (same bytes 
 | VI-005 | Wide and Slow | POV_COCKPIT | take-1…2 bank + **take-7 seeded** from #217; take-8 FAIL not seeded |
 | VI-006 | Nobody's In Charge Here | POV_COCKPIT | take-1…2 bank + **take-6 seeded** from #217; take-7 FAIL not seeded |
 | VI-003 | The Pile at the Edge | POV_COCKPIT | take-1…2 bank + regen 10–14 on #222; **take-13 seeded**; takes 10/11/12/14 FAIL not seeded |
-| VI-008 | Pick Your Lane Before the Circle | POV_COCKPIT | take-1…2 (BOTH FAIL — regen separate) |
+| VI-008 | Pick Your Lane Before the Circle | POV_COCKPIT | take-1…2 bank + regen 9–16 on #225; **take-15 seeded**; take-16 FAIL not seeded |
 
-All under `cards/takes/VI-*-take-N.png` (this branch carries prior seeded takes + `VI-003-take-13.png` from #222; FAIL runners remain on source PRs).
+All under `cards/takes/VI-*-take-N.png` (this branch carries prior seeded takes + `VI-003-take-13.png` from #222 + `VI-008-take-15.png` from #225; FAIL runners remain on source PRs).
 
 ## Brief locks
 
@@ -69,6 +70,7 @@ All under `cards/takes/VI-*-take-N.png` (this branch carries prior seeded takes 
 - **VI-007 / VI-010 / VI-012** live briefs are Cascades-west remainder from #217.
 - **VI-001 / VI-002 / VI-005 / VI-006** live briefs are Cascades-west remainder from #217.
 - **VI-003** live brief is windrow + inboard carrier from #222; take-13 PASS only.
+- **VI-008** live brief is multi-lane roundabout approach from #225; take-15 PASS only.
 
 ## Continuity locks (Claude)
 
@@ -77,7 +79,7 @@ All under `cards/takes/VI-*-take-N.png` (this branch carries prior seeded takes 
 
 ## TODO
 
-- Do **not** seed VI-008 (BOTH FAIL — separate regen).
+- Do **not** seed VI-008 take-16 (FAIL — single-lane / VI-007 geometry).
 - Do **not** seed VI-003 takes 10/11/12/14 (FAIL — shoulder spill / earthen berm).
 - Do **not** seed VI-013-take-17. Do **not** reseed cast-FAIL take-2.
 - Do **not** seed VI-011-take-13. Do **not** seed VI-004-take-11.
