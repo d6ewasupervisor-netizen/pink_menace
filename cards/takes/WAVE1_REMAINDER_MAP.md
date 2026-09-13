@@ -18,7 +18,7 @@ Nine ordinary cards only. Standing locks: `ACT_VI_STANDING_LOCKS.md` (Cascades-w
 |---|---|---|---|
 | VI-001 | `VI-001-take-6.png` | take-7 | blacktop→gravel / pass notch; carrier+full-grid; take-7 carrier cropped |
 | VI-002 | `VI-002-take-8.png` | take-6 | empty washboard ruts; take-6 has 112 LCD |
-| VI-003 | `VI-003-take-9.png` | take-7 | gravel pile/windrow on right; take-7 clean Cascades empty |
+| VI-003 | `VI-003-take-20.png` | take-14 | **REGEN** Claude FAIL take-9 (carrier on hood) / take-7 (cut slope + blank gauges). Closest=take-20: inside carrier + right windrow + readable gauges + no 112. Runner=take-14 same locks. Bank 10–13/15–17/19 (112 from poisoned cockpit). take-18 clean alt |
 | VI-005 | `VI-005-take-7.png` | take-8 | SMV grain truck ahead; take-8 has 112 |
 | VI-006 | `VI-006-take-7.png` | take-6 | uncontrolled gravel cross + pickup from right |
 | VI-007 | `VI-007-take-9.png` | take-8 | **hard** — island/circle read; circulating sedan still soft |
@@ -32,6 +32,9 @@ Nine ordinary cards only. Standing locks: `ACT_VI_STANDING_LOCKS.md` (Cascades-w
 ## New Cascades-west takes (this PR)
 All under `cards/takes/`: take-6+ for each remainder card (through take-9 on 003/007).
 
+## VI-003 Claude FAIL regen (follow-up)
+`take-10+` under `cards/takes/`. Closest **take-20**, runner **take-14**. Brief strengthened. See `artifacts/act-vi-003-regen/`.
+
 ## Retired / out of ship queue
 | File | Why |
 |---|---|
@@ -39,6 +42,10 @@ All under `cards/takes/`: take-6+ for each remainder card (through take-9 on 003
 | VI-012 take-3 | carrier-restraint REF only |
 | Takes with speedlike **112** LCD as live speed | dash FAIL (prefer runner without) |
 | VI-003 take-6 | invented oncoming Menace |
+| VI-003 take-7 | cut slope + blank gauges (Claude FAIL) |
+| VI-003 take-8 | 112.0 LCD |
+| VI-003 take-9 | carrier on hood outside windshield (Claude FAIL) |
+| VI-003 take-10…13, 15–17, 19 | 112.0 from poisoned cockpit ref |
 | VI-002 take-7 | invented plow truck ahead |
 | VI-012 take-6 | invented plow barrier on rails |
 
