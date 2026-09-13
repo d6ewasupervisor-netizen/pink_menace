@@ -1,26 +1,71 @@
 {
   "locks": {
-    "ali": ["ref_ali2.png"],
-    "ali_face": ["ref_ali2.png"],
-    "pink_menace_exterior": ["ref_car_exterior.jpg"],
-    "pink_menace_interior": ["ref_cockpit.jpg"],
-    "gracie": ["ref_gracie.jpg"],
-    "mya": ["ref_mya.jpg"],
-    "deac": ["ref_deac_sheet.png", "ref_deac.png"],
-    "deac_clipboard": ["ref_deac.png"],
-    "yuna": ["ref_yuna_sheet.png", "ref_yuna.png"],
-    "the_ledger": ["ref_ledger_sheet.png"],
-    "ledger_cockpit": ["ref_ledger_cockpit.png"],
-    "hov_geometry": ["ref_hov_median_diamond.png"],
-    "encore": ["ref_encore_sheet.png"],
-    "encore_cockpit": ["ref_encore_cockpit.png"],
-    "convoy": ["ref_convoy.png"],
-    "dutch_reach": ["ref_dutch_reach.png", "ref_dutch_reach_topdown.png"],
-    "hand_signals": ["ref_hand_signals.png"],
-    "diagram_style": ["ref_diagram_style.png"],
-    "the_quiet": ["ref_quiet.png"],
-    "quiet_a4": ["ref_quiet_a4.png"],
-    "quiet_a5": ["ref_quiet_a5.png"]
+    "ali": [
+      "ref_ali2.png"
+    ],
+    "ali_face": [
+      "ref_ali2.png"
+    ],
+    "pink_menace_exterior": [
+      "ref_car_exterior.jpg"
+    ],
+    "pink_menace_interior": [
+      "ref_menace_cabin.png"
+    ],
+    "gracie": [
+      "ref_gracie.jpg"
+    ],
+    "mya": [
+      "ref_mya.jpg"
+    ],
+    "deac": [
+      "ref_deac_sheet.png",
+      "ref_deac.png"
+    ],
+    "deac_clipboard": [
+      "ref_deac.png"
+    ],
+    "yuna": [
+      "ref_yuna_sheet.png",
+      "ref_yuna.png"
+    ],
+    "the_ledger": [
+      "ref_ledger_sheet.png"
+    ],
+    "ledger_cockpit": [
+      "ref_ledger_cockpit.png"
+    ],
+    "hov_geometry": [
+      "ref_hov_median_diamond.png"
+    ],
+    "encore": [
+      "ref_encore_sheet.png"
+    ],
+    "encore_cockpit": [
+      "ref_encore_cockpit.png"
+    ],
+    "convoy": [
+      "ref_convoy.png"
+    ],
+    "dutch_reach": [
+      "ref_dutch_reach.png",
+      "ref_dutch_reach_topdown.png"
+    ],
+    "hand_signals": [
+      "ref_hand_signals.png"
+    ],
+    "diagram_style": [
+      "ref_diagram_style.png"
+    ],
+    "the_quiet": [
+      "ref_quiet.png"
+    ],
+    "quiet_a4": [
+      "ref_quiet_a4.png"
+    ],
+    "quiet_a5": [
+      "ref_quiet_a5.png"
+    ]
   },
   "no_file": [
     "marisol",
@@ -31,5 +76,5 @@
     "old_ninety",
     "officer_dunn"
   ],
-  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile."
+  "notes": "Location tokens matching /^L-\\d+/ have no image file. Every other continuity token must be in locks (files present) or no_file. Missing lock files abort the compile. pink_menace_interior attaches ref_menace_cabin.png only (PR #75 take 16). ref_cockpit.jpg is locked out \u2014 poisoned tablet / digital 112.0-class gauge."
 }

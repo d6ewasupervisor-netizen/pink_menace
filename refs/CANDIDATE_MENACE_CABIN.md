@@ -1,0 +1,35 @@
+# Menace cabin plate — PROMOTED 2026-09-11
+
+Claude muted-read **PASS** on PR #73 candidate take 16
+(`refs/ref_menace_cabin_candidate.png`). Promoted to the live interior lock:
+
+**`refs/ref_menace_cabin.png`**
+
+`sha256:3576270ee32f8759060cf63cfdf7a74e4ed32308f3907696bce0de4ef24c5a46`
+
+Take 10 (runner-up) rejected — nacelle lost behind the wheel rim. Not promoted.
+
+`pink_menace_interior` attaches `ref_menace_cabin.png` only.
+
+`ref_cockpit.jpg` is the poisoned interior (desert GPS tablet, three-gauge
+gibberish, VW-ish hub). Out of the compile pool. Do not attach.
+
+## Pinned cabin (card JSON still wins on a named needle)
+
+- Flat painted-metal period dash — continuous Type 1 shelf, no screen bay
+- Single instrument nacelle
+- Unbranded wheel — no VW roundel
+- **Menace = manual, floor shifter, three pedals**
+- Coarse Menace panel mesh — not Encore’s fine full-windshield grid
+- Default: nacelle angled away (no glyphs). Alternate: one period-correct dial
+  when the card brief names a needle (`cluster at 0` on IV-028)
+
+**Encore (adjacent, not a contradiction):** automatic, two pedals, no clutch.
+Already locked via footwell take-6 / Y4 take-1 cockpit authority. Y4 take 7
+is not cockpit authority.
+
+## Out of scope
+
+No IV-026 reseed (PR #72 take-110 stays seeded). No Act I–III replay.
+No live `cards/IV-027.png` / `028` / `030` seed — Claude muted-reads the
+regen takes on this PR first.
