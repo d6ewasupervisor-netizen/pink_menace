@@ -56,7 +56,7 @@
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "5.2 Space",
-    "teaching_target": "Revisit the blind-zone lane change: cancel and hold until the adjacent blind spot is empty."
+    "teaching_target": "Hold until right blind is empty, then move. Skill nine look primary; 5.2 Space weak REVIEW (III-005 debt)."
   },
   "cast": [
     "deac"
@@ -85,7 +85,13 @@
       "ego_lane_from_left": 1,
       "ego_frame_side": "left",
       "traffic_positions": [
-        { "vehicle": "white cargo van", "frame_side": "right", "lane_from_left": 2, "along": "beside", "lengths": 0 }
+        {
+          "vehicle": "white cargo van",
+          "frame_side": "right",
+          "lane_from_left": 2,
+          "along": "beside",
+          "lengths": 0
+        }
       ]
     }
   },

@@ -55,8 +55,8 @@
   "debrief": "Looking ahead is a loop you run every block. Search the edges — parked doors, hedges, the crosswalk — even in a zone you already passed. Ali searches the edges she already knew.",
   "source": {
     "psdp_skill": "Skill six: looking ahead",
-    "dol_section": "5.5 Focus",
-    "teaching_target": "Keep a continuous search of edges and parked vehicles in a school zone; prior knowledge of the area does not replace the scan."
+    "dol_section": "4.17 Zones (School zone)",
+    "teaching_target": "School-zone edge search — REVIEW 4.17 Zones (School zone), not a 5.5 Focus catch-all."
   },
   "cast": [
     "ali"
