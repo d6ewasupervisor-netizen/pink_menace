@@ -7,7 +7,7 @@
   "title": "Eleven Months",
   "hook": "Eleven months. She is good at being watched.",
   "scene": "Overcast afternoon, Encore idling in a studio-house driveway off a side street. Eleven months into a trainee contract when the border closed. Asymmetric bob, platinum under-layer, tape in the temple braid. Dead in-ears around her neck, both out for once. She is good at being watched and she knows it. The house behind her still has a taped rehearsal schedule on the door. She talks like the street is a room that paid to get in.",
-  "debrief": "Yuna was mid-contract when the state sealed. The in-ears, the bench, the horns — a kit built for an audience. The taped schedule is still on the door.",
+  "debrief": "Yuna was mid-contract when the state sealed. The in-ears, the bench, the horns \u2014 a kit built for an audience. The taped schedule is still on the door.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
@@ -42,6 +42,8 @@
     "weather": "overcast",
     "time_of_day": "afternoon",
     "tone": "quiet",
-    "failure_mode": "none"
+    "failure_mode": "none",
+    "winner": "take-18",
+    "forced": "live still cards/takes/IV-010-take-18.png (playtest tip #139; main\u2194prod reconcile)"
   }
 }
