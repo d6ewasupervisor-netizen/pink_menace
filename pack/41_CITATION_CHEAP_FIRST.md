@@ -16,6 +16,24 @@ Text-only remaps from `pack/40_SIX_ACT_AUDIT` §3.1 / FINAL REPORT. **No stills 
 
 `psdp_skill` unchanged on all seven.
 
+## n/a honesty (`teaching_target`)
+
+Act VI style: null means the guide has **no home**, not that the right section was hard to find. Each remapped `n/a` card now carries a one-line why (and an explicit do-not-cite-parent):
+
+| card_id | why `n/a` (in `teaching_target`) |
+|---|---|
+| **I-006** | No Driver Guide home for parking-lot pet recovery; do not cite `5.5 Focus` (not a driving-distraction lesson). |
+| **I-007** | No DOL/PSDP home for the lot attack beat; do not stretch `5.5 Focus` as a catch-all. |
+| **I-008** | Story rule (“sound draws them”), not a DOL distraction heading; do not cite `5.5 Focus` parent. |
+| **III-004** | Skill nine looking procedure; DOL has no separate mirror/OTS heading; do not cite `5.5 Focus`. |
+| **III-018** | Skill nine pass-complete cue; `5.2 Space` does not teach it; do not cite parent Space. |
+
+## FLAG for Claude — III-007 → `5.3 Merging`
+
+**Not reverted.** Audit remapped here because the teaching line is verbatim merge-gap language (“need not swerve, slow, or stop”).
+
+**Review ask:** if the card mainly teaches gap-and-speed on a multi-lane road (Skill nine), `5.2 Space` may fit better than a third Merging cite (III-026 already owns zipper). Claude decides with the fifteen card texts — do not silent-revert in this PR.
+
 ## Allowlist
 
 Added `4.19 Transporting (Animals)` to `pack/07_DOL_SECTIONS.json` so II-018 (and existing IV-018) validate.
@@ -33,4 +51,4 @@ Added Act II camera-cap / window-of-6 row (`POV_DIAGRAM` 30.8% > 25%) — ship-a
 ## Verify
 
 - Fabricated Act II PSDP names from `pack/10_ACT_II_CITATION_PATCH.json`: **0 remain** in Acts I–III.
-- `node scripts/validate-citations.js` should pass for remapped cards once `4.19` is on the allowlist. (IV cards citing other missing DOL children remain pre-existing main debt.)
+- Remapped cards pass string citation check; IV missing-child allowlist debt unchanged.
