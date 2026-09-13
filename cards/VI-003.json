@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "a continuous ridge of loose gravel piled along the right edge for the next half mile through FULL-GRID mesh; locked carrier: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "foreground": "worn black wheel; faded pink dash DARK/UNLIT — no lit green turn arrows; odo/trip OK; no speedlike 112 LCD; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; locked carrier on passenger floor: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
-    "midground": "gravel windrow running the right shoulder like a rope; travel track clear left of it; fir crowding the ditch",
-    "background": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway; soft wet dirt beyond the pile; no other cars",
-    "read": "loose gravel is piled along the right edge for a long stretch; locked carrier; dark dash",
+    "subject": "REAL GRAVEL WINDROW: a continuous low ridge of loose piled gravel along the RIGHT road edge for the next half mile — grader-pushed windrow / rope of stones on the shoulder, NOT a cut slope / road cut / embankment / ditch bank / hillside; travel track clear LEFT of the windrow; through FULL-GRID mesh. INSIDE-cabin locked carrier on passenger floor ONLY (never on hood, never outside windshield, never beyond the mesh on exterior body): hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "foreground": "worn black wheel; faded pink dash DARK/UNLIT — no lit green turn arrows; READABLE analog gauges with needles + face markings (NOT blank black gauge circles); odo/trip OK; ABSOLUTE BAN on digital 112 / 112.0 / speedlike LCD; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; carrier HARD LOCK: hard-sided pet carrier sits INSIDE the cabin on the passenger-side floor / footwell, THIS SIDE of the windshield mesh — NEVER on the hood, NEVER outside the glass, NEVER resting on exterior pink body ahead of the cage; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "midground": "REAL windrow = continuous ridge of LOOSE piled gravel / crushed rock along the right shoulder like a rope the grader left — six-inch-deep pile you could drive into; travel lane / graded track clear to the LEFT of that ridge; fir crowding the ditch beyond the pile. HARD FAIL if the right edge is only a cut slope, excavated bank, grassy embankment, ditch wall, or natural hillside with no piled gravel ridge",
+    "background": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway; soft wet dirt beyond the windrow; no other cars",
+    "read": "loose gravel is piled in a long windrow along the right edge; carrier locked INSIDE cabin; readable gauges; dark dash; no 112",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -56,6 +56,17 @@
       "no carrier door facing outboard toward camera",
       "no empty carrier with no cat visible behind grille",
       "no belt not routed through handle",
+      "no carrier on the hood",
+      "no carrier outside the windshield",
+      "no carrier beyond the mesh on exterior bodywork",
+      "no carrier sitting on exterior pink paint ahead of the cage",
+      "no pet carrier resting on the hood visible through the grid",
+      "no cut slope instead of windrow",
+      "no road cut / excavated bank as the right-edge subject",
+      "no grassy embankment or ditch wall standing in for a gravel windrow",
+      "no natural hillside with no piled gravel ridge",
+      "no blank black gauge faces",
+      "no empty gauge circles without needles or numerals",
       "no Mya",
       "no brown mackerel tabby",
       "no second cat",
@@ -70,6 +81,8 @@
       "no both turn indicators illuminated",
       "no brightly lit dash by default",
       "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)",
+      "no digital 112.0 in any gauge window",
+      "no 112 numeral as live speed",
       "no desert GPS / arid nav HUD",
       "no NYC skyline",
       "no Spokane urban drift",
@@ -88,8 +101,9 @@
     "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
     "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway",
     "standing_cage": "FULL-GRID windshield mesh — VI-009 take-2 is cage REF only",
-    "standing_dash": "dark dash default; speedlike 112 LCD OUT; odo/trip on tach OK",
-    "standing_cast": "Ali alone; Mya not in Act VI wave-1"
+    "standing_dash": "dark dash default; readable analog gauges with needles; speedlike 112 / 112.0 LCD OUT; odo/trip on tach OK",
+    "standing_cast": "Ali alone; Mya not in Act VI wave-1",
+    "regen_locks_claude_fail": "take-9 FAIL carrier on hood outside windshield — carrier INSIDE cabin only; take-7 FAIL cut slope not windrow + blank gauges — real piled gravel windrow + readable gauges; ban 112.0"
   },
   "variation": {
     "location_type": "gravel",
@@ -97,7 +111,7 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 remainder: Cascades-west PNW; full-grid cage; carrier SPEC verbatim; Ali alone; no Mya; dark dash; no seed"
+    "forced": "Act VI wave-1 remainder REGEN VI-003: Cascades-west PNW; full-grid cage; carrier SPEC verbatim INSIDE cabin (not hood); real gravel windrow not cut slope; readable gauges not blank; dark dash; no 112.0; no seed"
   },
   "decision": "The windrow is on your right. Where do you put the tires?",
   "options": [
