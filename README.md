@@ -34,7 +34,7 @@ curriculum slot  →  L2 card generator  →  card.json
                                     L3 image compiler  →  GPT Image 2 prompt
 ```
 
-Start at `pack/00_README.md`. Standing rules index (post six-act audit): **[`pack/43_PACK_RULES_CONSOLIDATED.md`](pack/43_PACK_RULES_CONSOLIDATED.md)**. Carry one card end to end from `pack/06_WORKED_EXAMPLE.md` before generating at volume. Generate **Act II** first. Act VII stays closed.
+Start at `pack/00_README.md`. Standing rules index (post six-act audit): **[`pack/43_PACK_RULES_CONSOLIDATED.md`](pack/43_PACK_RULES_CONSOLIDATED.md)** (seed provenance: [`pack/44_SEED_PROVENANCE.md`](pack/44_SEED_PROVENANCE.md)). Carry one card end to end from `pack/06_WORKED_EXAMPLE.md` before generating at volume. Generate **Act II** first. Act VII stays closed.
 
 ## Layout
 

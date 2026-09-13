@@ -197,6 +197,18 @@ Reject remapping to `4.17` or `5.5 Focus` catch-alls.
 
 ---
 
+## 16. Seed provenance — approval ≠ seed verification
+
+**Lock:** Muted-read / Claude **approval** and **seed verification** are separate gates. Never attribute a live seed to Claude PASS unless `check_cursor_reply` / muted-read actually showed him **that** take. Prefer log **`reviewed-after-seed`** when correcting a seed that landed before review.
+
+False attributions (Claude never saw the frames): IV-028 take-82; IV-002 take-29; IV-006 take-47; V-013 take-5.
+
+Teaching case: **IV-028 take-87** is the live strapped-carrier winner (PR #239). Take-82 was unreviewed then replaced — do not re-attribute it to Claude PASS.
+
+**Source:** [`pack/44_SEED_PROVENANCE.md`](44_SEED_PROVENANCE.md); PR #239 (`cursor/seed-iv-028-take-87-b93d`).
+
+---
+
 ## Act VII — CLOSED
 
 Do not open Act VII from this consolidation. Chains / Snoqualmie / snow / night / Gravy stay parked for Act VII when someone explicitly calls that act. No VII card scaffold, no VII stills, no VII seed.
@@ -220,6 +232,7 @@ Do not open Act VII from this consolidation. Chains / Snoqualmie / snow / night 
 | [`41_CITATION_CHEAP_FIRST.md`](41_CITATION_CHEAP_FIRST.md) | Citation FAIL remaps |
 | [`42_CITATION_FIFTEEN.md`](42_CITATION_FIFTEEN.md) | teaching_target enrichment; II-027 decision |
 | [`42_STILL_DRIFT_RECONCILE.md`](42_STILL_DRIFT_RECONCILE.md) | MD5 checkout-lag reconcile |
+| [`44_SEED_PROVENANCE.md`](44_SEED_PROVENANCE.md) | Approval vs seed-verification; Claude PASS attribution; IV-028 take-87 |
 | [`../cards/takes/ACT_VI_STANDING_LOCKS.md`](../cards/takes/ACT_VI_STANDING_LOCKS.md) | Cascades-west · carrier SPEC · cage · dash · Deac |
 | [`../refs/LOCKS.md`](../refs/LOCKS.md) | Plate winners; cat face-only |
 | [`DISABLED_TICKETS.md`](DISABLED_TICKETS.md) | Features turned off for quality |
