@@ -20,7 +20,7 @@
       "id": "b",
       "text": "Your belt. Look at both cats. Leave them where they are",
       "correct": true,
-      "result": "You click in. You look at Gracie, then at Mya, and you know exactly where both of them are — which is loose on a seat, which is the truth. The belt is yours. It was only ever yours.",
+      "result": "You click in. You look at Gracie, then at Mya, and you know exactly where both of them are \u2014 which is loose on a seat, which is the truth. The belt is yours. It was only ever yours.",
       "state_delta": {}
     },
     {
@@ -44,18 +44,26 @@
     "dol_section": "2.6 Occupant Protection",
     "teaching_target": "Her belt, before the car moves. The cats ride loose. Wrong answers arm II-031."
   },
-  "cast": ["ali", "gracie", "mya"],
+  "cast": [
+    "ali",
+    "gracie",
+    "mya"
+  ],
   "antagonist": "none",
   "callback_of": null,
   "schedules_callback": true,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "the driver's seat belt, unlatched, held in a young woman's hand in a faded pink sleeve — warm medium-brown skin, half African American; the TOP of the belt webbing enters from the left side of frame at the B-pillar behind the driver's left shoulder — never from the dash front or windshield",
+    "subject": "the driver's seat belt, unlatched, held in a young woman's hand in a faded pink sleeve \u2014 warm medium-brown skin, half African American; the TOP of the belt webbing enters from the left side of frame at the B-pillar behind the driver's left shoulder \u2014 never from the dash front or windshield",
     "foreground": "belt buckle in her hand lower-left; webbing clearly originates at the LEFT EDGE of the image from the shoulder pillar, then runs down to the hand",
-    "midground": "both cats on the passenger seat — orange tabby Gracie with cream chest; Mya the brown mackerel beside her, only slightly heavier than Gracie, match her photo ref proportions, not obese; both settled, neither restrained",
+    "midground": "both cats on the passenger seat \u2014 orange tabby Gracie with cream chest; Mya the brown mackerel beside her, only slightly heavier than Gracie, match her photo ref proportions, not obese; both settled, neither restrained",
     "background": "faded pink dash, continuous door and A-pillar joined to the body with no floating gap, mesh over the windshield, empty wet lot beyond",
     "read": "the belt is in her hand from behind the left shoulder and both cats are loose on the seat",
-    "continuity": ["pink_menace_interior", "gracie", "mya"],
+    "continuity": [
+      "pink_menace_interior",
+      "gracie",
+      "mya"
+    ],
     "extra_negatives": [
       "no carrier",
       "no cat wearing a belt",
@@ -90,6 +98,8 @@
     "weather": "overcast",
     "time_of_day": "afternoon",
     "tone": "quiet",
-    "failure_mode": "none"
+    "failure_mode": "none",
+    "winner": "take-1",
+    "forced": "live still cards/takes/I-003-take-1.png (cats on seat, belt from B-pillar, no 112; replaces lap+112 take-9)"
   }
 }

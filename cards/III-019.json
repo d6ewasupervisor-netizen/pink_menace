@@ -22,7 +22,7 @@
     },
     {
       "id": "b",
-      "text": "Stand on the brakes — the lamps are the sentence",
+      "text": "Stand on the brakes \u2014 the lamps are the sentence",
       "correct": false,
       "result": "The lamps dump. He does not. Your rear doors become his windshield. You just made passengers out of a volunteer and a schedule.",
       "state_delta": {
@@ -97,6 +97,8 @@
     "weather": "snow",
     "time_of_day": "night",
     "tone": "warm",
-    "failure_mode": "passengers"
+    "failure_mode": "passengers",
+    "winner": "c-take-2",
+    "forced": "live still cards/takes/III-019-c-take-2.png (art-review pick; was live\u2260pick)"
   }
 }

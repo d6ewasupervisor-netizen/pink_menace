@@ -105,9 +105,9 @@
     },
     "III-019": {
       "tag": "READ_MISSING",
-      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. This card needs to be completely redone. the stalled pickup needs to be farther right on the road, the car behind, we need to only see their left headlight indicating they are behind the driver and the scene needs zoomed out so that the view shows the drivers window clearer. remove the arm from the scene",
+      "note": "Cab redo against cards/takes/D4-take-2.png (relocked as ref_ledger_cockpit.png). Two b-takes, lock-first prompts. Waiting muted 390px. Do not seed until a human pass. This card needs to be completely redone. the stalled pickup needs to be farther right on the road, the car behind, we need to only see their left headlight indicating they are behind the driver and the scene needs zoomed out so that the view shows the drivers window clearer. remove the arm from the scene Seeded art-review pick c-take-2 (live\u2260pick reconcile). Muted-read still open.",
       "pick": "c-take-2",
-      "updated_at": "2026-09-01T19:25:18.109Z"
+      "updated_at": "2026-09-13T01:11:00.736Z"
     },
     "III-020": {
       "tag": "PASS",
@@ -174,6 +174,12 @@
       "note": "Copy fixed: The skyline is dark and the sign is dark with it. Still already reads stopped bus + dark skyline. the bus is sitting on the wrong side of the road.",
       "pick": "b-take-2",
       "updated_at": "2026-09-01T20:18:25.286Z"
+    },
+    "I-003": {
+      "tag": "PASS",
+      "note": "Seeded take-1: cats on passenger seat, belt from left B-pillar, no 112. Replaces lap+112 take-9.",
+      "pick": "take-1",
+      "updated_at": "2026-09-13T01:11:00.736Z"
     }
   }
 }
