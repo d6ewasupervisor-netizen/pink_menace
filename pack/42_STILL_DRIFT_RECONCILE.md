@@ -28,7 +28,7 @@ Wrong-winner-pointer / bad seed-path were **not** the cause here: prod bytes alr
 |---|---|---|---|---|
 | **I-003** | Reseed `take-1` | `eed4e30ad71ce45f329959bfbfe2e0db` | `bc7645e3f31f1d24063210338a6d90b7` | Seat cats + B-pillar belt; no 112. Replaces lap+112 take-9 |
 | **III-019** | Reseed pick `c-take-2` | `4656df525c679f176e43e04bb96b3cf6` | `54365408a62db0bf709b6c8c184277a6` | live≠pick. Art-review stays READ_MISSING (muted-read open) |
-| **IV-018** | **STOP — no correct winner** | (unchanged) | — | All repo takes are carrier (+ often 112). Brief wants cats on seat, speedo 0, no carrier |
-| **IV-028** | **STOP — no correct winner** | (unchanged) | — | Live/take-70 is rear-hatch (WRONG_CAMERA). No forward take has floor carrier + ahead pedestrian together |
+| **IV-018** | **STOP — no correct winner** | (unchanged) | — | All repo takes are carrier (+ often 112). Brief wants cats on seat, speedo 0, no carrier. Regen takes 9–11 on hard-debt stills branch — not seeded |
+| **IV-028** | **STOP — no correct winner** | (unchanged) | — | Live/take-70 is rear-hatch (WRONG_CAMERA). Regen takes 79–82 (forward floor-carrier + pedestrian) on hard-debt stills branch — not seeded |
 
 No Act VI winners touched. No Act VII. No Act III READ_MISSING muted-read batch beyond III-019 pick reseed.
