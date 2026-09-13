@@ -80,7 +80,7 @@
     "time_of_day": "midday",
     "tone": "procedural",
     "failure_mode": "distraction",
-    "winner": "take-70",
-    "forced": "live still cards/takes/IV-028-take-70.png (Claude PASS muted-read d748b5d7 / relay 890f91af; take 72 FAIL do not seed)"
+    "winner": "take-82",
+    "forced": "live still cards/takes/IV-028-take-82.png (Claude PASS muted-read PR #233 hard-debt; supersedes take-70 rear-hatch; do not seed takes 79/80/81)"
   }
 }
