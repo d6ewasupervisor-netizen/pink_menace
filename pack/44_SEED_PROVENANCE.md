@@ -46,7 +46,7 @@ When a wrong attribution is found, **prefer log `reviewed-after-seed`** on the c
 | take-82 | Was live **unreviewed** (no Claude PASS on that frame), then **replaced** by take-87. Do not re-attribute take-82 to Claude PASS. |
 | takes 83–86, 88 | Claude FAIL (latched, unstrapped) — do not seed. |
 
-Source wave: [`cards/takes/WAVE_IV-028-take-87-seed.md`](../cards/takes/WAVE_IV-028-take-87-seed.md) (on the seed branch / after PR #239 lands).
+Source: PR #239 seed / wave notes (`cards/takes/WAVE_IV-028-take-87-seed.md` once that PR lands).
 
 ---
 
