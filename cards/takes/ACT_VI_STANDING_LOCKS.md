@@ -12,7 +12,9 @@ Wired into `scripts/compile-prompt.js` as `ACT_VI_GEOGRAPHY` for every VI card.
 ## Carrier SPEC (verbatim — every gen prompt, no paraphrase)
 `hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle`
 
-Reject: “ginger tabby” paraphrase / soft/LED/leather variants.
+**Placement:** when cabin/cage is in frame, carrier is **INBOARD** (passenger floor/seat, behind the mesh plane). **NOT** hood-mounted outside the windshield / exterior of the cage.
+
+Reject: “ginger tabby” paraphrase / soft/LED/leather variants; hood/exterior carrier.
 
 ## Cage
 FULL-GRID windshield/side mesh. VI-009 take-2 = cage REF only (not shippable alone).
