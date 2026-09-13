@@ -85,13 +85,7 @@
       "ego_lane_from_left": 1,
       "ego_frame_side": "left",
       "traffic_positions": [
-        {
-          "vehicle": "white cargo van",
-          "frame_side": "right",
-          "lane_from_left": 2,
-          "along": "beside",
-          "lengths": 0
-        }
+        { "vehicle": "white cargo van", "frame_side": "right", "lane_from_left": 2, "along": "beside", "lengths": 0 }
       ]
     }
   },
