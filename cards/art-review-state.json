@@ -216,6 +216,30 @@
       "note": "Claude PASS take-8: crossbuck + rails. Seeded live. take-7 FAIL (bare X, no rails in road) not seeded.",
       "pick": "take-8",
       "updated_at": "2026-09-13T00:00:00.000Z"
+    },
+    "VI-001": {
+      "tag": "PASS",
+      "note": "Claude PASS take-6: blacktop→gravel / pass notch; carrier+full-grid. Seeded live. take-7 FAIL (paved/no carrier) not seeded.",
+      "pick": "take-6",
+      "updated_at": "2026-09-13T00:10:00.000Z"
+    },
+    "VI-002": {
+      "tag": "PASS",
+      "note": "Claude PASS take-8: empty washboard ruts. Seeded live. take-6 FAIL (112.0) not seeded.",
+      "pick": "take-8",
+      "updated_at": "2026-09-13T00:10:00.000Z"
+    },
+    "VI-005": {
+      "tag": "PASS",
+      "note": "Claude PASS take-7: SMV grain truck ahead. Seeded live. take-8 FAIL (112.0) not seeded.",
+      "pick": "take-7",
+      "updated_at": "2026-09-13T00:10:00.000Z"
+    },
+    "VI-006": {
+      "tag": "PASS",
+      "note": "Claude PASS take-6: uncontrolled gravel cross. Seeded live. take-7 FAIL (pickup L-to-R / yield-to-right gone) not seeded.",
+      "pick": "take-6",
+      "updated_at": "2026-09-13T00:10:00.000Z"
     }
   }
 }
