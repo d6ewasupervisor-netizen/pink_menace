@@ -189,7 +189,6 @@ function deliveryBeat(stateOrCold, act) {
       "Two hundred and eighty miles east, your mother is awake and does not know yet."
     );
   }
-  }
   if (n <= 0) return "Delivered warm. June took it anyway.";
   if (n >= 10) return "Delivered. " + n + " minutes to spare.";
   if (n === 1) return "Delivered. 1 minute. June didn't ask what took so long.";
