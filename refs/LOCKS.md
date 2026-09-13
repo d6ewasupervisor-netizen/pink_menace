@@ -51,4 +51,4 @@ Scope the grate plates to in-carrier frames only. Do **not** attach them to out-
 - **Mya** = mackerel → `ref_cat_mackerel.png`
 - **Gracie** = ginger → `ref_cat_ginger.png`
 
-Art regen is paused pending daughter feedback. Do not generate new stills from these plates until that pass.
+Cat-plate art regen was paused pending daughter feedback; **IV-028 forward-camera override (2026-09-13 Claude STOP on rear-hatch take-70) is authorized** — attach studio coats + `ref_carrier.png` + Menace cabin; grate crops optional if the tool accepts them.
