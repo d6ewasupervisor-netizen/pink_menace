@@ -240,6 +240,12 @@
       "note": "Claude PASS take-6: uncontrolled gravel cross. Seeded live. take-7 FAIL (pickup L-to-R / yield-to-right gone) not seeded.",
       "pick": "take-6",
       "updated_at": "2026-09-13T00:10:00.000Z"
+    },
+    "VI-008": {
+      "tag": "PASS",
+      "note": "Claude PASS take-15: two approach lanes + dashed divider + L/R painted arrows + raised planted island + circulating sedan; carrier inboard; no 112. Seeded live. take-16 FAIL (single-lane VI-007 geometry) not seeded.",
+      "pick": "take-15",
+      "updated_at": "2026-09-13T00:30:00.000Z"
     }
   }
 }

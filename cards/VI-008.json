@@ -21,11 +21,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_COCKPIT",
-    "subject": "two approach lanes into a highway-junction roundabout with painted arrows before the circle",
-    "foreground": "worn black wheel, faded pink dash, coarse mesh; closed dark carrier latched and strapped on the passenger floor (Gracie inside; wheels turning)",
-    "midground": "left and right approach lanes with pavement arrows; sign board before the circle; third exit is a left",
-    "background": "overcast multi-lane roundabout ahead, empty circulating lanes, no night",
-    "read": "two lanes in; the lane choice is painted on the approach before the circle",
+    "subject": "MULTI-LANE ROUNDABOUT APPROACH (not a T, not a widened junction, not a painted island pretending to be a circle): two approach lanes with readable painted approach arrows; ahead a real traffic circle — raised central island + circulatory roadway wrapping around it; a sedan already circulating as CROSS-TRAFFIC (yield moment before entry); FULL-GRID cage; locked carrier: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle; NO lit bidirectional dash arrow",
+    "foreground": "worn black wheel; faded pink dash DARK/UNLIT — no lit green turn arrows; odo/trip OK; no speedlike 112 LCD; FULL-GRID welded steel mesh over the entire windshield (VI-009 cage canon) — not a low dash-level band; missing windshield cage is a hard FAIL; locked carrier on passenger floor: hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "midground": "two approach lanes into the circle with pavement approach arrows readable on wet asphalt; splitter/yield apron before entry; sign board before the circle; central island must read as a true roundabout island (curbed circle of landscaping), circulatory roadway continuous around it; sedan circulating left-to-right or across the entry as cross-traffic; third exit is a left — lane choice is on the approach",
+    "background": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway; multi-lane highway-junction roundabout ahead with fir crowding the circle edges; circulating cross-traffic visible; no night",
+    "read": "two-lane approach into a real multi-lane roundabout with central island + circulating cross-traffic; pick your lane before the circle; locked carrier; dark dash",
     "continuity": [
       "pink_menace_interior",
       "gracie"
@@ -40,32 +40,78 @@
       "no chevron hatchback",
       "no Encore",
       "no Ledger in frame",
-      "no decision already inside the circle",
       "no night",
-      "no traffic signal controlling the circle",
+      "no golden hour",
       "no Deac",
       "no second person in the car",
       "no clipboard passenger",
       "no cat on the dash",
       "no cat loose on the seat",
-      "no open carrier"
+      "no open carrier",
+      "no paraphrase of carrier string",
+      "no \"ginger tabby\" wording — use orange tabby markings behind the grille",
+      "no soft-sided carrier",
+      "no red LED on carrier",
+      "no leather carrier",
+      "no carrier door facing outboard toward camera",
+      "no empty carrier with no cat visible behind grille",
+      "no belt not routed through handle",
+      "no Mya",
+      "no brown mackerel tabby",
+      "no second cat",
+      "no low dash-level mesh band only",
+      "no missing full-grid windshield cage",
+      "no high desert",
+      "no sagebrush",
+      "no bare hills",
+      "no long dry open highway",
+      "no open western rural prairie",
+      "no lit green turn arrows",
+      "no both turn indicators illuminated",
+      "no brightly lit dash by default",
+      "no speedlike 112 LCD readout (odo/trip numerals OK if not live speed)",
+      "no desert GPS / arid nav HUD",
+      "no NYC skyline",
+      "no Spokane urban drift",
+      "Ali alone — only VI-013 has a second person",
+      "no lit bidirectional dash arrow",
+      "no lit green turn arrows on dash",
+      "no T-junction pretending to be a roundabout",
+      "no widened four-way or Y junction without a circular island",
+      "no painted flat island only — must be a raised curb central island with circulatory roadway around it",
+      "no empty circle with no circulating vehicle",
+      "no straight two-lane road with arrows but no traffic circle ahead",
+      "no single-lane-only entry (this card is the multi-lane approach)"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "right approach lane of two lanes into a roundabout",
-      "ego_nose_in_frame": "plow points up-frame toward the roundabout",
+      "ego_nose_in_frame": "plow points up-frame toward the roundabout central island",
       "oncoming_position": "none in frame",
-      "hazard_position": "none",
+      "hazard_position": "ahead_same_direction",
       "lanes_this_direction": 2,
       "ego_lane_from_left": 2,
       "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "gray sedan already inside the roundabout circulatory roadway as CROSS-TRAFFIC across the entry (yield moment; not sitting in either approach lane)",
+          "frame_side": "left",
+          "along": "ahead",
+          "lengths": 3
+        }
+      ],
       "marking_anchor": {
         "edge": "right curb of the roundabout approach",
-        "marking": "two approach lanes with painted turn arrows before the circle",
-        "ego_relative": "ego occupies the right approach lane of the two painted lanes"
+        "marking": "two approach lanes with painted turn arrows before a real circular central island and circulatory roadway",
+        "ego_relative": "ego occupies the right approach lane of the two painted lanes; the raised central island and circulating sedan must be readable ahead through the mesh"
       }
-    }
+    },
+    "standing_carrier_spec": "hard-sided; wire grille door facing inboard; Gracie's orange tabby markings visible behind the grille; belt routed through the handle",
+    "standing_biome": "Cascades-west PNW wet backcountry — restricted sightlines, second-growth fir crowding the shoulder, blackberry and alder in the ditch, vegetation close to the road, wet gray asphalt; NOT sage, dry grass, bare hills, or long open highway",
+    "standing_cage": "FULL-GRID windshield mesh — VI-009 take-2 is cage REF only",
+    "standing_dash": "dark dash default; speedlike 112 LCD OUT; odo/trip on tach OK",
+    "standing_cast": "Ali alone; Mya not in Act VI wave-1"
   },
   "variation": {
     "location_type": "rural",
@@ -73,7 +119,8 @@
     "time_of_day": "morning",
     "tone": "procedural",
     "failure_mode": "none",
-    "forced": "Act VI wave-1 briefs landed; stills pending review; do not seed"
+    "forced": "live still cards/takes/VI-008-take-15.png (Claude PASS: two approach lanes + dashed divider + L/R painted arrows + raised planted island + circulating sedan; carrier inboard; no 112). take-16 FAIL (single-lane VI-007 geometry) not seeded.",
+    "winner": "take-15"
   },
   "decision": "Two lanes, your exit is the far side. Where do you get in line?",
   "options": [
