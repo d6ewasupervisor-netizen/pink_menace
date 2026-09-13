@@ -1,8 +1,14 @@
 # 44 — Seed provenance / verification gate
 
-Approval (muted-read PASS) and **seed verification** are separate gates. A take may be live in prod without Claude having seen that frame; a Claude PASS may exist without the live plate matching the take he graded. Do not collapse the two.
+**Crystal rule:** Approval and seed verification are **two gates**. Do not collapse them. A seed note may say **Claude PASS** only when **both** are true for the **same** take id.
+
+- A take may be live in prod without Claude ever seeing that frame → **seeded, unreviewed** (not PASS).
+- Claude may PASS a take that is not (yet) the live master → **approved, not seeded**.
+- Copying “Claude PASS” from an older take onto a newer live plate is a false attribution.
 
 **Act VII stays CLOSED.** This note does not open Act VII or authorize stills regen.
+
+Indexed from [`43_PACK_RULES_CONSOLIDATED.md`](43_PACK_RULES_CONSOLIDATED.md) §16.
 
 ---
 
@@ -10,10 +16,10 @@ Approval (muted-read PASS) and **seed verification** are separate gates. A take 
 
 | Gate | What it proves | What it does **not** prove |
 |---|---|---|
-| **Approval** (muted-read / art review) | Claude (or human) graded **this take** against card copy | That the live master / DB row is that take |
+| **Approval** (muted-read / art review / `check_cursor_reply`) | Claude (or human) graded **this take** against card copy | That the live master / DB row is that take |
 | **Seed verification** | Live `cards/<id>.png` + DB WebP match the intended take bytes (`npm run seed`, `npm run audit-stills`) | That Claude passed the take |
 
-Both must be true before a seed note may say **Claude PASS**.
+**Both must be true** before a seed note may say **Claude PASS**. One gate never stands in for the other.
 
 ---
 
@@ -56,5 +62,3 @@ Source: PR #239 seed / wave notes (`cards/takes/WAVE_IV-028-take-87-seed.md` onc
 2. Live master bytes match that take (`cmp` / MD5).
 3. `variation.winner` / `variation.forced` point at that take.
 4. If the take was seeded before review: log **`reviewed-after-seed`**, do not backdate approval.
-
-Indexed from [`43_PACK_RULES_CONSOLIDATED.md`](43_PACK_RULES_CONSOLIDATED.md) §16.

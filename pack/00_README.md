@@ -47,9 +47,9 @@ Three layers, and the order matters.
 
 `24_ART_REVIEW_RUBRIC.md` is the still-vs-copy review: tag as a work order, text before pixels, never generate on `CARD_BROKEN` / `WRONG_CAMERA`. Tool: `npm run art-review`.
 
-`43_PACK_RULES_CONSOLIDATED.md` is the post–six-act-audit index of hard-won standing rules (plate MD5 audit, frame-relative, sole brief authority, moment-not-topic, carrier / Deac / 112 / Act VI geography, citations, IV-018 / II-027 Claude locks, seed provenance). Cross-links the numbered pack sources; does not replace them. **Act VII stays CLOSED** — do not scaffold VII cards from it.
+`43_PACK_RULES_CONSOLIDATED.md` is the post–six-act-audit index of hard-won standing rules (plate MD5 audit, frame-relative, camera position≠subject, sole brief authority, moment-not-topic, carrier / Deac / 112 / Act VI geography, citations, IV-018 / II-027 Claude locks, seed provenance two-gates). Cross-links the numbered pack sources; does not replace them. **Act VII stays CLOSED** — do not scaffold VII cards from it.
 
-`44_SEED_PROVENANCE.md` — approval and seed-verification are separate gates; never attribute a seed to Claude PASS unless muted-read / `check_cursor_reply` showed him that take. Prefer `reviewed-after-seed` when correcting.
+`44_SEED_PROVENANCE.md` — **two gates:** approval ≠ seed-verification; never attribute a seed to Claude PASS unless muted-read / `check_cursor_reply` showed him that take. Prefer `reviewed-after-seed` when correcting.
 
 ---
 

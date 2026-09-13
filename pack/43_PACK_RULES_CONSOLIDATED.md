@@ -197,15 +197,36 @@ Reject remapping to `4.17` or `5.5 Focus` catch-alls.
 
 ---
 
-## 16. Seed provenance — approval ≠ seed verification
+## 16. Seed provenance — approval ≠ seed verification (two gates)
 
-**Lock:** Muted-read / Claude **approval** and **seed verification** are separate gates. Never attribute a live seed to Claude PASS unless `check_cursor_reply` / muted-read actually showed him **that** take. Prefer log **`reviewed-after-seed`** when correcting a seed that landed before review.
+**Lock — two gates, never collapse:**
+
+| Gate | Required for “Claude PASS” on a seed? | Proves |
+|---|---|---|
+| **Approval** (muted-read / `check_cursor_reply`) | **Yes** — he must have been shown **this** take | Picture↔text grade on that take id |
+| **Seed verification** (`npm run seed` / `audit-stills` / byte match) | **Yes** — live master + DB = that take | Prod/repo plate is the graded take |
+
+Neither gate implies the other. A live plate without a reply that names the take is **unreviewed**, not PASS. A PASS reply without a matching live plate is not a finished seed.
+
+Never attribute a live seed to Claude PASS unless muted-read / `check_cursor_reply` actually showed him **that** take. Prefer log **`reviewed-after-seed`** when correcting a seed that landed before review.
 
 False attributions (Claude never saw the frames): IV-028 take-82; IV-002 take-29; IV-006 take-47; V-013 take-5.
 
 Teaching case: **IV-028 take-87** is the live strapped-carrier winner (PR #239). Take-82 was unreviewed then replaced — do not re-attribute it to Claude PASS.
 
 **Source:** [`pack/44_SEED_PROVENANCE.md`](44_SEED_PROVENANCE.md); PR #239 (`cursor/seed-iv-028-take-87-b93d`).
+
+---
+
+## 17. Camera position ≠ camera subject
+
+**Lock:** Stating the camera **subject** (what the eye lands on first) is **not enough**. The brief must also state camera **position** — where the camera sits in the world (which seat, which exterior station, which side of the glass, how far).
+
+POV token alone names a family; it does not finish the job. “Carrier / both cats / strap” without “forward floor / rear hatch / roadside profile at X” is a costly miss class — stills land on the wrong station while the subject looks right (`WRONG_CAMERA` / wrong-station debt).
+
+Do not: describe only the object of attention and leave position implied by habit, prior takes, or the card title.
+
+**Source:** [`pack/02_CARD_GENERATOR_PROMPT.md`](02_CARD_GENERATOR_PROMPT.md) (`camera` + `subject`); [`pack/24_ART_REVIEW_RUBRIC.md`](24_ART_REVIEW_RUBRIC.md) §B (camera capable of the read); [`pack/12_IDENTITY_AND_CAMERA_POLICY.md`](12_IDENTITY_AND_CAMERA_POLICY.md) (whose-seat); Claude closeout on six-act / pack/43 (costly miss class).
 
 ---
 
@@ -232,7 +253,7 @@ Do not open Act VII from this consolidation. Chains / Snoqualmie / snow / night 
 | [`41_CITATION_CHEAP_FIRST.md`](41_CITATION_CHEAP_FIRST.md) | Citation FAIL remaps |
 | [`42_CITATION_FIFTEEN.md`](42_CITATION_FIFTEEN.md) | teaching_target enrichment; II-027 decision |
 | [`42_STILL_DRIFT_RECONCILE.md`](42_STILL_DRIFT_RECONCILE.md) | MD5 checkout-lag reconcile |
-| [`44_SEED_PROVENANCE.md`](44_SEED_PROVENANCE.md) | Approval vs seed-verification; Claude PASS attribution; IV-028 take-87 |
+| [`44_SEED_PROVENANCE.md`](44_SEED_PROVENANCE.md) | Two gates: approval ≠ seed-verification; Claude PASS attribution; IV-028 take-87 |
 | [`../cards/takes/ACT_VI_STANDING_LOCKS.md`](../cards/takes/ACT_VI_STANDING_LOCKS.md) | Cascades-west · carrier SPEC · cage · dash · Deac |
 | [`../refs/LOCKS.md`](../refs/LOCKS.md) | Plate winners; cat face-only |
 | [`DISABLED_TICKETS.md`](DISABLED_TICKETS.md) | Features turned off for quality |
