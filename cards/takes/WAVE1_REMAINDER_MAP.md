@@ -22,7 +22,7 @@ Nine ordinary cards only. Standing locks: `ACT_VI_STANDING_LOCKS.md` (Cascades-w
 | VI-005 | `VI-005-take-7.png` | take-8 | SMV grain truck ahead; take-8 has 112 |
 | VI-006 | `VI-006-take-7.png` | take-6 | uncontrolled gravel cross + pickup from right |
 | VI-007 | `VI-007-take-9.png` | take-8 | **hard** — island/circle read; circulating sedan still soft |
-| VI-008 | `VI-008-take-8.png` | take-6 | painted approach arrows; two-lane circle still soft |
+| VI-008 | `VI-008-take-15.png` | take-16 | **regen after Claude FAIL on take-8/6 (no circle)** — multi-lane approach: dashed two lanes + L/R arrows + raised island + circulating sedan; take-16 runner (stronger right→left circulating, arrows softer). Soft: island still small vs highway-junction scale; Brad muted-read |
 | VI-010 | `VI-010-take-8.png` | take-7 | blind crest climb; take-7 has 112 |
 | VI-012 | `VI-012-take-8.png` | take-7 | crossbuck + rails; take-3 = restraint REF only |
 
@@ -30,12 +30,14 @@ Nine ordinary cards only. Standing locks: `ACT_VI_STANDING_LOCKS.md` (Cascades-w
 `artifacts/act-vi-wave1-remainder/` — closest stills for muted-read.
 
 ## New Cascades-west takes (this PR)
-All under `cards/takes/`: take-6+ for each remainder card (through take-9 on 003/007).
+All under `cards/takes/`: take-6+ for each remainder card (through take-9 on 003/007). **VI-008 regen:** take-9…take-16 (this pass; closest take-15).
 
 ## Retired / out of ship queue
 | File | Why |
 |---|---|
 | Prior take-1/2 without Cascades-west + verbatim carrier | geography / carrier FAIL |
+| VI-008 take-6 / take-8 | Claude FAIL — no real roundabout (T / arrows-only / no circle) |
+| VI-008 take-9 / 12 / 14 | single-lane VI-007 clone class — wrong card |
 | VI-012 take-3 | carrier-restraint REF only |
 | Takes with speedlike **112** LCD as live speed | dash FAIL (prefer runner without) |
 | VI-003 take-6 | invented oncoming Menace |
