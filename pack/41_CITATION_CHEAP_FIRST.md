@@ -47,7 +47,7 @@ Added Act II camera-cap / window-of-6 row (`POV_DIAGRAM` 30.8% > 25%) — ship-a
 
 ## Left alone (per audit)
 
-- **NEEDS-REVIEW** (not remapped): see `pack/40_SIX_ACT_AUDIT` §3 — II-005/026/027/029/030, I-011 soft homes, III soft residuals, etc.
+- **NEEDS-REVIEW** (not remapped here): see `pack/40_SIX_ACT_AUDIT` §3 — II-005/026/029/030, I-011 soft homes, III soft residuals, etc. **II-027 → `n/a` accepted** on the citation-fifteen follow-on (`pack/42`): Skill six looking-ahead; school zone is setting — do not cite `4.17`.
 - **Allowlist sync** for other IV children (`4.5`, `4.15`, `5.0`) — still missing on main; IV-008/015/026 still fail `validate-citations.js` until a later sync.
 - Stills / hash drift / Act III READ_MISSING / Act VII — out of scope.
 

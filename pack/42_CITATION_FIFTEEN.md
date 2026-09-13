@@ -6,7 +6,7 @@ Standard: meaning-not-strings (Act IV–VI / `pack/37` style). `teaching_target`
 
 Guide bodies checked: `source/driver-guide.pdf` **5.2 Space** (p.159), **5.3 Merging** (p.160), **4.6** / **4.14** / **4.17**; `source/25WAPSDP_LR_v3.pdf` Skill nine look / pass-complete.
 
-Claude follow-up on PR #231: **III-018 stays on `5.2 Space`** (pass-completion / lane-position space — not the III-004 mirror-sweep n/a case). **II-027 held at `4.17` but not locked** — Claude wants full card text before accepting.
+Claude follow-up on PR #231: **III-018 stays on `5.2 Space`** (pass-completion / lane-position space — not the III-004 mirror-sweep n/a case). **II-027 → `n/a` accepted** (2026-09-13): Skill six looking-ahead search loop; school zone is setting, not lesson — same failure mode as citing `5.5 Focus` (plausible parent absorbing PSDP content); option (c) marks “watch the speedo until 20” wrong, so `4.17` would cite the rule the wrong option is about. Title remains **Search the Edges Again** (not Fog in the Stalls / II-021).
 
 ---
 
@@ -42,7 +42,7 @@ Card decision: *A gap just opened between them. Do you take it?* Teaching langua
 | **I-009** | Skill one / `n/a` → **same** | **PASS keep** + review note | Teaching is pre-roll aisle look. Engine-already-on is I-008 continuity, not a Skill two moving lesson. No DOL home; do not stretch. |
 | **II-005** | Skill six / `4.6` → **same** | **PASS keep** | **4.6** exact (≥3 ft). Skill six is a soft look-ahead wrapper for finding Marisol in the mirror — acceptable, not fabricated. |
 | **II-026** | Skill six / `4.6` → **same** | **PASS keep** | **4.6** bike-lanes body: look before opening the door. Dutch reach is the PSDP-flavored procedure; Skill six soft. |
-| **II-027** | Skill six / `5.5 Focus` → Skill six / **`4.17 Zones (School zone)`** | **HOLD at 4.17 — not locked** | Continuous school-zone edge search. Focus was catch-all. Cite string held at 4.17 for now; **Claude wants full card text before accepting.** Do not treat as closed. |
+| **II-027** | Skill six / `5.5 Focus` → Skill six / **`n/a`** | **`n/a` accepted** | Looking-ahead search loop (Skill six). School zone is setting. Rejected `4.17` (same parent-absorb failure as `5.5 Focus`; option (c) is the 20 mph rule). Title: **Search the Edges Again**. |
 | **II-029** | Skill seven / `4.14` → **same** | **Leave + review note** | Skill seven is correct (around-the-block). 4.14 Turning body is **intersection** lane choice — soft parent only. No DOL turnaround child; do not mint one. |
 | **II-030** | Skill seven / `4.14` → **same** | **Leave + review note** | Skill seven Lesson two (two-point). Same soft 4.14 parent as II-029. |
 | **III-005** | Skill nine / `5.2` → **same** | **Leave + review note** | Blind-spot sliver / cancel-hold. Skill nine look is primary (same class as III-004). 5.2 is weak cushion pairing — REVIEW, not FAIL. |
@@ -50,7 +50,7 @@ Card decision: *A gap just opened between them. Do you take it?* Teaching langua
 
 ---
 
-## Four honest `n/a` teaching_targets (FAIL class)
+## Honest `n/a` teaching_targets
 
 | card | Why no DOL home (in `teaching_target`) |
 |---|---|
@@ -58,6 +58,7 @@ Card decision: *A gap just opened between them. Do you take it?* Teaching langua
 | **I-007** | Antagonist lunge beat — lived experience; no curriculum home. |
 | **I-008** | Story rule (sound draws them) / lot closer — not Focus attention. |
 | **III-004** | Skill nine look procedure carries mirror+OTS; no separate DOL glance heading. |
+| **II-027** | Skill six looking-ahead search loop; school zone is setting — `4.17` would cite the rule option (c) marks wrong. |
 
 **III-018 is not in this set** — Claude kept it on **`5.2 Space`** (pass-completion / lane-position space-management; distinct from III-004).
 
@@ -69,11 +70,10 @@ Card decision: *A gap just opened between them. Do you take it?* Teaching langua
 - Act II camera-cap / POV_DIAGRAM (ticketed on #230)
 - Act IV–VI art; Act VII
 - Fabricating DOL children for turnarounds or blind-spot glance
-- Locking II-027 without Claude reading full card text
 
 ## Verify
 
 ```bash
 node scripts/validate-citations.js
-# II-027 held at 4.17 (not locked); III-018 → 5.2 Space; I-006/007/008 + III-004 → n/a; II-018 → 4.19; III-007 → 5.3
+# II-027 → n/a accepted; III-018 → 5.2 Space; I-006/007/008 + III-004 → n/a; II-018 → 4.19; III-007 → 5.3
 ```
