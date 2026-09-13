@@ -65,7 +65,7 @@ Three layers, and the order matters.
 6. Batch image compilation **after** a full zone is written, so recurring locations stay visually consistent within an act.
 7. Chunk size 100 for any bulk pass. Run twenty §9 ceiling tests before committing a full act.
 
-`19_ACT_II_ART_AUDIT.md` is the human art pass for Act II — frame-by-frame read against card text, with rebuild prompts for failures. `40_SIX_ACT_AUDIT.md` is the Acts I–VI stills ↔ JSON + I–III meaning-not-strings citation pass (report only).
+`19_ACT_II_ART_AUDIT.md` is the human art pass for Act II — frame-by-frame read against card text, with rebuild prompts for failures. `40_SIX_ACT_AUDIT.md` is the Acts I–VI stills ↔ JSON + I–III meaning-not-strings citation pass (report only). `41_CITATION_CHEAP_FIRST.md` remaps the seven I–III citation FAILs from that audit and tickets the Act II camera-cap debt in `DISABLED_TICKETS.md`. `42_CITATION_FIFTEEN.md` is the Claude muted-read text pass: honest `n/a` teaching_targets (I-006/007/008, III-004, II-027), III-007 kept on `5.3 Merging`, III-018 kept on `5.2 Space` (pass-complete space; not III-004), and PASS/review notes for the other NEEDS-REVIEW cards.
 
 ## Regeneration rule
 
