@@ -2,19 +2,74 @@
 
 Research / muted-read report only. **No art regen. No Postgres seed. No Act VII. No pack-rules consolidation.**
 
-Claude asked for this after Act VI wave-1 art closed. Standard for citations = Acts IV–VI **meaning-not-strings** (`pack/37_ACT_V_CITATION_AUDIT` style): allowlist string exact **and** DOL/PSDP body actually teaches the card. Stills check = live master / WAVE1 winner vs current card JSON `image_brief.read` + scene (after remaps/reseeds).
+Claude asked for this after Act VI wave-1 art closed. Expect findings, not a clean sweep. Standard for citations = Acts IV–VI **meaning-not-strings** (`pack/37_ACT_V_CITATION_AUDIT` style): allowlist string exact **and** DOL/PSDP body actually teaches the card. Stills check = live master / WAVE1 winner vs current card JSON `image_brief.read` + scene (after remaps/reseeds), plus **prod `npm run audit-stills`** (public Railway Postgres proxy).
 
 **Scope of card trees used**
 
 | Act | Card JSON / masters | Notes |
 |---|---|---|
-| I–IV | `main` (`cards/`) | Live ship tip for I–IV |
-| V | `cursor/ship-act-iv-v-playtest-c458` (+ WAVE1_MAP / remaps) | Ribbon not on `main` yet |
-| VI | `cursor/act-vi-wave1-remainder-57e9` + seed tips (`seed-vi-*`) | Wave-1 open; **do not seed from this audit** |
+| I–IV | `main` (`cards/`) | Live ship tip for I–IV; hash-checked vs prod |
+| V | `cursor/ship-act-iv-v-playtest-c458` (+ WAVE1_MAP / remaps) | Not on `main` yet; **13/13 MATCH prod** |
+| VI | seed tips (`seed-vi-*`, remainder, VI-008 take-15) | Wave-1 open; **13/13 in prod**; tip PNGs MATCH where present |
 
-**`npm run audit-stills`:** not run against production. Railway `DATABASE_URL` is sealed to OAuth/MCP (values hidden). Local `DATABASE_URL` is a stub. Repo-side hash compare of live PNG ↔ art-review `pick` + visual muted-read against JSON is what this report uses. Re-run `DATABASE_URL=… npm run audit-stills` when plaintext creds are available.
+Sources checked: `source/driver-guide.pdf` (esp. **4.19 Animals**, **5.5 Focus**, **4.10 Keep right**, **5.3 Merging**), `source/25WAPSDP_LR_v3.pdf`, `pack/07` / `pack/08`, `pack/10_ACT_II_CITATION_PATCH.json`, `cards/art-review-state.json`, `cards/takes/WAVE1_MAP.md` (V/VI branches), `PLAYTHROUGH.md`, prod `cards` table.
 
-Sources checked: `source/driver-guide.pdf` (esp. **4.19 Animals**, **5.5 Focus**, **4.10 Keep right**, **5.3 Merging**), `source/25WAPSDP_LR_v3.pdf`, `pack/07` / `pack/08`, `cards/art-review-state.json`, `cards/takes/WAVE1_MAP.md` (V/VI branches), `PLAYTHROUGH.md`.
+---
+
+## FINAL REPORT (Claude / Tyson)
+
+### Prod stills hash (`npm run audit-stills`)
+
+| Scope | Compared | MATCH | MISMATCH | Notes |
+|---|---:|---:|---:|---|
+| `main` repo PNGs ↔ prod | **92** | **87** | **5** | I-009, I-010, IV-002, IV-010, IV-026 |
+| Act V playtest tip ↔ prod | **13** | **13** | **0** | Live DB has full Ribbon |
+| Act VI seed tips ↔ prod | **13** | **13** | **0** | VI-008 matches `seed-vi-008-take-15-*`; VI-003 on remainder tip is an older take (DB ≠ that tip) |
+| Prod rows with no image | — | — | — | **II-031** only (`image_bytes` null) |
+| In prod, not on `main` checkout | — | — | — | II-031, IV-029, V-001…V-013, VI-001…VI-013 |
+
+**Main↔prod MISMATCH callouts (one line each — do not regen here):**
+
+- **I-009** / **I-010** — repo WebP ≠ live DB (lot aisle / back-out stills drifted after last seed).
+- **IV-002** — repo footwell plate ≠ live (playtest tip cites take-19; main still has older supplied plate).
+- **IV-010** — repo dossier still ≠ live (playtest take 18 vs main early PASS).
+- **IV-026** — expected: main is plow-stub take 110; live is later take 230 (`PLAYTHROUGH` already warns).
+
+**Picture↔text hard debt (muted-read, independent of hash):** IV-018 (carrier+112 vs cats on seat), I-003 (lap cats+112), III-019 live≠art-review pick, IV-028 wrong camera.
+
+### Citations (I–III meaning-not-strings)
+
+| | |
+|---|---|
+| Prior Act II fabricated PSDP names (4 class: seeing-habits ×2, space-cushion, communicating) | **Fixed** via `pack/10` — **0 remain** on live II JSON |
+| Prior catch-all DOL parents (`4.10` ×6 in patch, plus signs/turning sprawl) | **Mostly fixed**; live remnants below |
+| Still FAIL | **7** — II-018 (`5.5 Focus` → need `4.19 Transporting (Animals)`); I-006/007/008 Focus catch-alls; III-004 Focus; III-007 Space→Merging; III-018 Space |
+| NEEDS-REVIEW | **8** — II-005/026/027/029/030; I-009; III-005/010 |
+| PASS | **58** |
+
+### Camera-cap / DISABLED_TICKETS
+
+| | |
+|---|---|
+| Act III camera-cap validator | **Green** on main |
+| Act II `POV_DIAGRAM` | **Red** — **8/26 non-exempt (30.8%) > 25%** + window-of-6 / consecutive-token errors |
+| `pack/DISABLED_TICKETS.md` camera-cap row | **MISSING** (Claude expected it; fear-overlay rows only). Report as debt — **do not** start Act I–III replay or Act VII to “fix” percentages |
+
+### Act III art debt
+
+**15 READ_MISSING** on art-review board (III-002, 003, 004, 006, 007, 009, 011, 014, 016, 018, 019, 021, 022, 025, 027). Seeded best-of-four without muted-read; live through playtests. 14/15 live PNG == closest pick; III-019 is the exception.
+
+### Fix order (cheap first)
+
+1. Citation remaps (II-018→4.19; I-006/007/008→n/a; III-004→n/a; III-007→5.3; III-018→n/a) + add `4.19` to main `pack/07`
+2. Allowlist sync for IV children on main
+3. Add DISABLED_TICKETS row for Act II camera-cap (ship-as-is)
+4. Reconcile main↔prod hash drifts (I-009/010, IV-002/010/026) — seed or checkout tip, not regen
+5. Picture↔text: IV-018, I-003, III-019, IV-028
+6. Act III READ_MISSING muted-read batch
+7. Soft residuals (V-008 cones, etc.) last
+
+**Out of scope:** pack-rules consolidation; Act VII; seeding from this agent; Act I–III replay.
 
 ---
 
@@ -22,16 +77,18 @@ Sources checked: `source/driver-guide.pdf` (esp. **4.19 Animals**, **5.5 Focus**
 
 | Bucket | Count | Headline |
 |---|---:|---|
-| Seeded masters reviewed (I–IV main + V playtest + VI seed tips) | **116** card JSON / **106** PNG masters | II-031 text-only debt; VI-003 / VI-008 no master on seed tip |
+| Prod DB cards | **120** (119 with images) | Full I–VI live; II-031 no image |
+| `main` ↔ prod hash | **87 MATCH / 5 MISMATCH / 92 compared** | See FINAL REPORT |
+| Act V/VI tip ↔ prod | **26 MATCH / 0 MISMATCH** (V 13 + VI tips covering all 13) | Live seeded; not on `main` |
 | Stills ↔ JSON **hard mismatches** | **4** | IV-018, I-003, III-019 live≠pick, IV-028 camera/moment |
-| Stills **residuals / soft** | **6+** | V-008 cones, IV-026 plow stub, III-002 clipboard seat, VI-013 HOLD conflict, PLAYTHROUGH IV residuals |
+| Stills **residuals / soft** | **6+** | V-008 cones, IV-026 plow stub, III-002 clipboard seat, VI-013 HOLD narrative vs seeded bytes, PLAYTHROUGH IV residuals |
 | Act III art-review **READ_MISSING** | **15** | Seeded from best-of; muted-read never closed |
 | Citation FAIL (I–III) | **7** | See §3 (II-018 + I-006/007/008 + III-004/007/018) |
 | Citation NEEDS-REVIEW (I–III) | **8** | See §3 |
 | Citation PASS (I–III) | **58** | Allowlist strings valid on main for I–III |
-| Process debt | **2** | Act II camera-cap validator fail; `DISABLED_TICKETS` missing camera-cap row; main `pack/07` missing IV allowlist children |
+| Process debt | **2** | Act II camera-cap validator fail; `DISABLED_TICKETS` **missing** camera-cap row; main `pack/07` missing IV allowlist children |
 
-**Verdict for Claude / Tyson:** not a clean sweep. Cheapest wins are citation remaps + allowlist sync. Play-blocking still mismatch is **IV-018** (carrier+112 vs “two on the seat”). Do not open Act VII. Do not seed from this PR.
+**Verdict for Claude / Tyson:** not a clean sweep. Cheapest wins are citation remaps + allowlist sync + DISABLED_TICKETS row. Play-blocking still mismatch is **IV-018** (carrier+112 vs “two on the seat”). Do not open Act VII. Do not seed from this PR.
 
 ---
 
@@ -83,9 +140,19 @@ Fourteen of fifteen READ_MISSING have **live PNG == closest pick**. They were se
 | **Quiet** | V-013 take-7 Quiet dressing only among Ribbon wave-1. Act I lot Quiet is narrative; do not expect Quiet paint on highway Ribbon at seventy (`pack/37`). |
 | **II-018** | Cat on dash while teaching “box before you roll” — **legal exception** (pack/24). Citation is the FAIL, not the still. |
 
-### 2.5 Repo vs Postgres
+### 2.5 Repo vs Postgres (prod run complete)
 
-`scripts/audit-stills.js` compares WebP hashes of `cards/*.png` to `cards.image_bytes`. **Blocked here** (sealed Railway secrets). After creds: run per act, fix any `mismatch` / `in_repo_not_db` before trusting playtest DB vs git.
+`DATABASE_URL` = public Railway Postgres proxy (external host). `npm run audit-stills` + tip worktree hash compares:
+
+| Scope | Result |
+|---|---|
+| `main` `cards/*.png` ↔ prod | **87 MATCH / 5 MISMATCH / 92 compared** — mismatches: **I-009, I-010, IV-002, IV-010, IV-026** |
+| Act V playtest tip ↔ prod | **13/13 MATCH** |
+| Act VI seed tips ↔ prod | **13/13 MATCH** (VI-008 via `seed-vi-008-take-15-*`; all others via seed packs) |
+| Prod no-image | **II-031** only |
+| In prod, absent from `main` checkout | II-031, IV-029, V-001…V-013, VI-001…VI-013 |
+
+Hash mismatches are **seed/checkout drift**, not new regen asks. Picture↔text debt (§2.1) is separate.
 
 ---
 
@@ -93,7 +160,15 @@ Fourteen of fifteen READ_MISSING have **live PNG == closest pick**. They were se
 
 Allowlist string check on main: **I–III all pass** `validate-citations.js`. (Main `pack/07` is **missing** Act IV children `4.5` / `4.15` / `4.19` / `5.0` — IV cards FAIL string validation on main until allowlist sync; that is IV pack debt, not I–III.)
 
-`pack/10_ACT_II_CITATION_PATCH.json` fabricated PSDP names (`seeing habits`, `keeping a space cushion`, `communicating`) are **gone** from live II JSON. What remains is meaning drift — especially **5.5 Focus** catch-alls and **II-018**.
+### Act II prior audit — disposition (Claude priority #1)
+
+| Prior finding | Exact strings | Live status |
+|---|---|---|
+| **Four fabricated PSDP skill names** | `Skill five: seeing habits, part 1`; `Skill five: seeing habits, part 2`; `Skill seven: keeping a space cushion`; `Skill eight: communicating` | **All removed** — `pack/10` applied; **0** remain on live II JSON |
+| **Six catch-all `4.10 Traffic laws` cards** | II-002, II-012, II-014, II-019, II-024, II-027 | **Remapped** off the parent (school zone / time / space / slippery / intersections / etc.) |
+| **II-018 pet restraint** | Was / is `5.5 Focus` | **Still FAIL** — Act IV moved this class to **`4.19 Transporting (Animals)`**; II-018 never followed |
+
+Remaining Act II meaning debt is the Focus catch-all class (II-018 FAIL; II-027 NEEDS-REVIEW) plus soft PSDP homes (II-005/026/029/030) — not the fabricated-name class.
 
 ### 3.1 FAIL list (fix these)
 
@@ -260,16 +335,17 @@ Main `validate-citations.js` currently errors on IV-008 / IV-015 / IV-018 / IV-0
 
 1. **Citation remaps (text only)** — II-018 → `4.19 Transporting (Animals)`; I-006/007/008 → `n/a`; III-004 → `n/a`; III-007 → `5.3 Merging`; III-018 → `n/a`. Add `4.19` to main `pack/07` if missing.  
 2. **Allowlist sync** — merge Act V `pack/07` / `pack/08` children onto main so IV–VI validate.  
-3. **DISABLED_TICKETS** — one row for Act II camera-cap validator red / ship-as-is.  
-4. **IV-018 still** — regenerate or promote a take that shows **both cats on the seat**, speedo **0**, **no 112**, no carrier (decision beat). Highest play-blocker.  
-5. **I-003 still** — belt from B-pillar; cats on **seat** not lap; strip **112**.  
-6. **III-019** — either seed `c-take-2` or retag closest to live; finish muted-read.  
-7. **IV-028** — cockpit-forward carrier + crosswalk ahead (or rewrite brief to match rear still — writer first if camera can’t show the read).  
-8. **Act III READ_MISSING batch** — muted-read at 390px; no mass regen until tags say recompile.  
-9. **Soft residuals** — V-008 cones, IV-026 plow, III-002 clipboard doghouse — only after 1–7.  
-10. **Act VI seed map** — single WAVE1_MAP source of truth; resolve VI-013 HOLD; then Brad seed. Not this PR.
+3. **DISABLED_TICKETS** — one row for Act II camera-cap validator red / ship-as-is (`POV_DIAGRAM` 30.8%).  
+4. **Main↔prod hash reconcile** — I-009, I-010, IV-002, IV-010, IV-026 (checkout tip or re-seed live bytes; **no regen** unless muted-read fails).  
+5. **IV-018 still** — regenerate or promote a take that shows **both cats on the seat**, speedo **0**, **no 112**, no carrier (decision beat). Highest play-blocker.  
+6. **I-003 still** — belt from B-pillar; cats on **seat** not lap; strip **112**.  
+7. **III-019** — either seed `c-take-2` or retag closest to live; finish muted-read.  
+8. **IV-028** — cockpit-forward carrier + crosswalk ahead (or rewrite brief to match rear still — writer first if camera can’t show the read).  
+9. **Act III READ_MISSING batch** — muted-read at 390px; no mass regen until tags say recompile.  
+10. **Soft residuals** — V-008 cones, IV-026 plow, III-002 clipboard doghouse — only after 1–8.  
+11. **Act VI seed map** — single WAVE1_MAP source of truth; resolve VI-013 HOLD narrative vs seeded bytes. Not this PR.
 
-**Out of scope (per Claude):** pack-rules consolidation; Act VII; any seed from this agent.
+**Out of scope (per Claude):** pack-rules consolidation; Act VII; any seed from this agent; Act I–III replay.
 
 ---
 
