@@ -219,7 +219,7 @@
     },
     "VI-001": {
       "tag": "PASS",
-      "note": "Claude PASS take-6: blacktop→gravel / pass notch; carrier+full-grid. Seeded live. take-7 FAIL (paved/no carrier) not seeded.",
+      "note": "Claude PASS take-6: blacktop\u2192gravel / pass notch; carrier+full-grid. Seeded live. take-7 FAIL (paved/no carrier) not seeded.",
       "pick": "take-6",
       "updated_at": "2026-09-13T00:10:00.000Z"
     },
@@ -240,6 +240,12 @@
       "note": "Claude PASS take-6: uncontrolled gravel cross. Seeded live. take-7 FAIL (pickup L-to-R / yield-to-right gone) not seeded.",
       "pick": "take-6",
       "updated_at": "2026-09-13T00:10:00.000Z"
+    },
+    "VI-003": {
+      "tag": "PASS",
+      "note": "Claude PASS take-13: continuous ridge of loose pale gravel piled along the right edge at road level; carrier inboard; no 112. Seeded live. takes 10/11/12/14 FAIL (shoulder spill / earthen berm, not gravel windrow) not seeded.",
+      "pick": "take-13",
+      "updated_at": "2026-09-13T00:25:00.000Z"
     }
   }
 }

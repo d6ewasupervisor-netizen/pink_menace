@@ -1,6 +1,6 @@
 # Act VI Backcountry — wave-1 muted-read pack
 
-**Muted-read.** **VI-004 take-5**, **VI-009 take-2**, **VI-011 take-12**, **VI-013 take-16**, **VI-007 take-9**, **VI-010 take-8**, **VI-012 take-8** already seeded. **VI-001 take-6**, **VI-002 take-8**, **VI-005 take-7**, **VI-006 take-6** are **seeded** (Claude Pack 1 PASS grades). Do **not** seed VI-003 (FAIL). Do **not** seed VI-008 (BOTH FAIL). Do **not** seed FAIL runners for the four new cards. No Act VII.
+**Muted-read.** **VI-004 take-5**, **VI-009 take-2**, **VI-011 take-12**, **VI-013 take-16**, **VI-007 take-9**, **VI-010 take-8**, **VI-012 take-8**, **VI-001 take-6**, **VI-002 take-8**, **VI-005 take-7**, **VI-006 take-6** already seeded. **VI-003 take-13** is **seeded** (Claude PASS). Do **not** seed VI-003 takes 10/11/12/14 (FAIL). Do **not** seed VI-008 (BOTH FAIL). No Act VII.
 
 Map: [`WAVE1_MAP.md`](./WAVE1_MAP.md). Card JSON is the sole brief. All take paths under `cards/takes/`.
 
@@ -32,8 +32,9 @@ Priority stills also staged at `artifacts/act-vi-wave1-priority/` (same bytes as
 | **VI-002** | Loose Under You | **take-8 seeded** (PASS) | `VI-002-take-8.png` (from #217) | Claude PASS: empty washboard ruts. **take-6 FAIL** (112.0) not seeded. |
 | **VI-005** | Wide and Slow | **take-7 seeded** (PASS) | `VI-005-take-7.png` (from #217) | Claude PASS: SMV grain truck ahead. **take-8 FAIL** (112.0) not seeded. |
 | **VI-006** | Nobody's In Charge Here | **take-6 seeded** (PASS) | `VI-006-take-6.png` (from #217) | Claude PASS: uncontrolled gravel cross. **take-7 FAIL** (pickup L-to-R / yield-to-right gone) not seeded. |
+| **VI-003** | The Pile at the Edge | **take-13 seeded** (PASS) | `VI-003-take-13.png` (from #222) | Claude PASS: continuous ridge of loose pale gravel along the right edge at road level; carrier inboard; no 112. **takes 10/11/12/14 FAIL** (shoulder spill / earthen berm) not seeded. |
 
-Closest: VI-004→take-5 (**seeded**), VI-009→take-2 (**seeded**), VI-011→take-12 (**seeded**), VI-013→take-16 (**seeded**), VI-007→take-9 (**seeded**), VI-010→take-8 (**seeded**), VI-012→take-8 (**seeded**), VI-001→take-6 (**seeded**), VI-002→take-8 (**seeded**), VI-005→take-7 (**seeded**), VI-006→take-6 (**seeded**).
+Closest: VI-004→take-5 (**seeded**), VI-009→take-2 (**seeded**), VI-011→take-12 (**seeded**), VI-013→take-16 (**seeded**), VI-007→take-9 (**seeded**), VI-010→take-8 (**seeded**), VI-012→take-8 (**seeded**), VI-001→take-6 (**seeded**), VI-002→take-8 (**seeded**), VI-005→take-7 (**seeded**), VI-006→take-6 (**seeded**), VI-003→take-13 (**seeded**).
 
 ---
 
@@ -41,10 +42,9 @@ Closest: VI-004→take-5 (**seeded**), VI-009→take-2 (**seeded**), VI-011→ta
 
 | Card | Title | Takes | Status |
 |---|---|---|---|
-| VI-003 | The Pile at the Edge | (takes on #217) | **FAIL — do not seed** (separate regen) |
 | VI-008 | Pick Your Lane Before the Circle | (takes on #217) | **BOTH FAIL — do not seed** (separate regen) |
 
-**Inventory:** prior seeded takes + `VI-001-take-6.png` + `VI-002-take-8.png` + `VI-005-take-7.png` + `VI-006-take-6.png` from #217. FAIL runners remain on source PRs.
+**Inventory:** prior seeded takes + `VI-003-take-13.png` from #222. FAIL runners remain on source PRs.
 
 ---
 
@@ -62,4 +62,4 @@ Every Act VI still: **carrier latched and strapped**. When wheels are turning, *
 
 ## Out of scope
 
-No Act VII. No VI-003 seed. No VI-008 seed. No FAIL-runner seeds for VI-001/002/005/006/007/010/012. No VI-013-take-17 / VI-011-take-13 / VI-004-take-11 seed. Citations / `source` blocks untouched.
+No Act VII. No VI-003 take-10/11/12/14 seed. No VI-008 seed. No FAIL-runner seeds for VI-001/002/005/006/007/010/012. No VI-013-take-17 / VI-011-take-13 / VI-004-take-11 seed. Citations / `source` blocks untouched.
