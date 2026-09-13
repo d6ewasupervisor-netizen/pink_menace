@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Separate the Three",
   "hook": "Three problems. You cannot fix all three.",
-  "scene": "Heavy rain under a flat gray overcast on a downtown block that stacked its problems. Ahead: an open van door, a person in the travel lane, a bike splitting the two. You can slow. You cannot thread all three. Hazard management is picking an order — dump speed, give the person the lane, let the bike declare, then deal with the door. Trying to fix all three in one steer is how you write a fourth.",
+  "scene": "Heavy rain under a flat gray overcast on a downtown block that stacked its problems. Ahead: an open van door, a person in the travel lane, a bike splitting the two. You can slow. You cannot thread all three. Hazard management is picking an order \u2014 dump speed, give the person the lane, let the bike declare, then deal with the door. Trying to fix all three in one steer is how you write a fourth.",
   "decision": "Door, person, bike, all in the next two lengths. What do you do first?",
   "options": [
     {
@@ -55,7 +55,7 @@
   ],
   "debrief": "You cannot fix three hazards in one move. Dump speed, separate them, take them in order. Three problems, three beats, no fourth.",
   "source": {
-    "psdp_skill": "Skill ten: city driving – part one",
+    "psdp_skill": "Skill ten: city driving \u2013 part one",
     "dol_section": "5.0 Dangers of driving",
     "teaching_target": "When multiple hazards appear at once, reduce speed and separate them; do not try to solve all three in one steering input."
   },
@@ -67,10 +67,10 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_DIAGRAM",
-    "camera_pose": "Camera is at driver-eye height at the left curb / empty LEFT travel lane — a 45-to-60-degree left-rear three-quarter, not dead-astern and not low behind the right rear quarter. You see three faces at once: round rear (mesh, horizontal louvers, short STOCK bumper, no plow); clean riveted left flank; and the FRONT nose, large enough to read. On that far nose a black-tube bull bar carries one continuous full-width flat plow blade spanning both front tires, matching ref_car_nose_plow.png. Heading AWAY. Tight crop: two same-direction lanes on a wet downtown block. THREE hazards sit IN HER SAME right lane about TWO Beetle-lengths ahead of the nose blade. Left travel lane empty. No yellow centerline.",
+    "camera_pose": "Camera is at driver-eye height at the left curb / empty LEFT travel lane \u2014 a 45-to-60-degree left-rear three-quarter, not dead-astern and not low behind the right rear quarter. You see three faces at once: round rear (mesh, horizontal louvers, short STOCK bumper, no plow); clean riveted left flank; and the FRONT nose, large enough to read. On that far nose a black-tube bull bar carries one continuous full-width flat plow blade spanning both front tires, matching ref_car_nose_plow.png. Heading AWAY. Tight crop: two same-direction lanes on a wet downtown block. THREE hazards sit IN HER SAME right lane about TWO Beetle-lengths ahead of the nose blade. Left travel lane empty. No yellow centerline.",
     "subject": "RIGHT: faded-pink Beetle heading away, full-width nose blade wrapping the far bull bar. TWO lengths ahead IN HER LANE: cargo van with open side door, person, upright bike. LEFT lane empty.",
-    "foreground": "wet skip-dashed white; left curb not a yellow line; knobby spray; rear louvers; short stock rear bumper — no rear tube bar",
-    "midground": "van door + person + upright bike LARGE and TIGHT in her same lane, two lengths off the plow — not on a sidewalk, not at a distant house",
+    "foreground": "wet skip-dashed white; left curb not a yellow line; knobby spray; rear louvers; short stock rear bumper \u2014 no rear tube bar",
+    "midground": "van door + person + upright bike LARGE and TIGHT in her same lane, two lengths off the plow \u2014 not on a sidewalk, not at a distant house",
     "background": "heavy overcast rain, flat gray PNW afternoon daylight, wet brick downtown storefronts with depth, no houses-on-highway, no opposing traffic",
     "read": "three hazards sit in the Beetle's next two lengths; the left travel lane is empty",
     "extra_negatives": [
@@ -135,6 +135,7 @@
     "time_of_day": "afternoon",
     "tone": "tense",
     "failure_mode": "inexperience",
-    "forced": "Act IV daylight lock — dusk/night is Act VII Dark Hours; live still cards/takes/IV-026-take-110.png (owner override 2026-09-11); full-width plate authority remains ref_car_nose_plow.png"
+    "forced": "live still cards/takes/IV-026-take-230.png (tip #145; replaces plow-stub take-110 on main)",
+    "winner": "take-230"
   }
 }

@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Out of the Stall",
   "hook": "Nose in. The way out is behind you.",
-  "scene": "You parked pointed at a building you're not going into, which means leaving is a backing job — slow, one motion, into an aisle you can't see any of from where you're sitting.",
+  "scene": "You parked pointed at a building you're not going into, which means leaving is a backing job \u2014 slow, one motion, into an aisle you can't see any of from where you're sitting.",
   "decision": "How do you get out of the stall?",
   "options": [
     {
@@ -18,7 +18,7 @@
     },
     {
       "id": "b",
-      "text": "Turn and look over your shoulder — slow, one motion",
+      "text": "Turn and look over your shoulder \u2014 slow, one motion",
       "correct": true,
       "result": "You twist in the seat, past the empty place beside you, and look at the actual aisle. The car comes out where you were looking.",
       "state_delta": {}
@@ -53,11 +53,11 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_ROADSIDE",
-    "camera_pose": "Camera is inside the cabin at the driver's seat, body turned looking over the right shoulder out the rear glass — enclosed cab with solid roof headliner above the rear window. Not outside the car. Not looking forward. Not a mirror shot.",
-    "subject": "the view rearward out of the Menace from the driver seat — mesh over the rear glass, a wet parking-lot aisle beyond it",
-    "foreground": "driver's right shoulder in faded pink hoodie at the right edge; seat backs and headrests; solid faded pink roof headliner and rear window frame continuous — no open sky above the cab",
+    "camera_pose": "Camera is inside the cabin at the driver's seat, body turned looking over the right shoulder out the rear glass \u2014 enclosed cab with solid roof headliner above the rear window. Not outside the car. Not looking forward. Not a mirror shot.",
+    "subject": "the view rearward out of the Menace from the driver seat \u2014 mesh over the rear glass, a wet parking-lot aisle beyond it",
+    "foreground": "driver's right shoulder in faded pink hoodie at the right edge; seat backs and headrests; solid faded pink roof headliner and rear window frame continuous \u2014 no open sky above the cab",
     "midground": "rear glass with welded mesh and raindrops; wet parking aisle with painted white stall lines",
-    "background": "cars parked nose-in in marked parking stalls on the left and right of the aisle — a lot, not a road with shoulder parking; grey overcast",
+    "background": "cars parked nose-in in marked parking stalls on the left and right of the aisle \u2014 a lot, not a road with shoulder parking; grey overcast",
     "read": "the aisle behind is visible by turning and looking, with cars in stalls on both sides",
     "continuity": [
       "pink_menace_interior"
@@ -92,6 +92,8 @@
     "weather": "overcast",
     "time_of_day": "afternoon",
     "tone": "quiet",
-    "failure_mode": "none"
+    "failure_mode": "none",
+    "winner": "take-9",
+    "forced": "live still cards/takes/I-010-take-9.png (main\u2194prod reconcile; tip already live)"
   }
 }

@@ -18,7 +18,7 @@
     },
     {
       "id": "b",
-      "text": "Look it again — both ways, and behind the bumper",
+      "text": "Look it again \u2014 both ways, and behind the bumper",
       "correct": true,
       "result": "Left, right, the row you're backing into, the ground behind you. Then you move, and the lot is clear because you checked, not because it was clear before.",
       "state_delta": {}
@@ -57,8 +57,8 @@
     "camera": "POV_MIRROR_DOOR",
     "subject": "strictly from the driver seat inside the cabin looking left at the left door mirror; Gracie the orange tabby sits on the driver's lap / on the driver seat with you in the lower foreground",
     "foreground": "Gracie on your lap on the driver seat, orange tabby cream chest, unsettled; empty passenger seat visible to the right; wheel rim at the bottom",
-    "midground": "left door mirror mounted farther forward toward the A-pillar / front of the car — about a foot farther forward than a mid-door mount — glass shows wet parking aisle with painted stall lines",
-    "background": "grey licensing lot through the side glass, flat overcast; windshield ahead has welded square steel wire cage / grid over real glass — heavy bar cage, not fine perforated mesh, not fabric screen, not privacy dots",
+    "midground": "left door mirror mounted farther forward toward the A-pillar / front of the car \u2014 about a foot farther forward than a mid-door mount \u2014 glass shows wet parking aisle with painted stall lines",
+    "background": "grey licensing lot through the side glass, flat overcast; windshield ahead has welded square steel wire cage / grid over real glass \u2014 heavy bar cage, not fine perforated mesh, not fabric screen, not privacy dots",
     "read": "you are in the driver seat with Gracie on your lap, looking the aisle in the forward-mounted left mirror",
     "continuity": [
       "pink_menace_interior",
@@ -95,6 +95,8 @@
     "weather": "overcast",
     "time_of_day": "afternoon",
     "tone": "quiet",
-    "failure_mode": "none"
+    "failure_mode": "none",
+    "winner": "take-19",
+    "forced": "live still cards/takes/I-009-take-19.png (main\u2194prod reconcile; tip already live)"
   }
 }
