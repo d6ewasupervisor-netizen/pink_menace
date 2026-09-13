@@ -65,7 +65,7 @@ Three layers, and the order matters.
 6. Batch image compilation **after** a full zone is written, so recurring locations stay visually consistent within an act.
 7. Chunk size 100 for any bulk pass. Run twenty §9 ceiling tests before committing a full act.
 
-`19_ACT_II_ART_AUDIT.md` is the human art pass for Act II — frame-by-frame read against card text, with rebuild prompts for failures.
+`19_ACT_II_ART_AUDIT.md` is the human art pass for Act II — frame-by-frame read against card text, with rebuild prompts for failures. `41_CITATION_CHEAP_FIRST.md` remaps the seven I–III citation FAILs from the six-act audit (`40` / PR #229) and tickets the Act II camera-cap debt in `DISABLED_TICKETS.md`.
 
 ## Regeneration rule
 

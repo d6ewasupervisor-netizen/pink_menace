@@ -26,7 +26,8 @@ Added Act II camera-cap / window-of-6 row (`POV_DIAGRAM` 30.8% > 25%) — ship-a
 
 ## Left alone (per audit)
 
-- **NEEDS-REVIEW** citation rows from `pack/40_SIX_ACT_AUDIT` (e.g. II-027 Focus; soft PSDP homes) — documented only, not remapped here.
+- **NEEDS-REVIEW** (not remapped): see `pack/40_SIX_ACT_AUDIT` §3 — II-005/026/027/029/030, I-011 soft homes, III soft residuals, etc.
+- **Allowlist sync** for other IV children (`4.5`, `4.15`, `5.0`) — still missing on main; IV-008/015/026 still fail `validate-citations.js` until a later sync.
 - Stills / hash drift / Act III READ_MISSING / Act VII — out of scope.
 
 ## Verify
