@@ -246,6 +246,12 @@
       "note": "Claude PASS take-13: continuous ridge of loose pale gravel piled along the right edge at road level; carrier inboard; no 112. Seeded live. takes 10/11/12/14 FAIL (shoulder spill / earthen berm, not gravel windrow) not seeded.",
       "pick": "take-13",
       "updated_at": "2026-09-13T00:25:00.000Z"
+    },
+    "VI-008": {
+      "tag": "PASS",
+      "note": "Claude PASS take-15: multi-lane roundabout approach — two approach lanes + central island + circulating cross-traffic; carrier inboard; dark dash; no 112. Seeded live. take-16 FAIL (single-lane / VI-007 geometry: yield triangles, no lane divider) not seeded.",
+      "pick": "take-15",
+      "updated_at": "2026-09-13T00:30:00.000Z"
     }
   }
 }
