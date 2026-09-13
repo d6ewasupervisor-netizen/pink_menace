@@ -12,13 +12,13 @@ Text-only remaps from `pack/40_SIX_ACT_AUDIT` §3.1 / FINAL REPORT. **No stills 
 | **II-018** | `5.5 Focus` | `4.19 Transporting (Animals)` |
 | **III-004** | `5.5 Focus` | `n/a` |
 | **III-007** | `5.2 Space` | `5.3 Merging` |
-| **III-018** | `5.2 Space` | `n/a` |
+| **III-018** | `5.2 Space` | `5.2 Space` (reverted — Claude) |
 
 `psdp_skill` unchanged on all seven.
 
 ## n/a honesty (`teaching_target`)
 
-Act VI style: null means the guide has **no home**, not that the right section was hard to find. Each remapped `n/a` card now carries a one-line why (and an explicit do-not-cite-parent):
+Act VI style: null means the guide has **no home**, not that the right section was hard to find. Each remapped honest-`n/a` card (I-006/007/008, III-004) now carries a one-line why (and an explicit do-not-cite-parent):
 
 | card_id | why `n/a` (in `teaching_target`) |
 |---|---|
@@ -26,7 +26,10 @@ Act VI style: null means the guide has **no home**, not that the right section w
 | **I-007** | No DOL/PSDP home for the lot attack beat; do not stretch `5.5 Focus` as a catch-all. |
 | **I-008** | Story rule (“sound draws them”), not a DOL distraction heading; do not cite `5.5 Focus` parent. |
 | **III-004** | Skill nine looking procedure; DOL has no separate mirror/OTS heading; do not cite `5.5 Focus`. |
-| **III-018** | Skill nine pass-complete cue; `5.2 Space` does not teach it; do not cite parent Space. |
+
+## Claude follow-up — III-018
+
+**Reverted** `n/a` → **`5.2 Space`**. Pass-completion card; 5.2 was correct. Keep I-006/007/008 and III-004 as honest `n/a`. III-007 stays `5.3 Merging`.
 
 ## FLAG for Claude — III-007 → `5.3 Merging`
 
