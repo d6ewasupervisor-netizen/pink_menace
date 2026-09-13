@@ -29,7 +29,7 @@ Plates live in `public/game/quiet/`. Depth plates only apply where `camera` is f
 
 | Tier | Presence | What paints |
 |---|---|---|
-| T0 | 0–3 | Whisper. Handprints at ~10% — barely there. |
+| T0 | 0–3 | Whisper. Handprints at ~10% — barely there. Live presence floors at **3** (QP-001); clean decay cannot empty the world. |
 | **T1** | **4–8** | A walker in the **rearview** (Menace) or door glass (Ledger). Watching, not attacking. Different still per card. |
 | **T2** | **9–13** | Same walker, nearer in that glass. Vignette begins. Never a figure in the middle of a cockpit windshield — that reads as a toy on the dash. |
 | **T3** | **14–22** | They got loud. Pose swaps to an attack still of that walker. Prints thicken with the **noise meter**, not a sticky on/off. Eyeshine at night/dusk cards. |
@@ -71,3 +71,9 @@ Vignette from presence runs only at T2+, and only when a plate is actually rende
 Not "is it scary." One thing: **does she connect the Quiet to her own driving.** The line that means it worked is some version of *"they showed up when I messed up"* — and the sharpest tell is whether she starts playing quieter on purpose.
 
 If she sees them and it doesn't change how she drives, the tiers are firing but the causal link isn't legible, and the fix is timing: the plate should land in the same beat as the meter spike, not a card later.
+
+## 7. ACT-BOUNDARY REVEAL (QP-002)
+
+Text only. One tap. No new cards. Fires once when entering the next act (II+), from the prior run's presence or a daylight cargo-fail. Four lines: farther / still out there / closer / daylight closed in. Never "zombies." Never "you're safe."
+
+QP-003 V-013 live still is **take-7** Quiet silhouette dressing (Claude overflow mute-read PASS + Brad promote). take-6 FAIL — not seeded. **NOT Hollis** — live V-013 is remapped to Skill 11 **Flashers on the Strip** (PR #199); Quiet dressing sits on that Flashers card. Teaching read stays the shoulder stop — two distant figures only. No Quiet on V-006 / V-008. QP-004 (V-001, V-007, V-010, Acts II–IV ambient) is later.

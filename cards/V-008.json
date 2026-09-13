@@ -1,0 +1,116 @@
+{
+  "card_id": "V-008",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Cone Line",
+  "hook": "Orange starts a long way out.",
+  "scene": "Orange starts a long way out. The cones walk left across the right lane ahead of you and there are two people in hi-viz past the taper.",
+  "decision": "The cones are walking left. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Move over early and take the posted speed",
+      "correct": true,
+      "result": "You take the shift while the cones are still a line, not a wall. The number comes down. The two in hi-viz stay on their feet. You are in the lane they left you before the pinch finished.",
+      "state_delta": {
+        "noise": 0,
+        "light": 0,
+        "yaw": 0,
+        "time_cost": 3
+      }
+    },
+    {
+      "id": "b",
+      "text": "Hold speed until the cones force you over",
+      "correct": false,
+      "result": "You keep the leftover until the taper is a wall. Then you have to take it late, next to people on foot. The cones already asked. You made them force it.",
+      "state_delta": {
+        "noise": 1,
+        "light": 0,
+        "yaw": 2,
+        "time_cost": 2
+      }
+    },
+    {
+      "id": "c",
+      "text": "Brake hard at the taper and squeeze in",
+      "correct": false,
+      "result": "You stand on it at the pinch and cut in. The car behind you still has leftover. One yellow coat has to move. The posted number was a long way out.",
+      "state_delta": {
+        "noise": 1,
+        "light": 0,
+        "yaw": 3,
+        "time_cost": 4,
+        "passenger_stress": 1
+      }
+    }
+  ],
+  "debrief": "Reduce your speed to the posted work zone limit and move over early. Fines double and workers are on foot past the taper.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving \u2013 part one",
+    "dol_section": "4.17 Zones (Work zone)",
+    "teaching_target": "Reduce speed to the posted work zone limit and move over early. Fines double; workers are on foot past the taper."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_CHASE",
+    "camera_is_the_lesson": true,
+    "subject": "work_zone_taper_cones_ribbon. Driver-eye chase behind and slightly right of the Menace, approaching the taper from the left lane",
+    "foreground": "wet left-lane asphalt; rear and right flank of the faded-pink Beetle receding, large enough to read as the Menace",
+    "midground": "MUTCD-orange cones with white collars step laterally toward the skip-dash; open lanes visibly narrow",
+    "background": "workers as people past the taper; left gantry panel blank at full crop; wet overcast unnamed Ribbon; no snow",
+    "read": "cones step toward the skip-dash and pinch the lanes; workers stand past the taper; orange stays saturated",
+    "continuity": [
+      "ribbon_workzone",
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no snow",
+      "no ice",
+      "no sun",
+      "no warm cast",
+      "no chains",
+      "no Snoqualmie shield",
+      "no washed-out or desaturated orange cones",
+      "no cones only as a parallel shoulder row",
+      "no readable gantry text",
+      "no legible route number",
+      "no exit number",
+      "no exit-ramp-only geometry",
+      "no second occupant",
+      "no current-model vehicles",
+      "no posterized flat-color",
+      "no dry pavement",
+      "no clipboard in the glass",
+      "no insulin cooler"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "left travel lane of a narrowing Ribbon work-zone",
+      "ego_nose_in_frame": "rear of the Beetle nearest camera; plow at the far leading end",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction",
+      "lanes_this_direction": 2,
+      "ego_lane_from_left": 1,
+      "ego_frame_side": "left"
+    }
+  },
+  "variation": {
+    "location_type": "work_zone",
+    "weather": "overcast",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "speed",
+    "winner": "take-3",
+    "forced": "live still cards/takes/V-008-take-3.png (Claude PASS muted-read + Brad 2026-09-12: 6x left-gantry weathered blank, not bright white; CLEAR TO SEED). Master cards/V-008.png. take-1 FAIL do not seed. Lesson copy EXACT from Claude Skill 11 JSON (PR #199). image_brief locked on work_zone_taper_cones_ribbon. Replaces playtest take-7."
+  }
+}

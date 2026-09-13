@@ -45,6 +45,14 @@ Three layers, and the order matters.
 
 `23_THE_SPOKEN_DICTIONARY.md` is the voice authority. Cards, chrome, barks, manifest, ride-along, compile prompts, and the bible draw from it. If a word is in the swap column, it does not print. Act III's zone name is **Central**.
 
+`34_ACT_V.md` is the Act V Ribbon beat skeleton (13 cards + existing end beat). Do not seed.
+
+`35_ACT_V_RESEARCH.md` is the Skill eleven / DOL highway research gates.
+
+`36_YUNA_RADIO_VOICE.md` is Act V Yuna radio copy. She is never seen and never in the car. Four appearances. Channel bands follow `cargo_rough` (CLEAN / SCUFFED / THINNED). Not a stills job.
+
+`37_ACT_V_CITATION_AUDIT.md` is the Act V text citation audit. No art. Do not seed.
+
 `24_ART_REVIEW_RUBRIC.md` is the still-vs-copy review: tag as a work order, text before pixels, never generate on `CARD_BROKEN` / `WRONG_CAMERA`. Tool: `npm run art-review`.
 
 `43_PACK_RULES_CONSOLIDATED.md` is the post–six-act-audit index of hard-won standing rules (plate MD5 audit, frame-relative, camera position≠subject, sole brief authority, moment-not-topic, carrier / Deac / 112 / Act VI geography, citations, IV-018 / II-027 Claude locks, seed provenance two-gates). Cross-links the numbered pack sources; does not replace them. **Act VII stays CLOSED** — do not scaffold VII cards from it.

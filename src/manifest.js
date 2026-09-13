@@ -16,6 +16,11 @@ const MANIFESTS = {
     cargo: "Deac's cargo",
     for: "the next drop",
   },
+  V: {
+    run: "The Ribbon — I-5 / I-90",
+    cargo: "Relay kit — repeater, antenna, clamps",
+    for: "Tower 4 — valley floor",
+  },
   VI: {
     run: "The Backcountry — valley floor",
     cargo: "TODO — Claude: Backcountry load",
@@ -102,9 +107,18 @@ function timeCostOf(delta) {
   return Math.max(0, Number(delta && delta.time_cost) || 0);
 }
 
-function radioCheckin(prevState, nextState) {
+function radioCheckin(prevState, nextState, act) {
   const before = coldFrom(prevState);
   const after = coldFrom(nextState);
+  if (act === "V") {
+    if (before > 0 && after <= 0) {
+      return { who: "yuna", line: "The relay kit is late. Tower 4 still wants it. How far out?" };
+    }
+    if (before > 30 && after <= 30) {
+      return { who: "yuna", line: "Tower 4, checking. How far out?" };
+    }
+    return null;
+  }
   if (before > 0 && after <= 0) {
     return { who: "reyna_solis", line: "Cold pack's sweating. How far out? — R." };
   }
@@ -118,7 +132,7 @@ function failPlace(cardId) {
   return FAIL_PLACE[cardId] || null;
 }
 
-function cargoFailDispatch(charges) {
+function cargoFailDispatch(charges, act) {
   const rows = (charges || [])
     .map((c) => ({
       card_id: c.card_id,
@@ -126,6 +140,18 @@ function cargoFailDispatch(charges) {
       place: c.place || failPlace(c.card_id),
     }))
     .filter((c) => c.minutes > 0 && c.place);
+  if (act === "V") {
+    if (!rows.length) return "Light ran out on the Ribbon. The relay kit did not make dusk.";
+    const named = rows
+      .sort((a, b) => b.minutes - a.minutes || String(a.card_id).localeCompare(String(b.card_id)))
+      .slice(0, 2);
+    const parts = named.map((c) => {
+      const word = numberWord(c.minutes);
+      return word.charAt(0).toUpperCase() + word.slice(1) + " at " + c.place + ".";
+    });
+    parts.push("Light ran out. The kit did not make dusk.");
+    return parts.join(" ");
+  }
   if (!rows.length) {
     return "The pack warmed. Delridge is telling June it's tomorrow.";
   }
@@ -146,6 +172,12 @@ function cargoFailDispatch(charges) {
 function deliveryBeat(stateOrCold, act) {
   const state = stateOrCold && typeof stateOrCold === "object" ? stateOrCold : { time_cost: COLD_PACK - (Number(stateOrCold) || 0) };
   const n = coldFrom(state);
+  if (act === "V") {
+    if (n <= 0) return "The relay kit is late. Repeater, antenna, clamps. Tower 4 still takes it.";
+    if (n >= 10) return "Relay kit delivered. Repeater, antenna, clamps. Tower 4. " + n + " minutes to spare.";
+    if (n === 1) return "Relay kit delivered. 1 minute. Repeater, antenna, clamps. Tower 4.";
+    return "Relay kit delivered. " + n + " minutes. Repeater, antenna, clamps. Tower 4.";
+  }
   if (act === "VI") {
     // End beat (not a VI-014 card): Cleared — and the pass is shut.
     // Claude END_BEAT: same shut-gate beat whether the pack finished cold or warm.
@@ -156,6 +188,7 @@ function deliveryBeat(stateOrCold, act) {
       "You are cleared to drive a road that will not let you on it. " +
       "Two hundred and eighty miles east, your mother is awake and does not know yet."
     );
+  }
   }
   if (n <= 0) return "Delivered warm. June took it anyway.";
   if (n >= 10) return "Delivered. " + n + " minutes to spare.";

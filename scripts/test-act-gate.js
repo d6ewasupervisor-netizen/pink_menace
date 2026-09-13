@@ -25,7 +25,7 @@ assert.strictEqual(actEntryLocked("II", acts, doneI), false, "II opens when Act 
 const withIV = { ...acts, IV: [{ card_id: "IV-002" }, { card_id: "IV-003" }] };
 assert.strictEqual(actEntryLocked("IV", withIV, fresh), false, "IV is playable without I–III");
 assert.strictEqual(actEntryLocked("IV", withIV, ever), false, "IV stays enterable mid-Grid");
-assert.strictEqual(actEntryLocked("V", { ...withIV, V: [{ card_id: "V-001" }] }, fresh), true, "V still waits");
+assert.strictEqual(actEntryLocked("V", { ...withIV, V: [{ card_id: "V-001" }] }, fresh), false, "V is playable without I–IV");
 
 assert.strictEqual(isBeatCard("beat"), true);
 assert.strictEqual(isBeatCard("hazard"), false);

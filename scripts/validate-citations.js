@@ -18,10 +18,11 @@ function loadTables() {
 function validateCard(raw, tables) {
   const id = raw.card_id || "(missing card_id)";
   const errors = [];
-  const dol = raw.source && raw.source.dol_section;
+  const dolRaw = raw.source && raw.source.dol_section;
+  const dol = dolRaw == null || dolRaw === "" ? "n/a" : dolRaw;
   const psdp = raw.source && raw.source.psdp_skill;
-  if (!dol || !tables.dol.has(dol)) {
-    errors.push(`${id}: dol_section ${JSON.stringify(dol)} is not in pack/07_DOL_SECTIONS.json`);
+  if (!tables.dol.has(dol)) {
+    errors.push(`${id}: dol_section ${JSON.stringify(dolRaw)} is not in pack/07_DOL_SECTIONS.json`);
   }
   if (!psdp || !tables.psdp.has(psdp)) {
     errors.push(`${id}: psdp_skill ${JSON.stringify(psdp)} is not in pack/08_PSDP_SKILLS.json`);

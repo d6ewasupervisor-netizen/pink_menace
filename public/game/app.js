@@ -22,7 +22,7 @@ let playGen = 0;
 let stopType = null;
 let hazardTimer = 0;
 let advanceTimer = 0;
-let meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold" };
+let meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 3, tier: 0, handprints: false };
 let liveCard = null;
 let stopChoiceGate = null;
 let answering = false;
@@ -33,6 +33,36 @@ let cancelTypeScene = null;
 let recapTimer = 0;
 let recapAdvancing = false;
 const CAUGHT_KEY = "pm.caught";
+const REVEAL_KEY = "pm.actReveal.";
+
+function revealSeen(act) {
+  try {
+    return sessionStorage.getItem(REVEAL_KEY + act) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markReveal(act) {
+  try {
+    sessionStorage.setItem(REVEAL_KEY + act, "1");
+  } catch {
+    // private mode
+  }
+}
+
+function clearReveals() {
+  try {
+    const keys = [];
+    for (let i = 0; i < sessionStorage.length; i += 1) {
+      const k = sessionStorage.key(i);
+      if (k && k.startsWith(REVEAL_KEY)) keys.push(k);
+    }
+    keys.forEach((k) => sessionStorage.removeItem(k));
+  } catch {
+    // private mode
+  }
+}
 
 function liveState() {
   try {
@@ -1222,11 +1252,21 @@ function renderLive(card) {
       begin();
     });
   };
-  if (card.manifest && card.manifest.show) {
-    PMFeel.showManifest(card.manifest, crankThen);
+  const afterReveal = () => {
+    if (card.manifest && card.manifest.show) {
+      PMFeel.showManifest(card.manifest, crankThen);
+      return;
+    }
+    crankThen();
+  };
+  if (card.act_reveal && card.act && !revealSeen(card.act) && !card.recap && !card.pending_outcome) {
+    PMFeel.showDelivery(card.act_reveal, () => {
+      markReveal(card.act);
+      afterReveal();
+    });
     return;
   }
-  crankThen();
+  afterReveal();
 }
 
 function renderReview(card) {
@@ -1243,7 +1283,8 @@ async function loadHome(focusCardId) {
 
 async function startOver() {
   clearLive();
-  meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false, camera: "", cardId: "" };
+  meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 3, tier: 0, handprints: false, camera: "", cardId: "" };
+  clearReveals();
   try {
     await PM.api("/api/run/restart", { method: "POST", body: {} });
   } catch {
@@ -1260,7 +1301,7 @@ async function playAgainCard(cardId) {
   const btn = document.getElementById("play-again");
   if (btn) btn.disabled = true;
   clearLive();
-  meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 0, tier: 0, handprints: false, camera: "", cardId: "" };
+  meters = { noise: 0, light: 0, yaw: 0, cargo: 140, time_cost: 0, cold: 130, warming: 0, phase: "cold", presence: 3, tier: 0, handprints: false, camera: "", cardId: "" };
   try {
     await PM.api("/api/run/play-again", { method: "POST", body: { card_id: cardId } });
   } catch {

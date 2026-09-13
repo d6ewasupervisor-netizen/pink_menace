@@ -1,0 +1,128 @@
+{
+  "card_id": "V-006",
+  "act": "V",
+  "zone": "The Ribbon",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Beside the Trailer",
+  "hook": "A rig sits level with your door.",
+  "scene": "A rig comes up on your left and sits there, level with your door. You can't find the driver's face in either mirror.",
+  "decision": "You can't find his face in either mirror. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold your speed and stay alongside",
+      "correct": false,
+      "result": "You hold the door. He still cannot see you in either mirror. The trailer walks with you. If he needs your lane he will take it. You stayed in the blind spot.",
+      "state_delta": {
+        "noise": 1,
+        "light": 0,
+        "yaw": 1,
+        "time_cost": 1,
+        "passenger_stress": 1
+      }
+    },
+    {
+      "id": "b",
+      "text": "Ease off and let it get clear",
+      "correct": true,
+      "result": "You lift. The rig walks forward until both door mirrors can own a Beetle. You can find his face again. You let it pass. Cheaper on every axis than holding or punching it.",
+      "state_delta": {
+        "noise": 0,
+        "light": 0,
+        "yaw": 0,
+        "time_cost": 1,
+        "passenger_stress": 0
+      }
+    },
+    {
+      "id": "c",
+      "text": "Accelerate to clear the front of it",
+      "correct": false,
+      "result": "You stay in the blind spot longer, only faster. The Beetle walks rough in his spray. If he drifts you meet the trailer at speed. Ease off was the cheaper clear.",
+      "state_delta": {
+        "noise": 3,
+        "light": 0,
+        "yaw": 2,
+        "time_cost": 1,
+        "passenger_stress": 1
+      }
+    }
+  ],
+  "debrief": "Stay out of a large truck's blind spots. If you can't see the driver's mirrors, the driver can't see you \u2014 ease off and let it pass.",
+  "timeout_option_id": "a",
+  "timeout_ms": 12000,
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving \u2013 part one",
+    "dol_section": "4.4 Sharing with large vehicles",
+    "teaching_target": "Stay out of a large truck's blind spots. If you can't see the driver's mirrors, ease off and let it pass."
+  },
+  "cast": [
+    "ali"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "presence": 0,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "camera_is_the_lesson": true,
+    "subject": "semi_alongside_ribbon. Just outside the Menace left door at door height; period rig fills the left of frame",
+    "foreground": "wet spray off the rig wheels; faded-pink Beetle low against the trailer \u2014 left door and roof near camera",
+    "midground": "period-aged conventional tractor, rust, west-coast mirrors fully visible, plain trailer, no livery",
+    "background": "wet Ribbon rain midday, unnamed corridor, no snow, no sun, no chains, no current-model fleet",
+    "read": "a period rig fills the left at door height; the Menace sits low beside it; wet spray at the wheels; mirrors visible",
+    "continuity": [
+      "ribbon_rig",
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no legible livery",
+      "no hero three-quarter of the rig grille as the camera",
+      "no cropped or missing rig door mirrors",
+      "no current-model truck or car",
+      "no snow",
+      "no ice",
+      "no sun",
+      "no warm cast",
+      "no chains",
+      "no Snoqualmie shield",
+      "no second occupant",
+      "no interior rearview as the subject",
+      "no route number",
+      "no exit number",
+      "no posterized flat-color",
+      "no dry pavement",
+      "no clipboard in the glass",
+      "no insulin cooler"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "travel lane tight beside a tractor-trailer on the left",
+      "ego_nose_in_frame": "Beetle left door and roof near camera; plow ahead and low if seen",
+      "oncoming_position": "none in frame",
+      "hazard_position": "beside",
+      "lanes_this_direction": 3,
+      "ego_lane_from_left": 2,
+      "ego_frame_side": "right",
+      "traffic_positions": [
+        {
+          "vehicle": "period tractor-trailer",
+          "frame_side": "left",
+          "along": "beside",
+          "lengths": 0
+        }
+      ]
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "rain",
+    "time_of_day": "midday",
+    "tone": "urgent",
+    "failure_mode": "inexperience",
+    "winner": "take-3",
+    "forced": "live still cards/takes/V-006-take-3.png (Claude PASS muted-read + Brad promote 2026-09-12). Master cards/V-006.png. Runner take-1 banked. Lesson copy EXACT from Claude Skill 11 JSON (PR #199). cargo_rough mapped to passenger_stress (a1/b0/c1). image_brief locked on semi_alongside_ribbon. Replaces playtest take-47."
+  }
+}

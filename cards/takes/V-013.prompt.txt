@@ -1,0 +1,25 @@
+# V-013 — GPT Image 2 compile prompt
+# attachments: ref_ribbon_deck.png, ref_car_exterior.jpg
+# camera: POV_CHASE
+# shot: shoulder_stop_dusk_ribbon
+# plate: ref_ribbon_deck (take-4 geometry authority)
+# gates (FAIL immediately): shoulder wider than plate; curve not readable; Ali out of the car;
+#   second person; dry dusk; night-black sky; sun/warm cast; route/exit number; rear plow
+
+Cinematic photoreal still. 35mm full-frame equivalent, f/2.0, shallow depth of field, natural falloff. Dusk grade over the attached Ribbon deck plate: wet rain, gray-blue last light still in the sky (not night-black), streetlights the only lamps, no sun, no warm cast. Desaturated palette: wet asphalt gray, oxidized steel, cold concrete. The only saturated color in frame is cranberry pink. Fine grain, slight lens vignetting, no HDR, no glow, no lens flare.
+
+Camera is driver's-eye height in the travel lane, three-quarter rear of the subject vehicle, looking forward along the car. Offset to the left flank of the Beetle so the left rear quarter and the right travel-lane edge are both in frame. The subject's rear is nearer the camera; the body recedes away. Never oncoming. The subject's front grille and headlights are not the subject.
+
+Match the attached deck plate for roadway geometry: three same-direction wet lanes, solid yellow left-edge against a Jersey or crop, skip-dashes, a tight right fog line, and a NARROW right shoulder against a concrete Jersey — the shoulder is only a strip, not an emergency lane. Streetlight standards recede. Blank gantry panels with no text. Brick city below the barrier. Period traffic only if present; no current-model vehicles.
+
+shoulder_stop_dusk_ribbon. A classic VW Beetle, unmistakably a Beetle in silhouette — round fenders, sloping rear engine cover, domed roof — faded matte pink with oxidation. Welded steel mesh cages over the windows, riveted raw-steel plating on the left door and rear quarter, oversize knobby tires on chrome slot wheels. STOPPED on that narrow right shoulder past a bend. Part of the car sits on the fog line next to the travel lane. Hazard flashers lit (amber rear lamps blinking). A 17-year-old woman with cranberry-red hair is INSIDE the left seat and belted — a silhouette through mesh, not outside, not a second occupant. Stock Beetle rear: engine lid, no rear-mounted plow, no rear blade, no rear bull bar. The front plow if seen at all is far ahead at the leading end.
+
+The deck CURVES so the bend is readable — the far travel lanes and streetlight run disappear behind the Jersey or gantry. A dead-straight infinite deck fails. Wet rain on asphalt; dry dusk fails.
+
+The read: the Menace is stopped on a narrow right shoulder past a readable curve; flashers lit; dusk streetlights only; Ali inside.
+
+Muted-text test: if every caption and UI label were hidden, that single visual fact must still be the first thing the eye reads, large and central, not implied.
+
+Left-hand-drive vehicle: the steering wheel is on the left side of the cabin. Traffic signs are single-faced. Any sign in frame is legible only if it faces the camera's direction of travel. Exactly one sign face may be legible in any frame; if a second would be, turn it or crop it. Never depict a double-sided sign.
+
+No golden hour, no sunset, no desert, no salt flat, no cracked dry earth, no warm orange light, no lens flare, no HDR, no glow, no bloom. No gore, no wounds, no blood on skin, no corpses. No text, no captions, no watermarks, no UI overlay. No crowds. No firearms. No anime, no illustration, no painterly rendering, no 3D render look — this is a photograph. No detached limbs, no arms or hands without a visible attached shoulder and torso, no limb growing out of a vehicle body panel. No right-hand drive, no steering wheel on the right side of the cabin, no driving on the left side of the road. No vehicle on the right passing a vehicle on the left. No yellow centerline in frame, no double yellow, no oncoming traffic. The LEFT edge of the roadway in frame is a concrete median barrier, a curb, or a crop — never a centerline. No front grille facing the camera, no headlights facing the camera, no subject coming toward the lens. No second person. No Ali standing outside. No route number. No exit number. No snow. No ice. No chains. No chain-up. No Snoqualmie shield. No night-black sky. No sun. No current-model vehicles. No posterized flat-color. No dry pavement. No rear-mounted plow. No interior rearview as the subject. No clipboard in the windshield. No Quiet herd. No insulin cooler. Aspect ratio 2:3.

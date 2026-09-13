@@ -2,8 +2,9 @@
 
 const crypto = require("crypto");
 const { query, pool } = require("./db");
-const { publicFear } = require("./presence");
+const { publicFear, floorPresence } = require("./presence");
 const { coldFrom, warmingFrom, cargoFailDispatch, CARGO_BUDGET, timeCostOf } = require("./manifest");
+const { stampDaylightFail, daylightFail } = require("./cargo-rough");
 
 async function purgeExpiredPending() {
   await query(`DELETE FROM pending_links WHERE created_at < now() - interval '30 days'`);
@@ -59,7 +60,9 @@ async function ledgerForOrigin(client, runId, fromCard) {
   return rows[0] ? rows[0].card_id : null;
 }
 
-const QUIET_IN_FRAME = new Set(["I-005", "I-006", "I-007", "I-008"]);
+// Quiet already in the I-005–I-008 stills and in V-013 take-7 (QP-003 baked-in).
+// Do not overlay-composite Quiet onto V-006 / V-008. Herd is Act VII.
+const QUIET_IN_FRAME = new Set(["I-005", "I-006", "I-007", "I-008", "V-013"]);
 
 function isBeatCard(type) {
   return type === "beat";
@@ -69,8 +72,8 @@ function actEntryLocked(act, actCards, everSet) {
   const cards = (actCards && actCards[act]) || [];
   if (!cards.length) return true;
   if (cards.some((c) => everSet.has(c.card_id))) return false;
-  // Act IV is playable now without replaying I–III. Art grind is paused.
-  if (act === "IV") return false;
+  // Act IV and Act V are playable now without replaying I–III.
+  if (act === "IV" || act === "V") return false;
   const idx = ACT_ZONES.findIndex((z) => z.act === act);
   if (idx <= 0) return false;
   for (let i = idx - 1; i >= 0; i--) {
@@ -219,7 +222,7 @@ function sceneFragment(scene) {
 }
 
 function imageUrl(cardId) {
-  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a87";
+  return "/api/run/image/" + encodeURIComponent(cardId) + "?v=a88";
 }
 
 function cargoUsed(state) {
@@ -246,6 +249,7 @@ function actOfCardId(cardId) {
 
 function withActCargo(state, act) {
   const s = { ...(state || {}) };
+  s.presence = floorPresence(s.presence);
   if (!act) return s;
   if (s.cargo_act === act) return s;
   if (!s.cargo_act && act === "II") {
@@ -261,7 +265,15 @@ function withActCargo(state, act) {
   return s;
 }
 
-function cargoDead(state, delta) {
+function cargoDead(state, delta, act) {
+  if (act === "V") {
+    if (delta && delta.fatal) return true;
+    // daylight_fail is the Act V fail state. It wins over cargo_rough and terminates.
+    // Empty continue (dossier) does not fire on an already-empty clock.
+    if (!daylightFail(state)) return false;
+    const d = delta || {};
+    return timeCostOf(d) > 0 || (Number(d.noise) || 0) > 0 || (Number(d.light) || 0) > 0;
+  }
   if (delta && delta.fatal) return true;
   if (cargoFrom(state) > 0) return false;
   const d = delta || {};
@@ -396,13 +408,14 @@ function applyDelta(state, delta) {
   const d = delta || {};
   for (const [k, v] of Object.entries(d)) {
     if (k === "presence" || k === "handprints" || k === "drew" || k === "fatal") {
-      next[k] = v;
+      next[k] = k === "presence" ? floorPresence(v) : v;
       continue;
     }
     if (typeof v === "number") next[k] = (Number(next[k]) || 0) + v;
     else next[k] = v;
   }
-  return next;
+  next.presence = floorPresence(next.presence);
+  return stampDaylightFail(next);
 }
 
 async function mainAnswersForRun(client, failedRunId) {
@@ -611,7 +624,7 @@ async function playAgainFrom(client, studentId, cardId) {
 
 /**
  * Abandon the active run and open a fresh run on the first card of an act.
- * Used so Act IV can start without replaying I–III (and without a prior answer).
+ * Used so Act IV / Act V can start without replaying I–III (and without a prior answer).
  */
 async function startActFrom(client, studentId, act) {
   const bound = String(act || "");
@@ -913,6 +926,7 @@ function publicState(state) {
     cold,
     warming,
     phase: cold > 0 ? "cold" : "warming",
+    daylight_fail: daylightFail(s),
     ...publicFear(s),
   };
 }

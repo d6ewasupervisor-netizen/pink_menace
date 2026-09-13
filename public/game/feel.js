@@ -500,16 +500,18 @@ const PMFeel = (() => {
     return /^(POV_COCKPIT|POV_CHASE|POV_MIRROR_)/.test(String(camera || ""));
   }
 
-  const QUIET_IN_FRAME = { "I-005": 1, "I-006": 1, "I-007": 1, "I-008": 1 };
+  const QUIET_IN_FRAME = { "I-005": 1, "I-006": 1, "I-007": 1, "I-008": 1, "V-013": 1 };
 
   // Handprints only. The figure/scene overlays (walkers, mirror reflections,
   // eyeshine, zone stills) were pulled — the grime on the glass is the whole read.
   // I-005 through I-008 already have the Quiet in the photograph. No overlay there.
+  // V-013 take-7 has Quiet baked into the still (QP-003). Do not overlay-composite
+  // Quiet onto V-006 / V-008 Skill 11 teaching stills.
   function paintFear(state, extras) {
     const root = document.getElementById("fear-root");
     if (!root) return;
     const cardId = extras && extras.cardId != null ? String(extras.cardId) : "";
-    if (QUIET_IN_FRAME[cardId] || (extras && extras.suppressPresence)) {
+    if (QUIET_IN_FRAME[cardId] || cardId === "V-013" || (extras && extras.suppressPresence)) {
       root.className = "fear-root";
       root.style.setProperty("--quiet-loud", "0");
       presenceAmt = 0;
