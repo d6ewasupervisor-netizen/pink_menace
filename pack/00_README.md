@@ -67,6 +67,12 @@ Three layers, and the order matters.
 
 ---
 
+## Standing locks (do not rediscover)
+
+**Sign-face text — regulatory recognition only.** Legible text is permitted only on regulatory sign faces where the card teaches sign recognition. Everywhere else remains blank. No invented text — no destination boards, no storefronts, no plates, no letter-doubling. II-003 (STOP is the lesson) is the legal face. IV-007 take 1 (`ONEWAYWAY` / `NOTURNONREDDED`) is the proof you do not ask the model to letter a surface. See `03_IMAGE_COMPILER_PROMPT.md`.
+
+---
+
 ## Run order
 
 1. Lock Deac, Yuna, the Ledger, and Encore from `07_CHARACTER_LOCK_PROMPTS.md` before any card that features them. Ali and the Menace already have refs.
