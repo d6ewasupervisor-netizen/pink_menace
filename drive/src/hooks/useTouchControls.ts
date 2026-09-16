@@ -112,11 +112,17 @@ export function useTouchControls() {
       maybeEnterDriving(controls);
     }
 
-    function onTouchStart(e: TouchEvent) {
-      // Taps on UI (quiz answers, dialogue box, horn, menus) are not driving input.
-      // preventDefault here would also kill their click events, so leave them alone.
+    // Taps on UI (quiz answers, dialogue box, cards, horn, menus) are not driving input.
+    // A touch that starts on UI must be left alone on ALL three events: preventDefault on
+    // touchend is what suppresses the synthesized click, and on touchmove it blocks scrolling
+    // inside the card overlay. This is why taps worked with a mouse and not on a phone.
+    function isUiTouch(e: TouchEvent): boolean {
       const target = e.target as HTMLElement | null;
-      if (target && target.closest('button, a, input, select, textarea, [data-ui]')) return;
+      return !!(target && target.closest && target.closest('button, a, input, select, textarea, [data-ui]'));
+    }
+
+    function onTouchStart(e: TouchEvent) {
+      if (isUiTouch(e)) return;
       e.preventDefault();
       const el = e.currentTarget as HTMLElement;
       for (const touch of Array.from(e.changedTouches)) {
@@ -131,6 +137,7 @@ export function useTouchControls() {
     }
 
     function onTouchMove(e: TouchEvent) {
+      if (isUiTouch(e)) return;
       e.preventDefault();
       for (const touch of Array.from(e.changedTouches)) {
         const data = activeTouch.current.get(touch.identifier);
@@ -145,6 +152,7 @@ export function useTouchControls() {
     }
 
     function onTouchEnd(e: TouchEvent) {
+      if (isUiTouch(e)) return;
       e.preventDefault();
       for (const touch of Array.from(e.changedTouches)) {
         const data = activeTouch.current.get(touch.identifier);

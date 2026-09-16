@@ -54,10 +54,12 @@ export function EngineHUD() {
         </div>
       )}
 
-      {/* Input diagnostics */}
-      <div style={{ fontSize: 10, color: '#7f8c8d', textAlign: 'right' }}>
-        {phase} | T {throttle.toFixed(2)} B {brake.toFixed(2)} S {steering.toFixed(2)}
-      </div>
+      {/* Input diagnostics (dev only) */}
+      {import.meta.env.DEV && (
+        <div style={{ fontSize: 10, color: '#7f8c8d', textAlign: 'right' }}>
+          {phase} | T {throttle.toFixed(2)} B {brake.toFixed(2)} S {steering.toFixed(2)}
+        </div>
+      )}
 
       {/* Speed */}
       <div style={{ fontSize: 13, color: '#aaa' }}>
