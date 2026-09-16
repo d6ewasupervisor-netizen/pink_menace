@@ -21,3 +21,6 @@ generations
 *.md
 .dockerignore
 .gitignore
+drive/node_modules
+drive/dist
+public/game/drive

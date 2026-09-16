@@ -191,6 +191,7 @@ function renderHome(data, opts) {
     }
     acts.append(row);
   }
+  renderDriveTile(acts);
 
   const log = document.getElementById("log");
   log.replaceChildren();
@@ -1274,6 +1275,33 @@ function renderReview(card) {
   setHeader({ title: card.title, saved: card.saved, back: true });
   fillCard(card, { review: true, pending: false });
   pinCardTop();
+}
+
+// ── Quiet Roads — the 3D drive, its own tile beside the acts (gated by DRIVE_ENABLED). ──
+let driveConfigPromise = null;
+function driveConfig() {
+  if (!driveConfigPromise) driveConfigPromise = PM.api("/api/config").catch(() => ({ driveEnabled: false }));
+  return driveConfigPromise;
+}
+async function renderDriveTile(acts) {
+  const cfg = await driveConfig();
+  if (!cfg || !cfg.driveEnabled) return;
+  let summary = null;
+  try { const r = await PM.api("/api/drive/summary"); summary = r && r.summary; } catch (_e) { summary = null; }
+  const row = el("button", "act-row drive-row" + (summary && summary.started ? " current" : ""));
+  row.type = "button";
+  row.append(el("p", "act-name", "Quiet Roads · Kent"));
+  let meta = "Drive · Grandma's Beetle";
+  if (summary && summary.started) {
+    const bits = [];
+    if (summary.act != null) bits.push("Act " + summary.act);
+    if (summary.cards && summary.cards.answered) bits.push(summary.cards.correct + "/" + summary.cards.answered + " cards");
+    if (summary.driving && summary.driving.fullStops) bits.push(summary.driving.fullStops + " full stops");
+    meta = bits.join(" · ") || "Continue";
+  }
+  row.append(el("p", "meta", meta));
+  row.addEventListener("click", () => { window.location.href = "/drive/"; });
+  acts.append(row);
 }
 
 async function loadHome(focusCardId) {

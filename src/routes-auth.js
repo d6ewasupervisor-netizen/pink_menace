@@ -56,6 +56,7 @@ function mountAuth(app) {
     res.json({
       ok: true,
       kind: appKind(req),
+      driveEnabled: /^(1|true|yes)$/i.test(String(process.env.DRIVE_ENABLED || "").trim()),
       gameUrl: gameUrl(),
       parentsUrl: parentsUrl(),
       sessionDays: sessionDays(),

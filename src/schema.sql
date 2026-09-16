@@ -156,3 +156,63 @@ CREATE TABLE IF NOT EXISTS otp_ip_hits (
 );
 
 CREATE INDEX IF NOT EXISTS otp_ip_hits_idx ON otp_ip_hits (ip, hit_at);
+
+-- ── Quiet Roads (the 3D drive at /drive). Own tables; never touches runs/run_answers. ──
+
+-- One row per student: the whole save. JSONB because the shape is the client's.
+CREATE TABLE IF NOT EXISTS drive_progress (
+  student_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  scene_id TEXT,
+  checkpoint TEXT,
+  vars JSONB NOT NULL DEFAULT '{}'::jsonb,
+  flags JSONB NOT NULL DEFAULT '{}'::jsonb,
+  items JSONB NOT NULL DEFAULT '[]'::jsonb,
+  unlocks JSONB NOT NULL DEFAULT '[]'::jsonb,
+  mastery JSONB NOT NULL DEFAULT '{}'::jsonb,
+  runner_state JSONB,
+  placeholders JSONB NOT NULL DEFAULT '{}'::jsonb,
+  client_updated_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- Telemetry: noise events, stops, quizzes, choices. Batched by the client (≤ 50 per POST).
+CREATE TABLE IF NOT EXISTS drive_events (
+  id BIGSERIAL PRIMARY KEY,
+  student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  ts TIMESTAMPTZ NOT NULL,
+  event TEXT NOT NULL,
+  data JSONB,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS drive_events_student_ts_idx ON drive_events (student_id, ts DESC);
+
+-- WA Driver Guide question bank attempts (the study terminal + in-world prompts).
+CREATE TABLE IF NOT EXISTS drive_attempts (
+  id BIGSERIAL PRIMARY KEY,
+  student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  ts TIMESTAMPTZ NOT NULL,
+  question_id TEXT NOT NULL,
+  chapter INTEGER,
+  correct BOOLEAN NOT NULL,
+  chosen INTEGER,
+  response_ms INTEGER,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS drive_attempts_student_idx ON drive_attempts (student_id, ts DESC);
+
+-- PINK MENACE cards answered inside the drive. Separate from run_answers on purpose:
+-- run_answers drives the card game's callback/cargo machine; this only records.
+CREATE TABLE IF NOT EXISTS drive_card_answers (
+  id BIGSERIAL PRIMARY KEY,
+  student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  ts TIMESTAMPTZ NOT NULL,
+  card_id TEXT NOT NULL REFERENCES cards(card_id),
+  option_id TEXT,
+  was_correct BOOLEAN,
+  source TEXT NOT NULL DEFAULT 'story',   -- story | world
+  scene_id TEXT,
+  ms_to_answer INTEGER,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS drive_card_answers_student_idx ON drive_card_answers (student_id, ts DESC);

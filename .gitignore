@@ -12,3 +12,5 @@ zombie_zones/
 scripts/live-gate-report.json
 _audit_patch/
 *.zip
+drive/node_modules/
+public/game/drive/
