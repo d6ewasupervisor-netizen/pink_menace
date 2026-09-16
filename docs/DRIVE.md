@@ -25,8 +25,10 @@ With `COOKIE_SECURE=0` the cookie is `pm_session` and works over http.
 
 ## Routes (all student-session, all 404 unless DRIVE_ENABLED)
     GET  /api/drive/progress          PUT /api/drive/progress (own 512 kb body limit)   POST /api/drive/reset
-    POST /api/drive/events            POST /api/drive/attempts                          POST /api/drive/card-answers
-    GET  /api/drive/card/:id          full card + options with is_correct/result/state_delta (publicCard + card_options)
+    POST /api/drive/events            POST /api/drive/attempts
+    POST /api/drive/card-answers      the pick; graded server-side from card_options, replies
+                                      { graded: { was_correct, result, state_delta, debrief } }
+    GET  /api/drive/card/:id          text + option ids only — the key never leaves the server
     GET  /api/drive/image/:id         any card's image for a signed-in student (the run-gated /api/run/image is untouched)
     GET  /api/drive/summary           what the home tile shows
     GET  /api/parents/students/:id/drive   (parent session) summary + last 25 card answers
@@ -35,7 +37,8 @@ With `COOKIE_SECURE=0` the cookie is `pm_session` and works over http.
 `drive/public/` ships the Beetle GLB (11 MB), the highway models, the Quiet cutout atlas and
 overlays, and 60 stills: ~20 MB served with a 7-day cache. Card images are not shipped; the
 client uses `/api/drive/image/:id`. Card text is bundled from `cards/*.json` at
-`drive/src/quietroads/data/cards.json`; re-export it when cards change.
+`drive/src/quietroads/data/cards.json`; re-export it when cards change — options ship as
+id + text only, and grading happens server-side (never re-add correct/result/state_delta).
 
 ## Home tile
 `public/game/app.js` `renderDriveTile()` appends "Quiet Roads · Kent" after the act rows when

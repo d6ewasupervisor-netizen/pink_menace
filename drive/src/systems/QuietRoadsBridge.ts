@@ -14,7 +14,7 @@
  */
 import {
   DialogueRunner, Simulation, QuestionBank, CardDeck, CARD_FOR_TRIGGER, newMastery, sm2Update, gradeQuality, tpForAnswer,
-  type Card, type CardResult,
+  type Card, type CardResult, type CardGrade,
   type DialogueHost, type DialogueFile, type VehicleSample, type SimFrame, type MissionId,
   type Question as CoreQuestion, type TimerHandle, VEHICLE, type WalkerInput,
 } from '@/quietroads';
@@ -328,13 +328,18 @@ class Bridge {
     g.setPhase('card');
   }
 
+  /** CardOverlay's pick. The server grades and records; the verdict comes back for display. */
+  gradeCard(cardId: string, optionId: string | null): Promise<CardGrade | null | 'offline'> {
+    const active = useQRStore.getState().card;
+    return DriveSync.gradeCard(cardId, optionId, active?.source ?? 'story', this.runner.scene?.id ?? null, performance.now() - this.cardShownAt);
+  }
+
   /** CardOverlay's Continue. Applies the card's consequences and resumes whatever was paused. */
   finishCard(result: CardResult) {
     const active = useQRStore.getState().card;
     useQRStore.getState().setTransient({ card: null });
     this.sim.unfreeze('card');
     if (!active) return;
-    DriveSync.cardAnswer(result, active.source, this.runner.scene?.id ?? null, performance.now() - this.cardShownAt);
     if (active.source === 'story') {
       // The runner grades, logs, and moves to the next node; the scene type decides the phase.
       const sceneType = this.runner.scene?.type;

@@ -174,8 +174,9 @@ function mountDrive(app) {
     try {
       const card = await publicCard(cardId);
       if (!card) return jsonError(res, 404, "No such card.");
+      // Text and options only. Grading lives in POST /api/drive/card-answers; the key never leaves the server.
       const { rows: options } = await query(
-        `SELECT option_id, option_text, is_correct, result, state_delta FROM card_options WHERE card_id = $1 ORDER BY option_id ASC`,
+        `SELECT option_id, option_text FROM card_options WHERE card_id = $1 ORDER BY option_id ASC`,
         [cardId]
       );
       const { rows: src } = await query(`SELECT psdp_skill, dol_section, teaching_target FROM cards WHERE card_id = $1`, [cardId]);
@@ -184,7 +185,7 @@ function mountDrive(app) {
         card: {
           ...card,
           image_url: card.image_url ? `/api/drive/image/${encodeURIComponent(cardId)}` : null,
-          options: options.map((o) => ({ id: o.option_id, text: o.option_text, correct: !!o.is_correct, result: o.result, state_delta: o.state_delta || {} })),
+          options: options.map((o) => ({ id: o.option_id, text: o.option_text })),
           source: src[0] || null,
         },
       });
@@ -211,6 +212,11 @@ function mountDrive(app) {
     }
   });
 
+  /**
+   * The client sends its pick; the server grades it. Response carries was_correct, result,
+   * state_delta and the debrief so the client can show the outcome without ever holding the key.
+   * Dossiers/beats (no option_id) are recorded as seen and not graded.
+   */
   app.post("/api/drive/card-answers", async (req, res) => {
     const session = await student(req, res);
     if (!session) return;
@@ -219,17 +225,29 @@ function mountDrive(app) {
     if (!cardId) return jsonError(res, 400, "card_id required.");
     try {
       const { rows: cards } = await query(
-        `SELECT card_id, act, zone, psdp_skill, dol_section, location_type, weather, time_of_day FROM cards WHERE card_id = $1`,
+        `SELECT card_id, act, zone, psdp_skill, dol_section, location_type, weather, time_of_day, debrief FROM cards WHERE card_id = $1`,
         [cardId]
       );
       const card = cards[0];
       if (!card) return jsonError(res, 404, "No such card.");
       const ts = tsOf(a.ts);
-      const wasCorrect = a.was_correct == null ? null : !!a.was_correct;
+      const optionId = a.option_id ? String(a.option_id).slice(0, 8) : null;
+      let wasCorrect = null;
+      let graded = null;
+      if (optionId) {
+        const { rows: opts } = await query(
+          `SELECT option_id, is_correct, result, state_delta FROM card_options WHERE card_id = $1 AND option_id = $2`,
+          [cardId, optionId]
+        );
+        const o = opts[0];
+        if (!o) return jsonError(res, 400, "No such option.");
+        wasCorrect = !!o.is_correct;
+        graded = { option_id: o.option_id, was_correct: wasCorrect, result: o.result, state_delta: o.state_delta || {}, debrief: card.debrief || "" };
+      }
       await query(
         `INSERT INTO drive_card_answers (student_id, ts, card_id, option_id, was_correct, source, scene_id, ms_to_answer)
          VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
-        [session.userId, ts, cardId, a.option_id ? String(a.option_id).slice(0, 8) : null, wasCorrect, a.source === "world" ? "world" : "story", a.scene_id ? String(a.scene_id).slice(0, 32) : null, clampInt(a.ms_to_answer, 0, 600000)]
+        [session.userId, ts, cardId, optionId, wasCorrect, a.source === "world" ? "world" : "story", a.scene_id ? String(a.scene_id).slice(0, 32) : null, clampInt(a.ms_to_answer, 0, 600000)]
       );
       // Parent log row: knowledge only, never hours. Simulated driving is not PSDP practice.
       if (wasCorrect !== null) {
@@ -243,7 +261,7 @@ function mountDrive(app) {
           ]
         );
       }
-      return res.json({ ok: true });
+      return res.json({ ok: true, graded });
     } catch (err) {
       console.error("drive card answer", err);
       return jsonError(res, 500, "Could not record answer.");

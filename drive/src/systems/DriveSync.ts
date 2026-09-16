@@ -6,7 +6,7 @@
  * Everything is best-effort; the local save is always the working copy.
  */
 import { useQRStore } from '@/stores/qrStore';
-import type { CardResult } from '@/quietroads';
+import type { CardGrade } from '@/quietroads';
 
 const SAVE_DEBOUNCE_MS = 12_000;
 const TELEMETRY_INTERVAL_MS = 10_000;
@@ -108,9 +108,21 @@ class Sync {
     }
   }
 
-  /** A PINK MENACE card answered in the drive → drive_card_answers (+ parent log). */
-  cardAnswer(result: CardResult, source: 'story' | 'world', sceneId: string | null, msToAnswer: number): void {
-    void post('/api/drive/card-answers', { ts: Date.now(), card_id: result.card, option_id: result.option, was_correct: result.correct, source, scene_id: sceneId, ms_to_answer: Math.round(msToAnswer) });
+  /**
+   * A PINK MENACE card pick → the server grades it and records it (drive_card_answers + parent log).
+   * Returns the verdict, or null if the server couldn't be reached (the UI asks to retry).
+   * option null = a dossier/beat: recorded as seen, nothing graded.
+   */
+  async gradeCard(cardId: string, optionId: string | null, source: 'story' | 'world', sceneId: string | null, msToAnswer: number): Promise<CardGrade | null | 'offline'> {
+    try {
+      const r = await fetch('/api/drive/card-answers', {
+        method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ts: Date.now(), card_id: cardId, option_id: optionId, source, scene_id: sceneId, ms_to_answer: Math.round(msToAnswer) }),
+      });
+      if (!r.ok) return 'offline';
+      const j = await r.json();
+      return (j.graded as CardGrade) ?? null;
+    } catch { return 'offline'; }
   }
 
   async flush(keepalive = false): Promise<void> {

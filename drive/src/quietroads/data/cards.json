@@ -41,31 +41,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Turn the key. You already know this car.",
-    "correct": false,
-    "result": "It catches on the first try, the way it always does. You pull out on everything you knew yesterday. The car sat all night in a lot that didn't stay the same shape while it did.",
-    "state_delta": {}
+    "text": "Turn the key. You already know this car."
    },
    {
     "id": "b",
-    "text": "Get out and walk it, all the way around",
-    "correct": true,
-    "result": "Tires. Glass. Nothing behind the bumper, nothing under it. Both doors shut the way you left them. It takes forty seconds and then the key means something.",
-    "state_delta": {}
+    "text": "Get out and walk it, all the way around"
    },
    {
     "id": "c",
-    "text": "Check your phone, then start it",
-    "correct": false,
-    "result": "You read the screen. The screen doesn't know anything about the ground around your wheels, and now you've spent the only time you were going to give this.",
-    "state_delta": {}
+    "text": "Check your phone, then start it"
    },
    {
     "id": "d",
-    "text": "Open the door, sit back down, start it",
-    "correct": false,
-    "result": "You get half out, look at nothing in particular, and sit down again. The engine starts on the same view you already had.",
-    "state_delta": {}
+    "text": "Open the door, sit back down, start it"
    }
   ],
   "debrief": "Walk the car before you start it — tires, glass, and the ground around the wheels.",
@@ -102,31 +90,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Nothing. It's a parking lot.",
-    "correct": false,
-    "result": "You leave it hanging. Then something moves in the lot and you're not attached to anything.",
-    "state_delta": {}
+    "text": "Nothing. It's a parking lot."
    },
    {
     "id": "b",
-    "text": "Your belt. Look at both cats. Leave them where they are",
-    "correct": true,
-    "result": "You click in. You look at Gracie, then at Mya, and you know exactly where both of them are — which is loose on a seat, which is the truth. The belt is yours. It was only ever yours.",
-    "state_delta": {}
+    "text": "Your belt. Look at both cats. Leave them where they are"
    },
    {
     "id": "c",
-    "text": "Put both cats in the carrier and call it done",
-    "correct": false,
-    "result": "You get Gracie in. By the time you've got Mya, Gracie's back on the seat. Ten minutes gone and your belt is still hanging by the pillar.",
-    "state_delta": {}
+    "text": "Put both cats in the carrier and call it done"
    },
    {
     "id": "d",
-    "text": "Belt Mya against the seat and leave Gracie",
-    "correct": false,
-    "result": "A cat is not a shape a seat belt understands. She's out of it before you've finished, and now the cab's worse and you're still unbuckled.",
-    "state_delta": {}
+    "text": "Belt Mya against the seat and leave Gracie"
    }
   ],
   "debrief": "The belt is yours. Fasten it every time, before anything else moves.",
@@ -165,31 +141,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Throttle, then brake at the end",
-    "correct": false,
-    "result": "You get there quickly and stop late and heavy, and both cats slide into the seat back. You arrived. You didn't stop where you meant to.",
-    "state_delta": {}
+    "text": "Throttle, then brake at the end"
    },
    {
     "id": "b",
-    "text": "Roll, ease off early, stop on the line you picked",
-    "correct": true,
-    "result": "You let it roll, come off the throttle before you need to, and the car settles onto your line without asking anything of the brakes. Neither cat moves.",
-    "state_delta": {}
+    "text": "Roll, ease off early, stop on the line you picked"
    },
    {
     "id": "c",
-    "text": "Creep the whole aisle with the brake half on",
-    "correct": false,
-    "result": "You ride it the full length. The car never settles into a roll, and you finish having fought the aisle instead of driven it.",
-    "state_delta": {}
+    "text": "Creep the whole aisle with the brake half on"
    },
    {
     "id": "d",
-    "text": "Watch the cats and let the car find the end",
-    "correct": false,
-    "result": "You're looking at the seat when the stalls run out, so the stop isn't chosen — it's just where the paint got close.",
-    "state_delta": {}
+    "text": "Watch the cats and let the car find the end"
    }
   ],
   "debrief": "Ease off before the stop. Smooth braking is a skill you build in a lot, before there's a street attached.",
@@ -256,33 +220,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Call her. Loudly. She knows your voice.",
-    "correct": false,
-    "result": "You call her name across the stalls. She stops. She turns. She knows you. The sound goes out over wet asphalt farther than the word did. She is coming back. You do not look at anything except her.",
-    "state_delta": {
-     "noise": 2
-    }
+    "text": "Call her. Loudly. She knows your voice."
    },
    {
     "id": "b",
-    "text": "Get low, stay quiet, and move to cut her off from the open lot",
-    "correct": true,
-    "result": "You drop and stay low and do not use your voice. She is still moving, but she is not being called. You cut the open side of the lot and she slows when the space in front of her closes. You have her attention without the sound. That is the right way. It is not the only thing in the lot.",
-    "state_delta": {}
+    "text": "Get low, stay quiet, and move to cut her off from the open lot"
    },
    {
     "id": "c",
-    "text": "Go back for the carrier and come out with food",
-    "correct": false,
-    "result": "You go back to the car. The carrier is under the bench. By the time you have it and a bit of food, she is farther into the stalls than she was. The lot is still open. You spent the time you did not have.",
-    "state_delta": {}
+    "text": "Go back for the carrier and come out with food"
    },
    {
     "id": "d",
-    "text": "Leave the car door open and wait — she'll come back on her own",
-    "correct": false,
-    "result": "You stay by the open door and wait. She does not come. The lot is not a place that waits with you. She gets farther into the painted stalls, and you are still standing where you started.",
-    "state_delta": {}
+    "text": "Leave the car door open and wait — she'll come back on her own"
    }
   ],
   "debrief": "The call works. She turns. That is why you did it. The quiet cut-off is the one that does not send sound across the lot. Neither of those facts ends this.",
@@ -319,24 +269,15 @@
   "options": [
    {
     "id": "a",
-    "text": "Put yourself between it and the cats",
-    "correct": true,
-    "result": "You turn so it has you and not her. Gracie is under your arm. It stops short. Nothing touches you. Nothing touches her. Mya is not here. You moved. It does not change what the lot takes.",
-    "state_delta": {}
+    "text": "Put yourself between it and the cats"
    },
    {
     "id": "b",
-    "text": "Grab Gracie and run",
-    "correct": true,
-    "result": "You take Gracie and you go. She's against you. It's still coming when the moment breaks. Nothing touches you. Nothing touches her. You moved. The one that mattered was already closer than the three you were watching.",
-    "state_delta": {}
+    "text": "Grab Gracie and run"
    },
    {
     "id": "c",
-    "text": "Freeze",
-    "correct": true,
-    "result": "You freeze. That is what a person does. Gracie is under your hand. It fills the near ground and then it is gone before it arrives. Nothing touches you. Nothing touches her. You did not choose this. You still get to have been here.",
-    "state_delta": {}
+    "text": "Freeze"
    }
   ],
   "debrief": "You had Gracie. The one that came was not one of the three. It never reached either of you.",
@@ -401,33 +342,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Pull out. It was empty a minute ago.",
-    "correct": false,
-    "result": "You back out on a look you already spent. It might still be empty. You wouldn't know.",
-    "state_delta": {}
+    "text": "Pull out. It was empty a minute ago."
    },
    {
     "id": "b",
-    "text": "Look it again — both ways, and behind the bumper",
-    "correct": true,
-    "result": "Left, right, the row you're backing into, the ground behind you. Then you move, and the lot is clear because you checked, not because it was clear before.",
-    "state_delta": {}
+    "text": "Look it again — both ways, and behind the bumper"
    },
    {
     "id": "c",
-    "text": "Call her name once more, then go",
-    "correct": false,
-    "result": "Your voice goes out across the wet asphalt and nothing comes back, and you've spent the check on a name.",
-    "state_delta": {
-     "noise": 1
-    }
+    "text": "Call her name once more, then go"
    },
    {
     "id": "d",
-    "text": "Sit with the empty seat until you're ready",
-    "correct": false,
-    "result": "You look at the seat for a while. The aisle goes unlooked-at the whole time.",
-    "state_delta": {}
+    "text": "Sit with the empty seat until you're ready"
    }
   ],
   "debrief": "Look before you move, every time. A clear lot goes stale in a minute.",
@@ -465,31 +392,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Back out on the side mirror",
-    "correct": false,
-    "result": "The mirror gives you a slice of it. The corner of your own bumper isn't in that slice, and neither is the post you find.",
-    "state_delta": {}
+    "text": "Back out on the side mirror"
    },
    {
     "id": "b",
-    "text": "Turn and look over your shoulder — slow, one motion",
-    "correct": true,
-    "result": "You twist in the seat, past the empty place beside you, and look at the actual aisle. The car comes out where you were looking.",
-    "state_delta": {}
+    "text": "Turn and look over your shoulder — slow, one motion"
    },
    {
     "id": "c",
-    "text": "Pull forward and cut across the stall line",
-    "correct": false,
-    "result": "You try to leave the way you're already pointed, end up across two stalls at an angle, and you're still not in the aisle.",
-    "state_delta": {}
+    "text": "Pull forward and cut across the stall line"
    },
    {
     "id": "d",
-    "text": "Back out fast so it's over",
-    "correct": false,
-    "result": "You make it short by making it quick, and the aisle arrives before your look does.",
-    "state_delta": {}
+    "text": "Back out fast so it's over"
    }
   ],
   "debrief": "Back up slowly, in one motion, looking over your shoulder at the aisle itself.",
@@ -614,47 +529,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold twenty-eight — nothing has used this crosswalk in a year",
-    "correct": false,
-    "result": "A courier on a dark bike comes out of the hedge line at the faded crosswalk without a lamp. You hit the brakes late on cold dry asphalt. The plow dips, the tires chirp, and the bike swerves around your left headlight. The sound carries. Two blocks down, something in a doorway turns its head.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 5
-    }
+    "text": "Hold twenty-eight — nothing has used this crosswalk in a year"
    },
    {
     "id": "b",
-    "text": "Kill the lamps with a high-beam flash so you can see the yard",
-    "correct": false,
-    "result": "The flash punches white into the dawn. The school-zone lamps keep cycling. Every window on the block answers you. You did not slow. A shape that was sitting at the chain-link stands up and starts walking toward the light.",
-    "state_delta": {
-     "light": 4,
-     "noise": 1,
-     "time_cost": 4
-    }
+    "text": "Kill the lamps with a high-beam flash so you can see the yard"
    },
    {
     "id": "c",
-    "text": "Drop to twenty and search the parked cars and hedge before the crosswalk",
-    "correct": true,
-    "result": "Twenty. Eyes left hedge, right parked bumpers, center faded lines. A kid's bike is on its side in the gutter, still, no rider. You roll the crosswalk at a walking pace and the zone lamps fall behind you. The Menace does not like twenty. The street does.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 3
-    }
+    "text": "Drop to twenty and search the parked cars and hedge before the crosswalk"
    },
    {
     "id": "d",
-    "text": "Cut through the empty lot to skip the zone entirely",
-    "correct": false,
-    "result": "The lot is frost-slick and rutted. The tires hop a concrete stop and the plow rings off it like a bell. You saved a block and spent it in noise. The school-zone lamps keep flashing for whoever is actually using the street.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "yaw": 2,
-     "time_cost": 6
-    }
+    "text": "Cut through the empty lot to skip the zone entirely"
    }
   ],
   "debrief": "When school-zone lights are flashing, the posted school speed is in force whether or not you can see children. Search the edges first — parked cars and hedges hide the thing that steps out. Ali holds twenty before the empty middle.",
@@ -689,46 +576,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Full stop, count three, search both ways, then roll when the fog-lane is clear",
-    "correct": true,
-    "result": "You plant it. The Menace settles. Count one, two, three. A gray primer pickup slides out of the fog from the right at walking speed, never seeing you until you are already stopped. You let it pass, then take the gap. The sign did the flagger's job.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Full stop, count three, search both ways, then roll when the fog-lane is clear"
    },
    {
     "id": "b",
-    "text": "Rolling stop — tap the pedal and keep the crawl so you do not get stuck in the cones",
-    "correct": false,
-    "result": "You never quite reach zero. The primer pickup is already in the pinch. Your plow and his bumper occupy the same two feet of fog. A horn you did not mean to hit. Both of you freeze. The cones shake. Something at the far end of the zone turns toward the sound.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 1,
-     "time_cost": 8
-    }
+    "text": "Rolling stop — tap the pedal and keep the crawl so you do not get stuck in the cones"
    },
    {
     "id": "c",
-    "text": "Treat it as yield and go if you cannot see anyone",
-    "correct": false,
-    "result": "You take the empty-looking gap. The pickup's left headlight fills your mesh at ten feet. Both of you dump speed. His tires bark on damp torn-up road. You sit in the intersection with two engines and a sign that already told you the answer.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Treat it as yield and go if you cannot see anyone"
    },
    {
     "id": "d",
-    "text": "Stop past the sign so you can see around the fog before committing",
-    "correct": false,
-    "result": "You roll the nose past the octagon to get a look. Now you are in the conflict box with no legal stop left to make. The pickup has to swerve around your plow. A cone goes over. Plastic on steel, sharp, and the fog carries it.",
-    "state_delta": {
-     "noise": 3,
-     "damage": 1,
-     "time_cost": 6
-    }
+    "text": "Stop past the sign so you can see around the fog before committing"
    }
   ],
   "debrief": "A stop sign means stop — wheels still, at the sign or limit line, even when the sign is portable and the road looks empty. Fog does not turn that into a yield. Stop at the sign, then search.",
@@ -763,47 +623,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Cut the wheels now and creep into the intersection so you can go the instant it opens",
-    "correct": false,
-    "result": "Wheels already left. The lifted truck never planned to stop. His bumper kisses your rear quarter and walks the Menace one foot into the oncoming lane. The SUV's horn is late. You are pointed at a collision you pre-steered yourself into.",
-    "state_delta": {
-     "yaw": 3,
-     "damage": 2,
-     "noise": 3,
-     "time_cost": 10
-    }
+    "text": "Cut the wheels now and creep into the intersection so you can go the instant it opens"
    },
    {
     "id": "b",
-    "text": "Go now — the SUV is still far and the truck will brake for you",
-    "correct": false,
-    "result": "You take it. The truck does not brake. You are broadside in his closing speed with a plow that will not win. You dump the turn and abort back into the pocket, tires howling, wind shoving the tail. The SUV has to lift. Everyone on this block heard you decide.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 3,
-     "time_cost": 8
-    }
+    "text": "Go now — the SUV is still far and the truck will brake for you"
    },
    {
     "id": "c",
-    "text": "Cancel the blinker and go right around the block instead",
-    "correct": false,
-    "result": "You kill the signal mid-pocket. The truck reads that as you staying put, then you yank right across his nose toward the through lane. He hits the horn. You make the block. You also taught the next driver that your blinker is optional.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 5
-    }
+    "text": "Cancel the blinker and go right around the block instead"
    },
    {
     "id": "d",
-    "text": "Wheels straight, wait for the SUV and the truck both to clear, then turn",
-    "correct": true,
-    "result": "You hold the pocket. Wheels straight. The truck blows through. The SUV follows. The next gap is real. You turn on the blinker that was already telling the truth. Wind shoves the tail; you let it and unwind. No horn. No yaw. The crates do not slide.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Wheels straight, wait for the SUV and the truck both to clear, then turn"
    }
   ],
   "debrief": "For a left turn, wait until the whole gap is yours. Wheels stay straight until you commit so a rear-end does not push you into oncoming. Wheels straight in the pocket, blinker still on, both oncoming vehicles already past.",
@@ -838,45 +670,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold your line and let her find a way around — the lot is yours",
-    "correct": false,
-    "result": "You occupy the arrow. She has to squeeze between your door and a cart corral. Her bar-end kisses the steel plating with a sound like a dropped wrench. She stays up. She also puts a hand out, not a wave. You taught a courier that cars do not look.",
-    "state_delta": {
-     "noise": 2,
-     "passenger_stress": 1,
-     "time_cost": 4
-    }
+    "text": "Hold your line and let her find a way around — the lot is yours"
    },
    {
     "id": "b",
-    "text": "Slow, stay right of the arrows, and give her the whole left side through the exit",
-    "correct": true,
-    "result": "You lift and drift right inside the stall paint. She takes the left at speed, three clear feet of wet asphalt, and is through the exit before you. Two fingers off the bars without looking back. The rain covers the rest. You roll out after her at a walking pace.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 3
-    }
+    "text": "Slow, stay right of the arrows, and give her the whole left side through the exit"
    },
    {
     "id": "c",
-    "text": "Tap the horn so she knows you see her",
-    "correct": false,
-    "result": "The horn cracks off the storefront and the parking deck. Marisol flinches and the front wheel tucks. She saves it. Every Quiet thing using this lot as a sit has your range now. She looks at you once, jaw set, and takes the exit anyway.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 5
-    }
+    "text": "Tap the horn so she knows you see her"
    },
    {
     "id": "d",
-    "text": "Speed up to beat her to the exit and clear the conflict",
-    "correct": false,
-    "result": "You get there first by a car length. She is still on your left rear when you start the turn onto 1st. Your rear quarter walks through the space her front wheel needs. She bails onto the sidewalk and the bike hits a cart corral. Steel, loud, done.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Speed up to beat her to the exit and clear the conflict"
    }
   ],
   "debrief": "Give bicyclists at least three feet when you share a space, more in rain. Check the left mirror, then give her the whole left side. A horn cost you the quiet lot.",
@@ -912,45 +718,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Match him: left arm out and down, lift off, and open a gap ahead of the volunteer",
-    "correct": true,
-    "result": "You answer in kind. The Menace slows without the brake lamps dumping. The volunteer has to lift or eat your plow. He lifts. Deac's arm comes back in. The three of you roll the zone at twenty, dark and boring. That is a successful convoy.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Match him: left arm out and down, lift off, and open a gap ahead of the volunteer"
    },
    {
     "id": "b",
-    "text": "Flash your headlights twice so Deac knows you saw it",
-    "correct": false,
-    "result": "The flashes bounce off his expanded-metal rear and paint the playground. Deac's arm stays down because he was not asking for a receipt. At the treeline, two shapes that were sitting stand up and start to walk the fence toward the light.",
-    "state_delta": {
-     "light": 4,
-     "time_cost": 5
-    }
+    "text": "Flash your headlights twice so Deac knows you saw it"
    },
    {
     "id": "c",
-    "text": "Tap the brakes hard so the volunteer gets the message",
-    "correct": false,
-    "result": "Your lamps dump red into his windshield. He stands on his own brakes. Three vehicles, one wet school zone, a squeal. Deac's arm comes back in and the destination sign flickers one word you cannot read from here. You just talked over him.",
-    "state_delta": {
-     "noise": 4,
-     "light": 2,
-     "time_cost": 6
-    }
+    "text": "Tap the brakes hard so the volunteer gets the message"
    },
    {
     "id": "d",
-    "text": "Pass him on the left and take the point — he is going too slow for the insulin",
-    "correct": false,
-    "result": "You pull out in a flashing school zone. His left arm is still in the air you are occupying. The Ledger's mirror almost takes your mesh. He never speeds up. You are now point on a road you have not searched, with a volunteer still glued to Deac, and no one behind you speaking the same language.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 2,
-     "time_cost": 3
-    }
+    "text": "Pass him on the left and take the point — he is going too slow for the insulin"
    }
   ],
   "debrief": "Left arm out, fingers pointing at the ground, means slow or stop. Answer with the same arm and a smooth lift. Deac asked for slow, not a receipt.",
@@ -986,47 +766,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Take the left lane and get past her before the reds come on",
-    "correct": false,
-    "result": "You are alongside the front bumper when the reds fire and the stop arm swings into your door line. The plow catches it. Steel on steel, and the sound goes out across four blocks of flat wet street. Reyna does not blow the horn. She does not have to.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "yaw": 1,
-     "time_cost": 6
-    }
+    "text": "Take the left lane and get past her before the reds come on"
    },
    {
     "id": "b",
-    "text": "Ease off and start slowing now, staying behind her",
-    "correct": true,
-    "result": "You lift and let the gap open to four car lengths. The reds come on, the arm swings out, and a kid in a yellow shell comes around the front of the bus at a dead sprint without looking once. He is across before you have finished counting him. Reyna gives you two fingers off the wheel.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Ease off and start slowing now, staying behind her"
    },
    {
     "id": "c",
-    "text": "Hold your speed and stay behind — you'll stop when the reds come on",
-    "correct": false,
-    "result": "You are still at twenty-eight when the reds fire. Hard on the brakes, wet asphalt, and the Menace squats and squeals to a stop with the plow eight feet off her bumper. You stopped legally. You also just rang a bell on a quiet street, and something moves at the treeline four blocks down.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 3
-    }
+    "text": "Hold your speed and stay behind — you'll stop when the reds come on"
    },
    {
     "id": "d",
-    "text": "Flash your headlights so Reyna knows you're behind her",
-    "correct": false,
-    "result": "The flash bounces off the wet street and every window on the block. Reyna's hand comes out the window, flat, palm down — cut it. The reds fire anyway, and you brake late because you were watching her hand instead of her lamps.",
-    "state_delta": {
-     "light": 4,
-     "noise": 1,
-     "time_cost": 5
-    }
+    "text": "Flash your headlights so Reyna knows you're behind her"
    }
   ],
   "debrief": "Amber lamps mean the bus is preparing to stop. That is your cue to slow, not a last chance to pass. Red lamps plus the stop arm mean a full stop from both directions until the arm comes back in. Wait behind her until the arm folds.",
@@ -1065,49 +817,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Keep rolling to the next side street so you do not stop in the work zone",
-    "correct": false,
-    "result": "Two more blocks. The rattle becomes a bang. The Menace dies in the pinch between cones with no shoulder. You are a pink wreck in a fogged lane. Something at the torn-up edge already has your heat.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 4,
-     "fuel": -2,
-     "time_cost": 20
-    }
+    "text": "Keep rolling to the next side street so you do not stop in the work zone"
    },
    {
     "id": "b",
-    "text": "Rev it to climb the oil pressure back before you decide",
-    "correct": false,
-    "result": "The note screams and then stops. You have a seized engine and a still-rolling car. You coast into a cone and the plow rings. Fog holds the sound. The light was not a suggestion.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 5,
-     "fuel": -3,
-     "time_cost": 25
-    }
+    "text": "Rev it to climb the oil pressure back before you decide"
    },
    {
     "id": "c",
-    "text": "Signal, get off the torn-up road onto the gravel shoulder, shut it down, then check",
-    "correct": true,
-    "result": "Blinker. Gravel. Key off. The rattle dies with the engine. Under the rear, a split line, not a hole in the pan. You have tape and a bottle in the wing. Ten quiet minutes. The fog does not care. The engine will start once. That is enough to finish the run.",
-    "state_delta": {
-     "noise": -2,
-     "time_cost": 12,
-     "fuel": -1
-    }
+    "text": "Signal, get off the torn-up road onto the gravel shoulder, shut it down, then check"
    },
    {
     "id": "d",
-    "text": "Stop in the lane, pop the deck, and look while it is still hot",
-    "correct": false,
-    "result": "You are standing in a fogged work lane with the deck up and a hot engine ticking. A volunteer comes through the cone line on your closed side and has to swerve. His horn. Your hood is a sail. You learn nothing you could not have learned on the shoulder, and now two vehicles are advertising.",
-    "state_delta": {
-     "noise": 3,
-     "light": 1,
-     "time_cost": 9
-    }
+    "text": "Stop in the lane, pop the deck, and look while it is still hot"
    }
   ],
   "debrief": "An oil warning means get out of the travel lane, then shut down, then look. Keep rolling and you turn a split line into a dead vehicle sitting in the road. A pink roof in the fog, engine ticking, no oil pressure.",
@@ -1142,46 +864,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Look down long enough to kill the tablet, then look back up",
-    "correct": false,
-    "result": "Two seconds on the tablet. The hood is already at your right headlight when you come back. You stand on the pedal. The Menace squats. The pedestrian does not run. They do not have to. You stopped a plow's width short, loud, and the tablet is still talking.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 6
-    }
+    "text": "Look down long enough to kill the tablet, then look back up"
    },
    {
     "id": "b",
-    "text": "Answer the voice — if it is someone on the net they may have a better route",
-    "correct": false,
-    "result": "You unkey and talk into a tablet that is not a radio. The pedestrian is gone under the mesh before you finish the sentence. You missed them completely. The voice was never going to answer. That is the whole trick.",
-    "state_delta": {
-     "noise": 1,
-     "passenger_stress": 2,
-     "time_cost": 8
-    }
+    "text": "Answer the voice — if it is someone on the net they may have a better route"
    },
    {
     "id": "c",
-    "text": "Speed up through the intersection so you are past the distraction sooner",
-    "correct": false,
-    "result": "You take the four-way hot. The pedestrian stops and the hood turns. You miss them by luck and a lot of wind. The tablet keeps talking. Speed did not buy attention. It spent the margin you needed.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 1,
-     "time_cost": 2
-    }
+    "text": "Speed up through the intersection so you are past the distraction sooner"
    },
    {
     "id": "d",
-    "text": "Eyes up, both hands on the wheel, cover the brake, ignore the tablet until you are through",
-    "correct": true,
-    "result": "You leave the tablet alone. Hands at ten and two, or whatever your braid allows. The hood clears your right fender while you are still moving at a crawl. The tablet talks to itself and then dies. The hood is already on the far curb.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Eyes up, both hands on the wheel, cover the brake, ignore the tablet until you are through"
    }
   ],
   "debrief": "Eyes off the road — even to silence a distraction — is how the crash happens. Drive first. Park the tablet until the intersection is behind you. You missed the hood the second you looked down.",
@@ -1216,46 +911,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Stay stopped until the arm folds, even though you are not behind her",
-    "correct": true,
-    "result": "You sit. Rain on the mesh. Tobin crosses without a glance, then a second kid you did not have last time. The thing at the treeline does not come. Reyna folds the bent arm, finds you in her mirror, and does not wave. She does not have to. You are still here. That is the apology.",
-    "state_delta": {
-     "noise": -2,
-     "time_cost": 8
-    }
+    "text": "Stay stopped until the arm folds, even though you are not behind her"
    },
    {
     "id": "b",
-    "text": "Keep rolling — you are oncoming, so the reds are hers",
-    "correct": false,
-    "result": "You pull out on reds. Tobin is still in your left headlight. You stand on it. The Menace stops with the plow in the crosswalk he is using. Reyna sees the whole thing in her big school-bus mirror. She has a bent arm and a face you will carry.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 12
-    }
+    "text": "Keep rolling — you are oncoming, so the reds are hers"
    },
    {
     "id": "c",
-    "text": "Creep past the arm on the right shoulder to get out of the thing at the treeline's sightline",
-    "correct": false,
-    "result": "The gravel shoulder puts you around the bent arm and into the space kids use. A backpack scrapes the plating. You are past the bus and still in the rain, and the treeline has you in profile, moving. You did not get quieter. You got closer.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 1,
-     "time_cost": 7
-    }
+    "text": "Creep past the arm on the right shoulder to get out of the thing at the treeline's sightline"
    },
    {
     "id": "d",
-    "text": "Tap the horn once so Tobin looks up",
-    "correct": false,
-    "result": "The horn on a stopped bus street. Tobin looks. So does everything else. The treeline starts walking. Reyna's head turns in the mirror, not grateful. You made him look and you rang the block doing it.",
-    "state_delta": {
-     "noise": 5,
-     "light": 1,
-     "time_cost": 6
-    }
+    "text": "Tap the horn once so Tobin looks up"
    }
   ],
   "debrief": "Red lamps and an extended stop arm still mean a full stop from both directions until the arm comes back in — even when you have been here before, even when the arm is bent because of you. Reyna is still watching that bent arm.",
@@ -1322,47 +990,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Stay on him so nobody cuts in — this zone is too narrow for a real gap",
-    "correct": false,
-    "result": "He dumps the brakes for a cat. You dump yours for him. The plow kisses the hitch. Not a crash. A note. The school-zone lamps keep flashing over a sound that did not need to happen.",
-    "state_delta": {
-     "noise": 3,
-     "damage": 1,
-     "yaw": 1,
-     "time_cost": 4
-    }
+    "text": "Stay on him so nobody cuts in — this zone is too narrow for a real gap"
    },
    {
     "id": "b",
-    "text": "Lift until you can count three seconds off a mark on the pavement, then hold that",
-    "correct": true,
-    "result": "You let him go. A faded crack in the asphalt passes his bumper; you count one-one-thousand, two, three, then take the throttle back. You can see his tires and the road under them. When he does dump it, you are already covering. No note. No kiss.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 3
-    }
+    "text": "Lift until you can count three seconds off a mark on the pavement, then hold that"
    },
    {
     "id": "c",
-    "text": "Pass him in the zone so you are not the one eating the hitch",
-    "correct": false,
-    "result": "You pull out flashing. He drifts right from surprise. You make the pass and inherit the parked sedan as your new hitch. The lamps saw the whole thing. So did whatever uses this fence after dusk.",
-    "state_delta": {
-     "noise": 2,
-     "light": 1,
-     "time_cost": 3
-    }
+    "text": "Pass him in the zone so you are not the one eating the hitch"
    },
    {
     "id": "d",
-    "text": "Close up and flash him once to tell him to move",
-    "correct": false,
-    "result": "The flash fills his glass. He brakes from the insult. You are closer than when you started. He never had a place to go. You just asked a following-distance problem to become a light problem.",
-    "state_delta": {
-     "light": 3,
-     "noise": 1,
-     "time_cost": 5
-    }
+    "text": "Close up and flash him once to tell him to move"
    }
   ],
   "debrief": "Following distance is counted in seconds. Dry pavement: three to a mark on the road. Rain, fog, and snow: six. Rear-end crashes are the most common kind. Opening that gap is the best thing a new driver can do. A mark on the pavement, then one, two, three.",
@@ -1398,47 +1038,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Pass now — twelve is not a speed and the insulin is not a suggestion",
-    "correct": false,
-    "result": "You pull out in the rain. The tractor occupies more width than it looks. Oncoming is a pair of lamps you did not have. You dive back in and clip a cone. The triangle fills your glass. You saved nothing and spent a lot of noise.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 3,
-     "time_cost": 8
-    }
+    "text": "Pass now — twelve is not a speed and the insulin is not a suggestion"
    },
    {
     "id": "b",
-    "text": "Flash him to pull into the cones so you can go",
-    "correct": false,
-    "result": "The flash hits the triangle and comes back at you twice as bright. He has nowhere to pull. He brakes. You almost eat the hitch of a machine that cannot get out of your way because you asked it to.",
-    "state_delta": {
-     "light": 4,
-     "noise": 1,
-     "time_cost": 6
-    }
+    "text": "Flash him to pull into the cones so you can go"
    },
    {
     "id": "c",
-    "text": "Stay behind, drop to his twelve, and wait for a marked passing zone with sight",
-    "correct": true,
-    "result": "You lift to twelve. The cone line ends. A painted passing zone appears with a sightline you can actually see. You take it then, clean, and leave him a gap. The insulin is still cold. Twelve cost you a minute. A pass in the rain would have cost the run.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 8
-    }
+    "text": "Stay behind, drop to his twelve, and wait for a marked passing zone with sight"
    },
    {
     "id": "d",
-    "text": "Go around on the gravel because the lane is his",
-    "correct": false,
-    "result": "The gravel is a ditch in the rain. The tires climb and the plow drops. You are beside him in a trench with no legal lane. He never saw you. The first thing he knows is your roof in his left mirror and a sound like a drum.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 3,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Go around on the gravel because the lane is his"
    }
   ],
   "debrief": "An orange triangle marks a machine doing farm speed. Pass only where the paint allows it and you can see. Twelve cost you a minute.",
@@ -1473,48 +1085,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Ease a little off the throttle to rebuild the gap ahead, and refuse to match him",
-    "correct": true,
-    "result": "You bleed three miles per hour, nothing dramatic. The gap ahead opens. Hollis fills it, then thinks about your bumper, then finally goes around when a gap appears. His pass is ugly and close. You let it be ugly. You still have a following distance to the gray nothing in front of you.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Ease a little off the throttle to rebuild the gap ahead, and refuse to match him"
    },
    {
     "id": "b",
-    "text": "Match his pressure and take the fog at his speed so he will back off",
-    "correct": false,
-    "result": "You give him the number. The fog does not. A parked car appears at twenty feet. You stand on it. Hollis stands on you. Three vehicles, one note, a chain that started because you let a tailgater set the limit.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 3,
-     "damage": 1,
-     "time_cost": 8
-    }
+    "text": "Match his pressure and take the fog at his speed so he will back off"
    },
    {
     "id": "c",
-    "text": "Brake-check him once so he learns the gap",
-    "correct": false,
-    "result": "You dump the lamps in his face. He dumps his. The Menace hops. His bumper kisses the plating. Fog holds the sound. He did not learn. He got closer, angrier, and louder.",
-    "state_delta": {
-     "noise": 5,
-     "light": 2,
-     "damage": 1,
-     "time_cost": 6
-    }
+    "text": "Brake-check him once so he learns the gap"
    },
    {
     "id": "d",
-    "text": "Wave him around and drift right onto the fogged shoulder to make a lane",
-    "correct": false,
-    "result": "There is no shoulder, only a ditch. The tires find it. You yaw. Hollis takes the space you were occupying and never looks back. You spend a minute getting the plow back onto asphalt that you already had.",
-    "state_delta": {
-     "yaw": 4,
-     "noise": 2,
-     "time_cost": 7
-    }
+    "text": "Wave him around and drift right onto the fogged shoulder to make a lane"
    }
   ],
   "debrief": "You do not speed up for a tailgater. Fog wants six seconds ahead, not the dry three. Bleed a little speed to rebuild that gap. Hollis can take the pass when a gap opens.",
@@ -1550,46 +1133,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Start the turn at the hedge so you can peek the sidewalk with the plow",
-    "correct": false,
-    "result": "The plow is in the crosswalk before you can see it. Marisol is not here this time. A kid on a scooter is. You freeze with steel in his path. He stops. You have taught the corner that cars occupy the sidewalk to see.",
-    "state_delta": {
-     "yaw": 1,
-     "passenger_stress": 2,
-     "time_cost": 6
-    }
+    "text": "Start the turn at the hedge so you can peek the sidewalk with the plow"
    },
    {
     "id": "b",
-    "text": "Cut the corner tight to stay out of whoever is on the far side",
-    "correct": false,
-    "result": "You take the turn in their sidewalk. The tires climb the curb. The plow rings off a fire hydrant nobody has painted in a year. Tight was not smaller. Tight was on the wrong side of the geometry.",
-    "state_delta": {
-     "noise": 3,
-     "damage": 2,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Cut the corner tight to stay out of whoever is on the far side"
    },
    {
     "id": "c",
-    "text": "Skip the turn and go left around the block where you can see",
-    "correct": false,
-    "result": "You kill a blinker that had been telling the truth and take an unsignaled left at a T. The through car you did not have honks. You make the block. You also skipped the skill the corner was for.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 5
-    }
+    "text": "Skip the turn and go left around the block where you can see"
    },
    {
     "id": "d",
-    "text": "Stop at the sidewalk line, search around the hedge, then turn into the nearest right lane",
-    "correct": true,
-    "result": "You stop short of the sidewalk. The hedge still hides a slice. You creep until the slice is a view. Empty. You take the nearest right lane, wide enough that the plow does not climb the curb. The blinker dies when the wheel unwinds. Boring. Correct.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Stop at the sidewalk line, search around the hedge, then turn into the nearest right lane"
    }
   ],
   "debrief": "Right turns yield to the sidewalk and crosswalk first. If a hedge hides the sightline, search before the nose occupies it. Stop at the sidewalk line, then take the nearest right lane.",
@@ -1624,44 +1180,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Flash twice and pull left so the volunteer stays put",
-    "correct": false,
-    "result": "The flashes paint the deck. The volunteer reads it as go and comes around you into Deac's left. Three vehicles in an exit that holds two. Deac's arm is still out in a space that is no longer his.",
-    "state_delta": {
-     "light": 3,
-     "noise": 2,
-     "time_cost": 6
-    }
+    "text": "Flash twice and pull left so the volunteer stays put"
    },
    {
     "id": "b",
-    "text": "Left arm straight out to match, hold your place, and do not open a gap on his left",
-    "correct": true,
-    "result": "You put the same arm out the same window. You stay glued to his right-rear, not his left. The volunteer has no gap that is not a curb. Deac takes the left. You take it after him. The volunteer waits because the line was complete.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Left arm straight out to match, hold your place, and do not open a gap on his left"
    },
    {
     "id": "c",
-    "text": "Bend the arm up — that is the left-turn he meant",
-    "correct": false,
-    "result": "Your arm goes up. His stays flat. The volunteer copies you, not him, and starts a right that nobody called. Deac has to drop the turn. You taught the wrong sky to a man who was pointing at the street.",
-    "state_delta": {
-     "yaw": 1,
-     "time_cost": 5
-    }
+    "text": "Bend the arm up — that is the left-turn he meant"
    },
    {
     "id": "d",
-    "text": "Horn once, short, so the volunteer freezes",
-    "correct": false,
-    "result": "The horn in a parking deck. Everyone freezes, including Deac. The Quiet using the far stairwell does not. You bought a second and spent the block.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 5
-    }
+    "text": "Horn once, short, so the volunteer freezes"
    }
   ],
   "debrief": "A left turn is the left arm straight out the driver-side window, fingers pointing left. Match Deac on that side and stay off his left. You took the left after him, not beside him.",
@@ -1697,47 +1228,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Stay behind the van until you can pass where the yellow breaks, even if that is slow",
-    "correct": true,
-    "result": "You wait. A block later the yellow breaks. You check, pass, and recover before the next solid. A car you did not have comes the other way in the gap you would have occupied. The van stays dead slow. You stay in your lane.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Stay behind the van until you can pass where the yellow breaks, even if that is slow"
    },
    {
     "id": "b",
-    "text": "Go around now — nothing is coming and the van is the real hazard",
-    "correct": false,
-    "result": "You cross the solid. The other car was in the school-zone dip. Two plows of width, one lane, a freeze. You dive back and scrape the van. Paint on primer. The yellow was not decorative.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "damage": 1,
-     "time_cost": 8
-    }
+    "text": "Go around now — nothing is coming and the van is the real hazard"
    },
    {
     "id": "c",
-    "text": "Straddle the yellow to peek, then decide",
-    "correct": false,
-    "result": "You are already in their lane to peek. Peeking is occupying. The dip car has to take the curb. You learned the sightline by stealing it.",
-    "state_delta": {
-     "yaw": 1,
-     "noise": 2,
-     "time_cost": 5
-    }
+    "text": "Straddle the yellow to peek, then decide"
    },
    {
     "id": "d",
-    "text": "Use the parking lane on the right to sneak past without crossing yellow",
-    "correct": false,
-    "result": "The parking lane is a door zone of ghosts. A van door that was not quite latched opens into your mesh. You pass the delivery van and inherit a different one. Right was not free. It was unsearched.",
-    "state_delta": {
-     "damage": 1,
-     "noise": 2,
-     "time_cost": 7
-    }
+    "text": "Use the parking lane on the right to sneak past without crossing yellow"
    }
   ],
   "debrief": "A solid yellow on your side means do not pass. Wait for the broken yellow and a sightline. The dead-slow van is a delay. Ali waits until the yellow breaks.",
@@ -1772,46 +1275,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Clip her back in the carrier and stow it before you roll",
-    "correct": true,
-    "result": "You box her. The clip bites. She complains once and then she is a sound on the floor next to the seat, not a face on the glass. Your eyes stay on the torn-up road, not on a cream chest that wants the defrost.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Clip her back in the carrier and stow it before you roll"
    },
    {
     "id": "b",
-    "text": "Leave her. She will settle once the Menace starts rolling",
-    "correct": false,
-    "result": "She does not settle. She stands into the right side mirror as you enter the work zone. Your eyes go to her. The cone line does not wait. A cone kisses the plow with a note you will hear next to the seat for a block.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 5
-    }
+    "text": "Leave her. She will settle once the Menace starts rolling"
    },
    {
     "id": "c",
-    "text": "Pull her into your lap so she is off the glass",
-    "correct": false,
-    "result": "Mass in your legs. She kneads. Your right foot is a negotiation. A work zone does not care that you have a cat. You wander an inch and the cone line teaches you the width of a lap.",
-    "state_delta": {
-     "yaw": 2,
-     "noise": 2,
-     "time_cost": 6
-    }
+    "text": "Pull her into your lap so she is off the glass"
    },
    {
     "id": "d",
-    "text": "Let her walk the dash. You can watch her and the cones at once",
-    "correct": false,
-    "result": "You cannot. She takes the defrost. Your eyes leave the cones. The next cone is closer than the last one looked. Two jobs, one pair of eyes, and the work zone does not pause for cream fur.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 1,
-     "time_cost": 5
-    }
+    "text": "Let her walk the dash. You can watch her and the cones at once"
    }
   ],
   "debrief": "Unrestrained passengers — including a cat — are a distraction with mass. Eyes that go to the dash leave the cones. Clip her in, then roll.",
@@ -1847,46 +1323,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Take it at town speed — green means you have the intersection",
-    "correct": false,
-    "result": "You ask the tires for twenty-eight. They give you yaw. The Menace rotates a quarter turn in the crosswalk and slides under the green like a joke. You miss the pole. The crates do not miss the sidewall. The Quiet will hear the rest.",
-    "state_delta": {
-     "yaw": 5,
-     "noise": 3,
-     "time_cost": 10
-    }
+    "text": "Take it at town speed — green means you have the intersection"
    },
    {
     "id": "b",
-    "text": "Stab the brakes before the painted line to test the ice",
-    "correct": false,
-    "result": "The test is the crash. Locked tires, a plow that now points at a dark porch, and a green lamp still cycling for a car that is no longer in its lane. You learned the ice by using up the intersection.",
-    "state_delta": {
-     "yaw": 4,
-     "noise": 4,
-     "time_cost": 9
-    }
+    "text": "Stab the brakes before the painted line to test the ice"
    },
    {
     "id": "c",
-    "text": "Bleed speed early, no brake in the ice, and roll the green at a walking pace",
-    "correct": true,
-    "result": "You lift a block out. No stab. The Menace settles into a crawl that looks foolish and is not. The green is still green when you take it straight, hands quiet. The crates stay put. The lamp did not make the ice optional.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Bleed speed early, no brake in the ice, and roll the green at a walking pace"
    },
    {
     "id": "d",
-    "text": "Stop fully and wait for the next green so you can start from zero on ice",
-    "correct": false,
-    "result": "You stop on ice under a green. Starting from zero on ice is a different failure. The tires spin, the plow walks left, and the next cycle finds you still in the box. You turned a through into a stall.",
-    "state_delta": {
-     "yaw": 2,
-     "noise": 2,
-     "time_cost": 12
-    }
+    "text": "Stop fully and wait for the next green so you can start from zero on ice"
    }
   ],
   "debrief": "Green tells you who has the intersection. Ice wants six seconds of space and a walking pace — bleed before the box, no sudden anything. The green lamp is still there when you roll through.",
@@ -1921,44 +1370,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Pull onto a driveway, shut down, swap the sealed beam, then roll on lows",
-    "correct": false,
-    "result": "You do the legal thing in the travel-adjacent. The hood is up in the rain. A volunteer comes around the curve and has to take your door line. You get the lamp on. You also spent five loud minutes being a pink island.",
-    "state_delta": {
-     "noise": 2,
-     "light": 1,
-     "time_cost": 15
-    }
+    "text": "Pull onto a driveway, shut down, swap the sealed beam, then roll on lows"
    },
    {
     "id": "b",
-    "text": "Hit the highs so at least one side is bright enough to count as two",
-    "correct": false,
-    "result": "The rain blooms. You cannot see past the scatter. Every window on the block has you. The dead left is still dead. You made a lighting problem into a drawing problem.",
-    "state_delta": {
-     "light": 5,
-     "time_cost": 4
-    }
+    "text": "Hit the highs so at least one side is bright enough to count as two"
    },
    {
     "id": "c",
-    "text": "Keep rolling — one lamp is enough if you stay under twenty",
-    "correct": false,
-    "result": "A courier in dark kit cannot see your left edge. They take it as a motorcycle. Your plow teaches them otherwise at a driveway. One lamp was not a vehicle. It was a rumor.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 8
-    }
+    "text": "Keep rolling — one lamp is enough if you stay under twenty"
    },
    {
     "id": "d",
-    "text": "Get off the street into a driveway well off the travel lane, then swap the beam on lows only",
-    "correct": true,
-    "result": "You take a driveway that is actually a driveway, not a shoulder. Key off. Two minutes, rain on the plating, sealed beam seated. Lows, both sides. You back out after a search. The Quiet never got a lighthouse. The next car can count you as a car.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 10
-    }
+    "text": "Get off the street into a driveway well off the travel lane, then swap the beam on lows only"
    }
   ],
   "debrief": "Two working headlights in rain. High beams bloom on the drops and give you scatter. You saved the swap for a driveway off the street.",
@@ -1993,46 +1417,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Throw it in reverse and go — the lot was empty when you pulled in",
-    "correct": false,
-    "result": "The corral is not where it was. The plow is the wrong end for this. The rear plating hits steel and rings. You still cannot see what you hit until you get out. Fog holds the note.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "time_cost": 6
-    }
+    "text": "Throw it in reverse and go — the lot was empty when you pulled in"
    },
    {
     "id": "b",
-    "text": "Both side mirrors, look behind, creep reverse, stop if anything appears, then finish the out",
-    "correct": true,
-    "result": "Right glass, left glass, a look through the mesh that shows you almost nothing, then an inching reverse. The corral is there. You stop, wheel, and miss it by a foot. Fog. Boring. You are in the aisle pointed at the exit, which is the whole point of backing.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Both side mirrors, look behind, creep reverse, stop if anything appears, then finish the out"
    },
    {
     "id": "c",
-    "text": "Cut a Y-turn in the stall so you can leave forward",
-    "correct": false,
-    "result": "There is not a Y-turn's worth of stall. You climb a parking bumper and the plow rings. Forward felt better. Geometry disagreed.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "damage": 1,
-     "time_cost": 7
-    }
+    "text": "Cut a Y-turn in the stall so you can leave forward"
    },
    {
     "id": "d",
-    "text": "Get out and walk the path, then back out without checking again",
-    "correct": false,
-    "result": "You walk it. Clear. You get in and reverse on memory. In the ten seconds you were in the seat, a volunteer rolled a pallet into your path. Memory is not a mirror.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 8
-    }
+    "text": "Get out and walk the path, then back out without checking again"
    }
   ],
   "debrief": "Backing is searching, then creeping. Mirrors and a look behind, every time, even in a lot you just used. Walking the path helps; it does not replace the last look. The aisle is empty and you are pointed at the exit.",
@@ -2067,42 +1464,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Match him: left arm out, bent up, and take the right after he does — do not follow the volunteer",
-    "correct": true,
-    "result": "Your left arm goes out into the same wind. The volunteer rolls straight. You do not. You take Deac's right after a gap. Two vehicles in a driveway that holds two. He put the signal on the side you could see. You answered on that side.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Match him: left arm out, bent up, and take the right after he does — do not follow the volunteer"
    },
    {
     "id": "b",
-    "text": "Stay glued to the volunteer — he is the one in front of you",
-    "correct": false,
-    "result": "You follow the man who missed the arm. Deac turns. You and the volunteer continue. Now the column is split and you are point on a road Deac did not want. The insulin is in the wrong driveway.",
-    "state_delta": {
-     "time_cost": 8
-    }
+    "text": "Stay glued to the volunteer — he is the one in front of you"
    },
    {
     "id": "c",
-    "text": "Put your right arm out the passenger window so the driveway side gets the signal",
-    "correct": false,
-    "result": "The arm is on the curb side. Deac cannot see it. The volunteer cannot see it. You look busy and you are mute. He turns without you. You taught the column a signal the guide does not have.",
-    "state_delta": {
-     "time_cost": 6
-    }
+    "text": "Put your right arm out the passenger window so the driveway side gets the signal"
    },
    {
     "id": "d",
-    "text": "Pass both on the left and take the right first to hold the driveway",
-    "correct": false,
-    "result": "You occupy Deac's turn from the wrong side of a school zone. He has to wait on you. The volunteer follows you because movement is easier than an arm in the rain. You are point. You did not earn it.",
-    "state_delta": {
-     "yaw": 2,
-     "noise": 2,
-     "time_cost": 5
-    }
+    "text": "Pass both on the left and take the right first to hold the driveway"
    }
   ],
   "debrief": "Every hand signal is the left arm, out the driver window. Bent up, fingers to the sky, is a right turn. Copy the arm you can see. You took the right after the volunteer rolled straight.",
@@ -2138,45 +1512,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Wait behind them with hazards on so the next car sees a line",
-    "correct": false,
-    "result": "Hazards in a trench. The next car does see you. So does everything that hunts lamps. You are now a parked line in a work zone that forbade stopping. The pickup never asked you to join the repair.",
-    "state_delta": {
-     "light": 4,
-     "time_cost": 10
-    }
+    "text": "Wait behind them with hazards on so the next car sees a line"
    },
    {
     "id": "b",
-    "text": "Squeeze past them in the trench because you cannot stop",
-    "correct": false,
-    "result": "The tires drop off the cut. You high-center on the lip. Now there are two dead vehicles in a one-lane zone, and you are the second one.",
-    "state_delta": {
-     "damage": 3,
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 20
-    }
+    "text": "Squeeze past them in the trench because you cannot stop"
    },
    {
     "id": "c",
-    "text": "Stop short of their scene, then wait in their lane until they move",
-    "correct": false,
-    "result": "You are polite and you are a blockage. A volunteer comes the other way in a lane that was supposed to be yours. Four people, one trench, no way through.",
-    "state_delta": {
-     "time_cost": 12,
-     "noise": 1
-    }
+    "text": "Stop short of their scene, then wait in their lane until they move"
    },
    {
     "id": "d",
-    "text": "Do not stop in the zone: take the first legal turnout before the cut, then a different street",
-    "correct": true,
-    "result": "You refuse the line. A driveway before the cones is a driveway. You reverse into it, wait for an opening that is not their hood, and take the next street south. Two people stay at the pickup. You are already gone.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 8
-    }
+    "text": "Do not stop in the zone: take the first legal turnout before the cut, then a different street"
    }
   ],
   "debrief": "Do not stop in a live work lane to stare or to join someone else's breakdown. If the lane is blocked, leave the zone at the first legal turnout and go another way. Ali leaves the cut at the first driveway.",
@@ -2211,45 +1559,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Take it — they froze, and the drop will not wait",
-    "correct": false,
-    "result": "You go. They go. The two of you occupy the same paint. A freeze, a horn, a miss by a plow's width. First-in was not a suggestion. You made it a coin flip.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 6
-    }
+    "text": "Take it — they froze, and the drop will not wait"
    },
    {
     "id": "b",
-    "text": "Wave them through even if you think you were first",
-    "correct": false,
-    "result": "You wave. They wave. Nobody goes. Then you both go. Courtesy without a rule is two people guessing. The intersection stays a mess for a third car that did not exist until it did.",
-    "state_delta": {
-     "time_cost": 8,
-     "noise": 1
-    }
+    "text": "Wave them through even if you think you were first"
    },
    {
     "id": "c",
-    "text": "Inch into the box to claim it so they have to wait",
-    "correct": false,
-    "result": "Your plow is in the conflict. They have to go around it or sit. They sit, then panic-go. You taught the four-way that steel is right-of-way. It is not.",
-    "state_delta": {
-     "yaw": 1,
-     "noise": 2,
-     "time_cost": 5
-    }
+    "text": "Inch into the box to claim it so they have to wait"
    },
    {
     "id": "d",
-    "text": "Stay stopped. They were first. When they take it, you go next",
-    "correct": true,
-    "result": "You wait. They were looking at a paper. They look up, take the opening, and leave you a clean four-way. You take it. No horn. The drop is one minute later and still a drop.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Stay stopped. They were first. When they take it, you go next"
    }
   ],
   "debrief": "At an all-way stop, the first vehicle to arrive goes first. If two arrive together, yield to the right. Waving is how two people enter the box at once. Wait out a frozen driver until they move.",
@@ -2312,44 +1634,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Far hand to the handle, look in the glass, then open a crack and look again",
-    "correct": true,
-    "result": "Right hand across. Your torso turns. The glass has her. You wait. She passes with three feet of ice and does not look at you. You open after. The crate follows. Nobody on the ice had to choose between a door and a wheel.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Far hand to the handle, look in the glass, then open a crack and look again"
    },
    {
     "id": "b",
-    "text": "Open it now — she has time to stop on ice",
-    "correct": false,
-    "result": "The door occupies her line. Ice does not let her stop. The bar-end takes the steel and she goes down. Quiet lot, loud metal. She gets up. You will see her in every glass for a week.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 10
-    }
+    "text": "Open it now — she has time to stop on ice"
    },
    {
     "id": "c",
-    "text": "Crack the window and tell her to go around",
-    "correct": false,
-    "result": "She cannot hear you through wind and ice and a moving bike. She is already in the door when you finish the sentence. Talking is not a look.",
-    "state_delta": {
-     "noise": 1,
-     "time_cost": 5
-    }
+    "text": "Crack the window and tell her to go around"
    },
    {
     "id": "d",
-    "text": "Get out the passenger side to avoid her entirely",
-    "correct": false,
-    "result": "The crates are in the way. You climb. The passenger door opens into a cart corral on ice. You fall. She passes a car that is now a spectacle. You avoided a door zone by inventing a worse one.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 1,
-     "time_cost": 8
-    }
+    "text": "Get out the passenger side to avoid her entirely"
    }
   ],
   "debrief": "The door zone is the strip a bicyclist dies in. Far hand turns your body toward the mirror, then look, then open. You saved three feet of ice for her wheel.",
@@ -2385,45 +1682,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Middle of the empty yard — you already know nothing uses it",
-    "correct": false,
-    "result": "The door opens. Not Marisol. A volunteer getting a tarp. You find him with the plow's right corner and a sound like a drum in the rain. You knew the 20. You did not look at the door.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "time_cost": 8
-    }
+    "text": "Middle of the empty yard — you already know nothing uses it"
    },
    {
     "id": "b",
-    "text": "Hedge, parked doors, crosswalk, lamps, then the middle, then again",
-    "correct": true,
-    "result": "Left hedge. Right bumpers. The inch-open door is a door. You cover and miss it. The crosswalk is empty and you treat it like it is not. The lamps fall behind you. The last crate stays a crate. That is looking ahead after you already knew the answer.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Hedge, parked doors, crosswalk, lamps, then the middle, then again"
    },
    {
     "id": "c",
-    "text": "Watch the speedo until it sits on 20, then you are legal",
-    "correct": false,
-    "result": "The number is perfect. The door is still a door. Legal and looking are not the same exam. You pass the first and fail the second with a corner of pink steel.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 6
-    }
+    "text": "Watch the speedo until it sits on 20, then you are legal"
    },
    {
     "id": "d",
-    "text": "Follow the wet tracks of whoever came through last so you do not have to search",
-    "correct": false,
-    "result": "The tracks go through a puddle that hides a curb. You take it. The person ahead was not searching either. Their line is not a plan.",
-    "state_delta": {
-     "yaw": 2,
-     "noise": 2,
-     "time_cost": 5
-    }
+    "text": "Follow the wet tracks of whoever came through last so you do not have to search"
    }
   ],
   "debrief": "Looking ahead is a loop you run every block. Search the edges — parked doors, hedges, the crosswalk — even in a zone you already passed. Ali searches the edges she already knew.",
@@ -2458,45 +1729,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Go — you will clip it at the next stop, and the fog is already eating time",
-    "correct": false,
-    "result": "You do not get a next stop. A volunteer comes out of the fog already braking. You dump yours. The cheap belt that was not on does not hold. The game does not show the rest. It does not have to.",
-    "state_delta": {
-     "yaw": 3,
-     "damage": 5,
-     "fatal": true,
-     "time_cost": 0
-    }
+    "text": "Go — you will clip it at the next stop, and the fog is already eating time"
    },
    {
     "id": "b",
-    "text": "Clip it at rolling speed so you do not lose the gap",
-    "correct": false,
-    "result": "One hand off, eyes in your lap, torn-up lip under the tires. You miss the latch. The volunteer is already in your fog. You correct the wheel late. The belt never clicked.",
-    "state_delta": {
-     "yaw": 2,
-     "time_cost": 4
-    }
+    "text": "Clip it at rolling speed so you do not lose the gap"
    },
    {
     "id": "c",
-    "text": "Stop fully off the travel lane, clip, tug the belt, then roll",
-    "correct": true,
-    "result": "You refuse the last-second. Gravel. Click. Tug. The aftermarket latch takes. You roll out of the fog with a belt on and The Grid behind you. Central is the next place. You still have a body in the seat to hand it to.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 3
-    }
+    "text": "Stop fully off the travel lane, clip, tug the belt, then roll"
    },
    {
     "id": "d",
-    "text": "Loop it over your shoulder without the latch so at least it looks done",
-    "correct": false,
-    "result": "The sash does no work when the first hard brake arrives. The webbing slides through. You are out of the seat the cheap belt was supposed to keep. The latch was the whole point.",
-    "state_delta": {
-     "yaw": 2,
-     "time_cost": 2
-    }
+    "text": "Loop it over your shoulder without the latch so at least it looks done"
    }
   ],
   "debrief": "Belt on, latched, tugged, before the vehicle moves. Not at the next stop. Not over the shoulder. Clip it, tug it, then roll.",
@@ -2531,45 +1776,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Drive the block — right at the corner, right again, back onto Willis facing out",
-    "correct": true,
-    "result": "Four right turns, no reverse gear, no white lights. You come back onto Willis pointed out, the berm behind you. It cost ninety seconds and it cost nothing else.",
-    "state_delta": {
-     "time_cost": 2,
-     "noise": -1,
-     "light": -1
-    }
+    "text": "Drive the block — right at the corner, right again, back onto Willis facing out"
    },
    {
     "id": "b",
-    "text": "U-turn right here — the street is empty and it takes four seconds",
-    "correct": false,
-    "result": "You swing it and the nose comes around across a double yellow you did not look down at. It works. It also would not have, three feet later, where the road narrows and the drainage grate sits. The yellow was there the whole time.",
-    "state_delta": {
-     "yaw": 2,
-     "time_cost": 0
-    }
+    "text": "U-turn right here — the street is empty and it takes four seconds"
    },
    {
     "id": "c",
-    "text": "Back into the nearest driveway and come out the other way",
-    "correct": false,
-    "result": "It works, and it takes you twenty feet of reverse with the white lights on and the mirrors doing all of it. Not wrong. Just more backing than the corner would have cost you, on a street where backing is the expensive thing.",
-    "state_delta": {
-     "light": 2,
-     "time_cost": 1
-    }
+    "text": "Back into the nearest driveway and come out the other way"
    },
    {
     "id": "d",
-    "text": "Three-point turn in the lane — forward, reverse, forward",
-    "correct": false,
-    "result": "You end up crosswise in a residential lane with the nose in one gutter and the tail in the other, reverse lights on, going nowhere for a beat and a half. Anything coming around the corner arrives at a car that is a wall.",
-    "state_delta": {
-     "light": 2,
-     "yaw": 1,
-     "time_cost": 2
-    }
+    "text": "Three-point turn in the lane — forward, reverse, forward"
    }
   ],
   "debrief": "The safest way to turn around is to drive around the block. Less backing is always better — backing is slower and blinder. Ali drives the block and never puts it in reverse.",
@@ -2604,46 +1823,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Your side, the one with clear sight down Willis — signal, check behind, back in",
-    "correct": true,
-    "result": "You pull just past it, blinker on, nothing behind you, and reverse in with two hundred feet of empty road in the mirror the whole time. Shift to drive, check both ways, and roll out pointed the right direction.",
-    "state_delta": {
-     "time_cost": 2,
-     "light": 1
-    }
+    "text": "Your side, the one with clear sight down Willis — signal, check behind, back in"
    },
    {
     "id": "b",
-    "text": "The one across the street — it is the widest and the apron is flat",
-    "correct": false,
-    "result": "Backing into it means dragging the car across the oncoming lane and sitting in it, sideways, blind to the crest. The apron is flat and it does not matter. You are a gate across the only road.",
-    "state_delta": {
-     "light": 2,
-     "yaw": 1,
-     "damage": 1,
-     "time_cost": 3
-    }
+    "text": "The one across the street — it is the widest and the apron is flat"
    },
    {
     "id": "c",
-    "text": "The near one at thirty feet — closest, least time exposed",
-    "correct": false,
-    "result": "The hedge eats Willis at about eighty feet. You are in reverse with a sightline shorter than your stopping distance, and the first thing you would know about anything coming is the sound of it.",
-    "state_delta": {
-     "light": 2,
-     "time_cost": 1
-    }
+    "text": "The near one at thirty feet — closest, least time exposed"
    },
    {
     "id": "d",
-    "text": "Past the crest behind you — the driveway there is long and straight",
-    "correct": false,
-    "result": "You reverse up and over the crest to reach it, which means backing blind over the one piece of road you cannot see the far side of. The driveway is fine. Everything before the driveway is not.",
-    "state_delta": {
-     "light": 2,
-     "yaw": 2,
-     "time_cost": 3
-    }
+    "text": "Past the crest behind you — the driveway there is long and straight"
    }
   ],
   "debrief": "A two-point turn backs into a driveway on the same side of the street as your car, at a spot with at least two hundred feet of visible road ahead. Pull just past it, signal, confirm nothing is behind you, then reverse. Stop and check both ways before you pull out.",
@@ -2678,41 +1870,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold the stop. Put a hand on her. Buckle yourself before you roll again.",
-    "correct": true,
-    "result": "You stay stopped. You put a hand on her until she settles back onto the seat. Then you click the belt you skipped at the lot. The street can wait for that.",
-    "state_delta": {
-     "time_cost": 4
-    }
+    "text": "Hold the stop. Put a hand on her. Buckle yourself before you roll again."
    },
    {
     "id": "b",
-    "text": "Roll through — she landed, keep moving",
-    "correct": false,
-    "result": "You keep rolling. She is still finding the seat. The next stop will be the same story because the belt is still hanging.",
-    "state_delta": {
-     "noise": 1,
-     "time_cost": 2
-    }
+    "text": "Roll through — she landed, keep moving"
    },
    {
     "id": "c",
-    "text": "Pull over and put her in the carrier",
-    "correct": false,
-    "result": "You pull over. She will not stay in the carrier any more than she did at the lot. You spend the stop on a fight you already lost, and you are still unbuckled.",
-    "state_delta": {
-     "time_cost": 8
-    }
+    "text": "Pull over and put her in the carrier"
    },
    {
     "id": "d",
-    "text": "Yell at her to stay on the seat",
-    "correct": false,
-    "result": "Your voice fills the cab. She flinches. The belt is still not on you. The street got louder for nothing.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 2
-    }
+    "text": "Yell at her to stay on the seat"
    }
   ],
   "debrief": "The belt was yours at the lot. A hard stop in the Grid is where that bill comes due.",
@@ -2806,44 +1976,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold the right and sit behind him until he notices",
-    "correct": false,
-    "result": "You match his twenty-eight. The schedule bleeds. The left stays empty while you teach him nothing. Central learns the Ledger will wait.",
-    "state_delta": {
-     "noise": 1,
-     "time_cost": 8
-    }
+    "text": "Hold the right and sit behind him until he notices"
    },
    {
     "id": "b",
-    "text": "Signal, take the left, clear him, signal, come back right",
-    "correct": true,
-    "result": "Amber crawls. You take the left, pass, cancel, recover. He stays twenty-eight in the right. You did not become the next camper. The left stayed a tool.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Signal, take the left, clear him, signal, come back right"
    },
    {
     "id": "c",
-    "text": "Straddle both — the Ledger is wide enough that he will yield",
-    "correct": false,
-    "result": "You occupy the skip-dash. He brakes. Nobody can pass you, including you. Two lanes become one because you wanted both.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 1,
-     "time_cost": 7
-    }
+    "text": "Straddle both — the Ledger is wide enough that he will yield"
    },
    {
     "id": "d",
-    "text": "Move left, clear him, and stay in the left — through traffic can live here",
-    "correct": false,
-    "result": "You pass once and become the new slow in the passing lane. Everyone who needed the left now needs you. Keep-right did not expire because you passed once.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 6
-    }
+    "text": "Move left, clear him, and stay in the left — through traffic can live here"
    }
   ],
   "debrief": "When several lanes run the same way, drive in the right lane and use the left to pass. You saved the left as a tool by coming back.",
@@ -2878,46 +2023,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Glance left once and go — the right is cones so the left must be empty",
-    "correct": false,
-    "result": "You take the left on one look. A motorcycle you never owned is in the blind spot the side mirror would have shown. He stands on it. You stand on it. The cones get a new story.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 6
-    }
+    "text": "Glance left once and go — the right is cones so the left must be empty"
    },
    {
     "id": "b",
-    "text": "Watch the opening until it is yours, then check the glass as you commit",
-    "correct": false,
-    "result": "The opening closes while your eyes are in it. You drift. A cone kisses the side of the bus. The sweep you skipped was the only thing that would have told you the gap was already gone.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 2,
-     "time_cost": 5
-    }
+    "text": "Watch the opening until it is yours, then check the glass as you commit"
    },
    {
     "id": "c",
-    "text": "Left glass, left door mirror, over the left shoulder, then the gap",
-    "correct": true,
-    "result": "You run the sweep. The side mirror has a motorcycle in it that a glance at the windshield missed. You wait one more gap. When you take it, he is already past you.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 3
-    }
+    "text": "Left glass, left door mirror, over the left shoulder, then the gap"
    },
    {
     "id": "d",
-    "text": "Trust the side mirror alone — skip the shoulder",
-    "correct": false,
-    "result": "The side mirror shrinks a pickup into a toy. You take the gap on a toy. He is a wall. You put the Ledger's shoulder in his.",
-    "state_delta": {
-     "noise": 3,
-     "damage": 1,
-     "time_cost": 7
-    }
+    "text": "Trust the side mirror alone — skip the shoulder"
    }
   ],
   "debrief": "The Ledger has blind spots you cannot see unless you sweep them. Left glass, left door mirror, shoulder, then the gap. Deac runs that sweep every time the Ledger changes lanes.",
@@ -2952,46 +2070,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Cancel, hold the lane, let him show or fall back, then take a clean gap",
-    "correct": true,
-    "result": "You kill the blinker and hold. He appears in the right door glass a second later, then drops. The next gap is empty. You take it without writing him into the steel.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Cancel, hold the lane, let him show or fall back, then take a clean gap"
    },
    {
     "id": "b",
-    "text": "Finish the left — he is on the right, so the left is empty",
-    "correct": false,
-    "result": "You take the left anyway. He was tucked on the right of the box, and he stays there as you move. Now you are both in the new lane and you still cannot see him. Steel on steel.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Finish the left — he is on the right, so the left is empty"
    },
    {
     "id": "c",
-    "text": "Drift right first to square up, then take the left",
-    "correct": false,
-    "result": "You drift right to get a better look. He is already in that space. The side of the bus takes the van.",
-    "state_delta": {
-     "noise": 3,
-     "damage": 1,
-     "time_cost": 7
-    }
+    "text": "Drift right first to square up, then take the left"
    },
    {
     "id": "d",
-    "text": "Tap the horn so he knows to drop back",
-    "correct": false,
-    "result": "The horn on Central. He flinches into you. You both stop in a live lane. Everything behind has to lift.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 6
-    }
+    "text": "Tap the horn so he knows to drop back"
    }
   ],
   "debrief": "A sliver of nose in the window is still a van in the blind spot. Kill the blinker, hold, then take a gap you have swept. Wait until he is a van you can see.",
@@ -3026,44 +2117,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Move first, then signal — they will see the bus and understand",
-    "correct": false,
-    "result": "You start the change. The box behind had no sentence. He stands on it. You stand on it. The sign stays dark. You spent his brakes to keep your schedule.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 1,
-     "time_cost": 8
-    }
+    "text": "Move first, then signal — they will see the bus and understand"
    },
    {
     "id": "b",
-    "text": "Flash the highs twice — faster than a blinker and they cannot miss it",
-    "correct": false,
-    "result": "The flash hits his glass and comes back. He thinks you are warning him of something ahead. He slows in your gap. You still have not said left.",
-    "state_delta": {
-     "light": 3,
-     "time_cost": 6
-    }
+    "text": "Flash the highs twice — faster than a blinker and they cannot miss it"
    },
    {
     "id": "c",
-    "text": "Leave the sign dark and use the stalk at the last skip-dash",
-    "correct": false,
-    "result": "The stalk talks for ten feet. He is already in your door. Late is the same as silent on a bus this long.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 7
-    }
+    "text": "Leave the sign dark and use the stalk at the last skip-dash"
    },
    {
     "id": "d",
-    "text": "Sign left, stalk on, hold a hundred feet, then take a swept gap",
-    "correct": true,
-    "result": "Amber crawls LEFT. The stalk agrees. You hold the lane until the box lifts. The gap you take is one he already gave you. That is a sentence.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Sign left, stalk on, hold a hundred feet, then take a swept gap"
    }
   ],
   "debrief": "Signal a hundred feet before you move. The destination sign is the same sentence for a column that cannot hear you. Late amber still hits them as a surprise.",
@@ -3098,44 +2164,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold until you can count a full Ledger plus a breath, then take it",
-    "correct": true,
-    "result": "You wait. The SUV closes what looked like a gap. The next opening is longer. You count it, take it, and nobody has to lift. Late on the log. Alive in the lane.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Hold until you can count a full Ledger plus a breath, then take it"
    },
    {
     "id": "b",
-    "text": "Take it now — rain makes people generous and the pickup already lifted",
-    "correct": false,
-    "result": "You put the nose in. The SUV did not lift. You make him. Horn, spray, the Ledger's shoulder in his. That was the late merge you already watched.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 9
-    }
+    "text": "Take it now — rain makes people generous and the pickup already lifted"
    },
    {
     "id": "c",
-    "text": "Nose in and force the zipper — they will make room for a bus",
-    "correct": false,
-    "result": "You write your length into a gap that was a car. He stands on it. You stand on it. Two lanes become one argument.",
-    "state_delta": {
-     "noise": 5,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Nose in and force the zipper — they will make room for a bus"
    },
    {
     "id": "d",
-    "text": "Match the pickup's speed and wait for him to wave you through",
-    "correct": false,
-    "result": "He never waves. You sit on his bumper in the rain until the light. You did not count a gap. You waited for permission Central does not give.",
-    "state_delta": {
-     "time_cost": 10
-    }
+    "text": "Match the pickup's speed and wait for him to wave you through"
    }
   ],
   "debrief": "Merge only into a gap you can count — your length, plus room so nobody has to swerve or stand on it. You missed a wreck by waiting one extra breath.",
@@ -3170,46 +2211,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Cross the solid white into the diamond — it is empty and faster",
-    "correct": false,
-    "result": "You take the diamond. The sign said two. You are one and a bus. A trooper remnant in a dark cap sits in the next ramp. You just wrote a restricted lane onto the log.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 6
-    }
+    "text": "Cross the solid white into the diamond — it is empty and faster"
    },
    {
     "id": "b",
-    "text": "Straddle the broken white until someone makes a gap",
-    "correct": false,
-    "result": "You occupy the dash. Both lanes lose you. The stack behind has to guess which space you want. Nobody guesses right.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 1,
-     "time_cost": 7
-    }
+    "text": "Straddle the broken white until someone makes a gap"
    },
    {
     "id": "c",
-    "text": "Wait for a gap and cross only the broken white. Leave the solid alone",
-    "correct": true,
-    "result": "You hold. A gap opens on the broken side. You take it, cancel, and leave the diamond to the people who paid for it. The paint stayed a sentence.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Wait for a gap and cross only the broken white. Leave the solid alone"
    },
    {
     "id": "d",
-    "text": "Use the solid as a shoulder to let the stack pass, then come back",
-    "correct": false,
-    "result": "The solid never offered you a shoulder. You put a bus on the rumble. Snow and a drain. The stack passes you as a wreck.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 3,
-     "damage": 1,
-     "time_cost": 8
-    }
+    "text": "Use the solid as a shoulder to let the stack pass, then come back"
    }
   ],
   "debrief": "Broken white between same-direction lanes may be crossed to change lanes. Solid white marks an edge or a restricted lane. Deac leaves the diamond to the people who paid for it.",
@@ -3244,46 +2258,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Brake-check him once so he finds a legal following distance",
-    "correct": false,
-    "result": "You tap. He does not have ice tires. He has a lift and a wish. His plow kisses your rear doors. Central hears it.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "time_cost": 8
-    }
+    "text": "Brake-check him once so he finds a legal following distance"
    },
    {
     "id": "b",
-    "text": "Open your own front gap and hold speed so you can roll instead of stand on it",
-    "correct": true,
-    "result": "You lift a breath off the truck ahead. The next light goes yellow. You roll it out instead of planting. Hollis has to lift with you or eat you. He lifts. You never touched him.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Open your own front gap and hold speed so you can roll instead of stand on it"
    },
    {
     "id": "c",
-    "text": "Move left now and let him have this lane",
-    "correct": false,
-    "result": "You take a gap you did not sweep because he is loud. A sedan is in the left blind spot. You make three problems out of one bumper.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Move left now and let him have this lane"
    },
    {
     "id": "d",
-    "text": "Match him and close the front — if you are a box he cannot hit you as hard",
-    "correct": false,
-    "result": "You close the front. The light you could not see is red. You and Hollis and the truck ahead become one piece of ice.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 3,
-     "time_cost": 9
-    }
+    "text": "Match him and close the front — if you are a box he cannot hit you as hard"
    }
   ],
   "debrief": "When someone tailgates, open YOUR gap ahead so you can roll instead of plant. You cannot fix his bumper. Hold your own front gap and refuse the chain.",
@@ -3319,45 +2306,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold, let him declare, and take a gap you have swept twice",
-    "correct": true,
-    "result": "You hold. He finally shows a lamp and drops back. The gap you take is empty. He does not get a second kiss of steel. That is the apology.",
-    "state_delta": {
-     "noise": -2,
-     "time_cost": 6
-    }
+    "text": "Hold, let him declare, and take a gap you have swept twice"
    },
    {
     "id": "b",
-    "text": "Finish the left fast so he cannot stay on your flank",
-    "correct": false,
-    "result": "You snatch the left. He comes with you again. Same steel, same afternoon. He was waiting for the same move.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "time_cost": 8
-    }
+    "text": "Finish the left fast so he cannot stay on your flank"
    },
    {
     "id": "c",
-    "text": "Drift right and pin him to the curb so he cannot follow",
-    "correct": false,
-    "result": "You use the bus as a wall. He has nowhere. The curb takes his wheel. You collected the debt with his quarter panel.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Drift right and pin him to the curb so he cannot follow"
    },
    {
     "id": "d",
-    "text": "Stop in the lane and wait until he goes around",
-    "correct": false,
-    "result": "You plant a bus on West Valley. He goes around into the left you wanted. Everyone behind you gets a new problem.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 10
-    }
+    "text": "Stop in the lane and wait until he goes around"
    }
   ],
   "debrief": "A miss in the right-side blind spot comes back on the same street. Sweep, hold, then move. The same van is still there, lamps still off, waiting for the same drift.",
@@ -3393,46 +2354,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold beside the trailer — his length is a windbreak and the left is empty",
-    "correct": false,
-    "result": "You cruise the no-zone. He starts a right that needs your lane. You are the car in the statistic. He never had you in the glass.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Hold beside the trailer — his length is a windbreak and the left is empty"
    },
    {
     "id": "b",
-    "text": "Tuck under his tail — if you cannot see him he cannot hit you",
-    "correct": false,
-    "result": "You sit in the gap behind a loaded trailer. He cannot see you and he cannot stop for you. The next brake is yours.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 7
-    }
+    "text": "Tuck under his tail — if you cannot see him he cannot hit you"
    },
    {
     "id": "c",
-    "text": "Pass on the shoulder — the rumble is safer than his left",
-    "correct": false,
-    "result": "The shoulder is a drain and a sign post. You put a bus in the junk. He never knew you tried.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 3,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Pass on the shoulder — the rumble is safer than his left"
    },
    {
     "id": "d",
-    "text": "Drop back until both his mirrors show you, or commit the pass and clear",
-    "correct": true,
-    "result": "You fall back until two dirty west-coast mirrors on his doors hold a Ledger. Then you pass once, all the way, and you do not linger. He keeps his blind spots. You keep your steel.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Drop back until both his mirrors show you, or commit the pass and clear"
    }
   ],
   "debrief": "If you cannot see a truck's mirrors, the driver cannot see you. Do not live beside the trailer. You missed being the car in his turn.",
@@ -3468,44 +2402,19 @@
   "options": [
    {
     "id": "a",
-    "text": "When your nose is past his — that is enough to claim the lane",
-    "correct": false,
-    "result": "You recover early. Your rear doors are still at his drive axle. He starts the right he signaled a mile ago. You are the lingering car.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "When your nose is past his — that is enough to claim the lane"
    },
    {
     "id": "b",
-    "text": "When you see his whole front in your glass and the bus is clear, then recover",
-    "correct": true,
-    "result": "You stay in the pass until the trailer is a trailer in the glass, not a wall at your shoulder. You recover once. He keeps his turn. You keep your doors.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "When you see his whole front in your glass and the bus is clear, then recover"
    },
    {
     "id": "c",
-    "text": "Match his speed beside the cab so he sees you and can wave you past",
-    "correct": false,
-    "result": "You become a passenger on his left. He cannot wave a bus through a no-zone. He needs that space to live.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 8
-    }
+    "text": "Match his speed beside the cab so he sees you and can wave you past"
    },
    {
     "id": "d",
-    "text": "Cut in as soon as you see pavement in front of him — leave him a car length",
-    "correct": false,
-    "result": "You give a loaded trailer a car length at highway speed. He cannot stop. You just borrowed his stopping distance.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 6
-    }
+    "text": "Cut in as soon as you see pavement in front of him — leave him a car length"
    }
   ],
   "debrief": "Do not linger beside a truck. Pass, then recover only when the whole front of his vehicle is in your mirror and you have left him stopping room. Deac would not live beside a trailer he used to drive.",
@@ -3568,44 +2477,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Go now — you were in the intersection on the arrow, so you own it",
-    "correct": false,
-    "result": "You take the circular green as if the arrow were still up. Oncoming is a pair of lamps you did not yield to. You make them lift. The pocket never promised you that turn.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Go now — you were in the intersection on the arrow, so you own it"
    },
    {
     "id": "b",
-    "text": "Sit in the pocket until another arrow — circular green is a trap",
-    "correct": false,
-    "result": "You become a bus in a pocket through two cycles. The stack behind you starts using the through lanes. You taught the light that Deac does not know the difference.",
-    "state_delta": {
-     "time_cost": 12
-    }
+    "text": "Sit in the pocket until another arrow — circular green is a trap"
    },
    {
     "id": "c",
-    "text": "Yield to oncoming, then take the closest lane right of their yellow when it is clear",
-    "correct": true,
-    "result": "You wait. Oncoming clears. You steer to the first lane right of their yellow, not the far one. The arrow was a gift. The circle is a yield.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Yield to oncoming, then take the closest lane right of their yellow when it is clear"
    },
    {
     "id": "d",
-    "text": "Swing wide into the far lane so you are out of oncoming's way faster",
-    "correct": false,
-    "result": "You exit into the far lane. A through car already owns it. You traded a yield for a sideswipe.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Swing wide into the far lane so you are out of oncoming's way faster"
    }
   ],
   "debrief": "A green arrow means the other direction is stopped for you. A circular green means yield, then finish in the closest lane to the right of the yellow. The arrow going dark is the yield starting.",
@@ -3640,45 +2524,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Enter only when you are ready to turn, and do not travel farther than you need",
-    "correct": true,
-    "result": "You wait until the turn is real. You take the pocket for a short bite, yield to the other direction, and finish. The sedan is still touring it like a lane when oncoming wants it.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Enter only when you are ready to turn, and do not travel farther than you need"
    },
    {
     "id": "b",
-    "text": "Use it as a passing lane — that is what the dashes are for",
-    "correct": false,
-    "result": "You pass in a lane that belongs to both directions. Oncoming enters it to turn. Two noses, one paint. The dashes never meant pass.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Use it as a passing lane — that is what the dashes are for"
    },
    {
     "id": "c",
-    "text": "Ride it for the next mile so you are already in position at every left",
-    "correct": false,
-    "result": "You travel the center. Three driveways and a car coming the other way all have a claim. Three hundred feet was the limit. You spent it like a highway.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 7
-    }
+    "text": "Ride it for the next mile so you are already in position at every left"
    },
    {
     "id": "d",
-    "text": "Straddle the yellow and the pocket so nobody can surprise you",
-    "correct": false,
-    "result": "You occupy two lanes. Through traffic has to guess. The pocket is no longer a pocket. It is a problem with your name on it.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 1,
-     "time_cost": 6
-    }
+    "text": "Straddle the yellow and the pocket so nobody can surprise you"
    }
   ],
   "debrief": "A two-way left-turn lane is for turning. Enter it to turn, watch the other direction, and do not tour it. You saved a head-on in paint that belongs to both ways.",
@@ -3713,46 +2571,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Shake it off and hold speed — the straight will end and you will be fine",
-    "correct": false,
-    "result": "You argue with a nervous system. The walk becomes a tire on the rumble. The stack behind you gets a new shape of bus.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 3,
-     "time_cost": 8
-    }
+    "text": "Shake it off and hold speed — the straight will end and you will be fine"
    },
    {
     "id": "b",
-    "text": "Crack a window and talk — conversation is as good as a stop",
-    "correct": false,
-    "result": "You talk to an empty jump seat. The walk continues. Conversation does not put sleep back in your eyes. The rumble finds you anyway.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Crack a window and talk — conversation is as good as a stop"
    },
    {
     "id": "c",
-    "text": "Speed up so the air keeps you honest",
-    "correct": false,
-    "result": "You add speed to a microsleep. The Drift does not care about your schedule. It cares that you are still moving.",
-    "state_delta": {
-     "noise": 2,
-     "yaw": 2,
-     "time_cost": 6
-    }
+    "text": "Speed up so the air keeps you honest"
    },
    {
     "id": "d",
-    "text": "Signal, find a legal pad, key off, twenty minutes. The log can wait.",
-    "correct": true,
-    "result": "You take the next ramp pad, hazards, key off. Twenty minutes with the key off. The hood line is a hood line when you start again. Two clean stops reset him. This is one.",
-    "state_delta": {
-     "noise": -2,
-     "time_cost": 8
-    }
+    "text": "Signal, find a legal pad, key off, twenty minutes. The log can wait."
    }
   ],
   "debrief": "Lane drift, heavy eyes, missing a stretch of road — pull off and rest. Deac owes the log a stop, not another mile.",
@@ -3787,43 +2618,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Keep rolling — you still have the left door mirror and the shoulder check",
-    "correct": false,
-    "result": "You guess the right-side blind spot. A work van is in it. You find him with the side of the bus. The left door mirror never had that angle.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Keep rolling — you still have the left door mirror and the shoulder check"
    },
    {
     "id": "b",
-    "text": "Cover the dead glass with your hand so it stops lying",
-    "correct": false,
-    "result": "You drive one-handed in a work zone. The lie is gone. So is a hand. The next cone is closer than your remaining glass.",
-    "state_delta": {
-     "yaw": 2,
-     "time_cost": 6
-    }
+    "text": "Cover the dead glass with your hand so it stops lying"
    },
    {
     "id": "c",
-    "text": "Hazards, legal pad, reset the arm until the side mirror sees the lane again",
-    "correct": true,
-    "result": "You put the bus on a pad and put the glass back on the lane. Two minutes in the rain. The right-side blind spot returns as a picture. You do not buy a sideswipe with a schedule.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 7
-    }
+    "text": "Hazards, legal pad, reset the arm until the side mirror sees the lane again"
    },
    {
     "id": "d",
-    "text": "Switch to the left only and refuse all right-side changes",
-    "correct": false,
-    "result": "The next merge is a right. You refuse it and become a rolling roadblock in a closed pattern. The work crew has to wave you through a lie you would not fix.",
-    "state_delta": {
-     "time_cost": 12
-    }
+    "text": "Switch to the left only and refuse all right-side changes"
    }
   ],
   "debrief": "A mirror that does not see the lane is a maintenance problem. Guessing the right-side blind spot is how you collect a van. Stop and set the arm before you take another gap.",
@@ -3859,44 +2666,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Now — you are ahead, and the right is yours again",
-    "correct": false,
-    "result": "You recover on a guess. His windshield fills with your rear doors. He stands on it. You taught him that a pass is a suggestion.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Now — you are ahead, and the right is yours again"
    },
    {
     "id": "b",
-    "text": "When his whole front is in your glass and the bus is clear, then signal and recover",
-    "correct": true,
-    "result": "You wait until the box is a box in the mirror, not a wall at your hip. You signal, come back, cancel. He never had to lift. That is a finished pass.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "When his whole front is in your glass and the bus is clear, then signal and recover"
    },
    {
     "id": "c",
-    "text": "Stay in the left after you pass — through traffic can live here",
-    "correct": false,
-    "result": "You become the new slow in the passing lane. Everyone who needed the left now needs you. Keep-right did not expire because you passed once.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 7
-    }
+    "text": "Stay in the left after you pass — through traffic can live here"
    },
    {
     "id": "d",
-    "text": "Cut in tight to teach him thirty is too slow",
-    "correct": false,
-    "result": "You give him a breath of asphalt at night in the rain. A box cannot stop on a breath. You spent his margin to make a point.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 5
-    }
+    "text": "Cut in tight to teach him thirty is too slow"
    }
   ],
   "debrief": "Finish the pass. Recover only when the passed vehicle's whole front is in your mirror and you are clear. Then get out of the left. The box should already be a box in the glass.",
@@ -3931,48 +2713,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Sign SLOW, left arm down if the lamps are buried, then lift off",
-    "correct": true,
-    "result": "Amber crawls SLOW. Your left arm goes out and down for the man who cannot see a sign through snow. He lifts. You dump speed without writing him into the doors. The pickup stays a pickup.",
-    "state_delta": {
-     "noise": -1,
-     "passenger_stress": -1,
-     "time_cost": 4
-    }
+    "text": "Sign SLOW, left arm down if the lamps are buried, then lift off"
    },
    {
     "id": "b",
-    "text": "Stand on the brakes — the lamps are the sentence",
-    "correct": false,
-    "result": "The lamps dump. He does not. Your rear doors become his windshield. You just made passengers out of a volunteer and a schedule.",
-    "state_delta": {
-     "noise": 5,
-     "passenger_stress": 3,
-     "damage": 1,
-     "time_cost": 7
-    }
+    "text": "Stand on the brakes — the lamps are the sentence"
    },
    {
     "id": "c",
-    "text": "Wave him around on the left before you slow",
-    "correct": false,
-    "result": "You wave a stranger into a snow lane you have not swept. He goes. The dead pickup was not the only object. You spent him.",
-    "state_delta": {
-     "noise": 3,
-     "passenger_stress": 2,
-     "time_cost": 6
-    }
+    "text": "Wave him around on the left before you slow"
    },
    {
     "id": "d",
-    "text": "Leave the sign dark so you do not draw the Quiet, and hope he reads the stalk",
-    "correct": false,
-    "result": "The stalk talks for ten feet of snow. He never had a sentence. Hoping he reads a blinker is how you invent passengers.",
-    "state_delta": {
-     "noise": 4,
-     "passenger_stress": 2,
-     "time_cost": 5
-    }
+    "text": "Leave the sign dark so you do not draw the Quiet, and hope he reads the stalk"
    }
   ],
   "debrief": "Tell the column before you dump speed. The destination sign is the sentence; the left arm down is the backup when snow buries the lamps. You saved the volunteer a face full of your doors.",
@@ -4009,46 +2762,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold the wheel harder and finish the straight — you know it now",
-    "correct": false,
-    "result": "Knowing the mile does not put sleep in your eyes. You walk it into the rumble for real. The stack behind you writes a new shape.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 3,
-     "time_cost": 9
-    }
+    "text": "Hold the wheel harder and finish the straight — you know it now"
    },
    {
     "id": "b",
-    "text": "Open a window and slap the dash until the line comes back",
-    "correct": false,
-    "result": "You make noise in a tired cab. The line does not come back. Mya would have, if she were here. Slapping the dash does not put sleep in your eyes.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Open a window and slap the dash until the line comes back"
    },
    {
     "id": "c",
-    "text": "Take the pad. Hazards. Key off. Twenty minutes you already owed.",
-    "correct": true,
-    "result": "You take the ugly pad. Key off. The log waits. When you start again the hood line is a hood line. That is the only apology the straight accepts.",
-    "state_delta": {
-     "noise": -2,
-     "time_cost": 8
-    }
+    "text": "Take the pad. Hazards. Key off. Twenty minutes you already owed."
    },
    {
     "id": "d",
-    "text": "Hand the wheel to whoever is in the jump — anyone awake is better",
-    "correct": false,
-    "result": "The jump is empty. You reach for a person who is not there and the rumble takes the rest.",
-    "state_delta": {
-     "yaw": 3,
-     "noise": 2,
-     "time_cost": 6
-    }
+    "text": "Hand the wheel to whoever is in the jump — anyone awake is better"
    }
   ],
   "debrief": "The same straight comes back when you push through. Deac already owed this pad twenty minutes.",
@@ -4084,44 +2810,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold speed — she can wait, you are already in the through lane",
-    "correct": false,
-    "result": "You keep the lane she needs. She stands on it or she clips you. She stands. You taught a transit driver that through traffic does not yield.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 6
-    }
+    "text": "Hold speed — she can wait, you are already in the through lane"
    },
    {
     "id": "b",
-    "text": "Pass her on the left before she commits — get it over with",
-    "correct": false,
-    "result": "You go for the left as her nose comes out. She is already in the lane. Two boxes, one gap. Downtown hears it.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Pass her on the left before she commits — get it over with"
    },
    {
     "id": "c",
-    "text": "Horn once so she knows you see her, then keep your speed",
-    "correct": false,
-    "result": "The horn on a cold downtown edge. She flinches and stops half out. You still did not give her the lane. You just announced the block.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 5
-    }
+    "text": "Horn once so she knows you see her, then keep your speed"
    },
    {
     "id": "d",
-    "text": "Lift, give her the lane, and take her back once she is through",
-    "correct": true,
-    "result": "You lift. She takes the lane she already asked for. You roll in behind her. Two fingers off the wheel, not a wave. Off-route or not, she still runs on time.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Lift, give her the lane, and take her back once she is through"
    }
   ],
   "debrief": "Yield to a transit vehicle in your direction that has signaled and is pulling back on. The stop is her work. Leave her the lane she already asked for.",
@@ -4157,45 +2858,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Signal, move right, stop, wait until he is past, then reenter in order",
-    "correct": true,
-    "result": "You put the Ledger on the right and plant it. Dunn takes the gap you made. When his lamps are gone you signal and take your place in the stack. Nobody invented a new order.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Signal, move right, stop, wait until he is past, then reenter in order"
    },
    {
     "id": "b",
-    "text": "Hold the left and speed up so he can have the right",
-    "correct": false,
-    "result": "You run from a siren. He needs the right, and you just filled the passing lane. The stack becomes a wall with your name on it.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 8
-    }
+    "text": "Hold the left and speed up so he can have the right"
    },
    {
     "id": "c",
-    "text": "Stop in your lane immediately — he can go around",
-    "correct": false,
-    "result": "You plant a bus in a live lane. He has to invent a path. The man behind you does not stop. Three vehicles, one siren, no right.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 1,
-     "time_cost": 7
-    }
+    "text": "Stop in your lane immediately — he can go around"
    },
    {
     "id": "d",
-    "text": "Check the tablet for which way he is going, then decide",
-    "correct": false,
-    "result": "Your eyes leave the glass. The siren is already beside you. You decide late. That was the timeout, and it was a look.",
-    "state_delta": {
-     "noise": 2,
-     "light": 2,
-     "time_cost": 5
-    }
+    "text": "Check the tablet for which way he is going, then decide"
    }
   ],
   "debrief": "Siren or lamps: move right, stop, wait until the emergency vehicle is past, then reenter in the order you had. Eyes stay on the glass, not on a screen.",
@@ -4231,46 +2906,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Dart into the diamond, pass, come back before the next ramp",
-    "correct": false,
-    "result": "You use a carpool lane as a slingshot. Solid white means stay out through that stretch. The remnant in the cap does not care that you are a bus. You stole a pass from a lane that was never yours to dart through.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 6
-    }
+    "text": "Dart into the diamond, pass, come back before the next ramp"
    },
    {
     "id": "b",
-    "text": "Hold the general lane. If you pass, pass in a general lane.",
-    "correct": true,
-    "result": "You stay. The diamond stays empty. When a general lane opens you take a real pass or you don't. The box stays at thirty. You stay legal.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 3
-    }
+    "text": "Hold the general lane. If you pass, pass in a general lane."
    },
    {
     "id": "c",
-    "text": "Straddle the solid white until he notices and moves over",
-    "correct": false,
-    "result": "You occupy the fence. He never moves. Both lanes lose you. The diamond was never a shoulder and the solid was never an invitation.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 1,
-     "time_cost": 5
-    }
+    "text": "Straddle the solid white until he notices and moves over"
    },
    {
     "id": "d",
-    "text": "Take the rumble on the right and go around him there",
-    "correct": false,
-    "result": "The rumble is a drain in the fog. You put a bus in the junk to avoid a rule. He never knew you tried.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "damage": 1,
-     "time_cost": 4
-    }
+    "text": "Take the rumble on the right and go around him there"
    }
   ],
   "debrief": "4.16: HOV is a diamond, occupancy on the signs, typically fenced by solid white. A bus may travel in it. Solid means do not cross that stretch; broken is where you may enter or exit. Do not dart through the diamond to pass one slow vehicle.",
@@ -4305,45 +2953,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold forty-five — posted is posted and the pickup is the proof",
-    "correct": false,
-    "result": "You match him. The next brake is a wish. The Ledger's right rear tires write a story in the standing water. Posted was the maximum. The water set a lower one.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 3,
-     "time_cost": 8
-    }
+    "text": "Hold forty-five — posted is posted and the pickup is the proof"
    },
    {
     "id": "b",
-    "text": "Drop to twenty and become the new problem",
-    "correct": false,
-    "result": "You become a roadblock in a live lane. The pickup goes around you in the rain. You traded a hydroplane for a sideswipe you invited.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 10
-    }
+    "text": "Drop to twenty and become the new problem"
    },
    {
     "id": "c",
-    "text": "Lift off until the six-second gap is real again, even if that is under posted",
-    "correct": true,
-    "result": "You give the water the seconds. The pickup pulls away. You can still see his tires meet the road. When the rain eases you take the number back. The sign never asked you to float.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 7
-    }
+    "text": "Lift off until the six-second gap is real again, even if that is under posted"
    },
    {
     "id": "d",
-    "text": "Move left and hold forty-five in the drier tracks",
-    "correct": false,
-    "result": "The left tracks are also a river. You added a lane change on ice-that-is-rain. The number did not get safer because you switched paint.",
-    "state_delta": {
-     "yaw": 2,
-     "noise": 2,
-     "time_cost": 6
-    }
+    "text": "Move left and hold forty-five in the drier tracks"
    }
   ],
   "debrief": "On wet asphalt, slow until your following time is real again. Deac would rather be late than float.",
@@ -4406,44 +3028,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Stay in the right until the merge paint, then take turns with the left",
-    "correct": true,
-    "result": "You use the lane until it ends. At the teeth you take one, give one. The stack is shorter than the polite line that started a mile early. The sign meant it.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Stay in the right until the merge paint, then take turns with the left"
    },
    {
     "id": "b",
-    "text": "Move left now so you are not the person who cuts at the end",
-    "correct": false,
-    "result": "You join the polite line. The right stays empty and angry. Someone late uses it and you resent them for doing the zipper. You taught the zone the wrong courtesy.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 9
-    }
+    "text": "Move left now so you are not the person who cuts at the end"
    },
    {
     "id": "c",
-    "text": "Straddle both until the last cone so nobody can beat you",
-    "correct": false,
-    "result": "You occupy two lanes in a work zone. Nobody zippers. You are the blockage the sign was trying to prevent.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 1,
-     "time_cost": 8
-    }
+    "text": "Straddle both until the last cone so nobody can beat you"
    },
    {
     "id": "d",
-    "text": "Stop at the first warning sign and wait for a flagger to assign a lane",
-    "correct": false,
-    "result": "There is no flagger. You plant a bus at a sign. The zipper happens without you, around you, angry.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 10
-    }
+    "text": "Stop at the first warning sign and wait for a flagger to assign a lane"
    }
   ],
   "debrief": "For a lane closure, use both lanes until the merge point, then take turns — the zipper. Early merging out of courtesy builds a longer line and a nastier end.",
@@ -4478,48 +3075,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Glance the screen — one second, then finish the change",
-    "correct": false,
-    "result": "One second is a blind spot. The sedan was in it. You find him with the arm. The Chorus got the look it wanted.",
-    "state_delta": {
-     "noise": 4,
-     "light": 2,
-     "damage": 1,
-     "time_cost": 7
-    }
+    "text": "Glance the screen — one second, then finish the change"
    },
    {
     "id": "b",
-    "text": "Thumb the screen off while you steer — you can do two things",
-    "correct": false,
-    "result": "You steer with a thumb on glass. The gap moves. The Ledger does not. Two things was the problem.",
-    "state_delta": {
-     "yaw": 2,
-     "light": 1,
-     "time_cost": 6
-    }
+    "text": "Thumb the screen off while you steer — you can do two things"
    },
    {
     "id": "c",
-    "text": "Finish by memory — you already swept, the screen can wait",
-    "correct": false,
-    "result": "Memory is a stale sweep. The blind spot changed. You take a gap that closed. The tablet keeps talking to nobody.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 5
-    }
+    "text": "Finish by memory — you already swept, the screen can wait"
    },
    {
     "id": "d",
-    "text": "Cancel the change, hold the lane, ignore the screen, sweep again, then move",
-    "correct": true,
-    "result": "You kill the stalk and let the tablet die alone. The gap you take later is one you have seen. The Chorus does not get a vote mid-change.",
-    "state_delta": {
-     "noise": -1,
-     "light": -1,
-     "time_cost": 4
-    }
+    "text": "Cancel the change, hold the lane, ignore the screen, sweep again, then move"
    }
   ],
   "debrief": "A screen mid-maneuver is a look you cannot afford. Cancel, hold, finish the driving, then the glass. You missed a sedan by killing the stalk.",
@@ -4554,45 +3122,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Keep rolling — a rear tire can run soft and the snow is only starting",
-    "correct": false,
-    "result": "You argue with rubber. The wander becomes a slide at the next brake. A right rear tire that is soft in snow does not wait for the Drift to take the credit.",
-    "state_delta": {
-     "yaw": 3,
-     "noise": 2,
-     "time_cost": 12
-    }
+    "text": "Keep rolling — a rear tire can run soft and the snow is only starting"
    },
    {
     "id": "b",
-    "text": "Hazards, legal pad, check tread and pressure before you take more snow",
-    "correct": true,
-    "result": "You put the bus on a pad. Tread is at the wear bars on the outer. Pressure is low. You air it from the can on the rack and you do not take the next hill on a wish. Late on the log. Rolling on purpose.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 9
-    }
+    "text": "Hazards, legal pad, check tread and pressure before you take more snow"
    },
    {
     "id": "c",
-    "text": "Kick it once and if it sounds hard enough, go",
-    "correct": false,
-    "result": "A kick sounds like a tire. It is still soft. The next curve writes the rest. The door sticker was the number you skipped.",
-    "state_delta": {
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Kick it once and if it sounds hard enough, go"
    },
    {
     "id": "d",
-    "text": "Overfill it by eye from the can so it cannot go soft again",
-    "correct": false,
-    "result": "You guess high. The tire is a drum. Handling gets worse, not better. The door sticker was the number. You did not read it.",
-    "state_delta": {
-     "yaw": 2,
-     "damage": 1,
-     "time_cost": 10
-    }
+    "text": "Overfill it by eye from the can so it cannot go soft again"
    }
   ],
   "debrief": "Tread under two thirty-seconds slides on wet and snow. Pressure is on the door sticker, not in your foot. Deac airs it from the can before he takes another hill.",
@@ -4627,44 +3169,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Pass now — empty left is permission and the schedule likes motion",
-    "correct": false,
-    "result": "You take a pass that buys a length. Recovering, you write spray across his glass. He lifts. You are one length richer and louder. The light ahead makes you even again.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 6
-    }
+    "text": "Pass now — empty left is permission and the schedule likes motion"
    },
    {
     "id": "b",
-    "text": "Sit on his bumper until he notices and moves over",
-    "correct": false,
-    "result": "You become Hollis with a bus. He does not move. You spend Central as a threat. Nothing is gained except an enemy.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 5
-    }
+    "text": "Sit on his bumper until he notices and moves over"
    },
    {
     "id": "c",
-    "text": "Flash him once so he yields the right, then take it without a pass",
-    "correct": false,
-    "result": "The flash is a demand. He brakes. You almost eat a box you did not need to pass. Permission you invented.",
-    "state_delta": {
-     "light": 3,
-     "noise": 1,
-     "time_cost": 4
-    }
+    "text": "Flash him once so he yields the right, then take it without a pass"
    },
    {
     "id": "d",
-    "text": "Hold the right. Keep the gap. Let the empty left stay empty",
-    "correct": true,
-    "result": "You stay. He stays. The left stays a lane for someone who needs it. You arrive the same minute you would have. That is the thesis: do not spend a pass you cannot cash.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Hold the right. Keep the gap. Let the empty left stay empty"
    }
   ],
   "debrief": "Do not pass just because the left is empty. Pass to turn, to clear a hazard, to exit — not to own a length. Hold the right if the pass buys you nothing.",
@@ -4746,45 +3263,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Left foot on the brake, right foot on the gas, so you can switch faster",
-    "correct": false,
-    "result": "You plant both. The pads and the engine fight. The Menace hops. The stack behind you stands on it. Two pedals at once is not faster. It is how you lose the front and the rear in the same second.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 5
-    }
+    "text": "Left foot on the brake, right foot on the gas, so you can switch faster"
    },
    {
     "id": "b",
-    "text": "Right foot for gas and brake, one at a time. Left foot only on a clutch",
-    "correct": true,
-    "result": "Left foot stays on the floor unless you need the clutch. Right foot takes the gas or the brake, never both. Encore had two pedals. The Menace has three. The rule did not change — only whether a clutch exists.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 2
-    }
+    "text": "Right foot for gas and brake, one at a time. Left foot only on a clutch"
    },
    {
     "id": "c",
-    "text": "Left foot covers the brake on every car, automatic or not",
-    "correct": false,
-    "result": "You drop the left foot on the brake because it feels ready. The lamps light. Someone behind dumps speed for a stop you did not mean. Left foot is not a brake foot. The only pedal it is allowed to touch is a clutch.",
-    "state_delta": {
-     "light": 2,
-     "noise": 2,
-     "time_cost": 4
-    }
+    "text": "Left foot covers the brake on every car, automatic or not"
    },
    {
     "id": "d",
-    "text": "Rest the left foot on the clutch so you are always ready",
-    "correct": false,
-    "result": "You leave the left foot on the left pedal. The clutch is already a little in. The Menace smells like a slip. Ready is the floor. The pedal is a choice, not a shelf.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 4
-    }
+    "text": "Rest the left foot on the clutch so you are always ready"
    }
   ],
   "debrief": "Left foot stays on the floor unless you need the clutch. Right foot does one pedal. You kept the Menace from fighting itself.",
@@ -4821,46 +3312,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Stay on the gas — the light is still green and you will lose the gap",
-    "correct": false,
-    "result": "You hold the gas. He is already stopped. You stand on it late. The plow talks to his bumper. Rain carries the note down the block. Whatever made him dump speed now has you too.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "time_cost": 6
-    }
+    "text": "Stay on the gas — the light is still green and you will lose the gap"
    },
    {
     "id": "b",
-    "text": "Lift off the gas and hold your foot over the brake without pressing it yet",
-    "correct": true,
-    "result": "You lift. The foot waits over the pedal. He bottoms out. You are already covering, so the stop is a press, not a panic. No note. The reason he stopped is a person you can now see.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 3
-    }
+    "text": "Lift off the gas and hold your foot over the brake without pressing it yet"
    },
    {
     "id": "c",
-    "text": "Ride the brake the rest of the block so you are always ready",
-    "correct": false,
-    "result": "You drag the pads in the rain. Lamps stay lit behind you. The stack thinks you are stopping and then you are not. Someone behind stands on it. Riding it is not covering it.",
-    "state_delta": {
-     "light": 2,
-     "noise": 2,
-     "time_cost": 5
-    }
+    "text": "Ride the brake the rest of the block so you are always ready"
    },
    {
     "id": "d",
-    "text": "Move left around him before he finishes slowing",
-    "correct": false,
-    "result": "You take the left on a guess. The reason he dumped speed is still in that lane. You meet it with a plow and a green light that did not promise you a pass.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Move left around him before he finishes slowing"
    }
   ],
   "debrief": "Cover the brake: foot off the gas, held over the pedal, not riding it. You bought the second you needed when the sedan stopped. Keep the foot ready, not planted.",
@@ -4895,45 +3359,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold speed — they should wait, and you have the street",
-    "correct": false,
-    "result": "You keep the number. They finish the step. The plow and a coat occupy the same paint. You dump it late. They freeze. You freeze. The side street now has a story it did not need.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Hold speed — they should wait, and you have the street"
    },
    {
     "id": "b",
-    "text": "Honk so they step back between the cars",
-    "correct": false,
-    "result": "The horn hits the block. They flinch forward, not back. You get a louder problem and a person still in the lane. Sound does not put them between the cars again.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 5
-    }
+    "text": "Honk so they step back between the cars"
    },
    {
     "id": "c",
-    "text": "Cover, slow, stop if you must. Let them finish or go back",
-    "correct": true,
-    "result": "You lift and cover. They see the plow and finish across. You never argue the paper. The side street stays a side street. You roll when the gap is a gap again.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Cover, slow, stop if you must. Let them finish or go back"
    },
    {
     "id": "d",
-    "text": "Swing left around them and keep the number",
-    "correct": false,
-    "result": "You take the left. Oncoming is a pickup you did not budget. You put a person and a pickup in the same second. The plow cannot split that.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Swing left around them and keep the number"
    }
   ],
   "debrief": "A person between parked cars is already in your decision. Slow or stop. Who had the paper does not move them. You saved the side street a collision.",
@@ -4970,45 +3408,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold behind them until the person is gone and the sedan moves",
-    "correct": true,
-    "result": "You plant it. The person clears. The sedan rolls. You roll. The left stayed empty and unused. Nobody had to invent a second threat out of your plow.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Hold behind them until the person is gone and the sedan moves"
    },
    {
     "id": "b",
-    "text": "Creep left and peek — if you can see the person you can thread it",
-    "correct": false,
-    "result": "You put the nose into the left. The person you can see is not the only person. A second coat comes off the sedan's front. You and that coat share the paint. The peek was the pass.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Creep left and peek — if you can see the person you can thread it"
    },
    {
     "id": "c",
-    "text": "Tap the horn so the person hurries and the sedan can go",
-    "correct": false,
-    "result": "The horn hits a school-edge block. The person freezes in the paint. The sedan stays planted. You made sound and you still cannot go around.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 6
-    }
+    "text": "Tap the horn so the person hurries and the sedan can go"
    },
    {
     "id": "d",
-    "text": "Pass on the left — the person is already on their half",
-    "correct": false,
-    "result": "You take the left. The person is not done. They step into the half you claimed. The sedan hid them until you were already alongside. That is the double threat, and you drove into it.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Pass on the left — the person is already on their half"
    }
   ],
   "debrief": "Never pass a vehicle stopped for a person. The car is a wall. The person you cannot see is why it stopped. Ali holds until the coat is gone.",
@@ -5045,45 +3457,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Straddle the rails and hold speed — your tires can take the groove",
-    "correct": false,
-    "result": "A tire finds the groove and follows it. The plow walks. You fight the wheel while the lamps grow. The train does not have a wheel to fight. You become a problem on its rail.",
-    "state_delta": {
-     "yaw": 3,
-     "noise": 3,
-     "time_cost": 8
-    }
+    "text": "Straddle the rails and hold speed — your tires can take the groove"
    },
    {
     "id": "b",
-    "text": "Beat the train through the next light — it has to stop anyway",
-    "correct": false,
-    "result": "You try to own a rail the train already owns. It does not stop for your light. You dump speed on steel. The lamps fill the mesh. You were never going to win that race.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 7
-    }
+    "text": "Beat the train through the next light — it has to stop anyway"
    },
    {
     "id": "c",
-    "text": "Stop on the rails so the train has to deal with you first",
-    "correct": false,
-    "result": "You plant a Beetle on steel. The train cannot swerve. The operator has one move and it is late. You made a crossing out of a travel lane.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "time_cost": 10
-    }
+    "text": "Stop on the rails so the train has to deal with you first"
    },
    {
     "id": "d",
-    "text": "Signal, leave the track lane, give the train the rails, then hold",
-    "correct": true,
-    "result": "Amber on. You take the next lane that is only paint. The train takes the steel it cannot leave. You feel it pass in the door glass. The groove stays a groove, not a trap.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Signal, leave the track lane, give the train the rails, then hold"
    }
   ],
   "debrief": "Light rail uses the street and cannot swerve. Get off the rails; do not race it or sit on the steel. The steel keeps the train it cannot leave.",
@@ -5120,44 +3506,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Stay out of the transit lane, no turn on red, go the way the one-way points",
-    "correct": true,
-    "result": "You hold the general lane. Red stays red for your right. The empty transit lane stays empty. A bus remnant takes it two breaths later. The faces were the sentence.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Stay out of the transit lane, no turn on red, go the way the one-way points"
    },
    {
     "id": "b",
-    "text": "Take the empty transit lane — nothing is coming and you are through traffic",
-    "correct": false,
-    "result": "You take the diamond's cousin. A bus remnant is already committed. You write a Beetle into a lane that was never yours. The remnant has to lift. Downtown remembers the plow in the wrong paint.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 7
-    }
+    "text": "Take the empty transit lane — nothing is coming and you are through traffic"
    },
    {
     "id": "c",
-    "text": "Turn right on the red — the one-way is clear and waiting costs you the block",
-    "correct": false,
-    "result": "You take the red. The sign said no. A figure you did not have is already in that crosswalk. You invent a stop you were told not to skip.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 8
-    }
+    "text": "Turn right on the red — the one-way is clear and waiting costs you the block"
    },
    {
     "id": "d",
-    "text": "Go the wrong way on the one-way for one block to skip the transit restriction",
-    "correct": false,
-    "result": "You point the plow at oncoming. Wet pavement and a pair of lamps. One-way is not a puzzle you get to rewrite because the left was posted.",
-    "state_delta": {
-     "noise": 5,
-     "yaw": 2,
-     "time_cost": 9
-    }
+    "text": "Go the wrong way on the one-way for one block to skip the transit restriction"
    }
   ],
   "debrief": "Downtown signs stack. One-way, no turn on red, transit only — each one is in force even if the lane looks empty. Stay out of the transit lane.",
@@ -5194,45 +3555,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Finish the change — they will make room, they are smaller",
-    "correct": false,
-    "result": "You take the left anyway. They are already in it. Steel on a fairing. They go down in the rain. Smaller is not a hole you get to occupy.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Finish the change — they will make room, they are smaller"
    },
    {
     "id": "b",
-    "text": "Cancel, hold your lane, let them show or pass, then take a swept gap",
-    "correct": true,
-    "result": "You kill the stalk and hold. They slide through the glass and go. The next gap is empty paint. You take it without writing a rider into the door.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Cancel, hold your lane, let them show or pass, then take a swept gap"
    },
    {
     "id": "c",
-    "text": "Drift right first so they have more of the left",
-    "correct": false,
-    "result": "You drift right to be kind. A van is already in that space. You buy a sideswipe to avoid a sideswipe. The rider still has your old gap.",
-    "state_delta": {
-     "noise": 3,
-     "damage": 1,
-     "time_cost": 7
-    }
+    "text": "Drift right first so they have more of the left"
    },
    {
     "id": "d",
-    "text": "Tap the horn so they know to drop back",
-    "correct": false,
-    "result": "The horn on a wet morning. They flinch and stand it up. You both stop in live lanes. The stack behind you gets two new problems.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 6
-    }
+    "text": "Tap the horn so they know to drop back"
    }
   ],
   "debrief": "A motorcycle in the lane you wanted is already a vehicle in that lane. Cancel, hold, then take a gap you have swept. You saved a rider a door full of steel.",
@@ -5267,48 +3602,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hit the PA and clear the pinch — they will move if you make them",
-    "correct": false,
-    "result": "The horns take the block. Cones jump. The dump stands on it. Something at the far end of the pinch turns toward the sound. You bought a show and a new problem. Ali did not need the concert.",
-    "state_delta": {
-     "noise": 5,
-     "passenger_stress": 3,
-     "time_cost": 8
-    }
+    "text": "Hit the PA and clear the pinch — they will move if you make them"
    },
    {
     "id": "b",
-    "text": "Hand Ali the wheel so you can stand up and shout the dump back",
-    "correct": false,
-    "result": "You invent a driver change in a live pinch. Ali has the suede wheel and no count-in. The dump does not care who is talking. You made passengers out of a crawl.",
-    "state_delta": {
-     "noise": 3,
-     "passenger_stress": 4,
-     "yaw": 2,
-     "time_cost": 9
-    }
+    "text": "Hand Ali the wheel so you can stand up and shout the dump back"
    },
    {
     "id": "c",
-    "text": "Leave the PA dead. Count a gap, take it, keep the horns for a block that is dying",
-    "correct": true,
-    "result": "The red switch stays off. You take a counted gap and slip the pinch. Ali stays on the bench. The horns stay a tool you did not spend on a show. The block stays only tight.",
-    "state_delta": {
-     "noise": -1,
-     "passenger_stress": -1,
-     "time_cost": 5
-    }
+    "text": "Leave the PA dead. Count a gap, take it, keep the horns for a block that is dying"
    },
    {
     "id": "d",
-    "text": "Tap a count-in on the horn so the dump knows you are serious",
-    "correct": false,
-    "result": "A rhythm on the horn is still a horn. The dump hears a dare. He holds. You wrote noise on ice and taught Ali that loud is how you ask.",
-    "state_delta": {
-     "noise": 4,
-     "passenger_stress": 2,
-     "time_cost": 6
-    }
+    "text": "Tap a count-in on the horn so the dump knows you are serious"
    }
   ],
   "debrief": "Loud is right when a block is dying and the horns buy people a path. A tight pinch is not that. Yuna keeps the horns for a dying block.",
@@ -5376,44 +3682,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Reverse now — they will see the lamps and move",
-    "correct": false,
-    "result": "You come out on a guess. They do not see the lamps in the rain. The plow is the wrong end for this. You write a coat into a stall exit. The lot did not need that sound.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Reverse now — they will see the lamps and move"
    },
    {
     "id": "b",
-    "text": "Honk the whole reverse so they know a car is coming",
-    "correct": false,
-    "result": "You back up shouting. They jump and scatter into the other aisle lane. A primer car has to lift. Sound got them off your paint and onto someone else's.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 6
-    }
+    "text": "Honk the whole reverse so they know a car is coming"
    },
    {
     "id": "c",
-    "text": "Wait until they pass, then creep out and stop if anyone new enters the aisle",
-    "correct": false,
-    "result": "You wait once and then commit. A third coat steps off the curb after you are already rolling. Waiting is not the same as checking the whole time you move.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 7
-    }
+    "text": "Wait until they pass, then creep out and stop if anyone new enters the aisle"
    },
    {
     "id": "d",
-    "text": "Wait them out, check both ways, creep, and be ready to plant it the whole reverse",
-    "correct": true,
-    "result": "You let the coat clear. You look both ways. You creep. A second person appears and you plant it. They pass. You finish into an empty aisle. The stall stays a stall.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Wait them out, check both ways, creep, and be ready to plant it the whole reverse"
    }
   ],
   "debrief": "Angled and straight-in stalls back into a live aisle. People in that aisle own it until they are gone. Wait for them to clear, then creep.",
@@ -5449,44 +3730,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold behind the sedan until they are gone and the car moves",
-    "correct": true,
-    "result": "You plant it. They finish. The sedan rolls. You roll. The left stays a lane you did not spend. That is the only apology the paint takes.",
-    "state_delta": {
-     "noise": -2,
-     "time_cost": 6
-    }
+    "text": "Hold behind the sedan until they are gone and the car moves"
    },
    {
     "id": "b",
-    "text": "Go around faster this time so you are past before they step",
-    "correct": false,
-    "result": "You take the left harder. They are already in it because they learned you from last time. Same fog, same coat, same steel. They were waiting for the same pass.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Go around faster this time so you are past before they step"
    },
    {
     "id": "c",
-    "text": "Stop in the left and wave them across so you can own the apology",
-    "correct": false,
-    "result": "You plant a Beetle in the passing lane and invent a crossing guard. The stack behind you has to guess. You paid a debt with everyone else's brakes.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 8
-    }
+    "text": "Stop in the left and wave them across so you can own the apology"
    },
    {
     "id": "d",
-    "text": "Honk once so they know you saw them, then take the left",
-    "correct": false,
-    "result": "The horn says you noticed. The pass says you did not care. They freeze in the paint. You still wrote a plow through a person you already owed.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 7
-    }
+    "text": "Honk once so they know you saw them, then take the left"
    }
   ],
   "debrief": "A pass around a stopped car comes back on the same block. Hold. Let the person finish. You took the paint's second chance.",
@@ -5523,46 +3779,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Open with the near hand and step out — you are already parked",
-    "correct": false,
-    "result": "The door takes the bike lane. Marisol has nowhere. Carbon and a pink panel. She goes down along the curb. Parked was not permission to throw a door into a lane.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "passenger_stress": 2,
-     "time_cost": 8
-    }
+    "text": "Open with the near hand and step out — you are already parked"
    },
    {
     "id": "b",
-    "text": "Far hand on the latch so your body turns, look, then open a crack",
-    "correct": true,
-    "result": "You reach across. The turn puts the glass in your face. Marisol is a whole bike, not a smear. You wait. She passes. The door opens on empty paint. She does not have to lift.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Far hand on the latch so your body turns, look, then open a crack"
    },
    {
     "id": "c",
-    "text": "Crack the door two inches without looking so she has to slow",
-    "correct": false,
-    "result": "The two inches is still a wall. She swerves into the travel lane. A van has to lift. You taught the curb that a parked car gets to shove.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 6
-    }
+    "text": "Crack the door two inches without looking so she has to slow"
    },
    {
     "id": "d",
-    "text": "Wait until you cannot see her, then open fast and get it over with",
-    "correct": false,
-    "result": "Losing her in the glass is not a clear. She is in the blind stretch along the door. You open into a bike you decided was gone. The curb takes both of you.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "time_cost": 7
-    }
+    "text": "Wait until you cannot see her, then open fast and get it over with"
    }
   ],
   "debrief": "After a parallel park, check the bike lane before the door moves. Far hand on the latch turns you into the glass. Marisol was already in the glass.",
@@ -5598,45 +3827,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Enter now and cut across both lanes to the exit you want",
-    "correct": false,
-    "result": "You take both lanes at once. The SUV is already in. The right-lane car is already in. You invent a third path through two that had the circle. Steel on a primer quarter. The lane you picked was the one you keep.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "damage": 1,
-     "time_cost": 8
-    }
+    "text": "Enter now and cut across both lanes to the exit you want"
    },
    {
     "id": "b",
-    "text": "Look left, yield to the SUV already in, enter the gap, stay in your lane, signal when you leave",
-    "correct": true,
-    "result": "You look left. The SUV owns the circle until it doesn't. You take the gap. You stay in the lane you picked. Amber on before the exit. Nobody has to guess. The island stays an island.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Look left, yield to the SUV already in, enter the gap, stay in your lane, signal when you leave"
    },
    {
     "id": "c",
-    "text": "Stop in the circle until the SUV goes all the way around again",
-    "correct": false,
-    "result": "You plant it inside a live circle. The next car is already committed. Stopping in the roundabout is how a yield becomes a wreck. The SUV did not ask you to freeze the island.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 9
-    }
+    "text": "Stop in the circle until the SUV goes all the way around again"
    },
    {
     "id": "d",
-    "text": "Wave them around from the yield so you do not have to own the entry",
-    "correct": false,
-    "result": "You wave. They hesitate. The gap you had closes. The car behind you does not know why you died at a yield that already had a rule. Politeness invented a stall the circle does not use.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 8
-    }
+    "text": "Wave them around from the yield so you do not have to own the entry"
    }
   ],
   "debrief": "Yield to traffic already in the roundabout. Look left on entry. Stay in the lane you picked. Signal when you leave.",
@@ -5733,45 +3936,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Roll now — they have always ridden loose and tonight is not different",
-    "correct": false,
-    "result": "You take the ice with two loose weights. Mya hits the dash. Gracie hits Mya. Your eyes leave the glass. A curb finds the plow. He did not hand her back so you could invent a lap.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Roll now — they have always ridden loose and tonight is not different"
    },
    {
     "id": "b",
-    "text": "Belt Mya and leave Gracie — one secured is enough",
-    "correct": false,
-    "result": "A cat is not a shape a belt understands. She is out of it before you finish. Gracie is already on the defrost. You spent the curb on a knot and still have two loose.",
-    "state_delta": {
-     "time_cost": 8,
-     "noise": 2
-    }
+    "text": "Belt Mya and leave Gracie — one secured is enough"
    },
    {
     "id": "c",
-    "text": "Hold them both in your lap so they cannot walk the glass",
-    "correct": false,
-    "result": "Mass in your legs on ice. Two jobs, one pair of feet. The right pedal is a negotiation. The stall you have not left yet already wants a story.",
-    "state_delta": {
-     "yaw": 2,
-     "noise": 2,
-     "time_cost": 6
-    }
+    "text": "Hold them both in your lap so they cannot walk the glass"
    },
    {
     "id": "d",
-    "text": "Clip both in the carrier, stow it, then roll",
-    "correct": true,
-    "result": "You box them. The clip bites. They complain once and become a sound on the floor next to the seat. Two cats, one load, secured. You look at the ice, not at a cream chest. That is what you do next.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Clip both in the carrier, stow it, then roll"
    }
   ],
   "debrief": "An animal in a moving car is a load. Secure it before you roll. Both cats are in the frame again. Gracie is a sound on the floor next to the seat.",
@@ -5809,46 +3986,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Steer through the middle and miss all three at once",
-    "correct": false,
-    "result": "You invent a path that does not exist. The bike goes left, the person goes right, the door stays a door. You collect two of them. One steer is not three answers.",
-    "state_delta": {
-     "noise": 5,
-     "yaw": 3,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Steer through the middle and miss all three at once"
    },
    {
     "id": "b",
-    "text": "Honk and take the left so they all have to sort themselves",
-    "correct": false,
-    "result": "The horn makes all three move at once, in three directions. You still have to pick one. You picked noise. The left had a van you did not have.",
-    "state_delta": {
-     "noise": 5,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Honk and take the left so they all have to sort themselves"
    },
    {
     "id": "c",
-    "text": "Speed up and clear the block before they finish stacking",
-    "correct": false,
-    "result": "You add speed to a pile. The person is not done. The door is still open. Faster is how a stack becomes a crash. You did not separate anything.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 6
-    }
+    "text": "Speed up and clear the block before they finish stacking"
    },
    {
     "id": "d",
-    "text": "Dump speed first, hold, let the person and the bike declare, then creep past the door",
-    "correct": true,
-    "result": "You plant the number. The person finishes. The bike takes a side. The door is the last thing and you creep it. Three problems, three beats. No fourth.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Dump speed first, hold, let the person and the bike declare, then creep past the door"
    }
   ],
   "debrief": "You cannot fix three hazards in one move. Dump speed, separate them, take them in order. Three problems, three beats, no fourth.",
@@ -5885,47 +4035,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Close up on the sedan so the truck cannot cut in and you stay a pack",
-    "correct": false,
-    "result": "You sit on the hitch. The sedan dumps. You dump. The plow talks to metal on ice. The truck behind you still cannot cut in. He also cannot stop you from writing a note.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "yaw": 2,
-     "time_cost": 5
-    }
+    "text": "Close up on the sedan so the truck cannot cut in and you stay a pack"
    },
    {
     "id": "b",
-    "text": "Lift until you can count three seconds off a mark, even if the truck hates it",
-    "correct": true,
-    "result": "You let the sedan go. A crack in the ice passes their bumper. You count it. When they dump again you are already covering. The truck flashes. He does not get your gap. Nobody gets a kiss.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Lift until you can count three seconds off a mark, even if the truck hates it"
    },
    {
     "id": "c",
-    "text": "Move left and pass the whole crawl so you are not in the sandwich",
-    "correct": false,
-    "result": "You take a pass in a crawl on ice. The left is a door you did not have. You leave the sandwich and invent a sideswipe. The sedan never asked you to save it.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Move left and pass the whole crawl so you are not in the sandwich"
    },
    {
     "id": "d",
-    "text": "Tap the brakes to tell the truck to back off, then close on the sedan",
-    "correct": false,
-    "result": "You brake-check ice. The truck does not back off. He writes his bumper into yours. Teaching him cost you a lamp. The sedan is still dumping.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "time_cost": 6
-    }
+    "text": "Tap the brakes to tell the truck to back off, then close on the sedan"
    }
   ],
   "debrief": "Stop-and-go still owes the car ahead a counted gap. Keep space even when the truck behind wants it. Keep the counted gap even when the truck hates it.",
@@ -6054,43 +4176,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Name the interchange, the guide panels, and the lane lines ahead",
-    "correct": true,
-    "result": "You call the stack, the green boards, and the skip-dash. She clicks once. The bumper can wait. You already know which gap the next ramp wants.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Name the interchange, the guide panels, and the lane lines ahead"
    },
    {
     "id": "b",
-    "text": "Watch the bumper of the car ahead so you do not hit it",
-    "correct": false,
-    "result": "You narrate chrome. The exit panel goes by unread. She has to name the ramp for you. Eyes on the bumper spent the only look that mattered.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 8
-    }
+    "text": "Watch the bumper of the car ahead so you do not hit it"
    },
    {
     "id": "c",
-    "text": "Ask her to stay on until she can talk you through every merge",
-    "correct": false,
-    "result": "The radio is a check, not a second driver. You missed a panel waiting for a voice that will not sit in this seat.",
-    "state_delta": {
-     "time_cost": 10
-    }
+    "text": "Ask her to stay on until she can talk you through every merge"
    },
    {
     "id": "d",
-    "text": "Slow down in the travel lane so you can read every word on the next sign",
-    "correct": false,
-    "result": "You dump speed on I-5 to finish a sentence. The stack behind you lights. The ramp is where speed dies, not here.",
-    "state_delta": {
-     "noise": 3,
-     "light": 2,
-     "time_cost": 7
-    }
+    "text": "Slow down in the travel lane so you can read every word on the next sign"
    }
   ],
   "debrief": "Interchange, signs, paint — eyes up, not on the bumper.",
@@ -6160,44 +4258,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Search the highway here: find a gap and decide the speed you will need",
-    "correct": true,
-    "result": "You look, you pick a gap in the right lane, and you know the speed before you run at it. The next stretch is for matching. The last stretch is for the paint. Each piece did one job.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Search the highway here: find a gap and decide the speed you will need"
    },
    {
     "id": "b",
-    "text": "Floor it from the first foot so you hit the highway already faster than they are",
-    "correct": false,
-    "result": "You light the entrance. The sedan has to lift. You arrive hot with no gap and a stack of brake lamps. The first stretch was for looking, not for a launch.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 1,
-     "time_cost": 6
-    }
+    "text": "Floor it from the first foot so you hit the highway already faster than they are"
    },
    {
     "id": "c",
-    "text": "Stop at the bottom and wait until the right lane is empty as far as you can see",
-    "correct": false,
-    "result": "You plant the Beetle at the entrance. Nobody empties a highway for you. The acceleration stretch is now a standing start. You made the merge from zero.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 10
-    }
+    "text": "Stop at the bottom and wait until the right lane is empty as far as you can see"
    },
    {
     "id": "d",
-    "text": "Treat the whole ramp as the merge and slide over as soon as you see skip-dash",
-    "correct": false,
-    "result": "You take their paint in the middle of the run-up. You are still slow. The sedan stands on it. Merge paint is at the end, not wherever you got impatient.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 7
-    }
+    "text": "Treat the whole ramp as the merge and slide over as soon as you see skip-dash"
    }
   ],
   "debrief": "Entrance to search, acceleration to match, merge to take the gap. Look through the first stretch before you run it.",
@@ -6235,43 +4308,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Roll through — it is not a real light, just a suggestion for busy hours",
-    "correct": false,
-    "result": "You treat a red like weather. The sedan ahead never expected a second car on the same green. Ramp meters work like regular signals. You spent that.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 6
-    }
+    "text": "Roll through — it is not a real light, just a suggestion for busy hours"
    },
    {
     "id": "b",
-    "text": "Stop at the white stop line. When it turns green, continue up the on-ramp",
-    "correct": true,
-    "result": "You hold the line. Red stays red. Green comes. She clicks once. You use the rest of the ramp the way it was built — search, match, merge. The white line did the teaching.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Stop at the white stop line. When it turns green, continue up the on-ramp"
    },
    {
     "id": "c",
-    "text": "Stop under the signal, then creep around it on the shoulder to skip the wait",
-    "correct": false,
-    "result": "The shoulder is a post and a drain. You left the white line to steal a green that was not yours.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 1,
-     "time_cost": 8
-    }
+    "text": "Stop under the signal, then creep around it on the shoulder to skip the wait"
    },
    {
     "id": "d",
-    "text": "Wait until two greens so you and the next car go up together",
-    "correct": false,
-    "result": "One green is one car. You held a second cycle and made a pair on a ramp built for singles. The meter was already the rule.",
-    "state_delta": {
-     "time_cost": 12
-    }
+    "text": "Wait until two greens so you and the next car go up together"
    }
   ],
   "debrief": "Red means stop on the white line. Green means continue up the on-ramp. Green gave the ramp back.",
@@ -6310,44 +4359,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold your ramp speed and slide over at the paint — they will lift for you",
-    "correct": false,
-    "result": "You meet the paint still slow. The day-cab stands on it. You borrowed someone else's stop to finish a merge you should have matched first.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 8
-    }
+    "text": "Hold your ramp speed and slide over at the paint — they will lift for you"
    },
    {
     "id": "b",
-    "text": "Signal, match their speed here, then take the gap in the merge stretch",
-    "correct": true,
-    "result": "Amber talks. You run the stretch up to their number. The gap you take is one you already paid for with speed. The stalk dies after you sit.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Signal, match their speed here, then take the gap in the merge stretch"
    },
    {
     "id": "c",
-    "text": "Stop now and wait for a gap that is already empty for a quarter mile",
-    "correct": false,
-    "result": "You plant it in the acceleration stretch. The ramp behind you becomes a standing start. Highways do not empty for a stopped Beetle.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 12
-    }
+    "text": "Stop now and wait for a gap that is already empty for a quarter mile"
    },
    {
     "id": "d",
-    "text": "Cut left across two highway lanes so you are not stuck on the right",
-    "correct": false,
-    "result": "You take two lanes from a ramp. The first sedan lifts. The second never had a sentence. You spent two gaps to skip the job.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "time_cost": 7
-    }
+    "text": "Cut left across two highway lanes so you are not stuck on the right"
    }
   ],
   "debrief": "Signal in the acceleration stretch. Match their speed. Take the gap at the merge. You took their paint at their number.",
@@ -6385,42 +4409,15 @@
   "options": [
    {
     "id": "a",
-    "text": "Hold your speed and stay alongside",
-    "correct": false,
-    "result": "You hold the door. He still cannot see you in either mirror. The trailer walks with you. If he needs your lane he will take it. You stayed in the blind spot.",
-    "state_delta": {
-     "noise": 1,
-     "light": 0,
-     "yaw": 1,
-     "time_cost": 1,
-     "passenger_stress": 1
-    }
+    "text": "Hold your speed and stay alongside"
    },
    {
     "id": "b",
-    "text": "Ease off and let it get clear",
-    "correct": true,
-    "result": "You lift. The rig walks forward until both door mirrors can own a Beetle. You can find his face again. You let it pass. Cheaper on every axis than holding or punching it.",
-    "state_delta": {
-     "noise": 0,
-     "light": 0,
-     "yaw": 0,
-     "time_cost": 1,
-     "passenger_stress": 0
-    }
+    "text": "Ease off and let it get clear"
    },
    {
     "id": "c",
-    "text": "Accelerate to clear the front of it",
-    "correct": false,
-    "result": "You stay in the blind spot longer, only faster. The Beetle walks rough in his spray. If he drifts you meet the trailer at speed. Ease off was the cheaper clear.",
-    "state_delta": {
-     "noise": 3,
-     "light": 0,
-     "yaw": 2,
-     "time_cost": 1,
-     "passenger_stress": 1
-    }
+    "text": "Accelerate to clear the front of it"
    }
   ],
   "debrief": "Stay out of a large truck's blind spots. If you can't see the driver's mirrors, the driver can't see you — ease off and let it pass.",
@@ -6457,45 +4454,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Brake now in the travel lane so you arrive at the ramp already slow",
-    "correct": false,
-    "result": "You dump speed on I-5. The car behind you stands on it. You made a highway stop for a ramp that still had its own pavement.",
-    "state_delta": {
-     "noise": 4,
-     "light": 2,
-     "time_cost": 8
-    }
+    "text": "Brake now in the travel lane so you arrive at the ramp already slow"
    },
    {
     "id": "b",
-    "text": "Hold highway speed past the gore and brake in the middle of the curve",
-    "correct": false,
-    "result": "You enter the bend still hot. The rear steps out. Yaw on a wet ramp is how a schedule ends, even with a late kit that still delivers.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 3,
-     "time_cost": 7
-    }
+    "text": "Hold highway speed past the gore and brake in the middle of the curve"
    },
    {
     "id": "c",
-    "text": "Skip this exit and take the next one so you do not have to slow at all",
-    "correct": false,
-    "result": "You miss a named exit because slowing felt rude. Tower 4 just grew a loop. The ramp was the legal place to lose the number.",
-    "state_delta": {
-     "time_cost": 14,
-     "fuel": -1
-    }
+    "text": "Skip this exit and take the next one so you do not have to slow at all"
    },
    {
     "id": "d",
-    "text": "Hold speed on the highway, signal early, drop the number on the ramp",
-    "correct": true,
-    "result": "You keep their speed until the ramp owns you. The stalk talked four to six seconds back. On the ramp you tap the brakes and the curve gets the posted number.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Hold speed on the highway, signal early, drop the number on the ramp"
    }
   ],
   "debrief": "Pick the exit early. Do not slow on the highway. You took the leftover off on the ramp.",
@@ -6533,40 +4504,15 @@
   "options": [
    {
     "id": "a",
-    "text": "Move over early and take the posted speed",
-    "correct": true,
-    "result": "You take the shift while the cones are still a line, not a wall. The number comes down. The two in hi-viz stay on their feet. You are in the lane they left you before the pinch finished.",
-    "state_delta": {
-     "noise": 0,
-     "light": 0,
-     "yaw": 0,
-     "time_cost": 3
-    }
+    "text": "Move over early and take the posted speed"
    },
    {
     "id": "b",
-    "text": "Hold speed until the cones force you over",
-    "correct": false,
-    "result": "You keep the leftover until the taper is a wall. Then you have to take it late, next to people on foot. The cones already asked. You made them force it.",
-    "state_delta": {
-     "noise": 1,
-     "light": 0,
-     "yaw": 2,
-     "time_cost": 2
-    }
+    "text": "Hold speed until the cones force you over"
    },
    {
     "id": "c",
-    "text": "Brake hard at the taper and squeeze in",
-    "correct": false,
-    "result": "You stand on it at the pinch and cut in. The car behind you still has leftover. One yellow coat has to move. The posted number was a long way out.",
-    "state_delta": {
-     "noise": 1,
-     "light": 0,
-     "yaw": 3,
-     "time_cost": 4,
-     "passenger_stress": 1
-    }
+    "text": "Brake hard at the taper and squeeze in"
    }
   ],
   "debrief": "Reduce your speed to the posted work zone limit and move over early. Fines double and workers are on foot past the taper.",
@@ -6603,47 +4549,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Yank the wheel back to center the way you would on a side street",
-    "correct": false,
-    "result": "The Beetle steps the other way. Yaw at highway speed. The right side kisses the rumble. You taught the wind it could have you.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 3,
-     "time_cost": 6
-    }
+    "text": "Yank the wheel back to center the way you would on a side street"
    },
    {
     "id": "b",
-    "text": "Ease a few degrees, hold, let the car settle in the lane",
-    "correct": true,
-    "result": "The wheel moves a little. The car comes back without a sway. The skip-dash stays a line, not a fight. Small hands kept Tower 4 quiet.",
-    "state_delta": {
-     "noise": -1,
-     "yaw": -1,
-     "time_cost": 3
-    }
+    "text": "Ease a few degrees, hold, let the car settle in the lane"
    },
    {
     "id": "c",
-    "text": "Stand on the brake first so the correction happens at a lower number",
-    "correct": false,
-    "result": "You dump speed in the center lane. The stack behind you lights up. You spent their brakes to fix a lean a quiet wheel would have eaten.",
-    "state_delta": {
-     "noise": 3,
-     "light": 2,
-     "time_cost": 7
-    }
+    "text": "Stand on the brake first so the correction happens at a lower number"
    },
    {
     "id": "d",
-    "text": "Steer onto the left rumble so you have a bigger target to recover from",
-    "correct": false,
-    "result": "You put the right rear on the rumble on purpose. The car hops. Recovery from a rumble at this speed is the crash the gust was not.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Steer onto the left rumble so you have a bigger target to recover from"
    }
   ],
   "debrief": "At highway speed, steer gently. A yank is yaw. Keep the wheel small at this speed.",
@@ -6681,44 +4599,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Sweep left across both empty lanes in one motion and sit in the leftmost",
-    "correct": false,
-    "result": "You cut two. A sedan you did not own was filling the middle. He lifts. One stalk cannot buy two lanes at this speed.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 1,
-     "time_cost": 7
-    }
+    "text": "Sweep left across both empty lanes in one motion and sit in the leftmost"
    },
    {
     "id": "b",
-    "text": "Pass him on the right shoulder so you never change lanes at all",
-    "correct": false,
-    "result": "The shoulder is a drain and a post. You put the plow in the junk to skip a legal change.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 2,
-     "time_cost": 8
-    }
+    "text": "Pass him on the right shoulder so you never change lanes at all"
    },
    {
     "id": "c",
-    "text": "Take the middle, sit until the box is in the right glass, then take the left",
-    "correct": true,
-    "result": "One lane. You sit. The box shows in the right door glass. Then the next lane, its own stalk, its own gap. Two sentences. Nobody lifted.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Take the middle, sit until the box is in the right glass, then take the left"
    },
    {
     "id": "d",
-    "text": "Hold the right and wait until the slow box exits so you never pass",
-    "correct": false,
-    "result": "He is through traffic. He does not exit. You travel his number for miles and the schedule pays for a pass you were allowed to take one lane at a time.",
-    "state_delta": {
-     "time_cost": 16
-    }
+    "text": "Hold the right and wait until the slow box exits so you never pass"
    }
   ],
   "debrief": "Change one lane at a time when you pass. Sit until the last lane is yours. You took one lane and sat.",
@@ -6756,45 +4649,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Use the right until the closure paint, then take turns with the left",
-    "correct": true,
-    "result": "You use the lane until it ends. At the teeth you take one, give one. The stack is shorter than the polite line that started a mile early. She clicks once and stays quiet.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Use the right until the closure paint, then take turns with the left"
    },
    {
     "id": "b",
-    "text": "Move left now so you are not the person who cuts at the end",
-    "correct": false,
-    "result": "You join the polite line. The right stays empty and angry. Someone late uses it and you resent them for doing the zipper. Early courtesy built the longer stack.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 10
-    }
+    "text": "Move left now so you are not the person who cuts at the end"
    },
    {
     "id": "c",
-    "text": "Straddle both lanes until the last cone so nobody can beat you",
-    "correct": false,
-    "result": "You occupy two lanes in a highway work zone. Nobody zippers. You are the blockage the cones were trying to prevent.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 1,
-     "time_cost": 8
-    }
+    "text": "Straddle both lanes until the last cone so nobody can beat you"
    },
    {
     "id": "d",
-    "text": "Brake in the right and wave the left through so they go first",
-    "correct": false,
-    "result": "You plant the Menace to look kind. The right stack lights. Take-turns is one-for-one at the teeth, not a courtesy stop in a live lane.",
-    "state_delta": {
-     "noise": 3,
-     "light": 2,
-     "time_cost": 9
-    }
+    "text": "Brake in the right and wave the left through so they go first"
    }
   ],
   "debrief": "Use both lanes until the closure, then take turns. The zipper is take-turns, not an early courtesy move.",
@@ -6833,42 +4700,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Take it now — at highway speed a long opening is already enough",
-    "correct": false,
-    "result": "You go. The sedan is in your left door before the stalk finishes. A long-looking gap at this speed was one second. You spent his brakes.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 7
-    }
+    "text": "Take it now — at highway speed a long opening is already enough"
    },
    {
     "id": "b",
-    "text": "Watch a mark on the pavement. If you can count three before you reach it, take the gap",
-    "correct": true,
-    "result": "You pick a stain. One. Two. Three. The sedan is still back. The gap is real. You take one lane and sit.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Watch a mark on the pavement. If you can count three before you reach it, take the gap"
    },
    {
     "id": "c",
-    "text": "Wait until you cannot see the sedan at all, even far back",
-    "correct": false,
-    "result": "You wait for an empty highway. The left never empties. The slow box stays your number. Three seconds was the test, not a deserted road.",
-    "state_delta": {
-     "time_cost": 14
-    }
+    "text": "Wait until you cannot see the sedan at all, even far back"
    },
    {
     "id": "d",
-    "text": "Count one and go — three is a city number, not a highway number",
-    "correct": false,
-    "result": "One second at this speed is a car length you do not have. He lifts. The count did not change because the pavement got faster.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 6
-    }
+    "text": "Count one and go — three is a city number, not a highway number"
    }
   ],
   "debrief": "Use a three-second count to merge, change lanes, or exit. If you cannot count it, it is not a gap. Take the gap only after you can count three.",
@@ -6906,39 +4750,15 @@
   "options": [
    {
     "id": "a",
-    "text": "Keep it straight, get well past the curve, then pull all the way right and stay inside",
-    "correct": true,
-    "result": "You hold it through the bend, then take the strip: all the way right, flashers on, belt still clipped. You stay a shape inside steel. The curve is behind you, not under you.",
-    "state_delta": {
-     "noise": 1,
-     "light": 2,
-     "yaw": 2,
-     "time_cost": 5
-    }
+    "text": "Keep it straight, get well past the curve, then pull all the way right and stay inside"
    },
    {
     "id": "b",
-    "text": "Stop right here before it gets worse",
-    "correct": false,
-    "result": "You plant it in the bend. The next lamps come around a curve and find a Beetle with no sightline. The strip past the curve was the pad. Here is just the wall and the through.",
-    "state_delta": {
-     "noise": 0,
-     "light": 2,
-     "yaw": 1,
-     "time_cost": 6
-    }
+    "text": "Stop right here before it gets worse"
    },
    {
     "id": "c",
-    "text": "Get out and look at what happened",
-    "correct": false,
-    "result": "You unclip and step onto a live freeway shoulder the width of a plate. A look at a soft tire is not worth a body on the fog line. The next lamps have no time.",
-    "state_delta": {
-     "noise": 0,
-     "light": 2,
-     "yaw": 0,
-     "time_cost": 9
-    }
+    "text": "Get out and look at what happened"
    }
   ],
   "debrief": "If you have to stop on a freeway, get well past any curve, pull as far right as you can, turn on your hazard lights, and stay inside the car with your seatbelt on.",
@@ -7006,44 +4826,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Same as pavement — the tires are the same tires",
-    "correct": false,
-    "result": "You drive it like asphalt and the back end goes light at the first bend. Loose is loose regardless of what you are used to.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 8
-    }
+    "text": "Same as pavement — the tires are the same tires"
    },
    {
     "id": "b",
-    "text": "Slow down, no sudden steering, gentle on both pedals, six seconds back",
-    "correct": true,
-    "result": "You come off the number. The inputs get small. The gap you keep is twice what the street asked for and the car stays under you the whole way.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Slow down, no sudden steering, gentle on both pedals, six seconds back"
    },
    {
     "id": "c",
-    "text": "Speed up so the tires skim the top instead of digging in",
-    "correct": false,
-    "result": "You go faster on the theory that speed floats. The washboard starts steering for you.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 1,
-     "time_cost": 8
-    }
+    "text": "Speed up so the tires skim the top instead of digging in"
    },
    {
     "id": "d",
-    "text": "Ride the brake so you are always ready to stop",
-    "correct": false,
-    "result": "A dragged brake on gravel is a locked wheel waiting. You gave up the one thing you had, which was rolling.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 8
-    }
+    "text": "Ride the brake so you are always ready to stop"
    }
   ],
   "debrief": "Gravel: slow down, steer and brake gently, and double your following distance.",
@@ -7081,45 +4876,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Left of it, in the graded track, and give it room",
-    "correct": true,
-    "result": "You stay in the part somebody meant you to drive on. The pile sits out there being a pile.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Left of it, in the graded track, and give it room"
    },
    {
     "id": "b",
-    "text": "Straddle it so you are using the full width",
-    "correct": false,
-    "result": "One wheel in loose and one in packed, and the car starts arguing with itself about which way is straight.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 1,
-     "time_cost": 8
-    }
+    "text": "Straddle it so you are using the full width"
    },
    {
     "id": "c",
-    "text": "Ride the far right so oncoming traffic has all the room it wants",
-    "correct": false,
-    "result": "You put the right side into the windrow to be generous. It takes the wheel out of your hands and points you at the ditch.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Ride the far right so oncoming traffic has all the room it wants"
    },
    {
     "id": "d",
-    "text": "It's only gravel — drive normally",
-    "correct": false,
-    "result": "It is gravel that is six inches deep in a line. That is not the same gravel you are already on.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 8
-    }
+    "text": "It's only gravel — drive normally"
    }
   ],
   "debrief": "Watch for windrows — piled gravel at the road edge grabs a wheel.",
@@ -7157,49 +4926,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Turn back onto the road — get the wheels up before the ditch",
-    "correct": false,
-    "result": "You pull. The tire climbs the lip, catches, and the car comes across the road with more angle than you asked for. That is how this crash happens. Not the drop — the fix.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "yaw": 2,
-     "time_cost": 9
-    }
+    "text": "Turn back onto the road — get the wheels up before the ditch"
    },
    {
     "id": "b",
-    "text": "Don't turn. Off the gas, hold it straight, find a flat spot and come back when it's clear",
-    "correct": true,
-    "result": "You keep the wheel where it is, which is the hardest thing in the car. The Menace runs the dirt straight, slowing. Twenty yards on the shoulder comes back up level and you signal and steer on, and the whole thing ends up being nothing.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Don't turn. Off the gas, hold it straight, find a flat spot and come back when it's clear"
    },
    {
     "id": "c",
-    "text": "Brake hard before you lose more of it",
-    "correct": false,
-    "result": "You stand on it with two wheels on dirt and two on asphalt, and the two that grip swing the car around the two that don't.",
-    "state_delta": {
-     "noise": 4,
-     "yaw": 2,
-     "damage": 1,
-     "time_cost": 8
-    }
+    "text": "Brake hard before you lose more of it"
    },
    {
     "id": "d",
-    "text": "Jerk it back",
-    "correct": false,
-    "result": "You do it before you decide to. The tire catches the lip and the car is across the centerline and you are a passenger for the part that matters.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "yaw": 2,
-     "time_cost": 9
-    }
+    "text": "Jerk it back"
    }
   ],
   "debrief": "If you run off the road: don't turn the wheel, ease off the gas, stay straight, and come back on where it's level. Arms VI-011.",
@@ -7237,44 +4976,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Take the gap on the right — he's making room",
-    "correct": false,
-    "result": "He swung wide for a right turn into the gate. You put the Menace where the trailer is going.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Take the gap on the right — he's making room"
    },
    {
     "id": "b",
-    "text": "Stay back until you can see his mirrors and know where he's going",
-    "correct": true,
-    "result": "You hold. His signal comes on late, the trailer swings, and the gate appears. From back here it was obvious.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Stay back until you can see his mirrors and know where he's going"
    },
    {
     "id": "c",
-    "text": "Pass on the left immediately, before he slows more",
-    "correct": false,
-    "result": "Blind crest coming and a farm truck beside you. You cannot finish it. The pass dies unfinished.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 8
-    }
+    "text": "Pass on the left immediately, before he slows more"
    },
    {
     "id": "d",
-    "text": "Sound the horn so he knows you're behind",
-    "correct": false,
-    "result": "You make noise on a country road. He already knew. The horn did not buy you information.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 7
-    }
+    "text": "Sound the horn so he knows you're behind"
    }
   ],
   "debrief": "Farm equipment makes wide turns at unmarked entrances. Make sure the driver can see you before you pass.",
@@ -7313,43 +5027,19 @@
   "options": [
    {
     "id": "a",
-    "text": "He's on your right — slow, look twice, let him through",
-    "correct": true,
-    "result": "You come off it, check both ways twice, and let him have it. He lifts a finger off the wheel.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "He's on your right — slow, look twice, let him through"
    },
    {
     "id": "b",
-    "text": "You were there first — keep your speed",
-    "correct": false,
-    "result": "Uncontrolled means nobody has it by default. You arrived together and you both believed you were first.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 8
-    }
+    "text": "You were there first — keep your speed"
    },
    {
     "id": "c",
-    "text": "Speed up and clear it before he gets there",
-    "correct": false,
-    "result": "You race a stranger through a blind crossing on the theory that whoever commits harder wins.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 8
-    }
+    "text": "Speed up and clear it before he gets there"
    },
    {
     "id": "d",
-    "text": "Stop dead in the middle and wave him on",
-    "correct": false,
-    "result": "You stop in the intersection, in dust, on gravel, and now nobody knows what either of you is doing.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 9
-    }
+    "text": "Stop dead in the middle and wave him on"
    }
   ],
   "debrief": "At an uncontrolled intersection, slow down, check both ways twice, and yield to the vehicle on your right.",
@@ -7387,43 +5077,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Slow to about fifteen, yield to him, then take the gap behind",
-    "correct": true,
-    "result": "You come down to fifteen, look left, and let him have it. Then the gap opens and you go without stopping again.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Slow to about fifteen, yield to him, then take the gap behind"
    },
    {
     "id": "b",
-    "text": "Stop at the line and wait for the whole circle to clear",
-    "correct": false,
-    "result": "Nobody empties a roundabout. You stop, then stop again, and the three cars behind you inherit it.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 10
-    }
+    "text": "Stop at the line and wait for the whole circle to clear"
    },
    {
     "id": "c",
-    "text": "Enter now — you're moving and he can adjust",
-    "correct": false,
-    "result": "He's already in. Traffic in the circle has it, and you just asked a stranger to brake for your entry.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 8
-    }
+    "text": "Enter now — you're moving and he can adjust"
    },
    {
     "id": "d",
-    "text": "Enter, then change lanes inside to reach your exit sooner",
-    "correct": false,
-    "result": "Single lane, and you came in planning to move around in there. There is nowhere left to sort it.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 8
-    }
+    "text": "Enter, then change lanes inside to reach your exit sooner"
    }
   ],
   "debrief": "Slow down, look left, yield to traffic already in the roundabout, don't stop inside, and signal your exit.",
@@ -7462,44 +5128,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Read the signs and arrows now, take the left lane, stay in it around",
-    "correct": true,
-    "result": "You read the board, take the left, hold your lane the whole way, signal, and leave. Decided before you entered.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Read the signs and arrows now, take the left lane, stay in it around"
    },
    {
     "id": "b",
-    "text": "Take the right lane and move left once you're inside",
-    "correct": false,
-    "result": "Changing lanes in a roundabout is how the side of your car meets somebody who was already there.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "time_cost": 8
-    }
+    "text": "Take the right lane and move left once you're inside"
    },
    {
     "id": "c",
-    "text": "Take whichever lane is shorter and sort it out inside",
-    "correct": false,
-    "result": "You pick by queue length and end up on the wrong side of the circle at your exit.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 9
-    }
+    "text": "Take whichever lane is shorter and sort it out inside"
    },
    {
     "id": "d",
-    "text": "Stay right and go around twice",
-    "correct": false,
-    "result": "You commit to a lap because you didn't read a sign. The circle takes another turn from you.",
-    "state_delta": {
-     "noise": 2,
-     "time_cost": 12
-    }
+    "text": "Stay right and go around twice"
    }
   ],
   "debrief": "On a multi-lane roundabout, read the signs and arrows before you enter and stay in your lane all the way around.",
@@ -7537,48 +5178,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Brake straight, stay in the lane, don't swerve",
-    "correct": true,
-    "result": "You brake hard and hold the wheel and hit nothing, or you hit her and keep the car. Either way you're still pointed down the road — and the second one comes out of the ditch three seconds later.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Brake straight, stay in the lane, don't swerve"
    },
    {
     "id": "b",
-    "text": "Swerve left into the oncoming lane",
-    "correct": false,
-    "result": "The worst crashes are people who missed an animal and found a truck. Oncoming finds you first.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "time_cost": 9
-    }
+    "text": "Swerve left into the oncoming lane"
    },
    {
     "id": "c",
-    "text": "Swerve right onto the shoulder",
-    "correct": false,
-    "result": "Soft shoulder, a ditch, and a Beetle rolling into it. The ditch takes the car the deer never needed.",
-    "state_delta": {
-     "noise": 4,
-     "damage": 1,
-     "yaw": 1,
-     "time_cost": 9
-    }
+    "text": "Swerve right onto the shoulder"
    },
    {
     "id": "d",
-    "text": "Swerve",
-    "correct": false,
-    "result": "Your hands did it. That is the whole reason this card exists. The swerve was the decision.",
-    "state_delta": {
-     "noise": 5,
-     "damage": 1,
-     "yaw": 1,
-     "time_cost": 9
-    }
+    "text": "Swerve"
    }
   ],
   "debrief": "Don't swerve for an animal — slow down, be prepared to stop, and look for more. Deer travel in groups.",
@@ -7616,44 +5228,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Slow before the crest, move right, look as far through as you can",
-    "correct": true,
-    "result": "You come off it early, hold right, and the far side turns out to have a tractor in the middle of the road with the sun behind it.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 5
-    }
+    "text": "Slow before the crest, move right, look as far through as you can"
    },
    {
     "id": "b",
-    "text": "Keep your speed — you'll see it when you're over",
-    "correct": false,
-    "result": "Over the top at speed with a tractor at forty yards and nothing but reflex left.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 8
-    }
+    "text": "Keep your speed — you'll see it when you're over"
    },
    {
     "id": "c",
-    "text": "Move left for a better view around the curve",
-    "correct": false,
-    "result": "You improve your sightline by putting the Menace in the oncoming lane on a blind hill.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 8
-    }
+    "text": "Move left for a better view around the curve"
    },
    {
     "id": "d",
-    "text": "Brake in the middle of the curve once you can see",
-    "correct": false,
-    "result": "Braking mid-bend on gravel is how the back end goes around. The curve owns the car now.",
-    "state_delta": {
-     "noise": 3,
-     "yaw": 1,
-     "time_cost": 8
-    }
+    "text": "Brake in the middle of the curve once you can see"
    }
   ],
   "debrief": "Slow down before a crest or a curve, move to the right, and watch for what's coming.",
@@ -7722,43 +5309,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Slow, roll down the window, look both ways and listen, then cross",
-    "correct": true,
-    "result": "You come down to almost nothing, drop the glass, look left and right and left again, and hear nothing. Then you cross without stopping on the rails.",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 6
-    }
+    "text": "Slow, roll down the window, look both ways and listen, then cross"
    },
    {
     "id": "b",
-    "text": "No gates means no active line — keep your speed",
-    "correct": false,
-    "result": "The gates are missing because nobody built any. The line is live. Absence of arms is not absence of trains.",
-    "state_delta": {
-     "noise": 5,
-     "time_cost": 8
-    }
+    "text": "No gates means no active line — keep your speed"
    },
    {
     "id": "c",
-    "text": "Stop on the rails to get a better look both ways",
-    "correct": false,
-    "result": "You park the Menace on the one strip of ground you must never stop on. The rails are not a viewpoint.",
-    "state_delta": {
-     "noise": 4,
-     "time_cost": 9
-    }
+    "text": "Stop on the rails to get a better look both ways"
    },
    {
     "id": "d",
-    "text": "Speed up to be across sooner",
-    "correct": false,
-    "result": "You take a blind crossing at speed on gravel. Less time exposed, no time to react.",
-    "state_delta": {
-     "noise": 3,
-     "time_cost": 8
-    }
+    "text": "Speed up to be across sooner"
    }
   ],
   "debrief": "At a crossing with no gates or lights: slow down, look both ways, listen, and be ready to stop.",
@@ -7796,43 +5359,19 @@
   "options": [
    {
     "id": "a",
-    "text": "Nothing — take it, read it, hand it back",
-    "correct": true,
-    "result": "You read your own hours. He takes it back and clips it down. \"That's the state's form,\" he says. \"I run it out of the book because there's nobody left to run it out of anything else. You passed it.\"",
-    "state_delta": {
-     "noise": -1,
-     "time_cost": 4
-    }
+    "text": "Nothing — take it, read it, hand it back"
    },
    {
     "id": "b",
-    "text": "Ask which parts you got wrong",
-    "correct": false,
-    "result": "\"You want the list, I'll give you the list.\" He does. It is short and it is not the point right now.",
-    "state_delta": {
-     "noise": 1,
-     "time_cost": 7
-    }
+    "text": "Ask which parts you got wrong"
    },
    {
     "id": "c",
-    "text": "Ask if this means you can take the pass",
-    "correct": false,
-    "result": "\"It means you can drive. What the mountain does about it is the mountain's business.\"",
-    "state_delta": {
-     "noise": 1,
-     "time_cost": 6
-    }
+    "text": "Ask if this means you can take the pass"
    },
    {
     "id": "d",
-    "text": "Tell him you were nervous",
-    "correct": false,
-    "result": "He looks at the sheet. \"Everybody is. I wrote down what you did, not what you felt.\"",
-    "state_delta": {
-     "noise": 1,
-     "time_cost": 6
-    }
+    "text": "Tell him you were nervous"
    }
   ],
   "debrief": "The state's knowledge and skills standards are the standard, whoever holds the clipboard.",

@@ -1,11 +1,18 @@
 // PINK MENACE cards — the judgment layer. Data lives in data/cards.json (imported by the client).
 
+/** What the bundle carries: text only. Grading lives on the server. */
 export interface CardOption {
   id: string;
   text: string;
-  correct: boolean;
+}
+
+/** What POST /api/drive/card-answers returns for a graded pick. */
+export interface CardGrade {
+  option_id: string;
+  was_correct: boolean;
   result: string;
-  state_delta?: { noise?: number; yaw?: number; time_cost?: number; [k: string]: number | undefined };
+  state_delta: { noise?: number; yaw?: number; time_cost?: number; [k: string]: number | undefined };
+  debrief: string;
 }
 
 export interface Card {
@@ -31,8 +38,8 @@ export class CardDeck {
   get(id: string): Card | undefined { return this.byId.get(id); }
   has(id: string): boolean { return this.byId.has(id); }
   get size(): number { return this.byId.size; }
-  /** Graded = has options with a correct one. Dossiers/beats are read-only. */
-  static isGraded(c: Card): boolean { return !!c.options?.some((o) => o.correct); }
+  /** Graded = has options. Dossiers/beats have none and are read-only. */
+  static isGraded(c: Card): boolean { return !!c.options && c.options.length > 0; }
   byAct(act: string): Card[] { return [...this.byId.values()].filter((c) => c.act === act); }
 }
 
