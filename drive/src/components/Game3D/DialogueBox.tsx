@@ -7,13 +7,14 @@
 import { useEffect, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { STILL_FOR_SCENE } from './stills';
 
 export function DialogueBox() {
-  const line = useQRStore((s) => s.line);
-  const direction = useQRStore((s) => s.direction);
-  const choices = useQRStore((s) => s.choices);
+  const line = useQRHud((s) => s.line);
+  const direction = useQRHud((s) => s.direction);
+  const choices = useQRHud((s) => s.choices);
   const phase = useGameStore((s) => s.phase);
   const worldMode = useGameStore((s) => s.worldMode);
   const sceneId = useQRStore((s) => s.sceneId);

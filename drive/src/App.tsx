@@ -9,6 +9,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { useQRStore } from '@/stores/qrStore'
 import { QuietRoads } from '@/systems/QuietRoadsBridge'
 import { DriveSync } from '@/systems/DriveSync'
+import { installCrashReport } from '@/lib/crashReport'
 import { useProgress } from '@react-three/drei'
 
 function Shell() {
@@ -19,6 +20,7 @@ function Shell() {
     if (loading || !user) return
     let alive = true
     // Pull the server save (if any) before the story starts, then keep it in sync.
+    installCrashReport()
     DriveSync.hydrate().finally(() => {
       if (!alive) return
       const hasSave = !!useQRStore.getState().checkpoint

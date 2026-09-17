@@ -5,14 +5,14 @@
  * Dossiers and beats have no decision; they read and continue (recorded as seen).
  */
 import { useEffect, useMemo, useState } from 'react';
-import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { CardDeck, type Card, type CardGrade } from '@/quietroads';
 
 type Grading = { state: 'idle' } | { state: 'busy'; optionId: string } | { state: 'graded'; grade: CardGrade } | { state: 'offline'; optionId: string };
 
 export function CardOverlay() {
-  const active = useQRStore((s) => s.card);
+  const active = useQRHud((s) => s.card);
   const card: Card | undefined = useMemo(() => (active ? QuietRoads.deck.get(active.id) : undefined), [active]);
   const [grading, setGrading] = useState<Grading>({ state: 'idle' });
   const [imgReady, setImgReady] = useState(false);

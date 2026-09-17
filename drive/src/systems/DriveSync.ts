@@ -6,6 +6,7 @@
  * Everything is best-effort; the local save is always the working copy.
  */
 import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
 import type { CardGrade } from '@/quietroads';
 
 const SAVE_DEBOUNCE_MS = 12_000;
@@ -91,13 +92,12 @@ class Sync {
   }
 
   async sendTelemetry(keepalive = false): Promise<void> {
-    const store = useQRStore.getState();
-    while (store.telemetry.length) {
-      const rows = useQRStore.getState().drainTelemetry();
+    while (useQRHud.getState().telemetry.length) {
+      const rows = useQRHud.getState().drainTelemetry();
       for (let i = 0; i < rows.length; i += BATCH) {
         const chunk = rows.slice(i, i + BATCH);
         const ok = await post('/api/drive/events', { events: chunk }, keepalive);
-        if (!ok) { for (const row of chunk) useQRStore.getState().addTelemetry(row); return; } // put back, try later
+        if (!ok) { for (const row of chunk) useQRHud.getState().addTelemetry(row); return; } // put back, try later
       }
       if (keepalive) break;
     }

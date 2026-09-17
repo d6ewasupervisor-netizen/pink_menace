@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
-import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
 import { reactionDistanceM, VEHICLE } from '@/quietroads';
 import { getCurrentSpeedMs } from '@/systems/VehicleController';
 
@@ -24,7 +24,7 @@ export function StoppingShadow() {
   useFrame(() => {
     const g = group.current; if (!g) return;
     const st = useGameStore.getState();
-    const f = useQRStore.getState().frame;
+    const f = useQRHud.getState().frame;
     const total = f?.stoppingM ?? 0;
     const visible = st.worldMode === 'kent' && total > 0.5;
     g.visible = visible;

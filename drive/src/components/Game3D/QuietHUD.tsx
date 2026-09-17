@@ -6,6 +6,7 @@
 import { useEffect, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 
 const BAND = [
@@ -18,13 +19,13 @@ export function QuietHUD() {
   const worldMode = useGameStore((s) => s.worldMode);
   const phase = useGameStore((s) => s.phase);
   const velocityMph = useGameStore((s) => s.velocityMph);
-  const frame = useQRStore((s) => s.frame);
-  const objective = useQRStore((s) => s.objective);
-  const toast = useQRStore((s) => s.toast);
+  const frame = useQRHud((s) => s.frame);
+  const objective = useQRHud((s) => s.objective);
+  const toast = useQRHud((s) => s.toast);
   const tp = useQRStore((s) => s.vars.trade_points ?? 0);
-  const setHorn = useQRStore((s) => s.setHorn);
-  const run = useQRStore((s) => s.run);
-  const setRun = useQRStore((s) => s.setRun);
+  const setHorn = useQRHud((s) => s.setHorn);
+  const run = useQRHud((s) => s.run);
+  const setRun = useQRHud((s) => s.setRun);
   const [landscape, setLandscape] = useState(false);
   useEffect(() => {
     const check = () => setLandscape(window.innerWidth > window.innerHeight && 'ontouchstart' in window);

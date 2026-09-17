@@ -32,6 +32,7 @@ import qv3 from '@/quietroads/data/questions_v3_routines.json';
 import cardsJson from '@/quietroads/data/cards.json';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
 import type { Question, Category } from '@/types/quiz';
 import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle } from '@/systems/VehicleController';
 import { DriveSync } from '@/systems/DriveSync';
@@ -67,7 +68,7 @@ class Bridge {
     this.sim = new Simulation({
       fire: (e, d) => this.fire(e, d),
       requestQuiz: (trigger, delayS) => { this.pendingQuiz = { trigger, at: this.clock + delayS }; },
-      setObjective: (t) => useQRStore.getState().setTransient({ objective: t }),
+      setObjective: (t) => useQRHud.getState().setTransient({ objective: t }),
       toast: (t) => this.toast(t),
       placeVehicle: (p, h) => teleportVehicle(p.x, p.y, h),
     });
@@ -95,7 +96,7 @@ class Bridge {
       checkpoint: (label) => S().setCheckpoint(label, this.runner.scene?.id ?? null, this.runner.serialize()),
       ledger: (delta, reason) => S().addLedger(delta, reason),
       logEvent: (name) => {
-        S().addTelemetry({ ts: Date.now(), event: name });
+        useQRHud.getState().addTelemetry({ ts: Date.now(), event: name });
         if (name === 'choice.dol:honk') this.sim.escapeForgiving = true;   // the script says she gets out
       },
       logChoice: (scene, node, option) => S().addChoice({ ts: Date.now(), scene, node, option }),
@@ -108,7 +109,7 @@ class Bridge {
   }
 
   private subscribeRunner() {
-    const T = (p: Parameters<ReturnType<typeof useQRStore.getState>['setTransient']>[0]) => useQRStore.getState().setTransient(p);
+    const T = (p: Parameters<ReturnType<typeof useQRHud.getState>['setTransient']>[0]) => useQRHud.getState().setTransient(p);
     this.runner.on('line_shown', (l) => T({ line: l, direction: null }));
     this.runner.on('direction_shown', (node, id) => T({ direction: { node, id }, line: null }));
     this.runner.on('choice_shown', (node, options) => T({ choices: { node, options: options ?? [] } }));
@@ -179,17 +180,17 @@ class Bridge {
   }
 
   private toast(t: string) {
-    useQRStore.getState().setTransient({ toast: t });
-    window.setTimeout(() => useQRStore.getState().setTransient({ toast: '' }), 3800);
+    useQRHud.getState().setTransient({ toast: t });
+    window.setTimeout(() => useQRHud.getState().setTransient({ toast: '' }), 3800);
   }
 
   private fire(event: string, data?: Record<string, unknown>) {
-    useQRStore.getState().addTelemetry({ ts: Date.now(), event, data });
+    useQRHud.getState().addTelemetry({ ts: Date.now(), event, data });
     if (event === 'waypoint.reach:dol_lot_exit') this.sim.escapeForgiving = false;
     if (event === 'mission.fail.swarm') {
       // The windshield fills. Then it clears and she's back at the start.
-      useQRStore.getState().setTransient({ scare: 'flood' });
-      window.setTimeout(() => useQRStore.getState().setTransient({ scare: 'none' }), 2600);
+      useQRHud.getState().setTransient({ scare: 'flood' });
+      window.setTimeout(() => useQRHud.getState().setTransient({ scare: 'none' }), 2600);
     }
     if (event === 'waypoint.reach:beetle_driver_seat') {
       // She's in. Doors slam (in the script). Back to the car; the dialogue takes it from here.
@@ -213,13 +214,14 @@ class Bridge {
       heading: Math.atan2(fz, fx),
       speedMs: getCurrentSpeedMs(),
       throttle: pedals.throttle, brake: pedals.brake, steer: g.steering,
-      horn: useQRStore.getState().horn,
+      horn: useQRHud.getState().horn,
       lateralSlip: getLateralSlip(),
     };
   }
 
   private acc = 0;
   private lastQte = false;
+  private lastHudAt = 0;
   tick(dt: number) {
     if (!this.started) return;
     const g = useGameStore.getState();
@@ -229,18 +231,19 @@ class Bridge {
     this.acc += Math.min(dt, 0.1);
     let f: SimFrame | null = null;
     if (g.phase === 'walking' && this.sim.mode === 'walker') {
-      const qr = useQRStore.getState();
-      const input: WalkerInput = { x: g.steering, y: g.brake - g.throttle, run: qr.run };
+      const hud = useQRHud.getState();
+      const input: WalkerInput = { x: g.steering, y: g.brake - g.throttle, run: hud.run };
       while (this.acc >= 1 / 60) { f = this.sim.stepWalker(1 / 60, input); this.acc -= 1 / 60; }
       const w = this.sim.interior;
       useGameStore.setState({ walkerPosition: [w.pos.x, 0, w.pos.y] });
       const qteNow = !!w.qte;
-      if (qteNow !== this.lastQte) { this.lastQte = qteNow; qr.setTransient({ qteActive: qteNow }); }
+      if (qteNow !== this.lastQte) { this.lastQte = qteNow; hud.setTransient({ qteActive: qteNow }); }
     } else {
       const s = this.sample();
       while (this.acc >= 1 / 60) { f = this.sim.step(1 / 60, s); this.acc -= 1 / 60; }
     }
-    if (f) useQRStore.getState().setTransient({ frame: f });
+    // HUD needs ~10 Hz, not 60: every store set re-renders every subscriber.
+    if (f && this.clock - this.lastHudAt >= 0.1) { this.lastHudAt = this.clock; useQRHud.getState().setTransient({ frame: f }); }
     if (this.pendingQuiz && this.clock >= this.pendingQuiz.at) {
       const t = this.pendingQuiz; this.pendingQuiz = null;
       this.openQuiz(t.trigger);
@@ -324,20 +327,20 @@ class Bridge {
     this.cardsSeen.add(id);
     haltVehicle();
     this.sim.freeze('card');
-    useQRStore.getState().setTransient({ card: { id, source } });
+    useQRHud.getState().setTransient({ card: { id, source } });
     g.setPhase('card');
   }
 
   /** CardOverlay's pick. The server grades and records; the verdict comes back for display. */
   gradeCard(cardId: string, optionId: string | null): Promise<CardGrade | null | 'offline'> {
-    const active = useQRStore.getState().card;
+    const active = useQRHud.getState().card;
     return DriveSync.gradeCard(cardId, optionId, active?.source ?? 'story', this.runner.scene?.id ?? null, performance.now() - this.cardShownAt);
   }
 
   /** CardOverlay's Continue. Applies the card's consequences and resumes whatever was paused. */
   finishCard(result: CardResult) {
-    const active = useQRStore.getState().card;
-    useQRStore.getState().setTransient({ card: null });
+    const active = useQRHud.getState().card;
+    useQRHud.getState().setTransient({ card: null });
     this.sim.unfreeze('card');
     if (!active) return;
     if (active.source === 'story') {

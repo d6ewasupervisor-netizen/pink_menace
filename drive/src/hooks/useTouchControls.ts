@@ -17,7 +17,7 @@
  */
 import { useEffect, useRef } from 'react';
 import { useGameStore } from '@/stores/gameStore';
-import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
 
 const DEAD_ZONE_PX = 5;
 const STEER_DRAG_SCALE = 0.004; // px → steering value
@@ -72,14 +72,14 @@ export function useTouchControls() {
 
     const onKeyDown = (e: KeyboardEvent) => {
       keys.add(e.key);
-      if (e.key === 'h' || e.key === 'H') useQRStore.getState().setHorn(true);
-      if (e.key === 'Shift') useQRStore.getState().setRun(true);
+      if (e.key === 'h' || e.key === 'H') useQRHud.getState().setHorn(true);
+      if (e.key === 'Shift') useQRHud.getState().setRun(true);
       applyKeyboard();
     };
     const onKeyUp = (e: KeyboardEvent) => {
       keys.delete(e.key);
-      if (e.key === 'h' || e.key === 'H') useQRStore.getState().setHorn(false);
-      if (e.key === 'Shift') useQRStore.getState().setRun(false);
+      if (e.key === 'h' || e.key === 'H') useQRHud.getState().setHorn(false);
+      if (e.key === 'Shift') useQRHud.getState().setRun(false);
       applyKeyboard();
     };
 

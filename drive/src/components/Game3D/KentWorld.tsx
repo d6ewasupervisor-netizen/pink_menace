@@ -62,7 +62,7 @@ function Building({ r, label }: { r: Rect; label?: string }) {
   return (
     <RigidBody type="fixed" colliders={false} position={[r.x + r.w / 2, h / 2, r.y + r.h / 2]}>
       <CuboidCollider args={[r.w / 2, h / 2, r.h / 2]} />
-      <mesh castShadow receiveShadow>
+      <mesh receiveShadow>
         <boxGeometry args={[r.w, h, r.h]} />
         <meshStandardMaterial color={color} roughness={0.9} />
       </mesh>

@@ -3,12 +3,12 @@
  * Tap in time and she settles; miss and the carrier bangs (55 dB).
  */
 import { useEffect, useState } from 'react';
-import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { WALKER } from '@/quietroads';
 
 export function GracieQTE() {
-  const active = useQRStore((s) => s.qteActive);
+  const active = useQRHud((s) => s.qteActive);
   const [t, setT] = useState(0);
   useEffect(() => {
     if (!active) return;

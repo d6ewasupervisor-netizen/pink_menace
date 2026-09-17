@@ -6,13 +6,13 @@
  */
 import { useEffect, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
-import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { asset } from '@/lib/asset';
 
 export function ScareOverlay() {
   const worldMode = useGameStore((s) => s.worldMode);
-  const scare = useQRStore((s) => s.scare);
+  const scare = useQRHud((s) => s.scare);
   const [near, setNear] = useState(0);
 
   useEffect(() => {
