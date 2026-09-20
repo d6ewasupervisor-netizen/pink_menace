@@ -11,9 +11,14 @@ import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { STILL_FOR_SCENE } from './stills';
 
-// Lines with no explicit auto_ms auto-dismiss after this many ms in gameplay
-// (non-cutscene) mode so the player never gets stuck waiting for a tap.
-const GAMEPLAY_AUTO_DISMISS_MS = 5000;
+/**
+ * Content-aware auto-dismiss delay.
+ * 1 200 ms base + 55 ms per character, clamped 2 000 – 6 000 ms.
+ * "Seatbelt." → ~2 000 ms.  A 50-char line → ~3 950 ms.
+ */
+function autoDismissMs(text: string): number {
+  return Math.max(2000, Math.min(6000, 1200 + text.length * 55));
+}
 
 export function DialogueBox() {
   const line = useQRHud((s) => s.line);
@@ -22,26 +27,47 @@ export function DialogueBox() {
   const phase = useGameStore((s) => s.phase);
   const worldMode = useGameStore((s) => s.worldMode);
   const sceneId = useQRStore((s) => s.sceneId);
-  const [tick, setTick] = useState(0);
+
+  // Fraction 1→0 shared by both the choice timeout bar and the auto-dismiss bar.
+  const [barFraction, setBarFraction] = useState(1);
 
   // Shrinking bar for timed choices
   useEffect(() => {
     if (!choices?.node.timeout_ms) return;
-    setTick(0);
+    setBarFraction(1);
     const start = performance.now();
-    const id = window.setInterval(() => setTick(Math.min(1, (performance.now() - start) / choices.node.timeout_ms!)), 50);
+    const id = window.setInterval(() => setBarFraction(Math.max(0, 1 - (performance.now() - start) / choices.node.timeout_ms!)), 50);
     return () => window.clearInterval(id);
   }, [choices]);
 
-  // Auto-dismiss gameplay lines that have no explicit auto_ms.
-  // Only fires outside of full cutscene mode so story-critical scenes
-  // (phase === 'dialogue') still require a deliberate tap.
-  const cutsceneCheck = phase === 'dialogue';
+  // Auto-dismiss: any line or direction without explicit auto_ms gets a
+  // content-aware countdown outside of full-cutscene mode (phase = 'dialogue').
+  // A visible bar replaces the static "tap" hint so the player can see it coming.
+  const isCutscene = phase === 'dialogue';
   useEffect(() => {
-    if (!line || choices || cutsceneCheck || line.auto_ms != null) return;
-    const id = window.setTimeout(() => QuietRoads.tap(), GAMEPLAY_AUTO_DISMISS_MS);
-    return () => window.clearTimeout(id);
-  }, [line, choices, cutsceneCheck]);
+    if (isCutscene || choices) return;
+
+    const text = line ? line.text : direction?.node.text;
+    if (!text) return;
+    // Skip nodes that already manage their own timing
+    if (line?.auto_ms != null) return;
+    if (!line && direction?.node.auto_ms != null) return;
+
+    const delay = autoDismissMs(text);
+    const start = performance.now();
+    setBarFraction(1);
+
+    const intervalId = window.setInterval(
+      () => setBarFraction(Math.max(0, 1 - (performance.now() - start) / delay)),
+      50,
+    );
+    const timeoutId = window.setTimeout(() => QuietRoads.tap(), delay);
+
+    return () => {
+      window.clearInterval(intervalId);
+      window.clearTimeout(timeoutId);
+    };
+  }, [line, direction, choices, isCutscene]);
 
   if (worldMode !== 'kent' || phase === 'quiz' || phase === 'paused' || phase === 'menu' || phase === 'card') return null;
   if (!line && !direction && !choices) return null;
@@ -51,6 +77,12 @@ export function DialogueBox() {
   const speakerColor = line?.speaker_def?.color ?? '#ddd';
   const loud = line?.volume === 'shout' || line?.volume === 'raised';
   const radio = line?.voice_bed && line.voice_bed !== 'none';
+
+  // Show the countdown bar whenever auto-dismiss is running (non-cutscene,
+  // no choices, no manual auto_ms already set on the node).
+  const showCountdown = !cutscene && !choices && (
+    (line && line.auto_ms == null) || (direction && !line && direction.node.auto_ms == null)
+  );
 
   return (
     <div data-ui style={{ ...styles.wrap, pointerEvents: cutscene ? 'auto' : 'none' }} onClick={() => { if (!choices) QuietRoads.tap(); }}>
@@ -66,7 +98,6 @@ export function DialogueBox() {
               {line.delivery === 'SYS' && <span style={styles.sys}>  · note to self</span>}
             </div>
             <div style={{ ...styles.text, fontStyle: line.emotion === 'reading' ? 'italic' : 'normal' }}>{line.text}</div>
-            {line.auto_ms == null && !choices && <div style={styles.hint}>tap</div>}
           </>
         )}
         {direction && !line && (
@@ -80,8 +111,14 @@ export function DialogueBox() {
               </button>
             ))}
             {choices.node.timeout_ms != null && (
-              <div style={styles.timerTrack}><div style={{ ...styles.timerFill, width: `${(1 - tick) * 100}%` }} /></div>
+              <div style={styles.timerTrack}><div style={{ ...styles.timerFill, width: `${barFraction * 100}%` }} /></div>
             )}
+          </div>
+        )}
+        {/* Countdown bar — replaces the static "tap" hint; shrinks to 0 then line auto-advances */}
+        {showCountdown && (
+          <div style={styles.timerTrack}>
+            <div style={{ ...styles.timerFill, width: `${barFraction * 100}%`, background: 'rgba(255,255,255,0.28)' }} />
           </div>
         )}
       </div>
@@ -93,14 +130,13 @@ const styles: Record<string, React.CSSProperties> = {
   wrap: { position: 'fixed', inset: 0, zIndex: 220, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: 'calc(96px + env(safe-area-inset-bottom))' },
   dim: { position: 'absolute', inset: 0, background: 'rgba(5,6,10,0.72)' },
   still: { position: 'absolute', left: '50%', top: 'calc(8% + env(safe-area-inset-top))', transform: 'translateX(-50%)', width: 'min(92vw, 520px)', aspectRatio: '606 / 361', objectFit: 'cover', borderRadius: 10, opacity: 0.92, boxShadow: '0 12px 40px rgba(0,0,0,0.7)', filter: 'saturate(0.85)' },
-  box: { position: 'relative', width: 'min(720px, 92vw)', background: 'rgba(10,12,18,0.92)', border: '1px solid', borderRadius: 12, padding: '12px 16px 10px', color: '#eee', fontFamily: 'system-ui, sans-serif', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' },
+  box: { position: 'relative', width: 'min(720px, 92vw)', background: 'rgba(10,12,18,0.92)', border: '1px solid', borderRadius: 12, padding: '12px 16px 10px 16px', color: '#eee', fontFamily: 'system-ui, sans-serif', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' },
   speaker: { fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 },
   sys: { color: '#888', fontWeight: 400, textTransform: 'none', letterSpacing: 0 },
-  text: { fontSize: 17, lineHeight: 1.4 },
-  direction: { fontSize: 15, lineHeight: 1.4, color: '#b8bcc6', fontStyle: 'italic' },
-  hint: { position: 'absolute', right: 12, bottom: 6, fontSize: 10, color: '#666', letterSpacing: '0.2em' },
+  text: { fontSize: 17, lineHeight: 1.4, marginBottom: 8 },
+  direction: { fontSize: 15, lineHeight: 1.4, color: '#b8bcc6', fontStyle: 'italic', marginBottom: 8 },
   choices: { display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 },
   choice: { background: 'rgba(255,255,255,0.06)', color: '#fff', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 8, padding: '12px 14px', fontSize: 15, textAlign: 'left', cursor: 'pointer', minHeight: 48 },
-  timerTrack: { height: 4, background: 'rgba(255,255,255,0.1)', borderRadius: 2, overflow: 'hidden' },
+  timerTrack: { height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden', marginTop: 4 },
   timerFill: { height: '100%', background: '#ffd93d', transition: 'width 50ms linear' },
 };
