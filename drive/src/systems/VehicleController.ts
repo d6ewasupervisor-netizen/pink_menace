@@ -124,11 +124,13 @@ export function haltVehicle(): void {
   smoothedAccel = 0;
   smoothedThrottle = 0;
   smoothedBrake = 0;
-  smoothedBrake = 0;
   if (_body) {
     _body.setLinvel({ x: 0, y: 0, z: 0 }, true);
     _body.setAngvel({ x: 0, y: 0, z: 0 }, true);
   }
+  // Zero the store's displayed speed so wheel spin stops immediately
+  // even though tickVehicle won't run while phase !== 'driving'.
+  useGameStore.getState().setVelocityMph(0);
 }
 
 /** Multiply forward speed (collision response from the Quiet / static geometry). */
@@ -204,7 +206,7 @@ export function tickVehicle(
   _rapier?: any,
 ): void {
   const store = useGameStore.getState();
-  const { steering, throttle: throttleInput, brake: brakeInput, phase } = store;
+  const { steering, throttle: throttleInput, brake: brakeInput, phase, emergencyBrake } = store;
 
   if (phase !== 'driving') return;
 
@@ -265,10 +267,13 @@ export function tickVehicle(
     isBraking = brakePedal > 0;
   } else if (currentSpeed < -0.3) {
     isBraking = smoothedThrottle > 0;
-    isReversing = brakePedal > 0;
+    // Emergency brake never deepens a reverse run — it stops the car
+    isReversing = !emergencyBrake && brakePedal > 0;
   } else {
     isAccelerating = smoothedThrottle > 0;
-    isReversing = brakePedal > 0 && smoothedThrottle === 0;
+    // Space bar is a pure stop: brake input qualifies for reverse only when it
+    // comes from a dedicated back-pedal key (S / ArrowDown), not from Space.
+    isReversing = !emergencyBrake && brakePedal > 0 && smoothedThrottle === 0;
   }
 
   // ── Engine state ───────────────────────────────────────────────────────
@@ -320,6 +325,9 @@ export function tickVehicle(
     if (currentSpeed > 0 && currentSpeed - smoothedAccel * dt < 0) currentSpeed = 0;
     if (currentSpeed < 0 && currentSpeed - smoothedAccel * dt > 0) currentSpeed = 0;
   }
+
+  // Emergency brake holds the car at a complete stop — never lets it roll backward.
+  if (emergencyBrake && currentSpeed < 0) currentSpeed = 0;
 
   if (!isAccelerating && !isReversing && Math.abs(currentSpeed) < 0.15) {
     currentSpeed = 0;

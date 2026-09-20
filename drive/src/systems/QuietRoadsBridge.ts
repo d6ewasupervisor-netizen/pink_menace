@@ -117,11 +117,16 @@ class Bridge {
     this.runner.on('idle', () => T({ line: null, direction: null, choices: null }));
     this.runner.on('card_shown', (id) => this.showCard(id, 'story'));
     this.runner.on('scene_started', (id) => {
-      const type = this.runner.data.scenes[id]?.type;
       useQRStore.setState({ sceneId: id });
       this.onSceneStarted(id);
-      if (type === 'gameplay') { if (this.sim.mode === 'walker') this.enterWalking(); else this.enterDriving(); }
-      else this.enterDialogue();
+      // Always freeze on scene start. For dialogue / radio / video scenes this
+      // is the permanent state until the scene ends. For gameplay scenes the
+      // scene entry often has story lines *before* the start_gameplay effect —
+      // e.g. "They're in line" in 1.2, Grandma's note in 0.2. The car stays
+      // frozen until startGameplay() fires, which calls enterDriving() or
+      // enterWalking() and clears the freeze. Scenes whose entry node fires
+      // start_gameplay immediately (like 1.1) transition in a single tick.
+      this.enterDialogue();
     });
     this.runner.on('scene_finished', (_id, next) => { if (next) this.runner.startScene(next); });
   }

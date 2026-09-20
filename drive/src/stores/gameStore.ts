@@ -58,9 +58,10 @@ const FUEL_STOP_MILES = [175, 525, 875, 1225, 1575, 1925, 2275, 2625];
 
 // ─── State shape ─────────────────────────────────────────────────────────────
 interface ControlsSlice {
-  steering: number;   // -1 to 1
-  throttle: number;   // 0 to 1
-  brake: number;      // 0 to 1
+  steering: number;       // -1 to 1
+  throttle: number;       // 0 to 1
+  brake: number;          // 0 to 1
+  emergencyBrake: boolean; // Space — stops the car but never engages reverse
 }
 
 interface VehicleSlice {
@@ -179,6 +180,7 @@ export const useGameStore = create<GameState>()(
       steering: 0,
       throttle: 0,
       brake: 0,
+      emergencyBrake: false,
       walkerPosition: [0, 0, 0],
       vehiclePosition: [0, 0.7, 0],
       vehicleHeading: 0,

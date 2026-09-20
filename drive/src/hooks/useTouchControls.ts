@@ -56,7 +56,10 @@ export function useTouchControls() {
       const left = keys.has('ArrowLeft') || keys.has('a') || keys.has('A');
       const right = keys.has('ArrowRight') || keys.has('d') || keys.has('D');
       const fwd = keys.has('ArrowUp') || keys.has('w') || keys.has('W');
-      const back = keys.has('ArrowDown') || keys.has('s') || keys.has('S') || keys.has(' ');
+      // Space is the emergency brake — it brakes but never engages reverse.
+      // S / ArrowDown is the regular back-pedal that can also reverse from a stop.
+      const back = keys.has('ArrowDown') || keys.has('s') || keys.has('S');
+      const eBrake = keys.has(' ');
 
       const sensitivity = store().steeringSensitivity;
       const steering = left ? -1 * sensitivity : right ? 1 * sensitivity : 0;
@@ -64,7 +67,8 @@ export function useTouchControls() {
       const controls = {
         steering: Math.max(-1, Math.min(1, steering)),
         throttle: fwd ? 1 : 0,
-        brake: back ? 1 : 0,
+        brake: (back || eBrake) ? 1 : 0,
+        emergencyBrake: eBrake,
       };
       store().setControls(controls);
       maybeEnterDriving(controls);
@@ -107,6 +111,7 @@ export function useTouchControls() {
         steering: Math.max(-1, Math.min(1, steerValue.current * sensitivity)),
         throttle: hasThrottle ? 1 : 0,
         brake: hasBrake ? 1 : 0,
+        emergencyBrake: false, // touch has no emergency-brake input
       };
       store().setControls(controls);
       maybeEnterDriving(controls);
@@ -182,7 +187,7 @@ export function useTouchControls() {
     }
 
     function applyIdleControls() {
-      store().setControls({ steering: 0, throttle: 0, brake: 0 });
+      store().setControls({ steering: 0, throttle: 0, brake: 0, emergencyBrake: false });
     }
 
     function hasActiveTouchInput() {
@@ -276,6 +281,7 @@ export function useTouchControls() {
           steering: Math.max(-1, Math.min(1, steering * sensitivity)),
           throttle: Math.min(1, Math.max(throttle, kbThrottle)),
           brake: Math.min(1, Math.max(brake, kbBrake)),
+          emergencyBrake: keys.has(' '), // honour spacebar even when gamepad is active
         };
         store().setControls(controls);
         maybeEnterDriving(controls);

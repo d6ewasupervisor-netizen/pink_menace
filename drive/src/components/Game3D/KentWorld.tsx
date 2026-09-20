@@ -184,7 +184,8 @@ function Walker() {
   const myaRef = useRef<THREE.Mesh>(null);
   const gracieCarrierRef = useRef<THREE.Mesh>(null);
   const gracieLooseRef = useRef<THREE.Mesh>(null);
-  const legsRef = useRef<THREE.Group>(null);
+  const leftLegRef  = useRef<THREE.Mesh>(null);
+  const rightLegRef = useRef<THREE.Mesh>(null);
   useFrame((st) => {
     const g = root.current; if (!g) return;
     const w = QuietRoads.sim.interior;
@@ -195,7 +196,10 @@ function Walker() {
     g.rotation.y = -w.facing - Math.PI / 2; // core facing 0 = +X; model forward is -Z
     if (myaRef.current) myaRef.current.visible = w.carriers.mya;
     if (gracieCarrierRef.current) gracieCarrierRef.current.visible = w.carriers.gracie;
-    if (legsRef.current) legsRef.current.rotation.x = Math.sin(st.clock.elapsedTime * (w.speed > 1.8 ? 14 : 9)) * Math.min(w.speed, 1) * 0.35;
+    // Legs alternate — one swings forward while the other swings back
+    const swing = Math.sin(st.clock.elapsedTime * (w.speed > 1.8 ? 14 : 9)) * Math.min(w.speed, 1) * 0.35;
+    if (leftLegRef.current)  leftLegRef.current.rotation.x  =  swing;
+    if (rightLegRef.current) rightLegRef.current.rotation.x = -swing;
   });
   useFrame(() => {
     const gl = gracieLooseRef.current; if (!gl) return;
@@ -207,9 +211,9 @@ function Walker() {
     <>
     <GracieLoose refObj={gracieLooseRef} />
     <group ref={root} visible={false}>
-      <group ref={legsRef} position={[0, 0.45, 0]}>
-        <mesh position={[-0.11, 0, 0]}><boxGeometry args={[0.16, 0.9, 0.2]} /><meshStandardMaterial color="#2b3440" /></mesh>
-        <mesh position={[0.11, 0, 0]}><boxGeometry args={[0.16, 0.9, 0.2]} /><meshStandardMaterial color="#2b3440" /></mesh>
+      <group position={[0, 0.45, 0]}>
+        <mesh ref={leftLegRef}  position={[-0.11, 0, 0]}><boxGeometry args={[0.16, 0.9, 0.2]} /><meshStandardMaterial color="#2b3440" /></mesh>
+        <mesh ref={rightLegRef} position={[0.11, 0, 0]}><boxGeometry args={[0.16, 0.9, 0.2]} /><meshStandardMaterial color="#2b3440" /></mesh>
       </group>
       <mesh position={[0, 1.2, 0]} castShadow><boxGeometry args={[0.46, 0.62, 0.28]} /><meshStandardMaterial color="#F28DB2" roughness={0.9} /></mesh>
       <mesh position={[0, 1.7, 0]} castShadow><sphereGeometry args={[0.17, 10, 8]} /><meshStandardMaterial color="#d9a98e" /></mesh>

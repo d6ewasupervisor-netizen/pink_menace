@@ -187,6 +187,7 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
   const steering = useGameStore((s) => s.steering);
   const velocityMph = useGameStore((s) => s.velocityMph);
   const timeOfDay = useGameStore((s) => s.timeOfDay);
+  const phase = useGameStore((s) => s.phase);
   const bodyGroupRef = useRef<THREE.Group>(null);
   const wheelsAnchorRef = useRef<THREE.Group>(null);
   const bouncePhase = useRef(0);
@@ -268,11 +269,14 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
   // ── Dynamic light / window overrides each frame ───────────────────────────────
   useFrame((_, delta) => {
     // ── Wheel spin + steering (separate hub vs mesh to avoid Euler coupling) ──
+    const isDriving = phase === 'driving';
     const speedMs = velocityMph * 0.44704;
     const wheelRadius = 0.34 * VEHICLE_SCALE;
-    const spinRate = wheelRadius > 0 ? speedMs / wheelRadius : 0;
+    // Zero spin and steer when not actively driving — prevents wheels from
+    // spinning or turning while the car is parked during walking / dialogue phases.
+    const spinRate = isDriving && wheelRadius > 0 ? speedMs / wheelRadius : 0;
     const maxVisualSteerAngle = 0.52;
-    const targetSteerY = -steering * maxVisualSteerAngle;
+    const targetSteerY = isDriving ? -steering * maxVisualSteerAngle : 0;
     updateWheelRigs(wheelRigsRef.current, spinRate, delta, targetSteerY, 10);
 
     // ── Suspension bounce on body only (wheels stay on the road) ─────────────
