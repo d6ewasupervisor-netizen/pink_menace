@@ -34,7 +34,7 @@ import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import type { Question, Category } from '@/types/quiz';
-import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle } from '@/systems/VehicleController';
+import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, saveAndHalt, resumeSpeed } from '@/systems/VehicleController';
 import { DriveSync } from '@/systems/DriveSync';
 
 // The R3F Beetle brakes at 8 m/s² (MAX_BRAKE_DECEL in VehicleController). The stopping
@@ -280,7 +280,7 @@ class Bridge {
     const options = [...q.choices];
     this.activeQuiz = { q, shownAt: performance.now(), options };
     this.quizCooldownUntil = this.clock + 20;
-    haltVehicle();
+    saveAndHalt(); // saves current speed so it can be restored when quiz closes
     this.sim.freeze('quiz');
     g.triggerQuiz(this.toGameQuestion(q));
     this.fire('quiz.open', { id: q.id, trigger });
@@ -321,7 +321,7 @@ class Bridge {
   }
 
   /** QuizOverlay calls this on Continue. */
-  onQuizClosed() { this.sim.unfreeze('quiz'); this.activeQuiz = null; }
+  onQuizClosed() { this.sim.unfreeze('quiz'); this.activeQuiz = null; resumeSpeed(); }
 
   // ---------------------------------------------------------------- cards
   private cardShownAt = 0;

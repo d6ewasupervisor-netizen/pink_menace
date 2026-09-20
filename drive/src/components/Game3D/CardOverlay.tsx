@@ -111,8 +111,10 @@ export function CardOverlay() {
 const styles: Record<string, React.CSSProperties> = {
   wrap: { position: 'fixed', inset: 0, zIndex: 240, background: '#07080c', pointerEvents: 'auto', fontFamily: 'system-ui, sans-serif', color: '#e8e6e1' },
   scroll: { position: 'absolute', inset: 0, overflowY: 'auto', WebkitOverflowScrolling: 'touch' },
-  imgBox: { position: 'relative', width: '100%', aspectRatio: '3 / 4', maxHeight: '58vh', overflow: 'hidden', background: '#0e0f14' },
-  img: { width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transition: 'opacity 300ms', display: 'block' },
+  // No maxHeight cap — let the image render at its full natural 3:4 portrait
+  // proportion so nothing is cut off. The card scrolls; the image stays whole.
+  imgBox: { position: 'relative', width: '100%', aspectRatio: '3 / 4', overflow: 'hidden', background: '#0e0f14' },
+  img: { width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', transition: 'opacity 300ms', display: 'block' },
   imgFade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 90, background: 'linear-gradient(to bottom, rgba(7,8,12,0), #07080c)' },
   kicker: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', left: 14, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#F28DB2', background: 'rgba(0,0,0,0.55)', padding: '4px 8px', borderRadius: 4 },
   body: { padding: '4px 18px calc(24px + env(safe-area-inset-bottom))' },

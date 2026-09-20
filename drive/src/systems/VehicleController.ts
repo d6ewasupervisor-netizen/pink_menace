@@ -198,6 +198,25 @@ export function getPacejkaForce(slip: number, normal: number, mu: number): numbe
   return D * Math.sin(1.9 * Math.atan(10 * slip - 0.97 * (10 * slip - Math.atan(10 * slip))));
 }
 
+// ─── Quiz speed save / restore ───────────────────────────────────────────────
+let _quizSavedSpeed = 0;
+
+/**
+ * Save the current forward speed then call haltVehicle().
+ * Use this instead of bare haltVehicle() when you need the car to resume at
+ * the same speed after an interruption (quiz, card during driving, etc.).
+ */
+export function saveAndHalt(): void {
+  _quizSavedSpeed = currentSpeed;
+  haltVehicle();
+}
+
+/** Restore the speed saved by saveAndHalt(). No-op if nothing was saved. */
+export function resumeSpeed(): void {
+  if (_quizSavedSpeed !== 0) currentSpeed = _quizSavedSpeed;
+  _quizSavedSpeed = 0;
+}
+
 // ─── Main tick ───────────────────────────────────────────────────────────────
 export function tickVehicle(
   body: RapierRigidBody,
@@ -208,7 +227,17 @@ export function tickVehicle(
   const store = useGameStore.getState();
   const { steering, throttle: throttleInput, brake: brakeInput, phase, emergencyBrake } = store;
 
-  if (phase !== 'driving') return;
+  if (phase !== 'driving') {
+    // Kill any residual Rapier velocity so the car doesn't coast while paused,
+    // during a quiz, in cutscene, or walking. linearDamping is 0, so without
+    // this the body keeps rolling indefinitely after the last setLinvel call.
+    const lv = body.linvel();
+    if (Math.abs(lv.x) + Math.abs(lv.z) > 0.001) {
+      body.setLinvel({ x: 0, y: lv.y, z: 0 }, true);
+      body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+    }
+    return;
+  }
 
   const dt = Math.min(delta, 0.05);
 

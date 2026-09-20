@@ -11,6 +11,10 @@ import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { STILL_FOR_SCENE } from './stills';
 
+// Lines with no explicit auto_ms auto-dismiss after this many ms in gameplay
+// (non-cutscene) mode so the player never gets stuck waiting for a tap.
+const GAMEPLAY_AUTO_DISMISS_MS = 5000;
+
 export function DialogueBox() {
   const line = useQRHud((s) => s.line);
   const direction = useQRHud((s) => s.direction);
@@ -28,6 +32,16 @@ export function DialogueBox() {
     const id = window.setInterval(() => setTick(Math.min(1, (performance.now() - start) / choices.node.timeout_ms!)), 50);
     return () => window.clearInterval(id);
   }, [choices]);
+
+  // Auto-dismiss gameplay lines that have no explicit auto_ms.
+  // Only fires outside of full cutscene mode so story-critical scenes
+  // (phase === 'dialogue') still require a deliberate tap.
+  const cutsceneCheck = phase === 'dialogue';
+  useEffect(() => {
+    if (!line || choices || cutsceneCheck || line.auto_ms != null) return;
+    const id = window.setTimeout(() => QuietRoads.tap(), GAMEPLAY_AUTO_DISMISS_MS);
+    return () => window.clearTimeout(id);
+  }, [line, choices, cutsceneCheck]);
 
   if (worldMode !== 'kent' || phase === 'quiz' || phase === 'paused' || phase === 'menu' || phase === 'card') return null;
   if (!line && !direction && !choices) return null;

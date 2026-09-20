@@ -6,6 +6,7 @@ import { useGameStore } from '@/stores/gameStore';
 import { useGameProgress } from '@/hooks/useGameProgress';
 import { AudioManager } from '@/systems/AudioManager';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
+import { resumeSpeed } from '@/systems/VehicleController';
 
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -66,7 +67,11 @@ export function QuizOverlay() {
   );
 
   const handleContinue = useCallback(() => {
-    if (currentQuestion?.source === 'quietroads') QuietRoads.onQuizClosed();
+    if (currentQuestion?.source === 'quietroads') {
+      QuietRoads.onQuizClosed(); // unfreezes sim + restores saved speed for Kent mode
+    } else {
+      resumeSpeed(); // highway mode: restore pre-quiz speed
+    }
     setPhase('driving');
     setSelected(null);
     setResult(null);
@@ -77,177 +82,191 @@ export function QuizOverlay() {
   const categoryLabel = currentQuestion.category.replace(/_/g, ' ').toUpperCase();
 
   return (
-    <div style={styles.overlay}>
-      <div style={styles.modal}>
-        {/* Header */}
-        <div style={styles.header}>
+    // Full-screen portrait card — matches CardOverlay so every prompt feels
+    // like a proper card, not a floating modal chop.
+    <div data-ui style={styles.wrap}>
+      <div style={styles.scroll}>
+        {/* Kicker bar — category + streak */}
+        <div style={styles.kicker}>
           <span style={styles.categoryBadge}>{categoryLabel}</span>
-          {streak > 0 && (
-            <span style={styles.streakBadge}>🔥 Streak: {streak}</span>
+          {streak > 0 && <span style={styles.streakBadge}>🔥 {streak}</span>}
+        </div>
+
+        <div style={styles.body}>
+          {/* Question */}
+          <p style={styles.question}>{currentQuestion.question}</p>
+
+          {/* Answer options — full-width stacked like CardOverlay choices */}
+          <div style={styles.options}>
+            {options.map((opt, i) => {
+              const letter = ['A', 'B', 'C', 'D'][i] ?? String(i + 1);
+              let borderColor = 'rgba(255,255,255,0.22)';
+              let bg = 'rgba(255,255,255,0.05)';
+              if (selected === opt) {
+                borderColor = result?.correct ? '#39ff14' : '#ff4444';
+                bg = result?.correct ? 'rgba(57,255,20,0.12)' : 'rgba(255,68,68,0.12)';
+              } else if (selected && opt === currentQuestion.correctAnswer) {
+                borderColor = '#39ff14';
+                bg = 'rgba(57,255,20,0.08)';
+              }
+              return (
+                <button
+                  key={opt}
+                  data-ui
+                  disabled={!!selected}
+                  style={{ ...styles.option, borderColor, background: bg }}
+                  onClick={() => handleAnswer(opt)}
+                >
+                  <span style={styles.optionId}>{letter}</span>
+                  <span style={{ lineHeight: 1.35 }}>{opt}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Result feedback */}
+          {result && (
+            <div style={{ ...styles.result, borderColor: result.correct ? '#39ff14' : '#ff4444' }}>
+              <div style={{ ...styles.verdict, color: result.correct ? '#39ff14' : '#ff4444' }}>
+                {result.correct ? 'CORRECT' : 'WRONG'}
+              </div>
+              {result.correct ? (
+                <p style={styles.resultText}>+{result.coinsEarned} Z-Coins</p>
+              ) : (
+                <>
+                  <p style={{ ...styles.resultText, color: '#ff9a9a' }}>−10 HP</p>
+                  {currentQuestion.explanation && (
+                    <p style={styles.explanation}>{currentQuestion.explanation}</p>
+                  )}
+                </>
+              )}
+            </div>
+          )}
+
+          {result && (
+            <button data-ui style={styles.continueBtn} onClick={handleContinue}>
+              CONTINUE
+            </button>
           )}
         </div>
-
-        {/* Question */}
-        <p style={styles.question}>{currentQuestion.question}</p>
-
-        {/* Answer buttons */}
-        <div style={styles.optionsGrid}>
-          {options.map((opt) => {
-            let bg = '#1e2a4a';
-            if (selected === opt) {
-              bg = result?.correct ? '#1a6640' : '#661a1a';
-            } else if (selected && opt === currentQuestion.correctAnswer) {
-              bg = '#1a6640'; // reveal correct if wrong
-            }
-            return (
-              <button
-                key={opt}
-                style={{ ...styles.optionBtn, background: bg }}
-                onClick={() => handleAnswer(opt)}
-                disabled={!!selected}
-              >
-                {opt}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Result feedback */}
-        {result && (
-          <div style={styles.feedback}>
-            {result.correct ? (
-              <p style={styles.correct}>
-                대박! +{result.coinsEarned} Z-Coins
-              </p>
-            ) : (
-              <>
-                <p style={styles.wrong}>아이고! -10 HP</p>
-                {currentQuestion.explanation && (
-                  <p style={styles.explanation}>{currentQuestion.explanation}</p>
-                )}
-              </>
-            )}
-            <button style={styles.continueBtn} onClick={handleContinue}>
-              CONTINUE →
-            </button>
-          </div>
-        )}
       </div>
-
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-20px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulseCorrect {
-          0%,100% { box-shadow: 0 0 0 0 rgba(57,255,20,0.5); }
-          50%      { box-shadow: 0 0 0 12px rgba(57,255,20,0); }
-        }
-        @keyframes shake {
-          0%,100% { transform: translateX(0); }
-          20%,60% { transform: translateX(-8px); }
-          40%,80% { transform: translateX(8px); }
-        }
-      `}</style>
     </div>
   );
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  overlay: {
-    position: 'fixed',
-    inset: 0,
-    background: 'rgba(0,0,0,0.75)',
+  // Full-screen card — same shell as CardOverlay
+  wrap: {
+    position: 'fixed', inset: 0, zIndex: 100,
+    background: '#07080c',
+    pointerEvents: 'auto',
+    fontFamily: 'system-ui, sans-serif',
+    color: '#e8e6e1',
+  },
+  scroll: {
+    position: 'absolute', inset: 0,
+    overflowY: 'auto',
+    WebkitOverflowScrolling: 'touch',
+  },
+  kicker: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 100,
-    padding: '1rem',
-    pointerEvents: 'auto',
-  },
-  modal: {
-    background: 'linear-gradient(145deg, #1a1a2e, #16213e)',
-    border: '2px solid #39ff14',
-    borderRadius: '12px',
-    padding: '1.5rem',
-    maxWidth: '480px',
-    width: '100%',
-    animation: 'fadeIn 0.25s ease',
-    boxShadow: '0 0 30px rgba(57,255,20,0.25)',
-  },
-  header: {
-    display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: '0.75rem',
+    padding: 'calc(14px + env(safe-area-inset-top)) 18px 10px',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
   },
   categoryBadge: {
     background: '#39ff14',
     color: '#0a0a0a',
     borderRadius: '4px',
-    padding: '2px 8px',
+    padding: '3px 9px',
     fontSize: '11px',
     fontWeight: 700,
-    letterSpacing: '0.05em',
+    letterSpacing: '0.08em',
   },
   streakBadge: {
     color: '#ff6b6b',
-    fontSize: '13px',
+    fontSize: '14px',
     fontWeight: 700,
+  },
+  body: {
+    padding: '18px 18px calc(28px + env(safe-area-inset-bottom))',
   },
   question: {
-    color: 'white',
-    fontSize: '18px',
-    lineHeight: 1.5,
-    marginBottom: '1rem',
+    fontSize: '20px',
+    fontWeight: 700,
+    lineHeight: 1.45,
+    color: '#fff',
+    margin: '0 0 20px',
   },
-  optionsGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '0.5rem',
-    marginBottom: '1rem',
+  options: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+    marginBottom: 18,
   },
-  optionBtn: {
-    color: 'white',
-    border: '1px solid #334',
-    borderRadius: '8px',
-    padding: '0.75rem 0.5rem',
-    minHeight: '44px',
-    cursor: 'pointer',
-    fontSize: '14px',
+  option: {
+    display: 'flex',
+    gap: 12,
+    alignItems: 'flex-start',
     textAlign: 'left',
-    transition: 'background 0.15s',
+    color: '#fff',
+    border: '1px solid',
+    borderRadius: 10,
+    padding: '13px 14px',
+    fontSize: '16px',
+    cursor: 'pointer',
+    minHeight: 54,
+    transition: 'background 0.15s, border-color 0.15s',
   },
-  feedback: {
-    borderTop: '1px solid #334',
-    paddingTop: '0.75rem',
+  optionId: {
+    flex: '0 0 auto',
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    background: 'rgba(242,141,178,0.22)',
+    color: '#F28DB2',
+    fontSize: 13,
+    fontWeight: 800,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 1,
   },
-  correct: {
-    color: '#39ff14',
-    fontWeight: 700,
-    fontSize: '18px',
-    marginBottom: '0.5rem',
+  result: {
+    border: '1px solid',
+    borderRadius: 10,
+    padding: '12px 14px',
+    marginBottom: 14,
+    background: 'rgba(255,255,255,0.03)',
   },
-  wrong: {
-    color: '#ff6b6b',
-    fontWeight: 700,
-    fontSize: '18px',
-    marginBottom: '0.5rem',
+  verdict: {
+    fontSize: 12,
+    letterSpacing: '0.2em',
+    fontWeight: 800,
+    marginBottom: 6,
+  },
+  resultText: {
+    margin: 0,
+    fontSize: 16,
+    lineHeight: 1.45,
   },
   explanation: {
+    marginTop: 8,
+    fontSize: '14px',
     color: '#aab',
-    fontSize: '13px',
-    marginBottom: '0.75rem',
+    lineHeight: 1.45,
   },
   continueBtn: {
     width: '100%',
-    background: 'linear-gradient(90deg, #ff00ff, #cc00cc)',
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-    padding: '0.75rem',
-    fontWeight: 700,
+    padding: '16px',
     fontSize: '16px',
+    fontWeight: 800,
+    letterSpacing: '0.12em',
+    background: '#F28DB2',
+    color: '#1a0a12',
+    border: 'none',
+    borderRadius: 10,
     cursor: 'pointer',
-    letterSpacing: '0.05em',
   },
 };
