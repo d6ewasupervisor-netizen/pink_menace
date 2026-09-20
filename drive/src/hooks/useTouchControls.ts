@@ -19,20 +19,32 @@ import { useEffect, useRef } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
 
-const DEAD_ZONE_PX = 5;
-const STEER_DRAG_SCALE = 0.004; // px → steering value
-const GAMEPAD_DEAD_ZONE = 0.12; // stick dead zone
-const GAMEPAD_POLL_INTERVAL = 16; // ~60fps polling
+// ─── Touch layout ─────────────────────────────────────────────────────────────
+// Left  50 % of screen  → STEER (position-based, no dragging required)
+// Right 50 % of screen  → upper 65 % = THROTTLE, lower 35 % = BRAKE
+//
+// Steering formula: steer = (relX - STEER_CENTER) / STEER_HALF
+//   relX = 0 (far left)  → −1.0 (full left)
+//   relX = 0.25 (centre of left zone) → 0.0 (straight)
+//   relX = 0.5 (boundary) → +1.0 (full right)
+const STEER_ZONE_RIGHT = 0.50; // left half is the steer zone
+const STEER_CENTER     = 0.25; // midpoint of steer zone
+const STEER_HALF       = 0.25; // half-width → maps zone to −1..+1
+const BRAKE_SPLIT_Y    = 0.65; // within right zone: above = throttle, below = brake
+
+const GAMEPAD_DEAD_ZONE = 0.12;
+const GAMEPAD_POLL_INTERVAL = 16;
 
 interface ActiveTouch {
   zone: 'steer' | 'brake' | 'throttle';
+  /** Current normalised X within the element (updated on move). */
+  relX: number;
   startX: number;
   startY: number;
 }
 
 export function useTouchControls() {
   const activeTouch = useRef<Map<number, ActiveTouch>>(new Map());
-  const steerValue = useRef(0);
   const gamepadActive = useRef(false);
   const lastPausePress = useRef(0);
   const startPressedRef = useRef(false);
@@ -93,25 +105,36 @@ export function useTouchControls() {
     // ── Touch ─────────────────────────────────────────────────────────────────
     function getZone(clientX: number, clientY: number, el: HTMLElement): ActiveTouch['zone'] {
       const rect = el.getBoundingClientRect();
-      const relY = (clientY - rect.top) / rect.height;
       const relX = (clientX - rect.left) / rect.width;
+      const relY = (clientY - rect.top) / rect.height;
+      if (relX < STEER_ZONE_RIGHT) return 'steer';
+      return relY < BRAKE_SPLIT_Y ? 'throttle' : 'brake';
+    }
 
-      if (relY < 0.6) return 'steer';
-      return relX < 0.5 ? 'brake' : 'throttle';
+    function getRelX(clientX: number, el: HTMLElement): number {
+      const rect = el.getBoundingClientRect();
+      return (clientX - rect.left) / rect.width;
     }
 
     function applyTouch() {
-      // touch active
       const entries = [...activeTouch.current.values()];
-      const hasBrake = entries.some((t) => t.zone === 'brake');
+      const hasBrake    = entries.some((t) => t.zone === 'brake');
       const hasThrottle = entries.some((t) => t.zone === 'throttle');
+      const steerEntry  = entries.find((t) => t.zone === 'steer');
       const sensitivity = store().steeringSensitivity;
 
+      // Position-based steering: where your thumb sits in the left zone
+      // determines the angle — no drag distance required.
+      let steer = 0;
+      if (steerEntry) {
+        steer = Math.max(-1, Math.min(1, (steerEntry.relX - STEER_CENTER) / STEER_HALF));
+      }
+
       const controls = {
-        steering: Math.max(-1, Math.min(1, steerValue.current * sensitivity)),
+        steering: Math.max(-1, Math.min(1, steer * sensitivity)),
         throttle: hasThrottle ? 1 : 0,
         brake: hasBrake ? 1 : 0,
-        emergencyBrake: false, // touch has no emergency-brake input
+        emergencyBrake: false,
       };
       store().setControls(controls);
       maybeEnterDriving(controls);
@@ -134,6 +157,7 @@ export function useTouchControls() {
         const zone = getZone(touch.clientX, touch.clientY, el);
         activeTouch.current.set(touch.identifier, {
           zone,
+          relX: getRelX(touch.clientX, el),
           startX: touch.clientX,
           startY: touch.clientY,
         });
@@ -144,13 +168,15 @@ export function useTouchControls() {
     function onTouchMove(e: TouchEvent) {
       if (isUiTouch(e)) return;
       e.preventDefault();
+      const el = e.currentTarget as HTMLElement;
       for (const touch of Array.from(e.changedTouches)) {
         const data = activeTouch.current.get(touch.identifier);
-        if (data?.zone === 'steer') {
-          const dx = touch.clientX - data.startX;
-          if (Math.abs(dx) > DEAD_ZONE_PX) {
-            steerValue.current = dx * STEER_DRAG_SCALE;
-          }
+        if (data) {
+          // Update relX so position-based steer tracks the moving thumb
+          data.relX = getRelX(touch.clientX, el);
+          // If the thumb slides into the other zone while held, reclassify it
+          // (e.g. gas thumb drifts left into the steer zone — prevent hijacking)
+          // We intentionally DON'T reclassify: initial zone is sticky per touch.
         }
       }
       applyTouch();
@@ -160,10 +186,6 @@ export function useTouchControls() {
       if (isUiTouch(e)) return;
       e.preventDefault();
       for (const touch of Array.from(e.changedTouches)) {
-        const data = activeTouch.current.get(touch.identifier);
-        if (data?.zone === 'steer') {
-          steerValue.current = 0;
-        }
         activeTouch.current.delete(touch.identifier);
       }
       if (activeTouch.current.size === 0 && keys.size === 0) {
