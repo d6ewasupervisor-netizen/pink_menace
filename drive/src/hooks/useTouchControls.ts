@@ -95,12 +95,13 @@ export function useTouchControls() {
 
       const throttle = Math.max(triggerThrottle, aButton ? 1 : 0);
       const brake = Math.max(triggerBrake, bButton || xButton ? 1 : 0);
+      const handbrake = pad.buttons[5]?.pressed ?? false;
 
       const eps = 0.02;
       const hasPadMotion =
-        Math.abs(steering) > eps || throttle > eps || brake > eps;
+        Math.abs(steering) > eps || throttle > eps || brake > eps || handbrake;
 
-      setLivePad(hasPadMotion ? { steer: steering, throttle, brake } : null);
+      setLivePad(hasPadMotion ? { steer: steering, throttle, brake, handbrake } : null);
       if (hasPadMotion || liveKeys.size > 0 || getStickAxes().active) {
         flushDriveInput();
       } else {

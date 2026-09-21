@@ -14,6 +14,7 @@ import { flushDriveInput } from '@/hooks/useTouchControls';
 import {
   isSingleStick,
   setStickAxes,
+  setTouchHandbrake,
 } from '@/input/driveInput';
 
 type StickAxis = 'x' | 'y' | 'radial';
@@ -168,8 +169,10 @@ function ThumbStick({
 export function TouchOverlay() {
   const phase = useGameStore((s) => s.phase);
   const scheme = useGameStore((s) => s.controlsScheme);
+  const worldMode = useGameStore((s) => s.worldMode);
   const compact = useCompactHud();
   const walking = phase === 'walking';
+  const highway = worldMode === 'highway' && !walking;
 
   const onSteer = useCallback((x: number, _y: number, active: boolean) => {
     dualHeld.steerOn = active;
@@ -195,6 +198,11 @@ export function TouchOverlay() {
     });
     flushDriveInput();
   }, []);
+
+  useEffect(() => {
+    if (phase === 'driving' && highway) return;
+    setTouchHandbrake(false);
+  }, [phase, highway]);
 
   if (!compact) return null;
   if (phase !== 'driving' && phase !== 'walking') return null;
@@ -232,6 +240,31 @@ export function TouchOverlay() {
             onChange={onThrottle}
           />
         </>
+      )}
+      {highway && (
+        <button
+          type="button"
+          style={styles.handbrake}
+          onPointerDown={(e) => {
+            e.preventDefault();
+            setTouchHandbrake(true);
+            flushDriveInput();
+          }}
+          onPointerUp={() => {
+            setTouchHandbrake(false);
+            flushDriveInput();
+          }}
+          onPointerCancel={() => {
+            setTouchHandbrake(false);
+            flushDriveInput();
+          }}
+          onPointerLeave={() => {
+            setTouchHandbrake(false);
+            flushDriveInput();
+          }}
+        >
+          HB
+        </button>
       )}
     </div>
   );
@@ -351,6 +384,22 @@ const styles: Record<string, React.CSSProperties> = {
   knobSingle: {
     background: 'linear-gradient(145deg, #ff7ad4 20%, #7af0ff 85%)',
     boxShadow: '0 5px 18px rgba(255,79,176,0.35), 0 0 14px rgba(94,240,255,0.25), inset 0 2px 6px rgba(255,255,255,0.2)',
+  },
+  handbrake: {
+    position: 'absolute',
+    right: 'max(18px, env(safe-area-inset-right))',
+    bottom: 'calc(168px + env(safe-area-inset-bottom))',
+    width: 64,
+    height: 64,
+    borderRadius: 8,
+    border: '2px solid #ffb000',
+    background: 'rgba(20, 12, 0, 0.72)',
+    color: '#ffb000',
+    fontWeight: 800,
+    letterSpacing: '0.08em',
+    fontSize: 16,
+    pointerEvents: 'auto',
+    touchAction: 'none',
   },
   caption: {
     color: 'rgba(255,255,255,0.75)',

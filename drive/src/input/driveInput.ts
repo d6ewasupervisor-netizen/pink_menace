@@ -25,7 +25,15 @@ export type PadAxes = {
   steer: number;
   throttle: number;
   brake: number;
+  handbrake?: boolean;
 };
+
+/** Touch handbrake. Highway only — Kent still uses Space as a full stop. */
+let touchHandbrake = false;
+
+export function setTouchHandbrake(held: boolean): void {
+  touchHandbrake = held;
+}
 
 export function normalizeControlsScheme(raw: unknown): ControlsScheme {
   if (raw === 'steer-right') return 'dual-steer-right';
@@ -113,13 +121,15 @@ export function mergeDriveInput(sensitivity: number): {
   const right = liveKeys.has('ArrowRight') || liveKeys.has('d') || liveKeys.has('D');
   const fwd = liveKeys.has('ArrowUp') || liveKeys.has('w') || liveKeys.has('W');
   const back = liveKeys.has('ArrowDown') || liveKeys.has('s') || liveKeys.has('S');
-  const eBrake = liveKeys.has(' ');
+  const pad = livePad;
+  // Space is the handbrake on the highway (OpenC1). Kent treats that same
+  // flag as a full stop inside the controller, so it stays off the brake pedal.
+  const eBrake = liveKeys.has(' ') || touchHandbrake || Boolean(pad && pad.handbrake);
 
   let steer = 0;
   if (left) steer -= 1;
   if (right) steer += 1;
 
-  const pad = livePad;
   if (pad && Math.abs(pad.steer) > 0.02 && !left && !right) {
     steer = pad.steer;
   } else if (liveStick.active && !left && !right && !(pad && Math.abs(pad.steer) > 0.02)) {
@@ -132,7 +142,7 @@ export function mergeDriveInput(sensitivity: number): {
     liveStick.active ? liveStick.throttle : 0,
   );
   const brake = Math.max(
-    back || eBrake ? 1 : 0,
+    back ? 1 : 0,
     pad?.brake ?? 0,
     liveStick.active ? liveStick.brake : 0,
   );

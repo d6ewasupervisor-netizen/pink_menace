@@ -13,13 +13,17 @@ import { useRef, useMemo, useCallback } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
-import { getSlipState } from '@/systems/VehicleController';
+import { getChassisPose, getSlipState } from '@/systems/VehicleController';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const MAX_PARTICLES = 200;
 const TIRE_SMOKE_COLOR = new THREE.Color(0.85, 0.85, 0.85);
 const DUST_COLOR = new THREE.Color(0.65, 0.55, 0.4);
 const EXHAUST_COLOR = new THREE.Color(0.3, 0.3, 0.32);
+const SPARK_COLOR = new THREE.Color(1.0, 0.72, 0.25);
+const WRECK_SMOKE = new THREE.Color(0.45, 0.45, 0.48);
+const HOOD = new THREE.Vector3(0, 0.55, -1.15);
+const NOSE = new THREE.Vector3(0, 0.25, -2.05);
 
 // Wheel positions in vehicle local space (matching VehicleController).
 // IMPORTANT: forward is -Z, so the REAR of the car is at +Z.
@@ -147,6 +151,37 @@ export function VehicleParticles() {
             DUST_COLOR,
             0.1 + Math.random() * 0.15,
             0.4 + Math.random() * 0.3,
+          );
+        }
+      }
+
+      const pose = getChassisPose();
+
+      // Impact sparks — dumped at the nose the frame a wreck lands
+      if (pose.impact > 0.2) {
+        const n = 4 + Math.floor(pose.impact * 8);
+        for (let s = 0; s < n; s++) {
+          emit(
+            NOSE.clone().add(new THREE.Vector3((Math.random() - 0.5) * 0.8, Math.random() * 0.3, (Math.random() - 0.5) * 0.3)),
+            new THREE.Vector3((Math.random() - 0.5) * 6, 1.5 + Math.random() * 3, -2 - Math.random() * 4),
+            SPARK_COLOR,
+            0.04 + Math.random() * 0.04,
+            0.18 + Math.random() * 0.2,
+          );
+        }
+      }
+
+      // Damage smoke. White at a scrape, black once the shell is cooked.
+      if (pose.damage > 0.15) {
+        const heavy = pose.damage > 0.55;
+        const smoke = heavy ? new THREE.Color(0.08, 0.08, 0.08) : WRECK_SMOKE;
+        if (Math.random() < 0.35 + pose.damage * 0.6) {
+          emit(
+            HOOD.clone().add(new THREE.Vector3((Math.random() - 0.5) * 0.4, 0, (Math.random() - 0.5) * 0.3)),
+            new THREE.Vector3((Math.random() - 0.5) * 0.3, 0.6 + Math.random() * 0.5, 0.2),
+            smoke,
+            0.12 + pose.damage * 0.2,
+            0.7 + Math.random() * 0.4,
           );
         }
       }

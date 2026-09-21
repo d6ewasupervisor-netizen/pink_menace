@@ -50,7 +50,7 @@ function getBiome(mileage: number): Biome {
 
 // ─── Day/Night cycle ─────────────────────────────────────────────────────────
 export type TimeOfDay = 'day' | 'sunset' | 'night';
-export type CameraMode = 'chase' | 'birdseye' | 'profile' | 'quiet';
+export type CameraMode = 'chase' | 'cockpit' | 'birdseye' | 'profile' | 'quiet';
 
 function getTimeOfDay(mileage: number): TimeOfDay {
   const phase = (mileage % 400) / 400; // 0–1 repeating
@@ -143,6 +143,7 @@ type GameState = ControlsSlice &
     triggerQuiz: (question: Question) => void;
     answerQuiz: (selectedAnswer: string) => { correct: boolean; coinsEarned: number };
     takeDamage: (amount: number) => void;
+    repairVehicle: () => void;
     addZCoins: (amount: number) => void;
     addTrafficHit: () => void;
     collectFuelCan: () => void;
@@ -233,7 +234,7 @@ export const useGameStore = create<GameState>()(
       },
 
       cycleCameraMode: () => {
-        const modes: CameraMode[] = ['chase', 'birdseye', 'profile', 'quiet'];
+        const modes: CameraMode[] = ['chase', 'cockpit', 'birdseye', 'profile', 'quiet'];
         const idx = modes.indexOf(get().cameraMode);
         set({ cameraMode: modes[(idx + 1) % modes.length] });
       },
@@ -361,6 +362,8 @@ export const useGameStore = create<GameState>()(
         const newHp = Math.max(0, hp - amount);
         set({ hp: newHp, ...(newHp <= 0 ? { phase: 'gameover' } : {}) });
       },
+
+      repairVehicle: () => set({ hp: 100 }),
 
       // ── Economy ─────────────────────────────────────────────────────────────
       addZCoins: (amount) => set((s) => ({ zCoins: s.zCoins + amount })),

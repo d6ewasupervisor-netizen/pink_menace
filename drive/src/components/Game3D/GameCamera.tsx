@@ -10,6 +10,7 @@ import { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGameStore, CameraMode } from '@/stores/gameStore';
+import { getChassisPose } from '@/systems/VehicleController';
 
 // ─── Per-mode config ──────────────────────────────────────────────────────────
 interface ModeConfig {
@@ -21,11 +22,19 @@ interface ModeConfig {
 }
 
 const MODES: Record<CameraMode, ModeConfig> = {
+  // OpenC1 chase: 6.3 m back, 2.3 m up, and it lags so a slide reads in frame.
   chase: {
-    offset:  new THREE.Vector3(0, 2.6, 6.5),  // behind and above (closer in)
-    lookAt:  new THREE.Vector3(0, 0.6, -8),    // look ahead of car
-    lerpPos: 18.0,                              // tight follow — keeps up at top speed
-    lerpRot: 14.0,
+    offset:  new THREE.Vector3(0, 2.3, 6.3),
+    lookAt:  new THREE.Vector3(0, 0.7, -10),
+    lerpPos: 7.0,
+    lerpRot: 5.5,
+    followHeading: true,
+  },
+  cockpit: {
+    offset:  new THREE.Vector3(0.32, 1.05, 0.35),
+    lookAt:  new THREE.Vector3(0.05, 0.95, -14),
+    lerpPos: 26.0,
+    lerpRot: 22.0,
     followHeading: true,
   },
   birdseye: {
@@ -73,8 +82,8 @@ const _targetLook = new THREE.Vector3();
 const _rotatedOffset = new THREE.Vector3();
 const _shakeOffset = new THREE.Vector3();
 
-const BASE_FOV = 75;
-const MAX_FOV_BOOST = 9;
+const BASE_FOV = 62;
+const MAX_FOV_BOOST = 16;
 
 export function GameCamera() {
   const { camera } = useThree();
@@ -150,10 +159,18 @@ export function GameCamera() {
     lookRef.current.lerp(_targetLook, rotFactor);
     camera.lookAt(lookRef.current);
 
-    // Speed-based FOV — subtle sense of velocity in chase mode
+    const pose = getChassisPose();
+    const rolls =
+      !walking &&
+      state.worldMode === 'highway' &&
+      (state.cameraMode === 'chase' || state.cameraMode === 'cockpit');
+    if (rolls) camera.rotateZ(pose.roll * (state.cameraMode === 'cockpit' ? 1 : 0.75));
+
     if (camera instanceof THREE.PerspectiveCamera) {
-      const fovBoost = state.cameraMode === 'chase' ? speedNorm * MAX_FOV_BOOST : speedNorm * 3;
-      const targetFov = BASE_FOV + fovBoost;
+      const punch = state.worldMode === 'highway' && (state.cameraMode === 'chase' || state.cameraMode === 'cockpit');
+      const fovBoost = punch ? speedNorm * MAX_FOV_BOOST : speedNorm * 3;
+      const base = state.cameraMode === 'cockpit' ? 74 : state.worldMode === 'highway' && state.cameraMode === 'chase' ? BASE_FOV : 75;
+      const targetFov = base + fovBoost;
       camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 1 - Math.exp(-4 * dt));
       camera.updateProjectionMatrix();
     }

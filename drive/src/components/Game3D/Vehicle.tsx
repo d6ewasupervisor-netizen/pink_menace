@@ -20,7 +20,7 @@ import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { RigidBody, CuboidCollider, RapierRigidBody, useRapier } from '@react-three/rapier';
-import { tickVehicle, resetVehicleController, registerVehicleBody } from '@/systems/VehicleController';
+import { tickVehicle, resetVehicleController, registerVehicleBody, recoverVehicle, getChassisPose } from '@/systems/VehicleController';
 import { useGameStore } from '@/stores/gameStore';
 import { VehicleParticles } from './VehicleParticles';
 import {
@@ -281,13 +281,25 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
     const targetSteerY = isDriving ? -steering * maxVisualSteerAngle : 0;
     updateWheelRigs(wheelRigsRef.current, spinRate, delta, targetSteerY, 10);
 
-    // ── Suspension bounce on body only (wheels stay on the road) ─────────────
+    // ── Shell rides the suspension. Wheels stay planted on the road. ────────
     if (bodyGroupRef.current && isDriving) {
+      const pose = getChassisPose();
+      const kent = useGameStore.getState().worldMode === 'kent';
       bouncePhase.current += delta * (2 + velocityMph * 0.08);
-      const bounceAmp = 0.012 + Math.min(velocityMph / 70, 1) * 0.025;
+      const bounceAmp = 0.008 + Math.min(velocityMph / 70, 1) * 0.016;
       bodyGroupRef.current.position.y =
         Math.sin(bouncePhase.current) * bounceAmp +
         Math.sin(bouncePhase.current * 2.3) * bounceAmp * 0.35;
+      const lean = kent ? 0.4 : 1;
+      bodyGroupRef.current.rotation.x = pose.pitch * lean;
+      bodyGroupRef.current.rotation.z = pose.roll * lean;
+
+      const scorch = kent ? 0 : pose.damage;
+      applyToMaterial(scene, 'Chassi', (m) => {
+        m.color.setRGB(1 - scorch * 0.72, 1 - scorch * 0.78, 1 - scorch * 0.82);
+        m.emissive.setRGB(scorch * 0.25, scorch * 0.05, 0);
+        m.emissiveIntensity = scorch > 0.55 ? 0.6 : 0;
+      });
     }
 
     // ── Headlight intensity based on time of day ──────────────────────────────
@@ -457,6 +469,20 @@ export function Vehicle() {
   useEffect(() => {
     registerVehicleBody(bodyRef.current);
     return () => registerVehicleBody(null);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const phase = useGameStore.getState().phase;
+      if (phase !== 'driving') return;
+      if (e.key === 'r' || e.key === 'R') recoverVehicle();
+      if (e.key === 'Backspace') {
+        e.preventDefault();
+        useGameStore.getState().repairVehicle();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, []);
 
   useEffect(() => {

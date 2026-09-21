@@ -101,7 +101,7 @@ function NpcCar({
     const laneDelta = npc.targetLaneIndex - npc.laneIndex;
     const steerYaw =
       npc.laneChangeT < 1 ? laneDelta * 0.12 * (1 - npc.laneChangeT) : 0;
-    g.rotation.set(0, Math.PI + steerYaw, 0);
+    g.rotation.set(0, Math.PI + steerYaw + npc.yaw, npc.yaw * 0.15);
     g.visible = true;
 
     const spinRate = WHEEL_RADIUS > 0 ? npc.speedMs / WHEEL_RADIUS : 0;

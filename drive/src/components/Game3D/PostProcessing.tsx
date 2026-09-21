@@ -34,20 +34,21 @@ export function PostProcessing({ lowEnd }: { lowEnd?: boolean }) {
   const noiseRef = useRef<any>(null);
 
   useFrame(() => {
-    const { velocityMph, timeOfDay, mileage, phase } = useGameStore.getState();
+    const { velocityMph, timeOfDay, mileage, phase, worldMode } = useGameStore.getState();
     if (phase === 'quiz' || phase === 'card') return;
     const weather = getWeather(mileage);
     const speedNorm = Math.min(1, velocityMph / 70);
 
     // Dynamic bloom — brighter at speed
+    const highway = worldMode === 'highway';
     if (bloomRef.current) {
-      bloomRef.current.intensity = 0.2 + speedNorm * 0.5;
+      bloomRef.current.intensity = highway ? 0.35 + speedNorm * 0.85 : 0.2 + speedNorm * 0.5;
     }
 
     // Vignette — stronger at night/sunset
     if (vignetteRef.current) {
       const base = timeOfDay === 'night' ? 0.55 : timeOfDay === 'sunset' ? 0.45 : 0.3;
-      vignetteRef.current.darkness = base + speedNorm * 0.1;
+      vignetteRef.current.darkness = base + (highway ? 0.12 : 0) + speedNorm * (highway ? 0.18 : 0.1);
     }
 
     // Chromatic aberration — subtle at high speed
@@ -66,6 +67,10 @@ export function PostProcessing({ lowEnd }: { lowEnd?: boolean }) {
       } else if (timeOfDay === 'sunset') {
         brightness = 0.02;
         contrast = 0.08;
+      }
+      if (highway) {
+        brightness -= 0.02;
+        contrast += 0.14;
       }
       if (weather === 'rain') {
         brightness -= 0.08;
@@ -88,6 +93,7 @@ export function PostProcessing({ lowEnd }: { lowEnd?: boolean }) {
         hue = -0.02;
         saturation = -0.25;
       }
+      if (highway) saturation -= 0.08;
       if (weather === 'rain') {
         hue -= 0.02;
         saturation -= 0.18;

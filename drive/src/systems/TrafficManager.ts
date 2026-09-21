@@ -36,6 +36,10 @@ export interface NpcState {
   active: boolean;
   xOffset: number;
   zOffset: number;
+  knockVx: number;
+  knockVz: number;
+  yaw: number;
+  yawRate: number;
 }
 
 function randomSpeed() {
@@ -72,6 +76,10 @@ function spawnAhead(playerZ: number, excludeColor: Set<number>): NpcState {
     active: true,
     xOffset: 0,
     zOffset: 0,
+    knockVx: 0,
+    knockVz: 0,
+    yaw: 0,
+    yawRate: 0,
   };
 }
 
@@ -95,10 +103,14 @@ export function initNpcs(playerZ: number, lowEnd = false): NpcState[] {
       currentX: x,
       x,
       z,
-      active: true,
-      xOffset: 0,
-      zOffset: 0,
-    };
+    active: true,
+    xOffset: 0,
+    zOffset: 0,
+    knockVx: 0,
+    knockVz: 0,
+    yaw: 0,
+    yawRate: 0,
+  };
   });
 }
 
@@ -158,9 +170,19 @@ export function updateNpcs(
       }
     }
 
-    // ── Decay collision offsets ─────────────────────────────────────────────
-    npc.xOffset *= Math.max(0, 1 - 3.0 * clampedDelta);
-    npc.zOffset *= Math.max(0, 1 - 3.0 * clampedDelta);
+    // ── Shove from a wreck: velocity that coasts out, plus a spin ──────────
+    npc.xOffset += npc.knockVx * clampedDelta;
+    npc.zOffset += npc.knockVz * clampedDelta;
+    npc.knockVx *= Math.max(0, 1 - 1.6 * clampedDelta);
+    npc.knockVz *= Math.max(0, 1 - 1.6 * clampedDelta);
+    npc.yaw += npc.yawRate * clampedDelta;
+    npc.yawRate *= Math.max(0, 1 - 2.0 * clampedDelta);
+    if (Math.abs(npc.knockVx) < 0.02) npc.knockVx = 0;
+    if (Math.abs(npc.knockVz) < 0.02) npc.knockVz = 0;
+    if (Math.abs(npc.yawRate) < 0.02) npc.yawRate = 0;
+
+    npc.xOffset *= Math.max(0, 1 - 1.4 * clampedDelta);
+    npc.zOffset *= Math.max(0, 1 - 1.4 * clampedDelta);
     if (Math.abs(npc.xOffset) < 0.01) npc.xOffset = 0;
     if (Math.abs(npc.zOffset) < 0.01) npc.zOffset = 0;
 

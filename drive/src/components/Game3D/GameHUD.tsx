@@ -56,6 +56,7 @@ export function GameHUD() {
   const streak = useGameStore((s) => s.streak);
   const phase = useGameStore((s) => s.phase);
   const worldMode = useGameStore((s) => s.worldMode);
+  const handbrake = useGameStore((s) => s.emergencyBrake);
   const setPhase = useGameStore((s) => s.setPhase);
   const compact = useCompactHud();
 
@@ -128,6 +129,7 @@ export function GameHUD() {
               <div style={styles.streakValue}>{streak}</div>
             </div>
           )}
+          <div style={{ ...styles.hb, ...(handbrake ? styles.hbOn : null) }}>HB</div>
         </div>
       )}
     </div>
@@ -250,6 +252,24 @@ const styles: Record<string, React.CSSProperties> = {
   },
   streakLabel: { fontSize: '16px' },
   streakValue: { color: '#ff6b6b', fontSize: '14px', fontWeight: 700 },
+  hb: {
+    marginLeft: 'auto',
+    alignSelf: 'flex-end',
+    padding: '6px 10px',
+    borderRadius: 4,
+    border: '2px solid #3a3a3a',
+    background: 'rgba(0,0,0,0.55)',
+    color: '#555',
+    fontSize: 13,
+    fontWeight: 800,
+    letterSpacing: '0.14em',
+    fontFamily: 'Impact, "Arial Narrow", sans-serif',
+  },
+  hbOn: {
+    borderColor: '#ffb000',
+    background: '#ffb000',
+    color: '#1a1000',
+  },
   compactBars: {
     display: 'flex',
     flexDirection: 'column',

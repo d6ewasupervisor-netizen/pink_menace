@@ -13,7 +13,7 @@ import { AudioManager } from '@/systems/AudioManager';
 import { triggerScreenShake } from './GameCamera';
 import { getCollectibles } from './Collectibles';
 import { NpcState } from '@/systems/TrafficManager';
-import { applyCollisionImpact } from '@/systems/VehicleController';
+import { applyWreckImpact, getCurrentSpeedMs } from '@/systems/VehicleController';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 // Vehicles are long & narrow, so a circular radius check produces phantom
@@ -31,10 +31,7 @@ const FUEL_RADIUS = 1.5;
 // Combined "near" radius for collectibles only (still circular).
 const VEHICLE_PICKUP_RADIUS = 1.0;
 
-const TRAFFIC_DAMAGE = 5;
-const TRAFFIC_COOLDOWN = 1.5;
-const NPC_KNOCKBACK_STRENGTH = 4.0;
-const PLAYER_SPEED_LOSS = 0.45;
+const TRAFFIC_COOLDOWN = 0.28;
 
 // ─── Temp vectors ─────────────────────────────────────────────────────────────
 const _vPos = new THREE.Vector3();
@@ -71,20 +68,37 @@ export function CollisionSystem({ npcsRef }: CollisionSystemProps) {
         const overlapX = dx < (VEHICLE_HALF_WIDTH  + NPC_HALF_WIDTH);
         const overlapZ = dz < (VEHICLE_HALF_LENGTH + NPC_HALF_LENGTH);
         if (overlapX && overlapZ) {
-          store.takeDamage(TRAFFIC_DAMAGE);
-          store.addTrafficHit();
-          AudioManager.playCollision();
-          triggerScreenShake(0.6, 0.35);
-
-          applyCollisionImpact(PLAYER_SPEED_LOSS);
-
           _normal.set(npc.x - _vPos.x, 0, npc.z - _vPos.z);
           const len = _normal.length();
-          if (len > 0.01) {
+          if (len < 0.05) {
+            _normal.set(1, 0, 0);
+          } else {
             _normal.divideScalar(len);
-            npc.xOffset = (npc.xOffset ?? 0) + _normal.x * NPC_KNOCKBACK_STRENGTH;
-            npc.zOffset = (npc.zOffset ?? 0) + _normal.z * NPC_KNOCKBACK_STRENGTH;
           }
+
+          const heading = store.vehicleHeading;
+          const speed = getCurrentSpeedMs();
+          const pvx = -Math.sin(heading) * speed;
+          const pvz = -Math.cos(heading) * speed;
+          const nvx = npc.knockVx;
+          const nvz = -npc.speedMs + npc.knockVz;
+          const closing = (pvx - nvx) * _normal.x + (pvz - nvz) * _normal.z;
+
+          // A same-speed overlap is a rub, not a wreck.
+          if (closing < 1.2) continue;
+
+          const severity = Math.min(1, closing / 20);
+          store.takeDamage(3 + severity * 14);
+          store.addTrafficHit();
+          AudioManager.playCollision();
+          triggerScreenShake(0.25 + severity * 0.7, 0.22 + severity * 0.2);
+          applyWreckImpact(_normal.x, _normal.z, closing);
+
+          const impulse = closing * 0.72;
+          npc.knockVx += _normal.x * impulse;
+          npc.knockVz += _normal.z * impulse;
+          npc.yawRate += (Math.random() - 0.5) * impulse * 0.45;
+          npc.speedMs = Math.max(2, npc.speedMs - severity * 6);
 
           trafficCooldown.current = TRAFFIC_COOLDOWN;
           break;

@@ -79,6 +79,18 @@ let _lateralSlip = 0;
 let _brakeSlip = 0;
 let _isAnyWheelSlipping = false;
 
+// Highway chassis — OpenC1-style bicycle: rear grip falls on the handbrake,
+// hits add slide and yaw, the shell pitches and rolls for the camera.
+let slideSpeed = 0;
+let yawRate = 0;
+let handbrakeAmount = 0;
+let chassisPitch = 0;
+let chassisRoll = 0;
+let _damage01 = 0;
+let _impactFlash = 0;
+let _damageCut = 0;
+const _car = { fx: 0, fz: -1, rx: 1, rz: 0 };
+
 export function getSlipState() {
   return {
     lateralSlip: _lateralSlip,
@@ -86,6 +98,40 @@ export function getSlipState() {
     isSlipping: _isAnyWheelSlipping,
     slipAmount: Math.min(1, Math.max(_lateralSlip, _brakeSlip) * 3),
   };
+}
+
+/** Visual suspension + wreck state. Safe to read every frame. */
+export function getChassisPose() {
+  return {
+    pitch: chassisPitch,
+    roll: chassisRoll,
+    handbrake: handbrakeAmount,
+    damage: _damage01,
+    impact: _impactFlash,
+  };
+}
+
+/**
+ * Momentum hit. `nx, nz` point from the car toward the thing it struck.
+ * `closing` is how fast the car is approaching along that normal (m/s).
+ */
+export function applyWreckImpact(nx: number, nz: number, closing: number): void {
+  if (useGameStore.getState().worldMode === 'kent') {
+    currentSpeed *= 0.55;
+    return;
+  }
+  const approach = Math.max(0, closing);
+  const severity = Math.min(1, approach / 20);
+  const intoNose = _car.fx * nx + _car.fz * nz;
+  const intoSide = _car.rx * nx + _car.rz * nz;
+  currentSpeed -= intoNose * approach * 0.42;
+  slideSpeed += intoSide * approach * 0.55;
+  // Front-corner hits yaw the nose away; rear-corner hits yaw it toward.
+  yawRate -= intoSide * intoNose * (2.2 + severity * 3.5);
+  slideSpeed = THREE.MathUtils.clamp(slideSpeed, -16, 16);
+  yawRate = THREE.MathUtils.clamp(yawRate, -3.2, 3.2);
+  _impactFlash = Math.max(_impactFlash, 0.35 + severity * 0.65);
+  _lateralSlip = Math.max(_lateralSlip, severity);
 }
 
 const engine = { rpm: IDLE_RPM, gear: 1, throttle: 0 };
@@ -121,6 +167,9 @@ export function getSmoothedPedals(): { throttle: number; brake: number } {
 /** Bring the car to a dead stop (cutscenes, quizzes). */
 export function haltVehicle(): void {
   currentSpeed = 0;
+  slideSpeed = 0;
+  yawRate = 0;
+  handbrakeAmount = 0;
   smoothedAccel = 0;
   smoothedThrottle = 0;
   smoothedBrake = 0;
@@ -216,6 +265,8 @@ type DriveSnap = {
   rot: { x: number; y: number; z: number; w: number };
   linvel: { x: number; y: number; z: number };
   angvel: { x: number; y: number; z: number };
+  slide: number;
+  yaw: number;
 };
 
 let _hold: DriveSnap | null = null;
@@ -247,6 +298,8 @@ export function holdDrive(): void {
     rot: r ? { x: r.x, y: r.y, z: r.z, w: r.w } : { x: 0, y: 0, z: 0, w: 1 },
     linvel: lv ? { x: lv.x, y: lv.y, z: lv.z } : { x: 0, y: 0, z: 0 },
     angvel: av ? { x: av.x, y: av.y, z: av.z } : { x: 0, y: 0, z: 0 },
+    slide: slideSpeed,
+    yaw: yawRate,
   };
   haltVehicle();
 }
@@ -258,6 +311,8 @@ export function releaseDrive(): void {
   _hold = null;
   _blendGrace = 3;
   currentSpeed = snap.speed;
+  slideSpeed = snap.slide;
+  yawRate = snap.yaw;
   smoothedThrottle = snap.throttle;
   smoothedBrake = snap.brake;
   smoothedAccel = snap.accel;
@@ -293,6 +348,87 @@ export function saveAndHalt(): void {
 /** @deprecated Use releaseDrive. */
 export function resumeSpeed(): void {
   releaseDrive();
+}
+
+/**
+ * Highway chassis. A bicycle model with PhysX-style tire clamps:
+ * rear lateral grip lerps from a planted 1.15 down toward 0.58 while the
+ * handbrake is in (OpenC1's rear extremum 1.9 → 1.05), and brake torque
+ * scrubs speed so the tail can step out instead of the car just stopping.
+ */
+function stepWreckChassis(
+  dt: number,
+  steerInput: number,
+  handbrakeHeld: boolean,
+): void {
+  const targetHb = handbrakeHeld ? 1 : 0;
+  handbrakeAmount += (targetHb - handbrakeAmount) * Math.min(1, 12 * dt);
+
+  if (_damage01 > 0.4 && _damageCut <= 0 && Math.random() < _damage01 * dt * 1.4) {
+    _damageCut = _damage01 * 0.45;
+  }
+  if (_damageCut > 0) {
+    _damageCut -= dt;
+    currentSpeed *= Math.max(0, 1 - 2.2 * dt);
+  }
+
+  const speed = currentSpeed;
+  const absSpd = Math.abs(speed);
+  const muScale = 1 - _damage01 * 0.28;
+  const g = 9.81;
+  // OpenC1 rear lateral extremum: planted 1.9, handbrake 1.05.
+  const rearMu = THREE.MathUtils.lerp(1.15, 0.42, handbrakeAmount) * muScale;
+
+  const maxSteer = THREE.MathUtils.lerp(0.5, 0.1, Math.min(absSpd / 30, 1));
+  const steerAngle = steerInput * maxSteer;
+
+  if (absSpd < 0.8) {
+    slideSpeed *= Math.max(0, 1 - 8 * dt);
+    yawRate *= Math.max(0, 1 - 8 * dt);
+    _lateralSlip *= Math.max(0, 1 - 6 * dt);
+  } else {
+    // Yaw the tires can actually hold. Anything past that becomes a slide
+    // instead of a radius the car cannot make.
+    const gripYaw = (rearMu * g) / Math.max(absSpd, 1);
+    const askedYaw = -(speed * Math.tan(steerAngle)) / WHEELBASE;
+    const heldYaw = THREE.MathUtils.clamp(askedYaw, -gripYaw, gripYaw);
+    const unpaid = askedYaw - heldYaw;
+    // Planted: the car only yaws what the tires paid for, and pushes wide.
+    // Handbrake: the unpaid yaw becomes a spin and the slide stays out.
+    const targetYaw = heldYaw + unpaid * handbrakeAmount * 1.15;
+    yawRate += (targetYaw - yawRate) * Math.min(1, (handbrakeAmount > 0.4 ? 7 : 4) * dt);
+
+    slideSpeed += unpaid * speed * (0.15 + handbrakeAmount) * dt;
+    const pull = handbrakeAmount > 0.35 ? 1.15 : 3.2;
+    slideSpeed *= Math.max(0, 1 - pull * dt);
+
+    _lateralSlip = Math.min(
+      1.5,
+      Math.abs(slideSpeed) / Math.max(4, absSpd) + (handbrakeAmount > 0.3 ? Math.abs(unpaid) * 0.5 : 0),
+    );
+  }
+
+  if (handbrakeAmount > 0.05 && absSpd > 0.3) {
+    currentSpeed -= Math.sign(currentSpeed) * 6.5 * handbrakeAmount * dt;
+  }
+  if (Math.abs(slideSpeed) > 2) {
+    currentSpeed -= Math.sign(currentSpeed) * Math.abs(slideSpeed) * 0.22 * dt;
+  }
+
+  slideSpeed = THREE.MathUtils.clamp(slideSpeed, -16, 16);
+  yawRate = THREE.MathUtils.clamp(yawRate, -3.2, 3.2);
+  if (!Number.isFinite(slideSpeed)) slideSpeed = 0;
+  if (!Number.isFinite(yawRate)) yawRate = 0;
+
+  _brakeSlip = handbrakeAmount > 0.45 && absSpd > 4 ? 0.7 : smoothedBrake > 0.3 ? 0.22 : 0;
+  _isAnyWheelSlipping = _lateralSlip > 0.16 || (handbrakeAmount > 0.5 && absSpd > 6);
+
+  const longAccel = smoothedAccel;
+  const latHint = slideSpeed * 0.35 + yawRate * absSpd * 0.15;
+  const targetPitch = THREE.MathUtils.clamp(-longAccel * 0.014, -0.09, 0.11);
+  const targetRoll = THREE.MathUtils.clamp(latHint * 0.045, -0.16, 0.16);
+  chassisPitch += (targetPitch - chassisPitch) * Math.min(1, 7 * dt);
+  chassisRoll += (targetRoll - chassisRoll) * Math.min(1, 9 * dt);
 }
 
 // ─── Main tick ───────────────────────────────────────────────────────────────
@@ -336,6 +472,10 @@ export function tickVehicle(
 
   const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(quat).normalize();
   const right   = new THREE.Vector3(1, 0, 0).applyQuaternion(quat).normalize();
+  _car.fx = forward.x;
+  _car.fz = forward.z;
+  _car.rx = right.x;
+  _car.rz = right.z;
 
   // ── Read back actual velocity — captures collision responses from Rapier ──
   const linvel = body.linvel();
@@ -357,6 +497,7 @@ export function tickVehicle(
 
   // ── Smooth pedal inputs (profile by world) ────────────────────────────
   const kent = store.worldMode === 'kent';
+  _damage01 = kent ? 0 : 1 - Math.max(0, Math.min(100, store.hp)) / 100;
   const thUp = kent ? KENT_THROTTLE_UP : THROTTLE_SMOOTH_UP;
   const thDown = kent ? KENT_THROTTLE_DOWN : THROTTLE_SMOOTH_DOWN;
   const brUp = kent ? KENT_BRAKE_UP : HIGHWAY_BRAKE_UP;
@@ -371,6 +512,8 @@ export function tickVehicle(
   } else {
     smoothedBrake = Math.max(brakeInput, smoothedBrake - brDown * dt);
   }
+  // Kent: Space is still a full stop. Highway: Space is only the handbrake.
+  if (kent && emergencyBrake) smoothedBrake = 1;
   const brakePedal = smoothedBrake;
 
   // ── Decide pedal roles based on current speed ──────────────────────────
@@ -411,7 +554,9 @@ export function tickVehicle(
 
   if (isAccelerating) {
     const drive = getDriveAccel(smoothedThrottle, engine.rpm, engine.gear);
-    rawAccel += kent ? Math.min(drive, KENT_MAX_DRIVE_ACCEL) : drive;
+    // OpenC1 motor damage: past ~40% the engine stumbles and gives up power.
+    const wreckScale = kent ? 1 : 1 - _damage01 * 0.55;
+    rawAccel += (kent ? Math.min(drive, KENT_MAX_DRIVE_ACCEL) : drive) * wreckScale;
   }
 
   if (isBraking && Math.abs(currentSpeed) > 0.1) {
@@ -453,39 +598,62 @@ export function tickVehicle(
   if (currentSpeed < -reverseSpeedMs) currentSpeed = -reverseSpeedMs;
 
   const steerInput = Math.abs(steering) < STEER_DEADZONE ? 0 : steering;
-  const goingStraight = steerInput === 0;
 
-  // ── Set velocity via Rapier so the collision solver works properly ─────
-  const lateralRate = goingStraight ? LATERAL_DAMP_STRAIGHT : LATERAL_DAMP_RATE;
-  const lateralDamp = Math.max(0, 1 - lateralRate * dt);
-  const dampedLateralX = right.x * lateralSpeed * lateralDamp;
-  const dampedLateralZ = right.z * lateralSpeed * lateralDamp;
+  _impactFlash = Math.max(0, _impactFlash - dt * 2.8);
 
-  body.setLinvel(
-    {
-      x: forward.x * currentSpeed + dampedLateralX,
-      y: linvel.y,
-      z: forward.z * currentSpeed + dampedLateralZ,
-    },
-    true,
-  );
-
-  // ── Steering — auto-center yaw when input is neutral ───────────────────
-  const absSpd = Math.abs(currentSpeed);
-  const angvel = body.angvel();
-
-  if (absSpd > 0.5 && steerInput !== 0) {
-    const maxSteer = THREE.MathUtils.lerp(0.52, 0.14, Math.min(absSpd / 15, 1));
-    const steerAngle = steerInput * maxSteer;
-    const targetYaw = -(currentSpeed * Math.tan(steerAngle)) / WHEELBASE;
-    const newYaw = angvel.y + (targetYaw - angvel.y) * Math.min(8.0 * dt, 1);
-    body.setAngvel({ x: 0, y: newYaw, z: 0 }, true);
-  } else if (absSpd > 0.3) {
-    // Hold a straight line: kill yaw and snap velocity to heading
-    const yawDamp = Math.max(0, 1 - YAW_CENTER_RATE * dt);
-    body.setAngvel({ x: 0, y: angvel.y * yawDamp, z: 0 }, true);
+  if (!kent) {
+    stepWreckChassis(dt, steerInput, emergencyBrake);
+    body.setLinvel(
+      {
+        x: forward.x * currentSpeed + right.x * slideSpeed,
+        y: linvel.y,
+        z: forward.z * currentSpeed + right.z * slideSpeed,
+      },
+      true,
+    );
+    body.setAngvel({ x: 0, y: yawRate, z: 0 }, true);
   } else {
-    body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+    slideSpeed = 0;
+    yawRate = 0;
+    handbrakeAmount = 0;
+    const goingStraight = steerInput === 0;
+
+    // ── Set velocity via Rapier so the collision solver works properly ─────
+    const lateralRate = goingStraight ? LATERAL_DAMP_STRAIGHT : LATERAL_DAMP_RATE;
+    const lateralDamp = Math.max(0, 1 - lateralRate * dt);
+    const dampedLateralX = right.x * lateralSpeed * lateralDamp;
+    const dampedLateralZ = right.z * lateralSpeed * lateralDamp;
+
+    body.setLinvel(
+      {
+        x: forward.x * currentSpeed + dampedLateralX,
+        y: linvel.y,
+        z: forward.z * currentSpeed + dampedLateralZ,
+      },
+      true,
+    );
+
+    // ── Steering — auto-center yaw when input is neutral ───────────────────
+    const absSpd = Math.abs(currentSpeed);
+    const angvel = body.angvel();
+
+    if (absSpd > 0.5 && steerInput !== 0) {
+      const maxSteer = THREE.MathUtils.lerp(0.52, 0.14, Math.min(absSpd / 15, 1));
+      const steerAngle = steerInput * maxSteer;
+      const targetYaw = -(currentSpeed * Math.tan(steerAngle)) / WHEELBASE;
+      const newYaw = angvel.y + (targetYaw - angvel.y) * Math.min(8.0 * dt, 1);
+      body.setAngvel({ x: 0, y: newYaw, z: 0 }, true);
+    } else if (absSpd > 0.3) {
+      const yawDamp = Math.max(0, 1 - YAW_CENTER_RATE * dt);
+      body.setAngvel({ x: 0, y: angvel.y * yawDamp, z: 0 }, true);
+    } else {
+      body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+    }
+
+    const targetPitch = THREE.MathUtils.clamp(-smoothedAccel * 0.006, -0.04, 0.05);
+    const targetRoll = THREE.MathUtils.clamp(-steerInput * Math.min(absSpd / 12, 1) * 0.05, -0.06, 0.06);
+    chassisPitch += (targetPitch - chassisPitch) * Math.min(1, 5 * dt);
+    chassisRoll += (targetRoll - chassisRoll) * Math.min(1, 6 * dt);
   }
 
   // ── Safety: keep above ground ──────────────────────────────────────────
@@ -524,10 +692,38 @@ export function tickVehicle(
   }
 }
 
+/** Stand the car back up on its heading and kill a spin. Speed stays. */
+export function recoverVehicle(): void {
+  slideSpeed = 0;
+  yawRate = 0;
+  chassisPitch = 0;
+  chassisRoll = 0;
+  handbrakeAmount = 0;
+  if (!_body) return;
+  const t = _body.translation();
+  const heading = useGameStore.getState().vehicleHeading;
+  const half = heading / 2;
+  _body.setTranslation({ x: t.x, y: Math.max(0.55, t.y), z: t.z }, true);
+  _body.setRotation({ x: 0, y: Math.sin(half), z: 0, w: Math.cos(half) }, true);
+  _body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+  const fx = -Math.sin(heading);
+  const fz = -Math.cos(heading);
+  _body.setLinvel({ x: fx * currentSpeed, y: 0, z: fz * currentSpeed }, true);
+}
+
 export function resetVehicleController(): void {
   mileageAccumulator = 0;
   currentSpeed = 0;
+  slideSpeed = 0;
+  yawRate = 0;
+  handbrakeAmount = 0;
+  chassisPitch = 0;
+  chassisRoll = 0;
+  _damage01 = 0;
+  _impactFlash = 0;
+  _damageCut = 0;
   smoothedThrottle = 0;
+  smoothedBrake = 0;
   smoothedAccel = 0;
   engine.rpm = IDLE_RPM;
   engine.gear = 1;

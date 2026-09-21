@@ -53,7 +53,7 @@ export function SkidMarks() {
 
     // ── Emit new marks when slipping ──────────────────────────────────────
     emitTimer.current += dt;
-    if (phase === 'driving' && slip.slipAmount > 0.2 && emitTimer.current > EMIT_INTERVAL) {
+    if (phase === 'driving' && slip.slipAmount > 0.12 && emitTimer.current > EMIT_INTERVAL) {
       emitTimer.current = 0;
 
       const cosH = Math.cos(vehicleHeading);
