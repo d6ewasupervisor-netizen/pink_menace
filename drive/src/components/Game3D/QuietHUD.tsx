@@ -127,7 +127,7 @@ const styles: Record<string, React.CSSProperties> = {
   limit: { position: 'absolute', top: 'calc(112px + env(safe-area-inset-top))', right: 16, width: 44, background: '#fff', border: '3px solid', borderRadius: 6, textAlign: 'center', padding: '3px 0', fontWeight: 800, lineHeight: 1 },
   limitTitle: { fontSize: 8, letterSpacing: '0.05em' },
   limitNum: { fontSize: 20, marginTop: 2 },
-  objective: { position: 'absolute', top: 'calc(96px + env(safe-area-inset-top))', left: 16, maxWidth: 260, color: '#eee', fontSize: 13, background: 'rgba(0,0,0,0.45)', padding: '6px 10px', borderRadius: 8, borderLeft: '3px solid #F28DB2' },
+  objective: { position: 'absolute', top: 'calc(268px + env(safe-area-inset-top))', left: 16, maxWidth: 200, color: '#eee', fontSize: 12, background: 'rgba(0,0,0,0.45)', padding: '5px 8px', borderRadius: 8, borderLeft: '3px solid #F28DB2' },
   objTitle: { fontSize: 9, letterSpacing: '0.2em', color: '#F28DB2', marginBottom: 2 },
   tp: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', right: 16, color: '#ffd93d', fontWeight: 800, fontSize: 13, letterSpacing: '0.08em', background: 'rgba(0,0,0,0.45)', padding: '4px 8px', borderRadius: 6 },
   tpCompact: { top: 'calc(52px + env(safe-area-inset-top))', right: 12, fontSize: 11, padding: '3px 7px' },

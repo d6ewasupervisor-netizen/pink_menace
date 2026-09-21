@@ -23,6 +23,7 @@ import { TrafficRenderer } from './TrafficRenderer';
 import { GameCamera } from './GameCamera';
 import { LoadingScreen } from './LoadingScreen';
 import { GameHUD } from './GameHUD';
+import { KentDash } from './KentDash';
 import { EngineHUD } from './EngineHUD';
 import { QuizOverlay } from './QuizOverlay';
 import { TouchOverlay } from './TouchOverlay';
@@ -248,6 +249,7 @@ export function Game3D({ onExit }: Game3DProps) {
       <div className="ui-layer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
         <LoadingScreen />
         <GameHUD />
+        <KentDash />
         <EngineHUD />
         <QuizOverlay />
         <TouchOverlay />

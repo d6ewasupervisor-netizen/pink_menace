@@ -4,6 +4,9 @@
 import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useGameProgress } from '@/hooks/useGameProgress';
+import { useQRStore } from '@/stores/qrStore';
+import { useQRHud } from '@/stores/qrHud';
+import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { controlsSchemeLabel } from '@/input/driveInput';
 
 export function PauseMenu({ onExit }: { onExit?: () => void }) {
@@ -20,14 +23,28 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
   const cycleControlsScheme = useGameStore((s) => s.cycleControlsScheme);
 
   const { saveProgress } = useGameProgress();
+  const worldMode = useGameStore((s) => s.worldMode);
+  const prePausePhase = useGameStore((s) => s.prePausePhase);
+  const qrScene = useQRStore((s) => s.sceneId);
+  const qrCheckpoint = useQRStore((s) => s.checkpoint);
+  const tp = useQRStore((s) => s.vars.trade_points ?? 0);
+  const objective = useQRHud((s) => s.objective);
+  const kent = worldMode === 'kent';
 
   const accuracy = questionsAnswered > 0
     ? Math.round((correctAnswers / questionsAnswered) * 100)
     : 0;
 
-  const handleResume = useCallback(() => setPhase('driving'), [setPhase]);
+  const handleResume = useCallback(() => {
+    setPhase(prePausePhase === 'walking' ? 'walking' : 'driving');
+  }, [prePausePhase, setPhase]);
 
   const handleSaveExit = useCallback(async () => {
+    if (kent) {
+      setPhase('menu');
+      onExit?.();
+      return;
+    }
     await saveProgress({
       currentMile: mileage,
       hp,
@@ -40,12 +57,16 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
     });
     setPhase('menu');
     onExit?.();
-  }, [mileage, hp, fuel, zCoins, questionsAnswered, correctAnswers, saveProgress, setPhase, onExit]);
+  }, [kent, mileage, hp, fuel, zCoins, questionsAnswered, correctAnswers, saveProgress, setPhase, onExit]);
 
   const handleRestart = useCallback(() => {
+    if (kent) {
+      QuietRoads.start(true);
+      return;
+    }
     resetProgress();
     setPhase('driving');
-  }, [resetProgress, setPhase]);
+  }, [kent, resetProgress, setPhase]);
 
   if (phase !== 'paused') return null;
 
@@ -56,11 +77,24 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
 
         {/* Stats */}
         <div style={styles.statsGrid}>
-          <StatRow label="Mile" value={`${Math.round(mileage)} / 2800`} />
-          <StatRow label="HP" value={`${hp}%`} color="#ff6b6b" />
-          <StatRow label="Fuel" value={`${Math.round(fuel)}%`} color={fuel < 25 ? '#ff4444' : '#39ff14'} />
-          <StatRow label="Z-Coins" value={`💰 ${zCoins}`} color="#ffd93d" />
-          <StatRow label="Accuracy" value={`${accuracy}%`} />
+          {kent ? (
+            <>
+              <StatRow label="Scene" value={qrScene ? String(qrScene) : 'Kent'} />
+              {qrCheckpoint && <StatRow label="Checkpoint" value={qrCheckpoint.replace(/_/g, ' ')} />}
+              {objective && <StatRow label="Objective" value={objective} />}
+              <StatRow label="HP" value={`${hp}%`} color="#ff6b6b" />
+              <StatRow label="Fuel" value={`${Math.round(fuel)}%`} color={fuel < 25 ? '#ff4444' : '#39ff14'} />
+              <StatRow label="TP" value={String(Math.round(tp))} color="#ffd93d" />
+            </>
+          ) : (
+            <>
+              <StatRow label="Mile" value={`${Math.round(mileage)} / 2800`} />
+              <StatRow label="HP" value={`${hp}%`} color="#ff6b6b" />
+              <StatRow label="Fuel" value={`${Math.round(fuel)}%`} color={fuel < 25 ? '#ff4444' : '#39ff14'} />
+              <StatRow label="Z-Coins" value={`💰 ${zCoins}`} color="#ffd93d" />
+              <StatRow label="Accuracy" value={`${accuracy}%`} />
+            </>
+          )}
         </div>
 
         <div style={styles.btnStack}>

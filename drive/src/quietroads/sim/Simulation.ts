@@ -245,6 +245,32 @@ export class Simulation {
     }
   }
 
+  /** Current GPS pin — street destination for the active mission. */
+  navTarget(): { pos: Vec2; label: string } | null {
+    switch (this.missionId) {
+      case "tutorial_carport":
+        return this.tutBlockEnd
+          ? { pos: this.map.starts.carport.pos, label: "CARPORT" }
+          : { pos: { x: 250, y: 0 }, label: "END OF BLOCK" };
+      case "mission_dol_drive":
+        return { pos: this.map.markers.dol_lot, label: "DOL" };
+      case "minigame_park_dol": {
+        const stall = this.map.parking.stalls[this.map.parking.target];
+        return { pos: { x: stall.x + stall.w / 2, y: stall.y + stall.h / 2 }, label: "STALL" };
+      }
+      case "stealth_dol_interior":
+        return this.interior.phase === "to_car" || this.interior.phase === "done"
+          ? { pos: this.map.starts.dol_stall.pos, label: "BEETLE" }
+          : { pos: this.map.dol.terminal, label: "TERMINAL" };
+      case "chase_dol_gracie":
+        return this.interior.gracie.loose
+          ? { pos: this.interior.gracie.pos, label: "GRACIE" }
+          : { pos: this.map.starts.dol_stall.pos, label: "BEETLE" };
+      default:
+        return { pos: this.map.markers.dol_lot, label: "DOL" };
+    }
+  }
+
   /** Counts for the HUD / dashboard. */
   quietSummary() {
     const c = { dormant: 0, curious: 0, alert: 0, swarm: 0 };

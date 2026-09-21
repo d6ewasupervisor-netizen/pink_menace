@@ -4,60 +4,7 @@
 import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useCompactHud } from '@/hooks/useCompactHud';
-
-// ─── Speedometer (SVG arc) ────────────────────────────────────────────────────
-function Speedometer({ mph }: { mph: number }) {
-  const MIN_ANGLE = -135;
-  const MAX_ANGLE = 135;
-  const MAX_MPH = 80;
-  const angle = MIN_ANGLE + ((mph / MAX_MPH) * (MAX_ANGLE - MIN_ANGLE));
-  const needleColor = mph < 40 ? '#39ff14' : mph < 55 ? '#ffd93d' : '#ff4444';
-
-  // Arc path (SVG)
-  const R = 38;
-  const cx = 50;
-  const cy = 55;
-
-  function polarToXY(deg: number) {
-    const rad = (deg - 90) * (Math.PI / 180);
-    return { x: cx + R * Math.cos(rad), y: cy + R * Math.sin(rad) };
-  }
-
-  const start = polarToXY(MIN_ANGLE);
-  const end = polarToXY(MAX_ANGLE);
-  const arcPath = `M ${start.x} ${start.y} A ${R} ${R} 0 1 1 ${end.x} ${end.y}`;
-
-  const needle = polarToXY(angle);
-
-  return (
-    <svg width="100" height="70" viewBox="0 0 100 70">
-      {/* Background arc */}
-      <path d={arcPath} fill="none" stroke="#333" strokeWidth="6" strokeLinecap="round" />
-      {/* Needle */}
-      <line
-        x1={cx} y1={cy}
-        x2={needle.x} y2={needle.y}
-        stroke={needleColor} strokeWidth="2" strokeLinecap="round"
-      />
-      {/* Center dot */}
-      <circle cx={cx} cy={cy} r="3" fill={needleColor} />
-      {/* Speed text */}
-      <text
-        x={cx} y={cy + 16}
-        textAnchor="middle"
-        fill="white"
-        fontSize="13"
-        fontFamily="monospace"
-        style={{ fontVariantNumeric: 'tabular-nums' }}
-      >
-        {mph}
-      </text>
-      <text x={cx} y={cy + 25} textAnchor="middle" fill="#777" fontSize="7">
-        MPH
-      </text>
-    </svg>
-  );
-}
+import { Speedometer } from './Speedometer';
 
 // ─── Bar ──────────────────────────────────────────────────────────────────────
 function Bar({
@@ -116,17 +63,30 @@ export function GameHUD() {
 
   if (phase !== 'driving') return null;
 
-  const progress = Math.min(mileage / 2800, 1);
   const kent = worldMode === 'kent';
-  const hideTrip = kent || compact;
+  if (kent) {
+    return (
+      <div style={styles.hud}>
+        <div style={{ ...styles.topRow, background: 'none', justifyContent: 'flex-end' }}>
+          <div style={styles.topRight}>
+            <button style={styles.pauseBtn} onClick={handlePause} aria-label="Pause">
+              ⏸
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const progress = Math.min(mileage / 2800, 1);
 
   return (
     <div style={styles.hud}>
       {/* Top row */}
       <div style={styles.topRow}>
         <div style={styles.topLeft}>
-          {!kent && <div style={styles.mileage}>{Math.round(mileage)} mi</div>}
-          {!hideTrip && <div style={styles.biomeLabel}>{BIOME_LABEL[currentBiome]}</div>}
+          <div style={styles.mileage}>{Math.round(mileage)} mi</div>
+          {!compact && <div style={styles.biomeLabel}>{BIOME_LABEL[currentBiome]}</div>}
           {compact && (
             <div style={styles.compactBars}>
               <Bar value={hp} color="#ff6b6b" label="HP" />
@@ -135,7 +95,7 @@ export function GameHUD() {
           )}
         </div>
 
-        {!hideTrip && (
+        {!compact && (
           <div style={styles.topCenter}>
             <div style={styles.progressTrack}>
               <div style={{ ...styles.progressFill, width: `${progress * 100}%` }} />
@@ -145,7 +105,7 @@ export function GameHUD() {
         )}
 
         <div style={styles.topRight}>
-          {!kent && <span style={styles.coins}>💰 {zCoins}</span>}
+          <span style={styles.coins}>💰 {zCoins}</span>
           {compact && streak > 0 && <span style={styles.compactStreak}>🔥 {streak}</span>}
           <button style={styles.pauseBtn} onClick={handlePause} aria-label="Pause">
             ⏸
