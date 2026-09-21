@@ -59,6 +59,23 @@ export function buildKentMap(seed = 7): WorldMap {
   buildings.push({ rect: { x: 168, y: -58, w: 38, h: 26 }, label: "WAREHOUSE" });
   buildings.push({ rect: { x: 146, y: 78, w: 30, h: 18 }, label: "PHARMACY" });
 
+  // Titus houses are a 20 m grid. Valley Rd is cut through the north row, so those
+  // boxes land on the pavement. Drop anything that actually covers a road — the
+  // insulin run starts on Valley, and a car spawned inside a house cannot leave.
+  const roads: RoadSeg[] = [
+    { rect: { x: -10, y: -4, w: 279, h: 8 }, name: "TITUS ST" },
+    { rect: { x: 260, y: -50, w: 10, h: 490 }, name: "CENTRAL AVE" },
+    { rect: { x: 140, y: 106, w: 180, h: 8 }, name: "MEEKER ST" },
+    { rect: { x: 170, y: -28, w: 96, h: 8 }, name: "VALLEY RD" },
+    { rect: { x: 196, y: 70, w: 8, h: 70 }, name: "WILLIS ST" },
+    { rect: { x: 146, y: 96, w: 30, h: 10 }, name: "PHARMACY LOT" },
+    { rect: { x: 225, y: 380, w: 30, h: 40 }, name: "DOL LOT" },
+    { rect: { x: 255, y: 382, w: 5, h: 10 }, name: "DOL DRIVEWAY" },
+  ];
+  for (let i = buildings.length - 1; i >= 0; i--) {
+    if (roads.some((road) => rectsOverlap(buildings[i].rect, road.rect))) buildings.splice(i, 1);
+  }
+
   const zones: ZoneDef[] = [
     { kind: "waypoint", id: "block_end", rect: c(250, 0, 6, 8) },
     { kind: "waypoint", id: "titus_fourway", rect: c(265, 0, 18, 18) },
@@ -119,16 +136,7 @@ export function buildKentMap(seed = 7): WorldMap {
     bounds: { x: -30, y: -70, w: 360, h: 530 },
     parking,
     dol,
-    roads: [
-      { rect: { x: -10, y: -4, w: 279, h: 8 }, name: "TITUS ST" },
-      { rect: { x: 260, y: -50, w: 10, h: 490 }, name: "CENTRAL AVE" },
-      { rect: { x: 140, y: 106, w: 180, h: 8 }, name: "MEEKER ST" },
-      { rect: { x: 170, y: -28, w: 96, h: 8 }, name: "VALLEY RD" },
-      { rect: { x: 196, y: 70, w: 8, h: 70 }, name: "WILLIS ST" },
-      { rect: { x: 146, y: 96, w: 30, h: 10 }, name: "PHARMACY LOT" },
-      { rect: { x: 225, y: 380, w: 30, h: 40 }, name: "DOL LOT" },
-      { rect: { x: 255, y: 382, w: 5, h: 10 }, name: "DOL DRIVEWAY" },
-    ],
+    roads,
     centerLines: [[{ x: -10, y: 0 }, { x: 258, y: 0 }], [{ x: 265, y: -50 }, { x: 265, y: 440 }], [{ x: 140, y: 110 }, { x: 320, y: 110 }], [{ x: 170, y: -24 }, { x: 260, y: -24 }], [{ x: 200, y: 70 }, { x: 200, y: 140 }]],
     stopLines: [[{ x: 259, y: -4 }, { x: 259, y: 4 }], [{ x: 260, y: 105 }, { x: 270, y: 105 }], [{ x: 260, y: 293 }, { x: 270, y: 293 }]],
     rail: { from: { x: 200, y: 300 }, to: { x: 330, y: 300 } },
@@ -157,6 +165,11 @@ export function buildKentMap(seed = 7): WorldMap {
       dol_stall: { pos: { x: stalls[2].x + stalls[2].w / 2, y: 416.5 }, heading: Math.PI / 2 }, // parked, nose south
     },
   };
+}
+
+/** True when two rects share area. Edge contact (a wall flush with a lot) does not count. */
+function rectsOverlap(a: Rect, b: Rect, pad = 0.05): boolean {
+  return a.x < b.x + b.w - pad && a.x + a.w > b.x + pad && a.y < b.y + b.h - pad && a.y + a.h > b.y + pad;
 }
 
 /** centre + size → Rect */
