@@ -12,7 +12,6 @@ import { useGameStore } from '@/stores/gameStore';
 import { useCompactHud } from '@/hooks/useCompactHud';
 import { flushDriveInput } from '@/hooks/useTouchControls';
 import {
-  controlsSchemeLabel,
   isSingleStick,
   setStickAxes,
 } from '@/input/driveInput';
@@ -169,7 +168,6 @@ function ThumbStick({
 export function TouchOverlay() {
   const phase = useGameStore((s) => s.phase);
   const scheme = useGameStore((s) => s.controlsScheme);
-  const cycle = useGameStore((s) => s.cycleControlsScheme);
   const compact = useCompactHud();
   const walking = phase === 'walking';
 
@@ -206,20 +204,6 @@ export function TouchOverlay() {
 
   return (
     <div style={styles.root} aria-hidden>
-      <button
-        type="button"
-        data-ui
-        style={styles.cycle}
-        onPointerDown={(e) => e.stopPropagation()}
-        onClick={(e) => {
-          e.stopPropagation();
-          cycle();
-        }}
-        aria-label={`Control layout: ${controlsSchemeLabel(scheme)}. Tap to change.`}
-      >
-        ⇄ {controlsSchemeLabel(scheme)}
-      </button>
-
       {single ? (
         <ThumbStick
           key={scheme}
@@ -259,24 +243,6 @@ const styles: Record<string, React.CSSProperties> = {
     inset: 0,
     pointerEvents: 'none',
     zIndex: 220,
-  },
-  cycle: {
-    position: 'absolute',
-    top: 'calc(72px + env(safe-area-inset-top))',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    pointerEvents: 'auto',
-    padding: '7px 10px',
-    border: '1px solid rgba(255,255,255,0.22)',
-    borderRadius: 13,
-    background: 'rgba(14,8,26,0.88)',
-    color: '#ffd93d',
-    fontSize: 10,
-    fontWeight: 800,
-    letterSpacing: '0.06em',
-    touchAction: 'manipulation',
-    cursor: 'pointer',
-    boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
   },
   thumb: {
     position: 'absolute',

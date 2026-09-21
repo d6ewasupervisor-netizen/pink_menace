@@ -8,8 +8,9 @@ import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { Speedometer } from './Speedometer';
 import { useCompactHud } from '@/hooks/useCompactHud';
+import { dashEdge, type DashEdge } from '@/input/driveInput';
 
-const GPS_CSS = 128;
+const GPS_CSS = 108;
 
 export function KentDash() {
   const worldMode = useGameStore((s) => s.worldMode);
@@ -17,7 +18,10 @@ export function KentDash() {
   const hp = useGameStore((s) => s.hp);
   const fuel = useGameStore((s) => s.fuel);
   const limit = useQRHud((s) => s.frame?.speedLimitMph ?? 25);
+  const objective = useQRHud((s) => s.objective);
+  const scheme = useGameStore((s) => s.controlsScheme);
   const compact = useCompactHud();
+  const edge: DashEdge = compact ? dashEdge(scheme) : 'top';
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const destRef = useRef<HTMLSpanElement>(null);
   const mphRef = useRef(0);
@@ -48,34 +52,77 @@ export function KentDash() {
   if (phase !== 'driving' && phase !== 'walking') return null;
 
   return (
-    <div style={{ ...styles.root, ...(compact ? styles.rootCompact : null) }}>
-      <div style={styles.gpsCard}>
-        <canvas
-          ref={canvasRef}
-          width={GPS_CSS * 2}
-          height={GPS_CSS * 2}
-          style={styles.canvas}
-          aria-label="Street map"
-        />
-        <div style={styles.gpsCaption}>
-          <span style={styles.gpsYou}>YOU</span>
-          <span ref={destRef} style={styles.gpsDest} />
+    <div style={rootStyle(edge, compact)}>
+      <div style={styles.glass}>
+        <div style={styles.row}>
+          <div style={styles.mapCol}>
+            <canvas
+              ref={canvasRef}
+              width={GPS_CSS * 2}
+              height={GPS_CSS * 2}
+              style={styles.canvas}
+              aria-label="Street map"
+            />
+            <div style={styles.gpsCaption}>
+              <span style={styles.gpsYou}>YOU</span>
+              <span ref={destRef} style={styles.gpsDest} />
+            </div>
+          </div>
+          <div style={styles.gaugeCol}>
+            <Speedometer mph={mphRef.current} limit={limit} size="compact" />
+            <MiniBar label="HP" value={hp} color="#ff6b6b" />
+            <MiniBar label="FUEL" value={fuel} color={fuel < 25 ? '#ff4444' : '#39ff14'} />
+          </div>
         </div>
-      </div>
-      <div style={styles.speedoWrap}>
-        <Speedometer mph={mphRef.current} limit={limit} size="compact" />
-      </div>
-      <div style={styles.bars}>
-        <MiniBar label="HP" value={hp} color="#ff6b6b" />
-        <MiniBar label="FUEL" value={fuel} color={fuel < 25 ? '#ff4444' : '#39ff14'} />
+        {objective && (
+          <div style={styles.objective}>
+            <div style={styles.objTitle}>OBJECTIVE</div>
+            <div>{objective}</div>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
+function rootStyle(edge: DashEdge, compact: boolean): React.CSSProperties {
+  const common: React.CSSProperties = {
+    position: 'fixed',
+    zIndex: 215,
+    pointerEvents: 'none',
+  };
+  if (!compact) {
+    return {
+      ...common,
+      top: 'calc(8px + env(safe-area-inset-top))',
+      left: 'max(8px, env(safe-area-inset-left))',
+    };
+  }
+  if (edge === 'top') {
+    return {
+      ...common,
+      top: 'calc(78px + env(safe-area-inset-top))',
+      left: '50%',
+      transform: 'translateX(-50%)',
+    };
+  }
+  if (edge === 'right') {
+    return {
+      ...common,
+      bottom: 'calc(12px + env(safe-area-inset-bottom))',
+      right: 'max(10px, env(safe-area-inset-right))',
+    };
+  }
+  return {
+    ...common,
+    bottom: 'calc(12px + env(safe-area-inset-bottom))',
+    left: 'max(10px, env(safe-area-inset-left))',
+  };
+}
+
 function MiniBar({ label, value, color }: { label: string; value: number; color: string }) {
   return (
-    <div style={{ minWidth: 88 }}>
+    <div style={{ minWidth: 0, width: '100%' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 1 }}>
         <span style={{ color: '#888', fontSize: 9 }}>{label}</span>
         <span style={{ color, fontSize: 9, fontWeight: 700 }}>{Math.round(value)}</span>
@@ -106,7 +153,7 @@ function paintGps(canvas: HTMLCanvasElement | null) {
   const py = (y: number) => oy + (y - b.y) * scale;
 
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = '#0c1016';
+  ctx.fillStyle = 'rgba(8, 12, 20, 0.5)';
   ctx.fillRect(0, 0, w, h);
 
   ctx.fillStyle = '#1a2230';
@@ -236,52 +283,68 @@ function drawPin(ctx: CanvasRenderingContext2D, x: number, y: number, color: str
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  root: {
-    position: 'fixed',
-    top: 'calc(8px + env(safe-area-inset-top))',
-    left: 'max(8px, env(safe-area-inset-left))',
-    zIndex: 215,
-    pointerEvents: 'none',
+  glass: {
+    background: 'rgba(8, 10, 16, 0.46)',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
+    border: '1px solid rgba(255,255,255,0.16)',
+    borderRadius: 14,
+    padding: 6,
+    boxShadow: '0 8px 22px rgba(0,0,0,0.28)',
+    maxWidth: 'min(236px, 62vw)',
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'stretch',
+    gap: 4,
+  },
+  mapCol: {
+    flex: '0 0 auto',
+  },
+  gaugeCol: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: 6,
-  },
-  rootCompact: {
-    top: 'calc(44px + env(safe-area-inset-top))',
-  },
-  gpsCard: {
-    background: 'rgba(8,10,16,0.82)',
-    border: '1px solid rgba(255,255,255,0.14)',
-    borderRadius: 10,
-    padding: 4,
-    boxShadow: '0 6px 18px rgba(0,0,0,0.45)',
+    justifyContent: 'flex-end',
+    gap: 4,
+    minWidth: 88,
+    paddingBottom: 2,
   },
   canvas: {
     width: GPS_CSS,
     height: GPS_CSS,
     display: 'block',
-    borderRadius: 6,
+    borderRadius: 8,
+    background: 'transparent',
   },
   gpsCaption: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '3px 4px 1px',
+    gap: 6,
+    padding: '3px 2px 0',
     fontSize: 8,
     letterSpacing: '0.08em',
     fontWeight: 800,
   },
   gpsYou: { color: '#F28DB2' },
-  gpsDest: { color: '#ffd93d' },
-  speedoWrap: {
-    background: 'rgba(8,10,16,0.72)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: 10,
-    padding: '2px 4px 0',
+  gpsDest: {
+    color: '#ffd93d',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: 72,
   },
-  bars: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 4,
+  objective: {
+    marginTop: 4,
+    color: '#eee',
+    fontSize: 11,
+    lineHeight: 1.3,
+    padding: '4px 4px 2px',
+    borderTop: '1px solid rgba(255,255,255,0.12)',
+  },
+  objTitle: {
+    fontSize: 8,
+    letterSpacing: '0.16em',
+    color: '#F28DB2',
+    marginBottom: 2,
   },
 };

@@ -37,7 +37,7 @@ export function Speedometer({
 
   return (
     <svg width={w} height={h} viewBox={`0 0 100 ${compact ? 58 : 70}`}>
-      <path d={arcPath} fill="none" stroke="#333" strokeWidth="6" strokeLinecap="round" />
+      <path d={arcPath} fill="none" stroke={compact ? 'rgba(255,255,255,0.28)' : '#333'} strokeWidth="6" strokeLinecap="round" />
       <line
         x1={cx} y1={cy}
         x2={needle.x} y2={needle.y}

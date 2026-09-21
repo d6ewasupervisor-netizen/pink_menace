@@ -1,6 +1,6 @@
 /**
  * QuietHUD — Quiet Roads overlay: noise meter (colour + shape + word, so it
- * reads without colour), posted speed limit vs. your speed, objective line,
+ * reads without colour), posted speed limit vs. your speed,
  * horn button, toasts. Sits alongside the existing GameHUD/EngineHUD.
  */
 import { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useCompactHud } from '@/hooks/useCompactHud';
+import { steerCorner } from '@/input/driveInput';
 
 const BAND = [
   { word: 'QUIET', color: '#39ff14', shape: '●' },
@@ -21,13 +22,14 @@ export function QuietHUD() {
   const phase = useGameStore((s) => s.phase);
   const velocityMph = useGameStore((s) => s.velocityMph);
   const frame = useQRHud((s) => s.frame);
-  const objective = useQRHud((s) => s.objective);
   const toast = useQRHud((s) => s.toast);
   const tp = useQRStore((s) => s.vars.trade_points ?? 0);
   const setHorn = useQRHud((s) => s.setHorn);
   const run = useQRHud((s) => s.run);
   const setRun = useQRHud((s) => s.setRun);
+  const scheme = useGameStore((s) => s.controlsScheme);
   const compact = useCompactHud();
+  const hornOnLeft = compact && steerCorner(scheme) === 'left';
   const [landscape, setLandscape] = useState(false);
   useEffect(() => {
     const check = () => setLandscape(window.innerWidth > window.innerHeight && 'ontouchstart' in window);
@@ -74,20 +76,17 @@ export function QuietHUD() {
         </div>
       )}
 
-      {/* Objective + TP — top left under HP/fuel */}
-      {objective && (
-        <div style={styles.objective}>
-          <div style={styles.objTitle}>OBJECTIVE</div>
-          <div>{objective}</div>
-        </div>
-      )}
       <div style={{ ...styles.tp, ...(compact ? styles.tpCompact : null) }}>TP {Math.round(tp)}</div>
 
       {/* Horn — big, deliberately in the way, because it should be a decision */}
       {driving && (
         <button
           data-ui
-          style={{ ...styles.horn, ...(compact ? styles.hornCompact : null) }}
+          style={{
+            ...styles.horn,
+            ...(compact ? styles.hornCompact : null),
+            ...(hornOnLeft ? styles.hornLeft : null),
+          }}
           onPointerDown={(e) => { e.preventDefault(); setHorn(true); }}
           onPointerUp={() => setHorn(false)}
           onPointerLeave={() => setHorn(false)}
@@ -101,7 +100,14 @@ export function QuietHUD() {
       {walking && (
         <button
           data-ui
-          style={{ ...styles.horn, borderColor: run ? '#ffd93d' : '#888', background: run ? 'rgba(120,100,20,0.6)' : 'rgba(30,30,40,0.55)', color: run ? '#ffe680' : '#bbb' }}
+          style={{
+            ...styles.horn,
+            ...(compact ? styles.hornCompact : null),
+            ...(hornOnLeft ? styles.hornLeft : null),
+            borderColor: run ? '#ffd93d' : '#888',
+            background: run ? 'rgba(120,100,20,0.6)' : 'rgba(30,30,40,0.55)',
+            color: run ? '#ffe680' : '#bbb',
+          }}
           onPointerDown={(e) => { e.preventDefault(); setRun(!run); }}
           aria-label="Run (Shift)"
         >
@@ -127,12 +133,11 @@ const styles: Record<string, React.CSSProperties> = {
   limit: { position: 'absolute', top: 'calc(112px + env(safe-area-inset-top))', right: 16, width: 44, background: '#fff', border: '3px solid', borderRadius: 6, textAlign: 'center', padding: '3px 0', fontWeight: 800, lineHeight: 1 },
   limitTitle: { fontSize: 8, letterSpacing: '0.05em' },
   limitNum: { fontSize: 20, marginTop: 2 },
-  objective: { position: 'absolute', top: 'calc(268px + env(safe-area-inset-top))', left: 16, maxWidth: 200, color: '#eee', fontSize: 12, background: 'rgba(0,0,0,0.45)', padding: '5px 8px', borderRadius: 8, borderLeft: '3px solid #F28DB2' },
-  objTitle: { fontSize: 9, letterSpacing: '0.2em', color: '#F28DB2', marginBottom: 2 },
   tp: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', right: 16, color: '#ffd93d', fontWeight: 800, fontSize: 13, letterSpacing: '0.08em', background: 'rgba(0,0,0,0.45)', padding: '4px 8px', borderRadius: 6 },
   tpCompact: { top: 'calc(52px + env(safe-area-inset-top))', right: 12, fontSize: 11, padding: '3px 7px' },
   horn: { position: 'absolute', bottom: 'calc(96px + env(safe-area-inset-bottom))', right: 16, width: 64, height: 64, borderRadius: 32, border: '2px solid #ff4444', background: 'rgba(120,20,20,0.55)', color: '#ff9a9a', fontWeight: 800, fontSize: 11, letterSpacing: '0.1em', pointerEvents: 'auto', touchAction: 'none', userSelect: 'none' },
-  hornCompact: { bottom: 'calc(178px + env(safe-area-inset-bottom))', right: 12, width: 52, height: 52, borderRadius: 26, fontSize: 10 },
+  hornCompact: { bottom: 'calc(186px + env(safe-area-inset-bottom))', right: 12, width: 52, height: 52, borderRadius: 26, fontSize: 10 },
+  hornLeft: { right: 'auto', left: 12 },
   rotate: { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', background: 'rgba(10,12,18,0.92)', color: '#F28DB2', padding: '14px 18px', borderRadius: 10, fontSize: 15, fontWeight: 700, border: '1px solid #F28DB2', textAlign: 'center' },
   toast: { position: 'absolute', bottom: 'calc(180px + env(safe-area-inset-bottom))', left: '50%', transform: 'translateX(-50%)', background: 'rgba(10,12,18,0.92)', color: '#fff', padding: '10px 16px', borderRadius: 8, fontSize: 14, border: '1px solid rgba(255,255,255,0.2)', maxWidth: '90vw' },
 };
