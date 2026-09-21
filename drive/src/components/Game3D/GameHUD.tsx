@@ -3,6 +3,7 @@
  */
 import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
+import { useCompactHud } from '@/hooks/useCompactHud';
 
 // ─── Speedometer (SVG arc) ────────────────────────────────────────────────────
 function Speedometer({ mph }: { mph: number }) {
@@ -107,62 +108,68 @@ export function GameHUD() {
   const fuel = useGameStore((s) => s.fuel);
   const streak = useGameStore((s) => s.streak);
   const phase = useGameStore((s) => s.phase);
+  const worldMode = useGameStore((s) => s.worldMode);
   const setPhase = useGameStore((s) => s.setPhase);
+  const compact = useCompactHud();
 
   const handlePause = useCallback(() => setPhase('paused'), [setPhase]);
 
   if (phase !== 'driving') return null;
 
   const progress = Math.min(mileage / 2800, 1);
+  const kent = worldMode === 'kent';
+  const hideTrip = kent || compact;
 
   return (
     <div style={styles.hud}>
       {/* Top row */}
       <div style={styles.topRow}>
-        {/* Mileage + Biome */}
         <div style={styles.topLeft}>
-          <div style={styles.mileage}>{Math.round(mileage)} mi</div>
-          <div style={styles.biomeLabel}>{BIOME_LABEL[currentBiome]}</div>
+          {!kent && <div style={styles.mileage}>{Math.round(mileage)} mi</div>}
+          {!hideTrip && <div style={styles.biomeLabel}>{BIOME_LABEL[currentBiome]}</div>}
+          {compact && (
+            <div style={styles.compactBars}>
+              <Bar value={hp} color="#ff6b6b" label="HP" />
+              <Bar value={fuel} color={fuel < 25 ? '#ff4444' : '#39ff14'} label="FUEL" />
+            </div>
+          )}
         </div>
 
-        {/* Progress bar — NYC to Spokane */}
-        <div style={styles.topCenter}>
-          <div style={styles.progressTrack}>
-            <div style={{ ...styles.progressFill, width: `${progress * 100}%` }} />
+        {!hideTrip && (
+          <div style={styles.topCenter}>
+            <div style={styles.progressTrack}>
+              <div style={{ ...styles.progressFill, width: `${progress * 100}%` }} />
+            </div>
+            <div style={styles.progressLabel}>NYC → SPOKANE</div>
           </div>
-          <div style={styles.progressLabel}>NYC → SPOKANE</div>
-        </div>
+        )}
 
-        {/* Z-Coins + Pause */}
         <div style={styles.topRight}>
-          <span style={styles.coins}>💰 {zCoins}</span>
+          {!kent && <span style={styles.coins}>💰 {zCoins}</span>}
+          {compact && streak > 0 && <span style={styles.compactStreak}>🔥 {streak}</span>}
           <button style={styles.pauseBtn} onClick={handlePause} aria-label="Pause">
             ⏸
           </button>
         </div>
       </div>
 
-      {/* Bottom row */}
-      <div style={styles.bottomRow}>
-        {/* Speedometer */}
-        <div style={styles.speedoBox}>
-          <Speedometer mph={velocityMph} />
-        </div>
-
-        {/* HP + Fuel bars */}
-        <div style={styles.barsBox}>
-          <Bar value={hp} color="#ff6b6b" label="HP" />
-          <Bar value={fuel} color={fuel < 25 ? '#ff4444' : '#39ff14'} label="FUEL" />
-        </div>
-
-        {/* Streak */}
-        {streak > 0 && (
-          <div style={styles.streakBox}>
-            <div style={styles.streakLabel}>🔥</div>
-            <div style={styles.streakValue}>{streak}</div>
+      {!compact && (
+        <div style={styles.bottomRow}>
+          <div style={styles.speedoBox}>
+            <Speedometer mph={velocityMph} />
           </div>
-        )}
-      </div>
+          <div style={styles.barsBox}>
+            <Bar value={hp} color="#ff6b6b" label="HP" />
+            <Bar value={fuel} color={fuel < 25 ? '#ff4444' : '#39ff14'} label="FUEL" />
+          </div>
+          {streak > 0 && (
+            <div style={styles.streakBox}>
+              <div style={styles.streakLabel}>🔥</div>
+              <div style={styles.streakValue}>{streak}</div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -283,4 +290,16 @@ const styles: Record<string, React.CSSProperties> = {
   },
   streakLabel: { fontSize: '16px' },
   streakValue: { color: '#ff6b6b', fontSize: '14px', fontWeight: 700 },
+  compactBars: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 4,
+    marginTop: 6,
+    minWidth: 88,
+  },
+  compactStreak: {
+    color: '#ff6b6b',
+    fontSize: 12,
+    fontWeight: 700,
+  },
 };

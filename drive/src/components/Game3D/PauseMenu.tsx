@@ -4,6 +4,7 @@
 import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useGameProgress } from '@/hooks/useGameProgress';
+import { controlsSchemeLabel } from '@/input/driveInput';
 
 export function PauseMenu({ onExit }: { onExit?: () => void }) {
   const phase = useGameStore((s) => s.phase);
@@ -15,6 +16,8 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
   const correctAnswers = useGameStore((s) => s.correctAnswers);
   const setPhase = useGameStore((s) => s.setPhase);
   const resetProgress = useGameStore((s) => s.resetProgress);
+  const controlsScheme = useGameStore((s) => s.controlsScheme);
+  const cycleControlsScheme = useGameStore((s) => s.cycleControlsScheme);
 
   const { saveProgress } = useGameProgress();
 
@@ -61,6 +64,12 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
         </div>
 
         <div style={styles.btnStack}>
+          <button
+            style={{ ...styles.btn, ...styles.btnControls }}
+            onClick={cycleControlsScheme}
+          >
+            CONTROLS · {controlsSchemeLabel(controlsScheme)}
+          </button>
           <button style={{ ...styles.btn, ...styles.btnResume }} onClick={handleResume}>
             ▶ RESUME
           </button>
@@ -197,6 +206,11 @@ const styles: Record<string, React.CSSProperties> = {
     border: 'none',
     minHeight: '48px',
     letterSpacing: '0.03em',
+  },
+  btnControls: {
+    background: '#1a1a2e',
+    color: '#ffd93d',
+    border: '1px solid rgba(255,209,102,0.45)',
   },
   btnResume: {
     background: 'linear-gradient(90deg, #ff00ff, #cc00cc)',

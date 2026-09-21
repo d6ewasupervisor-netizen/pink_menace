@@ -10,6 +10,12 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { Question } from '@/types/quiz';
+import {
+  type ControlsScheme,
+  clearStickAxes,
+  nextControlsScheme,
+  normalizeControlsScheme,
+} from '@/input/driveInput';
 
 export type GamePhase =
   | 'menu'
@@ -105,6 +111,7 @@ interface EconomySlice {
 
 interface SettingsSlice {
   steeringSensitivity: number; // 0.5–2.0
+  controlsScheme: ControlsScheme;
   cameraMode: CameraMode;
   isMuted: boolean;
   sfxVolume: number;    // 0–1
@@ -142,6 +149,7 @@ type GameState = ControlsSlice &
     resetProgress: () => void;
     togglePause: () => void;
     cycleCameraMode: () => void;
+    cycleControlsScheme: () => void;
     setMuted: (muted: boolean) => void;
     toggleMute: () => void;
     setSfxVolume: (vol: number) => void;
@@ -195,6 +203,7 @@ export const useGameStore = create<GameState>()(
 
       // Settings
       steeringSensitivity: 1.0,
+      controlsScheme: 'dual-steer-left' as ControlsScheme,
       cameraMode: 'chase' as CameraMode,
       isMuted: false,
       sfxVolume: 0.7,
@@ -227,6 +236,13 @@ export const useGameStore = create<GameState>()(
         const modes: CameraMode[] = ['chase', 'birdseye', 'profile', 'quiet'];
         const idx = modes.indexOf(get().cameraMode);
         set({ cameraMode: modes[(idx + 1) % modes.length] });
+      },
+
+      cycleControlsScheme: () => {
+        const next = nextControlsScheme(get().controlsScheme);
+        clearStickAxes();
+        set({ controlsScheme: next });
+        get().setControls({ steering: 0, throttle: 0, brake: 0, emergencyBrake: false });
       },
 
       setMuted: (muted) => set({ isMuted: muted }),
@@ -359,10 +375,11 @@ export const useGameStore = create<GameState>()(
 
       // ── Reset ───────────────────────────────────────────────────────────────
       resetProgress: () => {
-        const { steeringSensitivity, resetCounter } = get();
+        const { steeringSensitivity, controlsScheme, resetCounter } = get();
         set({
           ...defaultGameState,
           steeringSensitivity,
+          controlsScheme,
           phase: 'menu',
           vehiclePosition: [0, 0.7, 0] as [number, number, number],
           vehicleHeading: 0,
@@ -398,6 +415,7 @@ export const useGameStore = create<GameState>()(
         streak: state.streak,
         trafficHits: state.trafficHits,
         steeringSensitivity: state.steeringSensitivity,
+        controlsScheme: normalizeControlsScheme(state.controlsScheme),
         isMuted: state.isMuted,
         sfxVolume: state.sfxVolume,
         musicVolume: state.musicVolume,

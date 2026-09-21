@@ -4,6 +4,7 @@
  */
 import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
+import { useCompactHud } from '@/hooks/useCompactHud';
 
 export function EngineHUD() {
   const rpm = useGameStore((s) => s.engineRPM);
@@ -16,6 +17,7 @@ export function EngineHUD() {
   const throttle = useGameStore((s) => s.throttle);
   const brake = useGameStore((s) => s.brake);
   const steering = useGameStore((s) => s.steering);
+  const compact = useCompactHud();
 
   const handleMute = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -24,6 +26,8 @@ export function EngineHUD() {
 
   const redline = rpm > 6000;
   const rpmPercent = (rpm / 7000) * 100;
+
+  if (compact) return null;
 
   return (
     <div

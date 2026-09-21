@@ -8,6 +8,7 @@ import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
+import { useCompactHud } from '@/hooks/useCompactHud';
 
 const BAND = [
   { word: 'QUIET', color: '#39ff14', shape: '●' },
@@ -26,6 +27,7 @@ export function QuietHUD() {
   const setHorn = useQRHud((s) => s.setHorn);
   const run = useQRHud((s) => s.run);
   const setRun = useQRHud((s) => s.setRun);
+  const compact = useCompactHud();
   const [landscape, setLandscape] = useState(false);
   useEffect(() => {
     const check = () => setLandscape(window.innerWidth > window.innerHeight && 'ontouchstart' in window);
@@ -48,7 +50,7 @@ export function QuietHUD() {
     <div style={styles.root}>
       {/* Noise meter — top centre */}
       {active && (
-        <div style={styles.meterWrap}>
+        <div style={{ ...styles.meterWrap, ...(compact ? styles.meterWrapCompact : null) }}>
           <div style={styles.meterLabel}>
             <span style={{ color: band.color, fontWeight: 800 }}>{band.shape} {band.word}</span>
             <span style={{ color: '#777' }}>{Math.round(db)} dB</span>
@@ -79,12 +81,13 @@ export function QuietHUD() {
           <div>{objective}</div>
         </div>
       )}
-      <div style={styles.tp}>TP {Math.round(tp)}</div>
+      <div style={{ ...styles.tp, ...(compact ? styles.tpCompact : null) }}>TP {Math.round(tp)}</div>
 
       {/* Horn — big, deliberately in the way, because it should be a decision */}
       {driving && (
         <button
-          style={styles.horn}
+          data-ui
+          style={{ ...styles.horn, ...(compact ? styles.hornCompact : null) }}
           onPointerDown={(e) => { e.preventDefault(); setHorn(true); }}
           onPointerUp={() => setHorn(false)}
           onPointerLeave={() => setHorn(false)}
@@ -115,6 +118,7 @@ export function QuietHUD() {
 const styles: Record<string, React.CSSProperties> = {
   root: { position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 210, fontFamily: 'system-ui, sans-serif' },
   meterWrap: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', left: '50%', transform: 'translateX(-50%)', width: 220 },
+  meterWrapCompact: { width: 168, top: 'calc(6px + env(safe-area-inset-top))' },
   meterLabel: { display: 'flex', justifyContent: 'space-between', fontSize: 12, letterSpacing: '0.1em', marginBottom: 3 },
   meterTrack: { position: 'relative', height: 10, background: 'rgba(0,0,0,0.5)', borderRadius: 5, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.15)' },
   meterFill: { height: '100%', transition: 'width 80ms linear, background 200ms' },
@@ -126,7 +130,9 @@ const styles: Record<string, React.CSSProperties> = {
   objective: { position: 'absolute', top: 'calc(96px + env(safe-area-inset-top))', left: 16, maxWidth: 260, color: '#eee', fontSize: 13, background: 'rgba(0,0,0,0.45)', padding: '6px 10px', borderRadius: 8, borderLeft: '3px solid #F28DB2' },
   objTitle: { fontSize: 9, letterSpacing: '0.2em', color: '#F28DB2', marginBottom: 2 },
   tp: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', right: 16, color: '#ffd93d', fontWeight: 800, fontSize: 13, letterSpacing: '0.08em', background: 'rgba(0,0,0,0.45)', padding: '4px 8px', borderRadius: 6 },
+  tpCompact: { top: 'calc(52px + env(safe-area-inset-top))', right: 12, fontSize: 11, padding: '3px 7px' },
   horn: { position: 'absolute', bottom: 'calc(96px + env(safe-area-inset-bottom))', right: 16, width: 64, height: 64, borderRadius: 32, border: '2px solid #ff4444', background: 'rgba(120,20,20,0.55)', color: '#ff9a9a', fontWeight: 800, fontSize: 11, letterSpacing: '0.1em', pointerEvents: 'auto', touchAction: 'none', userSelect: 'none' },
+  hornCompact: { bottom: 'calc(178px + env(safe-area-inset-bottom))', right: 12, width: 52, height: 52, borderRadius: 26, fontSize: 10 },
   rotate: { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', background: 'rgba(10,12,18,0.92)', color: '#F28DB2', padding: '14px 18px', borderRadius: 10, fontSize: 15, fontWeight: 700, border: '1px solid #F28DB2', textAlign: 'center' },
   toast: { position: 'absolute', bottom: 'calc(180px + env(safe-area-inset-bottom))', left: '50%', transform: 'translateX(-50%)', background: 'rgba(10,12,18,0.92)', color: '#fff', padding: '10px 16px', borderRadius: 8, fontSize: 14, border: '1px solid rgba(255,255,255,0.2)', maxWidth: '90vw' },
 };
