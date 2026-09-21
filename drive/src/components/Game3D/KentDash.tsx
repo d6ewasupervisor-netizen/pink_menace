@@ -144,11 +144,19 @@ function paintGps(canvas: HTMLCanvasElement | null) {
     ctx.stroke();
   }
 
+  ctx.fillStyle = 'rgba(255,209,102,0.72)';
+  ctx.font = `700 ${Math.max(8, scale * 1.45)}px system-ui, sans-serif`;
+  ctx.textAlign = 'center';
+  for (const building of map.buildings) {
+    if (!building.label || building.label === 'JUNE') continue;
+    ctx.fillText(building.label, px(building.rect.x + building.rect.w / 2), py(building.rect.y + building.rect.h / 2) + 3);
+  }
+
   ctx.fillStyle = 'rgba(255,255,255,0.35)';
   ctx.font = `600 ${Math.max(9, scale * 1.6)}px system-ui, sans-serif`;
   ctx.textAlign = 'left';
   for (const road of map.roads) {
-    if (!road.name || road.name.includes('DRIVEWAY')) continue;
+    if (!road.name || road.name.includes('DRIVEWAY') || road.name.includes('LOT')) continue;
     const vertical = road.rect.h > road.rect.w * 1.6;
     const tx = px(road.rect.x + road.rect.w / 2);
     const ty = py(road.rect.y + road.rect.h / 2);
@@ -181,7 +189,7 @@ function paintGps(canvas: HTMLCanvasElement | null) {
 
   let heading = 0;
   if (walking) {
-    heading = sim.interior.facing;
+    heading = sim.walker.facing;
   } else {
     const yaw = g.vehicleHeading;
     heading = Math.atan2(-Math.cos(yaw), -Math.sin(yaw));

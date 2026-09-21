@@ -6,3 +6,4 @@ export * from "./vehicleObserver";
 export * from "./kentMap";
 export * from "./Simulation";
 export * from "./dol";
+export * from "./pharmacy";

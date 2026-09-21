@@ -239,7 +239,7 @@ class Bridge {
       const hud = useQRHud.getState();
       const input: WalkerInput = { x: g.steering, y: g.brake - g.throttle, run: hud.run };
       while (this.acc >= 1 / 60) { f = this.sim.stepWalker(1 / 60, input); this.acc -= 1 / 60; }
-      const w = this.sim.interior;
+      const w = this.sim.walker;
       useGameStore.setState({ walkerPosition: [w.pos.x, 0, w.pos.y] });
       const qteNow = !!w.qte;
       if (qteNow !== this.lastQte) { this.lastQte = qteNow; hud.setTransient({ qteActive: qteNow }); }

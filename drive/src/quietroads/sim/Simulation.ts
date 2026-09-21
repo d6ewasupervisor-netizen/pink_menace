@@ -1,15 +1,17 @@
-import { type Vec2, rectHas, rng, MPH } from "./math";
+import { type Vec2, dist, rectHas, rng, MPH } from "./math";
 import { NoiseSystem } from "./noise";
 import { QuietField, QuietState } from "./quiet";
 import { ZoneField } from "./zones";
 import { VehicleObserver, VEHICLE, type VehicleSample, type ObserverOut } from "./vehicleObserver";
 import { buildKentMap, type WorldMap } from "./kentMap";
 import { ParkingGrader, InteriorController, type WalkerInput } from "./dol";
+import { PharmacyDropoff } from "./pharmacy";
 import type { NoiseZone } from "./noise";
 
 export type MissionId =
   | "tutorial_carport" | "mission_dol_drive"
-  | "minigame_park_dol" | "stealth_dol_interior" | "chase_dol_gracie";
+  | "minigame_park_dol" | "stealth_dol_interior" | "chase_dol_gracie"
+  | "mission_delivery_1_insulin" | "dropoff_pharmacy";
 
 export type PlayerMode = "vehicle" | "walker";
 
@@ -47,6 +49,7 @@ export class Simulation {
   vehicle: VehicleObserver;
   parking: ParkingGrader;
   interior: InteriorController;
+  dropoff = new PharmacyDropoff();
   mode: PlayerMode = "vehicle";
   speedLimitMph = 25;
   missionId: MissionId | "" = "";
@@ -58,6 +61,8 @@ export class Simulation {
   private freezeReasons = new Set<string>();
   // tutorial state
   private tutStep = 0; private tutT = 0; private tutBlockEnd = false;
+  private deliverySmoothFired = false;
+  private lastVehicleHeading = 0;
 
   constructor(private ev: SimEvents, seed = 7) {
     this.map = buildKentMap(seed);
@@ -83,8 +88,22 @@ export class Simulation {
   }
 
   /** Where the player currently is, for noise attribution and the Quiet. */
-  get playerPos(): Vec2 { return this.mode === "walker" ? this.interior.pos : (this.lastVehiclePos ?? this.map.starts.carport.pos); }
-  get playerZone(): NoiseZone { return this.mode === "walker" ? this.interior.zone : "outdoor"; }
+  get playerPos(): Vec2 { return this.mode === "walker" ? this.walker.pos : (this.lastVehiclePos ?? this.map.starts.carport.pos); }
+  get playerZone(): NoiseZone { return this.mode === "walker" && this.missionId !== "dropoff_pharmacy" ? this.interior.zone : "outdoor"; }
+  /** On-foot pose the renderer/HUD read. Pharmacy dropoff is outdoor; DOL uses the interior controller. */
+  get walker() {
+    if (this.missionId === "dropoff_pharmacy") {
+      return {
+        pos: this.dropoff.pos,
+        facing: this.dropoff.facing,
+        speed: this.dropoff.speed,
+        carriers: { mya: false, gracie: false },
+        gracie: { pos: this.dropoff.pos, loose: false },
+        qte: null as { deadline: number } | null,
+      };
+    }
+    return this.interior;
+  }
   private lastVehiclePos: Vec2 | null = null;
 
   get frozen() { return this.freezeReasons.size > 0; }
@@ -133,6 +152,19 @@ export class Simulation {
         this.missionId = id; this.mode = "walker";
         this.interior.beginChase();
         break;
+      case "mission_delivery_1_insulin":
+        this.missionId = id; this.mode = "vehicle"; this.missionStart = "warehouse";
+        this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+        this.deliverySmoothFired = false;
+        this.setObjective("Pharmacy safehouse on Meeker. Keep it quiet.");
+        this.resetWorld();
+        break;
+      case "dropoff_pharmacy":
+        this.missionId = id; this.mode = "walker";
+        this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+        this.dropoff.reset(this.lastVehiclePos ?? this.map.markers.pharmacy, this.lastVehicleHeading);
+        this.setObjective("Clipboard. Insulin. Don't slam the door.");
+        break;
       default: return false;
     }
     this.ev.fire(`mission.start:${id}`);
@@ -146,6 +178,8 @@ export class Simulation {
 
   private resetWorld(resetQuiet = true) {
     const s = this.map.starts[this.missionStart];
+    this.lastVehiclePos = s.pos;
+    this.lastVehicleHeading = s.heading;
     this.ev.placeVehicle(s.pos, s.heading);
     if (resetQuiet) this.quiet.reset();
     this.noise.reset(); this.zones.reset(); this.vehicle.reset();
@@ -154,7 +188,12 @@ export class Simulation {
 
   softFail() {
     this.ev.fire("mission.fail.swarm", { mission: this.missionId });
-    if (this.mode === "walker") {
+    if (this.missionId === "dropoff_pharmacy") {
+      this.ev.toast("Swarmed. Back to the car. Try again.");
+      this.dropoff.reset(this.lastVehiclePos ?? this.map.markers.pharmacy, this.lastVehicleHeading);
+      this.noise.reset();
+      this.setObjective("Clipboard. Insulin. Don't slam the door.");
+    } else if (this.mode === "walker") {
       this.ev.toast("Swarmed. Out the door. Try again.");
       this.interior.reset();
       this.noise.reset();
@@ -168,6 +207,7 @@ export class Simulation {
   /** Advance the world with the player in the car. Returns everything the HUD/renderer needs. */
   step(dt: number, s: VehicleSample): SimFrame {
     this.lastVehiclePos = s.pos;
+    this.lastVehicleHeading = s.heading;
     let out: ObserverOut = { skidding: this.vehicle.skidding, stoppingM: 0, lateralG: 0 };
     if (!this.frozen && this.mode === "vehicle") {
       out = this.vehicle.step(dt, s, this.speedLimitMph);
@@ -179,6 +219,7 @@ export class Simulation {
       else if (hit === "soft") this.noise.emitKind("collision_soft", s.pos);
       if (this.missionId === "tutorial_carport") this.tutorialTick(dt, s);
       if (this.missionId === "minigame_park_dol") this.parking.step(dt, s);
+      if (this.missionId === "mission_delivery_1_insulin") this.deliveryTick(s);
     }
     return {
       ...out,
@@ -196,14 +237,20 @@ export class Simulation {
   /** Advance the world with the player on foot (1.3). */
   stepWalker(dt: number, input: WalkerInput): SimFrame {
     if (!this.frozen && this.mode === "walker") {
-      this.interior.step(dt, input);
-      this.noise.step(dt);
-      this.quiet.step(dt, this.interior.pos, (p) => this.blocked(p) || (rectHas(this.map.dol.floor, p) && !this.interior.walkable(p)), this.interior.zone);
+      if (this.missionId === "dropoff_pharmacy") {
+        this.dropoff.step(dt, input, (p) => this.blocked(p), this.map.markers.clipboard, this.ev);
+        this.noise.step(dt);
+        this.quiet.step(dt, this.dropoff.pos, (p) => this.blocked(p));
+      } else {
+        this.interior.step(dt, input);
+        this.noise.step(dt);
+        this.quiet.step(dt, this.interior.pos, (p) => this.blocked(p) || (rectHas(this.map.dol.floor, p) && !this.interior.walkable(p)), this.interior.zone);
+      }
     }
     return {
       mode: this.mode,
       skidding: false, stoppingM: 0, lateralG: 0,
-      speedMph: this.interior.speed / MPH,
+      speedMph: this.walker.speed / MPH,
       speedLimitMph: 0,
       noiseDb: this.noise.levelDb,
       noiseBand: this.noise.band,
@@ -219,6 +266,20 @@ export class Simulation {
       this.tutBlockEnd = true;
       this.setObjective("Now back to the carport. Same speed, same care.");
     }
+    if (name === "waypoint.reach:titus_fourway") this.ev.fire("intersection.fourway.approach");
+    if (name === "waypoint.reach:willis_uncontrolled") this.ev.fire("intersection.uncontrolled.approach");
+    if (this.missionId === "mission_delivery_1_insulin" && name === "waypoint.reach:pharmacy") {
+      this.setObjective("Park it. Insulin to the clipboard.");
+    }
+  }
+
+  private deliveryTick(s: VehicleSample) {
+    if (this.deliverySmoothFired) return;
+    if (s.brake < 0.22 || s.brake > 0.72) return;
+    if (Math.abs(s.speedMs) < 2.2) return;
+    if (!this.quiet.list.some((q) => dist(q.pos, s.pos) < 9)) return;
+    this.deliverySmoothFired = true;
+    this.ev.fire("brake.smooth_near_quiet");
   }
 
   /** Speed multiplier the car should apply when hit by a collision (R3F applies it to its own velocity). */
@@ -266,8 +327,12 @@ export class Simulation {
         return this.interior.gracie.loose
           ? { pos: this.interior.gracie.pos, label: "GRACIE" }
           : { pos: this.map.starts.dol_stall.pos, label: "BEETLE" };
+      case "mission_delivery_1_insulin":
+        return { pos: this.map.markers.pharmacy, label: "PHARMACY" };
+      case "dropoff_pharmacy":
+        return { pos: this.map.markers.clipboard, label: "CLIPBOARD" };
       default:
-        return { pos: this.map.markers.dol_lot, label: "DOL" };
+        return null;
     }
   }
 

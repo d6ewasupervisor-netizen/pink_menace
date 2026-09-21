@@ -2,8 +2,9 @@ import { type Rect, type Vec2, rng } from "./math";
 import type { ZoneDef } from "./zones";
 
 /**
- * Kent, two streets: Titus St (Grandma's block) and Central Ave south to the DOL.
- * Everything in metres. +x = east, +y = south. Heading 0 = east. R3F maps (x, y) → (X, Z).
+ * Kent: Titus (Grandma), Central south to the DOL, Meeker west to the pharmacy
+ * safehouse, Valley Rd north to Tuna's warehouse. Metres. +x = east, +y = south.
+ * Heading 0 = east. R3F maps (x, y) → (X, Z).
  */
 export interface RoadSeg { rect: Rect; name?: string }
 export interface SignDef { pos: Vec2; kind: "stop" | "school" | "rail" | "warning" | "speed"; text?: string }
@@ -55,12 +56,17 @@ export function buildKentMap(seed = 7): WorldMap {
   }
   buildings.push({ rect: { x: 282, y: 175, w: 26, h: 50 }, label: "KENT MIDDLE" });
   buildings.push({ rect: { x: 205, y: 380, w: 20, h: 40 }, label: "DOL" });
+  buildings.push({ rect: { x: 168, y: -58, w: 38, h: 26 }, label: "WAREHOUSE" });
+  buildings.push({ rect: { x: 146, y: 78, w: 30, h: 18 }, label: "PHARMACY" });
 
   const zones: ZoneDef[] = [
     { kind: "waypoint", id: "block_end", rect: c(250, 0, 6, 8) },
+    { kind: "waypoint", id: "titus_fourway", rect: c(265, 0, 18, 18) },
     { kind: "sign", id: "warning", rect: c(226, 0, 4, 8), quiz: "sign.prompt:warning" },
     { kind: "stop", id: "titus_central", rect: c(250.5, 0, 17, 8), quiz: "sign.prompt:regulatory", quizDelayS: 0.4 },
     { kind: "stop", id: "meeker", rect: c(265, 97, 10, 16), quiz: "stop.approach", quizDelayS: 0.4 },
+    { kind: "waypoint", id: "willis_uncontrolled", rect: c(200, 110, 12, 12) },
+    { kind: "waypoint", id: "pharmacy", rect: { x: 146, y: 96, w: 30, h: 10 } },
     { kind: "sign", id: "school", rect: c(265, 150, 10, 4), quiz: "sign.prompt:school", quizDelayS: 2.6 },
     { kind: "school", id: "central", rect: c(265, 200, 10, 80) },
     { kind: "sign", id: "rail_advance", rect: c(265, 285, 10, 4) },
@@ -106,6 +112,8 @@ export function buildKentMap(seed = 7): WorldMap {
   for (let i = 0; i < 20; i++) { const x = 22 + r() * 223; const side = r() < 0.5 ? 1 : -1; push({ x, y: side * (6 + r() * 9) }); }          // Titus yards
   for (let i = 0; i < 16; i++) { const y = 20 + r() * 345; const side = r() < 0.5 ? 1 : -1; push({ x: 265 + side * (7 + r() * 9), y }); }   // Central yards
   for (let i = 0; i < 12; i++) push({ x: 228 + (r() * 6 - 3), y: 384 + i * 3 });                                                             // the DOL queue
+  for (let i = 0; i < 6; i++) push({ x: 178 + r() * 22, y: 96 + r() * 10 });                                                                  // pharmacy lot edge
+  for (let i = 0; i < 3; i++) push({ x: 198 + (r() * 6 - 3), y: 84 + r() * 18 });                                                             // Willis yards
 
   return {
     bounds: { x: -30, y: -70, w: 360, h: 530 },
@@ -114,11 +122,14 @@ export function buildKentMap(seed = 7): WorldMap {
     roads: [
       { rect: { x: -10, y: -4, w: 279, h: 8 }, name: "TITUS ST" },
       { rect: { x: 260, y: -50, w: 10, h: 490 }, name: "CENTRAL AVE" },
-      { rect: { x: 215, y: 106, w: 100, h: 8 }, name: "MEEKER ST" },
+      { rect: { x: 140, y: 106, w: 180, h: 8 }, name: "MEEKER ST" },
+      { rect: { x: 170, y: -28, w: 96, h: 8 }, name: "VALLEY RD" },
+      { rect: { x: 196, y: 70, w: 8, h: 70 }, name: "WILLIS ST" },
+      { rect: { x: 146, y: 96, w: 30, h: 10 }, name: "PHARMACY LOT" },
       { rect: { x: 225, y: 380, w: 30, h: 40 }, name: "DOL LOT" },
       { rect: { x: 255, y: 382, w: 5, h: 10 }, name: "DOL DRIVEWAY" },
     ],
-    centerLines: [[{ x: -10, y: 0 }, { x: 258, y: 0 }], [{ x: 265, y: -50 }, { x: 265, y: 440 }], [{ x: 215, y: 110 }, { x: 315, y: 110 }]],
+    centerLines: [[{ x: -10, y: 0 }, { x: 258, y: 0 }], [{ x: 265, y: -50 }, { x: 265, y: 440 }], [{ x: 140, y: 110 }, { x: 320, y: 110 }], [{ x: 170, y: -24 }, { x: 260, y: -24 }], [{ x: 200, y: 70 }, { x: 200, y: 140 }]],
     stopLines: [[{ x: 259, y: -4 }, { x: 259, y: 4 }], [{ x: 260, y: 105 }, { x: 270, y: 105 }], [{ x: 260, y: 293 }, { x: 270, y: 293 }]],
     rail: { from: { x: 200, y: 300 }, to: { x: 330, y: 300 } },
     schoolZone: { x: 260, y: 160, w: 10, h: 80 },
@@ -131,10 +142,17 @@ export function buildKentMap(seed = 7): WorldMap {
       { pos: { x: 258.5, y: 285 }, kind: "rail" },
     ],
     zones,
-    markers: { carport: { x: 14, y: -14 }, dol_lot: { x: 240, y: 400 } },
+    markers: {
+      carport: { x: 14, y: -14 },
+      dol_lot: { x: 240, y: 400 },
+      warehouse: { x: 190, y: -24 },
+      pharmacy: { x: 161, y: 101 },
+      clipboard: { x: 161, y: 97.2 },
+    },
     quietSpawns: spawns,
     starts: {
       carport: { pos: { x: 14, y: 0 }, heading: 0 },
+      warehouse: { pos: { x: 190, y: -24 }, heading: 0 },                       // Valley Rd, facing east to Central
       dol_lot_entry: { pos: { x: 257.5, y: 387 }, heading: Math.PI },            // just inside the driveway, facing west
       dol_stall: { pos: { x: stalls[2].x + stalls[2].w / 2, y: 416.5 }, heading: Math.PI / 2 }, // parked, nose south
     },

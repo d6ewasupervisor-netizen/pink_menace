@@ -57,6 +57,8 @@ function Line({ a, b, color = '#ffffff', width = 0.3 }: { a: { x: number; y: num
 
 function Building({ r, label }: { r: Rect; label?: string }) {
   if (label === 'DOL') return <DolBuilding r={r} />;
+  if (label === 'PHARMACY') return <PharmacyBuilding r={r} />;
+  if (label === 'WAREHOUSE') return <WarehouseBuilding r={r} />;
   const h = label === 'KENT MIDDLE' ? 7 : 4 + ((r.x * 7 + r.y * 3) % 3);
   const color = label === 'DOL' ? '#8a8f96' : label === 'KENT MIDDLE' ? '#a8895e' : '#7c7368';
   return (
@@ -71,6 +73,84 @@ function Building({ r, label }: { r: Rect; label?: string }) {
         <meshStandardMaterial color="#3a352f" />
       </mesh>
     </RigidBody>
+  );
+}
+
+function PharmacyBuilding({ r }: { r: Rect }) {
+  const h = 4.4;
+  const cx = r.x + r.w / 2;
+  const cz = r.y + r.h / 2;
+  const doorZ = r.y + r.h;
+  return (
+    <group>
+      <RigidBody type="fixed" colliders={false} position={[cx, h / 2, cz]}>
+        <CuboidCollider args={[r.w / 2, h / 2, r.h / 2]} />
+        <mesh receiveShadow castShadow>
+          <boxGeometry args={[r.w, h, r.h]} />
+          <meshStandardMaterial color="#8a9a8e" roughness={0.88} />
+        </mesh>
+        <mesh position={[0, h / 2 + 0.14, 0]}>
+          <boxGeometry args={[r.w + 0.5, 0.28, r.h + 0.5]} />
+          <meshStandardMaterial color="#3a352f" />
+        </mesh>
+      </RigidBody>
+      <mesh position={[cx, 2.6, doorZ + 0.04]}>
+        <boxGeometry args={[1.7, 1.7, 0.08]} />
+        <meshStandardMaterial color="#1f4d3a" />
+      </mesh>
+      <mesh position={[cx, 2.6, doorZ + 0.08]}>
+        <boxGeometry args={[0.28, 1.15, 0.06]} />
+        <meshStandardMaterial color="#3ecf7a" emissive="#1d8a48" emissiveIntensity={0.45} />
+      </mesh>
+      <mesh position={[cx, 2.6, doorZ + 0.08]}>
+        <boxGeometry args={[1.15, 0.28, 0.06]} />
+        <meshStandardMaterial color="#3ecf7a" emissive="#1d8a48" emissiveIntensity={0.45} />
+      </mesh>
+      <mesh position={[cx, 2.55, doorZ + 0.7]}>
+        <boxGeometry args={[4.2, 0.08, 1.2]} />
+        <meshStandardMaterial color="#3a352f" />
+      </mesh>
+    </group>
+  );
+}
+
+function WarehouseBuilding({ r }: { r: Rect }) {
+  const h = 6.2;
+  const cx = r.x + r.w / 2;
+  const cz = r.y + r.h / 2;
+  return (
+    <RigidBody type="fixed" colliders={false} position={[cx, h / 2, cz]}>
+      <CuboidCollider args={[r.w / 2, h / 2, r.h / 2]} />
+      <mesh receiveShadow castShadow>
+        <boxGeometry args={[r.w, h, r.h]} />
+        <meshStandardMaterial color="#5a5854" roughness={0.92} />
+      </mesh>
+      <mesh position={[0, h / 2 + 0.16, 0]}>
+        <boxGeometry args={[r.w + 0.7, 0.32, r.h + 0.7]} />
+        <meshStandardMaterial color="#2f2d2a" />
+      </mesh>
+      <mesh position={[0, -0.4, r.h / 2 + 0.03]}>
+        <boxGeometry args={[8.5, 3.6, 0.08]} />
+        <meshStandardMaterial color="#3d3a36" />
+      </mesh>
+    </RigidBody>
+  );
+}
+
+function ClipboardWoman() {
+  const p = QuietRoads.sim.map.markers.clipboard;
+  if (!p) return null;
+  return (
+    <group position={[p.x, 0, p.y]}>
+      <mesh position={[-0.1, 0.45, 0]}><boxGeometry args={[0.16, 0.9, 0.2]} /><meshStandardMaterial color="#3a3340" /></mesh>
+      <mesh position={[0.1, 0.45, 0]}><boxGeometry args={[0.16, 0.9, 0.2]} /><meshStandardMaterial color="#3a3340" /></mesh>
+      <mesh position={[0, 1.2, 0]} castShadow><boxGeometry args={[0.42, 0.58, 0.26]} /><meshStandardMaterial color="#6b6e74" roughness={0.9} /></mesh>
+      <mesh position={[0, 1.66, 0]} castShadow><sphereGeometry args={[0.15, 10, 8]} /><meshStandardMaterial color="#c4a07a" /></mesh>
+      <mesh position={[0.18, 1.18, 0.16]} rotation={[-0.4, 0.2, 0.1]}>
+        <boxGeometry args={[0.18, 0.24, 0.03]} />
+        <meshStandardMaterial color="#c4b89a" />
+      </mesh>
+    </group>
   );
 }
 
@@ -188,7 +268,7 @@ function Walker() {
   const rightLegRef = useRef<THREE.Mesh>(null);
   useFrame((st) => {
     const g = root.current; if (!g) return;
-    const w = QuietRoads.sim.interior;
+    const w = QuietRoads.sim.walker;
     const walking = useGameStore.getState().phase === 'walking';
     g.visible = walking;
     if (!walking) return;
@@ -203,7 +283,7 @@ function Walker() {
   });
   useFrame(() => {
     const gl = gracieLooseRef.current; if (!gl) return;
-    const w = QuietRoads.sim.interior;
+    const w = QuietRoads.sim.walker;
     gl.visible = w.gracie.loose && useGameStore.getState().phase === 'walking';
     if (gl.visible) gl.position.set(w.gracie.pos.x, 0.18, w.gracie.pos.y);
   });
@@ -276,7 +356,7 @@ export function KentWorld() {
       </RigidBody>
       <RectPlane r={map.bounds} y={0} color="#4f5f45" />
 
-      {map.roads.map((r, i) => <RectPlane key={i} r={r.rect} y={ROAD_Y} color={r.name === 'DOL LOT' ? '#5b5e63' : '#3a3d42'} />)}
+      {map.roads.map((r, i) => <RectPlane key={i} r={r.rect} y={ROAD_Y} color={r.name?.endsWith('LOT') ? '#5b5e63' : '#3a3d42'} />)}
       {map.centerLines.map(([a, b], i) => <Dashes key={i} a={a} b={b} />)}
       {map.stopLines.map(([a, b], i) => <Line key={i} a={a} b={b} />)}
       {map.schoolZone && <RectPlane r={map.schoolZone} y={MARK_Y} color="#ffe680" opacity={0.12} />}
@@ -290,6 +370,7 @@ export function KentWorld() {
       )}
 
       {map.buildings.map((b, i) => <Building key={i} r={b.rect} label={b.label} />)}
+      <ClipboardWoman />
       {map.signs.map((s, i) => <Sign key={i} s={s} />)}
       <ParkingStalls />
       <Walker />
