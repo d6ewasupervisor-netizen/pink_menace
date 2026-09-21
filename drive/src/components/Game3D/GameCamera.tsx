@@ -93,6 +93,7 @@ export function GameCamera() {
 
   useFrame((_, delta) => {
     const state = useGameStore.getState();
+    if (state.phase === 'quiz' || state.phase === 'card') return;
     const walking = state.phase === 'walking';
     const [vx, vy, vz] = walking ? state.walkerPosition : state.vehiclePosition;
     const heading = walking ? 0 : state.vehicleHeading;

@@ -34,7 +34,8 @@ export function PostProcessing({ lowEnd }: { lowEnd?: boolean }) {
   const noiseRef = useRef<any>(null);
 
   useFrame(() => {
-    const { velocityMph, timeOfDay, mileage } = useGameStore.getState();
+    const { velocityMph, timeOfDay, mileage, phase } = useGameStore.getState();
+    if (phase === 'quiz' || phase === 'card') return;
     const weather = getWeather(mileage);
     const speedNorm = Math.min(1, velocityMph / 70);
 

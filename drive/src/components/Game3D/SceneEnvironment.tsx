@@ -33,8 +33,8 @@ export function SceneEnvironment({ lowEnd }: { lowEnd?: boolean }) {
 
   useFrame(() => {
     if (lowEnd) return;
-
-    const { timeOfDay, mileage } = useGameStore.getState();
+    const { timeOfDay, mileage, phase } = useGameStore.getState();
+    if (phase === 'quiz' || phase === 'card') return;
     const weather = getWeather(mileage);
 
     let target = 0.45;

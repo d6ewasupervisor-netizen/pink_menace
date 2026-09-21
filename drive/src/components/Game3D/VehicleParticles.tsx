@@ -92,6 +92,7 @@ export function VehicleParticles() {
     if (!mesh) return;
 
     const { velocityMph, engineRPM, phase } = useGameStore.getState();
+    if (phase === 'quiz' || phase === 'card') return;
     const slip = getSlipState();
     const isDriving = phase === 'driving';
     const dt = Math.min(delta, 0.05); // cap delta

@@ -105,7 +105,7 @@ export function registerVehicleBody(body: RapierRigidBody | null): void {
 
 /** Signed forward speed in m/s (negative = reversing). */
 export function getCurrentSpeedMs(): number {
-  return currentSpeed;
+  return _hold ? _hold.speed : currentSpeed;
 }
 
 /** Measured sideways slip ratio (|lateral v| / |forward v|) from the last tick. */
@@ -198,23 +198,101 @@ export function getPacejkaForce(slip: number, normal: number, mu: number): numbe
   return D * Math.sin(1.9 * Math.atan(10 * slip - 0.97 * (10 * slip - Math.atan(10 * slip))));
 }
 
-// ─── Quiz speed save / restore ───────────────────────────────────────────────
-let _quizSavedSpeed = 0;
+// ─── Question hold / restore ─────────────────────────────────────────────────
+// A quiz or in-world card freezes the car in place. The snapshot is the whole
+// moment: speed, pedal ramp, heading, spin, and where the body sat, so the
+// answer puts the car back on the same line it was driving.
+type DriveSnap = {
+  speed: number;
+  throttle: number;
+  brake: number;
+  accel: number;
+  rpm: number;
+  gear: number;
+  heading: number;
+  mph: number;
+  timeOfDay: string;
+  pos: { x: number; y: number; z: number };
+  rot: { x: number; y: number; z: number; w: number };
+  linvel: { x: number; y: number; z: number };
+  angvel: { x: number; y: number; z: number };
+};
+
+let _hold: DriveSnap | null = null;
+let _blendGrace = 0;
 
 /**
- * Save the current forward speed then call haltVehicle().
- * Use this instead of bare haltVehicle() when you need the car to resume at
- * the same speed after an interruption (quiz, card during driving, etc.).
+ * Capture the car and then stop it. A second call while a hold is active
+ * does nothing, so a later halt can't overwrite the real moment with zeros.
  */
-export function saveAndHalt(): void {
-  _quizSavedSpeed = currentSpeed;
+export function holdDrive(): void {
+  if (_hold) return;
+  const store = useGameStore.getState();
+  const t = _body?.translation();
+  const r = _body?.rotation();
+  const lv = _body?.linvel();
+  const av = _body?.angvel();
+  const [px, py, pz] = store.vehiclePosition;
+  _hold = {
+    speed: currentSpeed,
+    throttle: smoothedThrottle,
+    brake: smoothedBrake,
+    accel: smoothedAccel,
+    rpm: engine.rpm,
+    gear: engine.gear,
+    heading: store.vehicleHeading,
+    mph: Math.round(Math.abs(currentSpeed) / MPH_TO_MS),
+    timeOfDay: store.timeOfDay,
+    pos: t ? { x: t.x, y: t.y, z: t.z } : { x: px, y: py, z: pz },
+    rot: r ? { x: r.x, y: r.y, z: r.z, w: r.w } : { x: 0, y: 0, z: 0, w: 1 },
+    linvel: lv ? { x: lv.x, y: lv.y, z: lv.z } : { x: 0, y: 0, z: 0 },
+    angvel: av ? { x: av.x, y: av.y, z: av.z } : { x: 0, y: 0, z: 0 },
+  };
   haltVehicle();
 }
 
-/** Restore the speed saved by saveAndHalt(). No-op if nothing was saved. */
+/** Put the held moment back on the body. No-op if nothing is held. */
+export function releaseDrive(): void {
+  const snap = _hold;
+  if (!snap) return;
+  _hold = null;
+  _blendGrace = 3;
+  currentSpeed = snap.speed;
+  smoothedThrottle = snap.throttle;
+  smoothedBrake = snap.brake;
+  smoothedAccel = snap.accel;
+  engine.rpm = snap.rpm;
+  engine.gear = snap.gear;
+  engine.throttle = snap.throttle;
+  const store = useGameStore.getState();
+  store.setVehiclePosition([snap.pos.x, snap.pos.y, snap.pos.z]);
+  store.setVehicleHeading(snap.heading);
+  store.setVelocityMph(snap.mph);
+  store.setEngineRPM(Math.round(snap.rpm));
+  store.setEngineGear(snap.gear);
+  store.setEngineSpeed(snap.mph);
+  if (store.timeOfDay !== snap.timeOfDay) useGameStore.setState({ timeOfDay: snap.timeOfDay as typeof store.timeOfDay });
+  if (_body) {
+    _body.setTranslation(snap.pos, true);
+    _body.setRotation(snap.rot, true);
+    _body.setLinvel(snap.linvel, true);
+    _body.setAngvel(snap.angvel, true);
+  }
+}
+
+/** Drop a hold without moving the car (game over during a question). */
+export function discardDriveHold(): void {
+  _hold = null;
+}
+
+/** @deprecated Use holdDrive. Kept so older call sites still freeze the right moment. */
+export function saveAndHalt(): void {
+  holdDrive();
+}
+
+/** @deprecated Use releaseDrive. */
 export function resumeSpeed(): void {
-  if (_quizSavedSpeed !== 0) currentSpeed = _quizSavedSpeed;
-  _quizSavedSpeed = 0;
+  releaseDrive();
 }
 
 // ─── Main tick ───────────────────────────────────────────────────────────────
@@ -228,9 +306,18 @@ export function tickVehicle(
   const { steering, throttle: throttleInput, brake: brakeInput, phase, emergencyBrake } = store;
 
   if (phase !== 'driving') {
+    // A question pins the body to the pose it had when the prompt opened,
+    // so gravity and contacts can't yaw it while the player is reading.
+    if (_hold && (phase === 'quiz' || phase === 'card')) {
+      body.setTranslation(_hold.pos, true);
+      body.setRotation(_hold.rot, true);
+      body.setLinvel({ x: 0, y: 0, z: 0 }, true);
+      body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+      return;
+    }
     // Kill any residual Rapier velocity so the car doesn't coast while paused,
-    // during a quiz, in cutscene, or walking. linearDamping is 0, so without
-    // this the body keeps rolling indefinitely after the last setLinvel call.
+    // in a cutscene, or walking. linearDamping is 0, so without this the body
+    // keeps rolling indefinitely after the last setLinvel call.
     const lv = body.linvel();
     if (Math.abs(lv.x) + Math.abs(lv.z) > 0.001) {
       body.setLinvel({ x: 0, y: lv.y, z: 0 }, true);
@@ -255,7 +342,8 @@ export function tickVehicle(
   const actualForwardSpeed = forward.x * linvel.x + forward.z * linvel.z;
   const lateralSpeed = right.x * linvel.x + right.z * linvel.z;
 
-  if (actualForwardSpeed < currentSpeed - COLLISION_SPEED_DROP) {
+  if (_blendGrace > 0) _blendGrace -= 1;
+  else if (actualForwardSpeed < currentSpeed - COLLISION_SPEED_DROP) {
     currentSpeed = THREE.MathUtils.lerp(
       currentSpeed,
       actualForwardSpeed,

@@ -268,6 +268,8 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
 
   // ── Dynamic light / window overrides each frame ───────────────────────────────
   useFrame((_, delta) => {
+    // A question leaves the wheels, blinkers, and bounce exactly as they were.
+    if (phase === 'quiz' || phase === 'card') return;
     // ── Wheel spin + steering (separate hub vs mesh to avoid Euler coupling) ──
     const isDriving = phase === 'driving';
     const speedMs = velocityMph * 0.44704;
@@ -280,7 +282,7 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
     updateWheelRigs(wheelRigsRef.current, spinRate, delta, targetSteerY, 10);
 
     // ── Suspension bounce on body only (wheels stay on the road) ─────────────
-    if (bodyGroupRef.current) {
+    if (bodyGroupRef.current && isDriving) {
       bouncePhase.current += delta * (2 + velocityMph * 0.08);
       const bounceAmp = 0.012 + Math.min(velocityMph / 70, 1) * 0.025;
       bodyGroupRef.current.position.y =
@@ -468,9 +470,11 @@ export function Vehicle() {
 
   useFrame((_, delta) => {
     if (bodyRef.current) tickVehicle(bodyRef.current, delta, world, rapier);
+    const phase = useGameStore.getState().phase;
+    if (phase === 'quiz' || phase === 'card') return;
     updatePlow(delta);
     plowAngleDisplay.current = plowAngle.current;
-  });
+  }, -1);
 
   return (
     <RigidBody

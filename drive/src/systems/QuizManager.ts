@@ -5,6 +5,7 @@
 import { useEffect, useRef } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { loadQuizContent, getRandomQuestion } from '@/lib/quiz-loader';
+import { holdDrive } from '@/systems/VehicleController';
 import { Question, QuizContent, Category } from '@/types/quiz';
 
 // ─── Fallback questions (if JSON load fails) ──────────────────────────────────
@@ -125,6 +126,7 @@ export function useQuizManager() {
       answeredIds.length >= content.questions.length ? [] : answeredIds;
 
     const question = getRandomQuestion(content, validExcludeIds);
+    holdDrive();
     triggerQuiz(question);
   }, [quizActive]); // eslint-disable-line react-hooks/exhaustive-deps
 }

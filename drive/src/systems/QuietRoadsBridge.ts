@@ -34,7 +34,7 @@ import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import type { Question, Category } from '@/types/quiz';
-import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, saveAndHalt, resumeSpeed } from '@/systems/VehicleController';
+import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, holdDrive, releaseDrive } from '@/systems/VehicleController';
 import { DriveSync } from '@/systems/DriveSync';
 
 // The R3F Beetle brakes at 8 m/s² (MAX_BRAKE_DECEL in VehicleController). The stopping
@@ -230,6 +230,9 @@ class Bridge {
   tick(dt: number) {
     if (!this.started) return;
     const g = useGameStore.getState();
+    // A question stops the clock too, so a timer that was about to fire
+    // waits until the car is moving again.
+    if (g.phase === 'quiz' || g.phase === 'card') return;
     this.clock += dt;
     // Only simulate while driving/walking; dialogue/quiz/pause freeze the world.
     if (g.phase !== 'driving' && g.phase !== 'walking') return;
@@ -280,7 +283,7 @@ class Bridge {
     const options = [...q.choices];
     this.activeQuiz = { q, shownAt: performance.now(), options };
     this.quizCooldownUntil = this.clock + 20;
-    saveAndHalt(); // saves current speed so it can be restored when quiz closes
+    holdDrive();
     this.sim.freeze('quiz');
     g.triggerQuiz(this.toGameQuestion(q));
     this.fire('quiz.open', { id: q.id, trigger });
@@ -321,7 +324,7 @@ class Bridge {
   }
 
   /** QuizOverlay calls this on Continue. */
-  onQuizClosed() { this.sim.unfreeze('quiz'); this.activeQuiz = null; resumeSpeed(); }
+  onQuizClosed() { this.sim.unfreeze('quiz'); this.activeQuiz = null; releaseDrive(); }
 
   // ---------------------------------------------------------------- cards
   private cardShownAt = 0;
@@ -330,7 +333,8 @@ class Bridge {
     this.cardShownAt = performance.now();
     if (source === 'world') this.worldCardReturnPhase = g.phase === 'walking' ? 'walking' : 'driving';
     this.cardsSeen.add(id);
-    haltVehicle();
+    if (g.phase === 'driving') holdDrive();
+    else haltVehicle();
     this.sim.freeze('card');
     useQRHud.getState().setTransient({ card: { id, source } });
     g.setPhase('card');
@@ -347,6 +351,7 @@ class Bridge {
     const active = useQRHud.getState().card;
     useQRHud.getState().setTransient({ card: null });
     this.sim.unfreeze('card');
+    releaseDrive();
     if (!active) return;
     if (active.source === 'story') {
       // The runner grades, logs, and moves to the next node; the scene type decides the phase.

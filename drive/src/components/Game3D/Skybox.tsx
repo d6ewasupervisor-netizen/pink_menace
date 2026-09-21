@@ -77,8 +77,8 @@ function RainEffect() {
   useFrame((_, delta) => {
     const mesh = meshRef.current;
     if (!mesh) return;
-
-    const { vehiclePosition } = useGameStore.getState();
+    const { vehiclePosition, phase } = useGameStore.getState();
+    if (phase === 'quiz' || phase === 'card') return;
     const dt = Math.min(delta, 0.05);
 
     for (let i = 0; i < RAIN_COUNT; i++) {
@@ -161,10 +161,11 @@ export function Skybox() {
   const currentSun = useRef(new THREE.Vector3(...SUN_POSITIONS.day));
 
   useFrame(() => {
+    const state = useGameStore.getState();
+    if (state.phase === 'quiz' || state.phase === 'card') return;
     frameCount.current++;
     if (frameCount.current % 30 !== 0) return; // update every ~0.5s
 
-    const state = useGameStore.getState();
     const tod = state.timeOfDay;
     const currentWeather = getWeather(state.mileage);
     setWeather((prev) => (prev === currentWeather ? prev : currentWeather));

@@ -224,6 +224,8 @@ function DolInterior() {
   const carrierRef = useRef<THREE.Group>(null);
   const screenRef = useRef<THREE.MeshStandardMaterial>(null);
   useFrame((st) => {
+    const phase = useGameStore.getState().phase;
+    if (phase === 'quiz' || phase === 'card') return;
     const at = QuietRoads.sim.interior.myaCarrierAt;
     if (carrierRef.current) { carrierRef.current.visible = !!at; if (at) carrierRef.current.position.set(at.x, 0.2, at.y); }
     if (screenRef.current) screenRef.current.emissiveIntensity = 1.4 + Math.sin(st.clock.elapsedTime * 9) * 0.15; // emergency power flicker
@@ -316,6 +318,8 @@ function ParkingStalls() {
   const glow = useRef<THREE.MeshBasicMaterial>(null);
   useFrame((st) => {
     if (!glow.current) return;
+    const phase = useGameStore.getState().phase;
+    if (phase === 'quiz' || phase === 'card') return;
     const active = QuietRoads.sim.missionId === 'minigame_park_dol';
     glow.current.opacity = active ? 0.22 + Math.sin(st.clock.elapsedTime * 3) * 0.1 : 0.0;
   });

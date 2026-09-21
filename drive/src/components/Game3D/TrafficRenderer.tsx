@@ -86,6 +86,8 @@ function NpcCar({
   }, [actions, animations]);
 
   useFrame((_, delta) => {
+    const phase = useGameStore.getState().phase;
+    if (phase === 'quiz' || phase === 'card') return;
     const g = groupRef.current;
     const npc = npcRef.current;
     if (!g || !npc.active) {
@@ -178,6 +180,7 @@ export function TrafficRenderer({
   }, [resetCounter]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useFrame((_, delta) => {
+    if (phase === 'quiz' || phase === 'card') return;
     if (phase !== 'driving') {
       setNpcFlareSources([]);
       return;

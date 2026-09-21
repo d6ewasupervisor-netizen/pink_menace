@@ -47,6 +47,7 @@ export function SkidMarks() {
     if (!mesh) return;
 
     const { vehiclePosition, vehicleHeading, phase } = useGameStore.getState();
+    if (phase === 'quiz' || phase === 'card') return;
     const slip = getSlipState();
     const dt = Math.min(delta, 0.05);
 

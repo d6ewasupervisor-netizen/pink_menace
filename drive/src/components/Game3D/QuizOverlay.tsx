@@ -6,7 +6,7 @@ import { useGameStore } from '@/stores/gameStore';
 import { useGameProgress } from '@/hooks/useGameProgress';
 import { AudioManager } from '@/systems/AudioManager';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
-import { resumeSpeed } from '@/systems/VehicleController';
+import { discardDriveHold, releaseDrive } from '@/systems/VehicleController';
 
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -19,6 +19,7 @@ function shuffleArray<T>(arr: T[]): T[] {
 
 export function QuizOverlay() {
   const phase = useGameStore((s) => s.phase);
+  const worldMode = useGameStore((s) => s.worldMode);
   const currentQuestion = useGameStore((s) => s.currentQuestion);
   const streak = useGameStore((s) => s.streak);
   const answerQuiz = useGameStore((s) => s.answerQuiz);
@@ -28,12 +29,14 @@ export function QuizOverlay() {
   const [selected, setSelected] = useState<string | null>(null);
   const [result, setResult] = useState<{ correct: boolean; coinsEarned: number } | null>(null);
   const [options, setOptions] = useState<string[]>([]);
+  const [dismissed, setDismissed] = useState(false);
 
   // Shuffle options when question changes
   useEffect(() => {
     if (!currentQuestion) return;
     setSelected(null);
     setResult(null);
+    setDismissed(false);
     setOptions(
       shuffleArray([currentQuestion.correctAnswer, ...currentQuestion.wrongAnswers])
     );
@@ -46,6 +49,19 @@ export function QuizOverlay() {
       const res = answerQuiz(answer);
       setResult(res);
       if (currentQuestion.source === 'quietroads') QuietRoads.onQuizAnswered(currentQuestion.id, answer, res.correct);
+
+      // The answer is in. Put the car and the world back on the moment the
+      // question opened, and let that moment run. A wrong answer that ends
+      // the run leaves the car where it stopped.
+      if (useGameStore.getState().phase === 'gameover') {
+        discardDriveHold();
+      } else if (currentQuestion.source === 'quietroads') {
+        QuietRoads.onQuizClosed();
+        setPhase('driving');
+      } else {
+        releaseDrive();
+        setPhase('driving');
+      }
 
       // Audio feedback
       if (res.correct) {
@@ -67,17 +83,38 @@ export function QuizOverlay() {
   );
 
   const handleContinue = useCallback(() => {
-    if (currentQuestion?.source === 'quietroads') {
-      QuietRoads.onQuizClosed(); // unfreezes sim + restores saved speed for Kent mode
-    } else {
-      resumeSpeed(); // highway mode: restore pre-quiz speed
-    }
-    setPhase('driving');
+    setDismissed(true);
     setSelected(null);
     setResult(null);
-  }, [setPhase, currentQuestion]);
+  }, []);
 
-  if (phase !== 'quiz' || !currentQuestion) return null;
+  if (dismissed || !currentQuestion) return null;
+  if (phase !== 'quiz' && !(result && phase === 'driving')) return null;
+
+  if (result && phase === 'driving') {
+    return (
+      <div style={styles.dock} data-ui>
+        <div style={{ ...styles.result, borderColor: result.correct ? '#39ff14' : '#ff4444', marginBottom: 10 }}>
+          <div style={{ ...styles.verdict, color: result.correct ? '#39ff14' : '#ff4444' }}>
+            {result.correct ? 'CORRECT' : 'WRONG'}
+          </div>
+          {result.correct ? (
+            <p style={styles.resultText}>+{result.coinsEarned} Z-Coins</p>
+          ) : (
+            <>
+              {worldMode !== 'kent' && <p style={{ ...styles.resultText, color: '#ff9a9a' }}>−10 HP</p>}
+              {currentQuestion.explanation && (
+                <p style={styles.explanation}>{currentQuestion.explanation}</p>
+              )}
+            </>
+          )}
+        </div>
+        <button data-ui style={styles.continueBtn} onClick={handleContinue}>
+          CONTINUE
+        </button>
+      </div>
+    );
+  }
 
   const categoryLabel = currentQuestion.category.replace(/_/g, ' ').toUpperCase();
 
@@ -256,6 +293,21 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: '14px',
     color: '#aab',
     lineHeight: 1.45,
+  },
+  dock: {
+    position: 'fixed',
+    left: '50%',
+    bottom: 'calc(16px + env(safe-area-inset-bottom))',
+    transform: 'translateX(-50%)',
+    width: 'min(420px, calc(100vw - 24px))',
+    zIndex: 100,
+    pointerEvents: 'auto',
+    fontFamily: 'system-ui, sans-serif',
+    color: '#e8e6e1',
+    background: 'rgba(7, 8, 12, 0.88)',
+    border: '1px solid rgba(255,255,255,0.14)',
+    borderRadius: 14,
+    padding: 14,
   },
   continueBtn: {
     width: '100%',

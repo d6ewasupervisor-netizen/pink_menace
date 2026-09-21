@@ -62,10 +62,11 @@ export function Lighting() {
   const frameCount = useRef(0);
 
   useFrame(() => {
+    const state = useGameStore.getState();
+    if (state.phase === 'quiz' || state.phase === 'card') return;
     frameCount.current++;
     if (frameCount.current % 15 !== 0) return; // update ~4x/sec
 
-    const state = useGameStore.getState();
     const tod = state.timeOfDay;
     const weather = getWeather(state.mileage);
     const preset = PRESETS[tod][weather];

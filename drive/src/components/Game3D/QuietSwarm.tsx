@@ -8,6 +8,7 @@ import { useMemo, useRef } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
+import { useGameStore } from '@/stores/gameStore';
 import { asset } from '@/lib/asset';
 
 const CELL_W = 160, CELL_H = 400, COUNT = 6;
@@ -82,6 +83,7 @@ export function QuietSwarm() {
 
   useFrame((st) => {
     const m = meshRef.current; if (!m) return;
+    if (useGameStore.getState().phase === 'quiz' || useGameStore.getState().phase === 'card') return;
     mat.uniforms.uTime.value = st.clock.elapsedTime;
     const stateAttr = geom.getAttribute('aState') as THREE.InstancedBufferAttribute;
     let stateDirty = false;
