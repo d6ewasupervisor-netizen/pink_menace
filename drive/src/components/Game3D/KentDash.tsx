@@ -1,8 +1,7 @@
 /**
  * KentDash — one navigation cluster for Quiet Roads.
- * The map is heading-up and locked on the driver. Streets, the route, and the
- * pin move around that point. The turn card and the speed readout stay put,
- * the way a navigation display keeps its chrome while the map tracks the car.
+ * The map is a view from above and behind the car: the chevron sits low,
+ * the scale is pulled back, and the street ahead fills the glass.
  */
 import { useEffect, useRef, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
@@ -18,7 +17,7 @@ import {
   type NavPlan,
 } from './kentNav';
 
-const PX_PER_M = 2.4;
+const PX_PER_M = 0.95;
 const DIGIT_MASK: Record<string, number> = {
   '0': 0x3f,
   '1': 0x06,
@@ -131,7 +130,7 @@ export function KentDash() {
 
   const { plan } = readout;
   const speedColor = readout.over ? '#ff5c6a' : '#3ef0ff';
-  const digit = stacked ? { w: 13, h: 24 } : { w: 18, h: 34 };
+  const digit = stacked ? { w: 11, h: 20 } : { w: 14, h: 26 };
 
   return (
     <div ref={rootRef} style={place(edge, compact, stacked)} aria-label="Navigation">
@@ -155,7 +154,7 @@ export function KentDash() {
         ) : (
           <div style={styles.row}>
             <NavCard plan={plan} mph={readout.mph} dense={compact} />
-            <div ref={gapRef} style={{ ...styles.gap, flexBasis: compact ? 72 : 96 }} />
+            <div ref={gapRef} style={{ ...styles.gap, flexBasis: compact ? 48 : 64 }} />
             <SpeedCard
               readout={readout}
               speedColor={speedColor}
@@ -181,14 +180,14 @@ function NavCard({ plan, mph, dense }: { plan: NavPlan; mph: number; dense: bool
   return (
     <div style={{ ...styles.nav, ...(dense ? styles.navDense : null) }}>
       <div style={styles.navTop}>
-        <TurnGlyph kind={plan.kind} size={dense ? 28 : 40} />
+        <TurnGlyph kind={plan.kind} size={dense ? 22 : 28} />
         <div style={styles.navText}>
           {plan.hasDest && (
-            <div style={{ ...styles.dist, fontSize: dense ? 16 : 22 }}>
+            <div style={{ ...styles.dist, fontSize: dense ? 14 : 17 }}>
               {formatManeuverDist(plan.distM)}
             </div>
           )}
-          <div style={{ ...styles.street, fontSize: dense ? 11 : 13 }}>{plan.street}</div>
+          <div style={{ ...styles.street, fontSize: dense ? 10 : 11 }}>{plan.street}</div>
         </div>
       </div>
       {plan.hasDest && plan.thenKind && (
@@ -218,7 +217,7 @@ function SpeedCard({
   narrow?: boolean;
 }) {
   return (
-    <div style={{ ...styles.speed, width: narrow ? 118 : 148 }}>
+    <div style={{ ...styles.speed, width: narrow ? 96 : 118 }}>
       <div style={styles.speedTop}>
         <span style={{ ...styles.clock, color: speedColor, textShadow: `0 0 8px ${speedColor}` }}>{readout.clock}</span>
       </div>
@@ -357,20 +356,20 @@ function place(edge: DashEdge, compact: boolean, stacked: boolean): React.CSSPro
     position: 'fixed',
     zIndex: 215,
     pointerEvents: 'none',
-    borderRadius: 18,
+    borderRadius: 14,
     overflow: 'hidden',
-    background: 'rgba(7, 12, 20, 0.42)',
-    backdropFilter: 'blur(16px) saturate(1.15)',
-    WebkitBackdropFilter: 'blur(16px) saturate(1.15)',
-    border: '1px solid rgba(255,255,255,0.16)',
-    boxShadow: '0 12px 32px rgba(0,0,0,0.28)',
+    background: 'rgba(7, 12, 20, 0.16)',
+    backdropFilter: 'blur(6px) saturate(1.05)',
+    WebkitBackdropFilter: 'blur(6px) saturate(1.05)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    boxShadow: '0 6px 18px rgba(0,0,0,0.16)',
     color: '#fff',
     fontFamily: 'system-ui, sans-serif',
   };
   if (stacked) {
     return {
       ...common,
-      width: 'min(248px, 60vw)',
+      width: 'min(196px, 48vw)',
       bottom: 'calc(12px + env(safe-area-inset-bottom))',
       ...(edge === 'right'
         ? { right: 'max(10px, env(safe-area-inset-right))' }
@@ -379,7 +378,7 @@ function place(edge: DashEdge, compact: boolean, stacked: boolean): React.CSSPro
   }
   return {
     ...common,
-    width: 'min(560px, calc(100vw - 16px))',
+    width: 'min(400px, calc(100vw - 16px))',
     top: compact
       ? 'calc(78px + env(safe-area-inset-top))'
       : 'calc(58px + env(safe-area-inset-top))',
@@ -410,13 +409,15 @@ function paintMap(
 
   const scale = dpr * PX_PER_M;
   let anchorX = w / 2;
-  let anchorY = h / 2;
+  let anchorY = h * 0.78;
   if (gap && cssW > 0 && cssH > 0) {
     const gr = gap.getBoundingClientRect();
     const rr = root.getBoundingClientRect();
     if (gr.width > 4 && gr.height > 4) {
       anchorX = (gr.left + gr.width / 2 - rr.left) * (w / rr.width);
-      anchorY = (gr.top + gr.height / 2 - rr.top) * (h / rr.height);
+      // The view sits above and behind the car. The chevron rides the
+      // bottom of the map so the street ahead fills the glass.
+      anchorY = (gr.bottom - 16 - rr.top) * (h / rr.height);
     }
   }
 
@@ -437,7 +438,7 @@ function paintMap(
 
   ctx.fillStyle = 'rgba(255,255,255,0.05)';
   for (const building of map.buildings) {
-    if (!rectNear(building.rect, here, 220)) continue;
+    if (!rectNear(building.rect, here, 420)) continue;
     traceRect(ctx, building.rect, to);
     ctx.fill();
   }
@@ -629,35 +630,35 @@ const styles: Record<string, React.CSSProperties> = {
     zIndex: 1,
     display: 'flex',
     flexDirection: 'column',
-    gap: 6,
-    padding: 8,
+    gap: 4,
+    padding: 6,
   },
   row: {
     display: 'flex',
     alignItems: 'stretch',
-    gap: 8,
+    gap: 6,
   },
   gap: {
-    flex: '1 0 84px',
-    minHeight: 108,
+    flex: '1 0 56px',
+    minHeight: 72,
   },
   mapBand: {
-    height: 96,
+    height: 88,
   },
   nav: {
-    flex: '1 1 168px',
+    flex: '1 1 132px',
     minWidth: 0,
-    maxWidth: 240,
-    background: 'rgba(6, 18, 16, 0.55)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: 14,
-    padding: '8px 10px 7px',
+    maxWidth: 176,
+    background: 'rgba(6, 18, 16, 0.2)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: 10,
+    padding: '5px 7px 5px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
   navDense: {
-    padding: '6px 8px',
+    padding: '4px 6px',
   },
   navTop: {
     display: 'flex',
@@ -685,25 +686,25 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     gap: 6,
-    marginTop: 6,
+    marginTop: 4,
     color: 'rgba(255,255,255,0.62)',
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: 650,
   },
   eta: {
-    marginTop: 8,
-    paddingTop: 6,
-    borderTop: '1px solid rgba(255,255,255,0.14)',
-    fontSize: 12,
+    marginTop: 5,
+    paddingTop: 4,
+    borderTop: '1px solid rgba(255,255,255,0.12)',
+    fontSize: 11,
     fontWeight: 700,
     letterSpacing: '0.01em',
   },
   speed: {
     flex: '0 0 auto',
-    background: 'rgba(8, 14, 32, 0.55)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: 14,
-    padding: '6px 8px 7px',
+    background: 'rgba(8, 14, 32, 0.2)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: 10,
+    padding: '4px 6px 5px',
     display: 'flex',
     flexDirection: 'column',
     gap: 4,
@@ -715,7 +716,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   clock: {
     fontFamily: 'ui-monospace, monospace',
-    fontSize: 13,
+    fontSize: 11,
     fontWeight: 700,
     letterSpacing: '0.12em',
     lineHeight: 1,
@@ -780,8 +781,8 @@ const styles: Record<string, React.CSSProperties> = {
   },
   objective: {
     color: '#fff',
-    fontSize: 13,
-    lineHeight: 1.35,
+    fontSize: 11,
+    lineHeight: 1.3,
     padding: '2px 6px 2px',
     textShadow: '0 1px 2px rgba(0,0,0,0.85)',
   },
