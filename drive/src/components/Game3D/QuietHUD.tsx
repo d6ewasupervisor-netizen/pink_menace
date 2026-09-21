@@ -20,7 +20,6 @@ const BAND = [
 export function QuietHUD() {
   const worldMode = useGameStore((s) => s.worldMode);
   const phase = useGameStore((s) => s.phase);
-  const velocityMph = useGameStore((s) => s.velocityMph);
   const frame = useQRHud((s) => s.frame);
   const toast = useQRHud((s) => s.toast);
   const tp = useQRStore((s) => s.vars.trade_points ?? 0);
@@ -43,8 +42,6 @@ export function QuietHUD() {
   const band = BAND[frame?.noiseBand ?? 0];
   const db = frame?.noiseDb ?? 20;
   const pct = Math.max(0, Math.min(1, (db - 20) / 80));
-  const limit = frame?.speedLimitMph ?? 25;
-  const over = velocityMph > limit + 5;
   const counts = QuietRoads.sim.quietSummary();
   const awake = counts.curious + counts.alert + counts.swarm;
 
@@ -65,14 +62,6 @@ export function QuietHUD() {
           <div style={styles.awake}>
             {awake === 0 ? 'nobody\u2019s looking' : `${awake} looking${counts.swarm ? ` · ${counts.swarm} coming` : ''}`}
           </div>
-        </div>
-      )}
-
-      {/* Speed limit sign — right side under the speedometer */}
-      {driving && (
-        <div style={{ ...styles.limit, borderColor: over ? '#ff4444' : '#fff', color: over ? '#ff4444' : '#111' }}>
-          <div style={styles.limitTitle}>SPEED<br />LIMIT</div>
-          <div style={styles.limitNum}>{limit}</div>
         </div>
       )}
 
@@ -130,9 +119,6 @@ const styles: Record<string, React.CSSProperties> = {
   meterFill: { height: '100%', transition: 'width 80ms linear, background 200ms' },
   meterMark: { position: 'absolute', top: 0, bottom: 0, width: 1, background: 'rgba(255,255,255,0.5)' },
   awake: { textAlign: 'center', fontSize: 10, color: '#999', marginTop: 3, letterSpacing: '0.08em' },
-  limit: { position: 'absolute', top: 'calc(112px + env(safe-area-inset-top))', right: 16, width: 44, background: '#fff', border: '3px solid', borderRadius: 6, textAlign: 'center', padding: '3px 0', fontWeight: 800, lineHeight: 1 },
-  limitTitle: { fontSize: 8, letterSpacing: '0.05em' },
-  limitNum: { fontSize: 20, marginTop: 2 },
   tp: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', right: 16, color: '#ffd93d', fontWeight: 800, fontSize: 13, letterSpacing: '0.08em', background: 'rgba(0,0,0,0.45)', padding: '4px 8px', borderRadius: 6 },
   tpCompact: { top: 'calc(52px + env(safe-area-inset-top))', right: 12, fontSize: 11, padding: '3px 7px' },
   horn: { position: 'absolute', bottom: 'calc(96px + env(safe-area-inset-bottom))', right: 16, width: 64, height: 64, borderRadius: 32, border: '2px solid #ff4444', background: 'rgba(120,20,20,0.55)', color: '#ff9a9a', fontWeight: 800, fontSize: 11, letterSpacing: '0.1em', pointerEvents: 'auto', touchAction: 'none', userSelect: 'none' },
