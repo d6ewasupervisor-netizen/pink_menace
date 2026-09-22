@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#9a3d4d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>PINK MENACE</title>
-      <link rel="stylesheet" href="/shared/app.css?v=p61">
+      <link rel="stylesheet" href="/shared/app.css?v=p62">
 </head>
 <body>
   <main class="shell">
@@ -18,10 +18,12 @@
     </div>
 
     <header id="play-header" class="play-header hidden">
-      <button type="button" id="hdr-back" class="hdr-btn" aria-label="Back">‹</button>
-      <p id="hdr-title" class="hdr-title">PINK MENACE</p>
-      <button type="button" id="hdr-home" class="hdr-btn" aria-label="Home">⌂</button>
-      <p id="hdr-saved" class="hdr-saved"></p>
+      <button type="button" id="hdr-back" class="hdr-btn" aria-label="Log">Log</button>
+      <div class="hdr-mid">
+        <p id="hdr-title" class="hdr-title">PINK MENACE</p>
+        <p id="hdr-chip" class="hdr-chip hidden"></p>
+      </div>
+      <button type="button" id="hdr-home" class="hdr-btn" aria-label="Home">Home</button>
     </header>
 
     <section id="gate" class="panel">
@@ -46,7 +48,7 @@
       <p id="gate-msg" class="msg"></p>
     </section>
 
-    <section id="confirm" class="panel hidden">
+    <section id="confirm" class="panel hidden" role="dialog" aria-modal="true">
       <p id="confirm-q" class="decision"></p>
       <div class="actions">
         <button id="confirm-yes" type="button">Yes</button>
@@ -65,7 +67,8 @@
         <div id="acts" class="act-list"></div>
         <article class="act-row locked" id="pass-row">
           <p class="act-name">The pass</p>
-          <p class="meta">Locked. The herd is on it.</p>
+          <p class="meta" id="pass-meta">Locked. The herd is on it.</p>
+          <span class="act-meter" aria-hidden="true"><i id="pass-fill"></i></span>
         </article>
         <h2 class="home-h">The Log</h2>
         <div id="log" class="list"></div>
@@ -76,14 +79,15 @@
       <div id="run" class="panel hidden">
         <div id="dash" class="dash">
           <div id="cooler-tag" class="cooler-tag" aria-live="polite">
-            <span class="cooler-label">COLD</span>
+            <span class="cooler-label" id="cooler-name">CARGO</span>
             <span id="cooler-min">130 MIN</span>
+            <span id="cooler-delta" class="cooler-delta hidden"></span>
             <span id="cooler-float" class="cooler-float hidden"></span>
           </div>
           <ul class="meters">
-            <li><span>noise</span><b><i id="m-noise"></i></b></li>
-            <li><span>light</span><b><i id="m-light"></i></b></li>
-            <li><span>yaw</span><b><i id="m-yaw"></i></b></li>
+            <li id="meter-noise" data-band="low"><span class="meter-word" id="mw-noise">● Quiet</span><b><i id="m-noise"></i></b><span class="meter-num" id="mn-noise">0</span></li>
+            <li id="meter-light" data-band="low"><span class="meter-word" id="mw-light">● Dark</span><b><i id="m-light"></i></b><span class="meter-num" id="mn-light">0</span></li>
+            <li id="meter-yaw" data-band="low"><span class="meter-word" id="mw-yaw">● Straight</span><b><i id="m-yaw"></i></b><span class="meter-num" id="mn-yaw">0</span></li>
           </ul>
         </div>
         <div id="shot-wrap" class="shot-wrap hidden">
@@ -109,22 +113,34 @@
             <img id="bark-face" alt="">
             <p id="bark-line"></p>
           </div>
+          <button type="button" id="shot-close" class="shot-close">Close</button>
+          <p id="shot-hint" class="shot-hint hidden">Tap the picture</p>
         </div>
+        <p id="card-kind" class="card-kind hidden"></p>
         <h2 id="title"></h2>
-        <button type="button" id="hook" class="hook hidden"></button>
+        <p id="hook" class="hook hidden"></p>
         <p id="scene" class="scene hidden"></p>
         <p id="decision" class="decision"></p>
         <div id="choice-dock" class="choice-dock">
-          <div id="hazard-clock" class="hazard-clock hidden"><i id="hazard-fill"></i></div>
+          <div id="hazard-clock" class="hazard-clock hidden">
+            <div class="hazard-head"><span id="hazard-kind">Hazard</span><span id="hazard-sec"></span></div>
+            <i id="hazard-fill"></i>
+          </div>
+          <div id="recap-clock" class="hazard-clock hidden">
+            <div class="hazard-head"><span>Recap</span><span id="recap-sec"></span></div>
+            <i id="recap-fill"></i>
+          </div>
           <div id="options" class="options"></div>
+          <p id="answer-err" class="msg hidden"></p>
           <p id="result" class="result hidden"></p>
-          <p id="debrief" class="result hidden"></p>
+          <div id="debrief" class="result hidden"></div>
           <div class="actions">
             <button id="continue" class="hidden" type="button">Continue</button>
             <button id="play-again" class="hidden" type="button">Play again</button>
             <button id="resume-live" class="ghost hidden" type="button">Resume</button>
           </div>
         </div>
+        <button type="button" id="choices-below" class="choices-below hidden">Choices below</button>
         <div id="manifest" class="manifest hidden">
           <div class="clipboard">
             <div class="clipboard-clip" aria-hidden="true"></div>
@@ -170,8 +186,8 @@
       </div>
     </section>
   </main>
-  <script src="/shared/auth.js?v=p31"></script>
-  <script src="/feel.js?v=p55"></script>
-  <script src="/app.js?v=p52"></script>
+  <script src="/shared/auth.js?v=p32"></script>
+  <script src="/feel.js?v=p56"></script>
+  <script src="/app.js?v=p53"></script>
 </body>
 </html>

@@ -44,8 +44,9 @@ export function DialogueBox() {
   // content-aware countdown outside of full-cutscene mode (phase = 'dialogue').
   // A visible bar replaces the static "tap" hint so the player can see it coming.
   const isCutscene = phase === 'dialogue';
+  const holdForSteer = phase === 'driving' && Boolean(line);
   useEffect(() => {
-    if (isCutscene || choices) return;
+    if (isCutscene || choices || holdForSteer) return;
 
     const text = line ? line.text : direction?.node.text;
     if (!text) return;
@@ -67,7 +68,7 @@ export function DialogueBox() {
       window.clearInterval(intervalId);
       window.clearTimeout(timeoutId);
     };
-  }, [line, direction, choices, isCutscene]);
+  }, [line, direction, choices, isCutscene, holdForSteer]);
 
   if (worldMode !== 'kent' || phase === 'quiz' || phase === 'paused' || phase === 'menu' || phase === 'card') return null;
   if (!line && !direction && !choices) return null;
@@ -80,7 +81,7 @@ export function DialogueBox() {
 
   // Show the countdown bar whenever auto-dismiss is running (non-cutscene,
   // no choices, no manual auto_ms already set on the node).
-  const showCountdown = !cutscene && !choices && (
+  const showCountdown = !cutscene && !choices && !holdForSteer && (
     (line && line.auto_ms == null) || (direction && !line && direction.node.auto_ms == null)
   );
 

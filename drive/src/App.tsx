@@ -36,7 +36,8 @@ function Shell() {
     return (
       <Center>
         <div>
-          <div style={{ marginBottom: 20 }}>Kent, before first light…</div>
+          <div style={{ marginBottom: 8, color: '#c45a68', letterSpacing: '0.16em' }}>PINK MENACE</div>
+          <div style={{ marginBottom: 20, color: '#9a9186' }}>Quiet Roads</div>
           <BootProgress />
         </div>
       </Center>
@@ -55,7 +56,7 @@ function Shell() {
 
 function Center({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#121010', color: '#ede7dc', fontFamily: '"Segoe UI", system-ui, sans-serif', fontSize: 16, letterSpacing: '0.04em' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#121010', color: '#ede7dc', fontFamily: 'Georgia, "Times New Roman", serif', fontSize: 16, letterSpacing: '0.04em' }}>
       {children}
     </div>
   )
@@ -84,7 +85,7 @@ function BootProgress() {
 const bootStyles: Record<string, React.CSSProperties> = {
   wrap: { display: 'flex', alignItems: 'center', gap: 10 },
   track: { width: 220, height: 6, background: '#2a2326', borderRadius: 3, overflow: 'hidden' },
-  fill: { height: '100%', background: 'linear-gradient(90deg, #F28DB2, #39ff14)', borderRadius: 3, transition: 'width 0.2s' },
+  fill: { height: '100%', background: 'linear-gradient(90deg, #9a3d4d, #c45a68)', borderRadius: 3, transition: 'width 0.2s' },
   pct: { fontSize: 11, letterSpacing: '0.12em', color: '#8a8f99', minWidth: 34, textAlign: 'right' },
 }
 

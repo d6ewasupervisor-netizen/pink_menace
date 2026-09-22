@@ -42,14 +42,9 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
   return (
     <div style={styles.overlay}>
       <div style={styles.container}>
-        {/* Bouncing car */}
-        <div style={styles.carBounce}>🚗</div>
-
-        <h1 style={styles.title}>K-POP<br />ROAD WARRIOR</h1>
-        <p style={styles.subtitle}>NYC → Spokane, WA</p>
-        <p style={styles.tagline}>
-          Drive, dodge, and ace your road test!
-        </p>
+        <h1 style={styles.title}>PINK<br />MENACE</h1>
+        <p style={styles.subtitle}>QUIET ROADS</p>
+        <p style={styles.tagline}>Kent. Grandma's Beetle.</p>
 
         <div style={styles.btnStack}>
           <button style={{ ...styles.btn, ...styles.btnQuiet }} onClick={handleQuietRoadsNew}>
@@ -85,12 +80,6 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
         <p style={styles.credit}>Ali's Aigoo Apocalypse</p>
       </div>
 
-      <style>{`
-        @keyframes bounce {
-          0%,100% { transform: translateY(0); }
-          50%      { transform: translateY(-12px); }
-        }
-      `}</style>
     </div>
   );
 }
@@ -99,7 +88,7 @@ const styles: Record<string, React.CSSProperties> = {
   overlay: {
     position: 'fixed',
     inset: 0,
-    background: '#121212',
+    background: '#121010',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -112,29 +101,24 @@ const styles: Record<string, React.CSSProperties> = {
     maxWidth: '380px',
     width: '100%',
   },
-  carBounce: {
-    fontSize: '56px',
-    display: 'inline-block',
-    animation: 'bounce 1.2s ease-in-out infinite',
-    marginBottom: '0.5rem',
-  },
   title: {
-    color: '#ff00ff',
-    fontFamily: '"Black Ops One", "Impact", sans-serif',
+    color: '#c45a68',
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontWeight: 400,
     fontSize: '32px',
     lineHeight: 1.1,
-    textShadow: '0 0 20px rgba(255,0,255,0.6)',
+    letterSpacing: '0.14em',
     marginBottom: '0.5rem',
   },
   subtitle: {
-    color: '#39ff14',
-    fontSize: '14px',
-    letterSpacing: '0.2em',
+    color: '#9a9186',
+    fontSize: '13px',
+    letterSpacing: '0.18em',
     marginBottom: '0.25rem',
   },
   tagline: {
-    color: '#888',
-    fontSize: '13px',
+    color: '#ede7dc',
+    fontSize: '14px',
     marginBottom: '2rem',
   },
   btnStack: {
@@ -158,36 +142,36 @@ const styles: Record<string, React.CSSProperties> = {
     transition: 'opacity 0.15s',
   },
   btnNew: {
-    background: 'linear-gradient(90deg, #ff00ff, #cc00cc)',
-    color: 'white',
-    boxShadow: '0 0 20px rgba(255,0,255,0.4)',
-    fontSize: '18px',
-    letterSpacing: '0.05em',
+    background: 'transparent',
+    color: '#ede7dc',
+    border: '1px solid #3a3230',
+    fontSize: '16px',
+    letterSpacing: '0.04em',
   },
   btnQuiet: {
-    background: 'linear-gradient(90deg, #F28DB2, #b95f88)',
-    color: '#1a0a12',
-    boxShadow: '0 0 20px rgba(242,141,178,0.4)',
+    background: 'linear-gradient(90deg, #9a3d4d, #c45a68)',
+    color: '#f4eee6',
+    boxShadow: 'none',
     fontSize: '17px',
     letterSpacing: '0.04em',
   },
   btnContinue: {
-    background: 'linear-gradient(90deg, #1a4a1a, #2d7a2d)',
-    color: '#39ff14',
-    border: '1px solid #39ff14',
+    background: '#1b1716',
+    color: '#8fb58a',
+    border: '1px solid #8fb58a',
   },
   saveSummary: {
     fontSize: '11px',
-    color: '#6bcb77',
+    color: '#9a9186',
     fontWeight: 400,
   },
   btnExit: {
     background: 'transparent',
-    color: '#666',
-    border: '1px solid #333',
+    color: '#9a9186',
+    border: '1px solid #3a3230',
   },
   credit: {
-    color: '#333',
+    color: '#3a3230',
     fontSize: '11px',
     letterSpacing: '0.1em',
   },

@@ -912,12 +912,20 @@ function hookOf(card) {
   return words.slice(0, 12).join(" ");
 }
 
+function cargoNameOf(act) {
+  if (act === "II") return "Insulin";
+  if (act === "V") return "Relay kit";
+  if (act === "III") return "Cargo";
+  return "Cargo";
+}
+
 function publicState(state) {
   const s = state || {};
   const cargo = cargoFrom(s);
   const cold = coldFrom(s);
   const warming = warmingFrom(s, cargo);
   return {
+    cargo_name: cargoNameOf(s.cargo_act),
     noise: Number(s.noise) || 0,
     light: Number(s.light) || 0,
     yaw: Number(s.yaw) || 0,
@@ -952,6 +960,11 @@ async function publicCard(cardId) {
   const brief = extra.image_brief || {};
   const variation = extra.variation || {};
   const timeOfDay = card.time_of_day || variation.time_of_day || null;
+  const { rows: siblings } = await query(
+    `SELECT card_id FROM cards WHERE act = $1 ORDER BY seq ASC, card_id ASC`,
+    [card.act]
+  );
+  const placeIndex = siblings.findIndex((r) => r.card_id === card.card_id) + 1;
   return {
     card_id: card.card_id,
     card_type: card.card_type,
@@ -962,6 +975,12 @@ async function publicCard(cardId) {
     decision: card.decision,
     act: card.act,
     zone: card.zone,
+    place: {
+      act: card.act,
+      zone: card.zone,
+      index: placeIndex > 0 ? placeIndex : 1,
+      total: siblings.length,
+    },
     driver: card.driver || extra.driver || "ali",
     weather: card.weather || variation.weather || null,
     time_of_day: timeOfDay,
@@ -1131,9 +1150,12 @@ async function progressFor(run) {
   const saved = done
     ? `Saved · Act ${currentAct}, complete`
     : `Saved · Act ${currentAct}, card ${idx} of ${total}`;
+  const cardTitle = current ? current.title : "";
   const resumeLabel = done
     ? null
-    : `Resume — ${zone}, card ${idx}`;
+    : cardTitle
+      ? `Resume — ${cardTitle}`
+      : `Resume — ${zone}, card ${idx}`;
 
   const unlocked = new Set();
   for (const c of catalog) {

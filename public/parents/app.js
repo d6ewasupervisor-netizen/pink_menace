@@ -78,25 +78,48 @@ function renderStudents(items) {
     if (st.last4) card.append(el("p", "meta", "••• " + st.last4));
     const cov = st.coverage || {};
     for (const act of cov.acts || []) {
-      const zones = (act.zones || [])
-        .map((z) => z.zone + (z.completed ? " done" : ""))
-        .join(" · ");
-      card.append(el("p", "meta", "Act " + act.act + " · " + zones));
+      for (const z of act.zones || []) {
+        const row = el("div", "cov-row");
+        const practiced = Number(z.practiced) || 0;
+        const total = Number(z.total) || 0;
+        row.append(el("span", "cov-name", "Act " + act.act + " · " + z.zone));
+        row.append(el("span", "cov-num", practiced + " / " + total));
+        const meter = el("span", "act-meter");
+        const fill = document.createElement("i");
+        fill.style.width = (total ? Math.min(100, Math.round((practiced / total) * 100)) : 0) + "%";
+        meter.append(fill);
+        row.append(meter);
+        card.append(row);
+      }
     }
-    const skills = el("ul", "stat");
-    for (const s of cov.skills || []) {
-      const li = el("li");
-      const dates = (s.dates || []).join(", ");
-      li.textContent = s.name + " · " + s.minutes + " min · " + s.band + (dates ? " · " + dates : "");
-      skills.appendChild(li);
+    const skillList = cov.skills || [];
+    const skillMax = skillList.reduce((n, s) => Math.max(n, Number(s.minutes) || 0), 0);
+    for (const s of skillList) {
+      const minutes = Number(s.minutes) || 0;
+      const row = el("div", "cov-row");
+      row.append(el("span", "cov-name", s.name));
+      row.append(el("span", "cov-num", minutes + " min · " + s.band));
+      const meter = el("span", "act-meter");
+      const fill = document.createElement("i");
+      fill.style.width = (skillMax ? Math.min(100, Math.round((minutes / skillMax) * 100)) : 0) + "%";
+      meter.append(fill);
+      row.append(meter);
+      card.append(row);
     }
-    card.appendChild(skills);
     const dol = cov.dol || { covered: [], remaining: [] };
-    card.append(el("p", "meta", "DOL covered: " + (dol.covered.join("; ") || "—")));
-    card.append(el("p", "meta", "DOL remaining: " + (dol.remaining.join("; ") || "—")));
+    card.append(el("p", "meta", "Covered · " + (dol.covered.length ? dol.covered.join(", ") : "none yet")));
+    card.append(el("p", "meta", "Remaining · " + (dol.remaining.length ? dol.remaining.join(", ") : "none")));
     const ft = cov.first_try || {};
     if (ft.total) {
-      card.append(el("p", "meta", "First try: " + ft.clean + " of " + ft.total));
+      const row = el("div", "cov-row");
+      row.append(el("span", "cov-name", "First try"));
+      row.append(el("span", "cov-num", ft.clean + " / " + ft.total));
+      const meter = el("span", "act-meter");
+      const fill = document.createElement("i");
+      fill.style.width = Math.min(100, Math.round((ft.clean / ft.total) * 100)) + "%";
+      meter.append(fill);
+      row.append(meter);
+      card.append(row);
     }
     const log = el("button", "ghost", "Print log");
     log.addEventListener("click", () => {
@@ -149,12 +172,18 @@ PM.bindGate({
 });
 
 document.getElementById("copy-url").addEventListener("click", async () => {
+  const btn = document.getElementById("copy-url");
   const url = document.getElementById("game-url").textContent;
+  const prev = btn.textContent;
   try {
     await navigator.clipboard.writeText(url);
+    btn.textContent = "Copied";
   } catch {
-    // ignore
+    btn.textContent = "Couldn't copy";
   }
+  window.setTimeout(() => {
+    btn.textContent = prev;
+  }, 1600);
 });
 
 document.getElementById("add-student").addEventListener("click", async () => {

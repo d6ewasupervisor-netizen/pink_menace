@@ -121,8 +121,8 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
 
 function StatRow({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', borderBottom: '1px solid #1e2d4a' }}>
-      <span style={{ color: '#777', fontSize: '13px' }}>{label}</span>
+    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', borderBottom: '1px solid #3a3230' }}>
+      <span style={{ color: '#9a9186', fontSize: '13px' }}>{label}</span>
       <span style={{ color: color ?? 'white', fontSize: '13px', fontWeight: 700 }}>{value}</span>
     </div>
   );
@@ -201,7 +201,7 @@ const styles: Record<string, React.CSSProperties> = {
   overlay: {
     position: 'fixed',
     inset: 0,
-    background: 'rgba(0,0,0,0.85)',
+    background: 'rgba(18,16,16,0.92)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -210,15 +210,19 @@ const styles: Record<string, React.CSSProperties> = {
     pointerEvents: 'auto',
   },
   modal: {
-    background: 'linear-gradient(145deg, #1a1a2e, #16213e)',
-    border: '2px solid #334',
+    background: '#1b1716',
+    border: '1px solid #9a3d4d',
     borderRadius: '16px',
     padding: '2rem',
     maxWidth: '380px',
     width: '100%',
+    color: '#ede7dc',
   },
   title: {
-    color: 'white',
+    color: '#c45a68',
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontWeight: 400,
+    letterSpacing: '0.12em',
     fontSize: '22px',
     marginBottom: '1.25rem',
     textAlign: 'center',
@@ -242,18 +246,18 @@ const styles: Record<string, React.CSSProperties> = {
     letterSpacing: '0.03em',
   },
   btnControls: {
-    background: '#1a1a2e',
-    color: '#ffd93d',
-    border: '1px solid rgba(255,209,102,0.45)',
+    background: '#1b1716',
+    color: '#ede7dc',
+    border: '1px solid #3a3230',
   },
   btnResume: {
-    background: 'linear-gradient(90deg, #ff00ff, #cc00cc)',
-    color: 'white',
+    background: 'linear-gradient(90deg, #9a3d4d, #c45a68)',
+    color: '#f4eee6',
   },
   btnSaveExit: {
-    background: '#1a3a1a',
-    color: '#39ff14',
-    border: '1px solid #39ff14',
+    background: 'transparent',
+    color: '#ede7dc',
+    border: '1px solid #3a3230',
   },
   btnRestart: {
     background: '#3a1a1a',

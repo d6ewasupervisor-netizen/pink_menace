@@ -51,20 +51,58 @@ const PMFeel = (() => {
     return Math.max(0, Math.min(100, (Number(n) || 0) * 12));
   }
 
+  function meterBand(n) {
+    const v = Number(n) || 0;
+    if (v <= 2) return "low";
+    if (v <= 5) return "mid";
+    return "high";
+  }
+
+  function meterShape(band) {
+    if (band === "high") return "■";
+    if (band === "mid") return "▲";
+    return "●";
+  }
+
+  function paintMeter(key, label, val) {
+    const n = Math.max(0, Math.round(Number(val) || 0));
+    const band = meterBand(n);
+    const bar = document.getElementById("m-" + key);
+    const word = document.getElementById("mw-" + key);
+    const num = document.getElementById("mn-" + key);
+    const row = document.getElementById("meter-" + key);
+    if (bar) bar.style.width = meterPct(n) + "%";
+    if (word) word.textContent = meterShape(band) + " " + label;
+    if (num) num.textContent = String(n);
+    if (row) row.dataset.band = band;
+  }
+
+  function paintColdDelta(text, gain) {
+    const el = document.getElementById("cooler-delta");
+    if (!el) return;
+    if (!text) {
+      el.textContent = "";
+      el.classList.add("hidden");
+      el.classList.remove("gain");
+      return;
+    }
+    el.textContent = text;
+    el.classList.toggle("gain", Boolean(gain));
+    el.classList.remove("hidden");
+  }
+
   function paintMeters(state) {
     const s = state || {};
-    const set = (id, val) => {
-      const el = document.getElementById(id);
-      if (el) el.style.width = meterPct(val) + "%";
-    };
-    set("m-noise", s.noise);
-    set("m-light", s.light);
-    set("m-yaw", s.yaw);
+    paintMeter("noise", "Quiet", s.noise);
+    paintMeter("light", "Dark", s.light);
+    paintMeter("yaw", "Straight", s.yaw);
     const tag = document.getElementById("cooler-tag");
     const min = document.getElementById("cooler-min");
+    const name = document.getElementById("cooler-name");
     const cold = Math.max(0, Math.round(Number(s.cold) || 0));
     const warming = Math.max(0, Math.round(Number(s.warming) || 0));
     const warmingLive = cold <= 0 && warming > 0;
+    if (name && s.cargo_name) name.textContent = String(s.cargo_name).toUpperCase();
     if (min) {
       min.textContent = warmingLive ? "0 · WARMING " + warming + " MIN" : cold + " MIN";
     }
@@ -87,6 +125,7 @@ const PMFeel = (() => {
     el.textContent = "−" + cost + " MIN";
     el.classList.remove("hidden");
     el.replaceWith(el.cloneNode(true));
+    paintColdDelta("−" + cost + " MIN", false);
   }
 
   function floatHoldGain(n) {
@@ -101,6 +140,7 @@ const PMFeel = (() => {
     el.textContent = "+" + gain + " MIN";
     el.classList.remove("hidden");
     el.replaceWith(el.cloneNode(true));
+    paintColdDelta("+" + gain + " MIN", true);
   }
 
   function spikeMeters(prev, next) {
@@ -1033,6 +1073,7 @@ const PMFeel = (() => {
     splitDebrief,
     kenClass,
     paintMeters,
+    paintColdDelta,
     floatTimeCost,
     spikeMeters,
     easeMeters,

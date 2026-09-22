@@ -34,6 +34,18 @@ let recapTimer = 0;
 let recapAdvancing = false;
 const CAUGHT_KEY = "pm.caught";
 const REVEAL_KEY = "pm.actReveal.";
+const SHOT_HINT_KEY = "pm.shotHint";
+const KIND = {
+  hazard: "Hazard",
+  rule: "Rule",
+  dossier: "Dossier",
+  scene: "Scene",
+  "ride-along": "Ride",
+  beat: "Beat",
+  convoy: "Convoy",
+  ledger: "Ledger",
+};
+let confirmJob = null;
 
 function revealSeen(act) {
   try {
@@ -82,12 +94,26 @@ function clearLive() {
   sessionStorage.removeItem(LIVE_KEY);
 }
 
-function setHeader({ title, saved, back }) {
+function setHeader({ title, place, back, home }) {
   document.getElementById("hdr-title").textContent = title || "PINK MENACE";
-  document.getElementById("hdr-saved").textContent = saved || "";
+  const chip = document.getElementById("hdr-chip");
+  if (chip) {
+    if (place && place.total) {
+      chip.textContent = "Act " + place.act + " · " + (place.zone || "") + " · " + place.index + " of " + place.total;
+      chip.classList.remove("hidden");
+    } else {
+      chip.textContent = "";
+      chip.classList.add("hidden");
+    }
+  }
   const backBtn = document.getElementById("hdr-back");
   backBtn.disabled = !back;
   backBtn.classList.toggle("off", !back);
+  const homeBtn = document.getElementById("hdr-home");
+  if (homeBtn) {
+    homeBtn.disabled = !home;
+    homeBtn.classList.toggle("off", !home);
+  }
 }
 
 function showScreen(name) {
@@ -100,6 +126,7 @@ function showScreen(name) {
   homeEl.classList.toggle("hidden", name !== "home");
   runEl.classList.toggle("hidden", name === "home");
   runEl.classList.toggle("reviewing", name === "review");
+  if (name !== "home" && !confirmJob) confirmEl.classList.add("hidden");
   if (name === "home") {
     clearPlay();
     PMFeel.stopBed();
@@ -116,6 +143,89 @@ function showScreen(name) {
   }
 }
 
+function paintPass(data) {
+  const fill = document.getElementById("pass-fill");
+  if (!fill) return;
+  const acts = (data.acts || []).filter((a) => a.total > 0);
+  const done = acts.reduce((n, a) => n + (Number(a.practiced) || 0), 0);
+  const total = acts.reduce((n, a) => n + a.total, 0);
+  fill.style.width = (total ? Math.min(100, Math.round((done / total) * 100)) : 0) + "%";
+}
+
+function askConfirm(text, job) {
+  confirmJob = job;
+  confirmQ.textContent = text;
+  confirmEl.classList.remove("hidden");
+}
+
+function closeConfirm() {
+  confirmJob = null;
+  confirmEl.classList.add("hidden");
+}
+
+function showAnswerError() {
+  answering = false;
+  const node = document.getElementById("answer-err");
+  if (!node) return;
+  node.textContent = "That tap didn't land. Try again.";
+  node.classList.remove("hidden");
+}
+
+function clearAnswerError() {
+  const node = document.getElementById("answer-err");
+  if (!node) return;
+  node.textContent = "";
+  node.classList.add("hidden");
+}
+
+function clearColdDelta() {
+  if (PMFeel.paintColdDelta) PMFeel.paintColdDelta("");
+}
+
+function syncBelowCue() {
+  const cue = document.getElementById("choices-below");
+  if (!cue || !runEl) return;
+  const dock = document.getElementById("choice-dock");
+  const ready = runEl.classList.contains("choices-ready");
+  if (!ready || !dock) {
+    cue.classList.add("hidden");
+    return;
+  }
+  const runBox = runEl.getBoundingClientRect();
+  const box = dock.getBoundingClientRect();
+  cue.classList.toggle("hidden", !(box.top > runBox.bottom - 28));
+}
+
+function hideRecapClock() {
+  const clock = document.getElementById("recap-clock");
+  if (clock) clock.classList.add("hidden");
+}
+
+function shotHintSeen() {
+  try {
+    return localStorage.getItem(SHOT_HINT_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markShotHint() {
+  try {
+    localStorage.setItem(SHOT_HINT_KEY, "1");
+  } catch {
+    // private mode
+  }
+  const hint = document.getElementById("shot-hint");
+  if (hint) hint.classList.add("hidden");
+}
+
+function paintOption(node, text, index) {
+  node.replaceChildren();
+  const letter = index < 26 ? String.fromCharCode(65 + index) : String(index + 1);
+  node.append(el("span", "opt-letter", letter));
+  node.append(el("span", "opt-copy", text));
+}
+
 function el(tag, cls, text) {
   const n = document.createElement(tag);
   if (cls) n.className = cls;
@@ -126,7 +236,7 @@ function el(tag, cls, text) {
 function renderHome(data, opts) {
   homeData = data;
   showScreen("home");
-  setHeader({ title: "PINK MENACE", saved: data.saved, back: false });
+  setHeader({ title: "PINK MENACE", back: false, home: false });
   const focusId = opts && opts.focusCardId;
   const resume = document.getElementById("resume");
   const over = document.getElementById("start-over");
@@ -145,16 +255,18 @@ function renderHome(data, opts) {
   if (!data.locked_next && data.done && data.restartable) {
     resume.textContent = "Start over";
     resume.classList.remove("hidden");
-    resume.onclick = () => startOver();
+    resume.onclick = () => askConfirm("Start over? Place and cold minutes reset. The log stays.", () => startOver());
     over.classList.add("hidden");
     over.onclick = null;
-  } else if (!data.locked_next && data.resume && data.resume.label) {
-    resume.textContent = data.resume.label;
+  } else if (!data.locked_next && data.resume && (data.resume.title || data.resume.label)) {
+    resume.replaceChildren();
+    resume.append(el("span", "resume-kicker", "Resume"));
+    resume.append(el("span", "resume-title", data.resume.title || data.resume.zone || "Continue"));
     resume.classList.remove("hidden");
     resume.onclick = () => openLive();
     if (data.restartable) {
       over.classList.remove("hidden");
-      over.onclick = () => startOver();
+      over.onclick = () => askConfirm("Start over? Place and cold minutes reset. The log stays.", () => startOver());
     } else {
       over.classList.add("hidden");
       over.onclick = null;
@@ -182,9 +294,16 @@ function renderHome(data, opts) {
     } else if (a.current) {
       row.append(el("p", "meta", a.practiced + " of " + a.total));
     } else if (a.complete) {
-      row.append(el("p", "meta", "Done"));
+      row.append(el("p", "meta", "✓ Done"));
     } else {
       row.append(el("p", "meta", a.total ? "Play · " + a.total + " cards" : "Play"));
+    }
+    if (!a.locked && a.current && a.total) {
+      const meter = el("span", "act-meter");
+      const fill = document.createElement("i");
+      fill.style.width = Math.min(100, Math.round((a.practiced / a.total) * 100)) + "%";
+      meter.append(fill);
+      row.append(meter);
     }
     if (!a.locked) {
       row.addEventListener("click", () => openAct(a));
@@ -192,6 +311,8 @@ function renderHome(data, opts) {
     acts.append(row);
   }
   renderDriveTile(acts);
+  paintPass(data);
+  if (!confirmJob) showConfirm();
 
   const log = document.getElementById("log");
   log.replaceChildren();
@@ -294,6 +415,11 @@ function clearPlay() {
   if (wrap) wrap.classList.remove("arming", "fs");
   const clock = document.getElementById("hazard-clock");
   if (clock) clock.classList.add("hidden");
+  hideRecapClock();
+  clearAnswerError();
+  clearColdDelta();
+  const cue = document.getElementById("choices-below");
+  if (cue) cue.classList.add("hidden");
   runEl.classList.remove("recap-skip", "choices-ready", "holding");
   runEl.onclick = null;
   if (stopChoiceGate) {
@@ -347,8 +473,16 @@ function setDebrief(text, collapsed) {
   debrief.append(el("span", "debrief-head", head));
   if (rest && collapsed) {
     debrief.append(el("span", "debrief-rest", " " + rest));
+    const more = el("button", "debrief-more", "Rest of it");
+    more.type = "button";
+    more.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      debrief.classList.remove("closed");
+      more.remove();
+    });
+    debrief.append(more);
     debrief.classList.add("closed");
-    debrief.onclick = () => debrief.classList.remove("closed");
+    debrief.onclick = null;
   } else if (rest) {
     debrief.append(el("span", "debrief-rest", " " + rest));
     debrief.classList.remove("closed");
@@ -385,16 +519,16 @@ function fillOptions(card, opts) {
   const box = document.getElementById("options");
   box.replaceChildren();
   const tappable = card.tappable !== false && !opts.review && !opts.pending;
-  for (const o of options) {
+  options.forEach((o, index) => {
     const node = document.createElement(tappable ? "button" : "div");
     node.className = "opt" + (o.chosen ? " chosen" : "");
     if (tappable) {
       node.type = "button";
       node.addEventListener("click", () => submitAnswer(o.option_id));
     }
-    node.textContent = o.option_text;
+    paintOption(node, o.option_text, index);
     box.appendChild(node);
-  }
+  });
   return options.length;
 }
 
@@ -477,6 +611,17 @@ function scenarioIsRead() {
 
 function showChoiceDock() {
   runEl.classList.add("choices-ready");
+  requestAnimationFrame(syncBelowCue);
+}
+
+function hookInView() {
+  const hook = document.getElementById("hook");
+  const title = document.getElementById("title");
+  const mark = hook && !hook.classList.contains("hidden") && hook.textContent.trim() ? hook : title;
+  if (!mark || !runEl) return true;
+  const runBox = runEl.getBoundingClientRect();
+  const box = mark.getBoundingClientRect();
+  return box.top < runBox.bottom - 8;
 }
 
 function armChoiceGate(card, opts) {
@@ -489,7 +634,18 @@ function armChoiceGate(card, opts) {
   let typing = false;
   let latched = false;
   const decision = document.getElementById("decision");
+  const hook = document.getElementById("hook");
+  const sceneEl = document.getElementById("scene");
+  const finishType = () => {
+    if (cancelTypeScene) cancelTypeScene(true);
+    else tryLatch();
+  };
+  if (hook) hook.onclick = finishType;
+  if (sceneEl) sceneEl.onclick = finishType;
   const openChoices = () => {
+    if (hook) hook.onclick = null;
+    if (sceneEl) sceneEl.onclick = null;
+    if (decision) decision.onclick = null;
     showChoiceDock();
     if (!choicesOpenedAt) choicesOpenedAt = Date.now();
     choicesLiveAt = Date.now() + 450;
@@ -500,6 +656,7 @@ function armChoiceGate(card, opts) {
       cont.textContent = "Continue";
       cont.onclick = () => advanceContinueOnly(card);
     }
+    syncBelowCue();
   };
   const startQuestion = () => {
     if (!decision || !card.decision) {
@@ -516,30 +673,31 @@ function armChoiceGate(card, opts) {
       cancelTypeScene = null;
       requestAnimationFrame(() => requestAnimationFrame(tryLatch));
     });
-    decision.onclick = () => {
-      if (cancelTypeScene) cancelTypeScene(true);
-    };
+    decision.onclick = finishType;
   };
   const tryLatch = () => {
     if (latched || !liveCard || liveCard.card_id !== card.card_id) return;
+    if (!stillSettled() || !shotHasSize() || !hookInView()) return;
     if (phase === "scene") {
-      if (!scenarioIsRead()) return;
+      if (runPointerDown) return;
       startQuestion();
     }
     if (phase === "question") {
-      if (typing || runPointerDown || !questionInView()) return;
+      if (typing || runPointerDown) return;
       phase = "ready";
     }
-    if (phase !== "ready") return;
+    if (phase !== "ready" || runPointerDown) return;
     latched = true;
     if (stopChoiceGate) {
       stopChoiceGate();
       stopChoiceGate = null;
     }
-    if (decision) decision.onclick = null;
     openChoices();
   };
-  const onScroll = () => tryLatch();
+  const onScroll = () => {
+    tryLatch();
+    syncBelowCue();
+  };
   runEl.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
   stopChoiceGate = () => {
@@ -556,9 +714,14 @@ function armHazardWindow(card) {
   const wrap = document.getElementById("shot-wrap");
   const clock = document.getElementById("hazard-clock");
   const fill = document.getElementById("hazard-fill");
+  const kindEl = document.getElementById("hazard-kind");
+  const secEl = document.getElementById("hazard-sec");
   const gen = playGen;
   const grace = 1750;
   const wind = 800;
+  const ms = Number(card.timeout_ms) || 24000;
+  if (kindEl) kindEl.textContent = card.card_type === "beat" ? "Beat" : "Hazard";
+  if (secEl) secEl.textContent = Math.ceil(ms / 1000) + "s";
   PMFeel.setVignette(1);
   if (clock) {
     clock.classList.add("hidden");
@@ -587,12 +750,14 @@ function startHazardWindow(card) {
   window.clearInterval(hazardTimer);
   const clock = document.getElementById("hazard-clock");
   const fill = document.getElementById("hazard-fill");
+  const secEl = document.getElementById("hazard-sec");
   const ms = Number(card.timeout_ms) || 24000;
   let elapsed = 0;
   let last = Date.now();
   const gen = playGen;
   if (clock) clock.classList.remove("hidden");
   if (fill) fill.style.transform = "scaleX(1)";
+  if (secEl) secEl.textContent = Math.ceil(ms / 1000) + "s";
   PMFeel.setVignette(0.72);
   hazardTimer = window.setInterval(() => {
     if (gen !== playGen || answering) return;
@@ -601,6 +766,7 @@ function startHazardWindow(card) {
     last = now;
     const left = Math.max(0, 1 - elapsed / ms);
     if (fill) fill.style.transform = "scaleX(" + left + ")";
+    if (secEl) secEl.textContent = Math.ceil((left * ms) / 1000) + "s";
     PMFeel.setVignette(left * 0.72);
     if (left <= 0) {
       window.clearInterval(hazardTimer);
@@ -619,6 +785,14 @@ function fillCard(card, opts) {
   nextCardId = card.next_card_id || null;
   answering = false;
   document.getElementById("title").textContent = card.title || "";
+  const kind = document.getElementById("card-kind");
+  if (kind) {
+    const label = KIND[card.card_type] || "";
+    kind.textContent = label;
+    kind.classList.toggle("hidden", !label);
+  }
+  clearAnswerError();
+  clearColdDelta();
   const decision = document.getElementById("decision");
   decision.textContent = card.decision || "";
   decision.classList.add("hidden");
@@ -634,6 +808,8 @@ function fillCard(card, opts) {
     if (!rideOwnsShot) {
       PM.loadImage(shot, card.image_url).then(() => pinCardTop());
     }
+    const hint = document.getElementById("shot-hint");
+    if (hint) hint.classList.toggle("hidden", shotHintSeen() || rideOwnsShot || Boolean(card.hold));
   } else {
     shot.removeAttribute("src");
     wrap.classList.add("hidden");
@@ -701,7 +877,8 @@ function fillCard(card, opts) {
         playAgain.onclick = null;
       } else {
         playAgain.classList.remove("hidden");
-        playAgain.onclick = () => playAgainCard(card.card_id);
+        playAgain.onclick = () =>
+          askConfirm("Play this card again? Cold minutes reset. The log stays.", () => playAgainCard(card.card_id));
       }
     }
     resumeLive.classList.remove("hidden");
@@ -1056,34 +1233,25 @@ function bindAlts(alts, card) {
     return;
   }
   box.classList.remove("hidden");
-  for (const o of alts) {
+  box.append(el("p", "peek-label", "The other calls"));
+  alts.forEach((o, index) => {
     const node = document.createElement("button");
     node.type = "button";
     node.className = "opt peek";
-    node.textContent = o.option_text;
+    paintOption(node, o.option_text, index);
     node.addEventListener("click", () => playAlt(o, card));
     box.appendChild(node);
-  }
+  });
 }
 
 function playAlt(opt, card) {
   const result = document.getElementById("result");
+  const cost = Math.max(0, Math.round(Number(opt.state_delta && opt.state_delta.time_cost) || 0));
   if (result) {
-    result.textContent = opt.result || "";
+    const line = opt.result || "";
+    result.textContent = [line, cost ? "−" + cost + " min" : ""].filter(Boolean).join(" · ");
     result.classList.remove("hidden");
   }
-  PMFeel.shake();
-  PMFeel.hitWrong();
-  applyMeters(
-    {
-      ...meters,
-      noise: meters.noise + (Number(opt.state_delta && opt.state_delta.noise) || 0),
-      light: meters.light + (Number(opt.state_delta && opt.state_delta.light) || 0),
-      yaw: meters.yaw + (Number(opt.state_delta && opt.state_delta.yaw) || 0),
-    },
-    "spike"
-  );
-  PMFeel.floatTimeCost(opt.state_delta && opt.state_delta.time_cost);
   PM.api("/api/run/peek", {
     method: "POST",
     body: { card_id: card.card_id, option_id: opt.option_id },
@@ -1206,11 +1374,36 @@ function startRecapBeat(card) {
   window.clearTimeout(recapTimer);
   const ms = Number(card.auto_advance_ms) || 2000;
   const gen = playGen;
+  const fill = document.getElementById("recap-fill");
+  const secEl = document.getElementById("recap-sec");
+  const clock = document.getElementById("recap-clock");
+  if (clock) clock.classList.remove("hidden");
+  if (fill) fill.style.transform = "scaleX(1)";
+  if (secEl) secEl.textContent = Math.ceil(ms / 1000) + "s";
+  let elapsed = 0;
+  let last = Date.now();
   const go = () => {
     if (gen !== playGen || recapAdvancing) return;
+    window.clearTimeout(recapTimer);
+    recapTimer = 0;
+    hideRecapClock();
     advanceRecap(card);
   };
-  recapTimer = window.setTimeout(go, ms);
+  const tick = () => {
+    if (gen !== playGen || recapAdvancing) return;
+    const now = Date.now();
+    if (!runPointerDown) elapsed += now - last;
+    last = now;
+    const left = Math.max(0, 1 - elapsed / ms);
+    if (fill) fill.style.transform = "scaleX(" + left + ")";
+    if (secEl) secEl.textContent = Math.ceil((left * ms) / 1000) + "s";
+    if (left <= 0) {
+      go();
+      return;
+    }
+    recapTimer = window.setTimeout(tick, 50);
+  };
+  recapTimer = window.setTimeout(tick, 50);
   runEl.onclick = (ev) => {
     if (!runEl.classList.contains("recap-skip")) return;
     if (ev.target.closest("button, a, input, textarea, select")) return;
@@ -1220,7 +1413,7 @@ function startRecapBeat(card) {
 
 function renderLive(card) {
   showScreen("live");
-  setHeader({ title: card.title, saved: card.saved, back: true });
+  setHeader({ title: card.title, place: card.place, back: true, home: true });
   const skipIntro = Boolean(card.hold || card.recap);
   if (!skipIntro) {
     runEl.classList.remove("slide-in");
@@ -1272,7 +1465,7 @@ function renderLive(card) {
 
 function renderReview(card) {
   showScreen("review");
-  setHeader({ title: card.title, saved: card.saved, back: true });
+  setHeader({ title: card.title, place: card.place, back: true, home: true });
   fillCard(card, { review: true, pending: false });
   pinCardTop();
 }
@@ -1406,14 +1599,11 @@ function goNeighbor(dir) {
 
 function showConfirm() {
   const next = pendingQueue[0];
-  if (!next) {
-    confirmEl.classList.add("hidden");
-    appEl.classList.remove("hidden");
-    bootApp();
+  if (!next || mode !== "home" || confirmJob) {
+    if (!confirmJob) confirmEl.classList.add("hidden");
     return;
   }
   confirmEl.classList.remove("hidden");
-  appEl.classList.add("hidden");
   confirmQ.textContent = "Is " + next.parentName + " your parent or guardian?";
 }
 
@@ -1472,7 +1662,7 @@ async function submitHoldAnswer(optionId) {
     });
     playHoldOutcome(data, { card_id: currentCardId, saved: liveCard && liveCard.saved });
   } catch {
-    answering = false;
+    showAnswerError();
   }
 }
 
@@ -1507,7 +1697,7 @@ async function advanceContinueOnly(card) {
     outcomeAt = Date.now();
     await finishContinue(card.card_id);
   } catch {
-    answering = false;
+    showAnswerError();
     if (cont) {
       cont.classList.remove("hidden");
       cont.onclick = () => advanceContinueOnly(card);
@@ -1522,6 +1712,7 @@ async function submitAnswer(optionId) {
   }
   if (answering) return;
   if (!timedSubmit && Date.now() < choicesLiveAt) return;
+  clearAnswerError();
   answering = true;
   window.clearInterval(hazardTimer);
   hazardTimer = 0;
@@ -1543,7 +1734,7 @@ async function submitAnswer(optionId) {
     saveLive({ card_id: currentCardId, phase: "result", scroll: runEl.scrollTop });
     playOutcome({ ...data, timed_out: timed }, { card_id: currentCardId });
   } catch {
-    answering = false;
+    showAnswerError();
   }
 }
 
@@ -1559,6 +1750,7 @@ async function bootApp() {
 }
 
 runEl.addEventListener("scroll", () => {
+  syncBelowCue();
   if (mode === "live" && currentCardId) {
     saveLive({ card_id: currentCardId, scroll: runEl.scrollTop, phase: (liveState() || {}).phase || "live" });
   }
@@ -1616,8 +1808,21 @@ document.getElementById("shot-wrap").addEventListener("click", (ev) => {
   if (wrap.classList.contains("hidden")) return;
   if (runEl.classList.contains("holding")) return;
   if (runEl.classList.contains("riding")) return;
-  if (ev.target.closest("button, a, #bark")) return;
+  if (ev.target.closest("button, a, #bark, #shot-close")) return;
   wrap.classList.toggle("fs");
+  if (wrap.classList.contains("fs")) markShotHint();
+});
+
+document.getElementById("shot-close").addEventListener("click", (ev) => {
+  ev.stopPropagation();
+  const wrap = document.getElementById("shot-wrap");
+  if (wrap) wrap.classList.remove("fs");
+});
+
+document.getElementById("choices-below").addEventListener("click", () => {
+  const dock = document.getElementById("choice-dock");
+  if (dock && runEl) dock.scrollIntoView({ block: "end", inline: "nearest" });
+  syncBelowCue();
 });
 
 document.addEventListener("keydown", (ev) => {
@@ -1639,8 +1844,22 @@ document.getElementById("sign-out").addEventListener("click", () => {
   headerEl.classList.add("hidden");
   gateTop.classList.remove("hidden");
 });
-document.getElementById("confirm-yes").addEventListener("click", () => answerLink(true));
-document.getElementById("confirm-no").addEventListener("click", () => answerLink(false));
+document.getElementById("confirm-yes").addEventListener("click", () => {
+  const job = confirmJob;
+  if (job) {
+    closeConfirm();
+    job();
+    return;
+  }
+  answerLink(true);
+});
+document.getElementById("confirm-no").addEventListener("click", () => {
+  if (confirmJob) {
+    closeConfirm();
+    return;
+  }
+  answerLink(false);
+});
 
 PMFeel.applyGrade();
 
@@ -1648,11 +1867,8 @@ PM.bindGate({
   kind: "game",
   onReady: async (me) => {
     pendingQueue = me.pendingGuardians || [];
-    if (pendingQueue.length) showConfirm();
-    else {
-      confirmEl.classList.add("hidden");
-      appEl.classList.remove("hidden");
-      await bootApp();
-    }
+    confirmEl.classList.add("hidden");
+    appEl.classList.remove("hidden");
+    await bootApp();
   },
 });

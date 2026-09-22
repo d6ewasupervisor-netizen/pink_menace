@@ -145,6 +145,8 @@ function bindGate({ kind, onReady }) {
       await api("/api/auth/otp/send", { method: "POST", body });
       if (pinForm) show(pinForm, true);
       show(pinWrap, true);
+      sendBtn.textContent = "Resend";
+      setMsg(msg, "The code is on the way.", true);
       pin.focus();
     } catch (err) {
       setMsg(msg, err.message);
