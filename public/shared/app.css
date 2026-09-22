@@ -1534,6 +1534,14 @@ button.act-row {
 .band {
   font-weight: 650;
 }
+[data-band="low"] .meter-word, [data-band="low"] .meter-num { color: var(--ok); }
+[data-band="mid"] .meter-word, [data-band="mid"] .meter-num { color: var(--amber); }
+[data-band="high"] .meter-word, [data-band="high"] .meter-num { color: var(--bad); }
+
+[data-band="low"] .meter-word, [data-band="low"] .meter-num { color: var(--ok); }
+[data-band="mid"] .meter-word, [data-band="mid"] .meter-num { color: var(--amber); }
+[data-band="high"] .meter-word, [data-band="high"] .meter-num { color: var(--bad); }
+
 
 @media (max-width: 420px) {
   :root {
