@@ -16,8 +16,13 @@ const MANIFESTS = {
     cargo: "Deac's cargo",
     for: "the next drop",
   },
+  IV: {
+    run: "The Relay Run — The Core",
+    cargo: "Relay kit — repeater, antenna, clamps",
+    for: "Tower 4 — valley floor",
+  },
   V: {
-    run: "The Ribbon — I-5 / I-90",
+    run: "The Relay Run — The Ribbon",
     cargo: "Relay kit — repeater, antenna, clamps",
     for: "Tower 4 — valley floor",
   },

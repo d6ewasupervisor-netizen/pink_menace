@@ -640,6 +640,10 @@ function mountRun(app) {
       } else {
         const picked = await pickNextCard(client, run.id, debts, run.start_seq, card.act);
         nextCardId = picked.cardId;
+
+        if (cardId === "IV-030") {
+          nextCardId = "V-001";
+        }
         if (nextCardId) {
           await client.query(
             `UPDATE runs
