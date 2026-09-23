@@ -14,7 +14,7 @@ The ignition beat gains one screen: the log sheet, in the established hand-ruled
 RUN            The Grid — Kent
 CARGO          Insulin, cold-packed
 COLD REMAINING 130 MIN
-FOR            June — Delridge shelter
+FOR            June — Meeker pharmacy safehouse
 DRIVER         ________ (her name, from the account)
 ```
 
@@ -40,14 +40,14 @@ Display math: remaining = `COLD_PACK − accumulated time_cost` (`COLD_PACK` is 
 
 Two radio beats, bark format, no interruption. Never more than two:
 
-- 30 remaining: *"Delridge, checking. June's asking. — R."*
+- 30 remaining: *"Pharmacy's checking. June's asking. — R."*
 - The turn (cold hits zero): *"Cold pack's sweating. How far out? — R."*
 
 Two lines, escalating, from a voice she'll meet (Reyna runs the shelter route). Never more than two per run — the clock should pressure, not nag.
 
 ## 4. THE ENDS — keep the promise both ways
 
-**Delivery (act complete):** a short beat, not a stat screen. The shelter door, the cooler handed over, and one line that carries the margin diegetically:
+**Delivery (act complete):** a short beat, not a stat screen. The pharmacy safehouse door, the cooler handed over, and one line that carries the margin diegetically:
 
 > *Delivered. 41 minutes to spare.* — or — *Delivered. 3 minutes. June didn't ask what took so long.* — or — *Delivered warm. June took it anyway.*
 
@@ -55,7 +55,7 @@ Minutes-to-spare is the replay hook that isn't a score: it's cargo state, not ac
 
 **Failure (cargo zero):** the fail sequence's Deac summary now closes the same loop it opens — where the time went, and what it cost:
 
-> *Six at the bus. Four at the light. The pack warmed on Willis. Delridge is telling June it's tomorrow.*
+> *Six at the bus. Four at the light. The pack warmed on Willis. The pharmacy is telling June it's tomorrow.*
 
 Accumulated, attributed, human. The death stops reading as punishment for the last card and starts reading as the sum it actually was.
 

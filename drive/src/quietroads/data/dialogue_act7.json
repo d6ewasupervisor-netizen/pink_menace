@@ -10,7 +10,7 @@
       "MOM": "Mom",
       "RAY": "Ray",
       "GRANDMA": "Grandma",
-      "GRANDMA_NAME": "June",
+      "GRANDMA_NAME": "Grandma",
       "PLAYER": "Ali",
       "PLAYER_FULL": "Alison"
     }
@@ -595,7 +595,7 @@
           "emotion": "tense",
           "volume": "whisper",
           "text": "Should I not?",
-          "next": "7.1.17"
+          "next": "7.1.card_V-006"
         },
         "7.1.17": {
           "type": "line",
@@ -681,7 +681,7 @@
           "delivery": "R",
           "emotion": "amused",
           "volume": "normal",
-          "text": "— the truck can't see you. She got that from me. Oh-four. Ellensburg truck stop. She wrote it down on a napkin.",
+          "text": "— the truck can't see you. He got that from me. Oh-four. Ellensburg truck stop. He wrote it down on a napkin.",
           "next": "7.1.chat4"
         },
         "7.1.chat4": {
@@ -876,6 +876,11 @@
             "log": "mission.fail:escort"
           },
           "next_scene": "7.1"
+        },
+        "7.1.card_V-006": {
+          "type": "card",
+          "card": "V-006",
+          "next": "7.1.17"
         }
       },
       "triggers": [

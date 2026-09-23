@@ -10,8 +10,8 @@
       "MOM": "Mom",
       "RAY": "Ray",
       "GRANDMA": "Grandma",
-      "GRANDMA_NAME": "June",
-      "GRANDMA_INITIALS": "G.J.",
+      "GRANDMA_NAME": "Grandma",
+      "GRANDMA_INITIALS": "Grandma",
       "PLAYER": "Ali",
       "PLAYER_FULL": "Alison"
     }
@@ -175,7 +175,7 @@
           "delivery": "S",
           "emotion": "warm",
           "volume": "low",
-          "text": "Deac's gonna like that. Don't tell her I said so.",
+          "text": "Deac's gonna like that. Don't tell him I said so.",
           "next": "2.1.7"
         },
         "2.1.7": {
@@ -193,7 +193,7 @@
           "delivery": "S",
           "emotion": "wry",
           "volume": "low",
-          "text": "The reason you're not in trouble. Probably. Office is in the back. Knock. She hates it when people don't knock.",
+          "text": "The reason you're not in trouble. Probably. Office is in the back. Knock. He hates it when people don't knock.",
           "next": "2.1.9"
         },
         "2.1.9": {
@@ -528,8 +528,8 @@
           "delivery": "S",
           "emotion": "neutral",
           "volume": "low",
-          "text": "Insulin. Pharmacy safehouse on Meeker. I'm riding.",
-          "next": "2.3.1"
+          "text": "Insulin. June's clipboard at the pharmacy safehouse on Meeker. I'm riding.",
+          "next": "2.3a.card_II-001"
         },
         "2.3.1": {
           "type": "line",
@@ -572,7 +572,7 @@
           "emotion": "neutral",
           "volume": "low",
           "text": "Four-way stop. Who goes?",
-          "next": "2.3a.Q1"
+          "next": "2.3a.card_II-024"
         },
         "2.3a.Q1": {
           "type": "choice",
@@ -873,7 +873,7 @@
           "delivery": "G",
           "emotion": "neutral",
           "volume": "low",
-          "text": "Pharmacy. Insulin goes to the woman with the clipboard. Don't slam the door.",
+          "text": "Pharmacy. Insulin goes to June. The clipboard counts. Don't slam the door.",
           "next": "2.3.20"
         },
         "2.3.20": {
@@ -907,7 +907,7 @@
           "emotion": "deadpan",
           "volume": "whisper",
           "auto_ms": 2400,
-          "text": "She says \"I know\" like it's a threat.",
+          "text": "He says \"I know\" like it's a threat.",
           "effects": {
             "respect": 1,
             "log": "door.soft"
@@ -993,6 +993,16 @@
             "log": "mission.fail:delivery_1"
           },
           "next_scene": "2.3a"
+        },
+        "2.3a.card_II-001": {
+          "type": "card",
+          "card": "II-001",
+          "next": "2.3.1"
+        },
+        "2.3a.card_II-024": {
+          "type": "card",
+          "card": "II-024",
+          "next": "2.3a.Q1"
         }
       },
       "triggers": [
@@ -1171,7 +1181,7 @@
           "emotion": "amused",
           "volume": "low",
           "anim": "pickles.doorway",
-          "text": "She hasn't said a word. That's how I know. Come in, come in, mind the door, Pickles is right there.",
+          "text": "He hasn't said a word. That's how I know. Come in, come in, mind the door, Pickles is right there.",
           "next": "2.3.28"
         },
         "2.3.28": {
@@ -1364,7 +1374,7 @@
           "emotion": "neutral",
           "volume": "low",
           "text": "Radio parts to Priya. Central Avenue. Three lanes, all of them empty. Signal anyway.",
-          "next": "2.3c.go"
+          "next": "2.3c.card_II-004"
         },
         "2.3c.go": {
           "type": "end",
@@ -1516,6 +1526,11 @@
         "2.3c.end": {
           "type": "end",
           "next_scene": "2.3d"
+        },
+        "2.3c.card_II-004": {
+          "type": "card",
+          "card": "II-004",
+          "next": "2.3c.go"
         }
       },
       "triggers": [
@@ -1921,7 +1936,7 @@
           "delivery": "R",
           "emotion": "wry",
           "volume": "normal",
-          "text": "Deac says you're the careful one. She says it like it's a compliment. She doesn't say anything about me like it's a compliment.",
+          "text": "Deac says you're the careful one. He says it like it's a compliment. He doesn't say anything about me like it's a compliment.",
           "next": "2.4.8"
         },
         "2.4.8": {
@@ -1988,7 +2003,7 @@
         },
         "2.4.13": {
           "type": "direction",
-          "text": "She keeps walking.",
+          "text": "He keeps walking.",
           "anim": "deac.exit_hall",
           "auto_ms": 1600,
           "next": "2.4.14"
@@ -2092,7 +2107,7 @@
         },
         "2.4.alt13": {
           "type": "direction",
-          "text": "She keeps walking.",
+          "text": "He keeps walking.",
           "anim": "deac.exit_hall",
           "auto_ms": 1600,
           "next": "2.4.alt14"

@@ -126,7 +126,7 @@ Claude fills copy into `cards/VI-001.json` … `cards/VI-013.json`. Citations lo
 - Skills: `Skill twelve: driving on rural roads` · `Skill thirteen: roundabouts`
 - Driver: Ali alone (Yuna radio-only if at all)
 - Callback: VI-004 hazard → VI-011 ledger
-- End beat: Cleared — and the pass is shut (`deliveryBeat` act VI) — not a VI-014 card
+- End beat: Cleared — and the pass is yours at dawn (`deliveryBeat` act VI) — not a VI-014 card
 - Out of scope: chains / Snoqualmie (Act VII)
 
 `ACT_ZONES` already lists Act VI. Unseeded cards are not playable on [ali.tactag.app](https://ali.tactag.app).

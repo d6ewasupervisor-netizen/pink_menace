@@ -11,7 +11,7 @@
       "MOM": "Mom",
       "RAY": "Ray",
       "GRANDMA": "Grandma",
-      "GRANDMA_INITIALS": "G.J.",
+      "GRANDMA_INITIALS": "Grandma",
       "PLAYER": "Ali",
       "PLAYER_FULL": "Alison"
     }
@@ -356,6 +356,11 @@
         "0.2.card_I-003": {
           "type": "card",
           "card": "I-003",
+          "next": "0.2.card_I-004"
+        },
+        "0.2.card_I-004": {
+          "type": "card",
+          "card": "I-004",
           "next": "0.2.go"
         }
       },
@@ -422,7 +427,7 @@
           "delivery": "R",
           "emotion": "tense",
           "volume": "low",
-          "text": "Relay to Kent. Ali, if you're on this — the Authority says permits still count. They're rationing fuel by license. Don't drive the pass without one. Don't drive the pass without chains.",
+          "text": "Relay to Kent. Ali, if you're on this — the Authority says permits still count. They're rationing fuel by license. Don't drive the pass on a permit. Don't drive the pass without chains.",
           "next": "0.3.2"
         },
         "0.3.2": {
@@ -495,7 +500,7 @@
           "volume": "whisper",
           "text": "Gracie, stop looking at me like that. It's simple.",
           "anim": "gracie.stare",
-          "next": "0.3.end"
+          "next": "0.3.card_I-001"
         },
         "0.3.end": {
           "type": "end",
@@ -504,6 +509,11 @@
             "log": "act.complete:0"
           },
           "next_scene": "1.1"
+        },
+        "0.3.card_I-001": {
+          "type": "card",
+          "card": "I-001",
+          "next": "0.3.end"
         }
       }
     },

@@ -34,7 +34,7 @@ Skill thirteen: roundabouts
 | VI-011 | ledger | The Shoulder Again | n/a | n/a — `callback_of: VI-004` |
 | VI-012 | scene | Unmarked Rail Crossing | twelve | `4.7 Sharing the road with trains` (parent, not Light rail) |
 | VI-013 | scene | Clearance Drive | twelve | n/a — Deac clipboard; she is cleared |
-| — | end beat | Cleared — and the pass is shut | — | `src/manifest.js` `deliveryBeat(…, "VI")` — not a card |
+| — | end beat | Cleared — and the pass is yours at dawn | — | `src/manifest.js` `deliveryBeat(…, "VI")` — not a card |
 
 Play order is `seq`. JSON lives at `cards/VI-*.json`. `variation.forced` on every stub: `Act VI scaffold — no still; do not seed`.
 

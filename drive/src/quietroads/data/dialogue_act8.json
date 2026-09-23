@@ -10,7 +10,7 @@
       "MOM": "Mom",
       "RAY": "Ray",
       "GRANDMA": "Grandma",
-      "GRANDMA_NAME": "June",
+      "GRANDMA_NAME": "Grandma",
       "PLAYER": "Ali",
       "PLAYER_FULL": "Alison"
     }
@@ -1290,7 +1290,7 @@
           "delivery": "R",
           "emotion": "wry",
           "volume": "whisper",
-          "text": "I got here. Both cats. Permit's on the fridge. {MOM} put a magnet on it. A cat magnet. It's very embarrassing.",
+          "text": "I got here. Both cats. License is on the fridge. {MOM} put a magnet on it. A cat magnet. It's very embarrassing.",
           "next": "8.3.3"
         },
         "8.3.3": {

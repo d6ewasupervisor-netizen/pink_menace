@@ -49,7 +49,7 @@ export interface WorldMap {
 export function buildKentMap(seed = 7): WorldMap {
   const buildings: Building[] = [];
   for (let x = 30; x < 240; x += 20) { buildings.push({ rect: { x: x - 5, y: -26, w: 10, h: 9 } }); buildings.push({ rect: { x: x - 5, y: 17, w: 10, h: 9 } }); }
-  buildings.push({ rect: { x: 3, y: -26, w: 10, h: 9 }, label: "JUNE" });
+  buildings.push({ rect: { x: 3, y: -26, w: 10, h: 9 }, label: "GRANDMA" });
   for (const y of [30, 50, 70, 90, 130, 250, 270, 320, 340, 360]) {
     buildings.push({ rect: { x: 240, y: y - 4, w: 10, h: 8 } });
     if (y < 160 || y > 240) buildings.push({ rect: { x: 280, y: y - 4, w: 10, h: 8 } });

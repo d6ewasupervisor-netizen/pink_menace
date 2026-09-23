@@ -10,7 +10,7 @@
       "MOM": "Mom",
       "RAY": "Ray",
       "GRANDMA": "Grandma",
-      "GRANDMA_NAME": "June",
+      "GRANDMA_NAME": "Grandma",
       "PLAYER": "Ali",
       "PLAYER_FULL": "Alison"
     }
@@ -164,7 +164,7 @@
         },
         "4.1.0": {
           "type": "direction",
-          "text": "Deac drops the duffel on the table. Blank permit forms. The state seal stamp.",
+          "text": "Deac drops the duffel on the table. Blank license forms. The state seal stamp.",
           "anim": "deac.duffel_drop",
           "sfx": [
             "duffel_thud_soft"
@@ -483,7 +483,7 @@
       "nodes": {
         "4.2.0": {
           "type": "direction",
-          "text": "Morning. The terminal. Deac across the table, arms folded, the stamp by her hand.",
+          "text": "Morning. The terminal. Deac across the table, arms folded, the stamp by his hand.",
           "anim": "deac.arms_folded",
           "auto_ms": 2800,
           "next": "4.2.1"
@@ -606,7 +606,7 @@
           "delivery": "S",
           "emotion": "proud",
           "volume": "low",
-          "text": "{PLAYER_FULL}. Instruction permit. Valid with a licensed adult in the passenger seat.",
+          "text": "{PLAYER_FULL}. Driver's license. That stamp is good until the card comes in the mail.",
           "next": "4.2.mya_branch"
         },
         "4.2.mya_branch": {
@@ -666,7 +666,7 @@
           "text": "Mya opens one eye. Looks at Ali. This time she keeps it open.",
           "anim": "mya.one_eye_stays",
           "auto_ms": 2600,
-          "next": "4.2.5"
+          "next": "4.2.card_IV-018"
         },
         "4.2.5": {
           "type": "line",
@@ -674,7 +674,7 @@
           "delivery": "S",
           "emotion": "neutral",
           "volume": "whisper",
-          "text": "You're the licensed adult.",
+          "text": "You were the licensed adult. Every mile from Kent.",
           "next": "4.2.6"
         },
         "4.2.6": {
@@ -789,7 +789,7 @@
           "emotion": "proud",
           "volume": "normal",
           "noise_db": 35,
-          "text": "There she is! Permit holder! I heard the stamp from the bay!",
+          "text": "There she is! License holder! I heard the stamp from the bay!",
           "next": "4.2.chains_branch"
         },
         "4.2.chains_branch": {
@@ -952,7 +952,7 @@
         },
         "4.2.tap": {
           "type": "direction",
-          "text": "Deac slides the Field Notes across the table. Open. She taps the page.",
+          "text": "Deac slides the Field Notes across the table. Open. He taps the page.",
           "anim": "deac.slide_notes_tap",
           "sfx": [
             "paper_slide",
@@ -1359,6 +1359,11 @@
             "log": "scene.complete:4.2.fail"
           },
           "next_scene": "4.3"
+        },
+        "4.2.card_IV-018": {
+          "type": "card",
+          "card": "IV-018",
+          "next": "4.2.5"
         }
       },
       "triggers": [
@@ -1397,7 +1402,7 @@
       "nodes": {
         "4.3.1": {
           "type": "direction",
-          "text": "Six a.m. The bay. Deac with a clipboard she doesn't need.",
+          "text": "Six a.m. The bay. Deac with a clipboard he doesn't need.",
           "anim": "deac.clipboard",
           "auto_ms": 2200,
           "next": "4.3.2"

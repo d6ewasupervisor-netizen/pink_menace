@@ -1,5 +1,5 @@
 /**
- * proceduralBeetlePaint — Grandma June's 40-year-old pink, generated once.
+ * proceduralBeetlePaint — Grandma's 40-year-old pink, generated once.
  * Faded pink base, lighter sun-bleached patches, rust blooms with dark cores,
  * a few drip streaks. Returned as a CanvasTexture for the Chassi material.
  * Seeded so the car looks the same every launch.

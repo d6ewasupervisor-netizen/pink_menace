@@ -10,7 +10,7 @@
       "MOM": "Mom",
       "RAY": "Ray",
       "GRANDMA": "Grandma",
-      "GRANDMA_NAME": "June",
+      "GRANDMA_NAME": "Grandma",
       "PLAYER": "Ali",
       "PLAYER_FULL": "Alison"
     }
@@ -125,7 +125,7 @@
           "volume": "low",
           "anim": "deac.map_table",
           "text": "Issaquah checkpoint. Medical. Three vehicles. I lead, Jonah's middle, you sweep.",
-          "next": "3.1.2"
+          "next": "3.1.card_II-006"
         },
         "3.1.2": {
           "type": "line",
@@ -152,7 +152,7 @@
           "emotion": "neutral",
           "volume": "low",
           "text": "Match speed on the ramp. Don't merge slow, don't merge loud. Three seconds behind Jonah. Count it out loud if you have to.",
-          "next": "3.1.5"
+          "next": "3.1.card_II-012"
         },
         "3.1.5": {
           "type": "line",
@@ -250,6 +250,16 @@
             "log": "scene.complete:3.1"
           },
           "next_scene": "3.2"
+        },
+        "3.1.card_II-006": {
+          "type": "card",
+          "card": "II-006",
+          "next": "3.1.2"
+        },
+        "3.1.card_II-012": {
+          "type": "card",
+          "card": "II-012",
+          "next": "3.1.5"
         }
       }
     },
@@ -273,7 +283,7 @@
             "start_gameplay": "mission_convoy_issaquah",
             "log": "mission.begin:convoy_issaquah"
           },
-          "next": "3.2.wait_ramp"
+          "next": "3.2.card_V-001"
         },
         "3.2.wait_ramp": {
           "type": "wait",
@@ -288,7 +298,7 @@
           "volume": "low",
           "auto_ms": 2200,
           "text": "Ramp. Get up to speed on the ramp. Not after.",
-          "next": "3.2.wait_gap"
+          "next": "3.2.card_V-003"
         },
         "3.2.wait_gap": {
           "type": "wait",
@@ -303,7 +313,7 @@
           "volume": "low",
           "auto_ms": 1600,
           "text": "Gap's yours. Take it.",
-          "next": "3.2.wait_merge"
+          "next": "3.2.card_V-005"
         },
         "3.2.wait_merge": {
           "type": "wait",
@@ -433,7 +443,7 @@
           "volume": "raised",
           "auto_ms": 1200,
           "text": "She's on me!",
-          "next": "3.2.11"
+          "next": "3.2.card_III-007"
         },
         "3.2.11": {
           "type": "line",
@@ -536,6 +546,26 @@
             "log": "scene.complete:3.2"
           },
           "next_scene": "3.3"
+        },
+        "3.2.card_V-001": {
+          "type": "card",
+          "card": "V-001",
+          "next": "3.2.wait_ramp"
+        },
+        "3.2.card_V-003": {
+          "type": "card",
+          "card": "V-003",
+          "next": "3.2.wait_gap"
+        },
+        "3.2.card_V-005": {
+          "type": "card",
+          "card": "V-005",
+          "next": "3.2.wait_merge"
+        },
+        "3.2.card_III-007": {
+          "type": "card",
+          "card": "III-007",
+          "next": "3.2.11"
         }
       },
       "triggers": [
@@ -654,7 +684,7 @@
             "engine_sputter_distant"
           ],
           "auto_ms": 3200,
-          "next": "3.3.1"
+          "next": "3.3.card_V-013"
         },
         "3.3.1": {
           "type": "line",
@@ -865,7 +895,7 @@
         },
         "3.3.18": {
           "type": "direction",
-          "text": "She walks away. The carrier stays in the truck.",
+          "text": "He walks away. The carrier stays in the truck.",
           "anim": "deac.walk_off_carrier_stays",
           "auto_ms": 3000,
           "next": "3.3.A_end"
@@ -1180,6 +1210,11 @@
             "log": "mission.fail:stall"
           },
           "next_scene": "3.3"
+        },
+        "3.3.card_V-013": {
+          "type": "card",
+          "card": "V-013",
+          "next": "3.3.1"
         }
       },
       "triggers": [
@@ -1424,7 +1459,7 @@
           "delivery": "S",
           "emotion": "neutral",
           "volume": "whisper",
-          "text": "That's not the same as it being the one she wanted.",
+          "text": "That's not the same as it being the one he wanted.",
           "next": "3.4a.6"
         },
         "3.4a.6": {
@@ -1433,7 +1468,7 @@
           "delivery": "S",
           "emotion": "sad",
           "volume": "whisper",
-          "text": "What does she want?",
+          "text": "What does he want?",
           "next": "3.4a.7"
         },
         "3.4a.7": {
@@ -1442,7 +1477,7 @@
           "delivery": "S",
           "emotion": "wry",
           "volume": "whisper",
-          "text": "Everybody home. Cargo's a distant second. She'll never say it.",
+          "text": "Everybody home. Cargo's a distant second. He'll never say it.",
           "next": "3.4a.8"
         },
         "3.4a.8": {
@@ -1451,7 +1486,7 @@
           "delivery": "S",
           "emotion": "neutral",
           "volume": "whisper",
-          "text": "Pass the test. She'll give you the cat. She's mean, not cruel.",
+          "text": "Pass the test. He'll give you the cat. He's mean, not cruel.",
           "next": "3.4a.9"
         },
         "3.4a.9": {
@@ -1613,7 +1648,7 @@
           "delivery": "R",
           "emotion": "neutral",
           "volume": "low",
-          "text": "Is she good?",
+          "text": "Is he good?",
           "next": "3.5.9"
         },
         "3.5.9": {
@@ -1622,7 +1657,7 @@
           "delivery": "R",
           "emotion": "wry",
           "volume": "whisper",
-          "text": "She's terrifying.",
+          "text": "He's terrifying.",
           "next": "3.5.10"
         },
         "3.5.10": {

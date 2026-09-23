@@ -411,7 +411,7 @@ The 3D game needs its own endpoint (e.g., `POST /api/drive/answer`) that records
 
 `pack/07_CHARACTER_LOCK_PROMPTS.md` has the full image-generation prompts (D1–D4 for Deac/The Ledger, Y1–Y4 for Yuna/Encore, G1 convoy silhouette). These contain the most precise canonical text descriptions — the 3D modeler should treat these as the style brief.
 
-**Characters in the 3D proposal not in any lock file:** Grandma June, Tuna, Willis. These names do not appear in `refs/LOCKS.md`, `pack/07_CHARACTER_LOCK_PROMPTS.md`, `src/game.js` CAST array, or any other file in the repo. They need new lock entries before 3D modeling begins, or they risk drifting from story intent.
+**Characters in the 3D proposal not in any lock file:** Grandma, Tuna, Willis. These names do not appear in `refs/LOCKS.md`, `pack/07_CHARACTER_LOCK_PROMPTS.md`, `src/game.js` CAST array, or any other file in the repo. They need new lock entries before 3D modeling begins, or they risk drifting from story intent.
 
 The CAST array in `src/game.js:186-195` lists: Ali, Deac, Yuna, Gracie, Mya, Reyna Solis, Marisol, Hollis. Cards also include Hollis and Marisol referenced in the proposal — both are in the CAST array but have no full image lock files listed in `LOCKS.md`.
 
@@ -495,5 +495,5 @@ The following could not be determined from the repo alone:
 2. **Current Docker image size and cold-start time** — requires Railway dashboard metrics or `docker image ls` on the built image.
 3. **Railway build memory and timeout limits** for the pink_menace service — default Hobby tier limits apply unless overridden in service Settings → Build.
 4. **Whether `SESSION_SECRET` is used** — it appears in `.env.example` but not in any `process.env` grep across `src/` or `server.js`. May be a legacy entry or used by a dependency not visible in the code.
-5. **Grandma June, Tuna, Willis canonical descriptions** — these characters appear in the 3D proposal but are absent from `refs/LOCKS.md`, `pack/07_CHARACTER_LOCK_PROMPTS.md`, and the `CAST` array in `game.js`. No lock exists to mirror.
+5. **Grandma, Tuna, Willis canonical descriptions** — these characters appear in the 3D proposal but are absent from `refs/LOCKS.md`, `pack/07_CHARACTER_LOCK_PROMPTS.md`, and the `CAST` array in `game.js`. No lock exists to mirror.
 6. **Whether `public/game/quiet/zones/*.webp` files are indexed by drive zone or card zone** — the zone numbers (01–60) correspond to the card zones used in `cards.zone`, but the mapping to specific 3D locations in Kent has not been documented in any file visible in this repo.

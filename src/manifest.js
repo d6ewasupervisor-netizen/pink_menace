@@ -9,7 +9,7 @@ const MANIFESTS = {
   II: {
     run: "The Grid — Kent",
     cargo: "Insulin, cold-packed",
-    for: "June — Delridge shelter",
+    for: "June — Meeker pharmacy safehouse",
   },
   III: {
     run: "Central — Kent",
@@ -128,7 +128,7 @@ function radioCheckin(prevState, nextState, act) {
     return { who: "reyna_solis", line: "Cold pack's sweating. How far out? — R." };
   }
   if (before > 30 && after <= 30) {
-    return { who: "reyna_solis", line: "Delridge, checking. June's asking. — R." };
+    return { who: "reyna_solis", line: "Pharmacy's checking. June's asking. — R." };
   }
   return null;
 }
@@ -158,7 +158,7 @@ function cargoFailDispatch(charges, act) {
     return parts.join(" ");
   }
   if (!rows.length) {
-    return "The pack warmed. Delridge is telling June it's tomorrow.";
+    return "The pack warmed. The pharmacy is telling June it's tomorrow.";
   }
   const willis = rows.some((c) => c.place === "Willis");
   const named = rows
@@ -170,7 +170,7 @@ function cargoFailDispatch(charges, act) {
     return word.charAt(0).toUpperCase() + word.slice(1) + " at " + c.place + ".";
   });
   parts.push(willis ? "The pack warmed on Willis." : "The pack warmed.");
-  parts.push("Delridge is telling June it's tomorrow.");
+  parts.push("The pharmacy is telling June it's tomorrow.");
   return parts.join(" ");
 }
 
@@ -184,13 +184,13 @@ function deliveryBeat(stateOrCold, act) {
     return "Relay kit delivered. " + n + " minutes. Repeater, antenna, clamps. Tower 4.";
   }
   if (act === "VI") {
-    // End beat (not a VI-014 card): Cleared — and the pass is shut.
-    // Claude END_BEAT: same shut-gate beat whether the pack finished cold or warm.
+    // End beat (not a VI-014 card): Cleared — and the pass is yours at dawn.
+    // Hands straight into the drive: chains, first light, the climb east to Spokane.
     void n;
     return (
       "The sheet goes in the glovebox with the affidavit and the log from Kent, and for the first time since the lot in Kent the thing you drove out there to get is actually in the car. " +
-      "Then the radio, and it's Yuna, and she isn't leading with it because she never does: the pass is shut. Four feet on the ridge in two days, or something moving on the east slope that the plows won't go near — the reason changes depending on who is telling it and both versions end with the same closed gate. " +
-      "You are cleared to drive a road that will not let you on it. " +
+      "Then the radio, and it's Yuna, and she isn't leading with it because she never does: the pass is shut tonight. Four feet on the ridge in two days, or something standing on the east slope that the plows won't go near — the reason changes depending on who is telling it and both versions end with the same closed gate. " +
+      "But the gate has your name in it now, chains are on the floor, and the word is dawn. You are cleared to drive the road home. " +
       "Two hundred and eighty miles east, your mother is awake and does not know yet."
     );
   }
