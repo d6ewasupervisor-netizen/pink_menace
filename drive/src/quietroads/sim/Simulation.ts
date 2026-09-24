@@ -7,6 +7,8 @@ import { buildKentMap, type WorldMap } from "./kentMap";
 import { ParkingGrader, InteriorController, type WalkerInput } from "./dol";
 import { PharmacyDropoff } from "./pharmacy";
 import { GridRun, stallCenter, type GridMission } from "./grid";
+import { LedgerRun } from "./ledger";
+import { RibbonRun } from "./ribbon";
 import type { NoiseZone } from "./noise";
 
 export type MissionId =
@@ -14,7 +16,9 @@ export type MissionId =
   | "minigame_park_dol" | "stealth_dol_interior" | "chase_dol_gracie"
   | "mission_delivery_1_insulin" | "dropoff_pharmacy"
   | "mission_delivery_2_catfood" | "mission_delivery_3_radio"
-  | "mission_delivery_4_filters" | "mission_jonah_intersection";
+  | "mission_delivery_4_filters" | "mission_jonah_intersection"
+  | "mission_central_ledger"
+  | "mission_ribbon_merge";
 
 export type PlayerMode = "vehicle" | "walker";
 
@@ -54,6 +58,10 @@ export class Simulation {
   interior: InteriorController;
   dropoff = new PharmacyDropoff();
   grid: GridRun;
+  ledger: LedgerRun;
+  ribbon: RibbonRun;
+  private egoHalfLen = VEHICLE.LENGTH_M / 2;
+  private egoHalfWid = VEHICLE.WIDTH_M / 2;
   mode: PlayerMode = "vehicle";
   speedLimitMph = 25;
   missionId: MissionId | "" = "";
@@ -95,6 +103,8 @@ export class Simulation {
       fire: (e, d) => this.ev.fire(e, d),
       requestQuiz: (t, delay) => this.ev.requestQuiz(t, delay),
     }, this.quiet);
+    this.ledger = new LedgerRun(this.map.ledger, { fire });
+    this.ribbon = new RibbonRun(this.map.ribbon, { fire });
   }
 
   /** Where the player currently is, for noise attribution and the Quiet. */
@@ -131,6 +141,10 @@ export class Simulation {
     this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false;
     this.footDropoff = "";
     this.grid.clear();
+    this.ledger.clear();
+    this.ribbon.clear();
+    this.egoHalfLen = VEHICLE.LENGTH_M / 2;
+    this.egoHalfWid = VEHICLE.WIDTH_M / 2;
     switch (id) {
       case "tutorial_carport":
         this.missionId = id; this.mode = "vehicle"; this.missionStart = "carport";
@@ -189,6 +203,24 @@ export class Simulation {
       case "mission_jonah_intersection":
         this.beginGrid(id, "jonah_meeker", "Milk run home. Don't match Jonah.");
         break;
+      case "mission_central_ledger":
+        this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+        this.missionStart = "ledger_south";
+        this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+        this.ledger.reset();
+        this.egoHalfLen = 3.5; this.egoHalfWid = 1.1;   // cutaway shuttle: ~7 m long, ~2.2 m wide
+        this.setObjective("Central in the Ledger. Stay right, signal every move, keep three seconds behind Deac.");
+        this.resetWorld();
+        break;
+      case "mission_ribbon_merge":
+        this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+        this.missionStart = "ribbon_ramp";
+        this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+        this.ribbon.reset();
+        this.setObjective("On-ramp to the Ribbon. Eyes up, match the flow, signal, take the gap.");
+        this.resetWorld();
+        this.speedLimitMph = this.map.ribbon.flowMph;   // the highway, not the grid
+        break;
       default: return false;
     }
     this.ev.fire(`mission.start:${id}`);
@@ -235,6 +267,8 @@ export class Simulation {
     } else {
       this.ev.toast("Swarmed. Cargo's gone. Back to the start.");
       this.resetWorld();
+      if (this.missionId === "mission_central_ledger") this.ledger.reset();
+      if (this.missionId === "mission_ribbon_merge") { this.ribbon.reset(); this.speedLimitMph = this.map.ribbon.flowMph; }
     }
   }
 
@@ -248,12 +282,14 @@ export class Simulation {
       this.noise.step(dt);
       this.zones.step(dt, s.pos, s.speedMs);
       this.quiet.step(dt, s.pos, (p) => this.blocked(p));
-      const hit = this.quiet.collide(s.pos, s.heading, VEHICLE.LENGTH_M / 2, VEHICLE.WIDTH_M / 2, s.speedMs);
+      const hit = this.quiet.collide(s.pos, s.heading, this.egoHalfLen, this.egoHalfWid, s.speedMs);
       if (hit === "plow") { this.noise.emitKind("collision_plow", s.pos); this.ev.fire("plow.used"); }
       else if (hit === "soft") this.noise.emitKind("collision_soft", s.pos);
       if (this.missionId === "tutorial_carport") this.tutorialTick(dt, s);
       if (this.missionId === "minigame_park_dol") this.parking.step(dt, s);
       if (this.missionId === "mission_delivery_1_insulin") this.deliveryTick(s);
+      if (this.missionId === "mission_central_ledger") this.ledger.step(dt, s);
+      if (this.missionId === "mission_ribbon_merge") this.ribbon.step(dt, s);
       if (this.grid.mission) {
         this.grid.step(dt, s, this.noise.band);
         if (this.grid.parkGrade && this.missionId === "mission_delivery_2_catfood" && !this.footDropoff) {
@@ -397,6 +433,10 @@ export class Simulation {
         return { pos: this.map.markers.tuna, label: "TUNA" };
       case "mission_jonah_intersection":
         return { pos: this.map.markers.warehouse_dock, label: "WAREHOUSE" };
+      case "mission_central_ledger":
+        return { pos: this.ledger.leadPos, label: "DEAC'S TRUCK" };
+      case "mission_ribbon_merge":
+        return { pos: this.ribbon.leadPos, label: "FLOW" };
       default:
         return null;
     }

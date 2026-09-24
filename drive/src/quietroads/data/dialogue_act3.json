@@ -249,7 +249,7 @@
             "checkpoint": "convoy_briefed",
             "log": "scene.complete:3.1"
           },
-          "next_scene": "3.2"
+          "next_scene": "3.1b"
         },
         "3.1.card_II-006": {
           "type": "card",

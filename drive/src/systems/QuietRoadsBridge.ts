@@ -72,7 +72,7 @@ class Bridge {
 
   constructor() {
     this.runner = new DialogueRunner(this.host());
-    for (const a of [act01, act2, act2central, act3, act4, act5, act6, act7, act8]) this.runner.load(structuredClone(a) as unknown as DialogueFile);
+    for (const a of [act01, act2, act2central, act3, act5ribbon, act4, act5, act6, act7, act8]) this.runner.load(structuredClone(a) as unknown as DialogueFile);
     this.bank = new QuestionBank().load(qv1 as never).load(qv2 as never).load(qv3 as never);
     this.deck = new CardDeck().load(cardsJson as unknown as Card[]);
     this.sim = new Simulation({

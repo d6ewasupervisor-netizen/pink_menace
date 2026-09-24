@@ -2134,7 +2134,7 @@
             "checkpoint": "act2_complete",
             "log": "act.complete:2"
           },
-          "next_scene": "3.1"
+          "next_scene": "2.5"
         }
       },
       "triggers": [

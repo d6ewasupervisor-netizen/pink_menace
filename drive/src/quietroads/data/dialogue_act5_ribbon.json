@@ -1,0 +1,216 @@
+{
+  "meta": {
+    "schema_version": "1.3.0",
+    "game": "Quiet Roads",
+    "acts": [3],
+    "locale": "en-US",
+    "placeholders": {
+      "MOM": "Mom",
+      "RAY": "Ray",
+      "GRANDMA": "Grandma",
+      "GRANDMA_NAME": "Grandma",
+      "GRANDMA_INITIALS": "Grandma",
+      "PLAYER": "Ali",
+      "PLAYER_FULL": "Alison"
+    }
+  },
+  "characters": {},
+  "scenes": {
+    "3.1b": {
+      "id": "3.1b",
+      "act": 3,
+      "title": "The On-Ramp",
+      "type": "gameplay",
+      "location": "i90_eastbound_onramp",
+      "guide_refs": ["Merging", "Freeway Ramp Meters", "Lane Changes", "Following Distance"],
+      "entry": "3.1b.0",
+      "nodes": {
+        "3.1b.0": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "The Ribbon. Eyes up, not on the bumper. The whole road is the instrument.",
+          "next": "3.1b.card_V-001"
+        },
+        "3.1b.card_V-001": {
+          "type": "card",
+          "card": "V-001",
+          "next": "3.1b.1"
+        },
+        "3.1b.1": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "The ramp has three pieces: the approach, the merge lane, the paint. Don't treat it like one long turn.",
+          "next": "3.1b.card_V-003"
+        },
+        "3.1b.card_V-003": {
+          "type": "card",
+          "card": "V-003",
+          "next": "3.1b.2"
+        },
+        "3.1b.2": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "Match them before the paint. Signal, find the flow, take a gap nobody has to brake for.",
+          "next": "3.1b.card_V-005"
+        },
+        "3.1b.card_V-005": {
+          "type": "card",
+          "card": "V-005",
+          "next": "3.1b.card_V-007"
+        },
+        "3.1b.card_V-007": {
+          "type": "card",
+          "card": "V-007",
+          "next": "3.1b.card_V-010"
+        },
+        "3.1b.card_V-010": {
+          "type": "card",
+          "card": "V-010",
+          "next": "3.1b.card_V-012"
+        },
+        "3.1b.card_V-012": {
+          "type": "card",
+          "card": "V-012",
+          "next": "3.1b.go"
+        },
+        "3.1b.go": {
+          "type": "end",
+          "effects": {
+            "start_gameplay": "mission_ribbon_merge",
+            "log": "mission.begin:ribbon_merge"
+          }
+        },
+        "3.1b.ramp": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "On the ramp. Build speed in the merge lane, then match the flow at the paint."
+        },
+        "3.1b.signal_miss": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "wry",
+          "volume": "whisper",
+          "auto_ms": 2400,
+          "text": "No signal. They never saw you coming. Habits.",
+          "effects": {
+            "respect": -1,
+            "log": "ribbon.signal.miss"
+          }
+        },
+        "3.1b.slow": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "wry",
+          "volume": "whisper",
+          "auto_ms": 2600,
+          "text": "Too slow into the flow. Match them before the paint.",
+          "effects": {
+            "respect": -1,
+            "log": "ribbon.match.slow"
+          }
+        },
+        "3.1b.tight": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "tense",
+          "volume": "whisper",
+          "auto_ms": 2600,
+          "text": "That gap was too small. Somebody had to lift.",
+          "effects": {
+            "respect": -1,
+            "log": "ribbon.gap.tight"
+          }
+        },
+        "3.1b.close": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "auto_ms": 2600,
+          "text": "Three seconds. Same rule on the Ribbon.",
+          "effects": {
+            "respect": -1,
+            "log": "ribbon.follow.close"
+          }
+        },
+        "3.1b.end": {
+          "type": "end",
+          "effects": {
+            "tp": 40,
+            "set_flags": {
+              "ribbon_merged": true
+            },
+            "checkpoint": "ribbon_merged",
+            "log": "mission.complete:ribbon_merge"
+          },
+          "next_scene": "3.2"
+        },
+        "3.1b.swarm": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "auto_ms": 2600,
+          "text": "Swarmed on the ramp. Back to the top."
+        }
+      },
+      "triggers": [
+        {
+          "event": "ramp.enter",
+          "node": "3.1b.ramp",
+          "once": true
+        },
+        {
+          "event": "ribbon.signal.miss",
+          "node": "3.1b.signal_miss",
+          "once": true
+        },
+        {
+          "event": "ribbon.match.slow",
+          "node": "3.1b.slow",
+          "once": true
+        },
+        {
+          "event": "ribbon.gap.tight",
+          "node": "3.1b.tight",
+          "once": true
+        },
+        {
+          "event": "ribbon.follow.close",
+          "node": "3.1b.close",
+          "cooldown_ms": 6000
+        },
+        {
+          "event": "waypoint.reach:ribbon_end",
+          "node": "3.1b.end",
+          "once": true,
+          "priority": 20,
+          "interrupt": true
+        },
+        {
+          "event": "mission.fail.swarm",
+          "node": "3.1b.swarm",
+          "priority": 20,
+          "interrupt": true
+        }
+      ]
+    }
+  }
+}

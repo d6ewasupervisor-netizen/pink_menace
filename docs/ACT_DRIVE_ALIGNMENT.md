@@ -16,7 +16,7 @@ edit that file — not the dialogue files — when the two surfaces drift.
 | II | The Grid | ali — the Menace | Insulin, cold-packed | `2.1`–`2.8` | quiet city grid: pharmacy, Bea's dock, Priya's lane, Tuna's parallel, Jonah's four-way | ✅ |
 | III | Central | deac — the Ledger | Deac's cargo | `2.5` | commercial run in a box truck on Central: stay right, signal, 3-second gap, merge | ✅ |
 | IV | The Core | ali — the Menace | Relay kit | `4.1`–`4.3` | forty-question licensing gate; relay kit only on a pass | ✅ |
-| V | The Ribbon | ali — the Menace | Relay kit | `3.1`–`3.5`, `5.1`–`5.3` | highway merge + mountain grade / chain-up | ❌ |
+| V | The Ribbon | ali — the Menace | Relay kit | `3.1b`, `3.1`–`3.5`, `5.1`–`5.3` | on-ramp merge (match flow, signal, gap, 3s) — chain-up TBD | ✅ |
 | VI | The Backcountry | ali — the Menace | Clearance clipboard | `6.1`–`7.3` | rural straight, bridge, passive crossing | ❌ |
 | VII | The Dark Hours | — | herd | `8.1`–`8.3` (Spokane epilogue) | stays closed | ❌ |
 
@@ -74,9 +74,12 @@ Act I is the completed translation of that loop, and the worked example to copy:
    `4.2` ending hands her to `5.1`. A fail (or standing up for good) leaves
    the kit and sends her through `4.3`, then back to the terminal.
 
-4. **Act V — build the highway.** I-90 Eastbound is dialogued but not simulated;
-   the game currently needs a highway world mode + merge/ramp grading (V-001,
-   V-003, V-005, V-008, V-010, V-011, V-012) and the `5.2` chain-up area.
+4. **Act V — The Ribbon (slice 1).** Shipped: `mission_ribbon_merge` (scene `3.1b`
+   "The On-Ramp") grades the on-ramp merge — match the flow (`V-005`), signal
+   (`V-010`), take a gap (`V-007`/`V-012`), then hold three seconds. Cards
+   `V-001/003/005/007/010/012` open the scene. Remaining: the existing `3.2`–`3.5`
+   convoy/Issaquah beats and `5.2` chain-up are still dialogued but unbuilt, and
+   the visible ego is still the Beetle rather than a highway chassis.
 
 5. **Act VI — build the backcountry.** Rural straight/soft shoulder, Vantage
    bridge, and the passive railroad crossing (VI-009 "Crossbuck and Nothing

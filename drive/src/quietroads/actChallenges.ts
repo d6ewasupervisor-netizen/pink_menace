@@ -101,10 +101,10 @@ export const ACT_CHALLENGES: Record<CardAct, ActChallenge> = {
     driver: 'ali',
     vehicle: "the Menace — Grandma's pink Beetle with the plow blade",
     cargo: 'Relay kit — repeater, antenna, clamps',
-    missions: [],
+    missions: ['mission_ribbon_merge'],
     objective: 'Eyes up the ribbon: match speed before paint, hold your gap, settle into the lane.',
     lesson: 'Highway merging, ramp discipline, and the three-second space on open road.',
-    built: false,
+    built: true,
   },
   VI: {
     act: 'VI',
@@ -146,7 +146,7 @@ const SCENE_ACT: Record<string, CardAct> = {
   '2.1': 'II', '2.2': 'II', '2.3a': 'II', '2.3b': 'II', '2.3c': 'II',
   '2.3d': 'II', '2.4': 'II', '2.5': 'III', '2.6': 'II', '2.7': 'II', '2.8': 'II',
   // Act V — The Ribbon (I-90 Eastbound is the highway leg, Ali in the Menace)
-  '3.1': 'V', '3.2': 'V', '3.3': 'V', '3.4': 'V', '3.4a': 'V', '3.5': 'V',
+  '3.1': 'V', '3.1b': 'V', '3.2': 'V', '3.3': 'V', '3.4': 'V', '3.4a': 'V', '3.5': 'V',
   // Act IV — The Core (night before, exam, the week after)
   '4.1': 'IV', '4.2': 'IV', '4.3': 'IV',
   // Act V — The Ribbon (climb and chain-up are the mountain grade)
@@ -172,6 +172,7 @@ const MISSION_ACT: Record<string, CardAct> = {
   mission_delivery_4_filters: 'II',
   mission_jonah_intersection: 'II',
   mission_central_ledger: 'III',
+  mission_ribbon_merge: 'V',
   study_terminal: 'IV',
   exam_40: 'IV',
   exam_40_resume: 'IV',

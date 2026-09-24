@@ -41,11 +41,31 @@ export interface GridSites {
   bus: Rect;            // stopped-bus beat on the way to Priya
 }
 
+/** Act III Central corridor. Metres, same frame. */
+export interface LedgerSites {
+  lanes: { x0: number; x1: number; y0: number; y1: number; count: number };
+  solidY: number;       // southbound: leaving the right lane below this y is crossing solid white
+  merge: Rect;          // lane-drop zone: the right lane ends, merge left here
+  lead: { from: Vec2; to: Vec2; speedMph: number };  // Deac's box truck path, right lane, ahead
+  end: Vec2;            // mission end waypoint
+}
+
+/** Act V highway corridor (I-90 Eastbound, the Ribbon). Metres, same frame. */
+export interface RibbonSites {
+  lanes: { x0: number; x1: number; y0: number; y1: number; count: number };
+  ramp: Rect;          // on-ramp lane; it ends (merges into the right lane) at its south edge
+  flowMph: number;     // highway flow speed to match before the paint
+  lead: { from: Vec2; to: Vec2; speedMph: number };  // traffic ahead to gap behind
+  end: Vec2;           // mission end waypoint
+}
+
 export interface WorldMap {
   bounds: Rect;
   parking: ParkingLot;
   dol: DolInterior;
   grid: GridSites;
+  ledger: LedgerSites;
+  ribbon: RibbonSites;
   roads: RoadSeg[];
   centerLines: [Vec2, Vec2][];
   stopLines: [Vec2, Vec2][];
@@ -80,6 +100,7 @@ export function buildKentMap(seed = 7): WorldMap {
   const roads: RoadSeg[] = [
     { rect: { x: -10, y: -4, w: 279, h: 8 }, name: "TITUS ST" },
     { rect: { x: 260, y: -50, w: 10, h: 490 }, name: "CENTRAL AVE" },
+    { rect: { x: 270, y: 200, w: 3.5, h: 100 }, name: "I-90 ON-RAMP" },
     { rect: { x: 140, y: 106, w: 180, h: 8 }, name: "MEEKER ST" },
     { rect: { x: 170, y: -28, w: 96, h: 8 }, name: "VALLEY RD" },
     { rect: { x: 196, y: 70, w: 8, h: 70 }, name: "WILLIS ST" },
@@ -161,11 +182,33 @@ export function buildKentMap(seed = 7): WorldMap {
     bus: { x: 260, y: 14, w: 10, h: 8 },
   };
 
+  // Central south of the Grid: the Act III Ledger run. Three southbound lanes;
+  // the right lane is the travel lane and it ends in a merge near the south.
+  const ledger: LedgerSites = {
+    lanes: { x0: 260, x1: 270, y0: 60, y1: 170, count: 3 },
+    solidY: 120,
+    merge: { x: 260, y: 150, w: 10, h: 20 },
+    lead: { from: { x: 261.67, y: 78 }, to: { x: 261.67, y: 170 }, speedMph: 18 },
+    end: { x: 265, y: 172 },
+  };
+
+  // I-90 Eastbound south of the Central corridor: the Act V on-ramp merge.
+  // Three highway lanes plus a right-side ramp that dies into the right lane.
+  const ribbon: RibbonSites = {
+    lanes: { x0: 260, x1: 270, y0: 200, y1: 360, count: 3 },
+    ramp: { x: 270, y: 200, w: 3.5, h: 100 },
+    flowMph: 40,
+    lead: { from: { x: 261.67, y: 220 }, to: { x: 261.67, y: 358 }, speedMph: 40 },
+    end: { x: 265, y: 342 },
+  };
+
   return {
     bounds: { x: -30, y: -70, w: 360, h: 530 },
     parking,
     dol,
     grid,
+    ledger,
+    ribbon,
     roads,
     centerLines: [
       [{ x: -10, y: 0 }, { x: 258, y: 0 }],
@@ -199,6 +242,8 @@ export function buildKentMap(seed = 7): WorldMap {
       priya: { x: 268.3, y: 40 },
       tuna: { x: 179.6, y: -26.3 },
       warehouse_dock: { x: 174, y: -24 },
+      ledger_end: { x: 265, y: 172 },
+      ribbon_end: { x: 265, y: 342 },
     },
     quietSpawns: spawns,
     starts: {
@@ -208,6 +253,8 @@ export function buildKentMap(seed = 7): WorldMap {
       priya_west: { pos: { x: 261.6, y: 8 }, heading: Math.PI / 2 },           // west lane, heading south
       tuna_approach: { pos: { x: 214, y: -24 }, heading: Math.PI },            // Valley Rd, facing the dock
       jonah_meeker: { pos: { x: 210, y: 110 }, heading: 0 },                   // Meeker, east toward Central
+      ledger_south: { pos: { x: 261.67, y: 66 }, heading: Math.PI / 2 },       // Central, right lane, heading south
+      ribbon_ramp: { pos: { x: 271.75, y: 206 }, heading: Math.PI / 2 },       // I-90 on-ramp, heading south into the merge
       dol_lot_entry: { pos: { x: 257.5, y: 387 }, heading: Math.PI },            // just inside the driveway, facing west
       dol_stall: { pos: { x: stalls[2].x + stalls[2].w / 2, y: 416.5 }, heading: Math.PI / 2 }, // parked, nose south
     },

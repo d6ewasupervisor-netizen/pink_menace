@@ -360,6 +360,86 @@ function GridMarks() {
   );
 }
 
+function LedgerMarks() {
+  const g = QuietRoads.sim.map.ledger;
+  const rightBoundary = g.lanes.x0 + (g.lanes.x1 - g.lanes.x0) * (1 / 3);   // between right + middle
+  const leftBoundary = g.lanes.x0 + (g.lanes.x1 - g.lanes.x0) * (2 / 3);    // between middle + left
+  return (
+    <group>
+      {/* right-lane boundary: broken north of the solid line, solid south of it */}
+      <Dashes a={{ x: rightBoundary, y: g.lanes.y0 }} b={{ x: rightBoundary, y: g.solidY }} />
+      <Line a={{ x: rightBoundary, y: g.solidY }} b={{ x: rightBoundary, y: g.lanes.y1 }} color="#ffffff" width={0.18} />
+      <Dashes a={{ x: leftBoundary, y: g.lanes.y0 }} b={{ x: leftBoundary, y: g.lanes.y1 }} />
+      {/* the lane-drop zone */}
+      <RectPlane r={g.merge} y={MARK_Y} color="#8a7a4a" opacity={0.22} />
+    </group>
+  );
+}
+
+function LedgerLead() {
+  const ref = useRef<THREE.Group>(null);
+  useFrame(() => {
+    if (!ref.current) return;
+    const led = QuietRoads.sim.ledger;
+    const phase = useGameStore.getState().phase;
+    if (!led.mission || phase !== 'driving') { ref.current.visible = false; return; }
+    ref.current.visible = true;
+    ref.current.position.set(led.leadPos.x, 0, led.leadPos.y);
+    ref.current.rotation.y = -led.leadHeading - Math.PI / 2; // core 0 = +X; model forward = -Z
+  });
+  return (
+    <group ref={ref} visible={false}>
+      {/* cab (front, -Z) + box body (rear, +Z) */}
+      <mesh position={[0, 1.15, -1.9]} castShadow>
+        <boxGeometry args={[2.2, 1.7, 1.8]} />
+        <meshStandardMaterial color="#8a9aa0" roughness={0.8} />
+      </mesh>
+      <mesh position={[0, 1.9, 1.1]} castShadow>
+        <boxGeometry args={[2.2, 2.5, 4.2]} />
+        <meshStandardMaterial color="#c9c3b8" roughness={0.85} />
+      </mesh>
+    </group>
+  );
+}
+
+function RibbonMarks() {
+  const g = QuietRoads.sim.map.ribbon;
+  const b1 = g.lanes.x0 + (g.lanes.x1 - g.lanes.x0) * (1 / 3);   // right ↔ middle
+  const b2 = g.lanes.x0 + (g.lanes.x1 - g.lanes.x0) * (2 / 3);   // middle ↔ left
+  const rampEndY = g.ramp.y + g.ramp.h;
+  return (
+    <group>
+      <Dashes a={{ x: b1, y: g.lanes.y0 }} b={{ x: b1, y: g.lanes.y1 }} />
+      <Dashes a={{ x: b2, y: g.lanes.y0 }} b={{ x: b2, y: g.lanes.y1 }} />
+      {/* ramp's left edge (solid) — the line you cross to merge into the flow */}
+      <Line a={{ x: g.ramp.x, y: g.ramp.y }} b={{ x: g.ramp.x, y: rampEndY }} color="#ffffff" width={0.18} />
+      {/* the paint line where the ramp dies into the right lane */}
+      <Line a={{ x: g.ramp.x, y: rampEndY }} b={{ x: g.ramp.x + g.ramp.w, y: rampEndY }} color="#e8d63a" width={0.18} />
+    </group>
+  );
+}
+
+function RibbonLead() {
+  const ref = useRef<THREE.Group>(null);
+  useFrame(() => {
+    if (!ref.current) return;
+    const rb = QuietRoads.sim.ribbon;
+    const phase = useGameStore.getState().phase;
+    if (!rb.mission || phase !== 'driving') { ref.current.visible = false; return; }
+    ref.current.visible = true;
+    ref.current.position.set(rb.leadPos.x, 0, rb.leadPos.y);
+    ref.current.rotation.y = -rb.leadHeading - Math.PI / 2;
+  });
+  return (
+    <group ref={ref} visible={false}>
+      <mesh position={[0, 0.55, 0]} castShadow>
+        <boxGeometry args={[1.8, 0.9, 3.6]} />
+        <meshStandardMaterial color="#4d96ff" roughness={0.7} />
+      </mesh>
+    </group>
+  );
+}
+
 export function KentWorld() {
   const map = QuietRoads.sim.map;
   return (
@@ -393,6 +473,10 @@ export function KentWorld() {
       {map.signs.map((s, i) => <Sign key={i} s={s} />)}
       <ParkingStalls />
       <GridMarks />
+      <LedgerMarks />
+      <LedgerLead />
+      <RibbonMarks />
+      <RibbonLead />
       <Walker />
 
       {/* Grandma's carport */}
