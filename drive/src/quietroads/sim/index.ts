@@ -12,5 +12,7 @@ export * from "./ledger";
 export * from "./ribbon";
 export * from "./rural";
 export * from "./chainup";
+export * from "./climb";
+export * from "./escort";
 export * from "./beats";
 export * from "./convoy";

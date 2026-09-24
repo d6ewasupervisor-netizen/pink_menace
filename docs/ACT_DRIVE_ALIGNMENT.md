@@ -16,8 +16,8 @@ edit that file — not the dialogue files — when the two surfaces drift.
 | II | The Grid | ali — the Menace | Insulin, cold-packed | `2.1`–`2.8` | quiet city grid: pharmacy, Bea's dock, Priya's lane, Tuna's parallel, Jonah's four-way | ✅ |
 | III | Central | deac — the Ledger | Deac's cargo | `2.5` | commercial run in a box truck on Central: stay right, signal, 3-second gap, merge | ✅ |
 | IV | The Core | ali — the Menace | Relay kit | `4.1`–`4.3` | forty-question licensing gate; relay kit only on a pass | ✅ |
-| V | The Ribbon | ali — the Menace | Relay kit | `3.1b`, `3.1`–`3.5`, `5.1`–`5.3` | on-ramp merge, Issaquah convoy, chain-up pull-out | ✅ |
-| VI | The Backcountry | ali — the Menace | Clearance clipboard | `6.1b`, `6.1`–`7.3` | gravel run, roundabout, night straight, Vantage Bridge | ✅ |
+| V | The Ribbon | ali — the Menace | Relay kit | `3.1b`, `3.1`–`3.5`, `5.1`–`5.3` | climb, chain-up, on-ramp merge, Issaquah convoy | ✅ |
+| VI | The Backcountry | ali — the Menace | Clearance clipboard | `6.1b`, `6.1`–`7.3` | gravel, roundabout, night straight, bridge, Ritzville escort | ✅ |
 | VII | The Dark Hours | — | herd | `8.1`–`8.3` (Spokane epilogue) | stays closed | ❌ |
 
 ## Scene → act
@@ -65,8 +65,8 @@ Act I is the completed translation of that loop, and the worked example to copy:
    box-truck lead: stay right (`III-003`), signal every move (`III-006`), hold the
    three-second space (`III-009`), don't cross solid white (`III-008`), and take
    the lane-drop merge with a gap (`III-007`). Cards `III-002/003/004/006` open the
-   scene. Remaining polish: swap the visible ego model from the Beetle to a box
-   truck and retune stopping distance for the longer wheelbase.
+   scene. The Ledger shows the truck. Remaining polish: retune stopping distance
+   for the longer wheelbase.
 
 3. **Act IV — the exam is the challenge.** Shipped. `study_terminal` is a
    10-question set the night before. `exam_40` is forty questions, 32 to pass.
@@ -74,16 +74,14 @@ Act I is the completed translation of that loop, and the worked example to copy:
    `4.2` ending hands her to `5.1`. A fail (or standing up for good) leaves
    the kit and sends her through `4.3`, then back to the terminal.
 
-4. **Act V — The Ribbon.** On-ramp, Issaquah convoy, and the chain-up pull-out
-   (`chainup_qte`, scene `5.2`) are shipped. A steady brake mounts the chains; a
-   hard stab drops the tensioner. Remaining polish: the visible ego is still the
-   Beetle rather than a highway chassis.
+4. **Act V — The Ribbon.** The climb (`climb_snoqualmie`), the chain-up pull-out,
+   the on-ramp, and the Issaquah convoy are shipped. The pass uses the highway
+   car. Remaining polish: stopping distance is still the Beetle's.
 
-5. **Act VI — The Backcountry.** Gravel run, the roundabout on that road
-   (`VI-007/008`), the night straight (`straight_night_drive` and the rest-area
-   park), and Vantage Bridge (wind, the sign, Gracie, engine-off wait) are
-   shipped. Remaining: the `7.1` Ritzville escort is still dialogue only, and the
-   visible ego is still the Beetle.
+5. **Act VI — The Backcountry.** Gravel, the roundabout, the night straight,
+   Vantage Bridge, and the Ritzville escort (`escort_ritzville`, four seconds
+   behind Hank) are shipped. The Ledger run shows the truck. Remaining polish:
+   the Menace is still the Beetle everywhere else, which is what she drives.
 
 Act VII stays closed — the herd lives on the pass and the drive should not free it.
 

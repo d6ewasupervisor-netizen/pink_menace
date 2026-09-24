@@ -75,6 +75,8 @@ interface VehicleSlice {
   vehiclePosition: [number, number, number];
   vehicleHeading: number; // Y-axis rotation in radians
   velocityMph: number;
+  /** Visible body. The Menace is the Beetle; the Ledger is the truck; the pass is the highway car. */
+  chassis: 'beetle' | 'truck' | 'highway';
   engineRPM: number;
   engineGear: number;
   engineSpeed: number;
@@ -194,6 +196,7 @@ export const useGameStore = create<GameState>()(
       vehiclePosition: [0, 0.7, 0],
       vehicleHeading: 0,
       velocityMph: 0,
+      chassis: 'beetle',
       engineRPM: 800,
       engineGear: 1,
       engineSpeed: 0,

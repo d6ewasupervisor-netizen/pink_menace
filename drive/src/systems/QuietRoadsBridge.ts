@@ -203,6 +203,10 @@ class Bridge {
       return;
     }
     if (this.sim.startMission(id as MissionId)) {
+      const chassis = id === 'mission_central_ledger' ? 'truck'
+        : id === 'mission_ribbon_merge' || id.startsWith('convoy_') || id.startsWith('mission_convoy') || id.startsWith('climb_')
+          ? 'highway' : 'beetle';
+      useGameStore.setState({ chassis });
       if (id === 'straight_night_drive') useGameStore.setState({ timeOfDay: 'night' });
       if (this.sim.mode === 'walker') this.enterWalking(); else this.enterDriving();
       return;

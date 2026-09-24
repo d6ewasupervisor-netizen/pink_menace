@@ -419,6 +419,27 @@ function RibbonMarks() {
   );
 }
 
+function EscortLead() {
+  const ref = useRef<THREE.Group>(null);
+  useFrame(() => {
+    if (!ref.current) return;
+    const es = QuietRoads.sim.escort;
+    const phase = useGameStore.getState().phase;
+    if (!es.mission || phase !== 'driving') { ref.current.visible = false; return; }
+    ref.current.visible = true;
+    ref.current.position.set(es.leadPos.x, 0, es.leadPos.y);
+    ref.current.rotation.y = -es.leadHeading - Math.PI / 2;
+  });
+  return (
+    <group ref={ref} visible={false}>
+      <mesh position={[0, 0.7, 0]} castShadow>
+        <boxGeometry args={[2.2, 1.3, 6]} />
+        <meshStandardMaterial color="#c4b48a" roughness={0.75} />
+      </mesh>
+    </group>
+  );
+}
+
 function RibbonLead() {
   const ref = useRef<THREE.Group>(null);
   useFrame(() => {
@@ -501,6 +522,7 @@ export function KentWorld() {
       <LedgerLead />
       <RibbonMarks />
       <RibbonLead />
+      <EscortLead />
       <RuralMarks />
       <Walker />
 

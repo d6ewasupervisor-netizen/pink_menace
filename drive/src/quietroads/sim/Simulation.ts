@@ -12,6 +12,8 @@ import { RibbonRun } from "./ribbon";
 import { RuralRun } from "./rural";
 import { ConvoyRun, type ConvoyMission } from "./convoy";
 import { ChainupRun } from "./chainup";
+import { ClimbRun } from "./climb";
+import { EscortRun } from "./escort";
 import { BeatRun, type BeatMission } from "./beats";
 import type { NoiseZone } from "./noise";
 
@@ -26,6 +28,8 @@ export type MissionId =
   | "mission_convoy_issaquah" | "convoy_continue_solo" | "convoy_tow_jonah"
   | "mission_backcountry_run"
   | "chainup_qte"
+  | "climb_snoqualmie" | "climb_snoqualmie_from_below_chainup"
+  | "escort_ritzville"
   | BeatMission;
 
 export type PlayerMode = "vehicle" | "walker";
@@ -71,6 +75,8 @@ export class Simulation {
   convoy: ConvoyRun;
   rural: RuralRun;
   chainup: ChainupRun;
+  climb: ClimbRun;
+  escort: EscortRun;
   beats: BeatRun;
   private egoHalfLen = VEHICLE.LENGTH_M / 2;
   private egoHalfWid = VEHICLE.WIDTH_M / 2;
@@ -120,6 +126,8 @@ export class Simulation {
     this.convoy = new ConvoyRun(this.map.ribbon, this.map.markers.stall_point, this.map.markers.issaquah, { fire });
     this.rural = new RuralRun(this.map.rural, { fire, requestQuiz: (t) => this.ev.requestQuiz(t, 0) });
     this.chainup = new ChainupRun({ x: 276, y: 368, w: 18, h: 12 }, { fire });
+    this.climb = new ClimbRun({ x: 278, y: 320, w: 8, h: 40 }, this.map.markers.chainup, { fire });
+    this.escort = new EscortRun({ fire });
     this.beats = new BeatRun(
       { x: 70, y: 432, w: 16, h: 12 },
       this.map.markers.rest_area,
@@ -167,6 +175,8 @@ export class Simulation {
     this.convoy.clear();
     this.rural.clear();
     this.chainup.clear();
+    this.climb.clear();
+    this.escort.clear();
     this.beats.clear();
     this.egoHalfLen = VEHICLE.LENGTH_M / 2;
     this.egoHalfWid = VEHICLE.WIDTH_M / 2;
@@ -273,6 +283,21 @@ export class Simulation {
         this.resetWorld();
         this.speedLimitMph = 15;
         break;
+      case "climb_snoqualmie":
+        this.beginClimb(id, "climb_foot");
+        break;
+      case "climb_snoqualmie_from_below_chainup":
+        this.beginClimb(id, "climb_below");
+        break;
+      case "escort_ritzville":
+        this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+        this.missionStart = "escort_start";
+        this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+        this.escort.reset({ x: 40, y: 438 }, { x: 300, y: 438 }, this.map.markers.ritzville);
+        this.setObjective("Four seconds behind Hank. Out of his mirrors. Ritzville.");
+        this.resetWorld();
+        this.speedLimitMph = 55;
+        break;
       case "straight_night_drive":
         this.beginBeat(id, "rural_start", "Night straight. Rest area is ahead.", 55);
         break;
@@ -292,6 +317,16 @@ export class Simulation {
     }
     this.ev.fire(`mission.start:${id}`);
     return true;
+  }
+
+  private beginClimb(id: "climb_snoqualmie" | "climb_snoqualmie_from_below_chainup", start: keyof WorldMap["starts"]) {
+    this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+    this.missionStart = start;
+    this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+    this.climb.reset();
+    this.setObjective("Thirty-five. Nothing sudden. Chain-up is at the top.");
+    this.resetWorld();
+    this.speedLimitMph = 35;
   }
 
   private beginBeat(id: BeatMission, start: keyof WorldMap["starts"], objective: string, limit: number) {
@@ -362,6 +397,14 @@ export class Simulation {
       }
       if (this.missionId === "mission_backcountry_run") { this.rural.reset(); this.speedLimitMph = 40; }
       if (this.missionId === "chainup_qte") { this.chainup.reset(); this.speedLimitMph = 15; }
+      if (this.missionId === "climb_snoqualmie" || this.missionId === "climb_snoqualmie_from_below_chainup") {
+        this.climb.reset();
+        this.speedLimitMph = 35;
+      }
+      if (this.missionId === "escort_ritzville") {
+        this.escort.reset({ x: 40, y: 438 }, { x: 300, y: 438 }, this.map.markers.ritzville);
+        this.speedLimitMph = 55;
+      }
       if (this.beats.mission && this.missionId === this.beats.mission) this.beats.reset(this.beats.mission);
     }
   }
@@ -386,6 +429,8 @@ export class Simulation {
       if (this.missionId === "mission_ribbon_merge") this.ribbon.step(dt, s);
       if (this.missionId === "mission_backcountry_run") this.rural.step(dt, s);
       if (this.chainup.mission) this.chainup.step(dt, s);
+      if (this.climb.mission) this.climb.step(dt, s);
+      if (this.escort.mission) this.escort.step(dt, s);
       if (this.beats.mission) this.beats.step(dt, s);
       if (this.convoy.mission) this.convoy.step(dt, s, this.noise.band);
       if (this.grid.mission) {
@@ -546,6 +591,13 @@ export class Simulation {
         return { pos: this.map.rural.end, label: "CLEARANCE" };
       case "chainup_qte":
         return { pos: this.map.markers.chainup, label: "CHAINS" };
+      case "climb_snoqualmie":
+      case "climb_snoqualmie_from_below_chainup":
+        return { pos: this.map.markers.chainup, label: "CHAIN-UP" };
+      case "escort_ritzville":
+        return this.escort.leadPos.x < this.map.markers.ritzville.x - 30
+          ? { pos: this.escort.leadPos, label: "HANK" }
+          : { pos: this.map.markers.ritzville, label: "RITZVILLE" };
       case "straight_night_drive":
       case "rest_area_pullin":
       case "rest_area_forced":

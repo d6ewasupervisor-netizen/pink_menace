@@ -67,6 +67,26 @@ const DOOR_Y_FROM = 0.20,  DOOR_Y_TO = 0.90;   // dropped ~8" to sit on the door
 const DOOR_X      = 0.80;
 
 useGLTF.preload(asset('/models/cars/vw_beetle.glb'));
+useGLTF.preload(asset('/models/cars/truck.glb'));
+useGLTF.preload(asset('/models/cars/suv.glb'));
+
+/** Ledger truck or the highway car. Kenney bodies face +Z; spin them to the Beetle's -Z nose. */
+function KenneyChassis({ url, scale }: { url: string; scale: number }) {
+  const { scene: raw } = useGLTF(url);
+  const scene = useMemo(() => raw.clone(true), [raw]);
+  return (
+    <group rotation={[0, Math.PI, 0]} scale={scale} position={[0, 0.05, 0]}>
+      <primitive object={scene} castShadow receiveShadow />
+    </group>
+  );
+}
+
+function ChassisBody({ plowAngle }: { plowAngle: number }) {
+  const chassis = useGameStore((s) => s.chassis);
+  if (chassis === 'truck') return <KenneyChassis url={asset('/models/cars/truck.glb')} scale={1.35} />;
+  if (chassis === 'highway') return <KenneyChassis url={asset('/models/cars/suv.glb')} scale={1.15} />;
+  return <VWBeetleModel plowAngle={plowAngle} />;
+}
 
 // ─── Material traversal helper ────────────────────────────────────────────────
 function applyToMaterial(
@@ -463,6 +483,7 @@ export function Vehicle() {
   const { plowAngle, update: updatePlow } = usePlowAngle();
   const plowAngleDisplay = useRef(0);
   const resetCounter = useGameStore((s) => s.resetCounter);
+  const chassis = useGameStore((s) => s.chassis);
 
   const { world, rapier } = useRapier();
 
@@ -516,12 +537,16 @@ export function Vehicle() {
     >
       {/* Collider biased toward rear (+Z) so the nose doesn't dive or wander */}
       <CuboidCollider
-        args={[COLLIDER_HX, COLLIDER_HY, COLLIDER_HZ]}
+        args={[
+          chassis === 'truck' ? 0.85 : COLLIDER_HX,
+          COLLIDER_HY,
+          chassis === 'truck' ? 2.35 : chassis === 'highway' ? 1.9 : COLLIDER_HZ,
+        ]}
         position={[0, -0.05, 0.38]}
         friction={0}
         restitution={0.2}
       />
-      <VWBeetleModel plowAngle={plowAngleDisplay.current} />
+      <ChassisBody plowAngle={plowAngleDisplay.current} />
       <VehicleParticles />
     </RigidBody>
   );
