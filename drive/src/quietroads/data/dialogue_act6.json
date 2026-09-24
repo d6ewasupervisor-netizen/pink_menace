@@ -386,7 +386,7 @@
             "checkpoint": "deac_gone",
             "log": "scene.complete:6.1"
           },
-          "next_scene": "6.2"
+          "next_scene": "6.1b"
         }
       }
     },

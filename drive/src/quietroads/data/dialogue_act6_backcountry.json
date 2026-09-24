@@ -1,0 +1,261 @@
+{
+  "meta": {
+    "schema_version": "1.3.0",
+    "game": "Quiet Roads",
+    "acts": [6],
+    "locale": "en-US",
+    "placeholders": {
+      "MOM": "Mom",
+      "RAY": "Ray",
+      "GRANDMA": "Grandma",
+      "GRANDMA_NAME": "Grandma",
+      "GRANDMA_INITIALS": "Grandma",
+      "PLAYER": "Ali",
+      "PLAYER_FULL": "Alison"
+    }
+  },
+  "characters": {},
+  "scenes": {
+    "6.1b": {
+      "id": "6.1b",
+      "act": 6,
+      "title": "The Gravel",
+      "type": "gameplay",
+      "location": "backcountry_gravel",
+      "guide_refs": ["Gravel Roads", "Rural Roads", "Railroad Crossings", "Uncontrolled Intersections"],
+      "entry": "6.1b.0",
+      "nodes": {
+        "6.1b.0": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "The blacktop quits. Gravel now. The car talks back out here — loose under me.",
+          "next": "6.1b.card_VI-001"
+        },
+        "6.1b.card_VI-001": {
+          "type": "card",
+          "card": "VI-001",
+          "next": "6.1b.1"
+        },
+        "6.1b.1": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "The lines out here aren't lane lines — the edge is a drop-off. Stay off it.",
+          "next": "6.1b.card_VI-002"
+        },
+        "6.1b.card_VI-002": {
+          "type": "card",
+          "card": "VI-002",
+          "next": "6.1b.card_VI-004"
+        },
+        "6.1b.card_VI-004": {
+          "type": "card",
+          "card": "VI-004",
+          "next": "6.1b.card_VI-006"
+        },
+        "6.1b.card_VI-006": {
+          "type": "card",
+          "card": "VI-006",
+          "next": "6.1b.card_VI-010"
+        },
+        "6.1b.card_VI-010": {
+          "type": "card",
+          "card": "VI-010",
+          "next": "6.1b.card_VI-012"
+        },
+        "6.1b.card_VI-012": {
+          "type": "card",
+          "card": "VI-012",
+          "next": "6.1b.go"
+        },
+        "6.1b.go": {
+          "type": "end",
+          "effects": {
+            "start_gameplay": "mission_backcountry_run",
+            "log": "mission.begin:backcountry"
+          }
+        },
+        "6.1b.shoulder": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "tense",
+          "volume": "whisper",
+          "text": "Off the edge. Let the road come back. Don't yank."
+        },
+        "6.1b.yank": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "panicked",
+          "volume": "whisper",
+          "auto_ms": 2400,
+          "text": "Yanked it. Off the edge you hold the line — you don't jerk back.",
+          "effects": {
+            "respect": -2,
+            "log": "rural.shoulder.yank"
+          }
+        },
+        "6.1b.crest_fast": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "tense",
+          "volume": "whisper",
+          "auto_ms": 2600,
+          "text": "Blind crest, too fast. You can't see over the top until you're on it.",
+          "effects": {
+            "respect": -1,
+            "log": "rural.crest.fast"
+          }
+        },
+        "6.1b.crest_clean": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "calm",
+          "volume": "whisper",
+          "auto_ms": 2400,
+          "text": "Slow over the top. Good.",
+          "effects": {
+            "respect": 1,
+            "log": "rural.crest.clean"
+          }
+        },
+        "6.1b.uncontr_rolled": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "tense",
+          "volume": "whisper",
+          "auto_ms": 2600,
+          "text": "Rolled right through. Nobody's in charge here — which means it's on you.",
+          "effects": {
+            "respect": -2,
+            "log": "rural.uncontrolled.rolled"
+          }
+        },
+        "6.1b.uncontr_yield": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "calm",
+          "volume": "whisper",
+          "auto_ms": 2400,
+          "text": "Slowed, looked, waited. That's the whole rule out here.",
+          "effects": {
+            "respect": 2,
+            "log": "rural.uncontrolled.yield"
+          }
+        },
+        "6.1b.cross_rolled": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "tense",
+          "volume": "whisper",
+          "auto_ms": 2600,
+          "text": "Crossbuck and nothing else — and I didn't slow for it.",
+          "effects": {
+            "respect": -2,
+            "log": "rural.crossbuck.rolled"
+          }
+        },
+        "6.1b.cross_clean": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "calm",
+          "volume": "whisper",
+          "auto_ms": 2400,
+          "text": "Slowed, looked both ways, listened. Crossed.",
+          "effects": {
+            "respect": 2,
+            "log": "rural.crossbuck.clean"
+          }
+        },
+        "6.1b.end": {
+          "type": "end",
+          "effects": {
+            "tp": 40,
+            "set_flags": {
+              "backcountry_done": true
+            },
+            "checkpoint": "backcountry_done",
+            "log": "mission.complete:backcountry_run"
+          },
+          "next_scene": "6.2"
+        },
+        "6.1b.swarm": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "auto_ms": 2600,
+          "text": "Swarmed on the gravel. Back to the edge."
+        }
+      },
+      "triggers": [
+        {
+          "event": "rural.shoulder",
+          "node": "6.1b.shoulder",
+          "cooldown_ms": 8000
+        },
+        {
+          "event": "rural.shoulder.yank",
+          "node": "6.1b.yank",
+          "cooldown_ms": 6000
+        },
+        {
+          "event": "rural.crest.fast",
+          "node": "6.1b.crest_fast",
+          "once": true
+        },
+        {
+          "event": "rural.crest.clean",
+          "node": "6.1b.crest_clean",
+          "once": true
+        },
+        {
+          "event": "rural.uncontrolled.rolled",
+          "node": "6.1b.uncontr_rolled",
+          "once": true
+        },
+        {
+          "event": "rural.uncontrolled.yield",
+          "node": "6.1b.uncontr_yield",
+          "once": true
+        },
+        {
+          "event": "rural.crossbuck.rolled",
+          "node": "6.1b.cross_rolled",
+          "once": true
+        },
+        {
+          "event": "rural.crossbuck.clean",
+          "node": "6.1b.cross_clean",
+          "once": true
+        },
+        {
+          "event": "waypoint.reach:rural_end",
+          "node": "6.1b.end",
+          "once": true,
+          "priority": 20,
+          "interrupt": true
+        },
+        {
+          "event": "mission.fail.swarm",
+          "node": "6.1b.swarm",
+          "priority": 20,
+          "interrupt": true
+        }
+      ]
+    }
+  }
+}

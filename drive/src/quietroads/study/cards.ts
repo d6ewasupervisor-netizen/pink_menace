@@ -58,4 +58,5 @@ export const CARD_FOR_TRIGGER: Record<string, string[]> = {
   "signal.arm":             ["II-006"],   // Deac's Left Arm — signal before the move
   "bus.stop_arm":           ["II-010"],   // The Arm Still Out
   "driveway.turn":          ["II-030"],   // The Driveway You Can See
+  "roundabout.approach":    ["VI-007", "VI-008"],
 };

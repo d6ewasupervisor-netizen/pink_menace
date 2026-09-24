@@ -16,8 +16,8 @@ edit that file — not the dialogue files — when the two surfaces drift.
 | II | The Grid | ali — the Menace | Insulin, cold-packed | `2.1`–`2.8` | quiet city grid: pharmacy, Bea's dock, Priya's lane, Tuna's parallel, Jonah's four-way | ✅ |
 | III | Central | deac — the Ledger | Deac's cargo | `2.5` | commercial run in a box truck on Central: stay right, signal, 3-second gap, merge | ✅ |
 | IV | The Core | ali — the Menace | Relay kit | `4.1`–`4.3` | forty-question licensing gate; relay kit only on a pass | ✅ |
-| V | The Ribbon | ali — the Menace | Relay kit | `3.1b`, `3.1`–`3.5`, `5.1`–`5.3` | on-ramp merge, then the Issaquah convoy (solo or tow) — chain-up TBD | ✅ |
-| VI | The Backcountry | ali — the Menace | Clearance clipboard | `6.1`–`7.3` | rural straight, bridge, passive crossing | ❌ |
+| V | The Ribbon | ali — the Menace | Relay kit | `3.1b`, `3.1`–`3.5`, `5.1`–`5.3` | on-ramp merge, Issaquah convoy, chain-up pull-out | ✅ |
+| VI | The Backcountry | ali — the Menace | Clearance clipboard | `6.1b`, `6.1`–`7.3` | gravel run, roundabout, night straight, Vantage Bridge | ✅ |
 | VII | The Dark Hours | — | herd | `8.1`–`8.3` (Spokane epilogue) | stays closed | ❌ |
 
 ## Scene → act
@@ -74,15 +74,16 @@ Act I is the completed translation of that loop, and the worked example to copy:
    `4.2` ending hands her to `5.1`. A fail (or standing up for good) leaves
    the kit and sends her through `4.3`, then back to the terminal.
 
-4. **Act V — The Ribbon.** On-ramp (`mission_ribbon_merge`, scene `3.1b`) and
-   the Issaquah convoy (`mission_convoy_issaquah`, then solo or tow) are shipped.
-   Remaining: `5.2` chain-up is still dialogue only, and the visible ego is still
-   the Beetle rather than a highway chassis.
+4. **Act V — The Ribbon.** On-ramp, Issaquah convoy, and the chain-up pull-out
+   (`chainup_qte`, scene `5.2`) are shipped. A steady brake mounts the chains; a
+   hard stab drops the tensioner. Remaining polish: the visible ego is still the
+   Beetle rather than a highway chassis.
 
-5. **Act VI — build the backcountry.** Rural straight/soft shoulder, Vantage
-   bridge, and the passive railroad crossing (VI-009 "Crossbuck and Nothing
-   Else", VI-004/VI-011 soft-shoulder ledger). Reuse the Kent map approach with
-   a rural road generator + rail zone.
+5. **Act VI — The Backcountry.** Gravel run, the roundabout on that road
+   (`VI-007/008`), the night straight (`straight_night_drive` and the rest-area
+   park), and Vantage Bridge (wind, the sign, Gracie, engine-off wait) are
+   shipped. Remaining: the `7.1` Ritzville escort is still dialogue only, and the
+   visible ego is still the Beetle.
 
 Act VII stays closed — the herd lives on the pass and the drive should not free it.
 

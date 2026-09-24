@@ -29,6 +29,7 @@ import act3 from '@/quietroads/data/dialogue_act3.json';
 import act4 from '@/quietroads/data/dialogue_act4.json';
 import act5 from '@/quietroads/data/dialogue_act5.json';
 import act6 from '@/quietroads/data/dialogue_act6.json';
+import act6backcountry from '@/quietroads/data/dialogue_act6_backcountry.json';
 import act7 from '@/quietroads/data/dialogue_act7.json';
 import act8 from '@/quietroads/data/dialogue_act8.json';
 import qv1 from '@/quietroads/data/questions_v1.json';
@@ -72,7 +73,7 @@ class Bridge {
 
   constructor() {
     this.runner = new DialogueRunner(this.host());
-    for (const a of [act01, act2, act2central, act3, act5ribbon, act4, act5, act6, act7, act8]) this.runner.load(structuredClone(a) as unknown as DialogueFile);
+    for (const a of [act01, act2, act2central, act3, act5ribbon, act4, act5, act6, act6backcountry, act7, act8]) this.runner.load(structuredClone(a) as unknown as DialogueFile);
     this.bank = new QuestionBank().load(qv1 as never).load(qv2 as never).load(qv3 as never);
     this.deck = new CardDeck().load(cardsJson as unknown as Card[]);
     this.sim = new Simulation({
@@ -202,6 +203,7 @@ class Bridge {
       return;
     }
     if (this.sim.startMission(id as MissionId)) {
+      if (id === 'straight_night_drive') useGameStore.setState({ timeOfDay: 'night' });
       if (this.sim.mode === 'walker') this.enterWalking(); else this.enterDriving();
       return;
     }

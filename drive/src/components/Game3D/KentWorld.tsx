@@ -442,6 +442,28 @@ function RibbonLead() {
   );
 }
 
+function RuralMarks() {
+  const r = QuietRoads.sim.map.rural;
+  const top = r.road.y;
+  const bottom = r.road.y + r.road.h;
+  const s = r.shoulder;
+  return (
+    <group>
+      {/* gravel shoulders */}
+      <RectPlane r={{ x: r.road.x, y: top - s, w: r.road.w, h: s }} y={MARK_Y} color="#6b6454" opacity={0.9} />
+      <RectPlane r={{ x: r.road.x, y: bottom, w: r.road.w, h: s }} y={MARK_Y} color="#6b6454" opacity={0.9} />
+      {/* blind crest */}
+      <Line a={{ x: r.crestX, y: top }} b={{ x: r.crestX, y: bottom }} color="#e8d63a" width={0.4} />
+      {/* uncontrolled crossing road */}
+      <RectPlane r={{ x: r.uncontrolledX - 2.5, y: top - 10, w: 5, h: 26 }} y={MARK_Y} color="#4a483f" opacity={0.8} />
+      {/* crossbuck rail */}
+      <RectPlane r={{ x: r.crossbuckX - 1.2, y: top - 4, w: 2.4, h: 14 }} y={MARK_Y} color="#33302b" opacity={0.9} />
+      {/* roundabout island */}
+      <RectPlane r={{ x: r.roundabout.x - 3, y: r.roundabout.y - 3, w: 6, h: 6 }} y={MARK_Y} color="#6a6840" opacity={0.95} />
+    </group>
+  );
+}
+
 export function KentWorld() {
   const map = QuietRoads.sim.map;
   return (
@@ -479,6 +501,7 @@ export function KentWorld() {
       <LedgerLead />
       <RibbonMarks />
       <RibbonLead />
+      <RuralMarks />
       <Walker />
 
       {/* Grandma's carport */}

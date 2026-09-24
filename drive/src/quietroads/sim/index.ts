@@ -10,4 +10,7 @@ export * from "./pharmacy";
 export * from "./grid";
 export * from "./ledger";
 export * from "./ribbon";
+export * from "./rural";
+export * from "./chainup";
+export * from "./beats";
 export * from "./convoy";

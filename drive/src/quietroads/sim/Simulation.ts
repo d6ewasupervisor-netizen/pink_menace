@@ -9,7 +9,10 @@ import { PharmacyDropoff } from "./pharmacy";
 import { GridRun, stallCenter, type GridMission } from "./grid";
 import { LedgerRun } from "./ledger";
 import { RibbonRun } from "./ribbon";
+import { RuralRun } from "./rural";
 import { ConvoyRun, type ConvoyMission } from "./convoy";
+import { ChainupRun } from "./chainup";
+import { BeatRun, type BeatMission } from "./beats";
 import type { NoiseZone } from "./noise";
 
 export type MissionId =
@@ -20,7 +23,10 @@ export type MissionId =
   | "mission_delivery_4_filters" | "mission_jonah_intersection"
   | "mission_central_ledger"
   | "mission_ribbon_merge"
-  | "mission_convoy_issaquah" | "convoy_continue_solo" | "convoy_tow_jonah";
+  | "mission_convoy_issaquah" | "convoy_continue_solo" | "convoy_tow_jonah"
+  | "mission_backcountry_run"
+  | "chainup_qte"
+  | BeatMission;
 
 export type PlayerMode = "vehicle" | "walker";
 
@@ -63,6 +69,9 @@ export class Simulation {
   ledger: LedgerRun;
   ribbon: RibbonRun;
   convoy: ConvoyRun;
+  rural: RuralRun;
+  chainup: ChainupRun;
+  beats: BeatRun;
   private egoHalfLen = VEHICLE.LENGTH_M / 2;
   private egoHalfWid = VEHICLE.WIDTH_M / 2;
   mode: PlayerMode = "vehicle";
@@ -109,6 +118,14 @@ export class Simulation {
     this.ledger = new LedgerRun(this.map.ledger, { fire });
     this.ribbon = new RibbonRun(this.map.ribbon, { fire });
     this.convoy = new ConvoyRun(this.map.ribbon, this.map.markers.stall_point, this.map.markers.issaquah, { fire });
+    this.rural = new RuralRun(this.map.rural, { fire, requestQuiz: (t) => this.ev.requestQuiz(t, 0) });
+    this.chainup = new ChainupRun({ x: 276, y: 368, w: 18, h: 12 }, { fire });
+    this.beats = new BeatRun(
+      { x: 70, y: 432, w: 16, h: 12 },
+      this.map.markers.rest_area,
+      { mid: this.map.markers.bridge_mid, end: this.map.markers.bridge_end },
+      { fire },
+    );
   }
 
   /** Where the player currently is, for noise attribution and the Quiet. */
@@ -148,6 +165,9 @@ export class Simulation {
     this.ledger.clear();
     this.ribbon.clear();
     this.convoy.clear();
+    this.rural.clear();
+    this.chainup.clear();
+    this.beats.clear();
     this.egoHalfLen = VEHICLE.LENGTH_M / 2;
     this.egoHalfWid = VEHICLE.WIDTH_M / 2;
     switch (id) {
@@ -235,10 +255,53 @@ export class Simulation {
       case "convoy_tow_jonah":
         this.beginConvoy(id, "convoy_stall", "Tow Jonah. Ease onto the ramp. Issaquah.");
         break;
+      case "mission_backcountry_run":
+        this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+        this.missionStart = "rural_start";
+        this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+        this.rural.reset();
+        this.setObjective("Gravel. Hold the line off the soft edge, slow for the crest, yield the four-way, treat the crossbuck like the law.");
+        this.resetWorld();
+        this.speedLimitMph = 40;   // backcountry gravel
+        break;
+      case "chainup_qte":
+        this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+        this.missionStart = "chainup_pullout";
+        this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+        this.chainup.reset();
+        this.setObjective("Tighten. Don't drop it.");
+        this.resetWorld();
+        this.speedLimitMph = 15;
+        break;
+      case "straight_night_drive":
+        this.beginBeat(id, "rural_start", "Night straight. Rest area is ahead.", 55);
+        break;
+      case "rest_area_pullin":
+      case "rest_area_forced":
+        this.beginBeat(id, "rest_stall", "Pull in. Stop.", 25);
+        break;
+      case "vantage_bridge_crossing":
+        this.beginBeat(id, "bridge_west", "Bridge. Small corrections. Under forty-five.", 45);
+        break;
+      case "bridge_after_sign_toy":
+      case "bridge_after_sign_moth":
+      case "bridge_engine_off_wait":
+        this.beginBeat(id, "bridge_mid_start", "Across. Small.", 25);
+        break;
       default: return false;
     }
     this.ev.fire(`mission.start:${id}`);
     return true;
+  }
+
+  private beginBeat(id: BeatMission, start: keyof WorldMap["starts"], objective: string, limit: number) {
+    this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+    this.missionStart = start;
+    this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+    this.beats.reset(id);
+    this.setObjective(objective);
+    this.resetWorld();
+    this.speedLimitMph = limit;
   }
 
   private beginConvoy(id: ConvoyMission, start: keyof WorldMap["starts"], objective: string) {
@@ -297,6 +360,9 @@ export class Simulation {
         this.convoy.reset(this.missionId);
         this.speedLimitMph = 70;
       }
+      if (this.missionId === "mission_backcountry_run") { this.rural.reset(); this.speedLimitMph = 40; }
+      if (this.missionId === "chainup_qte") { this.chainup.reset(); this.speedLimitMph = 15; }
+      if (this.beats.mission && this.missionId === this.beats.mission) this.beats.reset(this.beats.mission);
     }
   }
 
@@ -318,6 +384,9 @@ export class Simulation {
       if (this.missionId === "mission_delivery_1_insulin") this.deliveryTick(s);
       if (this.missionId === "mission_central_ledger") this.ledger.step(dt, s);
       if (this.missionId === "mission_ribbon_merge") this.ribbon.step(dt, s);
+      if (this.missionId === "mission_backcountry_run") this.rural.step(dt, s);
+      if (this.chainup.mission) this.chainup.step(dt, s);
+      if (this.beats.mission) this.beats.step(dt, s);
       if (this.convoy.mission) this.convoy.step(dt, s, this.noise.band);
       if (this.grid.mission) {
         this.grid.step(dt, s, this.noise.band);
@@ -473,6 +542,20 @@ export class Simulation {
       case "convoy_continue_solo":
       case "convoy_tow_jonah":
         return { pos: this.map.markers.issaquah, label: "ISSAQUAH" };
+      case "mission_backcountry_run":
+        return { pos: this.map.rural.end, label: "CLEARANCE" };
+      case "chainup_qte":
+        return { pos: this.map.markers.chainup, label: "CHAINS" };
+      case "straight_night_drive":
+      case "rest_area_pullin":
+      case "rest_area_forced":
+        return { pos: this.map.markers.rest_area, label: "REST" };
+      case "vantage_bridge_crossing":
+        return { pos: this.map.markers.bridge_mid, label: "BRIDGE" };
+      case "bridge_after_sign_toy":
+      case "bridge_after_sign_moth":
+      case "bridge_engine_off_wait":
+        return { pos: this.map.markers.bridge_end, label: "FAR SIDE" };
       default:
         return null;
     }

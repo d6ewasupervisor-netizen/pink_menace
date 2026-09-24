@@ -59,6 +59,18 @@ export interface RibbonSites {
   end: Vec2;           // mission end waypoint
 }
 
+/** Act VI gravel road (the Backcountry). Metres, same frame. */
+export interface RuralSites {
+  road: Rect;
+  shoulder: number;
+  crestX: number;
+  uncontrolledX: number;
+  crossbuckX: number;
+  /** Circle on the gravel, after the crossbuck. VI-007 / VI-008. */
+  roundabout: { x: number; y: number; r: number };
+  end: Vec2;
+}
+
 export interface WorldMap {
   bounds: Rect;
   parking: ParkingLot;
@@ -66,6 +78,7 @@ export interface WorldMap {
   grid: GridSites;
   ledger: LedgerSites;
   ribbon: RibbonSites;
+  rural: RuralSites;
   roads: RoadSeg[];
   centerLines: [Vec2, Vec2][];
   stopLines: [Vec2, Vec2][];
@@ -101,6 +114,9 @@ export function buildKentMap(seed = 7): WorldMap {
     { rect: { x: -10, y: -4, w: 279, h: 8 }, name: "TITUS ST" },
     { rect: { x: 260, y: -50, w: 10, h: 490 }, name: "CENTRAL AVE" },
     { rect: { x: 270, y: 200, w: 3.5, h: 100 }, name: "I-90 ON-RAMP" },
+    { rect: { x: 0, y: 435, w: 320, h: 6 }, name: "GRAVEL RD" },
+    { rect: { x: 276, y: 368, w: 18, h: 12 }, name: "CHAIN-UP" },
+    { rect: { x: 20, y: 400, w: 150, h: 8 }, name: "VANTAGE BRIDGE" },
     { rect: { x: 140, y: 106, w: 180, h: 8 }, name: "MEEKER ST" },
     { rect: { x: 170, y: -28, w: 96, h: 8 }, name: "VALLEY RD" },
     { rect: { x: 196, y: 70, w: 8, h: 70 }, name: "WILLIS ST" },
@@ -202,6 +218,16 @@ export function buildKentMap(seed = 7): WorldMap {
     end: { x: 265, y: 342 },
   };
 
+  const rural: RuralSites = {
+    road: { x: 0, y: 435, w: 320, h: 6 },
+    shoulder: 3,
+    crestX: 120,
+    uncontrolledX: 200,
+    crossbuckX: 260,
+    roundabout: { x: 285, y: 438, r: 10 },
+    end: { x: 310, y: 438 },
+  };
+
   return {
     bounds: { x: -30, y: -70, w: 360, h: 530 },
     parking,
@@ -209,6 +235,7 @@ export function buildKentMap(seed = 7): WorldMap {
     grid,
     ledger,
     ribbon,
+    rural,
     roads,
     centerLines: [
       [{ x: -10, y: 0 }, { x: 258, y: 0 }],
@@ -246,6 +273,11 @@ export function buildKentMap(seed = 7): WorldMap {
       ribbon_end: { x: 265, y: 342 },
       stall_point: { x: 265, y: 342 },
       issaquah: { x: 265, y: 400 },
+      rural_end: { x: 310, y: 438 },
+      chainup: { x: 285, y: 374 },
+      rest_area: { x: 78, y: 438 },
+      bridge_mid: { x: 95, y: 404 },
+      bridge_end: { x: 160, y: 404 },
     },
     quietSpawns: spawns,
     starts: {
@@ -257,6 +289,12 @@ export function buildKentMap(seed = 7): WorldMap {
       jonah_meeker: { pos: { x: 210, y: 110 }, heading: 0 },                   // Meeker, east toward Central
       ledger_south: { pos: { x: 261.67, y: 66 }, heading: Math.PI / 2 },       // Central, right lane, heading south
       ribbon_ramp: { pos: { x: 271.75, y: 206 }, heading: Math.PI / 2 },       // I-90 on-ramp, heading south into the merge
+      rural_start: { pos: { x: 16, y: 438 }, heading: 0 },
+      chainup_pullout: { pos: { x: 285, y: 374 }, heading: Math.PI / 2 },
+      rest_stall: { pos: { x: 78, y: 438 }, heading: 0 },
+      bridge_west: { pos: { x: 28, y: 404 }, heading: 0 },
+      bridge_mid_start: { pos: { x: 95, y: 404 }, heading: 0 },
+      roundabout_approach: { pos: { x: 268, y: 438 }, heading: 0 },
       convoy_ramp: { pos: { x: 271.75, y: 196 }, heading: Math.PI / 2 },      // just north of the ramp, so entering it counts
       convoy_stall: { pos: { x: 265, y: 330 }, heading: Math.PI / 2 },
       dol_lot_entry: { pos: { x: 257.5, y: 387 }, heading: Math.PI },            // just inside the driveway, facing west
