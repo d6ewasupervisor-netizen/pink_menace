@@ -10,3 +10,4 @@ export * from "./pharmacy";
 export * from "./grid";
 export * from "./ledger";
 export * from "./ribbon";
+export * from "./convoy";

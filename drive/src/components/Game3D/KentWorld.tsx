@@ -424,11 +424,13 @@ function RibbonLead() {
   useFrame(() => {
     if (!ref.current) return;
     const rb = QuietRoads.sim.ribbon;
+    const cv = QuietRoads.sim.convoy;
     const phase = useGameStore.getState().phase;
-    if (!rb.mission || phase !== 'driving') { ref.current.visible = false; return; }
+    const lead = rb.mission ? rb : cv.mission === "mission_convoy_issaquah" ? cv : null;
+    if (!lead || phase !== 'driving') { ref.current.visible = false; return; }
     ref.current.visible = true;
-    ref.current.position.set(rb.leadPos.x, 0, rb.leadPos.y);
-    ref.current.rotation.y = -rb.leadHeading - Math.PI / 2;
+    ref.current.position.set(lead.leadPos.x, 0, lead.leadPos.y);
+    ref.current.rotation.y = -lead.leadHeading - Math.PI / 2;
   });
   return (
     <group ref={ref} visible={false}>

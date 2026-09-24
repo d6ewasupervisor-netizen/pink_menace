@@ -244,6 +244,8 @@ export function buildKentMap(seed = 7): WorldMap {
       warehouse_dock: { x: 174, y: -24 },
       ledger_end: { x: 265, y: 172 },
       ribbon_end: { x: 265, y: 342 },
+      stall_point: { x: 265, y: 342 },
+      issaquah: { x: 265, y: 400 },
     },
     quietSpawns: spawns,
     starts: {
@@ -255,6 +257,8 @@ export function buildKentMap(seed = 7): WorldMap {
       jonah_meeker: { pos: { x: 210, y: 110 }, heading: 0 },                   // Meeker, east toward Central
       ledger_south: { pos: { x: 261.67, y: 66 }, heading: Math.PI / 2 },       // Central, right lane, heading south
       ribbon_ramp: { pos: { x: 271.75, y: 206 }, heading: Math.PI / 2 },       // I-90 on-ramp, heading south into the merge
+      convoy_ramp: { pos: { x: 271.75, y: 196 }, heading: Math.PI / 2 },      // just north of the ramp, so entering it counts
+      convoy_stall: { pos: { x: 265, y: 330 }, heading: Math.PI / 2 },
       dol_lot_entry: { pos: { x: 257.5, y: 387 }, heading: Math.PI },            // just inside the driveway, facing west
       dol_stall: { pos: { x: stalls[2].x + stalls[2].w / 2, y: 416.5 }, heading: Math.PI / 2 }, // parked, nose south
     },

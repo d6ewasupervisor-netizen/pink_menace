@@ -9,6 +9,7 @@ import { PharmacyDropoff } from "./pharmacy";
 import { GridRun, stallCenter, type GridMission } from "./grid";
 import { LedgerRun } from "./ledger";
 import { RibbonRun } from "./ribbon";
+import { ConvoyRun, type ConvoyMission } from "./convoy";
 import type { NoiseZone } from "./noise";
 
 export type MissionId =
@@ -18,7 +19,8 @@ export type MissionId =
   | "mission_delivery_2_catfood" | "mission_delivery_3_radio"
   | "mission_delivery_4_filters" | "mission_jonah_intersection"
   | "mission_central_ledger"
-  | "mission_ribbon_merge";
+  | "mission_ribbon_merge"
+  | "mission_convoy_issaquah" | "convoy_continue_solo" | "convoy_tow_jonah";
 
 export type PlayerMode = "vehicle" | "walker";
 
@@ -60,6 +62,7 @@ export class Simulation {
   grid: GridRun;
   ledger: LedgerRun;
   ribbon: RibbonRun;
+  convoy: ConvoyRun;
   private egoHalfLen = VEHICLE.LENGTH_M / 2;
   private egoHalfWid = VEHICLE.WIDTH_M / 2;
   mode: PlayerMode = "vehicle";
@@ -105,6 +108,7 @@ export class Simulation {
     }, this.quiet);
     this.ledger = new LedgerRun(this.map.ledger, { fire });
     this.ribbon = new RibbonRun(this.map.ribbon, { fire });
+    this.convoy = new ConvoyRun(this.map.ribbon, this.map.markers.stall_point, this.map.markers.issaquah, { fire });
   }
 
   /** Where the player currently is, for noise attribution and the Quiet. */
@@ -143,6 +147,7 @@ export class Simulation {
     this.grid.clear();
     this.ledger.clear();
     this.ribbon.clear();
+    this.convoy.clear();
     this.egoHalfLen = VEHICLE.LENGTH_M / 2;
     this.egoHalfWid = VEHICLE.WIDTH_M / 2;
     switch (id) {
@@ -221,10 +226,29 @@ export class Simulation {
         this.resetWorld();
         this.speedLimitMph = this.map.ribbon.flowMph;   // the highway, not the grid
         break;
+      case "mission_convoy_issaquah":
+        this.beginConvoy(id, "convoy_ramp", "I-90 east. Match them on the ramp. Hold three seconds. Stall is ahead.");
+        break;
+      case "convoy_continue_solo":
+        this.beginConvoy(id, "convoy_stall", "Issaquah. Cargo makes the window.");
+        break;
+      case "convoy_tow_jonah":
+        this.beginConvoy(id, "convoy_stall", "Tow Jonah. Ease onto the ramp. Issaquah.");
+        break;
       default: return false;
     }
     this.ev.fire(`mission.start:${id}`);
     return true;
+  }
+
+  private beginConvoy(id: ConvoyMission, start: keyof WorldMap["starts"], objective: string) {
+    this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+    this.missionStart = start;
+    this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+    this.convoy.reset(id);
+    this.setObjective(objective);
+    this.resetWorld();
+    this.speedLimitMph = 70;
   }
 
   private beginGrid(id: GridMission, start: keyof WorldMap["starts"], objective: string) {
@@ -269,6 +293,10 @@ export class Simulation {
       this.resetWorld();
       if (this.missionId === "mission_central_ledger") this.ledger.reset();
       if (this.missionId === "mission_ribbon_merge") { this.ribbon.reset(); this.speedLimitMph = this.map.ribbon.flowMph; }
+      if (this.missionId === "mission_convoy_issaquah" || this.missionId === "convoy_continue_solo" || this.missionId === "convoy_tow_jonah") {
+        this.convoy.reset(this.missionId);
+        this.speedLimitMph = 70;
+      }
     }
   }
 
@@ -290,6 +318,7 @@ export class Simulation {
       if (this.missionId === "mission_delivery_1_insulin") this.deliveryTick(s);
       if (this.missionId === "mission_central_ledger") this.ledger.step(dt, s);
       if (this.missionId === "mission_ribbon_merge") this.ribbon.step(dt, s);
+      if (this.convoy.mission) this.convoy.step(dt, s, this.noise.band);
       if (this.grid.mission) {
         this.grid.step(dt, s, this.noise.band);
         if (this.grid.parkGrade && this.missionId === "mission_delivery_2_catfood" && !this.footDropoff) {
@@ -437,6 +466,13 @@ export class Simulation {
         return { pos: this.ledger.leadPos, label: "DEAC'S TRUCK" };
       case "mission_ribbon_merge":
         return { pos: this.ribbon.leadPos, label: "FLOW" };
+      case "mission_convoy_issaquah":
+        return this.convoy.leadPos.y < this.map.markers.stall_point.y - 20
+          ? { pos: this.convoy.leadPos, label: "CONVOY" }
+          : { pos: this.map.markers.stall_point, label: "STALL" };
+      case "convoy_continue_solo":
+      case "convoy_tow_jonah":
+        return { pos: this.map.markers.issaquah, label: "ISSAQUAH" };
       default:
         return null;
     }
