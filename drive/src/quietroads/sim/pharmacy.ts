@@ -16,6 +16,8 @@ export class PharmacyDropoff {
   facing = 0;
   speed = 0;
   done = false;
+  /** Dialogue event fired when she reaches the handoff. Pharmacy uses delivery.complete. */
+  completeEvent = "delivery.complete";
   private doorFired = false;
   private car: Vec2 = { x: 0, y: 0 };
 
@@ -27,6 +29,7 @@ export class PharmacyDropoff {
     this.speed = 0;
     this.done = false;
     this.doorFired = false;
+    this.completeEvent = "delivery.complete";
   }
 
   step(
@@ -64,7 +67,7 @@ export class PharmacyDropoff {
     if (dist(this.pos, clipboard) < PHARMACY.DOOR_RADIUS_M && dist(this.pos, this.car) > 2) {
       this.done = true;
       this.speed = 0;
-      ev.fire("delivery.complete");
+      ev.fire(this.completeEvent);
     }
   }
 }

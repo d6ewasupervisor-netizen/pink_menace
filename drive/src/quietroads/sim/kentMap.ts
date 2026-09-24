@@ -29,10 +29,23 @@ export interface DolInterior {
   labels: { pos: Vec2; text: string }[];
 }
 
+/** Act II grid sites. Metres, same frame as the rest of Kent. */
+export interface GridSites {
+  beaStall: Rect;       // back-in dock, nose toward the sanctuary (north)
+  beaDockY: number;     // building face; crossing it while moving is a bump
+  beaDoor: Vec2;
+  tunaStall: Rect;      // parallel stall on the north edge of Valley Rd
+  tunaCurbY: number;
+  lanes: { x0: number; x1: number; y0: number; y1: number; count: number };
+  priya: Vec2;          // east-lane pin in front of the radio shack
+  bus: Rect;            // stopped-bus beat on the way to Priya
+}
+
 export interface WorldMap {
   bounds: Rect;
   parking: ParkingLot;
   dol: DolInterior;
+  grid: GridSites;
   roads: RoadSeg[];
   centerLines: [Vec2, Vec2][];
   stopLines: [Vec2, Vec2][];
@@ -58,6 +71,8 @@ export function buildKentMap(seed = 7): WorldMap {
   buildings.push({ rect: { x: 205, y: 380, w: 20, h: 40 }, label: "DOL" });
   buildings.push({ rect: { x: 168, y: -58, w: 38, h: 26 }, label: "WAREHOUSE" });
   buildings.push({ rect: { x: 146, y: 78, w: 30, h: 18 }, label: "PHARMACY" });
+  buildings.push({ rect: { x: 108, y: 68, w: 26, h: 16 }, label: "SANCTUARY" });
+  buildings.push({ rect: { x: 272, y: 36, w: 8, h: 8 }, label: "RADIO" });
 
   // Titus houses are a 20 m grid. Valley Rd is cut through the north row, so those
   // boxes land on the pavement. Drop anything that actually covers a road — the
@@ -71,6 +86,7 @@ export function buildKentMap(seed = 7): WorldMap {
     { rect: { x: 146, y: 96, w: 30, h: 10 }, name: "PHARMACY LOT" },
     { rect: { x: 225, y: 380, w: 30, h: 40 }, name: "DOL LOT" },
     { rect: { x: 255, y: 382, w: 5, h: 10 }, name: "DOL DRIVEWAY" },
+    { rect: { x: 116, y: 84, w: 8, h: 26 }, name: "BEA ALLEY" },
   ];
   for (let i = buildings.length - 1; i >= 0; i--) {
     if (roads.some((road) => rectsOverlap(buildings[i].rect, road.rect))) buildings.splice(i, 1);
@@ -84,6 +100,8 @@ export function buildKentMap(seed = 7): WorldMap {
     { kind: "stop", id: "meeker", rect: c(265, 97, 10, 16), quiz: "stop.approach", quizDelayS: 0.4 },
     { kind: "waypoint", id: "willis_uncontrolled", rect: c(200, 110, 12, 12) },
     { kind: "waypoint", id: "pharmacy", rect: { x: 146, y: 96, w: 30, h: 10 } },
+    { kind: "waypoint", id: "priya_radio_shack", rect: { x: 266.6, y: 32, w: 3.4, h: 16 } },
+    { kind: "waypoint", id: "warehouse", rect: { x: 168, y: -32, w: 14, h: 14 } },
     { kind: "sign", id: "school", rect: c(265, 150, 10, 4), quiz: "sign.prompt:school", quizDelayS: 2.6 },
     { kind: "school", id: "central", rect: c(265, 200, 10, 80) },
     { kind: "sign", id: "rail_advance", rect: c(265, 285, 10, 4) },
@@ -132,12 +150,32 @@ export function buildKentMap(seed = 7): WorldMap {
   for (let i = 0; i < 6; i++) push({ x: 178 + r() * 22, y: 96 + r() * 10 });                                                                  // pharmacy lot edge
   for (let i = 0; i < 3; i++) push({ x: 198 + (r() * 6 - 3), y: 84 + r() * 18 });                                                             // Willis yards
 
+  const grid: GridSites = {
+    beaStall: { x: 118.7, y: 84.8, w: 2.6, h: 6.4 },
+    beaDockY: 84.15,
+    beaDoor: { x: 120, y: 85.3 },
+    tunaStall: { x: 176, y: -27.5, w: 7.2, h: 2.4 },
+    tunaCurbY: -28.05,
+    lanes: { x0: 260, x1: 270, y0: 6, y1: 56, count: 3 },
+    priya: { x: 268.3, y: 40 },
+    bus: { x: 260, y: 14, w: 10, h: 8 },
+  };
+
   return {
     bounds: { x: -30, y: -70, w: 360, h: 530 },
     parking,
     dol,
+    grid,
     roads,
-    centerLines: [[{ x: -10, y: 0 }, { x: 258, y: 0 }], [{ x: 265, y: -50 }, { x: 265, y: 440 }], [{ x: 140, y: 110 }, { x: 320, y: 110 }], [{ x: 170, y: -24 }, { x: 260, y: -24 }], [{ x: 200, y: 70 }, { x: 200, y: 140 }]],
+    centerLines: [
+      [{ x: -10, y: 0 }, { x: 258, y: 0 }],
+      [{ x: 265, y: -50 }, { x: 265, y: 440 }],
+      [{ x: 140, y: 110 }, { x: 320, y: 110 }],
+      [{ x: 170, y: -24 }, { x: 260, y: -24 }],
+      [{ x: 200, y: 70 }, { x: 200, y: 140 }],
+      [{ x: 263.33, y: 6 }, { x: 263.33, y: 56 }],
+      [{ x: 266.67, y: 6 }, { x: 266.67, y: 56 }],
+    ],
     stopLines: [[{ x: 259, y: -4 }, { x: 259, y: 4 }], [{ x: 260, y: 105 }, { x: 270, y: 105 }], [{ x: 260, y: 293 }, { x: 270, y: 293 }]],
     rail: { from: { x: 200, y: 300 }, to: { x: 330, y: 300 } },
     schoolZone: { x: 260, y: 160, w: 10, h: 80 },
@@ -156,11 +194,20 @@ export function buildKentMap(seed = 7): WorldMap {
       warehouse: { x: 190, y: -24 },
       pharmacy: { x: 161, y: 101 },
       clipboard: { x: 161, y: 97.2 },
+      bea: { x: 120, y: 88 },
+      bea_door: { x: 120, y: 85.3 },
+      priya: { x: 268.3, y: 40 },
+      tuna: { x: 179.6, y: -26.3 },
+      warehouse_dock: { x: 174, y: -24 },
     },
     quietSpawns: spawns,
     starts: {
       carport: { pos: { x: 14, y: 0 }, heading: 0 },
       warehouse: { pos: { x: 190, y: -24 }, heading: 0 },                       // Valley Rd, facing east to Central
+      bea_alley: { pos: { x: 120, y: 104 }, heading: -Math.PI / 2 },           // alley mouth, nose north toward Bea
+      priya_west: { pos: { x: 261.6, y: 8 }, heading: Math.PI / 2 },           // west lane, heading south
+      tuna_approach: { pos: { x: 214, y: -24 }, heading: Math.PI },            // Valley Rd, facing the dock
+      jonah_meeker: { pos: { x: 210, y: 110 }, heading: 0 },                   // Meeker, east toward Central
       dol_lot_entry: { pos: { x: 257.5, y: 387 }, heading: Math.PI },            // just inside the driveway, facing west
       dol_stall: { pos: { x: stalls[2].x + stalls[2].w / 2, y: 416.5 }, heading: Math.PI / 2 }, // parked, nose south
     },

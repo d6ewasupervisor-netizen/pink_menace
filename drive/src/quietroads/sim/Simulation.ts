@@ -6,12 +6,15 @@ import { VehicleObserver, VEHICLE, type VehicleSample, type ObserverOut } from "
 import { buildKentMap, type WorldMap } from "./kentMap";
 import { ParkingGrader, InteriorController, type WalkerInput } from "./dol";
 import { PharmacyDropoff } from "./pharmacy";
+import { GridRun, stallCenter, type GridMission } from "./grid";
 import type { NoiseZone } from "./noise";
 
 export type MissionId =
   | "tutorial_carport" | "mission_dol_drive"
   | "minigame_park_dol" | "stealth_dol_interior" | "chase_dol_gracie"
-  | "mission_delivery_1_insulin" | "dropoff_pharmacy";
+  | "mission_delivery_1_insulin" | "dropoff_pharmacy"
+  | "mission_delivery_2_catfood" | "mission_delivery_3_radio"
+  | "mission_delivery_4_filters" | "mission_jonah_intersection";
 
 export type PlayerMode = "vehicle" | "walker";
 
@@ -50,6 +53,7 @@ export class Simulation {
   parking: ParkingGrader;
   interior: InteriorController;
   dropoff = new PharmacyDropoff();
+  grid: GridRun;
   mode: PlayerMode = "vehicle";
   speedLimitMph = 25;
   missionId: MissionId | "" = "";
@@ -63,6 +67,8 @@ export class Simulation {
   private tutStep = 0; private tutT = 0; private tutBlockEnd = false;
   private deliverySmoothFired = false;
   private lastVehicleHeading = 0;
+  /** On-foot handoff. Pharmacy is June's clipboard; Bea is the sanctuary door. */
+  private footDropoff: "" | "pharmacy" | "bea" = "";
 
   constructor(private ev: SimEvents, seed = 7) {
     this.map = buildKentMap(seed);
@@ -85,14 +91,18 @@ export class Simulation {
     const dolEv = { fire, setObjective: (t: string) => this.setObjective(t) };
     this.parking = new ParkingGrader(this.map, dolEv);
     this.interior = new InteriorController(this.map, this.noise, this.quiet, dolEv, r);
+    this.grid = new GridRun(this.map, {
+      fire: (e, d) => this.ev.fire(e, d),
+      requestQuiz: (t, delay) => this.ev.requestQuiz(t, delay),
+    }, this.quiet);
   }
 
   /** Where the player currently is, for noise attribution and the Quiet. */
   get playerPos(): Vec2 { return this.mode === "walker" ? this.walker.pos : (this.lastVehiclePos ?? this.map.starts.carport.pos); }
-  get playerZone(): NoiseZone { return this.mode === "walker" && this.missionId !== "dropoff_pharmacy" ? this.interior.zone : "outdoor"; }
-  /** On-foot pose the renderer/HUD read. Pharmacy dropoff is outdoor; DOL uses the interior controller. */
+  get playerZone(): NoiseZone { return this.mode === "walker" && !this.footDropoff ? this.interior.zone : "outdoor"; }
+  /** On-foot pose the renderer/HUD read. Pharmacy and Bea are outdoor; DOL uses the interior. */
   get walker() {
-    if (this.missionId === "dropoff_pharmacy") {
+    if (this.footDropoff) {
       return {
         pos: this.dropoff.pos,
         facing: this.dropoff.facing,
@@ -119,6 +129,8 @@ export class Simulation {
 
   startMission(id: MissionId): boolean {
     this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false;
+    this.footDropoff = "";
+    this.grid.clear();
     switch (id) {
       case "tutorial_carport":
         this.missionId = id; this.mode = "vehicle"; this.missionStart = "carport";
@@ -160,15 +172,36 @@ export class Simulation {
         this.resetWorld();
         break;
       case "dropoff_pharmacy":
-        this.missionId = id; this.mode = "walker";
+        this.missionId = id; this.mode = "walker"; this.footDropoff = "pharmacy";
         this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
         this.dropoff.reset(this.lastVehiclePos ?? this.map.markers.pharmacy, this.lastVehicleHeading);
         this.setObjective("Clipboard. Insulin. Don't slam the door.");
+        break;
+      case "mission_delivery_2_catfood":
+        this.beginGrid(id, "bea_alley", "Cat food. Back into Bea's dock. Then the door.");
+        break;
+      case "mission_delivery_3_radio":
+        this.beginGrid(id, "priya_west", "Priya's shack. East lane. Signal before you move.");
+        break;
+      case "mission_delivery_4_filters":
+        this.beginGrid(id, "tuna_approach", "Filters. Parallel at Tuna's dock.");
+        break;
+      case "mission_jonah_intersection":
+        this.beginGrid(id, "jonah_meeker", "Milk run home. Don't match Jonah.");
         break;
       default: return false;
     }
     this.ev.fire(`mission.start:${id}`);
     return true;
+  }
+
+  private beginGrid(id: GridMission, start: keyof WorldMap["starts"], objective: string) {
+    this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+    this.missionStart = start;
+    this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+    this.grid.reset(id);
+    this.setObjective(objective);
+    this.resetWorld();
   }
 
   /** Hand control back to the car (after beetle_driver_seat). */
@@ -188,11 +221,12 @@ export class Simulation {
 
   softFail() {
     this.ev.fire("mission.fail.swarm", { mission: this.missionId });
-    if (this.missionId === "dropoff_pharmacy") {
+    if (this.footDropoff) {
       this.ev.toast("Swarmed. Back to the car. Try again.");
-      this.dropoff.reset(this.lastVehiclePos ?? this.map.markers.pharmacy, this.lastVehicleHeading);
+      this.dropoff.reset(this.lastVehiclePos ?? this.handoffPoint(), this.lastVehicleHeading);
+      if (this.footDropoff === "bea" && this.grid.parkGrade) this.dropoff.completeEvent = this.grid.parkGrade;
       this.noise.reset();
-      this.setObjective("Clipboard. Insulin. Don't slam the door.");
+      this.setObjective(this.footDropoff === "bea" ? "Bag to the door. Don't slam it." : "Clipboard. Insulin. Don't slam the door.");
     } else if (this.mode === "walker") {
       this.ev.toast("Swarmed. Out the door. Try again.");
       this.interior.reset();
@@ -220,6 +254,17 @@ export class Simulation {
       if (this.missionId === "tutorial_carport") this.tutorialTick(dt, s);
       if (this.missionId === "minigame_park_dol") this.parking.step(dt, s);
       if (this.missionId === "mission_delivery_1_insulin") this.deliveryTick(s);
+      if (this.grid.mission) {
+        this.grid.step(dt, s, this.noise.band);
+        if (this.grid.parkGrade && this.missionId === "mission_delivery_2_catfood" && !this.footDropoff) {
+          this.footDropoff = "bea";
+          this.mode = "walker";
+          this.dropoff.reset(s.pos, s.heading);
+          this.dropoff.completeEvent = this.grid.parkGrade;
+          this.setObjective("Bag to the door. Don't slam it.");
+          this.ev.fire("dropoff.walk");
+        }
+      }
     }
     return {
       ...out,
@@ -237,8 +282,8 @@ export class Simulation {
   /** Advance the world with the player on foot (1.3). */
   stepWalker(dt: number, input: WalkerInput): SimFrame {
     if (!this.frozen && this.mode === "walker") {
-      if (this.missionId === "dropoff_pharmacy") {
-        this.dropoff.step(dt, input, (p) => this.blocked(p), this.map.markers.clipboard, this.ev);
+      if (this.footDropoff) {
+        this.dropoff.step(dt, input, (p) => this.blocked(p), this.handoffPoint(), this.ev);
         this.noise.step(dt);
         this.quiet.step(dt, this.dropoff.pos, (p) => this.blocked(p));
       } else {
@@ -271,6 +316,17 @@ export class Simulation {
     if (this.missionId === "mission_delivery_1_insulin" && name === "waypoint.reach:pharmacy") {
       this.setObjective("Park it. Insulin to the clipboard.");
     }
+    if (name === "waypoint.reach:titus_fourway") this.grid.onFourWay();
+    if (this.missionId === "mission_delivery_3_radio" && name === "waypoint.reach:priya_radio_shack") {
+      this.setObjective("Capacitors to Priya.");
+    }
+    if (this.missionId === "mission_jonah_intersection" && name === "waypoint.reach:warehouse") {
+      this.setObjective("Warehouse. Deac's in the hall.");
+    }
+  }
+
+  private handoffPoint() {
+    return this.footDropoff === "bea" ? this.map.markers.bea_door : this.map.markers.clipboard;
   }
 
   private deliveryTick(s: VehicleSample) {
@@ -331,6 +387,16 @@ export class Simulation {
         return { pos: this.map.markers.pharmacy, label: "PHARMACY" };
       case "dropoff_pharmacy":
         return { pos: this.map.markers.clipboard, label: "CLIPBOARD" };
+      case "mission_delivery_2_catfood":
+        return this.footDropoff === "bea"
+          ? { pos: this.map.markers.bea_door, label: "DOOR" }
+          : { pos: stallCenter(this.map.grid.beaStall), label: "BEA" };
+      case "mission_delivery_3_radio":
+        return { pos: this.map.markers.priya, label: "PRIYA" };
+      case "mission_delivery_4_filters":
+        return { pos: this.map.markers.tuna, label: "TUNA" };
+      case "mission_jonah_intersection":
+        return { pos: this.map.markers.warehouse_dock, label: "WAREHOUSE" };
       default:
         return null;
     }

@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
+import { actForScene, challengeForAct } from '@/quietroads';
 
 const BIOME_LABEL: Record<string, string> = {
   city: 'New York',
@@ -35,6 +36,9 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
   const handleQuietRoadsNew = useCallback(() => { QuietRoads.start(true); }, []);
   const handleQuietRoadsContinue = useCallback(() => { QuietRoads.start(false); }, []);
 
+  const startChallenge = challengeForAct('I');
+  const continueAct = qrScene ? actForScene(qrScene) : null;
+
   if (phase !== 'menu') return null;
 
   const hasSave = mileage > 0;
@@ -48,13 +52,15 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
 
         <div style={styles.btnStack}>
           <button style={{ ...styles.btn, ...styles.btnQuiet }} onClick={handleQuietRoadsNew}>
-            🐈 QUIET ROADS — ACT 0
-            <span style={styles.saveSummary}>Kent. Grandma's Beetle. Don't wake anybody.</span>
+            🐈 QUIET ROADS — ACT {startChallenge.act} · {startChallenge.zone.toUpperCase()}
+            <span style={styles.saveSummary}>{startChallenge.vehicle}</span>
           </button>
           {qrCheckpoint && (
             <button style={{ ...styles.btn, ...styles.btnContinue }} onClick={handleQuietRoadsContinue}>
               ▶ CONTINUE QUIET ROADS
-              <span style={styles.saveSummary}>Scene {qrScene} · {qrCheckpoint.replace(/_/g, ' ')}</span>
+              <span style={styles.saveSummary}>
+                {continueAct ? `Act ${continueAct} · ${challengeForAct(continueAct).zone}` : `Scene ${qrScene}`} · {qrCheckpoint.replace(/_/g, ' ')}
+              </span>
             </button>
           )}
           <button style={{ ...styles.btn, ...styles.btnNew }} onClick={handleNewGame}>

@@ -17,6 +17,7 @@ import {
   type Card, type CardResult, type CardGrade,
   type DialogueHost, type DialogueFile, type VehicleSample, type SimFrame, type MissionId,
   type Question as CoreQuestion, type TimerHandle, VEHICLE, type WalkerInput,
+  actForScene, actForMission, challengeForAct, type CardAct,
 } from '@/quietroads';
 import act01 from '@/quietroads/data/dialogue_act0-1.json';
 import act2 from '@/quietroads/data/dialogue_act2.json';
@@ -54,6 +55,7 @@ class Bridge {
   private started = false;
   private worldCardReturnPhase: 'driving' | 'walking' = 'driving';
   private cardsSeen = new Set<string>();
+  private currentAct: CardAct = 'I';
   private pendingQuiz: { trigger: string; at: number } | null = null;
   private activeQuiz: { q: CoreQuestion; shownAt: number; options: string[] } | null = null;
   private quizCooldownUntil = 0;
@@ -149,6 +151,7 @@ class Bridge {
 
   stop() { this.started = false; for (const h of this.timers) window.clearTimeout(h); this.timers.clear(); }
   get isActive() { return this.started; }
+  get currentChallenge() { return challengeForAct(this.currentAct); }
 
   private enterDialogue() { haltVehicle(); this.sim.freeze('dialogue'); useGameStore.getState().setPhase('dialogue'); }
   private enterDriving() { this.sim.unfreeze('dialogue'); useGameStore.getState().setPhase('driving'); }
@@ -157,6 +160,8 @@ class Bridge {
   /** World setup that the dialogue file implies but doesn't spell out. */
   private onSceneStarted(id: string) {
     const g = useGameStore.getState();
+    const act = actForScene(id);
+    if (act) { this.currentAct = act; this.fire('act.enter', { act }); }
     switch (id) {
       case '1.4':   // aftermath — Grandma's carport, night, engine off
         teleportVehicle(this.sim.map.starts.carport.pos.x, this.sim.map.starts.carport.pos.y, this.sim.map.starts.carport.heading);
@@ -175,6 +180,8 @@ class Bridge {
   }
 
   private startGameplay(id: string) {
+    const mAct = actForMission(id);
+    if (mAct) this.currentAct = mAct;
     if (this.sim.startMission(id as MissionId)) {
       if (this.sim.mode === 'walker') this.enterWalking(); else this.enterDriving();
       return;
@@ -197,6 +204,7 @@ class Bridge {
       useQRHud.getState().setTransient({ scare: 'flood' });
       window.setTimeout(() => useQRHud.getState().setTransient({ scare: 'none' }), 2600);
     }
+    if (event === 'dropoff.walk') this.enterWalking();
     if (event === 'waypoint.reach:beetle_driver_seat') {
       // She's in. Doors slam (in the script). Back to the car; the dialogue takes it from here.
       this.sim.enterVehicle();

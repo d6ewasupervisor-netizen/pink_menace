@@ -59,8 +59,8 @@ function Building({ r, label }: { r: Rect; label?: string }) {
   if (label === 'DOL') return <DolBuilding r={r} />;
   if (label === 'PHARMACY') return <PharmacyBuilding r={r} />;
   if (label === 'WAREHOUSE') return <WarehouseBuilding r={r} />;
-  const h = label === 'KENT MIDDLE' ? 7 : 4 + ((r.x * 7 + r.y * 3) % 3);
-  const color = label === 'DOL' ? '#8a8f96' : label === 'KENT MIDDLE' ? '#a8895e' : '#7c7368';
+  const h = label === 'KENT MIDDLE' ? 7 : label === 'SANCTUARY' ? 3.6 : label === 'RADIO' ? 3.2 : 4 + ((r.x * 7 + r.y * 3) % 3);
+  const color = label === 'KENT MIDDLE' ? '#a8895e' : label === 'SANCTUARY' ? '#6e5a68' : label === 'RADIO' ? '#3d5166' : '#7c7368';
   return (
     <RigidBody type="fixed" colliders={false} position={[r.x + r.w / 2, h / 2, r.y + r.h / 2]}>
       <CuboidCollider args={[r.w / 2, h / 2, r.h / 2]} />
@@ -345,6 +345,21 @@ function ParkingStalls() {
   );
 }
 
+function GridMarks() {
+  const g = QuietRoads.sim.map.grid;
+  const bea = g.beaStall;
+  const tuna = g.tunaStall;
+  return (
+    <group>
+      <Line a={{ x: bea.x, y: bea.y }} b={{ x: bea.x, y: bea.y + bea.h }} width={0.1} color="#c4b89a" />
+      <Line a={{ x: bea.x + bea.w, y: bea.y }} b={{ x: bea.x + bea.w, y: bea.y + bea.h }} width={0.1} color="#c4b89a" />
+      <Line a={{ x: tuna.x, y: tuna.y }} b={{ x: tuna.x + tuna.w, y: tuna.y }} width={0.1} color="#c4b89a" />
+      <Line a={{ x: tuna.x, y: tuna.y + tuna.h }} b={{ x: tuna.x + tuna.w, y: tuna.y + tuna.h }} width={0.1} color="#c4b89a" />
+      <Line a={{ x: g.lanes.x0 + (g.lanes.x1 - g.lanes.x0) * (2 / 3), y: g.bus.y }} b={{ x: g.lanes.x1, y: g.bus.y }} width={0.18} color="#e8d63a" />
+    </group>
+  );
+}
+
 export function KentWorld() {
   const map = QuietRoads.sim.map;
   return (
@@ -377,6 +392,7 @@ export function KentWorld() {
       <ClipboardWoman />
       {map.signs.map((s, i) => <Sign key={i} s={s} />)}
       <ParkingStalls />
+      <GridMarks />
       <Walker />
 
       {/* Grandma's carport */}

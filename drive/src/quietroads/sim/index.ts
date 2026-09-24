@@ -7,3 +7,4 @@ export * from "./kentMap";
 export * from "./Simulation";
 export * from "./dol";
 export * from "./pharmacy";
+export * from "./grid";

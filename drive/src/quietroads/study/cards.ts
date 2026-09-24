@@ -54,4 +54,8 @@ export const CARD_FOR_TRIGGER: Record<string, string[]> = {
   "stop.approach":          ["II-024"],   // First In at the Four-Way
   "zone.school.enter":      ["II-027"],   // Search the Edges Again
   "follow.close":           ["II-012"],   // Three Seconds, Not One
+  "backing.mirror":         ["II-005"],   // Marisol in the Lot — mirrors before the back-in
+  "signal.arm":             ["II-006"],   // Deac's Left Arm — signal before the move
+  "bus.stop_arm":           ["II-010"],   // The Arm Still Out
+  "driveway.turn":          ["II-030"],   // The Driveway You Can See
 };
