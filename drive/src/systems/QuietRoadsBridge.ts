@@ -14,13 +14,17 @@
  */
 import {
   DialogueRunner, Simulation, QuestionBank, CardDeck, CARD_FOR_TRIGGER, newMastery, sm2Update, gradeQuality, tpForAnswer,
+  drawExam, buildStudySet, scoreExam, dueCount,
   type Card, type CardResult, type CardGrade,
   type DialogueHost, type DialogueFile, type VehicleSample, type SimFrame, type MissionId,
-  type Question as CoreQuestion, type TimerHandle, VEHICLE, type WalkerInput,
+  type Question as CoreQuestion, type TimerHandle, VEHICLE, type WalkerInput, type MasteryRecord,
   actForScene, actForMission, challengeForAct, type CardAct,
 } from '@/quietroads';
+import { KnowledgeSeat, examVerdict } from '@/quietroads/study/seat';
 import act01 from '@/quietroads/data/dialogue_act0-1.json';
 import act2 from '@/quietroads/data/dialogue_act2.json';
+import act2central from '@/quietroads/data/dialogue_act2_central.json';
+import act5ribbon from '@/quietroads/data/dialogue_act5_ribbon.json';
 import act3 from '@/quietroads/data/dialogue_act3.json';
 import act4 from '@/quietroads/data/dialogue_act4.json';
 import act5 from '@/quietroads/data/dialogue_act5.json';
@@ -56,6 +60,10 @@ class Bridge {
   private worldCardReturnPhase: 'driving' | 'walking' = 'driving';
   private cardsSeen = new Set<string>();
   private currentAct: CardAct = 'I';
+  private seat = new KnowledgeSeat();
+  /** Fired on the next idle, after the study-set line has been read. */
+  private pendingAfterStudy: string | null = null;
+  private seatAfter: 'study' | 'week' | null = null;
   private pendingQuiz: { trigger: string; at: number } | null = null;
   private activeQuiz: { q: CoreQuestion; shownAt: number; options: string[] } | null = null;
   private quizCooldownUntil = 0;
@@ -64,7 +72,7 @@ class Bridge {
 
   constructor() {
     this.runner = new DialogueRunner(this.host());
-    for (const a of [act01, act2, act3, act4, act5, act6, act7, act8]) this.runner.load(structuredClone(a) as unknown as DialogueFile);
+    for (const a of [act01, act2, act2central, act3, act4, act5, act6, act7, act8]) this.runner.load(structuredClone(a) as unknown as DialogueFile);
     this.bank = new QuestionBank().load(qv1 as never).load(qv2 as never).load(qv3 as never);
     this.deck = new CardDeck().load(cardsJson as unknown as Card[]);
     this.sim = new Simulation({
@@ -116,7 +124,14 @@ class Bridge {
     this.runner.on('direction_shown', (node, id) => T({ direction: { node, id }, line: null }));
     this.runner.on('choice_shown', (node, options) => T({ choices: { node, options: options ?? [] } }));
     this.runner.on('choice_hidden', () => T({ choices: null }));
-    this.runner.on('idle', () => T({ line: null, direction: null, choices: null }));
+    this.runner.on('idle', () => {
+      T({ line: null, direction: null, choices: null });
+      if (this.pendingAfterStudy) {
+        const ev = this.pendingAfterStudy;
+        this.pendingAfterStudy = null;
+        this.fire(ev);
+      }
+    });
     this.runner.on('card_shown', (id) => this.showCard(id, 'story'));
     this.runner.on('scene_started', (id) => {
       useQRStore.setState({ sceneId: id });
@@ -154,7 +169,7 @@ class Bridge {
   get currentChallenge() { return challengeForAct(this.currentAct); }
 
   private enterDialogue() { haltVehicle(); this.sim.freeze('dialogue'); useGameStore.getState().setPhase('dialogue'); }
-  private enterDriving() { this.sim.unfreeze('dialogue'); useGameStore.getState().setPhase('driving'); }
+  private enterDriving() { this.sim.unfreeze('dialogue'); releaseDrive(); useGameStore.getState().setPhase('driving'); }
   private enterWalking() { haltVehicle(); this.sim.unfreeze('dialogue'); useGameStore.getState().setPhase('walking'); }
 
   /** World setup that the dialogue file implies but doesn't spell out. */
@@ -182,6 +197,10 @@ class Bridge {
   private startGameplay(id: string) {
     const mAct = actForMission(id);
     if (mAct) this.currentAct = mAct;
+    if (id === 'exam_40' || id === 'exam_40_resume' || id === 'exam_40_finalize' || id === 'study_terminal' || id === 'local_loop_week') {
+      this.startSeat(id);
+      return;
+    }
     if (this.sim.startMission(id as MissionId)) {
       if (this.sim.mode === 'walker') this.enterWalking(); else this.enterDriving();
       return;
@@ -375,6 +394,114 @@ class Bridge {
       this.fire(result.correct === null ? `card.seen:${result.card}` : result.correct ? `card.correct:${result.card}` : `card.wrong:${result.card}`);
       useGameStore.getState().setPhase(this.worldCardReturnPhase);
     }
+  }
+
+  // ---------------------------------------------------------------- Act IV seat
+  private masteryMap() {
+    const m = new Map<string, MasteryRecord>();
+    for (const [k, v] of Object.entries(useQRStore.getState().mastery)) m.set(k, v);
+    return m;
+  }
+
+  private startSeat(id: string) {
+    const now = Date.now();
+    if (id === 'exam_40') {
+      this.seat.begin('exam', drawExam(this.bank, this.masteryMap(), { now, random: Math.random }));
+      this.seatAfter = null;
+      useQRHud.getState().setTransient({ objective: 'Forty questions. Thirty-two to pass.' });
+      this.presentSeat();
+      return;
+    }
+    if (id === 'exam_40_resume') {
+      if (!this.seat.active || !this.seat.currentId) { this.startSeat('exam_40'); return; }
+      this.presentSeat();
+      return;
+    }
+    if (id === 'exam_40_finalize') { this.finishExam(true); return; }
+    const ids = buildStudySet(this.bank, this.masteryMap(), { now, random: Math.random, size: 10 });
+    this.seat.begin('study', ids);
+    this.seatAfter = id === 'local_loop_week' ? 'week' : 'study';
+    if (id === 'study_terminal' && dueCount(this.bank, this.masteryMap(), now) > 0) this.fire('study.due_pile');
+    useQRHud.getState().setTransient({
+      objective: id === 'local_loop_week' ? 'A week at the terminal. Then the test again.' : 'One set. Then sleep.',
+    });
+    this.presentSeat();
+  }
+
+  private presentSeat() {
+    const qid = this.seat.currentId;
+    const q = qid ? this.bank.get(qid) : undefined;
+    if (!q) { this.finishSeat(); return; }
+    const gq = this.toGameQuestion(q);
+    gq.source = this.seat.mode;
+    gq.title = this.seat.label;
+    this.seat.shownAt = performance.now();
+    holdDrive();
+    this.sim.freeze('exam');
+    useGameStore.getState().triggerQuiz(gq);
+  }
+
+  /** QuizOverlay recorded a pick. The question stays up until continueSeat. */
+  onExamPicked(questionId: string, chosenText: string, correct: boolean) {
+    if (!this.seat.active || this.seat.currentId !== questionId) return;
+    const q = this.bank.get(questionId);
+    const chosen = q ? q.choices.indexOf(chosenText) : -1;
+    const responseMs = performance.now() - this.seat.shownAt;
+    this.seat.note(chosen >= 0 ? chosen : null, responseMs);
+    if (this.seat.mode !== 'study' || !q) return;
+    for (const ev of this.seat.studyFeedback(questionId, correct)) this.fire(ev);
+    const S = useQRStore.getState();
+    const now = Date.now();
+    const prev = S.mastery[questionId] ?? newMastery(questionId, now);
+    S.setMastery(questionId, sm2Update(prev, gradeQuality(correct, responseMs), now));
+  }
+
+  continueSeat() {
+    if (!this.seat.active) return;
+    if (this.seat.advance()) this.finishSeat();
+    else this.presentSeat();
+  }
+
+  abandonExam() {
+    if (this.seat.mode !== 'exam' || !this.seat.active) return;
+    this.sim.unfreeze('exam');
+    useGameStore.setState({ quizActive: false, currentQuestion: null, phase: 'dialogue' });
+    this.fire('exam.abandon');
+  }
+
+  private finishSeat() {
+    if (this.seat.mode === 'exam') this.finishExam(false);
+    else this.finishStudy();
+  }
+
+  private finishExam(quit: boolean) {
+    const answers = quit ? this.seat.fillBlanks() : this.seat.answers;
+    this.seat.close();
+    const result = scoreExam(this.bank, answers, this.masteryMap());
+    const verdict = quit ? { event: 'exam.fail' as const, giveRelay: false } : examVerdict(result);
+    const S = useQRStore.getState();
+    S.setVar('exam_score', result.exam_score);
+    S.setVar('exam_missed', result.exam_missed);
+    S.setVar('exam_short', result.exam_short);
+    S.setVar('exam_weak_chapter', result.exam_weak_chapter);
+    if (verdict.giveRelay) S.giveItem('relay_kit');
+    this.sim.unfreeze('exam');
+    useGameStore.setState({ quizActive: false, currentQuestion: null, phase: 'dialogue' });
+    useQRHud.getState().setTransient({
+      objective: verdict.giveRelay ? 'Permit stamped. The relay kit is in the car.' : 'Not yet. The kit stays.',
+    });
+    this.fire(verdict.event);
+  }
+
+  private finishStudy() {
+    const week = this.seatAfter === 'week';
+    this.seat.close();
+    this.seatAfter = null;
+    this.sim.unfreeze('exam');
+    useGameStore.setState({ quizActive: false, currentQuestion: null, phase: 'dialogue' });
+    if (week) { this.fire('week.elapsed'); return; }
+    this.pendingAfterStudy = 'study.close';
+    this.fire('study.set_complete');
   }
 
   // ---------------------------------------------------------------- UI actions

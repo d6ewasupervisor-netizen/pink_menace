@@ -77,10 +77,10 @@ export const ACT_CHALLENGES: Record<CardAct, ActChallenge> = {
     driver: 'deac',
     vehicle: 'the Ledger — Deac\u2019s cutaway shuttle, no rear window',
     cargo: "Deac's cargo",
-    missions: [],
+    missions: ['mission_central_ledger'],
     objective: 'Run Central in the Ledger. Sweep the mirrors before every change.',
     lesson: 'Commercial-vehicle awareness: mirror sweeps, merge gaps, lane discipline.',
-    built: false,
+    built: true,
   },
   IV: {
     act: 'IV',
@@ -89,10 +89,10 @@ export const ACT_CHALLENGES: Record<CardAct, ActChallenge> = {
     driver: 'ali',
     vehicle: "the Menace — Grandma's pink Beetle with the plow blade",
     cargo: 'Relay kit — repeater, antenna, clamps',
-    missions: [],
+    missions: ['study_terminal', 'exam_40', 'local_loop_week'],
     objective: 'Pass the forty-question gate. Then get the relay kit to the valley floor.',
     lesson: 'The licensing exam is the challenge: knowledge is what clears the road to Tower 4.',
-    built: false,
+    built: true,
   },
   V: {
     act: 'V',
@@ -144,7 +144,7 @@ const SCENE_ACT: Record<string, CardAct> = {
   '1.1': 'I', '1.2': 'I', '1.3': 'I', '1.4': 'I', '1.4b': 'I',
   // Act II — The Grid (Kent deliveries)
   '2.1': 'II', '2.2': 'II', '2.3a': 'II', '2.3b': 'II', '2.3c': 'II',
-  '2.3d': 'II', '2.4': 'II', '2.6': 'II', '2.7': 'II', '2.8': 'II',
+  '2.3d': 'II', '2.4': 'II', '2.5': 'III', '2.6': 'II', '2.7': 'II', '2.8': 'II',
   // Act V — The Ribbon (I-90 Eastbound is the highway leg, Ali in the Menace)
   '3.1': 'V', '3.2': 'V', '3.3': 'V', '3.4': 'V', '3.4a': 'V', '3.5': 'V',
   // Act IV — The Core (night before, exam, the week after)
@@ -171,6 +171,12 @@ const MISSION_ACT: Record<string, CardAct> = {
   mission_delivery_3_radio: 'II',
   mission_delivery_4_filters: 'II',
   mission_jonah_intersection: 'II',
+  mission_central_ledger: 'III',
+  study_terminal: 'IV',
+  exam_40: 'IV',
+  exam_40_resume: 'IV',
+  exam_40_finalize: 'IV',
+  local_loop_week: 'IV',
 };
 
 export function actForScene(sceneId: string): CardAct | null {

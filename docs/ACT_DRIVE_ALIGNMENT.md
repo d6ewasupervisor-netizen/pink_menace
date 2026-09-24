@@ -14,8 +14,8 @@ edit that file — not the dialogue files — when the two surfaces drift.
 |---|---|---|---|---|---|---|
 | I | The Lot | ali — the Menace | — | `0.1`–`1.4b` | carport tutorial, DOL drive, parking, stealth interior, Gracie chase | ✅ |
 | II | The Grid | ali — the Menace | Insulin, cold-packed | `2.1`–`2.8` | quiet city grid: pharmacy, Bea's dock, Priya's lane, Tuna's parallel, Jonah's four-way | ✅ |
-| III | Central | deac — the Ledger | Deac's cargo | *(none dedicated)* | commercial run in a box truck on Central | ❌ |
-| IV | The Core | ali — the Menace | Relay kit | `4.1`–`4.3` | the forty-question licensing gate | ❌ (exam/shop, not a vehicle challenge) |
+| III | Central | deac — the Ledger | Deac's cargo | `2.5` | commercial run in a box truck on Central: stay right, signal, 3-second gap, merge | ✅ |
+| IV | The Core | ali — the Menace | Relay kit | `4.1`–`4.3` | forty-question licensing gate; relay kit only on a pass | ✅ |
 | V | The Ribbon | ali — the Menace | Relay kit | `3.1`–`3.5`, `5.1`–`5.3` | highway merge + mountain grade / chain-up | ❌ |
 | VI | The Backcountry | ali — the Menace | Clearance clipboard | `6.1`–`7.3` | rural straight, bridge, passive crossing | ❌ |
 | VII | The Dark Hours | — | herd | `8.1`–`8.3` (Spokane epilogue) | stays closed | ❌ |
@@ -28,8 +28,8 @@ view:
 
 - `3.1` "Briefing" opens on Deac (borrowing II-006 / II-012) but the leg that
   follows is I-90 Eastbound **in the Menace**, which is Act V "The Ribbon", not
-  Act III "Central". Act III has **no dedicated drive scene today** — its cards
-  (III-007, III-016, III-020) are borrow-woven into `3.2` and `6.2`.
+  Act III "Central". Act III now has its own scene, `2.5` "Central — Deac's Cargo",
+  inserted between the Jonah four-way (`2.4`) and the I-90 briefing (`3.1`).
 
 ## What "play the cards, then drive" means here
 
@@ -60,16 +60,19 @@ Act I is the completed translation of that loop, and the worked example to copy:
    and the Jonah four-way (`mission_jonah_intersection`). Cards II-004/005/006/010/012/024/030
    ride those beats. Next act is III.
 
-2. **Act III — build the Ledger challenge.** New ego vehicle (cutaway shuttle,
-   no rear window) run on a Central corridor. This is the act's own unique
-   challenge and the largest missing piece; it should reuse the vehicle observer
-   with a swapped length/width/turn profile rather than the Beetle. Mirror sweep
-   is the graded skill (III-003 "Sweep Before You Change", III-005 "The Van You
-   Cannot See").
+2. **Act III — Central (the Ledger).** Shipped. `mission_central_ledger` puts the
+   player in a wider/longer ego on Central's three southbound lanes with a moving
+   box-truck lead: stay right (`III-003`), signal every move (`III-006`), hold the
+   three-second space (`III-009`), don't cross solid white (`III-008`), and take
+   the lane-drop merge with a gap (`III-007`). Cards `III-002/003/004/006` open the
+   scene. Remaining polish: swap the visible ego model from the Beetle to a box
+   truck and retune stopping distance for the longer wheelbase.
 
-3. **Act IV — make the exam the challenge.** `4.2` "Forty Questions" is the
-   study `exam` scene (already exists). Close the loop by gating the relay-kit
-   beat on `exam.pass`, then hand to the Act V highway challenge.
+3. **Act IV — the exam is the challenge.** Shipped. `study_terminal` is a
+   10-question set the night before. `exam_40` is forty questions, 32 to pass.
+   A pass stamps the permit, puts the relay kit in the car, and the existing
+   `4.2` ending hands her to `5.1`. A fail (or standing up for good) leaves
+   the kit and sends her through `4.3`, then back to the terminal.
 
 4. **Act V — build the highway.** I-90 Eastbound is dialogued but not simulated;
    the game currently needs a highway world mode + merge/ramp grading (V-001,

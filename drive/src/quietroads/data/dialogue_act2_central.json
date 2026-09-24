@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "schema_version": "1.3.0",
+    "game": "Quiet Roads",
+    "acts": [2],
+    "locale": "en-US",
+    "placeholders": {
+      "MOM": "Mom",
+      "RAY": "Ray",
+      "GRANDMA": "Grandma",
+      "GRANDMA_NAME": "Grandma",
+      "GRANDMA_INITIALS": "Grandma",
+      "PLAYER": "Ali",
+      "PLAYER_FULL": "Alison"
+    }
+  },
+  "characters": {},
+  "scenes": {
+    "2.5": {
+      "id": "2.5",
+      "act": 2,
+      "title": "Central — Deac's Cargo",
+      "type": "gameplay",
+      "location": "kent_central_south",
+      "guide_refs": ["Lane Use", "Lane Changes", "Signaling", "Following Distance"],
+      "entry": "2.5.0",
+      "nodes": {
+        "2.5.0": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "neutral",
+          "volume": "low",
+          "text": "Cargo's loaded. My truck, not yours — the Ledger. No back window, so the mirrors are your whole world back there.",
+          "next": "2.5.card_III-002"
+        },
+        "2.5.card_III-002": {
+          "type": "card",
+          "card": "III-002",
+          "next": "2.5.1"
+        },
+        "2.5.1": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "neutral",
+          "volume": "low",
+          "text": "Central's three lanes. Right lane is for moving. Left is for passing, not for living.",
+          "next": "2.5.card_III-003"
+        },
+        "2.5.card_III-003": {
+          "type": "card",
+          "card": "III-003",
+          "next": "2.5.2"
+        },
+        "2.5.2": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "Sweep the mirror, then the shoulder, before the wheel moves. Signal early enough to matter.",
+          "next": "2.5.card_III-004"
+        },
+        "2.5.card_III-004": {
+          "type": "card",
+          "card": "III-004",
+          "next": "2.5.card_III-006"
+        },
+        "2.5.card_III-006": {
+          "type": "card",
+          "card": "III-006",
+          "next": "2.5.go"
+        },
+        "2.5.go": {
+          "type": "end",
+          "effects": {
+            "start_gameplay": "mission_central_ledger",
+            "log": "mission.begin:central_ledger"
+          }
+        },
+        "2.5.lc": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "Signal. Mirror. Shoulder. Then move."
+        },
+        "2.5.nosig": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "G",
+          "emotion": "deadpan",
+          "volume": "low",
+          "auto_ms": 2400,
+          "text": "No signal. Nobody saw. Habits.",
+          "effects": {
+            "respect": -1,
+            "log": "ledger.lanechange.no_signal"
+          }
+        },
+        "2.5.solid": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "G",
+          "emotion": "deadpan",
+          "volume": "low",
+          "auto_ms": 2600,
+          "text": "That line was solid. You crossed it. Don't.",
+          "effects": {
+            "respect": -2,
+            "log": "ledger.crossed_solid"
+          }
+        },
+        "2.5.close": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "G",
+          "emotion": "neutral",
+          "volume": "low",
+          "auto_ms": 2600,
+          "text": "Too close. Three seconds. If I brake, you want the room to be gradual.",
+          "effects": {
+            "respect": -1,
+            "log": "ledger.follow.close"
+          }
+        },
+        "2.5.wrong_lane": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "G",
+          "emotion": "neutral",
+          "volume": "low",
+          "auto_ms": 2600,
+          "text": "Left lane's for passing. Right lane's for driving.",
+          "effects": {
+            "respect": -1,
+            "log": "ledger.wrong_lane"
+          }
+        },
+        "2.5.merge": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "SYS",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "Right lane ends. Count the gap before you take it."
+        },
+        "2.5.merge_clean": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "G",
+          "emotion": "deadpan",
+          "volume": "low",
+          "auto_ms": 2400,
+          "text": "Clean.",
+          "effects": {
+            "respect": 2,
+            "log": "ledger.merge.clean"
+          }
+        },
+        "2.5.end": {
+          "type": "end",
+          "effects": {
+            "tp": 40,
+            "set_flags": {
+              "central_done": true
+            },
+            "checkpoint": "central_done",
+            "log": "mission.complete:central_ledger"
+          },
+          "next_scene": "3.1"
+        },
+        "2.5.swarm": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "G",
+          "emotion": "neutral",
+          "volume": "low",
+          "auto_ms": 2600,
+          "text": "Swarmed. Cargo's gone. Back to the start of Central."
+        }
+      },
+      "triggers": [
+        {
+          "event": "ledger.lanechange.start",
+          "node": "2.5.lc",
+          "once": true
+        },
+        {
+          "event": "ledger.lanechange.no_signal",
+          "node": "2.5.nosig",
+          "cooldown_ms": 5000
+        },
+        {
+          "event": "ledger.crossed_solid",
+          "node": "2.5.solid",
+          "once": true
+        },
+        {
+          "event": "ledger.follow.close",
+          "node": "2.5.close",
+          "cooldown_ms": 6000
+        },
+        {
+          "event": "ledger.wrong_lane",
+          "node": "2.5.wrong_lane",
+          "cooldown_ms": 6000
+        },
+        {
+          "event": "ledger.merge.approach",
+          "node": "2.5.merge",
+          "once": true
+        },
+        {
+          "event": "ledger.merge.clean",
+          "node": "2.5.merge_clean",
+          "once": true
+        },
+        {
+          "event": "waypoint.reach:ledger_end",
+          "node": "2.5.end",
+          "once": true,
+          "priority": 20,
+          "interrupt": true
+        },
+        {
+          "event": "mission.fail.swarm",
+          "node": "2.5.swarm",
+          "priority": 20,
+          "interrupt": true
+        }
+      ]
+    }
+  }
+}

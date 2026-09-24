@@ -49,12 +49,18 @@ export function QuizOverlay() {
       const res = answerQuiz(answer);
       setResult(res);
       if (currentQuestion.source === 'quietroads') QuietRoads.onQuizAnswered(currentQuestion.id, answer, res.correct);
+      if (currentQuestion.source === 'exam' || currentQuestion.source === 'study') {
+        QuietRoads.onExamPicked(currentQuestion.id, answer, res.correct);
+      }
 
       // The answer is in. Put the car and the world back on the moment the
       // question opened, and let that moment run. A wrong answer that ends
-      // the run leaves the car where it stopped.
+      // the run leaves the car where it stopped. The exam stays up so she
+      // can read the line and take the next question.
       if (useGameStore.getState().phase === 'gameover') {
         discardDriveHold();
+      } else if (currentQuestion.source === 'exam' || currentQuestion.source === 'study') {
+        // stay on the seat
       } else if (currentQuestion.source === 'quietroads') {
         QuietRoads.onQuizClosed();
         setPhase('driving');
@@ -83,10 +89,14 @@ export function QuizOverlay() {
   );
 
   const handleContinue = useCallback(() => {
+    if (currentQuestion?.source === 'exam' || currentQuestion?.source === 'study') {
+      QuietRoads.continueSeat();
+      return;
+    }
     setDismissed(true);
     setSelected(null);
     setResult(null);
-  }, []);
+  }, [currentQuestion]);
 
   if (dismissed || !currentQuestion) return null;
   if (phase !== 'quiz' && !(result && phase === 'driving')) return null;
@@ -125,8 +135,13 @@ export function QuizOverlay() {
       <div style={styles.scroll}>
         {/* Kicker bar — category + streak */}
         <div style={styles.kicker}>
-          <span style={styles.categoryBadge}>{categoryLabel}</span>
-          {streak > 0 && <span style={styles.streakBadge}>🔥 {streak}</span>}
+          <span style={styles.categoryBadge}>
+            {currentQuestion.source === 'exam' || currentQuestion.source === 'study' ? currentQuestion.title : categoryLabel}
+          </span>
+          {currentQuestion.source === 'exam' && (
+            <button data-ui style={styles.stand} onClick={() => QuietRoads.abandonExam()}>STAND UP</button>
+          )}
+          {currentQuestion.source !== 'exam' && streak > 0 && <span style={styles.streakBadge}>🔥 {streak}</span>}
         </div>
 
         <div style={styles.body}>
@@ -167,7 +182,9 @@ export function QuizOverlay() {
               <div style={{ ...styles.verdict, color: result.correct ? '#39ff14' : '#ff4444' }}>
                 {result.correct ? 'CORRECT' : 'WRONG'}
               </div>
-              {result.correct ? (
+              {currentQuestion.source === 'exam' || currentQuestion.source === 'study' ? (
+                currentQuestion.explanation && <p style={styles.explanation}>{currentQuestion.explanation}</p>
+              ) : result.correct ? (
                 <p style={styles.resultText}>+{result.coinsEarned} Z-Coins</p>
               ) : (
                 <>
@@ -218,6 +235,16 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: '4px',
     padding: '3px 9px',
     fontSize: '11px',
+    fontWeight: 700,
+    letterSpacing: '0.08em',
+  },
+  stand: {
+    background: 'transparent',
+    color: '#e8e6e1',
+    border: '1px solid rgba(255,255,255,0.28)',
+    borderRadius: 4,
+    padding: '4px 10px',
+    fontSize: 11,
     fontWeight: 700,
     letterSpacing: '0.08em',
   },
