@@ -146,14 +146,25 @@ class Bridge {
   }
 
   // ---------------------------------------------------------------- lifecycle
-  /** Called when the player picks Quiet Roads from the menu. */
+  /** Open a specific act from the title screen. A fresh save, then that act's first scene. */
+  startAct(sceneId: string) {
+    this.open(sceneId);
+  }
+
   start(fresh = false) {
+    this.open(fresh ? null : 'resume');
+  }
+
+  private open(which: string | null) {
+    const resume = which === 'resume';
     const qr = useQRStore.getState();
-    if (fresh) qr.resetQuietRoads();
+    if (!resume) qr.resetQuietRoads();
     for (const [k, v] of Object.entries(useQRStore.getState().placeholders)) this.runner.setPlaceholder(k, v);
     const st = useQRStore.getState();
-    if (!fresh && st.runnerState) this.runner.restore(st.runnerState);
-    const sceneId = !fresh && st.sceneId && this.runner.hasScene(st.sceneId) ? st.sceneId : '0.1';
+    if (resume && st.runnerState) this.runner.restore(st.runnerState);
+    const sceneId = resume && st.sceneId && this.runner.hasScene(st.sceneId)
+      ? st.sceneId
+      : (which && which !== 'resume' && this.runner.hasScene(which) ? which : '0.1');
     this.started = true;
     useGameStore.getState().setWorldMode('kent');
     // Kent is portrait. Lock where the browser allows (PWA/fullscreen on Android); elsewhere the HUD asks.

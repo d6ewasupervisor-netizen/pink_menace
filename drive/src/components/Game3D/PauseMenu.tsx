@@ -110,6 +110,11 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
           <button style={{ ...styles.btn, ...styles.btnSaveExit }} onClick={handleSaveExit}>
             💾 SAVE & EXIT
           </button>
+          {kent && (
+            <button style={{ ...styles.btn, ...styles.btnRestart }} onClick={() => { QuietRoads.stop(); setPhase('menu'); }}>
+              ACTS
+            </button>
+          )}
           <button style={{ ...styles.btn, ...styles.btnRestart }} onClick={handleRestart}>
             🔄 RESTART
           </button>

@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
-import { actForScene, challengeForAct } from '@/quietroads';
+import { ACT_ENTRY, ACT_ORDER, actForScene, challengeForAct } from '@/quietroads';
 
 const BIOME_LABEL: Record<string, string> = {
   city: 'New York',
@@ -33,10 +33,8 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
 
   const qrCheckpoint = useQRStore((s) => s.checkpoint);
   const qrScene = useQRStore((s) => s.sceneId);
-  const handleQuietRoadsNew = useCallback(() => { QuietRoads.start(true); }, []);
   const handleQuietRoadsContinue = useCallback(() => { QuietRoads.start(false); }, []);
 
-  const startChallenge = challengeForAct('I');
   const continueAct = qrScene ? actForScene(qrScene) : null;
 
   if (phase !== 'menu') return null;
@@ -51,18 +49,28 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
         <p style={styles.tagline}>Kent. Grandma's Beetle.</p>
 
         <div style={styles.btnStack}>
-          <button style={{ ...styles.btn, ...styles.btnQuiet }} onClick={handleQuietRoadsNew}>
-            🐈 QUIET ROADS — ACT {startChallenge.act} · {startChallenge.zone.toUpperCase()}
-            <span style={styles.saveSummary}>{startChallenge.vehicle}</span>
-          </button>
           {qrCheckpoint && (
             <button style={{ ...styles.btn, ...styles.btnContinue }} onClick={handleQuietRoadsContinue}>
-              ▶ CONTINUE QUIET ROADS
+              ▶ CONTINUE
               <span style={styles.saveSummary}>
                 {continueAct ? `Act ${continueAct} · ${challengeForAct(continueAct).zone}` : `Scene ${qrScene}`} · {qrCheckpoint.replace(/_/g, ' ')}
               </span>
             </button>
           )}
+          {ACT_ORDER.map((act) => {
+            const challenge = challengeForAct(act);
+            if (!challenge.built) return null;
+            return (
+              <button
+                key={act}
+                style={{ ...styles.btn, ...(act === 'I' ? styles.btnQuiet : styles.btnAct) }}
+                onClick={() => QuietRoads.startAct(ACT_ENTRY[act])}
+              >
+                ACT {act} · {challenge.zone.toUpperCase()}
+                <span style={styles.saveSummary}>{challenge.title}</span>
+              </button>
+            );
+          })}
           <button style={{ ...styles.btn, ...styles.btnNew }} onClick={handleNewGame}>
             🚀 ROAD TRIP (NYC → Spokane)
           </button>
@@ -96,10 +104,12 @@ const styles: Record<string, React.CSSProperties> = {
     inset: 0,
     background: '#121010',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     zIndex: 300,
     pointerEvents: 'auto',
+    overflow: 'auto',
+    padding: '1.5rem 0',
   },
   container: {
     textAlign: 'center',
@@ -153,6 +163,12 @@ const styles: Record<string, React.CSSProperties> = {
     border: '1px solid #3a3230',
     fontSize: '16px',
     letterSpacing: '0.04em',
+  },
+  btnAct: {
+    background: '#1b1716',
+    color: '#ede7dc',
+    border: '1px solid #3a3230',
+    fontSize: '15px',
   },
   btnQuiet: {
     background: 'linear-gradient(90deg, #9a3d4d, #c45a68)',

@@ -32,6 +32,17 @@ export interface ActChallenge {
 
 export const ACT_ORDER: CardAct[] = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 
+/** First scene of each act's drive, so the title screen can open that challenge. */
+export const ACT_ENTRY: Record<CardAct, string> = {
+  I: '0.1',
+  II: '2.1',
+  III: '2.5',
+  IV: '4.1',
+  V: '3.1b',
+  VI: '6.1b',
+  VII: '8.1',
+};
+
 export const ACT_CHALLENGES: Record<CardAct, ActChallenge> = {
   I: {
     act: 'I',

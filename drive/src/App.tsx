@@ -1,13 +1,11 @@
 /**
  * Drive shell at /drive. The card game's home (/) owns login and the dashboard;
- * this page assumes a signed-in student and drops her straight into Quiet Roads.
+ * this page assumes a signed-in student and opens the act list.
  */
 import { useEffect, useState } from 'react'
 import { AuthProvider, useAuth } from '@/lib/authContext'
 import ZombieRoadWarrior from '@/components/ZombieRoadWarrior'
 import { useGameStore } from '@/stores/gameStore'
-import { useQRStore } from '@/stores/qrStore'
-import { QuietRoads } from '@/systems/QuietRoadsBridge'
 import { DriveSync } from '@/systems/DriveSync'
 import { installCrashReport } from '@/lib/crashReport'
 import { useProgress } from '@react-three/drei'
@@ -23,8 +21,8 @@ function Shell() {
     installCrashReport()
     DriveSync.hydrate().finally(() => {
       if (!alive) return
-      const hasSave = !!useQRStore.getState().checkpoint
-      QuietRoads.start(!hasSave)
+      useGameStore.getState().setPhase('menu')
+      useGameStore.getState().setWorldMode('kent')
       DriveSync.begin()
       setReady(true)
     })
