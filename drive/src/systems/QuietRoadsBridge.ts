@@ -17,7 +17,7 @@ import {
   drawExam, buildStudySet, scoreExam, dueCount,
   type Card, type CardResult, type CardGrade,
   type DialogueHost, type DialogueFile, type VehicleSample, type SimFrame, type MissionId,
-  type Question as CoreQuestion, type TimerHandle, VEHICLE, type WalkerInput, type MasteryRecord,
+  type Question as CoreQuestion, type TimerHandle, VEHICLE, CHASSIS_DECEL, brakeDecel, type WalkerInput, type MasteryRecord,
   actForScene, actForMission, challengeForAct, type CardAct,
 } from '@/quietroads';
 import { KnowledgeSeat, examVerdict } from '@/quietroads/study/seat';
@@ -40,12 +40,8 @@ import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import type { Question, Category } from '@/types/quiz';
-import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, holdDrive, releaseDrive } from '@/systems/VehicleController';
+import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, holdDrive, releaseDrive, setDriveBrakeDecel } from '@/systems/VehicleController';
 import { DriveSync } from '@/systems/DriveSync';
-
-// The R3F Beetle brakes at 8 m/s² (MAX_BRAKE_DECEL in VehicleController). The stopping
-// shadow must be honest about *this* car, so the observer uses the same number.
-(VEHICLE as { BRAKE_DECEL_DRY: number }).BRAKE_DECEL_DRY = 8.0;
 
 const CHAPTER_CATEGORY: Record<number, Category> = {
   1: 'washington_laws', 2: 'road_signs', 3: 'right_of_way', 4: 'parking',
@@ -285,13 +281,20 @@ class Bridge {
     }
     // HUD needs ~10 Hz, not 60: every store set re-renders every subscriber.
     if (f && this.clock - this.lastHudAt >= 0.1) { this.lastHudAt = this.clock; useQRHud.getState().setTransient({ frame: f }); }
+    this.syncBrake();
     if (this.pendingQuiz && this.clock >= this.pendingQuiz.at) {
       const t = this.pendingQuiz; this.pendingQuiz = null;
       this.openQuiz(t.trigger);
     }
   }
 
-  /** Called by CollisionSystem-equivalent when the sim reports the car hit something. */
+  /** Shadow and pedal share one decel: chassis on dry pavement, ice when the climb says so. */
+  private syncBrake() {
+    const chassis = useGameStore.getState().chassis;
+    const dry = CHASSIS_DECEL[chassis] ?? CHASSIS_DECEL.beetle;
+    (VEHICLE as { BRAKE_DECEL_DRY: number }).BRAKE_DECEL_DRY = dry;
+    setDriveBrakeDecel(brakeDecel(chassis, this.sim.vehicle.mu));
+  }
   onCollision(kind: 'plow' | 'soft' | 'static') { scaleCurrentSpeed(Simulation.collisionSpeedFactor(kind)); }
 
   // ---------------------------------------------------------------- quizzes

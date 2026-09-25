@@ -429,7 +429,10 @@ export class Simulation {
       if (this.missionId === "mission_ribbon_merge") this.ribbon.step(dt, s);
       if (this.missionId === "mission_backcountry_run") this.rural.step(dt, s);
       if (this.chainup.mission) this.chainup.step(dt, s);
-      if (this.climb.mission) this.climb.step(dt, s);
+      if (this.climb.mission) {
+        this.climb.step(dt, s);
+        this.vehicle.mu = this.climb.onIce ? VEHICLE.MU.ice : VEHICLE.MU.dry;
+      } else if (this.vehicle.mu !== VEHICLE.MU.dry) this.vehicle.mu = VEHICLE.MU.dry;
       if (this.escort.mission) this.escort.step(dt, s);
       if (this.beats.mission) this.beats.step(dt, s);
       if (this.convoy.mission) this.convoy.step(dt, s, this.noise.band);

@@ -65,8 +65,7 @@ Act I is the completed translation of that loop, and the worked example to copy:
    box-truck lead: stay right (`III-003`), signal every move (`III-006`), hold the
    three-second space (`III-009`), don't cross solid white (`III-008`), and take
    the lane-drop merge with a gap (`III-007`). Cards `III-002/003/004/006` open the
-   scene. The Ledger shows the truck. Remaining polish: retune stopping distance
-   for the longer wheelbase.
+   scene. The Ledger shows the truck and stops like one: 4.6 m/s² on dry pavement.
 
 3. **Act IV — the exam is the challenge.** Shipped. `study_terminal` is a
    10-question set the night before. `exam_40` is forty questions, 32 to pass.
@@ -76,12 +75,13 @@ Act I is the completed translation of that loop, and the worked example to copy:
 
 4. **Act V — The Ribbon.** The climb (`climb_snoqualmie`), the chain-up pull-out,
    the on-ramp, and the Issaquah convoy are shipped. The pass uses the highway
-   car. Remaining polish: stopping distance is still the Beetle's.
+   car (6.2 m/s²). Ice on the grade drops the surface to μ 0.15, and the pedal
+   and the shadow both lengthen.
 
 5. **Act VI — The Backcountry.** Gravel, the roundabout, the night straight,
    Vantage Bridge, and the Ritzville escort (`escort_ritzville`, four seconds
-   behind Hank) are shipped. The Ledger run shows the truck. Remaining polish:
-   the Menace is still the Beetle everywhere else, which is what she drives.
+   behind Hank) are shipped. The Ledger run shows the truck. The Menace is still
+   the Beetle everywhere else, which is what she drives.
 
 Act VII stays closed — the herd lives on the pass and the drive should not free it.
 

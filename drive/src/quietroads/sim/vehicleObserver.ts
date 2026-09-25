@@ -26,17 +26,29 @@ export const SKID = {
 
 export const VEHICLE = {
   REACTION_S: 1.5,
-  BRAKE_DECEL_DRY: 6.0,   // m/s² at μ 0.7 (heavy Beetle, ~0.6 g)
+  BRAKE_DECEL_DRY: 8.0,   // m/s², matches the Beetle in VehicleController
   MU: { dry: 0.7, wet: 0.4, ice: 0.15 } as { dry: number; wet: number; ice: number },
   WHEELBASE_M: 2.4,
   LENGTH_M: 4.0,
   WIDTH_M: 1.9,
 };
 
+/** Dry-pavement brake. The truck's wheelbase is longer; the highway car sits between. */
+export const CHASSIS_DECEL: Record<"beetle" | "truck" | "highway", number> = {
+  beetle: 8.0,
+  highway: 6.2,
+  truck: 4.6,
+};
+
+/** What the car can actually shed, given chassis and surface. The shadow uses this too. */
+export function brakeDecel(chassis: "beetle" | "truck" | "highway", mu = VEHICLE.MU.dry): number {
+  return Math.max(CHASSIS_DECEL[chassis] * (mu / VEHICLE.MU.dry), 0.5);
+}
+
 /** Reaction + braking distance, in metres. The single most valuable visual in the game. */
-export function stoppingDistanceM(speedMs: number, mu = VEHICLE.MU.dry): number {
+export function stoppingDistanceM(speedMs: number, mu = VEHICLE.MU.dry, dryDecel = VEHICLE.BRAKE_DECEL_DRY): number {
   const v = Math.abs(speedMs);
-  const decel = Math.max(VEHICLE.BRAKE_DECEL_DRY * (mu / VEHICLE.MU.dry), 0.5);
+  const decel = Math.max(dryDecel * (mu / VEHICLE.MU.dry), 0.5);
   return v * VEHICLE.REACTION_S + (v * v) / (2 * decel);
 }
 export const reactionDistanceM = (speedMs: number) => Math.abs(speedMs) * VEHICLE.REACTION_S;
@@ -105,7 +117,7 @@ export class VehicleObserver {
     } else this.speedOverT = 0;
 
     this.prev = { ...s }; this.lastHeading = s.heading;
-    return { skidding: this.skidding, stoppingM: stoppingDistanceM(s.speedMs, this.mu), lateralG: latAcc / 9.81 };
+    return { skidding: this.skidding, stoppingM: stoppingDistanceM(s.speedMs, this.mu, VEHICLE.BRAKE_DECEL_DRY), lateralG: latAcc / 9.81 };
   }
 
   /** Call when the car hits static geometry (curb, house). Emits the soft collision. */

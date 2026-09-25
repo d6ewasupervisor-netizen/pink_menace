@@ -11,6 +11,7 @@ const LIMIT = 35;
  */
 export class ClimbRun {
   mission = false;
+  onIce = false;
   private iceFired = false;
   private gentle = 0;
   private gentleFired = false;
@@ -25,14 +26,16 @@ export class ClimbRun {
 
   reset() {
     this.mission = true;
+    this.onIce = false;
     this.iceFired = this.gentleFired = this.settleFired = this.arrived = this.sawFast = false;
     this.gentle = this.overCd = this.worseCd = this.settle = 0;
   }
 
-  clear() { this.mission = false; }
+  clear() { this.mission = false; this.onIce = false; }
 
   step(dt: number, s: VehicleSample) {
     if (!this.mission) return;
+    this.onIce = rectHas(this.ice, s.pos);
     this.overCd = Math.max(0, this.overCd - dt);
     this.worseCd = Math.max(0, this.worseCd - dt);
     const onIce = rectHas(this.ice, s.pos);

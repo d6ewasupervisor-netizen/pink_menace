@@ -27,6 +27,10 @@ const UPSHIFT_RPM = 6500;
 const DOWNSHIFT_RPM = 1800;
 
 const MAX_BRAKE_DECEL = 8.0;
+let driveBrakeDecel = MAX_BRAKE_DECEL;
+
+/** The bridge sets this from chassis + surface so the pedal matches the stopping shadow. */
+export function setDriveBrakeDecel(mps2: number) { driveBrakeDecel = Math.max(0.5, mps2); }
 
 const AERO_DRAG_COEFF = 0.5;
 const ROLLING_RESISTANCE_N = 200;
@@ -561,7 +565,7 @@ export function tickVehicle(
 
   if (isBraking && Math.abs(currentSpeed) > 0.1) {
     const activeBrakeInput = currentSpeed > 0 ? brakePedal : smoothedThrottle;
-    rawAccel -= Math.sign(currentSpeed) * MAX_BRAKE_DECEL * activeBrakeInput;
+    rawAccel -= Math.sign(currentSpeed) * driveBrakeDecel * activeBrakeInput;
   }
 
   if (isReversing && currentSpeed > -reverseSpeedMs) {
