@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const { migrate, query } = require("./src/db");
 const { appKind, parentsUrl } = require("./src/host");
 const { driveEnabled } = require("./src/routes-drive");
+const auth = require("./src/auth");
 const { mountRoutes } = require("./src/routes");
 
 const app = express();
@@ -23,6 +24,21 @@ app.get("/health", (req, res) => {
 app.use("/shared", express.static(path.join(__dirname, "public", "shared"), { maxAge: "7d" }));
 
 mountRoutes(app);
+
+// ── Single student surface. An authenticated student who hits the root is sent
+// ── straight into the drive (the 3D scene). Parents and unauthenticated visitors
+// ── stay on the login / parent shell, so there is no redirect loop: the drive
+// ── bounces signed-out users back here to sign in.
+app.get("/", async (req, res, next) => {
+  if (appKind(req) !== "game" || !driveEnabled()) return next();
+  try {
+    const session = await auth.readSession(auth.getToken(req));
+    if (session && session.role === "student") return res.redirect("/drive");
+  } catch {
+    /* No session is readable — fall through to the home shell. */
+  }
+  next();
+});
 
 // ── Quiet Roads, the 3D drive: a Vite build at public/game/drive, served under /drive. ──
 // Hashed bundles get a year; index.html never caches. DRIVE_ENABLED gates the whole thing.

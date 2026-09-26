@@ -1,8 +1,10 @@
 /**
- * CardOverlay — a PINK MENACE card, portrait. Image on top, the hook, the scene,
- * then the decision. The pick goes to the server, which grades it; the verdict,
- * result, and debrief come back. The bundle never holds the answer key.
- * Dossiers and beats have no decision; they read and continue (recorded as seen).
+ * CardOverlay — a PINK MENACE card rendered *in the cockpit*, not as a separate
+ * screen. The card's still fills the frame as a dimmed windshield "read" so the
+ * picture and the question are one moment; the title, hook, scene and decision
+ * sit in a bottom dock over the (still-visible) driving world. Grading goes to
+ * the server; the verdict, result, and debrief come back. The bundle never holds
+ * the answer key. Dossiers and beats have no decision — read and continue.
  */
 import { useEffect, useMemo, useState } from 'react';
 import { useQRHud } from '@/stores/qrHud';
@@ -44,15 +46,22 @@ export function CardOverlay() {
 
   return (
     <div data-ui style={styles.wrap}>
-      <div style={styles.scroll}>
-        {card.image && (
-          <div style={styles.imgBox}>
-            <img src={card.image} alt="" onLoad={() => setImgReady(true)} style={{ ...styles.img, opacity: imgReady ? 1 : 0 }} />
-            <div style={styles.imgFade} />
-            <div style={styles.kicker}>{card.zone ?? card.act} · {card.card_type.replace(/-/g, ' ')}</div>
-          </div>
-        )}
-        <div style={styles.body}>
+      {/* The still is the windshield: picture and question share one moment. */}
+      {card.image && (
+        <img
+          src={card.image}
+          alt=""
+          onLoad={() => setImgReady(true)}
+          style={{ ...styles.backdrop, opacity: imgReady ? 1 : 0 }}
+        />
+      )}
+      <div style={styles.scrimTop} />
+      <div style={styles.scrimBottom} />
+
+      <div style={styles.kicker}>{card.zone ?? card.act} · {card.card_type.replace(/-/g, ' ')}</div>
+
+      <div style={styles.dock}>
+        <div style={styles.dockScroll}>
           <h2 style={styles.title}>{card.title}</h2>
           {card.hook && <p style={styles.hook}>{card.hook}</p>}
           {card.scene && <p style={styles.scene}>{card.scene}</p>}
@@ -109,16 +118,21 @@ export function CardOverlay() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  wrap: { position: 'fixed', inset: 0, zIndex: 240, background: '#07080c', pointerEvents: 'auto', fontFamily: 'system-ui, sans-serif', color: '#e8e6e1' },
-  scroll: { position: 'absolute', inset: 0, overflowY: 'auto', WebkitOverflowScrolling: 'touch' },
-  // No maxHeight cap — let the image render at its full natural 3:4 portrait
-  // proportion so nothing is cut off. The card scrolls; the image stays whole.
-  imgBox: { position: 'relative', width: '100%', aspectRatio: '3 / 4', overflow: 'hidden', background: '#0e0f14' },
-  img: { width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', transition: 'opacity 300ms', display: 'block' },
-  imgFade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 90, background: 'linear-gradient(to bottom, rgba(7,8,12,0), #07080c)' },
+  wrap: { position: 'fixed', inset: 0, zIndex: 240, pointerEvents: 'auto', fontFamily: 'system-ui, sans-serif', color: '#e8e6e1' },
+  // The card's still, full-bleed but dimmed so the world behind stays present.
+  backdrop: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.6) saturate(0.85)', transition: 'opacity 300ms', pointerEvents: 'none' },
+  scrimTop: { position: 'absolute', left: 0, right: 0, top: 0, height: '22%', background: 'linear-gradient(to bottom, rgba(7,8,12,0.75), rgba(7,8,12,0))', pointerEvents: 'none' },
+  scrimBottom: { position: 'absolute', left: 0, right: 0, bottom: 0, height: '70%', background: 'linear-gradient(to top, rgba(7,8,12,0.94), rgba(7,8,12,0.35) 60%, rgba(7,8,12,0))', pointerEvents: 'none' },
   kicker: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', left: 14, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#F28DB2', background: 'rgba(0,0,0,0.55)', padding: '4px 8px', borderRadius: 4 },
-  body: { padding: '4px 18px calc(24px + env(safe-area-inset-bottom))' },
-  title: { fontSize: 22, margin: '6px 0 4px', fontWeight: 800, letterSpacing: '-0.01em' },
+  dock: { position: 'absolute', left: 0, right: 0, bottom: 0, maxHeight: '68vh', display: 'flex', alignItems: 'flex-end' },
+  dockScroll: {
+    width: '100%', maxHeight: '68vh', overflowY: 'auto', WebkitOverflowScrolling: 'touch',
+    padding: '18px 18px calc(24px + env(safe-area-inset-bottom))',
+    background: 'rgba(7,8,12,0.55)', backdropFilter: 'blur(2px)',
+    borderTop: '1px solid rgba(255,255,255,0.10)',
+    borderTopLeftRadius: 18, borderTopRightRadius: 18,
+  },
+  title: { fontSize: 22, margin: '0 0 4px', fontWeight: 800, letterSpacing: '-0.01em' },
   hook: { fontSize: 15, color: '#F28DB2', margin: '0 0 10px', fontStyle: 'italic' },
   scene: { fontSize: 15.5, lineHeight: 1.5, margin: '0 0 14px', color: '#d6d3cc' },
   decision: { fontSize: 16, fontWeight: 700, margin: '0 0 10px', color: '#fff' },

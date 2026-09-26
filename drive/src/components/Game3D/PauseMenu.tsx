@@ -21,6 +21,8 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
   const resetProgress = useGameStore((s) => s.resetProgress);
   const controlsScheme = useGameStore((s) => s.controlsScheme);
   const cycleControlsScheme = useGameStore((s) => s.cycleControlsScheme);
+  const isMuted = useGameStore((s) => s.isMuted);
+  const toggleMute = useGameStore((s) => s.toggleMute);
 
   const { saveProgress } = useGameProgress();
   const worldMode = useGameStore((s) => s.worldMode);
@@ -82,8 +84,6 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
               <StatRow label="Scene" value={qrScene ? String(qrScene) : 'Kent'} />
               {qrCheckpoint && <StatRow label="Checkpoint" value={qrCheckpoint.replace(/_/g, ' ')} />}
               {objective && <StatRow label="Objective" value={objective} />}
-              <StatRow label="HP" value={`${hp}%`} color="#ff6b6b" />
-              <StatRow label="Fuel" value={`${Math.round(fuel)}%`} color={fuel < 25 ? '#ff4444' : '#39ff14'} />
               <StatRow label="TP" value={String(Math.round(tp))} color="#ffd93d" />
             </>
           ) : (
@@ -104,17 +104,15 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
           >
             CONTROLS · {controlsSchemeLabel(controlsScheme)}
           </button>
+          <button style={{ ...styles.btn, ...styles.btnControls }} onClick={toggleMute}>
+            {isMuted ? '🔇 SOUND OFF' : '🔊 SOUND ON'}
+          </button>
           <button style={{ ...styles.btn, ...styles.btnResume }} onClick={handleResume}>
             ▶ RESUME
           </button>
           <button style={{ ...styles.btn, ...styles.btnSaveExit }} onClick={handleSaveExit}>
             💾 SAVE & EXIT
           </button>
-          {kent && (
-            <button style={{ ...styles.btn, ...styles.btnRestart }} onClick={() => { QuietRoads.stop(); setPhase('menu'); }}>
-              ACTS
-            </button>
-          )}
           <button style={{ ...styles.btn, ...styles.btnRestart }} onClick={handleRestart}>
             🔄 RESTART
           </button>

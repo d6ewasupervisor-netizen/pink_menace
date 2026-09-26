@@ -18,6 +18,7 @@ export function EngineHUD() {
   const brake = useGameStore((s) => s.brake);
   const steering = useGameStore((s) => s.steering);
   const compact = useCompactHud();
+  const worldMode = useGameStore((s) => s.worldMode);
 
   const handleMute = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -27,7 +28,8 @@ export function EngineHUD() {
   const redline = rpm > 6000;
   const rpmPercent = (rpm / 7000) * 100;
 
-  if (compact) return null;
+  // Legacy highway telemetry only — Quiet Roads (kent) has its own cockpit HUD.
+  if (worldMode !== 'highway' || compact) return null;
 
   return (
     <div

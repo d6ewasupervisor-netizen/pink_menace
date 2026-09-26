@@ -1,45 +1,22 @@
 /**
- * MainMenu — shown when phase === 'menu'
+ * MainMenu — a minimal launch card shown only when phase === 'menu'.
+ * Quiet Roads is the single student surface: the player resumes straight into
+ * the story, or starts a fresh run at the Act I cold open. There is no act list
+ * or legacy "road trip" mode to choose from anymore.
  */
 import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
-import { ACT_ENTRY, ACT_ORDER, actForScene, challengeForAct } from '@/quietroads';
-
-const BIOME_LABEL: Record<string, string> = {
-  city: 'New York',
-  highway: 'Pittsburgh',
-  rural: 'Denver',
-};
 
 export function MainMenu({ onExit }: { onExit?: () => void }) {
   const phase = useGameStore((s) => s.phase);
-  const mileage = useGameStore((s) => s.mileage);
-  const currentBiome = useGameStore((s) => s.currentBiome);
-  const setPhase = useGameStore((s) => s.setPhase);
-  const resetProgress = useGameStore((s) => s.resetProgress);
+  const checkpoint = useQRStore((s) => s.checkpoint);
 
-  const handleNewGame = useCallback(() => {
-    resetProgress();
-    useGameStore.getState().setWorldMode('highway');
-    setPhase('driving');
-  }, [resetProgress, setPhase]);
-
-  const handleContinue = useCallback(() => {
-    useGameStore.getState().setWorldMode('highway');
-    setPhase('driving');
-  }, [setPhase]);
-
-  const qrCheckpoint = useQRStore((s) => s.checkpoint);
-  const qrScene = useQRStore((s) => s.sceneId);
-  const handleQuietRoadsContinue = useCallback(() => { QuietRoads.start(false); }, []);
-
-  const continueAct = qrScene ? actForScene(qrScene) : null;
+  const handleContinue = useCallback(() => { QuietRoads.start(false); }, []);
+  const handleNewRun = useCallback(() => { QuietRoads.start(true); }, []);
 
   if (phase !== 'menu') return null;
-
-  const hasSave = mileage > 0;
 
   return (
     <div style={styles.overlay}>
@@ -49,40 +26,15 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
         <p style={styles.tagline}>Kent. Grandma's Beetle.</p>
 
         <div style={styles.btnStack}>
-          {qrCheckpoint && (
-            <button style={{ ...styles.btn, ...styles.btnContinue }} onClick={handleQuietRoadsContinue}>
-              ▶ CONTINUE
-              <span style={styles.saveSummary}>
-                {continueAct ? `Act ${continueAct} · ${challengeForAct(continueAct).zone}` : `Scene ${qrScene}`} · {qrCheckpoint.replace(/_/g, ' ')}
-              </span>
-            </button>
-          )}
-          {ACT_ORDER.map((act) => {
-            const challenge = challengeForAct(act);
-            if (!challenge.built) return null;
-            return (
-              <button
-                key={act}
-                style={{ ...styles.btn, ...(act === 'I' ? styles.btnQuiet : styles.btnAct) }}
-                onClick={() => QuietRoads.startAct(ACT_ENTRY[act])}
-              >
-                ACT {act} · {challenge.zone.toUpperCase()}
-                <span style={styles.saveSummary}>{challenge.title}</span>
-              </button>
-            );
-          })}
-          <button style={{ ...styles.btn, ...styles.btnNew }} onClick={handleNewGame}>
-            🚀 ROAD TRIP (NYC → Spokane)
-          </button>
-
-          {hasSave && (
+          {checkpoint && (
             <button style={{ ...styles.btn, ...styles.btnContinue }} onClick={handleContinue}>
               ▶ CONTINUE
-              <span style={styles.saveSummary}>
-                Mile {Math.round(mileage)} • {BIOME_LABEL[currentBiome] ?? 'En Route'}
-              </span>
+              <span style={styles.saveSummary}>{checkpoint.replace(/_/g, ' ')}</span>
             </button>
           )}
+          <button style={{ ...styles.btn, ...styles.btnNew }} onClick={handleNewRun}>
+            {checkpoint ? 'START NEW RUN' : 'BEGIN'}
+          </button>
 
           {onExit && (
             <button style={{ ...styles.btn, ...styles.btnExit }} onClick={onExit}>
@@ -91,9 +43,8 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
           )}
         </div>
 
-        <p style={styles.credit}>Ali's Aigoo Apocalypse</p>
+        <p style={styles.credit}>The Quarantine Runs</p>
       </div>
-
     </div>
   );
 }
@@ -149,7 +100,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 700,
     fontSize: '16px',
     cursor: 'pointer',
-    border: 'none',
+    border: '1px solid',
     minHeight: '52px',
     display: 'flex',
     flexDirection: 'column',
@@ -158,29 +109,16 @@ const styles: Record<string, React.CSSProperties> = {
     transition: 'opacity 0.15s',
   },
   btnNew: {
-    background: 'transparent',
-    color: '#ede7dc',
-    border: '1px solid #3a3230',
-    fontSize: '16px',
-    letterSpacing: '0.04em',
-  },
-  btnAct: {
-    background: '#1b1716',
-    color: '#ede7dc',
-    border: '1px solid #3a3230',
-    fontSize: '15px',
-  },
-  btnQuiet: {
     background: 'linear-gradient(90deg, #9a3d4d, #c45a68)',
     color: '#f4eee6',
-    boxShadow: 'none',
+    borderColor: 'transparent',
     fontSize: '17px',
     letterSpacing: '0.04em',
   },
   btnContinue: {
     background: '#1b1716',
     color: '#8fb58a',
-    border: '1px solid #8fb58a',
+    borderColor: '#8fb58a',
   },
   saveSummary: {
     fontSize: '11px',
@@ -190,7 +128,7 @@ const styles: Record<string, React.CSSProperties> = {
   btnExit: {
     background: 'transparent',
     color: '#9a9186',
-    border: '1px solid #3a3230',
+    borderColor: '#3a3230',
   },
   credit: {
     color: '#3a3230',

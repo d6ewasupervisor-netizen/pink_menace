@@ -167,8 +167,8 @@ class Bridge {
       : (which && which !== 'resume' && this.runner.hasScene(which) ? which : '0.1');
     this.started = true;
     useGameStore.getState().setWorldMode('kent');
-    // Kent is portrait. Lock where the browser allows (PWA/fullscreen on Android); elsewhere the HUD asks.
-    try { (screen.orientation as unknown as { lock?: (o: string) => Promise<void> }).lock?.('portrait').catch(() => {}); } catch { /* not supported */ }
+    // Both orientations are supported; the cockpit reflows (tokens.useOrientation).
+    // Do not lock — the device decides. Start the scene.
     this.runner.startScene(sceneId);
   }
 

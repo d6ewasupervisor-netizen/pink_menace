@@ -10,6 +10,7 @@ import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { STILL_FOR_SCENE } from './stills';
+import { tokens } from './cockpit/tokens';
 
 /**
  * Content-aware auto-dismiss delay.
@@ -131,13 +132,13 @@ const styles: Record<string, React.CSSProperties> = {
   wrap: { position: 'fixed', inset: 0, zIndex: 220, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: 'calc(96px + env(safe-area-inset-bottom))' },
   dim: { position: 'absolute', inset: 0, background: 'rgba(5,6,10,0.72)' },
   still: { position: 'absolute', left: '50%', top: 'calc(8% + env(safe-area-inset-top))', transform: 'translateX(-50%)', width: 'min(92vw, 520px)', aspectRatio: '606 / 361', objectFit: 'cover', borderRadius: 10, opacity: 0.92, boxShadow: '0 12px 40px rgba(0,0,0,0.7)', filter: 'saturate(0.85)' },
-  box: { position: 'relative', width: 'min(720px, 92vw)', background: 'rgba(10,12,18,0.92)', border: '1px solid', borderRadius: 12, padding: '12px 16px 10px 16px', color: '#eee', fontFamily: 'system-ui, sans-serif', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' },
+  box: { position: 'relative', width: 'min(720px, 92vw)', background: tokens.colors.panel, border: '1px solid', borderRadius: tokens.radius.lg, padding: '12px 16px 10px 16px', color: tokens.colors.ink, fontFamily: tokens.fonts.ui, boxShadow: '0 8px 32px rgba(0,0,0,0.5)' },
   speaker: { fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 },
-  sys: { color: '#888', fontWeight: 400, textTransform: 'none', letterSpacing: 0 },
+  sys: { color: tokens.colors.faint, fontWeight: 400, textTransform: 'none', letterSpacing: 0 },
   text: { fontSize: 17, lineHeight: 1.4, marginBottom: 8 },
   direction: { fontSize: 15, lineHeight: 1.4, color: '#b8bcc6', fontStyle: 'italic', marginBottom: 8 },
   choices: { display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 },
-  choice: { background: 'rgba(255,255,255,0.06)', color: '#fff', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 8, padding: '12px 14px', fontSize: 15, textAlign: 'left', cursor: 'pointer', minHeight: 48 },
+  choice: { background: 'rgba(255,255,255,0.06)', color: '#fff', border: `1px solid ${tokens.colors.strokeSoft}`, borderRadius: tokens.radius.md, padding: '12px 14px', fontSize: 15, textAlign: 'left', cursor: 'pointer', minHeight: 48 },
   timerTrack: { height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden', marginTop: 4 },
-  timerFill: { height: '100%', background: '#ffd93d', transition: 'width 50ms linear' },
+  timerFill: { height: '100%', background: tokens.colors.warn, transition: 'width 50ms linear' },
 };

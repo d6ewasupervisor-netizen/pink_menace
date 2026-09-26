@@ -7,6 +7,7 @@ import { useGameProgress } from '@/hooks/useGameProgress';
 import { AudioManager } from '@/systems/AudioManager';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { discardDriveHold, releaseDrive } from '@/systems/VehicleController';
+import { tokens } from './cockpit/tokens';
 
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -209,13 +210,15 @@ export function QuizOverlay() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  // Full-screen card — same shell as CardOverlay
+  // In-cockpit decision sheet — the world stays visible behind it (same voice
+  // as CardOverlay). Exams/study ride the same surface; Act IV's terminal is the scene.
   wrap: {
     position: 'fixed', inset: 0, zIndex: 100,
-    background: '#07080c',
+    background: 'rgba(7,8,12,0.78)',
+    backdropFilter: 'blur(4px)',
     pointerEvents: 'auto',
-    fontFamily: 'system-ui, sans-serif',
-    color: '#e8e6e1',
+    fontFamily: tokens.fonts.ui,
+    color: tokens.colors.ink,
   },
   scroll: {
     position: 'absolute', inset: 0,
@@ -329,11 +332,11 @@ const styles: Record<string, React.CSSProperties> = {
     width: 'min(420px, calc(100vw - 24px))',
     zIndex: 100,
     pointerEvents: 'auto',
-    fontFamily: 'system-ui, sans-serif',
-    color: '#e8e6e1',
-    background: 'rgba(7, 8, 12, 0.88)',
-    border: '1px solid rgba(255,255,255,0.14)',
-    borderRadius: 14,
+    fontFamily: tokens.fonts.ui,
+    color: tokens.colors.ink,
+    background: tokens.colors.panel,
+    border: `1px solid ${tokens.colors.stroke}`,
+    borderRadius: tokens.radius.lg,
     padding: 14,
   },
   continueBtn: {

@@ -163,7 +163,7 @@ type GameState = ControlsSlice &
 const defaultGameState: GameSlice & QuizSlice & EconomySlice = {
   phase: 'menu',
   prePausePhase: 'driving',
-  worldMode: 'highway',
+  worldMode: 'kent',
   mileage: 0,
   lastQuizMile: 0,
   lastFuelStopMile: 0,

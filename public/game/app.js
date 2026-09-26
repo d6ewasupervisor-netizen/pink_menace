@@ -1866,6 +1866,12 @@ PMFeel.applyGrade();
 PM.bindGate({
   kind: "game",
   onReady: async (me) => {
+    // The drive is the only student surface. A signed-in student enters the 3D
+    // scene directly; `/` stays as the login + parent shell.
+    if (me.person && me.person.role === "student") {
+      const cfg = await driveConfig();
+      if (cfg && cfg.driveEnabled) { window.location.replace("/drive"); return; }
+    }
     pendingQueue = me.pendingGuardians || [];
     confirmEl.classList.add("hidden");
     appEl.classList.remove("hidden");

@@ -7,6 +7,7 @@ import { AuthProvider, useAuth } from '@/lib/authContext'
 import ZombieRoadWarrior from '@/components/ZombieRoadWarrior'
 import { useGameStore } from '@/stores/gameStore'
 import { DriveSync } from '@/systems/DriveSync'
+import { QuietRoads } from '@/systems/QuietRoadsBridge'
 import { installCrashReport } from '@/lib/crashReport'
 import { useProgress } from '@react-three/drei'
 
@@ -21,8 +22,10 @@ function Shell() {
     installCrashReport()
     DriveSync.hydrate().finally(() => {
       if (!alive) return
-      useGameStore.getState().setPhase('menu')
+      // Quiet Roads is the only student surface. Resuming drops straight into the
+      // current checkpoint scene (or the Act I cold open for a new run) — no menu.
       useGameStore.getState().setWorldMode('kent')
+      QuietRoads.start(false)
       DriveSync.begin()
       setReady(true)
     })
@@ -43,8 +46,8 @@ function Shell() {
   return (
     <ZombieRoadWarrior
       onExit={() => {
+        QuietRoads.stop()
         DriveSync.flush().finally(() => {
-          useGameStore.getState().setPhase('menu')
           window.location.href = '/'
         })
       }}

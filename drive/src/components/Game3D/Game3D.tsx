@@ -22,9 +22,7 @@ import { Vehicle } from './Vehicle';
 import { TrafficRenderer } from './TrafficRenderer';
 import { GameCamera } from './GameCamera';
 import { LoadingScreen } from './LoadingScreen';
-import { GameHUD } from './GameHUD';
-import { KentDash } from './KentDash';
-import { EngineHUD } from './EngineHUD';
+import { CockpitHUD } from './CockpitHUD';
 import { QuizOverlay } from './QuizOverlay';
 import { TouchOverlay } from './TouchOverlay';
 import { PauseMenu, VictoryScreen, GameOverScreen } from './PauseMenu';
@@ -41,7 +39,7 @@ import { QuietSwarm } from './QuietSwarm';
 import { StoppingShadow } from './StoppingShadow';
 import { QuietRoadsFrame } from './QuietRoadsFrame';
 import { DialogueBox } from './DialogueBox';
-import { QuietHUD } from './QuietHUD';
+import { SceneDirector } from './SceneDirector';
 import { GracieQTE } from './GracieQTE';
 import { CardOverlay } from './CardOverlay';
 import { ScareOverlay } from './ScareOverlay';
@@ -241,6 +239,7 @@ export function Game3D({ onExit }: Game3DProps) {
           <Scene lowEnd={LOW_END} />
           <PostProcessing lowEnd={LOW_END} />
           <AudioBridge />
+          <SceneDirector />
           <PerformanceMonitor />
         </Suspense>
       </Canvas>
@@ -248,12 +247,9 @@ export function Game3D({ onExit }: Game3DProps) {
       {/* HTML overlay layer (outside Canvas) */}
       <div className="ui-layer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
         <LoadingScreen />
-        <GameHUD />
-        <KentDash />
-        <EngineHUD />
+        <CockpitHUD />
         <QuizOverlay />
         <TouchOverlay />
-        <QuietHUD />
         <GracieQTE />
         <DialogueBox />
         <ScareOverlay />
