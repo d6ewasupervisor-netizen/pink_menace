@@ -31,10 +31,15 @@ const MODES: Record<CameraMode, ModeConfig> = {
     followHeading: true,
   },
   cockpit: {
-    offset:  new THREE.Vector3(0.32, 1.05, 0.35),
-    lookAt:  new THREE.Vector3(0.05, 0.95, -14),
-    lerpPos: 26.0,
-    lerpRot: 22.0,
+    // "Behind the wheel" over-the-hood view. The windows are opaque by canon
+    // (reflective black + welded windshield mesh), so an in-cabin camera would
+    // just show black glass. Sit above and behind the roof, looking down over
+    // the hood — close and low enough to read as first-person driving, but the
+    // road stays visible.
+    offset:  new THREE.Vector3(0, 3.6, 4.6),
+    lookAt:  new THREE.Vector3(0, 0.5, -18),
+    lerpPos: 12.0,
+    lerpRot: 10.0,
     followHeading: true,
   },
   birdseye: {
