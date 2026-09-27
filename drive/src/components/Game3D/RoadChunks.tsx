@@ -39,49 +39,48 @@ const ROAD_TILE_SCALE_Z = 4;  // 1 * 4 = 4m per tile along Z
 const ROAD_TILE_LENGTH = 4;   // scaled tile covers 4 world-units along Z
 const TILES_PER_CHUNK = Math.ceil(CHUNK_LENGTH / ROAD_TILE_LENGTH); // 50 tiles
 
-// ─── Road surface using tiled GLB + procedural colormap (bundled GLBs miss Textures/colormap.png)
-function RoadTileInstance({
-  baseScene,
-  material,
-  z,
-}: {
-  baseScene: THREE.Object3D;
-  material: THREE.MeshStandardMaterial;
-  z: number;
-}) {
-  const object = useMemo(() => {
-    const root = baseScene.clone(true);
-    root.traverse((o) => {
-      if (o instanceof THREE.Mesh) o.material = material;
-    });
-    return root;
-  }, [baseScene, material]);
-
-  return (
-    <primitive
-      object={object}
-      position={[0, 0, z]}
-      scale={[ROAD_TILE_SCALE_X, 1, ROAD_TILE_SCALE_Z]}
-      receiveShadow
-    />
-  );
-}
-
+// ─── Road surface using instanced GLB submeshes (bundled GLBs miss colormap.png).
 function RoadSurface() {
   const { scene } = useGLTF(asset('/models/road/road-straight.glb'));
   const roadMaterial = useMemo(() => getSharedRoadMaterial(scene), [scene]);
-  const tilePositions = useMemo(() => {
-    const positions: number[] = [];
-    for (let i = 0; i < TILES_PER_CHUNK; i++) {
-      positions.push(-(CHUNK_LENGTH / 2) + i * ROAD_TILE_LENGTH + ROAD_TILE_LENGTH / 2);
-    }
-    return positions;
+  const instances = useRef<THREE.InstancedMesh[]>([]);
+  useEffect(() => () => {
+    for (const instance of instances.current) instance?.dispose();
+    instances.current = [];
   }, []);
+  const meshes = useMemo(() => {
+    scene.updateMatrixWorld(true);
+    const parts: Array<{ geometry: THREE.BufferGeometry; matrices: THREE.Matrix4[] }> = [];
+    scene.traverse((object) => {
+      if (!(object instanceof THREE.Mesh) || !(object.geometry instanceof THREE.BufferGeometry)) return;
+      const matrices: THREE.Matrix4[] = [];
+      const scale = new THREE.Matrix4().makeScale(ROAD_TILE_SCALE_X, 1, ROAD_TILE_SCALE_Z);
+      const relative = new THREE.Matrix4().copy(scene.matrixWorld).invert().multiply(object.matrixWorld);
+      for (let i = 0; i < TILES_PER_CHUNK; i++) {
+        const z = -CHUNK_LENGTH / 2 + i * ROAD_TILE_LENGTH + ROAD_TILE_LENGTH / 2;
+        matrices.push(new THREE.Matrix4().makeTranslation(0, 0, z).multiply(scale).multiply(relative));
+      }
+      parts.push({ geometry: object.geometry, matrices });
+    });
+    return parts;
+  }, [scene]);
 
   return (
     <>
-      {tilePositions.map((z, i) => (
-        <RoadTileInstance key={i} baseScene={scene} material={roadMaterial} z={z} />
+      {meshes.map((part, index) => (
+        <instancedMesh
+          key={index}
+          ref={(mesh) => { if (mesh) instances.current[index] = mesh; }}
+          args={[part.geometry, roadMaterial, TILES_PER_CHUNK]}
+          dispose={null}
+          receiveShadow
+          frustumCulled
+          onUpdate={(mesh) => {
+            part.matrices.forEach((matrix, i) => mesh.setMatrixAt(i, matrix));
+            mesh.instanceMatrix.needsUpdate = true;
+            mesh.computeBoundingSphere();
+          }}
+        />
       ))}
     </>
   );

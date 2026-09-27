@@ -54,7 +54,7 @@ export function PostProcessing({ lowEnd }: { lowEnd?: boolean }) {
     // Chromatic aberration — subtle at high speed
     if (chromaRef.current && !lowEnd) {
       const offset = speedNorm > 0.6 ? (speedNorm - 0.6) * 0.003 : 0;
-      chromaRef.current.offset = new THREE.Vector2(offset, offset);
+      chromaRef.current.offset.set(offset, offset);
     }
 
     // Weather / time color grading

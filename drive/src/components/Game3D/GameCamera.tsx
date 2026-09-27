@@ -10,7 +10,7 @@ import { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGameStore, CameraMode } from '@/stores/gameStore';
-import { getChassisPose } from '@/systems/VehicleController';
+import { getChassisPose, getLateralSlip, getCurrentSpeedMs } from '@/systems/VehicleController';
 
 // ─── Per-mode config ──────────────────────────────────────────────────────────
 interface ModeConfig {
@@ -93,6 +93,7 @@ const MAX_FOV_BOOST = 16;
 export function GameCamera() {
   const { camera } = useThree();
   const lookRef = useRef(new THREE.Vector3());
+  const driftAmplitude = useRef(0);
 
   // ── C key cycles camera mode ──────────────────────────────────────────────
   useEffect(() => {
@@ -116,6 +117,9 @@ export function GameCamera() {
       : MODES[state.cameraMode];
     const dt = Math.min(delta, 0.05);
     const speedNorm = Math.min(1, state.velocityMph / 70);
+    const driftTarget = !walking && state.phase === 'driving' && Math.abs(getCurrentSpeedMs()) > 5
+      ? Math.min(1, Math.max(0, (getLateralSlip() - 0.15) * 3)) : 0;
+    driftAmplitude.current += (driftTarget - driftAmplitude.current) * (1 - Math.exp(-7 * dt));
 
     if (mode.followHeading) {
       // Rotate offset and lookAt around Y by vehicle heading
@@ -157,6 +161,12 @@ export function GameCamera() {
       // Decay shake
       _shakeIntensity = Math.max(0, _shakeIntensity - _shakeDecay * dt);
     }
+    if (driftAmplitude.current > 0.001) {
+      const t = performance.now() * 0.001;
+      const amplitude = driftAmplitude.current * 0.035;
+      _targetPos.x += amplitude * (Math.sin(t * 16.1) + 0.4 * Math.sin(t * 26.7));
+      _targetPos.y += amplitude * (Math.sin(t * 12.3) + 0.35 * Math.sin(t * 23.9));
+    }
 
     const posFactor = 1 - Math.exp(-mode.lerpPos * dt);
     const rotFactor = 1 - Math.exp(-mode.lerpRot * dt);
@@ -176,8 +186,10 @@ export function GameCamera() {
       const fovBoost = punch ? speedNorm * MAX_FOV_BOOST : speedNorm * 3;
       const base = state.cameraMode === 'cockpit' ? 74 : state.worldMode === 'highway' && state.cameraMode === 'chase' ? BASE_FOV : 75;
       const targetFov = base + fovBoost;
-      camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 1 - Math.exp(-4 * dt));
-      camera.updateProjectionMatrix();
+      if (Math.abs(camera.fov - targetFov) > 0.01) {
+        camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 1 - Math.exp(-4 * dt));
+        camera.updateProjectionMatrix();
+      }
     }
   });
 

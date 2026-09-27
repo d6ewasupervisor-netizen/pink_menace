@@ -111,9 +111,9 @@ export function CollisionSystem({ npcsRef }: CollisionSystemProps) {
     for (const item of collectibles) {
       if (!item.active || item.collected) continue;
       _other.copy(item.position);
-      const dist = _vPos.distanceTo(_other);
+      const distSq = _vPos.distanceToSquared(_other);
       const pickupRadius = item.type === 'coin' ? COIN_RADIUS : FUEL_RADIUS;
-      if (dist < VEHICLE_PICKUP_RADIUS + pickupRadius) {
+      if (distSq < (VEHICLE_PICKUP_RADIUS + pickupRadius) ** 2) {
         item.collected = true;
         if (item.type === 'coin') {
           store.addZCoins(3);

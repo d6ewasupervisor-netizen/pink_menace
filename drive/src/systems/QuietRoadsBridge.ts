@@ -42,6 +42,7 @@ import { useQRHud } from '@/stores/qrHud';
 import type { Question, Category } from '@/types/quiz';
 import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, holdDrive, releaseDrive, setDriveBrakeDecel } from '@/systems/VehicleController';
 import { DriveSync } from '@/systems/DriveSync';
+import { StepEventQueue } from '@/systems/StepEventQueue';
 
 const CHAPTER_CATEGORY: Record<number, Category> = {
   1: 'washington_laws', 2: 'road_signs', 3: 'right_of_way', 4: 'parking',
@@ -49,6 +50,8 @@ const CHAPTER_CATEGORY: Record<number, Category> = {
 };
 
 class Bridge {
+  private readonly stepEvents = new StepEventQueue<{ name: string; data?: Record<string, unknown> }>();
+  private readonly deliverEvent = ({ name, data }: { name: string; data?: Record<string, unknown> }) => this.deliver(name, data);
   readonly runner: DialogueRunner;
   readonly sim: Simulation;
   readonly bank: QuestionBank;
@@ -230,6 +233,10 @@ class Bridge {
   }
 
   private fire(event: string, data?: Record<string, unknown>) {
+    this.stepEvents.dispatch({ name: event, data }, this.deliverEvent);
+  }
+
+  private deliver(event: string, data?: Record<string, unknown>) {
     useQRHud.getState().addTelemetry({ ts: Date.now(), event, data });
     if (event === 'waypoint.reach:dol_lot_exit') this.sim.escapeForgiving = false;
     if (event === 'mission.fail.swarm') {
@@ -278,17 +285,22 @@ class Bridge {
     // Only simulate while driving/walking; dialogue/quiz/pause freeze the world.
     if (g.phase !== 'driving' && g.phase !== 'walking') return;
     let f: SimFrame | null = null;
-    if (g.phase === 'walking' && this.sim.mode === 'walker') {
-      const hud = useQRHud.getState();
-      const input: WalkerInput = { x: g.steering, y: g.brake - g.throttle, run: hud.run };
-      f = this.sim.stepWalker(dt, input);
-      const w = this.sim.walker;
-      useGameStore.setState({ walkerPosition: [w.pos.x, 0, w.pos.y] });
-      const qteNow = !!w.qte;
-      if (qteNow !== this.lastQte) { this.lastQte = qteNow; hud.setTransient({ qteActive: qteNow }); }
-    } else {
-      const s = this.sample();
-      f = this.sim.step(dt, s);
+    this.stepEvents.begin();
+    try {
+      if (g.phase === 'walking' && this.sim.mode === 'walker') {
+        const hud = useQRHud.getState();
+        const input: WalkerInput = { x: g.steering, y: g.brake - g.throttle, run: hud.run };
+        f = this.sim.stepWalker(dt, input);
+        const w = this.sim.walker;
+        useGameStore.setState({ walkerPosition: [w.pos.x, 0, w.pos.y] });
+        const qteNow = !!w.qte;
+        if (qteNow !== this.lastQte) { this.lastQte = qteNow; hud.setTransient({ qteActive: qteNow }); }
+      } else {
+        const s = this.sample();
+        f = this.sim.step(dt, s);
+      }
+    } finally {
+      this.stepEvents.end(this.deliverEvent);
     }
     // HUD needs ~10 Hz, not 60: every store set re-renders every subscriber.
     if (f && this.clock - this.lastHudAt >= 0.1) { this.lastHudAt = this.clock; useQRHud.getState().setTransient({ frame: f }); }

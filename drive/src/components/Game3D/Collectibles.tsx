@@ -28,7 +28,6 @@ export interface CollectibleState {
 
 // Shared temp
 const _mat = new THREE.Matrix4();
-const _color = new THREE.Color();
 
 // ─── Seeded pseudo-random (deterministic per-position) ────────────────────────
 function seededRandom(seed: number): number {
@@ -132,8 +131,6 @@ export function Collectibles() {
           _mat.makeRotationY(rotationRef.current + item.position.z * 0.1);
           _mat.setPosition(item.position.x, yBob, item.position.z);
           coinMesh.setMatrixAt(coinIdx, _mat);
-          _color.setRGB(1.0, 0.85, 0.2); // gold
-          coinMesh.setColorAt(coinIdx, _color);
         } else {
           _mat.makeScale(0, 0, 0);
           coinMesh.setMatrixAt(coinIdx, _mat);
@@ -147,8 +144,6 @@ export function Collectibles() {
           _mat.makeRotationY(rotationRef.current * 0.5);
           _mat.setPosition(item.position.x, yBob, item.position.z);
           fuelMesh.setMatrixAt(fuelIdx, _mat);
-          _color.setRGB(0.2, 0.8, 0.3); // green
-          fuelMesh.setColorAt(fuelIdx, _color);
         } else {
           _mat.makeScale(0, 0, 0);
           fuelMesh.setMatrixAt(fuelIdx, _mat);
@@ -159,11 +154,9 @@ export function Collectibles() {
 
     if (coinMesh) {
       coinMesh.instanceMatrix.needsUpdate = true;
-      if (coinMesh.instanceColor) coinMesh.instanceColor.needsUpdate = true;
     }
     if (fuelMesh) {
       fuelMesh.instanceMatrix.needsUpdate = true;
-      if (fuelMesh.instanceColor) fuelMesh.instanceColor.needsUpdate = true;
     }
   });
 

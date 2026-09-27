@@ -89,16 +89,27 @@ export function KentDash() {
     let raf = 0;
     let alive = true;
     let sig = '';
+    let mapSig = '';
+    let plan: NavPlan = planNav({ x: 0, y: 0 }, 0, null);
     const tick = () => {
       const root = rootRef.current;
       const canvas = canvasRef.current;
       const gap = gapRef.current;
-      const here = pose();
-      const dest = QuietRoads.sim.navTarget();
-      const plan = planNav(here, here.heading, dest ? { x: dest.pos.x, y: dest.pos.y, label: dest.label } : null);
-      if (root && canvas) paintMap(canvas, root, gap, here, plan);
       const g = useGameStore.getState();
       const hud = useQRHud.getState();
+      if (g.worldMode !== 'kent' || (g.phase !== 'driving' && g.phase !== 'walking')) {
+        mapSig = '';
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+      const here = pose();
+      const dest = QuietRoads.sim.navTarget();
+      const nextMapSig = `${Math.round(here.x * 4)}|${Math.round(here.y * 4)}|${Math.round(here.heading * 60)}|${dest?.label ?? ''}|${dest?.pos.x ?? ''}|${dest?.pos.y ?? ''}|${root?.clientWidth ?? 0}|${root?.clientHeight ?? 0}|${gap?.clientWidth ?? 0}|${gap?.clientHeight ?? 0}`;
+      if (nextMapSig !== mapSig) {
+        mapSig = nextMapSig;
+        plan = planNav(here, here.heading, dest ? { x: dest.pos.x, y: dest.pos.y, label: dest.label } : null);
+        if (root && canvas) paintMap(canvas, root, gap, here, plan);
+      }
       const limit = hud.frame?.speedLimitMph ?? 25;
       const mph = Math.round(Math.max(0, g.velocityMph));
       const clock = clockNow();

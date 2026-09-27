@@ -60,6 +60,7 @@ const _p = new THREE.Vector3();
 
 export function QuietSwarm() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
+  const lastPositions = useRef<Float64Array | null>(null);
   const tex = useLoader(THREE.TextureLoader, asset('/quiet/quiet_atlas.png'));
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.minFilter = THREE.LinearMipmapLinearFilter;
@@ -87,14 +88,24 @@ export function QuietSwarm() {
     mat.uniforms.uTime.value = st.clock.elapsedTime;
     const stateAttr = geom.getAttribute('aState') as THREE.InstancedBufferAttribute;
     let stateDirty = false;
+    let positionDirty = false;
+    if (!lastPositions.current || lastPositions.current.length !== count * 2) {
+      lastPositions.current = new Float64Array(count * 2).fill(NaN);
+    }
+    const positions = lastPositions.current;
     for (let i = 0; i < count; i++) {
       const z = list[i];
-      _p.set(z.pos.x, 0, z.pos.y);
-      _m.makeTranslation(_p.x, _p.y, _p.z);
-      m.setMatrixAt(i, _m);
+      if (positions[i * 2] !== z.pos.x || positions[i * 2 + 1] !== z.pos.y) {
+        positions[i * 2] = z.pos.x;
+        positions[i * 2 + 1] = z.pos.y;
+        _p.set(z.pos.x, 0, z.pos.y);
+        _m.makeTranslation(_p.x, _p.y, _p.z);
+        m.setMatrixAt(i, _m);
+        positionDirty = true;
+      }
       if (stateAttr.getX(i) !== z.state) { stateAttr.setX(i, z.state); stateDirty = true; }
     }
-    m.instanceMatrix.needsUpdate = true;
+    if (positionDirty) m.instanceMatrix.needsUpdate = true;
     if (stateDirty) stateAttr.needsUpdate = true;
   });
 
