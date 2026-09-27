@@ -68,13 +68,17 @@ export class EscortRun {
       if (this.green > 1.5) this.once("follow.green.truck");
     } else this.green = 0;
 
-    if (!this.flags.has("wide_turn.approach") && this.leadPos.x > 145 && this.leadPos.x < 165) {
+    const spanX = this.to.x - this.from.x;
+    const spanY = this.to.y - this.from.y;
+    const span2 = spanX * spanX + spanY * spanY || 1;
+    const along = ((this.leadPos.x - this.from.x) * spanX + (this.leadPos.y - this.from.y) * spanY) / span2;
+    if (!this.flags.has("wide_turn.approach") && along > 0.42 && along < 0.5) {
       this.once("wide_turn.approach");
       if (Math.abs(s.pos.y - this.leadPos.y) > 2.4) this.once("wide_turn.held");
       else this.once("wide_turn.inside");
     }
 
-    if (!this.patrolSeen && this.leadPos.x > 190) {
+    if (!this.patrolSeen && along > 0.62) {
       this.patrolSeen = true;
       this.patrolY = s.pos.y;
       this.patrolSpeed = s.speedMs;

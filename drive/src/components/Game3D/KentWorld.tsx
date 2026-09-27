@@ -404,18 +404,9 @@ function LedgerLead() {
 
 function RibbonMarks() {
   const g = QuietRoads.sim.map.ribbon;
-  const b1 = g.lanes.x0 + (g.lanes.x1 - g.lanes.x0) * (1 / 3);   // right ↔ middle
-  const b2 = g.lanes.x0 + (g.lanes.x1 - g.lanes.x0) * (2 / 3);   // middle ↔ left
   const rampEndY = g.ramp.y + g.ramp.h;
   return (
-    <group>
-      <Dashes a={{ x: b1, y: g.lanes.y0 }} b={{ x: b1, y: g.lanes.y1 }} />
-      <Dashes a={{ x: b2, y: g.lanes.y0 }} b={{ x: b2, y: g.lanes.y1 }} />
-      {/* ramp's left edge (solid) — the line you cross to merge into the flow */}
-      <Line a={{ x: g.ramp.x, y: g.ramp.y }} b={{ x: g.ramp.x, y: rampEndY }} color="#ffffff" width={0.18} />
-      {/* the paint line where the ramp dies into the right lane */}
-      <Line a={{ x: g.ramp.x, y: rampEndY }} b={{ x: g.ramp.x + g.ramp.w, y: rampEndY }} color="#e8d63a" width={0.18} />
-    </group>
+    <Line a={{ x: g.lanes.x1, y: rampEndY }} b={{ x: g.ramp.x + g.ramp.w, y: rampEndY }} color="#e8d63a" width={0.22} />
   );
 }
 
@@ -467,12 +458,8 @@ function RuralMarks() {
   const r = QuietRoads.sim.map.rural;
   const top = r.road.y;
   const bottom = r.road.y + r.road.h;
-  const s = r.shoulder;
   return (
     <group>
-      {/* gravel shoulders */}
-      <RectPlane r={{ x: r.road.x, y: top - s, w: r.road.w, h: s }} y={MARK_Y} color="#6b6454" opacity={0.9} />
-      <RectPlane r={{ x: r.road.x, y: bottom, w: r.road.w, h: s }} y={MARK_Y} color="#6b6454" opacity={0.9} />
       {/* blind crest */}
       <Line a={{ x: r.crestX, y: top }} b={{ x: r.crestX, y: bottom }} color="#e8d63a" width={0.4} />
       {/* uncontrolled crossing road */}
@@ -500,7 +487,7 @@ export function KentWorld() {
       </RigidBody>
       <RectPlane r={map.bounds} y={0} color="#4f5f45" />
 
-      {map.roads.map((r, i) => <RectPlane key={i} r={r.rect} y={ROAD_Y} color={r.name?.endsWith('LOT') ? '#5b5e63' : '#3a3d42'} />)}
+      {map.roads.filter((r) => !r.strip).map((r, i) => <RectPlane key={i} r={r.rect} y={ROAD_Y} color={r.name?.endsWith('LOT') ? '#5b5e63' : '#3a3d42'} />)}
       {map.centerLines.map(([a, b], i) => <Dashes key={i} a={a} b={b} />)}
       {map.stopLines.map(([a, b], i) => <Line key={i} a={a} b={b} />)}
       {map.schoolZone && <RectPlane r={map.schoolZone} y={MARK_Y} color="#ffe680" opacity={0.12} />}

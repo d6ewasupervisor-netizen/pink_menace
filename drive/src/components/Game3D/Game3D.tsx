@@ -36,6 +36,7 @@ import { SkidMarks } from './SkidMarks';
 import { SceneEnvironment } from './SceneEnvironment';
 import { NpcState } from '@/systems/TrafficManager';
 import { KentWorld } from './KentWorld';
+import { ContinuousRoad } from './ContinuousRoad';
 import { QuietSwarm } from './QuietSwarm';
 import { StoppingShadow } from './StoppingShadow';
 import { HeadlightBeam } from './HeadlightBeam';
@@ -105,6 +106,7 @@ function Scene({ lowEnd }: { lowEnd: boolean }) {
       {worldMode === 'kent' ? (
         <>
           <KentWorld />
+          <ContinuousRoad />
           <QuietSwarm />
           <StoppingShadow />
         </>

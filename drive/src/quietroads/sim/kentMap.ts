@@ -1,12 +1,13 @@
 import { type Rect, type Vec2, rng } from "./math";
 import type { ZoneDef } from "./zones";
+import { type Corridor, CORRIDORS, bridge, grade, gravel, night, ribbon } from "./corridors";
 
 /**
  * Kent: Titus (Grandma), Central south to the DOL, Meeker west to the pharmacy
  * safehouse, Valley Rd north to Tuna's warehouse. Metres. +x = east, +y = south.
  * Heading 0 = east. R3F maps (x, y) → (X, Z).
  */
-export interface RoadSeg { rect: Rect; name?: string }
+export interface RoadSeg { rect: Rect; name?: string; strip?: boolean }
 export interface SignDef { pos: Vec2; kind: "stop" | "school" | "rail" | "warning" | "speed"; text?: string }
 export interface Building { rect: Rect; label?: string }
 
@@ -79,6 +80,11 @@ export interface WorldMap {
   ledger: LedgerSites;
   ribbon: RibbonSites;
   rural: RuralSites;
+  /** Scene roads. Drawn by ContinuousRoad, not painted on the city board. */
+  corridors: Corridor[];
+  restStall: Rect;
+  chainPad: Rect;
+  ice: Rect;
   roads: RoadSeg[];
   centerLines: [Vec2, Vec2][];
   stopLines: [Vec2, Vec2][];
@@ -112,12 +118,7 @@ export function buildKentMap(seed = 7): WorldMap {
   // insulin run starts on Valley, and a car spawned inside a house cannot leave.
   const roads: RoadSeg[] = [
     { rect: { x: -10, y: -4, w: 279, h: 8 }, name: "TITUS ST" },
-    { rect: { x: 260, y: -50, w: 10, h: 490 }, name: "CENTRAL AVE" },
-    { rect: { x: 270, y: 200, w: 3.5, h: 100 }, name: "I-90 ON-RAMP" },
-    { rect: { x: 0, y: 435, w: 320, h: 6 }, name: "GRAVEL RD" },
-    { rect: { x: 276, y: 368, w: 18, h: 12 }, name: "CHAIN-UP" },
-    { rect: { x: 278, y: 248, w: 8, h: 130 }, name: "SNOQUALMIE" },
-    { rect: { x: 20, y: 400, w: 150, h: 8 }, name: "VANTAGE BRIDGE" },
+    { rect: { x: 260, y: -50, w: 10, h: 475 }, name: "CENTRAL AVE" },
     { rect: { x: 140, y: 106, w: 180, h: 8 }, name: "MEEKER ST" },
     { rect: { x: 170, y: -28, w: 96, h: 8 }, name: "VALLEY RD" },
     { rect: { x: 196, y: 70, w: 8, h: 70 }, name: "WILLIS ST" },
@@ -129,6 +130,7 @@ export function buildKentMap(seed = 7): WorldMap {
   for (let i = buildings.length - 1; i >= 0; i--) {
     if (roads.some((road) => rectsOverlap(buildings[i].rect, road.rect))) buildings.splice(i, 1);
   }
+  for (const c of CORRIDORS) roads.push({ rect: c.road, name: c.name, strip: true });
 
   const zones: ZoneDef[] = [
     { kind: "waypoint", id: "block_end", rect: c(250, 0, 6, 8) },
@@ -211,36 +213,40 @@ export function buildKentMap(seed = 7): WorldMap {
 
   // I-90 Eastbound south of the Central corridor: the Act V on-ramp merge.
   // Three highway lanes plus a right-side ramp that dies into the right lane.
-  const ribbon: RibbonSites = {
-    lanes: { x0: 260, x1: 270, y0: 200, y1: 360, count: 3 },
-    ramp: { x: 270, y: 200, w: 3.5, h: 100 },
+  const ribbonRun: RibbonSites = {
+    lanes: ribbon.lanes,
+    ramp: ribbon.ramp,
     flowMph: 40,
-    lead: { from: { x: 261.67, y: 220 }, to: { x: 261.67, y: 358 }, speedMph: 40 },
-    end: { x: 265, y: 342 },
+    lead: { from: ribbon.leadFrom, to: ribbon.leadTo, speedMph: 40 },
+    end: ribbon.end,
   };
 
   const rural: RuralSites = {
-    road: { x: 0, y: 435, w: 320, h: 6 },
-    shoulder: 3,
-    crestX: 120,
-    uncontrolledX: 200,
-    crossbuckX: 260,
-    roundabout: { x: 285, y: 438, r: 10 },
-    end: { x: 310, y: 438 },
+    road: gravel.road,
+    shoulder: 4,
+    crestX: gravel.crestX,
+    uncontrolledX: gravel.uncontrolledX,
+    crossbuckX: gravel.crossbuckX,
+    roundabout: gravel.roundabout,
+    end: gravel.end,
   };
 
   return {
-    bounds: { x: -30, y: -70, w: 360, h: 530 },
+    bounds: { x: -30, y: -70, w: 360, h: 500 },
     parking,
     dol,
     grid,
     ledger,
-    ribbon,
+    ribbon: ribbonRun,
     rural,
+    corridors: CORRIDORS,
+    restStall: night.restStall,
+    chainPad: grade.chainPad,
+    ice: grade.ice,
     roads,
     centerLines: [
       [{ x: -10, y: 0 }, { x: 258, y: 0 }],
-      [{ x: 265, y: -50 }, { x: 265, y: 440 }],
+      [{ x: 265, y: -50 }, { x: 265, y: 420 }],
       [{ x: 140, y: 110 }, { x: 320, y: 110 }],
       [{ x: 170, y: -24 }, { x: 260, y: -24 }],
       [{ x: 200, y: 70 }, { x: 200, y: 140 }],
@@ -271,15 +277,17 @@ export function buildKentMap(seed = 7): WorldMap {
       tuna: { x: 179.6, y: -26.3 },
       warehouse_dock: { x: 174, y: -24 },
       ledger_end: { x: 265, y: 172 },
-      ribbon_end: { x: 265, y: 342 },
-      stall_point: { x: 265, y: 342 },
-      issaquah: { x: 265, y: 400 },
-      rural_end: { x: 310, y: 438 },
-      chainup: { x: 285, y: 374 },
-      ritzville: { x: 300, y: 438 },
-      rest_area: { x: 78, y: 438 },
-      bridge_mid: { x: 95, y: 404 },
-      bridge_end: { x: 160, y: 404 },
+      ribbon_end: ribbon.end,
+      stall_point: ribbon.stall,
+      issaquah: ribbon.issaquah,
+      rural_end: gravel.end,
+      chainup: grade.chain,
+      ritzville: gravel.end,
+      hank: gravel.hank,
+      hankTo: gravel.hankTo,
+      rest_area: night.rest,
+      bridge_mid: bridge.mid,
+      bridge_end: bridge.end,
     },
     quietSpawns: spawns,
     starts: {
@@ -290,18 +298,19 @@ export function buildKentMap(seed = 7): WorldMap {
       tuna_approach: { pos: { x: 214, y: -24 }, heading: Math.PI },            // Valley Rd, facing the dock
       jonah_meeker: { pos: { x: 210, y: 110 }, heading: 0 },                   // Meeker, east toward Central
       ledger_south: { pos: { x: 261.67, y: 66 }, heading: Math.PI / 2 },       // Central, right lane, heading south
-      ribbon_ramp: { pos: { x: 271.75, y: 206 }, heading: Math.PI / 2 },       // I-90 on-ramp, heading south into the merge
-      rural_start: { pos: { x: 16, y: 438 }, heading: 0 },
-      chainup_pullout: { pos: { x: 285, y: 374 }, heading: Math.PI / 2 },
-      climb_foot: { pos: { x: 282, y: 256 }, heading: Math.PI / 2 },
-      climb_below: { pos: { x: 282, y: 300 }, heading: Math.PI / 2 },
-      escort_start: { pos: { x: 16, y: 438 }, heading: 0 },
-      rest_stall: { pos: { x: 78, y: 438 }, heading: 0 },
-      bridge_west: { pos: { x: 28, y: 404 }, heading: 0 },
-      bridge_mid_start: { pos: { x: 95, y: 404 }, heading: 0 },
-      roundabout_approach: { pos: { x: 268, y: 438 }, heading: 0 },
-      convoy_ramp: { pos: { x: 271.75, y: 196 }, heading: Math.PI / 2 },      // just north of the ramp, so entering it counts
-      convoy_stall: { pos: { x: 265, y: 330 }, heading: Math.PI / 2 },
+      ribbon_ramp: { pos: ribbon.rampStart, heading: Math.PI / 2 },
+      rural_start: { pos: gravel.start, heading: 0 },
+      night_start: { pos: night.start, heading: 0 },
+      chainup_pullout: { pos: grade.chain, heading: Math.PI / 2 },
+      climb_foot: { pos: grade.foot, heading: Math.PI / 2 },
+      climb_below: { pos: grade.below, heading: Math.PI / 2 },
+      escort_start: { pos: { x: gravel.start.x + 30, y: gravel.start.y }, heading: 0 },
+      rest_stall: { pos: night.rest, heading: 0 },
+      bridge_west: { pos: bridge.start, heading: 0 },
+      bridge_mid_start: { pos: bridge.mid, heading: 0 },
+      roundabout_approach: { pos: { x: gravel.roundabout.x - gravel.roundabout.r - 8, y: gravel.roundabout.y }, heading: 0 },
+      convoy_ramp: { pos: ribbon.convoyStart, heading: Math.PI / 2 },
+      convoy_stall: { pos: ribbon.stall, heading: Math.PI / 2 },
       dol_lot_entry: { pos: { x: 257.5, y: 387 }, heading: Math.PI },            // just inside the driveway, facing west
       dol_stall: { pos: { x: stalls[2].x + stalls[2].w / 2, y: 416.5 }, heading: Math.PI / 2 }, // parked, nose south
     },

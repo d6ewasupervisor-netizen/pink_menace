@@ -125,11 +125,11 @@ export class Simulation {
     this.ribbon = new RibbonRun(this.map.ribbon, { fire });
     this.convoy = new ConvoyRun(this.map.ribbon, this.map.markers.stall_point, this.map.markers.issaquah, { fire });
     this.rural = new RuralRun(this.map.rural, { fire, requestQuiz: (t) => this.ev.requestQuiz(t, 0) });
-    this.chainup = new ChainupRun({ x: 276, y: 368, w: 18, h: 12 }, { fire });
-    this.climb = new ClimbRun({ x: 278, y: 320, w: 8, h: 40 }, this.map.markers.chainup, { fire });
+    this.chainup = new ChainupRun(this.map.chainPad, { fire });
+    this.climb = new ClimbRun(this.map.ice, this.map.markers.chainup, { fire });
     this.escort = new EscortRun({ fire });
     this.beats = new BeatRun(
-      { x: 70, y: 432, w: 16, h: 12 },
+      this.map.restStall,
       this.map.markers.rest_area,
       { mid: this.map.markers.bridge_mid, end: this.map.markers.bridge_end },
       { fire },
@@ -293,13 +293,13 @@ export class Simulation {
         this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
         this.missionStart = "escort_start";
         this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
-        this.escort.reset({ x: 40, y: 438 }, { x: 300, y: 438 }, this.map.markers.ritzville);
+        this.escort.reset(this.map.markers.hank, this.map.markers.hankTo, this.map.markers.ritzville);
         this.setObjective("Four seconds behind Hank. Out of his mirrors. Ritzville.");
         this.resetWorld();
         this.speedLimitMph = 55;
         break;
       case "straight_night_drive":
-        this.beginBeat(id, "rural_start", "Night straight. Rest area is ahead.", 55);
+        this.beginBeat(id, "night_start", "Night straight. Rest area is ahead.", 55);
         break;
       case "rest_area_pullin":
       case "rest_area_forced":
@@ -406,7 +406,7 @@ export class Simulation {
         this.speedLimitMph = 35;
       }
       if (this.missionId === "escort_ritzville") {
-        this.escort.reset({ x: 40, y: 438 }, { x: 300, y: 438 }, this.map.markers.ritzville);
+        this.escort.reset(this.map.markers.hank, this.map.markers.hankTo, this.map.markers.ritzville);
         this.speedLimitMph = 55;
       }
       if (this.beats.mission && this.missionId === this.beats.mission) this.beats.reset(this.beats.mission);

@@ -12,34 +12,36 @@ function car(x: number, y: number, speedMs = 0, brake = 0, throttle = 0, steer =
 
 const map = buildKentMap(1);
 const chainEvents: string[] = [];
-const chain = new ChainupRun({ x: 276, y: 368, w: 18, h: 12 }, { fire: (e) => chainEvents.push(e) });
+const chain = new ChainupRun(map.chainPad, { fire: (e) => chainEvents.push(e) });
 chain.reset();
-const tighten = car(285, 374, 0, 0.4);
+const pin = map.markers.chainup;
+const tighten = car(pin.x, pin.y, 0, 0.4);
 for (let i = 0; i < 40; i++) chain.step(0.1, tighten);
 assert.ok(chainEvents.includes("chainup.qte.success"), chainEvents.join(","));
 
 chainEvents.length = 0;
 chain.reset();
-chain.step(0.1, car(285, 374, 0, 0, 0.9));
+chain.step(0.1, car(pin.x, pin.y, 0, 0, 0.9));
 assert.ok(chainEvents.includes("chainup.qte.drop"));
 
 const beatEvents: string[] = [];
+const rest = map.markers.rest_area;
 const beats = new BeatRun(
-  { x: 70, y: 432, w: 16, h: 12 },
-  map.markers.rest_area,
+  map.restStall,
+  rest,
   { mid: map.markers.bridge_mid, end: map.markers.bridge_end },
   { fire: (e) => beatEvents.push(e) },
 );
 beats.reset("straight_night_drive");
-const night = car(map.markers.rest_area.x, map.markers.rest_area.y, 12);
+const night = car(rest.x, rest.y, 12);
 for (let i = 0; i < 30; i++) beats.step(0.1, night);
 assert.ok(beatEvents.includes("night.fall"));
 assert.equal(beatEvents.includes("headlight.highbeam.on"), false);
 assert.ok(beatEvents.includes("waypoint.reach:rest_area"), beatEvents.join(","));
 
 beatEvents.length = 0;
-beats.step(0.2, car(16, 438, 10));
-beats.step(0.2, car(78, 438, 4));
+beats.step(0.2, car(rest.x - 80, rest.y, 10));
+beats.step(0.2, car(rest.x, rest.y, 4));
 assert.ok(beatEvents.includes("waypoint.reach:rest_area"), "returning to the rest pin must fire again");
 
 beatEvents.length = 0;
@@ -50,7 +52,7 @@ assert.ok(beatEvents.includes("shadow.inside_lights"));
 
 beatEvents.length = 0;
 beats.reset("rest_area_pullin");
-const parked = car(78, 438, 0, 0.5);
+const parked = car(rest.x, rest.y, 0, 0.5);
 for (let i = 0; i < 20; i++) beats.step(0.1, parked);
 assert.ok(beatEvents.includes("park.clean"), beatEvents.join(","));
 
@@ -91,7 +93,7 @@ assert.match(beats.goal() ?? "", /18 mph/);
 beats.reset("bridge_engine_off_wait");
 assert.equal(beats.waitingOutTheBridge(), true);
 assert.match(beats.goal() ?? "", /Sit still/);
-for (let i = 0; i < 600; i++) beats.step(0.1, car(95, 404, 0, 0.1));
+for (let i = 0; i < 600; i++) beats.step(0.1, car(map.markers.bridge_mid.x, map.markers.bridge_mid.y, 0, 0.1));
 assert.equal(beats.waitingOutTheBridge(), false);
 assert.match(beats.goal() ?? "", /far side/);
 
