@@ -38,6 +38,11 @@ assert.equal(beatEvents.includes("headlight.highbeam.on"), false);
 assert.ok(beatEvents.includes("waypoint.reach:rest_area"), beatEvents.join(","));
 
 beatEvents.length = 0;
+beats.step(0.2, car(16, 438, 10));
+beats.step(0.2, car(78, 438, 4));
+assert.ok(beatEvents.includes("waypoint.reach:rest_area"), "returning to the rest pin must fire again");
+
+beatEvents.length = 0;
 beats.reset("straight_night_drive");
 for (let i = 0; i < 30; i++) beats.step(0.1, { ...night, beams: "high" });
 assert.ok(beatEvents.includes("headlight.highbeam.on"), beatEvents.join(","));

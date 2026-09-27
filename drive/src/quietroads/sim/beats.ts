@@ -25,6 +25,7 @@ export class BeatRun {
   private steerHold = 0;
   private creep = 0;
   private passedRest = 0;
+  private restPing = 0;
 
   constructor(
     private rest: Rect,
@@ -35,7 +36,7 @@ export class BeatRun {
 
   reset(id: BeatMission) {
     this.mission = id;
-    this.t = this.park = this.steerHold = this.creep = this.passedRest = 0;
+    this.t = this.park = this.steerHold = this.creep = this.passedRest = this.restPing = 0;
     this.flags.clear();
   }
 
@@ -66,8 +67,18 @@ export class BeatRun {
     else if (mph > 15 && mph < 55 && this.flags.has("headlight.highbeam.on")) this.once("shadow.inside_lights");
     if (this.t > 20 && Math.abs(s.speedMs) > 4) this.once("fatigue.yellow");
     if (this.t > 40 && Math.abs(s.speedMs) > 4) this.once("fatigue.red");
-    if (!this.flags.has("waypoint.reach:rest_area") && dist(s.pos, this.restPin) < 10) {
-      this.once("waypoint.reach:rest_area");
+    // Keep offering the pin. The first drive-by used to consume the event
+    // before the story could take it, and sitting on the mark did nothing after.
+    const atRest = rectHas(this.rest, s.pos) || dist(s.pos, this.restPin) < 16;
+    if (atRest) {
+      this.restPing -= dt;
+      if (this.restPing <= 0) {
+        this.flags.add("waypoint.reach:rest_area");
+        this.ev.fire("waypoint.reach:rest_area");
+        this.restPing = 0.75;
+      }
+    } else {
+      this.restPing = 0;
     }
     if (this.flags.has("waypoint.reach:rest_area") && s.pos.x > this.restPin.x + 24 && Math.abs(s.speedMs) > 6) {
       this.passedRest += dt;

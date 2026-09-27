@@ -1,7 +1,7 @@
 /**
- * HeadlightBeam — the visible pool on the road ahead of the car.
- * The spot lights brighten the asphalt; this unlit wedge is the edge you
- * can still read when the night ambient is almost nothing.
+ * HeadlightBeam — a see-through brightening along the road ahead.
+ * Added onto the scene so the asphalt, the car, and the stopping shadow
+ * stay visible inside the pool.
  */
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
@@ -19,9 +19,9 @@ function beamTexture() {
   const g = canvas.getContext('2d');
   if (!g) return null;
   const along = g.createLinearGradient(0, canvas.height, 0, 0);
-  along.addColorStop(0, 'rgba(255, 236, 190, 0.9)');
-  along.addColorStop(0.4, 'rgba(255, 220, 150, 0.4)');
-  along.addColorStop(1, 'rgba(255, 210, 140, 0)');
+  along.addColorStop(0, 'rgba(255, 248, 230, 0.28)');
+  along.addColorStop(0.45, 'rgba(255, 244, 220, 0.12)');
+  along.addColorStop(1, 'rgba(255, 244, 220, 0)');
   g.fillStyle = along;
   g.fillRect(0, 0, canvas.width, canvas.height);
   const side = g.createLinearGradient(0, 0, canvas.width, 0);
@@ -67,10 +67,14 @@ export function HeadlightBeam() {
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           map={map ?? undefined}
-          color="#ffe6b0"
+          color="#fff6e8"
           transparent
+          opacity={0.65}
           depthWrite={false}
-          toneMapped={false}
+          blending={THREE.CustomBlending}
+          blendSrc={THREE.SrcAlphaFactor}
+          blendDst={THREE.OneFactor}
+          blendEquation={THREE.AddEquation}
           polygonOffset
           polygonOffsetFactor={-2}
           polygonOffsetUnits={-2}

@@ -1076,11 +1076,7 @@
           "node": "6.2.rest_prompt",
           "once": true,
           "priority": 20,
-          "interrupt": true,
-          "condition": {
-            "var": "fatigue_stage",
-            "gte": 1
-          }
+          "interrupt": true
         },
         {
           "event": "qte.gracie.start",

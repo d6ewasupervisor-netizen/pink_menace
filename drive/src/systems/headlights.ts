@@ -27,15 +27,14 @@ export function headlightWidthM(beam: HeadlightBeam): number {
 
 /**
  * Spot settings in the same intensity scale as the sun (about 2).
- * Decay 2 throws the candela away before it hits the road. At night the
- * cone stays even out to `distance`, which is what "I can see" means.
+ * Decay 1 fades along the road so the path brightens without a flat wash.
  */
 export function headlightSpot(beam: HeadlightBeam, night: boolean) {
   if (!night || beam === 'off') {
     return { intensity: beam === 'off' ? 0 : 1.5, distance: 16, decay: 2, angle: 0.5, penumbra: 0.6 };
   }
   if (beam === 'high') {
-    return { intensity: 8, distance: 130, decay: 0, angle: 0.4, penumbra: 0.45 };
+    return { intensity: 36, distance: 130, decay: 1, angle: 0.4, penumbra: 0.55 };
   }
-  return { intensity: 4.5, distance: 60, decay: 0, angle: 0.62, penumbra: 0.55 };
+  return { intensity: 20, distance: 60, decay: 1, angle: 0.62, penumbra: 0.65 };
 }
