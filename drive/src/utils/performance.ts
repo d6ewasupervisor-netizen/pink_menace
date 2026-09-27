@@ -7,11 +7,38 @@ const DELTA_WINDOW = 60;
 const deltas: number[] = [];
 let slowFrameSeconds = 0;
 
+/** Opt-in CPU/render counters, readable in the dev console as window.__drivePerf(). */
+const PROFILE_WINDOW = 600;
+// R3F callbacks run before rendering: GPU counters refer to the preceding render.
+type Metric = 'frameMs' | 'vehicleMs' | 'missionMs' | 'previousDrawCalls' | 'previousTriangles';
+const samples: Record<Metric, number[]> = {
+  frameMs: [], vehicleMs: [], missionMs: [], previousDrawCalls: [], previousTriangles: [],
+};
+const profiling = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('profileDrive');
+
+export function recordPerformanceSample(metric: Metric, value: number): void {
+  if (!profiling || !Number.isFinite(value)) return;
+  const values = samples[metric];
+  values.push(value);
+  if (values.length > PROFILE_WINDOW) values.shift();
+}
+
+export function getDrivePerformance() {
+  const percentile = (sorted: number[], p: number) => sorted[Math.min(sorted.length - 1, Math.floor((sorted.length - 1) * p))] ?? 0;
+  return Object.fromEntries((Object.keys(samples) as Metric[]).map((name) => {
+    const sorted = [...samples[name]].sort((a, b) => a - b);
+    return [name, { count: sorted.length, p50: percentile(sorted, 0.5), p95: percentile(sorted, 0.95), p99: percentile(sorted, 0.99) }];
+  }));
+}
+
+if (profiling) Object.assign(window, { __drivePerf: getDrivePerformance });
+
 /**
  * Call each frame with the frame delta.
  * Returns true if throttling is detected (avg delta > 50ms for 5+ seconds).
  */
 export function recordDelta(delta: number): boolean {
+  recordPerformanceSample('frameMs', delta * 1000);
   deltas.push(delta);
   if (deltas.length > DELTA_WINDOW) deltas.shift();
 

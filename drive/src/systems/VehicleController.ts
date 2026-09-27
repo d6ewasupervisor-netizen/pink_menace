@@ -12,6 +12,7 @@
 import { RapierRigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
+import { headingFromRotation } from './vehicleHeading';
 
 // ─── Engine parameters ───────────────────────────────────────────────────────
 const IDLE_RPM = 800;
@@ -94,6 +95,9 @@ let _damage01 = 0;
 let _impactFlash = 0;
 let _damageCut = 0;
 const _car = { fx: 0, fz: -1, rx: 1, rz: 0 };
+const _quat = new THREE.Quaternion();
+const _forward = new THREE.Vector3();
+const _right = new THREE.Vector3();
 
 export function getSlipState() {
   return {
@@ -439,8 +443,6 @@ function stepWreckChassis(
 export function tickVehicle(
   body: RapierRigidBody,
   delta: number,
-  _world?: any,
-  _rapier?: any,
 ): void {
   const store = useGameStore.getState();
   const { steering, throttle: throttleInput, brake: brakeInput, phase, emergencyBrake } = store;
@@ -470,12 +472,12 @@ export function tickVehicle(
 
   // ── Orientation ────────────────────────────────────────────────────────
   const rot = body.rotation();
-  const quat = new THREE.Quaternion(rot.x, rot.y, rot.z, rot.w);
+  const quat = _quat.set(rot.x, rot.y, rot.z, rot.w);
   if (quat.lengthSq() < 1e-6) quat.set(0, 0, 0, 1);
   else quat.normalize();
 
-  const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(quat).normalize();
-  const right   = new THREE.Vector3(1, 0, 0).applyQuaternion(quat).normalize();
+  const forward = _forward.set(0, 0, -1).applyQuaternion(quat).normalize();
+  const right   = _right.set(1, 0, 0).applyQuaternion(quat).normalize();
   _car.fx = forward.x;
   _car.fz = forward.z;
   _car.rx = right.x;
@@ -670,21 +672,6 @@ export function tickVehicle(
     }
   }
 
-  // ── Sync to store ──────────────────────────────────────────────────────
-  const finalPos = body.translation();
-  store.setVehiclePosition([finalPos.x, finalPos.y, finalPos.z]);
-
-  const heading = Math.atan2(-forward.x, -forward.z);
-  store.setVehicleHeading(heading);
-
-  const displayMph = Math.abs(currentSpeed) / MPH_TO_MS;
-  store.setVelocityMph(Math.round(displayMph));
-  store.setEngineRPM(Math.round(engine.rpm));
-  store.setEngineGear(engine.gear);
-  store.setEngineSpeed(Math.round(displayMph));
-
-  store.setABSActive(brakeInput > 0.5 && Math.abs(currentSpeed) > 8);
-
   // ── Mileage (highway mode only; Kent missions don't count miles) ────────
   if (store.worldMode === 'highway' && currentSpeed > 0.5) {
     mileageAccumulator += (currentSpeed * dt) / METERS_PER_MILE;
@@ -694,6 +681,26 @@ export function tickVehicle(
       mileageAccumulator = 0;
     }
   }
+}
+
+/** The post-solver pose is the authoritative sample for camera and mission triggers. */
+export function publishVehiclePose(body: RapierRigidBody): void {
+  const pos = body.translation();
+  const rot = body.rotation();
+  const heading = headingFromRotation(rot);
+  const store = useGameStore.getState();
+  const mph = Math.round(Math.abs(currentSpeed) / MPH_TO_MS);
+  // Publish one coherent post-solver snapshot instead of notifying subscribers
+  // separately for pose, heading, RPM, speed and ABS on every physics step.
+  useGameStore.setState({
+    vehiclePosition: [pos.x, pos.y, pos.z],
+    vehicleHeading: heading,
+    velocityMph: mph,
+    engineRPM: Math.round(engine.rpm),
+    engineGear: engine.gear,
+    engineSpeed: mph,
+    absActive: store.brake > 0.5 && Math.abs(currentSpeed) > 8,
+  });
 }
 
 /** Stand the car back up on its heading and kill a spin. Speed stays. */

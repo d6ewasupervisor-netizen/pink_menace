@@ -19,8 +19,11 @@ import { useRef, useEffect, useMemo, useLayoutEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { RigidBody, CuboidCollider, RapierRigidBody, useRapier } from '@react-three/rapier';
-import { tickVehicle, resetVehicleController, registerVehicleBody, recoverVehicle, getChassisPose } from '@/systems/VehicleController';
+import { RigidBody, CuboidCollider, RapierRigidBody, useBeforePhysicsStep, useAfterPhysicsStep } from '@react-three/rapier';
+import { tickVehicle, publishVehiclePose, resetVehicleController, registerVehicleBody, recoverVehicle, getChassisPose } from '@/systems/VehicleController';
+import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
+import { recordPerformanceSample } from '@/utils/performance';
+import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useGameStore } from '@/stores/gameStore';
 import { VehicleParticles } from './VehicleParticles';
 import {
@@ -485,7 +488,22 @@ export function Vehicle() {
   const resetCounter = useGameStore((s) => s.resetCounter);
   const chassis = useGameStore((s) => s.chassis);
 
-  const { world, rapier } = useRapier();
+  useBeforePhysicsStep(() => {
+    if (bodyRef.current) {
+      const start = performance.now();
+      tickVehicle(bodyRef.current, PHYSICS_STEP_SECONDS);
+      recordPerformanceSample('vehicleMs', performance.now() - start);
+    }
+  });
+  useAfterPhysicsStep(() => {
+    if (!bodyRef.current) return;
+    publishVehiclePose(bodyRef.current);
+    if (useGameStore.getState().worldMode === 'kent') {
+      const start = performance.now();
+      QuietRoads.tick(PHYSICS_STEP_SECONDS);
+      recordPerformanceSample('missionMs', performance.now() - start);
+    }
+  });
 
   useEffect(() => {
     registerVehicleBody(bodyRef.current);
@@ -516,7 +534,6 @@ export function Vehicle() {
   }, [resetCounter]);
 
   useFrame((_, delta) => {
-    if (bodyRef.current) tickVehicle(bodyRef.current, delta, world, rapier);
     const phase = useGameStore.getState().phase;
     if (phase === 'quiz' || phase === 'card') return;
     updatePlow(delta);

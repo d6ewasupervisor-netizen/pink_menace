@@ -12,8 +12,9 @@ import { useTouchControls } from '@/hooks/useTouchControls';
 import { useQuizManager } from '@/systems/QuizManager';
 import { AudioManager } from '@/systems/AudioManager';
 import { getSlipState } from '@/systems/VehicleController';
+import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
 import { getWeather } from './Skybox';
-import { isLowEndDevice, recordDelta } from '@/utils/performance';
+import { isLowEndDevice, recordDelta, recordPerformanceSample } from '@/utils/performance';
 
 import { Lighting } from './Lighting';
 import { Skybox } from './Skybox';
@@ -37,7 +38,6 @@ import { NpcState } from '@/systems/TrafficManager';
 import { KentWorld } from './KentWorld';
 import { QuietSwarm } from './QuietSwarm';
 import { StoppingShadow } from './StoppingShadow';
-import { QuietRoadsFrame } from './QuietRoadsFrame';
 import { DialogueBox } from './DialogueBox';
 import { SceneDirector } from './SceneDirector';
 import { GracieQTE } from './GracieQTE';
@@ -54,6 +54,8 @@ function PerformanceMonitor() {
 
   useFrame((_, delta) => {
     const isThrottling = recordDelta(delta);
+    recordPerformanceSample('previousDrawCalls', gl.info.render.calls);
+    recordPerformanceSample('previousTriangles', gl.info.render.triangles);
     if (isThrottling && !throttledRef.current) {
       throttledRef.current = true;
       gl.setPixelRatio(1);
@@ -93,7 +95,7 @@ function Scene({ lowEnd }: { lowEnd: boolean }) {
   return (
     <Physics
       gravity={[0, -9.7119, 0]}
-      timeStep={1 / 60}
+      timeStep={PHYSICS_STEP_SECONDS}
       interpolate={true}
     >
       <Lighting />
@@ -104,7 +106,6 @@ function Scene({ lowEnd }: { lowEnd: boolean }) {
           <KentWorld />
           <QuietSwarm />
           <StoppingShadow />
-          <QuietRoadsFrame />
         </>
       ) : (
         <>

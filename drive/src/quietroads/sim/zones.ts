@@ -17,11 +17,27 @@ export interface ZoneEvents {
   setSpeedLimit: (mph: number) => void;
 }
 
-/** Rectangular triggers with stop grading. Feed the car position/speed each frame. */
+/** Inclusive segment/rectangle intersection: catches a zone crossed between steps. */
+export function segmentCrossesRect(from: Vec2, to: Vec2, rect: Rect): boolean {
+  let entry = 0, exit = 1;
+  const dx = to.x - from.x, dy = to.y - from.y;
+  const clip = (p: number, q: number): boolean => {
+    if (p === 0) return q >= 0;
+    const t = q / p;
+    if (p < 0) entry = Math.max(entry, t);
+    else exit = Math.min(exit, t);
+    return entry <= exit;
+  };
+  return clip(-dx, from.x - rect.x) && clip(dx, rect.x + rect.w - from.x)
+    && clip(-dy, from.y - rect.y) && clip(dy, rect.y + rect.h - from.y);
+}
+
+/** Rectangular triggers with stop grading. Feed the car position/speed each fixed step. */
 export class ZoneField {
   private inside = new Set<string>();
   private fired = new Set<string>();
   private stopTrack = new Map<string, { minSpeed: number; stoppedS: number }>();
+  private previous: Vec2 | null = null;
   quizzesEnabled = false;
 
   constructor(public defs: ZoneDef[], private ev: ZoneEvents) {}
@@ -31,17 +47,35 @@ export class ZoneField {
     for (const d of this.defs) if (kinds.includes(d.kind)) this.fired.delete(zoneKey(d));
   }
 
-  reset() { this.inside.clear(); this.fired.clear(); this.stopTrack.clear(); }
+  reset() { this.inside.clear(); this.fired.clear(); this.stopTrack.clear(); this.quizAsked.clear(); this.previous = null; }
+
+  /** Placement/reset changes the sample origin without simulating a driven crossing. */
+  place(pos: Vec2) {
+    this.previous = { ...pos };
+    this.inside.clear();
+    this.stopTrack.clear();
+    for (const d of this.defs) if (rectHas(d.rect, pos)) this.inside.add(zoneKey(d));
+  }
 
   step(dt: number, carPos: Vec2, speedMs: number) {
+    const previous = this.previous;
+    // Mission teleports must not activate every zone along the jump.
+    const swept = previous && (carPos.x - previous.x) ** 2 + (carPos.y - previous.y) ** 2 <= 30 * 30;
+    this.previous = { ...carPos };
     for (const d of this.defs) {
       const key = `${d.kind}:${d.id}`;
       const now = rectHas(d.rect, carPos);
       const was = this.inside.has(key);
       if (now && !was) { this.inside.add(key); this.enter(d, key); }
       if (!now && was) { this.inside.delete(key); this.exit(d, key); }
+      if (!now && !was && swept && segmentCrossesRect(previous, carPos, d.rect)) {
+        this.enter(d, key);
+        const crossing = this.stopTrack.get(key);
+        if (crossing) crossing.minSpeed = Math.abs(speedMs);
+        this.exit(d, key);
+      }
       const t = this.stopTrack.get(key);
-      if (t) { const v = Math.abs(speedMs); t.minSpeed = Math.min(t.minSpeed, v); if (v < 0.3) t.stoppedS += dt; }
+      if (now && t) { const v = Math.abs(speedMs); t.minSpeed = Math.min(t.minSpeed, v); if (v < 0.3) t.stoppedS += dt; }
     }
   }
 

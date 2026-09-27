@@ -50,26 +50,23 @@ export function updateChunks(
 ): ChunkData[] {
   // Find the chunk closest to the player (current chunk)
   const currentChunkZ = Math.round(playerZ / CHUNK_LENGTH) * CHUNK_LENGTH;
+  const behindLimit = currentChunkZ + BEHIND_CHUNKS * CHUNK_LENGTH;
+  if (!chunks.some((chunk) => chunk.zPosition > behindLimit)) return chunks;
 
-  let changed = false;
   const updated = chunks.map((c) => ({ ...c }));
-
-  // Sort by zPosition to find the frontmost occupied slot
-  const sortedZ = updated.map((c) => c.zPosition).sort((a, b) => a - b);
-  let nextFrontZ = sortedZ[0] - CHUNK_LENGTH; // one slot ahead of current front
+  let nextFrontZ = Math.min(...updated.map((c) => c.zPosition)) - CHUNK_LENGTH;
 
   // Recycle any chunk that is more than BEHIND_CHUNKS chunks behind the
   // player (positive Z = behind, since the player travels in -Z).
   for (const chunk of updated) {
-    if (chunk.zPosition > currentChunkZ + BEHIND_CHUNKS * CHUNK_LENGTH) {
+    if (chunk.zPosition > behindLimit) {
       chunk.zPosition = nextFrontZ;
       nextFrontZ -= CHUNK_LENGTH; // stack further ahead if multiple recycle
       chunk.biome = currentBiome;
       chunk.variation = Math.floor(Math.random() * 5);
       chunk.gen++;
-      changed = true;
     }
   }
 
-  return changed ? updated : chunks;
+  return updated;
 }

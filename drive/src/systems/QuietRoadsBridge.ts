@@ -1,7 +1,7 @@
 /**
  * QuietRoadsBridge — the one place the story engine and the world simulation
- * touch the game. Pure TS singleton (no JSX); ticked from a useFrame in
- * QuietRoadsFrame.tsx and driven by store phase changes.
+ * touch the game. Pure TS singleton (no JSX); ticked after each Rapier step
+ * by Vehicle.tsx and driven by store phase changes.
  *
  * Responsibilities
  *   - DialogueHost implementation over qrStore
@@ -77,7 +77,7 @@ class Bridge {
       requestQuiz: (trigger, delayS) => { this.pendingQuiz = { trigger, at: this.clock + delayS }; },
       setObjective: (t) => useQRHud.getState().setTransient({ objective: t }),
       toast: (t) => this.toast(t),
-      placeVehicle: (p, h) => teleportVehicle(p.x, p.y, h),
+      placeVehicle: (p, h) => { this.sim.zones.place(p); teleportVehicle(p.x, p.y, h); },
     });
     this.subscribeRunner();
   }
@@ -187,6 +187,7 @@ class Bridge {
     if (act) { this.currentAct = act; this.fire('act.enter', { act }); }
     switch (id) {
       case '1.4':   // aftermath — Grandma's carport, night, engine off
+        this.sim.zones.place(this.sim.map.starts.carport.pos);
         teleportVehicle(this.sim.map.starts.carport.pos.x, this.sim.map.starts.carport.pos.y, this.sim.map.starts.carport.heading);
         this.sim.enterVehicle();
         useGameStore.setState({ timeOfDay: 'night' });
@@ -264,7 +265,6 @@ class Bridge {
     };
   }
 
-  private acc = 0;
   private lastQte = false;
   private lastHudAt = 0;
   tick(dt: number) {
@@ -276,19 +276,18 @@ class Bridge {
     this.clock += dt;
     // Only simulate while driving/walking; dialogue/quiz/pause freeze the world.
     if (g.phase !== 'driving' && g.phase !== 'walking') return;
-    this.acc += Math.min(dt, 0.1);
     let f: SimFrame | null = null;
     if (g.phase === 'walking' && this.sim.mode === 'walker') {
       const hud = useQRHud.getState();
       const input: WalkerInput = { x: g.steering, y: g.brake - g.throttle, run: hud.run };
-      while (this.acc >= 1 / 60) { f = this.sim.stepWalker(1 / 60, input); this.acc -= 1 / 60; }
+      f = this.sim.stepWalker(dt, input);
       const w = this.sim.walker;
       useGameStore.setState({ walkerPosition: [w.pos.x, 0, w.pos.y] });
       const qteNow = !!w.qte;
       if (qteNow !== this.lastQte) { this.lastQte = qteNow; hud.setTransient({ qteActive: qteNow }); }
     } else {
       const s = this.sample();
-      while (this.acc >= 1 / 60) { f = this.sim.step(1 / 60, s); this.acc -= 1 / 60; }
+      f = this.sim.step(dt, s);
     }
     // HUD needs ~10 Hz, not 60: every store set re-renders every subscriber.
     if (f && this.clock - this.lastHudAt >= 0.1) { this.lastHudAt = this.clock; useQRHud.getState().setTransient({ frame: f }); }
