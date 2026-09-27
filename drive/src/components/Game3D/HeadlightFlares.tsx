@@ -32,7 +32,8 @@ function localHeadlightToWorld(
 export function HeadlightFlares() {
   const timeOfDay = useGameStore((s) => s.timeOfDay);
   const phase = useGameStore((s) => s.phase);
-  const active = phase === 'driving' && (timeOfDay === 'night' || timeOfDay === 'sunset');
+  const headlights = useGameStore((s) => s.headlights);
+  const active = phase === 'driving' && headlights !== 'off' && (timeOfDay === 'night' || timeOfDay === 'sunset');
   const isNight = timeOfDay === 'night';
 
   const leftPos = useRef(new THREE.Vector3());

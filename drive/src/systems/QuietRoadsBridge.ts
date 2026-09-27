@@ -261,6 +261,7 @@ class Bridge {
       speedMs: getCurrentSpeedMs(),
       throttle: pedals.throttle, brake: pedals.brake, steer: g.steering,
       horn: useQRHud.getState().horn,
+      beams: g.headlights,
       lateralSlip: getLateralSlip(),
     };
   }

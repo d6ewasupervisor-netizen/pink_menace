@@ -38,6 +38,7 @@ import { NpcState } from '@/systems/TrafficManager';
 import { KentWorld } from './KentWorld';
 import { QuietSwarm } from './QuietSwarm';
 import { StoppingShadow } from './StoppingShadow';
+import { HeadlightBeam } from './HeadlightBeam';
 import { DialogueBox } from './DialogueBox';
 import { SceneDirector } from './SceneDirector';
 import { GracieQTE } from './GracieQTE';
@@ -116,6 +117,7 @@ function Scene({ lowEnd }: { lowEnd: boolean }) {
         </>
       )}
       <Vehicle />
+      <HeadlightBeam />
       <SkidMarks />
       <GameCamera />
     </Physics>

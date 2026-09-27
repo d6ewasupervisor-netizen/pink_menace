@@ -4,6 +4,7 @@ import { BeatRun } from "../src/quietroads/sim/beats";
 import { RuralRun } from "../src/quietroads/sim/rural";
 import { buildKentMap } from "../src/quietroads/sim/kentMap";
 import type { VehicleSample } from "../src/quietroads/sim/vehicleObserver";
+import { headlightReachM, nextHeadlight } from "../src/systems/headlights";
 
 function car(x: number, y: number, speedMs = 0, brake = 0, throttle = 0, steer = 0): VehicleSample {
   return { pos: { x, y }, heading: 0, speedMs, throttle, brake, steer, horn: false };
@@ -33,8 +34,14 @@ beats.reset("straight_night_drive");
 const night = car(map.markers.rest_area.x, map.markers.rest_area.y, 12);
 for (let i = 0; i < 30; i++) beats.step(0.1, night);
 assert.ok(beatEvents.includes("night.fall"));
-assert.ok(beatEvents.includes("headlight.highbeam.on"));
+assert.equal(beatEvents.includes("headlight.highbeam.on"), false);
 assert.ok(beatEvents.includes("waypoint.reach:rest_area"), beatEvents.join(","));
+
+beatEvents.length = 0;
+beats.reset("straight_night_drive");
+for (let i = 0; i < 30; i++) beats.step(0.1, { ...night, beams: "high" });
+assert.ok(beatEvents.includes("headlight.highbeam.on"), beatEvents.join(","));
+assert.ok(beatEvents.includes("shadow.inside_lights"));
 
 beatEvents.length = 0;
 beats.reset("rest_area_pullin");
@@ -62,5 +69,12 @@ rural.reset();
 const circle = map.rural.roundabout;
 rural.step(0.1, car(circle.x - circle.r - 2, circle.y, 2));
 assert.ok(ruralEvents.includes("roundabout.yield"), ruralEvents.join(","));
+
+assert.equal(nextHeadlight("off"), "low");
+assert.equal(nextHeadlight("low"), "high");
+assert.equal(nextHeadlight("high"), "off");
+assert.equal(headlightReachM("off"), 0);
+assert.ok(headlightReachM("high") > 75 && headlightReachM("high") < 108);
+assert.ok(headlightReachM("high", true) > headlightReachM("high") && headlightReachM("high", true) < 108);
 
 console.log("pass beats ok");

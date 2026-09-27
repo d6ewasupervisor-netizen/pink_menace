@@ -16,6 +16,7 @@ import {
   nextControlsScheme,
   normalizeControlsScheme,
 } from '@/input/driveInput';
+import { type HeadlightBeam, nextHeadlight } from '@/systems/headlights';
 
 export type GamePhase =
   | 'menu'
@@ -150,6 +151,8 @@ type GameState = ControlsSlice &
     addTrafficHit: () => void;
     collectFuelCan: () => void;
     resetProgress: () => void;
+    headlights: HeadlightBeam;
+    cycleHeadlights: () => void;
     togglePause: () => void;
     cycleCameraMode: () => void;
     cycleControlsScheme: () => void;
@@ -192,6 +195,7 @@ export const useGameStore = create<GameState>()(
       throttle: 0,
       brake: 0,
       emergencyBrake: false,
+      headlights: 'low',
       walkerPosition: [0, 0, 0],
       vehiclePosition: [0, 0.7, 0],
       vehicleHeading: 0,
@@ -216,6 +220,7 @@ export const useGameStore = create<GameState>()(
 
       // ── Controls ────────────────────────────────────────────────────────────
       setControls: (partial) => set((s) => ({ ...s, ...partial })),
+      cycleHeadlights: () => set({ headlights: nextHeadlight(get().headlights) }),
 
       // ── Vehicle ─────────────────────────────────────────────────────────────
       setVehiclePosition: (pos) => set({ vehiclePosition: pos }),
@@ -394,6 +399,7 @@ export const useGameStore = create<GameState>()(
           engineGear: 1,
           engineSpeed: 0,
           absActive: false,
+          headlights: 'low',
           resetCounter: resetCounter + 1,
         });
       },

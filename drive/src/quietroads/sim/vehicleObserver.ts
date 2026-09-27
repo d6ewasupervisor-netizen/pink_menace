@@ -14,6 +14,8 @@ export interface VehicleSample {
   brake: number;      // 0..1
   steer: number;      // -1..1
   horn: boolean;
+  /** Player stalk. Absent means the sim does not invent a beam. */
+  beams?: 'off' | 'low' | 'high';
   /** Measured sideways slip from the vehicle controller (|lateral v| / |forward v|), if available. */
   lateralSlip?: number;
 }

@@ -41,6 +41,9 @@ export function useTouchControls() {
     const onKeyDown = (e: KeyboardEvent) => {
       liveKeys.add(e.key);
       if (e.key === 'h' || e.key === 'H') useQRHud.getState().setHorn(true);
+      if (!e.repeat && (e.key === 'l' || e.key === 'L') && useGameStore.getState().phase === 'driving') {
+        useGameStore.getState().cycleHeadlights();
+      }
       if (e.key === 'Shift') useQRHud.getState().setRun(true);
       flushDriveInput();
     };

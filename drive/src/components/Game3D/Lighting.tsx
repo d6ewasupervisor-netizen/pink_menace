@@ -41,9 +41,9 @@ const PRESETS: Record<TimeOfDay, Record<WeatherType, LightPreset>> = {
     rain:     { ambient: 0.12, sun: 0.15, sunColor: '#997766', hemiSkyColor: '#554433', hemiGroundColor: '#110800', hemiIntensity: 0.1 },
   },
   night: {
-    clear:    { ambient: 0.08, sun: 0.0, sunColor: '#ffffff', hemiSkyColor: '#112244', hemiGroundColor: '#000000', hemiIntensity: 0.05 },
-    overcast: { ambient: 0.05, sun: 0.0, sunColor: '#ffffff', hemiSkyColor: '#080812', hemiGroundColor: '#000000', hemiIntensity: 0.03 },
-    rain:     { ambient: 0.03, sun: 0.0, sunColor: '#ffffff', hemiSkyColor: '#060610', hemiGroundColor: '#000000', hemiIntensity: 0.02 },
+    clear:    { ambient: 0.16, sun: 0.12, sunColor: '#9eb4d6', hemiSkyColor: '#1a2744', hemiGroundColor: '#0a0c10', hemiIntensity: 0.12 },
+    overcast: { ambient: 0.1, sun: 0.06, sunColor: '#8a93a3', hemiSkyColor: '#12141c', hemiGroundColor: '#08080c', hemiIntensity: 0.08 },
+    rain:     { ambient: 0.07, sun: 0.03, sunColor: '#7a8494', hemiSkyColor: '#0c0e14', hemiGroundColor: '#060608', hemiIntensity: 0.05 },
   },
 };
 

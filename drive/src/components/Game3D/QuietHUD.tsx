@@ -23,6 +23,8 @@ export function QuietHUD() {
   const toast = useQRHud((s) => s.toast);
   const tp = useQRStore((s) => s.vars.trade_points ?? 0);
   const setHorn = useQRHud((s) => s.setHorn);
+  const headlights = useGameStore((s) => s.headlights);
+  const cycleHeadlights = useGameStore((s) => s.cycleHeadlights);
   const run = useQRHud((s) => s.run);
   const setRun = useQRHud((s) => s.setRun);
   const scheme = useGameStore((s) => s.controlsScheme);
@@ -60,6 +62,26 @@ export function QuietHUD() {
       )}
 
       <div style={{ ...styles.tp, ...(compact ? styles.tpCompact : null) }}>TP {Math.round(tp)}</div>
+
+      {driving && (
+        <button
+          data-ui
+          style={{
+            ...styles.lights,
+            ...(compact ? styles.lightsCompact : null),
+            ...(hornOnLeft ? styles.lightsLeft : null),
+            ...(headlights === 'off'
+              ? styles.lightsOff
+              : headlights === 'high'
+                ? styles.lightsHigh
+                : styles.lightsLow),
+          }}
+          onPointerDown={(e) => { e.preventDefault(); cycleHeadlights(); }}
+          aria-label="Headlights (L)"
+        >
+          {headlights === 'off' ? 'OFF' : headlights === 'high' ? 'HIGH' : 'LOW'}
+        </button>
+      )}
 
       {/* Horn — big, deliberately in the way, because it should be a decision */}
       {driving && (
@@ -114,6 +136,12 @@ const styles: Record<string, React.CSSProperties> = {
   awake: { textAlign: 'center', fontSize: 10, color: '#999', marginTop: 3, letterSpacing: '0.08em' },
   tp: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', right: 16, color: '#ffd93d', fontWeight: 800, fontSize: 13, letterSpacing: '0.08em', background: 'rgba(0,0,0,0.45)', padding: '4px 8px', borderRadius: 6 },
   tpCompact: { top: 'calc(52px + env(safe-area-inset-top))', right: 12, fontSize: 11, padding: '3px 7px' },
+  lights: { position: 'absolute', bottom: 'calc(168px + env(safe-area-inset-bottom))', right: 16, width: 64, height: 64, borderRadius: 32, border: '2px solid #ffe6b0', fontWeight: 800, fontSize: 11, letterSpacing: '0.08em', pointerEvents: 'auto', touchAction: 'none', userSelect: 'none' },
+  lightsCompact: { bottom: 'calc(312px + env(safe-area-inset-bottom))', right: 12, width: 52, height: 52, borderRadius: 26, fontSize: 10 },
+  lightsLeft: { right: 'auto', left: 12 },
+  lightsOff: { borderColor: '#666', background: 'rgba(20,20,24,0.55)', color: '#aaa' },
+  lightsLow: { borderColor: '#ffe6b0', background: 'rgba(80,60,20,0.6)', color: '#ffe6b0' },
+  lightsHigh: { borderColor: '#fff6d0', background: 'rgba(150,110,30,0.75)', color: '#fff8e0' },
   horn: { position: 'absolute', bottom: 'calc(96px + env(safe-area-inset-bottom))', right: 16, width: 64, height: 64, borderRadius: 32, border: '2px solid #ff4444', background: 'rgba(120,20,20,0.55)', color: '#ff9a9a', fontWeight: 800, fontSize: 11, letterSpacing: '0.1em', pointerEvents: 'auto', touchAction: 'none', userSelect: 'none' },
   hornCompact: { bottom: 'calc(252px + env(safe-area-inset-bottom))', right: 12, width: 52, height: 52, borderRadius: 26, fontSize: 10 },
   hornLeft: { right: 'auto', left: 12 },

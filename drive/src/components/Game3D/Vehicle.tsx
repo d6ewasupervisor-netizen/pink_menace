@@ -22,6 +22,7 @@ import * as THREE from 'three';
 import { RigidBody, CuboidCollider, RapierRigidBody, useBeforePhysicsStep, useAfterPhysicsStep } from '@react-three/rapier';
 import { tickVehicle, publishVehiclePose, resetVehicleController, registerVehicleBody, recoverVehicle, getChassisPose } from '@/systems/VehicleController';
 import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
+import { headlightSpot } from '@/systems/headlights';
 import { recordPerformanceSample } from '@/utils/performance';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useGameStore } from '@/stores/gameStore';
@@ -325,10 +326,18 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
       });
     }
 
-    // ── Headlight intensity based on time of day ──────────────────────────────
-    const headlightIntensity = timeOfDay === 'night' ? 15 : timeOfDay === 'sunset' ? 8 : 2;
-    if (leftLightRef.current) leftLightRef.current.intensity = headlightIntensity;
-    if (rightLightRef.current) rightLightRef.current.intensity = headlightIntensity;
+    // ── Headlights follow the stalk, not the clock ───────────────────────────
+    const night = timeOfDay === 'night' || timeOfDay === 'sunset';
+    const beam = useGameStore.getState().headlights;
+    const spot = headlightSpot(beam, night);
+    for (const light of [leftLightRef.current, rightLightRef.current]) {
+      if (!light) continue;
+      light.intensity = spot.intensity;
+      light.distance = spot.distance;
+      light.decay = spot.decay;
+      light.angle = spot.angle;
+      light.penumbra = spot.penumbra;
+    }
     if (leftLightRef.current && leftTargetRef.current) {
       leftLightRef.current.target = leftTargetRef.current;
     }
@@ -349,10 +358,10 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
     const reverseLights = brake > 0.5 && throttle < 0.1;
 
     // --- Details_03: headlights + blinkers (front)
+    const lens = beam === 'off' ? 0 : beam === 'high' ? 6 : night ? 3.5 : 1.4;
     applyToMaterial(scene, 'Details_03', (m) => {
-      // Headlights always on
       m.emissive.copy(HEADLIGHT_COLOR);
-      m.emissiveIntensity = 3.0;
+      m.emissiveIntensity = lens;
       // Tint base slightly amber for blinker areas; white for headlights
       m.color.set(blinkerActive && blinkerOn.current ? '#ff9900' : '#ffffff');
       m.roughness = 0.05;

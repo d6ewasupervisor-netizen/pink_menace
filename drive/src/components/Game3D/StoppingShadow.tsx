@@ -45,15 +45,15 @@ export function StoppingShadow() {
 
   return (
     <group ref={group}>
-      <mesh ref={react} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh ref={react} rotation={[-Math.PI / 2, 0, 0]} renderOrder={3}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial ref={reactMat} transparent opacity={0.16} depthWrite={false} />
       </mesh>
-      <mesh ref={brake} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh ref={brake} rotation={[-Math.PI / 2, 0, 0]} renderOrder={3}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial ref={brakeMat} transparent opacity={0.26} depthWrite={false} />
       </mesh>
-      <mesh ref={bar} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh ref={bar} rotation={[-Math.PI / 2, 0, 0]} renderOrder={3}>
         <planeGeometry args={[VEHICLE.WIDTH_M * 1.1, 0.25]} />
         <meshBasicMaterial color="#ffffff" transparent opacity={0.6} depthWrite={false} />
       </mesh>

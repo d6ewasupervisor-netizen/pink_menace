@@ -60,7 +60,7 @@ export class BeatRun {
 
   private straight(dt: number, s: VehicleSample) {
     if (this.t > 1) this.once("night.fall");
-    if (Math.abs(s.speedMs) > 8) this.once("headlight.highbeam.on");
+    if (s.beams === "high") this.once("headlight.highbeam.on");
     const mph = Math.abs(s.speedMs) / MPH;
     if (mph > 70) this.once("shadow.exceeds_lights");
     else if (mph > 15 && mph < 55 && this.flags.has("headlight.highbeam.on")) this.once("shadow.inside_lights");
