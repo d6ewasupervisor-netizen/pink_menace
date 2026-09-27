@@ -82,4 +82,17 @@ assert.equal(headlightReachM("off"), 0);
 assert.ok(headlightReachM("high") > 75 && headlightReachM("high") < 108);
 assert.ok(headlightReachM("high", true) > headlightReachM("high") && headlightReachM("high", true) < 108);
 
+beats.reset("vantage_bridge_crossing");
+assert.match(beats.goal() ?? "", /Under 45/);
+beats.reset("bridge_after_sign_toy");
+assert.match(beats.goal() ?? "", /under 9 mph/);
+beats.reset("bridge_after_sign_moth");
+assert.match(beats.goal() ?? "", /18 mph/);
+beats.reset("bridge_engine_off_wait");
+assert.equal(beats.waitingOutTheBridge(), true);
+assert.match(beats.goal() ?? "", /Sit still/);
+for (let i = 0; i < 600; i++) beats.step(0.1, car(95, 404, 0, 0.1));
+assert.equal(beats.waitingOutTheBridge(), false);
+assert.match(beats.goal() ?? "", /far side/);
+
 console.log("pass beats ok");

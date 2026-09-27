@@ -42,6 +42,35 @@ export class BeatRun {
 
   clear() { this.mission = ""; }
 
+  /** Sit-still on the span. The pin should not tell her to drive until this is over. */
+  waitingOutTheBridge(): boolean {
+    return this.mission === "bridge_engine_off_wait" && this.park < 60;
+  }
+
+  /** What the dash should say for the bridge. Null on the other beats. */
+  goal(): string | null {
+    switch (this.mission) {
+      case "vantage_bridge_crossing":
+        return "Cross the bridge. Under 45. When the wind pushes, steer into it — small.";
+      case "bridge_after_sign_toy":
+        return this.flags.has("quiet.settle")
+          ? "Far side. Stay under 9 mph."
+          : "Stay under 9 mph until it settles. Then the far side.";
+      case "bridge_after_sign_moth":
+        return this.flags.has("gracie.moth")
+          ? "Far side."
+          : "Keep rolling, above 18 mph. Don't creep.";
+      case "bridge_engine_off_wait": {
+        const left = Math.max(0, Math.ceil(60 - this.park));
+        return left > 0
+          ? `Engine off. Sit still. ${left}s, then the far side.`
+          : "Drive to the far side.";
+      }
+      default:
+        return null;
+    }
+  }
+
   step(dt: number, s: VehicleSample) {
     if (!this.mission) return;
     this.t += dt;

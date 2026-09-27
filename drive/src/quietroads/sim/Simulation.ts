@@ -306,12 +306,16 @@ export class Simulation {
         this.beginBeat(id, "rest_stall", "Pull in. Stop.", 25);
         break;
       case "vantage_bridge_crossing":
-        this.beginBeat(id, "bridge_west", "Bridge. Small corrections. Under forty-five.", 45);
+        this.beginBeat(id, "bridge_west", "Cross the bridge. Under 45. When the wind pushes, steer into it — small.", 45);
         break;
       case "bridge_after_sign_toy":
+        this.beginBeat(id, "bridge_mid_start", "Stay under 9 mph until it settles. Then the far side.", 25);
+        break;
       case "bridge_after_sign_moth":
+        this.beginBeat(id, "bridge_mid_start", "Keep rolling, above 18 mph. Don't creep.", 25);
+        break;
       case "bridge_engine_off_wait":
-        this.beginBeat(id, "bridge_mid_start", "Across. Small.", 25);
+        this.beginBeat(id, "bridge_mid_start", "Engine off. Sit still. 60s, then the far side.", 25);
         break;
       default: return false;
     }
@@ -334,7 +338,7 @@ export class Simulation {
     this.missionStart = start;
     this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
     this.beats.reset(id);
-    this.setObjective(objective);
+    this.setObjective(this.beats.goal() ?? objective);
     this.resetWorld();
     this.speedLimitMph = limit;
   }
@@ -434,7 +438,11 @@ export class Simulation {
         this.vehicle.mu = this.climb.onIce ? VEHICLE.MU.ice : VEHICLE.MU.dry;
       } else if (this.vehicle.mu !== VEHICLE.MU.dry) this.vehicle.mu = VEHICLE.MU.dry;
       if (this.escort.mission) this.escort.step(dt, s);
-      if (this.beats.mission) this.beats.step(dt, s);
+      if (this.beats.mission) {
+        this.beats.step(dt, s);
+        const goal = this.beats.goal();
+        if (goal && goal !== this.objective) this.setObjective(goal);
+      }
       if (this.convoy.mission) this.convoy.step(dt, s, this.noise.band);
       if (this.grid.mission) {
         this.grid.step(dt, s, this.noise.band);
@@ -609,7 +617,9 @@ export class Simulation {
         return { pos: this.map.markers.bridge_mid, label: "BRIDGE" };
       case "bridge_after_sign_toy":
       case "bridge_after_sign_moth":
+        return { pos: this.map.markers.bridge_end, label: "FAR SIDE" };
       case "bridge_engine_off_wait":
+        if (this.beats.waitingOutTheBridge()) return null;
         return { pos: this.map.markers.bridge_end, label: "FAR SIDE" };
       default:
         return null;
