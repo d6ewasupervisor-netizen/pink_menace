@@ -521,6 +521,16 @@ else. No commentary. No alternatives.
 
 ---
 
+## Take send — standing (operator, outside the compiled paragraph)
+
+Claude standing rule, also in pack/00: every take send names **`card_id`**, **one-line lesson**, and **shot token**. The lesson is the card's `read` in one sentence. The shot token is `image_brief.camera`. Those three wrap the send. They do not enter the GPT Image 2 paragraph above.
+
+**Waves of eight, then four.** Face-critical: eight takes, then four if the wave misses. Never twelve in one send. Vehicle-critical starts at four. Identity-free is one or two (pack/12).
+
+**Review batches in threes.** Each line: `card_id` + lesson. Not a dump of the whole wave.
+
+---
+
 ## Reference attachment map
 
 | Card contains | Attach |
