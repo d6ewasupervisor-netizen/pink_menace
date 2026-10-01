@@ -29,7 +29,12 @@ export const SKID = {
 export const VEHICLE = {
   REACTION_S: 1.5,
   BRAKE_DECEL_DRY: 8.0,   // m/s², matches the Beetle in VehicleController
-  MU: { dry: 0.7, wet: 0.4, ice: 0.15 } as { dry: number; wet: number; ice: number },
+  // Surface friction coefficients. Guide §5.6: rain/snow/ice "significantly
+  // reduce friction"; §4.15 references entering a paved road from an unpaved
+  // one. Gravel is looser than dry asphalt and yields a longer stop than dry —
+  // shorter than ice (ice is catastrophic). Wet is reserved for a future
+  // rain/deck surface; no Kent corridor applies it yet.
+  MU: { dry: 0.7, wet: 0.4, gravel: 0.5, ice: 0.15 } as { dry: number; wet: number; gravel: number; ice: number },
   WHEELBASE_M: 2.4,
   LENGTH_M: 4.0,
   WIDTH_M: 1.9,

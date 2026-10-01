@@ -119,6 +119,27 @@ describe('parking check (Act I)', () => {
   });
 });
 
+describe('surface friction (guide §5.6 / §4.15)', () => {
+  it('resolves gravel on the backcountry run and dry elsewhere', () => {
+    const { sim } = makeSim();
+    expect(sim.startMission('mission_backcountry_run')).toBe(true);
+    sim.step(0.2, sample({ x: 100, y: 640 }, 0, 10));
+    expect(sim.vehicle.mu).toBe(VEHICLE.MU.gravel);
+    expect(sim.startMission('mission_delivery_1_insulin')).toBe(true);
+    sim.step(0.2, sample({ x: 100, y: 0 }, 0, 10));
+    expect(sim.vehicle.mu).toBe(VEHICLE.MU.dry);
+  });
+
+  it('gravel lengthens stopping vs dry, ice lengthens vs gravel', () => {
+    const v = 20;
+    const dry = stoppingDistanceM(v, VEHICLE.MU.dry, CHASSIS_DECEL.beetle);
+    const gravel = stoppingDistanceM(v, VEHICLE.MU.gravel, CHASSIS_DECEL.beetle);
+    const ice = stoppingDistanceM(v, VEHICLE.MU.ice, CHASSIS_DECEL.beetle);
+    expect(gravel).toBeGreaterThan(dry);
+    expect(ice).toBeGreaterThan(gravel);
+  });
+});
+
 describe('stopping shadow geometry (guide-consistent)', () => {
   it('longer chassis and lower mu make longer stopping distances', () => {
     const v = 20; // m/s

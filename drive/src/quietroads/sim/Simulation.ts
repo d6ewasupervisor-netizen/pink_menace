@@ -413,6 +413,17 @@ export class Simulation {
     }
   }
 
+  /** Surface friction for the current road. Ice on the climb, gravel on the
+   *  backcountry run and the Ritzville escort (they share the gravel corridor),
+   *  dry asphalt everywhere else. The stopping shadow and the brake pedal both
+   *  read `vehicle.mu`, so this is the single place stopping lengthens on a bad
+   *  surface (guide §5.6 slippery roads, §4.15 paved-from-unpaved). */
+  private surfaceMu(): number {
+    if (this.climb.mission && this.climb.onIce) return VEHICLE.MU.ice;
+    if (this.missionId === "mission_backcountry_run" || this.missionId === "escort_ritzville") return VEHICLE.MU.gravel;
+    return VEHICLE.MU.dry;
+  }
+
   /** Advance the world with the player in the car. Returns everything the HUD/renderer needs. */
   step(dt: number, s: VehicleSample): SimFrame {
     this.lastVehiclePos = s.pos;
@@ -433,10 +444,8 @@ export class Simulation {
       if (this.missionId === "mission_ribbon_merge") this.ribbon.step(dt, s);
       if (this.missionId === "mission_backcountry_run") this.rural.step(dt, s);
       if (this.chainup.mission) this.chainup.step(dt, s);
-      if (this.climb.mission) {
-        this.climb.step(dt, s);
-        this.vehicle.mu = this.climb.onIce ? VEHICLE.MU.ice : VEHICLE.MU.dry;
-      } else if (this.vehicle.mu !== VEHICLE.MU.dry) this.vehicle.mu = VEHICLE.MU.dry;
+      if (this.climb.mission) this.climb.step(dt, s);
+      this.vehicle.mu = this.surfaceMu();
       if (this.escort.mission) this.escort.step(dt, s);
       if (this.beats.mission) {
         this.beats.step(dt, s);

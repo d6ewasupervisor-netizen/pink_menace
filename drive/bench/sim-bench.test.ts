@@ -64,6 +64,7 @@ it('replays scripted laps per act and writes baseline.json', () => {
     ['beetle_dry', VEHICLE.MU.dry, CHASSIS_DECEL.beetle],
     ['highway_dry', VEHICLE.MU.dry, CHASSIS_DECEL.highway],
     ['truck_dry', VEHICLE.MU.dry, CHASSIS_DECEL.truck],
+    ['beetle_gravel', VEHICLE.MU.gravel, CHASSIS_DECEL.beetle],
     ['beetle_wet', VEHICLE.MU.wet, CHASSIS_DECEL.beetle],
     ['highway_ice', VEHICLE.MU.ice, CHASSIS_DECEL.highway],
   ] as const) {
@@ -75,6 +76,7 @@ it('replays scripted laps per act and writes baseline.json', () => {
 
   // Invariants so a regression fails loudly.
   expect(stop['truck_dry']).toBeGreaterThan(stop['beetle_dry']);
+  expect(stop['beetle_gravel']).toBeGreaterThan(stop['beetle_dry']);
   expect(stop['highway_ice']).toBeGreaterThan(stop['truck_dry']);
   expect(rows.every((r) => r.steps > 0)).toBe(true);
 });
