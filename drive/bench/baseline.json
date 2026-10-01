@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-10-01T07:13:14.255Z",
+  "rows": [
+    {
+      "mission": "mission_delivery_1_insulin",
+      "act": "II",
+      "steps": 1200,
+      "events": [
+        "mission.start:mission_delivery_1_insulin"
+      ],
+      "stepMs": {
+        "p50": 60.4,
+        "p95": 146.1,
+        "max": 1072.7
+      }
+    },
+    {
+      "mission": "mission_central_ledger",
+      "act": "III",
+      "steps": 1200,
+      "events": [
+        "mission.start:mission_central_ledger",
+        "ledger.follow.close",
+        "stop.approach",
+        "stop.rolled",
+        "sign.prompt:school",
+        "ledger.merge.approach"
+      ],
+      "stepMs": {
+        "p50": 59.7,
+        "p95": 72.1,
+        "max": 615.6
+      }
+    },
+    {
+      "mission": "mission_ribbon_merge",
+      "act": "V",
+      "steps": 1200,
+      "events": [
+        "mission.start:mission_ribbon_merge",
+        "ramp.enter",
+        "speed.over"
+      ],
+      "stepMs": {
+        "p50": 59,
+        "p95": 71.1,
+        "max": 344.6
+      }
+    },
+    {
+      "mission": "mission_backcountry_run",
+      "act": "VI",
+      "steps": 2000,
+      "events": [
+        "mission.start:mission_backcountry_run",
+        "rural.crest.fast",
+        "rural.uncontrolled.rolled",
+        "rural.crossbuck.rolled",
+        "roundabout.rolled",
+        "quiz:roundabout.approach",
+        "waypoint.reach:rural_end"
+      ],
+      "stepMs": {
+        "p50": 58.2,
+        "p95": 66.1,
+        "max": 311.6
+      }
+    }
+  ],
+  "stopping_distance_m_at_55mph": {
+    "beetle_dry": 74.7,
+    "highway_dry": 85.6,
+    "truck_dry": 102.6,
+    "beetle_wet": 103,
+    "highway_ice": 264.4
+  }
+}
