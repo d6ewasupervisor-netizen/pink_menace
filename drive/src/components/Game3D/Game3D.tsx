@@ -7,6 +7,7 @@ import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 
 import { useGameStore } from '@/stores/gameStore';
+import { useQRHud } from '@/stores/qrHud';
 import { useGameProgress } from '@/hooks/useGameProgress';
 import { useTouchControls } from '@/hooks/useTouchControls';
 import { useQuizManager } from '@/systems/QuizManager';
@@ -64,6 +65,34 @@ function PerformanceMonitor() {
     }
   });
 
+  return null;
+}
+
+// ─── WebGL context-loss guard (runs inside Canvas for gl.domElement) ────────
+function GLContextGuard() {
+  const { gl } = useThree();
+  useEffect(() => {
+    const el = gl.domElement;
+    const onLost = (e: Event) => {
+      e.preventDefault(); // allow the browser to offer a restore, don't kill the canvas
+      useQRHud.getState().addTelemetry({ ts: Date.now(), event: 'webgl.context_lost' });
+      const s = useGameStore.getState();
+      if (s.phase === 'driving' || s.phase === 'walking' || s.phase === 'dialogue' || s.phase === 'card') {
+        useGameStore.setState({ phase: 'paused', prePausePhase: s.phase });
+      }
+      useQRHud.getState().setTransient({ toast: 'Graphics paused. Tap Resume to continue.' });
+    };
+    const onRestored = () => {
+      useQRHud.getState().addTelemetry({ ts: Date.now(), event: 'webgl.context_restored' });
+      useQRHud.getState().setTransient({ toast: '' });
+    };
+    el.addEventListener('webglcontextlost', onLost, false);
+    el.addEventListener('webglcontextrestored', onRestored, false);
+    return () => {
+      el.removeEventListener('webglcontextlost', onLost);
+      el.removeEventListener('webglcontextrestored', onRestored);
+    };
+  }, [gl]);
   return null;
 }
 
@@ -244,6 +273,7 @@ export function Game3D({ onExit }: Game3DProps) {
           <Scene lowEnd={LOW_END} />
           <PostProcessing lowEnd={LOW_END} />
           <AudioBridge />
+          <GLContextGuard />
           <SceneDirector />
           <PerformanceMonitor />
         </Suspense>
