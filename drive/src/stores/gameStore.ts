@@ -119,6 +119,7 @@ interface SettingsSlice {
   isMuted: boolean;
   sfxVolume: number;    // 0–1
   musicVolume: number;  // 0–1
+  reducedMotion: boolean; // suppresses camera shake + drift (a11y)
   resetCounter: number;
 }
 
@@ -160,6 +161,7 @@ type GameState = ControlsSlice &
     toggleMute: () => void;
     setSfxVolume: (vol: number) => void;
     setMusicVolume: (vol: number) => void;
+    setReducedMotion: (on: boolean) => void;
   };
 
 // ─── Default values ───────────────────────────────────────────────────────────
@@ -216,6 +218,7 @@ export const useGameStore = create<GameState>()(
       isMuted: false,
       sfxVolume: 0.7,
       musicVolume: 0.3,
+      reducedMotion: false,
       resetCounter: 0,
 
       // ── Controls ────────────────────────────────────────────────────────────
@@ -258,6 +261,7 @@ export const useGameStore = create<GameState>()(
       toggleMute: () => set((s) => ({ isMuted: !s.isMuted })),
       setSfxVolume: (vol) => set({ sfxVolume: Math.max(0, Math.min(1, vol)) }),
       setMusicVolume: (vol) => set({ musicVolume: Math.max(0, Math.min(1, vol)) }),
+      setReducedMotion: (on) => set({ reducedMotion: on }),
 
       // ── Mileage + triggers ───────────────────────────────────────────────────
       addMileage: (delta) => {
@@ -431,6 +435,7 @@ export const useGameStore = create<GameState>()(
         isMuted: state.isMuted,
         sfxVolume: state.sfxVolume,
         musicVolume: state.musicVolume,
+        reducedMotion: state.reducedMotion,
       }),
     }
     )

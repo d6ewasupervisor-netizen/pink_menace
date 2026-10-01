@@ -232,6 +232,15 @@ export function Game3D({ onExit }: Game3DProps) {
     return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, [phase, mileage, hp, fuel, zCoins, questionsAnswered, correctAnswers, saveProgress, setPhase]);
 
+  // ── Reduced motion: honour the OS preference (never lower it back automatically) ──
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const apply = () => { if (mq.matches) useGameStore.getState().setReducedMotion(true); };
+    apply();
+    if (mq.addEventListener) mq.addEventListener('change', apply);
+    return () => { if (mq.removeEventListener) mq.removeEventListener('change', apply); };
+  }, []);
+
   // ── Load saved backend progress into store on first mount ────────────────
   const { savedProgress } = useGameProgress();
   const loadedRef = useRef(false);

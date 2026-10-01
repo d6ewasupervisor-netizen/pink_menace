@@ -23,6 +23,8 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
   const cycleControlsScheme = useGameStore((s) => s.cycleControlsScheme);
   const isMuted = useGameStore((s) => s.isMuted);
   const toggleMute = useGameStore((s) => s.toggleMute);
+  const reducedMotion = useGameStore((s) => s.reducedMotion);
+  const setReducedMotion = useGameStore((s) => s.setReducedMotion);
 
   const { saveProgress } = useGameProgress();
   const worldMode = useGameStore((s) => s.worldMode);
@@ -106,6 +108,9 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
           </button>
           <button style={{ ...styles.btn, ...styles.btnControls }} onClick={toggleMute}>
             {isMuted ? '🔇 SOUND OFF' : '🔊 SOUND ON'}
+          </button>
+          <button style={{ ...styles.btn, ...styles.btnControls }} onClick={() => setReducedMotion(!reducedMotion)}>
+            {reducedMotion ? '🌊 MOTION OFF (steady cam)' : '🎥 MOTION ON'}
           </button>
           <button style={{ ...styles.btn, ...styles.btnResume }} onClick={handleResume}>
             ▶ RESUME

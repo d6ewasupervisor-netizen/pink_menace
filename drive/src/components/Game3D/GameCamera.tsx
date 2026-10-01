@@ -76,8 +76,10 @@ const WALK_LOOKAT = new THREE.Vector3(0, 0.4, -3.5);
 let _shakeIntensity = 0;
 let _shakeDecay = 0;
 
-/** Trigger screen shake. intensity: 0-1, duration in seconds */
+/** Trigger screen shake. intensity: 0-1, duration in seconds. */
 export function triggerScreenShake(intensity = 0.5, duration = 0.3) {
+  // Reduced motion (a11y): a collision should never throw the frame around.
+  if (useGameStore.getState().reducedMotion) return;
   _shakeIntensity = Math.max(_shakeIntensity, intensity);
   _shakeDecay = intensity / duration;
 }
@@ -118,7 +120,7 @@ export function GameCamera() {
       : MODES[state.cameraMode];
     const dt = Math.min(delta, 0.05);
     const speedNorm = Math.min(1, liveDrive.velocityMph / 70);
-    const driftTarget = !walking && state.phase === 'driving' && Math.abs(getCurrentSpeedMs()) > 5
+    const driftTarget = !state.reducedMotion && !walking && state.phase === 'driving' && Math.abs(getCurrentSpeedMs()) > 5
       ? Math.min(1, Math.max(0, (getLateralSlip() - 0.15) * 3)) : 0;
     driftAmplitude.current += (driftTarget - driftAmplitude.current) * (1 - Math.exp(-7 * dt));
 
