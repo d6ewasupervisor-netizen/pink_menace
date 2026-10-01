@@ -38,8 +38,25 @@ current after every task.
 - **BD-2** hand-signal citation (guided § not in text-only edition).
 - P1..P15 problem log lives in `AUDIT.md §3`.
 
+### Phase 3 (execution) — first three items
+1. **[teaching] gravel surface friction** (`vehicleObserver.MU.gravel=0.5`,
+   `Simulation.surfaceMu()`). The backcountry run + the Ritzville escort now ride
+   gravel, so the stopping shadow stops lying on unpaved road. Before: beetle dry
+   55 mph stop 74.7 m; after: 89.8 m (gravel). Ice stays 264.4 m; wet remains an
+   unused named value (no rain/wet corridor in the drive yet — recorded). 11/11
+   tests pass, `tsc` green. Violated-rule check: guide §5.6/§4.15 support it.
+2. **[ux] act select** (`MainMenu`) — lists Acts I–VI from `ACT_ORDER` /
+   `ACT_CHALLENGES` and jumps to each act's first scene via the bridge's existing
+   `startAct(ACT_ENTRY[act])`. A new run no longer forces Act I replay;
+   I–III are replayable. `tsc` green.
+3. **[latency] WebGL context-loss** (`Game3D.GLContextGuard`) — on
+   `webglcontextlost` pause the sim (preserve `prePausePhase`) + telemetry + a
+   resume prompt; on `webglcontextrestored` clear it. No silent black screen.
+
 ### Next
-- Start P0: throttled HUD channel, then surface friction (gravel/wet), then WebGL
-  context-loss handling. Each behind a named config, telemetry before/after.
+- Throttle the HUD speed/RPM channel (P5) — needs a browser baseline to prove the
+  re-render win before landing.
+- Wire the remaining in-scene cards (P4: Act II 20, Act III 24, Act V 5, Act VI 5).
+- Continue the P0 config consolidation (one named tuning file).
 
 ---

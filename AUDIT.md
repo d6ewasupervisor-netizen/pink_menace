@@ -228,4 +228,17 @@ Grade events confirmed to fire on the scripted laps: `stop.approach`,
 `stop.rolled`, `ledger.follow.close`, `rural.uncontrolled.rolled`,
 `rural.crossbuck.rolled`, `roundabout.rolled`, `ramp.enter` (see baseline.json).
 
+---
+
+## 7. Phase 3 progress (this session)
+
+| Item | Area | Commit |
+|---|---|---|
+| Gravel surface friction — stopping shadow correct on unpaved (§5.6/§4.15) | P2 ✅ | `1bf0d52` |
+| Act select on the title screen — no forced Act I replay, I–III replayable | P3 ✅ | `bc83818` |
+| WebGL context-loss handled (pause on loss, clear on restore) | P6 ✅ | `6b75a9b` |
+| Test/bench harness (Vitest + Playwright + deterministic bench) | P7 ✅ | `08f9153` |
+
+Remaining: P1 (BD-1), P4 (card wiring), P5 (HUD throttle), P8–P15.
+
 <!-- CONTINUED -->
