@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { CardCues, type CueProbe } from "../src/quietroads/sim/cardCues";
 import { followFullGapM } from "../src/quietroads/config";
-import type { VehicleSample } from "../src/quietroads/sim/vehicleObserver";
+import { Simulation, rectCenter, type VehicleSample } from "../src/quietroads";
 
 function sample(over: Partial<VehicleSample> = {}): VehicleSample {
   return {
@@ -113,5 +113,52 @@ describe("in-scene card cues", () => {
     const missing = WANTED.filter((id) => !got.has(id));
     expect(missing).toEqual([]);
     expect(book.step(probe({ missionId: "mission_delivery_3_radio", inBus: true }))).toEqual([]);
+  });
+});
+
+describe("grid cues go through the sim bus", () => {
+  function harness() {
+    const events: string[] = [];
+    const sim = new Simulation({
+      fire: (e) => events.push(e),
+      requestQuiz: () => {},
+      setObjective: () => {},
+      toast: () => {},
+      placeVehicle: () => {},
+    });
+    return { sim, events };
+  }
+
+  it("opens the back-in card when Bea's dock starts", () => {
+    const { sim, events } = harness();
+    sim.startMission("mission_delivery_2_catfood");
+    const stall = rectCenter(sim.map.grid.beaStall);
+    sim.step(1 / 60, sample({ pos: stall, speedMs: -1 }));
+    expect(events).toContain("backing.start");
+    expect(events).toContain("card.cue:II-015");
+  });
+
+  it("opens the lane-change cards when Priya's lanes change", () => {
+    const { sim, events } = harness();
+    sim.startMission("mission_delivery_3_radio");
+    const lanes = sim.map.grid.lanes;
+    const span = (lanes.x1 - lanes.x0) / lanes.count;
+    const y = (lanes.y0 + lanes.y1) / 2;
+    const at = (index: number) => ({ x: lanes.x0 + span * index + span / 2, y });
+    sim.step(1 / 60, sample({ pos: at(0), speedMs: 8 }));
+    sim.step(1 / 60, sample({ pos: at(1), speedMs: 8 }));
+    expect(events).toContain("lanechange.start");
+    expect(events).toContain("card.cue:II-016");
+    expect(events).toContain("card.cue:II-017");
+    expect(events).toContain("card.cue:II-022");
+  });
+
+  it("opens the parallel-park card at Tuna’s stall", () => {
+    const { sim, events } = harness();
+    sim.startMission("mission_delivery_4_filters");
+    const stall = rectCenter(sim.map.grid.tunaStall);
+    sim.step(1 / 60, sample({ pos: stall, heading: 0, speedMs: 1 }));
+    expect(events).toContain("park.parallel.start");
+    expect(events).toContain("card.cue:II-021");
   });
 });

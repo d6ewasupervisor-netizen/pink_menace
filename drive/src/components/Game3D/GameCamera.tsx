@@ -123,6 +123,10 @@ export function GameCamera() {
     const driftTarget = !state.reducedMotion && !walking && state.phase === 'driving' && Math.abs(getCurrentSpeedMs()) > 5
       ? Math.min(1, Math.max(0, (getLateralSlip() - 0.15) * 3)) : 0;
     driftAmplitude.current += (driftTarget - driftAmplitude.current) * (1 - Math.exp(-7 * dt));
+    if (state.reducedMotion) {
+      _shakeIntensity = 0;
+      driftAmplitude.current = 0;
+    }
 
     if (mode.followHeading) {
       // Rotate offset and lookAt around Y by vehicle heading

@@ -29,7 +29,11 @@ import type { DialogueFile } from "../src/quietroads/dialogue/types";
 
 const FILES = [act01, act2, act2central, act3, act4, act5ribbon, act5, act6, act6backcountry, act7, act8] as DialogueFile[];
 
-/** Every card the bridge's CardCues can offer on a mission beat (mirrors cardCues.ts). */
+/**
+ * Ids CardCues knows how to offer. This list does not prove the sim bus
+ * emits them — GridRun used to fire past the wrapper while this still passed.
+ * teaching.test.ts steps the three grid missions and requires card.cue.
+ */
 const CUED = [
   "II-007", "II-008", "II-009", "II-011", "II-013", "II-014", "II-015", "II-016", "II-017",
   "II-018", "II-019", "II-020", "II-021", "II-022", "II-023", "II-025", "II-026", "II-028",

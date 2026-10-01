@@ -126,7 +126,7 @@ export class Simulation {
     this.parking = new ParkingGrader(this.map, dolEv);
     this.interior = new InteriorController(this.map, this.noise, this.quiet, dolEv, r);
     this.grid = new GridRun(this.map, {
-      fire: (e, d) => this.ev.fire(e, d),
+      fire,
       requestQuiz: (t, delay) => this.ev.requestQuiz(t, delay),
     }, this.quiet);
     this.ledger = new LedgerRun(this.map.ledger, { fire });

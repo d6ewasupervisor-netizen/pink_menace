@@ -1,7 +1,7 @@
 # FINAL_REPORT — Quiet Roads overhaul (`agent/overhaul-2026-09-30`)
 
-Branch `agent/overhaul-2026-09-30` (3 commits ahead of `main`, never pushed/merged).
-`main` is untouched by this session.
+Branch `agent/overhaul-2026-09-30`. Production (`main` → ali.tactag.app) did not
+include the last session's a11y/test commits until this correction shipped.
 
 ## 1. Executive summary
 The drive now maps the whole WA Driver Guide to a single teaching loop: every
@@ -10,7 +10,7 @@ trigger, or a mission beat), and each act's mission grades the skill its cards
 just taught. The stopping shadow is truthful on gravel/wet/ice, the following
 distance leads with the guide's own words, inaccuracies in card citations were
 fixed, and the HUD speed/RPM was pushed off the 60 Hz React path. Test/build
-harness (Vitest 21 tests, Playwright smoke, deterministic bench) and the four
+harness (Vitest 24 tests, Playwright smoke, deterministic bench) and the four
 hand-off docs are in place. Remaining work is the browser/GPU pass (FPS, draw
 calls, time-to-first-frame) and the Act IV "missed-question road", both of which
 need a device/emulator + backend that this environment does not have.
@@ -19,7 +19,7 @@ need a device/emulator + backend that this environment does not have.
 
 | Metric | Before (recon) | After | How measured |
 |---|---|---|---|
-| Vitest tests (grading + teaching + coverage + exam) | 0 | 21 | `npx vitest run` |
+| Vitest tests (grading + teaching + coverage + exam + bench) | 0 | 24 | `npx vitest run` |
 | `tsc --noEmit` | green | green | exit 0 |
 | `vite build` | green | green | 809 modules, 4.06 s |
 | Cards opened in-scene | I 12/12 · II 11/31 · III 7/31 · V 8/13 · VI 9/13 | **I 12/12 · II 31/31 · III 30/30 · V 13/13 · VI 13/13** | `test/coverage.test.ts` (deterministic) |
@@ -36,7 +36,10 @@ need a device/emulator + backend that this environment does not have.
 - **Act I — The Lot**: 12/12 (already the reference model). No change.
 - **Act II — The Grid**: 11/31 → **31/31**. The 20 formerly-briefing cards open
   from `CardCues` on the Grid beats (back-in, lane change, parallel, Jonah's
-  four-way, and the in-bus/skidding/etc. position beats).
+  four-way, and the in-bus/skidding/etc. position beats). A follow-up found
+  `GridRun` still fired on the raw bus, so II-015, II-016, II-017, II-021, and
+  II-022 were counted by the cue list and never opened. `GridRun` now uses the
+  same `fire` wrapper as the Ledger and the Ribbon.
 - **Act III — Central**: 7/31 → **30/30** (one leaked `art-review-state` object
   removed). The 23 cards open along the Ledger: follow-close, solid-white,
   wrong-lane, merge, plus the wet stretch south of `solidY`.

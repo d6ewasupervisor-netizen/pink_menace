@@ -1,7 +1,7 @@
 # AGENT_LOG — Quiet Roads overhaul
 
-Branch: `agent/overhaul-2026-09-30`. Never push/merge to main. Keep this file
-current after every task.
+Branch: `agent/overhaul-2026-09-30`. Production is `main` (ali.tactag.app).
+Keep this file current after every task.
 
 ## 2026-10-01 — Phase 1 (recon) + test/build foundations
 
@@ -87,6 +87,19 @@ current after every task.
 P8, P9, P11–P15, the Act IV missed-question road.
 
 ---
+
+## 2026-10-01 — correction (grid cues were not on the bus)
+
+`CardCues` listed II-015 / II-016 / II-017 / II-021 / II-022, and the coverage
+test repeated that list, so both stayed green. `GridRun` was still constructed
+with `this.ev.fire`, which never calls `CardCues.onEvent`. The grade events
+(`backing.start`, `lanechange.start`, `park.parallel.start`) reached telemetry
+and the cards did not. Grid now uses the wrapped `fire`. `teaching.test.ts`
+steps those three missions and requires `card.cue:*`. Reduced motion also
+clears a shake already in progress.
+
+Production deploys from `main` (ali.tactag.app). The five local commits after
+`c2de6ac` were not on `main` and were not deployed.
 
 ## 2026-10-01 — continuation (reduced motion + coverage + final report)
 
