@@ -10,7 +10,7 @@ trigger, or a mission beat), and each act's mission grades the skill its cards
 just taught. The stopping shadow is truthful on gravel/wet/ice, the following
 distance leads with the guide's own words, inaccuracies in card citations were
 fixed, and the HUD speed/RPM was pushed off the 60 Hz React path. Test/build
-harness (Vitest 24 tests, Playwright smoke, deterministic bench) and the four
+harness (Vitest 36 tests, Playwright smoke, deterministic bench) and the four
 hand-off docs are in place. Remaining work is the browser/GPU pass (FPS, draw
 calls, time-to-first-frame) and the Act IV "missed-question road", both of which
 need a device/emulator + backend that this environment does not have.
@@ -19,16 +19,16 @@ need a device/emulator + backend that this environment does not have.
 
 | Metric | Before (recon) | After | How measured |
 |---|---|---|---|
-| Vitest tests (grading + teaching + coverage + exam + bench) | 0 | 24 | `npx vitest run` |
+| Vitest tests (grading + teaching + coverage + exam + retest + bench) | 0 | 36 | `npx vitest run` |
 | `tsc --noEmit` | green | green | exit 0 |
 | `vite build` | green | green | 809 modules, 4.06 s |
 | Cards opened in-scene | I 12/12 · II 11/31 · III 7/31 · V 8/13 · VI 9/13 | **I 12/12 · II 31/31 · III 30/30 · V 13/13 · VI 13/13** | `test/coverage.test.ts` (deterministic) |
 | Sim step CPU (headless) | ~59 µs p50 | ~56–60 µs p50 | `bench/sim-bench.test.ts` |
 | Stop distance 55 mph (beetle dry→gravel) | 74.7 m (gravel lied as dry) | 89.8 m | bench |
 | Main JS bundle | ~4.13 MB (1.34 MB gzip) | ~4.13 MB (1.34 MB gzip) | `vite build` |
-| Desktop FPS / 1% low | — | **not measured** (needs `?profileDrive` browser) | — |
-| Mobile portrait FPS | — | **not measured** | — |
-| Time-to-first-frame (4G) | — | **not measured** | — |
+| Desktop FPS / 1% low | — | 30 / 29.6 (flat 30 Hz window) | Playwright headed Chrome, `?profileDrive`, 600 frames |
+| Mobile portrait FPS | — | 30 / 29.5 | same harness, 390×844 |
+| Time-to-canvas | — | 0.8 s desktop, 0.9 s mobile | local Vite, not a 4G throttle |
 | Input→response | — | **not measured** | — |
 
 ## 3. Card → trigger → grade (before → after)
@@ -46,8 +46,10 @@ need a device/emulator + backend that this environment does not have.
 - **Act V — The Ribbon**: 8/13 → **13/13** (V-002/004/008/009/011 on ramp/merge).
 - **Act VI — The Backcountry**: 9/13 → **13/13** (VI-003/005/009/011/013 on the
   rural grades; V-006 opens from scene 7.1).
-- **Act IV — The Core**: unchanged (exam gate; only IV-018 opens in the drive).
-  The "missed-question road" is **still open** (the last structural item).
+- **Act IV — The Core**: the exam gate is unchanged (only IV-018 opens in the
+  drive). After a miss, `local_loop_week` is a drive on the Kent streets keyed
+  to `exam_weak_chapter` and the missed questions' guide refs. The week ends
+  when that grade fires `week.elapsed`.
 
 ## 4. Guide coverage (final `INDEX.md` summary)
 - **Taught in-scene or by card**: 2.7, 2.8, 2.9, 2.11, 2.12, 4.2, 4.4, 4.7, 4.9,
@@ -115,14 +117,17 @@ need a device/emulator + backend that this environment does not have.
   read-through changed.
 
 ## 9. What failed / could not be verified, and why
-- **Browser/GPU metrics** (desktop & mobile FPS, 1% low, draw calls, triangles,
-  JS heap, time-to-first-frame, input-to-response) — **not run**: `/drive`
-  requires a signed-in student session against a live backend and a real/emulated
-  browser, neither of which is available in this headless environment. The
-  deterministic sim bench and `?profileDrive` protocol are in place for the next
-  device pass.
-- **Full campaign playthrough on both viewports** — same constraint.
-- **Act IV "missed-question road"** — not built yet (see §11).
+- **Browser/GPU metrics** — Playwright headed Chrome, mocked student, both
+  viewports, `?profileDrive`. Act I is on screen (road plus the opening line).
+  Canvas is up in under a second. After the 600-frame window fills, both
+  viewports sit on a flat 30 Hz clock (p50 33.3 ms, 1% low about 29.5 fps).
+  That is the window's frame clock, not a spike. `gl.info` draw calls stay at 1
+  because the sample lands on the postprocessing blit. A 4G throttle, JS heap,
+  and input-to-response on a driving lap were not part of this run.
+- **Full campaign playthrough on both viewports** — the smoke confirms the
+  scene mounts. It does not play every act.
+- **Act IV "missed-question road"** — built. Headless tests drive each beat.
+  A signed-in playthrough of the week on a phone is still a device pass.
 
 ## 10. BLOCKED DECISIONS (need the owner)
 - **BD-1 (resolved, pending owner sign-off)**: the guide §5.2 "twice the length
@@ -133,9 +138,8 @@ need a device/emulator + backend that this environment does not have.
 - **BD-2 (resolved)**: hand-signal citations now read §4.14 Turning.
 
 ## 11. Remaining backlog + risks
-- P1: **Act IV missed-question road** (the last structural gap) — route
-  `local_loop_week` to a real driving beat driven by `exam_weak_chapter` /
-  `missed_ids` instead of a study-terminal session.
+- P1: **Act IV missed-question road** — done. `local_loop_week` grades the
+  missed guide section on an existing Kent street and then fires `week.elapsed`.
 - P2: graphics quality tiers (`PerformanceMonitor` + `AdaptiveDpr`, postprocessing
   ladder), Kent static merge/InstancedMesh, per-frame allocation cleanup,
   debrief-per-scene UI, remaining a11y (remappable keys, text size, colorblind).

@@ -15,6 +15,7 @@ const samples: Record<Metric, number[]> = {
   frameMs: [], vehicleMs: [], missionMs: [], previousDrawCalls: [], previousTriangles: [],
 };
 const profiling = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('profileDrive');
+let firstFrameMs: number | null = null;
 
 export function recordPerformanceSample(metric: Metric, value: number): void {
   if (!profiling || !Number.isFinite(value)) return;
@@ -25,10 +26,17 @@ export function recordPerformanceSample(metric: Metric, value: number): void {
 
 export function getDrivePerformance() {
   const percentile = (sorted: number[], p: number) => sorted[Math.min(sorted.length - 1, Math.floor((sorted.length - 1) * p))] ?? 0;
-  return Object.fromEntries((Object.keys(samples) as Metric[]).map((name) => {
+  const metrics = Object.fromEntries((Object.keys(samples) as Metric[]).map((name) => {
     const sorted = [...samples[name]].sort((a, b) => a - b);
     return [name, { count: sorted.length, p50: percentile(sorted, 0.5), p95: percentile(sorted, 0.95), p99: percentile(sorted, 0.99) }];
-  }));
+  })) as Record<Metric, { count: number; p50: number; p95: number; p99: number }>;
+  const frame = metrics.frameMs;
+  return {
+    ...metrics,
+    firstFrameMs,
+    fps: frame.p50 > 0 ? 1000 / frame.p50 : 0,
+    onePctLowFps: frame.p99 > 0 ? 1000 / frame.p99 : 0,
+  };
 }
 
 if (profiling) Object.assign(window, { __drivePerf: getDrivePerformance });
@@ -38,6 +46,7 @@ if (profiling) Object.assign(window, { __drivePerf: getDrivePerformance });
  * Returns true if throttling is detected (avg delta > 50ms for 5+ seconds).
  */
 export function recordDelta(delta: number): boolean {
+  if (firstFrameMs == null && typeof performance !== 'undefined') firstFrameMs = performance.now();
   recordPerformanceSample('frameMs', delta * 1000);
   deltas.push(delta);
   if (deltas.length > DELTA_WINDOW) deltas.shift();

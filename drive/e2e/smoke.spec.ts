@@ -9,6 +9,8 @@ import { test, expect } from '@playwright/test';
 
 /** Mock the two drive-only endpoints the shell calls before rendering. */
 async function mockStudent(page: import('@playwright/test').Page) {
+  // Last registered route wins, so the catch-all goes on first.
+  await page.route('**/api/**', (route) => route.fulfill({ status: 404, contentType: 'application/json', body: '{}' }));
   await page.route('**/api/me', (route) =>
     route.fulfill({
       status: 200,
@@ -24,8 +26,6 @@ async function mockStudent(page: import('@playwright/test').Page) {
   await page.route('**/api/drive/progress', (route) =>
     route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ progress: null }) }),
   );
-  // Anything else under /api that the shell might reach → 404, never the proxy.
-  await page.route('**/api/**', (route) => route.fulfill({ status: 404, contentType: 'application/json', body: '{}' }));
 }
 
 test('loads /drive and mounts the WebGL surface as a signed-in student', async ({ page }) => {
@@ -37,4 +37,26 @@ test('loads /drive and mounts the WebGL surface as a signed-in student', async (
   await expect(canvas.first()).toBeVisible({ timeout: 45_000 });
   // The title surface (menu or first scene) renders inside the shell.
   await expect(page.locator('#game-touch-area').first()).toBeVisible();
+});
+
+test('profileDrive records first frame, fps, and 1% low', async ({ page }) => {
+  test.setTimeout(90_000);
+  await mockStudent(page);
+  const started = Date.now();
+  await page.goto('/drive/?profileDrive');
+  await expect(page.locator('canvas').first()).toBeVisible({ timeout: 45_000 });
+  const canvasMs = Date.now() - started;
+  // Fill the 600-frame window so the boot hitch rolls off the 1% low.
+  await page.waitForFunction(() => {
+    const read = (window as unknown as { __drivePerf?: () => { frameMs?: { count: number } } }).__drivePerf;
+    return (read?.().frameMs?.count ?? 0) >= 600;
+  }, null, { timeout: 45_000 });
+  const perf = await page.evaluate(() => {
+    const read = (window as unknown as { __drivePerf?: () => Record<string, unknown> }).__drivePerf;
+    return read ? read() : null;
+  });
+  expect(perf).toBeTruthy();
+  const frame = perf?.frameMs as { count: number; p50: number; p99: number };
+  expect(frame.count).toBeGreaterThan(10);
+  console.log(JSON.stringify({ canvasMs, firstFrameMs: perf?.firstFrameMs, fps: perf?.fps, onePctLowFps: perf?.onePctLowFps, frame, draw: perf?.previousDrawCalls, tris: perf?.previousTriangles }));
 });

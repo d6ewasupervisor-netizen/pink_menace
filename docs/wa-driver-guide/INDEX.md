@@ -35,7 +35,8 @@ cross-checked against the extracted guide text; discrepancies are flagged.
 | 1.16 Additional services | — | — |
 
 **Chapter 1 gap:** the whole chapter is knowledge-test material (licensing is
-not a driving skill). No drive scene practises it. Known gap, not a defect.
+not a driving skill). The Act IV retest week still drives the Meeker stop and
+says the license chapter is the book. It does not invent a licensing maneuver.
 
 ---
 

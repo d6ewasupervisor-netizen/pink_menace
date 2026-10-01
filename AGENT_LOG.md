@@ -88,6 +88,22 @@ P8, P9, P11–P15, the Act IV missed-question road.
 
 ---
 
+## 2026-10-01 — Act IV retest week is a drive
+
+`local_loop_week` was a 10-question study set that fired `week.elapsed` when
+the quiz ended. It is now a Kent drive. `retestPlan` reads `exam_weak_chapter`
+and the missed questions' `guide_ref`s and picks one grade the guide already
+states: school zone 20 (§4.17), four-way first-in (§4.13), back into the stall
+(§4.18), hold the right lane (§4.16), the §5.2 gap behind the truck, or a full
+stop at Meeker (§4.12) under 25 (§5.1). A chapter 1 miss does not invent a
+license maneuver. `week.elapsed` fires only after the grade, and the dialogue
+line plays with the car frozen. 12 retest tests. Vitest 36/36.
+
+Playwright headed Chrome, mocked student, `?profileDrive`, both viewports.
+Act I is on screen. Canvas up in under a second. Steady frame is a flat 30 Hz
+(p50 33.3 ms, 1% low about 29.5 fps). Draw calls read as 1 because the sample
+lands on the postprocessing blit.
+
 ## 2026-10-01 — correction (grid cues were not on the bus)
 
 `CardCues` listed II-015 / II-016 / II-017 / II-021 / II-022, and the coverage

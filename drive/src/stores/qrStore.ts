@@ -16,6 +16,7 @@ interface Persisted {
   mastery: Record<string, MasteryRecord>;
   attempts: { ts: number; question_id: string; correct: boolean; chosen: number; response_ms: number }[];
   choiceLog: { ts: number; scene: string; node: string; option: string }[];
+  examMissedIds: string[];
   checkpoint: string | null;
   sceneId: string | null;
   runnerState: { sceneId: string | null; firedOnce: string[]; poolUsed: Record<string, number[]> } | null;
@@ -34,6 +35,7 @@ interface Actions {
   addChoice: (c: Persisted['choiceLog'][number]) => void;
   setCheckpoint: (label: string, sceneId: string | null, runnerState: Persisted['runnerState']) => void;
   setPlaceholder: (k: string, v: string) => void;
+  setExamMissedIds: (ids: string[]) => void;
   resetQuietRoads: () => void;
 }
 
@@ -41,7 +43,7 @@ export type QRState = Persisted & Actions;
 
 const emptyPersisted: Persisted = {
   vars: {}, flags: {}, items: [], unlocks: [], ledger: [], mastery: {}, attempts: [], choiceLog: [],
-  checkpoint: null, sceneId: null, runnerState: null,
+  checkpoint: null, sceneId: null, runnerState: null, examMissedIds: [],
   placeholders: { MOM: 'Mom', RAY: 'Ray', GRANDMA: 'Grandma', GRANDMA_NAME: 'Grandma', GRANDMA_INITIALS: 'Grandma', PLAYER: 'Ali', PLAYER_FULL: 'Alison' },
 };
 
@@ -62,6 +64,7 @@ export const useQRStore = create<QRState>()(
         addChoice: (c) => set((s) => ({ choiceLog: [...s.choiceLog, c] })),
         setCheckpoint: (label, sceneId, runnerState) => set({ checkpoint: label, sceneId, runnerState }),
         setPlaceholder: (k, v) => set((s) => ({ placeholders: { ...s.placeholders, [k]: v } })),
+        setExamMissedIds: (ids) => set({ examMissedIds: ids }),
         resetQuietRoads: () => set({ ...emptyPersisted, placeholders: get().placeholders }),
       }),
       {
@@ -70,6 +73,7 @@ export const useQRStore = create<QRState>()(
           vars: s.vars, flags: s.flags, items: s.items, unlocks: s.unlocks, ledger: s.ledger,
           mastery: s.mastery, attempts: s.attempts, choiceLog: s.choiceLog,
           checkpoint: s.checkpoint, sceneId: s.sceneId, runnerState: s.runnerState, placeholders: s.placeholders,
+          examMissedIds: s.examMissedIds,
         }),
       }
     )

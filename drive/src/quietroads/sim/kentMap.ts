@@ -313,6 +313,10 @@ export function buildKentMap(seed = 7): WorldMap {
       convoy_stall: { pos: ribbon.stall, heading: Math.PI / 2 },
       dol_lot_entry: { pos: { x: 257.5, y: 387 }, heading: Math.PI },            // just inside the driveway, facing west
       dol_stall: { pos: { x: stalls[2].x + stalls[2].w / 2, y: 416.5 }, heading: Math.PI / 2 }, // parked, nose south
+      retest_meeker: { pos: { x: 240, y: 97 }, heading: 0 },                    // west of the Meeker stop, facing the line
+      retest_school: { pos: { x: 265, y: 145 }, heading: Math.PI / 2 },         // Central, north of the school zone, heading south
+      retest_fourway: { pos: { x: 220, y: 0 }, heading: 0 },                    // Titus, west of the four-way
+      retest_lanes: { pos: { x: 261.67, y: 10 }, heading: Math.PI / 2 },        // right lane, heading south
     },
   };
 }

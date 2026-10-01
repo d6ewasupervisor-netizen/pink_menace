@@ -192,11 +192,22 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 
 ## 5. Baselines
 
-The browser baseline (average FPS, 1% low, frame time, draw calls, triangles,
-JS heap, time-to-first-frame, act load, input-to-response) requires the
-instrumented client (`?profileDrive`) on a real/emulated device; those numbers
-are captured by the harness in `drive/bench/` and will be appended here after a
-measured run. The **sim/grader-level** deterministic baseline (event correctness,
+Browser baseline, 2026-10-01, Playwright headed Chrome, mocked student,
+`?profileDrive`, 600-frame window after the boot hitch rolled off. Act I is on
+screen (the road and the opening line).
+
+| Viewport | Canvas up | First frame | FPS (p50) | 1% low |
+|---|---|---|---|---|
+| Desktop 1280×720 | 0.8 s | 1.1–1.6 s | 30 | 29.6 |
+| Mobile portrait 390×844 | 0.9 s | 1.1 s | 30 | 29.5 |
+
+Frame time is a flat 33.3 ms (p99 within half a millisecond). That is a 30 Hz
+window clock, not a stall. `gl.info` draw calls and triangles stay at 1 because
+the read lands on the postprocessing blit, so those two counters are not the
+city. JS heap, a 4G throttle, and input-to-response on a driving lap were not
+in this run.
+
+The **sim/grader-level** deterministic baseline (event correctness,
 stopping distances, per-mission step cost) is recorded in §6.
 
 ## 6. Deterministic sim baselines (headless)
@@ -249,7 +260,8 @@ Grade events confirmed to fire on the scripted laps: `stop.approach`,
 | Stripped `art-review-state` from the client deck | P10 ✅ | this session |
 
 Still open: P8, P9, P11–P15 (quality tiers, CCD telemetry, the `IV-001-brake` id,
-accessibility, per-frame allocations, instancing), the Act IV missed-question
-road, and a browser `?profileDrive` pass. Headless tests: 14/14. `tsc --noEmit` exit 0.
+accessibility, per-frame allocations, instancing) and a browser `?profileDrive`
+pass on a signed-in device. The Act IV missed-question road is a Kent drive
+(`retestWeek`). Headless tests: 36/36. `tsc` exit 0.
 
 <!-- CONTINUED -->

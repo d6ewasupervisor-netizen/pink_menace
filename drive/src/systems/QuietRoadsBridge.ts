@@ -14,7 +14,7 @@
  */
 import {
   DialogueRunner, Simulation, QuestionBank, CardDeck, CARD_FOR_TRIGGER, newMastery, sm2Update, gradeQuality, tpForAnswer,
-  drawExam, buildStudySet, scoreExam, dueCount,
+  drawExam, buildStudySet, scoreExam, dueCount, retestPlan,
   type Card, type CardResult, type CardGrade,
   type DialogueHost, type DialogueFile, type VehicleSample, type SimFrame, type MissionId,
   type Question as CoreQuestion, type TimerHandle, VEHICLE, CHASSIS_DECEL, brakeDecel, type WalkerInput, type MasteryRecord,
@@ -218,7 +218,12 @@ class Bridge {
   private startGameplay(id: string) {
     const mAct = actForMission(id);
     if (mAct) this.currentAct = mAct;
-    if (id === 'exam_40' || id === 'exam_40_resume' || id === 'exam_40_finalize' || id === 'study_terminal' || id === 'local_loop_week') {
+    if (id === 'local_loop_week') {
+      const saved = useQRStore.getState();
+      const refs = saved.examMissedIds.map((qid) => this.bank.get(qid)?.guide_ref ?? '');
+      this.sim.armRetest(retestPlan(saved.vars.exam_weak_chapter ?? 0, refs));
+    }
+    if (id === 'exam_40' || id === 'exam_40_resume' || id === 'exam_40_finalize' || id === 'study_terminal') {
       this.startSeat(id);
       return;
     }
@@ -259,6 +264,7 @@ class Bridge {
       this.sim.enterVehicle();
       useGameStore.getState().setPhase('driving');
     }
+    if (event === "week.elapsed" && this.sim.missionId === "local_loop_week") this.enterDialogue();
     if (event.startsWith("card.cue:")) this.enqueueCard(event.slice("card.cue:".length));
     this.runner.onEvent(event);
     this.sim.onEvent(event);
@@ -544,6 +550,7 @@ class Bridge {
     S.setVar('exam_missed', result.exam_missed);
     S.setVar('exam_short', result.exam_short);
     S.setVar('exam_weak_chapter', result.exam_weak_chapter);
+    S.setExamMissedIds(result.missed_ids);
     if (verdict.giveRelay) S.giveItem('relay_kit');
     this.sim.unfreeze('exam');
     useGameStore.setState({ quizActive: false, currentQuestion: null, phase: 'dialogue' });

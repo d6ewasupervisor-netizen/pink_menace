@@ -16,6 +16,7 @@ import { ClimbRun } from "./climb";
 import { EscortRun } from "./escort";
 import { BeatRun, type BeatMission } from "./beats";
 import { CardCues, type CueProbe } from "./cardCues";
+import { RetestWeek, retestPlan, type RetestPlan } from "./retestWeek";
 import type { NoiseZone } from "./noise";
 
 export type MissionId =
@@ -31,6 +32,7 @@ export type MissionId =
   | "chainup_qte"
   | "climb_snoqualmie" | "climb_snoqualmie_from_below_chainup"
   | "escort_ritzville"
+  | "local_loop_week"
   | BeatMission;
 
 export type PlayerMode = "vehicle" | "walker";
@@ -97,6 +99,11 @@ export class Simulation {
   /** On-foot handoff. Pharmacy is June's clipboard; Bea is the sanctuary door. */
   private footDropoff: "" | "pharmacy" | "bea" = "";
   private cues = new CardCues();
+  private retest = new RetestWeek();
+  private pendingRetest: RetestPlan | null = null;
+
+  /** The Act IV week reads the exam before the mission starts. */
+  armRetest(plan: RetestPlan) { this.pendingRetest = plan; }
 
   resetCardCues() { this.cues.reset(); }
 
@@ -106,6 +113,7 @@ export class Simulation {
       this.ev.fire(e, d);
       if (e.startsWith("card.cue:")) return;
       this.emitCues(this.cues.onEvent(this.missionId, e));
+      this.retest.note(e, d);
     };
     this.noise = new NoiseSystem(fire);
     // Forgiving: the carport tutorial, and the scripted dash back to the car after the chase —
@@ -186,6 +194,7 @@ export class Simulation {
     this.climb.clear();
     this.escort.clear();
     this.beats.clear();
+    this.retest.clear();
     this.egoHalfLen = VEHICLE.LENGTH_M / 2;
     this.egoHalfWid = VEHICLE.WIDTH_M / 2;
     switch (id) {
@@ -325,6 +334,19 @@ export class Simulation {
       case "bridge_engine_off_wait":
         this.beginBeat(id, "bridge_mid_start", "Engine off. Sit still. 60s, then the far side.", 25);
         break;
+      case "local_loop_week": {
+        const plan = this.pendingRetest ?? retestPlan(0, []);
+        this.pendingRetest = null;
+        this.retest.begin(plan);
+        this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+        this.missionStart = plan.start;
+        this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+        if (plan.kind === "gap") this.ledger.reset();
+        this.setObjective(plan.objective);
+        this.resetWorld();
+        this.speedLimitMph = plan.limitMph;
+        break;
+      }
       default: return false;
     }
     this.ev.fire(`mission.start:${id}`);
@@ -494,6 +516,12 @@ export class Simulation {
           this.ev.fire("dropoff.walk");
         }
       }
+      if (this.retest.active) {
+        const hint = this.retest.hint();
+        if (hint && hint !== this.objective) this.setObjective(hint);
+        const lead = this.ledger.mission ? this.ledger.leadPos : null;
+        if (this.retest.step(dt, s, this.map, lead)) this.ev.fire("week.elapsed");
+      }
       this.emitCues(this.cues.step(this.cueProbe(s, dt)));
     }
     return {
@@ -632,6 +660,9 @@ export class Simulation {
         return { pos: this.map.markers.tuna, label: "TUNA" };
       case "mission_jonah_intersection":
         return { pos: this.map.markers.warehouse_dock, label: "WAREHOUSE" };
+      case "local_loop_week":
+        if (this.retest.plan?.kind === "gap" && this.ledger.mission) return { pos: this.ledger.leadPos, label: "TRUCK" };
+        return this.retest.pin(this.map);
       case "mission_central_ledger":
         return { pos: this.ledger.leadPos, label: "DEAC'S TRUCK" };
       case "mission_ribbon_merge":

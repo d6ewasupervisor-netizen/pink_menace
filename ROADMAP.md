@@ -28,8 +28,8 @@ checked against `docs/wa-driver-guide/`, and logged in `AGENT_LOG.md` + `INDEX.m
   `seconds`. Teaching copy leads with §5.2. (P1, BD-1, BD-2)
 - **[config] Teaching-rule file.** `drive/src/quietroads/config.ts` holds the
   follow rule. Vehicle feel stays in `VehicleController` on purpose.
-- **[tests] `vitest run` green** — 14 tests (stop/gap/yield plus follow-rule
-  and card-cue coverage).
+- **[tests] `vitest run` green** — 36 tests (stop/gap/yield, follow-rule,
+  card cues, exam gate, retest week, bench).
 
 ## P1 — Structure (one place per act)
 
@@ -37,8 +37,10 @@ checked against `docs/wa-driver-guide/`, and logged in `AGENT_LOG.md` + `INDEX.m
 - **[III] The 23 unwired Act III cards** open along the Ledger, including a
   second follow-close and the wet stretch south of `solidY`. (P4)
 - **[act-select]** Done. Acts I–VI from `ACT_ENTRY`. (P3)
-- **[IV] Route after the gate** — short street built only from the exam's missed
-  questions (missed chapter → a beat on that road). Still open.
+- **[IV] Route after the gate** — done. `local_loop_week` is a Kent drive.
+  Missed guide refs pick the beat (school 20, four-way, stall, right lane,
+  §5.2 gap, or the Meeker stop). A license miss stays on the book and still
+  drives the stop. The week ends on `week.elapsed` only after the grade.
 - **[V] V-002/V-004/V-008/V-009/V-011** open on the ramp and the merge grade. (P4)
 - **[VI] VI-003/VI-005/VI-009/VI-011/VI-013** open on the backcountry grades. (P4)
 
