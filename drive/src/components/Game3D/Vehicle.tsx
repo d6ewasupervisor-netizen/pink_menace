@@ -21,6 +21,7 @@ import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { RigidBody, CuboidCollider, RapierRigidBody, useBeforePhysicsStep, useAfterPhysicsStep } from '@react-three/rapier';
 import { tickVehicle, publishVehiclePose, resetVehicleController, registerVehicleBody, recoverVehicle, getChassisPose } from '@/systems/VehicleController';
+import { liveDrive } from '@/systems/driveTelemetry';
 import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
 import { headlightSpot } from '@/systems/headlights';
 import { recordPerformanceSample } from '@/utils/performance';
@@ -209,7 +210,6 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
   const brake = useGameStore((s) => s.brake);
   const throttle = useGameStore((s) => s.throttle);
   const steering = useGameStore((s) => s.steering);
-  const velocityMph = useGameStore((s) => s.velocityMph);
   const timeOfDay = useGameStore((s) => s.timeOfDay);
   const phase = useGameStore((s) => s.phase);
   const bodyGroupRef = useRef<THREE.Group>(null);
@@ -296,6 +296,7 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
     if (phase === 'quiz' || phase === 'card') return;
     // ── Wheel spin + steering (separate hub vs mesh to avoid Euler coupling) ──
     const isDriving = phase === 'driving';
+    const velocityMph = liveDrive.velocityMph;
     const speedMs = velocityMph * 0.44704;
     const wheelRadius = 0.34 * VEHICLE_SCALE;
     // Zero spin and steer when not actively driving — prevents wheels from

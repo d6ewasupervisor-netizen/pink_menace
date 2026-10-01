@@ -22,6 +22,7 @@ import {
 import { BlendFunction } from 'postprocessing';
 import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
+import { liveDrive } from '@/systems/driveTelemetry';
 import { getWeather } from './Skybox';
 import { HeadlightFlares } from './HeadlightFlares';
 
@@ -34,7 +35,8 @@ export function PostProcessing({ lowEnd }: { lowEnd?: boolean }) {
   const noiseRef = useRef<any>(null);
 
   useFrame(() => {
-    const { velocityMph, timeOfDay, mileage, phase, worldMode } = useGameStore.getState();
+    const { timeOfDay, mileage, phase, worldMode } = useGameStore.getState();
+    const velocityMph = liveDrive.velocityMph;
     if (phase === 'quiz' || phase === 'card') return;
     const weather = getWeather(mileage);
     const speedNorm = Math.min(1, velocityMph / 70);

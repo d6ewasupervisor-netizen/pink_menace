@@ -114,7 +114,7 @@ export const ACT_CHALLENGES: Record<CardAct, ActChallenge> = {
     cargo: 'Relay kit — repeater, antenna, clamps',
     missions: ['mission_ribbon_merge', 'mission_convoy_issaquah', 'convoy_continue_solo', 'convoy_tow_jonah', 'chainup_qte', 'climb_snoqualmie', 'climb_snoqualmie_from_below_chainup'],
     objective: 'Eyes up the ribbon: match speed before paint, hold your gap, settle into the lane.',
-    lesson: 'Highway merging, ramp discipline, and the three-second space on open road.',
+    lesson: "Highway merging and ramp discipline. Leave at least twice your vehicle's length; count three seconds off a mark to hold it.",
     built: true,
   },
   VI: {

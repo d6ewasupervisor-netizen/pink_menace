@@ -5,6 +5,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
+import { liveDrive } from '@/systems/driveTelemetry';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useCompactHud } from '@/hooks/useCompactHud';
@@ -111,7 +112,7 @@ export function KentDash() {
         if (root && canvas) paintMap(canvas, root, gap, here, plan);
       }
       const limit = hud.frame?.speedLimitMph ?? 25;
-      const mph = Math.round(Math.max(0, g.velocityMph));
+      const mph = Math.round(Math.max(0, liveDrive.velocityMph));
       const clock = clockNow();
       const next = `${mph}|${clock}|${plan.kind}|${plan.street}|${Math.round(plan.distM)}|${plan.thenKind}|${Math.round(plan.totalM)}|${plan.hasDest}|${limit}|${g.phase}`;
       if (next !== sig) {

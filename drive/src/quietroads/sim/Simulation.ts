@@ -15,6 +15,7 @@ import { ChainupRun } from "./chainup";
 import { ClimbRun } from "./climb";
 import { EscortRun } from "./escort";
 import { BeatRun, type BeatMission } from "./beats";
+import { CardCues, type CueProbe } from "./cardCues";
 import type { NoiseZone } from "./noise";
 
 export type MissionId =
@@ -95,10 +96,17 @@ export class Simulation {
   private lastVehicleHeading = 0;
   /** On-foot handoff. Pharmacy is June's clipboard; Bea is the sanctuary door. */
   private footDropoff: "" | "pharmacy" | "bea" = "";
+  private cues = new CardCues();
+
+  resetCardCues() { this.cues.reset(); }
 
   constructor(private ev: SimEvents, seed = 7) {
     this.map = buildKentMap(seed);
-    const fire = (e: string, d?: Record<string, unknown>) => this.ev.fire(e, d);
+    const fire = (e: string, d?: Record<string, unknown>) => {
+      this.ev.fire(e, d);
+      if (e.startsWith("card.cue:")) return;
+      this.emitCues(this.cues.onEvent(this.missionId, e));
+    };
     this.noise = new NoiseSystem(fire);
     // Forgiving: the carport tutorial, and the scripted dash back to the car after the chase —
     // the script says she makes it; the doorway fills *after*.
@@ -244,7 +252,7 @@ export class Simulation {
         this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
         this.ledger.reset();
         this.egoHalfLen = 3.5; this.egoHalfWid = 1.1;   // cutaway shuttle: ~7 m long, ~2.2 m wide
-        this.setObjective("Central in the Ledger. Stay right, signal every move, keep three seconds behind Deac.");
+        this.setObjective("Central in the Ledger. Stay right, signal every move. Leave at least twice the Ledger's length behind Deac — count three seconds off a mark to hold it.");
         this.resetWorld();
         break;
       case "mission_ribbon_merge":
@@ -257,7 +265,7 @@ export class Simulation {
         this.speedLimitMph = this.map.ribbon.flowMph;   // the highway, not the grid
         break;
       case "mission_convoy_issaquah":
-        this.beginConvoy(id, "convoy_ramp", "I-90 east. Match them on the ramp. Hold three seconds. Stall is ahead.");
+        this.beginConvoy(id, "convoy_ramp", "I-90 east. Match them on the ramp. Leave at least twice your vehicle's length — count three seconds off a mark. Stall is ahead.");
         break;
       case "convoy_continue_solo":
         this.beginConvoy(id, "convoy_stall", "Issaquah. Cargo makes the window.");
@@ -294,7 +302,7 @@ export class Simulation {
         this.missionStart = "escort_start";
         this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
         this.escort.reset(this.map.markers.hank, this.map.markers.hankTo, this.map.markers.ritzville);
-        this.setObjective("Four seconds behind Hank. Out of his mirrors. Ritzville.");
+        this.setObjective("Leave at least twice the truck's length behind Hank — count four seconds off a mark to hold it. Out of his mirrors. Ritzville.");
         this.resetWorld();
         this.speedLimitMph = 55;
         break;
@@ -367,6 +375,26 @@ export class Simulation {
 
   private setObjective(t: string) { this.objective = t; this.ev.setObjective(t); }
 
+  private emitCues(ids: string[]) {
+    for (const id of ids) this.ev.fire(`card.cue:${id}`);
+  }
+
+  private cueProbe(s: VehicleSample, dt: number): CueProbe {
+    const lanes = this.missionId === "mission_central_ledger" ? this.map.ledger.lanes : this.map.grid.lanes;
+    const p = s.pos;
+    return {
+      missionId: this.missionId,
+      s,
+      dt,
+      skidding: this.vehicle.skidding,
+      onIce: this.climb.onIce,
+      parkReady: !!this.grid.parkGrade,
+      inBus: rectHas(this.map.grid.bus, p),
+      inLanes: p.x >= lanes.x0 && p.x <= lanes.x1 && p.y >= lanes.y0 && p.y <= lanes.y1,
+      lead: this.ledger.mission ? this.ledger.leadPos : this.ribbon.mission ? this.ribbon.leadPos : this.escort.mission ? this.escort.leadPos : null,
+    };
+  }
+
   private resetWorld(resetQuiet = true) {
     const s = this.map.starts[this.missionStart];
     this.lastVehiclePos = s.pos;
@@ -415,12 +443,14 @@ export class Simulation {
 
   /** Surface friction for the current road. Ice on the climb, gravel on the
    *  backcountry run and the Ritzville escort (they share the gravel corridor),
+   *  wet on the south half of Central (the rain stretch III-024 teaches),
    *  dry asphalt everywhere else. The stopping shadow and the brake pedal both
    *  read `vehicle.mu`, so this is the single place stopping lengthens on a bad
    *  surface (guide §5.6 slippery roads, §4.15 paved-from-unpaved). */
   private surfaceMu(): number {
     if (this.climb.mission && this.climb.onIce) return VEHICLE.MU.ice;
     if (this.missionId === "mission_backcountry_run" || this.missionId === "escort_ritzville") return VEHICLE.MU.gravel;
+    if (this.missionId === "mission_central_ledger" && (this.lastVehiclePos?.y ?? 0) > this.map.ledger.solidY) return VEHICLE.MU.wet;
     return VEHICLE.MU.dry;
   }
 
@@ -464,6 +494,7 @@ export class Simulation {
           this.ev.fire("dropoff.walk");
         }
       }
+      this.emitCues(this.cues.step(this.cueProbe(s, dt)));
     }
     return {
       ...out,
@@ -485,6 +516,11 @@ export class Simulation {
         this.dropoff.step(dt, input, (p) => this.blocked(p), this.handoffPoint(), this.ev);
         this.noise.step(dt);
         this.quiet.step(dt, this.dropoff.pos, (p) => this.blocked(p));
+        if (this.footDropoff === "pharmacy") {
+          this.emitCues(this.cues.step(this.cueProbe({
+            pos: this.dropoff.pos, heading: 0, speedMs: 0, throttle: 0, brake: 0, steer: 0, horn: false,
+          }, dt)));
+        }
       } else {
         this.interior.step(dt, input);
         this.noise.step(dt);

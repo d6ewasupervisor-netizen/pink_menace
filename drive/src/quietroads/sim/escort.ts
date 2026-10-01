@@ -1,13 +1,14 @@
 import type { Vec2 } from "./math";
 import { dist } from "./math";
 import type { VehicleSample } from "./vehicleObserver";
+import { followFullGapM } from "../config";
 
 const MPH = 0.44704;
-const FOLLOW_S = 4;
 
 /**
- * Act VI scene 7.1. Four seconds behind Hank, out of his blind spots,
- * wide on the turn, over for the patrol car, then Ritzville.
+ * Act VI scene 7.1. Twice the truck's length behind Hank — counted as four
+ * seconds off a mark — out of his blind spots, wide on the turn, over for
+ * the patrol car, then Ritzville.
  */
 export class EscortRun {
   mission = false;
@@ -49,7 +50,7 @@ export class EscortRun {
     this.advance(dt);
     this.nzCd = Math.max(0, this.nzCd - dt);
     const gap = s.pos.x - this.leadPos.x;
-    const need = Math.max(8, Math.abs(s.speedMs) * FOLLOW_S);
+    const need = Math.max(8, followFullGapM(s.speedMs, "truck"));
     const behind = gap < -2;
 
     if (this.nzCd <= 0 && behind && -gap < need * 0.45) {

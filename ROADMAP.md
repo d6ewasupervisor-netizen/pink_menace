@@ -14,45 +14,33 @@ checked against `docs/wa-driver-guide/`, and logged in `AGENT_LOG.md` + `INDEX.m
 | Input→response | to measure | ≤ 1 frame (16.7 ms) |
 | Time-to-first-frame (mobile 4G) | to measure | < 4 s |
 | CCD/tunneling | on, unmeasured | zero at top speed on all surfaces |
-| Cards opened in-scene | I 12/12 · II 11/31 · III 7/31 · V 8/13 · VI 9/13 | every card in every act |
+| Cards opened in-scene | I 12/12 · II 31/31 · III 30/30 · V 13/13 · VI 13/13 | every card in every act |
 | Stop/gap/yield grade lock | already fires (baseline.json) | a scene passes only when its grade fired |
 
 ## P0 — Foundations (do first; they unblock everything else)
 
-- **[perf] Move HUD speed/RPM to a throttled channel.** `publishVehiclePose`
-  writes `velocityMph/engineRPM/…` to `gameStore` at 60 Hz, forcing
-  `EngineHUD`/`GameHUD`/`Speedometer` re-renders at 60 Hz. Route them through the
-  existing ~10 Hz `qrHud.frame` (or a 10 Hz velocity channel); keep a 60 Hz ref
-  for camera/audio. (P5)
-- **[latency] WebGL context-loss + restore.** Handle `webglcontextlost` (pause,
-  present a resume prompt) and `webglcontextrestored`. (P6)
-- **[teaching] Surface friction for gravel and wet** — set `vehicle.mu` from the
-  corridor (gravel, wet on deck/rain, ice) so the stopping shadow stops lying on
-  those surfaces. Behind a named config; record before/after on the shadow test.
-  (P2)
-- **[teaching] Expose the following-distance rule as a named config** resolving
-  BD-1 (`FOLLOW_RULE: 'seconds' | 'vehicle_lengths'`). Default unchanged until the
-  owner picks; document both in the debrief copy. (P1)
-- **[config] One documented tuning file.** Move the scattered constants
-  (`VehicleController`, `vehicleObserver`, `noise`, `quiet`, grader thresholds)
-  into a single `drive/src/quietroads/config.ts` with old values as a named
-  preset. (Rule 4)
-- **[tests] Keep `vitest run` green** — grading tests already lock stop/gap/yield;
-  extend to every grade event in gradient order.
+- **[perf] HUD speed/RPM at 10 Hz.** Done. `liveDrive` stays at the physics
+  rate for camera/audio/wheels; the store copy is 10 Hz. (P5)
+- **[latency] WebGL context-loss + restore.** Done. (P6)
+- **[teaching] Surface friction for gravel and wet.** Done. Gravel on the
+  backcountry and escort; wet south of `ledger.solidY`. Ice unchanged. (P2)
+- **[teaching] Following-distance config.** Done. `FOLLOW.rule` defaults to
+  `seconds`. Teaching copy leads with §5.2. (P1, BD-1, BD-2)
+- **[config] Teaching-rule file.** `drive/src/quietroads/config.ts` holds the
+  follow rule. Vehicle feel stays in `VehicleController` on purpose.
+- **[tests] `vitest run` green** — 14 tests (stop/gap/yield plus follow-rule
+  and card-cue coverage).
 
 ## P1 — Structure (one place per act)
 
-- **[II] Wire the 20 un-opened Act II cards** into the Grid's existing beats
-  (each card opens in-scene at the moment its skill is graded). (P4)
-- **[III] Central as its own arterial** — Deac's truck on three lanes long enough
-  to hold a gap more than once, then a lane drop; wire the 24 un-opened III cards
-  in-scene. (P4)
-- **[act-select] Make act select work** from `ACT_ENTRY`, so a new run doesn't
-  replay Act I. `MainMenu` renders an act list. (P3)
+- **[II] The 20 Act II cards** open from `CardCues` on the Grid beats. (P4)
+- **[III] The 23 unwired Act III cards** open along the Ledger, including a
+  second follow-close and the wet stretch south of `solidY`. (P4)
+- **[act-select]** Done. Acts I–VI from `ACT_ENTRY`. (P3)
 - **[IV] Route after the gate** — short street built only from the exam's missed
-  questions (missed chapter → a beat on that road). (P4)
-- **[V] wire V-002/V-004/V-008/V-009/V-011** in-scene on the Ribbon. (P4)
-- **[VI] wire VI-003/VI-005/VI-009/VI-011/VI-013** in-scene on the Backcountry. (P4)
+  questions (missed chapter → a beat on that road). Still open.
+- **[V] V-002/V-004/V-008/V-009/V-011** open on the ramp and the merge grade. (P4)
+- **[VI] VI-003/VI-005/VI-009/VI-011/VI-013** open on the backcountry grades. (P4)
 
 ## P2 — Latency / graphics / UX
 
@@ -81,6 +69,6 @@ checked against `docs/wa-driver-guide/`, and logged in `AGENT_LOG.md` + `INDEX.m
 
 - Act VII stays closed (Rule 8). Backend, auth, parent dashboard, DRIVE_ENABLED
   untouched (Rule 2).
-- **BD-1 / BD-2** block the two teaching-copy decisions until the owner replies.
+- BD-1 and BD-2 are resolved (seconds feel, guide-led copy, §4.14 citations).
 - Homogeneous GPU baselines need the `?profileDrive` browser run before
   graphics/P0 changes land, so "before" is recorded.

@@ -13,6 +13,7 @@ import { RapierRigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
 import { headingFromRotation } from './vehicleHeading';
+import { noteLiveDrive, resetLiveDrive } from './driveTelemetry';
 
 // ─── Engine parameters ───────────────────────────────────────────────────────
 const IDLE_RPM = 800;
@@ -690,16 +691,23 @@ export function publishVehiclePose(body: RapierRigidBody): void {
   const heading = headingFromRotation(rot);
   const store = useGameStore.getState();
   const mph = Math.round(Math.abs(currentSpeed) / MPH_TO_MS);
-  // Publish one coherent post-solver snapshot instead of notifying subscribers
-  // separately for pose, heading, RPM, speed and ABS on every physics step.
-  useGameStore.setState({
-    vehiclePosition: [pos.x, pos.y, pos.z],
-    vehicleHeading: heading,
+  const telemetry = {
     velocityMph: mph,
     engineRPM: Math.round(engine.rpm),
     engineGear: engine.gear,
     engineSpeed: mph,
     absActive: store.brake > 0.5 && Math.abs(currentSpeed) > 8,
+  };
+  // Pose stays at the physics rate. Speed and RPM hit the store at 10 Hz
+  // so the HUD does not re-render every step. Camera and audio read liveDrive.
+  const hud = noteLiveDrive(telemetry);
+  useGameStore.setState(hud ? {
+    vehiclePosition: [pos.x, pos.y, pos.z],
+    vehicleHeading: heading,
+    ...telemetry,
+  } : {
+    vehiclePosition: [pos.x, pos.y, pos.z],
+    vehicleHeading: heading,
   });
 }
 
@@ -723,6 +731,7 @@ export function recoverVehicle(): void {
 }
 
 export function resetVehicleController(): void {
+  resetLiveDrive();
   mileageAccumulator = 0;
   currentSpeed = 0;
   slideSpeed = 0;

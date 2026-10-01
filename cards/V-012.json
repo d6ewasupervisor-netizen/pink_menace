@@ -21,7 +21,7 @@
     },
     {
       "id": "b",
-      "text": "Watch a mark on the pavement. If you can count three before you reach it, take the gap",
+      "text": "Leave at least twice your vehicle's length. If you can count three off a mark before you reach it, take the gap",
       "correct": true,
       "result": "You pick a stain. One. Two. Three. The sedan is still back. The gap is real. You take one lane and sit.",
       "state_delta": {
@@ -49,11 +49,11 @@
       }
     }
   ],
-  "debrief": "Use a three-second count to merge, change lanes, or exit. If you cannot count it, it is not a gap. Take the gap only after you can count three.",
+  "debrief": "Leave a distance that's at least twice the length of your vehicle. Count three off a mark before you merge, change lanes, or exit. If you cannot count it, it is not a gap.",
   "source": {
     "psdp_skill": "Skill eleven: highway driving – part two",
-    "dol_section": "5.4 Time (Count seconds)",
-    "teaching_target": "REVIEW of 5.4 Time (Count seconds) at highway speed. PSDP p2 Lesson three – three-second rule for merge / change / exit.",
+    "dol_section": "5.2 Space",
+    "teaching_target": "Guide 5.2 Space, held at highway speed by a three-second count off a mark before a merge, change, or exit.",
     "stat_cited": "PSDP p.32: coach your teen to also use a three-second rule for merging onto a highway, changing lanes, and exiting a highway."
   },
   "cast": ["ali"],

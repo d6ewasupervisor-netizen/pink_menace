@@ -1,12 +1,11 @@
 import { type Vec2, dist, rectHas } from "./math";
 import type { RibbonSites } from "./kentMap";
 import type { VehicleSample } from "./vehicleObserver";
+import { FOLLOW, followFullGapM } from "../config";
 
 const MPH = 0.44704;
 const SIGNAL_HOLD_S = 0.5;
 const MATCH_FRAC = 0.85;
-const FOLLOW_S = 3;
-const FOLLOW_MIN_FRAC = 0.6;
 
 export type ConvoyMission = "mission_convoy_issaquah" | "convoy_continue_solo" | "convoy_tow_jonah";
 
@@ -96,7 +95,7 @@ export class ConvoyRun {
       this.onRamp = false;
       this.leftRamp = true;
       const gap = dist(s.pos, this.leadPos);
-      const need = Math.max(8, Math.abs(s.speedMs) * FOLLOW_S);
+      const need = Math.max(8, followFullGapM(s.speedMs, "dry"));
       this.pending = {
         fast: Math.abs(s.speedMs) >= this.g.flowMph * MPH * MATCH_FRAC,
         signaled: this.signalHold >= SIGNAL_HOLD_S,
@@ -140,8 +139,8 @@ export class ConvoyRun {
     this.followCloseCd = Math.max(0, this.followCloseCd - dt);
     if (Math.abs(s.speedMs) < 2) return;
     const gap = dist(s.pos, this.leadPos);
-    const full = Math.abs(s.speedMs) * FOLLOW_S;
-    if (gap < full * FOLLOW_MIN_FRAC && this.followCloseCd <= 0) {
+    const full = followFullGapM(s.speedMs, "dry");
+    if (gap < full * FOLLOW.minFrac && this.followCloseCd <= 0) {
       this.followCloseCd = 8;
       this.greenS = 0;
       this.ev.fire("follow.red", { gap_m: Math.round(gap) });

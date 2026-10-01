@@ -14,6 +14,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
 import { getChassisPose, getSlipState } from '@/systems/VehicleController';
+import { liveDrive } from '@/systems/driveTelemetry';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const MAX_PARTICLES = 200;
@@ -95,7 +96,9 @@ export function VehicleParticles() {
     const mesh = meshRef.current;
     if (!mesh) return;
 
-    const { velocityMph, engineRPM, phase } = useGameStore.getState();
+    const { phase } = useGameStore.getState();
+    const velocityMph = liveDrive.velocityMph;
+    const engineRPM = liveDrive.engineRPM;
     if (phase === 'quiz' || phase === 'card') return;
     const slip = getSlipState();
     const isDriving = phase === 'driving';

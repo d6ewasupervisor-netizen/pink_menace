@@ -59,6 +59,9 @@ class Bridge {
   private started = false;
   private worldCardReturnPhase: 'driving' | 'walking' = 'driving';
   private cardsSeen = new Set<string>();
+  private cardQueue: string[] = [];
+  /** Don't stack the next in-world card on the one that just closed. */
+  private cardQuietUntil = 0;
   private currentAct: CardAct = 'I';
   private seat = new KnowledgeSeat();
   /** Fired on the next idle, after the study-set line has been read. */
@@ -161,7 +164,13 @@ class Bridge {
   private open(which: string | null) {
     const resume = which === 'resume';
     const qr = useQRStore.getState();
-    if (!resume) qr.resetQuietRoads();
+    if (!resume) {
+      qr.resetQuietRoads();
+      this.cardsSeen.clear();
+      this.cardQueue = [];
+      this.cardQuietUntil = 0;
+      this.sim.resetCardCues();
+    }
     for (const [k, v] of Object.entries(useQRStore.getState().placeholders)) this.runner.setPlaceholder(k, v);
     const st = useQRStore.getState();
     if (resume && st.runnerState) this.runner.restore(st.runnerState);
@@ -250,6 +259,7 @@ class Bridge {
       this.sim.enterVehicle();
       useGameStore.getState().setPhase('driving');
     }
+    if (event.startsWith("card.cue:")) this.enqueueCard(event.slice("card.cue:".length));
     this.runner.onEvent(event);
     this.sim.onEvent(event);
   }
@@ -309,6 +319,23 @@ class Bridge {
       const t = this.pendingQuiz; this.pendingQuiz = null;
       this.openQuiz(t.trigger);
     }
+    this.pumpCards();
+  }
+
+  private enqueueCard(id: string) {
+    if (!this.deck.has(id) || this.cardsSeen.has(id) || this.cardQueue.includes(id)) return;
+    this.cardQueue.push(id);
+  }
+
+  /** One in-world card at a time, after the road is clear. */
+  private pumpCards() {
+    if (!this.cardQueue.length || this.clock < this.cardQuietUntil) return;
+    const g = useGameStore.getState();
+    if (g.phase !== "driving" && g.phase !== "walking") return;
+    if (useQRHud.getState().card || this.activeQuiz) return;
+    const id = this.cardQueue.shift();
+    if (!id) return;
+    this.showCard(id, "world");
   }
 
   /** Shadow and pedal share one decel: chassis on dry pavement, ice when the climb says so. */
@@ -425,6 +452,7 @@ class Bridge {
       useQRStore.getState().addChoice({ ts: Date.now(), scene: 'world', node: this.sim.missionId || '-', option: `card:${result.card}:${result.option ?? '-'}` });
       this.fire(result.correct === null ? `card.seen:${result.card}` : result.correct ? `card.correct:${result.card}` : `card.wrong:${result.card}`);
       useGameStore.getState().setPhase(this.worldCardReturnPhase);
+      this.cardQuietUntil = this.clock + 2.5;
     }
   }
 

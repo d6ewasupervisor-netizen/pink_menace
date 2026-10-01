@@ -23,7 +23,7 @@
     },
     {
       "id": "b",
-      "text": "Lift until you can count three seconds off a mark on the pavement, then hold that",
+      "text": "Leave at least twice your vehicle's length — lift until you can count three seconds off a mark, then hold that",
       "correct": true,
       "result": "You let him go. A faded crack in the asphalt passes his bumper; you count one-one-thousand, two, three, then take the throttle back. You can see his tires and the road under them. When he does dump it, you are already covering. No note. No kiss.",
       "state_delta": {
@@ -54,11 +54,11 @@
       }
     }
   ],
-  "debrief": "Following distance is counted in seconds. Dry pavement: three to a mark on the road. Rain, fog, and snow: six. Rear-end crashes are the most common kind. Opening that gap is the best thing a new driver can do. A mark on the pavement, then one, two, three.",
+  "debrief": "Leave a distance that's at least twice the length of your vehicle. Count it off a mark: three seconds on dry pavement, six in rain, fog, and snow. Rear-end crashes are the most common kind. Opening that gap is the best thing a new driver can do. A mark on the pavement, then one, two, three.",
   "source": {
     "psdp_skill": "Skill three: how close are you?",
-    "dol_section": "5.4 Time (Count seconds)",
-    "teaching_target": "Three seconds is the dry-road following baseline; if you cannot see pavement under the vehicle ahead, you are too close.",
+    "dol_section": "5.2 Space",
+    "teaching_target": "Guide 5.2: leave at least twice the length of your vehicle. Count three seconds off a mark to hold it on dry pavement; if you cannot see pavement under the vehicle ahead, you are too close.",
     "stat_cited": "PSDP p.11: Rear-end collisions are the most common form of a car crash; increasing following distance is the single best thing a new driver can do to reduce crash risk."
   },
   "cast": [

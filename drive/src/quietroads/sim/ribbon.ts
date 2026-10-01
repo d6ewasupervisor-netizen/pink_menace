@@ -1,12 +1,11 @@
 import { type Vec2, dist, rectHas } from "./math";
 import type { RibbonSites } from "./kentMap";
 import type { VehicleSample } from "./vehicleObserver";
+import { FOLLOW, followFullGapM } from "../config";
 
 const MPH = 0.44704;
 const SIGNAL_HOLD_S = 0.5;      // steer held this long = a signal
 const MATCH_FRAC = 0.85;        // within 85% of flow speed counts as "matched"
-const FOLLOW_S = 3.0;           // three-second rule at highway speed
-const FOLLOW_MIN_FRAC = 0.6;    // below 60% of the three-second gap → too close
 const END_RADIUS_M = 6;
 
 /**
@@ -66,7 +65,7 @@ export class RibbonRun {
           const fast = Math.abs(s.speedMs) >= this.g.flowMph * MPH * MATCH_FRAC;
           const signaled = this.signalHold >= SIGNAL_HOLD_S;
           const gap = dist(s.pos, this.leadPos);
-          const need = Math.abs(s.speedMs) * FOLLOW_S;
+          const need = followFullGapM(s.speedMs, "dry");
           this.ev.fire("ribbon.merge");
           this.ev.fire(signaled ? "ribbon.signal.clean" : "ribbon.signal.miss");
           this.ev.fire(fast ? "ribbon.match.clean" : "ribbon.match.slow");
@@ -75,7 +74,7 @@ export class RibbonRun {
       }
     }
 
-    // Three-second following once in the flow.
+    // Following gap once in the flow (seconds count by default; see FOLLOW.rule).
     if (this.merged) this.trackFollow(dt, s);
 
     if (!this.endFired && dist(s.pos, this.g.end) < END_RADIUS_M) {
@@ -99,7 +98,7 @@ export class RibbonRun {
     this.followCloseCd = Math.max(0, this.followCloseCd - dt);
     if (Math.abs(s.speedMs) <= 1 || this.followCloseCd > 0) return;
     const gap = dist(s.pos, this.leadPos);
-    const need = Math.abs(s.speedMs) * FOLLOW_S * FOLLOW_MIN_FRAC;
+    const need = followFullGapM(s.speedMs, "dry") * FOLLOW.minFrac;
     if (gap < need) {
       this.followCloseCd = 5;
       this.ev.fire("ribbon.follow.close", { gap_m: Math.round(gap) });

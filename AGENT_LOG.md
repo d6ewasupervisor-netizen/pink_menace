@@ -59,4 +59,31 @@ current after every task.
 - Wire the remaining in-scene cards (P4: Act II 20, Act III 24, Act V 5, Act VI 5).
 - Continue the P0 config consolidation (one named tuning file).
 
+## 2026-10-01 — owner: fix the open list
+
+### What changed
+1. **BD-1.** `drive/src/quietroads/config.ts` (`FOLLOW.rule`, default `seconds`).
+   Graders call `followFullGapM`. Teaching copy on II-012, V-012, II-014, the
+   Ledger/convoy/escort objectives, and the fallback quiz leads with guide §5.2
+   ("at least twice the length of your vehicle"). The seconds count is how you
+   hold that gap. II-012 and V-012 cite 5.2 Space.
+2. **BD-2.** Hand-signal `dol_section` strings now say `4.14 Turning`.
+3. **Wet.** Ledger south of `solidY` uses μ 0.4. Beetle wet stop at 55 mph is 103.0 m.
+4. **Cards.** `CardCues` offers the previously unopened II (20), III (23), V (5),
+   and VI (5) cards on the mission beat for that skill. The bridge queues
+   `card.cue:<id>` and shows one at a time, 2.5 s after the last one closes.
+5. **HUD.** `liveDrive` is the 60 Hz channel. `gameStore` speed/RPM publish at 10 Hz.
+6. **Deck.** Removed the leaked `art-review-state` object from the client `cards.json`.
+   The review file at `cards/art-review-state.json` is untouched.
+
+### Check
+- `npx vitest run` — 14/14 (grading 10, teaching 3, bench 1).
+- `tsc --noEmit` — exit 0.
+- Baseline regenerated: `drive/bench/baseline.json` (ledger p50 55.6 µs). Step
+  times are not stable across runs; the JSON is the diff source.
+- Browser `?profileDrive` was not run. No device pass this session.
+
+### Still open
+P8, P9, P11–P15, the Act IV missed-question road.
+
 ---

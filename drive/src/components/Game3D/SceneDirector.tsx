@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGameStore, type CameraMode } from '@/stores/gameStore';
+import { liveDrive } from '@/systems/driveTelemetry';
 import { useQRStore } from '@/stores/qrStore';
 import { actForScene } from '@/quietroads';
 import { specForAct } from './sceneSpec';
@@ -32,7 +33,7 @@ export function SceneDirector() {
     if (phase === 'driving') {
       // Hysteresis so stop-and-go at lights doesn't flap between views.
       if (spec.maneuverCam) {
-        const speed = g.velocityMph;
+        const speed = liveDrive.velocityMph;
         if (camRef.current !== 'quiet' && speed < MANEUVER_BELOW) camRef.current = 'quiet';
         else if (camRef.current !== 'cockpit' && speed > DRIVE_ABOVE) camRef.current = 'cockpit';
       } else {

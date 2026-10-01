@@ -5,8 +5,7 @@
 > (generated 2026-09-30, pypdf; page markers `[[PAGE n]]`).
 > Any rule, distance, speed, sign, right-of-way call, following distance, or
 > stopping behaviour in the game must match this text. When a card or the
-> dialogue file disagrees with this text, the text wins (see `/AUDIT.md` § BLOCKED
-> DECISIONS).
+> dialogue file disagrees with this text, the text wins (see `/AUDIT.md` §4).
 
 ## How to read this index
 
@@ -118,23 +117,20 @@ not a driving skill). No drive scene practises it. Known gap, not a defect.
 
 ## Accuracy flags (guide text vs. game content)
 
-1. **Following distance (S1, teaching).** Cards `II-012`, `V-012` and the sim
-   graders (`ledger.ts`, `ribbon.ts`, `convoy.ts`: `FOLLOW_S = 3.0`) teach a
-   **"three-second dry-road following" rule**; `escort.ts` (`FOLLOW_S = 4`)
-   teaches **"four seconds behind a truck"**. The text-only guide never states a
-   seconds-based following rule. Guide **5.2 Space** says instead:
-   > "leave a distance that's at least twice the length of your vehicle".
-   Guide **5.4 Time (Count seconds)** is a *15-second eye-lead* exercise, not a
-   following-distance rule — so `II-012`/`V-012`'s `dol_section` citation
-   ("5.4 Time") points at the wrong heading. → **BLOCKED DECISION** (see AUDIT).
-   Gameplay fix: expose the rule behind a named config (`FOLLOW_RULE`); do not
-   silently rewrite canon.
+1. **Following distance — resolved.** The text-only guide **5.2 Space** says
+   "leave a distance that's at least twice the length of your vehicle". The
+   drive feel stays a seconds count (3 dry / 4 behind a truck) via
+   `FOLLOW.rule = "seconds"` in `drive/src/quietroads/config.ts`, because a gap
+   has to grow with speed and the brief asked for a 3-second gap. II-012 and
+   V-012 now cite **5.2 Space**. Their debriefs, the Ledger/convoy/escort
+   objectives, and the fallback quiz lead with the guide's sentence and keep
+   the count as how you hold that space. Flip `rule` to `vehicle_lengths` to
+   grade 8 m (car) / 14 m (truck) instead.
 
-2. **Hand signals.** `II-006`, `II-016`, `II-022`, `III-006`, `III-019` cite
-   "2.5 Vehicle Maintenance (Hand signals)". The text-only guide has **no
-   hand-signal content** (that lives in the illustrated edition). The *turn-signal*
-   rule the game practises is correctly supported by **4.14 Turning** ("Put on
-   your turn signal at least 100 feet…"). Citation string imprecise; teaching fine.
+2. **Hand signals — citation fixed.** `II-006`, `II-016`, `II-022`, and
+   `III-019` now cite **4.14 Turning**. The text-only guide has no hand-signal
+   section. The practised rule (signal at least 100 feet before a turn) was
+   already the §4.14 rule.
 
 3. **Truck stopping distance.** `mission_central_ledger` grades the follow-behind
    Deac's truck; guide **4.4** gives the concrete large-vehicle figure — "a loaded
@@ -154,9 +150,8 @@ not a driving skill). No drive scene practises it. Known gap, not a defect.
 
 ## Reverse index — game lessons the guide does NOT support
 
-- **"3-second / 4-second / 6-second following" as stated numbers** — not in the
-  text-only guide (which uses "twice the length of your vehicle"). Flagged above;
-  do not extend this teaching further without the owner.
+- **Seconds counts** are how the drive holds §5.2's "twice the length" gap.
+  They are not a second rule. Do not add a new seconds number.
 - **"Stay under 9 mph" (bridge toy beat)** and **"above 18 mph" (moth beat)** —
   narrative pacing beats, not guide doctrine. Keep out of teaching copy.
 - **Quiet swarm pressure** — the zombie fiction. Must never be presented as a

@@ -736,7 +736,7 @@
   "debrief": "Left arm out, fingers pointing at the ground, means slow or stop. Answer with the same arm and a smooth lift. Deac asked for slow, not a receipt.",
   "source": {
    "psdp_skill": "Skill five: driving on a quiet street – part two",
-   "dol_section": "2.5 Vehicle Maintenance (Hand signals)",
+   "dol_section": "4.14 Turning",
    "teaching_target": "Left arm out and down means slow or stop; answer a convoy signal with the same hand signal and a smooth deceleration."
   },
   "cast": [
@@ -994,7 +994,7 @@
    },
    {
     "id": "b",
-    "text": "Lift until you can count three seconds off a mark on the pavement, then hold that"
+    "text": "Leave at least twice your vehicle's length — lift until you can count three seconds off a mark, then hold that"
    },
    {
     "id": "c",
@@ -1005,11 +1005,11 @@
     "text": "Close up and flash him once to tell him to move"
    }
   ],
-  "debrief": "Following distance is counted in seconds. Dry pavement: three to a mark on the road. Rain, fog, and snow: six. Rear-end crashes are the most common kind. Opening that gap is the best thing a new driver can do. A mark on the pavement, then one, two, three.",
+  "debrief": "Leave a distance that's at least twice the length of your vehicle. Count it off a mark: three seconds on dry pavement, six in rain, fog, and snow. Rear-end crashes are the most common kind. Opening that gap is the best thing a new driver can do. A mark on the pavement, then one, two, three.",
   "source": {
    "psdp_skill": "Skill three: how close are you?",
-   "dol_section": "5.4 Time (Count seconds)",
-   "teaching_target": "Three seconds is the dry-road following baseline; if you cannot see pavement under the vehicle ahead, you are too close.",
+   "dol_section": "5.2 Space",
+   "teaching_target": "Guide 5.2: leave at least twice the length of your vehicle. Count three seconds off a mark to hold it on dry pavement; if you cannot see pavement under the vehicle ahead, you are too close.",
    "stat_cited": "PSDP p.11: Rear-end collisions are the most common form of a car crash; increasing following distance is the single best thing a new driver can do to reduce crash risk."
   },
   "cast": [
@@ -1100,11 +1100,11 @@
     "text": "Wave him around and drift right onto the fogged shoulder to make a lane"
    }
   ],
-  "debrief": "You do not speed up for a tailgater. Fog wants six seconds ahead, not the dry three. Bleed a little speed to rebuild that gap. Hollis can take the pass when a gap opens.",
+  "debrief": "Leave a distance that's at least twice the length of your vehicle. You do not speed up for a tailgater. In fog, count six seconds off a mark. Bleed a little speed to rebuild that gap. Hollis can take the pass when a gap opens.",
   "source": {
    "psdp_skill": "Skill three: how close are you?",
    "dol_section": "5.2 Space",
-   "teaching_target": "Do not increase speed for a tailgater; in fog hold six seconds ahead and allow a pass when it is legal."
+   "teaching_target": "Guide 5.2: at least twice your vehicle's length. Do not speed up for a tailgater; in fog count six seconds off a mark and allow a pass when it is legal."
   },
   "cast": [
    "ali",
@@ -1198,7 +1198,7 @@
   "debrief": "A left turn is the left arm straight out the driver-side window, fingers pointing left. Match Deac on that side and stay off his left. You took the left after him, not beside him.",
   "source": {
    "psdp_skill": "Skill five: driving on a quiet street – part two",
-   "dol_section": "2.5 Vehicle Maintenance (Hand signals)",
+   "dol_section": "4.14 Turning",
    "teaching_target": "Left turn: left arm out the driver window, straight, fingers pointing left; match convoy signals and do not leave a gap on the turning side."
   },
   "cast": [
@@ -1482,7 +1482,7 @@
   "debrief": "Every hand signal is the left arm, out the driver window. Bent up, fingers to the sky, is a right turn. Copy the arm you can see. You took the right after the volunteer rolled straight.",
   "source": {
    "psdp_skill": "Skill five: driving on a quiet street – part two",
-   "dol_section": "2.5 Vehicle Maintenance (Hand signals)",
+   "dol_section": "4.14 Turning",
    "teaching_target": "Right turn: left arm out the driver window, bent at the elbow, fingers pointing up; there is no right-arm hand signal."
   },
   "cast": [
@@ -2731,7 +2731,7 @@
   "debrief": "Tell the column before you dump speed. The destination sign is the sentence; the left arm down is the backup when snow buries the lamps. You saved the volunteer a face full of your doors.",
   "source": {
    "psdp_skill": "n/a",
-   "dol_section": "2.5 Vehicle Maintenance (Hand signals)",
+   "dol_section": "4.14 Turning",
    "teaching_target": "Communicate a slow-down to following traffic with the sign and, if needed, the left-arm-down signal."
   },
   "cast": [
@@ -4704,7 +4704,7 @@
    },
    {
     "id": "b",
-    "text": "Watch a mark on the pavement. If you can count three before you reach it, take the gap"
+    "text": "Leave at least twice your vehicle's length. If you can count three off a mark before you reach it, take the gap"
    },
    {
     "id": "c",
@@ -4715,11 +4715,11 @@
     "text": "Count one and go — three is a city number, not a highway number"
    }
   ],
-  "debrief": "Use a three-second count to merge, change lanes, or exit. If you cannot count it, it is not a gap. Take the gap only after you can count three.",
+  "debrief": "Leave a distance that's at least twice the length of your vehicle. Count three off a mark before you merge, change lanes, or exit. If you cannot count it, it is not a gap.",
   "source": {
    "psdp_skill": "Skill eleven: highway driving – part two",
-   "dol_section": "5.4 Time (Count seconds)",
-   "teaching_target": "REVIEW of 5.4 Time (Count seconds) at highway speed. PSDP p2 Lesson three – three-second rule for merge / change / exit.",
+   "dol_section": "5.2 Space",
+   "teaching_target": "Guide 5.2 Space, held at highway speed by a three-second count off a mark before a merge, change, or exit.",
    "stat_cited": "PSDP p.32: coach your teen to also use a three-second rule for merging onto a highway, changing lanes, and exiting a highway."
   },
   "cast": [
@@ -5397,10 +5397,5 @@
   },
   "card_id": "VI-013",
   "image": "/api/drive/image/VI-013"
- },
- {
-  "act": "III",
-  "card_id": "art-review-state",
-  "image": null
  }
 ]

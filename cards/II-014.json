@@ -55,11 +55,11 @@
       }
     }
   ],
-  "debrief": "You do not speed up for a tailgater. Fog wants six seconds ahead, not the dry three. Bleed a little speed to rebuild that gap. Hollis can take the pass when a gap opens.",
+  "debrief": "Leave a distance that's at least twice the length of your vehicle. You do not speed up for a tailgater. In fog, count six seconds off a mark. Bleed a little speed to rebuild that gap. Hollis can take the pass when a gap opens.",
   "source": {
     "psdp_skill": "Skill three: how close are you?",
     "dol_section": "5.2 Space",
-    "teaching_target": "Do not increase speed for a tailgater; in fog hold six seconds ahead and allow a pass when it is legal."
+    "teaching_target": "Guide 5.2: at least twice your vehicle's length. Do not speed up for a tailgater; in fog count six seconds off a mark and allow a pass when it is legal."
   },
   "cast": [
     "ali",

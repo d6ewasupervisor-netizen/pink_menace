@@ -11,6 +11,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGameStore, CameraMode } from '@/stores/gameStore';
 import { getChassisPose, getLateralSlip, getCurrentSpeedMs } from '@/systems/VehicleController';
+import { liveDrive } from '@/systems/driveTelemetry';
 
 // ─── Per-mode config ──────────────────────────────────────────────────────────
 interface ModeConfig {
@@ -116,7 +117,7 @@ export function GameCamera() {
       ? { offset: WALK_OFFSET, lookAt: WALK_LOOKAT, lerpPos: 8, lerpRot: 8, followHeading: true }
       : MODES[state.cameraMode];
     const dt = Math.min(delta, 0.05);
-    const speedNorm = Math.min(1, state.velocityMph / 70);
+    const speedNorm = Math.min(1, liveDrive.velocityMph / 70);
     const driftTarget = !walking && state.phase === 'driving' && Math.abs(getCurrentSpeedMs()) > 5
       ? Math.min(1, Math.max(0, (getLateralSlip() - 0.15) * 3)) : 0;
     driftAmplitude.current += (driftTarget - driftAmplitude.current) * (1 - Math.exp(-7 * dt));
@@ -136,7 +137,7 @@ export function GameCamera() {
 
       // Rotate lookAt (quiet mode leads the aim with speed so faster = see farther)
       const lookZ = state.cameraMode === 'quiet'
-        ? mode.lookAt.z - state.velocityMph * QUIET_LOOKAHEAD_PER_MPH
+        ? mode.lookAt.z - liveDrive.velocityMph * QUIET_LOOKAHEAD_PER_MPH
         : mode.lookAt.z;
       _rotatedOffset.set(
         mode.lookAt.x * cosH + lookZ * sinH,

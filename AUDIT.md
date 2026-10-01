@@ -52,8 +52,9 @@ drive/src/
 - **Missions** are pure graders. `Simulation.step(dt, sample)` feeds a
   `VehicleSample` to the active mission grader, which emits `*` events the
   dialogue waits on. Graders do not drive the car.
-- **HUD** updates at ~10 Hz (`QuietRoadsBridge` throttles `qrHud.frame`).
-  Vehicle `velocityMph`/`engineRPM` still land in `gameStore` at 60 Hz (see §5).
+- **HUD** updates at ~10 Hz. `qrHud.frame` and the store copy of
+  `velocityMph`/`engineRPM` are both throttled. Camera, audio, and wheel spin
+  read `liveDrive`, which updates every physics step.
 
 ```mermaid
 flowchart TD
@@ -112,17 +113,20 @@ driving; **—** = never opened in the drive (briefing-only / card host).
   `mission_delivery_2_catfood` (`park.back_in.*`), `mission_delivery_3_radio`
   (`lanechange.*`), `mission_delivery_4_filters` (`park.parallel.*`),
   `mission_jonah_intersection` (`jonah.blowthrough`, `stop.approach`, `follow.close`)
-- **Not wired (20):** II-007, II-008, II-009, II-011, II-013, II-014, II-015,
+- **Cued in-scene (20):** II-007, II-008, II-009, II-011, II-013, II-014, II-015,
   II-016, II-017, II-018, II-019, II-020, II-021, II-022, II-023, II-025,
-  II-026, II-028, II-029, II-031.
+  II-026, II-028, II-029, II-031. `CardCues` fires `card.cue:<id>` on the Grid
+  beat that practises the skill; the bridge opens one card at a time.
 
 ### Act III — Central (7/31 wired)
 - DIALOG: III-002, III-003, III-004, III-006 (2.5 gameplay); III-007 (3.2); III-016, III-020 (6.2)
 - Grades: `mission_central_ledger` (`ledger.lanechange.clean|no_signal`,
   `ledger.crossed_solid`, `ledger.wrong_lane`, `ledger.follow.close`, `ledger.merge.*`)
-- **Not wired (24):** III-001, III-005, III-008, III-009, III-010, III-011,
+- **Cued in-scene (23):** III-001, III-005, III-008, III-009, III-010, III-011,
   III-012, III-013, III-014, III-015, III-017, III-018, III-019, III-021,
   III-022, III-023, III-024, III-025, III-026, III-027, III-028, III-029, III-030.
+  (The earlier "24" count listed 23 ids.) South of `solidY` the Ledger is wet,
+  so III-024's rain stretch lengthens the stopping shadow.
 
 ### Act IV — The Core (1/22 wired by card node; exam otherwise)
 - DIALOG: IV-018 (4.2 exam). The act is `study_terminal` (10 questions) →
@@ -135,7 +139,8 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 - Grades: `mission_ribbon_merge` (`ribbon.*`), `mission_convoy_issaquah`
   (`merge.*`, `follow.green|red`), `chainup_qte`, `climb_snoqualmie`
   (`ice.enter`, `speed.over:35`, `input.gentle_streak`, `skid.worsening`)
-- **Not wired (5):** V-002, V-004, V-008, V-009, V-011 (zipper hazard).
+- **Cued in-scene (5):** V-002, V-004 (`ramp.enter`), V-008 (on the ramp),
+  V-009, V-011 (`ribbon.merge` / `merge.gap_open`).
 
 ### Act VI — The Backcountry (9/13 wired)
 - DIALOG: VI-001, VI-002, VI-004, VI-006, VI-010, VI-012 (6.1b)
@@ -143,7 +148,9 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 - Grades: `mission_backcountry_run` (`rural.shoulder`, `rural.crest.*`,
   `rural.uncontrolled.*`, `rural.crossbuck.*`, `roundabout.*`), `straight_night_drive`,
   `vantage_bridge_crossing`, `bridge_*`, `escort_ritzville` (`nozone.*`, `moveover.*`)
-- **Not wired (4):** VI-003, VI-005, VI-009, VI-011, VI-013.
+- **Cued in-scene (5):** VI-003 (`rural.shoulder` / no-zone), VI-005 (crest or
+  wide turn), VI-009 (uncontrolled), VI-011 (crossbuck), VI-013 (rural end or
+  Ritzville). The earlier "(4)" counted these five ids.
 
 ---
 
@@ -151,16 +158,16 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 
 | # | Area | Sev | Effort | Finding (evidence) |
 |---|---|---|---|---|
-| P1 | Teaching | S1 | S | **Following-distance conflict.** Sim graders use a "3-second" (dry) / "4-second" (truck) rule (`ledger.ts:7`, `ribbon.ts:8`, `convoy.ts:8`, `escort.ts:6`); cards `II-012`/`V-012` teach "three seconds". The text-only guide §5.2 Space teaches "at least twice the length of your vehicle". → BLOCKED DECISION (below). |
-| P2 | Teaching | S2 | S | **Surface friction only models ice.** `Simulation.ts:438` sets μ=ice only in `climb_snoqualmie`; gravel (Act VI) and wet/bridge surfaces use dry μ 0.7. The stopping shadow therefore under-reports on gravel/wet — guide §5.6 says stopping and traction worsen on gravel/ice. |
+| P1 | Teaching | S1 | S | **Following distance — resolved.** Graders read `followFullGapM` (`config.ts`). Default feel is still 3 s dry / 4 s truck. `FOLLOW.rule = "vehicle_lengths"` grades §5.2 literally (8 m / 14 m). Cards II-012, V-012, II-014 and the mission objectives lead with the guide's sentence. |
+| P2 | Teaching | S2 | S | **Surface friction — resolved for gravel and the Ledger rain stretch.** Gravel μ 0.5 on the backcountry and escort (beetle 55 mph stop 89.8 m). Wet μ 0.4 south of `ledger.solidY` (beetle wet 103.0 m). Ice stays 264.4 m. |
 | P3 | UX | S2 | M | **No act select.** `MainMenu.tsx` offers only CONTINUE / START NEW RUN. `actChallenges.ACT_ENTRY` and `challengeForAct` exist but the menu never surfaces them, so a new run replays from Act I. |
-| P4 | Story | S2 | L | **44 cards never open in the drive.** Act II 20, Act III 24 of 31 each never fire a `card` node or in-world trigger (§2). The mission's "one place per act" is unmet for II/III. |
-| P5 | Perf | S2 | M | **60 Hz React re-render for HUD.** `publishVehiclePose` writes `velocityMph/engineRPM/…` to `gameStore` every physics step; `EngineHUD`/`GameHUD`/`Speedometer` subscribe via selectors and re-render at 60 Hz. `qrHud.frame` is already throttled to 10 Hz (`QuietRoadsBridge.ts:306`) — the vehicle fields are not. |
+| P4 | Story | S2 | L | **Unwired cards — cued.** The 20/23/5/5 cards in §2 open from `CardCues` while that act's mission is running. The bridge queues them and shows one at a time. |
+| P5 | Perf | S2 | M | **HUD speed/RPM — throttled.** `liveDrive` updates every physics step for camera, audio, and wheel spin. `publishVehiclePose` copies mph/RPM into `gameStore` at 10 Hz. Pose still publishes every step. |
 | P6 | Latency | S2 | M | **No WebGL context-loss handling.** `Game3D` handles tab visibility (pause) but not `webglcontextlost`/`restored`. |
 | P7 | Perf/Script | S2 | M | **No automated test runner.** 12 `.mts` mission scripts exist but need a manual esbuild+node step; no Vitest/Playwright; no benchmark harness. |
 | P8 | Graphics | S2 | M | **Binary quality only.** `LOW_END` boolean + dpr clamp `[1,1.5]`; no `PerformanceMonitor`/`AdaptiveDpr`, no postprocessing tier ladder at runtime (PostProcessing takes `lowEnd` but doesn't swap effect count by measured FPS). |
 | P9 | Physics | S2 | M | **No tunneling/CCD metrics.** CCD is on (`Vehicle.tsx:562`) but no telemetry proves zero tunneling at top speed on any surface; no CCD-threshold config value. |
-| P10 | Data | S3 | S | **`art-review-state` leaked into `cards.json`** as a card with `act:"III"`, unknown type. It is not referenced anywhere; strip it from the client deck. |
+| P10 | Data | S3 | S | **`art-review-state` — stripped from the client deck.** The review file stays at `cards/art-review-state.json`. |
 | P11 | Data | S3 | S | **`IV-001-brake` non-standard card id** (lowercase suffix). Present in the deck but only wired as a `ride-along-still`. |
 | P12 | UX/a11y | S3 | M | **Accessibility gaps.** No remappable keys, no text-size setting, no reduced-motion / camera-shake toggle (shake is hard-coded in `GameCamera.tsx`), no explicit colorblind affordance in HUD. |
 | P13 | Perf | S3 | M | **Per-frame allocations in hot paths.** Camera reuses vectors (`GameCamera`), but `QuietRoadsBridge`/`Simulation` step allocate event objects per tick (spread sample, `{...s}` in `vehicleObserver.ts:121`). Acceptable at 10 Hz events; worth a pass. |
@@ -169,26 +176,19 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 
 ---
 
-## 4. BLOCKED DECISIONS (need the owner)
+## 4. Decisions (owner: fix them)
 
-- **BD-1 — Following-distance rule.** The text-only WA Driver Guide §5.2 Space
-  teaches *"leave a distance that's at least twice the length of your vehicle"*;
-  the guide never teaches a seconds-based rule. The game's canon cards (`II-012`,
-  `V-012`) and dialogue teach a "three-second" (dry) / "four-second" (truck)
-  rule, and the operating brief explicitly asked Act III to "hold a 3-second
-  gap". Per HARD RULE 3 I did **not** rewrite the cards or dialogue. I exposed
-  the gameplay rule behind a named config and left the current behaviour intact
-  pending the owner's call: (a) follow the guide exactly ("twice vehicle length",
-  `LENGTH_M=4 → 8 m`), or (b) keep the seconds rule and file the guide conflict
-  as accepted. **Recommendation:** keep the seconds rule in the *drive feel* but
-  change the *teaching copy* to lead with the guide's own words, since both are
-  defensible and the owner's brief is explicit.
+- **BD-1 — Following distance. Resolved.** Drive feel stays the seconds count
+  (`FOLLOW.rule = "seconds"`, 3 dry / 4 truck) so the gap still grows with
+  speed. Teaching copy on II-012, V-012, II-014, the Ledger/convoy/escort
+  objectives, and the fallback quiz leads with the guide's sentence: leave at
+  least twice the length of your vehicle. `followFullGapM(..., "vehicle_lengths")`
+  grades that distance literally (car 8 m, truck 14 m) if the switch is flipped.
+  II-012 and V-012 now cite §5.2 Space, not §5.4 Time.
 
-- **BD-2 — Hand-signal citation.** Cards cite "2.5 Vehicle Maintenance (Hand
-  signals)" which does not exist in the text-only guide (hand signals are in the
-  illustrated edition). The practised skill (signal ≥100 ft before a turn) is
-  correctly supported by §4.14 Turning. This is a citation-string fix, not a
-  teaching conflict; I will not rewrite canon card text without direction.
+- **BD-2 — Hand-signal citation. Resolved.** Cards that cited "2.5 Vehicle
+  Maintenance (Hand signals)" now cite "4.14 Turning" (II-006, II-016, II-022,
+  III-019, and the same strings in `cards/`). The practised rule is unchanged.
 
 ## 5. Baselines
 
@@ -199,18 +199,19 @@ are captured by the harness in `drive/bench/` and will be appended here after a
 measured run. The **sim/grader-level** deterministic baseline (event correctness,
 stopping distances, per-mission step cost) is recorded in §6.
 
-## 6. Deterministic sim baselines (headless, run 2026-10-01)
+## 6. Deterministic sim baselines (headless)
 
-Captured by `drive/bench/sim-bench.test.ts` → `drive/bench/baseline.json`.
+Source of truth: `drive/bench/baseline.json` (regenerated 2026-10-01T07:46:58Z).
+Step times move between runs; the JSON file is the number to diff.
 
 Sim step CPU cost (µs) — one scripted lap per act, fixed 1/60 s step:
 
 | Mission (act) | steps | step µs p50 | p95 | max |
 |---|---|---|---|---|
-| mission_delivery_1_insulin (II) | 1200 | 60.4 | 146.1 | 1072.7 |
-| mission_central_ledger (III) | 1200 | 59.7 | 72.1 | 615.6 |
-| mission_ribbon_merge (V) | 1200 | 59.0 | 71.1 | 344.6 |
-| mission_backcountry_run (VI) | 2000 | 58.2 | 66.1 | 311.6 |
+| mission_delivery_1_insulin (II) | 1200 | 54.8 | 127.7 | 1240.5 |
+| mission_central_ledger (III) | 1200 | 55.6 | 84.4 | 542.3 |
+| mission_ribbon_merge (V) | 1200 | 53.7 | 65.3 | 573.4 |
+| mission_backcountry_run (VI) | 2000 | 50.8 | 65.6 | 317.0 |
 
 (max values include the first-step/JIT warm-up.)
 
@@ -221,6 +222,7 @@ Stopping distance at 55 mph (m) — `stoppingDistanceM` (reaction 1.5 s + brakin
 | beetle_dry | 74.7 |
 | highway_dry | 85.6 |
 | truck_dry | 102.6 |
+| beetle_gravel | 89.8 |
 | beetle_wet | 103.0 |
 | highway_ice | 264.4 |
 
@@ -238,7 +240,16 @@ Grade events confirmed to fire on the scripted laps: `stop.approach`,
 | Act select on the title screen — no forced Act I replay, I–III replayable | P3 ✅ | `bc83818` |
 | WebGL context-loss handled (pause on loss, clear on restore) | P6 ✅ | `6b75a9b` |
 | Test/bench harness (Vitest + Playwright + deterministic bench) | P7 ✅ | `08f9153` |
+| Following-distance config + guide-led teaching copy | P1 ✅ | this session |
+| Hand-signal citations → §4.14 Turning | BD-2 ✅ | this session |
+| Wet μ on the Ledger south of solidY | P2 ✅ | this session |
+| In-scene cues for the previously unopened II/III/V/VI cards | P4 ✅ | this session |
+| HUD speed/RPM store writes at 10 Hz (`liveDrive` stays 60 Hz) | P5 ✅ | this session |
 
-Remaining: P1 (BD-1), P4 (card wiring), P5 (HUD throttle), P8–P15.
+| Stripped `art-review-state` from the client deck | P10 ✅ | this session |
+
+Still open: P8, P9, P11–P15 (quality tiers, CCD telemetry, the `IV-001-brake` id,
+accessibility, per-frame allocations, instancing), the Act IV missed-question
+road, and a browser `?profileDrive` pass. Headless tests: 14/14. `tsc --noEmit` exit 0.
 
 <!-- CONTINUED -->

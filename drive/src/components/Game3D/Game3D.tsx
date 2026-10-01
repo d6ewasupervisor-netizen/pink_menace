@@ -13,6 +13,7 @@ import { useTouchControls } from '@/hooks/useTouchControls';
 import { useQuizManager } from '@/systems/QuizManager';
 import { AudioManager } from '@/systems/AudioManager';
 import { getSlipState } from '@/systems/VehicleController';
+import { liveDrive } from '@/systems/driveTelemetry';
 import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
 import { getWeather } from './Skybox';
 import { isLowEndDevice, recordDelta, recordPerformanceSample } from '@/utils/performance';
@@ -99,7 +100,9 @@ function GLContextGuard() {
 // ─── Audio bridge (runs inside Canvas for useFrame) ─────────────────────────
 function AudioBridge() {
   useFrame(() => {
-    const { engineRPM, velocityMph, phase, isMuted, mileage } = useGameStore.getState();
+    const { phase, isMuted, mileage } = useGameStore.getState();
+    const engineRPM = liveDrive.engineRPM;
+    const velocityMph = liveDrive.velocityMph;
     const slip = getSlipState();
     const raining = getWeather(mileage) === 'rain';
     AudioManager.setMuted(isMuted);

@@ -1,11 +1,10 @@
 import { type Vec2, dist, rectHas } from "./math";
 import type { LedgerSites } from "./kentMap";
 import type { VehicleSample } from "./vehicleObserver";
+import { FOLLOW, followFullGapM } from "../config";
 
 const MPH = 0.44704;
 const SIGNAL_HOLD_S = 0.5;      // steer held this long = a signal
-const FOLLOW_S = 3.0;           // three-second following rule
-const FOLLOW_MIN_FRAC = 0.6;    // below 60% of the three-second gap → too close
 const MERGE_MIN_MPH = 12;       // must be rolling at least this to claim a gap
 const WRONG_LANE_S = 2.0;       // lingering in the passing lane this long is a habit
 const END_RADIUS_M = 6;
@@ -16,14 +15,15 @@ const END_RADIUS_M = 6;
  * Same Kent frame as the Grid, but the ego is Deac's cutaway shuttle: longer,
  * wider, no rear window. The skills are the Act III card cluster — stay right
  * except to pass, signal every lane change, do not cross solid white, hold the
- * three-second space behind Deac's truck, and take the merge with a real gap.
+ * space behind Deac's truck (twice the vehicle's length; counted as three
+ * seconds off a mark), and take the merge with a real gap.
  *
  * This is a grader, not a driver: it reads the same VehicleSample the R3F car
  * already produces and emits the `ledger.*` events the dialogue listens for.
  */
 export class LedgerRun {
   mission = false;
-  /** Deac's box truck ahead of the player (the three-second rule target). */
+  /** Deac's box truck ahead of the player (the following-gap target). */
   leadPos: Vec2 = { x: 0, y: 0 };
   leadHeading = Math.PI / 2;
 
@@ -110,7 +110,7 @@ export class LedgerRun {
     this.closeCd = Math.max(0, this.closeCd - dt);
     if (Math.abs(s.speedMs) <= 1 || this.closeCd > 0) return;
     const gap = dist(s.pos, this.leadPos);
-    const need = Math.abs(s.speedMs) * FOLLOW_S * FOLLOW_MIN_FRAC;
+    const need = followFullGapM(s.speedMs, "dry") * FOLLOW.minFrac;
     if (gap < need) {
       this.closeCd = 5;
       this.ev.fire("ledger.follow.close", { gap_m: Math.round(gap) });
