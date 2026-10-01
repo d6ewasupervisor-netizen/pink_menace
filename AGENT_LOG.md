@@ -87,3 +87,28 @@ current after every task.
 P8, P9, P11–P15, the Act IV missed-question road.
 
 ---
+
+## 2026-10-01 — continuation (reduced motion + coverage + final report)
+
+Verified the post-`9982d8e` state is green: 14→17 tests, `tsc` exit 0, `vite
+build` green (809 modules, 4.06 s). Merged the caretaker commits (`9982d8e`,
+`.clinerules`) onto `agent/overhaul-2026-09-30`; never wrote to `main`.
+
+1. **[a11y] reduced-motion / camera-shake toggle.** `gameStore.reducedMotion`
+   (persisted) plus a PauseMenu toggle. `triggerScreenShake` and camera drift
+   are gated on it, and a `prefers-reduced-motion` listener auto-raises it.
+   Commit `04f4b6a`. (P12, partial)
+2. **[test] card-coverage invariant.** `coverage.test.ts` scans dialogue +
+   `CARD_FOR_TRIGGER` + the CardCues list and asserts every card in acts
+   I/II/III/V/VI opens in-scene. Caught that the first scan omitted the
+   act7/act8 dialogue files (V-006 lives in `act7.json:7.1`); fixed. Commit
+   `bbb36e9`. (Definition-of-Done check)
+3. **[docs] FINAL_REPORT.md** — executive summary, before/after metrics,
+   card-to-trigger-to-grade, coverage summary, scorecard, accuracy fixes, physics
+   config old→new, what failed, BLOCKED DECISIONS, backlog.
+
+### Still open (unchanged)
+Act IV missed-question road; P8/P9/P13/P14 + remaining a11y; browser `?profileDrive`
+benchmarks and the full-campaign playthrough (need a device + backend).
+
+---

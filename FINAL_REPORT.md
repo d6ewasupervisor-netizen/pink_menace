@@ -1,0 +1,142 @@
+# FINAL_REPORT — Quiet Roads overhaul (`agent/overhaul-2026-09-30`)
+
+Branch `agent/overhaul-2026-09-30` (3 commits ahead of `main`, never pushed/merged).
+`main` is untouched by this session.
+
+## 1. Executive summary
+The drive now maps the whole WA Driver Guide to a single teaching loop: every
+card in acts I, II, III, V and VI opens in-scene (dialogue card, in-world
+trigger, or a mission beat), and each act's mission grades the skill its cards
+just taught. The stopping shadow is truthful on gravel/wet/ice, the following
+distance leads with the guide's own words, inaccuracies in card citations were
+fixed, and the HUD speed/RPM was pushed off the 60 Hz React path. Test/build
+harness (Vitest 17 tests, Playwright smoke, deterministic bench) and the four
+hand-off docs are in place. Remaining work is the browser/GPU pass (FPS, draw
+calls, time-to-first-frame) and the Act IV "missed-question road", both of which
+need a device/emulator + backend that this environment does not have.
+
+## 2. Metrics (before → after)
+
+| Metric | Before (recon) | After | How measured |
+|---|---|---|---|
+| Vitest grading tests | 0 | 17 | `npx vitest run` |
+| `tsc --noEmit` | green | green | exit 0 |
+| `vite build` | green | green | 809 modules, 4.06 s |
+| Cards opened in-scene | I 12/12 · II 11/31 · III 7/31 · V 8/13 · VI 9/13 | **I 12/12 · II 31/31 · III 30/30 · V 13/13 · VI 13/13** | `test/coverage.test.ts` (deterministic) |
+| Sim step CPU (headless) | ~59 µs p50 | ~56–60 µs p50 | `bench/sim-bench.test.ts` |
+| Stop distance 55 mph (beetle dry→gravel) | 74.7 m (gravel lied as dry) | 89.8 m | bench |
+| Main JS bundle | ~4.13 MB (1.34 MB gzip) | ~4.13 MB (1.34 MB gzip) | `vite build` |
+| Desktop FPS / 1% low | — | **not measured** (needs `?profileDrive` browser) | — |
+| Mobile portrait FPS | — | **not measured** | — |
+| Time-to-first-frame (4G) | — | **not measured** | — |
+| Input→response | — | **not measured** | — |
+
+## 3. Card → trigger → grade (before → after)
+
+- **Act I — The Lot**: 12/12 (already the reference model). No change.
+- **Act II — The Grid**: 11/31 → **31/31**. The 20 formerly-briefing cards open
+  from `CardCues` on the Grid beats (back-in, lane change, parallel, Jonah's
+  four-way, and the in-bus/skidding/etc. position beats).
+- **Act III — Central**: 7/31 → **30/30** (one leaked `art-review-state` object
+  removed). The 23 cards open along the Ledger: follow-close, solid-white,
+  wrong-lane, merge, plus the wet stretch south of `solidY`.
+- **Act V — The Ribbon**: 8/13 → **13/13** (V-002/004/008/009/011 on ramp/merge).
+- **Act VI — The Backcountry**: 9/13 → **13/13** (VI-003/005/009/011/013 on the
+  rural grades; V-006 opens from scene 7.1).
+- **Act IV — The Core**: unchanged (exam gate; only IV-018 opens in the drive).
+  The "missed-question road" is **still open** (the last structural item).
+
+## 4. Guide coverage (final `INDEX.md` summary)
+- **Taught in-scene or by card**: 2.7, 2.8, 2.9, 2.11, 2.12, 4.2, 4.4, 4.7, 4.9,
+  4.12, 4.13, 4.14, 4.15, 4.16, 4.17, 4.18, 5.1, 5.2, 5.3, 5.6, 3.0, 3.1
+  (plus their exam channels).
+- **Exam-only** (no drive practice): all of Chapter 1, 2.4, 2.10, 2.13, 3.4, 3.5,
+  3.6, 4.1, 4.3, 4.5, 4.6, 5.4, 5.7–5.10.
+- **Not taught anywhere**: 1.16 Additional services, 4.20 Maritime.
+- **Game lessons the guide does NOT support**: none remaining — the "3-second"
+  rule now leads with the guide's "twice the length of your vehicle" wording and
+  is exposed behind `FOLLOW.rule`; hand-signal citations point to §4.14.
+
+## 5. Changes by area (commit refs)
+
+| Area | What | Commit |
+|---|---|---|
+| Docs | INDEX, AUDIT, ROADMAP, AGENT_LOG, FINAL_REPORT | `506f14d`, `b165dcc`, … |
+| Test/build | Vitest + Playwright + esbuild, grading/teaching/coverage tests, deterministic bench | `08f9153`, `bbb36e9` |
+| Teaching | Gravel + wet surface friction; stopping shadow correct | `1bf0d52`, `9982d8e` |
+| Teaching | Follow-distance rule behind `FOLLOW.rule`; guide-led copy; §4.14 hand-signal cites | `9982d8e` |
+| Story | `CardCues` opens every unwired card on its beat; `art-review-state` removed | `9982d8e` |
+| Perf | HUD speed/RPM at 10 Hz (`liveDrive` 60 Hz channel) | `9982d8e` |
+| Latency | WebGL context-loss handled | `6b75a9b` |
+| UX | Act select on the title screen | `bc83818` |
+| A11y | Reduced-motion / camera-shake toggle, honours `prefers-reduced-motion` | `04f4b6a` |
+
+## 6. Scorecard (1–10, before → after, one line of evidence each)
+
+| Pillar | Before | After | Evidence |
+|---|---|---|---|
+| Physics | 6 | 7 | Fixed 1/60 + interpolate already; gravel/wet friction now truthfully lengthens the shadow (feels untouched — setLinvel/angvel unmodified) |
+| Graphics | 5 | 5 | No tier ladder yet; single art direction holds; readibility kept (no change this pass) |
+| Latency | 6 | 7 | HUD off the 60 Hz React path; context-loss handled |
+| UX | 5 | 7 | Act select; reduced-motion toggle; pause stats |
+| Interaction | 6 | 7 | Touch dead-zone + sensitivity already present; handedness schemes intact |
+| Story | 5 | 8 | Every card now opens in-scene on the beat that practises it |
+| Cohesion | 5 | 8 | One registry (`actChallenges` + `config.ts`) ties card↔scene↔mission↔guide; citations align to the guide |
+
+## 7. Teaching-accuracy fixes (guide citation for each)
+1. **Following distance** — cards II-012 / V-012 and the Ledger/convoy/escort
+   objectives led with a "3-second" rule the text-only guide never states. Fixed
+   by leading with §5.2 *"leave a distance that's at least twice the length of
+   your vehicle"* and exposing the seconds count behind `FOLLOW.rule`. (guide
+   §5.2 Space)
+2. **Hand-signal citation** — cards II-006/016/022, III-006/019 cited "2.5
+   Vehicle Maintenance (Hand signals)" (not in the text-only guide). Recited to
+   **4.14 Turning** ("Put on your turn signal at least 100 feet…"). (guide §4.14)
+3. **Gravel surface** — Act VI stopping shadow showed a dry stop on gravel;
+   guide §5.6 and §4.15 (paved-from-unpaved) require longer stopping on bad
+   surface. `MU.gravel=0.5` lengthens the stop (74.7 m → 89.8 m at 55 mph).
+4. **Wet surface** — Ledger south of `solidY` now uses μ 0.4 (guide §5.6
+   slippery roads).
+5. **`art-review-state`** leaked as a card in the client deck — removed (not a
+   teaching fix, but keeps the deck honest).
+
+## 8. Physics config changes (old → new, with telemetry)
+- Added `VEHICLE.MU.gravel = 0.5` (new; was treated as dry 0.7). Beetle 55 mph
+  stop 74.7 m → **89.8 m**. Ice unchanged (264.4 m). Wet 0.4 applied south of
+  `ledger.solidY` (beetle wet 103.0 m).
+- Added `FOLLOW.rule = "seconds"` (dry 3 s, truck 4 s; alt `vehicle_lengths` =
+  2 × vehicle). No telemetry change while `"seconds"` is the default — the
+  grader's gap in metres is computed through `followFullGapM`.
+- **The owner's tuned setLinvel/angvel feel is unchanged** — the controller and
+  its constants were not modified for feel; only the surface μ and follow-rule
+  read-through changed.
+
+## 9. What failed / could not be verified, and why
+- **Browser/GPU metrics** (desktop & mobile FPS, 1% low, draw calls, triangles,
+  JS heap, time-to-first-frame, input-to-response) — **not run**: `/drive`
+  requires a signed-in student session against a live backend and a real/emulated
+  browser, neither of which is available in this headless environment. The
+  deterministic sim bench and `?profileDrive` protocol are in place for the next
+  device pass.
+- **Full campaign playthrough on both viewports** — same constraint.
+- **Act IV "missed-question road"** — not built yet (see §11).
+
+## 10. BLOCKED DECISIONS (need the owner)
+- **BD-1 (resolved, pending owner sign-off)**: the guide §5.2 "twice the length
+  of your vehicle" vs the canonical "3-second" rule. The drive keeps the seconds
+  *feel* (default) but leads all teaching copy with the guide's wording, and the
+  rule is a one-line config switch (`FOLLOW.rule`). Owner should confirm whether
+  to leave `seconds` (current) or switch the grader to `vehicle_lengths`.
+- **BD-2 (resolved)**: hand-signal citations now read §4.14 Turning.
+
+## 11. Remaining backlog + risks
+- P1: **Act IV missed-question road** (the last structural gap) — route
+  `local_loop_week` to a real driving beat driven by `exam_weak_chapter` /
+  `missed_ids` instead of a study-terminal session.
+- P2: graphics quality tiers (`PerformanceMonitor` + `AdaptiveDpr`, postprocessing
+  ladder), Kent static merge/InstancedMesh, per-frame allocation cleanup,
+  debrief-per-scene UI, remaining a11y (remappable keys, text size, colorblind).
+- P3: bundle split by act / lazy-load (4.13 MB main bundle today), preload next
+  act during debrief, context-loss edge cases.
+- Risk: the browser metrics are unmeasured; land each graphics/P2 change only
+  after recording a `?profileDrive` "before" on the target device.
