@@ -7,6 +7,7 @@ import { useGameProgress } from '@/hooks/useGameProgress';
 import { AudioManager } from '@/systems/AudioManager';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { discardDriveHold, releaseDrive } from '@/systems/VehicleController';
+import { useCompactHud } from '@/hooks/useCompactHud';
 import { tokens } from './cockpit/tokens';
 
 function shuffleArray<T>(arr: T[]): T[] {
@@ -26,6 +27,7 @@ export function QuizOverlay() {
   const answerQuiz = useGameStore((s) => s.answerQuiz);
   const setPhase = useGameStore((s) => s.setPhase);
   const { recordQuizAnswer } = useGameProgress();
+  const compact = useCompactHud();
 
   const [selected, setSelected] = useState<string | null>(null);
   const [result, setResult] = useState<{ correct: boolean; coinsEarned: number } | null>(null);
@@ -104,7 +106,7 @@ export function QuizOverlay() {
 
   if (result && phase === 'driving') {
     return (
-      <div style={styles.dock} data-ui>
+      <div style={{ ...styles.dock, ...(compact ? styles.dockPhone : null) }} data-ui>
         <div style={{ ...styles.result, borderColor: result.correct ? '#39ff14' : '#ff4444', marginBottom: 10 }}>
           <div style={{ ...styles.verdict, color: result.correct ? '#39ff14' : '#ff4444' }}>
             {result.correct ? 'CORRECT' : 'WRONG'}
@@ -330,7 +332,7 @@ const styles: Record<string, React.CSSProperties> = {
     bottom: 'calc(16px + env(safe-area-inset-bottom))',
     transform: 'translateX(-50%)',
     width: 'min(420px, calc(100vw - 24px))',
-    zIndex: 100,
+    zIndex: 230,
     pointerEvents: 'auto',
     fontFamily: tokens.fonts.ui,
     color: tokens.colors.ink,
@@ -338,6 +340,14 @@ const styles: Record<string, React.CSSProperties> = {
     border: `1px solid ${tokens.colors.stroke}`,
     borderRadius: tokens.radius.lg,
     padding: 14,
+    maxHeight: '46vh',
+    overflowY: 'auto',
+  },
+  dockPhone: {
+    top: '48%',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    maxHeight: '34vh',
   },
   continueBtn: {
     width: '100%',

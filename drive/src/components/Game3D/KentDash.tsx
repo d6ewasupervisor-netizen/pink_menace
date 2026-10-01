@@ -9,7 +9,7 @@ import { liveDrive } from '@/systems/driveTelemetry';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useCompactHud } from '@/hooks/useCompactHud';
-import { dashEdge, type DashEdge } from '@/input/driveInput';
+import { phoneChrome } from './cockpit/tokens';
 import {
   formatEta,
   formatManeuverDist,
@@ -70,10 +70,7 @@ export function KentDash() {
   const hp = useGameStore((s) => s.hp);
   const fuel = useGameStore((s) => s.fuel);
   const objective = useQRHud((s) => s.objective);
-  const scheme = useGameStore((s) => s.controlsScheme);
   const compact = useCompactHud();
-  const edge: DashEdge = compact ? dashEdge(scheme) : 'top';
-  const stacked = compact && edge !== 'top';
   const rootRef = useRef<HTMLDivElement>(null);
   const gapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -142,41 +139,24 @@ export function KentDash() {
 
   const { plan } = readout;
   const speedColor = readout.over ? '#ff5c6a' : '#3ef0ff';
-  const digit = stacked ? { w: 11, h: 20 } : { w: 14, h: 26 };
+  const digit = { w: 14, h: 26 };
 
   return (
-    <div ref={rootRef} style={place(edge, compact, stacked)} aria-label="Navigation">
+    <div ref={rootRef} style={place(compact)} aria-label="Navigation">
       <canvas ref={canvasRef} style={styles.canvas} aria-label="Street map" />
       <div style={styles.stack}>
-        {stacked ? (
-          <>
-            <div ref={gapRef} style={styles.mapBand} />
-            <div style={styles.row}>
-              <NavCard plan={plan} mph={readout.mph} dense />
-              <SpeedCard
-                readout={readout}
-                speedColor={speedColor}
-                digit={digit}
-                hp={hp}
-                fuel={fuel}
-                narrow
-              />
-            </div>
-          </>
-        ) : (
-          <div style={styles.row}>
-            <NavCard plan={plan} mph={readout.mph} dense={compact} />
-            <div ref={gapRef} style={{ ...styles.gap, flexBasis: compact ? 48 : 64 }} />
-            <SpeedCard
-              readout={readout}
-              speedColor={speedColor}
-              digit={digit}
-              hp={hp}
-              fuel={fuel}
-              narrow={compact}
-            />
-          </div>
-        )}
+        <div style={styles.row}>
+          <NavCard plan={plan} mph={readout.mph} dense={compact} />
+          <div ref={gapRef} style={{ ...styles.gap, flexBasis: compact ? 48 : 64 }} />
+          <SpeedCard
+            readout={readout}
+            speedColor={speedColor}
+            digit={digit}
+            hp={hp}
+            fuel={fuel}
+            narrow={compact}
+          />
+        </div>
         {objective && (
           <div style={styles.objective}>
             <div style={styles.objTitle}>OBJECTIVE</div>
@@ -363,8 +343,8 @@ function TurnGlyph({ kind, size }: { kind: ManeuverKind; size: number }) {
   );
 }
 
-function place(edge: DashEdge, compact: boolean, stacked: boolean): React.CSSProperties {
-  const common: React.CSSProperties = {
+function place(compact: boolean): React.CSSProperties {
+  return {
     position: 'fixed',
     zIndex: 215,
     pointerEvents: 'none',
@@ -377,22 +357,9 @@ function place(edge: DashEdge, compact: boolean, stacked: boolean): React.CSSPro
     boxShadow: '0 6px 18px rgba(0,0,0,0.16)',
     color: '#fff',
     fontFamily: 'system-ui, sans-serif',
-  };
-  if (stacked) {
-    return {
-      ...common,
-      width: 'min(196px, 48vw)',
-      bottom: 'calc(12px + env(safe-area-inset-bottom))',
-      ...(edge === 'right'
-        ? { right: 'max(10px, env(safe-area-inset-right))' }
-        : { left: 'max(10px, env(safe-area-inset-left))' }),
-    };
-  }
-  return {
-    ...common,
     width: 'min(400px, calc(100vw - 16px))',
     top: compact
-      ? 'calc(78px + env(safe-area-inset-top))'
+      ? phoneChrome.dashTop
       : 'calc(58px + env(safe-area-inset-top))',
     left: '50%',
     transform: 'translateX(-50%)',
@@ -653,9 +620,6 @@ const styles: Record<string, React.CSSProperties> = {
   gap: {
     flex: '1 0 56px',
     minHeight: 72,
-  },
-  mapBand: {
-    height: 88,
   },
   nav: {
     flex: '1 1 132px',

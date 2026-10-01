@@ -32,6 +32,15 @@ export const tokens = {
   z: { hud: 50, prompt: 210, card: 240, pause: 250, menu: 300 },
 } as const;
 
+/**
+ * Phone cockpit. The sticks own the bottom band. The dash sits under the
+ * quiet meter and the act line. Prompts sit in the glass between them.
+ */
+export const phoneChrome = {
+  dashTop: 'calc(108px + env(safe-area-inset-top))',
+  aboveSticks: 'calc(196px + env(safe-area-inset-bottom))',
+} as const;
+
 export type Orientation = 'portrait' | 'landscape';
 
 /** True in landscape. Reacts to resize + orientationchange. */

@@ -78,16 +78,6 @@ export function steerCorner(scheme: ControlsScheme): SteerCorner {
   return 'left';
 }
 
-/** GPS + speed cluster edge. Opposite the steer stick, or the top when the bottom is full. */
-export type DashEdge = 'left' | 'right' | 'top';
-
-export function dashEdge(scheme: ControlsScheme): DashEdge {
-  const s = normalizeControlsScheme(scheme);
-  const corner = steerCorner(s);
-  if (corner === 'center' || !isSingleStick(s)) return 'top';
-  return corner === 'left' ? 'right' : 'left';
-}
-
 const liveStick: StickAxes = { steer: 0, throttle: 0, brake: 0, active: false };
 export const liveKeys = new Set<string>();
 export let livePad: PadAxes | null = null;

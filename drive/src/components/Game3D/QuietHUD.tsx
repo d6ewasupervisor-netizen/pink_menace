@@ -9,6 +9,7 @@ import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useCompactHud } from '@/hooks/useCompactHud';
 import { steerCorner } from '@/input/driveInput';
+import { phoneChrome } from './cockpit/tokens';
 
 const BAND = [
   { word: 'QUIET', color: '#39ff14', shape: '●' },
@@ -120,7 +121,7 @@ export function QuietHUD() {
         </button>
       )}
 
-      {toast && <div style={styles.toast}>{toast}</div>}
+      {toast && <div style={{ ...styles.toast, ...(compact ? styles.toastPhone : null) }}>{toast}</div>}
     </div>
   );
 }
@@ -146,4 +147,5 @@ const styles: Record<string, React.CSSProperties> = {
   hornCompact: { bottom: 'calc(252px + env(safe-area-inset-bottom))', right: 12, width: 52, height: 52, borderRadius: 26, fontSize: 10 },
   hornLeft: { right: 'auto', left: 12 },
   toast: { position: 'absolute', bottom: 'calc(180px + env(safe-area-inset-bottom))', left: '50%', transform: 'translateX(-50%)', background: 'rgba(10,12,18,0.92)', color: '#fff', padding: '10px 16px', borderRadius: 8, fontSize: 14, border: '1px solid rgba(255,255,255,0.2)', maxWidth: '90vw' },
+  toastPhone: { bottom: phoneChrome.aboveSticks },
 };
