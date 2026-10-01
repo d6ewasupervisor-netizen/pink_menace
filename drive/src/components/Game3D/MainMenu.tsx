@@ -8,6 +8,7 @@ import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
+import { ACT_ORDER, ACT_ENTRY, challengeForAct, type CardAct } from '@/quietroads';
 
 export function MainMenu({ onExit }: { onExit?: () => void }) {
   const phase = useGameStore((s) => s.phase);
@@ -15,6 +16,7 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
 
   const handleContinue = useCallback(() => { QuietRoads.start(false); }, []);
   const handleNewRun = useCallback(() => { QuietRoads.start(true); }, []);
+  const handleAct = useCallback((act: CardAct) => { QuietRoads.startAct(ACT_ENTRY[act]); }, []);
 
   if (phase !== 'menu') return null;
 
@@ -41,6 +43,19 @@ export function MainMenu({ onExit }: { onExit?: () => void }) {
               ← Dashboard
             </button>
           )}
+        </div>
+
+        <p style={styles.actHeading}>SELECT ACT</p>
+        <div style={styles.actGrid}>
+          {ACT_ORDER.map((act) => {
+            const ch = challengeForAct(act);
+            return (
+              <button key={act} style={styles.actBtn} onClick={() => handleAct(act)}>
+                <span style={styles.actNum}>ACT {act}</span>
+                <span style={styles.actName}>{ch.zone}</span>
+              </button>
+            );
+          })}
         </div>
 
         <p style={styles.credit}>The Quarantine Runs</p>
@@ -124,6 +139,42 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: '11px',
     color: '#9a9186',
     fontWeight: 400,
+  },
+  actHeading: {
+    color: '#9a9186',
+    fontSize: '12px',
+    letterSpacing: '0.22em',
+    margin: '0 0 0.75rem',
+  },
+  actGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '0.5rem',
+    marginBottom: '1.5rem',
+  },
+  actBtn: {
+    background: '#1b1716',
+    color: '#ede7dc',
+    border: '1px solid #3a3230',
+    borderRadius: '10px',
+    padding: '0.7rem 0.5rem',
+    cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '2px',
+    minHeight: '56px',
+    transition: 'opacity 0.15s',
+  },
+  actNum: {
+    fontSize: '12px',
+    fontWeight: 700,
+    letterSpacing: '0.14em',
+    color: '#c45a68',
+  },
+  actName: {
+    fontSize: '14px',
+    fontWeight: 600,
   },
   btnExit: {
     background: 'transparent',
