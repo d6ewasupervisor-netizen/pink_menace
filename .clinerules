@@ -1,0 +1,5 @@
+# Critical Execution Rules
+- NEVER stop a task or declare it finished just because you completed a sub-task or milestone.
+- You do not have permission to ask "Would you like me to proceed?" or state "This is a good place to stop."
+- You must actively verify that the entire objective is fully functional and running before stopping.
+- If you complete a step, immediately use the appropriate file or terminal tools to verify the results and move directly to the next logical step autonomously.
