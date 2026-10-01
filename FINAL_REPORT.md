@@ -10,7 +10,7 @@ trigger, or a mission beat), and each act's mission grades the skill its cards
 just taught. The stopping shadow is truthful on gravel/wet/ice, the following
 distance leads with the guide's own words, inaccuracies in card citations were
 fixed, and the HUD speed/RPM was pushed off the 60 Hz React path. Test/build
-harness (Vitest 17 tests, Playwright smoke, deterministic bench) and the four
+harness (Vitest 21 tests, Playwright smoke, deterministic bench) and the four
 hand-off docs are in place. Remaining work is the browser/GPU pass (FPS, draw
 calls, time-to-first-frame) and the Act IV "missed-question road", both of which
 need a device/emulator + backend that this environment does not have.
@@ -19,7 +19,7 @@ need a device/emulator + backend that this environment does not have.
 
 | Metric | Before (recon) | After | How measured |
 |---|---|---|---|
-| Vitest grading tests | 0 | 17 | `npx vitest run` |
+| Vitest tests (grading + teaching + coverage + exam) | 0 | 21 | `npx vitest run` |
 | `tsc --noEmit` | green | green | exit 0 |
 | `vite build` | green | green | 809 modules, 4.06 s |
 | Cards opened in-scene | I 12/12 · II 11/31 · III 7/31 · V 8/13 · VI 9/13 | **I 12/12 · II 31/31 · III 30/30 · V 13/13 · VI 13/13** | `test/coverage.test.ts` (deterministic) |
