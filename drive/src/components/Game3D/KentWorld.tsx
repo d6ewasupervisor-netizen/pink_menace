@@ -6,13 +6,14 @@
  * against them (the sim's blocked() is for the Quiet; Rapier handles the car).
  * Everything is drawn from data — nothing hand-placed.
  */
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useLayoutEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useGameStore } from '@/stores/gameStore';
 import type { Rect, SignDef } from '@/quietroads';
+import { batchPlainBuildings, buildingColliders, batchBuildingRoofs, dashInstances, ROOF_COLOR, type BuildingInstance } from '@/quietroads/sim/instancing';
 
 const ROAD_Y = 0.01;
 const MARK_Y = 0.02;
@@ -26,22 +27,40 @@ function RectPlane({ r, y, color, opacity = 1 }: { r: Rect; y: number; color: st
   );
 }
 
+/**
+ * P14 — one InstancedMesh per colour for the dashes, instead of one mesh per
+ * dash. The maths is unchanged (dashInstances in sim/instancing).
+ */
 function Dashes({ a, b, color = '#d8b93c', dash = 3, gap = 3, width = 0.15 }: { a: { x: number; y: number }; b: { x: number; y: number }; color?: string; dash?: number; gap?: number; width?: number }) {
-  const segs = useMemo(() => {
-    const dx = b.x - a.x, dy = b.y - a.y; const L = Math.hypot(dx, dy); const ux = dx / L, uy = dy / L;
-    const out: { x: number; z: number; len: number }[] = [];
-    for (let d = 0; d < L; d += dash + gap) { const len = Math.min(dash, L - d); out.push({ x: a.x + ux * (d + len / 2), z: a.y + uy * (d + len / 2), len }); }
-    return { out, rot: Math.atan2(dy, dx) };
-  }, [a.x, a.y, b.x, b.y, dash, gap]);
+  const instances = useMemo(() => dashInstances(a, b, dash, gap), [a.x, a.y, b.x, b.y, dash, gap]);
+  const ref = useRef<THREE.InstancedMesh>(null);
+
+  useLayoutEffect(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    const m = new THREE.Matrix4();
+    const q = new THREE.Quaternion();
+    const e = new THREE.Euler();
+    const pos = new THREE.Vector3();
+    const scale = new THREE.Vector3();
+    instances.forEach((inst, i) => {
+      pos.set(inst.x, MARK_Y, inst.z);
+      e.set(-Math.PI / 2, 0, -inst.rot);
+      q.setFromEuler(e);
+      scale.set(inst.len, width, 1);
+      m.compose(pos, q, scale);
+      mesh.setMatrixAt(i, m);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.computeBoundingSphere();
+  }, [instances, width]);
+
+  if (!instances.length) return null;
   return (
-    <group>
-      {segs.out.map((s, i) => (
-        <mesh key={i} position={[s.x, MARK_Y, s.z]} rotation={[-Math.PI / 2, 0, -segs.rot]}>
-          <planeGeometry args={[s.len, width]} />
-          <meshBasicMaterial color={color} />
-        </mesh>
-      ))}
-    </group>
+    <instancedMesh ref={ref} args={[undefined, undefined, instances.length]}>
+      <planeGeometry args={[1, 1]} />
+      <meshBasicMaterial color={color} />
+    </instancedMesh>
   );
 }
 
@@ -55,24 +74,75 @@ function Line({ a, b, color = '#ffffff', width = 0.3 }: { a: { x: number; y: num
   );
 }
 
+/** The three buildings with their own look keep their own component (P14). */
 function Building({ r, label }: { r: Rect; label?: string }) {
   if (label === 'DOL') return <DolBuilding r={r} />;
   if (label === 'PHARMACY') return <PharmacyBuilding r={r} />;
   if (label === 'WAREHOUSE') return <WarehouseBuilding r={r} />;
-  const h = label === 'KENT MIDDLE' ? 7 : label === 'SANCTUARY' ? 3.6 : label === 'RADIO' ? 3.2 : 4 + ((r.x * 7 + r.y * 3) % 3);
-  const color = label === 'KENT MIDDLE' ? '#a8895e' : label === 'SANCTUARY' ? '#6e5a68' : label === 'RADIO' ? '#3d5166' : '#7c7368';
+  return null;
+}
+
+/** True for the three buildings that keep their own component. */
+function hasOwnComponent(b: { label?: string }): boolean {
+  return b.label === 'DOL' || b.label === 'PHARMACY' || b.label === 'WAREHOUSE';
+}
+
+/**
+ * P14 — the repeated plain buildings draw from one InstancedMesh per material
+ * instead of one mesh per building. Positions, sizes and colours come from the
+ * same rule they always did (plainBuildingShape in sim/instancing).
+ *
+ * The colliders are deliberately NOT merged: every building keeps its own fixed
+ * CuboidCollider, so the Beetle stops against exactly the same walls.
+ */
+function BuildingBatchMesh({ color, instances }: { color: string; instances: BuildingInstance[] }) {
+  const ref = useRef<THREE.InstancedMesh>(null);
+
+  useLayoutEffect(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    const m = new THREE.Matrix4();
+    const q = new THREE.Quaternion();
+    const pos = new THREE.Vector3();
+    const scale = new THREE.Vector3();
+    instances.forEach((inst, i) => {
+      pos.set(inst.x, inst.y, inst.z);
+      scale.set(inst.sx, inst.sy, inst.sz);
+      m.compose(pos, q, scale);
+      mesh.setMatrixAt(i, m);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.computeBoundingSphere();
+  }, [instances]);
+
   return (
-    <RigidBody type="fixed" colliders={false} position={[r.x + r.w / 2, h / 2, r.y + r.h / 2]}>
-      <CuboidCollider args={[r.w / 2, h / 2, r.h / 2]} />
-      <mesh receiveShadow>
-        <boxGeometry args={[r.w, h, r.h]} />
-        <meshStandardMaterial color={color} roughness={0.9} />
-      </mesh>
-      <mesh position={[0, h / 2 + 0.15, 0]}>
-        <boxGeometry args={[r.w + 0.6, 0.3, r.h + 0.6]} />
-        <meshStandardMaterial color="#3a352f" />
-      </mesh>
-    </RigidBody>
+    <instancedMesh ref={ref} args={[undefined, undefined, Math.max(1, instances.length)]} castShadow receiveShadow>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={color} roughness={0.9} />
+    </instancedMesh>
+  );
+}
+
+function PlainBuildings({ buildings }: { buildings: { rect: Rect; label?: string }[] }) {
+  const batches = useMemo(() => batchPlainBuildings(buildings), [buildings]);
+  const roofs = useMemo(() => batchBuildingRoofs(buildings), [buildings]);
+  const colliders = useMemo(() => buildingColliders(buildings), [buildings]);
+
+  return (
+    <>
+      {/* One InstancedMesh per material — N plain buildings, few draw calls. */}
+      {batches.map((batch) => (
+        <BuildingBatchMesh key={batch.color} color={batch.color} instances={batch.instances} />
+      ))}
+      {/* The parapet each building used to draw — one more batch, one colour. */}
+      <BuildingBatchMesh color={ROOF_COLOR} instances={roofs} />
+      {/* One fixed collider per building — unchanged, and not merged into one body. */}
+      {colliders.map((c, i) => (
+        <RigidBody key={i} type="fixed" colliders={false} position={[c.x, c.y, c.z]}>
+          <CuboidCollider args={[c.hx, c.hy, c.hz]} />
+        </RigidBody>
+      ))}
+    </>
   );
 }
 
@@ -500,7 +570,8 @@ export function KentWorld() {
         </group>
       )}
 
-      {map.buildings.map((b, i) => <Building key={i} r={b.rect} label={b.label} />)}
+      <PlainBuildings buildings={map.buildings} />
+      {map.buildings.filter(hasOwnComponent).map((b, i) => <Building key={i} r={b.rect} label={b.label} />)}
       <ClipboardWoman />
       {map.signs.map((s, i) => <Sign key={i} s={s} />)}
       <ParkingStalls />
