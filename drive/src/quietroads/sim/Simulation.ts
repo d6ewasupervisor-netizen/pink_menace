@@ -101,6 +101,20 @@ export class Simulation {
   private cues = new CardCues();
   private retest = new RetestWeek();
   private pendingRetest: RetestPlan | null = null;
+  // ── P13: per-step scratch. The physics step runs 60×/s, so the objects it used
+  // to build every tick (the ObserverOut fallback, the SimFrame it returns, the
+  // CueProbe it hands the card book, the `blocked` closure, and the zone-field's
+  // copy of the last position) are created once and refilled instead.
+  private readonly frozenFrame: ObserverOut = { skidding: false, stoppingM: 0, lateralG: 0 };
+  private readonly frame: SimFrame = {
+    ...this.frozenFrame, mode: "vehicle", speedMph: 0, speedLimitMph: 0, noiseDb: 20,
+    noiseBand: 0, hearingRadiusM: 0, frozen: false, objective: "",
+  };
+  private readonly cue: CueProbe = {
+    missionId: "", s: { pos: { x: 0, y: 0 }, heading: 0, speedMs: 0, throttle: 0, brake: 0, steer: 0, horn: false },
+    dt: 0, skidding: false, onIce: false, parkReady: false, inBus: false, inLanes: false, lead: null,
+  };
+  private readonly blockedAt = (p: Vec2) => this.blocked(p);
 
   /** The Act IV week reads the exam before the mission starts. */
   armRetest(plan: RetestPlan) { this.pendingRetest = plan; }
@@ -153,7 +167,7 @@ export class Simulation {
   }
 
   /** Where the player currently is, for noise attribution and the Quiet. */
-  get playerPos(): Vec2 { return this.mode === "walker" ? this.walker.pos : (this.lastVehiclePos ?? this.map.starts.carport.pos); }
+  get playerPos(): Vec2 { return this.mode === "walker" ? this.walker.pos : (this.hasLastPos ? this.lastPos : this.map.starts.carport.pos); }
   get playerZone(): NoiseZone { return this.mode === "walker" && !this.footDropoff ? this.interior.zone : "outdoor"; }
   /** On-foot pose the renderer/HUD read. Pharmacy and Bea are outdoor; DOL uses the interior. */
   get walker() {
@@ -169,7 +183,14 @@ export class Simulation {
     }
     return this.interior;
   }
-  private lastVehiclePos: Vec2 | null = null;
+  /** Owned copy of the last car position — never aliases the caller's sample object (P13). */
+  private readonly lastPos: Vec2 = { x: 0, y: 0 };
+  private hasLastPos = false;
+
+  /** Record the car's position without retaining the caller's sample. */
+  private notePos(p: Vec2) {
+    this.lastPos.x = p.x; this.lastPos.y = p.y; this.hasLastPos = true;
+  }
 
   get frozen() { return this.freezeReasons.size > 0; }
   freeze(reason: string) { this.freezeReasons.add(reason); }
@@ -240,7 +261,7 @@ export class Simulation {
       case "dropoff_pharmacy":
         this.missionId = id; this.mode = "walker"; this.footDropoff = "pharmacy";
         this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
-        this.dropoff.reset(this.lastVehiclePos ?? this.map.markers.pharmacy, this.lastVehicleHeading);
+        this.dropoff.reset(this.hasLastPos ? this.lastPos : this.map.markers.pharmacy, this.lastVehicleHeading);
         this.setObjective("Clipboard. Insulin. Don't slam the door.");
         break;
       case "mission_delivery_2_catfood":
@@ -404,22 +425,22 @@ export class Simulation {
   private cueProbe(s: VehicleSample, dt: number): CueProbe {
     const lanes = this.missionId === "mission_central_ledger" ? this.map.ledger.lanes : this.map.grid.lanes;
     const p = s.pos;
-    return {
-      missionId: this.missionId,
-      s,
-      dt,
-      skidding: this.vehicle.skidding,
-      onIce: this.climb.onIce,
-      parkReady: !!this.grid.parkGrade,
-      inBus: rectHas(this.map.grid.bus, p),
-      inLanes: p.x >= lanes.x0 && p.x <= lanes.x1 && p.y >= lanes.y0 && p.y <= lanes.y1,
-      lead: this.ledger.mission ? this.ledger.leadPos : this.ribbon.mission ? this.ribbon.leadPos : this.escort.mission ? this.escort.leadPos : null,
-    };
+    const q = this.cue;
+    q.missionId = this.missionId;
+    q.s = s;
+    q.dt = dt;
+    q.skidding = this.vehicle.skidding;
+    q.onIce = this.climb.onIce;
+    q.parkReady = !!this.grid.parkGrade;
+    q.inBus = rectHas(this.map.grid.bus, p);
+    q.inLanes = p.x >= lanes.x0 && p.x <= lanes.x1 && p.y >= lanes.y0 && p.y <= lanes.y1;
+    q.lead = this.ledger.mission ? this.ledger.leadPos : this.ribbon.mission ? this.ribbon.leadPos : this.escort.mission ? this.escort.leadPos : null;
+    return q;
   }
 
   private resetWorld(resetQuiet = true) {
     const s = this.map.starts[this.missionStart];
-    this.lastVehiclePos = s.pos;
+    this.notePos(s.pos);
     this.lastVehicleHeading = s.heading;
     this.ev.placeVehicle(s.pos, s.heading);
     if (resetQuiet) this.quiet.reset();
@@ -431,7 +452,7 @@ export class Simulation {
     this.ev.fire("mission.fail.swarm", { mission: this.missionId });
     if (this.footDropoff) {
       this.ev.toast("Swarmed. Back to the car. Try again.");
-      this.dropoff.reset(this.lastVehiclePos ?? this.handoffPoint(), this.lastVehicleHeading);
+      this.dropoff.reset(this.hasLastPos ? this.lastPos : this.handoffPoint(), this.lastVehicleHeading);
       if (this.footDropoff === "bea" && this.grid.parkGrade) this.dropoff.completeEvent = this.grid.parkGrade;
       this.noise.reset();
       this.setObjective(this.footDropoff === "bea" ? "Bag to the door. Don't slam it." : "Clipboard. Insulin. Don't slam the door.");
@@ -472,20 +493,21 @@ export class Simulation {
   private surfaceMu(): number {
     if (this.climb.mission && this.climb.onIce) return VEHICLE.MU.ice;
     if (this.missionId === "mission_backcountry_run" || this.missionId === "escort_ritzville") return VEHICLE.MU.gravel;
-    if (this.missionId === "mission_central_ledger" && (this.lastVehiclePos?.y ?? 0) > this.map.ledger.solidY) return VEHICLE.MU.wet;
+    if (this.missionId === "mission_central_ledger" && this.lastPos.y > this.map.ledger.solidY) return VEHICLE.MU.wet;
     return VEHICLE.MU.dry;
   }
 
   /** Advance the world with the player in the car. Returns everything the HUD/renderer needs. */
   step(dt: number, s: VehicleSample): SimFrame {
-    this.lastVehiclePos = s.pos;
+    this.notePos(s.pos);
     this.lastVehicleHeading = s.heading;
-    let out: ObserverOut = { skidding: this.vehicle.skidding, stoppingM: 0, lateralG: 0 };
+    let out: ObserverOut = this.frozenFrame;
+    out.skidding = this.vehicle.skidding; out.stoppingM = 0; out.lateralG = 0;
     if (!this.frozen && this.mode === "vehicle") {
       out = this.vehicle.step(dt, s, this.speedLimitMph);
       this.noise.step(dt);
       this.zones.step(dt, s.pos, s.speedMs);
-      this.quiet.step(dt, s.pos, (p) => this.blocked(p));
+      this.quiet.step(dt, s.pos, this.blockedAt);
       const hit = this.quiet.collide(s.pos, s.heading, this.egoHalfLen, this.egoHalfWid, s.speedMs);
       if (hit === "plow") { this.noise.emitKind("collision_plow", s.pos); this.ev.fire("plow.used"); }
       else if (hit === "soft") this.noise.emitKind("collision_soft", s.pos);
@@ -524,17 +546,17 @@ export class Simulation {
       }
       this.emitCues(this.cues.step(this.cueProbe(s, dt)));
     }
-    return {
-      ...out,
-      mode: this.mode,
-      speedMph: Math.abs(s.speedMs) / MPH,
-      speedLimitMph: this.speedLimitMph,
-      noiseDb: this.noise.levelDb,
-      noiseBand: this.noise.band,
-      hearingRadiusM: NoiseSystem.hearingRadius(this.noise.levelDb),
-      frozen: this.frozen,
-      objective: this.objective,
-    };
+    const f = this.frame;
+    f.skidding = out.skidding; f.stoppingM = out.stoppingM; f.lateralG = out.lateralG;
+    f.mode = this.mode;
+    f.speedMph = Math.abs(s.speedMs) / MPH;
+    f.speedLimitMph = this.speedLimitMph;
+    f.noiseDb = this.noise.levelDb;
+    f.noiseBand = this.noise.band;
+    f.hearingRadiusM = NoiseSystem.hearingRadius(this.noise.levelDb);
+    f.frozen = this.frozen;
+    f.objective = this.objective;
+    return f;
   }
 
   /** Advance the world with the player on foot (1.3). */
@@ -555,17 +577,17 @@ export class Simulation {
         this.quiet.step(dt, this.interior.pos, (p) => this.blocked(p) || (rectHas(this.map.dol.floor, p) && !this.interior.walkable(p)), this.interior.zone);
       }
     }
-    return {
-      mode: this.mode,
-      skidding: false, stoppingM: 0, lateralG: 0,
-      speedMph: this.walker.speed / MPH,
-      speedLimitMph: 0,
-      noiseDb: this.noise.levelDb,
-      noiseBand: this.noise.band,
-      hearingRadiusM: NoiseSystem.hearingRadius(this.noise.levelDb),
-      frozen: this.frozen,
-      objective: this.objective,
-    };
+    const f = this.frame;
+    f.mode = this.mode;
+    f.skidding = false; f.stoppingM = 0; f.lateralG = 0;
+    f.speedMph = this.walker.speed / MPH;
+    f.speedLimitMph = 0;
+    f.noiseDb = this.noise.levelDb;
+    f.noiseBand = this.noise.band;
+    f.hearingRadiusM = NoiseSystem.hearingRadius(this.noise.levelDb);
+    f.frozen = this.frozen;
+    f.objective = this.objective;
+    return f;
   }
 
   /** Game events that the sim itself reacts to (route these from your event bus). */

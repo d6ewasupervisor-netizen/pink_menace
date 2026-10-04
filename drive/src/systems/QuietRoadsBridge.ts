@@ -271,6 +271,10 @@ class Bridge {
   }
 
   // ---------------------------------------------------------------- per frame
+  /** One sample object for the whole run (P13) — the sim copies what it keeps. */
+  private readonly sampleBuf: VehicleSample = { pos: { x: 0, y: 0 }, heading: 0, speedMs: 0, throttle: 0, brake: 0, steer: 0, horn: false };
+  private readonly walkerInputBuf: WalkerInput = { x: 0, y: 0, run: false };
+
   private sample(): VehicleSample {
     const g = useGameStore.getState();
     const [x, , z] = g.vehiclePosition;
@@ -278,15 +282,15 @@ class Bridge {
     const fx = -Math.sin(g.vehicleHeading), fz = -Math.cos(g.vehicleHeading);
     // Pedals after the ramp, not the raw pad: a tap is gentle; only a held stab reads as "hard".
     const pedals = getSmoothedPedals();
-    return {
-      pos: { x, y: z },
-      heading: Math.atan2(fz, fx),
-      speedMs: getCurrentSpeedMs(),
-      throttle: pedals.throttle, brake: pedals.brake, steer: g.steering,
-      horn: useQRHud.getState().horn,
-      beams: g.headlights,
-      lateralSlip: getLateralSlip(),
-    };
+    const s = this.sampleBuf;
+    s.pos.x = x; s.pos.y = z;
+    s.heading = Math.atan2(fz, fx);
+    s.speedMs = getCurrentSpeedMs();
+    s.throttle = pedals.throttle; s.brake = pedals.brake; s.steer = g.steering;
+    s.horn = useQRHud.getState().horn;
+    s.beams = g.headlights;
+    s.lateralSlip = getLateralSlip();
+    return s;
   }
 
   private lastQte = false;
@@ -305,7 +309,8 @@ class Bridge {
     try {
       if (g.phase === 'walking' && this.sim.mode === 'walker') {
         const hud = useQRHud.getState();
-        const input: WalkerInput = { x: g.steering, y: g.brake - g.throttle, run: hud.run };
+        const input = this.walkerInputBuf;
+        input.x = g.steering; input.y = g.brake - g.throttle; input.run = hud.run;
         f = this.sim.stepWalker(dt, input);
         const w = this.sim.walker;
         useGameStore.setState({ walkerPosition: [w.pos.x, 0, w.pos.y] });
@@ -319,7 +324,9 @@ class Bridge {
       this.stepEvents.end(this.deliverEvent);
     }
     // HUD needs ~10 Hz, not 60: every store set re-renders every subscriber.
-    if (f && this.clock - this.lastHudAt >= 0.1) { this.lastHudAt = this.clock; useQRHud.getState().setTransient({ frame: f }); }
+    // The sim reuses one frame object (P13), so snapshot it here — a fresh object
+    // is what lets zustand see a change and notify the HUD subscribers.
+    if (f && this.clock - this.lastHudAt >= 0.1) { this.lastHudAt = this.clock; useQRHud.getState().setTransient({ frame: { ...f } }); }
     this.syncBrake();
     if (this.pendingQuiz && this.clock >= this.pendingQuiz.at) {
       const t = this.pendingQuiz; this.pendingQuiz = null;

@@ -37,7 +37,11 @@ export class ZoneField {
   private inside = new Set<string>();
   private fired = new Set<string>();
   private stopTrack = new Map<string, { minSpeed: number; stoppedS: number }>();
-  private previous: Vec2 | null = null;
+  /** Previous car position, copied into one owned object (P13 — no per-step allocation). */
+  private readonly prevA: Vec2 = { x: 0, y: 0 };
+  private readonly prevB: Vec2 = { x: 0, y: 0 };
+  private hasPrevious = false;
+  private previousIsA = true;
   quizzesEnabled = false;
 
   constructor(public defs: ZoneDef[], private ev: ZoneEvents) {}
@@ -47,28 +51,35 @@ export class ZoneField {
     for (const d of this.defs) if (kinds.includes(d.kind)) this.fired.delete(zoneKey(d));
   }
 
-  reset() { this.inside.clear(); this.fired.clear(); this.stopTrack.clear(); this.quizAsked.clear(); this.previous = null; }
+  reset() { this.inside.clear(); this.fired.clear(); this.stopTrack.clear(); this.quizAsked.clear(); this.hasPrevious = false; }
 
   /** Placement/reset changes the sample origin without simulating a driven crossing. */
   place(pos: Vec2) {
-    this.previous = { ...pos };
+    this.prevA.x = pos.x; this.prevA.y = pos.y;
+    this.previousIsA = true;
+    this.hasPrevious = true;
     this.inside.clear();
     this.stopTrack.clear();
     for (const d of this.defs) if (rectHas(d.rect, pos)) this.inside.add(zoneKey(d));
   }
 
   step(dt: number, carPos: Vec2, speedMs: number) {
-    const previous = this.previous;
+    // Two owned buffers, alternated: the swept-crossing test still needs last
+    // step's position while this step's is being written.
+    const previous = this.hasPrevious ? (this.previousIsA ? this.prevA : this.prevB) : null;
+    const next = this.previousIsA ? this.prevB : this.prevA;
     // Mission teleports must not activate every zone along the jump.
     const swept = previous && (carPos.x - previous.x) ** 2 + (carPos.y - previous.y) ** 2 <= 30 * 30;
-    this.previous = { ...carPos };
+    next.x = carPos.x; next.y = carPos.y;
+    this.previousIsA = !this.previousIsA;
+    this.hasPrevious = true;
     for (const d of this.defs) {
       const key = `${d.kind}:${d.id}`;
       const now = rectHas(d.rect, carPos);
       const was = this.inside.has(key);
       if (now && !was) { this.inside.add(key); this.enter(d, key); }
       if (!now && was) { this.inside.delete(key); this.exit(d, key); }
-      if (!now && !was && swept && segmentCrossesRect(previous, carPos, d.rect)) {
+      if (!now && !was && swept && segmentCrossesRect(previous!, carPos, d.rect)) {
         this.enter(d, key);
         const crossing = this.stopTrack.get(key);
         if (crossing) crossing.minSpeed = Math.abs(speedMs);

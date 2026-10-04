@@ -70,6 +70,15 @@ export class VehicleObserver {
   mu: number = VEHICLE.MU.dry;
   skidding = false;
   private prev: VehicleSample | null = null;
+  /**
+   * One previous-sample object for the whole run (P13). The sample step used to
+   * do `this.prev = { ...s }`, which allocated a new object and a new `pos`
+   * every physics step; here the fields are copied into this one instance, so
+   * its identity never changes after the first sample.
+   */
+  private readonly prevSample: VehicleSample = { pos: { x: 0, y: 0 }, heading: 0, speedMs: 0, throttle: 0, brake: 0, steer: 0, horn: false };
+  /** One ObserverOut for the whole run — the caller reads it immediately. */
+  private readonly out: ObserverOut = { skidding: false, stoppingM: 0, lateralG: 0 };
   private hornHeld = false;
   private hardCd = 0; private skidCd = 0; private speedOverT = 0; private speedOverCd = 0; private ambientT = 0;
   private slipT = 0;
@@ -78,6 +87,9 @@ export class VehicleObserver {
   constructor(private noise: NoiseSystem, private fire: (event: string, data?: Record<string, unknown>) => void) {}
 
   reset() { this.prev = null; this.skidding = false; this.hardCd = this.skidCd = this.speedOverT = this.speedOverCd = this.ambientT = this.slipT = 0; }
+
+  /** The reused previous-sample object (null until the first step). Identity is stable. */
+  previousSample(): VehicleSample | null { return this.prev; }
 
   step(dt: number, s: VehicleSample, speedLimitMph: number): ObserverOut {
     const p = this.prev ?? s;
@@ -123,8 +135,17 @@ export class VehicleObserver {
       if (this.speedOverT > 2 && this.speedOverCd <= 0) { this.fire("speed.over", { mph: Math.round(v / MPH), limit: speedLimitMph }); this.speedOverCd = 10; }
     } else this.speedOverT = 0;
 
-    this.prev = { ...s }; this.lastHeading = s.heading;
-    return { skidding: this.skidding, stoppingM: stoppingDistanceM(s.speedMs, this.mu, VEHICLE.BRAKE_DECEL_DRY), lateralG: latAcc / 9.81 };
+    const prev = this.prevSample;
+    prev.pos.x = s.pos.x; prev.pos.y = s.pos.y;
+    prev.heading = s.heading; prev.speedMs = s.speedMs;
+    prev.throttle = s.throttle; prev.brake = s.brake; prev.steer = s.steer;
+    prev.horn = s.horn; prev.beams = s.beams; prev.lateralSlip = s.lateralSlip;
+    this.prev = prev;
+    this.lastHeading = s.heading;
+    this.out.skidding = this.skidding;
+    this.out.stoppingM = stoppingDistanceM(s.speedMs, this.mu, VEHICLE.BRAKE_DECEL_DRY);
+    this.out.lateralG = latAcc / 9.81;
+    return this.out;
   }
 
   /** Call when the car hits static geometry (curb, house). Emits the soft collision. */
