@@ -12,6 +12,7 @@ import {
   liveKeys,
   mergeDriveInput,
   setLivePad,
+  bindHeld,
 } from '@/input/driveInput';
 
 const GAMEPAD_DEAD_ZONE = 0.12;
@@ -23,7 +24,8 @@ function applyDeadZone(value: number): number {
 
 export function flushDriveInput() {
   const store = useGameStore.getState();
-  const controls = mergeDriveInput(store.steeringSensitivity);
+  // P12: the player's bind table, not the built-in defaults.
+  const controls = mergeDriveInput(store.steeringSensitivity, store.binds);
   store.setControls(controls);
   const hasMovement =
     Math.abs(controls.steering) > 0.05 || controls.throttle > 0.05 || controls.brake > 0.05;
@@ -40,8 +42,9 @@ export function useTouchControls() {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       liveKeys.add(e.key);
-      if (e.key === 'h' || e.key === 'H') useQRHud.getState().setHorn(true);
-      if (!e.repeat && (e.key === 'l' || e.key === 'L') && useGameStore.getState().phase === 'driving') {
+      const { binds } = useGameStore.getState();
+      if (bindHeld('horn', binds)) useQRHud.getState().setHorn(true);
+      if (!e.repeat && bindHeld('headlights', binds) && useGameStore.getState().phase === 'driving') {
         useGameStore.getState().cycleHeadlights();
       }
       if (e.key === 'Shift') useQRHud.getState().setRun(true);
@@ -49,7 +52,7 @@ export function useTouchControls() {
     };
     const onKeyUp = (e: KeyboardEvent) => {
       liveKeys.delete(e.key);
-      if (e.key === 'h' || e.key === 'H') useQRHud.getState().setHorn(false);
+      if (bindHeld('horn', useGameStore.getState().binds)) useQRHud.getState().setHorn(false);
       if (e.key === 'Shift') useQRHud.getState().setRun(false);
       flushDriveInput();
     };

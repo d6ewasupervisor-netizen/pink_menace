@@ -1,13 +1,20 @@
 /**
  * PauseMenu — shown when phase === 'paused'
  */
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useGameProgress } from '@/hooks/useGameProgress';
 import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
-import { controlsSchemeLabel } from '@/input/driveInput';
+import {
+  controlsSchemeLabel,
+  DRIVE_ACTIONS,
+  ACTION_LABELS,
+  keyLabel,
+  type DriveAction,
+} from '@/input/driveInput';
+import { TEXT_SIZE_LABELS } from '@/input/textSize';
 
 export function PauseMenu({ onExit }: { onExit?: () => void }) {
   const phase = useGameStore((s) => s.phase);
@@ -25,6 +32,33 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
   const toggleMute = useGameStore((s) => s.toggleMute);
   const reducedMotion = useGameStore((s) => s.reducedMotion);
   const setReducedMotion = useGameStore((s) => s.setReducedMotion);
+
+  // ── P12 accessibility state ────────────────────────────────────────────────
+  const binds = useGameStore((s) => s.binds);
+  const rebindAction = useGameStore((s) => s.rebindAction);
+  const resetAction = useGameStore((s) => s.resetAction);
+  const resetAllBinds = useGameStore((s) => s.resetAllBinds);
+  const textSize = useGameStore((s) => s.textSize);
+  const cycleTextSize = useGameStore((s) => s.cycleTextSize);
+  const colorblindHud = useGameStore((s) => s.colorblindHud);
+  const setColorblindHud = useGameStore((s) => s.setColorblindHud);
+  const [bindsOpen, setBindsOpen] = useState(false);
+  const [capturing, setCapturing] = useState<DriveAction | null>(null);
+
+  // Rebinding is a capture: the next keydown writes that action, Esc cancels.
+  useEffect(() => {
+    if (!capturing) return;
+    const onKey = (e: KeyboardEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.key === 'Escape') { setCapturing(null); return; }
+      rebindAction(capturing, e.key === ' ' ? ' ' : e.key);
+      setCapturing(null);
+    };
+    // Capture phase so the pause key's own handler does not also fire.
+    window.addEventListener('keydown', onKey, { capture: true });
+    return () => window.removeEventListener('keydown', onKey, { capture: true });
+  }, [capturing, rebindAction]);
 
   const { saveProgress } = useGameProgress();
   const worldMode = useGameStore((s) => s.worldMode);
@@ -112,6 +146,57 @@ export function PauseMenu({ onExit }: { onExit?: () => void }) {
           <button style={{ ...styles.btn, ...styles.btnControls }} onClick={() => setReducedMotion(!reducedMotion)}>
             {reducedMotion ? '🌊 MOTION OFF (steady cam)' : '🎥 MOTION ON'}
           </button>
+
+          {/* ── P12 accessibility ─────────────────────────────────────────── */}
+          <div style={styles.a11yRow}>
+            <span style={styles.a11yLabel}>TEXT SIZE</span>
+            <button style={styles.stepBtn} onClick={cycleTextSize}>
+              {TEXT_SIZE_LABELS[textSize]} ▸
+            </button>
+          </div>
+          <div style={styles.a11yRow}>
+            <span style={styles.a11yLabel}>COLORBLIND HUD</span>
+            <button
+              style={styles.stepBtn}
+              onClick={() => setColorblindHud(!colorblindHud)}
+              aria-pressed={colorblindHud}
+            >
+              {colorblindHud ? 'ON — ✓ PASS  ✕ MISS' : 'OFF'}
+            </button>
+          </div>
+
+          <div style={styles.a11yRow}>
+            <span style={styles.a11yLabel}>KEYS</span>
+            <button style={styles.stepBtn} onClick={() => setBindsOpen((v) => !v)}>
+              {bindsOpen ? 'HIDE' : 'CHANGE'}
+            </button>
+          </div>
+
+          {bindsOpen && (
+            <div style={styles.bindPanel}>
+              {capturing && (
+                <div style={styles.captureHint}>
+                  PRESS A KEY FOR {ACTION_LABELS[capturing].toUpperCase()} · ESC CANCELS
+                </div>
+              )}
+              {DRIVE_ACTIONS.map((action) => (
+                <div key={action} style={styles.bindRow}>
+                  <span style={styles.a11yLabel}>{ACTION_LABELS[action]}</span>
+                  <button
+                    style={styles.bindKey}
+                    onClick={() => setCapturing(action)}
+                  >
+                    {binds[action].map(keyLabel).join(' / ')}
+                  </button>
+                  <button style={styles.bindReset} onClick={() => resetAction(action)}>↺</button>
+                </div>
+              ))}
+              <button style={{ ...styles.btn, ...styles.btnControls }} onClick={resetAllBinds}>
+                RESET ALL KEYS
+              </button>
+            </div>
+          )}
+
           <button style={{ ...styles.btn, ...styles.btnResume }} onClick={handleResume}>
             ▶ RESUME
           </button>
@@ -271,5 +356,28 @@ const styles: Record<string, React.CSSProperties> = {
     background: '#3a1a1a',
     color: '#ff6b6b',
     border: '1px solid #ff6b6b',
+  },
+  // ── P12 accessibility rows ──────────────────────────────────────────────────
+  a11yRow: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, minHeight: 40 },
+  a11yLabel: { color: '#9a9186', fontSize: 12, letterSpacing: '0.06em' },
+  stepBtn: {
+    background: '#241f1d', color: '#ede7dc', border: '1px solid #3a3230', borderRadius: 6,
+    padding: '8px 12px', fontSize: 12, fontWeight: 700, cursor: 'pointer', minHeight: 36,
+  },
+  bindPanel: {
+    display: 'flex', flexDirection: 'column', gap: 6, padding: 10, marginBottom: 4,
+    background: '#141110', border: '1px solid #3a3230', borderRadius: 8,
+  },
+  bindRow: { display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'space-between' },
+  bindKey: {
+    flex: 1, background: '#241f1d', color: '#ede7dc', border: '1px solid #3a3230',
+    borderRadius: 6, padding: '6px 8px', fontSize: 12, fontWeight: 700, cursor: 'pointer', minHeight: 34,
+  },
+  bindReset: {
+    background: 'transparent', color: '#9a9186', border: '1px solid #3a3230', borderRadius: 6,
+    padding: '6px 9px', fontSize: 12, cursor: 'pointer', minHeight: 34,
+  },
+  captureHint: {
+    color: '#c45a68', fontSize: 11, letterSpacing: '0.08em', textAlign: 'center', paddingBottom: 4,
   },
 };

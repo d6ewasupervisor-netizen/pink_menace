@@ -156,12 +156,13 @@ const styles: Record<string, React.CSSProperties> = {
   dim: { position: 'absolute', inset: 0, background: 'rgba(5,6,10,0.72)' },
   still: { position: 'absolute', left: '50%', top: 'calc(8% + env(safe-area-inset-top))', transform: 'translateX(-50%)', width: 'min(92vw, 520px)', aspectRatio: '606 / 361', objectFit: 'cover', borderRadius: 10, opacity: 0.92, boxShadow: '0 12px 40px rgba(0,0,0,0.7)', filter: 'saturate(0.85)' },
   box: { position: 'relative', width: 'min(720px, 92vw)', background: tokens.colors.panel, border: '1px solid', borderRadius: tokens.radius.lg, padding: '12px 16px 10px 16px', color: tokens.colors.ink, fontFamily: tokens.fonts.ui, boxShadow: '0 8px 32px rgba(0,0,0,0.5)' },
-  speaker: { fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 },
+  // P12: text size scales the dialogue type only (the var is set on the overlay root).
+  speaker: { fontSize: 'calc(12px * var(--qr-text-scale, 1))', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 },
   sys: { color: tokens.colors.faint, fontWeight: 400, textTransform: 'none', letterSpacing: 0 },
-  text: { fontSize: 17, lineHeight: 1.4, marginBottom: 8 },
-  direction: { fontSize: 15, lineHeight: 1.4, color: '#b8bcc6', fontStyle: 'italic', marginBottom: 8 },
+  text: { fontSize: 'calc(17px * var(--qr-text-scale, 1))', lineHeight: 1.4, marginBottom: 8 },
+  direction: { fontSize: 'calc(15px * var(--qr-text-scale, 1))', lineHeight: 1.4, color: '#b8bcc6', fontStyle: 'italic', marginBottom: 8 },
   choices: { display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 },
-  choice: { background: 'rgba(255,255,255,0.06)', color: '#fff', border: `1px solid ${tokens.colors.strokeSoft}`, borderRadius: tokens.radius.md, padding: '12px 14px', fontSize: 15, textAlign: 'left', cursor: 'pointer', minHeight: 48 },
+  choice: { background: 'rgba(255,255,255,0.06)', color: '#fff', border: `1px solid ${tokens.colors.strokeSoft}`, borderRadius: tokens.radius.md, padding: '12px 14px', fontSize: 'calc(15px * var(--qr-text-scale, 1))', textAlign: 'left', cursor: 'pointer', minHeight: 48 },
   timerTrack: { height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden', marginTop: 4 },
   timerFill: { height: '100%', background: tokens.colors.warn, transition: 'width 50ms linear' },
 };

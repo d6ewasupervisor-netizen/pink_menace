@@ -69,7 +69,7 @@ export function CockpitHUD() {
           <span style={{ color: tokens.colors.ink, letterSpacing: '0.1em' }}>
             · {spec.zone.toUpperCase()}
           </span>
-          <span style={{ color: tokens.colors.muted, fontSize: 10, letterSpacing: '0.06em' }}>
+          <span style={{ color: tokens.colors.muted, fontSize: 'calc(10px * var(--qr-text-scale, 1))', letterSpacing: '0.06em' }}>
             {ego}
           </span>
         </div>
@@ -93,7 +93,7 @@ const styles: Record<string, React.CSSProperties> = {
     border: `1px solid ${tokens.colors.strokeSoft}`,
     borderRadius: tokens.radius.sm,
     color: tokens.colors.ink,
-    fontSize: 16,
+    fontSize: 'calc(16px * var(--qr-text-scale, 1))',
     width: 36,
     height: 36,
     cursor: 'pointer',
@@ -116,7 +116,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'baseline',
     gap: 6,
-    fontSize: 11,
+    fontSize: 'calc(11px * var(--qr-text-scale, 1))',
     padding: '3px 10px',
     borderRadius: tokens.radius.sm,
     background: 'rgba(0,0,0,0.45)',

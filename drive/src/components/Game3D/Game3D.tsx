@@ -18,6 +18,8 @@ import { liveDrive } from '@/systems/driveTelemetry';
 import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
 import { getWeather } from './Skybox';
 import { isLowEndDevice, recordDelta, recordPerformanceSample, stepQuality, initialQualityState, dprForTier, type QualityState, type QualityTier } from '@/utils/performance';
+import { bindHeld } from '@/input/driveInput';
+import { textScaleStyle } from '@/input/textSize';
 
 import { Lighting } from './Lighting';
 import { Skybox } from './Skybox';
@@ -47,6 +49,7 @@ import { DialogueBox } from './DialogueBox';
 import { SceneDirector } from './SceneDirector';
 import { GracieQTE } from './GracieQTE';
 import { CardOverlay } from './CardOverlay';
+import { GradeDebrief } from './GradeDebrief';
 import { ScareOverlay } from './ScareOverlay';
 
 // ─── Low-end detection (computed once) ───────────────────────────────────────
@@ -196,6 +199,10 @@ export function Game3D({ onExit }: Game3DProps) {
   const onTier = useCallback((t: QualityTier) => setTier(t), []);
   const dpr = dprForTier(tier, typeof window === 'undefined' ? 1 : window.devicePixelRatio, LOW_END);
 
+  // P12: text size. It is a CSS variable on the HTML overlay only — the 3D
+  // world is never scaled.
+  const textSize = useGameStore((s) => s.textSize);
+
   const { saveProgress } = useGameProgress();
 
   // Register systems
@@ -219,12 +226,10 @@ export function Game3D({ onExit }: Game3DProps) {
     };
   }, []);
 
-  // ── Keyboard: Escape / P to toggle pause ─────────────────────────────────
+  // ── Keyboard: the bound pause key(s) toggle pause ─────────────────────────
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' || e.key === 'p' || e.key === 'P') {
-        togglePause();
-      }
+    const handleKey = () => {
+      if (bindHeld('pause', useGameStore.getState().binds)) togglePause();
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
@@ -323,7 +328,7 @@ export function Game3D({ onExit }: Game3DProps) {
       </Canvas>
 
       {/* HTML overlay layer (outside Canvas) */}
-      <div className="ui-layer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+      <div className="ui-layer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', ...textScaleStyle(textSize) }}>
         <LoadingScreen />
         <CockpitHUD />
         <QuizOverlay />
@@ -332,6 +337,7 @@ export function Game3D({ onExit }: Game3DProps) {
         <DialogueBox />
         <ScareOverlay />
         <CardOverlay />
+        <GradeDebrief />
         <PauseMenu onExit={onExit} />
         <VictoryScreen onExit={onExit} />
         <GameOverScreen />

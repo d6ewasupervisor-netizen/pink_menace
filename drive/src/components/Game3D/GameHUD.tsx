@@ -260,7 +260,7 @@ const styles: Record<string, React.CSSProperties> = {
     border: '2px solid #3a3a3a',
     background: 'rgba(0,0,0,0.55)',
     color: '#555',
-    fontSize: 13,
+    fontSize: 'calc(13px * var(--qr-text-scale, 1))',
     fontWeight: 800,
     letterSpacing: '0.14em',
     fontFamily: 'Impact, "Arial Narrow", sans-serif',
@@ -279,7 +279,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   compactStreak: {
     color: '#ff6b6b',
-    fontSize: 12,
+    fontSize: 'calc(12px * var(--qr-text-scale, 1))',
     fontWeight: 700,
   },
 };

@@ -101,20 +101,118 @@ export function setLivePad(pad: PadAxes | null): void {
   livePad = pad;
 }
 
-export function mergeDriveInput(sensitivity: number): {
+// ─── P12: remappable keys ─────────────────────────────────────────────────────
+// The bind table IS the data. Defaults are exactly what mergeDriveInput read
+// before this existed — arrows and WASD for steer and pedals, Space handbrake,
+// H horn, L headlights, Escape and P pause — so an unbound player behaves
+// identically to the pre-P12 build.
+
+export const DRIVE_ACTIONS = [
+  'steerLeft', 'steerRight', 'throttle', 'brake',
+  'handbrake', 'horn', 'headlights', 'pause',
+] as const;
+
+export type DriveAction = (typeof DRIVE_ACTIONS)[number];
+
+/** action → the keys that trigger it. */
+export type BindMap = Record<DriveAction, string[]>;
+
+/** Human labels for the pause-menu rows. */
+export const ACTION_LABELS: Record<DriveAction, string> = {
+  steerLeft: 'Steer left',
+  steerRight: 'Steer right',
+  throttle: 'Throttle',
+  brake: 'Brake',
+  handbrake: 'Handbrake',
+  horn: 'Horn',
+  headlights: 'Headlights',
+  pause: 'Pause',
+};
+
+/** The shipped defaults. Both arrows and WASD, as before. */
+export const DEFAULT_BINDS: BindMap = {
+  steerLeft: ['ArrowLeft', 'a'],
+  steerRight: ['ArrowRight', 'd'],
+  throttle: ['ArrowUp', 'w'],
+  brake: ['ArrowDown', 's'],
+  handbrake: [' '],
+  horn: ['h'],
+  headlights: ['l'],
+  pause: ['Escape', 'p'],
+};
+
+/** A fresh, mutable copy of the defaults (used by the reset row). */
+export function defaultBinds(): BindMap {
+  return Object.fromEntries(DRIVE_ACTIONS.map((a) => [a, [...DEFAULT_BINDS[a]]])) as BindMap;
+}
+
+/** Merge a partial/stored map over the defaults so a new action is never missing. */
+export function normalizeBinds(raw: unknown): BindMap {
+  const out = defaultBinds();
+  if (!raw || typeof raw !== 'object') return out;
+  const src = raw as Partial<Record<string, unknown>>;
+  for (const action of DRIVE_ACTIONS) {
+    const keys = src[action];
+    if (Array.isArray(keys)) {
+      const clean = keys.filter((k): k is string => typeof k === 'string' && k.length > 0);
+      if (clean.length) out[action] = [...new Set(clean)];
+    }
+  }
+  return out;
+}
+
+/**
+ * Is any of this action's keys currently held?
+ * Single letters match case-insensitively, so a rebind to "q" still works with
+ * Shift held — which is what the old `has('a') || has('A')` check did.
+ */
+export function bindHeld(action: DriveAction, binds: BindMap = DEFAULT_BINDS): boolean {
+  for (const key of binds[action]) {
+    if (liveKeys.has(key)) return true;
+    if (key.length === 1) {
+      if (liveKeys.has(key.toUpperCase()) || liveKeys.has(key.toLowerCase())) return true;
+    }
+  }
+  return false;
+}
+
+/** Bind an action to one key, replacing its list. */
+export function rebind(binds: BindMap, action: DriveAction, key: string): BindMap {
+  return { ...binds, [action]: [key] };
+}
+
+/** Put one action back to its default. */
+export function resetBind(binds: BindMap, action: DriveAction): BindMap {
+  return { ...binds, [action]: [...DEFAULT_BINDS[action]] };
+}
+
+/** Put every action back to its default. */
+export function resetAllBinds(): BindMap {
+  return defaultBinds();
+}
+
+/** Pretty key name for a pause-menu row. */
+export function keyLabel(key: string): string {
+  if (key === ' ') return 'SPACE';
+  if (key.startsWith('Arrow')) return key.toUpperCase();
+  if (key.length === 1) return key.toUpperCase();
+  return key.toUpperCase();
+}
+
+export function mergeDriveInput(sensitivity: number, binds: BindMap = DEFAULT_BINDS): {
   steering: number;
   throttle: number;
   brake: number;
   emergencyBrake: boolean;
 } {
-  const left = liveKeys.has('ArrowLeft') || liveKeys.has('a') || liveKeys.has('A');
-  const right = liveKeys.has('ArrowRight') || liveKeys.has('d') || liveKeys.has('D');
-  const fwd = liveKeys.has('ArrowUp') || liveKeys.has('w') || liveKeys.has('W');
-  const back = liveKeys.has('ArrowDown') || liveKeys.has('s') || liveKeys.has('S');
+  const left = bindHeld('steerLeft', binds);
+  const right = bindHeld('steerRight', binds);
+  const fwd = bindHeld('throttle', binds);
+  const back = bindHeld('brake', binds);
   const pad = livePad;
   // Space is the handbrake on the highway (OpenC1). Kent treats that same
   // flag as a full stop inside the controller, so it stays off the brake pedal.
-  const eBrake = liveKeys.has(' ') || touchHandbrake || Boolean(pad && pad.handbrake);
+  const eBrake = bindHeld('handbrake', binds) || touchHandbrake || Boolean(pad && pad.handbrake);
 
   let steer = 0;
   if (left) steer -= 1;

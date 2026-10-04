@@ -12,10 +12,22 @@ import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { Question } from '@/types/quiz';
 import {
   type ControlsScheme,
+  type BindMap,
+  type DriveAction,
   clearStickAxes,
   nextControlsScheme,
   normalizeControlsScheme,
+  defaultBinds,
+  normalizeBinds,
+  rebind,
+  resetBind,
+  resetAllBinds,
 } from '@/input/driveInput';
+import {
+  type TextSize,
+  nextTextSize,
+  normalizeTextSize,
+} from '@/input/textSize';
 import { type HeadlightBeam, nextHeadlight } from '@/systems/headlights';
 
 export type GamePhase =
@@ -120,6 +132,12 @@ interface SettingsSlice {
   sfxVolume: number;    // 0–1
   musicVolume: number;  // 0–1
   reducedMotion: boolean; // suppresses camera shake + drift (a11y)
+  /** P12: the remappable key table. Defaults are the shipped arrows/WASD set. */
+  binds: BindMap;
+  /** P12: 0 = standard, 1 = large, 2 = largest. Type only — never the 3D world. */
+  textSize: TextSize;
+  /** P12: pass/miss carries a second cue (label + shape), not colour alone. */
+  colorblindHud: boolean;
   resetCounter: number;
 }
 
@@ -162,6 +180,14 @@ type GameState = ControlsSlice &
     setSfxVolume: (vol: number) => void;
     setMusicVolume: (vol: number) => void;
     setReducedMotion: (on: boolean) => void;
+    // ── P12 accessibility ──────────────────────────────────────────────────────
+    setBinds: (binds: BindMap) => void;
+    rebindAction: (action: DriveAction, key: string) => void;
+    resetAction: (action: DriveAction) => void;
+    resetAllBinds: () => void;
+    setTextSize: (size: TextSize) => void;
+    cycleTextSize: () => void;
+    setColorblindHud: (on: boolean) => void;
   };
 
 // ─── Default values ───────────────────────────────────────────────────────────
@@ -219,6 +245,9 @@ export const useGameStore = create<GameState>()(
       sfxVolume: 0.7,
       musicVolume: 0.3,
       reducedMotion: false,
+      binds: defaultBinds(),
+      textSize: 0 as TextSize,
+      colorblindHud: false,
       resetCounter: 0,
 
       // ── Controls ────────────────────────────────────────────────────────────
@@ -262,6 +291,15 @@ export const useGameStore = create<GameState>()(
       setSfxVolume: (vol) => set({ sfxVolume: Math.max(0, Math.min(1, vol)) }),
       setMusicVolume: (vol) => set({ musicVolume: Math.max(0, Math.min(1, vol)) }),
       setReducedMotion: (on) => set({ reducedMotion: on }),
+
+      // ── P12 accessibility ──────────────────────────────────────────────────
+      setBinds: (binds) => set({ binds: normalizeBinds(binds) }),
+      rebindAction: (action, key) => set((s) => ({ binds: rebind(s.binds, action, key) })),
+      resetAction: (action) => set((s) => ({ binds: resetBind(s.binds, action) })),
+      resetAllBinds: () => set({ binds: resetAllBinds() }),
+      setTextSize: (size) => set({ textSize: normalizeTextSize(size) }),
+      cycleTextSize: () => set((s) => ({ textSize: nextTextSize(s.textSize) })),
+      setColorblindHud: (on) => set({ colorblindHud: on }),
 
       // ── Mileage + triggers ───────────────────────────────────────────────────
       addMileage: (delta) => {
@@ -390,11 +428,15 @@ export const useGameStore = create<GameState>()(
 
       // ── Reset ───────────────────────────────────────────────────────────────
       resetProgress: () => {
-        const { steeringSensitivity, controlsScheme, resetCounter } = get();
+        const { steeringSensitivity, controlsScheme, resetCounter, reducedMotion, binds, textSize, colorblindHud } = get();
         set({
           ...defaultGameState,
           steeringSensitivity,
           controlsScheme,
+          reducedMotion,
+          binds,
+          textSize,
+          colorblindHud,
           phase: 'menu',
           vehiclePosition: [0, 0.7, 0] as [number, number, number],
           vehicleHeading: 0,
@@ -436,6 +478,9 @@ export const useGameStore = create<GameState>()(
         sfxVolume: state.sfxVolume,
         musicVolume: state.musicVolume,
         reducedMotion: state.reducedMotion,
+        binds: normalizeBinds(state.binds),
+        textSize: normalizeTextSize(state.textSize),
+        colorblindHud: state.colorblindHud,
       }),
     }
     )
