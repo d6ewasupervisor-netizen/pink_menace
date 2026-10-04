@@ -133,6 +133,9 @@ driving; **—** = never opened in the drive (briefing-only / card host).
   `exam_40` (40 questions, 32 to pass) → `local_loop_week`.
 - **Not wired (21):** IV-001-brake, IV-002…IV-017, IV-026…IV-030 (IV stills live
   in the card game; only IV-018 opens inside the drive).
+- **P11 closed:** the id stays `IV-001-brake` because the deck, the image route
+  (`/api/drive/image/IV-001-brake`) and the coverage test all use it; no loader
+  or id check rejects the suffix, so no code change was needed.
 
 ### Act V — The Ribbon (8/13 wired)
 - DIALOG: V-001, V-003, V-005 (3.2); V-006 (7.1); V-007, V-010, V-012 (3.1b); V-013 (3.3)
