@@ -87,6 +87,11 @@ class AudioManagerClass {
       this._setupRain();
 
       this._initialized = true;
+      // Autoplay policy: a context created inside a gesture can start suspended
+      // on some browsers. Resume HERE, inside the same first-gesture handler
+      // that called init() — a resume() from the render loop is not a user
+      // gesture and the browser is free to ignore it.
+      if (this.ctx.state === 'suspended') void this.ctx.resume();
       return true;
     } catch {
       return false;

@@ -305,7 +305,10 @@ export function Game3D({ onExit }: Game3DProps) {
         height: '100vh',
         overflow: 'hidden',
         position: 'relative',
+        // The drive root swallows every gesture: no scroll chain to the page
+        // behind it, no pinch-zoom, no pull-to-refresh.
         touchAction: 'none',
+        overscrollBehavior: 'none',
         background: '#0a0a12',
       }}
     >
