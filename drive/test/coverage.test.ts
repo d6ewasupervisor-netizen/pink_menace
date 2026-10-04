@@ -35,6 +35,9 @@ const FILES = [act01, act2, act2central, act3, act4, act5ribbon, act5, act6, act
  * teaching.test.ts steps the three grid missions and requires card.cue.
  */
 const CUED = [
+  // II-006 and II-012 left the Act V briefing still (3.1) and now open on the
+  // Ledger drive: II-012 on ledger.follow.close, II-006 on the signal beat.
+  "II-006", "II-012",
   "II-007", "II-008", "II-009", "II-011", "II-013", "II-014", "II-015", "II-016", "II-017",
   "II-018", "II-019", "II-020", "II-021", "II-022", "II-023", "II-025", "II-026", "II-028",
   "II-029", "II-031",

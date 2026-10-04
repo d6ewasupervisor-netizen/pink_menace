@@ -125,7 +125,7 @@
           "volume": "low",
           "anim": "deac.map_table",
           "text": "Issaquah checkpoint. Medical. Three vehicles. I lead, Jonah's middle, you sweep.",
-          "next": "3.1.card_II-006"
+          "next": "3.1.2"
         },
         "3.1.2": {
           "type": "line",
@@ -152,7 +152,7 @@
           "emotion": "neutral",
           "volume": "low",
           "text": "Match speed on the ramp. Don't merge slow, don't merge loud. Three seconds behind Jonah. Count it out loud if you have to.",
-          "next": "3.1.card_II-012"
+          "next": "3.1.5"
         },
         "3.1.5": {
           "type": "line",
@@ -250,16 +250,6 @@
             "log": "scene.complete:3.1"
           },
           "next_scene": "3.1b"
-        },
-        "3.1.card_II-006": {
-          "type": "card",
-          "card": "II-006",
-          "next": "3.1.2"
-        },
-        "3.1.card_II-012": {
-          "type": "card",
-          "card": "II-012",
-          "next": "3.1.5"
         }
       }
     },

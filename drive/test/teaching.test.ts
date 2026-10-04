@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { CardCues, type CueProbe } from "../src/quietroads/sim/cardCues";
 import { followFullGapM } from "../src/quietroads/config";
 import { Simulation, rectCenter, type VehicleSample } from "../src/quietroads";
+import act3 from "../src/quietroads/data/dialogue_act3.json";
+import type { DialogueFile } from "../src/quietroads/dialogue/types";
 
 function sample(over: Partial<VehicleSample> = {}): VehicleSample {
   return {
@@ -113,6 +115,83 @@ describe("in-scene card cues", () => {
     const missing = WANTED.filter((id) => !got.has(id));
     expect(missing).toEqual([]);
     expect(book.step(probe({ missionId: "mission_delivery_3_radio", inBus: true }))).toEqual([]);
+  });
+});
+
+describe("P15 — II-006 and II-012 open on the Ledger drive", () => {
+  it("are no longer card nodes in the Act V briefing still", () => {
+    const scene = (act3 as DialogueFile).scenes!["3.1"];
+    const ids = Object.keys(scene.nodes);
+    expect(ids).not.toContain("3.1.card_II-006");
+    expect(ids).not.toContain("3.1.card_II-012");
+    // …and the briefing does not dead-end: 3.1.1 → 3.1.2, 3.1.4 → 3.1.5.
+    expect(scene.nodes["3.1.1"].next).toBe("3.1.2");
+    expect(scene.nodes["3.1.4"].next).toBe("3.1.5");
+  });
+
+  it("cue II-012 on the follow beat and II-006 on the signal beat", () => {
+    const book = new CardCues();
+    const got = new Set<string>();
+    const see = (ids: string[]) => { for (const id of ids) got.add(id); };
+
+    see(book.onEvent("mission_central_ledger", "ledger.follow.close"));
+    see(book.onEvent("mission_central_ledger", "ledger.lanechange.no_signal"));
+
+    expect(got.has("II-012")).toBe(true);
+    expect(got.has("II-006")).toBe(true);
+  });
+
+  it("keeps the III cards those same events already took", () => {
+    const book = new CardCues();
+    const follow = book.onEvent("mission_central_ledger", "ledger.follow.close");
+    expect(follow).toContain("II-012");
+    expect(follow).toContain("III-005");
+    expect(follow).toContain("III-009");
+
+    const signal = book.onEvent("mission_central_ledger", "ledger.lanechange.clean");
+    expect(signal).toContain("II-006");
+    expect(signal).toContain("III-019");
+  });
+
+  it("are once per run, like every other take", () => {
+    const book = new CardCues();
+    book.onEvent("mission_central_ledger", "ledger.follow.close");
+    book.onEvent("mission_central_ledger", "ledger.follow.close");
+    expect(book.onEvent("mission_central_ledger", "ledger.follow.close")).not.toContain("II-012");
+
+    const signal = new CardCues();
+    signal.onEvent("mission_central_ledger", "ledger.lanechange.clean");
+    expect(signal.onEvent("mission_central_ledger", "ledger.lanechange.no_signal")).not.toContain("II-006");
+  });
+
+  it("reach the sim bus — the Ledger mission emits card.cue for both", () => {
+    const events: string[] = [];
+    const sim = new Simulation({
+      fire: (e) => events.push(e),
+      requestQuiz: () => {},
+      setObjective: () => {},
+      toast: () => {},
+      placeVehicle: () => {},
+    });
+    sim.startMission("mission_central_ledger");
+    const lanes = sim.map.ledger.lanes;
+    const span = (lanes.x1 - lanes.x0) / lanes.count;
+    const y = (lanes.y0 + lanes.y1) / 2;
+    const inLane = (i: number) => ({ x: lanes.x0 + span * i + span / 2, y });
+
+    // Follow beat: sit 2 m behind Deac's truck — inside the 3-second gap.
+    for (let i = 0; i < 12; i++) {
+      const lead = sim.ledger.leadPos;
+      sim.step(0.2, sample({ pos: { x: lead.x, y: lead.y - 2 }, heading: Math.PI / 2, speedMs: 11 }));
+    }
+    // Signal beat: change lane with no steer hold, so it is no_signal.
+    sim.step(0.1, sample({ pos: inLane(0), heading: Math.PI / 2, speedMs: 11 }));
+    sim.step(0.1, sample({ pos: inLane(1), heading: Math.PI / 2, speedMs: 11 }));
+
+    // The grader fired, and both new cues rode the bus.
+    expect(events).toContain("ledger.follow.close");
+    expect(events).toContain("card.cue:II-012");
+    expect(events).toContain("card.cue:II-006");
   });
 });
 

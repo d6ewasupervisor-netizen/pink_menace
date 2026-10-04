@@ -59,6 +59,9 @@ export class CardCues {
     if (mission === "mission_central_ledger") {
       if (event === "ledger.follow.close") {
         this.follows += 1;
+        // II-012 (Three Seconds, Not One) used to be read in the Act V briefing
+        // still; it opens here, on the beat it actually teaches.
+        this.take("II-012", out);
         if (this.follows === 1) {
           this.take("III-005", out);
           this.take("III-009", out);
@@ -75,7 +78,11 @@ export class CardCues {
         this.take("III-026", out);
       }
       if (event === "ledger.lanechange.start") this.take("III-027", out);
-      if (event === "ledger.lanechange.no_signal" || event === "ledger.lanechange.clean") this.take("III-019", out);
+      if (event === "ledger.lanechange.no_signal" || event === "ledger.lanechange.clean") {
+        // III-019 stays; II-006 (Deac's Left Arm) joins it on the signal beat.
+        this.take("III-019", out);
+        this.take("II-006", out);
+      }
       if (event === "waypoint.reach:ledger_end") this.take("III-030", out);
       if (event === "speed.over") this.take("III-024", out);
     }
