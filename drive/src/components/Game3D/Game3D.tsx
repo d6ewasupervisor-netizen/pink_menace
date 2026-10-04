@@ -20,6 +20,7 @@ import { getWeather } from './Skybox';
 import { isLowEndDevice, recordDelta, recordPerformanceSample, stepQuality, initialQualityState, dprForTier, type QualityState, type QualityTier } from '@/utils/performance';
 import { bindHeld } from '@/input/driveInput';
 import { textScaleStyle } from '@/input/textSize';
+import { onContextLost, onContextRestored } from '@/systems/glContext';
 
 import { Lighting } from './Lighting';
 import { Skybox } from './Skybox';
@@ -86,23 +87,35 @@ function PerfRecorder({ onTier }: { onTier: (t: QualityTier) => void }) {
 // ─── WebGL context-loss guard (runs inside Canvas for gl.domElement) ────────
 function GLContextGuard({ dpr }: { dpr: number }) {
   const { gl } = useThree();
+  // P3: a second loss must not overwrite prePausePhase. This ref is the flag
+  // the pure rule reads; the decision itself lives in systems/glContext.
+  const lostWhilePaused = useRef(false);
+
   useEffect(() => {
     const el = gl.domElement;
     const onLost = (e: Event) => {
       e.preventDefault(); // allow the browser to offer a restore, don't kill the canvas
       useQRHud.getState().addTelemetry({ ts: Date.now(), event: 'webgl.context_lost' });
       const s = useGameStore.getState();
-      if (s.phase === 'driving' || s.phase === 'walking' || s.phase === 'dialogue' || s.phase === 'card') {
-        useGameStore.setState({ phase: 'paused', prePausePhase: s.phase });
+      const decision = onContextLost({
+        phase: s.phase,
+        prePausePhase: s.prePausePhase,
+        lostWhilePaused: lostWhilePaused.current,
+      });
+      if (decision.paused) {
+        lostWhilePaused.current = true;
+        useGameStore.setState({ phase: decision.phase as typeof s.phase, prePausePhase: decision.prePausePhase as typeof s.prePausePhase });
       }
       useQRHud.getState().setTransient({ toast: 'Graphics paused. Tap Resume to continue.' });
     };
     const onRestored = () => {
       useQRHud.getState().addTelemetry({ ts: Date.now(), event: 'webgl.context_restored' });
+      const decision = onContextRestored(dpr);
       // The browser resets the pixel ratio when the context is recreated, so the
       // tier (the single DPR owner) has to write it again.
-      gl.setPixelRatio(dpr);
-      useQRHud.getState().setTransient({ toast: '' });
+      gl.setPixelRatio(decision.pixelRatio);
+      if (decision.clearToast) useQRHud.getState().setTransient({ toast: '' });
+      // decision.autoResume is always false — the player resumes, not the browser.
     };
     el.addEventListener('webglcontextlost', onLost, false);
     el.addEventListener('webglcontextrestored', onRestored, false);

@@ -4,12 +4,13 @@
  * Cylindrical billboarding (they turn to face the camera, feet stay planted).
  * Tint by awareness: dormant is washed out and dim, alert warms, swarm goes red.
  */
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useGameStore } from '@/stores/gameStore';
 import { asset } from '@/lib/asset';
+import { registerActResource } from '@/quietroads/sim/actResources';
 
 const CELL_W = 160, CELL_H = 400, COUNT = 6;
 const HEIGHT_M = 1.85;               // sprite height in world metres
@@ -81,6 +82,11 @@ export function QuietSwarm() {
     uniforms: { uMap: { value: tex }, uTime: { value: 0 }, uCount: { value: COUNT } },
     vertexShader: vert, fragmentShader: frag, transparent: true, depthWrite: true, side: THREE.DoubleSide,
   }), [tex]);
+
+  // P3: this geometry and material are built outside JSX, so R3F will not free
+  // them. Register both as Kent/act-I resources so an act change disposes them.
+  useEffect(() => registerActResource('I', geom), [geom]);
+  useEffect(() => registerActResource('I', mat), [mat]);
 
   useFrame((st) => {
     const m = meshRef.current; if (!m) return;

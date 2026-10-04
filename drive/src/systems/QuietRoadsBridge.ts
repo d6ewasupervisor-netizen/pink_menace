@@ -22,17 +22,9 @@ import {
   isGradeEvent, buildDebrief,
 } from '@/quietroads';
 import { KnowledgeSeat, examVerdict } from '@/quietroads/study/seat';
-import act01 from '@/quietroads/data/dialogue_act0-1.json';
-import act2 from '@/quietroads/data/dialogue_act2.json';
-import act2central from '@/quietroads/data/dialogue_act2_central.json';
-import act5ribbon from '@/quietroads/data/dialogue_act5_ribbon.json';
-import act3 from '@/quietroads/data/dialogue_act3.json';
-import act4 from '@/quietroads/data/dialogue_act4.json';
-import act5 from '@/quietroads/data/dialogue_act5.json';
-import act6 from '@/quietroads/data/dialogue_act6.json';
-import act6backcountry from '@/quietroads/data/dialogue_act6_backcountry.json';
-import act7 from '@/quietroads/data/dialogue_act7.json';
-import act8 from '@/quietroads/data/dialogue_act8.json';
+// P3: Act I only, eagerly. The rest of the acts are per-act dynamic imports.
+import { ACT_ONE_DIALOGUE, loadAct, preloadAct, actForSceneId, nextAct } from '@/quietroads/dialogue/actDialogue';
+import { disposeActResources } from '@/quietroads/sim/actResources';
 import qv1 from '@/quietroads/data/questions_v1.json';
 import qv2 from '@/quietroads/data/questions_v2_weak.json';
 import qv3 from '@/quietroads/data/questions_v3_routines.json';
@@ -78,7 +70,9 @@ class Bridge {
 
   constructor() {
     this.runner = new DialogueRunner(this.host());
-    for (const a of [act01, act2, act2central, act3, act5ribbon, act4, act5, act6, act6backcountry, act7, act8]) this.runner.load(structuredClone(a) as unknown as DialogueFile);
+    // P3: only Act I's dialogue is in the entry chunk. Every other act is
+    // fetched on demand (see quietroads/dialogue/actDialogue).
+    for (const a of ACT_ONE_DIALOGUE) this.runner.load(structuredClone(a) as unknown as DialogueFile);
     this.bank = new QuestionBank().load(qv1 as never).load(qv2 as never).load(qv3 as never);
     this.deck = new CardDeck().load(cardsJson as unknown as Card[]);
     this.sim = new Simulation({
@@ -157,14 +151,14 @@ class Bridge {
   // ---------------------------------------------------------------- lifecycle
   /** Open a specific act from the title screen. A fresh save, then that act's first scene. */
   startAct(sceneId: string) {
-    this.open(sceneId);
+    void this.open(sceneId);
   }
 
   start(fresh = false) {
-    this.open(fresh ? null : 'resume');
+    void this.open(fresh ? null : 'resume');
   }
 
-  private open(which: string | null) {
+  private async open(which: string | null) {
     const resume = which === 'resume';
     const qr = useQRStore.getState();
     if (!resume) {
@@ -180,11 +174,28 @@ class Bridge {
     const sceneId = resume && st.sceneId && this.runner.hasScene(st.sceneId)
       ? st.sceneId
       : (which && which !== 'resume' && this.runner.hasScene(which) ? which : '0.1');
+
+    // P3: make sure this scene's act chunk is in the runner before we start it.
+    const act = actForSceneId(sceneId);
+    if (act && !this.runner.hasScene(sceneId)) {
+      for (const f of await loadAct(act)) {
+        if (!this.runnerHasFile(f)) this.runner.load(structuredClone(f) as unknown as DialogueFile);
+      }
+    }
+
     this.started = true;
     useGameStore.getState().setWorldMode('kent');
     // Both orientations are supported; the cockpit reflows (tokens.useOrientation).
     // Do not lock — the device decides. Start the scene.
-    this.runner.startScene(sceneId);
+    this.runner.startScene(this.runner.hasScene(sceneId) ? sceneId : '0.1');
+  }
+
+  /** Has any of this dialogue file's scenes already been handed to the runner? */
+  private runnerHasFile(file: DialogueFile): boolean {
+    for (const id of Object.keys(file.scenes ?? {})) {
+      if (this.runner.hasScene(id)) return true;
+    }
+    return false;
   }
 
   stop() { this.started = false; for (const h of this.timers) window.clearTimeout(h); this.timers.clear(); }
@@ -199,7 +210,13 @@ class Bridge {
   private onSceneStarted(id: string) {
     const g = useGameStore.getState();
     const act = actForScene(id);
-    if (act) { this.currentAct = act; this.fire('act.enter', { act }); }
+    if (act && act !== this.currentAct) {
+      // P3: free the geometries/materials built for the act we are leaving.
+      // Shared entries (the highway chunks) survive on purpose.
+      disposeActResources(this.currentAct);
+      this.currentAct = act;
+    }
+    if (act) this.fire('act.enter', { act });
     switch (id) {
       case '1.4':   // aftermath — Grandma's carport, night, engine off
         this.sim.zones.place(this.sim.map.starts.carport.pos);
@@ -285,6 +302,9 @@ class Bridge {
     if (!cardId) return;
     const model = buildDebrief(event, this.deck.get(cardId));
     if (!model) return;
+    // P3: while the player reads the debrief, warm the next act's chunk.
+    const next = nextAct(this.currentAct);
+    if (next) preloadAct(next);
     // Same phase path as a card: the car is already frozen for those.
     this.sim.freeze('debrief');
     holdDrive();

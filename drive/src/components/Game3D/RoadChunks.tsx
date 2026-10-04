@@ -14,6 +14,7 @@ import {
   getSharedRoadMaterial,
 } from './proceduralKenneyTextures';
 import { asset } from '@/lib/asset';
+import { registerActResource } from '@/quietroads/sim/actResources';
 
 // ─── Preload all assets used in chunks ────────────────────────────────────────
 useGLTF.preload(asset('/models/road/road-straight.glb'));
@@ -43,6 +44,9 @@ const TILES_PER_CHUNK = Math.ceil(CHUNK_LENGTH / ROAD_TILE_LENGTH); // 50 tiles
 function RoadSurface() {
   const { scene } = useGLTF(asset('/models/road/road-straight.glb'));
   const roadMaterial = useMemo(() => getSharedRoadMaterial(scene), [scene]);
+  // P3: the highway chunks are reused by every later act, so this material is
+  // registered `shared` — an act change must NOT dispose it.
+  useEffect(() => registerActResource('highway', roadMaterial, true), [roadMaterial]);
   const instances = useRef<THREE.InstancedMesh[]>([]);
   useEffect(() => () => {
     for (const instance of instances.current) instance?.dispose();
