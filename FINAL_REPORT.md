@@ -140,10 +140,22 @@ need a device/emulator + backend that this environment does not have.
 ## 11. Remaining backlog + risks
 - P1: **Act IV missed-question road** — done. `local_loop_week` grades the
   missed guide section on an existing Kent street and then fires `week.elapsed`.
-- P2: graphics quality tiers (`PerformanceMonitor` + `AdaptiveDpr`, postprocessing
-  ladder), Kent static merge/InstancedMesh, per-frame allocation cleanup,
-  debrief-per-scene UI, remaining a11y (remappable keys, text size, colorblind).
-- P3: bundle split by act / lazy-load (4.13 MB main bundle today), preload next
-  act during debrief, context-loss edge cases.
-- Risk: the browser metrics are unmeasured; land each graphics/P2 change only
-  after recording a `?profileDrive` "before" on the target device.
+- P2: done in the 2026-10-04 pass. Quality tiers (one DPR owner + a pure
+  frame-time reducer), Kent static merge/InstancedMesh with colliders left one
+  per building and per solid segment, per-frame allocation cleanup on the 60 Hz
+  physics path, the debrief-per-scene panel, and the remaining a11y (remappable
+  keys, three text-size steps, colorblind cue).
+- P3: done in the 2026-10-04 pass. Act dialogue is a per-act dynamic import
+  (Act I eager), 10 chunks split out of the entry bundle, the next act preloads
+  during the debrief, act-scoped geometry/material is disposed on an act change
+  while shared highway chunks are kept, and the context-loss edges are a pure
+  function.
+- Still open: the browser `?profileDrive` pass and a full-campaign playthrough
+  (both need a device and a backend). Deac's on-road behaviour and one tone of
+  voice across acts are deliberately not in this pass.
+- Risk: the browser metrics are unmeasured. The 2026-10-01 run recorded a flat
+  30 Hz window clock (p50 33.3 ms, both viewports) and `gl.info` draw calls
+  reading 1 because the sample lands on the postprocessing blit — so those two
+  counters are not a city draw-call count. **That run was not repeated in the
+  2026-10-04 pass**; no headed browser was run, and the graphics work above is
+  justified by unit tests and the build split, not by a frame-rate claim.

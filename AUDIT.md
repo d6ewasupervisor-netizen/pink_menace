@@ -163,19 +163,19 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 |---|---|---|---|---|
 | P1 | Teaching | S1 | S | **Following distance — resolved.** Graders read `followFullGapM` (`config.ts`). Default feel is still 3 s dry / 4 s truck. `FOLLOW.rule = "vehicle_lengths"` grades §5.2 literally (8 m / 14 m). Cards II-012, V-012, II-014 and the mission objectives lead with the guide's sentence. |
 | P2 | Teaching | S2 | S | **Surface friction — resolved for gravel and the Ledger rain stretch.** Gravel μ 0.5 on the backcountry and escort (beetle 55 mph stop 89.8 m). Wet μ 0.4 south of `ledger.solidY` (beetle wet 103.0 m). Ice stays 264.4 m. |
-| P3 | UX | S2 | M | **No act select.** `MainMenu.tsx` offers only CONTINUE / START NEW RUN. `actChallenges.ACT_ENTRY` and `challengeForAct` exist but the menu never surfaces them, so a new run replays from Act I. |
+| P3 | UX | S2 | M | **No act select — done.** `MainMenu.tsx` offers CONTINUE / START NEW RUN and the Acts I–VI list from `ACT_ENTRY`. Separately, the bundle split: act dialogue is now a per-act dynamic import (`quietroads/dialogue/actDialogue.ts`, Act I eager), the next act preloads during the grade debrief, act-scoped geometries/materials are disposed on an act change while shared highway chunks survive, and the WebGL context-loss edges are a pure function in `systems/glContext.ts`. |
 | P4 | Story | S2 | L | **Unwired cards — cued.** The 20/23/5/5 cards in §2 open from `CardCues` while that act's mission is running. The bridge queues them and shows one at a time. |
 | P5 | Perf | S2 | M | **HUD speed/RPM — throttled.** `liveDrive` updates every physics step for camera, audio, and wheel spin. `publishVehiclePose` copies mph/RPM into `gameStore` at 10 Hz. Pose still publishes every step. |
 | P6 | Latency | S2 | M | **No WebGL context-loss handling.** `Game3D` handles tab visibility (pause) but not `webglcontextlost`/`restored`. |
 | P7 | Perf/Script | S2 | M | **No automated test runner.** 12 `.mts` mission scripts exist but need a manual esbuild+node step; no Vitest/Playwright; no benchmark harness. |
-| P8 | Graphics | S2 | M | **Binary quality only.** `LOW_END` boolean + dpr clamp `[1,1.5]`; no `PerformanceMonitor`/`AdaptiveDpr`, no postprocessing tier ladder at runtime (PostProcessing takes `lowEnd` but doesn't swap effect count by measured FPS). |
-| P9 | Physics | S2 | M | **No tunneling/CCD metrics.** CCD is on (`Vehicle.tsx:562`) but no telemetry proves zero tunneling at top speed on any surface; no CCD-threshold config value. |
+| P8 | Graphics | S2 | M | **Quality tiers — done.** `utils/performance.ts` holds a pure `stepQuality` reducer (frame time → high/mid/low) plus the per-tier effect table and `dprForTier`. `Game3D` owns the single DPR writer (the Canvas `dpr` prop; the old `gl.setPixelRatio(1)` second writer is gone) and `PostProcessing` takes a `tier` and mounts only that tier's effects. Mobile DPR never exceeds 1.5. |
+| P9 | Physics | S2 | M | **CCD telemetry — done.** `CCD` in `quietroads/config.ts` names the displacement threshold (1.5 m per 1/60 s step); `VehicleObserver` fires one `ccd.tunnel` through the existing telemetry path when a contact-free step moved further. Zero tunnels at top speed on dry/gravel/wet/ice; stopping distances unchanged. |
 | P10 | Data | S3 | S | **`art-review-state` — stripped from the client deck.** The review file stays at `cards/art-review-state.json`. |
-| P11 | Data | S3 | S | **`IV-001-brake` non-standard card id** (lowercase suffix). Present in the deck but only wired as a `ride-along-still`. |
-| P12 | UX/a11y | S3 | M | **Accessibility gaps.** No remappable keys, no text-size setting, no reduced-motion / camera-shake toggle (shake is hard-coded in `GameCamera.tsx`), no explicit colorblind affordance in HUD. |
-| P13 | Perf | S3 | M | **Per-frame allocations in hot paths.** Camera reuses vectors (`GameCamera`), but `QuietRoadsBridge`/`Simulation` step allocate event objects per tick (spread sample, `{...s}` in `vehicleObserver.ts:121`). Acceptable at 10 Hz events; worth a pass. |
-| P14 | Graphics | S3 | M | **Kent geometry not merged/instanced.** `KentWorld.tsx` + `ContinuousRoad.tsx` render per-segment fixed `RigidBody` colliders; buildings not merged. Highway already uses instancing (`RoadChunks`). |
-| P15 | Story | S3 | S | **Act III scene borrows II-006/II-012** from a `still` (briefing) scene `3.1`, so those two cards never open *on the road* — they're read in briefing, not driven. |
+| P11 | Data | S3 | S | **`IV-001-brake` non-standard card id — closed.** The id stays: the deck, the image route and the coverage test all use it, and nothing rejects the suffix. No code change. |
+| P12 | UX/a11y | S3 | M | **Accessibility — done.** Reduced motion (earlier pass) plus, in `drive/src/input/driveInput.ts`, a persisted `binds` table (defaults are the shipped arrows/WASD set) that `mergeDriveInput` reads; `input/textSize.ts` three persisted steps applied to dialogue, card and HUD type as a CSS variable; and a `colorblindHud` flag whose cue (PASS/MISS word + ✓/✕ shape) rides on the grade result. Spoken lines: every `line` node already has text, so `DialogueBox` was left alone. |
+| P13 | Perf | S3 | M | **Per-frame allocations — done.** `vehicleObserver.ts` copies into one owned previous-sample object instead of `{ ...s }`; `Simulation` reuses its ObserverOut, SimFrame, CueProbe and `blocked` closure; `ZoneField` ping-pongs two owned position buffers; the bridge reuses its sample and walker-input objects. Identity contract locked in `test/alloc.test.ts`. |
+| P14 | Graphics | S3 | M | **Kent draw merge — done.** `sim/instancing.ts` batches the repeated plain buildings into one InstancedMesh per material (42 → 4 batches) and the dashes into one per colour; `ContinuousRoad` batches the segment meshes the same way. Colliders are untouched: one fixed CuboidCollider per building and one per solid segment. DOL/PHARMACY/WAREHOUSE keep their own components. |
+| P15 | Story | S3 | S | **II-006 / II-012 on the road — done.** The two card nodes left the Act V briefing still (3.1 points at 3.1.2 / 3.1.5 now); `CardCues` takes II-012 on `ledger.follow.close` and II-006 on the signal beat, alongside the III cards those events already took. |
 
 ---
 
@@ -262,9 +262,21 @@ Grade events confirmed to fire on the scripted laps: `stop.approach`,
 
 | Stripped `art-review-state` from the client deck | P10 ✅ | this session |
 
-Still open: P8, P9, P11–P15 (quality tiers, CCD telemetry, the `IV-001-brake` id,
-accessibility, per-frame allocations, instancing) and a browser `?profileDrive`
-pass on a signed-in device. The Act IV missed-question road is a Kent drive
-(`retestWeek`). Headless tests: 36/36. `tsc` exit 0.
+| Quality tiers — one DPR owner + a pure frame-time reducer | P8 ✅ | `951cde9` |
+| CCD displacement telemetry, no feel change | P9 ✅ | `4c367f4` |
+| `IV-001-brake` closed without renaming | P11 ✅ | `4785455` |
+| Remappable keys, text size, colorblind cue | P12 ✅ | `5624665` |
+| No allocation on the physics step | P13 ✅ | `fd46905` |
+| Kent draw merge (instanced, colliders untouched) | P14 ✅ | `0a92afe` |
+| II-006 / II-012 open on the Ledger drive | P15 ✅ | `4b9a6e2` |
+| Act dialogue split out of the entry chunk + preload + context-loss edges | P3 ✅ | `2f9aa38` |
+| Grade debrief panel on a grade event | — | `8f29dbc` |
+| Touch root overscroll + audio resume in the first gesture | — | `c7e688b` |
+
+Still open: a browser `?profileDrive` pass on a signed-in device (the last run
+was a flat 30 Hz window clock, 2026-10-01) and a full-campaign playthrough.
+Deac's on-road behaviour and one tone of voice across acts are not this pass.
+Headless tests: 111/111. `tsc` exit 0. Build: entry chunk 3,957 kB with 10 act
+dialogue chunks split out.
 
 <!-- CONTINUED -->

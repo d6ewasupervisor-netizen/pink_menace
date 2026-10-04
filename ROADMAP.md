@@ -28,8 +28,9 @@ checked against `docs/wa-driver-guide/`, and logged in `AGENT_LOG.md` + `INDEX.m
   `seconds`. Teaching copy leads with §5.2. (P1, BD-1, BD-2)
 - **[config] Teaching-rule file.** `drive/src/quietroads/config.ts` holds the
   follow rule. Vehicle feel stays in `VehicleController` on purpose.
-- **[tests] `vitest run` green** — 36 tests (stop/gap/yield, follow-rule,
-  card cues, exam gate, retest week, bench).
+- **[tests] `vitest run` green** — 111 tests (stop/gap/yield, follow-rule,
+  card cues, exam gate, retest week, alloc identity, CCD, quality tiers,
+  instancing, accessibility, debrief, bundle split, spoken lines, bench).
 
 ## P1 — Structure (one place per act)
 
@@ -46,26 +47,45 @@ checked against `docs/wa-driver-guide/`, and logged in `AGENT_LOG.md` + `INDEX.m
 
 ## P2 — Latency / graphics / UX
 
-- **[perf] No per-frame allocations** — reuse vectors/quaternions in
-  `QuietRoadsBridge`/`Simulation`/`vehicleObserver` (P13).
-- **[graphics] Quality tiers** — `PerformanceMonitor` + `AdaptiveDpr`, DPR clamp
-  ~1.5 mobile, postprocessing ladder gated by tier (P8).
-- **[graphics] Kent static merge / InstancedMesh** for buildings, lane markings,
-  Quiet crowds (P14).
-- **[ux-touch] Analog-feeling touch steering** — explicit dead zone + sensitivity
-  curve; pointer events, no passive lag, prevent scroll/zoom/pull-to-refresh.
-- **[ux] Debrief per scene** — what was graded, passed/missed, which card, which
-  guide section (this "she learns" loop is required).
-- **[a11y] remappable keys, text size, reduced-motion/shake toggle,** colorblind
-  HUD, subtitles for all spoken lines (P12).
-- **[audio] unlock on first gesture (iOS Safari)** — already wired; verify.
+- **[perf] No per-frame allocations** — done. The 60 Hz sample path copies into
+  one owned previous-sample object instead of `{ ...s }`; `Simulation`, the
+  bridge and `ZoneField` reuse their per-step objects. (P13)
+- **[graphics] Quality tiers** — done. `PerformanceMonitor` + a pure
+  `stepQuality` reducer; one DPR owner (the Canvas `dpr` prop); postprocessing
+  mounts only the tier's effects. Mobile DPR capped at 1.5. (P8)
+- **[graphics] Kent static merge / InstancedMesh** — done for buildings, lane
+  markings and the ContinuousRoad segments. Colliders stay one per building and
+  one per solid segment. (P14)
+- **[ux-touch] Analog-feeling touch steering** — dead zone + sensitivity curve
+  already in `TouchOverlay.shapeAxis`; the drive root now also carries
+  `overscroll-behavior: none` so nothing scroll-chains behind it.
+- **[ux] Debrief per scene** — done. A grade event opens one short panel:
+  GRADE, PASS or MISS, the card id that just opened, and that card's
+  `source.dol_section`. Closes on the existing continue control; emits nothing.
+- **[a11y] remappable keys, text size, reduced-motion/shake toggle,** — done.
+  A persisted `binds` table (`mergeDriveInput` reads it; defaults are the
+  shipped arrows/WASD set, Esc cancels a capture, a reset row restores), and
+  three persisted text-size steps applied to dialogue, card and HUD type as a
+  CSS variable. Colorblind HUD on, pass/miss carries a word and a shape, not
+  colour alone. (P12)
+- **[a11y] subtitles for all spoken lines** — not needed: every `line` node in
+  every dialogue file already carries text, so `DialogueBox` prints it. Nothing
+  added.
+- **[audio] unlock on first gesture (iOS Safari)** — verified and completed.
+  `AudioManager.init()` ran inside the first click/keydown/touchstart; it did
+  not resume the context there, so `resume()` now runs in that same gesture.
 
 ## P3 — Story / cohesion + polish
 
 - Deac's on-road behaviour matches the story; Quiet pressure tied to the graded
-  skill (reinforce, don't add chaos).
+  skill (reinforce, don't add chaos). **Still open — not this pass.**
 - One tone of voice / one UI / one audio palette across acts.
-- Lazy-load each act's level; preload next act during debrief; disposal on change.
+  **Still open — not this pass.**
+- Lazy-load each act's level; preload next act during debrief; disposal on
+  change. **Done.** Per-act dynamic imports with Act I eager in the first load;
+  the next act preloads while the grade debrief is up; act-scoped
+  geometries/materials are disposed on an act change and shared highway chunks
+  are not.
 
 ## Known risks / deliberately out of scope
 
