@@ -1,4 +1,5 @@
 import { type Vec2, MPH, clamp } from "./math";
+import { CCD } from "../config";
 import type { NoiseSystem } from "./noise";
 
 /**
@@ -83,16 +84,39 @@ export class VehicleObserver {
   private hardCd = 0; private skidCd = 0; private speedOverT = 0; private speedOverCd = 0; private ambientT = 0;
   private slipT = 0;
   private lastHeading = 0;
+  private contactThisStep = false;
+  private ccdCd = 0;
 
   constructor(private noise: NoiseSystem, private fire: (event: string, data?: Record<string, unknown>) => void) {}
 
-  reset() { this.prev = null; this.skidding = false; this.hardCd = this.skidCd = this.speedOverT = this.speedOverCd = this.ambientT = this.slipT = 0; }
+  reset() { this.prev = null; this.skidding = false; this.hardCd = this.skidCd = this.speedOverT = this.speedOverCd = this.ambientT = this.slipT = 0; this.ccdCd = 0; }
 
   /** The reused previous-sample object (null until the first step). Identity is stable. */
   previousSample(): VehicleSample | null { return this.prev; }
 
+  /**
+   * P9 — call when the car touched something this step (the plow, a Quiet, a
+   * curb). A contact legitimately eats displacement, so a step that moved far
+   * *without* one is the tunnelling shape we report.
+   */
+  noteContact() { this.contactThisStep = true; }
+
+  /** P9 — CCD displacement check. Telemetry only; it changes nothing about the drive. */
+  private trackCcd(dt: number, s: VehicleSample) {
+    this.ccdCd = Math.max(0, this.ccdCd - dt);
+    const p = this.prev;
+    const contact = this.contactThisStep;
+    this.contactThisStep = false;
+    if (!p || contact || this.ccdCd > 0) return;
+    const dx = s.pos.x - p.pos.x, dy = s.pos.y - p.pos.y;
+    if (dx * dx + dy * dy <= CCD.tunnelDisplacementM * CCD.tunnelDisplacementM) return;
+    this.ccdCd = CCD.cooldownS;
+    this.fire(CCD.event, { dx: +dx.toFixed(3), dy: +dy.toFixed(3), speedMs: +s.speedMs.toFixed(2) });
+  }
+
   step(dt: number, s: VehicleSample, speedLimitMph: number): ObserverOut {
     const p = this.prev ?? s;
+    this.trackCcd(dt, s);
     this.hardCd = Math.max(0, this.hardCd - dt); this.skidCd = Math.max(0, this.skidCd - dt); this.speedOverCd = Math.max(0, this.speedOverCd - dt);
     const v = Math.abs(s.speedMs);
 

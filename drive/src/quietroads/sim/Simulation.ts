@@ -509,6 +509,9 @@ export class Simulation {
       this.zones.step(dt, s.pos, s.speedMs);
       this.quiet.step(dt, s.pos, this.blockedAt);
       const hit = this.quiet.collide(s.pos, s.heading, this.egoHalfLen, this.egoHalfWid, s.speedMs);
+      // P9: a contact is the one thing that legitimately eats displacement, so
+      // tell the CCD check to stand down for this step.
+      if (hit) this.vehicle.noteContact();
       if (hit === "plow") { this.noise.emitKind("collision_plow", s.pos); this.ev.fire("plow.used"); }
       else if (hit === "soft") this.noise.emitKind("collision_soft", s.pos);
       if (this.missionId === "tutorial_carport") this.tutorialTick(dt, s);

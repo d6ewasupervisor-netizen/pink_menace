@@ -38,3 +38,31 @@ export function followFullGapM(
 /** The sentence the guide actually teaches. Cards and objectives lead with this. */
 export const GUIDE_SPACE =
   "Leave a distance that's at least twice the length of your vehicle.";
+
+/**
+ * P9 — CCD telemetry. The car body already sets `ccd` on its RigidBody (see
+ * Vehicle.tsx); this is the *observer* half: a named displacement threshold that
+ * says "the car moved further than a contact could have allowed in one step",
+ * which is what tunnelling looks like from the sim's side.
+ *
+ * It changes no feel. Nothing here is read by VehicleController, the colliders,
+ * the mass, or the damping — it only decides when to record one `ccd.tunnel`
+ * telemetry event.
+ *
+ * At the fixed 1/60 s step, the Beetle's top speed on the highway (~33 m/s)
+ * covers about 0.55 m per step. A threshold of 1.5 m sits far above any speed
+ * the game can produce and far below the distance that would mean the body
+ * passed through a thin wall in a single step, so the current scripted laps
+ * record zero tunnels — they are the baseline.
+ */
+export const CCD = {
+  /**
+   * Planar displacement in metres, per fixed 1/60 s step, above which a
+   * contact-free step is reported as a possible tunnel.
+   */
+  tunnelDisplacementM: 1.5,
+  /** Event name. One row in the existing telemetry path, not a new bus. */
+  event: 'ccd.tunnel',
+  /** Minimum gap between reports, so one bad frame cannot flood telemetry. */
+  cooldownS: 1,
+} as const;
