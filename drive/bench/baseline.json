@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T15:20:54.637Z",
+  "generated_at": "2026-10-04T16:01:08.418Z",
   "rows": [
     {
       "mission": "mission_delivery_1_insulin",
@@ -9,9 +9,9 @@
         "mission.start:mission_delivery_1_insulin"
       ],
       "stepMs": {
-        "p50": 67.3,
-        "p95": 148.3,
-        "max": 1421.1
+        "p50": 60.8,
+        "p95": 146.1,
+        "max": 1288.4
       }
     },
     {
@@ -21,6 +21,7 @@
       "events": [
         "mission.start:mission_central_ledger",
         "ledger.follow.close",
+        "card.cue:II-012",
         "card.cue:III-005",
         "card.cue:III-009",
         "card.cue:III-001",
@@ -47,9 +48,9 @@
         "card.cue:III-026"
       ],
       "stepMs": {
-        "p50": 65.9,
-        "p95": 102.7,
-        "max": 673.4
+        "p50": 60.2,
+        "p95": 84.5,
+        "max": 677.9
       }
     },
     {
@@ -65,9 +66,9 @@
         "card.cue:V-008"
       ],
       "stepMs": {
-        "p50": 61.7,
-        "p95": 79.7,
-        "max": 358.7
+        "p50": 58.2,
+        "p95": 71.5,
+        "max": 530.3
       }
     },
     {
@@ -88,9 +89,9 @@
         "card.cue:VI-013"
       ],
       "stepMs": {
-        "p50": 62,
-        "p95": 75.5,
-        "max": 324.2
+        "p50": 56.8,
+        "p95": 82.3,
+        "max": 351.9
       }
     }
   ],
