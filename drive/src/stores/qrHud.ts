@@ -5,6 +5,7 @@
  */
 import { create } from 'zustand';
 import type { ShownLine, DialogueNode, ChoiceOption, SimFrame } from '@/quietroads';
+import type { DebriefModel } from '@/quietroads/debrief';
 
 export interface TelemetryRow {
   ts: number;
@@ -23,6 +24,8 @@ interface HudState {
   run: boolean;
   qteActive: boolean;
   card: { id: string; source: 'story' | 'world' } | null;
+  /** The grade result panel (built by quietroads/debrief). Null when closed. */
+  debrief: DebriefModel | null;
   scare: 'none' | 'edge' | 'flood';
   /** Outbound telemetry, in memory only; DriveSync drains it every 10 s. */
   telemetry: TelemetryRow[];
@@ -35,7 +38,7 @@ interface HudState {
 
 export const useQRHud = create<HudState>()((set, get) => ({
   line: null, direction: null, choices: null, objective: '', toast: '', frame: null,
-  horn: false, run: false, qteActive: false, card: null, scare: 'none', telemetry: [],
+  horn: false, run: false, qteActive: false, card: null, debrief: null, scare: 'none', telemetry: [],
   setTransient: (partial) => set(partial),
   setHorn: (v) => set({ horn: v }),
   setRun: (v) => set({ run: v }),

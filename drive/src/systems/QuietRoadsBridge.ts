@@ -19,6 +19,7 @@ import {
   type DialogueHost, type DialogueFile, type VehicleSample, type SimFrame, type MissionId,
   type Question as CoreQuestion, type TimerHandle, VEHICLE, CHASSIS_DECEL, brakeDecel, type WalkerInput, type MasteryRecord,
   actForScene, actForMission, challengeForAct, type CardAct,
+  isGradeEvent, buildDebrief,
 } from '@/quietroads';
 import { KnowledgeSeat, examVerdict } from '@/quietroads/study/seat';
 import act01 from '@/quietroads/data/dialogue_act0-1.json';
@@ -60,6 +61,8 @@ class Bridge {
   private worldCardReturnPhase: 'driving' | 'walking' = 'driving';
   private cardsSeen = new Set<string>();
   private cardQueue: string[] = [];
+  /** The most recent card the sim cued — the debrief panel points at it. */
+  private lastCuedCard: string | null = null;
   /** Don't stack the next in-world card on the one that just closed. */
   private cardQuietUntil = 0;
   private currentAct: CardAct = 'I';
@@ -266,8 +269,36 @@ class Bridge {
     }
     if (event === "week.elapsed" && this.sim.missionId === "local_loop_week") this.enterDialogue();
     if (event.startsWith("card.cue:")) this.enqueueCard(event.slice("card.cue:".length));
+    this.maybeDebrief(event);
     this.runner.onEvent(event);
     this.sim.onEvent(event);
+  }
+
+  /**
+   * The grade debrief: when a grade event fires, show one short panel with the
+   * result, the card that just opened, and that card's dol_section. The model
+   * is built by quietroads/debrief — all strings come from the card.
+   */
+  private maybeDebrief(event: string) {
+    if (!isGradeEvent(event)) return;
+    const cardId = this.lastCuedCard;
+    if (!cardId) return;
+    const model = buildDebrief(event, this.deck.get(cardId));
+    if (!model) return;
+    // Same phase path as a card: the car is already frozen for those.
+    this.sim.freeze('debrief');
+    holdDrive();
+    useGameStore.setState({ phase: 'card' });
+    useQRHud.getState().setTransient({ debrief: model });
+  }
+
+  /** Close the debrief. Emits nothing — it never advances the story. */
+  continueDebrief() {
+    if (!useQRHud.getState().debrief) return;
+    useQRHud.getState().setTransient({ debrief: null });
+    this.sim.unfreeze('debrief');
+    releaseDrive();
+    useGameStore.setState({ phase: this.worldCardReturnPhase === 'walking' ? 'walking' : 'driving' });
   }
 
   // ---------------------------------------------------------------- per frame
@@ -338,6 +369,8 @@ class Bridge {
   private enqueueCard(id: string) {
     if (!this.deck.has(id) || this.cardsSeen.has(id) || this.cardQueue.includes(id)) return;
     this.cardQueue.push(id);
+    // The grade debrief points at the card that just opened.
+    this.lastCuedCard = id;
   }
 
   /** One in-world card at a time, after the road is clear. */
@@ -345,7 +378,7 @@ class Bridge {
     if (!this.cardQueue.length || this.clock < this.cardQuietUntil) return;
     const g = useGameStore.getState();
     if (g.phase !== "driving" && g.phase !== "walking") return;
-    if (useQRHud.getState().card || this.activeQuiz) return;
+    if (useQRHud.getState().card || useQRHud.getState().debrief || this.activeQuiz) return;
     const id = this.cardQueue.shift();
     if (!id) return;
     this.showCard(id, "world");
