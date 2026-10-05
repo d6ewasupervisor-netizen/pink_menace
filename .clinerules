@@ -1,3 +1,7 @@
+# Handoff
+
+There is no `MEMORY.md`. At the start of a task, before editing, read `AGENT_LOG.md`, `ROADMAP.md`, and `AUDIT.md`. After a task that changes the game, the tests, or those decisions, append a dated entry to `AGENT_LOG.md` and leave older entries in place. Do not start a second memory file.
+
 # Critical Execution Rules
 - NEVER stop a task or declare it finished just because you completed a sub-task or milestone.
 - You do not have permission to ask "Would you like me to proceed?" or state "This is a good place to stop."
