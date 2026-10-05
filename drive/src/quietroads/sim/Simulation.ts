@@ -17,6 +17,7 @@ import { EscortRun } from "./escort";
 import { BeatRun, type BeatMission } from "./beats";
 import { CardCues, type CueProbe } from "./cardCues";
 import { RetestWeek, retestPlan, type RetestPlan } from "./retestWeek";
+import { isGradeMiss, PRESSURE } from "./pressure";
 import type { NoiseZone } from "./noise";
 
 export type MissionId =
@@ -95,6 +96,8 @@ export class Simulation {
   // tutorial state
   private tutStep = 0; private tutT = 0; private tutBlockEnd = false;
   private deliverySmoothFired = false;
+  /** Pressure throttle — see PRESSURE.CD_S. Drains in step()/stepWalker(). */
+  private missCd = 0;
   private lastVehicleHeading = 0;
   /** On-foot handoff. Pharmacy is June's clipboard; Bea is the sanctuary door. */
   private footDropoff: "" | "pharmacy" | "bea" = "";
@@ -128,6 +131,7 @@ export class Simulation {
       if (e.startsWith("card.cue:")) return;
       this.emitCues(this.cues.onEvent(this.missionId, e));
       this.retest.note(e, d);
+      this.gradeMiss(e);
     };
     this.noise = new NoiseSystem(fire);
     // Forgiving: the carport tutorial, and the scripted dash back to the car after the chase —
@@ -508,9 +512,24 @@ export class Simulation {
     if (event.startsWith("card.cue:")) return;
     this.emitCues(this.cues.onEvent(this.missionId, event));
     this.retest.note(event, data);
+    this.gradeMiss(event);
+  }
+
+  /**
+   * A missed grade raises Quiet pressure near the car (owner decision, 2026-10-05).
+   * Runs on the grade funnel every grader already fires through, so the rule is
+   * one line of taxonomy (`GRADE_MISSES`) rather than a hook per mission. The
+   * wake is throttled because some fail events fire every step while the mistake
+   * continues; a pass never reaches this line and raises nothing.
+   */
+  private gradeMiss(event: string): void {
+    if (!isGradeMiss(event) || this.missCd > 0) return;
+    this.missCd = PRESSURE.CD_S;
+    this.quiet.miss(this.playerPos, this.lastVehicleHeading, this.playerZone, this.blockedAt);
   }
 
   step(dt: number, s: VehicleSample): SimFrame {
+    this.missCd = Math.max(0, this.missCd - dt);
     this.notePos(s.pos);
     this.lastVehicleHeading = s.heading;
     let out: ObserverOut = this.frozenFrame;
@@ -581,6 +600,7 @@ export class Simulation {
 
   /** Advance the world with the player on foot (1.3). */
   stepWalker(dt: number, input: WalkerInput): SimFrame {
+    this.missCd = Math.max(0, this.missCd - dt);
     if (!this.frozen && this.mode === "walker") {
       if (this.footDropoff) {
         this.dropoff.step(dt, input, (p) => this.blocked(p), this.handoffPoint(), this.ev);

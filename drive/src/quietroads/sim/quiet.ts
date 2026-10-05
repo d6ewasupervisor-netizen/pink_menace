@@ -1,5 +1,6 @@
 import { type Vec2, dist, sub, norm, angle, lerpAngle, len, mul, add, moveToward, fromAngle } from "./math";
 import type { NoiseListener, NoiseZone } from "./noise";
+import { PRESSURE } from "./pressure";
 
 /** They see you. They don't care unless they hear you. */
 export enum QuietState { DORMANT = 0, CURIOUS = 1, ALERT = 2, SWARM = 3 }
@@ -32,12 +33,12 @@ export class Quiet implements NoiseListener {
   hear(heardAboveFloor: number, from: Vec2) { this.addAwareness(heardAboveFloor, from); }
 
   /** Returns true if this call pushed the Quiet into SWARM. */
-  addAwareness(amount: number, from?: Vec2): boolean {
+  addAwareness(amount: number, from?: Vec2, cap = 100): boolean {
     const before = this.state;
     this.awareness += amount;
     if (amount > QUIET.LOUD_JUMP.above) this.awareness = Math.max(this.awareness, QUIET.LOUD_JUMP.to);
     if (this.forgiving()) this.awareness = Math.min(this.awareness, QUIET.TUTORIAL_CAP);
-    this.awareness = Math.min(this.awareness, 100);
+    this.awareness = Math.min(this.awareness, cap);
     if (from) this.heardPos = { ...from };
     this.updateState();
     return before !== QuietState.SWARM && this.state === QuietState.SWARM;
@@ -100,6 +101,58 @@ export class QuietField {
   }
   inZone(zone: NoiseZone): Quiet[] { return this.list.filter((q) => q.zone === zone); }
   reset() { for (const q of this.list) q.reset(); this.hot = false; }
+
+  /**
+   * A missed grade: the herd notices (owner decision, 2026-10-05 — "the Quiet
+   * are the zombies"). Wakes the Quiet already within sight, toward the car. If
+   * nobody is close enough to see the miss, EXISTING dormant Quiet (never a new
+   * herd) step onto the roadside ahead of the player and wake up, so the sprites
+   * are on screen when they look up. A pass never calls this; decay still works.
+   * Returns how many Quiet woke.
+   */
+  miss(playerPos: Vec2, playerHeading: number, playerZone: NoiseZone = "outdoor", blocked: (p: Vec2) => boolean = () => false): number {
+    let inSight = 0;
+    for (const q of this.list) {
+      if (q.zone !== playerZone || dist(q.pos, playerPos) >= PRESSURE.SIGHT_M) continue;
+      inSight++;
+      this.notice(q, playerPos);
+    }
+    if (inSight > 0) return inSight;
+    return this.rally(playerPos, playerHeading, playerZone, blocked);
+  }
+
+  /** One missed grade's contribution: it reinforces, it never condemns the cargo. */
+  private notice(q: Quiet, from: Vec2) {
+    const amount = Math.max(0, Math.min(PRESSURE.MISS_AWARENESS, PRESSURE.MISS_CAP - q.awareness));
+    q.addAwareness(amount, from);
+  }
+
+  /** Walk a few dormant Quiet onto the roadside ahead of the car and wake them. */
+  private rally(playerPos: Vec2, playerHeading: number, playerZone: NoiseZone, blocked: (p: Vec2) => boolean): number {
+    const fwd = fromAngle(playerHeading);
+    const side = { x: -fwd.y, y: fwd.x };
+    // The map only speaks for mapped space: the off-board corridors (the gravel
+    // run, the Ribbon) are outside `bounds` and read as "blocked" everywhere, so
+    // the verdict is ignored when the car itself is standing in such a place.
+    const playerBlocked = blocked(playerPos);
+    // Farthest first: the ones already near the road are not teleported visibly.
+    const dormant = this.list
+      .filter((q) => q.zone === playerZone && q.state === QuietState.DORMANT)
+      .sort((a, b) => dist(b.pos, playerPos) - dist(a.pos, playerPos));
+    let n = 0;
+    for (const q of dormant) {
+      if (n >= PRESSURE.RALLY_COUNT) break;
+      const ahead = PRESSURE.RALLY_AHEAD_M[Math.min(n, PRESSURE.RALLY_AHEAD_M.length - 1)];
+      const sign = n % 2 === 0 ? 1 : -1;
+      const pos = add(add(playerPos, mul(fwd, ahead)), mul(side, PRESSURE.RALLY_OFFSET_M * sign));
+      if (!playerBlocked && blocked(pos)) continue;
+      q.pos = { ...pos };
+      q.home = { ...pos };   // they live here now; DORMANT drift would undo the move
+      this.notice(q, playerPos);
+      n++;
+    }
+    return n;
+  }
 
   step(dt: number, playerPos: Vec2, blocked: (p: Vec2) => boolean, playerZone: NoiseZone = "outdoor") {
     this.time += dt;
