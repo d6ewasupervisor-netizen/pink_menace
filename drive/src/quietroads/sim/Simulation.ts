@@ -498,6 +498,18 @@ export class Simulation {
   }
 
   /** Advance the world with the player in the car. Returns everything the HUD/renderer needs. */
+  /**
+   * Fire a sim-owned event through the same path the graders use, so it reaches the
+   * card book and the retest week exactly like a grade. `ev.fire` is the raw bus
+   * and deliberately does neither.
+   */
+  private emit(event: string, data?: Record<string, unknown>): void {
+    this.ev.fire(event, data);
+    if (event.startsWith("card.cue:")) return;
+    this.emitCues(this.cues.onEvent(this.missionId, event));
+    this.retest.note(event, data);
+  }
+
   step(dt: number, s: VehicleSample): SimFrame {
     this.notePos(s.pos);
     this.lastVehicleHeading = s.heading;
@@ -512,7 +524,7 @@ export class Simulation {
       // P9: a contact is the one thing that legitimately eats displacement, so
       // tell the CCD check to stand down for this step.
       if (hit) this.vehicle.noteContact();
-      if (hit === "plow") { this.noise.emitKind("collision_plow", s.pos); this.ev.fire("plow.used"); }
+      if (hit === "plow") { this.noise.emitKind("collision_plow", s.pos); this.emit("plow.used"); }
       else if (hit === "soft") this.noise.emitKind("collision_soft", s.pos);
       if (this.missionId === "tutorial_carport") this.tutorialTick(dt, s);
       if (this.missionId === "minigame_park_dol") this.parking.step(dt, s);
@@ -538,14 +550,19 @@ export class Simulation {
           this.dropoff.reset(s.pos, s.heading);
           this.dropoff.completeEvent = this.grid.parkGrade;
           this.setObjective("Bag to the door. Don't slam it.");
-          this.ev.fire("dropoff.walk");
+          this.emit("dropoff.walk");
         }
       }
       if (this.retest.active) {
         const hint = this.retest.hint();
         if (hint && hint !== this.objective) this.setObjective(hint);
         const lead = this.ledger.mission ? this.ledger.leadPos : null;
-        if (this.retest.step(dt, s, this.map, lead)) this.ev.fire("week.elapsed");
+        if (this.retest.step(dt, s, this.map, lead)) {
+          // One week-end event. The result the retest already decided rides along
+          // as data, so the debrief reads the same verdict that ended the week
+          // instead of listening for a `week.grade.*` nothing emits.
+          this.emit("week.elapsed", { grade: this.retest.result });
+        }
       }
       this.emitCues(this.cues.step(this.cueProbe(s, dt)));
     }

@@ -8,6 +8,8 @@ const CREST_MAX_MPH = 25;      // blind crest should be taken slow
 const YIELD_MAX_MPH = 8;       // uncontrolled intersection: near-yield
 const CROSSBUCK_MAX_MPH = 6;   // crossbuck: slow enough to look and listen
 const SHOULDER_MARGIN_M = 3;   // how far off the road edge still reads as "shoulder"
+const EDGE_WARN_M = 1.4;       // inside the road, this close to the gravel edge = the pile
+const EDGE_CD_S = 6;
 const YANK_STEER = 0.6;
 const END_RADIUS_M = 6;
 
@@ -26,6 +28,7 @@ export class RuralRun {
 
   private shoulderFired = false;
   private shoulderCd = 0;
+  private edgeCd = 0;
   private crestDone = false;
   private zones: Record<"uncontrolled" | "crossbuck", { done: boolean; min: number }> = {
     uncontrolled: { done: false, min: Infinity },
@@ -45,6 +48,7 @@ export class RuralRun {
     this.mission = true;
     this.shoulderFired = false;
     this.shoulderCd = 0;
+    this.edgeCd = 0;
     this.crestDone = false;
     this.zones.uncontrolled = { done: false, min: Infinity };
     this.zones.crossbuck = { done: false, min: Infinity };
@@ -59,6 +63,16 @@ export class RuralRun {
   step(dt: number, s: VehicleSample) {
     if (!this.mission) return;
     this.shoulderCd = Math.max(0, this.shoulderCd - dt);
+    this.edgeCd = Math.max(0, this.edgeCd - dt);
+
+    // VI-003 "The Pile at the Edge": the gravel pile sits ON the edge, so the card
+    // has to open while the car is still on the road and close to it. Firing only
+    // on `rural.shoulder` meant the lesson appeared after the car was already off
+    // the pavement — the mistake, not the hazard.
+    if (onRoad(this.g, s.pos) && nearEdge(this.g, s.pos) && this.edgeCd <= 0) {
+      this.edgeCd = EDGE_CD_S;
+      this.ev.fire("rural.edge");
+    }
 
     // Soft shoulder: off the road edge but still beside it. A yank while there is the VI-004 mistake.
     if (onShoulder(this.g, s.pos) && !onRoad(this.g, s.pos)) {
@@ -130,4 +144,11 @@ function onShoulder(g: RuralSites, p: Vec2): boolean {
   const m = SHOULDER_MARGIN_M + g.shoulder;
   return p.x >= g.road.x && p.x <= g.road.x + g.road.w
     && p.y >= g.road.y - m && p.y <= g.road.y + g.road.h + m;
+}
+
+/** On the road, but within EDGE_WARN_M of one of its long edges. */
+function nearEdge(g: RuralSites, p: Vec2): boolean {
+  const dSouth = p.y - g.road.y;
+  const dNorth = g.road.y + g.road.h - p.y;
+  return dSouth <= EDGE_WARN_M || dNorth <= EDGE_WARN_M;
 }

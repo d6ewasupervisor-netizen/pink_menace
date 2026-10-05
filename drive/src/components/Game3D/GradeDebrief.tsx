@@ -36,10 +36,14 @@ export function GradeDebrief() {
           </span>
         </div>
 
-        <div style={styles.row}>
-          <span style={styles.key}>CARD</span>
-          <span style={styles.value}>{model.cardId}</span>
-        </div>
+        {/* No card was cued behind this grade (the Act IV week grades on its own).
+            The result still shows; the citation rows are simply absent. */}
+        {model.cardId && (
+          <div style={styles.row}>
+            <span style={styles.key}>CARD</span>
+            <span style={styles.value}>{model.cardId}</span>
+          </div>
+        )}
         {model.sectionId && (
           <div style={styles.row}>
             <span style={styles.key}>SECTION</span>

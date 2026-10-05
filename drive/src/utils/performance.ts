@@ -72,6 +72,70 @@ export function isLowEndDevice(): boolean {
   return lowCores || oldAndroid;
 }
 
+/**
+ * Draw-call / triangle counters for the KENT SCENE pass.
+ *
+ * The old 2026-10-01 profile read `gl.info.render.calls` from a `useFrame`
+ * callback and reported 1 every frame. That was not a small city: three resets
+ * `gl.info` at the start of every `renderer.render`, and `EffectComposer` calls
+ * render once per postprocessing pass with a fullscreen blit LAST. So a read taken
+ * after the render always landed on the blit — one quad, one draw call — no matter
+ * how much Kent actually drew.
+ *
+ * The scene pass is the scene graph we care about, so we sample it where it is
+ * still intact: an object whose `onAfterRender` fires after the scene has been
+ * drawn and before any post pass runs. Those numbers are recorded here and read by
+ * `getDrivePerformance`.
+ *
+ * This is a counter, not a claim about a frame rate. It reports what the renderer
+ * was asked to draw last frame and nothing more.
+ */
+const pass = { calls: 0, triangles: 0 };
+
+/** The two three.js Object3D hooks we wrap. Structurally typed so this module
+ *  stays renderer-agnostic and unit-testable without importing three. */
+export interface RenderTarget {
+  onBeforeRender?: ((...args: never[]) => void) | null;
+  onAfterRender?: ((...args: never[]) => void) | null;
+}
+
+/**
+ * Attach to the root of the drawn scene. On every render it records the counters
+ * for exactly that pass, before postprocessing overwrites `gl.info`.
+ */
+export function attachScenePassProbe(
+  target: RenderTarget,
+  info: () => { calls: number; triangles: number },
+): () => void {
+  const prevBefore = target.onBeforeRender;
+  const prevAfter = target.onAfterRender;
+
+  target.onAfterRender = ((...args: never[]) => {
+    const r = info();
+    pass.calls = r.calls;
+    pass.triangles = r.triangles;
+    recordPerformanceSample('previousDrawCalls', r.calls);
+    recordPerformanceSample('previousTriangles', r.triangles);
+    prevAfter?.apply(target, args);
+  }) as RenderTarget['onAfterRender'];
+
+  return () => {
+    target.onAfterRender = prevAfter;
+    target.onBeforeRender = prevBefore;
+  };
+}
+
+/** The last published Kent scene-pass counts (0 before the first frame renders). */
+export function scenePassCounters(): { calls: number; triangles: number } {
+  return { calls: pass.calls, triangles: pass.triangles };
+}
+
+/** Test seam: drop the counters so one case cannot read another's numbers. */
+export function resetScenePassCounters(): void {
+  pass.calls = 0;
+  pass.triangles = 0;
+}
+
 // ─── P8: quality tiers ─────────────────────────────────────────────────────────
 // Three tiers chosen from *measured frame time*, not a one-shot CPU check.
 // This module is pure data + a pure reducer: it never touches WebGL, so the
@@ -118,35 +182,60 @@ export const TIER_EFFECTS: Record<QualityTier, TierEffect[]> = {
 
 /** Frame time above this (ms) counts as a slow frame. ~30 fps. */
 export const SLOW_FRAME_MS = 33.4;
-/** Frame time below this (ms) counts as a fast (recovered) frame. ~55 fps. */
-export const FAST_FRAME_MS = 18.2;
+/**
+ * Recovery needs frames at or under this, RELATIVE to the display's own refresh.
+ * The old absolute 18.2 ms (~55 fps) could never be met by a panel locked at
+ * 30 Hz, so once such a panel stepped down one tier it could never climb back.
+ */
+/**
+ * Recovery is judged by SLOW_FRAME_MS, not by a second hard-coded frame time.
+ * Anything at or under the demotion threshold counts as recovered.
+ */
+export const FAST_FRAME_MS = SLOW_FRAME_MS;
 /** Sustained seconds of slow frames before stepping down one tier. */
 export const SLOW_HOLD_S = 2.5;
-/** Sustained seconds of fast frames before stepping back up one tier. */
+/** Sustained seconds of recovered frames before stepping back up one tier. */
 export const FAST_HOLD_S = 6;
 
 export interface QualityState {
   tier: QualityTier;
   /** Seconds of sustained slow frames so far. */
   slowS: number;
-  /** Seconds of sustained fast frames so far. */
+  /** Seconds of sustained recovered frames so far. */
   fastS: number;
 }
 
-export const initialQualityState = (tier: QualityTier = 'high'): QualityState => ({ tier, slowS: 0, fastS: 0 });
+export const initialQualityState = (tier: QualityTier = 'high'): QualityState =>
+  ({ tier, slowS: 0, fastS: 0 });
 
 /**
  * Step the tier from a measured frame time. Pure: given the same state and the
  * same frame time it always returns the same next state.
  *
- * Sustained slow frames step high → mid → low. Sustained fast frames step back
- * up. Mixed frames decay both counters, so a stutter neither promotes nor
- * demotes. Recovery is deliberately slower than demotion (FAST_HOLD_S >
- * SLOW_HOLD_S) so the tier does not oscillate on a marginal frame rate.
+ * Sustained slow frames step high → mid → low. Sustained recovered frames step
+ * back up. Mixed frames decay both counters, so a stutter neither promotes nor
+ * demotes. Recovery takes longer than demotion (FAST_HOLD_S > SLOW_HOLD_S) so the
+ * tier does not oscillate.
+ *
+ * THE THRESHOLD IS ONE LINE, NOT TWO. A frame is slow if it is over
+ * SLOW_FRAME_MS, and recovered if it is not. The reducer used to carry a second,
+ * much stricter recovery bar (18.2 ms, ~55 fps) alongside the demotion bar
+ * (33.4 ms, ~30 fps). That gap is what trapped a 30 Hz panel: a display locked at
+ * 33.3 ms a frame can never produce an 18.2 ms frame, so a tier that stepped down
+ * on one transient stall stayed at `low` for the rest of the session — the post
+ * stack stayed cheap and nothing gave the tier back. With one threshold, a panel
+ * sitting at its own refresh rate is by definition keeping up, so it recovers as
+ * soon as the stall is over, and a genuinely slow panel still walks down.
+ *
+ * No frame rate is claimed here. SLOW_FRAME_MS is the demotion threshold, not a
+ * measurement of this build.
  */
 export function stepQuality(state: QualityState, frameMs: number, dtS: number): QualityState {
-  const slow = Number.isFinite(frameMs) && frameMs > SLOW_FRAME_MS;
-  const fast = Number.isFinite(frameMs) && frameMs < FAST_FRAME_MS;
+  const finite = Number.isFinite(frameMs) && frameMs > 0;
+  const slow = finite && frameMs > SLOW_FRAME_MS;
+  // Recovered == not slow. A flat refresh at the display's own rate clears this.
+  const fast = finite && !slow;
+
   let slowS = slow ? state.slowS + dtS : 0;
   let fastS = fast ? state.fastS + dtS : 0;
   let tier = state.tier;

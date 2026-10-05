@@ -23,7 +23,8 @@ import {
 } from '@/quietroads';
 import { KnowledgeSeat, examVerdict } from '@/quietroads/study/seat';
 // P3: Act I only, eagerly. The rest of the acts are per-act dynamic imports.
-import { ACT_ONE_DIALOGUE, loadAct, preloadAct, actForSceneId, nextAct } from '@/quietroads/dialogue/actDialogue';
+import { ACT_ONE_DIALOGUE } from '@/quietroads/dialogue/actDialogue';
+import { gotoScene, prepareScene, preloadNextScene } from '@/quietroads/dialogue/sceneRouter';
 import { disposeActResources } from '@/quietroads/sim/actResources';
 import qv1 from '@/quietroads/data/questions_v1.json';
 import qv2 from '@/quietroads/data/questions_v2_weak.json';
@@ -145,7 +146,25 @@ class Bridge {
       // start_gameplay immediately (like 1.1) transition in a single tick.
       this.enterDialogue();
     });
-    this.runner.on('scene_finished', (_id, next) => { if (next) this.runner.startScene(next); });
+    // An act boundary is a network round trip. Load the act that owns the
+    // destination and WAIT for it before starting the scene — `startScene` throws
+    // on a scene the runner has not been handed yet. Act VII is closed, so the
+    // 7.3 → 8.1 handoff lands in `endCampaign` instead of throwing.
+    this.runner.on('scene_finished', (_id, next) => {
+      if (!next) return;
+      void gotoScene(this.runner, next).then((started) => { if (!started) this.endCampaign(next); });
+    });
+  }
+
+  /**
+   * The campaign reached a scene that is not playable (Act VII, the closed
+   * epilogue). End on screen instead of throwing mid-scene: the car is already
+   * frozen by the scene and the player has finished the drivable story.
+   */
+  private endCampaign(sceneId: string) {
+    this.stop();
+    useQRHud.getState().setTransient({ toast: `The drivable road ends here. (${sceneId} is the closed epilogue.)` });
+    window.setTimeout(() => useQRHud.getState().setTransient({ toast: '' }), 5200);
   }
 
   // ---------------------------------------------------------------- lifecycle
@@ -171,31 +190,20 @@ class Bridge {
     for (const [k, v] of Object.entries(useQRStore.getState().placeholders)) this.runner.setPlaceholder(k, v);
     const st = useQRStore.getState();
     if (resume && st.runnerState) this.runner.restore(st.runnerState);
-    const sceneId = resume && st.sceneId && this.runner.hasScene(st.sceneId)
-      ? st.sceneId
-      : (which && which !== 'resume' && this.runner.hasScene(which) ? which : '0.1');
 
-    // P3: make sure this scene's act chunk is in the runner before we start it.
-    const act = actForSceneId(sceneId);
-    if (act && !this.runner.hasScene(sceneId)) {
-      for (const f of await loadAct(act)) {
-        if (!this.runnerHasFile(f)) this.runner.load(structuredClone(f) as unknown as DialogueFile);
-      }
-    }
+    // Act select used to ask `hasScene(which)` BEFORE the act was loaded, so every
+    // act that was not already in the entry chunk fell through to '0.1'. Resolve
+    // the id the caller asked for, then let the router fetch whatever it needs.
+    const wanted = resume
+      ? (st.sceneId || '0.1')
+      : (which && which !== 'resume' ? which : '0.1');
+    const sceneId = (await prepareScene(this.runner, wanted)) ? wanted : '0.1';
 
     this.started = true;
     useGameStore.getState().setWorldMode('kent');
     // Both orientations are supported; the cockpit reflows (tokens.useOrientation).
     // Do not lock — the device decides. Start the scene.
-    this.runner.startScene(this.runner.hasScene(sceneId) ? sceneId : '0.1');
-  }
-
-  /** Has any of this dialogue file's scenes already been handed to the runner? */
-  private runnerHasFile(file: DialogueFile): boolean {
-    for (const id of Object.keys(file.scenes ?? {})) {
-      if (this.runner.hasScene(id)) return true;
-    }
-    return false;
+    this.runner.startScene(sceneId);
   }
 
   stop() { this.started = false; for (const h of this.timers) window.clearTimeout(h); this.timers.clear(); }
@@ -286,7 +294,7 @@ class Bridge {
     }
     if (event === "week.elapsed" && this.sim.missionId === "local_loop_week") this.enterDialogue();
     if (event.startsWith("card.cue:")) this.enqueueCard(event.slice("card.cue:".length));
-    this.maybeDebrief(event);
+    this.maybeDebrief(event, data);
     this.runner.onEvent(event);
     this.sim.onEvent(event);
   }
@@ -296,15 +304,18 @@ class Bridge {
    * result, the card that just opened, and that card's dol_section. The model
    * is built by quietroads/debrief — all strings come from the card.
    */
-  private maybeDebrief(event: string) {
-    if (!isGradeEvent(event)) return;
-    const cardId = this.lastCuedCard;
-    if (!cardId) return;
-    const model = buildDebrief(event, this.deck.get(cardId));
+  private maybeDebrief(event: string, data?: Record<string, unknown>) {
+    if (!isGradeEvent(event, data)) return;
+    // No cued card is NOT a reason to stay silent: the Act IV week grades with no
+    // card behind it, and a plain stop grade still has to say PASS or MISS. The
+    // model omits the card rows instead of dropping the panel.
+    const card = this.lastCuedCard ? this.deck.get(this.lastCuedCard) : undefined;
+    const model = buildDebrief(event, card, data);
     if (!model) return;
-    // P3: while the player reads the debrief, warm the next act's chunk.
-    const next = nextAct(this.currentAct);
-    if (next) preloadAct(next);
+    // P3: while the player reads the debrief, warm the act that owns the scene
+    // this one hands off to. Reading the scene's next_scene (not the next act
+    // letter) is what stops 2.5 → 3.1 from skipping the exam at 4.1.
+    preloadNextScene(this.runner);
     // Same phase path as a card: the car is already frozen for those.
     this.sim.freeze('debrief');
     holdDrive();
@@ -638,7 +649,10 @@ class Bridge {
   restartFromCheckpoint() {
     const st = useQRStore.getState();
     if (st.runnerState) this.runner.restore(st.runnerState);
-    this.runner.startScene(st.sceneId && this.runner.hasScene(st.sceneId) ? st.sceneId : '0.1');
+    // The checkpoint's act may not be loaded in this session (a fresh page load on
+    // a later act), so route it through the same prepare-then-start path.
+    const want = st.sceneId || '0.1';
+    void prepareScene(this.runner, want).then((ok) => this.runner.startScene(ok ? want : '0.1'));
   }
 }
 

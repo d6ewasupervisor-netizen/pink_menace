@@ -110,6 +110,13 @@ export class RetestWeek {
   plan: RetestPlan | null = null;
   private stopped = false;
   private dirty = false;
+  /**
+   * The grade the week earned: "pass" when the beat was met cleanly, "miss" when
+   * a rule was blown on the way (a rolled stop, an over-speed inside the graded
+   * window, a gap that closed). Set once, when the week completes — this is the
+   * same result that decides `week.elapsed`, not a second opinion.
+   */
+  result: "pass" | "miss" | null = null;
   private backed = false;
   private hold = 0;
   private gapHold = 0;
@@ -122,26 +129,33 @@ export class RetestWeek {
     this.plan = plan;
     this.stopped = this.dirty = this.backed = this.leftLane = this.seenSchool = this.done = false;
     this.hold = this.gapHold = 0;
+    this.result = null;
   }
 
   clear() {
     this.active = false;
     this.plan = null;
     this.done = false;
+    this.result = null;
   }
 
   note(event: string, data?: Record<string, unknown>) {
     if (!this.active || !this.plan || this.done) return;
     const kind = this.plan.kind;
     const stopId = String(data?.stop ?? "");
-    if (event === "speed.over" && (kind === "speed" || kind === "school")) this.dirty = true;
+    if (event === "speed.over" && (kind === "speed" || kind === "school")) { this.dirty = true; this.result = "miss"; }
     if (event === "zone.school.enter" && kind === "school") { this.seenSchool = true; this.dirty = false; }
     if (event === "stop.full") {
       const want = kind === "fourway" ? "titus_central" : "meeker";
       if ((kind === "stop" || kind === "speed" || kind === "fourway") && stopId === want && !this.dirty) this.stopped = true;
     }
-    if (event === "stop.rolled" && (stopId === "meeker" || stopId === "titus_central")) this.stopped = false;
-    if (event === "ledger.follow.close" && kind === "gap") this.gapHold = 0;
+    // A rolled stop is a blown rule: the week is a miss even if the driver goes
+    // round again and finally parks. The recorded result never goes back to pass.
+    if (event === "stop.rolled" && (stopId === "meeker" || stopId === "titus_central")) {
+      this.stopped = false;
+      this.result = "miss";
+    }
+    if (event === "ledger.follow.close" && kind === "gap") { this.gapHold = 0; this.result = "miss"; }
   }
 
   /** Short line after the stop is done, so the pin is the remaining ask. */
@@ -192,6 +206,9 @@ export class RetestWeek {
     if (!finished) return false;
     this.done = true;
     this.active = false;
+    // A clean run is a pass. `note()` already recorded a miss for any blown rule,
+    // so a null result here means nothing was violated.
+    if (this.result == null) this.result = "pass";
     return true;
   }
 

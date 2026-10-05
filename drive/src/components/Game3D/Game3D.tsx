@@ -5,7 +5,6 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
-import { PerformanceMonitor, AdaptiveDpr } from '@react-three/drei';
 
 import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
@@ -17,7 +16,7 @@ import { getSlipState } from '@/systems/VehicleController';
 import { liveDrive } from '@/systems/driveTelemetry';
 import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
 import { getWeather } from './Skybox';
-import { isLowEndDevice, recordDelta, recordPerformanceSample, stepQuality, initialQualityState, dprForTier, type QualityState, type QualityTier } from '@/utils/performance';
+import { isLowEndDevice, recordDelta, stepQuality, initialQualityState, dprForTier, type QualityState, type QualityTier } from '@/utils/performance';
 import { bindHeld } from '@/input/driveInput';
 import { textScaleStyle } from '@/input/textSize';
 import { onContextLost, onContextRestored } from '@/systems/glContext';
@@ -59,20 +58,22 @@ const LOW_END = isLowEndDevice();
 // ─── Quality tiers (P8) ──────────────────────────────────────────────────────
 // ONE system owns DPR: the tier. It is chosen from measured frame time via the
 // pure reducer in utils/performance, and the Canvas `dpr` prop is its only
-// writer. The old local PerformanceMonitor used to call gl.setPixelRatio(1)
-// after 5 s of slow frames — that second writer is gone. drei's PerformanceMonitor
-// supplies the measured frame time; AdaptiveDpr only reacts to an R3F
-// regress() (the Canvas `performance` prop is deliberately not set, so nothing
-// regresses it behind the tier's back).
+// writer.
+//
+// There used to be a second writer: drei's <AdaptiveDpr>, mounted beside the
+// Canvas. It calls R3F's setDpr() on its own schedule, so the renderer's pixel
+// ratio was being set from two places and neither owned the value. It is gone.
+// drei's <PerformanceMonitor> also went with it — its onDecline/onIncline were
+// no-ops, and the frame time it measured is the `delta` PerfRecorder already
+// reads on the same frame. On a context restore GLContextGuard below writes the
+// tier's ratio once, which is the only other place DPR is touched.
 function PerfRecorder({ onTier }: { onTier: (t: QualityTier) => void }) {
-  const { gl } = useThree();
   const qualityRef = useRef<QualityState>(initialQualityState(LOW_END ? 'mid' : 'high'));
 
   useFrame((_, delta) => {
-    // Existing ?profileDrive counters — frame time, draw calls, triangles.
+    // ?profileDrive frame-time counter.
     recordDelta(delta);
-    recordPerformanceSample('previousDrawCalls', gl.info.render.calls);
-    recordPerformanceSample('previousTriangles', gl.info.render.triangles);
+    // Draw calls / triangles come from the Kent scene pass — see KentPassProbe.
 
     const before = qualityRef.current.tier;
     const next = stepQuality(qualityRef.current, delta * 1000, delta);
@@ -112,7 +113,8 @@ function GLContextGuard({ dpr }: { dpr: number }) {
       useQRHud.getState().addTelemetry({ ts: Date.now(), event: 'webgl.context_restored' });
       const decision = onContextRestored(dpr);
       // The browser resets the pixel ratio when the context is recreated, so the
-      // tier (the single DPR owner) has to write it again.
+      // tier (the single DPR owner) has to write it again — once, with its own
+      // current value. Nothing else writes DPR.
       gl.setPixelRatio(decision.pixelRatio);
       if (decision.clearToast) useQRHud.getState().setTransient({ toast: '' });
       // decision.autoResume is always false — the player resumes, not the browser.
@@ -329,17 +331,13 @@ export function Game3D({ onExit }: Game3DProps) {
           <SceneDirector />
           <PerfRecorder onTier={onTier} />
           {/*
-            drei's PerformanceMonitor is the measured-frame-time source; its
-            onDecline/onIncline feed the same pure tier reducer. AdaptiveDpr is
-            mounted so a transient R3F regress() can drop the ratio inside the
-            tier's ceiling — the Canvas `dpr` prop stays the tier's own writer.
+            ONE pixel-ratio writer. The Canvas `dpr` prop above is the tier's only
+            writer, and GLContextGuard re-applies that same tier ratio on a context
+            restore. drei's <AdaptiveDpr> used to sit here as a second writer —
+            it calls R3F's setDpr() on its own schedule, so nothing owned the
+            value — and <PerformanceMonitor> was mounted with no-op handlers
+            alongside it. Both are gone.
           */}
-          <PerformanceMonitor
-            bounds={() => [45, 58]}
-            onDecline={() => undefined}
-            onIncline={() => undefined}
-          />
-          <AdaptiveDpr pixelated={false} />
         </Suspense>
       </Canvas>
 

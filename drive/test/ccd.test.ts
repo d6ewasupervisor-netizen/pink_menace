@@ -6,10 +6,12 @@
  * contact-free step which moved further than a contact could have allowed.
  *
  * The contract these tests hold:
- *   1. the Beetle at top speed records ZERO tunnels on dry, gravel, wet and ice
- *      over a fixed step count — those laps are the baseline;
- *   2. the threshold does fire when a step really does jump (so it is not dead);
- *   3. stopping distances are untouched: no feel change came with the telemetry.
+ *   1. a step LARGER than the threshold emits ccd.tunnel, so the check is alive;
+ *   2. a legal 1/60 step at top speed — the displacement the car can actually
+ *      produce — does not, and the margin between the two is wide;
+ *   3. the scripted top-speed laps still record zero tunnels on dry, gravel, wet
+ *      and ice: a regression net against a feel change, not the proof itself;
+ *   4. stopping distances are untouched: no feel change came with the telemetry.
  */
 import { describe, expect, it } from 'vitest';
 import { Simulation, stoppingDistanceM, VEHICLE, CHASSIS_DECEL, type VehicleSample } from '../src/quietroads';
@@ -64,6 +66,10 @@ describe('P9 — no tunnels on the baseline surfaces', () => {
     // The four surface configs the baseline names. Kent resolves dry and gravel
     // from the mission the car is on; wet is the Ledger south of solidY; ice is
     // the highway, where the controller's own top speed applies.
+    //
+    // This is a REGRESSION lap, not the proof that the threshold works — see the
+    // suite below for that. Its job is to catch a feel change that starts moving
+    // the car further per step than it used to.
     const cases: [string, Parameters<Simulation['startMission']>[0]][] = [
       ['dry (Grid)', 'mission_delivery_1_insulin'],
       ['gravel (Backcountry)', 'mission_backcountry_run'],
@@ -75,22 +81,51 @@ describe('P9 — no tunnels on the baseline surfaces', () => {
     expect(fired).toEqual({ 'dry (Grid)': 0, 'gravel (Backcountry)': 0, 'wet (Ledger)': 0, 'ice (Ribbon)': 0 });
   });
 
-  it('still reports a real jump — the check is not dead code', () => {
+  it('the same lap DOES report once a step exceeds the threshold', () => {
+    // Same harness, one oversized step. Without this the suite above could not
+    // tell "the check works" from "the event nobody emits".
+    const { sim, events } = makeSim();
+    sim.startMission('mission_delivery_1_insulin');
+    sim.step(1 / 60, sample({ x: 0, y: 0 }, 10));
+    sim.step(1 / 60, sample({ x: CCD.tunnelDisplacementM + 0.5, y: 0 }, 10));
+    expect(events).toContain(CCD.event);
+  });
+});
+
+/**
+ * The "0 tunnels" baseline above could not fail on its own: at 1/60 s the Beetle's
+ * ~33 m/s covers about 0.55 m a step against a 1.5 m threshold, so nothing was ever
+ * going to fire. It said nothing about whether the check was alive.
+ *
+ * These are the two cases that can. Together they say the threshold both fires on
+ * a step it should catch and stays quiet on one the car can legally take — which
+ * is what the headline number was always standing in for.
+ */
+describe('P9 — the threshold is real, not merely above the top speed', () => {
+  it('a step larger than the threshold emits ccd.tunnel', () => {
     const events: string[] = [];
     const obs = new VehicleObserver(new NoiseSystem(() => {}), (e) => events.push(e));
-    // First step establishes the baseline position.
-    obs.step(1 / 60, sample({ x: 0, y: 0 }, 10) as Sample);
-    // A 4 m contact-free jump in one 1/60 s step is not something the car can do.
-    obs.step(1 / 60, sample({ x: 4, y: 0 }, 10) as Sample);
+    obs.step(1 / 60, sample({ x: 0, y: 0 }, 10) as Sample);   // baseline
+    const over = CCD.tunnelDisplacementM + 0.25;
+    obs.step(1 / 60, sample({ x: over, y: 0 }, 10) as Sample);
     expect(events).toContain(CCD.event);
   });
 
-  it('stays quiet on a contact-free jump that is within the threshold', () => {
+  it('a legal 1/60 step at top speed does not', () => {
     const events: string[] = [];
     const obs = new VehicleObserver(new NoiseSystem(() => {}), (e) => events.push(e));
-    obs.step(1 / 60, sample({ x: 0, y: 0 }, 10) as Sample);
-    obs.step(1 / 60, sample({ x: 0.5, y: 0 }, 10) as Sample);
+    const perStep = BEETLE_TOP_MS / 60;
+    // The displacement a top-speed step really covers, well inside the threshold.
+    expect(perStep).toBeLessThan(CCD.tunnelDisplacementM);
+    obs.step(1 / 60, sample({ x: 0, y: 0 }, BEETLE_TOP_MS) as Sample);
+    obs.step(1 / 60, sample({ x: perStep, y: 0 }, BEETLE_TOP_MS) as Sample);
     expect(events).not.toContain(CCD.event);
+  });
+
+  it('leaves a wide margin between a legal step and a reported one', () => {
+    // The margin the baseline rests on: the fastest step the car can take has to
+    // be several times smaller than the step that gets reported.
+    expect(CCD.tunnelDisplacementM / (BEETLE_TOP_MS / 60)).toBeGreaterThan(2);
   });
 
   it('stands down for a step that had a contact', () => {
@@ -98,7 +133,7 @@ describe('P9 — no tunnels on the baseline surfaces', () => {
     const obs = new VehicleObserver(new NoiseSystem(() => {}), (e) => events.push(e));
     obs.step(1 / 60, sample({ x: 0, y: 0 }, 10) as Sample);
     obs.noteContact();
-    obs.step(1 / 60, sample({ x: 4, y: 0 }, 10) as Sample);
+    obs.step(1 / 60, sample({ x: CCD.tunnelDisplacementM + 1, y: 0 }, 10) as Sample);
     expect(events).not.toContain(CCD.event);
   });
 });

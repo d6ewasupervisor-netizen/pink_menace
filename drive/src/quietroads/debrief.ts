@@ -12,11 +12,20 @@
  *     written here, and nothing explains the feature;
  *   - the labels are exactly GRADE, PASS or MISS, the card id, the section id;
  *   - closing the panel emits NO events, so it can never fire week.elapsed.
+ *
+ * The Act IV week arrives as ONE event, `week.elapsed`, carrying the grade the
+ * retest already decided (`data.grade`). This module used to listen for
+ * `week.grade.pass` / `week.grade.miss`, which nothing ever emitted, so a graded
+ * week could never open its panel. There is no second week-end event: the verdict
+ * is data on the one the retest already fires.
  */
 
 import type { Card } from './study/cards';
 
 export type GradeResult = 'pass' | 'miss';
+
+/** The single Act IV week-end event. Its verdict rides on `data.grade`. */
+export const WEEK_ELAPSED = 'week.elapsed';
 
 /** Events that are a verdict on the beat, and which way they read. */
 const GRADE_EVENTS: Record<string, GradeResult> = {
@@ -49,18 +58,26 @@ const GRADE_EVENTS: Record<string, GradeResult> = {
   // Parking
   'park.clean': 'pass',
   'park.rolled': 'miss',
-  // The retest week's grade
-  'week.grade.pass': 'pass',
-  'week.grade.miss': 'miss',
 };
 
+/**
+ * The week-end verdict, read off the data the retest already attached to
+ * `week.elapsed`. Returns null when the payload carries no usable grade, so a
+ * malformed event shows no panel rather than inventing a PASS.
+ */
+function weekResultFor(data?: Record<string, unknown>): GradeResult | null {
+  const grade = data?.grade;
+  return grade === 'pass' || grade === 'miss' ? grade : null;
+}
+
 /** Is this event a grade result (as opposed to a cue, a prompt or telemetry)? */
-export function isGradeEvent(event: string): boolean {
-  return event in GRADE_EVENTS;
+export function isGradeEvent(event: string, data?: Record<string, unknown>): boolean {
+  return gradeResultFor(event, data) !== null;
 }
 
 /** pass / miss for a grade event, or null if it is not a grade event. */
-export function gradeResultFor(event: string): GradeResult | null {
+export function gradeResultFor(event: string, data?: Record<string, unknown>): GradeResult | null {
+  if (event === WEEK_ELAPSED) return weekResultFor(data);
   return GRADE_EVENTS[event] ?? null;
 }
 
@@ -71,7 +88,9 @@ export interface DebriefModel {
   result: GradeResult;
   /** The word shown next to the result. */
   resultLabel: 'PASS' | 'MISS';
-  /** The card id that just opened. */
+  /** The card that just opened. Null when the grade fired with no cue behind it. */
+  card: Card | null;
+  /** The card id that just opened. Empty when no card was cued. */
   cardId: string;
   /** That card's source.dol_section — pulled from the card, never invented. */
   sectionId: string;
@@ -83,19 +102,29 @@ export interface DebriefModel {
 }
 
 /**
- * Build the panel from a known grade event plus the card that just opened.
- * Returns null when the event is not a grade, or when there is no card to
- * point at (a debrief without a card id would be an empty shell).
+ * Build the panel from a grade event (plus its data, for the week) and the card
+ * that just opened.
+ *
+ * A card is optional. The grade is the result; the card is the citation. A stop
+ * grade with no cue behind it still has to say PASS or MISS — that was the bug
+ * where `maybeDebrief` returned early on a null `lastCuedCard` and the panel showed
+ * nothing at all. With no card the model carries an empty id and no section, and
+ * the UI omits those rows.
  */
-export function buildDebrief(event: string, card: Card | undefined): DebriefModel | null {
-  const result = gradeResultFor(event);
-  if (!result || !card) return null;
+export function buildDebrief(
+  event: string,
+  card: Card | undefined,
+  data?: Record<string, unknown>,
+): DebriefModel | null {
+  const result = gradeResultFor(event, data);
+  if (!result) return null;
   return {
     label: 'GRADE',
     result,
     resultLabel: result === 'pass' ? 'PASS' : 'MISS',
-    cardId: card.card_id,
-    sectionId: card.source?.dol_section ?? '',
+    card: card ?? null,
+    cardId: card?.card_id ?? '',
+    sectionId: card?.source?.dol_section ?? '',
     shape: result === 'pass' ? '✓' : '✕',
   };
 }

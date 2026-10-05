@@ -9,8 +9,16 @@
  *
  * Act IV spans the knowledge gate (study_terminal → exam_40), not a driving
  * place, so its cards are excluded here (only IV-018 opens in the drive).
+ *
+ * THIS FILE NO LONGER CARRIES A CUED-ID LIST. A hardcoded list only proved the
+ * ids were spelled correctly — it could not tell a card that opens on the skill
+ * from one that opens on a timer, and it counted cards the sim never emits.
+ * Channel 3 is now MEASURED by driving the missions: `observedCues.ts` steps the
+ * real Simulation over each cue's beat and collects the `card.cue:<id>` events
+ * that actually came off the bus, so a cue that stops firing fails here too.
  */
 import { describe, expect, it } from "vitest";
+import { observedCueIds } from "./observedCues";
 import cardsJson from "../src/quietroads/data/cards.json";
 import { CARD_FOR_TRIGGER } from "../src/quietroads/study/cards";
 
@@ -30,23 +38,24 @@ import type { DialogueFile } from "../src/quietroads/dialogue/types";
 const FILES = [act01, act2, act2central, act3, act4, act5ribbon, act5, act6, act6backcountry, act7, act8] as DialogueFile[];
 
 /**
- * Ids CardCues knows how to offer. This list does not prove the sim bus
- * emits them — GridRun used to fire past the wrapper while this still passed.
- * teaching.test.ts steps the three grid missions and requires card.cue.
+ * Channel 3, MEASURED rather than asserted.
+ *
+ * This list used to be a hardcoded array of ids. That only proved the strings were
+ * spelled right: it could not tell a card that opens on the skill from one that
+ * opens on a timer, and it counted cards the sim never emits. It also drifted —
+ * II-012 and III-007 were in the cue list but nothing drove them.
+ *
+ * What replaced it: `observedCues.ts` steps the real Simulation through each
+ * cue's beat and collects the `card.cue:<id>` events that actually reach the bus.
+ * The set below is what the missions produced. `teaching.test.ts` additionally
+ * asserts the two-sided contract per id — fires on the skill, stays shut without
+ * it — so a card cannot pass coverage by being cued from a timer either.
+ *
+ * Adding a card here is NOT how you close a coverage gap. Either the sim fires the
+ * event, in which case this measured set grows by itself, or it does not, in which
+ * case the cue is not real yet.
  */
-const CUED = [
-  // II-006 and II-012 left the Act V briefing still (3.1) and now open on the
-  // Ledger drive: II-012 on ledger.follow.close, II-006 on the signal beat.
-  "II-006", "II-012",
-  "II-007", "II-008", "II-009", "II-011", "II-013", "II-014", "II-015", "II-016", "II-017",
-  "II-018", "II-019", "II-020", "II-021", "II-022", "II-023", "II-025", "II-026", "II-028",
-  "II-029", "II-031",
-  "III-001", "III-005", "III-008", "III-009", "III-010", "III-011", "III-012", "III-013",
-  "III-014", "III-015", "III-017", "III-018", "III-019", "III-021", "III-022", "III-023",
-  "III-024", "III-025", "III-026", "III-027", "III-028", "III-029", "III-030",
-  "V-002", "V-004", "V-008", "V-009", "V-011",
-  "VI-003", "VI-005", "VI-009", "VI-011", "VI-013",
-];
+const CUED = observedCueIds();
 
 const DRIVE_ACTS = ["I", "II", "III", "V", "VI"];
 

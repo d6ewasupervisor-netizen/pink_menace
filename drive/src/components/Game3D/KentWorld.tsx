@@ -6,14 +6,15 @@
  * against them (the sim's blocked() is for the Quiet; Rapier handles the car).
  * Everything is drawn from data — nothing hand-placed.
  */
-import { useMemo, useRef, useLayoutEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useMemo, useRef, useLayoutEffect, useEffect } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useGameStore } from '@/stores/gameStore';
 import type { Rect, SignDef } from '@/quietroads';
 import { batchPlainBuildings, buildingColliders, batchBuildingRoofs, dashInstances, ROOF_COLOR, type BuildingInstance } from '@/quietroads/sim/instancing';
+import { attachScenePassProbe } from '@/utils/performance';
 
 const ROAD_Y = 0.01;
 const MARK_Y = 0.02;
@@ -542,10 +543,33 @@ function RuralMarks() {
   );
 }
 
+/**
+ * Publishes the draw-call / triangle count for THIS scene pass.
+ *
+ * `gl.info` is reset at the start of every `renderer.render` and the
+ * EffectComposer runs one render per postprocessing pass with a fullscreen blit
+ * last, so any read taken after the frame sees the blit and nothing else — which is
+ * why the old profile reported 1 draw call. Sampling from `onAfterRender` of the
+ * Kent root captures the scene pass while those counters are still intact.
+ */
+function KentPassProbe() {
+  const ref = useRef<THREE.Group>(null!);
+  const { gl } = useThree();
+  useEffect(() => {
+    if (!ref.current) return;
+    return attachScenePassProbe(ref.current, () => ({
+      calls: gl.info.render.calls,
+      triangles: gl.info.render.triangles,
+    }));
+  }, [gl]);
+  return <group ref={ref} />;
+}
+
 export function KentWorld() {
   const map = QuietRoads.sim.map;
   return (
     <group>
+      <KentPassProbe />
       {/* Ground + collider (road surface at Y=0, 1 m thick below) */}
       <RigidBody type="fixed" colliders={false}>
         <CuboidCollider args={[map.bounds.w / 2, 0.5, map.bounds.h / 2]} position={[map.bounds.x + map.bounds.w / 2, -0.5, map.bounds.y + map.bounds.h / 2]} friction={0} />

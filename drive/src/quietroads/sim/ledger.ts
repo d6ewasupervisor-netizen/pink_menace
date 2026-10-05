@@ -8,6 +8,15 @@ const SIGNAL_HOLD_S = 0.5;      // steer held this long = a signal
 const MERGE_MIN_MPH = 12;       // must be rolling at least this to claim a gap
 const WRONG_LANE_S = 2.0;       // lingering in the passing lane this long is a habit
 const END_RADIUS_M = 6;
+/** Lateral band around the lead's lane that reads as "alongside his trailer". */
+const ALONGSIDE_DX_M = 2.4;
+/** Longitudinal window (in travel direction) that counts as abreast. */
+const ALONGSIDE_DY_M = 8;
+/** How close to the solid-white line counts as riding the rumble (a soft tyre). */
+const RUMBLE_DX_M = 0.7;
+const RUMBLE_CD_S = 6;
+/** How far into the wet half of the run III-024/III-025 practice before firing. */
+const WET_ENTER_Y = 6;
 
 /**
  * Act III — Central. The Ledger run.
@@ -36,6 +45,12 @@ export class LedgerRun {
   private wrongLaneT = 0;
   private closeCd = 0;
   private endFired = false;
+  /** Latch state for the beats the card book opens on (all one-per-run). */
+  private followStarted = false;
+  private alongsideFired = false;
+  private passFired = false;
+  private wetFired = false;
+  private rumbleCd = 0;
 
   constructor(private g: LedgerSites, private ev: { fire: (e: string, d?: Record<string, unknown>) => void }) {}
 
@@ -47,6 +62,8 @@ export class LedgerRun {
     this.solidFired = this.mergeStarted = this.mergeDone = this.endFired = false;
     this.wrongLaneT = 0;
     this.closeCd = 0;
+    this.followStarted = this.alongsideFired = this.passFired = this.wetFired = false;
+    this.rumbleCd = 0;
     this.leadPos = { ...this.g.lead.from };
     this.leadHeading = Math.PI / 2;
   }
@@ -59,6 +76,7 @@ export class LedgerRun {
     this.trackLane(dt, s);
     this.trackFollow(dt, s);
     this.trackMerge(s);
+    this.trackSharing(s, dt);
     if (!this.endFired && dist(s.pos, this.g.end) < END_RADIUS_M) {
       this.endFired = true;
       this.ev.fire("waypoint.reach:ledger_end");
@@ -108,12 +126,57 @@ export class LedgerRun {
 
   private trackFollow(dt: number, s: VehicleSample) {
     this.closeCd = Math.max(0, this.closeCd - dt);
-    if (Math.abs(s.speedMs) <= 1 || this.closeCd > 0) return;
+    if (Math.abs(s.speedMs) <= 1) return;
     const gap = dist(s.pos, this.leadPos);
     const need = followFullGapM(s.speedMs, "dry") * FOLLOW.minFrac;
+
+    // The FOLLOW BEAT starts when she is rolling behind Deac's truck with room —
+    // that is what III-005 / III-009 / II-012 are about. It used to open only on
+    // `ledger.follow.close`, so a driver who held the gap correctly (the skill the
+    // cards teach) never saw them at all.
+    if (!this.followStarted && gap < need * 2.2) {
+      this.followStarted = true;
+      this.ev.fire("ledger.follow.start", { gap_m: Math.round(gap) });
+    }
+
+    if (this.closeCd > 0) return;
     if (gap < need) {
       this.closeCd = 5;
       this.ev.fire("ledger.follow.close", { gap_m: Math.round(gap) });
+    }
+  }
+
+  /**
+   * The beats around the lead truck and the road edge — each a thing the driver
+   * actually does, not a coordinate that happens to be true:
+   *   alongside    — out of his mirrors (§4.4, III-011/III-012)
+   *   pass.clear   — his whole front back in the mirror (§5.2, III-018)
+   *   wet.enter    — south of the solid white, onto wet paint (§5.6, III-024/III-025)
+   *   rumble.ride  — the car drifting onto the line, i.e. a soft tyre (§2.5, III-028)
+   */
+  private trackSharing(s: VehicleSample, dt: number) {
+    const dx = s.pos.x - this.leadPos.x;
+    const dy = s.pos.y - this.leadPos.y;
+
+    if (!this.alongsideFired && Math.abs(dy) < ALONGSIDE_DY_M && Math.abs(dx) > ALONGSIDE_DX_M) {
+      this.alongsideFired = true;
+      this.ev.fire("ledger.alongside");
+    }
+    // Recovering is only safe once his whole front is behind you in the mirror.
+    if (!this.passFired && this.alongsideFired && dy < -ALONGSIDE_DY_M && Math.abs(dx) < ALONGSIDE_DX_M) {
+      this.passFired = true;
+      this.ev.fire("ledger.pass.clear");
+    }
+    if (!this.wetFired && s.pos.y > this.g.solidY + WET_ENTER_Y) {
+      this.wetFired = true;
+      this.ev.fire("ledger.wet.enter");
+    }
+
+    this.rumbleCd = Math.max(0, this.rumbleCd - dt);
+    if (laneIndex(this.g, s.pos) >= 0 && this.rumbleCd <= 0
+      && laneEdgeGap(this.g, s.pos) <= RUMBLE_DX_M && Math.abs(s.speedMs) > 2) {
+      this.rumbleCd = RUMBLE_CD_S;
+      this.ev.fire("ledger.rumble.ride");
     }
   }
 
@@ -135,4 +198,13 @@ function laneIndex(g: LedgerSites, p: Vec2): number {
   if (p.y < y0 || p.y > y1 || p.x < x0 || p.x > x1) return -1;
   const i = Math.floor(((p.x - x0) / (x1 - x0)) * count);
   return Math.max(0, Math.min(count - 1, i));
+}
+
+/** Metres from the point to the nearest boundary of the lane it is in. */
+function laneEdgeGap(g: LedgerSites, p: Vec2): number {
+  const { x0, x1, count } = g.lanes;
+  const span = (x1 - x0) / count;
+  const li = laneIndex(g, p);
+  if (li < 0) return Infinity;
+  return Math.min(Math.abs(p.x - (x0 + li * span)), Math.abs(p.x - (x0 + (li + 1) * span)));
 }

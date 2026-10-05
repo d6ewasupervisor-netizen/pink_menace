@@ -7,7 +7,7 @@
  *   2. sustained fast (recovered) frames step back up;
  *   3. low mounts fewer effects than high, and DPR never goes above 1.5 on mobile.
  */
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import {
   stepQuality,
   initialQualityState,
@@ -19,6 +19,9 @@ import {
   FAST_HOLD_S,
   SLOW_FRAME_MS,
   FAST_FRAME_MS,
+  attachScenePassProbe,
+  scenePassCounters,
+  resetScenePassCounters,
   type QualityState,
   type QualityTier,
 } from '../src/utils/performance';
@@ -32,6 +35,8 @@ function run(state: QualityState, frameMs: number, seconds: number, dt = 1 / 60)
 
 const SLOW_MS = 50;   // ~20 fps
 const FAST_MS = 12;   // ~83 fps
+/** A panel locked at ~30 Hz: 33.3 ms a frame, forever. It can never do better. */
+const HZ30_MS = 33.4;
 
 describe('P8 — the tier choice is a pure function of frame time', () => {
   it('sustained slow frames step high → mid → low', () => {
@@ -91,11 +96,110 @@ describe('P8 — the tier choice is a pure function of frame time', () => {
   });
 
   it('separates slow from fast so a marginal rate does not oscillate', () => {
-    expect(FAST_FRAME_MS).toBeLessThan(SLOW_FRAME_MS);
     // Recovery takes longer than demotion, so a marginal rate settles.
     expect(FAST_HOLD_S).toBeGreaterThan(SLOW_HOLD_S);
-    const mid = SLOW_FRAME_MS; // right at the boundary — neither slow nor fast
-    expect(run(initialQualityState('mid'), mid, 30).tier).toBe('mid');
+    // One threshold, not two: recovered is exactly "not slow". See stepQuality.
+    expect(FAST_FRAME_MS).toBe(SLOW_FRAME_MS);
+    // A frame right at the boundary is recovered, not slow — and not demoting.
+    const at = SLOW_FRAME_MS;
+    expect(stepQuality(initialQualityState('mid'), at, 1 / 60).slowS).toBe(0);
+    expect(stepQuality(initialQualityState('mid'), at, 1 / 60).fastS).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * The 30 Hz trap.
+ *
+ * The old rule called a frame "recovered" only under a hard 18.2 ms (~55 fps).
+ * A display locked at 30 Hz delivers ~33.3 ms frames and can never produce one, so
+ * a panel that stepped down on a transient stall was pinned at `low` for the rest
+ * of the session: dropping the post stack bought nothing and nothing gave it back.
+ *
+ * Recovery is now relative to the panel's own period, which is learned from the
+ * fastest frame it has actually drawn. The high → mid → low reducer is unchanged,
+ * and no frame rate is claimed anywhere.
+ */
+describe('P8 — a 30 Hz panel can recover', () => {
+  it('steps down under sustained slow frames, as before', () => {
+    let s = run(initialQualityState('high'), SLOW_MS, SLOW_HOLD_S + 0.5);
+    expect(s.tier).toBe('mid');
+    s = run(s, SLOW_MS, SLOW_HOLD_S + 0.5);
+    expect(s.tier).toBe('low');
+  });
+
+  it('a flat 30 Hz refresh does not walk the tier down', () => {
+    // 33.4 ms a frame is the display's own rate and sits exactly on the
+    // threshold, so it is recovered, not slow: the tier should stay at high.
+    const s = run(initialQualityState('high'), HZ30_MS, 60);
+    expect(s.tier).toBe('high');
+    expect(s.slowS).toBe(0);
+  });
+
+  it('a tier that fell to low on a stall climbs back on a flat 30 Hz cadence', () => {
+    // This is the trap the second threshold created. The panel stalls for long
+    // enough to demote twice, then settles at its own 30 Hz rate forever. Under
+    // the old 18.2 ms recovery bar it could never leave `low`.
+    const stalled = run(initialQualityState('high'), SLOW_MS, SLOW_HOLD_S * 2 + 0.5);
+    expect(stalled.tier).toBe('low');
+    const recovered = run(stalled, HZ30_MS, FAST_HOLD_S + 1);
+    expect(recovered.tier).toBe('mid');
+    expect(run(recovered, HZ30_MS, FAST_HOLD_S + 1).tier).toBe('high');
+  });
+
+  it('a genuinely slow panel still walks all the way down and stays there', () => {
+    const s = run(initialQualityState('high'), SLOW_MS, 60);
+    expect(s.tier).toBe('low');
+    // And it does not climb back on its own rate, because that rate IS slow.
+    expect(run(s, SLOW_MS, 60).tier).toBe('low');
+  });
+
+  it('ignores a non-finite frame time rather than counting it either way', () => {
+    const s = run(initialQualityState('mid'), SLOW_HOLD_S - 0.05, 1 / 60);
+    const n = stepQuality(s, NaN, 1 / 60);
+    expect(n.slowS).toBe(0);
+    expect(n.fastS).toBe(0);
+    expect(n.tier).toBe('mid');
+  });
+});
+
+/**
+ * Draw-call sampling.
+ *
+ * The old profile read `gl.info.render.calls` from a useFrame callback and got 1
+ * every frame: three resets `gl.info` per `renderer.render`, and EffectComposer
+ * renders once per post pass with a fullscreen blit last. The counter is now
+ * taken from the scene pass itself, at the point where those numbers are still
+ * the scene's.
+ */
+describe('P8 — the scene pass owns the draw-call sample', () => {
+  beforeEach(() => resetScenePassCounters());
+
+  it('reports what the scene pass drew, not the postprocessing blit', () => {
+    // A stand-in for the Kent scene root: three calls onAfterRender on it.
+    const sceneRoot: { onAfterRender?: ((...a: never[]) => void) | null } = {};
+    let live = { calls: 1, triangles: 2 };   // a blit, which is what we used to see
+    const detach = attachScenePassProbe(sceneRoot, () => live);
+
+    // Mid-frame the counters are the blit's; the probe has not fired yet.
+    expect(scenePassCounters()).toEqual({ calls: 0, triangles: 0 });
+
+    // The scene pass renders 41 calls / 9,000 triangles, then the blit runs.
+    live = { calls: 41, triangles: 9000 };
+    sceneRoot.onAfterRender!();
+    live = { calls: 1, triangles: 2 };
+    expect(scenePassCounters()).toEqual({ calls: 41, triangles: 9000 });
+    detach();
+  });
+
+  it('restores whatever was on the callback when it detaches', () => {
+    const calls: string[] = [];
+    const target = { onAfterRender: () => { calls.push('mine'); } };
+    const detach = attachScenePassProbe(target, () => ({ calls: 1, triangles: 1 }));
+    target.onAfterRender!();
+    expect(calls).toEqual(['mine']);
+    detach();
+    target.onAfterRender!();
+    expect(calls).toEqual(['mine', 'mine']);
   });
 });
 
