@@ -189,7 +189,7 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 | P16 | Story | S3 | M | **Deac never drove the line his own card describes — done.** III-001 "Your Wheel" is hand-written (`pack/00_README.md`), and it has him *"sweep the glass, hold the lane, then take one merge late on purpose so you can watch what that costs."* `LedgerRun.advanceLead` moved him in a dead-straight line at constant 18 mph and **never changed lane**; `leadHeading` was pinned to `Math.PI / 2` in `reset()`, so the model would have crabbed sideways with its nose south even if he had. The merge III-001 and III-013 are both written about did not exist on the road. Fixed by `DEAC` in `sim/ledger.ts`; his beats are witness-gated because III-001's debrief is *"You saw the merge you do not take."* |
 | P17 | Teaching | S3 | S | **A cue's comment described a different actor than its code — done.** III-013 was taken on `ledger.merge.slow` (the **player** under 12 mph on the ramp) under a comment reading *"Deac took one merge late... The late merge IS the beat."* The card opened on a beat it was not written about and stayed shut through the one it was. It now hangs on `deac.merge.late`. Worth remembering as a class: a comment naming a beat is not evidence the beat is wired, which is why `test/deac.test.ts` asserts the event name rather than trusting the prose. |
 | P18 | Sim | S3 | S | **`alongside` / `pass.clear` measured in world axes — done.** Both read a raw `dy` off Deac's position, which was correct only because he drove perfectly straight. Once he merges, a player in the right lane *behind* him satisfies `\|dy\| < 8` against his lateral travel and is graded as riding alongside his trailer. Now projected into his heading frame, which is what `ALONGSIDE_DX_M`'s comment ("lateral band around the lead's lane") always claimed. |
-| P19 | Map/UI | S3 | S? | **Act III lane handedness disagrees with itself — open, not touched.** `KentWorld.LedgerMarks` names `x0 + 1/3 span` the boundary "between right + middle" and draws the solid white there south of `solidY`; `laneIndex` counts up from `x0`, so `trackLane`'s `li === 2` "passing lane" is the lane *nearest* that right boundary, and `li === 0` is the lane the mission spawns in. Either the render's naming or the grader's index is mirrored. Not fixed here on purpose: flipping it would move `wrong_lane`, `crossed_solid`, `merge.clean/slow` and every Act III card keyed to them, and it cannot be judged from headless tests — it needs someone to look at the road. **Needs an owner.** |
+| P19 | Map/UI | S3 | S? | **Act III lane handedness was logged as a mirror. A check on 2026-10-05 does not find one.** Ledger lanes are `x0: 260, x1: 270, count: 3`. `LedgerMarks` calls `x0 + 1/3` the line between right and middle, and the retest spawn at `x: 261.67` is commented "right lane". That x is lane index 0. Index 2 is the left third, which is the passing lane on a right-hand road, and that is what `trackLane` calls it. The two agree. Do not flip them. A screen look can still overrule this; the grades that hang off `wrong_lane`, `crossed_solid`, and `merge.clean/slow` move if the index is reversed. |
 
 ---
 
@@ -362,9 +362,13 @@ behaviour, there should be a test that the behaviour happens.
 Still open: a browser `?profileDrive` pass on a signed-in device and a
 full-campaign playthrough. **No headed browser ran in this pass**, so there is no
 frame-rate or draw-call number to quote. Quiet pressure tied to the graded skill
-and one tone of voice across acts are not this pass. Headless tests: **163/163**
-across 15 files. `tsc` exit 0.
-Build: 818 modules, entry chunk 3,957 kB with 10 act dialogue chunks split out.
-`bench/baseline.json` restored, not regenerated (no physics change).
+and one tone of voice across acts are not this pass. Headless tests re-run on
+2026-10-05: **163/163** across 15 files. `tsc --noEmit` exit 0.
+The commit message says the build was 818 modules and the entry chunk 3,958 kB.
+This file previously said 3,957 kB. That build was not re-run in the check.
+`bench/baseline.json` was regenerated (`generated_at` 2026-10-05T06:44:19Z), not
+restored. Stopping distances are unchanged: 74.7 / 85.6 / 102.6 / 89.8 / 103.0 /
+264.4 m. The committed step timings are the slower run (Central p50 67.7 µs, was
+60.2). The 60.1 / 60.2 / 60.6 µs figures are not in the file.
 
 <!-- CONTINUED -->

@@ -331,3 +331,20 @@ beat it was not written about and stayed shut through the one it was.
 The three files at the repo root stay the memory: `AGENT_LOG.md`, `ROADMAP.md`, `AUDIT.md`. A new chat reads them first. After a task, the log gets a dated entry and the other two move only when the next work or the open problems move.
 
 The instruction now sits in the user-level rule files Cursor, Cline, and Claude Code load for every workspace, and the copy in this repo matches that text. No second memory file.
+
+---
+
+## 2026-10-05b — check of the Deac pass (`9c84d85`, docs `3555448`)
+
+Branch `agent/overhaul-2026-09-30`, two commits ahead of origin, tree clean. Re-ran from `drive/`: `npm test` **163/163** across 15 files, `npx tsc --noEmit` exit 0. Did not rebuild, so the entry-chunk size was not re-measured. The commit says 3,958 kB. `AUDIT.md` had been left at 3,957 kB.
+
+Held up: `DEAC` in `sim/ledger.ts` (arm at 4 m, merge starts at 0.6 of the taper, into lane 1, witness gate 45 m). Heading is `atan2` of the step displacement. III-013 opens only on `deac.merge.late`. `test/deac.test.ts` has 12 tests. III-001's scene text is the late-merge line. The truck speed is 18 mph, from `kentMap` `lead.speedMph`. Stopping distances in `bench/baseline.json` match the previous commit.
+
+Did not hold up as written:
+
+- The bench file was **regenerated**, not restored. `generated_at` is `2026-10-05T06:44:19Z`. Event order changed. Committed Central p50 is **67.7 µs** (was 60.2). The log's 60.1 / 60.2 / 60.6 µs runs are not in the file.
+- **P19 is not a mirror.** Lanes are x 260–270, three wide. Index 0 is the right lane (the 1/3 line, and the spawn commented "right lane" at x 261.67). Index 2 is the left lane, which is the passing lane. Do not flip it.
+- III-001 the card still opens on the player's `ledger.lanechange.start`. Only III-013 moved onto Deac's merge. Leave III-001 there.
+- The witness gate is `DEAC.witnessM` = 45 m, not 100 m.
+
+Still open, and still not this check: quiet pressure tied to the graded skill, one tone of voice across acts, and a headed `?profileDrive` run.

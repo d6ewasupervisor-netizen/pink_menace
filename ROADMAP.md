@@ -169,12 +169,14 @@ deliberately empty rather than filled with a guess.
   untouched (Rule 2).
 - BD-1 and BD-2 are resolved (seconds feel, guide-led copy, §4.14 citations).
 - Homogeneous GPU baselines still need the `?profileDrive` browser run. **No
-  headed browser ran in this pass**, so the graphics changes are justified by unit
-  tests and the build split rather than by a frame-rate claim. The old `30 / 29.6`
+  headed browser ran**, so there is no frame-rate number. The old `30 / 29.6`
   figures were the sample window's own 30 Hz clock and are withdrawn.
-- `bench/baseline.json` was restored rather than regenerated: no physics change
-  landed, so 74.7 / 89.8 / 103.0 / 264.4 m still hold and re-recording would only
-  churn step timings that move with machine load.
+- `bench/baseline.json` was regenerated on 2026-10-05, not restored. Stopping
+  distances are unchanged (74.7 / 85.6 / 102.6 / 89.8 / 103.0 / 264.4 m). The
+  committed step timings are the slower run. Central p50 in the file is 67.7 µs.
+  The 60 µs figures quoted in the log are not in the file.
+- P19 is not an open mirror. Lane index 0 is the right lane. Index 2 is the left,
+  passing lane. Do not flip it.
 
 
 
