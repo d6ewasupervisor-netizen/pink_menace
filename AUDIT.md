@@ -195,17 +195,44 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 
 ## 4. Decisions (owner: fix them)
 
-- **BD-1 — Following distance. Resolved.** Drive feel stays the seconds count
-  (`FOLLOW.rule = "seconds"`, 3 dry / 4 truck) so the gap still grows with
-  speed. Teaching copy on II-012, V-012, II-014, the Ledger/convoy/escort
-  objectives, and the fallback quiz leads with the guide's sentence: leave at
-  least twice the length of your vehicle. `followFullGapM(..., "vehicle_lengths")`
-  grades that distance literally (car 8 m, truck 14 m) if the switch is flipped.
-  II-012 and V-012 now cite §5.2 Space, not §5.4 Time.
+- **BD-1 — Following distance. SIGNED OFF (owner, 2026-10-05).** The decision is
+  to leave it: drive feel stays the seconds count (`FOLLOW.rule = "seconds"`,
+  3 dry / 4 truck) so the gap still grows with speed; the grader does **not**
+  switch to `vehicle_lengths`. Teaching copy on II-012, V-012, II-014, the
+  Ledger/convoy/escort objectives, and the fallback quiz keeps leading with the
+  guide's sentence: leave at least twice the length of your vehicle.
+  `followFullGapM(..., "vehicle_lengths")` grades that distance literally
+  (car 8 m, truck 14 m) if the switch is ever flipped. II-012 and V-012 cite
+  §5.2 Space, not §5.4 Time. This was a sign-off, not a code change.
 
 - **BD-2 — Hand-signal citation. Resolved.** Cards that cited "2.5 Vehicle
   Maintenance (Hand signals)" now cite "4.14 Turning" (II-006, II-016, II-022,
   III-019, and the same strings in `cards/`). The practised rule is unchanged.
+
+- **Quiet pressure tied to the graded skill. Decided and done (owner,
+  2026-10-05).** The Quiet ARE the zombies — one herd (`QuietField` in
+  `sim/quiet.ts`, spawns in `kentMap.ts`, drawn by `QuietSwarm`); no second
+  herd. A missed grade (too close, rolled stop, wrong lane, crossed solid, a bad
+  merge, a yanked shoulder — the fail events the graders already fire,
+  `GRADE_MISSES` in `sim/pressure.ts`) raises awareness on the Quiet near the
+  car; if none are close enough to see it, existing dormant Quiet move onto the
+  roadside ahead and wake, so the sprites are on screen. A pass raises nothing.
+  Decay still works. A miss alone tops out at ALERT (`PRESSURE.MISS_CAP`), so
+  the swarm stays the noise system's verdict — reinforce, don't add chaos.
+  `test/pressure.test.ts`, 5 two-sided tests through the real graders.
+
+- **One voice, one interface, one sound set. Decided and done (owner,
+  2026-10-05).** One accent (`SCENE_ACCENT` — the Menace pink from
+  `cockpit/tokens`) tints the frame and the badge in every act; one cockpit on
+  every act (`sceneSpec.ts`: driveView `cockpit` + maneuver cam); the Quiet
+  meter on every playable act (`quiet: true` everywhere, and `QuietHUD` reads
+  the flag). Spoken lines use one in-cab treatment; radio and CB beds stop being
+  a different voice per act — `dialogue/voice.ts` is the one speaker voice table
+  (Deac and Jonah are the CB voice in every act, Mom/Ray/Lumi/Sori the radio
+  voice), with the per-line `voice_bed` override (act 8's pattern) still winning
+  for scenes that need the other medium. AudioManager stays the one procedural
+  set — no second engine/wind/impact per act. Card copy and
+  `pack/23_THE_SPOKEN_DICTIONARY.md` untouched. `test/voice.test.ts`.
 
 ## 5. Baselines
 
@@ -361,8 +388,7 @@ behaviour, there should be a test that the behaviour happens.
 
 Still open: a browser `?profileDrive` pass on a signed-in device and a
 full-campaign playthrough. **No headed browser ran in this pass**, so there is no
-frame-rate or draw-call number to quote. Quiet pressure tied to the graded skill
-and one tone of voice across acts are not this pass. Headless tests re-run on
+frame-rate or draw-call number to quote. Headless tests re-run on
 2026-10-05: **163/163** across 15 files. `tsc --noEmit` exit 0.
 The commit message says the build was 818 modules and the entry chunk 3,958 kB.
 This file previously said 3,957 kB. That build was not re-run in the check.
@@ -370,5 +396,25 @@ This file previously said 3,957 kB. That build was not re-run in the check.
 restored. Stopping distances are unchanged: 74.7 / 85.6 / 102.6 / 89.8 / 103.0 /
 264.4 m. The committed step timings are the slower run (Central p50 67.7 µs, was
 60.2). The 60.1 / 60.2 / 60.6 µs figures are not in the file.
+
+## 8. Owner decisions executed (2026-10-05c)
+
+The three open decisions above are closed (§4). Headless re-run from `drive/`:
+**172/172** across 17 files (was 163/15), `tsc --noEmit` exit 0.
+`bench/baseline.json` stayed byte-identical — `sim-bench.test.ts` rewrites it on
+every run and no physics constant changed, so the run's copy was restored, not
+committed. Deliberately untouched: the Deac pass, III-001's trigger
+(`ledger.lanechange.start`), Act III lane handedness (index 0 = right, index 2 =
+left passing), `DEAC.witnessM` = 45 m, and all card copy. Still open and still
+needing hardware: the `?profileDrive` browser pass and a full-campaign
+playthrough. **No headed browser ran** (none available) — no frame-rate or
+draw-call number is quoted anywhere.
+
+Two implementation notes worth keeping: (1) the pharmacy/Bea dropoff fires
+`door.slam` / `park.back_in.*` on the raw event bus, not the grade funnel, so
+those events do not raise pressure (or reach the card book) — pre-existing
+plumbing, not re-plumbed here; (2) `rural.shoulder.yank` fires every step while
+the mistake continues, which is why a pressure application is throttled to one
+per second.
 
 <!-- CONTINUED -->

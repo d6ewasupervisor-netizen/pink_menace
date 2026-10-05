@@ -148,13 +148,21 @@ deliberately empty rather than filled with a guess.
   witness-gated: the card is about what you *saw*, so a player parked 100 m back
   never gets it. `test/deac.test.ts`, 12 two-sided tests.
 - **Quiet pressure tied to the graded skill** (reinforce, don't add chaos) —
-  **still open, not this pass.** The Quiet/Noise system is Act I–II only;
-  `mission_jonah_intersection` is the one driving mission that reads awareness,
-  and Acts III/V/VI do not. The natural reading is that the graded skill should
-  move the noise rather than noise being ambient decoration — but that is a
-  design decision about what Act III is *about*, and it wants an owner before code.
+  **done, owner decision 2026-10-05.** The Quiet are the zombies: one herd
+  (`QuietField` / `QuietSwarm`, spawns in `kentMap.ts`). A missed grade — the
+  fail events the graders already fire (`GRADE_MISSES` in `sim/pressure.ts`) —
+  wakes the herd within sight toward the car, or moves existing dormant Quiet
+  onto the roadside ahead so the sprites are on screen. A pass raises nothing;
+  decay is untouched; a miss alone stops at ALERT so the swarm stays the noise
+  system's verdict. `test/pressure.test.ts`, 5 two-sided tests driven through
+  the real graders.
 - One tone of voice / one UI / one audio palette across acts.
-  **Still open — not this pass.**
+  **Done, owner decision 2026-10-05.** One accent (`SCENE_ACCENT`, the Menace
+  pink), one cockpit on every act, the Quiet meter on every playable act
+  (`sceneSpec.ts` + `CockpitHUD`/`QuietHUD`), one speaker voice table for
+  radio/CB beds and the in-cab treatment (`dialogue/voice.ts`, per-line
+  `voice_bed` still wins), and AudioManager stays the one procedural sound set.
+  `test/voice.test.ts`. Card copy and `pack/23` untouched.
 - Lazy-load each act's level; preload the owning act during debrief; disposal on
   change. **Done.** Per-act dynamic imports with Act I eager in the first load;
   the act owning the scene's own `next_scene` preloads while the grade debrief is
@@ -167,7 +175,9 @@ deliberately empty rather than filled with a guess.
 
 - Act VII stays closed (Rule 8). Backend, auth, parent dashboard, DRIVE_ENABLED
   untouched (Rule 2).
-- BD-1 and BD-2 are resolved (seconds feel, guide-led copy, §4.14 citations).
+- BD-1 is **signed off** (owner, 2026-10-05): `FOLLOW.rule` stays `seconds`
+  (3 s dry / 4 s truck), the grader does not switch to `vehicle_lengths`, and the
+  guide-led teaching copy stays as it is. BD-2 is resolved (§4.14 citations).
 - Homogeneous GPU baselines still need the `?profileDrive` browser run. **No
   headed browser ran**, so there is no frame-rate number. The old `30 / 29.6`
   figures were the sample window's own 30 Hz clock and are withdrawn.

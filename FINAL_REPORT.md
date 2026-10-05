@@ -264,11 +264,12 @@ Act IV week is exactly that case, and it now reads PASS or MISS.
   device pass.
 
 ## 10. BLOCKED DECISIONS (need the owner)
-- **BD-1 (resolved, pending owner sign-off)**: the guide §5.2 "twice the length
-  of your vehicle" vs the canonical "3-second" rule. The drive keeps the seconds
-  *feel* (default) but leads all teaching copy with the guide's wording, and the
-  rule is a one-line config switch (`FOLLOW.rule`). Owner should confirm whether
-  to leave `seconds` (current) or switch the grader to `vehicle_lengths`.
+- **BD-1 — SIGNED OFF (owner, 2026-10-05)**: the guide §5.2 "twice the length
+  of your vehicle" vs the canonical "3-second" rule. The owner signed off on the
+  current state: `FOLLOW.rule` stays `"seconds"` (3 s dry, 4 s truck), the grader
+  does **not** switch to `vehicle_lengths`, and the teaching copy keeps leading
+  with the guide's wording — that copy is left exactly as it is. This was a
+  sign-off, not a code change.
 - **BD-2 (resolved)**: hand-signal citations now read §4.14 Turning.
 
 ## 11. Remaining backlog + risks

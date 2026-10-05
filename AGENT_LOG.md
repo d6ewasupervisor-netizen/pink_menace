@@ -348,3 +348,80 @@ Did not hold up as written:
 - The witness gate is `DEAC.witnessM` = 45 m, not 100 m.
 
 Still open, and still not this check: quiet pressure tied to the graded skill, one tone of voice across acts, and a headed `?profileDrive` run.
+
+---
+
+## 2026-10-05c — owner decisions: BD-1 signed off, misses wake the Quiet, one voice/interface
+
+Branch `agent/overhaul-2026-09-30`, not merged, not pushed, `main` untouched.
+Re-ran from `drive/`: `npm test` **172/172** across 17 files (+2 files, +9 tests),
+`npx tsc --noEmit` exit 0. `bench/baseline.json` is byte-identical: the bench test
+rewrites it on every `npm test`, no physics constant changed here, so the run's
+copy was restored, not committed.
+
+### 1. BD-1 — following distance: SIGNED OFF (no code change)
+
+Owner decision: `FOLLOW.rule` stays `"seconds"` (3 s dry, 4 s behind a truck).
+Do not switch the grader to `vehicle_lengths`. The teaching copy already leads
+with the guide's own sentence ("Leave a distance that's at least twice the length
+of your vehicle") and stays exactly as it is. This is a sign-off, not a code
+change — `config.ts`, the graders, and the card copy are untouched. Recorded in
+`AUDIT.md` §4, `ROADMAP.md`, and `FINAL_REPORT.md` §10.
+
+### 2. A missed grade raises Quiet pressure — the Quiet are the zombies
+
+One herd, as it always was: `QuietField` in `sim/quiet.ts`, spawns in
+`kentMap.ts`, drawn by `QuietSwarm`. No second herd is added. On the fail events
+the graders already fire — too close, a rolled stop, the wrong lane, a crossed
+solid, a bad merge, a yanked shoulder, and the rest of the fail halves
+(`GRADE_MISSES` in the new `sim/pressure.ts`) — the Quiet within sight wake
+toward the car. If nobody is close enough to see it, up to three EXISTING dormant
+Quiet step onto the roadside ahead of the player and wake, so the sprites are on
+screen when they look up. A pass raises nothing. Decay is untouched. The numbers
+live in one named block (`PRESSURE`):
+
+- 30 awareness per miss, applied at most once a second (some fails —
+  `rural.shoulder.yank` — fire every step while the mistake continues).
+- A miss alone caps at ALERT (75): the swarm and `mission.fail.swarm` stay the
+  noise system's verdict. Reinforce, don't add chaos.
+- The hook runs on the grade funnel every grader already fires through, so the
+  rule is one taxonomy, not a hook per mission. (The pharmacy/Bea dropoff fires
+  `door.slam` / `park.back_in.*` on the raw bus — noted, not re-plumbed.)
+
+`test/pressure.test.ts`, 5 tests, two-sided: the miss comes from the REAL grader
+(`ledger.follow.close`, `rural.shoulder.yank`), not from poking the hook. A miss
+wakes the Quiet within sight and only those; a pass (`ledger.lanechange.clean`)
+wakes nobody; the roadside rally adds no new Quiet; the pressure decays to zero
+when the mistakes stop. The harness mutes the herd's hearing (`setListeners([])`)
+— engine noise already wakes a parked-beside Quiet on its own, so without that
+"the pass wakes nobody" would measure the engine, not the grade.
+
+### 3. One voice, one interface, one sound set
+
+- **Interface.** `sceneSpec.ts` no longer gives each act its own accent.
+  `SCENE_ACCENT` (the Menace pink from `cockpit/tokens`) is the one accent and
+  CockpitHUD tints the frame and the act badge from it. One cockpit on every act
+  (driveView `cockpit` + maneuver cam), and `quiet: true` everywhere — the Quiet
+  meter belongs on every playable act, and QuietHUD now reads that flag instead
+  of the flag being decorative. Zone and ego stay per-act facts (Act III is the
+  Ledger; that is story, not interface).
+- **Voice.** New `dialogue/voice.ts` holds ONE speaker voice table (bed + in-cab
+  volume). "Radio and CB beds stop being a different voice per act": Deac is the
+  CB voice in every act, Jonah too, Mom/Ray/Lumi/Sori the radio voice, and the
+  in-cab speakers are one bedless treatment whose loudness maps through the one
+  VOLUME_DB table. A per-line `voice_bed` still wins — that is act 8's existing
+  pattern (Mom and Ray standing in the room, Deac calling in on the radio) and
+  stays the escape hatch for any scene that needs the other medium. Per-act
+  `characters[]` voice fields are no longer consulted for listed speakers.
+  `test/voice.test.ts` measures it: every act file resolves every speaker to the
+  same voice, and the scene spec is one cockpit with the meter on every act.
+- **Sound set.** AudioManager is already one procedural set (one engine, one
+  wind, one screech, one rain). Nothing added, nothing per act. Card copy
+  untouched; `pack/23_THE_SPOKEN_DICTIONARY.md` stays the word list.
+
+### Held, per instructions
+
+The Deac pass stands. III-001 stays on `ledger.lanechange.start`. Act III lanes
+stay as they are (0 = right, 2 = left passing). The witness gate is 45 m.
+`bench/baseline.json` not regenerated. No headed browser ran (none available) —
+still no frame-rate or draw-call number to quote.
