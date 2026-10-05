@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T16:01:08.418Z",
+  "generated_at": "2026-10-05T05:44:14.469Z",
   "rows": [
     {
       "mission": "mission_delivery_1_insulin",
@@ -9,9 +9,9 @@
         "mission.start:mission_delivery_1_insulin"
       ],
       "stepMs": {
-        "p50": 60.8,
-        "p95": 146.1,
-        "max": 1288.4
+        "p50": 62.7,
+        "p95": 145.7,
+        "max": 1266.2
       }
     },
     {
@@ -20,37 +20,44 @@
       "steps": 1200,
       "events": [
         "mission.start:mission_central_ledger",
-        "ledger.follow.close",
+        "ledger.follow.start",
         "card.cue:II-012",
         "card.cue:III-005",
         "card.cue:III-009",
-        "card.cue:III-001",
-        "card.cue:III-017",
-        "card.cue:III-028",
-        "card.cue:III-018",
-        "stop.approach",
-        "card.cue:III-011",
-        "card.cue:III-012",
-        "card.cue:III-013",
+        "ledger.follow.close",
         "card.cue:III-010",
+        "stop.approach",
         "stop.rolled",
-        "card.cue:III-015",
-        "card.cue:III-023",
-        "card.cue:III-029",
-        "card.cue:III-008",
-        "card.cue:III-022",
-        "card.cue:III-025",
+        "ledger.wet.enter",
         "card.cue:III-024",
-        "card.cue:III-021",
+        "card.cue:III-025",
+        "deac.signal",
+        "deac.merge.late",
+        "card.cue:III-013",
         "sign.prompt:school",
         "ledger.merge.approach",
         "card.cue:III-014",
-        "card.cue:III-026"
+        "card.cue:III-026",
+        "card.cue:III-007",
+        "ledger.rumble.ride",
+        "card.cue:III-028",
+        "ledger.lanechange.start",
+        "card.cue:III-027",
+        "card.cue:III-001",
+        "card.cue:III-017",
+        "card.cue:III-021",
+        "card.cue:III-022",
+        "ledger.crossed_solid",
+        "card.cue:III-008",
+        "ledger.lanechange.no_signal",
+        "card.cue:III-019",
+        "card.cue:II-006",
+        "ledger.merge.clean"
       ],
       "stepMs": {
-        "p50": 60.2,
-        "p95": 84.5,
-        "max": 677.9
+        "p50": 59.8,
+        "p95": 82.9,
+        "max": 782.6
       }
     },
     {
@@ -66,9 +73,9 @@
         "card.cue:V-008"
       ],
       "stepMs": {
-        "p50": 58.2,
-        "p95": 71.5,
-        "max": 530.3
+        "p50": 59,
+        "p95": 68,
+        "max": 310.6
       }
     },
     {
@@ -89,9 +96,9 @@
         "card.cue:VI-013"
       ],
       "stepMs": {
-        "p50": 56.8,
-        "p95": 82.3,
-        "max": 351.9
+        "p50": 58.6,
+        "p95": 69.6,
+        "max": 343.7
       }
     }
   ],

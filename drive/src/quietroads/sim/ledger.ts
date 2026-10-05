@@ -1,4 +1,4 @@
-import { type Vec2, dist, rectHas } from "./math";
+import { type Vec2, dist, rectHas, clamp } from "./math";
 import type { LedgerSites } from "./kentMap";
 import type { VehicleSample } from "./vehicleObserver";
 import { FOLLOW, followFullGapM } from "../config";
@@ -19,6 +19,44 @@ const RUMBLE_CD_S = 6;
 const WET_ENTER_Y = 6;
 
 /**
+ * Deac's drive down Central — the behaviour III-001 promises the player watches
+ * before he hands over the wheel.
+ *
+ * III-001 ("Your Wheel") is hand-written, not generated (`pack/00_README.md`:
+ * "`22_III_001_RIDE_ALONG.md` ... Hand-written. Not generated."). Its scene text
+ * is: "He will sweep the glass, hold the lane, then take one merge late on
+ * purpose so you can watch what that costs." Its debrief: "You saw the merge
+ * you do not take. He spent another man's margin to keep his." III-013 grades the
+ * same act from his side — twenty-six years and not one preventable.
+ *
+ * He used to run a dead-straight line at constant speed and never changed lane,
+ * so the merge both cards are written about did not exist on the road at all.
+ * These numbers are that merge:
+ *
+ *   - `signalLeadM`   — he arms out this far north of the taper. He signals; his
+ *                      sin is the *timing*, not the signal. Moving this earlier
+ *                      would be "fixing" him and would make the cards wrong.
+ *   - `mergeStartFrac` — he holds the right lane until this far INTO the taper,
+ *                      not at its start. That lateness is the lesson, and it is
+ *                      what puts him across the player's path.
+ *   - `mergeEndFrac`   — ...and he is still finishing the crossing here.
+ *   - `intoLane`       — which lane he ends up in, one left of the right lane.
+ *
+ * Every value is measured from `merge.y`, the start of the lane-drop taper, so
+ * retuning the corridor moves Deac with it.
+ */
+export const DEAC = {
+  /** Arm out before the taper (III-001: the sweep, then the arm). */
+  signalLeadM: 4,
+  /** He holds the lane until this far INTO the taper. This is the late merge. */
+  mergeStartFrac: 0.6,
+  mergeEndFrac: 0.95,
+  intoLane: 1,
+  /** How far behind him you must be to have seen any of it. */
+  witnessM: 45,
+} as const;
+
+/**
  * Act III — Central. The Ledger run.
  *
  * Same Kent frame as the Grid, but the ego is Deac's cutaway shuttle: longer,
@@ -35,6 +73,15 @@ export class LedgerRun {
   /** Deac's box truck ahead of the player (the following-gap target). */
   leadPos: Vec2 = { x: 0, y: 0 };
   leadHeading = Math.PI / 2;
+  /** Scripted lateral offset from the right travel lane centre; see DEAC. */
+  private leadOffset = 0;
+  /** Metres travelled along the corridor. Position is derived from this, not accumulated. */
+  private leadS = 0;
+  /** Deac's own beats — only for a player close enough behind to have seen them. */
+  private deacSignalled = false;
+  private deacMerged = false;
+  /** Stable scratch so advanceLead never reallocates (P13). */
+  private readonly ledgerPos: Vec2 = { x: 0, y: 0 };
 
   private lane: number | null = null;
   private steerHold = 0;
@@ -64,6 +111,11 @@ export class LedgerRun {
     this.closeCd = 0;
     this.followStarted = this.alongsideFired = this.passFired = this.wetFired = false;
     this.rumbleCd = 0;
+    this.leadOffset = 0;
+    this.leadS = 0;
+    this.deacSignalled = this.deacMerged = false;
+    this.ledgerPos.x = this.g.lead.from.x;
+    this.ledgerPos.y = this.g.lead.from.y;
     this.leadPos = { ...this.g.lead.from };
     this.leadHeading = Math.PI / 2;
   }
@@ -77,21 +129,69 @@ export class LedgerRun {
     this.trackFollow(dt, s);
     this.trackMerge(s);
     this.trackSharing(s, dt);
+    this.trackDeac(s);
     if (!this.endFired && dist(s.pos, this.g.end) < END_RADIUS_M) {
       this.endFired = true;
       this.ev.fire("waypoint.reach:ledger_end");
     }
   }
 
+  /**
+   * Walk Deac down his line: hold the right travel lane, arm out before the
+   * taper, then cross one lane — late, on purpose — exactly as III-001 has him
+   * do it in front of the player.
+   *
+   * The lateral position is a function of how far along the corridor he is, so
+   * it is frame-rate independent and reproducible: re-running the mission gives
+   * the same merge at the same place, which is what the scripted laps in
+   * `bench/` and `test/observedCues.ts` depend on.
+   *
+   * Heading is taken from the displacement he actually made this step rather
+   * than being assumed, so the model in `KentWorld` turns through the merge
+   * instead of sliding sideways with its nose pointed down the road.
+   */
   private advanceLead(dt: number) {
     const { from, to, speedMph } = this.g.lead;
     const dx = to.x - from.x, dy = to.y - from.y;
     const L = Math.hypot(dx, dy) || 1;
     const ux = dx / L, uy = dy / L;
-    this.leadPos.x += ux * speedMph * MPH * dt;
-    this.leadPos.y += uy * speedMph * MPH * dt;
-    const proj = (this.leadPos.x - from.x) * ux + (this.leadPos.y - from.y) * uy;
-    if (proj > L) this.leadPos = { ...to };
+
+    // Distance along the corridor is the single source of truth; position is a
+    // pure function of it. Advancing a scalar and re-deriving x/y each step (as
+    // opposed to nudging leadPos in place) matters here because the path is
+    // clamped at its end — an in-place accumulation gets snapped back to `to`,
+    // which is the lane he started in, and a correction applied after that clamp
+    // cannot tell the difference between "already offset" and "reset to lane 0".
+    const prevX = this.ledgerPos.x, prevY = this.ledgerPos.y;
+    this.leadS = Math.min(this.leadS + speedMph * MPH * dt, L);
+    const baseY = from.y + uy * this.leadS;
+    // The corridor runs along +y, so a lane change is purely an x offset.
+    this.leadOffset = this.mergeOffset(baseY);
+    this.ledgerPos.x = from.x + ux * this.leadS + this.leadOffset;
+    this.ledgerPos.y = baseY;
+    this.leadPos.x = this.ledgerPos.x;
+    this.leadPos.y = this.ledgerPos.y;
+
+    const mx = this.ledgerPos.x - prevX, my = this.ledgerPos.y - prevY;
+    if (mx !== 0 || my !== 0) this.leadHeading = Math.atan2(my, mx);
+  }
+
+  /**
+   * How far across the road Deac should be, given how far along the corridor he
+   * is. He holds the right travel lane (index 0, where the mission spawns him)
+   * until he is most of the way into the lane-drop taper, then ramps into the
+   * next lane. Smoothstepped so the crossing eases in rather than snapping — he
+   * is a careful driver about everything except the timing.
+   */
+  private mergeOffset(alongY: number): number {
+    const { x0, x1, count } = this.g.lanes;
+    const laneW = (x1 - x0) / count;
+    const taper = this.g.merge;
+    const taperLen = Math.max(taper.h, 1e-6);
+    const k = (alongY - taper.y - taperLen * DEAC.mergeStartFrac)
+      / (taperLen * (DEAC.mergeEndFrac - DEAC.mergeStartFrac));
+    const s = clamp(k, 0, 1);
+    return laneW * DEAC.intoLane * (s * s * (3 - 2 * s));
   }
 
   private trackLane(dt: number, s: VehicleSample) {
@@ -147,23 +247,66 @@ export class LedgerRun {
   }
 
   /**
+   * Deac's own beats: the arm going out, and the merge he takes late.
+   *
+   * III-001's debrief is "You saw the merge you do not take" — the card is about
+   * what the player WITNESSED. So neither beat fires unless the player is
+   * actually on the road behind him and close enough to have read it. Without
+   * that gate these would be exactly the kind of bare-coordinate cue AUDIT.md
+   * §"cues fire on the skill, not a timer" was written to eliminate: the merge
+   * would reach a player parked at the far end of the corridor who never saw a
+   * thing. `test/deac.test.ts` asserts both halves.
+   *
+   * These describe Deac, not the player's truck, so they are namespaced `deac.*`
+   * and kept out of the `ledger.*` grade bus the player's own driving reports to.
+   */
+  private trackDeac(s: VehicleSample) {
+    const dy = this.leadPos.y - s.pos.y;
+    // Ahead of him or too far back: not a thing you could have watched happen.
+    if (dy < 0 || dy > DEAC.witnessM) return;
+
+    if (!this.deacSignalled && this.leadPos.y >= this.g.merge.y - DEAC.signalLeadM) {
+      this.deacSignalled = true;
+      this.ev.fire("deac.signal");
+    }
+    if (!this.deacMerged && this.leadOffset > 0) {
+      this.deacMerged = true;
+      this.ev.fire("deac.merge.late");
+    }
+  }
+
+  /**
    * The beats around the lead truck and the road edge — each a thing the driver
    * actually does, not a coordinate that happens to be true:
    *   alongside    — out of his mirrors (§4.4, III-011/III-012)
    *   pass.clear   — his whole front back in the mirror (§5.2, III-018)
    *   wet.enter    — south of the solid white, onto wet paint (§5.6, III-024/III-025)
    *   rumble.ride  — the car drifting onto the line, i.e. a soft tyre (§2.5, III-028)
+   *
+   * `alongside` and `pass.clear` are measured in DEAC'S frame, not the world's.
+   * That is what `ALONGSIDE_DX_M`'s own comment always claimed — "lateral band
+   * around the lead's lane" — but the check was a raw world-axis dy, which was
+   * only correct for as long as he drove perfectly straight. Now that he merges,
+   * a player sitting in the right travel lane fourteen metres BEHIND him would
+   * satisfy |dy| < ALONGSIDE_DY_M against his lane change and be graded as
+   * riding alongside his trailer. Projecting onto his heading is what "alongside
+   * his trailer" actually means, and it is what makes the two beats survive him
+   * moving across the road.
    */
   private trackSharing(s: VehicleSample, dt: number) {
     const dx = s.pos.x - this.leadPos.x;
     const dy = s.pos.y - this.leadPos.y;
+    // Player relative to Deac, rotated into the frame he is driving in.
+    const fx = Math.cos(this.leadHeading), fy = Math.sin(this.leadHeading);
+    const ahead = dx * fx + dy * fy;      // + = ahead of him along his travel
+    const abreast = -dx * fy + dy * fx;   // signed lateral offset in his lane
 
-    if (!this.alongsideFired && Math.abs(dy) < ALONGSIDE_DY_M && Math.abs(dx) > ALONGSIDE_DX_M) {
+    if (!this.alongsideFired && Math.abs(ahead) < ALONGSIDE_DY_M && Math.abs(abreast) > ALONGSIDE_DX_M) {
       this.alongsideFired = true;
       this.ev.fire("ledger.alongside");
     }
     // Recovering is only safe once his whole front is behind you in the mirror.
-    if (!this.passFired && this.alongsideFired && dy < -ALONGSIDE_DY_M && Math.abs(dx) < ALONGSIDE_DX_M) {
+    if (!this.passFired && this.alongsideFired && ahead < -ALONGSIDE_DY_M && Math.abs(abreast) < ALONGSIDE_DX_M) {
       this.passFired = true;
       this.ev.fire("ledger.pass.clear");
     }

@@ -99,9 +99,14 @@ export class CardCues {
         this.take("III-026", out);
         this.take("III-007", out);   // §5.3 count the gap first
       }
-      if (event === "ledger.merge.slow") {
+      if (event === "deac.merge.late") {
         // III-013 "Twenty-Six, None Preventable": Deac took one merge late and
-        // never wrote a preventable. The late merge IS the beat.
+        // never wrote a preventable. The late merge IS the beat — and it is
+        // *his*, not the player's. This used to hang off `ledger.merge.slow`,
+        // which is the PLAYER rolling onto the ramp under 12 mph; the comment
+        // claimed Deac's merge while the code listened to someone else's, so the
+        // card opened on a beat it was not written about and stayed shut through
+        // the late merge it was written about. See LedgerRun.trackDeac.
         this.take("III-013", out);
       }
       if (event === "ledger.lanechange.start") {

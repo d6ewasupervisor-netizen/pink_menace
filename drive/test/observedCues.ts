@@ -166,6 +166,32 @@ export function observedCueIds(): ReadonlySet<string> {
     add(out);
   }
 
+  // ── Act III — riding behind Deac all the way to HIS late merge ──────────────
+  // III-013 ("Twenty-Six, None Preventable") is a beat about something Deac does,
+  // not something the player does: he takes one merge late, on purpose, and the
+  // card is for having watched it. The run above exercises every player skill on
+  // Central but it stops well short of the lane-drop taper — Deac is still around
+  // y≈118 by the end of it — so it can never witness the merge.
+  //
+  // So drive it properly: sit in his lane the whole way down, at a following
+  // distance, and let him take the lane. This is also the only thing that proves
+  // the witness gate in LedgerRun.trackDeac actually lets a legitimately-present
+  // player through.
+  {
+    const out = new Set<string>();
+    const sim = new Simulation(bus(out));
+    sim.startMission('mission_central_ledger');
+    // 18 mph ≈ 8.05 m/s; from y=78 to the end of the taper (y≈170) is ~92 m,
+    // so ~690 fixed steps at 1/60 covers it with room to spare.
+    for (let i = 0; i < 700; i++) {
+      const l = sim.ledger.leadPos;
+      // Track his lateral position so the player stays in the lane he is in and
+      // stays behind him — that is what "witnessed" means here.
+      sim.step(1 / 60, sample({ pos: { x: l.x, y: l.y - 12 }, heading: Math.PI / 2, speedMs: 8 }));
+    }
+    add(out);
+  }
+
   // ── Act V — the Ribbon: the on-ramp, rolling, then the merge itself ──────────
   {
     const out = new Set<string>();

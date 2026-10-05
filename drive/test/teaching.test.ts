@@ -133,7 +133,10 @@ describe("in-scene card cues", () => {
     see(book.onEvent("mission_central_ledger", "ledger.crossed_solid"));
     see(book.onEvent("mission_central_ledger", "ledger.wrong_lane"));
     see(book.onEvent("mission_central_ledger", "ledger.merge.approach"));
-    see(book.onEvent("mission_central_ledger", "ledger.merge.slow"));
+    // III-013 opens on DEAC's late merge, which is the beat its own comment named.
+    // It used to be cued off `ledger.merge.slow` (the player's slow merge) instead —
+    // see the note in cardCues.ts. `deac.merge.late` is the only event that opens it.
+    see(book.onEvent("mission_central_ledger", "deac.merge.late"));
     see(book.onEvent("mission_central_ledger", "ledger.lanechange.start"));
     see(book.onEvent("mission_central_ledger", "ledger.lanechange.clean"));
     see(book.onEvent("mission_central_ledger", "waypoint.reach:ledger_end"));
