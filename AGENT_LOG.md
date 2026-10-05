@@ -232,3 +232,9 @@ The browser `?profileDrive` pass and the full-campaign playthrough (both need a 
 - Stopping distances: unchanged. Frame rate: not measured. Draw calls: not measured.
 
 ---
+
+## 2026-10-04c — handoff rule is the same in every workspace
+
+The three files at the repo root stay the memory: `AGENT_LOG.md`, `ROADMAP.md`, `AUDIT.md`. A new chat reads them first. After a task, the log gets a dated entry and the other two move only when the next work or the open problems move.
+
+The instruction now sits in the user-level rule files Cursor, Cline, and Claude Code load for every workspace, and the copy in this repo matches that text. No second memory file.

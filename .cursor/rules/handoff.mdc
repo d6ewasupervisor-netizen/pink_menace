@@ -1,18 +1,20 @@
 ---
-description: Read the Quiet Roads handoff at the start of every chat and update it after each task
+description: Read and update AGENT_LOG.md, ROADMAP.md, and AUDIT.md in every workspace
 alwaysApply: true
 ---
 
 # Handoff
 
-There is no `MEMORY.md`. The handoff is three files in the repo root:
+Every workspace keeps three files at the repo root:
 
-- `AGENT_LOG.md` — what was done, decisions, measurements, what is still open
+- `AGENT_LOG.md` — what was done
 - `ROADMAP.md` — what is next
-- `AUDIT.md` — architecture and open problems
+- `AUDIT.md` — how it is built and what is still open
 
-At the start of a chat, before answering about this game or editing it, read all three.
+At the start of a session, before answering about the work or editing it, read all three.
 
-After a task that changes the game, the tests, or those decisions, append a dated entry to `AGENT_LOG.md`. Leave older entries in place. Do not start a second memory file.
+If a file is missing, create it before the first change in that repo. A new `AGENT_LOG.md` starts with a heading and one dated section. A new `ROADMAP.md` starts with what is next. A new `AUDIT.md` starts with how the system is built and what is open. If a file already has a shape, match it.
 
-A new chat on any model picks up by reading these files. The files are the memory. The chat is not.
+After every task, append a dated entry to `AGENT_LOG.md` and leave older entries in place. Update `ROADMAP.md` when the next work changes. Update `AUDIT.md` when the structure or an open problem changes.
+
+Use these file names. Do not add `MEMORY.md` or `agent_log.md`.

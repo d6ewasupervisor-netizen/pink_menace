@@ -1,6 +1,10 @@
 # Handoff
 
-There is no `MEMORY.md`. At the start of a task, before editing, read `AGENT_LOG.md`, `ROADMAP.md`, and `AUDIT.md`. After a task that changes the game, the tests, or those decisions, append a dated entry to `AGENT_LOG.md` and leave older entries in place. Do not start a second memory file.
+Every workspace keeps three files at the repo root: `AGENT_LOG.md` (what was done), `ROADMAP.md` (what is next), and `AUDIT.md` (how it is built and what is still open).
+
+At the start of a session, before answering about the work or editing it, read all three. If a file is missing, create it before the first change in that repo. If a file already has a shape, match it.
+
+After every task, append a dated entry to `AGENT_LOG.md` and leave older entries in place. Update `ROADMAP.md` when the next work changes. Update `AUDIT.md` when the structure or an open problem changes. Use these file names. Do not add `MEMORY.md` or `agent_log.md`.
 
 # Critical Execution Rules
 - NEVER stop a task or declare it finished just because you completed a sub-task or milestone.
