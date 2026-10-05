@@ -186,6 +186,10 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 | P13 | Perf | S3 | M | **Per-frame allocations — done.** `vehicleObserver.ts` copies into one owned previous-sample object instead of `{ ...s }`; `Simulation` reuses its ObserverOut, SimFrame, CueProbe and `blocked` closure; `ZoneField` ping-pongs two owned position buffers; the bridge reuses its sample and walker-input objects. Identity contract locked in `test/alloc.test.ts`. |
 | P14 | Graphics | S3 | M | **Kent draw merge — done.** `sim/instancing.ts` batches the repeated plain buildings into one InstancedMesh per material (42 → 4 batches) and the dashes into one per colour; `ContinuousRoad` batches the segment meshes the same way. Colliders are untouched: one fixed CuboidCollider per building and one per solid segment. DOL/PHARMACY/WAREHOUSE keep their own components. |
 | P15 | Story | S3 | S | **II-006 / II-012 on the road — done.** The two card nodes left the Act V briefing still (3.1 points at 3.1.2 / 3.1.5 now); `CardCues` takes II-006 on the signal beat, and II-012 / III-005 / III-009 on `ledger.follow.start` — the follow beat **beginning**, not the `follow.close` grade they used to hang off, which meant holding the gap correctly never showed them. |
+| P16 | Story | S3 | M | **Deac never drove the line his own card describes — done.** III-001 "Your Wheel" is hand-written (`pack/00_README.md`), and it has him *"sweep the glass, hold the lane, then take one merge late on purpose so you can watch what that costs."* `LedgerRun.advanceLead` moved him in a dead-straight line at constant 18 mph and **never changed lane**; `leadHeading` was pinned to `Math.PI / 2` in `reset()`, so the model would have crabbed sideways with its nose south even if he had. The merge III-001 and III-013 are both written about did not exist on the road. Fixed by `DEAC` in `sim/ledger.ts`; his beats are witness-gated because III-001's debrief is *"You saw the merge you do not take."* |
+| P17 | Teaching | S3 | S | **A cue's comment described a different actor than its code — done.** III-013 was taken on `ledger.merge.slow` (the **player** under 12 mph on the ramp) under a comment reading *"Deac took one merge late... The late merge IS the beat."* The card opened on a beat it was not written about and stayed shut through the one it was. It now hangs on `deac.merge.late`. Worth remembering as a class: a comment naming a beat is not evidence the beat is wired, which is why `test/deac.test.ts` asserts the event name rather than trusting the prose. |
+| P18 | Sim | S3 | S | **`alongside` / `pass.clear` measured in world axes — done.** Both read a raw `dy` off Deac's position, which was correct only because he drove perfectly straight. Once he merges, a player in the right lane *behind* him satisfies `\|dy\| < 8` against his lateral travel and is graded as riding alongside his trailer. Now projected into his heading frame, which is what `ALONGSIDE_DX_M`'s comment ("lateral band around the lead's lane") always claimed. |
+| P19 | Map/UI | S3 | S? | **Act III lane handedness disagrees with itself — open, not touched.** `KentWorld.LedgerMarks` names `x0 + 1/3 span` the boundary "between right + middle" and draws the solid white there south of `solidY`; `laneIndex` counts up from `x0`, so `trackLane`'s `li === 2` "passing lane" is the lane *nearest* that right boundary, and `li === 0` is the lane the mission spawns in. Either the render's naming or the grader's index is mirrored. Not fixed here on purpose: flipping it would move `wrong_lane`, `crossed_solid`, `merge.clean/slow` and every Act III card keyed to them, and it cannot be judged from headless tests — it needs someone to look at the road. **Needs an owner.** |
 
 ---
 
@@ -234,21 +238,32 @@ current and asserted by `test/ccd.test.ts`.
 
 ## 6. Deterministic sim baselines (headless)
 
-Source of truth: `drive/bench/baseline.json`, **restored rather than regenerated**
-in the latest pass — no physics change landed, so 74.7 / 89.8 / 103.0 / 264.4 m
-still hold and re-recording would only churn step timings that move with machine
-load. Step times move between runs; the JSON file is the number to diff.
+Source of truth: `drive/bench/baseline.json`. **Regenerated** in the 2026-10-05
+pass, because a mission-logic change did land (`9c84d85`, Deac's drive script)
+and the Act III event list genuinely moved — it now records
+`deac.signal → deac.merge.late → card.cue:III-013`, which is the merge and the
+card written for it, in order, off a deterministic lap. Nothing physical changed:
+the stopping-distance figures are byte-identical to the previous file.
+
+The step-time column below is from a **single** run and moves with machine load.
+The defensible statement for `9c84d85` is the interleaved A/B, 3 runs each:
+Act III p50 **60.1 / 60.2 / 60.6 µs** with the change against
+**61.0 / 62.4 / 60.3 µs** without — no regression. One intermediate reading of
+68.2 µs was *not* the change: every row, including the untouched Act II / V / VI,
+rose together, which is the signature of a loaded machine rather than one grader.
 
 Sim step CPU cost (µs) — one scripted lap per act, fixed 1/60 s step:
 
 | Mission (act) | steps | step µs p50 | p95 | max |
 |---|---|---|---|---|
-| mission_delivery_1_insulin (II) | 1200 | 54.8 | 127.7 | 1240.5 |
-| mission_central_ledger (III) | 1200 | 55.6 | 84.4 | 542.3 |
-| mission_ribbon_merge (V) | 1200 | 53.7 | 65.3 | 573.4 |
-| mission_backcountry_run (VI) | 2000 | 50.8 | 65.6 | 317.0 |
+| mission_delivery_1_insulin (II) | 1200 | 59.9 | 127.7 | 1240.5 |
+| mission_central_ledger (III) | 1200 | 60.1 | 84.4 | 542.3 |
+| mission_ribbon_merge (V) | 1200 | 58.3 | 65.3 | 573.4 |
+| mission_backcountry_run (VI) | 2000 | 56.9 | 65.6 | 317.0 |
 
-(max values include the first-step/JIT warm-up.)
+(max values include the first-step/JIT warm-up. p95/max are carried over from the
+previous capture — only p50 was re-timed here, since only p50 is the number the
+A/B rests on.)
 
 Stopping distance at 55 mph (m) — `stoppingDistanceM` (reaction 1.5 s + braking):
 
@@ -300,6 +315,10 @@ Grade events confirmed to fire on the scripted laps: `stop.approach`,
 | One DPR writer (`<AdaptiveDpr>` gone); a 30 Hz panel can climb back out of `low` | — ✅ | this pass |
 | Draw calls sampled from the Kent scene pass instead of the post blit | — ✅ | this pass |
 | CCD threshold asserted both ways (fires over it, quiet under a legal step) | — ✅ | this pass |
+| Deac drives the line III-001 writes about — arm out, hold, one **late** merge; heading from real displacement | — ✅ | `9c84d85` |
+| III-013 moved onto the beat its own comment named (`deac.merge.late`, not the player's `ledger.merge.slow`) | — ✅ | `9c84d85` |
+| `deac.*` beats are witness-gated — a player 100 m back never receives the card | — ✅ | `9c84d85` |
+| `alongside` / `pass.clear` projected into Deac's heading frame, so a follower is not graded as abreast | — ✅ | `9c84d85` |
 
 ### What the 111 tests did not prove, and now do
 
@@ -320,10 +339,31 @@ The suite was green at the previous HEAD and none of that was campaign evidence:
 - **The 30 Hz tier trap was untested**, and the CCD "0 tunnels" result could not
   fail. Both are now falsifiable.
 
+### And what the 2026-10-05 pass added (`9c84d85`)
+
+The previous pass moved cues off timers but never asked whether the *story's*
+subjects behave as written. Deac did not: see P16. Three things the earlier suite
+could not have caught, because each was a claim made in prose and asserted in
+none:
+
+- **The merge did not exist.** III-001 and III-013 both describe Deac taking a
+  late merge; he drove a straight line forever. Nothing in the suite failed,
+  because no test asserted that a character does what his card says he does.
+- **A cue listened to the wrong actor.** III-013's comment named Deac's merge; its
+  code took the player's (P17). Coverage was green — the card *was* reachable —
+  and it was still opening on the wrong beat.
+- **`alongside` was world-axis.** It stayed correct for years only because the
+  truck never moved laterally, so the bug was latent until he did (P18).
+
+The pattern worth carrying: *a green suite proves the wiring matches the spec,
+not that the spec matches the story.* Where a hand-written card states a
+behaviour, there should be a test that the behaviour happens.
+
 Still open: a browser `?profileDrive` pass on a signed-in device and a
 full-campaign playthrough. **No headed browser ran in this pass**, so there is no
-frame-rate or draw-call number to quote. Deac's on-road behaviour and one tone of
-voice across acts are not this pass. Headless tests: **151/151**. `tsc` exit 0.
+frame-rate or draw-call number to quote. Quiet pressure tied to the graded skill
+and one tone of voice across acts are not this pass. Headless tests: **163/163**
+across 15 files. `tsc` exit 0.
 Build: 818 modules, entry chunk 3,957 kB with 10 act dialogue chunks split out.
 `bench/baseline.json` restored, not regenerated (no physics change).
 

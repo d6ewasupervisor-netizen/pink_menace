@@ -233,6 +233,99 @@ The browser `?profileDrive` pass and the full-campaign playthrough (both need a 
 
 ---
 
+## 2026-10-05 — P3: Deac's on-road behaviour matches the story
+
+Branch `agent/overhaul-2026-09-30`. Commit `9c84d85`.
+
+### The finding
+
+ROADMAP P3 listed two items still open. This pass took the falsifiable half of
+the first: *"Deac's on-road behaviour matches the story."*
+
+III-001 **"Your Wheel"** is hand-written, not generated — `pack/00_README.md:44`
+says so explicitly, and that is why it is worth holding the code to. Scene text:
+*"He will sweep the glass, hold the lane, then take one merge late on purpose so
+you can watch what that costs."* Debrief: *"You saw the merge you do not take.
+He spent another man's margin to keep his."* III-013 ("Twenty-Six, None
+Preventable") is the same act from his side.
+
+`LedgerRun.advanceLead` moved the truck in a dead-straight line at constant
+18 mph from `lead.from` to `lead.to` and **never changed lane**. `leadHeading`
+was assigned `Math.PI / 2` in `reset()` and never touched again, so even if he
+had moved laterally the model in `KentWorld` would have crabbed down the road
+with its nose pointed south. The merge both cards are written about did not
+exist on the road.
+
+Second defect, in the cue table: III-013 was cued on `ledger.merge.slow`, which
+is the **player** rolling onto the ramp under 12 mph. The comment above it read
+*"Deac took one merge late and never wrote a preventable. The late merge IS the
+beat."* Comment and code were describing different actors — the card opened on a
+beat it was not written about and stayed shut through the one it was.
+
+### What changed
+
+1. **`sim/ledger.ts` — the merge exists now.** A named `DEAC` block holds his
+   drive script, measured from `merge.y` so retuning the corridor moves him with
+   it: arm out `signalLeadM` north of the taper, then hold the right travel lane
+   until `mergeStartFrac` = 0.6 *into* the taper before ramping into lane 1.
+   That lateness is the lesson, and the comment says so — moving it earlier would
+   be "fixing" him and would make both cards wrong.
+2. **Heading comes from real displacement**, so he turns through the merge.
+3. **`cardCues.ts`**: III-013 moved onto `deac.merge.late`, the beat its own
+   comment named.
+4. **`test/deac.test.ts`** — new, 12 tests, two-sided throughout.
+5. **`test/observedCues.ts`** — Act III gained a drive that actually rides behind
+   Deac to the taper. The existing run exercised every player skill on Central but
+   stopped around y≈118, short of the lane drop, so it could not witness the merge.
+   It is also the only proof the witness gate lets a legitimate player through.
+6. **Two bugs I introduced and then fixed**, both worth recording because the
+   first is a trap:
+   - Applying the lateral offset to an in-place-accumulated `leadPos` was undone
+     every step by the pre-existing clamp `if (proj > L) this.leadPos = { ...to }`
+     — `to` is the lane he *started* in, so he arrived in lane 1 and was
+     teleported back to lane 0, which also made `ledger.alongside` fire on a
+     3.3 m teleport. Fixed by making distance-along-corridor the single source of
+     truth and re-deriving x/y from it, rather than accumulating and correcting.
+   - `trackSharing` measured alongside-ness on a raw world-axis `dy`, correct only
+     because he drove perfectly straight. Now projected into his heading frame,
+     which is what `ALONGSIDE_DX_M`'s own comment ("lateral band around the lead's
+     lane") always claimed.
+
+### Measured, this pass
+
+- `npm test`: **163/163** across 15 files (was 151/151 across 14; +1 file, +12 tests).
+- `npx tsc --noEmit`: exit 0.
+- `npm run build`: green, 818 modules, entry chunk 3,958 kB (was 3,957).
+- Act III sim step p50, interleaved A/B, 3 runs each: with-change
+  **60.1 / 60.2 / 60.6 µs** vs baseline **61.0 / 62.4 / 60.3 µs**. No regression.
+  A single earlier reading of 68.2 µs was machine load, not the change — every row
+  including untouched Act II/V/VI rose together.
+- Stopping distances **byte-identical**: 74.7 / 85.6 / 102.6 / 89.8 / 103.0 /
+  264.4 m. No physics touched.
+- The bench lap now records `deac.signal → deac.merge.late → card.cue:III-013`
+  in that order — the merge and the card written for it, from a deterministic run.
+
+### Still open
+
+- **Quiet pressure tied to the graded skill** — the other half of the P3 bullet.
+  Not started. The Quiet/Noise system is Act I–II only (`mission_jonah_intersection`
+  is the one driving-mission hook); nothing in Acts III/V/VI reads awareness. The
+  obvious reading of "reinforce, don't add chaos" is that Act III's noise should
+  feed the gap grader, but that is a design call, not a mechanical one, and it
+  wants an owner.
+- **One tone of voice / one UI / one audio palette across acts** — untouched.
+- The browser `?profileDrive` pass and the full-campaign playthrough still need a
+  device + backend. **No headed browser ran in this pass**, so there is still no
+  frame-rate or draw-call number to quote.
+- *Recorded, not fixed:* the Act III lane convention reads oddly against the
+  render. `KentWorld.LedgerMarks` calls `x0 + 1/3 span` "between right + middle"
+  while `laneIndex` counts up from `x0`, so `trackLane`'s `li === 2` "passing
+  lane" is the lane *nearest the right boundary* — the two disagree about which
+  side is which. Predates this pass and deliberately left alone; noted in AUDIT.md
+  rather than silently retuned, because flipping it would move every Act III grade.
+
+---
+
 ## 2026-10-04c — handoff rule is the same in every workspace
 
 The three files at the repo root stay the memory: `AGENT_LOG.md`, `ROADMAP.md`, `AUDIT.md`. A new chat reads them first. After a task, the log gets a dated entry and the other two move only when the next work or the open problems move.

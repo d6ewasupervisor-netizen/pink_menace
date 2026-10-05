@@ -17,6 +17,7 @@ checked against `docs/wa-driver-guide/`, and logged in `AGENT_LOG.md` + `INDEX.m
 | Cards opened in-scene | I 12/12 · II 31/31 · III 30/30 · V 13/13 · VI 13/13, measured | every card in every act |
 | Act-boundary handoffs | 26 covered, incl. `7.1.card_V-006` | every `next_scene` has a destination |
 | Cues on the skill, not a timer | 0 on a timer/coordinate | stays 0 |
+| Cards whose comment names a beat the code doesn't listen to | 1 found (III-013) | 0 |
 | Stop/gap/yield grade lock | already fires (baseline.json) | a scene passes only when its grade fired |
 
 **On the old FPS row.** The 2026-10-01 run recorded "30 / 29.6", and it was not a
@@ -35,11 +36,11 @@ deliberately empty rather than filled with a guess.
   `seconds`. Teaching copy leads with §5.2. (P1, BD-1, BD-2)
 - **[config] Teaching-rule file.** `drive/src/quietroads/config.ts` holds the
   follow rule. Vehicle feel stays in `VehicleController` on purpose.
-- **[tests] `vitest run` green** — 151 tests, 14 files (stop/gap/yield, follow-rule,
-  card cues on the sim bus, **act-boundary chain**, exam gate, retest week, alloc
-  identity, CCD, quality tiers + the 30 Hz recovery, scene-pass draw calls,
-  instancing, accessibility, debrief incl. the Act IV week, bundle split, spoken
-  lines, bench).
+- **[tests] `vitest run` green** — 163 tests, 15 files (stop/gap/yield, follow-rule,
+  card cues on the sim bus, **act-boundary chain**, **Deac's drive script + the
+  witness gate on his beats**, exam gate, retest week, alloc identity, CCD, quality
+  tiers + the 30 Hz recovery, scene-pass draw calls, instancing, accessibility,
+  debrief incl. the Act IV week, bundle split, spoken lines, bench).
 
 ## P0b — the campaign has to be able to change scenes
 
@@ -134,8 +135,24 @@ deliberately empty rather than filled with a guess.
 
 ## P3 — Story / cohesion + polish
 
-- Deac's on-road behaviour matches the story; Quiet pressure tied to the graded
-  skill (reinforce, don't add chaos). **Still open — not this pass.**
+- **Deac's on-road behaviour matches the story** — **done.** III-001 "Your Wheel"
+  is hand-written and has him *"sweep the glass, hold the lane, then take one
+  merge late on purpose so you can watch what that costs."* He used to be a
+  straight line at constant speed that never changed lane, with a heading
+  hardcoded to `Math.PI / 2` — the merge both III-001 and III-013 are written
+  about did not exist on the road. `DEAC` in `sim/ledger.ts` is now his drive
+  script (arm out, hold, one *late* merge), position is a pure function of
+  distance along the corridor so it is reproducible, and heading comes from real
+  displacement. III-013 moved from the player's `ledger.merge.slow` onto
+  `deac.merge.late` — the beat its own comment had always named. Both beats are
+  witness-gated: the card is about what you *saw*, so a player parked 100 m back
+  never gets it. `test/deac.test.ts`, 12 two-sided tests.
+- **Quiet pressure tied to the graded skill** (reinforce, don't add chaos) —
+  **still open, not this pass.** The Quiet/Noise system is Act I–II only;
+  `mission_jonah_intersection` is the one driving mission that reads awareness,
+  and Acts III/V/VI do not. The natural reading is that the graded skill should
+  move the noise rather than noise being ambient decoration — but that is a
+  design decision about what Act III is *about*, and it wants an owner before code.
 - One tone of voice / one UI / one audio palette across acts.
   **Still open — not this pass.**
 - Lazy-load each act's level; preload the owning act during debrief; disposal on
