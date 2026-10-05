@@ -9,6 +9,8 @@ import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useCompactHud } from '@/hooks/useCompactHud';
 import { steerCorner } from '@/input/driveInput';
+import { actForScene } from '@/quietroads';
+import { specForAct } from './sceneSpec';
 import { phoneChrome } from './cockpit/tokens';
 
 const BAND = [
@@ -23,6 +25,7 @@ export function QuietHUD() {
   const frame = useQRHud((s) => s.frame);
   const toast = useQRHud((s) => s.toast);
   const tp = useQRStore((s) => s.vars.trade_points ?? 0);
+  const sceneId = useQRStore((s) => s.sceneId);
   const setHorn = useQRHud((s) => s.setHorn);
   const headlights = useGameStore((s) => s.headlights);
   const cycleHeadlights = useGameStore((s) => s.cycleHeadlights);
@@ -36,6 +39,9 @@ export function QuietHUD() {
   const driving = phase === 'driving';
   const walking = phase === 'walking';
   const active = driving || walking;
+  // The Quiet meter belongs on every playable act (owner decision, 2026-10-05);
+  // the scene spec is what says so, one place for all of them.
+  const meter = specForAct((sceneId ? actForScene(sceneId) : null) ?? 'I').quiet;
   const band = BAND[frame?.noiseBand ?? 0];
   const db = frame?.noiseDb ?? 20;
   const pct = Math.max(0, Math.min(1, (db - 20) / 80));
@@ -45,7 +51,7 @@ export function QuietHUD() {
   return (
     <div style={styles.root}>
       {/* Noise meter — top centre */}
-      {active && (
+      {active && meter && (
         <div style={{ ...styles.meterWrap, ...(compact ? styles.meterWrapCompact : null) }}>
           <div style={styles.meterLabel}>
             <span style={{ color: band.color, fontWeight: 800 }}>{band.shape} {band.word}</span>

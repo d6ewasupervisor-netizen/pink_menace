@@ -2,9 +2,10 @@
  * CockpitHUD — the one mount point for the Quiet Roads in-cockpit display.
  * Replaces the old stack of GameHUD + KentDash + EngineHUD + QuietHUD. It owns
  * the pause control, hosts the nav cluster (KentDash) and the world HUD
- * (noise / horn / trade-points, QuietHUD), and frames each act as its own scene
- * (Q3/C): an accent-tinted vignette + act badge + ego label that change with the
- * portion, all in the shared visual language. Reacts to orientation.
+ * (noise / horn / trade-points, QuietHUD), and frames the drive in one shared
+ * visual language (owner decision, 2026-10-05): one accent (`SCENE_ACCENT`) on
+ * every act, one cockpit, the act badge telling you where you are. Reacts to
+ * orientation.
  */
 import { useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
@@ -13,7 +14,7 @@ import { KentDash } from './KentDash';
 import { QuietHUD } from './QuietHUD';
 import { tokens, useOrientation } from './cockpit/tokens';
 import { actForScene, challengeForAct, type CardAct } from '@/quietroads';
-import { specForAct } from './sceneSpec';
+import { SCENE_ACCENT, specForAct } from './sceneSpec';
 
 export function CockpitHUD() {
   const worldMode = useGameStore((s) => s.worldMode);
@@ -30,21 +31,21 @@ export function CockpitHUD() {
   // hide it in dialogue, card, quiz and pause so those surfaces stay clean.
   const showPause = phase === 'driving' || phase === 'walking';
 
-  // Per-act scene identity (Q3/C): the act, its zone, and its ego vehicle.
+  // Per-act scene identity: the act, its zone, and its ego vehicle.
   const act: CardAct = (sceneId ? actForScene(sceneId) : null) ?? 'I';
   const spec = specForAct(act);
   const ego = challengeForAct(act).vehicle.split(' — ')[0] ?? 'the Menace';
 
   return (
     <div style={styles.root}>
-      {/* Accent vignette — tints the whole frame so each act reads as its own scene */}
+      {/* Accent vignette — the one accent on every act (SCENE_ACCENT) */}
       {phase === 'driving' && (
         <div
           style={{
             position: 'absolute',
             inset: 0,
             pointerEvents: 'none',
-            boxShadow: `inset 0 0 130px ${spec.accent}33, inset 0 0 3px ${spec.accent}66`,
+            boxShadow: `inset 0 0 130px ${SCENE_ACCENT}33, inset 0 0 3px ${SCENE_ACCENT}66`,
           }}
         />
       )}
@@ -60,10 +61,10 @@ export function CockpitHUD() {
         </button>
       )}
 
-      {/* Act badge — which scene you're in, in the act's accent */}
+      {/* Act badge — which scene you're in, in the one accent */}
       {(phase === 'driving' || phase === 'walking') && (
         <div style={{ ...styles.badge, ...(orientation === 'landscape' ? styles.badgeLandscape : null) }}>
-          <span style={{ color: spec.accent, fontWeight: 800, letterSpacing: '0.16em' }}>
+          <span style={{ color: SCENE_ACCENT, fontWeight: 800, letterSpacing: '0.16em' }}>
             ACT {act}
           </span>
           <span style={{ color: tokens.colors.ink, letterSpacing: '0.1em' }}>

@@ -3,6 +3,7 @@ import type {
   Scene, ShownLine, VoiceBed, CardResult,
 } from "./types";
 import type { DialogueHost, DialogueEvents, TimerHandle } from "./host";
+import { voiceBedFor, volumeFor } from "./voice";
 
 type Listener<K extends keyof DialogueEvents> = DialogueEvents[K];
 
@@ -383,13 +384,18 @@ export class DialogueRunner {
     const id = node.speaker ?? "";
     return this.data.characters[id] ?? { name: id };
   }
+  /**
+   * One voice across every act (owner decision, 2026-10-05): the campaign table
+   * in `voice.ts` owns the medium; the per-act character def only fills gaps, and
+   * a line-level `voice_bed` still wins for the scene that needs it (act 8).
+   */
   private voiceBedOf(node: DialogueNode, spk: Character): VoiceBed {
-    return node.voice_bed ?? spk.voice_bed ?? "none";
+    return voiceBedFor(node.speaker ?? "", node.voice_bed, spk.voice_bed);
   }
   private volumeDb(node: DialogueNode, spk: Character, bed: VoiceBed): number {
     if (node.noise_db != null) return node.noise_db;
     if (bed !== "none") return 0; // radio voices don't wake anyone
-    const v = node.volume ?? spk.default_volume ?? "whisper";
+    const v = volumeFor(node.speaker ?? "", node.volume, spk.default_volume);
     return DialogueRunner.VOLUME_DB[v] ?? 0;
   }
 
