@@ -11,6 +11,7 @@ Do **not** generate a single portrait and hope it holds. The approach that actua
 3. Vehicles get a **four-view** (front three-quarter / rear three-quarter / side / front) plus a cockpit.
 4. Run each prompt **4 times**, pick one, discard the rest. Do not mix panels from different generations — that's how you get a character whose ears change.
 5. Once locked, **never paraphrase the canonical description.** Same words, every call, forever. Paraphrase is the mechanism of drift.
+6. After the lock: winner goes in `refs/` and `LOCKS.md`. Unpromoted and superseded takes leave the generator pool. `cards/takes/` keeps history; later compiles attach only the `refs/` winner. Do not attach a closest take to beat a lock.
 
 Every prompt below already carries the master style token and the negative block. Paste as-is.
 

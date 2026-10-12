@@ -169,6 +169,10 @@ Rules:
     driver-side, passenger-side, near side, off side, driver's window, driver's
     door. Frame-relative only, plus an explicit left-hand-drive statement if a
     vehicle is in frame.
+  - On a check lesson (look / shoulder / mirror / yield), write Ali's
+    head orientation first in `subject` — it leads the compile the same
+    way heel-planted leads the brake brief. Card JSON is sole brief
+    authority if pack notes disagree.
 
 ## CONTENT CEILING
 

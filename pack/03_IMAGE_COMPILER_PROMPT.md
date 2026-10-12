@@ -89,12 +89,55 @@ You MUST:
   - state the aspect ratio as 2:3 for card art (1024×1536). Never 3:4.
   - on any road frame, append the single-faced sign clause
   - if the brief names a hand or arm, require a visible attached shoulder and torso in the same frame, or drop the body part and show only the object. Never a detached limb.
+  - when a plate or ref is locked, drop unpromoted and superseded takes
+    from the compile attachment pool. Attach only the winner in refs/.
+    cards/takes/ is history, not a second lock folder.
+  - on any card whose lesson is a check (look, shoulder, mirror, yield),
+    lead the prompt with Ali's head orientation — same priority slot
+    heel-planted holds in the brake brief. Card JSON is sole brief
+    authority when it conflicts with pack notes.
+
+## REFERENCE-POOL HYGIENE — standing
+
+A lock decision promotes one take into `refs/` and names it in
+`refs/LOCKS.md`. That file is the generator's reference pool.
+`pack/09_REF_MAP.json` maps continuity tokens to those files.
+`scripts/resolve-refs.js` attaches only those paths.
+
+`cards/takes/` is the review strip and take history. Closest-take
+notes live there. They are not locks. After a lock:
+
+  1. Winner bytes go in `refs/<lock-file>` and the LOCKS.md row.
+  2. Token → file is the only map entry in `09_REF_MAP.json`.
+  3. Unpromoted takes stay in `cards/takes/` for the board. Do not
+     attach them. Do not copy them into `refs/` under a new name.
+  4. A superseded lock is replaced in `refs/` and LOCKS.md. The old
+     take stays in `cards/takes/` as history and leaves the pool.
+
+A later compile that still attaches an unpromoted or superseded take
+has failed this rule. Do not treat a closest take in `cards/takes/`
+as a plate. Do not attach history to beat a lock.
+
+## CHECK-LESSON HEAD ORIENTATION — standing
+
+On any card whose lesson is a check — look, shoulder, mirror, or
+yield — Ali's head orientation leads the prompt. Same priority
+position heel-planted holds in the brake brief: after style and
+camera, the first subject clause is the head (turned over the
+shoulder / looking left into the door glass / chin toward the yield),
+not hair, clothes, or the vehicle. Put the matching negative next
+to it (no face-forward, no eyes on the windshield, unless the JSON
+says so).
+
+Card JSON is sole brief authority. If pack notes, LOCKS.md, or a
+prior compile note conflict with `image_brief`, compile the JSON.
 
 ## ASSEMBLY ORDER
 
 1. STYLE      — bible §8.1 master token, verbatim, first
 2. CAMERA     — resolved framing from §8.3
-3. SUBJECT    — the brief's subject, expanded with canonical description
+3. SUBJECT    — the brief's subject, expanded with canonical description.
+                On a check lesson, head orientation is the first clause.
 4. FOREGROUND — framing element, described physically
 5. MIDGROUND  — the hazard or decision object
 6. BACKGROUND — environment, weather, light state
@@ -277,6 +320,16 @@ the target in one pass so the fill and the placement happen together — shiftin
 pixels alone leaves a hole.
 
 When a geometry card fails twice, stop regenerating and composite.
+
+### 7. Lock winners only — takes are not the pool
+After a lock, attach the `refs/` winner named in LOCKS.md / `09_REF_MAP.json`.
+Unpromoted and superseded takes in `cards/takes/` are history. Do not attach
+them on a later compile. A closest take is not a plate.
+
+### 8. Check-lesson head leads
+On a look / shoulder / mirror / yield check, Ali's head orientation is the
+first subject clause after style and camera — same slot heel-planted holds
+in the brake brief. Card JSON is sole brief authority if pack notes conflict.
 
 ## THE DRIVE-SIDE PROBLEM
 
@@ -545,6 +598,8 @@ else. No commentary. No alternatives.
 | The Quiet in frame | `ref_quiet.png` — A3 take 3, the register lock. Continuity token `the_quiet`. Attach on every Quiet compile, including when the brief says "the Quiet" and the token was omitted. Also append the Quiet negative: no upright alert posture, no eye contact, no person looking at the lens, no walking normally, no clean clothing, no censorship smear. They never fill the frame, never a side-window close-up. A1/A2/A4 are reference, not card art. A5 once. |
 
 Ledger and Encore cockpits are locked (`ref_ledger_cockpit.png`, `ref_encore_cockpit.png`). Ceiling tests scored in `08_CEILING_TESTS.md`; bible §9 amended to this account's line.
+
+**Reference-pool hygiene.** Compile attaches only the `refs/` winners in this table and `09_REF_MAP.json`. `cards/takes/` is history. After a lock, unpromoted and superseded takes leave the pool.
 
 **Encore glass caveat.** The locked four-view rendered with the glass stripped out. The bible specifies glass with no mesh. Attach `ref_encore_sheet.png` for silhouette and striping, and always add the explicit clause "intact window glass in all openings, no mesh, no bars" to any Encore exterior compile until the sheet is rerun.
 

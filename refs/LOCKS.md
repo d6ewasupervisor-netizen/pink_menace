@@ -2,6 +2,18 @@
 
 Never mix panels across takes. Winners only.
 
+## Pool vs history
+
+| Path | Role |
+|---|---|
+| `refs/<file>` + this table | The lock. Generator pool. Attach these. |
+| `pack/09_REF_MAP.json` | Token → lock file. Compile attaches only these. |
+| `cards/takes/<id>-take-N.png` | Candidate history. Review strip. Not attachments. |
+
+A lock decision means: copy the winner into `refs/`, name it here, map it in `09_REF_MAP.json`. Then drop unpromoted and superseded takes from the generator pool — do not attach them, do not add them to the map, do not leave a stale copy in `refs/` under the old name. Later compiles must not be able to pull them. Closest-take notes stay in `cards/takes/`; that folder is not a lock.
+
+## Locks
+
 | Asset | Winner | File | Notes |
 |---|---|---|---|
 | Ali portrait | lock sheet | `ref_ali2.png` | Wire-rim rounds, cranberry lattice braid, gold hoop / nose ring, raglan hoodie. Canon face. Do not mix with `ref_ali1.jpg` frames. |
