@@ -438,3 +438,7 @@ Played on the local drive. Four things were wrong on the Act I loop, and the oth
 `npx vitest run` 174/174. `tsc --noEmit` exit 0. `bench/baseline.json` was restored; the run only moved step timings.
 
 Clipping the pink ring consumed it at speed and moved the pin, with no line. The ring now stays until the car has settled on it. That settle fires `tutorial.block` (the return line) and only then moves the pin to the carport. Home is the whole bay, not the small ring. The post stands above the roof so the marker does not vanish under the car.
+
+## 2026-10-16 — shipped to main
+
+Fast-forwarded `main` from `d490fff` to `a240270` (23 commits) and pushed. Railway production deploy `f526f14b` succeeded. `DRIVE_ENABLED` was already on, so a signed-in student at ali.tactag.app lands in the drive. The live bundle contains `tutorial.block`.
