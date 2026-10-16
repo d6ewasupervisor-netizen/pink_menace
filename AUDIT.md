@@ -418,7 +418,7 @@ Played locally. The tutorial completed on `x < 30` and under 1 mph, so the bay u
 
 Tests: 174/174, including an eastbound Titus roll, a westbound pass that stays quiet, and a carport return that ignores the street. `bench/baseline.json` restored.
 
-A drive-through used to spend the ring (`tutBlockEnd` on the zone enter) and move the pin with no line. The ring stays until a settle (`tutorial.block`), and the carport grade is `carportBay`, the whole shelter.
+A drive-through used to spend the ring (`tutBlockEnd` on the zone enter) and move the pin with no line. Entry is now the plow: `carTouchesDisc` / `carHitsRect` with `NOSE_REACH_M` 2.6. The chassis center alone missing the ring is not a miss.
 
 Two implementation notes worth keeping: (1) the pharmacy/Bea dropoff fires
 `door.slam` / `park.back_in.*` on the raw event bus, not the grade funnel, so

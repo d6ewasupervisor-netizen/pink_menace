@@ -13,6 +13,31 @@ export interface ZoneDef {
   approach?: number;
 }
 
+/** Painted stage ring, metres. The plow tip is what the player drives into it. */
+export const MARKER_R = 2;
+/** Beetle plow tip, ahead of the rigid-body origin. Vehicle.tsx PLOW_TIP_Z. */
+export const NOSE_REACH_M = 2.6;
+
+/** The body origin or the nose is inside the disc. Heading 0 is east. */
+export function carTouchesDisc(pos: Vec2, heading: number, disc: Vec2, radius = MARKER_R, nose = NOSE_REACH_M): boolean {
+  const cx = Math.cos(heading);
+  const cy = Math.sin(heading);
+  const r2 = radius * radius;
+  for (const d of [0, nose]) {
+    const x = pos.x + cx * d;
+    const y = pos.y + cy * d;
+    if ((x - disc.x) ** 2 + (y - disc.y) ** 2 <= r2) return true;
+  }
+  return false;
+}
+
+/** Body origin or nose is inside the rectangle. */
+export function carHitsRect(pos: Vec2, heading: number, rect: Rect, nose = 0): boolean {
+  if (rectHas(rect, pos)) return true;
+  if (nose <= 0) return false;
+  return rectHas(rect, { x: pos.x + Math.cos(heading) * nose, y: pos.y + Math.sin(heading) * nose });
+}
+
 /** Smallest absolute difference between two headings, in radians. */
 export function headingDelta(a: number, b: number): number {
   let d = (a - b) % (Math.PI * 2);
@@ -73,7 +98,7 @@ export class ZoneField {
     for (const d of this.defs) if (rectHas(d.rect, pos)) this.inside.add(zoneKey(d));
   }
 
-  step(dt: number, carPos: Vec2, speedMs: number, heading = 0) {
+  step(dt: number, carPos: Vec2, speedMs: number, heading = 0, nose = 0) {
     // Two owned buffers, alternated: the swept-crossing test still needs last
     // step's position while this step's is being written.
     const previous = this.hasPrevious ? (this.previousIsA ? this.prevA : this.prevB) : null;
@@ -85,7 +110,9 @@ export class ZoneField {
     this.hasPrevious = true;
     for (const d of this.defs) {
       const key = `${d.kind}:${d.id}`;
-      const now = rectHas(d.rect, carPos);
+      const now = d.kind === "waypoint"
+        ? carHitsRect(carPos, heading, d.rect, nose)
+        : rectHas(d.rect, carPos);
       const was = this.inside.has(key);
       const facing = this.facesSign(d, heading);
       if (now && !was && facing) { this.inside.add(key); this.enter(d, key); }

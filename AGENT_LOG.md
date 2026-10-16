@@ -442,3 +442,7 @@ Clipping the pink ring consumed it at speed and moved the pin, with no line. The
 ## 2026-10-16 — shipped to main
 
 Fast-forwarded `main` from `d490fff` to `a240270` (23 commits) and pushed. Railway production deploy `f526f14b` succeeded. `DRIVE_ENABLED` was already on, so a signed-in student at ali.tactag.app lands in the drive. The live bundle contains `tutorial.block`.
+
+## 2026-10-16 — marker entry uses the plow
+
+The pink ring tested the rigid-body origin. The plow tip is 2.6 m ahead of that, so the car could sit in the ring while the test point was still outside, and a speed dwell made a moving entry count as a miss. `carTouchesDisc` treats the nose as inside the 2 m ring. Waypoint rects use the same nose. Tutorial block and carport fire on entry, at any speed. 174/174, tsc 0.

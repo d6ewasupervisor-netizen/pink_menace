@@ -1,9 +1,9 @@
 import { type Vec2, dist, rectHas, rng, MPH } from "./math";
 import { NoiseSystem } from "./noise";
 import { QuietField, QuietState } from "./quiet";
-import { ZoneField } from "./zones";
+import { NOSE_REACH_M, ZoneField, carTouchesDisc } from "./zones";
 import { VehicleObserver, VEHICLE, type VehicleSample, type ObserverOut } from "./vehicleObserver";
-import { buildKentMap, carportBay, stageSpot, type WorldMap } from "./kentMap";
+import { buildKentMap, carportBay, type WorldMap } from "./kentMap";
 import { ParkingGrader, InteriorController, type WalkerInput } from "./dol";
 import { PharmacyDropoff } from "./pharmacy";
 import { GridRun, stallCenter, type GridMission } from "./grid";
@@ -94,7 +94,7 @@ export class Simulation {
   objective = "";
   private freezeReasons = new Set<string>();
   // tutorial state
-  private tutStep = 0; private tutT = 0; private tutBlockEnd = false; private tutHome = 0;
+  private tutStep = 0; private tutT = 0; private tutBlockEnd = false;
   private deliverySmoothFired = false;
   /** Pressure throttle — see PRESSURE.CD_S. Drains in step()/stepWalker(). */
   private missCd = 0;
@@ -208,7 +208,7 @@ export class Simulation {
   }
 
   startMission(id: MissionId): boolean {
-    this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false; this.tutHome = 0;
+    this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false;
     this.footDropoff = "";
     this.grid.clear();
     this.ledger.clear();
@@ -537,7 +537,7 @@ export class Simulation {
     if (!this.frozen && this.mode === "vehicle") {
       out = this.vehicle.step(dt, s, this.speedLimitMph);
       this.noise.step(dt);
-      this.zones.step(dt, s.pos, s.speedMs, s.heading);
+      this.zones.step(dt, s.pos, s.speedMs, s.heading, Math.max(NOSE_REACH_M, this.egoHalfLen));
       this.quiet.step(dt, s.pos, this.blockedAt);
       const hit = this.quiet.collide(s.pos, s.heading, this.egoHalfLen, this.egoHalfWid, s.speedMs);
       // P9: a contact is the one thing that legitimately eats displacement, so
@@ -677,26 +677,20 @@ export class Simulation {
         case 4: if (this.tutT > 4.5) next("tutorial.step.objective"); break;
       }
     }
-    // Clipping the ring used to consume it at speed and move the pin with no line.
-    // The pad stays until the car has settled on it, and that settle is the beat.
+    // The rigid body sits behind the plow. Entry is the nose in the ring, at any speed.
     if (this.tutStep >= 6) return;
-    const settled = Math.abs(s.speedMs) < 3.5;
     if (!this.tutBlockEnd) {
-      const onEnd = rectHas(stageSpot(this.map.markers.block_end.x, this.map.markers.block_end.y), s.pos);
-      if (onEnd && settled) this.tutHome += dt;
-      else this.tutHome = 0;
-      if (this.tutHome >= 0.25) {
+      if (carTouchesDisc(s.pos, s.heading, this.map.markers.block_end)) {
         this.tutBlockEnd = true;
-        this.tutHome = 0;
         this.setObjective("Now back to the carport. Same speed, same care.");
         this.ev.fire("tutorial.block");
       }
       return;
     }
-    const onBay = rectHas(carportBay(this.map.markers.carport.x, this.map.markers.carport.y), s.pos);
-    if (onBay && settled) this.tutHome += dt;
-    else this.tutHome = 0;
-    if (this.tutHome >= 0.25) {
+    const home = this.map.markers.carport;
+    const inRing = carTouchesDisc(s.pos, s.heading, home);
+    const inBay = rectHas(carportBay(home.x, home.y), s.pos);
+    if (inRing || inBay) {
       this.tutStep = 6; this.missionId = ""; this.tutorialForgiving = false; this.setObjective("");
       this.ev.fire("tutorial.complete", { red_events: this.noise.redEvents });
     }
