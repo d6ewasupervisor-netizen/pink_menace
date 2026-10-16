@@ -14,7 +14,7 @@ import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useGameStore } from '@/stores/gameStore';
 import type { Rect, SignDef } from '@/quietroads';
 import { batchPlainBuildings, buildingColliders, batchBuildingRoofs, dashInstances, ROOF_COLOR, type BuildingInstance } from '@/quietroads/sim/instancing';
-import { MARKER_R } from '@/quietroads/sim/zones';
+import { MARKER_R, MARKER_REACH_M } from '@/quietroads/sim/zones';
 import { attachScenePassProbe } from '@/utils/performance';
 
 const ROAD_Y = 0.01;
@@ -670,13 +670,13 @@ function StageSpot() {
     const dz = _car.z - _mark.z;
     // The ring is MARKER_R. The car body extends past its origin, so the
     // origin can be a couple of metres outside the paint and still be in it.
-    if (dx * dx + dz * dz <= (MARKER_R + 3) ** 2) QuietRoads.seeMarker();
+    if (dx * dx + dz * dz <= MARKER_REACH_M * MARKER_REACH_M) QuietRoads.seeMarker();
   });
   return (
     <group ref={ref} visible={false}>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.06, 0]} renderOrder={2}>
-        <ringGeometry args={[MARKER_R - 0.45, MARKER_R, 40]} />
-        <meshBasicMaterial color="#F28DB2" depthWrite={false} polygonOffset polygonOffsetFactor={-2} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.07, 0]} renderOrder={2}>
+        <circleGeometry args={[MARKER_R, 40]} />
+        <meshBasicMaterial color="#F28DB2" transparent opacity={0.85} depthWrite={false} />
       </mesh>
       <mesh position={[0, 2.7, 0]}>
         <cylinderGeometry args={[0.05, 0.05, 5.4, 6]} />

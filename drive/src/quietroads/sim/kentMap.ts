@@ -145,7 +145,8 @@ export function buildKentMap(seed = 7): WorldMap {
   for (const c of CORRIDORS) roads.push({ rect: c.road, name: c.name, strip: true });
 
   // Named pads. The pink ring on the road is this rectangle, and the waypoint is this rectangle.
-  const blockEnd = { x: 228, y: 0 };
+  // On the Titus stop, where the block actually ends. Not 20 m before it.
+  const blockEnd = { x: 252, y: 0 };
   const carport = { x: 13.5, y: -12 };
   const pharmacyPin = { x: 161, y: 101 };
   const priyaPin = { x: 268.3, y: 40 };

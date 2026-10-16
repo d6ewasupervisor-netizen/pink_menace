@@ -13,8 +13,10 @@ export interface ZoneDef {
   approach?: number;
 }
 
-/** Painted stage ring, metres. Wide enough that the car cannot slip past the post. */
-export const MARKER_R = 4.5;
+/** Painted stage pad, metres. Covers the lane the car is actually in. */
+export const MARKER_R = 6;
+/** How close the chassis has to be to the pad center. Wider than the paint so the nose counts. */
+export const MARKER_REACH_M = 12;
 /** Beetle plow tip, ahead of the rigid-body origin. Vehicle.tsx PLOW_TIP_Z. */
 export const NOSE_REACH_M = 2.6;
 

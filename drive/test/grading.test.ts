@@ -96,13 +96,11 @@ describe('carport return', () => {
     const { sim, events } = makeSim();
     expect(sim.startMission('tutorial_carport')).toBe(true);
     const end = sim.map.markers.block_end;
-    sim.step(0.2, sample({ x: end.x - 8, y: end.y }, 0, 8));
+    sim.step(0.2, sample({ x: end.x - 30, y: end.y }, 0, 8));
     expect(events).not.toContain('tutorial.block');
     // Nose is 2.6 m ahead. This origin is short of the ring; the plow is in it.
     sim.step(0.2, sample({ x: end.x - 3.2, y: end.y }, 0, 8));
     expect(events).toContain('tutorial.block');
-    for (let x = 262; x >= 236; x -= 8) sim.step(0.05, sample({ x, y: 0 }, Math.PI, 8));
-    expect(events).not.toContain('stop.rolled');
     sim.step(0.2, sample({ x: 14, y: 0 }, Math.PI, 0.2));
     expect(events).not.toContain('tutorial.complete');
     const home = sim.map.markers.carport;

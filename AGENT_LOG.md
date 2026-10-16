@@ -449,6 +449,8 @@ The pink ring tested the rigid-body origin. The plow tip is 2.6 m ahead of that,
 
 The nose check was on `main` and in the live bundle (`index-BxA4wqwa.js`) and it still missed: the grade used the chassis sample, not the mesh the player drives through the ring. `StageSpot` now measures the rendered car against the rendered ring (`player-car` world position) and calls `seeMarker`. The ring radius is 4.5 m.
 
+The pad was 20 m before the Titus intersection, so stopping at the sign the player can see was not arrival. `block_end` is now on that stop (`x: 252`). A car within 12 m of the drawn pad counts, using the same position that already grades the stop. The pad is a filled pink disc.
+
 ## 2026-10-16 — grade flash does not stop the car
 
 The PASS/MISS panel froze the drive and waited on Continue. It is now a 1 s overlay at half opacity. No freeze, no phase change, no tap. Story cards are unchanged.

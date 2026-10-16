@@ -1,7 +1,7 @@
 import { type Vec2, dist, rectHas, rng, MPH } from "./math";
 import { NoiseSystem } from "./noise";
 import { QuietField, QuietState } from "./quiet";
-import { NOSE_REACH_M, ZoneField, carTouchesDisc } from "./zones";
+import { MARKER_REACH_M, NOSE_REACH_M, ZoneField, carTouchesDisc } from "./zones";
 import { VehicleObserver, VEHICLE, type VehicleSample, type ObserverOut } from "./vehicleObserver";
 import { buildKentMap, carportBay, type WorldMap } from "./kentMap";
 import { ParkingGrader, InteriorController, type WalkerInput } from "./dol";
@@ -537,6 +537,7 @@ export class Simulation {
     if (!this.frozen && this.mode === "vehicle") {
       out = this.vehicle.step(dt, s, this.speedLimitMph);
       this.noise.step(dt);
+      this.touchNavMarker(s);
       this.zones.step(dt, s.pos, s.speedMs, s.heading, Math.max(NOSE_REACH_M, this.egoHalfLen));
       this.quiet.step(dt, s.pos, this.blockedAt);
       const hit = this.quiet.collide(s.pos, s.heading, this.egoHalfLen, this.egoHalfWid, s.speedMs);
@@ -688,17 +689,30 @@ export class Simulation {
     }
   }
 
+  /** Chassis is on the pad currently drawn. Same position the stop grades use. */
+  private touchNavMarker(s: VehicleSample) {
+    const dest = this.navTarget();
+    if (!dest) return;
+    const dx = s.pos.x - dest.pos.x;
+    const dy = s.pos.y - dest.pos.y;
+    if (dx * dx + dy * dy > MARKER_REACH_M * MARKER_REACH_M) return;
+    this.seeMarker();
+  }
+
   /**
-   * The rendered car is on the rendered ring. This is the hit, not the chassis
-   * sample: those two were not the same point the player was driving through.
+   * The car is on the pad. Only resolves the pad that is current, so arriving
+   * at the end of the block does not also finish the drive home.
    */
   seeMarker() {
+    const dest = this.navTarget();
+    if (!dest) return;
+    const dx = this.lastPos.x - dest.pos.x;
+    const dy = this.lastPos.y - dest.pos.y;
+    if (dx * dx + dy * dy > MARKER_REACH_M * MARKER_REACH_M) return;
     if (this.missionId === "tutorial_carport") {
       this.consumeTutorialMarker();
       return;
     }
-    const dest = this.navTarget();
-    if (!dest) return;
     if (dest.label === "DEAC'S TRUCK" || dest.label === "FLOW" || dest.label === "CONVOY" || dest.label === "GRACIE" || dest.label === "HANK") return;
     let best: { id: string; d: number } | null = null;
     for (const z of this.map.zones) {
