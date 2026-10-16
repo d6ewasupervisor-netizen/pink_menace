@@ -573,7 +573,9 @@ export function Vehicle() {
         friction={0}
         restitution={0.2}
       />
-      <ChassisBody plowAngle={plowAngleDisplay.current} />
+      <group name="player-car">
+        <ChassisBody plowAngle={plowAngleDisplay.current} />
+      </group>
       <VehicleParticles />
     </RigidBody>
   );

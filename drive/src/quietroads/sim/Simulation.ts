@@ -677,23 +677,50 @@ export class Simulation {
         case 4: if (this.tutT > 4.5) next("tutorial.step.objective"); break;
       }
     }
-    // The rigid body sits behind the plow. Entry is the nose in the ring, at any speed.
     if (this.tutStep >= 6) return;
     if (!this.tutBlockEnd) {
-      if (carTouchesDisc(s.pos, s.heading, this.map.markers.block_end)) {
-        this.tutBlockEnd = true;
-        this.setObjective("Now back to the carport. Same speed, same care.");
-        this.ev.fire("tutorial.block");
-      }
+      if (carTouchesDisc(s.pos, s.heading, this.map.markers.block_end)) this.consumeTutorialMarker();
       return;
     }
     const home = this.map.markers.carport;
-    const inRing = carTouchesDisc(s.pos, s.heading, home);
-    const inBay = rectHas(carportBay(home.x, home.y), s.pos);
-    if (inRing || inBay) {
-      this.tutStep = 6; this.missionId = ""; this.tutorialForgiving = false; this.setObjective("");
-      this.ev.fire("tutorial.complete", { red_events: this.noise.redEvents });
+    if (carTouchesDisc(s.pos, s.heading, home) || rectHas(carportBay(home.x, home.y), s.pos)) {
+      this.consumeTutorialMarker();
     }
+  }
+
+  /**
+   * The rendered car is on the rendered ring. This is the hit, not the chassis
+   * sample: those two were not the same point the player was driving through.
+   */
+  seeMarker() {
+    if (this.missionId === "tutorial_carport") {
+      this.consumeTutorialMarker();
+      return;
+    }
+    const dest = this.navTarget();
+    if (!dest) return;
+    if (dest.label === "DEAC'S TRUCK" || dest.label === "FLOW" || dest.label === "CONVOY" || dest.label === "GRACIE" || dest.label === "HANK") return;
+    let best: { id: string; d: number } | null = null;
+    for (const z of this.map.zones) {
+      if (z.kind !== "waypoint") continue;
+      const cx = z.rect.x + z.rect.w / 2;
+      const cy = z.rect.y + z.rect.h / 2;
+      const d = Math.hypot(cx - dest.pos.x, cy - dest.pos.y);
+      if (d < 8 && (!best || d < best.d)) best = { id: z.id, d };
+    }
+    if (best) this.zones.claim(best.id);
+  }
+
+  private consumeTutorialMarker() {
+    if (this.tutStep >= 6) return;
+    if (!this.tutBlockEnd) {
+      this.tutBlockEnd = true;
+      this.setObjective("Now back to the carport. Same speed, same care.");
+      this.ev.fire("tutorial.block");
+      return;
+    }
+    this.tutStep = 6; this.missionId = ""; this.tutorialForgiving = false; this.setObjective("");
+    this.ev.fire("tutorial.complete", { red_events: this.noise.redEvents });
   }
 
   /** Current GPS pin — street destination for the active mission. */

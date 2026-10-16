@@ -13,8 +13,8 @@ export interface ZoneDef {
   approach?: number;
 }
 
-/** Painted stage ring, metres. The plow tip is what the player drives into it. */
-export const MARKER_R = 2;
+/** Painted stage ring, metres. Wide enough that the car cannot slip past the post. */
+export const MARKER_R = 4.5;
 /** Beetle plow tip, ahead of the rigid-body origin. Vehicle.tsx PLOW_TIP_Z. */
 export const NOSE_REACH_M = 2.6;
 
@@ -87,6 +87,16 @@ export class ZoneField {
   }
 
   reset() { this.inside.clear(); this.fired.clear(); this.stopTrack.clear(); this.quizAsked.clear(); this.hasPrevious = false; }
+
+  /** The car is on the pink marker. Fire this waypoint if it has not already fired. */
+  claim(id: string) {
+    const d = this.defs.find((z) => z.kind === "waypoint" && z.id === id);
+    if (!d) return;
+    const key = zoneKey(d);
+    if (this.fired.has(key)) return;
+    this.inside.add(key);
+    this.enter(d, key);
+  }
 
   /** Placement/reset changes the sample origin without simulating a driven crossing. */
   place(pos: Vec2) {

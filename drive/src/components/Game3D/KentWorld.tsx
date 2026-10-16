@@ -14,6 +14,7 @@ import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useGameStore } from '@/stores/gameStore';
 import type { Rect, SignDef } from '@/quietroads';
 import { batchPlainBuildings, buildingColliders, batchBuildingRoofs, dashInstances, ROOF_COLOR, type BuildingInstance } from '@/quietroads/sim/instancing';
+import { MARKER_R } from '@/quietroads/sim/zones';
 import { attachScenePassProbe } from '@/utils/performance';
 
 const ROAD_Y = 0.01;
@@ -645,6 +646,9 @@ function Carport() {
 }
 
 /** The active stage destination. One pad, the same point the mission grades. */
+const _car = new THREE.Vector3();
+const _mark = new THREE.Vector3();
+
 function StageSpot() {
   const ref = useRef<THREE.Group>(null);
   useFrame((state) => {
@@ -654,15 +658,24 @@ function StageSpot() {
     const phase = useGameStore.getState().phase;
     const show = !!dest && (phase === 'driving' || phase === 'walking');
     g.visible = show;
-    if (!dest) return;
+    if (!dest || !show) return;
     g.position.set(dest.pos.x, 0, dest.pos.y);
     const pulse = 1 + Math.sin(state.clock.elapsedTime * 3) * 0.05;
     g.scale.setScalar(pulse);
+    const car = state.scene.getObjectByName('player-car');
+    if (!car) return;
+    car.getWorldPosition(_car);
+    g.getWorldPosition(_mark);
+    const dx = _car.x - _mark.x;
+    const dz = _car.z - _mark.z;
+    // The ring is MARKER_R. The car body extends past its origin, so the
+    // origin can be a couple of metres outside the paint and still be in it.
+    if (dx * dx + dz * dz <= (MARKER_R + 3) ** 2) QuietRoads.seeMarker();
   });
   return (
     <group ref={ref} visible={false}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.06, 0]} renderOrder={2}>
-        <ringGeometry args={[1.35, 1.85, 28]} />
+        <ringGeometry args={[MARKER_R - 0.45, MARKER_R, 40]} />
         <meshBasicMaterial color="#F28DB2" depthWrite={false} polygonOffset polygonOffsetFactor={-2} />
       </mesh>
       <mesh position={[0, 2.7, 0]}>

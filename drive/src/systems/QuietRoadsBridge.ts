@@ -208,6 +208,9 @@ class Bridge {
 
   stop() { this.started = false; for (const h of this.timers) window.clearTimeout(h); this.timers.clear(); }
   get isActive() { return this.started; }
+
+  /** The car mesh is on the pink ring. Grade that, even if the chassis sample missed. */
+  seeMarker() { if (this.started) this.sim.seeMarker(); }
   get currentChallenge() { return challengeForAct(this.currentAct); }
 
   private enterDialogue() { haltVehicle(); this.sim.freeze('dialogue'); useGameStore.getState().setPhase('dialogue'); }
