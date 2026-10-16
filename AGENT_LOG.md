@@ -448,3 +448,7 @@ Fast-forwarded `main` from `d490fff` to `a240270` (23 commits) and pushed. Railw
 The pink ring tested the rigid-body origin. The plow tip is 2.6 m ahead of that, so the car could sit in the ring while the test point was still outside, and a speed dwell made a moving entry count as a miss. `carTouchesDisc` treats the nose as inside the 2 m ring. Waypoint rects use the same nose. Tutorial block and carport fire on entry, at any speed. 174/174, tsc 0.
 
 The nose check was on `main` and in the live bundle (`index-BxA4wqwa.js`) and it still missed: the grade used the chassis sample, not the mesh the player drives through the ring. `StageSpot` now measures the rendered car against the rendered ring (`player-car` world position) and calls `seeMarker`. The ring radius is 4.5 m.
+
+## 2026-10-16 — grade flash does not stop the car
+
+The PASS/MISS panel froze the drive and waited on Continue. It is now a 1 s overlay at half opacity. No freeze, no phase change, no tap. Story cards are unchanged.

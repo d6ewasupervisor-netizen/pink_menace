@@ -55,6 +55,7 @@ class Bridge {
   private cardsSeen = new Set<string>();
   private cardQueue: string[] = [];
   /** The most recent card the sim cued — the debrief panel points at it. */
+  private debriefTimer: ReturnType<typeof window.setTimeout> | null = null;
   private lastCuedCard: string | null = null;
   /** Don't stack the next in-world card on the one that just closed. */
   private cardQuietUntil = 0;
@@ -319,20 +320,20 @@ class Bridge {
     // this one hands off to. Reading the scene's next_scene (not the next act
     // letter) is what stops 2.5 → 3.1 from skipping the exam at 4.1.
     preloadNextScene(this.runner);
-    // Same phase path as a card: the car is already frozen for those.
-    this.sim.freeze('debrief');
-    holdDrive();
-    useGameStore.setState({ phase: 'card' });
     useQRHud.getState().setTransient({ debrief: model });
+    if (this.debriefTimer != null) window.clearTimeout(this.debriefTimer);
+    this.debriefTimer = window.setTimeout(() => {
+      this.debriefTimer = null;
+      if (useQRHud.getState().debrief) useQRHud.getState().setTransient({ debrief: null });
+    }, 1000);
   }
 
   /** Close the debrief. Emits nothing — it never advances the story. */
   continueDebrief() {
+    if (this.debriefTimer != null) window.clearTimeout(this.debriefTimer);
+    this.debriefTimer = null;
     if (!useQRHud.getState().debrief) return;
     useQRHud.getState().setTransient({ debrief: null });
-    this.sim.unfreeze('debrief');
-    releaseDrive();
-    useGameStore.setState({ phase: this.worldCardReturnPhase === 'walking' ? 'walking' : 'driving' });
   }
 
   // ---------------------------------------------------------------- per frame
