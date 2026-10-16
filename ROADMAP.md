@@ -187,6 +187,7 @@ deliberately empty rather than filled with a guess.
   The 60 µs figures quoted in the log are not in the file.
 - P19 is not an open mirror. Lane index 0 is the right lane. Index 2 is the left,
   passing lane. Do not flip it.
+- Stage destinations are the pink pad on `navTarget()`. Stop signs grade the facing semicircle only (`ZoneDef.approach`). The carport return is the pad under the bay, not `x < 30`.
 
 
 

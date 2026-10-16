@@ -3,7 +3,7 @@ import { NoiseSystem } from "./noise";
 import { QuietField, QuietState } from "./quiet";
 import { ZoneField } from "./zones";
 import { VehicleObserver, VEHICLE, type VehicleSample, type ObserverOut } from "./vehicleObserver";
-import { buildKentMap, type WorldMap } from "./kentMap";
+import { buildKentMap, stageSpot, type WorldMap } from "./kentMap";
 import { ParkingGrader, InteriorController, type WalkerInput } from "./dol";
 import { PharmacyDropoff } from "./pharmacy";
 import { GridRun, stallCenter, type GridMission } from "./grid";
@@ -94,7 +94,7 @@ export class Simulation {
   objective = "";
   private freezeReasons = new Set<string>();
   // tutorial state
-  private tutStep = 0; private tutT = 0; private tutBlockEnd = false;
+  private tutStep = 0; private tutT = 0; private tutBlockEnd = false; private tutHome = 0;
   private deliverySmoothFired = false;
   /** Pressure throttle — see PRESSURE.CD_S. Drains in step()/stepWalker(). */
   private missCd = 0;
@@ -127,6 +127,10 @@ export class Simulation {
   constructor(private ev: SimEvents, seed = 7) {
     this.map = buildKentMap(seed);
     const fire = (e: string, d?: Record<string, unknown>) => {
+      if (e === "waypoint.reach:block_end" && this.missionId === "tutorial_carport") {
+        this.tutBlockEnd = true;
+        this.setObjective("Now back to the carport. Same speed, same care.");
+      }
       this.ev.fire(e, d);
       if (e.startsWith("card.cue:")) return;
       this.emitCues(this.cues.onEvent(this.missionId, e));
@@ -208,7 +212,7 @@ export class Simulation {
   }
 
   startMission(id: MissionId): boolean {
-    this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false;
+    this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false; this.tutHome = 0;
     this.footDropoff = "";
     this.grid.clear();
     this.ledger.clear();
@@ -537,7 +541,7 @@ export class Simulation {
     if (!this.frozen && this.mode === "vehicle") {
       out = this.vehicle.step(dt, s, this.speedLimitMph);
       this.noise.step(dt);
-      this.zones.step(dt, s.pos, s.speedMs);
+      this.zones.step(dt, s.pos, s.speedMs, s.heading);
       this.quiet.step(dt, s.pos, this.blockedAt);
       const hit = this.quiet.collide(s.pos, s.heading, this.egoHalfLen, this.egoHalfWid, s.speedMs);
       // P9: a contact is the one thing that legitimately eats displacement, so
@@ -632,10 +636,6 @@ export class Simulation {
 
   /** Game events that the sim itself reacts to (route these from your event bus). */
   onEvent(name: string) {
-    if (this.missionId === "tutorial_carport" && name === "waypoint.reach:block_end") {
-      this.tutBlockEnd = true;
-      this.setObjective("Now back to the carport. Same speed, same care.");
-    }
     if (name === "waypoint.reach:titus_fourway") this.ev.fire("intersection.fourway.approach");
     if (name === "waypoint.reach:willis_uncontrolled") this.ev.fire("intersection.uncontrolled.approach");
     if (this.missionId === "mission_delivery_1_insulin" && name === "waypoint.reach:pharmacy") {
@@ -672,18 +672,25 @@ export class Simulation {
     this.tutT += dt;
     const v = Math.abs(s.speedMs) / MPH;
     const next = (evt: string) => { this.ev.fire(evt); this.tutStep++; this.tutT = 0; };
-    switch (this.tutStep) {
-      case 0: if (this.tutT > 1.2) next("tutorial.step.throttle"); break;
-      case 1: if (v > 3 && this.tutT > 2.5) next("tutorial.step.stopping_shadow"); break;
-      case 2: if (this.tutT > 4.5) next("tutorial.step.noise_meter"); break;
-      case 3: if (this.tutT > 4.5) next("tutorial.step.brake"); break;
-      case 4: if (this.tutT > 4.5) next("tutorial.step.objective"); break;
-      case 5:
-        if (this.tutBlockEnd && s.pos.x < 30 && v < 1) {
-          this.tutStep = 6; this.missionId = ""; this.tutorialForgiving = false; this.setObjective("");
-          this.ev.fire("tutorial.complete", { red_events: this.noise.redEvents });
-        }
-        break;
+    if (this.tutStep < 5) {
+      switch (this.tutStep) {
+        case 0: if (this.tutT > 1.2) next("tutorial.step.throttle"); break;
+        case 1: if (v > 3 && this.tutT > 2.5) next("tutorial.step.stopping_shadow"); break;
+        case 2: if (this.tutT > 4.5) next("tutorial.step.noise_meter"); break;
+        case 3: if (this.tutT > 4.5) next("tutorial.step.brake"); break;
+        case 4: if (this.tutT > 4.5) next("tutorial.step.objective"); break;
+      }
+    }
+    // Home is the pad under the carport, after the end-of-block pad. A crawl counts.
+    // Holding the brake at rest used to read as reverse, so a 1 mph razor never landed.
+    if (this.tutBlockEnd && this.tutStep < 6) {
+      const onPad = rectHas(stageSpot(this.map.markers.carport.x, this.map.markers.carport.y), s.pos);
+      if (onPad && Math.abs(s.speedMs) < 2.4) this.tutHome += dt;
+      else this.tutHome = 0;
+      if (this.tutHome >= 0.3) {
+        this.tutStep = 6; this.missionId = ""; this.tutorialForgiving = false; this.setObjective("");
+        this.ev.fire("tutorial.complete", { red_events: this.noise.redEvents });
+      }
     }
   }
 
@@ -692,10 +699,10 @@ export class Simulation {
     switch (this.missionId) {
       case "tutorial_carport":
         return this.tutBlockEnd
-          ? { pos: this.map.starts.carport.pos, label: "CARPORT" }
-          : { pos: { x: 250, y: 0 }, label: "END OF BLOCK" };
+          ? { pos: this.map.markers.carport, label: "CARPORT" }
+          : { pos: this.map.markers.block_end, label: "END OF BLOCK" };
       case "mission_dol_drive":
-        return { pos: this.map.markers.dol_lot, label: "DOL" };
+        return { pos: this.map.markers.dol_gate, label: "DOL" };
       case "minigame_park_dol": {
         const stall = this.map.parking.stalls[this.map.parking.target];
         return { pos: { x: stall.x + stall.w / 2, y: stall.y + stall.h / 2 }, label: "STALL" };

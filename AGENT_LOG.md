@@ -425,3 +425,14 @@ The Deac pass stands. III-001 stays on `ledger.lanechange.start`. Act III lanes
 stay as they are (0 = right, 2 = left passing). The witness gate is 45 m.
 `bench/baseline.json` not regenerated. No headed browser ran (none available) —
 still no frame-rate or draw-call number to quote.
+
+## 2026-10-15 — carport pad, one-way stops, stage spots
+
+Played on the local drive. Four things were wrong on the Act I loop, and the other destinations used the same loose regions.
+
+1. **Home did not register.** `tutorialTick` completed on `x < 30` and under 1 mph. The carport is off the street, and holding the brake at a crawl starts reverse, so that razor never held. The return is the pad under the carport (`markers.carport`), slow for 0.3 s. The street in front of the house does not count. Brake-at-rest holds for half a second before it becomes reverse.
+2. **The Titus stop graded the drive home.** Stop zones had no facing. `approach` on `titus_central` is east; the opposite semicircle does not enter the stop. Meeker faces south. A side approach (the retest's eastbound pass) still grades.
+3. **The carport was 1.4 m at the eave.** Legs are 2.8 m. The roof sits on them. An apron runs from the bay to the curb.
+4. **Stage destinations were invisible regions.** A pink ring and post sit on `navTarget()` for the active mission. The end-of-block, pharmacy, Priya, warehouse, and DOL gate waypoints are that pad. The DOL pin was the middle of the lot while the trigger was a box on Central; the pin is the driveway gate now.
+
+`npx vitest run` 174/174. `tsc --noEmit` exit 0. `bench/baseline.json` was restored; the run only moved step timings.

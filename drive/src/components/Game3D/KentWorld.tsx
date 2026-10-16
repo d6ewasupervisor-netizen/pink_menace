@@ -607,12 +607,69 @@ export function KentWorld() {
       <EscortLead />
       <RuralMarks />
       <Walker />
+      <Carport />
+      <StageSpot />
+    </group>
+  );
+}
 
-      {/* Grandma's carport */}
-      <mesh position={[13.5, 1.4, -13.5]}><boxGeometry args={[7, 0.15, 5]} /><meshStandardMaterial color="#555a60" /></mesh>
-      {[[10.5, -11.5], [16.5, -11.5], [10.5, -15.5], [16.5, -15.5]].map(([x, z], i) => (
-        <mesh key={i} position={[x, 0.7, z]}><cylinderGeometry args={[0.06, 0.06, 1.4, 6]} /><meshStandardMaterial color="#333" /></mesh>
+/** Bay under Grandma's carport. Legs are 2.8 m so the Beetle fits under the roof. */
+function Carport() {
+  const p = QuietRoads.sim.map.markers.carport;
+  const legH = 2.8;
+  const roofW = 8;
+  const roofD = 7;
+  const hx = roofW / 2 - 0.55;
+  const hz = roofD / 2 - 0.55;
+  const legs: [number, number][] = [[-hx, -hz], [hx, -hz], [-hx, hz], [hx, hz]];
+  // Street is south of the bay (+Z). The apron runs from the roof edge to the curb.
+  const apron = 4.6;
+  return (
+    <group position={[p.x, 0, p.y]}>
+      <mesh position={[0, 0.025, roofD / 2 + apron / 2]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[3.2, apron]} />
+        <meshStandardMaterial color="#6a6e73" />
+      </mesh>
+      <mesh position={[0, legH, 0]}>
+        <boxGeometry args={[roofW, 0.12, roofD]} />
+        <meshStandardMaterial color="#555a60" />
+      </mesh>
+      {legs.map(([x, z], i) => (
+        <mesh key={i} position={[x, legH / 2, z]}>
+          <cylinderGeometry args={[0.07, 0.07, legH, 6]} />
+          <meshStandardMaterial color="#333" />
+        </mesh>
       ))}
+    </group>
+  );
+}
+
+/** The active stage destination. One pad, the same point the mission grades. */
+function StageSpot() {
+  const ref = useRef<THREE.Group>(null);
+  useFrame(() => {
+    const g = ref.current;
+    if (!g) return;
+    const dest = QuietRoads.sim.navTarget();
+    const phase = useGameStore.getState().phase;
+    const show = !!dest && (phase === 'driving' || phase === 'walking');
+    g.visible = show;
+    if (dest) g.position.set(dest.pos.x, 0, dest.pos.y);
+  });
+  return (
+    <group ref={ref} visible={false}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.045, 0]}>
+        <ringGeometry args={[1.35, 1.85, 28]} />
+        <meshBasicMaterial color="#F28DB2" />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.04, 0]}>
+        <circleGeometry args={[0.28, 16]} />
+        <meshBasicMaterial color="#F28DB2" />
+      </mesh>
+      <mesh position={[0, 1.5, 0]}>
+        <cylinderGeometry args={[0.035, 0.035, 3, 6]} />
+        <meshStandardMaterial color="#F28DB2" />
+      </mesh>
     </group>
   );
 }

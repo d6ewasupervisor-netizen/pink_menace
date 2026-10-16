@@ -98,6 +98,13 @@ export interface WorldMap {
   starts: Record<string, { pos: Vec2; heading: number }>;
 }
 
+/** A stage destination. Wide enough for the Beetle, not a neighborhood. */
+export const STAGE_SPOT = { w: 4.4, h: 5.6 };
+
+export function stageSpot(cx: number, cy: number, w = STAGE_SPOT.w, h = STAGE_SPOT.h): Rect {
+  return { x: cx - w / 2, y: cy - h / 2, w, h };
+}
+
 export function buildKentMap(seed = 7): WorldMap {
   const buildings: Building[] = [];
   for (let x = 30; x < 240; x += 20) { buildings.push({ rect: { x: x - 5, y: -26, w: 10, h: 9 } }); buildings.push({ rect: { x: x - 5, y: 17, w: 10, h: 9 } }); }
@@ -132,21 +139,31 @@ export function buildKentMap(seed = 7): WorldMap {
   }
   for (const c of CORRIDORS) roads.push({ rect: c.road, name: c.name, strip: true });
 
+  // Named pads. The pink ring on the road is this rectangle, and the waypoint is this rectangle.
+  const blockEnd = { x: 228, y: 0 };
+  const carport = { x: 13.5, y: -12 };
+  const pharmacyPin = { x: 161, y: 101 };
+  const priyaPin = { x: 268.3, y: 40 };
+  const dockPin = { x: 174, y: -24 };
+  const dolGate = { x: 255, y: 382, w: 5, h: 10 };
+
   const zones: ZoneDef[] = [
-    { kind: "waypoint", id: "block_end", rect: c(250, 0, 6, 8) },
+    { kind: "waypoint", id: "block_end", rect: stageSpot(blockEnd.x, blockEnd.y) },
     { kind: "waypoint", id: "titus_fourway", rect: c(265, 0, 18, 18) },
     { kind: "sign", id: "warning", rect: c(226, 0, 4, 8), quiz: "sign.prompt:warning" },
-    { kind: "stop", id: "titus_central", rect: c(250.5, 0, 17, 8), quiz: "sign.prompt:regulatory", quizDelayS: 0.4 },
-    { kind: "stop", id: "meeker", rect: c(265, 97, 10, 16), quiz: "stop.approach", quizDelayS: 0.4 },
+    // Eastbound Titus only. The sign faces east; the drive home does not stop.
+    { kind: "stop", id: "titus_central", rect: c(250.5, 0, 17, 8), approach: 0, quiz: "sign.prompt:regulatory", quizDelayS: 0.4 },
+    // Southbound Central. The sign faces south.
+    { kind: "stop", id: "meeker", rect: c(265, 97, 10, 16), approach: Math.PI / 2, quiz: "stop.approach", quizDelayS: 0.4 },
     { kind: "waypoint", id: "willis_uncontrolled", rect: c(200, 110, 12, 12) },
-    { kind: "waypoint", id: "pharmacy", rect: { x: 146, y: 96, w: 30, h: 10 } },
-    { kind: "waypoint", id: "priya_radio_shack", rect: { x: 266.6, y: 32, w: 3.4, h: 16 } },
-    { kind: "waypoint", id: "warehouse", rect: { x: 168, y: -32, w: 14, h: 14 } },
+    { kind: "waypoint", id: "pharmacy", rect: stageSpot(pharmacyPin.x, pharmacyPin.y) },
+    { kind: "waypoint", id: "priya_radio_shack", rect: stageSpot(priyaPin.x, priyaPin.y, 3.2, 6) },
+    { kind: "waypoint", id: "warehouse", rect: stageSpot(dockPin.x, dockPin.y) },
     { kind: "sign", id: "school", rect: c(265, 150, 10, 4), quiz: "sign.prompt:school", quizDelayS: 2.6 },
     { kind: "school", id: "central", rect: c(265, 200, 10, 80) },
     { kind: "sign", id: "rail_advance", rect: c(265, 285, 10, 4) },
     { kind: "rail", id: "central", rect: c(265, 300, 10, 14), quiz: "zone.rail.enter", quizDelayS: 2.8 },
-    { kind: "waypoint", id: "dol_approach", rect: c(265, 372, 10, 8) },
+    { kind: "waypoint", id: "dol_approach", rect: dolGate },
     { kind: "waypoint", id: "dol_lot_exit", rect: { x: 255, y: 382, w: 5, h: 10 }, once: false },
   ];
 
@@ -266,7 +283,9 @@ export function buildKentMap(seed = 7): WorldMap {
     ],
     zones,
     markers: {
-      carport: { x: 14, y: -14 },
+      carport,
+      block_end: blockEnd,
+      dol_gate: { x: dolGate.x + dolGate.w / 2, y: dolGate.y + dolGate.h / 2 },
       dol_lot: { x: 240, y: 400 },
       warehouse: { x: 190, y: -24 },
       pharmacy: { x: 161, y: 101 },

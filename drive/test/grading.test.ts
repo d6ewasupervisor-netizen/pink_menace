@@ -65,6 +65,47 @@ describe('stop check (ZoneField)', () => {
     zone.step(1 / 60, { x: 15, y: 0 }, 0); // exit after full stop
     expect(events.some((e) => e.n === 'stop.full')).toBe(true);
   });
+
+  it('grades an eastbound roll at Titus and ignores the drive back west', () => {
+    const titus = buildKentMap().zones.find((z) => z.id === 'titus_central')!;
+    const events: string[] = [];
+    const zone = new ZoneField(
+      [titus],
+      { fire: (n) => events.push(n), requestQuiz: () => {}, setSpeedLimit: () => {} },
+    );
+    zone.step(1 / 60, { x: 238, y: 0 }, 8, 0);
+    zone.step(1 / 60, { x: 250, y: 0 }, 8, 0);
+    zone.step(1 / 60, { x: 262, y: 0 }, 8, 0);
+    expect(events).toContain('stop.rolled');
+
+    const back: string[] = [];
+    const home = new ZoneField(
+      [titus],
+      { fire: (n) => back.push(n), requestQuiz: () => {}, setSpeedLimit: () => {} },
+    );
+    home.step(1 / 60, { x: 262, y: 0 }, 8, Math.PI);
+    home.step(1 / 60, { x: 250, y: 0 }, 8, Math.PI);
+    home.step(1 / 60, { x: 238, y: 0 }, 8, Math.PI);
+    expect(back).not.toContain('stop.rolled');
+    expect(back).not.toContain('stop.approach');
+  });
+});
+
+describe('carport return', () => {
+  it('registers the pad under the carport, not the street in front of it', () => {
+    const { sim, events } = makeSim();
+    expect(sim.startMission('tutorial_carport')).toBe(true);
+    sim.step(0.2, sample(sim.map.markers.block_end, 0, 4));
+    expect(events).toContain('waypoint.reach:block_end');
+    for (let x = 262; x >= 236; x -= 8) sim.step(0.05, sample({ x, y: 0 }, Math.PI, 8));
+    expect(events).not.toContain('stop.rolled');
+    sim.step(0.4, sample({ x: 14, y: 0 }, Math.PI, 0.2));
+    expect(events).not.toContain('tutorial.complete');
+    const home = sim.map.markers.carport;
+    sim.step(0.2, sample(home, 0, 0.4));
+    sim.step(0.2, sample(home, 0, 0.4));
+    expect(events).toContain('tutorial.complete');
+  });
 });
 
 describe('gap check (Act III ledger)', () => {

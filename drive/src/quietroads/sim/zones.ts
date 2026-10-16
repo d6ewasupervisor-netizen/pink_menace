@@ -9,6 +9,16 @@ export interface ZoneDef {
   quiz?: string;           // in_world_trigger to ask on entry
   quizDelayS?: number;
   once?: boolean;          // default true (stops always re-arm)
+  /** Heading (radians, 0 = east) that faces this stop sign. The opposite semicircle is not a stop. */
+  approach?: number;
+}
+
+/** Smallest absolute difference between two headings, in radians. */
+export function headingDelta(a: number, b: number): number {
+  let d = (a - b) % (Math.PI * 2);
+  if (d > Math.PI) d -= Math.PI * 2;
+  if (d < -Math.PI) d += Math.PI * 2;
+  return Math.abs(d);
 }
 
 export interface ZoneEvents {
@@ -63,7 +73,7 @@ export class ZoneField {
     for (const d of this.defs) if (rectHas(d.rect, pos)) this.inside.add(zoneKey(d));
   }
 
-  step(dt: number, carPos: Vec2, speedMs: number) {
+  step(dt: number, carPos: Vec2, speedMs: number, heading = 0) {
     // Two owned buffers, alternated: the swept-crossing test still needs last
     // step's position while this step's is being written.
     const previous = this.hasPrevious ? (this.previousIsA ? this.prevA : this.prevB) : null;
@@ -77,9 +87,10 @@ export class ZoneField {
       const key = `${d.kind}:${d.id}`;
       const now = rectHas(d.rect, carPos);
       const was = this.inside.has(key);
-      if (now && !was) { this.inside.add(key); this.enter(d, key); }
+      const facing = this.facesSign(d, heading);
+      if (now && !was && facing) { this.inside.add(key); this.enter(d, key); }
       if (!now && was) { this.inside.delete(key); this.exit(d, key); }
-      if (!now && !was && swept && segmentCrossesRect(previous!, carPos, d.rect)) {
+      if (!now && !was && facing && swept && segmentCrossesRect(previous!, carPos, d.rect)) {
         this.enter(d, key);
         const crossing = this.stopTrack.get(key);
         if (crossing) crossing.minSpeed = Math.abs(speedMs);
@@ -88,6 +99,12 @@ export class ZoneField {
       const t = this.stopTrack.get(key);
       if (now && t) { const v = Math.abs(speedMs); t.minSpeed = Math.min(t.minSpeed, v); if (v < 0.3) t.stoppedS += dt; }
     }
+  }
+
+  /** A stop sign faces one way. Heading in the opposite semicircle does not have to stop. */
+  private facesSign(d: ZoneDef, heading: number): boolean {
+    if (d.kind !== "stop" || d.approach == null) return true;
+    return headingDelta(heading, d.approach) <= Math.PI / 2;
   }
 
   private enter(d: ZoneDef, key: string) {

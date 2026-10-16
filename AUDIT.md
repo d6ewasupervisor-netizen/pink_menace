@@ -410,6 +410,14 @@ needing hardware: the `?profileDrive` browser pass and a full-campaign
 playthrough. **No headed browser ran** (none available) — no frame-rate or
 draw-call number is quoted anywhere.
 
+## 9. Stage pads and one-way stops (2026-10-15)
+
+Played locally. The tutorial completed on `x < 30` and under 1 mph, so the bay under the carport never counted, and holding the brake at a crawl engaged reverse before that razor could hold. Home is `stageSpot(markers.carport)` for 0.3 s under 2.4 m/s. `VehicleController` holds a standstill for 0.5 s before S becomes reverse.
+
+`titus_central.approach` is 0 (east). `meeker.approach` is π/2 (south). `headingDelta` greater than a right angle does not enter the stop. The end-of-block, pharmacy, Priya, and warehouse waypoints are `stageSpot` pads. `dol_approach` is the driveway gate, and the DOL pin is that gate (`markers.dol_gate`), not the middle of the lot. `StageSpot` draws the ring on `navTarget()`. Carport legs are 2.8 m.
+
+Tests: 174/174, including an eastbound Titus roll, a westbound pass that stays quiet, and a carport return that ignores the street. `bench/baseline.json` restored.
+
 Two implementation notes worth keeping: (1) the pharmacy/Bea dropoff fires
 `door.slam` / `park.back_in.*` on the raw event bus, not the grade funnel, so
 those events do not raise pressure (or reach the card book) — pre-existing

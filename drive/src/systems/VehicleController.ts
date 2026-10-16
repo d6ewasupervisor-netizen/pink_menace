@@ -90,6 +90,8 @@ let _isAnyWheelSlipping = false;
 let slideSpeed = 0;
 let yawRate = 0;
 let handbrakeAmount = 0;
+/** Brake at a standstill holds the stop this long before it becomes reverse. */
+let reverseArm = 0;
 let chassisPitch = 0;
 let chassisRoll = 0;
 let _damage01 = 0;
@@ -179,6 +181,7 @@ export function haltVehicle(): void {
   slideSpeed = 0;
   yawRate = 0;
   handbrakeAmount = 0;
+  reverseArm = 0;
   smoothedAccel = 0;
   smoothedThrottle = 0;
   smoothedBrake = 0;
@@ -538,9 +541,21 @@ export function tickVehicle(
     isReversing = !emergencyBrake && brakePedal > 0;
   } else {
     isAccelerating = smoothedThrottle > 0;
-    // Space bar is a pure stop: brake input qualifies for reverse only when it
-    // comes from a dedicated back-pedal key (S / ArrowDown), not from Space.
-    isReversing = !emergencyBrake && brakePedal > 0 && smoothedThrottle === 0;
+    // Space is a pure stop. S at rest is reverse, but the first half-second
+    // holds the car at zero so arriving on a pad can register.
+    const wantReverse = !emergencyBrake && brakePedal > 0 && smoothedThrottle === 0;
+    if (wantReverse) {
+      reverseArm += dt;
+      if (reverseArm < 0.5) {
+        isBraking = true;
+        currentSpeed = 0;
+        smoothedAccel = 0;
+      } else {
+        isReversing = true;
+      }
+    } else {
+      reverseArm = 0;
+    }
   }
 
   // ── Engine state ───────────────────────────────────────────────────────
