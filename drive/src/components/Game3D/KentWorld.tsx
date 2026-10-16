@@ -647,28 +647,31 @@ function Carport() {
 /** The active stage destination. One pad, the same point the mission grades. */
 function StageSpot() {
   const ref = useRef<THREE.Group>(null);
-  useFrame(() => {
+  useFrame((state) => {
     const g = ref.current;
     if (!g) return;
     const dest = QuietRoads.sim.navTarget();
     const phase = useGameStore.getState().phase;
     const show = !!dest && (phase === 'driving' || phase === 'walking');
     g.visible = show;
-    if (dest) g.position.set(dest.pos.x, 0, dest.pos.y);
+    if (!dest) return;
+    g.position.set(dest.pos.x, 0, dest.pos.y);
+    const pulse = 1 + Math.sin(state.clock.elapsedTime * 3) * 0.05;
+    g.scale.setScalar(pulse);
   });
   return (
     <group ref={ref} visible={false}>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.045, 0]}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.06, 0]} renderOrder={2}>
         <ringGeometry args={[1.35, 1.85, 28]} />
+        <meshBasicMaterial color="#F28DB2" depthWrite={false} polygonOffset polygonOffsetFactor={-2} />
+      </mesh>
+      <mesh position={[0, 2.7, 0]}>
+        <cylinderGeometry args={[0.05, 0.05, 5.4, 6]} />
         <meshBasicMaterial color="#F28DB2" />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.04, 0]}>
-        <circleGeometry args={[0.28, 16]} />
+      <mesh position={[0, 5.5, 0]}>
+        <sphereGeometry args={[0.28, 12, 10]} />
         <meshBasicMaterial color="#F28DB2" />
-      </mesh>
-      <mesh position={[0, 1.5, 0]}>
-        <cylinderGeometry args={[0.035, 0.035, 3, 6]} />
-        <meshStandardMaterial color="#F28DB2" />
       </mesh>
     </group>
   );

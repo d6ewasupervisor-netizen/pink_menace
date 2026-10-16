@@ -105,6 +105,11 @@ export function stageSpot(cx: number, cy: number, w = STAGE_SPOT.w, h = STAGE_SP
   return { x: cx - w / 2, y: cy - h / 2, w, h };
 }
 
+/** The whole bay, roof plus the apron toward the street. The ring sits in the middle. */
+export function carportBay(cx: number, cy: number): Rect {
+  return { x: cx - 4, y: cy - 3.6, w: 8, h: 11 };
+}
+
 export function buildKentMap(seed = 7): WorldMap {
   const buildings: Building[] = [];
   for (let x = 30; x < 240; x += 20) { buildings.push({ rect: { x: x - 5, y: -26, w: 10, h: 9 } }); buildings.push({ rect: { x: x - 5, y: 17, w: 10, h: 9 } }); }

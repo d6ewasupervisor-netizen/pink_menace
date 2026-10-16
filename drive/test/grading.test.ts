@@ -92,11 +92,15 @@ describe('stop check (ZoneField)', () => {
 });
 
 describe('carport return', () => {
-  it('registers the pad under the carport, not the street in front of it', () => {
+  it('a drive-through does not spend the pad; settling on it does', () => {
     const { sim, events } = makeSim();
     expect(sim.startMission('tutorial_carport')).toBe(true);
-    sim.step(0.2, sample(sim.map.markers.block_end, 0, 4));
-    expect(events).toContain('waypoint.reach:block_end');
+    const end = sim.map.markers.block_end;
+    sim.step(0.2, sample(end, 0, 8));
+    expect(events).not.toContain('tutorial.block');
+    sim.step(0.2, sample(end, 0, 0.4));
+    sim.step(0.2, sample(end, 0, 0.4));
+    expect(events).toContain('tutorial.block');
     for (let x = 262; x >= 236; x -= 8) sim.step(0.05, sample({ x, y: 0 }, Math.PI, 8));
     expect(events).not.toContain('stop.rolled');
     sim.step(0.4, sample({ x: 14, y: 0 }, Math.PI, 0.2));

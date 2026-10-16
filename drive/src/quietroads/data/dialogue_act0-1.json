@@ -279,6 +279,15 @@
           "emotion": "wry",
           "text": "End of the block and back. Without waking up Mr. Halvorsen. Even though Mr. Halvorsen is… not really Mr. Halvorsen anymore."
         },
+        "0.2.block": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "neutral",
+          "volume": "whisper",
+          "text": "End of the block. Same way back. Same speed, same care.",
+          "auto_ms": 2400
+        },
         "0.2.9": {
           "type": "line",
           "speaker": "ALI",
@@ -389,6 +398,13 @@
           "event": "tutorial.step.objective",
           "node": "0.2.8",
           "once": true
+        },
+        {
+          "event": "tutorial.block",
+          "node": "0.2.block",
+          "once": true,
+          "interrupt": true,
+          "priority": 8
         },
         {
           "event": "tutorial.complete",

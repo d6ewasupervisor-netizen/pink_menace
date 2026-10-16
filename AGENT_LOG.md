@@ -436,3 +436,5 @@ Played on the local drive. Four things were wrong on the Act I loop, and the oth
 4. **Stage destinations were invisible regions.** A pink ring and post sit on `navTarget()` for the active mission. The end-of-block, pharmacy, Priya, warehouse, and DOL gate waypoints are that pad. The DOL pin was the middle of the lot while the trigger was a box on Central; the pin is the driveway gate now.
 
 `npx vitest run` 174/174. `tsc --noEmit` exit 0. `bench/baseline.json` was restored; the run only moved step timings.
+
+Clipping the pink ring consumed it at speed and moved the pin, with no line. The ring now stays until the car has settled on it. That settle fires `tutorial.block` (the return line) and only then moves the pin to the carport. Home is the whole bay, not the small ring. The post stands above the roof so the marker does not vanish under the car.

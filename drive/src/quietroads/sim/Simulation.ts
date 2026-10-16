@@ -3,7 +3,7 @@ import { NoiseSystem } from "./noise";
 import { QuietField, QuietState } from "./quiet";
 import { ZoneField } from "./zones";
 import { VehicleObserver, VEHICLE, type VehicleSample, type ObserverOut } from "./vehicleObserver";
-import { buildKentMap, stageSpot, type WorldMap } from "./kentMap";
+import { buildKentMap, carportBay, stageSpot, type WorldMap } from "./kentMap";
 import { ParkingGrader, InteriorController, type WalkerInput } from "./dol";
 import { PharmacyDropoff } from "./pharmacy";
 import { GridRun, stallCenter, type GridMission } from "./grid";
@@ -127,10 +127,6 @@ export class Simulation {
   constructor(private ev: SimEvents, seed = 7) {
     this.map = buildKentMap(seed);
     const fire = (e: string, d?: Record<string, unknown>) => {
-      if (e === "waypoint.reach:block_end" && this.missionId === "tutorial_carport") {
-        this.tutBlockEnd = true;
-        this.setObjective("Now back to the carport. Same speed, same care.");
-      }
       this.ev.fire(e, d);
       if (e.startsWith("card.cue:")) return;
       this.emitCues(this.cues.onEvent(this.missionId, e));
@@ -681,16 +677,28 @@ export class Simulation {
         case 4: if (this.tutT > 4.5) next("tutorial.step.objective"); break;
       }
     }
-    // Home is the pad under the carport, after the end-of-block pad. A crawl counts.
-    // Holding the brake at rest used to read as reverse, so a 1 mph razor never landed.
-    if (this.tutBlockEnd && this.tutStep < 6) {
-      const onPad = rectHas(stageSpot(this.map.markers.carport.x, this.map.markers.carport.y), s.pos);
-      if (onPad && Math.abs(s.speedMs) < 2.4) this.tutHome += dt;
+    // Clipping the ring used to consume it at speed and move the pin with no line.
+    // The pad stays until the car has settled on it, and that settle is the beat.
+    if (this.tutStep >= 6) return;
+    const settled = Math.abs(s.speedMs) < 3.5;
+    if (!this.tutBlockEnd) {
+      const onEnd = rectHas(stageSpot(this.map.markers.block_end.x, this.map.markers.block_end.y), s.pos);
+      if (onEnd && settled) this.tutHome += dt;
       else this.tutHome = 0;
-      if (this.tutHome >= 0.3) {
-        this.tutStep = 6; this.missionId = ""; this.tutorialForgiving = false; this.setObjective("");
-        this.ev.fire("tutorial.complete", { red_events: this.noise.redEvents });
+      if (this.tutHome >= 0.25) {
+        this.tutBlockEnd = true;
+        this.tutHome = 0;
+        this.setObjective("Now back to the carport. Same speed, same care.");
+        this.ev.fire("tutorial.block");
       }
+      return;
+    }
+    const onBay = rectHas(carportBay(this.map.markers.carport.x, this.map.markers.carport.y), s.pos);
+    if (onBay && settled) this.tutHome += dt;
+    else this.tutHome = 0;
+    if (this.tutHome >= 0.25) {
+      this.tutStep = 6; this.missionId = ""; this.tutorialForgiving = false; this.setObjective("");
+      this.ev.fire("tutorial.complete", { red_events: this.noise.redEvents });
     }
   }
 
