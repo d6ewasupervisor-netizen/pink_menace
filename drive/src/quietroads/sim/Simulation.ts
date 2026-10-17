@@ -95,6 +95,8 @@ export class Simulation {
   private freezeReasons = new Set<string>();
   // tutorial state
   private tutStep = 0; private tutT = 0; private tutBlockEnd = false;
+  /** Blocks a second pad from resolving in the same moment as the one just hit. */
+  private markerHold = 0;
   private deliverySmoothFired = false;
   /** Pressure throttle — see PRESSURE.CD_S. Drains in step()/stepWalker(). */
   private missCd = 0;
@@ -208,7 +210,7 @@ export class Simulation {
   }
 
   startMission(id: MissionId): boolean {
-    this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false;
+    this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false; this.markerHold = 0;
     this.footDropoff = "";
     this.grid.clear();
     this.ledger.clear();
@@ -530,6 +532,7 @@ export class Simulation {
 
   step(dt: number, s: VehicleSample): SimFrame {
     this.missCd = Math.max(0, this.missCd - dt);
+    this.markerHold = Math.max(0, this.markerHold - dt);
     this.notePos(s.pos);
     this.lastVehicleHeading = s.heading;
     let out: ObserverOut = this.frozenFrame;
@@ -696,23 +699,23 @@ export class Simulation {
     const dx = s.pos.x - dest.pos.x;
     const dy = s.pos.y - dest.pos.y;
     if (dx * dx + dy * dy > MARKER_REACH_M * MARKER_REACH_M) return;
-    this.seeMarker();
+    this.resolveMarker();
   }
 
   /**
    * The car is on the pad. Only resolves the pad that is current, so arriving
    * at the end of the block does not also finish the drive home.
    */
-  seeMarker() {
-    const dest = this.navTarget();
-    if (!dest) return;
-    const dx = this.lastPos.x - dest.pos.x;
-    const dy = this.lastPos.y - dest.pos.y;
-    if (dx * dx + dy * dy > MARKER_REACH_M * MARKER_REACH_M) return;
+  /** The picture says the car is on the pad. Resolve that pad and do not second-guess it. */
+  resolveMarker() {
+    if (this.markerHold > 0) return;
+    this.markerHold = 0.4;
     if (this.missionId === "tutorial_carport") {
       this.consumeTutorialMarker();
       return;
     }
+    const dest = this.navTarget();
+    if (!dest) return;
     if (dest.label === "DEAC'S TRUCK" || dest.label === "FLOW" || dest.label === "CONVOY" || dest.label === "GRACIE" || dest.label === "HANK") return;
     let best: { id: string; d: number } | null = null;
     for (const z of this.map.zones) {

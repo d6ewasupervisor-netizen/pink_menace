@@ -155,6 +155,15 @@ export function applyCollisionImpact(factor: number): void {
 // ─── Quiet Roads hooks (read-only observation + teleport; never drives the car) ───
 let _body: RapierRigidBody | null = null;
 
+/** World XZ of the drawn chassis, written every frame from the mesh. */
+export const carDraw = { x: 0, z: 0, ready: false };
+
+export function noteCarDraw(x: number, z: number): void {
+  carDraw.x = x;
+  carDraw.z = z;
+  carDraw.ready = true;
+}
+
 /** Vehicle.tsx registers its RigidBody so missions can place the car. */
 export function registerVehicleBody(body: RapierRigidBody | null): void {
   _body = body;

@@ -451,6 +451,8 @@ The nose check was on `main` and in the live bundle (`index-BxA4wqwa.js`) and it
 
 The pad was 20 m before the Titus intersection, so stopping at the sign the player can see was not arrival. `block_end` is now on that stop (`x: 252`). A car within 12 m of the drawn pad counts, using the same position that already grades the stop. The pad is a filled pink disc.
 
+The chassis sample can miss a car that is visibly on the disc. The hit is now the drawn chassis (`carDraw`, world position of the mesh) against the drawn pad, and that call resolves the pad without checking the sample again.
+
 ## 2026-10-16 — grade flash does not stop the car
 
 The PASS/MISS panel froze the drive and waited on Continue. It is now a 1 s overlay at half opacity. No freeze, no phase change, no tap. Story cards are unchanged.

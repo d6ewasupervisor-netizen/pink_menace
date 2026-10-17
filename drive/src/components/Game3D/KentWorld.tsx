@@ -14,7 +14,8 @@ import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useGameStore } from '@/stores/gameStore';
 import type { Rect, SignDef } from '@/quietroads';
 import { batchPlainBuildings, buildingColliders, batchBuildingRoofs, dashInstances, ROOF_COLOR, type BuildingInstance } from '@/quietroads/sim/instancing';
-import { MARKER_R, MARKER_REACH_M } from '@/quietroads/sim/zones';
+import { MARKER_R } from '@/quietroads/sim/zones';
+import { carDraw } from '@/systems/VehicleController';
 import { attachScenePassProbe } from '@/utils/performance';
 
 const ROAD_Y = 0.01;
@@ -646,7 +647,6 @@ function Carport() {
 }
 
 /** The active stage destination. One pad, the same point the mission grades. */
-const _car = new THREE.Vector3();
 const _mark = new THREE.Vector3();
 
 function StageSpot() {
@@ -662,15 +662,12 @@ function StageSpot() {
     g.position.set(dest.pos.x, 0, dest.pos.y);
     const pulse = 1 + Math.sin(state.clock.elapsedTime * 3) * 0.05;
     g.scale.setScalar(pulse);
-    const car = state.scene.getObjectByName('player-car');
-    if (!car) return;
-    car.getWorldPosition(_car);
+    if (!carDraw.ready) return;
     g.getWorldPosition(_mark);
-    const dx = _car.x - _mark.x;
-    const dz = _car.z - _mark.z;
-    // The ring is MARKER_R. The car body extends past its origin, so the
-    // origin can be a couple of metres outside the paint and still be in it.
-    if (dx * dx + dz * dz <= MARKER_REACH_M * MARKER_REACH_M) QuietRoads.seeMarker();
+    const dx = carDraw.x - _mark.x;
+    const dz = carDraw.z - _mark.z;
+    // The drawn chassis against the drawn pad. This is the picture, not the sample.
+    if (dx * dx + dz * dz <= (MARKER_R + 2) ** 2) QuietRoads.resolveMarker();
   });
   return (
     <group ref={ref} visible={false}>

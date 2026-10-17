@@ -20,7 +20,7 @@ import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { RigidBody, CuboidCollider, RapierRigidBody, useBeforePhysicsStep, useAfterPhysicsStep } from '@react-three/rapier';
-import { tickVehicle, publishVehiclePose, resetVehicleController, registerVehicleBody, recoverVehicle, getChassisPose } from '@/systems/VehicleController';
+import { tickVehicle, publishVehiclePose, resetVehicleController, registerVehicleBody, recoverVehicle, getChassisPose, noteCarDraw } from '@/systems/VehicleController';
 import { liveDrive } from '@/systems/driveTelemetry';
 import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
 import { headlightSpot } from '@/systems/headlights';
@@ -491,8 +491,11 @@ function usePlowAngle() {
 }
 
 // ─── Vehicle component ────────────────────────────────────────────────────────
+const _draw = new THREE.Vector3();
+
 export function Vehicle() {
   const bodyRef = useRef<RapierRigidBody>(null);
+  const drawRef = useRef<THREE.Group>(null);
   const { plowAngle, update: updatePlow } = usePlowAngle();
   const plowAngleDisplay = useRef(0);
   const resetCounter = useGameStore((s) => s.resetCounter);
@@ -549,6 +552,12 @@ export function Vehicle() {
     updatePlow(delta);
     plowAngleDisplay.current = plowAngle.current;
   }, -1);
+  useFrame(() => {
+    const o = drawRef.current;
+    if (!o) return;
+    o.getWorldPosition(_draw);
+    noteCarDraw(_draw.x, _draw.z);
+  }, 1);
 
   return (
     <RigidBody
@@ -573,7 +582,7 @@ export function Vehicle() {
         friction={0}
         restitution={0.2}
       />
-      <group name="player-car">
+      <group ref={drawRef} name="player-car">
         <ChassisBody plowAngle={plowAngleDisplay.current} />
       </group>
       <VehicleParticles />
