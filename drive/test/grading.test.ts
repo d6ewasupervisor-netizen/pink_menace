@@ -203,3 +203,22 @@ describe('stopping shadow geometry (guide-consistent)', () => {
     expect(brakeDecel('truck', VEHICLE.MU.dry)).toBeLessThan(5.5);
   });
 });
+
+describe('pharmacy pad', () => {
+  it('fires the pharmacy line again after a drive-through already spent the waypoint', () => {
+    const { sim, events } = makeSim();
+    expect(sim.startMission('mission_delivery_1_insulin')).toBe(true);
+    sim.zones.claim('pharmacy');
+    events.length = 0;
+    sim.resolveMarker();
+    expect(events).toContain('waypoint.reach:pharmacy');
+  });
+
+  it('does not replay the pharmacy line when the pad is the clipboard', () => {
+    const { sim, events } = makeSim();
+    expect(sim.startMission('dropoff_pharmacy')).toBe(true);
+    events.length = 0;
+    sim.resolveMarker();
+    expect(events).not.toContain('waypoint.reach:pharmacy');
+  });
+});

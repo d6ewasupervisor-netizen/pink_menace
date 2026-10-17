@@ -716,24 +716,26 @@ export class Simulation {
     if (!dest) return;
     const key = `${this.missionId}:${dest.label}`;
     if (this.resolvedPads.has(key)) return;
-    this.resolvedPads.add(key);
-    this.padHit = true;
-    this.markerHold = 0.4;
     if (this.missionId === "tutorial_carport") {
+      this.resolvedPads.add(key);
       this.consumeTutorialMarker();
-      this.padHit = false;
       return;
     }
     if (dest.label === "DEAC'S TRUCK" || dest.label === "FLOW" || dest.label === "CONVOY" || dest.label === "GRACIE" || dest.label === "HANK") return;
+    // The clipboard stands 4 m in front of the pharmacy pin. Only the pad
+    // whose center is this destination may fire, or the handoff replays the drive.
     let best: { id: string; d: number } | null = null;
     for (const z of this.map.zones) {
       if (z.kind !== "waypoint") continue;
       const cx = z.rect.x + z.rect.w / 2;
       const cy = z.rect.y + z.rect.h / 2;
       const d = Math.hypot(cx - dest.pos.x, cy - dest.pos.y);
-      if (d < 30 && (!best || d < best.d)) best = { id: z.id, d };
+      if (d < 2 && (!best || d < best.d)) best = { id: z.id, d };
     }
     if (!best) return;
+    this.resolvedPads.add(key);
+    this.padHit = true;
+    this.markerHold = 0.4;
     this.zones.release(best.id);
     this.zones.claim(best.id);
   }

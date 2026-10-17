@@ -326,7 +326,7 @@ class Bridge {
     }
     if (event === "week.elapsed" && this.sim.missionId === "local_loop_week") this.enterDialogue();
     if (isPadArrival(event)) {
-      if (!this.runner.onScreen) this.runner.replay(event);
+      this.runner.replay(event);
       if (this.runner.onScreen) {
         this.padDialogue = true;
         this.enterDialogue();

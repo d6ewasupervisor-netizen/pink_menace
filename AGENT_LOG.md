@@ -453,7 +453,7 @@ The pad was 20 m before the Titus intersection, so stopping at the sign the play
 
 The chassis sample can miss a car that is visibly on the disc. The hit is now the drawn chassis (`carDraw`, world position of the mesh) against the drawn pad, and that call resolves the pad without checking the sample again.
 
-A spent waypoint was staying pink and silent. Resolving the pad releases that waypoint and plays its line as a cutscene, then hands the car back when the line ends. The pharmacy pad (green cross, clipboard) is one of those.
+A spent waypoint was staying pink and silent. Resolving the pad releases that waypoint and plays its line as a cutscene, then hands the car back when the line ends. The pharmacy pad (green cross, clipboard) is one of those. The clipboard pad is 4 m closer to the door and does not replay that line.
 
 ## 2026-10-16 — grade flash does not stop the car
 
