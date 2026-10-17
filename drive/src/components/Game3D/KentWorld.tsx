@@ -9,13 +9,13 @@
 import { useMemo, useRef, useLayoutEffect, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-import { RigidBody, CuboidCollider } from '@react-three/rapier';
+import { RigidBody, CuboidCollider, type RapierRigidBody } from '@react-three/rapier';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useGameStore } from '@/stores/gameStore';
 import type { Rect, SignDef } from '@/quietroads';
 import { batchPlainBuildings, buildingColliders, batchBuildingRoofs, dashInstances, ROOF_COLOR, type BuildingInstance } from '@/quietroads/sim/instancing';
 import { MARKER_R } from '@/quietroads/sim/zones';
-import { carDraw } from '@/systems/VehicleController';
+import { carDraw, isVehicleBody } from '@/systems/VehicleController';
 import { attachScenePassProbe } from '@/utils/performance';
 
 const ROAD_Y = 0.01;
@@ -611,6 +611,7 @@ export function KentWorld() {
       <Walker />
       <Carport />
       <StageSpot />
+      <MarkerSensor />
     </group>
   );
 }
@@ -646,11 +647,39 @@ function Carport() {
   );
 }
 
+/** Physics volume on the pad. The car's collider is what has to touch it. */
+function MarkerSensor() {
+  const ref = useRef<RapierRigidBody>(null);
+  useFrame(() => {
+    const body = ref.current;
+    const dest = QuietRoads.sim.navTarget();
+    if (!body) return;
+    const phase = useGameStore.getState().phase;
+    const live = !!dest && (phase === 'driving' || phase === 'walking');
+    body.setTranslation(
+      live ? { x: dest!.pos.x, y: 1, z: dest!.pos.y } : { x: 0, y: -80, z: 0 },
+      true,
+    );
+  });
+  return (
+    <RigidBody ref={ref} type="fixed" colliders={false} position={[0, -80, 0]} sensor>
+      <CuboidCollider
+        args={[MARKER_R, 2, MARKER_R]}
+        sensor
+        onIntersectionEnter={(e) => {
+          if (isVehicleBody(e.other.rigidBody)) QuietRoads.resolveMarker();
+        }}
+      />
+    </RigidBody>
+  );
+}
+
 /** The active stage destination. One pad, the same point the mission grades. */
 const _mark = new THREE.Vector3();
 
 function StageSpot() {
   const ref = useRef<THREE.Group>(null);
+  const paint = useRef<THREE.MeshBasicMaterial>(null);
   useFrame((state) => {
     const g = ref.current;
     if (!g) return;
@@ -662,18 +691,20 @@ function StageSpot() {
     g.position.set(dest.pos.x, 0, dest.pos.y);
     const pulse = 1 + Math.sin(state.clock.elapsedTime * 3) * 0.05;
     g.scale.setScalar(pulse);
-    if (!carDraw.ready) return;
+    if (paint.current) paint.current.color.set(QuietRoads.sim.padHit ? "#8dffb0" : "#F28DB2");
     g.getWorldPosition(_mark);
-    const dx = carDraw.x - _mark.x;
-    const dz = carDraw.z - _mark.z;
-    // The drawn chassis against the drawn pad. This is the picture, not the sample.
-    if (dx * dx + dz * dz <= (MARKER_R + 2) ** 2) QuietRoads.resolveMarker();
+    const [vx, , vz] = useGameStore.getState().vehiclePosition;
+    const drawn = carDraw.ready ? (carDraw.x - _mark.x) ** 2 + (carDraw.z - _mark.z) ** 2 : Infinity;
+    const body = (vx - dest.pos.x) ** 2 + (vz - dest.pos.y) ** 2;
+    const bodyWorld = (vx - _mark.x) ** 2 + (vz - _mark.z) ** 2;
+    const reach = MARKER_R + 6;
+    if (Math.min(drawn, body, bodyWorld) <= reach * reach) QuietRoads.resolveMarker();
   });
   return (
     <group ref={ref} visible={false}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.07, 0]} renderOrder={2}>
         <circleGeometry args={[MARKER_R, 40]} />
-        <meshBasicMaterial color="#F28DB2" transparent opacity={0.85} depthWrite={false} />
+        <meshBasicMaterial ref={paint} color="#F28DB2" transparent opacity={0.85} depthWrite={false} />
       </mesh>
       <mesh position={[0, 2.7, 0]}>
         <cylinderGeometry args={[0.05, 0.05, 5.4, 6]} />

@@ -158,6 +158,10 @@ let _body: RapierRigidBody | null = null;
 /** World XZ of the drawn chassis, written every frame from the mesh. */
 export const carDraw = { x: 0, z: 0, ready: false };
 
+export function isVehicleBody(body: RapierRigidBody | null | undefined): boolean {
+  return !!body && body === _body;
+}
+
 export function noteCarDraw(x: number, z: number): void {
   carDraw.x = x;
   carDraw.z = z;

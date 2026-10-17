@@ -90,6 +90,14 @@ export class ZoneField {
 
   reset() { this.inside.clear(); this.fired.clear(); this.stopTrack.clear(); this.quizAsked.clear(); this.hasPrevious = false; }
 
+  /** Allow the waypoint to fire again. A drive-through can spend it before the line is seen. */
+  release(id: string) {
+    const d = this.defs.find((z) => z.kind === "waypoint" && z.id === id);
+    if (!d) return;
+    this.fired.delete(zoneKey(d));
+    this.inside.delete(zoneKey(d));
+  }
+
   /** The car is on the pink marker. Fire this waypoint if it has not already fired. */
   claim(id: string) {
     const d = this.defs.find((z) => z.kind === "waypoint" && z.id === id);

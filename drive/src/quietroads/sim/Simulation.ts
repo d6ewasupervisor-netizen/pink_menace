@@ -97,6 +97,9 @@ export class Simulation {
   private tutStep = 0; private tutT = 0; private tutBlockEnd = false;
   /** Blocks a second pad from resolving in the same moment as the one just hit. */
   private markerHold = 0;
+  /** The pad the car is standing on has resolved. The disc reads this and turns. */
+  padHit = false;
+  private resolvedPads = new Set<string>();
   private deliverySmoothFired = false;
   /** Pressure throttle — see PRESSURE.CD_S. Drains in step()/stepWalker(). */
   private missCd = 0;
@@ -211,6 +214,7 @@ export class Simulation {
 
   startMission(id: MissionId): boolean {
     this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false; this.markerHold = 0;
+    this.padHit = false; this.resolvedPads.clear();
     this.footDropoff = "";
     this.grid.clear();
     this.ledger.clear();
@@ -708,14 +712,18 @@ export class Simulation {
    */
   /** The picture says the car is on the pad. Resolve that pad and do not second-guess it. */
   resolveMarker() {
-    if (this.markerHold > 0) return;
+    const dest = this.navTarget();
+    if (!dest) return;
+    const key = `${this.missionId}:${dest.label}`;
+    if (this.resolvedPads.has(key)) return;
+    this.resolvedPads.add(key);
+    this.padHit = true;
     this.markerHold = 0.4;
     if (this.missionId === "tutorial_carport") {
       this.consumeTutorialMarker();
+      this.padHit = false;
       return;
     }
-    const dest = this.navTarget();
-    if (!dest) return;
     if (dest.label === "DEAC'S TRUCK" || dest.label === "FLOW" || dest.label === "CONVOY" || dest.label === "GRACIE" || dest.label === "HANK") return;
     let best: { id: string; d: number } | null = null;
     for (const z of this.map.zones) {
@@ -723,9 +731,11 @@ export class Simulation {
       const cx = z.rect.x + z.rect.w / 2;
       const cy = z.rect.y + z.rect.h / 2;
       const d = Math.hypot(cx - dest.pos.x, cy - dest.pos.y);
-      if (d < 8 && (!best || d < best.d)) best = { id: z.id, d };
+      if (d < 30 && (!best || d < best.d)) best = { id: z.id, d };
     }
-    if (best) this.zones.claim(best.id);
+    if (!best) return;
+    this.zones.release(best.id);
+    this.zones.claim(best.id);
   }
 
   private consumeTutorialMarker() {

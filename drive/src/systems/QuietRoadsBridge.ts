@@ -43,6 +43,28 @@ const CHAPTER_CATEGORY: Record<number, Category> = {
   5: 'speed_limits', 6: 'weather', 7: 'sharing_road', 8: 'defensive_driving',
 };
 
+const PAD_ARRIVALS = new Set([
+  "tutorial.block",
+  "tutorial.complete",
+  "waypoint.reach:block_end",
+  "waypoint.reach:pharmacy",
+  "waypoint.reach:dol_approach",
+  "waypoint.reach:priya_radio_shack",
+  "waypoint.reach:warehouse",
+  "waypoint.reach:ledger_end",
+  "waypoint.reach:ribbon_end",
+  "waypoint.reach:rural_end",
+  "waypoint.reach:ritzville",
+  "waypoint.reach:stall_point",
+  "waypoint.reach:issaquah",
+  "waypoint.reach:rest_area",
+  "waypoint.reach:bridge_end",
+]);
+
+function isPadArrival(event: string): boolean {
+  return PAD_ARRIVALS.has(event);
+}
+
 class Bridge {
   private readonly stepEvents = new StepEventQueue<{ name: string; data?: Record<string, unknown> }>();
   private readonly deliverEvent = ({ name, data }: { name: string; data?: Record<string, unknown> }) => this.deliver(name, data);
@@ -56,6 +78,8 @@ class Bridge {
   private cardQueue: string[] = [];
   /** The most recent card the sim cued — the debrief panel points at it. */
   private debriefTimer: ReturnType<typeof window.setTimeout> | null = null;
+  /** A destination line opened the cutscene. Idle hands the car back. */
+  private padDialogue = false;
   private lastCuedCard: string | null = null;
   /** Don't stack the next in-world card on the one that just closed. */
   private cardQuietUntil = 0;
@@ -128,6 +152,10 @@ class Bridge {
     this.runner.on('choice_hidden', () => T({ choices: null }));
     this.runner.on('idle', () => {
       T({ line: null, direction: null, choices: null });
+      if (this.padDialogue) {
+        this.padDialogue = false;
+        if (this.sim.mode === 'vehicle' && useGameStore.getState().phase === 'dialogue') this.enterDriving();
+      }
       if (this.pendingAfterStudy) {
         const ev = this.pendingAfterStudy;
         this.pendingAfterStudy = null;
@@ -297,6 +325,13 @@ class Bridge {
       useGameStore.getState().setPhase('driving');
     }
     if (event === "week.elapsed" && this.sim.missionId === "local_loop_week") this.enterDialogue();
+    if (isPadArrival(event)) {
+      if (!this.runner.onScreen) this.runner.replay(event);
+      if (this.runner.onScreen) {
+        this.padDialogue = true;
+        this.enterDialogue();
+      }
+    }
     if (event.startsWith("card.cue:")) this.enqueueCard(event.slice("card.cue:".length));
     this.maybeDebrief(event, data);
     this.runner.onEvent(event);

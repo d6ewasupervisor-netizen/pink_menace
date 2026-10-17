@@ -263,6 +263,16 @@ export class DialogueRunner {
   }
 
   // ------------------------------------------------------------ events in
+  /** Play a trigger again. A pad can be reached after its once-flag was already spent. */
+  replay(name: string): void {
+    if (!this.scene) return;
+    for (const t of this.scene.triggers ?? []) {
+      if (!this.eventMatches(t.event, name)) continue;
+      this.firedOnce.delete(`${this.scene.id}/${t.node}`);
+    }
+    this.onEvent(name);
+  }
+
   /** Game emits events here (noise.yellow, stop.rolled, waypoint.reach:dol, …). */
   onEvent(name: string): void {
     if (!this.scene) return;
