@@ -455,6 +455,10 @@ The chassis sample can miss a car that is visibly on the disc. The hit is now th
 
 A spent waypoint was staying pink and silent. Resolving the pad releases that waypoint and plays its line as a cutscene, then hands the car back when the line ends. The pharmacy pad (green cross, clipboard) is one of those. The clipboard pad is 4 m closer to the door and does not replay that line.
 
+## 2026-10-18 — clipboard walk
+
+Getting out of the Beetle steps Ali 1.6 m west of June. The handoff was a 1.55 m circle, so that path missed, and the pharmacy wall (the south face is solid through y = 96) then held her: forward and sideways stay inside the rect, so only reverse worked. The dash routed the lot out to Meeker and reported 90 ft from the pad itself. The pharmacy handoff is now 3.2 m, a walker clipped into a building is pushed back outside, and a pin under 22 m that the street route inflates is measured in a straight line.
+
 ## 2026-10-16 — grade flash does not stop the car
 
 The PASS/MISS panel froze the drive and waited on Continue. It is now a 1 s overlay at half opacity. No freeze, no phase change, no tap. Story cards are unchanged.

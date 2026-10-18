@@ -4,6 +4,8 @@ import { WALKER } from "./dol";
 
 export const PHARMACY = {
   DOOR_RADIUS_M: 1.55,
+  /** The painted pad. A step that misses June by a metre still counts. */
+  HANDOFF_M: 3.2,
   STEP_OUT_M: 1.6,
 } as const;
 
@@ -18,6 +20,8 @@ export class PharmacyDropoff {
   done = false;
   /** Dialogue event fired when she reaches the handoff. Pharmacy uses delivery.complete. */
   completeEvent = "delivery.complete";
+  /** Bea keeps the door radius. The pharmacy pad is wider. */
+  reachM: number = PHARMACY.DOOR_RADIUS_M;
   private doorFired = false;
   private car: Vec2 = { x: 0, y: 0 };
 
@@ -30,6 +34,7 @@ export class PharmacyDropoff {
     this.done = false;
     this.doorFired = false;
     this.completeEvent = "delivery.complete";
+    this.reachM = PHARMACY.DOOR_RADIUS_M;
   }
 
   step(
@@ -64,7 +69,7 @@ export class PharmacyDropoff {
       }
     }
 
-    if (dist(this.pos, clipboard) < PHARMACY.DOOR_RADIUS_M && dist(this.pos, this.car) > 2) {
+    if (dist(this.pos, clipboard) < this.reachM && dist(this.pos, this.car) > 2) {
       this.done = true;
       this.speed = 0;
       ev.fire(this.completeEvent);

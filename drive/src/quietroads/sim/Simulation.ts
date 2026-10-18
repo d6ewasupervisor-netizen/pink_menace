@@ -5,7 +5,7 @@ import { MARKER_REACH_M, NOSE_REACH_M, ZoneField, carTouchesDisc } from "./zones
 import { VehicleObserver, VEHICLE, type VehicleSample, type ObserverOut } from "./vehicleObserver";
 import { buildKentMap, carportBay, type WorldMap } from "./kentMap";
 import { ParkingGrader, InteriorController, type WalkerInput } from "./dol";
-import { PharmacyDropoff } from "./pharmacy";
+import { PHARMACY, PharmacyDropoff } from "./pharmacy";
 import { GridRun, stallCenter, type GridMission } from "./grid";
 import { LedgerRun } from "./ledger";
 import { RibbonRun } from "./ribbon";
@@ -212,6 +212,33 @@ export class Simulation {
     return false;
   }
 
+  /** The building face is not a trap. A walker standing on it can still step along it. */
+  private walkerBlocked(p: Vec2): boolean {
+    if (!rectHas(this.map.bounds, p)) return true;
+    for (const b of this.map.buildings) if (rectHas(b.rect, p, -0.2)) return true;
+    return false;
+  }
+
+  /** Shove a point that has clipped into a building back to the nearest outside edge. */
+  private freeOfBuildings(p: Vec2): Vec2 {
+    let x = p.x;
+    let y = p.y;
+    for (const b of this.map.buildings) {
+      if (!rectHas(b.rect, { x, y })) continue;
+      const left = x - b.rect.x;
+      const right = b.rect.x + b.rect.w - x;
+      const north = y - b.rect.y;
+      const south = b.rect.y + b.rect.h - y;
+      const m = Math.min(left, right, north, south);
+      const pad = 0.35;
+      if (m === left) x = b.rect.x - pad;
+      else if (m === right) x = b.rect.x + b.rect.w + pad;
+      else if (m === north) y = b.rect.y - pad;
+      else y = b.rect.y + b.rect.h + pad;
+    }
+    return { x, y };
+  }
+
   startMission(id: MissionId): boolean {
     this.tutStep = 0; this.tutT = 0; this.tutBlockEnd = false; this.markerHold = 0;
     this.padHit = false; this.resolvedPads.clear();
@@ -272,6 +299,7 @@ export class Simulation {
         this.missionId = id; this.mode = "walker"; this.footDropoff = "pharmacy";
         this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
         this.dropoff.reset(this.hasLastPos ? this.lastPos : this.map.markers.pharmacy, this.lastVehicleHeading);
+        this.dropoff.reachM = PHARMACY.HANDOFF_M;
         this.setObjective("Clipboard. Insulin. Don't slam the door.");
         break;
       case "mission_delivery_2_catfood":
@@ -611,7 +639,10 @@ export class Simulation {
     this.missCd = Math.max(0, this.missCd - dt);
     if (!this.frozen && this.mode === "walker") {
       if (this.footDropoff) {
-        this.dropoff.step(dt, input, (p) => this.blocked(p), this.handoffPoint(), this.ev);
+        const freed = this.freeOfBuildings(this.dropoff.pos);
+        this.dropoff.pos.x = freed.x;
+        this.dropoff.pos.y = freed.y;
+        this.dropoff.step(dt, input, (p) => this.walkerBlocked(p), this.handoffPoint(), this.ev);
         this.noise.step(dt);
         this.quiet.step(dt, this.dropoff.pos, (p) => this.blocked(p));
         if (this.footDropoff === "pharmacy") {

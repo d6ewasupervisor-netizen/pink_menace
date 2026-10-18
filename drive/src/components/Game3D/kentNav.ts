@@ -253,6 +253,21 @@ export function planNav(player: Pt, heading: number, dest: { x: number; y: numbe
   let total = 0;
   for (let i = 1; i < points.length; i++) total += hypot(points[i - 1], points[i]);
 
+  // The lot is not on the street graph. Standing on the pad was routing out to
+  // Meeker and back, so the card said 90 ft while June was an arm's length away.
+  const straight = hypot(player, dest);
+  if (straight < 22 && straight * 2.5 < total) {
+    return {
+      poly: [player, dest],
+      kind: 'arrive',
+      street: dest.label,
+      distM: straight,
+      thenKind: null,
+      totalM: straight,
+      hasDest: true,
+    };
+  }
+
   type Step = { at: number; kind: ManeuverKind; street: string };
   const turns: Step[] = [];
   let traveled = 0;

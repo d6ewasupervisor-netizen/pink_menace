@@ -18,6 +18,7 @@ import {
   CHASSIS_DECEL,
   type VehicleSample,
 } from '../src/quietroads';
+import { planNav } from '../src/components/Game3D/kentNav';
 
 const MPH = 0.44704;
 
@@ -201,6 +202,33 @@ describe('stopping shadow geometry (guide-consistent)', () => {
     // guide: 450 ft. Allow a reaction-time band (the guide gives no reaction constant).
     expect(feet).toBeGreaterThan(1.0);
     expect(brakeDecel('truck', VEHICLE.MU.dry)).toBeLessThan(5.5);
+  });
+});
+
+describe('clipboard on foot', () => {
+  it('counts the walk that misses June by a metre and does not pin Ali to the wall', () => {
+    const { sim, events } = makeSim();
+    expect(sim.startMission('mission_delivery_1_insulin')).toBe(true);
+    const pin = sim.map.markers.pharmacy;
+    sim.step(1 / 60, sample(pin, -Math.PI / 2, 0));
+    expect(sim.startMission('dropoff_pharmacy')).toBe(true);
+    let arrived = false;
+    for (let i = 0; i < 360; i++) {
+      sim.stepWalker(1 / 60, { x: 0, y: -1, run: false });
+      if (events.includes('delivery.complete')) {
+        arrived = true;
+        break;
+      }
+    }
+    expect(arrived).toBe(true);
+    expect(sim.blocked(sim.walker.pos)).toBe(false);
+  });
+
+  it('measures the clipboard across the lot, not out to Meeker and back', () => {
+    const clip = buildKentMap().markers.clipboard;
+    const plan = planNav(clip, 0, { x: clip.x, y: clip.y, label: 'CLIPBOARD' });
+    expect(plan.distM).toBeLessThan(12);
+    expect(plan.street).toBe('CLIPBOARD');
   });
 });
 
