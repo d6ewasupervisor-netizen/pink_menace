@@ -1,0 +1,107 @@
+{
+  "card_id": "VII-001",
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Thirty-Five in a Sixty",
+  "hook": "The sign says sixty. The road says otherwise.",
+  "scene": "Snow, and the pass road climbing into it. A speed limit sign stands half-buried at the shoulder, and the number on it was bolted up in July. The stopping shadow the Menace throws ahead of the plow is longer than the road you can actually see. Deac's voice is in your ear with the only number that matters up here: everything gentle, because anything sudden is a skid, and a skid on snow is the loudest thing on this mountain.",
+  "decision": "The sign says sixty. What speed are you driving?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Sixty. It's the posted limit.",
+      "correct": false,
+      "result": "The limit is the maximum for ideal conditions, and this is not ideal. At sixty your stopping shadow is longer than your sight line — you'd meet whatever is out there before you saw it. Posted is a ceiling, not a target.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Brake hard down to thirty-five now.",
+      "correct": false,
+      "result": "You stand on the pedal and the tires let go of the snow. Sudden is the one thing this road will not forgive, and it does not care whether it was gas, brake, or steering. You get it back, and you spend the next mile listening.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 1,
+        "time_cost": 7
+      }
+    },
+    {
+      "id": "c",
+      "text": "Off the gas. Thirty-five, and nothing sudden.",
+      "correct": true,
+      "result": "You come off it early and let the car lose the speed on its own. Thirty-five, gentle on everything, and the shadow ahead is shorter than the road you can see again. The sign was posted in July. The mountain did not read it.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "d",
+      "text": "Faster — get off the pass before it gets worse.",
+      "correct": false,
+      "result": "Speed is the one thing this road is short of. You add it, the shadow stretches past the lights again, and the pass is exactly as long as it was before you hurried.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    }
+  ],
+  "debrief": "The posted limit is the maximum for ideal conditions. On snow, come off the gas early and drive below the sign. Do nothing suddenly — gas, brake, or steering.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "5.1 Speed (Adjusting speed for conditions)",
+    "teaching_target": "5.1: speed limits are the maximum legal under ideal conditions; reduce for conditions. 5.6: below the posted limit on snow, nothing sudden."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "snow-packed mountain pass climbing away from the camera; a half-buried speed sign at the right shoulder; the Menace's plow edge at the bottom of frame; the stopping shadow thrown long on the snow ahead",
+    "foreground": "dark cracked dash, gauges unlit; wiper tracks cut through a film of snow on the glass",
+    "midground": "two-lane snow route with plowed edges and no traffic; the road vanishing uphill into white",
+    "background": "fir gone soft in the snowfall, a white sky, no horizon line",
+    "read": "the sign is half-buried, the shadow reaches further than the visible road, and nothing is oncoming",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no legible text or signage legend",
+      "no current-model vehicles",
+      "no lens flare, no HDR, no bloom",
+      "no warm golden hour",
+      "no traffic",
+      "no oncoming headlights",
+      "no sun",
+      "no chains on the car",
+      "no cat on the dash"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right half of a two-lane snow route, climbing",
+      "ego_nose_in_frame": "plow edge at the bottom edge of the glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "mountain_pass",
+    "weather": "snow",
+    "time_of_day": "morning",
+    "tone": "procedural",
+    "failure_mode": "weather",
+    "forced": "Act VII scaffold — no still; do not seed"
+  }
+}

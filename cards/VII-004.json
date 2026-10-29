@@ -1,0 +1,62 @@
+{
+  "card_id": "VII-004",
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "beat",
+  "title": "That's the Goodbye",
+  "hook": "He flashes twice. You flash back.",
+  "scene": "Ellensburg fuel depot at dusk. Deac tops off the Beetle himself and hands over the field notes and the photocard, and does not say anything that sounds like the end. Jonah reaches for the horn at the gate and doesn't; he flashes his headlights twice instead. You flash back. That is the whole goodbye — two clicks of a relay across a fuel lot, and then the road east without him in it.",
+  "debrief": "Everything he had to say is in the notebook. Tonight you have a full tank, two cats, and the road east.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Beat, continue only: Deac hands over the field notes; the goodbye is the headlight relay. Nothing here is scored."
+  },
+  "cast": [
+    "ali",
+    "deac",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE_PROFILE",
+    "subject": "the pink Beetle pulling away from a fuel pump at dusk, curb-height true profile; a loaded pickup waiting at the gate with its headlights down; the depot canopy behind",
+    "foreground": "wet concrete at the pump island, a fuel hose still hanging, the Beetle's near flank",
+    "midground": "the Menace in profile with the plow and the full-grid cage readable; two headlight flashes caught low on the gate",
+    "background": "depot canopy lights, a gray-blue dusk, the road east leaving the frame",
+    "read": "a car leaving a fuel pump at dusk with a pickup at the gate flashing twice",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no legible text or signage legend",
+      "no current-model vehicles",
+      "no lens flare, no HDR, no bloom",
+      "no warm golden hour",
+      "no second person in the Beetle",
+      "no faces",
+      "no legible depot signage",
+      "no snow on the ground",
+      "no motion blur heroics"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "pulling out of a fuel-pump island toward the depot exit",
+      "ego_nose_in_frame": "the plow points toward the right of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "overcast",
+    "time_of_day": "dusk",
+    "tone": "warm",
+    "failure_mode": "none",
+    "forced": "Act VII scaffold — no still; do not seed"
+  }
+}

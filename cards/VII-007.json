@@ -1,0 +1,107 @@
+{
+  "card_id": "VII-007",
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Four Seconds Behind",
+  "hook": "Four seconds behind Hank. Not three.",
+  "scene": "Moses Lake at dawn, four Authority grain trucks tall as houses, and Dispatch puts you behind Hank with a number: four seconds, not three. His rig is a wall of gray steel with the red zone painted nowhere — it is just the space he cannot see. Somewhere ahead of him there is a right turn he will take wide, and past that a patrol truck with its lights on, standing next to the road.",
+  "decision": "Hank is turning wide ahead. Where do you put the Beetle?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Hold back, outside the swing, four seconds of air.",
+      "correct": true,
+      "result": "You let the rig have its whole turn and come out the far side of it with the gap intact. Past that, the patrol truck on the right takes you over a lane — or, if you cannot get over, ten under the posted limit and never past fifty.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Inside him — the gap is a lane.",
+      "correct": false,
+      "result": "The trailer swings left and then the whole rig comes right and the gap closes like a door. The inside of a wide turn is not a lane. It is a trap with a lane painted on it.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 8
+      }
+    },
+    {
+      "id": "c",
+      "text": "Right up on his bumper so nobody cuts in.",
+      "correct": false,
+      "result": "Four seconds becomes one and the space in front of him swallows the Beetle. A loaded truck at fifty-five needs four hundred and fifty feet to stop; you need a fraction of that and you cannot use it from under his tailgate.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "d",
+      "text": "Pass him before he starts the turn.",
+      "correct": false,
+      "result": "You commit to a pass on a truck that is already turning. Passing a large vehicle mid-turn is the collision the guide names by name.",
+      "state_delta": {
+        "noise": 4,
+        "yaw": 2,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "If you cannot see the driver's mirrors he cannot see you, and a wide right turn closes the inside like a door. At a stopped response vehicle, move over a lane. Stay out of the red and hold the gap.",
+  "source": {
+    "psdp_skill": "Skill eleven: highway driving – part two",
+    "dol_section": "4.4 Sharing with large vehicles",
+    "teaching_target": "4.4: blind zones; 450 ft to stop at 55; don't pass a large vehicle while it turns. 4.17 emergency zone: move over a lane, or slow 10 under and never past 50."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": "V-006",
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "a loaded grain truck from behind and slightly below at dawn, its trailer carrying the knot of a hard right turn; grain elevators ahead; the left lane empty",
+    "foreground": "dark dash, unlit gauges; the plow edge low in frame",
+    "midground": "the rig's rear doors and trailer wheels mid-swing, gravel shoulder at the right",
+    "background": "flat horizon, grain silos, pale dawn sky, dust hanging in the cold air",
+    "read": "a grain truck ahead with its trailer swinging wide and a clear gap held behind it",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no legible text or signage legend",
+      "no current-model vehicles",
+      "no lens flare, no HDR, no bloom",
+      "no warm golden hour",
+      "no legible livery",
+      "no current-model trucks",
+      "no traffic beside the ego",
+      "no snow",
+      "no rain"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right lane, following a turning grain truck at a wide gap",
+      "ego_nose_in_frame": "plow edge along the bottom of the glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "overcast",
+    "time_of_day": "dawn",
+    "tone": "procedural",
+    "failure_mode": "inexperience",
+    "forced": "Act VII scaffold — no still; do not seed"
+  }
+}

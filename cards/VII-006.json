@@ -1,0 +1,106 @@
+{
+  "card_id": "VII-006",
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Wind Lives Here",
+  "hook": "The wind arrives before the bridge does.",
+  "scene": "The road drops toward the Columbia and the bridge comes up long and gray with black water under it. The wind arrives first — a shove against the left flank that stops when you correct and starts again the moment you relax. Grandma's line was that this is where the wind lives. The span is a thousand feet of open railing and no shoulder worth the name, and the gust does not care what the sign says you may drive.",
+  "decision": "A gust shoves the car toward the rail. What do you do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Fight it with a hard correction the other way.",
+      "correct": false,
+      "result": "You saw at the wheel and the car answers twice — once for the wind and once for you. A hard correction on a bridge is how a shove becomes a lane change.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 3,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Speed up and get across before the next gust.",
+      "correct": false,
+      "result": "Wind hits harder the faster you give it something to hit. You buy a shorter crossing and a bigger shove, on a span with nowhere to put the mistake.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Slow down, two hands, steer into it small.",
+      "correct": true,
+      "result": "You come off the speed and hold the wheel with both hands, and when the next gust leans on the car you steer into it a little and let it go. Small inputs, twice, instead of one big one. The rail stays where it was.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
+    },
+    {
+      "id": "d",
+      "text": "Stop on the bridge until it settles.",
+      "correct": false,
+      "result": "There is no shoulder on this span, and stopping mid-bridge puts a dark car in a travel lane in a crosswind. Get across at a speed that fits the wind, then stop where the road is wide.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 9
+      }
+    }
+  ],
+  "debrief": "In wind, slow down and hold the wheel with both hands. Steer into it small. One hard correction can cost you the whole bridge.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "5.1 Speed (Adjusting speed for conditions)",
+    "teaching_target": "5.1's reduce-speed list includes 'Narrow bridges and tunnels'; 5.6 notes bridges hold ice. The guide has no crosswind statute — small steer inputs are technique, not law."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "a long gray bridge deck running away from the camera over black water at dawn; open railing on the right; wind-driven grit crossing the pavement; the plow edge low in frame",
+    "foreground": "dark dash, unlit gauges; both hands on the wheel at the bottom of frame",
+    "midground": "empty bridge deck, expansion joints, railing posts ticking past",
+    "background": "the Columbia below, low hills on the far shore, a pale flat sky",
+    "read": "an empty bridge deck, wind moving grit across the pavement, nobody else on the span",
+    "continuity": [
+      "pink_menace_interior",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no legible text or signage legend",
+      "no current-model vehicles",
+      "no lens flare, no HDR, no bloom",
+      "no warm golden hour",
+      "no traffic",
+      "no oncoming vehicles",
+      "no snow",
+      "no guardrail missing",
+      "no water inside the cab"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right lane of a two-lane bridge deck",
+      "ego_nose_in_frame": "plow edge along the bottom of the glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "waterfront",
+    "weather": "wind",
+    "time_of_day": "dawn",
+    "tone": "tense",
+    "failure_mode": "weather",
+    "forced": "Act VII scaffold — no still; do not seed"
+  }
+}

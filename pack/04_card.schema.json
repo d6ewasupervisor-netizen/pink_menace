@@ -326,7 +326,7 @@
   },
   "allOf": [
     {
-      "if": { "properties": { "card_type": { "enum": ["dossier", "ride-along"] } } },
+      "if": { "properties": { "card_type": { "enum": ["dossier", "ride-along"] } }, "required": ["card_type"] },
       "then": { "not": { "required": ["options"] } },
       "else": {
         "if": {
@@ -338,7 +338,11 @@
           "required": ["debrief", "callback_of"],
           "not": { "required": ["options"] }
         },
-        "else": { "required": ["decision", "options", "debrief"] }
+        "else": {
+          "if": { "properties": { "card_type": { "const": "beat" } }, "required": ["card_type"] },
+          "then": { "required": ["debrief"] },
+          "else": { "required": ["decision", "options", "debrief"] }
+        }
       }
     },
     {

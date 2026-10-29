@@ -1,0 +1,62 @@
+{
+  "card_id": "VII-009",
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "beat",
+  "title": "A Foot From the Line",
+  "hook": "Two figures behind the sawhorses.",
+  "scene": "Division Street. The checkpoint gate, two figures behind the sawhorses, and the Beetle rolling the last fifty feet at the speed it was told. It stops with the front bumper a foot from the line and no squeal. Mya is asleep in the passenger seat. Gracie is on the dashboard, yelling silently through the glass. Mom doesn't run — nobody runs anymore — she walks fast, very quiet, and holds on.",
+  "debrief": "Two hundred and eighty miles, one pass, one bridge, one convoy. The car is where it was aimed and everyone in it is alive.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "n/a",
+    "teaching_target": "Beat, continue only: the arrival. The last grade was the park; nothing here is scored."
+  },
+  "cast": [
+    "ali",
+    "gracie",
+    "mya"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_ROADSIDE",
+    "subject": "the pink Beetle stopped at a checkpoint line on Division Street before dawn, seen from the roadside at a distance; two figures behind sawhorses, standing still; a woman walking fast toward the car",
+    "foreground": "wet curb, a sawhorse leg at the edge of frame, the line painted across the pavement",
+    "midground": "the Menace squared up to the line, plow and cage readable, both cats inside",
+    "background": "dark storefronts, a checkpoint lamp, a cold predawn sky",
+    "read": "a car stopped a foot from the line with two figures standing behind sawhorses and someone walking toward it",
+    "continuity": [
+      "pink_menace_exterior"
+    ],
+    "extra_negatives": [
+      "no legible text or signage legend",
+      "no current-model vehicles",
+      "no lens flare, no HDR, no bloom",
+      "no warm golden hour",
+      "no figures close to the car",
+      "no faces",
+      "no gore",
+      "no crowd",
+      "no daylight"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "toward_camera",
+      "ego_lane_side": "stopped at a checkpoint line at the curb lane",
+      "ego_nose_in_frame": "the plow points toward the camera",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "downtown",
+    "weather": "clear_cold",
+    "time_of_day": "night",
+    "tone": "warm",
+    "failure_mode": "none",
+    "forced": "Act VII scaffold — no still; do not seed"
+  }
+}

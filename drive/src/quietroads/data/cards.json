@@ -5428,5 +5428,442 @@
   },
   "card_id": "VI-013",
   "image": "/api/drive/image/VI-013"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Thirty-Five in a Sixty",
+  "hook": "The sign says sixty. The road says otherwise.",
+  "scene": "Snow, and the pass road climbing into it. A speed limit sign stands half-buried at the shoulder, and the number on it was bolted up in July. The stopping shadow the Menace throws ahead of the plow is longer than the road you can actually see. Deac's voice is in your ear with the only number that matters up here: everything gentle, because anything sudden is a skid, and a skid on snow is the loudest thing on this mountain.",
+  "decision": "The sign says sixty. What speed are you driving?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Sixty. It's the posted limit."
+   },
+   {
+    "id": "b",
+    "text": "Brake hard down to thirty-five now."
+   },
+   {
+    "id": "c",
+    "text": "Off the gas. Thirty-five, and nothing sudden."
+   },
+   {
+    "id": "d",
+    "text": "Faster — get off the pass before it gets worse."
+   }
+  ],
+  "debrief": "The posted limit is the maximum for ideal conditions. On snow, come off the gas early and drive below the sign. Do nothing suddenly — gas, brake, or steering.",
+  "source": {
+   "psdp_skill": "n/a",
+   "dol_section": "5.1 Speed (Adjusting speed for conditions)",
+   "teaching_target": "5.1: speed limits are the maximum legal under ideal conditions; reduce for conditions. 5.6: below the posted limit on snow, nothing sudden."
+  },
+  "cast": [
+   "ali",
+   "gracie"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "mountain_pass",
+   "weather": "snow",
+   "time_of_day": "morning",
+   "tone": "procedural",
+   "failure_mode": "weather",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-001",
+  "image": "/api/drive/image/VII-001"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Sign Means Sign",
+  "hook": "A sign that only lets some cars up.",
+  "scene": "The chain-up area is a wide pull-out nobody has plowed in two years. The sign at the mouth of it is the one that is not asking: chains required. You have a set in the trunk, still cold from the last time you were told to go earn it. Across the road the Quiet stand in the drifts up to their knees, facing uphill, and Deac watches the grass instead of the sign because he already knows what the sign says.",
+  "decision": "Chains required. You have a set in the trunk. What now?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Put them on. All four, before the car moves."
+   },
+   {
+    "id": "b",
+    "text": "Go up slow and careful on the all-seasons."
+   },
+   {
+    "id": "c",
+    "text": "Ask Deac to drive it up for you."
+   },
+   {
+    "id": "d",
+    "text": "Leave the car and walk the pass."
+   }
+  ],
+  "debrief": "When the sign says chains, the chains go on before the car moves. A snowy road wants a larger following distance and a dramatically reduced speed. A careful crawl in the wrong shoes costs you the corner.",
+  "source": {
+   "psdp_skill": "n/a",
+   "dol_section": "5.6 Road and driving conditions (Slippery roads)",
+   "teaching_target": "5.6: 'Use snow tires or chains when it's required.' 4.12 lists the chain-advisory sign. Slow is not a substitute for the device the sign names."
+  },
+  "cast": [
+   "ali",
+   "gracie"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "mountain_pass",
+   "weather": "snow",
+   "time_of_day": "morning",
+   "tone": "tense",
+   "failure_mode": "weather",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-002",
+  "image": "/api/drive/image/VII-002"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Walking Speed",
+  "hook": "A hundred people you cannot touch.",
+  "scene": "The summit lot is full of them, standing between the parked cars in the falling snow with their faces turned uphill — not moving, not turning, not noticing the Beetle at all. Deac's plan is the only plan: lights off past the sign, walking speed, don't stop, don't speed up, don't talk. The law up here wants your headlights on in the snow. The law is not the thing standing between you and the far end of this lot.",
+  "decision": "Lights off is how you get through the lot. What does the road law want?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Lights off everywhere — it worked in the lot."
+   },
+   {
+    "id": "b",
+    "text": "Lights on, speed down, gap out — the snow rule, every time you are actually driving."
+   },
+   {
+    "id": "c",
+    "text": "High beams in the snow so you can see further."
+   },
+   {
+    "id": "d",
+    "text": "Stop in the row and wait for them to drift off."
+   }
+  ],
+  "debrief": "Headlights on in rain, snow, fog, or smoke — that is the road rule. The lights-off crawl is a tactic for one parking lot in one storm. Keep them on out on the road; the crawl ends at the last row.",
+  "source": {
+   "psdp_skill": "n/a",
+   "dol_section": "2.5 Vehicle Maintenance (Headlights)",
+   "teaching_target": "2.5: headlights on 'when it's rainy, snowy, foggy, or smoky.' 5.6: snow means a larger gap and a dramatically reduced speed. The lot crawl is tactics, not law."
+  },
+  "cast": [
+   "ali",
+   "gracie"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "parking_lot",
+   "weather": "snow",
+   "time_of_day": "morning",
+   "tone": "tense",
+   "failure_mode": "weather",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-003",
+  "image": "/api/drive/image/VII-003"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "beat",
+  "title": "That's the Goodbye",
+  "hook": "He flashes twice. You flash back.",
+  "scene": "Ellensburg fuel depot at dusk. Deac tops off the Beetle himself and hands over the field notes and the photocard, and does not say anything that sounds like the end. Jonah reaches for the horn at the gate and doesn't; he flashes his headlights twice instead. You flash back. That is the whole goodbye — two clicks of a relay across a fuel lot, and then the road east without him in it.",
+  "debrief": "Everything he had to say is in the notebook. Tonight you have a full tank, two cats, and the road east.",
+  "source": {
+   "psdp_skill": "n/a",
+   "dol_section": "n/a",
+   "teaching_target": "Beat, continue only: Deac hands over the field notes; the goodbye is the headlight relay. Nothing here is scored."
+  },
+  "cast": [
+   "ali",
+   "deac",
+   "gracie"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "parking_lot",
+   "weather": "overcast",
+   "time_of_day": "dusk",
+   "tone": "warm",
+   "failure_mode": "none",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-004",
+  "image": "/api/drive/image/VII-004"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Four Hundred Feet of Light",
+  "hook": "Nobody out here for fifty miles.",
+  "scene": "I-90 east of Ellensburg, straight to a horizon that is only dark. Nobody out here for fifty miles, so the high beams go on and the road ahead turns into a tunnel of light with a hard black edge. The book's number is four hundred feet: the distance the beams actually light. Past that edge you are driving on arithmetic and hope, and somewhere past it is the rest area and a body that has been awake since dawn.",
+  "decision": "Two hours of dark in front of you. What is the drive?",
+  "options": [
+   {
+    "id": "a",
+    "text": "High beams and hold seventy — you can see forever now."
+   },
+   {
+    "id": "b",
+    "text": "Low beams the whole way — high beams are rude."
+   },
+   {
+    "id": "c",
+    "text": "Keep the beams up and skip the rest area — momentum is sleep."
+   },
+   {
+    "id": "d",
+    "text": "High beams when the road is empty, low beams when it isn't — and stop inside the light."
+   }
+  ],
+  "debrief": "High beams whenever there are no oncoming vehicles; regular headlights when there are or when you are following. Drive at a speed that lets you stop inside the glow. Take the twenty-minute nap.",
+  "source": {
+   "psdp_skill": "n/a",
+   "dol_section": "2.5 Vehicle Maintenance (Headlights)",
+   "teaching_target": "2.5: high beams on open roads, dim 500 ft for oncoming and 300 ft behind. 5.6 night: stop inside the glow, usually 400 ft. 3.1: tired — take a 20-minute nap."
+  },
+  "cast": [
+   "ali",
+   "gracie",
+   "mya"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "highway",
+   "weather": "clear_cold",
+   "time_of_day": "deep_night",
+   "tone": "quiet",
+   "failure_mode": "fatigue",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-005",
+  "image": "/api/drive/image/VII-005"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "The Wind Lives Here",
+  "hook": "The wind arrives before the bridge does.",
+  "scene": "The road drops toward the Columbia and the bridge comes up long and gray with black water under it. The wind arrives first — a shove against the left flank that stops when you correct and starts again the moment you relax. Grandma's line was that this is where the wind lives. The span is a thousand feet of open railing and no shoulder worth the name, and the gust does not care what the sign says you may drive.",
+  "decision": "A gust shoves the car toward the rail. What do you do?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Fight it with a hard correction the other way."
+   },
+   {
+    "id": "b",
+    "text": "Speed up and get across before the next gust."
+   },
+   {
+    "id": "c",
+    "text": "Slow down, two hands, steer into it small."
+   },
+   {
+    "id": "d",
+    "text": "Stop on the bridge until it settles."
+   }
+  ],
+  "debrief": "In wind, slow down and hold the wheel with both hands. Steer into it small. One hard correction can cost you the whole bridge.",
+  "source": {
+   "psdp_skill": "n/a",
+   "dol_section": "5.1 Speed (Adjusting speed for conditions)",
+   "teaching_target": "5.1's reduce-speed list includes 'Narrow bridges and tunnels'; 5.6 notes bridges hold ice. The guide has no crosswind statute — small steer inputs are technique, not law."
+  },
+  "cast": [
+   "ali",
+   "gracie"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "waterfront",
+   "weather": "wind",
+   "time_of_day": "dawn",
+   "tone": "tense",
+   "failure_mode": "weather",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-006",
+  "image": "/api/drive/image/VII-006"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Four Seconds Behind",
+  "hook": "Four seconds behind Hank. Not three.",
+  "scene": "Moses Lake at dawn, four Authority grain trucks tall as houses, and Dispatch puts you behind Hank with a number: four seconds, not three. His rig is a wall of gray steel with the red zone painted nowhere — it is just the space he cannot see. Somewhere ahead of him there is a right turn he will take wide, and past that a patrol truck with its lights on, standing next to the road.",
+  "decision": "Hank is turning wide ahead. Where do you put the Beetle?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Hold back, outside the swing, four seconds of air."
+   },
+   {
+    "id": "b",
+    "text": "Inside him — the gap is a lane."
+   },
+   {
+    "id": "c",
+    "text": "Right up on his bumper so nobody cuts in."
+   },
+   {
+    "id": "d",
+    "text": "Pass him before he starts the turn."
+   }
+  ],
+  "debrief": "If you cannot see the driver's mirrors he cannot see you, and a wide right turn closes the inside like a door. At a stopped response vehicle, move over a lane. Stay out of the red and hold the gap.",
+  "source": {
+   "psdp_skill": "Skill eleven: highway driving – part two",
+   "dol_section": "4.4 Sharing with large vehicles",
+   "teaching_target": "4.4: blind zones; 450 ft to stop at 55; don't pass a large vehicle while it turns. 4.17 emergency zone: move over a lane, or slow 10 under and never past 50."
+  },
+  "cast": [
+   "ali",
+   "gracie"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "highway",
+   "weather": "overcast",
+   "time_of_day": "dawn",
+   "tone": "procedural",
+   "failure_mode": "inexperience",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-007",
+  "image": "/api/drive/image/VII-007"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "No More Than Twelve",
+  "hook": "Two hours in. One more parallel.",
+  "scene": "Spokane, the sky still black over a city that kept some of its lights on, and the clock already past five. The checkpoint was two figures behind sawhorses and a posted speed you held. Now the sawhorse line is the curb: signal, reverse, look where the car is going, and back into the gap with paint on one side and Mom's quiet on the other. Twelve inches from the curb is the number the guide gives. One more, like the lot in Kent, forty times over.",
+  "decision": "The car is in the gap. How close to the curb?",
+  "options": [
+   {
+    "id": "a",
+    "text": "As close as the tires will go — tight is tidy."
+   },
+   {
+    "id": "b",
+    "text": "Stop a couple of feet out — the line is only paint."
+   },
+   {
+    "id": "c",
+    "text": "Roll it in on the brake so it settles faster."
+   },
+   {
+    "id": "d",
+    "text": "No more than twelve inches, rear wheel a hand off the paint, then stop."
+   }
+  ],
+  "debrief": "A parallel park ends no more than twelve inches from the curb, straightened, stopped before the car behind you. The posted speed through the checkpoint is a limit for ideal conditions, and the last two hours are not ideal.",
+  "source": {
+   "psdp_skill": "Skill eight: parking – part two",
+   "dol_section": "4.18 Parking",
+   "teaching_target": "4.18 parallel parking: 'Make sure your vehicle is no more than 12 inches from the curb.' 5.1: the posted limit is the maximum for ideal conditions."
+  },
+  "cast": [
+   "ali",
+   "gracie",
+   "mya"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "downtown",
+   "weather": "clear_cold",
+   "time_of_day": "night",
+   "tone": "procedural",
+   "failure_mode": "inexperience",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-008",
+  "image": "/api/drive/image/VII-008"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "beat",
+  "title": "A Foot From the Line",
+  "hook": "Two figures behind the sawhorses.",
+  "scene": "Division Street. The checkpoint gate, two figures behind the sawhorses, and the Beetle rolling the last fifty feet at the speed it was told. It stops with the front bumper a foot from the line and no squeal. Mya is asleep in the passenger seat. Gracie is on the dashboard, yelling silently through the glass. Mom doesn't run — nobody runs anymore — she walks fast, very quiet, and holds on.",
+  "debrief": "Two hundred and eighty miles, one pass, one bridge, one convoy. The car is where it was aimed and everyone in it is alive.",
+  "source": {
+   "psdp_skill": "n/a",
+   "dol_section": "n/a",
+   "teaching_target": "Beat, continue only: the arrival. The last grade was the park; nothing here is scored."
+  },
+  "cast": [
+   "ali",
+   "gracie",
+   "mya"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "downtown",
+   "weather": "clear_cold",
+   "time_of_day": "night",
+   "tone": "warm",
+   "failure_mode": "none",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-009",
+  "image": "/api/drive/image/VII-009"
+ },
+ {
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "ledger",
+  "title": "The Voucher",
+  "hook": "The desk wants the receipt for the chains.",
+  "scene": "Ritzville. Grain elevators against a gray sky, a gate, a desk, a lamp, and a man who has been awake longer than you have. He asks for the voucher, and then, without looking up, for the chain receipt — the pass does not care what you believed about the sign, it cares what is in the trunk. You have it, or you have the story of the morning you went back down and earned it.",
+  "debrief": "A chain-required road is billed at the gate: the receipt is the equipment. The story only helps if it ends with chains in the trunk — otherwise you lost that argument at the gate.",
+  "source": {
+   "psdp_skill": "n/a",
+   "dol_section": "5.6 Road and driving conditions (Slippery roads)",
+   "teaching_target": "Ledger callback of VII-002: the chain sign is paid at the gate. 5.6: chains when required. No question — continue only."
+  },
+  "cast": [
+   "ali",
+   "gracie"
+  ],
+  "antagonist": "none",
+  "variation": {
+   "location_type": "rural",
+   "weather": "overcast",
+   "time_of_day": "dawn",
+   "tone": "quiet",
+   "failure_mode": "none",
+   "forced": "Act VII scaffold — no still; do not seed"
+  },
+  "card_id": "VII-010",
+  "image": "/api/drive/image/VII-010"
  }
 ]

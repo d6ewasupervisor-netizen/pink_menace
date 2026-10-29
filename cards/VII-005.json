@@ -1,0 +1,109 @@
+{
+  "card_id": "VII-005",
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Four Hundred Feet of Light",
+  "hook": "Nobody out here for fifty miles.",
+  "scene": "I-90 east of Ellensburg, straight to a horizon that is only dark. Nobody out here for fifty miles, so the high beams go on and the road ahead turns into a tunnel of light with a hard black edge. The book's number is four hundred feet: the distance the beams actually light. Past that edge you are driving on arithmetic and hope, and somewhere past it is the rest area and a body that has been awake since dawn.",
+  "decision": "Two hours of dark in front of you. What is the drive?",
+  "options": [
+    {
+      "id": "a",
+      "text": "High beams and hold seventy — you can see forever now.",
+      "correct": false,
+      "result": "High beams show you more road, not more stopping distance. At seventy the car needs further than the light reaches, and the shadow outruns the beams. Seeing farther is not a reason to go faster.",
+      "state_delta": {
+        "noise": 2,
+        "yaw": 1,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Low beams the whole way — high beams are rude.",
+      "correct": false,
+      "result": "There is nobody to be rude to for fifty miles. High beams on an open road with no oncoming traffic are the tool, and dipping them for every rise just shortens the light you have.",
+      "state_delta": {
+        "noise": 1,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "c",
+      "text": "Keep the beams up and skip the rest area — momentum is sleep.",
+      "correct": false,
+      "result": "Momentum is not sleep. Heavy eyes, drifting, missing the last few miles: that is the list, and you are on it. A twenty-minute nap at the rest area is the cheapest thing you will do all night.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 12
+      }
+    },
+    {
+      "id": "d",
+      "text": "High beams when the road is empty, low beams when it isn't — and stop inside the light.",
+      "correct": true,
+      "result": "High beams out here, dimmed the moment there is traffic to blind, and a speed that keeps the shadow inside the glow — four hundred feet of light and a car that can stop in it. When the eyes go heavy, the rest area is the answer, not the radio.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 4
+      }
+    }
+  ],
+  "debrief": "High beams whenever there are no oncoming vehicles; regular headlights when there are or when you are following. Drive at a speed that lets you stop inside the glow. Take the twenty-minute nap.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "2.5 Vehicle Maintenance (Headlights)",
+    "teaching_target": "2.5: high beams on open roads, dim 500 ft for oncoming and 300 ft behind. 5.6 night: stop inside the glow, usually 400 ft. 3.1: tired — take a 20-minute nap."
+  },
+  "cast": [
+    "ali",
+    "gracie",
+    "mya"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "an empty two-lane interstate at night from inside the Menace; the high-beam tunnel on black pavement ending at a hard dark edge; the plow edge low in frame",
+    "foreground": "dark dash, unlit gauges; the full-grid cage faintly readable against the light",
+    "midground": "empty eastbound lanes, dashed line running into the dark, no traffic anywhere",
+    "background": "black sky, a low treeline silhouette, the light dying out at the edge of the beams",
+    "read": "one car's beams on an empty night road and a black edge where they stop",
+    "continuity": [
+      "pink_menace_interior",
+      "mya",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no legible text or signage legend",
+      "no current-model vehicles",
+      "no lens flare, no HDR, no bloom",
+      "no warm golden hour",
+      "no oncoming headlights",
+      "no traffic",
+      "no lit dash",
+      "no city glow",
+      "no rain",
+      "no snow on the road"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "right lane of an empty two-lane interstate, eastbound",
+      "ego_nose_in_frame": "plow edge along the bottom of the glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "highway",
+    "weather": "clear_cold",
+    "time_of_day": "deep_night",
+    "tone": "quiet",
+    "failure_mode": "fatigue",
+    "forced": "Act VII scaffold — no still; do not seed"
+  }
+}

@@ -985,6 +985,60 @@ No card, still, seed, or drive code was touched in this commit.
 `test-manifest.js` ok.
 
 
+## 2026-10-29 — the Act VII deck (10 cards, no stills, no seed)
+
+`cards/VII-001` … `VII-010`, one card per teachable beat of the road home, each
+cited from `pack/07_DOL_SECTIONS.json` / `pack/08_PSDP_SKILLS.json` only and each
+carrying `variation.forced: "Act VII scaffold — no still; do not seed"`:
+
+| Card | Beat | Type | Citation |
+|---|---|---|---|
+| VII-001 Thirty-Five in a Sixty | 5.1 climb | scene | 5.1 Speed (Adjusting speed for conditions) |
+| VII-002 Sign Means Sign | 5.2 chain-up | hazard | 5.6 (Slippery roads) |
+| VII-003 Walking Speed | 5.3 summit lot | scene | 2.5 (Headlights) |
+| VII-004 That's the Goodbye | 6.1 Deac | beat (continue only) | n/a |
+| VII-005 Four Hundred Feet of Light | 6.2 night straight | scene | 2.5 (Headlights) |
+| VII-006 The Wind Lives Here | 6.3 bridge | scene | 5.1 (Adjusting speed) |
+| VII-007 Four Seconds Behind | 7.1 escort | scene | 4.4 (large vehicles) |
+| VII-008 No More Than Twelve | 8.1 park | scene | 4.18 (Parking) |
+| VII-009 A Foot From the Line | 8.2 arrival | beat (continue only) | n/a |
+| VII-010 The Voucher | 7.1 gate | ledger, `callback_of` VII-002 | 5.6 (Slippery roads) |
+
+Wording is lifted from the drive's own lines so both surfaces match: the half-buried
+60 and "Thirty-five" (5.1.0–5.1.3), "Sign says chains. Sign means chains." (5.2.6),
+"lights off past the sign, walking speed" (5.2.brief) with the headlight law as the
+card's answer, the headlight relay goodbye (6.1.jonah/6.1.flashback), "four hundred
+feet" and the twenty-minute nap (6.2.1/6.2.5), "steer into it — small" (6.3.2),
+"four seconds behind me" and the wide right turn (7.1.2c/7.1.9), the foot-from-the-line
+park (8.1.gap_foot), and Division Street (8.2.pre).
+
+Callbacks: VII-002 (`schedules_callback`) is billed by VII-010 at the Ritzville desk;
+VII-007 (`callback_of: V-006`) re-bills the truck blind-spot lesson in the escort
+without re-teaching the mirror — V-006 itself is untouched.
+
+Schema: `pack/04_card.schema.json` gained a `beat` branch (`then: { required:
+["debrief"] }`) because the client has always treated a decision-less beat as
+read-and-continue (`CardOverlay.tsx:7`, `app.js:continueOnly`) while the schema
+required decision+options. I-007 (a beat *with* options) stays valid.
+
+New `scripts/validate-act-vii.js` (also wired into `npm run validate-cards`): deck
+shape, enums, geometry, compile, seat, spoken, citations, one-correct and the 35%
+answer-position cap, plus three Act VII checks — the no-still/do-not-seed contract
+(forced string, no `winner`, no VII PNG on disk), the herd's art law in the brief
+(no gore; figures do not fill the frame), and callback integrity (a scheduled miss
+must have a later card that bills it). 10 cards, 7 decision cards, answers
+a2/b1/c2/d2 (28.6% max).
+
+`drive/src/quietroads/data/cards.json` re-exported: 131 cards, VII last, additive
+only (+437 lines). **No seed, no still, no deploy.**
+
+**Verified**: `validate-citations.js` ok (131), `validate-act-vii.js` ok,
+`validate-act-v.js` unchanged (exit 1, same findings), `validate-act-ii.js`
+unchanged (exit 1), `validate-act-iii.js` ok, 209/209 vitest, `tsc --noEmit`
+exit 0.
+
+
+
 
 
 

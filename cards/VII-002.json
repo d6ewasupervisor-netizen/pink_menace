@@ -1,0 +1,114 @@
+{
+  "card_id": "VII-002",
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "hazard",
+  "title": "Sign Means Sign",
+  "hook": "A sign that only lets some cars up.",
+  "scene": "The chain-up area is a wide pull-out nobody has plowed in two years. The sign at the mouth of it is the one that is not asking: chains required. You have a set in the trunk, still cold from the last time you were told to go earn it. Across the road the Quiet stand in the drifts up to their knees, facing uphill, and Deac watches the grass instead of the sign because he already knows what the sign says.",
+  "decision": "Chains required. You have a set in the trunk. What now?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Put them on. All four, before the car moves.",
+      "correct": true,
+      "result": "Drape, hook, tighten, and keep the tensioner off the ice. Ten minutes, and you are the only car on this mountain that is allowed to be here. The sign was not a suggestion and the mountain does not grade on a curve.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 10,
+        "passenger_stress": -1
+      }
+    },
+    {
+      "id": "b",
+      "text": "Go up slow and careful on the all-seasons.",
+      "correct": false,
+      "result": "Slow is not a substitute for the equipment the sign names. On snow the tires you have are the tires you have, and a careful crawl in the wrong shoes is a skid waiting for a corner. Go back down and put the chains on.",
+      "state_delta": {
+        "noise": 3,
+        "yaw": 2,
+        "time_cost": 12
+      }
+    },
+    {
+      "id": "c",
+      "text": "Ask Deac to drive it up for you.",
+      "correct": false,
+      "result": "He won't. The sign is about the car, and the car is yours now. Handing over the wheel on a chain-required road teaches nobody anything except how to wait.",
+      "state_delta": {
+        "noise": 1,
+        "time_cost": 9
+      }
+    },
+    {
+      "id": "d",
+      "text": "Leave the car and walk the pass.",
+      "correct": false,
+      "result": "The pass is miles of wind and the Quiet are already standing in it. The car is the only thing up here that can carry you and two cats out of the weather.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 14
+      }
+    }
+  ],
+  "debrief": "When the sign says chains, the chains go on before the car moves. A snowy road wants a larger following distance and a dramatically reduced speed. A careful crawl in the wrong shoes costs you the corner.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "5.6 Road and driving conditions (Slippery roads)",
+    "teaching_target": "5.6: 'Use snow tires or chains when it's required.' 4.12 lists the chain-advisory sign. Slow is not a substitute for the device the sign names."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": true,
+  "timeout_option_id": "b",
+  "timeout_ms": 12000,
+  "image_brief": {
+    "camera": "POV_ROADSIDE_PROFILE",
+    "subject": "the pink Beetle stopped in a snowed-in chain-up pull-out, curb-height true profile; the chain-required sign at the mouth of the pull-out, face turned away from the lens; a set of chains in the open trunk; figures standing in the drifts across the road, still",
+    "foreground": "packed snow and ice under the car, a dropped tensioner on the ground, the open trunk lid",
+    "midground": "the Menace in profile with the plow and the cage readable, chains coiled in the trunk",
+    "background": "drift-buried guardrail, fir, the Quiet standing at a distance in the snow; the figures do not fill the frame, no motion",
+    "read": "a car stopped at a chain-up with chains in the trunk and figures standing still across the road",
+    "continuity": [
+      "pink_menace_exterior",
+      "the_quiet",
+      "quiet_a4"
+    ],
+    "extra_negatives": [
+      "no legible text or signage legend",
+      "no current-model vehicles",
+      "no lens flare, no HDR, no bloom",
+      "no warm golden hour",
+      "no gore",
+      "no blood",
+      "no wounds",
+      "no bodies on the ground",
+      "no reaching hands — posture and stillness only",
+      "the figures do not fill the frame",
+      "no chains already mounted on the tires",
+      "no legible sign legend",
+      "no figures close to the car"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "left_to_right",
+      "ego_lane_side": "stopped inside a plowed pull-out off the travel lane",
+      "ego_nose_in_frame": "the plow points toward the right of the frame",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "mountain_pass",
+    "weather": "snow",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "weather",
+    "forced": "Act VII scaffold — no still; do not seed"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "card_id": "VII-010",
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "ledger",
+  "title": "The Voucher",
+  "hook": "The desk wants the receipt for the chains.",
+  "scene": "Ritzville. Grain elevators against a gray sky, a gate, a desk, a lamp, and a man who has been awake longer than you have. He asks for the voucher, and then, without looking up, for the chain receipt — the pass does not care what you believed about the sign, it cares what is in the trunk. You have it, or you have the story of the morning you went back down and earned it.",
+  "debrief": "A chain-required road is billed at the gate: the receipt is the equipment. The story only helps if it ends with chains in the trunk — otherwise you lost that argument at the gate.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "5.6 Road and driving conditions (Slippery roads)",
+    "teaching_target": "Ledger callback of VII-002: the chain sign is paid at the gate. 5.6: chains when required. No question — continue only."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": "VII-002",
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "subject": "a gatehouse desk under a work lamp: a metal clipboard with a hand-ruled sheet, a paper voucher, and a coiled set of chains laid beside them",
+    "foreground": "the clipboard and voucher under the lamp, a chipped mug, a pen on a string",
+    "midground": "the desk edge and the gatehouse window, the Beetle's plow out of focus beyond the glass",
+    "background": "gray dawn through the window, grain silos in soft focus",
+    "read": "a clipboard, a voucher and a set of chains on a gatehouse desk under a lamp",
+    "continuity": [
+      "deac_clipboard"
+    ],
+    "extra_negatives": [
+      "no legible text or signage legend",
+      "no current-model vehicles",
+      "no lens flare, no HDR, no bloom",
+      "no warm golden hour",
+      "no legible words on the sheet",
+      "no face",
+      "no hands",
+      "no gore"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "a desk inside a gatehouse",
+      "ego_nose_in_frame": "the car is out of focus beyond the glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "none"
+    }
+  },
+  "variation": {
+    "location_type": "rural",
+    "weather": "overcast",
+    "time_of_day": "dawn",
+    "tone": "quiet",
+    "failure_mode": "none",
+    "forced": "Act VII scaffold — no still; do not seed"
+  }
+}

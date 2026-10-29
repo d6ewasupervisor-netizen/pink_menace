@@ -1,0 +1,113 @@
+{
+  "card_id": "VII-003",
+  "act": "VII",
+  "zone": "The Dark Hours",
+  "driver": "ali",
+  "card_type": "scene",
+  "title": "Walking Speed",
+  "hook": "A hundred people you cannot touch.",
+  "scene": "The summit lot is full of them, standing between the parked cars in the falling snow with their faces turned uphill — not moving, not turning, not noticing the Beetle at all. Deac's plan is the only plan: lights off past the sign, walking speed, don't stop, don't speed up, don't talk. The law up here wants your headlights on in the snow. The law is not the thing standing between you and the far end of this lot.",
+  "decision": "Lights off is how you get through the lot. What does the road law want?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Lights off everywhere — it worked in the lot.",
+      "correct": false,
+      "result": "It worked in the lot because nothing in the lot was looking. Out on the road, a dark car in falling snow is how somebody else's ordinary morning becomes a collision report.",
+      "state_delta": {
+        "noise": 4,
+        "time_cost": 6
+      }
+    },
+    {
+      "id": "b",
+      "text": "Lights on, speed down, gap out — the snow rule, every time you are actually driving.",
+      "correct": true,
+      "result": "In falling snow the headlights go on. That is the rule out on the road, and it exists so people can see you coming. The lot is an exception the road does not contain: a tactic for one carpark in one storm, and it ends at the last row.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 3
+      }
+    },
+    {
+      "id": "c",
+      "text": "High beams in the snow so you can see further.",
+      "correct": false,
+      "result": "In snow the high beams come back at you off the flakes. More light, less road. Low beams and a speed that fits the sight line is the whole technique.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "d",
+      "text": "Stop in the row and wait for them to drift off.",
+      "correct": false,
+      "result": "You stop in a lot full of them with the engine idling and every exit nine rows away. The plan was never to wait. It was to be quiet and gone.",
+      "state_delta": {
+        "noise": 3,
+        "time_cost": 8
+      }
+    }
+  ],
+  "debrief": "Headlights on in rain, snow, fog, or smoke — that is the road rule. The lights-off crawl is a tactic for one parking lot in one storm. Keep them on out on the road; the crawl ends at the last row.",
+  "source": {
+    "psdp_skill": "n/a",
+    "dol_section": "2.5 Vehicle Maintenance (Headlights)",
+    "teaching_target": "2.5: headlights on 'when it's rainy, snowy, foggy, or smoky.' 5.6: snow means a larger gap and a dramatically reduced speed. The lot crawl is tactics, not law."
+  },
+  "cast": [
+    "ali",
+    "gracie"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_COCKPIT",
+    "subject": "the summit lot through the Menace's full-grid windshield cage in falling snow; figures standing still between parked cars, faces turned uphill and away; the car creeping, headlights off",
+    "foreground": "the welded cage across the glass, snow gathered on the bars; dark dash, unlit gauges",
+    "midground": "rows of snow-covered cars, figures standing motionless in the aisles at a distance; the figures do not fill the frame",
+    "background": "a ski-lot lamp with no power, fir, white sky, snow falling through the frame",
+    "read": "still figures at a distance between parked cars, snow falling, the car creeping with its lights off",
+    "continuity": [
+      "pink_menace_interior",
+      "the_quiet",
+      "quiet_a5",
+      "gracie"
+    ],
+    "extra_negatives": [
+      "no legible text or signage legend",
+      "no current-model vehicles",
+      "no lens flare, no HDR, no bloom",
+      "no warm golden hour",
+      "no gore",
+      "no blood",
+      "no wounds",
+      "no bodies on the ground",
+      "no reaching hands — posture and stillness only",
+      "the figures do not fill the frame",
+      "no figures inside the car",
+      "no figures at the glass",
+      "no headlights on",
+      "no lit dash",
+      "no faces toward the lens"
+    ],
+    "aspect": "2:3",
+    "geometry": {
+      "ego_heading": "away_from_camera",
+      "ego_lane_side": "creeping up the middle aisle of a snow-covered parking lot",
+      "ego_nose_in_frame": "the cage rises across the top half of the glass",
+      "oncoming_position": "none in frame",
+      "hazard_position": "ahead_same_direction"
+    }
+  },
+  "variation": {
+    "location_type": "parking_lot",
+    "weather": "snow",
+    "time_of_day": "morning",
+    "tone": "tense",
+    "failure_mode": "weather",
+    "forced": "Act VII scaffold — no still; do not seed"
+  }
+}
