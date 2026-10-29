@@ -159,6 +159,9 @@ describe("7.1 — Hank names the guide's exception without running her at night"
     expect(t).toContain("Grain counts");
     expect(t).toMatch(/One to five in the morning is still one to five/);
     expect(t).toContain("Not midnight");
+    // Wheat country, not a pass: the county, not the mountain.
+    expect(t).toContain("The county calls it harvest");
+    expect(t).not.toMatch(/mountain calls it a harvest/);
     expect(sevenOne["7.1.chat7"].next).toBe("7.1.chat8");
     expect(sevenOne["7.1.chat9"].next).toBeUndefined();
   });

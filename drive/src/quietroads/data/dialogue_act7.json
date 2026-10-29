@@ -736,7 +736,7 @@
           "delivery": "R",
           "emotion": "neutral",
           "volume": "normal",
-          "text": "Guide's got one exception and it's the one that fits me: agricultural. Grain counts. Farm work runs any hour, passengers and all. Authority calls this a convoy; the mountain calls it a harvest.",
+          "text": "Guide's got one exception and it's the one that fits me: agricultural. Grain counts. Farm work runs any hour, passengers and all. Authority calls this a convoy. The county calls it harvest.",
           "next": "7.1.chat9"
         },
         "7.1.chat9": {
