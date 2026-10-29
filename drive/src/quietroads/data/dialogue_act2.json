@@ -2255,7 +2255,8 @@
           "type": "end",
           "effects": {
             "log": "shop.close:cats"
-          }
+          },
+          "next_scene": "2.3c"
         }
       },
       "triggers": [
@@ -2387,7 +2388,8 @@
           "type": "end",
           "effects": {
             "log": "shop.close:kpop"
-          }
+          },
+          "next_scene": "2.3d"
         }
       },
       "triggers": [
@@ -2476,6 +2478,9 @@
             "set_flags": {
               "has_chains": true
             },
+            "give_items": [
+              "chains"
+            ],
             "log": "shop.buy:chains"
           }
         },
@@ -2536,11 +2541,62 @@
             "log": "shop.cant_afford:upgrades"
           }
         },
+        "2.8.close_branch": {
+          "type": "branch",
+          "branches": [
+            {
+              "condition": {
+                "all": [
+                  {
+                    "flag": "chainup_blocked",
+                    "is": true
+                  },
+                  {
+                    "has_item": "chains"
+                  }
+                ]
+              },
+              "next": "2.8.end_return"
+            },
+            {
+              "condition": {
+                "flag": "chainup_blocked",
+                "is": true
+              },
+              "next": "2.8.end_reblocked"
+            },
+            {
+              "next": "2.8.end"
+            }
+          ]
+        },
+        "2.8.end_return": {
+          "type": "end",
+          "effects": {
+            "set_flags": {
+              "chainup_return": true,
+              "chainup_blocked": false
+            },
+            "log": "shop.close:upgrades"
+          },
+          "next_scene": "5.1"
+        },
+        "2.8.end_reblocked": {
+          "type": "end",
+          "effects": {
+            "set_flags": {
+              "chainup_blocked": false
+            },
+            "log": "shop.close:upgrades"
+          },
+          "next_scene": "5.1"
+        },
         "2.8.end": {
           "type": "end",
           "effects": {
             "log": "shop.close:upgrades"
-          }
+          },
+          "next_scene": "2.4"
         }
       },
       "triggers": [
@@ -2582,7 +2638,7 @@
         },
         {
           "event": "shop.close",
-          "node": "2.8.end",
+          "node": "2.8.close_branch",
           "priority": 20,
           "interrupt": true
         }

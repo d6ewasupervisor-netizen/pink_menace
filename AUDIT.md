@@ -366,6 +366,22 @@ The suite was green at the previous HEAD and none of that was campaign evidence:
 - **The 30 Hz tier trap was untested**, and the CCD "0 tunnels" result could not
   fail. Both are now falsifiable.
 
+## 10. Chain-up loop + shop continuation (2026-10-28)
+
+The chain-up loop closes end to end (see `AGENT_LOG.md` 2026-10-28 Phase 3 and
+`drive/test/chainup-loop.test.ts`): every shop `end` carries a `next_scene`
+(`2.6→2.3c`, `2.7→2.3d`, `2.8.close_branch` → `5.1` return / `5.1` re-climb /
+`2.4`), `2.8.buy_chains` grants the `chains` item the readers (`5.2.entry`,
+`4.2.chains_branch`) gate on, `chainup_return` is set by the shop return, and the
+`once` continuation triggers at 5.1 / 5.2 / 8.1 are gone. Safe: the sim latches
+those events per run (`ClimbRun.arrived`, `ChainupRun.done`,
+`GridRun.parallelDone`), so nothing refires within a visit, and save/load
+semantics are untouched (`restore()` still spends `once`s). Open, deliberately:
+a swarm retry at 8.1 loses the `once` story barks (city.enter, quiet.pass_cluster,
+mya.wake, checkpoint/park beats) — the scene completes but plays sparse, the same
+accepted trade-off as 3.3/5.1 retries; a per-visit re-arm would need runner
+changes and is queued with the 8.x work.
+
 ### And what the 2026-10-05 pass added (`9c84d85`)
 
 The previous pass moved cues off timers but never asked whether the *story's*

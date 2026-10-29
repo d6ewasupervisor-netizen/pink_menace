@@ -693,7 +693,6 @@
         {
           "event": "park.parallel.clean",
           "node": "8.1.clean_fx",
-          "once": true,
           "priority": 20,
           "interrupt": true
         },

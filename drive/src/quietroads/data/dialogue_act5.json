@@ -506,7 +506,6 @@
         {
           "event": "waypoint.reach:chainup",
           "node": "5.1.end",
-          "once": true,
           "priority": 20,
           "interrupt": true
         },
@@ -785,7 +784,6 @@
         {
           "event": "chainup.qte.success",
           "node": "5.2.3",
-          "once": true,
           "priority": 10,
           "interrupt": true
         },

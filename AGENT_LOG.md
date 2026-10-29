@@ -557,3 +557,57 @@ re-run at HEAD via stash = 182 both sides; no test derives cases from data),
 `tsc --noEmit` exit 0, `validate-act-v.js` baseline unchanged (V-006/V-008/V-013
 fail exactly as before, no new failures). `bench/baseline.json` restored after
 the bench run.
+
+## 2026-10-28 — Phase 3: chain-up loop + shop dead-end fixes
+
+**Shop continuation** (the runner strands on an `end` with no `next_scene` — the
+bridge ignores an empty next): `2.6.end` → `2.3c`, `2.7.end` → `2.3d`, mirroring
+the `2.3b.end→2.3c` / `2.3c.end→2.3d` pattern. `2.8` now carries a close branch:
+`shop.close` → `2.8.close_branch`, which takes `2.8.end_return` from the chain-up
+(sets `chainup_return`, clears `chainup_blocked`, → `5.1`), `2.8.end_reblocked`
+when the trunk is still empty (clears `chainup_blocked` → `5.1` re-climb — she
+loops back to the block until she buys), or `2.8.end` (→ `2.4`) on the normal
+Act II shop visit from `2.3d`.
+
+**Chains actually granted**: `2.8.buy_chains` now `give_items: ["chains"]` —
+`5.2.entry` and `4.2.chains_branch` gate on the `chains` item and nothing ever
+granted it (shop buys only set `has_*` flags). The `has_chains` flag stays for
+the bible'd readers.
+
+**`once` continuation triggers** (the strand class): `5.1`'s
+`waypoint.reach:chainup → 5.1.end` and `5.2`'s `chainup.qte.success → 5.2.3`
+were spent for good on the first pass — stranding the re-climb and the post-swarm
+QTE retry. `8.1`'s `park.parallel.clean → 8.1.clean_fx` — the scene's *only*
+completion path — had the same bug: a swarm that interrupts the gap-reveal tail
+after the park strands every retry. All three `once`s removed. Safe because the
+sim latches those events per run (`ClimbRun.arrived`, `ChainupRun.done`,
+`GridRun.parallelDone`), so nothing refires within a visit, and resume semantics
+are untouched (`restore()` still spends them across a save load). Bark `once`s
+stay.
+
+**Permanent test** (`drive/test/chainup-loop.test.ts`, 6): the scripted loop
+(block → Tuna's → buy → return → re-climb → QTE → 5.3) on a real DialogueRunner,
+incl. the `5.1.ret` trunk line and `climb_snoqualmie_from_below_chainup`; the
+swarm-interrupt re-arm at 5.2 and 8.1; the 2.6/2.7/2.8 close targets; the
+empty-handed return; and an audit that every `shop` scene's every `end` node has
+a `next_scene` (the 2.6/2.7/2.8/7.2 class, made permanent).
+
+**Verified**: 188/188 vitest green (182 + 6 new), `tsc --noEmit` exit 0,
+`validate-act-v.js` baseline unchanged (V-006/V-008/V-013 fail exactly as
+before). `bench/baseline.json` restored after the bench run; the three dialogue
+JSONs stay CRLF (0 bare LFs).
+
+**Open / deferred** (Phase 4's 8.x surface): a retry through `8.1.retry` still
+loses the `once` story barks (city.enter, quiet.pass_cluster, mya.wake, the
+checkpoint/park beats) — the scene completes but plays sparse. Same accepted
+semantics as 3.3/5.1 retries; fixing it needs per-visit re-arm (a runner change,
+resume-sensitive), so it is logged for Phase 4/5 to weigh while in 8.x.
+
+### Next — Phase 4
+- Nav tablet → radio: rewrite the II-009/III-027 Chorus lines as radio, convert
+  the other tablet/screen/nav refs, flag the tablet stills.
+- Grandma: surprise at 8.2, gray blanket, "Come home slow" loop, character
+  table, `voice.ts` flag, `{GRANDMA_INITIALS}` default "— G.".
+- `src/manifest.js`: drop account-name signing (~203–213) + tests; replace the
+  `:31` TODO with the pass-plow fuel named in the VI end beat; check the 6.2
+  in-fiction night time vs the 1–5 a.m. restriction after the 4.2 WA rules.

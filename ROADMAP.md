@@ -42,6 +42,27 @@ deliberately empty rather than filled with a guess.
   tiers + the 30 Hz recovery, scene-pass draw calls, instancing, accessibility,
   debrief incl. the Act IV week, bundle split, spoken lines, bench).
 
+## Current pass — the overhaul's six phases (2026-10-28)
+
+- **Phases 1–3 done** (`48b0c49`, `4fa2229`, this session): chain reorder
+  `4.2→6.1b→5.1→5.2→5.3→6.1→6.2→6.3→7.1→7.2→7.3→8.1→8.2→8.3` + the
+  `spokane_home` mission with Act VII opened; I-90 cargo insulin → relay kit +
+  the 3.5 night-radio beat; the chain-up loop and every shop close now continue
+  the campaign (`drive/test/chainup-loop.test.ts`).
+- **Next — Phase 4:** nav tablet → radio (rewrite II-009/III-027 Chorus lines as
+  radio, convert the other tablet/screen/nav refs, flag the tablet stills);
+  Grandma at 8.2 (surprise, gray blanket, "Come home slow" loop, character
+  table, `voice.ts` flag, `{GRANDMA_INITIALS}` default "— G."); `src/manifest.js`
+  (drop account-name signing ~203–213 + tests; the `:31` TODO becomes the
+  pass-plow fuel named in the VI end beat; 6.2 in-fiction night time vs the
+  1–5 a.m. restriction).
+- **Then — Phase 5:** credits final card toggles on `deac_answered` ("…Seatbelt."
+  vs static); drop `postgame.deacs_route` from the act8 unlock list. **Phase 6:**
+  permanent full-chain test (0.1→game_complete incl. both 1.3.C/3.3.C branches +
+  exam fail→retest→pass), the drive-bundle build (`dialogue_act8` compiles/loads),
+  `docs/STORY_BIBLE.md` updates + the §10/§11 re-audit (FIXED-with-commit /
+  CHANGED / STILL OPEN).
+
 ## P0b — the campaign has to be able to change scenes
 
 - **[story] Act boundaries** — done. `quietroads/dialogue/sceneRouter.ts` owns
@@ -173,7 +194,8 @@ deliberately empty rather than filled with a guess.
 
 ## Known risks / deliberately out of scope
 
-- Act VII stays closed (Rule 8). Backend, auth, parent dashboard, DRIVE_ENABLED
+- Act VII was closed (Rule 8); the 2026-10-28 overhaul opened scenes 5.1–8.3
+  (`48b0c49`) — see AGENT_LOG. Backend, auth, parent dashboard, DRIVE_ENABLED
   untouched (Rule 2).
 - BD-1 is **signed off** (owner, 2026-10-05): `FOLLOW.rule` stays `seconds`
   (3 s dry / 4 s truck), the grader does not switch to `vehicle_lengths`, and the
