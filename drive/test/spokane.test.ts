@@ -26,7 +26,7 @@ const TRIGGERS = [
 const WAITS = [
   "quiet.reason_passed",
   "cutscene.beetle_stops", "cutscene.ali_out",
-  "cutscene.mom_arrives", "cutscene.ray_blanket",
+  "cutscene.mom_arrives", "cutscene.grandma_blanket",
 ] as const;
 
 function sample(over: Partial<VehicleSample> = {}): VehicleSample {

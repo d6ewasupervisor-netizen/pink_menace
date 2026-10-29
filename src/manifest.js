@@ -28,7 +28,7 @@ const MANIFESTS = {
   },
   VI: {
     run: "The Backcountry — valley floor",
-    cargo: "TODO — Claude: Backcountry load",
+    cargo: "Diesel — four cans for the ridge plows",
     for: "Clearance — Deac clipboard",
   },
 };
@@ -41,7 +41,7 @@ const FAIL_PLACE = {
   "II-006": "the convoy",
   "II-007": "the bus",
   "II-008": "the rattle",
-  "II-009": "the tablet",
+  "II-009": "the radio",
   "II-010": "the arm",
   "II-012": "the van",
   "II-013": "the triangle",
@@ -190,7 +190,7 @@ function deliveryBeat(stateOrCold, act) {
     return (
       "The sheet goes in the glovebox with the affidavit and the log from Kent, and for the first time since the lot in Kent the thing you drove out there to get is actually in the car. " +
       "Then the radio, and it's Yuna, and she isn't leading with it because she never does: the pass is shut tonight. Four feet on the ridge in two days, or something standing on the east slope that the plows won't go near — the reason changes depending on who is telling it and both versions end with the same closed gate. " +
-      "But the gate has your name in it now, chains are on the floor, and the word is dawn. You are cleared to drive the road home. " +
+      "But the gate has your name in it now, chains are on the floor, the diesel for the ridge plows is strapped down in the back, and the word is dawn. You are cleared to drive the road home. " +
       "Two hundred and eighty miles east, your mother is awake and does not know yet."
     );
   }
@@ -200,16 +200,19 @@ function deliveryBeat(stateOrCold, act) {
   return "Delivered. " + n + " minutes. June didn't ask what took so long.";
 }
 
-function manifestFor(act, driverName) {
+function manifestFor(act) {
   const row = MANIFESTS[act] || MANIFESTS.II;
-  const name = String(driverName || "").trim();
   return {
     act: MANIFESTS[act] ? act : "II",
     run: row.run,
     cargo: row.cargo,
     for: row.for,
     cold: COLD_PACK,
-    driver: name && name !== "Student" ? name : "________",
+    // The clipboard is in-fiction paperwork, not an account record. It used to
+    // carry the signed-in student's real name; a stranger's name on a dead
+    // courier's manifest broke the frame, so the signature line stays blank
+    // until it is signed on the start button (feel.js: `row.driver || "________"`).
+    driver: "________",
   };
 }
 
@@ -217,6 +220,7 @@ module.exports = {
   COLD_PACK,
   WARMING_SLACK,
   CARGO_BUDGET,
+  MANIFESTS,
   coldFrom,
   warmingFrom,
   timeCostOf,

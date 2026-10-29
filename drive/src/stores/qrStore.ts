@@ -44,7 +44,7 @@ export type QRState = Persisted & Actions;
 const emptyPersisted: Persisted = {
   vars: {}, flags: {}, items: [], unlocks: [], ledger: [], mastery: {}, attempts: [], choiceLog: [],
   checkpoint: null, sceneId: null, runnerState: null, examMissedIds: [],
-  placeholders: { MOM: 'Mom', RAY: 'Ray', GRANDMA: 'Grandma', GRANDMA_NAME: 'Grandma', GRANDMA_INITIALS: 'Grandma', PLAYER: 'Ali', PLAYER_FULL: 'Alison' },
+  placeholders: { MOM: 'Mom', RAY: 'Ray', GRANDMA: 'Grandma', GRANDMA_NAME: 'Grandma', GRANDMA_INITIALS: '— G.', PLAYER: 'Ali', PLAYER_FULL: 'Alison' },
 };
 
 export const useQRStore = create<QRState>()(

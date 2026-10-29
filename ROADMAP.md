@@ -44,19 +44,18 @@ deliberately empty rather than filled with a guess.
 
 ## Current pass — the overhaul's six phases (2026-10-28)
 
-- **Phases 1–3 done** (`48b0c49`, `4fa2229`, this session): chain reorder
+- **Phases 1–4 done** (`48b0c49`, `4fa2229`, `960317c`, this session): chain reorder
   `4.2→6.1b→5.1→5.2→5.3→6.1→6.2→6.3→7.1→7.2→7.3→8.1→8.2→8.3` + the
   `spokane_home` mission with Act VII opened; I-90 cargo insulin → relay kit +
   the 3.5 night-radio beat; the chain-up loop and every shop close now continue
-  the campaign (`drive/test/chainup-loop.test.ts`).
-- **Next — Phase 4:** nav tablet → radio (rewrite II-009/III-027 Chorus lines as
-  radio, convert the other tablet/screen/nav refs, flag the tablet stills);
-  Grandma at 8.2 (surprise, gray blanket, "Come home slow" loop, character
-  table, `voice.ts` flag, `{GRANDMA_INITIALS}` default "— G."); `src/manifest.js`
-  (drop account-name signing ~203–213 + tests; the `:31` TODO becomes the
-  pass-plow fuel named in the VI end beat; 6.2 in-fiction night time vs the
-  1–5 a.m. restriction).
-- **Then — Phase 5:** credits final card toggles on `deac_answered` ("…Seatbelt."
+  the campaign (`drive/test/chainup-loop.test.ts`); the Chorus is on the radio
+  (tablet gone from II-009/III-027/III-022 prose, stills flagged in
+  `AUDIT.md` §11); Grandma on screen at 8.2 with the gray blanket and the
+  "Come home slow" payoff (`voice.ts` + act-8 characters + `— G.` signature);
+  `manifestFor()` no longer signs the clipboard with the account name, Act VI
+  carries the ridge plows' diesel (`scripts/test-manifest.js`); 6.2's clock
+  pinned outside 1–5 a.m.
+- **Next — Phase 5:** credits final card toggles on `deac_answered` ("…Seatbelt."
   vs static); drop `postgame.deacs_route` from the act8 unlock list. **Phase 6:**
   permanent full-chain test (0.1→game_complete incl. both 1.3.C/3.3.C branches +
   exam fail→retest→pass), the drive-bundle build (`dialogue_act8` compiles/loads),

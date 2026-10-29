@@ -4,14 +4,14 @@
   "zone": "Central",
   "driver": "deac",
   "card_type": "hazard",
-  "title": "The Tablet Wakes",
-  "hook": "The tablet wakes mid-change. The Chorus wants a look.",
-  "scene": "Wind on a Kent morning, left stalk already on, gap half-taken. The aftermarket tablet on the doghouse between the seats lights up — a familiar voice, a map, a lie. II-009's cousin. Eyes off a Beetle was bad. Eyes off the Ledger mid-change is how you write a sedan into the big west-coast mirror on the door. The timeout is the look.",
-  "decision": "The screen lights up in the middle of a lane change. Where do your eyes go?",
+  "title": "The Chorus Wakes",
+  "hook": "The radio wakes mid-change. The Chorus wants a look.",
+  "scene": "Wind on a Kent morning, left stalk already on, gap half-taken. The CB deck bolted to the doghouse between the seats crackles up on its own — a familiar voice, a road report that isn't one, a lie. II-009's cousin. Eyes off a Beetle was bad. Eyes off the Ledger mid-change is how you write a sedan into the big west-coast mirror on the door. The timeout is the look.",
+  "decision": "The speaker crackles up in the middle of a lane change. Where do your eyes go?",
   "options": [
     {
       "id": "a",
-      "text": "Glance the screen — one second, then finish the change",
+      "text": "Glance the dial — one second, then finish the change",
       "correct": false,
       "result": "One second is a blind spot. The sedan was in it. You find him with the arm. The Chorus got the look it wanted.",
       "state_delta": {
@@ -23,9 +23,9 @@
     },
     {
       "id": "b",
-      "text": "Thumb the screen off while you steer — you can do two things",
+      "text": "Thumb the knob off while you steer — you can do two things",
       "correct": false,
-      "result": "You steer with a thumb on glass. The gap moves. The Ledger does not. Two things was the problem.",
+      "result": "You steer with a thumb on a knob. The gap moves. The Ledger does not. Two things was the problem.",
       "state_delta": {
         "yaw": 2,
         "light": 1,
@@ -34,9 +34,9 @@
     },
     {
       "id": "c",
-      "text": "Finish by memory — you already swept, the screen can wait",
+      "text": "Finish by memory — you already swept, the radio can wait",
       "correct": false,
-      "result": "Memory is a stale sweep. The blind spot changed. You take a gap that closed. The tablet keeps talking to nobody.",
+      "result": "Memory is a stale sweep. The blind spot changed. You take a gap that closed. The radio keeps talking to nobody.",
       "state_delta": {
         "noise": 3,
         "yaw": 2,
@@ -45,9 +45,9 @@
     },
     {
       "id": "d",
-      "text": "Cancel the change, hold the lane, ignore the screen, sweep again, then move",
+      "text": "Cancel the change, hold the lane, ignore the radio, sweep again, then move",
       "correct": true,
-      "result": "You kill the stalk and let the tablet die alone. The gap you take later is one you have seen. The Chorus does not get a vote mid-change.",
+      "result": "You kill the stalk and let the radio die alone. The gap you take later is one you have seen. The Chorus does not get a vote mid-change.",
       "state_delta": {
         "noise": -1,
         "light": -1,
@@ -55,7 +55,7 @@
       }
     }
   ],
-  "debrief": "A screen mid-maneuver is a look you cannot afford. Cancel, hold, finish the driving, then the glass. You missed a sedan by killing the stalk.",
+  "debrief": "A radio mid-maneuver is a look you cannot afford. Cancel, hold, finish the driving, then the dial. You missed a sedan by killing the stalk.",
   "source": {
     "psdp_skill": "Skill nine: multi-lane roads – part one",
     "dol_section": "5.5 Focus",

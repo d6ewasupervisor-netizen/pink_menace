@@ -11,7 +11,7 @@
       "MOM": "Mom",
       "RAY": "Ray",
       "GRANDMA": "Grandma",
-      "GRANDMA_INITIALS": "Grandma",
+      "GRANDMA_INITIALS": "— G.",
       "PLAYER": "Ali",
       "PLAYER_FULL": "Alison"
     }
@@ -202,7 +202,7 @@
           "emotion": "reading",
           "volume": "whisper",
           "delivery": "S",
-          "text": "\"Ali-bug — She's yours now. She's heavier than she looks, so she takes longer to stop. Remember that. Tuna at the Valley warehouse can help. Come home slow. — {GRANDMA_INITIALS}\"",
+          "text": "\"Ali-bug — She's yours now. She's heavier than she looks, so she takes longer to stop. Remember that. Tuna at the Valley warehouse can help. Come home slow. {GRANDMA_INITIALS}\"",
           "next": "0.2.2"
         },
         "0.2.2": {

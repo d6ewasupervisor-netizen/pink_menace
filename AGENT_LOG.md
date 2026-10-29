@@ -611,3 +611,70 @@ resume-sensitive), so it is logged for Phase 4/5 to weigh while in 8.x.
 - `src/manifest.js`: drop account-name signing (~203–213) + tests; replace the
   `:31` TODO with the pass-plow fuel named in the VI end beat; check the 6.2
   in-fiction night time vs the 1–5 a.m. restriction after the 4.2 WA rules.
+## 2026-10-29 — Phase 4 (radio not tablet, Grandma at 8.2, the clipboard, 6.2's clock)
+
+**The Chorus never had a screen.** `cards/II-009` and `cards/III-027` described an
+"aftermarket tablet" the art lock has never allowed to be lit (`ref_cockpit.jpg`
+is "poisoned (tablet / digital…)"), while the scene's own first sentence and the
+canon prop (`cards/I-011`: "a physical CB radio deck with knobs and a dark face")
+already said radio. Both cards' prose now runs on the deck — II-009 on "the old
+deck" and "the dial", III-027 retitled "The Chorus Wakes" with the CB deck bolted
+to the doghouse crackling up mid-change — and **every mechanical field is
+untouched**: ids, option ids, `correct` flags and all `state_delta`s. III-022's
+"Check the tablet" → "Check the net"; `FAIL_PLACE["II-009"]` "the tablet" → "the
+radio"; `data/cards.json` re-exported for the three changed cards.
+
+**Tablet stills flagged, not redrawn** (full table in `AUDIT.md` §11): II-009's
+and III-027's `image_brief`s still describe a lit tablet and want redrawing as the
+deck; II-001 / I-011 / V-002 carry a *dark* tablet (optional cleanup); I-003,
+V-002, VI-004, VI-011, VI-013 already forbid lit devices and stay as the lock.
+
+**Grandma is on screen once.** 8.2's gray blanket was Ray's; the third figure at
+Division Street is now Grandma, out of the checkpoint hut at `8.2.gm1`–`8.2.gm6`:
+"I got on the bus. It went east. So did you." / "I told you. Come home slow." /
+"…I did." — the note paid off out loud — then she takes the blanket out of Ray's
+hands and puts it over the roof. Cue renamed `cutscene.ray_blanket` →
+`cutscene.grandma_blanket` (emitted by `sim/spokane.ts`, asserted in
+`spokane.test.ts`); `voice.ts` gains `GRANDMA` (bedless/low, which `voice.test.ts`
+requires of every speaker); act-8 `characters` gains `{GRANDMA}` with no
+`portrait_dir` (no art; schema requires only `name`). `{GRANDMA_INITIALS}`
+defaults to `"— G."` in `dialogue_act0-1.json` meta **and** `qrStore.ts` (the
+store overrides meta via `setPlaceholder` at boot), and the note's literal em dash
+went away so it renders "Come home slow. — G." instead of "— — G.".
+
+**The clipboard stopped signing itself.** `manifestFor(act, driverName)` stamped
+the signed-in student's real name on Deac's manifest; it is in-fiction paperwork,
+so it always ships `driver: "________"` now and the start button signs it
+(`feel.js` already renders `row.driver || "________"`). Both callers updated;
+`MANIFESTS` exported. New `scripts/test-manifest.js` locks the blank signature
+(even when a name is passed), no placeholder rows, and — with the Act VI cargo now
+"Diesel — four cans for the ridge plows" instead of the shipped
+`TODO — Claude: Backcountry load` — that the cargo and the Act VI end beat name
+the same load ("…chains are on the floor, the diesel for the ridge plows is
+strapped down in the back, and the word is dawn.").
+
+**6.2's clock now agrees with the exam.** questions_v1 `c1_008` teaches that a
+first-year intermediate license means no 1–5 a.m. without a 25+ supervisor, and
+Ali drives home alone. Nothing in acts 5–8 stamped a clock except 6.2, which
+stamped the one window that would contradict it. `6.2.sleep` is now "Night.
+Parked before one. …" and `6.2.morning` is "Five a.m. … The one-to-five is over
+and so is the sleep."
+
+**Verified**: 188/188 vitest green, `tsc --noEmit -p drive/tsconfig.json` exit 0,
+`scripts/test-manifest.js` ok, `validate-act-v.js` baseline unchanged
+(V-006/V-008/V-013 fail exactly as before), `bench/baseline.json` restored after
+the run, dialogue JSONs still CRLF. Bible updated for the radio, the Grandma row,
+epilogue 49 and the "come home slow" callback row; the numbered problems #5, #10
+and #20 are fixed in code and get marked fixed in Phase 6's re-audit.
+
+
+### Next — Phase 5
+- Credits final card toggles on `deac_answered` ("…Seatbelt." vs the static
+  variant); drop `postgame.deacs_route` from the act8 `8.3.end` unlock list.
+- Then Phase 6: a permanent full-chain test (0.1 → `game_complete` incl. both
+  1.3.C / 3.3.C branches and exam fail → retest → pass), the drive-bundle build
+  (`dialogue_act8` compiles/loads), `docs/STORY_BIBLE.md` re-audit (§10/§11:
+  FIXED-with-commit / CHANGED / STILL OPEN — incl. #5, #10, #20 marked from this
+  phase), and the II-009/III-027 plate redraws handed to art.
+
+

@@ -859,12 +859,12 @@
   "card_type": "scene",
   "title": "A Voice You Know",
   "hook": "The radio bleeds by itself. Someone is already in the crosswalk.",
-  "scene": "The radio bleeds at dawn on a Kent two-lane. Wind again. You did not turn the radio on. It came up by itself, a trick the aftermarket tablet has been pulling since the lot — a scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the tablet the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right, mid-block enough to be easy to miss if you are looking down. Both hands should be on the wheel. One of them is not.",
-  "decision": "The tablet is talking in a voice you know and a pedestrian is in the crosswalk. Where do your eyes go?",
+  "scene": "The radio bleeds at dawn on a Kent two-lane. Wind again. You did not turn the radio on. It came up by itself, a trick the old deck has been pulling since the lot — a scrap of a familiar voice, half a word, then static. The Chorus. Your eyes drop to the dial the way they always do. A four-way is coming. A pedestrian in a hood is already in the crosswalk from the right, mid-block enough to be easy to miss if you are looking down. Both hands should be on the wheel. One of them is not.",
+  "decision": "The radio is talking in a voice you know and a pedestrian is in the crosswalk. Where do your eyes go?",
   "options": [
    {
     "id": "a",
-    "text": "Look down long enough to kill the tablet, then look back up"
+    "text": "Look down long enough to kill the radio, then look back up"
    },
    {
     "id": "b",
@@ -876,10 +876,10 @@
    },
    {
     "id": "d",
-    "text": "Eyes up, both hands on the wheel, cover the brake, ignore the tablet until you are through"
+    "text": "Eyes up, both hands on the wheel, cover the brake, ignore the radio until you are through"
    }
   ],
-  "debrief": "Eyes off the road — even to silence a distraction — is how the crash happens. Drive first. Park the tablet until the intersection is behind you. You missed the hood the second you looked down.",
+  "debrief": "Eyes off the road — even to silence a distraction — is how the crash happens. Drive first. Leave the radio until the intersection is behind you. You missed the hood the second you looked down.",
   "source": {
    "psdp_skill": "Skill six: looking ahead",
    "dol_section": "5.5 Focus",
@@ -2870,7 +2870,7 @@
    },
    {
     "id": "d",
-    "text": "Check the tablet for which way he is going, then decide"
+    "text": "Check the net for which way he is going, then decide"
    }
   ],
   "debrief": "Siren or lamps: move right, stop, wait until the emergency vehicle is past, then reenter in the order you had. Eyes stay on the glass, not on a screen.",
@@ -3068,29 +3068,29 @@
   "zone": "Central",
   "driver": "deac",
   "card_type": "hazard",
-  "title": "The Tablet Wakes",
-  "hook": "The tablet wakes mid-change. The Chorus wants a look.",
-  "scene": "Wind on a Kent morning, left stalk already on, gap half-taken. The aftermarket tablet on the doghouse between the seats lights up — a familiar voice, a map, a lie. II-009's cousin. Eyes off a Beetle was bad. Eyes off the Ledger mid-change is how you write a sedan into the big west-coast mirror on the door. The timeout is the look.",
-  "decision": "The screen lights up in the middle of a lane change. Where do your eyes go?",
+  "title": "The Chorus Wakes",
+  "hook": "The radio wakes mid-change. The Chorus wants a look.",
+  "scene": "Wind on a Kent morning, left stalk already on, gap half-taken. The CB deck bolted to the doghouse between the seats crackles up on its own — a familiar voice, a road report that isn't one, a lie. II-009's cousin. Eyes off a Beetle was bad. Eyes off the Ledger mid-change is how you write a sedan into the big west-coast mirror on the door. The timeout is the look.",
+  "decision": "The speaker crackles up in the middle of a lane change. Where do your eyes go?",
   "options": [
    {
     "id": "a",
-    "text": "Glance the screen — one second, then finish the change"
+    "text": "Glance the dial — one second, then finish the change"
    },
    {
     "id": "b",
-    "text": "Thumb the screen off while you steer — you can do two things"
+    "text": "Thumb the knob off while you steer — you can do two things"
    },
    {
     "id": "c",
-    "text": "Finish by memory — you already swept, the screen can wait"
+    "text": "Finish by memory — you already swept, the radio can wait"
    },
    {
     "id": "d",
-    "text": "Cancel the change, hold the lane, ignore the screen, sweep again, then move"
+    "text": "Cancel the change, hold the lane, ignore the radio, sweep again, then move"
    }
   ],
-  "debrief": "A screen mid-maneuver is a look you cannot afford. Cancel, hold, finish the driving, then the glass. You missed a sedan by killing the stalk.",
+  "debrief": "A radio mid-maneuver is a look you cannot afford. Cancel, hold, finish the driving, then the dial. You missed a sedan by killing the stalk.",
   "source": {
    "psdp_skill": "Skill nine: multi-lane roads – part one",
    "dol_section": "5.5 Focus",

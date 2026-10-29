@@ -42,7 +42,7 @@
     },
     {
       "id": "d",
-      "text": "Check the tablet for which way he is going, then decide",
+      "text": "Check the net for which way he is going, then decide",
       "correct": false,
       "result": "Your eyes leave the glass. The siren is already beside you. You decide late. That was the timeout, and it was a look.",
       "state_delta": {

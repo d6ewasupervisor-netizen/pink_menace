@@ -443,4 +443,91 @@ plumbing, not re-plumbed here; (2) `rural.shoulder.yank` fires every step while
 the mistake continues, which is why a pressure application is throttled to one
 per second.
 
+## 11. Phase 4 — radio not tablet, Grandma on screen, an unsigned clipboard, 6.2's clock (2026-10-29)
+
+**The Chorus never had a screen.** `pack/01_BIBLE.md:37` gave the Menace "an
+aftermarket nav tablet"; `ref_cockpit.jpg` was locked *because* of it ("poisoned
+(tablet / digital …)", bible problem #5); and two story cards were written around
+a device the art can never light. The radio was already in the scene's own first
+sentence, and the deck is the canon prop (`cards/I-011`: "a physical CB radio
+deck with knobs and a dark face, the coiled cord plugged into that radio"). So the
+tablet left the fiction and the lesson stayed exactly where it was:
+
+- **II-009** — the device is "the old deck", the eyes drop to "the dial", and the
+  fix is unchanged: eyes up, hands on the wheel, the radio can talk to itself.
+- **III-027** — "The Tablet Wakes" → **"The Chorus Wakes"**; the CB deck bolted
+  to the doghouse crackles up mid-change. Ids, option ids, `correct` flags and
+  every `state_delta` are untouched — only device nouns moved.
+- **III-022** — "Check the tablet for which way he is going" → "Check the net".
+- `src/manifest.js` `FAIL_PLACE["II-009"]` — "the tablet" → "the radio" ("Six at
+  the radio." in the fail dispatch).
+- `drive/src/quietroads/data/cards.json` re-exported for those three cards, per
+  `docs/DRIVE.md:40`.
+
+**Tablet stills — flagged, not redrawn.** Art is its own pipeline. These are the
+image briefs that still describe a tablet, so whoever regenerates Act II/III art
+knows which plates argue with the fiction:
+
+| Card | Field | What the brief says | Verdict |
+|---|---|---|---|
+| `II-009` | `image_brief.foreground` / `.midground` / `.read` | "an aftermarket tablet LIT as a digital radio — station name and FM channel readout", "the lit tablet", "the lit screen below" | **Redraw as the deck** — the plate argues with the card |
+| `III-027` | `image_brief.subject` / `.foreground` / `.read` | "tablet on the doghouse lit", "no readable UI on the tablet — only a glow", "the tablet is lit" | **Redraw as the deck** — same argument, wrong device |
+| `II-001`, `I-011`, `V-002` | `image_brief.midground` | "aftermarket nav tablet dark" / "center-dash tablet dark" | Optional — a dark tablet is a dark dash object, no story claim |
+| `I-003`, `V-002` | art notes | "no GPS map on tablet" / "dark blank tablet only" / "tablet dark/non-competing" | Keep — already forbid a lit device |
+| `VI-013`, `VI-004`, `VI-011` | briefs | "no lit tablet", "no lit navigation screen", "no lit GPS tablet" | Keep — the radio-only lock doing its job |
+| `V-001` | `forced` (QA record) | rejected take 8, "distracting tablet map" | Keep — a record of a rejected plate, not a brief |
+
+
+**Grandma is on screen once, and it is the last mile.** She was already canon as
+east ("She's in Spokane. She got on the bus.", `act3.json:512`), and 8.2 already
+had a gray blanket for Gracie — held by Ray. Now the third figure at Division
+Street comes out of the checkpoint hut (`8.2.gm1`–`8.2.gm6`), says "I got on the
+bus. It went east. So did you.", closes the note out loud ("I told you. Come home
+slow." / "…I did."), and takes the blanket out of Ray's hands to put it over the
+roof herself. Cue renamed `cutscene.ray_blanket` → `cutscene.grandma_blanket`
+(`sim/spokane.ts` still owns and emits it); `voice.ts` gains `GRANDMA` (bedless,
+low) because `voice.test.ts` fails any speaker missing from the campaign table;
+the act-8 `characters` entry carries `name: "{GRANDMA}"` and no `portrait_dir`
+(no art exists, and the schema requires only `name`). `{GRANDMA_INITIALS}` now
+defaults to `"— G."` in both places it lives (`dialogue_act0-1.json` meta and
+`qrStore.ts`, which overrides meta at boot via `setPlaceholder`), and the note's
+own literal em dash was removed so it renders "Come home slow. — G." and not
+"— — G.".
+
+**The clipboard stopped signing itself.** `manifestFor(act, driverName)` stamped
+the signed-in student's real name onto Deac's manifest. It is in-fiction
+paperwork, so it now always ships `driver: "________"` and the start button does
+the signing (already the contract: `public/game/feel.js:771` renders
+`row.driver || "________"`). Signature and both callers updated
+(`src/routes-run.js`, `scripts/validate-act-v.js`); `MANIFESTS` is exported so a
+test can hold it. New `scripts/test-manifest.js` (node assert, no DB) locks three
+things: the signature line stays blank even if a name is passed, no act row
+carries a placeholder, and Act VI's cargo and its end beat name the same load.
+
+**Act VI finally says what it carries.** `MANIFESTS.VI.cargo` was
+`"TODO — Claude: Backcountry load"` in production. The run starts at the
+Ellensburg fuel depot and ends at a gate that opens on diesel, so the cargo is
+"Diesel — four cans for the ridge plows", and the Act VI end beat now names it in
+the same breath as the chains ("…chains are on the floor, the diesel for the
+ridge plows is strapped down in the back, and the word is dawn.").
+
+**6.2's clock now agrees with the exam.** The exam teaches it (questions_v1
+`c1_008`): on a first-year intermediate license, 1–5 a.m. is a 25+ supervisor or
+nothing — and Ali drives the road home alone. 6.2 was already 90% compliant (she
+sleeps at the rest area, wakes at five) but never said so, and nothing in acts
+5–8 stamps a clock, so the one scene with a time in it was the one scene that
+could contradict the rule she had just passed. Two direction cards pin it now:
+`6.2.sleep` "Night. Parked before one." and `6.2.morning` "Five a.m. … The
+one-to-five is over and so is the sleep."
+
+**Verified**: 188/188 vitest green, `tsc --noEmit -p drive/tsconfig.json` exit 0,
+`scripts/test-manifest.js` ok, `validate-act-v.js` baseline unchanged
+(V-006/V-008/V-013 fail exactly as before — pre-existing, out of scope),
+`bench/baseline.json` restored after the run. Dialogue JSONs stay CRLF.
+
+**Still open from this phase**: the II-009/III-027 plates (table above); the
+bible's numbered problems #5 (nav tablet in/out), #10 (same question, art side)
+and #20 (signature) are fixed in code but get marked fixed in Phase 6's re-audit.
+
+
 <!-- CONTINUED -->

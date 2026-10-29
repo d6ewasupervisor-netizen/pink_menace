@@ -106,7 +106,7 @@ function withManifest(payload, run, card, session, answersInAct) {
   return {
     ...payload,
     manifest: {
-      ...manifestFor(act, session && session.name),
+      ...manifestFor(act),
       show: answersInAct === 0 && !payload.pending_outcome && !recap && opener && !(card && card.hold),
     },
   };

@@ -216,7 +216,7 @@ function assertRibbonCopy(label, text) {
     errors.push("closer " + label + " still uses insulin/cooler/June framing: " + JSON.stringify(text));
   }
 }
-const manV = manifestFor("V", "Test");
+const manV = manifestFor("V");
 if (manV.act !== "V" || !/relay/i.test(manV.cargo) || !/repeater|antenna|clamps/i.test(manV.cargo)) {
   errors.push("MANIFESTS.V must name the relay kit (repeater / antenna / clamps)");
 }

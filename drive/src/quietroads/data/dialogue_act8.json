@@ -90,6 +90,11 @@
       "voice_bed": "radio_static",
       "default_volume": "low"
     },
+    "GRANDMA": {
+      "name": "{GRANDMA}",
+      "color": "#C9A227",
+      "default_volume": "low"
+    },
     "DEAC": {
       "name": "Deac",
       "color": "#B0B0B0",
@@ -1209,12 +1214,65 @@
         },
         "8.2.wait_blanket": {
           "type": "wait",
-          "wait_for": "cutscene.ray_blanket",
+          "wait_for": "cutscene.grandma_blanket",
+          "next": "8.2.gm1"
+        },
+        "8.2.gm1": {
+          "type": "direction",
+          "text": "Then the hut door. Somebody small comes out of it with her collar turned up and takes the ten feet at the speed of somebody who has been waiting all night and is not going to hurry now.",
+          "auto_ms": 3600,
+          "next": "8.2.gm2"
+        },
+        "8.2.gm2": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "V",
+          "emotion": "deadpan",
+          "volume": "whisper",
+          "text": "…You got on the bus.",
+          "next": "8.2.gm3"
+        },
+        "8.2.gm3": {
+          "type": "line",
+          "speaker": "GRANDMA",
+          "delivery": "V",
+          "emotion": "warm",
+          "volume": "low",
+          "voice_bed": "none",
+          "text": "I got on the bus. It went east. So did you.",
+          "next": "8.2.gm4"
+        },
+        "8.2.gm4": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "V",
+          "emotion": "sad",
+          "volume": "whisper",
+          "text": "Nobody told me.",
+          "next": "8.2.gm5"
+        },
+        "8.2.gm5": {
+          "type": "line",
+          "speaker": "GRANDMA",
+          "delivery": "V",
+          "emotion": "warm",
+          "volume": "low",
+          "voice_bed": "none",
+          "text": "I told you. Come home slow.",
+          "next": "8.2.gm6"
+        },
+        "8.2.gm6": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "V",
+          "emotion": "warm",
+          "volume": "whisper",
+          "text": "…I did.",
           "next": "8.2.13"
         },
         "8.2.13": {
           "type": "direction",
-          "text": "He puts the gray blanket over the roof of the Beetle. Gracie immediately attacks it.",
+          "text": "Grandma takes the blanket out of Ray's hands and puts it over the roof of the Beetle. Gracie immediately attacks it.",
           "anim": "gracie.attack_blanket",
           "sfx": [
             "blanket_soft",

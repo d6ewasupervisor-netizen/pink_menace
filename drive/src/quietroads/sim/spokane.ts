@@ -24,7 +24,7 @@ const CHECK_M = 30;
  *              qte.gracie.start .success .fail
  *              noise.yellow  noise.red  mission.fail.swarm
  *   8.2 wait:  cutscene.beetle_stops  cutscene.ali_out
- *              cutscene.mom_arrives  cutscene.ray_blanket
+ *              cutscene.mom_arrives  cutscene.grandma_blanket
  *   8.3:       none (radio; branches on stall flags, muffler, has_sori_card)
  *
  * The two grades the dialogue branches on: the checkpoint speed grade
@@ -227,7 +227,7 @@ export class SpokaneRun {
       "cutscene.beetle_stops",
       "cutscene.ali_out",
       "cutscene.mom_arrives",
-      "cutscene.ray_blanket",
+      "cutscene.grandma_blanket",
     ]);
     if (!owned.has(name)) return false;
     if (name === "quiet.reason_passed" && !this.flags.has("mya.wake")) return false; // not yet

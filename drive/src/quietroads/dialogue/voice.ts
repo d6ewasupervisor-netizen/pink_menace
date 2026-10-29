@@ -35,6 +35,7 @@ export const SPEAKER_VOICE: Record<string, SpeakerVoice> = {
   JONAH:    { bed: "cb_radio",     volume: "normal" },
   MOM:      { bed: "radio_static", volume: "low" },
   RAY:      { bed: "radio_static", volume: "low" },
+  GRANDMA:  { bed: "none",         volume: "low" },
   LUMI:     { bed: "radio_static", volume: "whisper" },
   SORI:     { bed: "radio_static", volume: "whisper" },
   HANK:     { bed: "cb_radio",     volume: "normal" },

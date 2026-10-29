@@ -150,7 +150,7 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
 22. **[card] Act II's faces for rules:** school lamps **II-002**, portable stop in fog
     **II-003**, Marisol **II-005**/**II-026**, Deac's hand signals **II-006**/**II-016**/
     **II-022**, Bus 12 · Reyna · Tobin **II-007** (amber) & **II-010** (callback, bent arm),
-    the Chorus tablet **II-009**, three-second gap **II-012**, slow-vehicle triangle
+    the Chorus on the radio **II-009**, three-second gap **II-012**, slow-vehicle triangle
     **II-013**, Hollis **II-014**, **II-029 Drive Around the Block**, **II-030** driveway
     turn, **II-031 Into the Dash** (callback of I-003). — `cards/II-*.json`;
     `pack/33_LOT_MEMORY.md:7-13`.
@@ -306,9 +306,11 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
     very quiet, and holds on; Ray eyes the plow ("Is that a plow?" / "Filing cabinets." /
     "We're going to need to talk about insurance.") and asks about tire pressure
     (`tire_checked` branch); the stall payoff (stop → "A kid named Jonah says thank you" via
-    Ray; continue → "Somebody walked six hours because of me, once… Was it?" / "…No."); the
-    gray blanket over the roof; Gracie attacks it; Mya sleeps through everything. —
-    `act8.json:744-1232`.
+    Ray; continue → "Somebody walked six hours because of me, once… Was it?" / "…No."); then
+    Grandma out of the hut with the gray blanket — the run's one on-screen surprise
+    (`8.2.gm1`–`8.2.gm6`: "You got on the bus." / "It went east. So did you." / "I told you.
+    Come home slow." / "…I did."); she puts the blanket over the roof; Gracie attacks it; Mya
+    sleeps through everything. — `act8.json:744-1330`.
 50. **Epilogue, one week later** (scene `8.3`): "I got here. Both cats. License is on the
     fridge. Mom put a magnet on it. A cat magnet." Messages for Jonah, Bea, Tuna, Priya, Hank
     (each behind a flag/item branch). "Thank you for the cat. Thank you for the test. Same
@@ -379,14 +381,22 @@ is the stepdad whose "truck breaks constantly" (`act3.json:983`) and the tire-pr
 conscience (`act6.json:842`, `act8.json:942`). Motivation: keep her on the permit rules and
 get her home. First: `act0-1.json:438`; last: `act8.json:1511` (closed). Files: `act0-1`,
 `act3`, `act6`, `act7`, `act8`; radio bark variants in `src/manifest.js:115-134`.
+Grandma stands behind them at the checkpoint (8.2, `8.2.gm1`).
 
-**Grandma.** Never on screen; legacy presence: the note (`act0-1.json:197`), forty years of
-the pink car ("nobody expects anything from a pink car", `act3.json:476`), the Fred Meyer lot
-teaching ("I watched her teach half of Kent in that lot", `act2.json:1689`), the '09
-vision-test argument (`act2.json:799`), the bridge lore (`act6.json:1164`). Evacuated east by
-bus ("She got on the bus", `act2.json:155`; `act3.json:512`). Her legacy voice is the Field
-Notes "NOTES" chapters (`act4.json:1179-1228`). Files: `act0-1`, `act2`, `act3`, `act5`,
-`act6`; `cards/II-029`; placeholders `{GRANDMA}`/`{GRANDMA_INITIALS}` (`act0-1.json:10-17`).
+**Grandma.** On screen once, at the very end: the third figure at Division Street. She was
+evacuated east by bus ("She got on the bus", `act2.json:155`; "She's in Spokane", `act3.json:512`),
+so the reunion is Mom, Ray — and the woman whose car this is. She comes out of the checkpoint hut
+with the same gray blanket (8.2, `8.2.gm1`–`8.2.gm6`), takes it out of Ray's hands and puts it
+over the Beetle's roof for Gracie, and closes the note out loud: "I told you. Come home slow." /
+"…I did." Legacy presence before that: the note (`act0-1.json:197`), forty years of the pink car
+("nobody expects anything from a pink car", `act3.json:476`), the Fred Meyer lot teaching
+("I watched her teach half of Kent in that lot", `act2.json:1689`), the '09 vision-test argument
+(`act2.json:799`), the bridge lore (`act6.json:1164`). Her legacy voice is the Field Notes
+"NOTES" chapters (`act4.json:1179-1228`). Voice: bedless and low, one campaign voice
+(`dialogue/voice.ts` `GRANDMA`), entered in the act-8 `characters` table; no portrait art
+exists yet (the schema requires only `name`). Files: `act0-1`, `act2`, `act3`, `act4`,
+`act5`, `act6`, `act8`; `cards/II-029`; placeholders `{GRANDMA}`/`{GRANDMA_INITIALS}` —
+the note signs "— G." (`act0-1.json:14`).
 
 **Tuna.** Valley warehouse mechanic; built the plow and filing-cabinet doors (`act2.json:117`);
 sells upgrades; the chains authority ("Everybody thinks they don't need chains",
@@ -562,7 +572,7 @@ a "drive by sight" accessibility path (`pack/16_FEAR_AND_SOUND.md:31-39,121-129`
 | **HUSH / Sori** | Priya's pitch (`act2.json:1469`); Sori photocard purchase (`act2.json:2326`) | Deac's gift (`act6.json:190-241`); "Hold Still" sung at the Relay (`act8.json:1389`); "Sori was worth it" (`act7.json:1341`) | **RESOLVED** (flavor thread) |
 | **Bea's toy / "it's never no reason"** | Bea's thesis + toy (`act2.json:1203-1239`) | Summit: "She had the toy in her mouth the whole time" (`act5.json:866`); bridge: the mouse instead of the moth (`act6.json:1308`); 8.3 "Tell her she was right about the bridge" (`act8.json:1346`) | **RESOLVED** |
 | **Hank's medal** | "Deac said you were quiet. Didn't say you were polite." (`act7.json:244`) | "Hank said you didn't do anything stupid" (`act7.json:742`); relayed by Mom (`act7.json:1584`); 8.3 message (`act8.json:1443`) | **RESOLVED** |
-| **Grandma's note / "come home slow"** | `act0-1.json:197` | Echoed across the run ("Don't rush the last two hours.", `act7.json:810`; `act8.json:381`) | **RESOLVED** (thematic) |
+| **Grandma's note / "come home slow"** | `act0-1.json:197` | Echoed across the run ("Don't rush the last two hours.", `act7.json:810`; `act8.json:381`), then said back to her by the woman who wrote it (`8.2.gm5`: "I told you. Come home slow." / `8.2.gm6`: "…I did.") | **RESOLVED** (on screen, 8.2) |
 | **The Quiet's nature & the closed pass** — "Four feet on the ridge… or something standing on the east slope that the plows won't go near" | Summit lot (`act5.json:817`); "the herd lives on the pass" (`docs/ACT_DRIVE_ALIGNMENT.md:86`) | none — Act VII is deliberately closed | **UNRESOLVED by design** |
 | **Gravy / The Ferry Line / The Crossing / Old Ninety's driver** | bible roster (`pack/01_BIBLE.md:101-106`); Old Ninety carded (III-011/012) | none | **ABANDONED** (never carded; parked for Act VII or dropped) |
 | **IV-001 "Encore ride-along"** — why Ali can compare "two pedals" | `cards/IV-001-brake.json` ("Yuna drives. Ali sits the welded rear bench"); IV-002 references it ("Yuna's car had two pedals", `cards/IV-002.json`) | none — IV-001 is unseeded, assets only (`PLAYTHROUGH.md:70`) | **ABANDONED/MISSING** (see §10) |

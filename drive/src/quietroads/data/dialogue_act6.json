@@ -891,7 +891,7 @@
         },
         "6.2.sleep": {
           "type": "direction",
-          "text": "Night. Two cats, one girl, one pink car, engine off. Nothing moves. Nothing has to.",
+          "text": "Night. Parked before one. Two cats, one girl, one pink car, engine off. Nothing moves. Nothing has to.",
           "anim": "beetle.night_still",
           "music": "res://audio/music/night_bunk.ogg",
           "auto_ms": 4200,
@@ -910,7 +910,7 @@
         },
         "6.2.morning": {
           "type": "direction",
-          "text": "Five a.m. Still dark. Frost on the windshield. Ali, awake before the cats, looking at the tires.",
+          "text": "Five a.m. Still dark. Frost on the windshield. The one-to-five is over and so is the sleep. Ali, awake before the cats, looking at the tires.",
           "anim": "ali.morning_frost",
           "background": "res://backgrounds/rest_area_predawn.png",
           "auto_ms": 3000,
