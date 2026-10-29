@@ -477,7 +477,10 @@
       "background": "res://backgrounds/exam_terminal_morning.png",
       "ambience": "res://audio/amb/terminal_hum.ogg",
       "guide_refs": [
-        "Knowledge Test: 40 questions, 32 to pass"
+        "Knowledge Test: 40 questions, 32 to pass",
+        "Licensing: permit held 6 months, 40 day / 10 night supervised hours (DG 1.8)",
+        "Intermediate license: 1–5 a.m. and passenger limits (DG 1.8)",
+        "Temporary license good 45 days, official card mailed (DG 1.8)"
       ],
       "entry": "4.2.0",
       "nodes": {
@@ -607,6 +610,51 @@
           "emotion": "proud",
           "volume": "low",
           "text": "{PLAYER_FULL}. Driver's license. That stamp is good until the card comes in the mail.",
+          "next": "4.2.lic1"
+        },
+        "4.2.lic1": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "neutral",
+          "volume": "low",
+          "text": "Six months on the permit first. You had seven. Forty hours daylight, ten after dark, with somebody who's held a license three years — fifty, attested, and the school enters the scores.",
+          "next": "4.2.lic2"
+        },
+        "4.2.lic2": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "neutral",
+          "volume": "low",
+          "text": "And it's logged. Not remembered. That clipboard is the log — every hour you drove under me, in ink — and the state's copy agrees with it.",
+          "next": "4.2.lic3"
+        },
+        "4.2.lic3": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "deadpan",
+          "volume": "whisper",
+          "text": "So the homework was the paperwork.",
+          "next": "4.2.lic4"
+        },
+        "4.2.lic4": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "neutral",
+          "volume": "low",
+          "text": "Intermediate restrictions start now. One to five in the morning you need a parent, a guardian, or somebody licensed twenty-five or older in that seat. No passengers under twenty who aren't family for six months. Three after that.",
+          "next": "4.2.lic5"
+        },
+        "4.2.lic5": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "tense",
+          "volume": "low",
+          "text": "The Authority has an emergency provision for convoy drivers. It waives the waiting period — the six months, not the exams, not the hours, not the night. One to five is still one to five, alone.",
           "next": "4.2.mya_branch"
         },
         "4.2.mya_branch": {

@@ -1072,6 +1072,53 @@ card is placed zero or two times, or if a VII card node names no card.
 `validate-act-v.js` / `validate-act-ii.js` unchanged, `validate-act-iii.js` ok.
 
 
+## 2026-10-29 — the licensing exchange at 4.2, and Hank's grain line
+
+The exam scene now says what the paper actually costs her. Five lines run straight
+off `4.2.4` ("That stamp is good until the card comes in the mail") before the Mya
+branch: `4.2.lic1` → `lic5`. Deac, dispatch cadence, Ali flat ("So the homework was
+the paperwork.").
+
+Every number is the guide's (DG 1.8):
+
+- **lic1** — "Six months on the permit first… Forty hours daylight, ten after dark,
+  with somebody who's held a license three years — fifty, attested, and the school
+  enters the scores." (DG 1.8: permit ≥ 6 months; 40 day / 10 night supervised
+  hours with a licensed driver 3+ years; parental authorization attests 50;
+  "Have your instruction permit for at least 6 months.")
+- **lic2** — "And it's logged. Not remembered. That clipboard is the log…" (the
+  hours she drove under Deac are the attested log; ties the clipboard to the form)
+- **lic4** — the intermediate restrictions: "One to five in the morning you need a
+  parent, a guardian, or somebody licensed twenty-five or older in that seat. No
+  passengers under twenty who aren't family for six months. Three after that."
+  (DG 1.8 p.6, both stages)
+- **lic5** — the in-fiction Authority emergency provision: it "waives the waiting
+  period — the six months, not the exams, not the hours, not the night. One to five
+  is still one to five, alone." Fiction is labelled as the Authority's, not the
+  guide's; 6.2 already honors the night rule.
+
+Scene `4.2.guide_refs` now carries the DG 1.8 lines (permit/hours, intermediate
+night + passengers, temporary-license 45 days) beside the exam line.
+
+**7.1, Hank** (`7.1.chat8` / `chat9`, at the end of the cruise-idle chat branch):
+"Guide's got one exception and it's the one that fits me: agricultural. Grain
+counts… Authority calls this a convoy; the mountain calls it a harvest." then
+"Doesn't mean I run you in the dark. One to five in the morning is still one to
+five, and you're alone in that car. Grain buys daylight, Bug. Not midnight."
+That is DG 1.8 p.6's real exception — "Agricultural purposes. Intermediate driver
+license holders may drive at any hour, with passengers, for agricultural purposes."
+— followed by his refusal to use it at night.
+
+New `drive/test/licensing.test.ts` (5) pins the chain, the numbers ("Six months",
+"Forty hours daylight, ten after dark", "three years", "One to five",
+"twenty-five or older", "No passengers under twenty", "waiting period", "not the
+night") and Hank's line.
+
+**Verified**: 215/215 vitest across 24 files (210 + 5), `tsc --noEmit` exit 0,
+`validate-citations.js` ok (131), `validate-act-vii.js` ok, `test-manifest.js` ok.
+
+
+
 
 
 
