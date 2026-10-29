@@ -44,7 +44,7 @@ deliberately empty rather than filled with a guess.
 
 ## Current pass — the overhaul's six phases (2026-10-28)
 
-- **Phases 1–4 done** (`48b0c49`, `4fa2229`, `960317c`, this session): chain reorder
+- **Phases 1–5 done** (`48b0c49`, `4fa2229`, `960317c`, `289c0de`, this session): chain reorder
   `4.2→6.1b→5.1→5.2→5.3→6.1→6.2→6.3→7.1→7.2→7.3→8.1→8.2→8.3` + the
   `spokane_home` mission with Act VII opened; I-90 cargo insulin → relay kit +
   the 3.5 night-radio beat; the chain-up loop and every shop close now continue
@@ -54,9 +54,9 @@ deliberately empty rather than filled with a guess.
   "Come home slow" payoff (`voice.ts` + act-8 characters + `— G.` signature);
   `manifestFor()` no longer signs the clipboard with the account name, Act VI
   carries the ridge plows' diesel (`scripts/test-manifest.js`); 6.2's clock
-  pinned outside 1–5 a.m.
-- **Next — Phase 5:** credits final card toggles on `deac_answered` ("…Seatbelt."
-  vs static); drop `postgame.deacs_route` from the act8 unlock list. **Phase 6:**
+  pinned outside 1–5 a.m.; the ending's last card toggles on `deac_answered`
+  and `postgame.deacs_route` is gone (`drive/test/ending.test.ts`).
+- **Next — Phase 6:** permanent full-chain test 0.1 → `game_complete` (incl. both
   permanent full-chain test (0.1→game_complete incl. both 1.3.C/3.3.C branches +
   exam fail→retest→pass), the drive-bundle build (`dialogue_act8` compiles/loads),
   `docs/STORY_BIBLE.md` updates + the §10/§11 re-audit (FIXED-with-commit /

@@ -678,3 +678,38 @@ and #20 are fixed in code and get marked fixed in Phase 6's re-audit.
   phase), and the II-009/III-027 plate redraws handed to art.
 
 
+## 2026-10-29 — Phase 5 (the campaign's last card)
+
+`8.3.end` unlocked `credits` and `postgame.deacs_route` — two strings nothing in
+the repo implements (bible problems #14 and #8) — so the ending's final image was
+whatever line happened to be on screen. The ending now ends on a card that
+toggles on the run's own verdict: `8.3.13` (the chair, the hand flat on the desk)
+→ `8.3.credits_gate` → `8.3.credits_deac` ("The last card is the radio: a man
+across a pass, very faint, very far. …Seatbelt.") when `deac_answered`, else
+`8.3.credits_static` ("The last card is the room: a chair, a desk, a hand flat on
+the wood, and a radio that says nothing back."). `8.3.12b` used to jump straight
+to `8.3.end`, so the static path skipped the desk beat *and* the card; it now
+continues into `8.3.13` the way the answered path does. `postgame.deacs_route`
+is removed from the unlock list — it promised a postgame that has never existed
+— and `credits` stays.
+
+**Permanent test** (`drive/test/ending.test.ts`, 4): walks 8.3 on a real
+`DialogueRunner` both ways through the `respect >= 80` gate (answered → `8.3.12`
+sets `deac_answered` and the card is Deac's; static → `8.3.silence`, the card is
+the room), asserts `credits` is the last unlock and never
+`postgame.deacs_route`, and scans every act-8 node for the removed string.
+
+**Verified**: 192/192 vitest green (188 + 4 new), `tsc --noEmit -p
+drive/tsconfig.json` exit 0, `validate-act-v.js` baseline unchanged,
+`bench/baseline.json` restored after the run, act8 still CRLF. Bible: epilogue
+50, the callback and flag tables, and questions #5, #6, #8, #9, #10, #15/#18 and
+#20 are marked answered/fixed (the ones Phase 4 closed are marked there too).
+
+### Next — Phase 6
+- Permanent full-chain test 0.1 → `game_complete`, incl. both 1.3.C / 3.3.C
+  branches and the exam fail → retest → pass path.
+- The drive-bundle build (`dialogue_act8` compiles/loads).
+- `docs/STORY_BIBLE.md` / `AUDIT.md` §10/§11 re-audit: FIXED-with-commit /
+  CHANGED / STILL OPEN; hand the II-009/III-027 plate redraws to art.
+
+

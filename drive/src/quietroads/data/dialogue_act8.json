@@ -1605,6 +1605,39 @@
           "text": "Ali, in a chair that is now hers, puts her hand flat on the desk and doesn't say anything for a while.",
           "anim": "ali.hand_flat_desk",
           "auto_ms": 4200,
+          "next": "8.3.credits_gate"
+        },
+        "8.3.credits_gate": {
+          "type": "branch",
+          "branches": [
+            {
+              "condition": {
+                "flag": "deac_answered",
+                "is": true
+              },
+              "next": "8.3.credits_deac"
+            },
+            {
+              "next": "8.3.credits_static"
+            }
+          ]
+        },
+        "8.3.credits_deac": {
+          "type": "direction",
+          "text": "The last card is the radio: a man across a pass, very faint, very far. …Seatbelt.",
+          "sfx": [
+            "static_far_swell"
+          ],
+          "auto_ms": 4200,
+          "next": "8.3.end"
+        },
+        "8.3.credits_static": {
+          "type": "direction",
+          "text": "The last card is the room: a chair, a desk, a hand flat on the wood, and a radio that says nothing back.",
+          "sfx": [
+            "static_hold"
+          ],
+          "auto_ms": 4200,
           "next": "8.3.end"
         },
         "8.3.silence": {
@@ -1629,7 +1662,7 @@
           "effects": {
             "log": "deac.silent"
           },
-          "next": "8.3.end"
+          "next": "8.3.13"
         },
         "8.3.end": {
           "type": "end",
@@ -1638,8 +1671,7 @@
               "game_complete": true
             },
             "unlock": [
-              "credits",
-              "postgame.deacs_route"
+              "credits"
             ],
             "checkpoint": "game_complete",
             "log": "game.complete"

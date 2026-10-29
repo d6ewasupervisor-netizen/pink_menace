@@ -530,4 +530,32 @@ bible's numbered problems #5 (nav tablet in/out), #10 (same question, art side)
 and #20 (signature) are fixed in code but get marked fixed in Phase 6's re-audit.
 
 
+## 12. Phase 5 — the campaign's last card (2026-10-29)
+
+`8.3.end` used to unlock two strings nobody implemented: `credits` and
+`postgame.deacs_route` (bible problems #14 and #8). The player's last image was
+whatever line happened to be on screen. The ending now ends on a card, and the
+card is the run's own verdict:
+
+- `8.3.13` (the chair, the hand flat on the desk) → `8.3.credits_gate`.
+- `deac_answered` → `8.3.credits_deac`: "The last card is the radio: a man across
+  a pass, very faint, very far. …Seatbelt."
+- otherwise → `8.3.credits_static`: "The last card is the room: a chair, a desk, a
+  hand flat on the wood, and a radio that says nothing back."
+- `8.3.12b` ("…Yeah. Same time tomorrow.") used to jump straight to `8.3.end`, so
+  the static path skipped the desk beat *and* the card; it now continues into
+  `8.3.13` like the answered path does.
+- `8.3.end` unlocks `credits` only. `postgame.deacs_route` is gone: it named a
+  postgame that has never existed, and leaving it in the save data promised one.
+
+`drive/test/ending.test.ts` (4) walks 8.3 on a real `DialogueRunner` both ways
+through the `respect >= 80` gate — answered: `8.3.12` fires, `deac_answered` is
+set, the card is Deac's; static: `8.3.silence`, the card is the room — plus the
+unlock audit (last unlock is `credits`, never `postgame.deacs_route`) and a scan
+of every act-8 node for the removed string.
+
+Verified: 192/192 vitest (188 + 4), `tsc --noEmit` exit 0, `validate-act-v.js`
+baseline unchanged, `bench/baseline.json` restored.
+
+
 <!-- CONTINUED -->

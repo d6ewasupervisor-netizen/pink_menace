@@ -315,8 +315,12 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
     fridge. Mom put a magnet on it. A cat magnet." Messages for Jonah, Bea, Tuna, Priya, Hank
     (each behind a flag/item branch). "Thank you for the cat. Thank you for the test. Same
     time tomorrow." **Ending gate:** `respect ≥ 80` → Deac answers, very faint: "…Seatbelt."
-    (`deac_answered`); else static ("The mountains eat radio"). `game_complete` unlocks
-    `credits`, `postgame.deacs_route`. — `act8.json:1263-1551`.
+    (`deac_answered`); else static ("The mountains eat radio"). Both paths land on the chair
+    (`8.3.13`) and then on the credits' final card, which toggles on `deac_answered` —
+    `8.3.credits_deac` ("The last card is the radio… …Seatbelt.") or `8.3.credits_static`
+    ("The last card is the room…"). `game_complete` unlocks `credits` only; the
+    `postgame.deacs_route` string it used to carry was never implemented and is gone.
+    (`drive/test/ending.test.ts`.) — `act8.json:1263-1590`.
 
 ### Card-game-only end beats (no drive scene)
 
@@ -576,7 +580,7 @@ a "drive by sight" accessibility path (`pack/16_FEAR_AND_SOUND.md:31-39,121-129`
 | **The Quiet's nature & the closed pass** — "Four feet on the ridge… or something standing on the east slope that the plows won't go near" | Summit lot (`act5.json:817`); "the herd lives on the pass" (`docs/ACT_DRIVE_ALIGNMENT.md:86`) | none — Act VII is deliberately closed | **UNRESOLVED by design** |
 | **Gravy / The Ferry Line / The Crossing / Old Ninety's driver** | bible roster (`pack/01_BIBLE.md:101-106`); Old Ninety carded (III-011/012) | none | **ABANDONED** (never carded; parked for Act VII or dropped) |
 | **IV-001 "Encore ride-along"** — why Ali can compare "two pedals" | `cards/IV-001-brake.json` ("Yuna drives. Ali sits the welded rear bench"); IV-002 references it ("Yuna's car had two pedals", `cards/IV-002.json`) | none — IV-001 is unseeded, assets only (`PLAYTHROUGH.md:70`) | **ABANDONED/MISSING** (see §10) |
-| **"credits" / "postgame.deacs_route"** | 8.3 `game_complete` unlocks them (`act8.json:1551`) | nothing implements either | **UNRESOLVED / MISSING** |
+| **"credits"** | 8.3 `game_complete` via `8.3.credits_gate` | the campaign's final card, toggled by `deac_answered` ("…Seatbelt." vs the room) — `drive/test/ending.test.ts` | **RESOLVED** (the card; `postgame.deacs_route` removed) |
 
 ## 7. Branching and conditions
 
@@ -618,7 +622,7 @@ evaluated by `DialogueRunner` (`drive/src/quietroads/dialogue/types.ts:20-26`).
 | `ritzville_discount`, `ritzville_short`, `bought_*` | `7.2` (`act7.json:1246,1225,1396`) | `8.1.lights_branch`, `8.2.lights_branch` | lights/Sori epilogue lines |
 | `park_gap_in` (var) | `8.1.go` reset 99; park grade writes gap | `8.1.gap_branch`, `8.2.gap_branch` | foot / close / far stop wording |
 | `checkpoint_on_speed` | `8.1.speed_ok` | `8.2.pre_branch` | final-approach wording |
-| `deac_answered`, `game_complete` | `8.3` (`act8.json:1525,1551`) | unlocks `credits`, `postgame.deacs_route` | ending state (unlocks unused — §10) |
+| `deac_answered`, `game_complete` | `8.3.12` sets the first, `8.3.end` the second | `8.3.credits_gate` picks the last card; `game_complete` unlocks `credits` | the ending's final card — `drive/test/ending.test.ts` |
 
 ### 7b. Player choices that change the story
 
@@ -864,9 +868,11 @@ flowchart LR
 
 ### 10d. Missing pieces
 
-14. **`unlock: ["credits", "postgame.deacs_route"]`** (`act8.json:1551`) — nothing in the
-    codebase implements a credits screen or postgame route (repo-wide search; the only hits are
-    the dialogue data itself).
+14. **`unlock: ["credits", "postgame.deacs_route"]`** — **FIXED** (Phase 5, 2026-10-29,
+    `AUDIT.md` §12): the last card is part of the only ending the campaign has and toggles on
+    `deac_answered` (`8.3.credits_deac` / `8.3.credits_static`), both ending paths reach it,
+    and the `postgame.deacs_route` unlock — a postgame nothing implements — is removed.
+    `drive/test/ending.test.ts` holds all three facts.
 15. **Act VI cargo is a TODO.** `src/manifest.js:31` — `cargo: "TODO — Claude: Backcountry
     load"` — placeholder story text in a runtime file; the VI end-beat prose
     (`src/manifest.js:186-195`) never names the load either.
@@ -879,15 +885,19 @@ flowchart LR
 
 ### 10e. Placeholder / TODO story text
 
-18. `src/manifest.js:31` — "TODO — Claude: Backcountry load" (#15).
+18. `src/manifest.js:31` — **FIXED** (Phase 4, 2026-10-29): the load is "Diesel — four cans
+    for the ridge plows", the Act VI end beat names it in the same breath as the chains, and
+    `scripts/test-manifest.js` fails if the cargo and the beat ever disagree (#15).
 19. **Status docs contradict each other on Act VI.** `PLAYTEST.md:120-132` still says Act VI is
     "card JSON shells only. No art. No stills. No seeding." and `pack/40_ACT_VI.md:39` keeps
     `variation.forced: "Act VI scaffold — no still; do not seed"`, while the cards carry final
     copy and `docs/ACT_DRIVE_ALIGNMENT.md:81-84` marks Act VI shipped (and the drive ships the
     VI missions). Docs drift, not story drift.
 20. **Placeholder family names** `{MOM}`/`{RAY}`/`{GRANDMA}` default to literal "Mom"/"Ray"/
-    "Grandma" (`act0-1.json:10-17`) — deliberate, but the note signature renders as
-    "{GRANDMA_INITIALS}" → "Grandma" (`act0-1.json:197`), which reads oddly as initials.
+    "Grandma" (`act0-1.json:10-17`) — deliberate. The signature was **FIXED** (Phase 4,
+    2026-10-29): `{GRANDMA_INITIALS}` defaults to `"— G."` in the dialogue meta and in
+    `qrStore.ts`, and the note's own literal em dash was dropped so it renders "Come home
+    slow. — G."
 
 ## 11. Open questions (only the author can answer)
 
@@ -900,16 +910,23 @@ flowchart LR
    I-009 (it currently shows an empty-seat line before Mya is lost)?
 4. **What happens after Tuna's shop in the chain-up loop?** (shop scenes have no
    `next_scene`; `chainup_return` is never set.) What was the intended path back to 5.1?
-5. **Grandma's exact identity/status:** she "got on the bus" east (`act2.json:155`), the note
-   is hers, but the Spokane reunion is Mom + Ray (`act8.json:837-942`). Is Grandma in Spokane
-   too, deceased, or the note-writer only?
-6. **Is "Alison" (dialogue) or the account name (manifest) the intended player name**, and
-   should the drive ever read the account name like `manifestFor` does?
+5. **Grandma's exact identity/status** — **ANSWERED** (Phase 4, 2026-10-29): she is alive and
+   in Spokane ("She's in Spokane", `act3.json:512`), and she is the third figure at Division
+   Street (`8.2.gm1`–`8.2.gm6`): gray blanket, "I told you. Come home slow." See §3.
+6. **Is "Alison" (dialogue) or the account name (manifest) the intended player name** —
+   **ANSWERED for the manifest** (Phase 4, 2026-10-29): `manifestFor()` no longer takes a name
+   at all; the clipboard ships `driver: "________"` and is signed in-fiction on the start
+   button (`scripts/test-manifest.js`). "Alison" stays the dialogue's full name.
 7. **IV-001 (Yuna ride-along):** reseed, rewrite IV-002's reference away, or leave the gap?
-8. **`credits` / `postgame.deacs_route`:** planned features or abandoned unlocks?
-9. **Act VI's load** (the `TODO` in `src/manifest.js:31`) — what is the Backcountry cargo?
-10. **Is the nav tablet in or out?** (bible §3.1 says in; art locks say out; two story cards
-    depend on it.)
+8. **`credits` / `postgame.deacs_route`** — **ANSWERED** (Phase 5, 2026-10-29): `credits` is
+   the ending's final card, toggled by `deac_answered` (`8.3.credits_deac` /
+   `8.3.credits_static`); `postgame.deacs_route` was never implemented and is removed.
+9. **Act VI's load** — **ANSWERED** (Phase 4, 2026-10-29): the diesel for the ridge plows, the
+   run that opens the pass she has to drive home (`scripts/test-manifest.js`).
+10. **Is the nav tablet in or out?** — **ANSWERED: out** (Phase 4, 2026-10-29). The Chorus
+    comes through the CB deck the cabin already has (`cards/I-011`); II-009, III-027 ("The
+    Chorus Wakes") and III-022 say radio, and the two stills that drew a lit tablet are flagged
+    for redraw in `AUDIT.md` §11. `pack/01_BIBLE.md:37` and `ref_cockpit.jpg`'s ban now agree.
 
 ---
 
