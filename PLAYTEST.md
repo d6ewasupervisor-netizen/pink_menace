@@ -127,7 +127,7 @@ Claude fills copy into `cards/VI-001.json` … `cards/VI-013.json`. Citations lo
 - Driver: Ali alone (Yuna radio-only if at all)
 - Callback: VI-004 hazard → VI-011 ledger
 - End beat: Cleared — and the pass is yours at dawn (`deliveryBeat` act VI) — not a VI-014 card
-- Out of scope: chains / Snoqualmie (Act VII)
+- Out of scope: chains / Snoqualmie stills (Act VII cards exist; no VII stills, no VII seed)
 
 `ACT_ZONES` already lists Act VI. Unseeded cards are not playable on [ali.tactag.app](https://ali.tactag.app).
 

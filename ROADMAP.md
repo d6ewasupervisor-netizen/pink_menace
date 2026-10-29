@@ -202,9 +202,10 @@ deliberately empty rather than filled with a guess.
 
 ## Known risks / deliberately out of scope
 
-- Act VII was closed (Rule 8); the 2026-10-28 overhaul opened scenes 5.1–8.3
-  (`48b0c49`) — see AGENT_LOG. Backend, auth, parent dashboard, DRIVE_ENABLED
-  untouched (Rule 2).
+- Act VII is **open** (author-approved 2026-10-29): the 2026-10-28 overhaul opened
+  scenes 5.1–8.3 (`48b0c49`), and VII cards now exist under the no-still /
+  do-not-seed convention — no VII stills, no VII zone plates, no VII seed. Backend,
+  auth, parent dashboard, DRIVE_ENABLED untouched (Rule 2).
 - BD-1 is **signed off** (owner, 2026-10-05): `FOLLOW.rule` stays `seconds`
   (3 s dry / 4 s truck), the grader does not switch to `vehicle_lengths`, and the
   guide-led teaching copy stays as it is. BD-2 is resolved (§4.14 citations).

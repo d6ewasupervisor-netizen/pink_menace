@@ -6,7 +6,7 @@
 - Claude may PASS a take that is not (yet) the live master → **approved, not seeded**.
 - Copying “Claude PASS” from an older take onto a newer live plate is a false attribution.
 
-**Act VII stays CLOSED.** This note does not open Act VII or authorize stills regen.
+**Act VII cards are allowed (author-approved 2026-10-29); Act VII stills and seeds are not.** This note still authorizes neither a stills regen nor a seed for VII.
 
 Indexed from [`43_PACK_RULES_CONSOLIDATED.md`](43_PACK_RULES_CONSOLIDATED.md) §16.
 

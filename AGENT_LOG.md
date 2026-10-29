@@ -959,6 +959,33 @@ exit 0, `validate-citations.js` ok, `validate-act-v.js` unchanged
 (V-006/V-008/V-013).
 
 
+## 2026-10-29 — Act VII opens (cards only)
+
+The author approved Act VII: *The Dark Hours — The Road Home*. Every rule/status
+doc that said "closed" now says what is actually true, and the herd's art law is
+carried forward unchanged.
+
+- `pack/43_PACK_RULES_CONSOLIDATED.md` — the header no longer says "stays CLOSED";
+  the `## Act VII — CLOSED` section is `## Act VII — OPEN (cards only)` and names
+  what is allowed (VII cards, schema shape, citations from pack/07 + pack/08,
+  `scripts/validate-act-vii.js`), what is not (VII stills, VII zone plates, VII
+  seeds; `variation.forced: "Act VII scaffold — no still; do not seed"`), and what
+  does not change (herd art law: posture and stillness, never gore, never filling
+  the frame; Act V's own ban on VII material on a Ribbon card).
+- `pack/00_README.md`, `README.md`, `pack/44_SEED_PROVENANCE.md` — same correction
+  in the index, the front door, and the seed-provenance note.
+- `docs/ACT_DRIVE_ALIGNMENT.md` and `docs/STORY_BIBLE.md` §1/§3 — the "herd lives
+  on the pass, drive should not free it" sentences now say the drive never frees
+  the herd while the act itself is open.
+- `ROADMAP.md` (known risks) and `PLAYTEST.md` (scope line).
+
+No card, still, seed, or drive code was touched in this commit.
+
+**Verified**: 209/209 vitest, `tsc --noEmit` exit 0, `validate-citations.js` ok,
+`test-manifest.js` ok.
+
+
+
 
 
 

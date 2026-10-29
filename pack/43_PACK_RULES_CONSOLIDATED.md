@@ -1,8 +1,8 @@
 # 43 — Pack rules consolidated
 
-Standing rules hard-won across Acts I–VI, gathered in one place so **Act VII (when called) is cheaper**. This file is an index of locks — it does not replace the numbered pack sources it cites.
+Standing rules hard-won across Acts I–VI, gathered in one place and extended for **Act VII (The Dark Hours — The Road Home)**. This file is an index of locks — it does not replace the numbered pack sources it cites.
 
-**Act VII stays CLOSED.** Do not scaffold Act VII cards, stills, or zone slots from this doc.
+**Act VII is OPEN (author-approved, 2026-10-29).** VII **cards** are allowed, under the same **no-still / do-not-seed** convention Act VI used. VII **stills and zone plates are still not produced**, and no VII card is seeded. The herd's art law is unchanged: posture and stillness, never gore, never filling the frame.
 
 **After:** `pack/40_SIX_ACT_AUDIT.md` (six-act stills ↔ JSON + I–III citations). Consolidation was explicitly out of scope for that audit; this file is the follow-on Claude asked for.
 
@@ -230,9 +230,18 @@ Do not: describe only the object of attention and leave position implied by habi
 
 ---
 
-## Act VII — CLOSED
+## Act VII — OPEN (cards only)
 
-Do not open Act VII from this consolidation. Chains / Snoqualmie / snow / night / Gravy stay parked for Act VII when someone explicitly calls that act. No VII card scaffold, no VII stills, no VII seed.
+**Opened 2026-10-29 by the author.** Act VII is *The Dark Hours — The Road Home*: the pass (5.x), the straights (6.x), the escort (7.x), Spokane (8.x). The drive already plays it (`actDialogue.ts` loads `dialogue_act8.json`; `fullchain.test.ts` walks 0.1 → `game_complete`).
+
+What that changes here:
+
+- **Allowed:** `cards/VII-*.json` — one card per teachable beat, `pack/04_card.schema.json` shape, citations from `pack/07_DOL_SECTIONS.json` / `pack/08_PSDP_SKILLS.json` only. Validate with `node scripts/validate-act-vii.js`.
+- **Not allowed:** VII stills, VII zone plates, VII seeds. Every VII card carries `variation.forced: "Act VII scaffold — no still; do not seed"`. `docs/STORY_BIBLE.md` §2 lists the deck; `pack/40_ACT_VI.md` is the shape this follows.
+- **Unchanged:** the herd's art law (`pack/26_THE_QUIET.md`) — posture and stillness, never gore, never filling the frame. A VII card may describe figures standing in drifts; it may not describe what they are doing to anybody.
+- **Unchanged:** Act V's own locks still forbid VII material *on a Ribbon teaching card* (`scripts/validate-act-v.js`). Opening VII does not loosen Act V.
+
+Chains / Snoqualmie / snow / night / Gravy are no longer "parked"; they are Act VII's material.
 
 ---
 

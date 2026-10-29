@@ -57,8 +57,9 @@ at dawn" (`cards/VI-013.json`; `src/manifest.js:186-195`) — while the drive's 
 (`dialogue_act8.json`, act closed at runtime) has her park a foot from the line on Division
 Street, hand the story to Mom and Ray, and a week later sign off the Spokane Relay with
 Deac's faint reply — "…Seatbelt." — only if she drove well enough (`respect ≥ 80`,
-`dialogue_act8.json:1501-1525`). Act VII (the Dark Hours; the herd on the pass) stays closed
-everywhere (`README.md:37`, `actDialogue.ts:49-51`).
+`dialogue_act8.json:1501-1525`). Act VII (the Dark Hours; the herd on the pass) is **open**
+as *The Road Home* (author-approved 2026-10-29): the drive plays 5.x–8.x, VII cards exist,
+and no VII still or seed is produced.
 
 ## 2. Full chronological story
 
@@ -333,8 +334,10 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
   the ridge in two days, or something standing on the east slope that the plows won't go
   near… But the gate has your name in it now… the word is dawn… Two hundred and eighty miles
   east, your mother is awake and does not know yet." (`src/manifest.js:186-195`).
-- **Act VII** — permanently closed: "The herd is on the pass. Act VII stays closed."
-  (`actChallenges.ts:132-143`).
+- **Act VII** — open (author-approved 2026-10-29) as *The Dark Hours — The Road Home*: the
+  pass, the straights, the escort, Spokane. The drive plays it (`actDialogue.ts`,
+  `spokane_home`), and VII cards exist under the no-still / do-not-seed convention. The
+  herd stays on the pass and is never freed by the drive.
 
 ## 3. Characters
 

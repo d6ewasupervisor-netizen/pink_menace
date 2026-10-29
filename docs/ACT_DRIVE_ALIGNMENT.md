@@ -83,7 +83,7 @@ Act I is the completed translation of that loop, and the worked example to copy:
    behind Hank) are shipped. The Ledger run shows the truck. The Menace is still
    the Beetle everywhere else, which is what she drives.
 
-Act VII stays closed — the herd lives on the pass and the drive should not free it.
+Act VII is open as *The Road Home* (author-approved 2026-10-29): the drive plays it, and VII cards exist. The herd stays on the pass — the drive never frees it, and no VII still or seed is produced.
 
 ## Wiring that is already in place
 
