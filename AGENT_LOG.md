@@ -791,4 +791,24 @@ a daylight shot in a night scene — an art-pipeline note, not a code one.
 `validate-citations.js` ok, `bench/baseline.json` restored.
 
 
+## 2026-10-29 — L-002 is Kent (the Lot is not in Renton)
+
+The re-audit's second author call was the lot's city: cards say "the Kent licensing
+lot" (`cards/I-005.json`) and the drive's location key is `kent_dol_lot`, while
+the locked registry said "dead Fred Meyer, **Renton**". The plan decided Kent.
+`pack/01_BIBLE.md` now reads "dead Fred Meyer parking lot, **Kent**" in §7's zone
+map (line 121) and "### L-002 · The Lot — dead Fred Meyer, **Kent**", with a
+*Location canon* line recording the correction and pointing at the card and the
+scene key. `docs/STORY_BIBLE.md`'s location table row (§) drops the
+"Renton (card canon) / Kent (card text)" split for a single Kent row.
+
+The only remaining "Renton" in the fiction is `cards/II-007.json`'s "the rain has
+been going since Renton" — a direction the weather comes from, not the lot — and
+the audit's own §10.3 problem statement, which stays as the historical record
+(its §12 row is marked FIXED in this pass).
+
+**Verified**: 197/197 vitest, `validate-citations.js` ok, `test-manifest.js` ok.
+
+
+
 

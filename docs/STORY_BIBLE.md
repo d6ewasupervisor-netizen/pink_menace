@@ -466,7 +466,7 @@ geometry in `drive/src/quietroads/sim/kentMap.ts` / `corridors.ts`.
 
 | Place | What happens there | How you get there | Source |
 |---|---|---|---|
-| **The Lot** — dead Fred Meyer lot, Renton (card canon L-002) / the Kent licensing lot (card text) | Act I opener; the DOL lot where Mya is lost; the quiet interior & chase | Act I entry scene 0.1→1.1 | `pack/01_BIBLE.md:262-267`; `cards/I-005.json:9`; drive `act0-1.json:636` (`kent_dol_lot`) |
+| **The Lot** — dead Fred Meyer lot, Kent (L-002, corrected 2026-10-29) | Act I opener; the DOL lot where Mya is lost; the quiet interior & chase | Act I entry scene 0.1→1.1 | `pack/01_BIBLE.md:262-269`; `cards/I-005.json:9`; drive `act0-1.json:636` (`kent_dol_lot`) |
 | **Grandma's carport** (Kent side street) | Tutorial; the note; aftermath after the lot | scene 0.2 / 1.4 | `act0-1.json:181,1076` |
 | **Kent residential streets** (L-001 4th Ave S at Willis; L-005 school zone; L-004 Central Ave; L-006 slide cut) | Act II deliveries: stops, school lamps, bus, bike, fog work zone, four-way | scene 1.1, 2.3a-d | `pack/01_BIBLE.md:237-260`; `act2.json:508-1755` |
 | **Kent Valley warehouse / Tuna's bay** | Meeting Deac; Mya's return-by-test; upgrades shop | scene 2.1/2.2/2.3d/2.8 | `act2.json:109,218,1528,1751` |

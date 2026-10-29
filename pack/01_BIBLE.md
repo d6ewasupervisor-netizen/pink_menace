@@ -118,7 +118,7 @@ Never teach a rule abstractly. Attach it to one of these.
 
 | Act | Zone | PSDP Skills (verbatim headings) | DOL Sections | Driver |
 |---|---|---|---|---|
-| I | **The Lot** — dead Fred Meyer parking lot, Renton | Skill one through Skill four — copy the full heading from pack/08_PSDP_SKILLS.json; never invent a subtitle | 2.4, 2.5, 2.6, 2.7, 2.8, 2.11, 2.12, 2.14 | Ali |
+| I | **The Lot** — dead Fred Meyer parking lot, Kent | Skill one through Skill four — copy the full heading from pack/08_PSDP_SKILLS.json; never invent a subtitle | 2.4, 2.5, 2.6, 2.7, 2.8, 2.11, 2.12, 2.14 | Ali |
 | II | **The Grid** — quiet residential, Kent | **Skill three: how close are you?**; **Skill five: driving on a quiet street – part one**; **Skill five: driving on a quiet street – part two**; **Skill six: looking ahead**; **Skill seven: turning around**; **Skill eight: parking – part one / part two** | 4.2, 4.6, 4.12–4.14, 4.16–4.18, 5.2, 5.4–5.6 | Ali |
 | III | **Central** — multi-lane, Central Ave, Kent | 9–10 | 4.13, 4.16, 5.2, 5.3 | Deac |
 | IV | **The Core** — downtown Seattle | 11–12 | 4.1, 4.2, 4.3, 4.6, 4.7, 4.17 | Yuna |
@@ -259,10 +259,12 @@ Rule for the writer: registered locations may **change across acts** (that is th
 
 > A single live travel lane through a wet rock cut, afternoon rain. The closed half is a trench behind cones. Vertical wet rock wall on one side, no shoulder that is not a drop. A stopped pickup occupies the live lane, hood up, two figures in the travel path. Overhead gray, no Kent storefronts, no school fence, no ocean. **Do not relocate this cut onto a Kent side street. Nothing is burning or collapsed.**
 
-### L-002 · The Lot — dead Fred Meyer, Renton
+### L-002 · The Lot — dead Fred Meyer, Kent
 *Act I base state.*
 
 > A large empty retail parking lot, faded painted stalls, weeds through the seams, cart corrals empty and rust-streaked. A long low storefront at the north end, roll-down shutters closed, sign faces removed leaving pale rectangles. Light poles standing, none lit. Wet asphalt, flat gray overcast. Empty, quiet, undamaged.
+
+*Location canon:* the lot is in **Kent** (corrected 2026-10-29 — this registry entry read "Renton"; the cards say "the Kent licensing lot", `cards/I-005.json`, and the drive's scene location is `kent_dol_lot`). Renton is only a direction the rain comes from (`cards/II-007.json`), never the lot.
 
 *Act VII variant (L-002-VII):* same geometry, at night, light poles now lit on emergency circuit, and it is not empty. Do not describe what is in it beyond distant out-of-focus silhouettes per §9.
 
