@@ -124,7 +124,7 @@
           "emotion": "neutral",
           "volume": "low",
           "anim": "deac.map_table",
-          "text": "Issaquah checkpoint. Medical. Three vehicles. I lead, Jonah's middle, you sweep.",
+          "text": "Issaquah checkpoint. Relay kit. Three vehicles. I lead, Jonah's middle, you sweep.",
           "next": "3.1.2"
         },
         "3.1.2": {
@@ -718,7 +718,7 @@
           "delivery": "R",
           "emotion": "tense",
           "volume": "normal",
-          "text": "Ali, the cargo has a window. It's insulin. It's literally on a clock.",
+          "text": "Ali, the cargo has a window. It's the relay kit. Repeater, antenna, clamps. It's literally on a clock.",
           "next": "3.3.6"
         },
         "3.3.6": {
@@ -1543,6 +1543,46 @@
           "volume": "low",
           "anim": "mom.breath_out",
           "text": "Hi baby.",
+          "next": "3.5.signal_branch"
+        },
+        "3.5.signal_branch": {
+          "type": "branch",
+          "branches": [
+            {
+              "condition": {
+                "flag": "stall_stopped",
+                "is": true
+              },
+              "next": "3.5.signal_clear"
+            },
+            {
+              "condition": {
+                "flag": "stall_continued",
+                "is": true
+              },
+              "next": "3.5.signal_weak"
+            },
+            {
+              "next": "3.5.signal_clear"
+            }
+          ]
+        },
+        "3.5.signal_clear": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "R",
+          "emotion": "warm",
+          "volume": "whisper",
+          "text": "Mom — you're coming through clear.",
+          "next": "3.5.4"
+        },
+        "3.5.signal_weak": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "R",
+          "emotion": "tired",
+          "volume": "whisper",
+          "text": "Mom — you keep breaking up.",
           "next": "3.5.4"
         },
         "3.5.4": {

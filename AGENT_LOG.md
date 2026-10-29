@@ -527,3 +527,33 @@ no drive scene references a VII-* card, and the card seed has no VII rows.
 `src/manifest.js` untouched (its VII work is Phase 4/5 scope; Phase 1 restored the
 file byte-for-byte).
 
+
+## 2026-10-28 — Phase 2: I-90 cargo insulin → relay kit + 3.5 night-radio line
+
+**Swap sites** (the I-90 corpus is now insulin-family-free):
+`3.1.1` briefing "Issaquah checkpoint. **Medical**." → "**Relay kit**." and the
+stall brief `3.3.5` "It's **insulin**." → "It's **the relay kit. Repeater,
+antenna, clamps**." (both in `dialogue_act3.json`). Scene `3.4` (Mya Returns)
+verified node-by-node — no cargo fiction to swap. The 8.2 stall payoff
+(`.stall_a*`/`.stall_b*`) and `dialogue_act5_ribbon.json` scanned clean (0 hits);
+"Cargo made the window." (3.3.13 / 8.2.stall_b3) stays as the generic echo.
+Remaining insulin/June/cooler mentions repo-wide are canon or prohibitions:
+Act II fiction (act2 briefs, II-cards, `manifest.js` MANIFESTS.II,
+`game.js` cargoNameOf II, `actChallenges.ts` II block), image-prompt
+negatives ("No insulin cooler"), `validate-act-v.js` rule text, and Act II
+mission ids in tests. `src/manifest.js` IV/V entries already "Relay kit".
+
+**3.5 night-radio line** (`dialogue_act3.json`, new nodes `3.5.signal_branch`,
+`3.5.signal_clear`, `3.5.signal_weak` after `3.5.3`): Mom's signal is clearer on
+`stall_stopped` ("Mom — you're coming through clear.") and weaker on
+`stall_continued` ("Mom — you keep breaking up."), falling back to clear when
+neither flag is set. Polarity follows the goal's word order and the game's
+moral register (stop = the humane call, +40 respect; 8.3 "the mountains eat
+radio" is the punishment register). Atmospheric lines only — no tower
+causality claimed (the kit is delivered that day, never installed by night).
+
+**Verified**: 182/182 vitest green (the Phase 1 "183" was a miscount — suite
+re-run at HEAD via stash = 182 both sides; no test derives cases from data),
+`tsc --noEmit` exit 0, `validate-act-v.js` baseline unchanged (V-006/V-008/V-013
+fail exactly as before, no new failures). `bench/baseline.json` restored after
+the bench run.
