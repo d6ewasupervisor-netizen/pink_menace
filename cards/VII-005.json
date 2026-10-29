@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Four Hundred Feet of Light",
   "hook": "Nobody out here for fifty miles.",
-  "scene": "I-90 east of Ellensburg, straight to a horizon that is only dark. Nobody out here for fifty miles, so the high beams go on and the road ahead turns into a tunnel of light with a hard black edge. The book's number is four hundred feet: the distance the beams actually light. Past that edge you are driving on arithmetic and hope, and somewhere past it is the rest area and a body that has been awake since dawn.",
+  "scene": "I-90 east of Ellensburg, straight to a horizon that is only dark. Nobody out here for fifty miles, so the high beams go on and the road ahead turns into a tunnel of light with a hard black edge. The book's number is four hundred feet — the glow you have to be able to stop inside. Past that edge you are driving on arithmetic and hope, and somewhere past it is the rest area and a body that has been awake since dawn.",
   "decision": "Two hours of dark in front of you. What is the drive?",
   "options": [
     {
@@ -51,11 +51,11 @@
       }
     }
   ],
-  "debrief": "High beams whenever there are no oncoming vehicles; regular headlights when there are or when you are following. Drive at a speed that lets you stop inside the glow. Take the twenty-minute nap.",
+  "debrief": "High beams whenever there are no oncoming vehicles; regular headlights when there are or when you are following. Dim 500 feet before oncoming and 300 feet behind. Drive at a speed that lets you stop inside the glow — usually 400 feet. Take the twenty-minute nap.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "2.5 Vehicle Maintenance (Headlights)",
-    "teaching_target": "2.5: high beams on open roads, dim 500 ft for oncoming and 300 ft behind. 5.6 night: stop inside the glow, usually 400 ft. 3.1: tired — take a 20-minute nap."
+    "teaching_target": "2.5: '500 feet in front of an oncoming vehicle. 300 feet when you're behind.' 5.6: 'stop within the glow of your headlights (usually 400 feet).' 3.1: the 20-minute nap."
   },
   "cast": [
     "ali",
