@@ -1168,3 +1168,68 @@ Ali is surprised by the *arrival*, not by the woman. Everything else in the beat
 
 
 
+
+## 2026-10-29 — deck accuracy, the road-home clock, the permit, the seed (six items)
+
+Six commits, one per item, on `story/act-vii-road-home`. No ID renumbered; every
+taught rule is quoted from `docs/wa-driver-guide/guide_extracted.txt` and the
+quote is asserted in a test.
+
+1. **`9698514` — VII-002 chains.** Option a: "Chains on the drive wheels — the
+   rear pair — before the car moves." DG 5.6 says only "Use snow tires or chains
+   when it's required." and names no axle, so "all four" was invented. The
+   debrief and `teaching_target` say the guide names no axle; VII-010's debrief
+   restates the rule in the desk's voice (no "receipt is the equipment").
+   `actvii-deck.test.ts` (13 across the pass) checks the copy, the citation and
+   the live `data/cards.json` mirror.
+2. **`c414a7d` — midday in Spokane.** 6.2 is awake at five; 6.3 is first light;
+   7.1 is Moses Lake dawn; the escort + barter + "two hours" land at midday.
+   VII-008: "flat white … coming up on noon" (`variation.time_of_day` midday);
+   8.1.0: "gray sky going flat white, a little snow in the air"; 8.1.lights_a
+   "Snow in the air counts"; 8.2.gm1 "waiting since before the sun"; 8.2.lights1
+   "In all that snow"; 8.2.stall_b7 drops "tonight"; 7.2's three dark-two-hours
+   lines rewritten; `7.3.location` `ritzville_lot_morning`; VII-009 midday.
+   VII-008's debrief now teaches the park and the checkpoint speed as two
+   separate rules. `clock.test.ts` (9) holds the order and forbids 1–5 a.m.
+3. **`7aa8a69` — headlight numbers.** DG 2.5: 500 ft oncoming / 300 ft behind
+   (dim); DG 5.6: stop within the glow, usually 400 ft. 6.2.night now says
+   "four hundred feet of glow — stop inside it. Five hundred to oncoming before
+   I dim." VII-005's scene says 400 is "the glow you have to be able to stop
+   inside"; its debrief carries 500/300/400. Exam `c5_010` lost the unsourced
+   182/350 beam-reach numbers.
+4. **`6a40749` — permit supervision.** 2.2 `super1`–`super5` between the permit
+   line and the cat: Deac names 1.1 plainly (drove herself to the licensing
+   office, no permit, no licensed adult, alone, "the first thing I'd have failed
+   you on"); Ali is flat ("It was four miles."); Deac: "It was a violation."
+   Then the state's rule ("a licensed adult with three years in the seat") and
+   the Authority's courier provision ("radio open and a licensed driver on the
+   net; in the car for the first one, on the radio after"), labelled as the
+   Authority's, not law. 2.3a remains the in-car delivery. `licensing.test.ts`
+   13 (was 5).
+5. **`2a888ae` — Hank.** 7.1.chat8: "Authority calls this a convoy. The county
+   calls it harvest."
+6. **`4a9a46f` — seed.** `scripts/seed-cards.js` now skips a card whose
+   `variation.forced` says no still AND do not seed (the ten VII cards), throws
+   if one is named explicitly, and still seeds IV-001. The matcher is the
+   scaffold shape, not the substring, because IV-005/IV-028/V-001 carry
+   rejected-take notes that say "do not seed". Act VI is live (13 stills) and
+   stays seedable — the pass request's parenthetical said "all of Act VI", but
+   the repo's VI cards are not scaffolds; skipping them would drop live cards.
+   `seed.test.ts` (6). **No seed ran** (no DATABASE_URL; branch rule).
+
+**Clock trace** (also in `AUDIT.md` §16): 6.2.sleep before 1:00 a.m. →
+6.2.morning 5:00 a.m. → 6.3 first light → 7.1.0 Moses Lake dawn → 7.1.arrive
+Ritzville gray sky → 7.2/7.3 same morning → 8.1.0 flat white + snow → 8.2.gm1
+"since before the sun" (midday) → 8.3 one week later.
+
+**Pre-4.2 driving** (also in `AUDIT.md` §16): 0.2 private carport, 1.1 the one
+deliberate violation (named at 2.2), 1.2 private DOL lot, 2.3a Deac in the car,
+2.3b/c/d + 2.4 + 2.5 + 3.2/3.3 on the Authority's radio provision.
+
+**Verified**: 251/251 vitest across 27 files (baseline 215/24), `tsc --noEmit`
+exit 0, `validate-citations.js` ok (131), `validate-act-vii.js` ok,
+`node --check scripts/seed-cards.js` ok, `bench/baseline.json` restored.
+Pre-existing baselines unchanged: `validate-act-v` (V-006/V-008/V-013),
+`validate-act-ii`; `validate-act-iii` ok. Docs: `STORY_BIBLE` §2/§6/§12,
+`ROADMAP`, `AUDIT` §1/§16. No seed, no still, no deploy.
+

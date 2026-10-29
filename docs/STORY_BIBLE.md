@@ -261,7 +261,8 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
     the line — you don't jerk back"), blind crests, uncontrolled intersections, crossbucks.
     Cards **VI-001/002/004/006/010/012**. — `act6b.json:26-194`.
 42. **The Straight, night** (`straight_night_drive`, scene `6.2`): "Nobody out here for fifty
-    miles — high beams. The book says five hundred feet." Don't outdrive your headlights
+    miles — high beams. The book says four hundred feet of glow — stop inside it. Five hundred
+    to oncoming before I dim." Don't outdrive your headlights
     (stopping shadow inside the lights; LED branch). Fatigue stages; HUSH plays "Hold Still" —
     requested "for a girl in a pink car" by someone in Kent. **Rest choice:** pull in (twenty
     minutes; Mom on the radio; Ray: "Check your tire pressure in the morning") or push through
@@ -287,8 +288,8 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
     (0 → "Hank said you didn't do anything stupid" + `hank_report_clean`; ≤2 → "one stupid
     thing and didn't do it twice"; else "Hank said you got here"). — `act7.json:228-819`.
 46. **Barter at Ritzville** (scene `7.2`; "PRICES ARE WHAT THEY ARE"): tiers on `trade_points`
-    (≥400 → discount, "Don't tell Hank, he'll want it too"; ≥180 → one purchase — "Which two
-    hours scares you more — the dark ones or the loud ones?"; else short — free terrible
+    (≥400 → discount, "Don't tell Hank, he'll want it too"; ≥180 → one purchase — "Which scares
+    you more — not seeing them, or them hearing you?"; else short — free terrible
     coffee, plus the "Sori was worth it" beat if she owns merch). — `act7.json:1100-1453`.
 47. **Radio, Ritzville** (scene `7.3`): Mom will be at the Division Street checkpoint with Ray
     and "the gray one. The one the cats like." Hank's line relayed if `hank_report_clean`.
@@ -297,8 +298,10 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
 
 ### The epilogue — Spokane (Act VII, *The Road Home* — open)
 
-48. **The last two hours** (scene `8.1`, `spokane_home`): lights branch (LED vs "Old lights.
-    Slower, then. …Sori was worth it."); Sprague Avenue — "everything from Kent, in a
+48. **The last two hours** (scene `8.1`, `spokane_home`, daylight — the five a.m. wake and
+    Moses Lake dawn put Spokane at midday; "the gray sky going flat white, a little snow in the
+    air"): lights branch (LED vs "Old lights. Slower, then. …Sori was worth it."); Sprague
+    Avenue — "everything from Kent, in a
     different order, and none of it new. Nothing new. Just right."; Quiet cluster ignored
     (muffler branch: "They didn't even look. Tuna, I love you."); Mya's wake heeded; checkpoint
     at exactly the posted speed ("Don't rush the last two hours"); final parallel park ("Fred
@@ -603,7 +606,7 @@ a "drive by sight" accessibility path (`pack/16_FEAR_AND_SOUND.md:31-39,121-129`
 | **The culvert (VI debt)** | VI-004 "Off the Edge" (`cards/VI-004.json`, "Arms VI-011") | VI-011 "Same Culvert" — "Nothing happens… the least eventful hundred feet" (`cards/VI-011.json`, `callback_of: VI-004`) | **RESOLVED** |
 | **The chain sign (VII debt)** | VII-002 "Sign Means Sign" (`cards/VII-002.json`, `schedules_callback`) | VII-010 "The Voucher" — the Ritzville desk asks for the chain receipt (`cards/VII-010.json`, `callback_of: VII-002`) | **RESOLVED** |
 | **The truck blind spot (V debt, second bill)** | V-006 "Beside the Trailer" (`cards/V-006.json`, still the drive's 7.1 card) | VII-007 "Four Seconds Behind" — the escort re-bills it at Hank's wide turn (`cards/VII-007.json`, `callback_of: V-006`) | **RESOLVED** |
-| **The paper (licensing)** | permit rules at the carport (`act0-1.json:232`); Deac's clipboard hours (II-011, VI-013) | 4.2 `lic1`–`lic5`: six months, 40 day / 10 night, 50 attested, the log, the intermediate night + passenger limits, the Authority waiver that does not touch the night (`act4.json`); 6.2 honors 1–5 a.m.; Hank names the agricultural exception and refuses the dark hours (`7.1.chat8`/`chat9`) | **RESOLVED** (drive + cards) |
+| **The paper (licensing)** | permit rules at the carport (`act0-1.json:232`); Deac's clipboard hours (II-011, VI-013) | 4.2 `lic1`–`lic5`: six months, 40 day / 10 night, 50 attested, the log, the intermediate night + passenger limits, the Authority waiver that does not touch the night (`act4.json`); 6.2 honors 1–5 a.m.; 2.2 `super1`–`super5` names the 1.1 violation (no permit, no licensed adult, alone) and states the Authority's courier provision — radio open, licensed driver on the net — as the Authority's, not the state's; Hank names the agricultural exception and refuses the dark hours (`7.1.chat8`/`chat9`) | **RESOLVED** (drive + cards) |
 | **Jonah: cargo vs. person** | 3.3 "It's insulin. It's literally on a clock." (`act3.json:713`) | 3.4 / 3.4a + 8.2 stall payoff ("Was it?" / "…No.", `act8.json:1161-1186`); Jonah's flash-goodbye (`act6.json:354`) | **RESOLVED** (drive 8.2 plays) |
 | **Deac's trust / the clipboard** | "Run deliveries… That's a driving test." (`act2.json:424`); II-011 "Write the Hours Down" (`cards/II-011.json`) | IV-017 "He gives her back because he decided"; VI-013 initials — "You passed it." (`cards/VI-013.json`); 8.3 "Thank you for the test." (`act8.json:1473`) | **RESOLVED** |
 | **Yuna tease → face** | III-030 "Yuna, not yet a face" (`cards/III-030.json`) | Act V radio appearances (`pack/36_YUNA_RADIO_VOICE.md:44-55`); IV-010 "Eleven Months" (`cards/IV-010.json`) | **RESOLVED** |
@@ -999,6 +1002,12 @@ traced on both paths and held with a test (`2954a6b`).
 | VII cards existed nowhere in the drive | **WIRED `e343149`**: ten card nodes, one per beat, 5.1 → 8.2 (node table in §2); `fullchain.test.ts` (6) asserts each opens once in its scene; `coverage.test.ts` `DRIVE_ACTS` includes VII |
 | 4.2 handed her a license without the real path | **`1aadc80`**: `4.2.lic1`–`lic5` — six months on the permit, 40 day / 10 night supervised hours with a 3+ year licensed driver, 50 attested, the hours *logged* on Deac's clipboard; the intermediate 1–5 a.m. and passenger limits; the Authority's in-fiction waiver that never touches the night. `guide_refs` carry DG 1.8; `licensing.test.ts` (5). 7.1 `chat8`/`chat9` give Hank the guide's real agricultural exception and his refusal to use it at night |
 | 8.2 `gm4` said "Nobody told me." | **`a456637`**: "Mom didn't say you'd be here." — gm5 and the rest of the beat untouched |
+| VII-002 taught "all four" chains on a rear-engine Beetle | **`9698514`**: option a is "Chains on the drive wheels — the rear pair — before the car moves."; the debrief and `teaching_target` quote DG 5.6 ("Use snow tires or chains when it's required.") and say plainly that the guide names no axle. VII-010's debrief restates the rule in the desk's voice instead of "the receipt is the equipment." `actvii-deck.test.ts` |
+| The Spokane arrival happened in the dark | **`c414a7d`**: 6.2 is awake at 5:00 a.m., 6.3 is first light, 7.1 is Moses Lake at dawn, so 8.x is midday. VII-008 is "flat white … coming up on noon"; 8.1 leaves Ritzville with "the gray sky going flat white"; 8.2's Grandma has been "waiting since before the sun"; 7.2's dark-two-hours lines are gone. `clock.test.ts` |
+| 400 and 500 collided as headlight distances | **`7aa8a69`**: 400 is the glow you must be able to stop inside; 500 (oncoming) and 300 (behind) are the dim marks. 6.2.night, VII-005's scene/debrief and exam `c5_010` now say that, with the guide quoted in `teaching_target`. `actvii-deck.test.ts` |
+| The permit rule was taught and then broken without comment | **`6a40749`**: 2.2 `super1`–`super5` — no permit, no licensed adult, alone, "the first thing I'd have failed you on"; Ali stays flat ("It was four miles."); the Authority courier provision (radio open, licensed driver on the net) is labelled the Authority's, not the state's, and 2.3a remains the in-car delivery. `licensing.test.ts` (13) |
+| Hank said "the mountain" in wheat country | **`2a888ae`**: "Authority calls this a convoy. The county calls it harvest." |
+| The seeder would have seeded the VII scaffold | **`4a9a46f`**: `scripts/seed-cards.js` skips a card that says no still AND do not seed (Act VII's ten), throws on an explicit request for one, still seeds IV-001, and does not mistake rejected-take notes on live cards for the contract. `seed.test.ts` |
 
 **CHANGED — deliberately different shape**
 
@@ -1053,6 +1062,16 @@ real licensing path and Hank the agricultural exception, and fixed `8.2.gm4`.
 validator (wired into `npm run validate-cards`) and fails if a VII card is placed
 zero or two times, if any VII still or seed marker appears, if a brief breaks the
 herd art law, or if a scheduled miss has no later card to bill it.
+
+A fourth pass (`9698514`, `c414a7d`, `7aa8a69`, `6a40749`, `2a888ae`, `4a9a46f`)
+closed the deck's teaching accuracy and the story's clock: the chain card no
+longer invents an all-four rule, Spokane arrives at midday, the 400/500/300
+headlight numbers keep their separate meanings, 2.2 names the 1.1 violation and
+the courier supervision setup, Hank's line is wheat-country, and the seeder
+refuses the VII scaffold. Suite **251/251** across 27 files
+(`actvii-deck.test.ts` 13, `clock.test.ts` 9, `licensing.test.ts` 13,
+`seed.test.ts` 6); `tsc --noEmit` exit 0; `validate-citations.js` ok (131);
+`validate-act-vii.js` ok. **No seed, no still, no deploy.**
 
 
 ---

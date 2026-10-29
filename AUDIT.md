@@ -18,7 +18,7 @@ drive/src/
                      Vehicle, GameCamera, TrafficRenderer, QuietSwarm,
                      StoppingShadow, HeadlightBeam, …) + HTML overlays
   quietroads/
-    data/*.json      cards.json (122), dialogue_act*.json, questions_v1/2/3
+    data/*.json      cards.json (131), dialogue_act*.json, questions_v1/2/3
     dialogue/        DialogueRunner (trigger/wait/card/branch node engine),
                      host.ts (DialogueHost iface), types.ts
     sim/             Simulation (mission router + world stepper) +
@@ -734,6 +734,83 @@ hardware); the II-009 / III-027 tablet plates; the I-009 afternoon plate (from t
 previous pass); and VII art itself — the deck is deliberately still-free, so any
 future VII still needs its own wave, muted-read and seed, none of which this pass
 authorized.
+
+
+## 16. Follow-up: the deck's numbers, the clock, the permit, the seed (2026-10-29)
+
+Six commits, one per item, on `story/act-vii-road-home`. No ID was renumbered;
+every taught rule is quoted from `docs/wa-driver-guide/` in the card's
+`source.teaching_target` and asserted against the extracted text.
+
+| Commit | What changed |
+|---|---|
+| `9698514` | VII-002 option a is "Chains on the drive wheels — the rear pair — before the car moves." (DG 5.6: "Use snow tires or chains when it's required." — the guide names no axle). VII-010's debrief restates the rule in the desk's voice, no receipt framing. |
+| `c414a7d` | The road home is one morning. VII-008 is midday; 8.1 leaves Ritzville "flat white" with snow in the air; 8.2's Grandma has been "waiting since before the sun"; 7.2's dark-two-hours lines are gone; `7.3.location` is `ritzville_lot_morning`. |
+| `7aa8a69` | 400 = the glow you must stop inside; 500 (oncoming) / 300 (behind) = the dim marks. Fixed 6.2.night, VII-005's scene and debrief, and exam `c5_010` (which had carried unsourced 182/350 beam-reach numbers). |
+| `6a40749` | 2.2 `super1`–`super5`: Deac names the 1.1 violation (no permit yet, no licensed adult, alone) and states the Authority courier provision — radio open, licensed driver on the net — labelled as the Authority's, not the law. Ali stays flat ("It was four miles."). |
+| `2a888ae` | 7.1.chat8: "Authority calls this a convoy. The county calls it harvest." |
+| `4a9a46f` | `scripts/seed-cards.js` skips cards whose `variation.forced` says no still AND do not seed; an explicit request for one throws. IV-001 still seeds. |
+
+### The clock the pass pinned
+
+| Scene | Node | Time |
+|---|---|---|
+| 6.2 | `6.2.sleep` | "Night. Parked before one." (driving ends before 1:00 a.m.) |
+| 6.2 | `6.2.morning` | "Five a.m. Still dark." — the one-to-five is over |
+| 6.3 | `6.3.0` | first light at the Columbia; no hour stamp |
+| 7.1 | `7.1.0` | "Moses Lake. Dawn." |
+| 7.1 | `7.1.arrive` | "Ritzville. Grain elevators against a gray sky." |
+| 7.2 / 7.3 | shop, radio | same morning; "You're two hours out." |
+| 8.1 | `8.1.0` | "the gray sky going flat white, a little snow in the air" |
+| 8.2 | `8.2.gm1` | "waiting since before the sun" — Division Street at midday |
+| 8.3 | — | one week later ("last night" is a week old) |
+
+Ritzville → Spokane is roughly two hours in the fiction; Moses Lake at dawn plus
+the escort and the barter puts the arrival at midday. `drive/test/clock.test.ts`
+(9) holds the order, forbids an hour inside 1–5 a.m. on the 6.3→8.2 leg, and
+forbids the old night claims.
+
+### Pre-4.2 driving, and who is supervising
+
+| Scene | Adult in the car | Disposition |
+|---|---|---|
+| `0.2` carport tutorial | none | private carport (`grandma_carport`), not a public roadway — unchanged |
+| `1.1` to the DOL | none | **the deliberate violation** — no permit yet (`1.1.11`), named at 2.2 |
+| `1.2` DOL lot | none | private lot (`kent_dol_lot`) — unchanged |
+| `2.3a` delivery 1 | **Deac**, in the car ("I'm riding.") | legal before 4.2 |
+| `2.3b/c/d` deliveries 2–4 | none in the car | covered by the Authority courier provision at 2.2 (radio open, licensed driver on the net) |
+| `2.4` Jonah milk run | none in the car | same provision; Deac briefs in person, corrections on the radio |
+| `2.5` Central cargo | none in the car (Deac in the lead truck) | same provision; barks are delivery "G" |
+| `3.2`/`3.3` I-90 convoy | none in the car (Deac leads) | same provision; Deac's lines are delivery "R" |
+
+The provision is stated once, at `2.2.super5`, and is explicitly the Authority's
+rule, not the state's; the guide's rule ("a licensed driver with 3 or more years
+of experience") is named beside it. Nothing else in the fiction was rewritten.
+
+### Seed
+
+`node -e` over the deck: 131 files, 10 skipped (VII-001…VII-010), IV-001
+seedable. Act VI is **not** a scaffold — its thirteen cards carry live stills and
+art notes (`"live still cards/takes/VI-..."`), and the ROADMAP counts them
+13/13 — so it is deliberately not skipped. The matcher is the scaffold shape
+(no still AND do not seed), not the substring: rejected-take notes on IV-005,
+IV-028 and V-001 contain "do not seed" and remain seedable.
+`drive/test/seed.test.ts` (6). No seed was run in this pass (no `DATABASE_URL`,
+and the branch's rule is no seed/no deploy).
+
+**Verified**: 251/251 vitest across 27 files (215 + `actvii-deck` 13 + `clock` 9
++ `licensing` +8 + `seed` 6), `tsc --noEmit` exit 0, `validate-citations.js` ok
+(131), `validate-act-vii.js` ok (10 cards, 7 decisions, a2/b1/c2/d2), `node
+--check scripts/seed-cards.js` ok, `bench/baseline.json` restored. The
+pre-existing validator baselines were re-run and are unchanged (`validate-act-v`
+V-006/V-008/V-013, `validate-act-ii`), `validate-act-iii` ok.
+
+**Still open**: the headed `?profileDrive` pass, a device playthrough, the
+II-009 / III-027 plates and the I-009 afternoon plate; VII stills are still
+deliberately unproduced. The `7.3` and `8.1` background/ambience keys keep their
+`dusk`/`night` asset names (no local asset is referenced by the drive; the
+prose and the cards are daylight) — a plate decision for the art pass, not a
+clock contradiction.
 
 
 <!-- CONTINUED -->

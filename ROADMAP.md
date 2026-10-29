@@ -36,11 +36,13 @@ deliberately empty rather than filled with a guess.
   `seconds`. Teaching copy leads with §5.2. (P1, BD-1, BD-2)
 - **[config] Teaching-rule file.** `drive/src/quietroads/config.ts` holds the
   follow rule. Vehicle feel stays in `VehicleController` on purpose.
-- **[tests] `vitest run` green** — 163 tests, 15 files (stop/gap/yield, follow-rule,
+- **[tests] `vitest run` green** — 251 tests, 27 files (stop/gap/yield, follow-rule,
   card cues on the sim bus, **act-boundary chain**, **Deac's drive script + the
   witness gate on his beats**, exam gate, retest week, alloc identity, CCD, quality
   tiers + the 30 Hz recovery, scene-pass draw calls, instancing, accessibility,
-  debrief incl. the Act IV week, bundle split, spoken lines, bench).
+  debrief incl. the Act IV week, bundle split, spoken lines, bench; plus the
+  **Act VII deck's citations and numbers**, the **road-home clock**, the **4.2/2.2
+  licensing thread** and the **seed's do-not-seed contract**).
 
 ## Current pass — the overhaul's six phases (2026-10-28)
 
@@ -72,12 +74,21 @@ deliberately empty rather than filled with a guess.
   `fullchain.test.ts` / `coverage.test.ts`, `1aadc80` gives 4.2 the guide's real
   licensing path and Hank the agricultural exception, `a456637` fixes `8.2.gm4`.
   Suite is **215/215** across 24 files; deck 131 cards; no seed, no still.
+- **The deck's accuracy and the clock are closed** (fourth pass the same day):
+  `9698514` puts VII-002's chains on the drive wheels (the guide names no axle) and
+  restates the rule in VII-010, `c414a7d` makes the Spokane arrival midday and
+  fixes VII-008 / 8.1 / 8.2, `7aa8a69` separates the 400-foot glow from the
+  500/300-foot dim marks (6.2, VII-005, exam `c5_010`), `6a40749` has Deac name
+  the 1.1 violation and state the Authority's courier supervision at 2.2,
+  `2a888ae` moves Hank's harvest to the county, and `4a9a46f` makes the seeder
+  refuse the VII scaffold. Suite is **251/251** across 27 files.
 - **Not open in code.** Left for hardware and the art pipeline: a headed
   `?profileDrive` browser pass, a full-campaign playthrough on a device, the
   II-009 / III-027 plate redraws (`AUDIT.md` §11), an afternoon-lot plate for
   I-009 if the 1.4 night placement wants one, VII stills (deliberately not
   produced), and a seed + still audit run when the next deploy window opens
-  (IV-001 is seeded by the next `npm run seed`; VII is not seeded by design).
+  (IV-001 is seeded by the next `npm run seed`; VII is refused by the seeder,
+  `seed.test.ts`).
 
 ## P0b — the campaign has to be able to change scenes
 
@@ -212,8 +223,11 @@ deliberately empty rather than filled with a guess.
 
 - Act VII is **open** (author-approved 2026-10-29): the 2026-10-28 overhaul opened
   scenes 5.1–8.3 (`48b0c49`), and VII cards now exist under the no-still /
-  do-not-seed convention — no VII stills, no VII zone plates, no VII seed. Backend,
-  auth, parent dashboard, DRIVE_ENABLED untouched (Rule 2).
+  do-not-seed convention — no VII stills, no VII zone plates, no VII seed. The
+  seeder enforces it: `scripts/seed-cards.js` skips any card whose
+  `variation.forced` says no still AND do not seed, and `drive/test/seed.test.ts`
+  pins the ten skips and IV-001's seed. Backend, auth, parent dashboard,
+  DRIVE_ENABLED untouched (Rule 2).
 - BD-1 is **signed off** (owner, 2026-10-05): `FOLLOW.rule` stays `seconds`
   (3 s dry / 4 s truck), the grader does not switch to `vehicle_lengths`, and the
   guide-led teaching copy stays as it is. BD-2 is resolved (§4.14 citations).
