@@ -927,6 +927,39 @@ test.
 (II-011/IV-007/V-006/V-008/V-013), `bench/baseline.json` restored.
 
 
+## 2026-10-29 — the clipboard is signed: A. Okonjo, not a blank
+
+Item 2 was a question about `manifestFor()`'s `driver: "________"`: was the blank
+deliberate, on the theory that Deac's initials at VI-013 fill it? Half yes, half
+no, and the half that is no decides it.
+
+- The blank was deliberate *as a blank*: Phase 4 removed the signed-in account's
+  name from the paper because a stranger's name on a courier's manifest broke the
+  frame.
+- It is **not** filled by Deac's initials at VI-013. `cards/VI-013.json` has him
+  turn the sheet around with "hours in the left column and a line at the bottom
+  with his initials on it" — that is his own hand-ruled clearance log, the thing
+  he has carried since Kent, not the run manifest the player sees. The Act VI end
+  beat (`deliveryBeat(.., "VI")`, `src/manifest.js`) signs nothing: "The sheet
+  goes in the glovebox with the affidavit and the log from Kent…". And nothing in
+  the client writes the field: `public/game/feel.js:771` renders
+  `row.driver || "________"`, and the start button (`#manifest-sign`) only closes
+  the panel — it does not initial it.
+
+So the blank had no in-fiction author, and a blank line is not a signature. The
+paper now carries the courier the run belongs to: `driver: "A. Okonjo"`
+(`pack/01_BIBLE.md:35` — "ALI OKONJO", canon, do not restyle). The account name
+still cannot reach it: `manifestFor()` takes no arguments at all.
+`scripts/test-manifest.js` was updated to lock the new contract — every act signs
+"A. Okonjo", a stray `manifestFor("II", "Jordan Smith")` still returns
+"A. Okonjo", and no row may contain an account-ish string.
+
+**Verified**: `node scripts/test-manifest.js` ok, 209/209 vitest, `tsc --noEmit`
+exit 0, `validate-citations.js` ok, `validate-act-v.js` unchanged
+(V-006/V-008/V-013).
+
+
+
 
 
 

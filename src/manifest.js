@@ -209,10 +209,14 @@ function manifestFor(act) {
     for: row.for,
     cold: COLD_PACK,
     // The clipboard is in-fiction paperwork, not an account record. It used to
-    // carry the signed-in student's real name; a stranger's name on a dead
-    // courier's manifest broke the frame, so the signature line stays blank
-    // until it is signed on the start button (feel.js: `row.driver || "________"`).
-    driver: "________",
+    // carry the signed-in student's real name; a stranger's name on a courier's
+    // manifest broke the frame. It is signed by the courier who drives the run —
+    // Ali Okonjo (`pack/01_BIBLE.md:35`, canon, do not restyle) — never by the
+    // account. It was left blank for a season on the theory that Deac's initials
+    // at VI-013 would fill it; they don't. VI-013 initials his own hand-ruled
+    // clearance sheet (`cards/VI-013.json`), a different document, and nothing
+    // in the Act VI end beat writes a signature (2026-10-29).
+    driver: "A. Okonjo",
   };
 }
 

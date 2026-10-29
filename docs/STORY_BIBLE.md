@@ -914,9 +914,13 @@ flowchart LR
    in Spokane ("She's in Spokane", `act3.json:512`), and she is the third figure at Division
    Street (`8.2.gm1`–`8.2.gm6`): gray blanket, "I told you. Come home slow." See §3.
 6. **Is "Alison" (dialogue) or the account name (manifest) the intended player name** —
-   **ANSWERED for the manifest** (Phase 4, 2026-10-29): `manifestFor()` no longer takes a name
-   at all; the clipboard ships `driver: "________"` and is signed in-fiction on the start
-   button (`scripts/test-manifest.js`). "Alison" stays the dialogue's full name.
+   **ANSWERED for the manifest** (Phase 4, 2026-10-29; signed 2026-10-29): `manifestFor()`
+   takes no name at all, so the account never reaches the paper. The manifest shipped
+   `driver: "________"` for a day on the theory that Deac's initials at VI-013 would fill
+   it; they don't — VI-013 initials his own hand-ruled clearance sheet (`cards/VI-013.json`),
+   a different document, and the Act VI end beat signs nothing. It is signed by the courier
+   who drives the run: `driver: "A. Okonjo"` (`pack/01_BIBLE.md:35`). "Alison" stays the
+   dialogue's full name. `scripts/test-manifest.js` holds it.
 7. **IV-001 (Yuna ride-along):** reseed, rewrite IV-002's reference away, or leave the gap?
 8. **`credits` / `postgame.deacs_route`** — **ANSWERED** (Phase 5, 2026-10-29): `credits` is
    the ending's final card, toggled by `deac_answered` (`8.3.credits_deac` /
@@ -950,7 +954,7 @@ traced on both paths and held with a test (`2954a6b`).
 | §10.13 | `chainup_return` read at 5.1.entry, never written | Phase 3: the shop return sets it; the trunk line plays (`chainup-loop.test.ts`) |
 | §10.14, §11.8 | `credits` + `postgame.deacs_route` unlocked, nothing implemented | Phase 5: the last card toggles on `deac_answered`; the postgame unlock is gone (`ending.test.ts`) |
 | §10.15, §10.18, §11.9 | Act VI's cargo was `TODO — Claude: Backcountry load` in a runtime file | Phase 4: "Diesel — four cans for the ridge plows", named in the Act VI end beat, held by `scripts/test-manifest.js` |
-| §10.16, §11.6 | The card game signed the clipboard with the signed-in account's name | Phase 4: `manifestFor()` takes no name; `driver: "________"` until signed in-fiction |
+| §10.16, §11.6 | The card game signed the clipboard with the signed-in account's name | Phase 4: `manifestFor()` takes no name. Since 2026-10-29 it signs the courier — `driver: "A. Okonjo"` — not a blank: nothing fills a blank (VI-013 initials Deac's own clearance sheet, a different document). `scripts/test-manifest.js` |
 | §10.20 | The note signed "{GRANDMA_INITIALS}" → "Grandma" | Phase 4: `"— G."`, in the meta and in `qrStore` |
 | §11.5 | Grandma's identity/status open | Phase 4: alive, in Spokane, on screen at 8.2 (§3) |
 | §10.2, §11.3 | I-009 played in 1.2, before Mya is lost — "The passenger seat beside you is empty" was false there | **FIXED `c6bb2fa`**: `1.2.card_I-009` removed (I-005 → `1.2.4`); `1.4.card_I-009` sits between `1.4.5` and `1.4.radio`, after `mya_lost`. The card's opener is "The engine's off." for the engine-off carport. `fullchain.test.ts` (5) asserts I-009 opens once, in 1.4, on `1.4.card_I-009` |

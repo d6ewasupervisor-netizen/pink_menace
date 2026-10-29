@@ -656,6 +656,16 @@ V-013), `validate-act-v.js` unchanged (V-006/V-008/V-013), `validate-act-ii.js` 
 `validate-act-iii.js` unchanged, `bench/baseline.json` restored. No seed, no
 deploy.
 
+**The clipboard signature** (question asked of Phase 4): the blank was
+deliberate as *a blank*, but the theory that Deac's initials at VI-013 fill it is
+false — `cards/VI-013.json` has him initial his own hand-ruled clearance sheet
+("a line at the bottom with his initials on it"), a different document, and the
+Act VI end beat writes no signature ("The sheet goes in the glovebox…"). A blank
+line is not a signature, so `manifestFor()` signs the courier the run belongs to:
+`driver: "A. Okonjo"` (`pack/01_BIBLE.md:35`, canon). `feel.js` still falls back
+to `"________"` when a row has no driver. `scripts/test-manifest.js` holds both
+halves: the signature is the courier, and a stray name argument is ignored.
+
 **Still open:** the headed `?profileDrive` pass and a device playthrough (no
 hardware); the II-009 / III-027 tablet plates; and, new, the I-009 still is an
 afternoon lot plate now playing in a night scene — an art call, not a code one.

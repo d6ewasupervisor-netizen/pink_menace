@@ -1,11 +1,15 @@
 "use strict";
 
-// The clipboard is fiction, not an account record (Phase 4, 2026-10-29).
+// The clipboard is fiction, not an account record (Phase 4, 2026-10-29; signed
+// 2026-10-29).
 //
 // Two promises this file holds:
-//   1. `manifestFor` never puts the signed-in student's name on Deac's
-//      clipboard. The signature line stays blank until the start button signs
-//      it in-fiction (public/game/feel.js renders `row.driver || "________"`).
+//   1. `manifestFor` never puts the signed-in student's name on the run's
+//      manifest. It is signed by the courier who drives the run — "A. Okonjo"
+//      (`pack/01_BIBLE.md:35`) — and a stray second argument is ignored. The
+//      blank it used to ship was *not* filled by Deac's initials at VI-013:
+//      those initial his own clearance sheet (`cards/VI-013.json`), a different
+//      document, and nothing in the Act VI end beat writes a signature.
 //   2. Every act's manifest row names a real load. Act VI used to ship
 //      "TODO — Claude: Backcountry load" to production; the load that the Act VI
 //      end beat now names is the diesel for the ridge plows, so cargo and the
@@ -14,13 +18,20 @@
 const assert = require("assert");
 const { manifestFor, deliveryBeat, MANIFESTS } = require("../src/manifest");
 
-// 1. No account name on the clipboard.
-assert.strictEqual(manifestFor("II").driver, "________", "the signature line must be blank");
+// 1. No account name on the clipboard; the courier's signature is canon.
+assert.strictEqual(manifestFor("II").driver, "A. Okonjo", "the manifest is signed by the courier");
 assert.strictEqual(
   manifestFor("II", "Jordan Smith").driver,
-  "________",
+  "A. Okonjo",
   "a stray second argument must not sign the clipboard"
 );
+for (const act of ["II", "III", "IV", "V", "VI"]) {
+  const row = manifestFor(act);
+  assert.ok(
+    !/jordan|student|account/i.test(row.driver),
+    `Act ${act} must not carry an account name: ${row.driver}`
+  );
+}
 
 // 2. No placeholder loads anywhere.
 for (const act of ["II", "III", "IV", "V", "VI"]) {
