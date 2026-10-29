@@ -901,6 +901,33 @@ never touches the drive-on leg, asserts `6.2.sleep` and `6.2.morning` are the
 `validate-citations.js` ok, `test-manifest.js` ok.
 
 
+## 2026-10-29 — §12 marked: the three author calls FIXED, 6.2 pinned
+
+Docs close-out for the follow pass. `docs/STORY_BIBLE.md` §12 now lists the three
+items the six-phase re-audit had left as author calls under **FIXED**, each with
+its commit and mechanism:
+
+- §10.2 / §11.3 (I-009's placement) → `c6bb2fa`, node path named, and the card's
+  opener change recorded.
+- §10.3 (the Lot's city) → `58340d5`.
+- §10.8 / §10.17 / §11.7 (IV-001) → `adb9ffc`, with the shape, the citations and
+  the two assets named.
+
+All three came out of STILL OPEN. §12's test inventory is 209/209 across 23 files
+with `fullchain.test.ts` at 5, `cards.test.ts` (6) and `straight.test.ts` (6) new;
+`AUDIT.md` §14 records the pass and `ROADMAP.md` moves the author calls to
+closed (and notes the I-009 afternoon plate as the one art follow-up the move
+creates). The 6.2 clock item is recorded there too (`2954a6b`) even though it was
+not a §12 row: it was a question about a rule the exam teaches, answered with a
+test.
+
+**Verified**: 209/209 vitest, `tsc --noEmit` exit 0, `validate-citations.js` ok
+(121), `test-manifest.js` ok, `validate-act-v.js` unchanged
+(V-006/V-008/V-013), full `compile-images.js` unchanged
+(II-011/IV-007/V-006/V-008/V-013), `bench/baseline.json` restored.
+
+
+
 
 
 

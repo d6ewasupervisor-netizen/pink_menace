@@ -604,13 +604,61 @@ so the build leaves the working tree clean.
 
 **The re-audit** is `docs/STORY_BIBLE.md` §12: every §10 problem and §11 question is
 now FIXED (with the phase and the mechanism named), CHANGED (deliberately different),
-or STILL OPEN (with the reason). The two story items this pass did *not* touch are
-I-009's placement in 1.2 and the Kent/Renton lot name — both author calls, both
-listed with why.
+or STILL OPEN (with the reason). The two story items this pass did *not* touch were
+I-009's placement in 1.2 and the Kent/Renton lot name — both author calls.
+
+**Closed the same day** (follow pass, §14): I-009 moves into 1.4 (`c6bb2fa`), the
+Lot is Kent (`58340d5`), IV-001 becomes a live card (`adb9ffc`), and 6.2's clock
+is held by a test (`2954a6b`).
 
 **Verified**: 196/196 vitest across 21 files (192 + 4 new), `tsc --noEmit` exit 0,
 `scripts/test-manifest.js` ok, `validate-act-v.js` baseline unchanged
 (V-006/V-008/V-013 as before), `bench/baseline.json` restored after the run.
+
+
+## 14. The follow pass — the author calls, IV-001, and 6.2's clock (2026-10-29)
+
+Four commits on `story/act-vii-road-home`, one per item:
+
+- `c6bb2fa` **I-009 → 1.4.** `1.2.card_I-009` is gone; `1.2.card_I-005` hands to
+  `1.2.4`, so 1.2 is I-005 → pull-in → `1.2.go` park → bark → `1.2.end` → 1.3.
+  `1.4.card_I-009` hangs off `1.4.5` ("I'm going back for her. Tomorrow.") and
+  hands to `1.4.radio`. The card's opener is "The engine's off." because the
+  scene is the engine-off carport; ids, options, flags and citations untouched.
+  `drive/test/fullchain.test.ts` now logs `card_shown` (+`scene_started`) and its
+  fifth test asserts I-009 opens exactly once, in 1.4, on `1.4.card_I-009`.
+- `58340d5` **L-002 is Kent.** `pack/01_BIBLE.md` §7 zone map and L-002; a
+  *Location canon* note records the correction. `STORY_BIBLE`'s location row is
+  one Kent row. "Since Renton" in `cards/II-007.json` is weather, not the lot.
+- `adb9ffc` **IV-001 is live.** `cards/IV-001.json` (was `IV-001-brake`, which
+  the seed's file filter never matched and the schema's `card_id` pattern
+  rejects): `scene`, one decision, four options with one correct, `Skill ten:
+  city driving – part one` + `4.11 Traffic light signals`, seq 4001 derived by
+  `card-seq.js`, master `cards/IV-001.png`, ride plate
+  `public/game/ride/IV-001/brake.webp`. `variation.time_of_day` was the invalid
+  `"overcast"`, now `"afternoon"`; `continuity` drops the unregistered
+  `encore_footwell` token (no `refs/` file exists; the Encore cockpit lock carries
+  the pedal box), so `compile-images.js --card IV-001` compiles.
+  `drive/test/cards.test.ts` (6) holds shape, citations, assets and IV-002's
+  "two pedals" setup. P11 is re-opened in §2/§3 and closed by renaming.
+- `2954a6b` **6.2's clock.** Both paths (stop at the rest area; push through →
+  microsleep → rumble strip → forced stop) converge on `6.2.sleep` "Parked before
+  one." and `6.2.morning` "Five a.m. … The one-to-five is over", so no path drives
+  in 1–5 a.m. and no dialogue changed. `drive/test/straight.test.ts` (6) pins the
+  node order on both paths, asserts those are the scene's only clock stamps, and
+  fails on any hour named inside 1–5 a.m.
+
+**Verification after the pass**: 209/209 vitest across 23 files, `tsc --noEmit`
+exit 0, `validate-citations.js` ok (121 cards — IV-001 is now visible to it),
+`test-manifest.js` ok, `compile-images.js --card IV-001` ok, full
+`compile-images.js` unchanged (pre-existing II-011 / IV-007 / V-006 / V-008 /
+V-013), `validate-act-v.js` unchanged (V-006/V-008/V-013), `validate-act-ii.js` /
+`validate-act-iii.js` unchanged, `bench/baseline.json` restored. No seed, no
+deploy.
+
+**Still open:** the headed `?profileDrive` pass and a device playthrough (no
+hardware); the II-009 / III-027 tablet plates; and, new, the I-009 still is an
+afternoon lot plate now playing in a night scene — an art call, not a code one.
 
 
 <!-- CONTINUED -->

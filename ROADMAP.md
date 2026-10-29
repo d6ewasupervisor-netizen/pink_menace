@@ -61,10 +61,15 @@ deliberately empty rather than filled with a guess.
   exam fail → retest week → pass (`drive/test/fullchain.test.ts`), the drive
   bundle builds (821 modules, act8 chunk 28.55 kB), and `docs/STORY_BIBLE.md` §12
   re-audits every problem and open question as FIXED / CHANGED / STILL OPEN.
+- **The re-audit's author calls are closed (same day, follow pass).** I-009 now
+  opens in the 1.4 aftermath (`c6bb2fa`), L-002 is Kent (`58340d5`), IV-001 is a
+  live card (`adb9ffc`), and 6.2's clock is held by a test (`2954a6b`). Suite is
+  **209/209** across 23 files; see `docs/STORY_BIBLE.md` §12.
 - **Not open in code.** Left for hardware and the art pipeline: a headed
   `?profileDrive` browser pass, a full-campaign playthrough on a device, the
-  II-009 / III-027 plate redraws (`AUDIT.md` §11), and the author calls the
-  re-audit lists (I-009 in 1.2, the Kent/Renton lot, IV-001).
+  II-009 / III-027 plate redraws (`AUDIT.md` §11), an afternoon-lot plate for
+  I-009 if the 1.4 night placement wants one, and a seed + still audit run when
+  the next deploy window opens (IV-001 is seeded by the next `npm run seed`).
 
 ## P0b — the campaign has to be able to change scenes
 

@@ -934,6 +934,11 @@ Commits: `48b0c49` (Phase 1), `4fa2229` (2), `960317c` (3), `289c0de` (4),
 `13c5ec7` (5), `16ecbb4` (6).
 Phase detail lives in `AUDIT.md` §11–§13 and `AGENT_LOG.md`.
 
+**The three author calls the re-audit left open were decided and landed on the
+same branch (2026-10-29):** I-009 moves into the 1.4 aftermath (`c6bb2fa`), the
+Lot is Kent (`58340d5`), IV-001 is a live card (`adb9ffc`). 6.2's clock was
+traced on both paths and held with a test (`2954a6b`).
+
 **FIXED — with the fix named**
 
 | Item | Was | Now |
@@ -948,6 +953,9 @@ Phase detail lives in `AUDIT.md` §11–§13 and `AGENT_LOG.md`.
 | §10.16, §11.6 | The card game signed the clipboard with the signed-in account's name | Phase 4: `manifestFor()` takes no name; `driver: "________"` until signed in-fiction |
 | §10.20 | The note signed "{GRANDMA_INITIALS}" → "Grandma" | Phase 4: `"— G."`, in the meta and in `qrStore` |
 | §11.5 | Grandma's identity/status open | Phase 4: alive, in Spokane, on screen at 8.2 (§3) |
+| §10.2, §11.3 | I-009 played in 1.2, before Mya is lost — "The passenger seat beside you is empty" was false there | **FIXED `c6bb2fa`**: `1.2.card_I-009` removed (I-005 → `1.2.4`); `1.4.card_I-009` sits between `1.4.5` and `1.4.radio`, after `mya_lost`. The card's opener is "The engine's off." for the engine-off carport. `fullchain.test.ts` (5) asserts I-009 opens once, in 1.4, on `1.4.card_I-009` |
+| §10.3 | The lot was "Renton" in the locked registry (L-002) and Kent in every card | **FIXED `58340d5`**: `pack/01_BIBLE.md` §7 and L-002 say **Kent**, with a *Location canon* note; `STORY_BIBLE`'s location row is one Kent row. "Rain since Renton" (`cards/II-007.json`) is weather geography and stays |
+| §10.8, §10.17, §11.7 | IV-001 (the Yuna ride-along) was unseeded while IV-002 says "Yuna's car had two pedals" | **FIXED `adb9ffc`**: `cards/IV-001.json` — `scene`, one decision, four options with one correct, `Skill ten: city driving – part one` + `4.11 Traffic light signals`, seq 4001 via `card-seq.js`; master `cards/IV-001.png` and ride plate `public/game/ride/IV-001/brake.webp` confirmed; `drive/test/cards.test.ts` (6) holds the shape, the citations, the assets and IV-002's setup |
 
 **CHANGED — deliberately different shape**
 
@@ -964,10 +972,7 @@ Phase detail lives in `AUDIT.md` §11–§13 and `AGENT_LOG.md`.
 
 | Item | Open | Why it stays |
 |---|---|---|
-| §10.2, §11.3 | I-009 shows an empty passenger seat before Mya is lost (1.2) | story order, not a chain bug: the card is reached and graded. Re-sequencing 1.2 rewrites Act I's card order (`pack/30`, `pack/31`) — an author call |
-| §10.3 | The lot is Kent in cards, Renton in the registry | naming canon across `pack/01_BIBLE.md:262-265` and five cards |
 | §10.4 | Bible §7's Act IV zone map is stale against the live cards | a `pack/` document, outside the drive |
-| §10.8, §10.17, §11.7 | IV-001 (Yuna ride-along) is unseeded while IV-002 references it | needs a new card and stills |
 | §10.9 | IV-014 and IV-019–IV-025 don't exist | documented as "gaps are unsown, not broken" |
 | §10.10 | `ACT_II/III_FOR_AUDIT.json` aggregates | audit input, never runtime |
 | §10.11 | Gravy / The Ferry Line / The Crossing never carded | bible roster only |
@@ -978,13 +983,23 @@ Phase detail lives in `AUDIT.md` §11–§13 and `AGENT_LOG.md`.
 full-campaign playthrough on a device (no hardware ran); the 6.x/7.x story barks a
 swarm retry loses (`AUDIT.md` §10); and the two plate redraws above.
 
-**New permanent tests from this pass:** `drive/test/fullchain.test.ts` (4 — 0.1 →
-`game_complete`, both 1.3/3.3 forks, exam fail → retest week → pass),
-`drive/test/ending.test.ts` (4), `drive/test/chainup-loop.test.ts` (6),
-`drive/test/spokane.test.ts` (4), `scripts/test-manifest.js`. Suite: **196/196**
-across 21 files, `tsc --noEmit` exit 0, drive bundle builds (821 modules; entry
-3,972.56 kB / 1,312.14 kB gzip; `dialogue_act8` 28.55 kB, carrying the Grandma
-beat, the credits card and no `postgame.deacs_route`).
+**New permanent tests from this pass:** `drive/test/fullchain.test.ts` (5 — 0.1 →
+`game_complete`, both 1.3/3.3 forks, exam fail → retest week → pass, and where
+I-009 opens), `drive/test/ending.test.ts` (4), `drive/test/chainup-loop.test.ts`
+(6), `drive/test/spokane.test.ts` (4), `drive/test/cards.test.ts` (6 — IV-001 is
+live), `drive/test/straight.test.ts` (6 — 6.2's clock on both paths),
+`scripts/test-manifest.js`. Suite: **209/209** across 23 files, `tsc --noEmit`
+exit 0, drive bundle builds (821 modules; entry 3,972.56 kB / 1,312.14 kB gzip;
+`dialogue_act8` 28.55 kB, carrying the Grandma beat, the credits card and no
+`postgame.deacs_route`).
+
+A follow pass the same day (`c6bb2fa`, `58340d5`, `adb9ffc`, `2954a6b`) closed
+the three author calls this re-audit listed and pinned 6.2's clock; the validators
+after it: `validate-citations.js` ok (121 cards — it now sees IV-001),
+`test-manifest.js` ok, `compile-images.js --card IV-001` ok (the full compile
+still aborts on the pre-existing II-011 / IV-007 / V-006 / V-008 / V-013
+findings), `validate-act-v.js` unchanged (V-006/V-008/V-013), `validate-act-ii.js`
+/ `validate-act-iii.js` unchanged.
 
 
 ---
