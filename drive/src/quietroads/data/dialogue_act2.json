@@ -403,6 +403,51 @@
           "emotion": "neutral",
           "volume": "low",
           "text": "You want fuel, you need a permit. You want a permit, I'm the only one who can give you one this side of the mountains. And I don't sign for people I haven't watched drive.",
+          "next": "2.2.super1"
+        },
+        "2.2.super1": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "neutral",
+          "volume": "low",
+          "text": "You drove yourself to the licensing office. No permit in your pocket, no licensed adult in the seat. Alone.",
+          "next": "2.2.super2"
+        },
+        "2.2.super2": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "deadpan",
+          "volume": "low",
+          "text": "That's the first thing I'd have failed you on. The rest of it's been better.",
+          "next": "2.2.super3"
+        },
+        "2.2.super3": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "S",
+          "emotion": "deadpan",
+          "volume": "whisper",
+          "text": "It was four miles.",
+          "next": "2.2.super4"
+        },
+        "2.2.super4": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "neutral",
+          "volume": "low",
+          "text": "It was a violation.",
+          "next": "2.2.super5"
+        },
+        "2.2.super5": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "neutral",
+          "volume": "low",
+          "text": "State's rule from here: a licensed adult with three years in the seat, every mile. That's the guide's, and it's the one you broke. Mine's the Authority's, and it's not the same rule: a courier on a permit runs with the radio open and a licensed driver on the net. In the car for the first one. On the radio after.",
           "next": "2.2.13"
         },
         "2.2.13": {
