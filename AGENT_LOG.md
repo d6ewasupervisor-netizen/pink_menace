@@ -866,6 +866,42 @@ scripts/compile-images.js --card IV-001` compiles; the full compile still aborts
 on the pre-existing II-011 / IV-007 / V-006 / V-008 / V-013 findings, unchanged.
 
 
+## 2026-10-29 — 6.2's clock, traced on both paths (no dialogue change needed)
+
+The question was whether either path in 6.2 puts Ali behind the wheel between
+1:00 and 5:00 a.m. (questions_v1 `c1_008`: first-year intermediate, no 1–5 a.m.
+without a 25+ supervisor, and she drives home alone). Traced node by node:
+
+| Step | Node | In-fiction clock |
+|---|---|---|
+| Dusk at the depot | `6.1.0` ("Ellensburg fuel depot. Dusk.") | dusk |
+| Leave | `6.2.0` ("the horizon going orange") | dusk |
+| Mission starts | `6.2.go` → `straight_night_drive` | — |
+| Dark | `6.2.night` ("Dark. Lights on.") | night, before the rest stop |
+| Fatigue | `6.2.fy_fx` / `6.2.3` / `6.2.fr_fx` / `6.2.4` | night, no hour named |
+| Rest sign | `6.2.rest_prompt` ("REST AREA — 1 MILE.") | night, no hour named |
+| **Stop path** | `6.2.pullin` → `rest_area_pullin` → `park.clean` → `6.2.9` → radio (`6.2.11`–`6.2.19`) | parks at the rest area |
+| **Push-through** | `6.2.drive_on` → `6.2.drift` (microsleep) → `6.2.6` (rumble) → `6.2.8` → `6.2.forced` (`rest_area_forced`) → `park.clean` → `6.2.8b` → card III-020 | forced stop at the same area |
+| Park | `6.2.sleep` ("Night. **Parked before one.**") | before 1:00 a.m. — both paths |
+| Morning | `6.2.morning` ("**Five a.m.** Still dark… The one-to-five is over…") | 5:00 a.m. |
+| Tire check | `6.2.tire_C` → `tire_yes`/`tire_no` → `6.2.end` → 6.3 | after 5:00 a.m. (6.3 is `vantage_bridge_predawn_wind`) |
+
+Both paths converge on `6.2.sleep` before the 1:00 boundary and stay parked until
+5:00, so **no path drives inside the window** and no dialogue changed. The one
+thing that was weak was that the fact lived only in prose: nothing failed if a
+later edit moved the drive-on → rumble → forced-stop leg after the park, or put a
+time on a driving line. `drive/test/straight.test.ts` (6) is that guard now — it
+walks both branches of `6.2.rest_C` through the graph, asserts the push-through
+order (`drive_on` … `6.2.forced`, all before `6.2.sleep`), asserts the stop path
+never touches the drive-on leg, asserts `6.2.sleep` and `6.2.morning` are the
+*only* clock stamps in the scene, and fails if any line names an hour in 1–5 a.m.
+(Negative-checked: injecting "It is 2:40 a.m." into `6.2.drive_on` fails it.)
+
+**Verified**: 209/209 vitest across 23 files, `tsc --noEmit` exit 0,
+`validate-citations.js` ok, `test-manifest.js` ok.
+
+
+
 
 
 
