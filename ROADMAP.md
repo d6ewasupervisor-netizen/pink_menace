@@ -14,7 +14,7 @@ checked against `docs/wa-driver-guide/`, and logged in `AGENT_LOG.md` + `INDEX.m
 | Input→response | not measured | ≤ 1 frame (16.7 ms) |
 | Time-to-first-frame (mobile 4G) | not measured | < 4 s |
 | CCD/tunneling | threshold asserted both ways | zero at top speed on all surfaces |
-| Cards opened in-scene | I 12/12 · II 31/31 · III 30/30 · V 13/13 · VI 13/13, measured | every card in every act |
+| Cards opened in-scene | I 12/12 · II 31/31 · III 30/30 · V 13/13 · VI 13/13 · **VII 10/10**, measured | every card in every act |
 | Act-boundary handoffs | 26 covered, incl. `7.1.card_V-006` | every `next_scene` has a destination |
 | Cues on the skill, not a timer | 0 on a timer/coordinate | stays 0 |
 | Cards whose comment names a beat the code doesn't listen to | 1 found (III-013) | 0 |
@@ -65,11 +65,19 @@ deliberately empty rather than filled with a guess.
   opens in the 1.4 aftermath (`c6bb2fa`), L-002 is Kent (`58340d5`), IV-001 is a
   live card (`adb9ffc`), and 6.2's clock is held by a test (`2954a6b`). Suite is
   **209/209** across 23 files; see `docs/STORY_BIBLE.md` §12.
+- **Act VII is open, with a deck** (third pass the same day): `1681345` opens the act
+  in every rule/status doc (cards allowed; no VII stills, no zone plates, no seed;
+  herd art law unchanged), `bb78ac4` writes `cards/VII-001`…`VII-010` plus
+  `scripts/validate-act-vii.js`, `e343149` wires all ten into 5.1–8.2 and extends
+  `fullchain.test.ts` / `coverage.test.ts`, `1aadc80` gives 4.2 the guide's real
+  licensing path and Hank the agricultural exception, `a456637` fixes `8.2.gm4`.
+  Suite is **215/215** across 24 files; deck 131 cards; no seed, no still.
 - **Not open in code.** Left for hardware and the art pipeline: a headed
   `?profileDrive` browser pass, a full-campaign playthrough on a device, the
   II-009 / III-027 plate redraws (`AUDIT.md` §11), an afternoon-lot plate for
-  I-009 if the 1.4 night placement wants one, and a seed + still audit run when
-  the next deploy window opens (IV-001 is seeded by the next `npm run seed`).
+  I-009 if the 1.4 night placement wants one, VII stills (deliberately not
+  produced), and a seed + still audit run when the next deploy window opens
+  (IV-001 is seeded by the next `npm run seed`; VII is not seeded by design).
 
 ## P0b — the campaign has to be able to change scenes
 

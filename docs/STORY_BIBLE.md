@@ -295,7 +295,7 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
     "Drive careful." — a sound "that is either laughing or crying and is both." "Get in the
     car, Alison." → `act7_complete`, `unlock region.spokane`. — `act7.json:1519-1656`.
 
-### The epilogue — Spokane (written; the act is CLOSED at runtime)
+### The epilogue — Spokane (Act VII, *The Road Home* — open)
 
 48. **The last two hours** (scene `8.1`, `spokane_home`): lights branch (LED vs "Old lights.
     Slower, then. …Sori was worth it."); Sprague Avenue — "everything from Kent, in a
@@ -322,6 +322,34 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
     ("The last card is the room…"). `game_complete` unlocks `credits` only; the
     `postgame.deacs_route` string it used to carry was never implemented and is gone.
     (`drive/test/ending.test.ts`.) — `act8.json:1263-1590`.
+
+### Act VII — the card deck (opened 2026-10-29)
+
+Ten cards, one per teachable beat of the road home. Cards only: no VII still
+exists, no zone plate, nothing seeded — every card carries
+`variation.forced: "Act VII scaffold — no still; do not seed"` and
+`scripts/validate-act-vii.js` enforces it. Each opens once, in its own scene
+(`drive/test/fullchain.test.ts`), at the node named here.
+
+| Card | Title | Beat / node | Citation |
+|---|---|---|---|
+| VII-001 | Thirty-Five in a Sixty | 5.1 climb, `5.1.card_VII-001` (after "Sign was posted in July. Thirty-five.") | 5.1 Speed (Adjusting speed for conditions) |
+| VII-002 | Sign Means Sign | 5.2 chain-up, `5.2.card_VII-002` | 5.6 Road and driving conditions (Slippery roads) |
+| VII-003 | Walking Speed | 5.3 summit lot, `5.3.card_VII-003` (the answer is the headlight law, not the lot tactic) | 2.5 Vehicle Maintenance (Headlights) |
+| VII-004 | That's the Goodbye | 6.1, `6.1.card_VII-004` — continue-only beat | n/a |
+| VII-005 | Four Hundred Feet of Light | 6.2 night straight, `6.2.card_VII-005` | 2.5 Vehicle Maintenance (Headlights) |
+| VII-006 | The Wind Lives Here | 6.3 Vantage Bridge, `6.3.card_VII-006` | 5.1 Speed (Adjusting speed for conditions) |
+| VII-007 | Four Seconds Behind | 7.1 escort, `7.1.card_VII-007` (`callback_of: V-006`) | 4.4 Sharing with large vehicles |
+| VII-008 | No More Than Twelve | 8.1 final park, `8.1.card_VII-008` | 4.18 Parking |
+| VII-009 | A Foot From the Line | 8.2 arrival, `8.2.card_VII-009` — continue-only beat | n/a |
+| VII-010 | The Voucher | 7.1 Ritzville gate, `7.1.card_VII-010` (ledger, `callback_of: VII-002`) | 5.6 Road and driving conditions (Slippery roads) |
+
+The deck's wording is lifted from the drive's own lines so both surfaces match
+(half-buried 60 / "Thirty-five"; "Sign says chains. Sign means chains."; "lights off
+past the sign, walking speed"; the headlight-relay goodbye; "four hundred feet"; "two
+hands… steer into it — small"; "four seconds behind me"; the foot-from-the-line
+park; Division Street). The herd's art law holds in every brief that has figures in
+it: posture and stillness, never gore, never filling the frame.
 
 ### Card-game-only end beats (no drive scene)
 
@@ -565,7 +593,7 @@ a "drive by sight" accessibility path (`pack/16_FEAR_AND_SOUND.md:31-39,121-129`
 
 | Thread | Setup | Payoff | Status |
 |---|---|---|---|
-| **The pass / going home** — the story's spine | I-001 "The Pass Is Closed" (`cards/I-001.json:9`); note "Come home slow." (`act0-1.json:197`); Mom's "don't drive the pass on a permit" (`act0-1.json:438`) | VI-013 + end beat "the word is dawn. You are cleared to drive the road home" (`src/manifest.js:186-195`); drive: 8.1–8.2 Spokane arrival (`act8.json:133-1232`) | **RESOLVED** (card) / **RESOLVED but unreachable** (drive 8.x is in the closed act) |
+| **The pass / going home** — the story's spine | I-001 "The Pass Is Closed" (`cards/I-001.json:9`); note "Come home slow." (`act0-1.json:197`); Mom's "don't drive the pass on a permit" (`act0-1.json:438`) | VI-013 + end beat "the word is dawn. You are cleared to drive the road home" (`src/manifest.js:186-195`); drive: 8.1–8.2 Spokane arrival (`act8.json:133-1232`) | **RESOLVED** (card and drive — 8.x plays) |
 | **Mya is lost / returned** | I-005…I-008 (`cards/I-005.json`–`I-008.json`; drive 1.3 `act0-1.json:948-1122`) | Deac has her (2.2 `act2.json:230`); reveal III-002 (`cards/III-002.json`); return at exam pass (`act4.json:620-641`) or at Issaquah (`act3.json:1293`); "The Conversation" IV-017 (`cards/IV-017.json`) | **RESOLVED** — with two orderings (see §10 problems) |
 | **The belt bill** — I-003's miss | I-003 "The Belt" `schedules_callback` (`cards/I-003.json`) | II-031 "Into the Dash" — "You never buckled in at the lot…" (`cards/II-031.json`, `callback_of: I-003`) | **RESOLVED** |
 | **Bus 12 / the bent arm** | II-007 amber (Reyna, Tobin; `cards/II-007.json`) | II-010 ledger callback: the arm is bent "from a plow that did not wait" (`cards/II-010.json`, `callback_of: II-007`) | **RESOLVED** |
@@ -573,14 +601,17 @@ a "drive by sight" accessibility path (`pack/16_FEAR_AND_SOUND.md:31-39,121-129`
 | **The Drift (Deac's fatigue)** | III-013/016 (`cards/III-016.json`, `schedules_callback`) | III-020 "The Straight Again" (`cards/III-020.json`, `callback_of: III-016`; III-027 maps to the same ledger via `LEDGER_ORIGIN`, `src/game.js:152-154`) | **RESOLVED** (managed, not cured — thematically open) |
 | **The same crosswalk (IV debt)** | IV-005 "The Double Threat" (`cards/IV-005.json`, `schedules_callback`) | IV-012 "The Same Crosswalk" — "the person… looking at the place a plow was" (`cards/IV-012.json`, `callback_of: IV-005`) | **RESOLVED** |
 | **The culvert (VI debt)** | VI-004 "Off the Edge" (`cards/VI-004.json`, "Arms VI-011") | VI-011 "Same Culvert" — "Nothing happens… the least eventful hundred feet" (`cards/VI-011.json`, `callback_of: VI-004`) | **RESOLVED** |
-| **Jonah: cargo vs. person** | 3.3 "It's insulin. It's literally on a clock." (`act3.json:713`) | 3.4 / 3.4a + 8.2 stall payoff ("Was it?" / "…No.", `act8.json:1161-1186`); Jonah's flash-goodbye (`act6.json:354`) | **RESOLVED** (drives 8.2 payoff sits in the closed act) |
+| **The chain sign (VII debt)** | VII-002 "Sign Means Sign" (`cards/VII-002.json`, `schedules_callback`) | VII-010 "The Voucher" — the Ritzville desk asks for the chain receipt (`cards/VII-010.json`, `callback_of: VII-002`) | **RESOLVED** |
+| **The truck blind spot (V debt, second bill)** | V-006 "Beside the Trailer" (`cards/V-006.json`, still the drive's 7.1 card) | VII-007 "Four Seconds Behind" — the escort re-bills it at Hank's wide turn (`cards/VII-007.json`, `callback_of: V-006`) | **RESOLVED** |
+| **The paper (licensing)** | permit rules at the carport (`act0-1.json:232`); Deac's clipboard hours (II-011, VI-013) | 4.2 `lic1`–`lic5`: six months, 40 day / 10 night, 50 attested, the log, the intermediate night + passenger limits, the Authority waiver that does not touch the night (`act4.json`); 6.2 honors 1–5 a.m.; Hank names the agricultural exception and refuses the dark hours (`7.1.chat8`/`chat9`) | **RESOLVED** (drive + cards) |
+| **Jonah: cargo vs. person** | 3.3 "It's insulin. It's literally on a clock." (`act3.json:713`) | 3.4 / 3.4a + 8.2 stall payoff ("Was it?" / "…No.", `act8.json:1161-1186`); Jonah's flash-goodbye (`act6.json:354`) | **RESOLVED** (drive 8.2 plays) |
 | **Deac's trust / the clipboard** | "Run deliveries… That's a driving test." (`act2.json:424`); II-011 "Write the Hours Down" (`cards/II-011.json`) | IV-017 "He gives her back because he decided"; VI-013 initials — "You passed it." (`cards/VI-013.json`); 8.3 "Thank you for the test." (`act8.json:1473`) | **RESOLVED** |
 | **Yuna tease → face** | III-030 "Yuna, not yet a face" (`cards/III-030.json`) | Act V radio appearances (`pack/36_YUNA_RADIO_VOICE.md:44-55`); IV-010 "Eleven Months" (`cards/IV-010.json`) | **RESOLVED** |
 | **HUSH / Sori** | Priya's pitch (`act2.json:1469`); Sori photocard purchase (`act2.json:2326`) | Deac's gift (`act6.json:190-241`); "Hold Still" sung at the Relay (`act8.json:1389`); "Sori was worth it" (`act7.json:1341`) | **RESOLVED** (flavor thread) |
 | **Bea's toy / "it's never no reason"** | Bea's thesis + toy (`act2.json:1203-1239`) | Summit: "She had the toy in her mouth the whole time" (`act5.json:866`); bridge: the mouse instead of the moth (`act6.json:1308`); 8.3 "Tell her she was right about the bridge" (`act8.json:1346`) | **RESOLVED** |
 | **Hank's medal** | "Deac said you were quiet. Didn't say you were polite." (`act7.json:244`) | "Hank said you didn't do anything stupid" (`act7.json:742`); relayed by Mom (`act7.json:1584`); 8.3 message (`act8.json:1443`) | **RESOLVED** |
 | **Grandma's note / "come home slow"** | `act0-1.json:197` | Echoed across the run ("Don't rush the last two hours.", `act7.json:810`; `act8.json:381`), then said back to her by the woman who wrote it (`8.2.gm5`: "I told you. Come home slow." / `8.2.gm6`: "…I did.") | **RESOLVED** (on screen, 8.2) |
-| **The Quiet's nature & the closed pass** — "Four feet on the ridge… or something standing on the east slope that the plows won't go near" | Summit lot (`act5.json:817`); "the herd lives on the pass" (`docs/ACT_DRIVE_ALIGNMENT.md:86`) | none — Act VII is deliberately closed | **UNRESOLVED by design** |
+| **The Quiet's nature & the closed pass** — "Four feet on the ridge… or something standing on the east slope that the plows won't go near" | Summit lot (`act5.json:817`); "the herd lives on the pass" (`docs/ACT_DRIVE_ALIGNMENT.md:86`) | none — the herd is never freed, in any act; VII opened the road, not the pass | **UNRESOLVED by design** |
 | **Gravy / The Ferry Line / The Crossing / Old Ninety's driver** | bible roster (`pack/01_BIBLE.md:101-106`); Old Ninety carded (III-011/012) | none | **ABANDONED** (never carded; parked for Act VII or dropped) |
 | **IV-001 "Encore ride-along"** — why Ali can compare "two pedals" | `cards/IV-001.json` ("Yuna drives. Ali sits the welded rear bench", "two pedals"); IV-002 references it ("Yuna's car had two pedals", `cards/IV-002.json`) | `IV-001` is a live card as of 2026-10-29 (scene, one decision, one correct option; `drive/test/cards.test.ts`) | **RESOLVED** |
 | **"credits"** | 8.3 `game_complete` via `8.3.credits_gate` | the campaign's final card, toggled by `deac_answered` ("…Seatbelt." vs the room) — `drive/test/ending.test.ts` | **RESOLVED** (the card; `postgame.deacs_route` removed) |
@@ -963,6 +994,11 @@ traced on both paths and held with a test (`2954a6b`).
 | §10.2, §11.3 | I-009 played in 1.2, before Mya is lost — "The passenger seat beside you is empty" was false there | **FIXED `c6bb2fa`**: `1.2.card_I-009` removed (I-005 → `1.2.4`); `1.4.card_I-009` sits between `1.4.5` and `1.4.radio`, after `mya_lost`. The card's opener is "The engine's off." for the engine-off carport. `fullchain.test.ts` (5) asserts I-009 opens once, in 1.4, on `1.4.card_I-009` |
 | §10.3 | The lot was "Renton" in the locked registry (L-002) and Kent in every card | **FIXED `58340d5`**: `pack/01_BIBLE.md` §7 and L-002 say **Kent**, with a *Location canon* note; `STORY_BIBLE`'s location row is one Kent row. "Rain since Renton" (`cards/II-007.json`) is weather geography and stays |
 | §10.8, §10.17, §11.7 | IV-001 (the Yuna ride-along) was unseeded while IV-002 says "Yuna's car had two pedals" | **FIXED `adb9ffc`**: `cards/IV-001.json` — `scene`, one decision, four options with one correct, `Skill ten: city driving – part one` + `4.11 Traffic light signals`, seq 4001 via `card-seq.js`; master `cards/IV-001.png` and ride plate `public/game/ride/IV-001/brake.webp` confirmed; `drive/test/cards.test.ts` (6) holds the shape, the citations, the assets and IV-002's setup |
+| Act VII closed (Rule 8) | **OPEN `1681345`** (author-approved 2026-10-29): `pack/43` header + section, `pack/00_README`, `README`, `pack/44`, `docs/ACT_DRIVE_ALIGNMENT`, `STORY_BIBLE` §1/§3, `ROADMAP`, `PLAYTEST`. Cards allowed; **no VII stills, no zone plates, no seed**; herd art law unchanged |
+| No VII cards (forbidden since Rule 8) | **DECK `bb78ac4`**: `cards/VII-001`…`VII-010` (climb, chain-up, summit lot, goodbye, night straight, bridge, escort, park, arrival, the gate bill), each cited from pack/07 + pack/08, each forced "no still; do not seed"; `scripts/validate-act-vii.js` (deck, no-still contract, herd law, callback integrity, answer cap, placement); `pack/04` gained the continue-only `beat` branch; deck re-exported to 131 |
+| VII cards existed nowhere in the drive | **WIRED `e343149`**: ten card nodes, one per beat, 5.1 → 8.2 (node table in §2); `fullchain.test.ts` (6) asserts each opens once in its scene; `coverage.test.ts` `DRIVE_ACTS` includes VII |
+| 4.2 handed her a license without the real path | **`1aadc80`**: `4.2.lic1`–`lic5` — six months on the permit, 40 day / 10 night supervised hours with a 3+ year licensed driver, 50 attested, the hours *logged* on Deac's clipboard; the intermediate 1–5 a.m. and passenger limits; the Authority's in-fiction waiver that never touches the night. `guide_refs` carry DG 1.8; `licensing.test.ts` (5). 7.1 `chat8`/`chat9` give Hank the guide's real agricultural exception and his refusal to use it at night |
+| 8.2 `gm4` said "Nobody told me." | **`a456637`**: "Mom didn't say you'd be here." — gm5 and the rest of the beat untouched |
 
 **CHANGED — deliberately different shape**
 
@@ -990,14 +1026,16 @@ traced on both paths and held with a test (`2954a6b`).
 full-campaign playthrough on a device (no hardware ran); the 6.x/7.x story barks a
 swarm retry loses (`AUDIT.md` §10); and the two plate redraws above.
 
-**New permanent tests from this pass:** `drive/test/fullchain.test.ts` (5 — 0.1 →
-`game_complete`, both 1.3/3.3 forks, exam fail → retest week → pass, and where
-I-009 opens), `drive/test/ending.test.ts` (4), `drive/test/chainup-loop.test.ts`
-(6), `drive/test/spokane.test.ts` (4), `drive/test/cards.test.ts` (6 — IV-001 is
-live), `drive/test/straight.test.ts` (6 — 6.2's clock on both paths),
-`scripts/test-manifest.js`. Suite: **209/209** across 23 files, `tsc --noEmit`
-exit 0, drive bundle builds (821 modules; entry 3,972.56 kB / 1,312.14 kB gzip;
-`dialogue_act8` 28.55 kB, carrying the Grandma beat, the credits card and no
+**New permanent tests from this pass:** `drive/test/fullchain.test.ts` (6 — 0.1 →
+`game_complete`, both 1.3/3.3 forks, exam fail → retest week → pass, where I-009
+opens, and each VII card once in its scene), `drive/test/ending.test.ts` (4),
+`drive/test/chainup-loop.test.ts` (6), `drive/test/spokane.test.ts` (4),
+`drive/test/cards.test.ts` (6 — IV-001 is live), `drive/test/straight.test.ts` (6 —
+6.2's clock on both paths), `drive/test/licensing.test.ts` (5 — the 4.2 numbers and
+Hank's grain line), `scripts/test-manifest.js`, `scripts/validate-act-vii.js`
+(10 VII cards). Suite: **215/215** across 24 files, `tsc --noEmit` exit 0, drive
+bundle builds (821 modules; entry 3,972.56 kB / 1,312.14 kB gzip; `dialogue_act8`
+28.55 kB, carrying the Grandma beat, the credits card and no
 `postgame.deacs_route`).
 
 A follow pass the same day (`c6bb2fa`, `58340d5`, `adb9ffc`, `2954a6b`) closed
@@ -1007,6 +1045,14 @@ after it: `validate-citations.js` ok (121 cards — it now sees IV-001),
 still aborts on the pre-existing II-011 / IV-007 / V-006 / V-008 / V-013
 findings), `validate-act-v.js` unchanged (V-006/V-008/V-013), `validate-act-ii.js`
 / `validate-act-iii.js` unchanged.
+
+A third pass (`1681345`, `bb78ac4`, `e343149`, `1aadc80`, `a456637`) opened Act
+VII, wrote its ten-card deck, wired every card to its beat, gave 4.2 the guide's
+real licensing path and Hank the agricultural exception, and fixed `8.2.gm4`.
+`validate-citations.js` now counts 131 cards; `validate-act-vii.js` is a standing
+validator (wired into `npm run validate-cards`) and fails if a VII card is placed
+zero or two times, if any VII still or seed marker appears, if a brief breaks the
+herd art law, or if a scheduled miss has no later card to bill it.
 
 
 ---

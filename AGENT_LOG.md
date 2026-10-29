@@ -1130,6 +1130,33 @@ Ali is surprised by the *arrival*, not by the woman. Everything else in the beat
 `validate-act-vii.js` ok.
 
 
+## 2026-10-29 — docs: Act VII recorded (§2, §6, §12; ROADMAP; AUDIT §15)
+
+- `docs/STORY_BIBLE.md` §2: the epilogue heading no longer says "CLOSED at runtime";
+  a new **Act VII — the card deck (opened 2026-10-29)** subsection lists all ten
+  cards with their beat, node and citation, and states the no-still / no-seed
+  contract and the herd art law. The three cross-references that still said 8.x was
+  unreachable or VII deliberately closed now say the drive plays.
+- §6 *Plot threads*: two new debts — the chain sign (VII-002 → VII-010) and the
+  truck blind spot's second bill (V-006 → VII-007) — plus the licensing thread
+  (4.2 `lic1`–`lic5`, 6.2's clock, Hank's agricultural line). The Quiet row keeps
+  **UNRESOLVED by design**, now with the right reason: VII opened the road, not the
+  pass.
+- §12: five FIXED rows with this pass's commits (rules, deck, wiring, 4.2, gm4),
+  the suite line moved to 215/215 across 24 files, and the validator inventory now
+  includes `scripts/validate-act-vii.js` (with what it refuses).
+- `ROADMAP.md`: in-scene card target now reads **VII 10/10**; the current-pass list
+  names the five commits; "not open in code" adds VII stills as deliberately
+  unproduced and notes VII is not seeded by design.
+- `AUDIT.md`: §2 gains **Act VII — The Dark Hours (10/10 wired, cards only)** with
+  the node table, the grades each card rides, the callbacks and the validator's
+  refusals; §15 records the pass and its verification.
+
+**Verified**: 215/215 vitest, `tsc --noEmit` exit 0, `validate-citations.js` ok
+(131), `validate-act-vii.js` ok, `test-manifest.js` ok.
+
+
+
 
 
 

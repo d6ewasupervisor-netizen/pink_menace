@@ -159,6 +159,27 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 - **Cued in-scene (5):** V-002, V-004 (`ramp.enter`), V-008 (on the ramp),
   V-009, V-011 (`ribbon.merge` / `merge.gap_open`).
 
+### Act VII — The Dark Hours: The Road Home (10/10 wired, cards only)
+
+- **DIALOG (10, one node each):** VII-001 `5.1.card_VII-001`; VII-002
+  `5.2.card_VII-002`; VII-003 `5.3.card_VII-003`; VII-004 `6.1.card_VII-004`;
+  VII-005 `6.2.card_VII-005`; VII-006 `6.3.card_VII-006`; VII-007
+  `7.1.card_VII-007`; VII-010 `7.1.card_VII-010`; VII-008 `8.1.card_VII-008`
+  (all three park-gap lines lead to it); VII-009 `8.2.card_VII-009`.
+- **No stills, no zone plates, no seed.** Every card carries
+  `variation.forced: "Act VII scaffold — no still; do not seed"`; the deck ships a
+  brief for future art only. `scripts/validate-act-vii.js` fails on a `winner`, a
+  `VII-*.png` on disk, a placement count other than one, a brief that breaks the
+  herd's art law (gore, or figures filling the frame), or a `schedules_callback`
+  with no later card to bill it.
+- **Grades it rides:** `climb_snoqualmie` (5.1), `chainup_qte` (5.2),
+  `straight_night_drive` / `rest_area_*` (6.2), `vantage_bridge_crossing` (6.3),
+  `escort_ritzville` (7.1), `spokane_home` (8.1–8.2). The cards hang off dialogue
+  beats rather than grader events, so they cannot fire on a timer.
+- **Callbacks:** VII-010 (`ledger`) bills VII-002 at the Ritzville desk; VII-007
+  bills V-006's blind-spot lesson in the escort. `7.1.card_V-006` stays where it
+  was.
+
 ### Act VI — The Backcountry (9/13 wired)
 - DIALOG: VI-001, VI-002, VI-004, VI-006, VI-010, VI-012 (6.1b)
 - TRIG: VI-007, VI-008 `roundabout.approach`
@@ -669,6 +690,50 @@ halves: the signature is the courier, and a stray name argument is ignored.
 **Still open:** the headed `?profileDrive` pass and a device playthrough (no
 hardware); the II-009 / III-027 tablet plates; and, new, the I-009 still is an
 afternoon lot plate now playing in a night scene — an art call, not a code one.
+
+
+## 15. Act VII: the rules, the deck, the wiring, the paper (2026-10-29)
+
+Five commits, one per item:
+
+- `1681345` **the act opens.** `pack/43` (header + the section that said CLOSED),
+  `pack/00_README`, `README`, `pack/44`, `docs/ACT_DRIVE_ALIGNMENT`, `STORY_BIBLE`
+  §1/§3, `ROADMAP`, `PLAYTEST`. What is allowed: VII cards. What is not: VII
+  stills, zone plates, seeds. What does not change: the herd's art law (posture
+  and stillness, never gore, never filling the frame) and Act V's own ban on VII
+  material on a Ribbon card.
+- `bb78ac4` **the deck.** `cards/VII-001`…`VII-010`, citations only from pack/07 +
+  pack/08 (5.1, 5.6, 2.5, 4.4, 4.18, n/a), every card forced "no still; do not
+  seed", one correct answer each with a 28.6% worst-position share. `pack/04`
+  gained the continue-only `beat` branch the client has always assumed
+  (`CardOverlay.tsx:7`, `app.js:continueOnly`); I-007 stays valid.
+  `scripts/validate-act-vii.js` added and wired into `npm run validate-cards`;
+  deck re-exported to 131 (additive).
+- `e343149` **the wiring.** Ten card nodes, one per beat (5.1, 5.2, 5.3, 6.1, 6.2,
+  6.3, 7.1 ×2, 8.1, 8.2). Nothing renumbered; each anchor hands to the card and the
+  card to the anchor's old target. `fullchain.test.ts` (6) and `coverage.test.ts`
+  (`DRIVE_ACTS` + VII) hold it; `validate-act-vii.js` fails on zero/two placements.
+- `1aadc80` **the paper.** 4.2 `lic1`–`lic5`: six months on the permit, 40 day /
+  10 night supervised with a 3+ year licensed driver, 50 attested, the log that is
+  Deac's clipboard; the intermediate 1–5 a.m. and passenger limits; the Authority's
+  in-fiction waiver of the waiting period only. `guide_refs` carry DG 1.8. Hank
+  gets the guide's real agricultural exception and refuses the dark hours
+  (`7.1.chat8`/`chat9`). `licensing.test.ts` (5).
+- `a456637` **`8.2.gm4`** — "Mom didn't say you'd be here." (gm5 untouched).
+
+**Verified**: 215/215 vitest across 24 files, `tsc --noEmit` exit 0,
+`validate-citations.js` ok (131), `validate-act-vii.js` ok (10 cards, 7 decisions,
+a2/b1/c2/d2, ten placements printed), `test-manifest.js` ok, `compile-images.js
+--card` ok for all ten VII cards, full `compile-images.js` unchanged
+(II-011 / IV-007 / V-006 / V-008 / V-013), `validate-act-v.js` unchanged (V-006 /
+V-008 / V-013), `validate-act-ii.js` unchanged, `validate-act-iii.js` ok,
+`bench/baseline.json` restored. **No seed, no still, no deploy.**
+
+**Still open:** the headed `?profileDrive` pass and a device playthrough (no
+hardware); the II-009 / III-027 tablet plates; the I-009 afternoon plate (from the
+previous pass); and VII art itself — the deck is deliberately still-free, so any
+future VII still needs its own wave, muted-read and seed, none of which this pass
+authorized.
 
 
 <!-- CONTINUED -->
