@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "Before the Wheels",
   "hook": "You looked at this aisle twenty minutes ago.",
-  "scene": "The engine's on. Gracie's on the seat in your lap now, still not settled. The passenger seat beside you is empty and you keep not looking at it. The aisle behind you is the way out, and the last time you saw it was before.",
+  "scene": "The engine's off. Gracie's on the seat in your lap now, still not settled. The passenger seat beside you is empty and you keep not looking at it. The aisle behind you is the way out, and the last time you saw it was before.",
   "decision": "Before you roll, what do you do?",
   "options": [
     {

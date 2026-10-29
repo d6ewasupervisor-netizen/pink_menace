@@ -68,6 +68,7 @@ type Harness = {
   vars: Record<string, number>;
   unlocks: string[];
   ended: Ended[];
+  cards: { scene: string; card: string; node: string }[];
   lastChoice: { node: string; options: string[] } | null;
 };
 
@@ -76,8 +77,9 @@ function boot(opts: Opts): Harness {
   const vars: Record<string, number> = {};
   const unlocks: string[] = [];
   const ended: Ended[] = [];
+  const cards: { scene: string; card: string; node: string }[] = [];
   const items = new Set(opts.items ?? []);
-  const h: Harness = { runner: null as unknown as DialogueRunner, flags, vars, unlocks, ended, lastChoice: null };
+  const h: Harness = { runner: null as unknown as DialogueRunner, flags, vars, unlocks, ended, cards, lastChoice: null };
   const host = {
     getVar: (n: string) => vars[n] ?? NaN,
     setVar: (n: string, v: number) => {
@@ -116,6 +118,13 @@ function boot(opts: Opts): Harness {
   h.runner.on("choice_shown", (_node, options, id) => {
     h.lastChoice = { node: id, options: (options ?? []).map((o) => o.id) };
   });
+  // Where a card opens is story, not bookkeeping (I-009, 2026-10-29): the
+  // scene a card node plays in is the fact a card's own prose can contradict.
+  let scene = "";
+  h.runner.on("scene_started", (id) => {
+    scene = id;
+  });
+  h.runner.on("card_shown", (card, node) => cards.push({ scene, card, node }));
   return h;
 }
 
@@ -295,6 +304,19 @@ describe("the whole campaign walks from 0.1 to game_complete", () => {
     }
     // and the walk ends where 8.3 says it does
     expect(h.ended[h.ended.length - 1]).toEqual({ scene: "8.3", next: "" });
+  });
+
+  it("I-009 opens in the 1.4 aftermath, after Mya is lost — not over the 1.2 park", () => {
+    const { h } = walkCampaign({ items: ["chains"] });
+    // I-009's own scene says "The passenger seat beside you is empty"
+    // (cards/I-009.json). Both cats are still aboard in 1.2, and 1.3 is where
+    // the seat empties, so the card may only open in the carport aftermath.
+    const opens = h.cards.filter((c) => c.card === "I-009");
+    expect(opens).toEqual([{ scene: "1.4", card: "I-009", node: "1.4.card_I-009" }]);
+    expect(h.cards.some((c) => c.scene === "1.2" && c.card === "I-009")).toBe(false);
+    // 1.2 still shows its own card, parks (resident end), then hands off to 1.3.
+    expect(h.cards.filter((c) => c.scene === "1.2").map((c) => c.card)).toEqual(["I-005"]);
+    expect(h.ended.filter((e) => e.scene === "1.2").map((e) => e.next)).toEqual(["", "1.3"]);
   });
 });
 

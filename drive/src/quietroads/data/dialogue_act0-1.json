@@ -776,11 +776,6 @@
         "1.2.card_I-005": {
           "type": "card",
           "card": "I-005",
-          "next": "1.2.card_I-009"
-        },
-        "1.2.card_I-009": {
-          "type": "card",
-          "card": "I-009",
           "next": "1.2.4"
         }
       },
@@ -1253,6 +1248,11 @@
           "emotion": "neutral",
           "volume": "whisper",
           "text": "I'm going back for her. Tomorrow. With a plan. A real one.",
+          "next": "1.4.card_I-009"
+        },
+        "1.4.card_I-009": {
+          "type": "card",
+          "card": "I-009",
           "next": "1.4.radio"
         },
         "1.4.radio": {

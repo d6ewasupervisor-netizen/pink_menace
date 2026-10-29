@@ -764,3 +764,31 @@ baseline unchanged (V-006/V-008/V-013 as before), `bench/baseline.json` restored
   the re-audit lists: I-009's placement in 1.2, the Kent/Renton lot name, IV-001.
 
 
+## 2026-10-29 — I-009 moves to the aftermath (1.4)
+
+The re-audit listed I-009's placement as an author call. The approved plan decided
+it: the card opens where its own setup is true. `1.2.card_I-009` is gone and the
+I-005 card node now hands straight to `1.2.4`, so 1.2's flow is unchanged (I-005 →
+pull-in line → `1.2.go` park minigame → clean/curb bark → `1.2.end` → 1.3).
+I-009 now hangs off `1.4.5` ("I'm going back for her. Tomorrow. With a plan."):
+`1.4.card_I-009` → `1.4.radio`, in the carport aftermath, after 1.3 has set
+`mya_lost`, which is where "The passenger seat beside you is empty" is true.
+
+One continuity word in the card itself: `cards/I-009.json` scene opened "The
+engine's on." — true over the DOL lot, false in the engine-off carport the scene
+now plays in (`grandma_carport_night` / `carport_night_engine_off.png`). It is
+"The engine's off." now; ids, options, correct flags, state_delta and citations
+are untouched, and `drive/src/quietroads/data/cards.json` is re-exported for the
+one changed string (no seed ran). Left as the author's call: the still is an
+afternoon lot plate (`variation.time_of_day: "afternoon"`), so the *image* is now
+a daylight shot in a night scene — an art-pipeline note, not a code one.
+
+`drive/test/fullchain.test.ts` gained the walk's card log (`card_shown` +
+`scene_started`) and a fifth test: I-009 opens exactly once, in 1.4, on
+`1.4.card_I-009`; 1.2 shows only I-005 and still ends resident-then-1.3.
+
+**Verified**: 197/197 vitest across 21 files, `tsc --noEmit` exit 0,
+`validate-citations.js` ok, `bench/baseline.json` restored.
+
+
+
