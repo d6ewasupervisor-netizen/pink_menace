@@ -6,7 +6,7 @@
   "card_type": "scene",
   "title": "No More Than Twelve",
   "hook": "Two hours in. One more parallel.",
-  "scene": "Spokane, the sky still black over a city that kept some of its lights on, and the clock already past five. The checkpoint was two figures behind sawhorses and a posted speed you held. Now the sawhorse line is the curb: signal, reverse, look where the car is going, and back into the gap with paint on one side and Mom's quiet on the other. Twelve inches from the curb is the number the guide gives. One more, like the lot in Kent, forty times over.",
+  "scene": "Spokane, the sky a flat white over a city that kept some of its lights on anyway, and the clock coming up on noon. The checkpoint was two figures behind sawhorses and a posted speed you held. Now the sawhorse line is the curb: signal, reverse, look where the car is going, and back into the gap with paint on one side and Mom's quiet on the other. Twelve inches from the curb is the number the guide gives. One more, like the lot in Kent, forty times over.",
   "decision": "The car is in the gap. How close to the curb?",
   "options": [
     {
@@ -52,7 +52,7 @@
       }
     }
   ],
-  "debrief": "A parallel park ends no more than twelve inches from the curb, straightened, stopped before the car behind you. The posted speed through the checkpoint is a limit for ideal conditions, and the last two hours are not ideal.",
+  "debrief": "A parallel park ends no more than twelve inches from the curb, straightened, stopped before the car behind you. Hold the posted speed through a checkpoint. Rush it and you've lost the stop you already earned.",
   "source": {
     "psdp_skill": "Skill eight: parking – part two",
     "dol_section": "4.18 Parking",
@@ -68,10 +68,10 @@
   "schedules_callback": false,
   "image_brief": {
     "camera": "POV_MIRROR_DOOR",
-    "subject": "the door-mirror glass beside the Menace at a Spokane curb before dawn: the rear wheel, the painted curb line, and the gap behind, with the car's own flank in the foreground",
+    "subject": "the door-mirror glass beside the Menace at a Spokane curb at midday: the rear wheel, the painted curb line, and the gap behind, with the car's own flank in the foreground",
     "foreground": "the mirror housing and the seat edge; the pink flank of the Beetle along the mirror's lower edge",
     "midground": "the rear wheel close to the curb paint, the curb itself, the empty pavement behind",
-    "background": "a dark storefront, a sawhorse at a distance, cold streetlight on the curb",
+    "background": "a storefront window, a sawhorse at a distance, flat winter light on the curb",
     "read": "the rear wheel a hand's width from the curb and clear pavement behind it",
     "continuity": [
       "pink_menace_exterior"
@@ -85,12 +85,12 @@
       "no second person",
       "no wheel touching the curb",
       "no legible street sign",
-      "no daylight"
+      "no headlights on the parked car"
     ],
     "aspect": "2:3",
     "geometry": {
       "ego_heading": "away_from_camera",
-      "ego_lane_side": "against the curb of a downtown Spokane street, before dawn",
+      "ego_lane_side": "against the curb of a downtown Spokane street, at midday",
       "ego_nose_in_frame": "the mirror housing fills the near edge of the frame",
       "oncoming_position": "none in frame",
       "hazard_position": "none"
@@ -99,7 +99,7 @@
   "variation": {
     "location_type": "downtown",
     "weather": "clear_cold",
-    "time_of_day": "night",
+    "time_of_day": "midday",
     "tone": "procedural",
     "failure_mode": "inexperience",
     "forced": "Act VII scaffold — no still; do not seed"

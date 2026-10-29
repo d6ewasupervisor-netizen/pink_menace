@@ -5762,7 +5762,7 @@
   "card_type": "scene",
   "title": "No More Than Twelve",
   "hook": "Two hours in. One more parallel.",
-  "scene": "Spokane, the sky still black over a city that kept some of its lights on, and the clock already past five. The checkpoint was two figures behind sawhorses and a posted speed you held. Now the sawhorse line is the curb: signal, reverse, look where the car is going, and back into the gap with paint on one side and Mom's quiet on the other. Twelve inches from the curb is the number the guide gives. One more, like the lot in Kent, forty times over.",
+  "scene": "Spokane, the sky a flat white over a city that kept some of its lights on anyway, and the clock coming up on noon. The checkpoint was two figures behind sawhorses and a posted speed you held. Now the sawhorse line is the curb: signal, reverse, look where the car is going, and back into the gap with paint on one side and Mom's quiet on the other. Twelve inches from the curb is the number the guide gives. One more, like the lot in Kent, forty times over.",
   "decision": "The car is in the gap. How close to the curb?",
   "options": [
    {
@@ -5782,7 +5782,7 @@
     "text": "No more than twelve inches, rear wheel a hand off the paint, then stop."
    }
   ],
-  "debrief": "A parallel park ends no more than twelve inches from the curb, straightened, stopped before the car behind you. The posted speed through the checkpoint is a limit for ideal conditions, and the last two hours are not ideal.",
+  "debrief": "A parallel park ends no more than twelve inches from the curb, straightened, stopped before the car behind you. Hold the posted speed through a checkpoint. Rush it and you've lost the stop you already earned.",
   "source": {
    "psdp_skill": "Skill eight: parking – part two",
    "dol_section": "4.18 Parking",
@@ -5797,7 +5797,7 @@
   "variation": {
    "location_type": "downtown",
    "weather": "clear_cold",
-   "time_of_day": "night",
+   "time_of_day": "midday",
    "tone": "procedural",
    "failure_mode": "inexperience",
    "forced": "Act VII scaffold — no still; do not seed"
@@ -5828,7 +5828,7 @@
   "variation": {
    "location_type": "downtown",
    "weather": "clear_cold",
-   "time_of_day": "night",
+   "time_of_day": "midday",
    "tone": "warm",
    "failure_mode": "none",
    "forced": "Act VII scaffold — no still; do not seed"

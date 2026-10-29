@@ -1317,7 +1317,7 @@
           "delivery": "S",
           "emotion": "neutral",
           "volume": "low",
-          "text": "Which two hours scares you more — the dark ones or the loud ones? That's not me being clever. That's the actual question.",
+          "text": "Which scares you more — not seeing them, or them hearing you? That's not me being clever. That's the actual question.",
           "effects": {
             "log": "ritzville.tier:one"
           },
@@ -1329,7 +1329,7 @@
           "delivery": "S",
           "emotion": "sad",
           "volume": "low",
-          "text": "Can't help you, kid. Wish I could. It's a long dark two hours either way.",
+          "text": "Can't help you, kid. Wish I could. It's a long two hours either way.",
           "effects": {
             "set_flags": {
               "ritzville_short": true
@@ -1501,7 +1501,7 @@
           "delivery": "S",
           "emotion": "tired",
           "volume": "low",
-          "text": "Suit yourself. Long dark two hours.",
+          "text": "Suit yourself. Long two hours.",
           "next": "7.2.end"
         },
         "7.2.end": {
@@ -1544,7 +1544,7 @@
       "act": 7,
       "title": "Radio, Ritzville",
       "type": "radio",
-      "location": "ritzville_lot_dusk",
+      "location": "ritzville_lot_morning",
       "background": "res://backgrounds/ritzville_beetle_elevators_dusk.png",
       "ambience": "res://audio/amb/radio_static_bed.ogg",
       "music": "res://audio/music/two_hours_out.ogg",

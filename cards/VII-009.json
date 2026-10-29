@@ -54,7 +54,7 @@
   "variation": {
     "location_type": "downtown",
     "weather": "clear_cold",
-    "time_of_day": "night",
+    "time_of_day": "midday",
     "tone": "warm",
     "failure_mode": "none",
     "forced": "Act VII scaffold — no still; do not seed"

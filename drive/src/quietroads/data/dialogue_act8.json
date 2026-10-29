@@ -141,7 +141,7 @@
         },
         "8.1.0": {
           "type": "direction",
-          "text": "Two hours. The last two. I-90 east out of Ritzville, the sky gone from gray to black, and somewhere past the horizon a city that kept some of its lights on.",
+          "text": "Two hours. The last two. I-90 east out of Ritzville, the gray sky going flat white, a little snow in the air, and somewhere past the horizon a city that is awake now.",
           "anim": "beetle.depart_ritzville",
           "auto_ms": 3600,
           "next": "8.1.lights_branch"
@@ -182,7 +182,7 @@
           "delivery": "SYS",
           "emotion": "neutral",
           "volume": "whisper",
-          "text": "Lights. Shadow inside the light. Hold it there. Two hours.",
+          "text": "Lights. Snow in the air counts. Shadow inside the light. Hold it there. Two hours.",
           "next": "8.1.go"
         },
         "8.1.lights_b": {
@@ -1058,7 +1058,7 @@
           "volume": "whisper",
           "voice_bed": "none",
           "anim": "mom.pull_back_look_car",
-          "text": "You came in with the old lights. In the dark.",
+          "text": "You came in with the old lights. In all that snow.",
           "next": "8.2.lights2"
         },
         "8.2.lights2": {
@@ -1216,7 +1216,7 @@
           "volume": "whisper",
           "voice_bed": "none",
           "anim": "mom.hold_again",
-          "text": "Okay. You're home. That's the whole answer tonight.",
+          "text": "Okay. You're home. That's the whole answer.",
           "effects": {
             "log": "home.stall:continued"
           },
@@ -1229,7 +1229,7 @@
         },
         "8.2.gm1": {
           "type": "direction",
-          "text": "Then the hut door. Somebody small comes out of it with her collar turned up and takes the ten feet at the speed of somebody who has been waiting all night and is not going to hurry now.",
+          "text": "Then the hut door. Somebody small comes out of it with her collar turned up and takes the ten feet at the speed of somebody who has been waiting since before the sun and is not going to hurry now.",
           "auto_ms": 3600,
           "next": "8.2.gm2"
         },
