@@ -1038,6 +1038,41 @@ unchanged (exit 1), `validate-act-iii.js` ok, 209/209 vitest, `tsc --noEmit`
 exit 0.
 
 
+## 2026-10-29 — VII cards wired into the drive, each in its beat
+
+Ten card nodes, one per card, placed at the beat the card is written about. No
+existing node was renumbered and no scene changed shape — each anchor's `next`
+now names the card, and the card hands on to what the anchor used to point at:
+
+| Card | Scene | Node | Opens after |
+|---|---|---|---|
+| VII-001 | 5.1 | `5.1.card_VII-001` | `5.1.3` ("Sign was posted in July. Thirty-five.") → `5.1.go` |
+| VII-002 | 5.2 | `5.2.card_VII-002` | `5.2.1` ("Chain-up. Pull in.") → `5.2.2` |
+| VII-003 | 5.3 | `5.3.card_VII-003` | `5.3.pre` (summit lot, lights off) → `5.3.hold` |
+| VII-004 | 6.1 | `6.1.card_VII-004` | `6.1.flashback` (the headlight goodbye) → `6.1.end` |
+| VII-005 | 6.2 | `6.2.card_VII-005` | `6.2.pre` ("Okay. Just us.") → `6.2.go` |
+| VII-006 | 6.3 | `6.3.card_VII-006` | `6.3.2` ("Two hands. Slow down.") → `6.3.go` |
+| VII-007 | 7.1 | `7.1.card_VII-007` | `7.1.2c` ("Four seconds behind me") → `7.1.go` |
+| VII-010 | 7.1 | `7.1.card_VII-010` | `7.1.arrive` (Ritzville gate) → `7.1.report_branch` |
+| VII-008 | 8.1 | `8.1.card_VII-008` | all three gap lines (`gap_foot`/`gap_ok`/`gap_far`) → `8.1.end` |
+| VII-009 | 8.2 | `8.2.card_VII-009` | `8.2.out` (out of the car) → `8.2.walk` |
+
+`7.1.card_V-006` (the existing truck-blind-spot card) is untouched and still sits
+where it was; VII-007 is its callback, four beats later.
+
+Tests: `fullchain.test.ts` gained a sixth case asserting the walk opens each VII
+card exactly once, in its scene, on its node (ordered). `coverage.test.ts` adds
+`VII` to `DRIVE_ACTS`, so "every card of the driving acts opens in-scene" now
+covers the new deck. `straight.test.ts`'s depot-retry case learned the new node
+(`6.2.pre → 6.2.card_VII-005 → 6.2.go`). `validate-act-vii.js` now also fails if a
+card is placed zero or two times, or if a VII card node names no card.
+
+**Verified**: 210/210 vitest across 23 files (209 + 1), `tsc --noEmit` exit 0,
+`validate-act-vii.js` ok (placement printed), `validate-citations.js` ok (131),
+`validate-act-v.js` / `validate-act-ii.js` unchanged, `validate-act-iii.js` ok.
+
+
+
 
 
 

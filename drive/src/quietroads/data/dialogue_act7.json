@@ -195,6 +195,11 @@
           "emotion": "amused",
           "volume": "normal",
           "text": "They do now. Four seconds behind me, Bug. Not three. I'm not a Beetle.",
+          "next": "7.1.card_VII-007"
+        },
+        "7.1.card_VII-007": {
+          "type": "card",
+          "card": "VII-007",
           "next": "7.1.go"
         },
         "7.1.retry": {
@@ -729,6 +734,11 @@
           "text": "Ritzville. Grain elevators against a gray sky. A gate, a desk, a lamp. The trucks peel off toward the silos one by one.",
           "anim": "ritzville.arrival",
           "auto_ms": 3200,
+          "next": "7.1.card_VII-010"
+        },
+        "7.1.card_VII-010": {
+          "type": "card",
+          "card": "VII-010",
           "next": "7.1.report_branch"
         },
         "7.1.report_branch": {

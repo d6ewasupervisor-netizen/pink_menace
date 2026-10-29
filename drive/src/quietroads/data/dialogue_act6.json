@@ -374,6 +374,11 @@
             "headlight_relay_click"
           ],
           "auto_ms": 2600,
+          "next": "6.1.card_VII-004"
+        },
+        "6.1.card_VII-004": {
+          "type": "card",
+          "card": "VII-004",
           "next": "6.1.end"
         },
         "6.1.end": {
@@ -436,6 +441,11 @@
           "emotion": "neutral",
           "volume": "whisper",
           "text": "Okay. Just us. Mya, you're navigating. Gracie, you're… present.",
+          "next": "6.2.card_VII-005"
+        },
+        "6.2.card_VII-005": {
+          "type": "card",
+          "card": "VII-005",
           "next": "6.2.go"
         },
         "6.2.retry": {
@@ -1179,6 +1189,11 @@
           "emotion": "neutral",
           "volume": "whisper",
           "text": "Two hands. Slow down. When it pushes, steer into it — small. Don't fight it big.",
+          "next": "6.3.card_VII-006"
+        },
+        "6.3.card_VII-006": {
+          "type": "card",
+          "card": "VII-006",
           "next": "6.3.go"
         },
         "6.3.retry": {

@@ -148,6 +148,11 @@
           "emotion": "deadpan",
           "volume": "low",
           "text": "Sign was posted in July. Thirty-five.",
+          "next": "5.1.card_VII-001"
+        },
+        "5.1.card_VII-001": {
+          "type": "card",
+          "card": "VII-001",
           "next": "5.1.go"
         },
         "5.1.go": {
@@ -587,6 +592,11 @@
           "emotion": "neutral",
           "volume": "low",
           "text": "Chain-up. Pull in. I'll watch the grass.",
+          "next": "5.2.card_VII-002"
+        },
+        "5.2.card_VII-002": {
+          "type": "card",
+          "card": "VII-002",
           "next": "5.2.2"
         },
         "5.2.2": {
@@ -819,6 +829,11 @@
           "text": "The summit. Snow falling on a hundred silent figures standing in the ski resort parking lot. The Beetle rolls through at walking speed. Headlights off. Chains ticking.",
           "anim": "summit.establishing",
           "auto_ms": 3000,
+          "next": "5.3.card_VII-003"
+        },
+        "5.3.card_VII-003": {
+          "type": "card",
+          "card": "VII-003",
           "next": "5.3.hold"
         },
         "5.3.hold": {

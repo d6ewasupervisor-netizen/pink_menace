@@ -145,6 +145,28 @@ for (const c of cards) {
   if (!later.length) err(c.card_id, "schedules_callback with no later card naming it as callback_of");
 }
 
+// Wiring: every VII card opens exactly once, in the drive's own dialogue, and
+// every VII card node names a card that exists.
+const dlgDir = path.join(__dirname, "..", "drive", "src", "quietroads", "data");
+const placed = new Map();
+for (const f of fs.readdirSync(dlgDir).filter((x) => /^dialogue_.*\.json$/.test(x))) {
+  const d = JSON.parse(fs.readFileSync(path.join(dlgDir, f), "utf8"));
+  for (const [sid, s] of Object.entries(d.scenes || {})) {
+    for (const [nid, n] of Object.entries(s.nodes || {})) {
+      if (n.type !== "card" || !/^VII-/.test(n.card || "")) continue;
+      if (!placed.has(n.card)) placed.set(n.card, []);
+      placed.get(n.card).push(`${f}:${sid}:${nid}`);
+    }
+  }
+}
+for (const c of cards) {
+  const spots = placed.get(c.card_id) || [];
+  if (spots.length !== 1) err(c.card_id, `placed ${spots.length} time(s) in dialogue (expected 1)`);
+}
+for (const [id, spots] of placed) {
+  if (!byId.has(id)) errors.push(`${id}: card node with no card (${spots.join(", ")})`);
+}
+
 const decisionCards = cards.filter((c) => c.options && c.options.length);
 const maxAnswer = Math.max(...Object.values(answers), 0);
 if (decisionCards.length && maxAnswer / decisionCards.length > 0.35 + 1e-12) {
@@ -155,6 +177,7 @@ for (const e of checkClosers(cards)) errors.push(e);
 console.log("VII cards", cards.length, "decision", decisionCards.length);
 console.log("answers", answers);
 console.log("seq", cards.map((c) => `${c.card_id}=${seqFromCard(c)}`).join(" "));
+console.log("placed", [...placed.entries()].map(([id, s]) => `${id}@${s[0]}`).join(" "));
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);

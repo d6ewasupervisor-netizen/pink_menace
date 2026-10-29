@@ -503,7 +503,7 @@
             "tp": 40,
             "log": "park.gap:foot"
           },
-          "next": "8.1.end"
+          "next": "8.1.card_VII-008"
         },
         "8.1.gap_ok": {
           "type": "direction",
@@ -515,7 +515,7 @@
             "tp": 25,
             "log": "park.gap:close"
           },
-          "next": "8.1.end"
+          "next": "8.1.card_VII-008"
         },
         "8.1.gap_far": {
           "type": "direction",
@@ -526,6 +526,11 @@
             "tp": 15,
             "log": "park.gap:far"
           },
+          "next": "8.1.card_VII-008"
+        },
+        "8.1.card_VII-008": {
+          "type": "card",
+          "card": "VII-008",
           "next": "8.1.end"
         },
         "8.1.end": {
@@ -831,6 +836,11 @@
           "text": "Ali gets out. Mya is asleep in the passenger seat. Gracie is on the dashboard, yelling silently through the glass.",
           "anim": "gracie.dash_silent_yell",
           "auto_ms": 3200,
+          "next": "8.2.card_VII-009"
+        },
+        "8.2.card_VII-009": {
+          "type": "card",
+          "card": "VII-009",
           "next": "8.2.walk"
         },
         "8.2.walk": {

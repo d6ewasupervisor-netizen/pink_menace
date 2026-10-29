@@ -57,7 +57,7 @@ const FILES = [act01, act2, act2central, act3, act4, act5ribbon, act5, act6, act
  */
 const CUED = observedCueIds();
 
-const DRIVE_ACTS = ["I", "II", "III", "V", "VI"];
+const DRIVE_ACTS = ["I", "II", "III", "V", "VI", "VII"];
 
 function dialogueCards(): Set<string> {
   const out = new Set<string>();

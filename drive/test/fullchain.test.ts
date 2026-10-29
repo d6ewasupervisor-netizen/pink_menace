@@ -306,6 +306,23 @@ describe("the whole campaign walks from 0.1 to game_complete", () => {
     expect(h.ended[h.ended.length - 1]).toEqual({ scene: "8.3", next: "" });
   });
 
+  it("every Act VII card opens once, in its own scene", () => {
+    const { h } = walkCampaign({ items: ["chains"] });
+    const vii = h.cards.filter((c) => c.card.startsWith("VII-"));
+    expect(vii.map((c) => [c.card, c.scene, c.node])).toEqual([
+      ["VII-001", "5.1", "5.1.card_VII-001"],
+      ["VII-002", "5.2", "5.2.card_VII-002"],
+      ["VII-003", "5.3", "5.3.card_VII-003"],
+      ["VII-004", "6.1", "6.1.card_VII-004"],
+      ["VII-005", "6.2", "6.2.card_VII-005"],
+      ["VII-006", "6.3", "6.3.card_VII-006"],
+      ["VII-007", "7.1", "7.1.card_VII-007"],
+      ["VII-010", "7.1", "7.1.card_VII-010"],
+      ["VII-008", "8.1", "8.1.card_VII-008"],
+      ["VII-009", "8.2", "8.2.card_VII-009"],
+    ]);
+  });
+
   it("I-009 opens in the 1.4 aftermath, after Mya is lost — not over the 1.2 park", () => {
     const { h } = walkCampaign({ items: ["chains"] });
     // I-009's own scene says "The passenger seat beside you is empty"

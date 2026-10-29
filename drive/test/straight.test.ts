@@ -166,7 +166,8 @@ describe("6.2 — the clock stays outside 1:00–5:00 a.m. on both paths", () =>
 
   it("takes the retry back to the depot with no clock of its own", () => {
     const fresh = walk("6.2.entry", {}, { straight_retry: false });
-    expect(fresh.slice(0, 4)).toEqual(["6.2.entry", "6.2.0", "6.2.pre", "6.2.go"]);
+    // VII-005 opens on the way out of the depot (6.2.pre -> card -> 6.2.go).
+    expect(fresh.slice(0, 5)).toEqual(["6.2.entry", "6.2.0", "6.2.pre", "6.2.card_VII-005", "6.2.go"]);
     const retry = walk("6.2.entry", {}, { straight_retry: true });
     expect(retry.slice(0, 3)).toEqual(["6.2.entry", "6.2.retry", "6.2.go"]);
     expect(hoursIn(nodes["6.2.retry"].text ?? "")).toEqual([]);
