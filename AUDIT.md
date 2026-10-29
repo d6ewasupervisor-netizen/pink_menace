@@ -795,8 +795,15 @@ art notes (`"live still cards/takes/VI-..."`), and the ROADMAP counts them
 13/13 — so it is deliberately not skipped. The matcher is the scaffold shape
 (no still AND do not seed), not the substring: rejected-take notes on IV-005,
 IV-028 and V-001 contain "do not seed" and remain seedable.
-`drive/test/seed.test.ts` (6). No seed was run in this pass (no `DATABASE_URL`,
-and the branch's rule is no seed/no deploy).
+`drive/test/seed.test.ts` (6). **Seeded live 2026-10-29** from the Railway
+public proxy: `npm run seed -- IV-001` (seeded IV-001; Act IV still audit 22/22),
+then `npm run seed` — one log line `skipped (no still; do not seed)
+VII-001…VII-010`, 121 cards seeded (no VII), and six still audits with 0
+mismatches (I 12, II 30, III 30, IV 22, V 13, VI 13). The Act II audit's
+`in_db_not_repo: ["II-031"]` is expected: `cards/II-031.json` is a still-less
+card, so the still audit has nothing to compare. Live DB verified: 121 cards,
+zero `VII-%` rows, IV-001 at seq 4001 with a 48,184-byte image and four options
+(`a` correct).
 
 **Verified**: 251/251 vitest across 27 files (215 + `actvii-deck` 13 + `clock` 9
 + `licensing` +8 + `seed` 6), `tsc --noEmit` exit 0, `validate-citations.js` ok
@@ -827,6 +834,13 @@ provision the six-month waiver ("You didn't have the six months. You had the
 Grid."). `4.2.1` says "the license set, not the permit set", keeping 1.3 (permit
 knowledge test) and 4.2 (license exam) distinct. `licensing.test.ts` is 17 and
 pins the order, the two exams, and the absence of any unearned duration.
+
+**Known compression, deliberately not fixed.** 4.2 is "the license set, not the
+permit set," but 40 questions with 32 to pass is the real WA knowledge exam —
+the permit test. In life the license step is the drive test; the fiction treats
+Deac's logged hours and his observation as that drive test, so the numbers the
+player learns are still right. If it ever needs to be exact, it is a one-line
+relabel at `4.2.1`, not a new run.
 
 **Verified**: 255/255 vitest across 27 files, `tsc --noEmit` exit 0,
 `validate-citations.js` ok (131), `validate-act-vii.js` ok, `validate-act-iii`

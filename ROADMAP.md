@@ -88,13 +88,17 @@ deliberately empty rather than filled with a guess.
   seven", and the Authority provision at `lic5` is what waives the six months.
   1.3 is the DOL permit test; 4.2.1 calls 4.2 "the license set, not the permit
   set." Suite is **255/255** across 27 files.
+- **Seed is live (2026-10-29).** `npm run seed -- IV-001` then `npm run seed`
+  against production through the Railway public proxy: IV-001 live (seq 4001,
+  image + four options), 121 cards seeded, one `skipped (no still; do not seed)`
+  line for VII-001…VII-010, and six still audits with 0 mismatches.
 - **Not open in code.** Left for hardware and the art pipeline: a headed
-  `?profileDrive` browser pass, a full-campaign playthrough on a device, the
-  II-009 / III-027 plate redraws (`AUDIT.md` §11), an afternoon-lot plate for
-  I-009 if the 1.4 night placement wants one, VII stills (deliberately not
-  produced), and a seed + still audit run when the next deploy window opens
-  (IV-001 is seeded by the next `npm run seed`; VII is refused by the seeder,
-  `seed.test.ts`).
+  `?profileDrive` browser pass, a full-campaign playthrough on a device
+  (5.1 → 8.3 has never run on hardware; note pacing drags between 6.2 and 7.1),
+  the II-009 / III-027 plate redraws (`AUDIT.md` §11), an afternoon-lot plate for
+  I-009 if the 1.4 night placement wants one, the `7.3`/`8.1` `dusk`/`night`
+  asset keys now that the scenes are daylight, and VII stills (deliberately not
+  produced).
 
 ## P0b — the campaign has to be able to change scenes
 

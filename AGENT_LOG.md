@@ -1275,3 +1275,42 @@ ok, `test-manifest.js` ok, `validate-act-v` unchanged (V-006/V-008/V-013),
 `validate-act-ii` unchanged, `bench/baseline.json` restored. Docs: `STORY_BIBLE`
 §2/§6/§12, `ROADMAP`, `AUDIT` §16. No seed, no still, no deploy.
 
+
+## 2026-10-29 — live seed (production)
+
+**Route.** The Railway CLI is logged in and the repo is linked to
+`pink_menace` / `production` / `pink_menace`. `railway run` injects the internal
+`DATABASE_URL` (`postgres.railway.internal`), which does not resolve from this
+machine. The Postgres service exposes a TCP proxy, so the public URL was built
+in-process from `RAILWAY_TCP_PROXY_DOMAIN` / `RAILWAY_TCP_PROXY_PORT` /
+`PGUSER` / `PGPASSWORD` / `PGDATABASE` with `System.UriBuilder`; the value was
+never printed. `src/db.js` already sets `rejectUnauthorized:false` for public
+hosts. A read-only `select 1` succeeded first.
+
+**Narrow seed.** `npm run seed -- IV-001` → `seeded IV-001`; Act IV still audit
+`compared 22, match 22, mismatch 0`. IV-001 is live at seq 4001 with a
+48,184-byte image and four options (`a` correct).
+
+**Full seed.** `npm run seed` printed one skip line:
+
+```
+skipped (no still; do not seed) VII-001, VII-002, VII-003, VII-004, VII-005,
+VII-006, VII-007, VII-008, VII-009, VII-010
+seeded I-001 … VI-013
+```
+
+121 cards seeded (I 12, II 31, III 30, IV 22, V 13, VI 13); no VII id in the
+seeded line. Six still audits, all 0 mismatches. The Act II audit's
+`in_db_not_repo: ["II-031"]` is expected — `cards/II-031.json` has no still, so
+the still audit has nothing to compare; the card seeded normally.
+
+**Live DB verification.** 121 rows, zero `VII-%` rows. The run diffed against
+`cards/*.json` is exactly the ten VII files.
+
+**No code change.** Docs: `ROADMAP`, `AUDIT` §16 (seed + the known 40-question
+compression). Suite remains 255/255, `tsc` 0.
+
+**Next:** the art list in `AUDIT.md` §16, and a device playthrough of 5.1 → 8.3
+(nobody has driven the Act VII scenes on hardware). Watch pacing between 6.2 and
+7.1 — that stretch gained the most dialogue.
+

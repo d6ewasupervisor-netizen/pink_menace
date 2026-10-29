@@ -1087,7 +1087,9 @@ fourteen months in `pack/01_BIBLE.md` is world time, not story time). So 2.2 now
 stamps the **Authority courier permit** and starts the log, 4.2 no longer claims
 seven months, and the Authority provision at `lic5` is what waives the six. 1.3
 stays the permit test and 4.2 is the license set. Suite **255/255** across 27
-files (`licensing.test.ts` 17).
+files (`licensing.test.ts` 17). The deck was then seeded live (2026-10-29):
+IV-001 first, then the full run — 121 cards, one skip line for VII-001…VII-010,
+six still audits at 0 mismatches, no `VII-%` row in the database.
 
 
 ---
