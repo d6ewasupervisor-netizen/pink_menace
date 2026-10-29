@@ -558,4 +558,53 @@ Verified: 192/192 vitest (188 + 4), `tsc --noEmit` exit 0, `validate-act-v.js`
 baseline unchanged, `bench/baseline.json` restored.
 
 
+## 13. Phase 6 — the whole campaign walks, and the re-audit (2026-10-29)
+
+**The walked chain.** `drive/test/fullchain.test.ts` (4) plays scene `0.1` to
+`game_complete` on one real `DialogueRunner` loaded with all twelve dialogue files.
+Every earlier chain test proved one link — that a `next_scene` has a destination
+(`bundle.test.ts`), that the chain-up loop closes (`chainup-loop.test.ts`), that 8.3
+ends (`ending.test.ts`). None walked the campaign; this does, and it takes the forks.
+
+How it moves without a driver: it fires a `wait`'s own `wait_for`, answers choices
+from a policy (first option that can still reach a hand-off unless the test names
+one), resolves `card` nodes correct, and when a gameplay scene idles at its `*.go`
+resident end — or at a bark leaf with no `next` — it fires the one trigger whose
+target still reaches an end node that hands off. Retry and atmosphere events
+(`noise.*`, `mission.fail.*`, `mission.complete.*`) are skipped because they re-enter
+the scene instead of advancing it. Fired events are scoped per scene visit, because
+the same name can finish two scenes (`park.parallel.clean` finishes 2.3d *and* 8.1's
+last park). A scene with no advancing trigger fails the walk.
+
+What it proves:
+
+- **One visit per scene, 37 deep**: `0.1 → 0.2 → 0.3 → 1.1 → 1.2 → 1.3 → 1.4 → 1.4b
+  → 2.1 … 8.3`, `game_complete` set, `credits` unlocked.
+- **Both forks**: 1.3.C wait vs. honk, and 3.3.C keep-going (→ 3.4a) vs. stop for the
+  stall (→ 3.4) — the two paths must both reach Spokane, and they do.
+- **The exam twice**: passed at the terminal, and failed once → the retest week
+  (4.3, `week.elapsed`) → 4.1 with `exam_attempts` → 4.2 passed → 6.1b. `exam_passed`
+  and `exam_failed_once` both end true, `exam_attempts` is 1, and the two visits to
+  4.2 bracket 4.3 in the right order.
+- **No hand-off names a scene the runner cannot start**, and the walk ends on
+  `8.3 → ""`.
+
+**The bundle builds.** `npm run build` in `drive/` (what Docker stage 1 runs): 821
+modules, entry `index-*.js` 3,972.56 kB / 1,312.14 kB gzip, `dialogue_act8` 28.55 kB.
+The emitted act8 chunk carries the Grandma beat, `credits_gate`, "…Seatbelt." and
+"Come home slow", and no longer contains `postgame.deacs_route`; the entry chunk
+carries `GRANDMA_INITIALS: "— G."`. `public/game/drive` is untracked build output,
+so the build leaves the working tree clean.
+
+**The re-audit** is `docs/STORY_BIBLE.md` §12: every §10 problem and §11 question is
+now FIXED (with the phase and the mechanism named), CHANGED (deliberately different),
+or STILL OPEN (with the reason). The two story items this pass did *not* touch are
+I-009's placement in 1.2 and the Kent/Renton lot name — both author calls, both
+listed with why.
+
+**Verified**: 196/196 vitest across 21 files (192 + 4 new), `tsc --noEmit` exit 0,
+`scripts/test-manifest.js` ok, `validate-act-v.js` baseline unchanged
+(V-006/V-008/V-013 as before), `bench/baseline.json` restored after the run.
+
+
 <!-- CONTINUED -->

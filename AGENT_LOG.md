@@ -713,3 +713,54 @@ drive/tsconfig.json` exit 0, `validate-act-v.js` baseline unchanged,
   CHANGED / STILL OPEN; hand the II-009/III-027 plate redraws to art.
 
 
+## 2026-10-29 — Phase 6 (the whole campaign walks; the bundle builds; the re-audit)
+
+**The campaign is walked by a test now.** `drive/test/fullchain.test.ts` (4) plays
+scene `0.1` to `game_complete` on one real `DialogueRunner` loaded with all twelve
+dialogue files. Earlier chain tests each proved one link — a `next_scene` has a
+destination (`bundle.test.ts`), the chain-up loop closes (`chainup-loop.test.ts`),
+8.3 ends (`ending.test.ts`). None walked the campaign.
+
+It walks it without a driver: fires a `wait`'s own `wait_for`, answers choices from
+a policy (the first option that can still reach a hand-off unless the test names
+one), resolves `card` nodes correct, and when a gameplay scene idles at its `*.go`
+resident end — or at a bark leaf with no `next` — fires the one trigger whose target
+still reaches an end node that hands off. Retry/atmosphere events (`noise.*`,
+`mission.fail.*`, `mission.complete.*`) are skipped: they re-enter the scene instead
+of advancing it. Fired events are scoped per scene visit, because the same event
+name can finish two scenes (`park.parallel.clean` ends 2.3d *and* 8.1's last park).
+A scene with no advancing trigger fails the walk.
+
+What it holds: one visit per scene, 37 deep (`0.1 … 8.3`) with `game_complete` set
+and `credits` unlocked; **both forks** — 1.3.C wait vs. honk and 3.3.C keep-going
+(→ 3.4a) vs. stop for the stall (→ 3.4) — both reaching Spokane; **the exam twice** —
+passed at the terminal, and failed once → the retest week (4.3, `week.elapsed`) → 4.1
+with `exam_attempts` → 4.2 passed → 6.1b, with `exam_passed`, `exam_failed_once`,
+`exam_attempts === 1` and 4.3 bracketed by the two 4.2 visits; and no hand-off naming
+a scene the runner cannot start.
+
+**The bundle builds.** `npm run build` in `drive/` (Docker stage 1): 821 modules,
+entry `index-*.js` 3,972.56 kB / 1,312.14 kB gzip, `dialogue_act8` 28.55 kB. The act8
+chunk carries the Grandma beat, `credits_gate`, "…Seatbelt.", "Come home slow" and no
+`postgame.deacs_route`; the entry chunk carries `GRANDMA_INITIALS: "— G."`.
+`public/game/drive` is untracked build output, so the working tree stays clean.
+
+**The re-audit** is `docs/STORY_BIBLE.md` §12 — every §10 problem and §11 question
+marked FIXED (phase + mechanism), CHANGED (deliberately different) or STILL OPEN
+(with the reason). `AUDIT.md` §13 records the walk, the build numbers and the
+verification. The two story items this pass did not touch are I-009's placement in
+1.2 and the Kent/Renton lot name — author calls, both listed with why.
+
+**Verified**: 196/196 vitest across 21 files (192 + 4 new), `tsc --noEmit -p
+drive/tsconfig.json` exit 0, `scripts/test-manifest.js` ok, `validate-act-v.js`
+baseline unchanged (V-006/V-008/V-013 as before), `bench/baseline.json` restored.
+
+### Next (nothing in this pass is open in code)
+- A headed `?profileDrive` browser pass and a full-campaign playthrough on a device —
+  still no hardware, so no frame-rate or draw-call number exists.
+- The II-009 / III-027 plate redraws (the two stills still draw a lit tablet) —
+  flagged in `AUDIT.md` §11 for the art pipeline.
+- The 6.x / 7.x story barks a swarm retry loses (`AUDIT.md` §10), and the author calls
+  the re-audit lists: I-009's placement in 1.2, the Kent/Renton lot name, IV-001.
+
+

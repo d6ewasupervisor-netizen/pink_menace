@@ -928,6 +928,65 @@ flowchart LR
     Chorus Wakes") and III-022 say radio, and the two stills that drew a lit tablet are flagged
     for redraw in `AUDIT.md` §11. `pack/01_BIBLE.md:37` and `ref_cockpit.jpg`'s ban now agree.
 
+## 12. Re-audit — 2026-10-29 (the six-phase pass)
+
+Commits: `48b0c49` (Phase 1), `4fa2229` (2), `960317c` (3), `289c0de` (4),
+`13c5ec7` (5), and Phase 6 (the commit that adds `drive/test/fullchain.test.ts`).
+Phase detail lives in `AUDIT.md` §11–§13 and `AGENT_LOG.md`.
+
+**FIXED — with the fix named**
+
+| Item | Was | Now |
+|---|---|---|
+| §10.1, §11.1 | The I-90 run carried insulin while Act V's canon is the relay kit | Phase 2: 3.1.1 "Relay kit", 3.3.5 "the relay kit. Repeater, antenna, clamps"; zero insulin-family words left in `act3` / `act5_ribbon` / `act8` |
+| §10.5, §11.10 | nav tablet in the story, banned by the art lock | Phase 4: the Chorus comes through the CB deck; II-009, III-027 ("The Chorus Wakes") and III-022 say radio; the two plates are flagged in `AUDIT.md` §11 |
+| §10.7, §11.2 | 8.x unreachable — "Act VII stays closed" (1,874 lines of ending dead) | Phase 1: Act VII opened with `spokane_home`; `fullchain.test.ts` walks 0.1 → 8.3 → `game_complete` |
+| §10.12, §11.4 | Shop `end` nodes had no `next_scene`; the chain-up loop stranded | Phase 3: 2.6→2.3c, 2.7→2.3d, 2.8.close_branch → 5.1 / 5.1 / 2.4 (`chainup-loop.test.ts`) |
+| §10.13 | `chainup_return` read at 5.1.entry, never written | Phase 3: the shop return sets it; the trunk line plays (`chainup-loop.test.ts`) |
+| §10.14, §11.8 | `credits` + `postgame.deacs_route` unlocked, nothing implemented | Phase 5: the last card toggles on `deac_answered`; the postgame unlock is gone (`ending.test.ts`) |
+| §10.15, §10.18, §11.9 | Act VI's cargo was `TODO — Claude: Backcountry load` in a runtime file | Phase 4: "Diesel — four cans for the ridge plows", named in the Act VI end beat, held by `scripts/test-manifest.js` |
+| §10.16, §11.6 | The card game signed the clipboard with the signed-in account's name | Phase 4: `manifestFor()` takes no name; `driver: "________"` until signed in-fiction |
+| §10.20 | The note signed "{GRANDMA_INITIALS}" → "Grandma" | Phase 4: `"— G."`, in the meta and in `qrStore` |
+| §11.5 | Grandma's identity/status open | Phase 4: alive, in Spokane, on screen at 8.2 (§3) |
+
+**CHANGED — deliberately different shape**
+
+- The campaign's order: 4.2 → 6.1b → 5.1 → 5.2 → 5.3 → 6.1 → 6.2 → 6.3 → 7.1 … (Phase 1).
+  6.1b is the west-side gravel *before* the pass, not a backcountry stroll after it.
+- §10.6 still has three numbering schemes, but `SCENE_ACT` / `MISSION_ACT` / `ACT_ENTRY`
+  were remapped in Phase 1 (5.1–8.3 → VII, `6.1b` → VI) and the whole chain is now
+  walked by a test, so the mapping cannot rot silently.
+- Act V's closer and Act II's closer are two different cargoes on purpose (relay kit vs
+  cold pack), and each names its recipient (Tower 4, June).
+
+
+**STILL OPEN — with the reason**
+
+| Item | Open | Why it stays |
+|---|---|---|
+| §10.2, §11.3 | I-009 shows an empty passenger seat before Mya is lost (1.2) | story order, not a chain bug: the card is reached and graded. Re-sequencing 1.2 rewrites Act I's card order (`pack/30`, `pack/31`) — an author call |
+| §10.3 | The lot is Kent in cards, Renton in the registry | naming canon across `pack/01_BIBLE.md:262-265` and five cards |
+| §10.4 | Bible §7's Act IV zone map is stale against the live cards | a `pack/` document, outside the drive |
+| §10.8, §10.17, §11.7 | IV-001 (Yuna ride-along) is unseeded while IV-002 references it | needs a new card and stills |
+| §10.9 | IV-014 and IV-019–IV-025 don't exist | documented as "gaps are unsown, not broken" |
+| §10.10 | `ACT_II/III_FOR_AUDIT.json` aggregates | audit input, never runtime |
+| §10.11 | Gravy / The Ferry Line / The Crossing never carded | bible roster only |
+| §10.19 | `PLAYTEST.md` and `pack/40_ACT_VI.md:39` still call Act VI a scaffold | doc drift; the drive ships VI |
+| II-009 / III-027 plates | The stills still draw a lit tablet | art pipeline — `AUDIT.md` §11 names both and the fields |
+
+**What the six phases did not close:** a headed `?profileDrive` browser pass and a
+full-campaign playthrough on a device (no hardware ran); the 6.x/7.x story barks a
+swarm retry loses (`AUDIT.md` §10); and the two plate redraws above.
+
+**New permanent tests from this pass:** `drive/test/fullchain.test.ts` (4 — 0.1 →
+`game_complete`, both 1.3/3.3 forks, exam fail → retest week → pass),
+`drive/test/ending.test.ts` (4), `drive/test/chainup-loop.test.ts` (6),
+`drive/test/spokane.test.ts` (4), `scripts/test-manifest.js`. Suite: **196/196**
+across 21 files, `tsc --noEmit` exit 0, drive bundle builds (821 modules; entry
+3,972.56 kB / 1,312.14 kB gzip; `dialogue_act8` 28.55 kB, carrying the Grandma
+beat, the credits card and no `postgame.deacs_route`).
+
+
 ---
 
 ## Appendix — story-bearing file inventory
