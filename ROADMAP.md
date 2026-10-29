@@ -44,8 +44,8 @@ deliberately empty rather than filled with a guess.
 
 ## Current pass — the overhaul's six phases (2026-10-28)
 
-- **Phases 1–6 done** (`48b0c49`, `4fa2229`, `960317c`, `289c0de`, `13c5ec7`, and the
-  Phase 6 commit, this session): chain reorder
+- **Phases 1–6 done** (`48b0c49`, `4fa2229`, `960317c`, `289c0de`, `13c5ec7`, `16ecbb4`,
+  this session): chain reorder
   `4.2→6.1b→5.1→5.2→5.3→6.1→6.2→6.3→7.1→7.2→7.3→8.1→8.2→8.3` + the
   `spokane_home` mission with Act VII opened; I-90 cargo insulin → relay kit +
   the 3.5 night-radio beat; the chain-up loop and every shop close now continue

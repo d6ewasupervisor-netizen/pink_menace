@@ -931,7 +931,7 @@ flowchart LR
 ## 12. Re-audit — 2026-10-29 (the six-phase pass)
 
 Commits: `48b0c49` (Phase 1), `4fa2229` (2), `960317c` (3), `289c0de` (4),
-`13c5ec7` (5), and Phase 6 (the commit that adds `drive/test/fullchain.test.ts`).
+`13c5ec7` (5), `16ecbb4` (6).
 Phase detail lives in `AUDIT.md` §11–§13 and `AGENT_LOG.md`.
 
 **FIXED — with the fix named**
