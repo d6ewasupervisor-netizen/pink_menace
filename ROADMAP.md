@@ -82,6 +82,12 @@ deliberately empty rather than filled with a guess.
   the 1.1 violation and state the Authority's courier supervision at 2.2,
   `2a888ae` moves Hank's harvest to the county, and `4a9a46f` makes the seeder
   refuse the VII scaffold. Suite is **251/251** across 27 files.
+- **The permit timeline is closed** (follow-up, one commit): no permit-issuance
+  beat and no elapsed-time statement existed, so 2.2 `permit1`–`permit3` now
+  stamps the Authority courier permit and starts the log, 4.2 drops "You had
+  seven", and the Authority provision at `lic5` is what waives the six months.
+  1.3 is the DOL permit test; 4.2.1 calls 4.2 "the license set, not the permit
+  set." Suite is **255/255** across 27 files.
 - **Not open in code.** Left for hardware and the art pipeline: a headed
   `?profileDrive` browser pass, a full-campaign playthrough on a device, the
   II-009 / III-027 plate redraws (`AUDIT.md` §11), an afternoon-lot plate for

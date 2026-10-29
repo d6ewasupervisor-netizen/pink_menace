@@ -122,8 +122,12 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
 15. **Deac has Mya.** "That's a cat I pulled out of a building you left it in." He replays the
     night (branch `dol_honked`: "Then you honked… That lot's gone now"; branch
     `rolled_stop_act1`: "Rolled the one on Titus" vs "Every one… Remember what that felt
-    like"). Deal: run deliveries, keep a convoy alive, then the cat. "That's blackmail." /
-    "That's a driving test." — scene `2.2` (`act2.json:230-494`).
+    like"). The 1.1 violation is named ("No permit in your pocket, no licensed adult in the
+    seat. Alone."), then Deac opens the drawer, uses the state seal stamp, and issues an
+    **Authority courier permit** — "Not the state's instruction permit — that one wants six
+    months and the test you didn't get to finish" — and starts the hours log. Deal: run
+    deliveries, keep a convoy alive, then the cat. "That's blackmail." / "That's a driving
+    test." — scene `2.2` (`act2.json:230-494`).
 16. **Delivery 1 — insulin** (`mission_delivery_1_insulin` + `dropoff_pharmacy`): "June's
     clipboard at the pharmacy safehouse on Meeker." In-scene quiz (four-way: first to stop;
     tie: yield right; uncontrolled: slow/look/yield — wrong answers loop "Again."), grandma
@@ -606,7 +610,7 @@ a "drive by sight" accessibility path (`pack/16_FEAR_AND_SOUND.md:31-39,121-129`
 | **The culvert (VI debt)** | VI-004 "Off the Edge" (`cards/VI-004.json`, "Arms VI-011") | VI-011 "Same Culvert" — "Nothing happens… the least eventful hundred feet" (`cards/VI-011.json`, `callback_of: VI-004`) | **RESOLVED** |
 | **The chain sign (VII debt)** | VII-002 "Sign Means Sign" (`cards/VII-002.json`, `schedules_callback`) | VII-010 "The Voucher" — the Ritzville desk asks for the chain receipt (`cards/VII-010.json`, `callback_of: VII-002`) | **RESOLVED** |
 | **The truck blind spot (V debt, second bill)** | V-006 "Beside the Trailer" (`cards/V-006.json`, still the drive's 7.1 card) | VII-007 "Four Seconds Behind" — the escort re-bills it at Hank's wide turn (`cards/VII-007.json`, `callback_of: V-006`) | **RESOLVED** |
-| **The paper (licensing)** | permit rules at the carport (`act0-1.json:232`); Deac's clipboard hours (II-011, VI-013) | 4.2 `lic1`–`lic5`: six months, 40 day / 10 night, 50 attested, the log, the intermediate night + passenger limits, the Authority waiver that does not touch the night (`act4.json`); 6.2 honors 1–5 a.m.; 2.2 `super1`–`super5` names the 1.1 violation (no permit, no licensed adult, alone) and states the Authority's courier provision — radio open, licensed driver on the net — as the Authority's, not the state's; Hank names the agricultural exception and refuses the dark hours (`7.1.chat8`/`chat9`) | **RESOLVED** (drive + cards) |
+| **The paper (licensing)** | permit rules at the carport (`act0-1.json:232`); Deac's clipboard hours (II-011, VI-013) | 4.2 `lic1`–`lic5`: six months, 40 day / 10 night, 50 attested, the log, the intermediate night + passenger limits, the Authority waiver that does not touch the night (`act4.json`); 6.2 honors 1–5 a.m.; 2.2 `super1`–`super5` names the 1.1 violation (no permit, no licensed adult, alone), `permit1`–`permit3` stamps the Authority courier permit and starts the log, and `super5` states the courier provision — radio open, licensed driver on the net — as the Authority's, not the state's; 4.2 `lic1`/`lic5` make that provision the six-month waiver instead of asserting an elapsed calendar; Hank names the agricultural exception and refuses the dark hours (`7.1.chat8`/`chat9`) | **RESOLVED** (drive + cards) |
 | **Jonah: cargo vs. person** | 3.3 "It's insulin. It's literally on a clock." (`act3.json:713`) | 3.4 / 3.4a + 8.2 stall payoff ("Was it?" / "…No.", `act8.json:1161-1186`); Jonah's flash-goodbye (`act6.json:354`) | **RESOLVED** (drive 8.2 plays) |
 | **Deac's trust / the clipboard** | "Run deliveries… That's a driving test." (`act2.json:424`); II-011 "Write the Hours Down" (`cards/II-011.json`) | IV-017 "He gives her back because he decided"; VI-013 initials — "You passed it." (`cards/VI-013.json`); 8.3 "Thank you for the test." (`act8.json:1473`) | **RESOLVED** |
 | **Yuna tease → face** | III-030 "Yuna, not yet a face" (`cards/III-030.json`) | Act V radio appearances (`pack/36_YUNA_RADIO_VOICE.md:44-55`); IV-010 "Eleven Months" (`cards/IV-010.json`) | **RESOLVED** |
@@ -1008,6 +1012,7 @@ traced on both paths and held with a test (`2954a6b`).
 | The permit rule was taught and then broken without comment | **`6a40749`**: 2.2 `super1`–`super5` — no permit, no licensed adult, alone, "the first thing I'd have failed you on"; Ali stays flat ("It was four miles."); the Authority courier provision (radio open, licensed driver on the net) is labelled the Authority's, not the state's, and 2.3a remains the in-car delivery. `licensing.test.ts` (13) |
 | Hank said "the mountain" in wheat country | **`2a888ae`**: "Authority calls this a convoy. The county calls it harvest." |
 | The seeder would have seeded the VII scaffold | **`4a9a46f`**: `scripts/seed-cards.js` skips a card that says no still AND do not seed (Act VII's ten), throws on an explicit request for one, still seeds IV-001, and does not mistake rejected-take notes on live cards for the contract. `seed.test.ts` |
+| The permit in 4.2 had no issuance — "You had seven" was invented | **this pass**: 2.2 `permit1`–`permit3` opens the drawer, stamps an **Authority courier permit** ("Not the state's instruction permit — that one wants six months and the test you didn't get to finish"), and starts the hours log. 4.2 `lic1` drops "You had seven"; `lic5` makes the Authority provision the six-month waiver ("You didn't have the six months. You had the Grid."). 1.3 stays the DOL knowledge test; 4.2.1 says "the license set, not the permit set." `licensing.test.ts` (17) |
 
 **CHANGED — deliberately different shape**
 
@@ -1072,6 +1077,17 @@ refuses the VII scaffold. Suite **251/251** across 27 files
 (`actvii-deck.test.ts` 13, `clock.test.ts` 9, `licensing.test.ts` 13,
 `seed.test.ts` 6); `tsc --noEmit` exit 0; `validate-citations.js` ok (131);
 `validate-act-vii.js` ok. **No seed, no still, no deploy.**
+
+A fifth pass (this branch, one commit) closed the permit timeline the 2.2 lines
+exposed. Recon: **no permit-issuance beat existed** (1.3 is the DOL knowledge
+test, interrupted before she answers a question; 2.2.12 only says Deac can issue
+one; 4.1/4.2 own the state seal stamp), and **no elapsed time between Act I and
+4.2 existed** (only "tomorrow", the retest week, and 8.3's "a week later"; the
+fourteen months in `pack/01_BIBLE.md` is world time, not story time). So 2.2 now
+stamps the **Authority courier permit** and starts the log, 4.2 no longer claims
+seven months, and the Authority provision at `lic5` is what waives the six. 1.3
+stays the permit test and 4.2 is the license set. Suite **255/255** across 27
+files (`licensing.test.ts` 17).
 
 
 ---

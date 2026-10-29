@@ -7,6 +7,15 @@
  * licensed driver 25+) and the passenger limits (no under-20 non-family for the
  * first 6 months, three after). 6.2's clock is written against the night rule, so
  * if this scene drifts, the drive and the exam stop agreeing.
+ *
+ * The permit timeline is here too. 1.3 is the DOL knowledge test, interrupted
+ * before she answers a question; there is no permit issuance anywhere in the
+ * repo and no elapsed-time statement between Act I and 4.2. The document is
+ * therefore issued at 2.2 — an Authority courier permit, not a state
+ * instruction permit — and 4.2's six months are waived by the Authority
+ * provision instead of an invented calendar. These tests hold that: the permit
+ * exists before anyone calls her a courier on one, 1.3 and 4.2 stay different
+ * exams, and no line claims a permit-hold duration the fiction never showed.
  */
 import { describe, expect, it } from "vitest";
 import act01 from "../src/quietroads/data/dialogue_act0-1.json";
@@ -71,12 +80,15 @@ describe("4.2 — the licensing exchange", () => {
 
 describe("2.2 — Deac names the 1.1 violation and the supervision rule", () => {
   it("runs the exchange between the permit line and the cat", () => {
-    expect(chain("2.2.12", twoTwo, 7)).toEqual([
+    expect(chain("2.2.12", twoTwo, 10)).toEqual([
       "2.2.12",
       "2.2.super1",
       "2.2.super2",
       "2.2.super3",
       "2.2.super4",
+      "2.2.permit1",
+      "2.2.permit2",
+      "2.2.permit3",
       "2.2.super5",
       "2.2.13",
     ]);
@@ -108,6 +120,58 @@ describe("2.2 — Deac names the 1.1 violation and the supervision rule", () => 
     expect(t).toContain("licensed driver on the net");
     expect(t).toContain("In the car for the first one");
     expect(t).toContain("On the radio after");
+  });
+});
+
+describe("permit timeline — the document exists before anyone calls her a courier", () => {
+  it("issues it after the violation and before the supervision rule", () => {
+    const order = chain("2.2.12", twoTwo, 11);
+    const at = (id: string) => order.indexOf(id);
+    expect(order).toContain("2.2.permit1");
+    expect(at("2.2.super4")).toBeLessThan(at("2.2.permit1"));
+    expect(at("2.2.permit3")).toBeLessThan(at("2.2.super5"));
+    expect(twoTwo["2.2.super5"].text).toContain("courier on a permit");
+    expect((act2 as any).scenes["2.2"].nodes["2.2.end"].next_scene).toBe("2.3a");
+  });
+
+  it("stamps an Authority courier permit, not a state instruction permit", () => {
+    const t = twoTwo["2.2.permit1"].text + " " + twoTwo["2.2.permit2"].text + " " + twoTwo["2.2.permit3"].text;
+    expect(t).toContain("state seal stamp");
+    expect(t).toContain("Authority courier permit");
+    expect(t).toContain("Not the state's instruction permit");
+    expect(t).toContain("test you didn't get to finish");
+    expect(t).toContain("Stamped");
+    expect(t).toContain("hours start now");
+    expect(t).toContain("log");
+  });
+
+  it("keeps the DOL test in 1.3 and the license test in 4.2 separate", () => {
+    const oneThree = (act01 as any).scenes["1.3"].nodes;
+    expect(oneThree["1.3.6"].text).toContain("Forty questions");
+    expect(JSON.stringify(oneThree)).not.toMatch(/instruction permit|state seal|stamped/i);
+    expect(fourTwo["4.2.1"].text).toContain("Forty questions");
+    expect(fourTwo["4.2.1"].text).toContain("license set, not the permit set");
+    expect(fourTwo["4.2.4"].text).toContain("Driver's license");
+  });
+
+  it("asserts no permit-hold duration the fiction never established", () => {
+    expect(fourTwo["4.2.lic1"].text).not.toMatch(/You had seven/i);
+    expect(fourTwo["4.2.lic1"].text).not.toMatch(/\b(seven|eight|nine|ten|\d+)\s+months?\b/i);
+    expect(fourTwo["4.2.lic1"].text).toContain("You didn't have six months");
+    // The only six-month claims are the guide's rule and the passenger limit.
+    expect(fourTwo["4.2.lic1"].text).toMatch(/Six months on the instruction permit/);
+    expect(fourTwo["4.2.lic4"].text).toMatch(/for six months/);
+    // No sparse-text calendar anywhere in the acts that could contradict it.
+    const texts = [act01, act2, act2central, act3, act4]
+      .flatMap((f: any) =>
+        Object.values(f.scenes ?? {}).flatMap((s: any) =>
+          Object.values(s.nodes ?? {})
+            .map((n: any) => n.text)
+            .filter((x: any) => typeof x === "string"),
+        ),
+      )
+      .join(" ");
+    expect(texts).not.toMatch(/\b(seven|eight|nine|ten|\d+)\s+months?\b/i);
   });
 });
 

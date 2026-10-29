@@ -497,7 +497,7 @@
           "delivery": "S",
           "emotion": "neutral",
           "volume": "low",
-          "text": "Phone off. Cats out. Forty questions.",
+          "text": "Phone off. Cats out. Forty questions. The license set, not the permit set.",
           "next": "4.2.cats"
         },
         "4.2.cats": {
@@ -618,7 +618,7 @@
           "delivery": "S",
           "emotion": "neutral",
           "volume": "low",
-          "text": "Six months on the permit first. You had seven. Forty hours daylight, ten after dark, with somebody who's held a license three years — fifty, attested, and the school enters the scores.",
+          "text": "Six months on the instruction permit first. You didn't have six months. Forty hours daylight, ten after dark, with somebody who's held a license three years — fifty, attested, and the school enters the scores.",
           "next": "4.2.lic2"
         },
         "4.2.lic2": {
@@ -654,7 +654,7 @@
           "delivery": "S",
           "emotion": "tense",
           "volume": "low",
-          "text": "The Authority has an emergency provision for convoy drivers. It waives the waiting period — the six months, not the exams, not the hours, not the night. One to five is still one to five, alone.",
+          "text": "You didn't have the six months. You had the Grid. That's what the Authority's provision is for: it waives the waiting period — not the exams, not the hours, not the night. One to five is still one to five, alone.",
           "next": "4.2.mya_branch"
         },
         "4.2.mya_branch": {

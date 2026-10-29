@@ -805,6 +805,33 @@ and the branch's rule is no seed/no deploy).
 pre-existing validator baselines were re-run and are unchanged (`validate-act-v`
 V-006/V-008/V-013, `validate-act-ii`), `validate-act-iii` ok.
 
+### Permit timeline (follow-up)
+
+**Recon.** No permit-issuance beat exists. 1.3 is the DOL knowledge test and it
+is interrupted before she answers a question (`1.3.6` → `1.3.latch` → rack →
+chase); `2.2.12` only says Deac can issue a permit; the state seal stamp appears
+at `4.1.0`/`4.2.0`. `4.2` sets `permit_held` on pass but `4.2.4` says "Driver's
+license" and `lic4` starts the intermediate restrictions, so 4.2 is the license
+exam. No elapsed time between Act I and 4.2 exists: only "tomorrow" (1.1→1.3),
+"Retest in a week" (4.2.fail→4.3) and "a week later" (8.3). `pack/01_BIBLE.md:9`'s
+fourteen months is world time. `4.2.lic1`'s "You had seven" was the only
+permit-hold claim in the repo, and it was invented.
+
+**Fix (one commit).** `2.2.permit1`–`permit3` opens the drawer, uses the state
+seal stamp, and issues an **Authority courier permit** — explicitly not the
+state's instruction permit ("that one wants six months and the test you didn't
+get to finish") — and starts the log. It sits after `super4` and before
+`super5`, so the document exists before anyone calls her a courier on one and
+before `2.3a`. `4.2.lic1` drops "You had seven"; `4.2.lic5` makes the Authority
+provision the six-month waiver ("You didn't have the six months. You had the
+Grid."). `4.2.1` says "the license set, not the permit set", keeping 1.3 (permit
+knowledge test) and 4.2 (license exam) distinct. `licensing.test.ts` is 17 and
+pins the order, the two exams, and the absence of any unearned duration.
+
+**Verified**: 255/255 vitest across 27 files, `tsc --noEmit` exit 0,
+`validate-citations.js` ok (131), `validate-act-vii.js` ok, `validate-act-iii`
+ok, `test-manifest.js` ok; the rest of the §16 baselines are unchanged.
+
 **Still open**: the headed `?profileDrive` pass, a device playthrough, the
 II-009 / III-027 plates and the I-009 afternoon plate; VII stills are still
 deliberately unproduced. The `7.3` and `8.1` background/ambience keys keep their

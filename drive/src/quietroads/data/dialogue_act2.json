@@ -439,6 +439,33 @@
           "emotion": "neutral",
           "volume": "low",
           "text": "It was a violation.",
+          "next": "2.2.permit1"
+        },
+        "2.2.permit1": {
+          "type": "direction",
+          "text": "He opens the drawer. A blank card, the state seal stamp, a pen on a string.",
+          "auto_ms": 2400,
+          "next": "2.2.permit2"
+        },
+        "2.2.permit2": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "neutral",
+          "volume": "low",
+          "text": "Authority courier permit. Not the state's instruction permit — that one wants six months and the test you didn't get to finish. This one wants somebody I've watched drive.",
+          "next": "2.2.permit3"
+        },
+        "2.2.permit3": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "S",
+          "emotion": "deadpan",
+          "volume": "low",
+          "text": "I've watched. Stamped. Your hours start now, and every mile goes in the log.",
+          "effects": {
+            "log": "permit.issued:authority_courier"
+          },
           "next": "2.2.super5"
         },
         "2.2.super5": {

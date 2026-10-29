@@ -1233,3 +1233,45 @@ Pre-existing baselines unchanged: `validate-act-v` (V-006/V-008/V-013),
 `validate-act-ii`; `validate-act-iii` ok. Docs: `STORY_BIBLE` §2/§6/§12,
 `ROADMAP`, `AUDIT` §1/§16. No seed, no still, no deploy.
 
+
+## 2026-10-29 — permit timeline (one follow-up commit)
+
+**Recon — what exists.**
+- **No permit-issuance beat anywhere.** 1.3 is the DOL knowledge test and it is
+  interrupted before she answers a question (`1.3.6` "Two minutes. Forty
+  questions." → `1.3.latch` → rack → chase). `2.2.12` says only that Deac is the
+  only one who can issue a permit. The state seal stamp is introduced at `4.1.0`
+  and sits on the table at `4.2.0`. `4.2.pass` sets `permit_held` and unlocks
+  `swag.permit`, but `4.2.4` says "Driver's license" and `4.2.lic4` starts the
+  intermediate restrictions — so 4.2 is the license exam, not the permit.
+- **No elapsed time between Act I and 4.2.** Only "tomorrow" (1.1 → 1.3),
+  "Retest in a week" (4.2.fail → 4.3) and "a week later" (8.3). No dates, no
+  seasons, no months. `pack/01_BIBLE.md:9` "Fourteen months after the Cascadia
+  Quarantine" is world time, not story elapsed. `4.2.lic1`'s "You had seven" was
+  the only permit-hold duration in the repo, and it was invented.
+
+**What changed (one commit).**
+- `2.2.permit1`–`permit3`, inserted after `super4` and before `super5`: Deac
+  opens the drawer, uses the state seal stamp, and issues an **Authority courier
+  permit** — "Not the state's instruction permit — that one wants six months and
+  the test you didn't get to finish. This one wants somebody I've watched drive."
+  / "I've watched. Stamped. Your hours start now, and every mile goes in the
+  log." This puts the document before `super5`'s "courier on a permit" and before
+  `2.3a`, the first delivery.
+- `4.2.1`: "Phone off. Cats out. Forty questions. The license set, not the permit
+  set." — 1.3 is the DOL permit knowledge test; 4.2 is the license exam.
+- `4.2.lic1`: "Six months on the instruction permit first. You didn't have six
+  months." — "You had seven" removed.
+- `4.2.lic5`: "You didn't have the six months. You had the Grid. That's what the
+  Authority's provision is for: it waives the waiting period — not the exams, not
+  the hours, not the night. One to five is still one to five, alone."
+- `licensing.test.ts` 13 → 17: the 2.2 chain includes the permit nodes; the
+  permit is issued before `super5` and before `2.3a`; 1.3 and 4.2 stay different
+  exams; no line claims a permit-hold duration the fiction never showed.
+
+**Verified**: 255/255 vitest across 27 files, `tsc --noEmit` exit 0,
+`validate-citations.js` ok (131), `validate-act-vii.js` ok, `validate-act-iii.js`
+ok, `test-manifest.js` ok, `validate-act-v` unchanged (V-006/V-008/V-013),
+`validate-act-ii` unchanged, `bench/baseline.json` restored. Docs: `STORY_BIBLE`
+§2/§6/§12, `ROADMAP`, `AUDIT` §16. No seed, no still, no deploy.
+
