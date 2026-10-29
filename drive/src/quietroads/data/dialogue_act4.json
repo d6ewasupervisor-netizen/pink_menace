@@ -845,7 +845,7 @@
             "checkpoint": "permit_earned",
             "log": "act.complete:4"
           },
-          "next_scene": "5.1"
+          "next_scene": "6.1b"
         },
         "4.2.fail": {
           "type": "effects",

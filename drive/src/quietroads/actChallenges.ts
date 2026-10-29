@@ -30,7 +30,7 @@ export interface ActChallenge {
   built: boolean;        // true once a playable challenge ships in Simulation.ts
 }
 
-export const ACT_ORDER: CardAct[] = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+export const ACT_ORDER: CardAct[] = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
 
 /** First scene of each act's drive, so the title screen can open that challenge. */
 export const ACT_ENTRY: Record<CardAct, string> = {
@@ -40,7 +40,7 @@ export const ACT_ENTRY: Record<CardAct, string> = {
   IV: '4.1',
   V: '3.1b',
   VI: '6.1b',
-  VII: '8.1',
+  VII: '5.1',
 };
 
 export const ACT_CHALLENGES: Record<CardAct, ActChallenge> = {
@@ -112,7 +112,7 @@ export const ACT_CHALLENGES: Record<CardAct, ActChallenge> = {
     driver: 'ali',
     vehicle: "the Menace — Grandma's pink Beetle with the plow blade",
     cargo: 'Relay kit — repeater, antenna, clamps',
-    missions: ['mission_ribbon_merge', 'mission_convoy_issaquah', 'convoy_continue_solo', 'convoy_tow_jonah', 'chainup_qte', 'climb_snoqualmie', 'climb_snoqualmie_from_below_chainup'],
+    missions: ['mission_ribbon_merge', 'mission_convoy_issaquah', 'convoy_continue_solo', 'convoy_tow_jonah'],
     objective: 'Eyes up the ribbon: match speed before paint, hold your gap, settle into the lane.',
     lesson: "Highway merging and ramp discipline. Leave at least twice your vehicle's length; count three seconds off a mark to hold it.",
     built: true,
@@ -124,22 +124,35 @@ export const ACT_CHALLENGES: Record<CardAct, ActChallenge> = {
     driver: 'ali',
     vehicle: "the Menace — Grandma's pink Beetle with the plow blade",
     cargo: "Clearance — Deac's clipboard",
-    missions: ['mission_backcountry_run', 'straight_night_drive', 'rest_area_pullin', 'rest_area_forced', 'vantage_bridge_crossing', 'bridge_after_sign_toy', 'bridge_after_sign_moth', 'bridge_engine_off_wait', 'escort_ritzville'],
-    objective: 'Rural roads: hold the line on soft shoulders, treat the crossbuck like the law.',
+    missions: ['mission_backcountry_run'],
+    objective: 'Gravel: hold the line off the soft edge, slow for the crest, yield the four-way, treat the crossbuck like the law.',
     lesson: 'Rural roads and passive rail crossings: sightlines, curves, and the shoulder that lies.',
     built: true,
   },
   VII: {
     act: 'VII',
     zone: 'The Dark Hours',
-    title: 'The Dark Hours',
+    title: 'The Road Home',
     driver: 'ali',
     vehicle: "the Menace — Grandma's pink Beetle with the plow blade",
-    cargo: 'The herd is on the pass. Act VII stays closed.',
-    missions: [],
-    objective: '',
-    lesson: '',
-    built: false,
+    cargo: 'Relay kit — repeater, antenna, clamps',
+    missions: [
+      'chainup_qte',
+      'climb_snoqualmie',
+      'climb_snoqualmie_from_below_chainup',
+      'straight_night_drive',
+      'rest_area_pullin',
+      'rest_area_forced',
+      'vantage_bridge_crossing',
+      'bridge_after_sign_toy',
+      'bridge_after_sign_moth',
+      'bridge_engine_off_wait',
+      'escort_ritzville',
+      'spokane_home',
+    ],
+    objective: 'The pass is yours at dawn. Get her home.',
+    lesson: 'Night, weather, fatigue, and the long way home — the road keeps every rule you learned.',
+    built: true,
   },
 };
 
@@ -156,17 +169,17 @@ const SCENE_ACT: Record<string, CardAct> = {
   // Act II — The Grid (Kent deliveries)
   '2.1': 'II', '2.2': 'II', '2.3a': 'II', '2.3b': 'II', '2.3c': 'II',
   '2.3d': 'II', '2.4': 'II', '2.5': 'III', '2.6': 'II', '2.7': 'II', '2.8': 'II',
-  // Act V — The Ribbon (I-90 Eastbound is the highway leg, Ali in the Menace)
+  // Act V — The Ribbon (I-90 eastbound is the highway leg, Ali in the Menace)
   '3.1': 'V', '3.1b': 'V', '3.2': 'V', '3.3': 'V', '3.4': 'V', '3.4a': 'V', '3.5': 'V',
   // Act IV — The Core (night before, exam, the week after)
   '4.1': 'IV', '4.2': 'IV', '4.3': 'IV',
-  // Act V — The Ribbon (climb and chain-up are the mountain grade)
-  '5.1': 'V', '5.2': 'V', '5.3': 'V',
-  // Act VI — The Backcountry (straight, bridge, Ritzville run)
-  '6.1': 'VI', '6.1b': 'VI', '6.2': 'VI', '6.3': 'VI',
-  '7.1': 'VI', '7.2': 'VI', '7.3': 'VI',
-  // Post-corpus epilogue (Spokane home) — beyond the card acts
+  // Act VII — The Road Home (pass to porch: chain-up, summit, backcountry straights)
+  '5.1': 'VII', '5.2': 'VII', '5.3': 'VII',
+  '6.1': 'VII', '6.2': 'VII', '6.3': 'VII',
+  '7.1': 'VII', '7.2': 'VII', '7.3': 'VII',
   '8.1': 'VII', '8.2': 'VII', '8.3': 'VII',
+  // Act VI — The Backcountry (the west-side gravel lesson only)
+  '6.1b': 'VI',
 };
 
 /** sim mission id → card act. Only the missions that actually ship in Simulation.ts. */
@@ -187,18 +200,21 @@ const MISSION_ACT: Record<string, CardAct> = {
   mission_convoy_issaquah: 'V',
   convoy_continue_solo: 'V',
   convoy_tow_jonah: 'V',
-  chainup_qte: 'V',
-  climb_snoqualmie: 'V',
-  climb_snoqualmie_from_below_chainup: 'V',
+  // Act VI — the west-side gravel lesson only
   mission_backcountry_run: 'VI',
-  straight_night_drive: 'VI',
-  rest_area_pullin: 'VI',
-  rest_area_forced: 'VI',
-  vantage_bridge_crossing: 'VI',
-  bridge_after_sign_toy: 'VI',
-  bridge_after_sign_moth: 'VI',
-  bridge_engine_off_wait: 'VI',
-  escort_ritzville: 'VI',
+  // Act VII — The Road Home (the pass to the porch)
+  chainup_qte: 'VII',
+  climb_snoqualmie: 'VII',
+  climb_snoqualmie_from_below_chainup: 'VII',
+  straight_night_drive: 'VII',
+  rest_area_pullin: 'VII',
+  rest_area_forced: 'VII',
+  vantage_bridge_crossing: 'VII',
+  bridge_after_sign_toy: 'VII',
+  bridge_after_sign_moth: 'VII',
+  bridge_engine_off_wait: 'VII',
+  escort_ritzville: 'VII',
+  spokane_home: 'VII',
   study_terminal: 'IV',
   exam_40: 'IV',
   exam_40_resume: 'IV',

@@ -16,9 +16,9 @@ edit that file — not the dialogue files — when the two surfaces drift.
 | II | The Grid | ali — the Menace | Insulin, cold-packed | `2.1`–`2.8` | quiet city grid: pharmacy, Bea's dock, Priya's lane, Tuna's parallel, Jonah's four-way | ✅ |
 | III | Central | deac — the Ledger | Deac's cargo | `2.5` | commercial run in a box truck on Central: stay right, signal, 3-second gap, merge | ✅ |
 | IV | The Core | ali — the Menace | Relay kit | `4.1`–`4.3` | forty-question licensing gate; relay kit only on a pass | ✅ |
-| V | The Ribbon | ali — the Menace | Relay kit | `3.1b`, `3.1`–`3.5`, `5.1`–`5.3` | climb, chain-up, on-ramp merge, Issaquah convoy | ✅ |
-| VI | The Backcountry | ali — the Menace | Clearance clipboard | `6.1b`, `6.1`–`7.3` | gravel, roundabout, night straight, bridge, Ritzville escort | ✅ |
-| VII | The Dark Hours | — | herd | `8.1`–`8.3` (Spokane epilogue) | stays closed | ❌ |
+| V | The Ribbon | ali — the Menace | Relay kit | `3.1b`, `3.1`–`3.5` | on-ramp merge, Issaquah convoy | ✅ |
+| VI | The Backcountry | ali — the Menace | Clearance clipboard | `6.1b` | west-side gravel: soft edge, blind crest, uncontrolled, crossbuck | ✅ |
+| VII | The Dark Hours ("The Road Home") | ali — the Menace | Relay kit | `5.1`–`5.3`, `6.1`–`7.3`, `8.1`–`8.3` | chain-up, the climb, night straight, Vantage bridge, Hank's escort, Spokane home | ✅ |
 
 ## Scene → act
 

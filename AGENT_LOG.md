@@ -462,3 +462,68 @@ Getting out of the Beetle steps Ali 1.6 m west of June. The handoff was a 1.55 m
 ## 2026-10-16 — grade flash does not stop the car
 
 The PASS/MISS panel froze the drive and waited on Continue. It is now a 1 s overlay at half opacity. No freeze, no phase change, no tap. Story cards are unchanged.
+
+## 2026-10-27 — full storyline audit → `docs/STORY_BIBLE.md`
+
+Read-only sweep of the whole repo (509 text/code files outside `node_modules`; 13,050 total).
+Only `docs/STORY_BIBLE.md` was written (no code touched). The bible covers: synopsis, the
+full chronological story (drive scenes 0.1→7.3 playable, 8.1–8.3 written-but-closed), cast,
+locations, lore/world rules, plot threads (RESOLVED/UNRESOLVED/ABANDONED), every
+flag/var/choice gate, a story-to-code map, three Mermaid diagrams, and a problems log.
+
+Top findings: (1) `dialogue_act8.json` — the Spokane epilogue incl. the `respect`-gated
+"…Seatbelt." ending — is unreachable (`actDialogue.ts:49-51` closes Act VII; 7.3→8.1 runs
+`endCampaign`, `QuietRoadsBridge.ts:181-193`); (2) cargo contradiction on the I-90 run —
+drive `act3.json` says insulin, card canon/`scripts/validate-act-v.js` forbid it for Act V
+(relay kit / Tower 4); (3) drive shows card I-009 ("passenger seat is empty") before Mya is
+lost; (4) `chainup_return` is read (`act5.json:95`) but never set, and shop scenes `2.6-2.8`
+end with no `next_scene` — the chain-up-blocked → Tuna shop path dead-ends; (5) placeholders:
+`src/manifest.js:31` "TODO — Claude: Backcountry load", `unlock: credits/postgame.deacs_route`
+unimplemented. `AUDIT.md`/`ROADMAP.md` left untouched per the task's read-only constraint;
+full problem list is in `docs/STORY_BIBLE.md` §10-11.
+
+## 2026-10-28 — Phase 1: Act VII restructure + spokane_home mission
+
+**Chain reorder** (the road home runs west→east into Spokane): `4.2 → 6.1b → 5.1 →
+5.2 → 5.3 → 6.1 → 6.2 → 6.3 → 7.1 → 7.2 → 7.3 → 8.1 → 8.2 → 8.3`. Three
+`next_scene` rewires: `4.2.pass_end` 5.1→6.1b (`dialogue_act4.json`), `6.1b.end`
+6.2→5.1 (`dialogue_act6_backcountry.json`), `6.1.end` 6.1b→6.2 (`dialogue_act6.json`).
+`5.3.end` still unlocks `region.ellensburg`; nothing gates the gravel on it.
+
+**6.1b west-side rewrite**: `location` `backcountry_gravel`→`foothills_gravel`, opener
+now "The blacktop quits **before the pass**" — the gravel lesson is a west-side
+foothills run now that it precedes the climb. 7.1 untouched (east-side beacon intact).
+
+**Act remap** (`actChallenges.ts`): `SCENE_ACT`/`MISSION_ACT`/`ACT_ENTRY` — scenes
+5.1–8.3 + their missions → Act VII ("The Road Home", zone label stays "The Dark
+Hours" per the card schema enum); `6.1b`/`mission_backcountry_run` → Act VI alone.
+`ACT_ORDER` gains VII. `ACT_CHALLENGES.VII` replaces the permanently-closed copy.
+
+**Act VII opened**: `actDialogue.ts` `isActPlayable` now true; `LOADERS` re-split by
+card act (V = 3.x + ribbon, VI = 6.1b, VII = act5/act6/act7/act8 files);
+`sceneRouter.ts` + `QuietRoadsBridge.ts` drop the closed-epilogue wording
+(7.3→8.1 now runs; `endCampaign` remains for genuinely unknown scenes).
+
+**spokane_home** (`sim/spokane.ts`, wired in `Simulation.ts` + `QuietRoadsBridge`):
+the mission emits every wait/trigger event in 8.1–8.3 — 26 triggers
+(city.enter, shadow.*, stop.*, zone.*, intersection.*, lanechange.*, quiet.pass_cluster,
+mya.wake, checkpoint.approach:on_speed|over, park.parallel.* ×5, qte.gracie.*,
+noise.*, mission.fail.swarm) and the 5 waits (quiet.reason_passed + the four 8.2
+`cutscene.*` marks). The two grades the dialogue branches on: checkpoint speed
+grade → `checkpoint.approach:*` (8.1.speed_ok sets `checkpoint_on_speed`); park
+grade → `park.parallel.*` + `park_gap_in` written in inches to the line. The 8.2
+video waits are answered via `onStoryWait` — the bridge relays wait entry in `tick`
+so the marks land even while the video scene freezes the sim.
+
+**Tests** (`test/spokane.test.ts`, 4): full trigger inventory coverage across
+graded runs; `park_gap_in` written; all 8.x waits answered; 8.1 lights branch and
+quiet-cluster muffler branch both reachable. `test/bundle.test.ts` updated to the
+new act map (actForSceneId 5.1/7.1→VII, CHAIN order, 8.1 jump now continues,
+preload cases 4.2→6.1b/6.3→7.1). 183/183 green; tsc clean.
+
+**Scope notes**: no `cards/VII-*.json` — `pack/43_PACK_RULES_CONSOLIDATED.md:5,235`
+forbids scaffolding VII cards ("No VII card scaffold, no VII stills, no VII seed"),
+no drive scene references a VII-* card, and the card seed has no VII rows.
+`src/manifest.js` untouched (its VII work is Phase 4/5 scope; Phase 1 restored the
+file byte-for-byte).
+

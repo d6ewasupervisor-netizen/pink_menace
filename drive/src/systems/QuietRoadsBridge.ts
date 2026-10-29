@@ -107,6 +107,7 @@ class Bridge {
       setObjective: (t) => useQRHud.getState().setTransient({ objective: t }),
       toast: (t) => this.toast(t),
       placeVehicle: (p, h) => { this.sim.zones.place(p); teleportVehicle(p.x, p.y, h); },
+      setVar: (n, v) => useQRStore.getState().setVar(n, v),
     });
     this.subscribeRunner();
   }
@@ -177,8 +178,7 @@ class Bridge {
     });
     // An act boundary is a network round trip. Load the act that owns the
     // destination and WAIT for it before starting the scene — `startScene` throws
-    // on a scene the runner has not been handed yet. Act VII is closed, so the
-    // 7.3 → 8.1 handoff lands in `endCampaign` instead of throwing.
+    // on a scene the runner has not been handed yet.
     this.runner.on('scene_finished', (_id, next) => {
       if (!next) return;
       void gotoScene(this.runner, next).then((started) => { if (!started) this.endCampaign(next); });
@@ -186,13 +186,12 @@ class Bridge {
   }
 
   /**
-   * The campaign reached a scene that is not playable (Act VII, the closed
-   * epilogue). End on screen instead of throwing mid-scene: the car is already
-   * frozen by the scene and the player has finished the drivable story.
+   * The campaign reached a scene nothing can load (an unknown id). End on screen
+   * instead of throwing mid-scene: the car is already frozen by the scene.
    */
   private endCampaign(sceneId: string) {
     this.stop();
-    useQRHud.getState().setTransient({ toast: `The drivable road ends here. (${sceneId} is the closed epilogue.)` });
+    useQRHud.getState().setTransient({ toast: `The drivable road ends here. (${sceneId} is not in the build.)` });
     window.setTimeout(() => useQRHud.getState().setTransient({ toast: '' }), 5200);
   }
 
@@ -396,6 +395,7 @@ class Bridge {
 
   private lastQte = false;
   private lastHudAt = 0;
+  private lastStoryWait: string | null = null;
   tick(dt: number) {
     if (!this.started) return;
     const g = useGameStore.getState();
@@ -403,6 +403,15 @@ class Bridge {
     // waits until the car is moving again.
     if (g.phase === 'quiz' || g.phase === 'card') return;
     this.clock += dt;
+    // Story beats answer waits even while the world is frozen: 8.2 is a video
+    // scene whose cutscene marks have no video player in the web build, so the
+    // active mission supplies them when the runner reaches the wait.
+    const waitNode = this.runner.isWaiting ? this.runner.current : null;
+    const waitKey = waitNode?.wait_for ?? null;
+    if (!waitKey) this.lastStoryWait = null;
+    else if (waitKey !== this.lastStoryWait && this.sim.onStoryWait(waitKey)) {
+      this.lastStoryWait = waitKey;
+    }
     // Only simulate while driving/walking; dialogue/quiz/pause freeze the world.
     if (g.phase !== 'driving' && g.phase !== 'walking') return;
     let f: SimFrame | null = null;

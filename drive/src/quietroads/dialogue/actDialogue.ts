@@ -24,7 +24,10 @@ export const PRELOADED_ACT: CardAct = 'I';
 /** Act I's file(s), eagerly imported — these stay in the entry chunk. */
 export const ACT_ONE_DIALOGUE: DialogueFile[] = [act01 as unknown as DialogueFile];
 
-/** Which act a scene id belongs to, from the scene id's leading number. */
+/**
+ * Which act's chunk holds a scene id. Act VII (the road home) owns 5.x–8.x; the
+ * west-side gravel `6.1b` is the one Act VI scene.
+ */
 export function actForSceneId(sceneId: string): CardAct | null {
   const n = sceneId.split('.')[0];
   switch (n) {
@@ -32,22 +35,18 @@ export function actForSceneId(sceneId: string): CardAct | null {
     case '2': return sceneId === '2.5' ? 'III' : 'II';
     case '3': return 'V';
     case '4': return 'IV';
-    case '5': return 'V';
-    // 7.x is still the Backcountry drive (7.1 is the Hank escort). Its dialogue
-    // ships on Act VI's load so 7.1/7.2/7.3 are in the runner when VI is fetched.
-    case '6': case '7': return 'VI';
-    case '8': return 'VII';
+    case '6': return sceneId === '6.1b' ? 'VI' : 'VII';
+    case '5': case '7': case '8': return 'VII';
     default: return null;
   }
 }
 
 /**
- * Act VII stays closed (Rule 8): `dialogue_act8.json` is the only file on it and
- * no load path may reach it. Act VI ends on `next_scene 7.1`, and 7.3 hands off
- * to 8.1 — that handoff is where the playable campaign ends, not a missing file.
+ * Act VII is open: the road home is drivable end to end, `dialogue_act8.json`
+ * included. `loadAct` is the only path to that file; nothing may skip it.
  */
-export function isActPlayable(act: CardAct): boolean {
-  return act !== 'VII';
+export function isActPlayable(_act: CardAct): boolean {
+  return true;
 }
 
 /** Dynamic import per act. Each becomes its own chunk. */
@@ -58,19 +57,17 @@ const LOADERS: Record<CardAct, () => Promise<DialogueFile[]>> = {
   IV: async () => [(await import('../data/dialogue_act4.json')).default as unknown as DialogueFile],
   V: async () => [
     (await import('../data/dialogue_act3.json')).default as unknown as DialogueFile,
-    (await import('../data/dialogue_act5.json')).default as unknown as DialogueFile,
     (await import('../data/dialogue_act5_ribbon.json')).default as unknown as DialogueFile,
   ],
-  // Act VI owns 6.x AND 7.x. Act VI is the last playable act and 6.3 hands off to
-  // `next_scene 7.1`, so the act7 file has to ride this load or that jump throws
-  // "Dialogue scene missing: 7.1" exactly where V-006 lives.
+  // Act VI is the west-side gravel lesson alone.
   VI: async () => [
-    (await import('../data/dialogue_act6.json')).default as unknown as DialogueFile,
     (await import('../data/dialogue_act6_backcountry.json')).default as unknown as DialogueFile,
-    (await import('../data/dialogue_act7.json')).default as unknown as DialogueFile,
   ],
-  // Act VII is the closed epilogue. Nothing loads it.
+  // Act VII — The Road Home: the pass, the straights, the escort, Spokane.
   VII: async () => [
+    (await import('../data/dialogue_act5.json')).default as unknown as DialogueFile,
+    (await import('../data/dialogue_act6.json')).default as unknown as DialogueFile,
+    (await import('../data/dialogue_act7.json')).default as unknown as DialogueFile,
     (await import('../data/dialogue_act8.json')).default as unknown as DialogueFile,
   ],
 };
@@ -83,9 +80,6 @@ const loaded = new Map<CardAct, DialogueFile[]>();
 
 /**
  * Load (or return) an act's dialogue files. Idempotent.
- *
- * Act VII refuses: it is the closed epilogue, and `loadAct` is the only path to
- * `dialogue_act8.json`. A jump to 8.1 has to end the campaign, not fetch it.
  */
 export async function loadAct(act: CardAct): Promise<DialogueFile[]> {
   if (!isActPlayable(act)) throw new Error(`Act ${act} is closed and is never loaded`);

@@ -21,7 +21,7 @@
       "act": 6,
       "title": "The Gravel",
       "type": "gameplay",
-      "location": "backcountry_gravel",
+      "location": "foothills_gravel",
       "guide_refs": ["Gravel Roads", "Rural Roads", "Railroad Crossings", "Uncontrolled Intersections"],
       "entry": "6.1b.0",
       "nodes": {
@@ -31,7 +31,7 @@
           "delivery": "SYS",
           "emotion": "neutral",
           "volume": "whisper",
-          "text": "The blacktop quits. Gravel now. The car talks back out here — loose under me.",
+          "text": "The blacktop quits before the pass. Gravel now. The car talks back out here — loose under me.",
           "next": "6.1b.card_VI-001"
         },
         "6.1b.card_VI-001": {
@@ -189,7 +189,7 @@
             "checkpoint": "backcountry_done",
             "log": "mission.complete:backcountry_run"
           },
-          "next_scene": "6.2"
+          "next_scene": "5.1"
         },
         "6.1b.swarm": {
           "type": "line",

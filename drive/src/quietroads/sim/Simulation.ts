@@ -1,4 +1,4 @@
-import { type Vec2, dist, rectHas, rng, MPH } from "./math";
+import { type Vec2, dist, rectHas, rectCenter, rng, MPH } from "./math";
 import { NoiseSystem } from "./noise";
 import { QuietField, QuietState } from "./quiet";
 import { MARKER_REACH_M, NOSE_REACH_M, ZoneField, carTouchesDisc } from "./zones";
@@ -14,6 +14,7 @@ import { ConvoyRun, type ConvoyMission } from "./convoy";
 import { ChainupRun } from "./chainup";
 import { ClimbRun } from "./climb";
 import { EscortRun } from "./escort";
+import { SpokaneRun } from "./spokane";
 import { BeatRun, type BeatMission } from "./beats";
 import { CardCues, type CueProbe } from "./cardCues";
 import { RetestWeek, retestPlan, type RetestPlan } from "./retestWeek";
@@ -33,6 +34,7 @@ export type MissionId =
   | "chainup_qte"
   | "climb_snoqualmie" | "climb_snoqualmie_from_below_chainup"
   | "escort_ritzville"
+  | "spokane_home"
   | "local_loop_week"
   | BeatMission;
 
@@ -46,6 +48,8 @@ export interface SimEvents {
   toast: (text: string) => void;
   /** The sim wants the car placed here (mission start, soft-fail reset). */
   placeVehicle: (pos: Vec2, heading: number) => void;
+  /** The park grade writes dialogue vars (park_gap_in). */
+  setVar?: (name: string, value: number) => void;
 }
 
 export interface SimFrame extends ObserverOut {
@@ -81,6 +85,7 @@ export class Simulation {
   chainup: ChainupRun;
   climb: ClimbRun;
   escort: EscortRun;
+  spokane: SpokaneRun;
   beats: BeatRun;
   private egoHalfLen = VEHICLE.LENGTH_M / 2;
   private egoHalfWid = VEHICLE.WIDTH_M / 2;
@@ -167,6 +172,7 @@ export class Simulation {
     this.chainup = new ChainupRun(this.map.chainPad, { fire });
     this.climb = new ClimbRun(this.map.ice, this.map.markers.chainup, { fire });
     this.escort = new EscortRun({ fire });
+    this.spokane = new SpokaneRun(this.map, { fire, setVar: (n, v) => this.ev.setVar?.(n, v) });
     this.beats = new BeatRun(
       this.map.restStall,
       this.map.markers.rest_area,
@@ -251,6 +257,7 @@ export class Simulation {
     this.chainup.clear();
     this.climb.clear();
     this.escort.clear();
+    this.spokane.clear();
     this.beats.clear();
     this.retest.clear();
     this.egoHalfLen = VEHICLE.LENGTH_M / 2;
@@ -373,6 +380,15 @@ export class Simulation {
         this.setObjective("Leave at least twice the truck's length behind Hank — count four seconds off a mark to hold it. Out of his mirrors. Ritzville.");
         this.resetWorld();
         this.speedLimitMph = 55;
+        break;
+      case "spokane_home":
+        this.missionId = id; this.mode = "vehicle"; this.footDropoff = "";
+        this.missionStart = "retest_school";
+        this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
+        this.spokane.reset();
+        this.setObjective("Division exit. Sprague Avenue. Everything from Kent, in a different order.");
+        this.resetWorld();
+        this.speedLimitMph = 25;
         break;
       case "straight_night_drive":
         this.beginBeat(id, "night_start", "Night straight. Rest area is ahead.", 55);
@@ -591,6 +607,7 @@ export class Simulation {
       if (this.climb.mission) this.climb.step(dt, s);
       this.vehicle.mu = this.surfaceMu();
       if (this.escort.mission) this.escort.step(dt, s);
+      if (this.spokane.mission) this.spokane.step(dt, s);
       if (this.beats.mission) {
         this.beats.step(dt, s);
         const goal = this.beats.goal();
@@ -670,6 +687,15 @@ export class Simulation {
   }
 
   /** Game events that the sim itself reacts to (route these from your event bus). */
+  /**
+   * The runner entered a wait. If the story owns that beat (8.2's cutscene
+   * marks, 8.1's reason pass), the mission answers it now — the web build has
+   * no video timeline to fire those events.
+   */
+  onStoryWait(name: string): boolean {
+    return this.spokane.mission && this.spokane.onStoryWait(name);
+  }
+
   onEvent(name: string) {
     if (name === "waypoint.reach:titus_fourway") this.ev.fire("intersection.fourway.approach");
     if (name === "waypoint.reach:willis_uncontrolled") this.ev.fire("intersection.uncontrolled.approach");
@@ -843,6 +869,8 @@ export class Simulation {
         return this.escort.leadPos.x < this.map.markers.ritzville.x - 30
           ? { pos: this.escort.leadPos, label: "HANK" }
           : { pos: this.map.markers.ritzville, label: "RITZVILLE" };
+      case "spokane_home":
+        return { pos: rectCenter(this.map.grid.tunaStall), label: "FRED MEYER" };
       case "straight_night_drive":
       case "rest_area_pullin":
       case "rest_area_forced":

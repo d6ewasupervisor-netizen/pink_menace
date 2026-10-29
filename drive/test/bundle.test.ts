@@ -137,43 +137,41 @@ describe('P3 — act dialogue loads per act', () => {
     expect(actForSceneId('2.5')).toBe('III');
     expect(actForSceneId('3.1')).toBe('V');
     expect(actForSceneId('4.1')).toBe('IV');
-    expect(actForSceneId('5.1')).toBe('V');
+    expect(actForSceneId('5.1')).toBe('VII');
     expect(actForSceneId('6.1b')).toBe('VI');
-    expect(actForSceneId('7.1')).toBe('VI');
+    expect(actForSceneId('7.1')).toBe('VII');
     expect(actForSceneId('8.1')).toBe('VII');
     expect(actForSceneId('nope')).toBe(null);
   });
 
   it('loads an act on demand and serves it from cache the second time', async () => {
-    expect(isActLoaded('V')).toBe(false);
-    preloadAct('V');
-    const files = await loadAct('V');
-    expect(isActLoaded('V')).toBe(true);
-    // Act V spans the convoy (3.x) and the ribbon (5.x) files.
-    const scenes = files.flatMap((f) => Object.keys(f.scenes ?? {}));
-    expect(scenes).toContain('3.1');
-    expect(scenes).toContain('5.1');
-    // Second call is the same array — no second fetch.
-    expect(await loadAct('V')).toBe(files);
-  });
-
-  it('never loads Act VII — it stays closed', async () => {
-    expect(isActPlayable('VII')).toBe(false);
-    expect(isActPlayable('VI')).toBe(true);
-    await expect(loadAct('VII')).rejects.toThrow(/closed/);
-    // A prefetch must not sneak it in either.
-    preloadAct('VII');
     expect(isActLoaded('VII')).toBe(false);
+    preloadAct('VII');
+    const files = await loadAct('VII');
+    expect(isActLoaded('VII')).toBe(true);
+    // Act VII is the road home: the pass (5.x), the straights (6.x),
+    // the escort (7.x) and Spokane (8.x).
+    const scenes = files.flatMap((f) => Object.keys(f.scenes ?? {}));
+    expect(scenes).toContain('5.1');
+    expect(scenes).toContain('8.1');
+    // Second call is the same array — no second fetch.
+    expect(await loadAct('VII')).toBe(files);
   });
 
-  it('Act VI owns 7.1 / 7.2 / 7.3, so the Act 6 → 7 jump has a destination', async () => {
-    // Act VI ends by handing off to 7.1, which is where V-006 lives. If the
-    // act7 file rode Act VII, that jump threw "Dialogue scene missing: 7.1".
-    await loadAct('VI');
-    const scenes = sceneIdsIn('VI');
-    for (const id of ['6.1', '6.1b', '6.2', '6.3', '7.1', '7.2', '7.3']) {
+  it('Act VII is playable and owns the road home', async () => {
+    expect(isActPlayable('VII')).toBe(true);
+    await loadAct('VII');
+    const scenes = sceneIdsIn('VII');
+    for (const id of ['5.1', '5.2', '5.3', '6.1', '6.2', '6.3', '7.1', '7.2', '7.3', '8.1', '8.2', '8.3']) {
       expect(scenes).toContain(id);
     }
+  });
+
+  it('Act VI owns 6.1b alone — the west-side gravel lesson', async () => {
+    await loadAct('VI');
+    const scenes = sceneIdsIn('VI');
+    expect(scenes).toContain('6.1b');
+    expect(scenes).not.toContain('7.1');
   });
 });
 
@@ -190,8 +188,9 @@ describe('P3 — every act boundary in the campaign chain', () => {
   const CHAIN = [
     '1.4b', '2.1', '2.2', '2.3a', '2.3b', '2.3c', '2.3d', '2.4',
     '2.5', '3.1', '3.1b', '3.2', '3.3', '3.4a', '3.5',
-    '4.1', '4.2', '5.1', '5.2', '5.3',
-    '6.1', '6.1b', '6.2', '6.3', '7.1', '7.2', '7.3',
+    '4.1', '4.2', '6.1b', '5.1', '5.2', '5.3',
+    '6.1', '6.2', '6.3', '7.1', '7.2', '7.3',
+    '8.1', '8.2', '8.3',
   ];
 
   it('walks every next_scene jump: the destination is present and started', async () => {
@@ -222,15 +221,14 @@ describe('P3 — every act boundary in the campaign chain', () => {
   it('reaches every act-select entry scene, and none of them falls back to 0.1', async () => {
     const runner = runnerWithActOne();
     // ACT_ENTRY from actChallenges.ts — the ids MainMenu hands to startAct.
-    for (const entry of ['2.1', '2.5', '4.1', '3.1b', '6.1b']) {
+    for (const entry of ['2.1', '2.5', '4.1', '3.1b', '6.1b', '5.1']) {
       expect(await gotoScene(runner, entry)).toBe(true);
       expect(runner.scene?.id).toBe(entry);
     }
   });
 
-  it('reaches 7.1 with its card node, and ends the campaign at the 8.1 jump', async () => {
+  it('reaches 7.1 with its card node, and runs on through the Spokane epilogue', async () => {
     const runner = runnerWithActOne();
-    // Act 6 ends by handing off to 7.1. V-006 lives in scene 7.1.
     expect(await gotoScene(runner, '6.3')).toBe(true);
     expect(actForNextScene(runner.scene)).toBe('7.1');
     expect(await gotoScene(runner, '7.1')).toBe(true);
@@ -239,12 +237,13 @@ describe('P3 — every act boundary in the campaign chain', () => {
 
     expect(await gotoScene(runner, '7.2')).toBe(true);
     expect(await gotoScene(runner, '7.3')).toBe(true);
-    // 7.3 hands off to 8.1, the closed Act VII. That must END the campaign, not
-    // throw "Dialogue scene missing: 8.1".
+    // 7.3 hands off to 8.1 — Act VII is open now, so the epilogue runs.
     expect(actForNextScene(runner.scene)).toBe('8.1');
-    expect(await gotoScene(runner, '8.1')).toBe(false);
-    expect(runner.scene?.id).toBe('7.3');
-    expect(isActLoaded('VII')).toBe(false);
+    expect(await gotoScene(runner, '8.1')).toBe(true);
+    expect(runner.scene?.id).toBe('8.1');
+    expect(await gotoScene(runner, '8.2')).toBe(true);
+    expect(await gotoScene(runner, '8.3')).toBe(true);
+    expect(isActLoaded('VII')).toBe(true);
   });
 
   it('an unknown scene id is refused rather than thrown on', async () => {
@@ -262,7 +261,8 @@ describe('P3 — every act boundary in the campaign chain', () => {
       { id: '1.4', next: '2.1', act: 'II' },
       { id: '2.5', next: '3.1', act: 'V' },
       { id: '3.5', next: '4.1', act: 'IV' },
-      { id: '6.3', next: '7.1', act: 'VI' },
+      { id: '4.2', next: '6.1b', act: 'VI' },
+      { id: '6.3', next: '7.1', act: 'VII' },
     ];
     for (const c of CASES) {
       // A minimal scene whose only node hands off to `next`.

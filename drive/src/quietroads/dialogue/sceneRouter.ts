@@ -10,9 +10,6 @@
  * It is deliberately pure over `(runner, sceneId)` with no store, no React and no
  * window, so the campaign chain is unit-testable headlessly. The bridge wires it
  * to the runner; the tests walk the same chain with a stub host.
- *
- * Act VII is closed. `gotoScene('8.1')` returns false instead of loading act8, so
- * the 7.3 → 8.1 handoff ends the playable campaign rather than throwing.
  */
 import { DialogueRunner } from './DialogueRunner';
 import { actForSceneId, isActPlayable, loadAct, preloadAct } from './actDialogue';
