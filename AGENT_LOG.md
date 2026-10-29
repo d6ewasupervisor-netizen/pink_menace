@@ -1282,10 +1282,10 @@ ok, `test-manifest.js` ok, `validate-act-v` unchanged (V-006/V-008/V-013),
 `pink_menace` / `production` / `pink_menace`. `railway run` injects the internal
 `DATABASE_URL` (`postgres.railway.internal`), which does not resolve from this
 machine. The Postgres service exposes a TCP proxy, so the public URL was built
-in-process from `RAILWAY_TCP_PROXY_DOMAIN` / `RAILWAY_TCP_PROXY_PORT` /
-`PGUSER` / `PGPASSWORD` / `PGDATABASE` with `System.UriBuilder`; the value was
-never printed. `src/db.js` already sets `rejectUnauthorized:false` for public
-hosts. A read-only `select 1` succeeded first.
+in-process from the proxy host and port plus the service credentials with
+`System.UriBuilder`; neither the URL nor any credential was printed. `src/db.js`
+already sets `rejectUnauthorized:false` for public hosts. A read-only `select 1`
+succeeded first.
 
 **Narrow seed.** `npm run seed -- IV-001` → `seeded IV-001`; Act IV still audit
 `compared 22, match 22, mismatch 0`. IV-001 is live at seq 4001 with a
