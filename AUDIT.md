@@ -136,14 +136,20 @@ driving; **—** = never opened in the drive (briefing-only / card host).
   `test/teaching.test.ts` drives each and asserts the card does **not** appear on
   a drive that skips the beat.
 
-### Act IV — The Core (1/22 wired by card node; exam otherwise)
+### Act IV — The Core (1/23 wired by card node; exam otherwise)
 - DIALOG: IV-018 (4.2 exam). The act is `study_terminal` (10 questions) →
   `exam_40` (40 questions, 32 to pass) → `local_loop_week`.
-- **Not wired (21):** IV-001-brake, IV-002…IV-017, IV-026…IV-030 (IV stills live
-  in the card game; only IV-018 opens inside the drive).
-- **P11 closed:** the id stays `IV-001-brake` because the deck, the image route
-  (`/api/drive/image/IV-001-brake`) and the coverage test all use it; no loader
-  or id check rejects the suffix, so no code change was needed.
+- **Not wired (21):** IV-002…IV-017, IV-026…IV-030 (IV stills live in the card
+  game; only IV-018 opens inside the drive).
+- **P11 re-opened and closed the other way (2026-10-29).** The id did *not* have
+  to stay `IV-001-brake`: the seed's file filter (`^(I|…|VII)-\d{3}\.json$`) never
+  matched it, so the card was never seeded, `pack/04_card.schema.json` rejects the
+  suffix (`card_id` pattern), and the client's ride plate was already addressed at
+  `public/game/ride/IV-001/brake.webp` (`app.js:977` builds `/ride/<card_id>/…`),
+  i.e. under the live name. It is `cards/IV-001.json` now — card_type `scene`, one
+  decision, four options with one correct, `source` = Skill ten / 4.11, seq 4001
+  derived by `scripts/card-seq.js`, master `cards/IV-001.png`, ride plate
+  unchanged. `drive/test/cards.test.ts` holds the shape.
 
 ### Act V — The Ribbon (8/13 wired)
 - DIALOG: V-001, V-003, V-005 (3.2); V-006 (7.1); V-007, V-010, V-012 (3.1b); V-013 (3.3)
@@ -181,7 +187,7 @@ driving; **—** = never opened in the drive (briefing-only / card host).
 | P8 | Graphics | S2 | M | **Quality tiers — done, and the two defects closed.** `utils/performance.ts` holds a pure `stepQuality` reducer (frame time → high/mid/low) plus the per-tier effect table and `dprForTier`. `PostProcessing` takes a `tier` and mounts only that tier's effects; mobile DPR never exceeds 1.5. Two fixes on top: **(a) one DPR writer** — drei's `<AdaptiveDpr>` (and a no-op `<PerformanceMonitor>`) were mounted beside the Canvas `dpr` prop and called R3F's `setDpr()` on their own schedule; both are gone, and `GLContextGuard` re-applies the tier's ratio once on a context restore. **(b) a 30 Hz panel could not climb back** — the reducer demoted over 33.4 ms but required under 18.2 ms to recover, and a display locked at 30 Hz can never produce an 18.2 ms frame, so one stall pinned it at `low` forever. There is now one threshold (slow = over `SLOW_FRAME_MS`, recovered = not slow), which leaves the high → mid → low reducer and its hold times untouched. Draw calls are sampled from the Kent scene pass, not the postprocessing blit (§5). |
 | P9 | Physics | S2 | M | **CCD telemetry — done, and now falsifiable.** `CCD` in `quietroads/config.ts` names the displacement threshold (1.5 m per 1/60 s step); `VehicleObserver` fires one `ccd.tunnel` through the existing telemetry path when a contact-free step moved further. The old headline — "zero tunnels at top speed" — could not fail: a top-speed 1/60 step covers ~0.55 m against a 1.5 m threshold. `test/ccd.test.ts` now asserts a step *larger* than the threshold emits `ccd.tunnel`, that a legal 1/60 step at top speed does not, and that the margin is wide; the four-surface lap remains as a regression net. Stopping distances unchanged. |
 | P10 | Data | S3 | S | **`art-review-state` — stripped from the client deck.** The review file stays at `cards/art-review-state.json`. |
-| P11 | Data | S3 | S | **`IV-001-brake` non-standard card id — closed.** The id stays: the deck, the image route and the coverage test all use it, and nothing rejects the suffix. No code change. |
+| P11 | Data | S3 | S | **`IV-001-brake` non-standard card id — re-opened 2026-10-29 and closed by renaming.** The old closure kept the suffix because "nothing rejects it". Two things did: `scripts/seed-cards.js` only reads `^(I\|…\|VII)-\d{3}\.json$` (so the card was never seeded) and `pack/04_card.schema.json`'s `card_id` pattern. The client was already asking for the live name (`/ride/<card_id>/brake.webp` → `public/game/ride/IV-001/brake.webp`). It is `cards/IV-001.json` now — `scene`, 4 options, `source` Skill ten / 4.11 Traffic light signals, seq 4001 from `card-seq.js`. See §2 Act IV. |
 | P12 | UX/a11y | S3 | M | **Accessibility — done.** Reduced motion (earlier pass) plus, in `drive/src/input/driveInput.ts`, a persisted `binds` table (defaults are the shipped arrows/WASD set) that `mergeDriveInput` reads; `input/textSize.ts` three persisted steps applied to dialogue, card and HUD type as a CSS variable; and a `colorblindHud` flag whose cue (PASS/MISS word + ✓/✕ shape) rides on the grade result. Spoken lines: every `line` node already has text, so `DialogueBox` was left alone. |
 | P13 | Perf | S3 | M | **Per-frame allocations — done.** `vehicleObserver.ts` copies into one owned previous-sample object instead of `{ ...s }`; `Simulation` reuses its ObserverOut, SimFrame, CueProbe and `blocked` closure; `ZoneField` ping-pongs two owned position buffers; the bridge reuses its sample and walker-input objects. Identity contract locked in `test/alloc.test.ts`. |
 | P14 | Graphics | S3 | M | **Kent draw merge — done.** `sim/instancing.ts` batches the repeated plain buildings into one InstancedMesh per material (42 → 4 batches) and the dashes into one per colour; `ContinuousRoad` batches the segment meshes the same way. Colliders are untouched: one fixed CuboidCollider per building and one per solid segment. DOL/PHARMACY/WAREHOUSE keep their own components. |
@@ -327,7 +333,7 @@ Grade events confirmed to fire on the scripted laps: `stop.approach`,
 
 | Quality tiers — one DPR owner + a pure frame-time reducer | P8 ✅ | `951cde9` |
 | CCD displacement telemetry, no feel change | P9 ✅ | `4c367f4` |
-| `IV-001-brake` closed without renaming | P11 ✅ | `4785455` |
+| `IV-001-brake` closed without renaming | P11 → **re-opened** | `4785455` (old closure) |
 | Remappable keys, text size, colorblind cue | P12 ✅ | `5624665` |
 | No allocation on the physics step | P13 ✅ | `fd46905` |
 | Kent draw merge (instanced, colliders untouched) | P14 ✅ | `0a92afe` |

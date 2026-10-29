@@ -67,7 +67,9 @@ Dossiers are continue-only (no quiz options). That is intended.
 ## Known residuals (play anyway)
 
 - **IV-007** — composition drift on take 30 vs later weather/MUTCD regen (#114). Live still is the seeded PASS. Do not regenerate.
-- **IV-001** — not a live card. Ride stills (`count-in`, `handoff`, `brake`) exist as assets only. The Core opens at IV-002.
+- **IV-001** — live card now (`cards/IV-001.json`, "Cover the brake"). The brake
+  still (`cards/IV-001.png`) and its ride plate (`public/game/ride/IV-001/brake.webp`)
+  are the ones that always existed; the Core's first card is no longer a gap.
 - **Unfinished / unseeded** — IV-014, IV-019–025. PR #130 (parallel 018/010/029) stays unmerged except the IV-029 take-16 seed already live.
 
 ## Art regen

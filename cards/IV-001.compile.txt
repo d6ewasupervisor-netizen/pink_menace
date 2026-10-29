@@ -1,9 +1,11 @@
-# IV-001-brake — Cover the brake (IV-001 line 3 named-spot)
-# image_brief authority: cards/IV-001-brake.json (PR #51 / iv-001-brake-hover-54be)
-# NOTE: cards/IV-001.json does not exist on main or any fetched Act IV branch.
-#   This JSON is the sole compileable IV-001 brief.
+# IV-001 — Cover the brake (live card, 2026-10-29)
+# image_brief authority: cards/IV-001.json (was cards/IV-001-brake.json)
+# NOTE: the card is live now — card_type "scene", one decision, four options.
+#   The brief below is unchanged except the pedal-box reference, which points at
+#   the locked Encore cockpit plate (ref_encore_cockpit.png): the repo has no
+#   separate footwell plate, and pack/09_REF_MAP.json has no encore_footwell lock.
 # SEEDED: take-95 (Claude muted-read prefer over take-91). Live master
-#   cards/IV-001-brake.png; ride plate public/game/ride/IV-001/brake.webp.
+#   cards/IV-001.png; ride plate public/game/ride/IV-001/brake.webp.
 #   Take-91 demoted from the pick; wave notes that document it stay.
 # attachments:
 #   /tmp/pm-plates/ref_encore_cockpit.png  (PR #122 Y4 b-take-2 — cabin language)

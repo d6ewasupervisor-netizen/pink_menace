@@ -1,0 +1,97 @@
+{
+  "card_id": "IV-001",
+  "act": "IV",
+  "zone": "The Core",
+  "driver": "yuna",
+  "card_type": "scene",
+  "title": "Cover the brake",
+  "hook": "Foot off the gas. Heel down under the pad. Ball hovering over the brake, ready to press.",
+  "scene": "Encore ride-along. Yuna drives. Ali sits the welded rear bench, out of this frame — this is the driver's footwell, and the Encore has exactly two pedals: brake on the left of the pair, gas on the right, no clutch, empty painted floor to the left. The light ahead is still green. Yuna's foot comes off the gas and her heel drops to the floor under the brake pad, ball hovering with daylight under it, ready to press. The yellow hasn't happened yet. She isn't riding the pedal. She's waiting for the stop she can already see coming.",
+  "decision": "The light is still green. You're the one driving next — what does your right foot do?",
+  "options": [
+    {
+      "id": "a",
+      "text": "Cover the brake — off the gas, heel down, ball hovering over the pad",
+      "correct": true,
+      "result": "Off the gas before the light changes, heel planted, ball of the foot over the pad and not on it. When the yellow comes, the stop is already underway. That is the whole trick: ready is not pressing.",
+      "state_delta": {
+        "noise": -1,
+        "time_cost": 2
+      }
+    },
+    {
+      "id": "b",
+      "text": "Stay on the gas until it goes yellow, then move",
+      "correct": false,
+      "result": "Yellow means slow down and prepare to stop, and you spent the whole green getting ready to go. Now the pedal you need is a reaction away — and at city speed a reaction is most of a car length.",
+      "state_delta": {
+        "time_cost": 5
+      }
+    },
+    {
+      "id": "c",
+      "text": "Rest your foot on the brake so you're already on it",
+      "correct": false,
+      "result": "Resting on the brake rides the pads and lights your lamps at a green light, so the car behind reads a stop that isn't happening. Hover over it. Do not hold it.",
+      "state_delta": {
+        "noise": 2,
+        "time_cost": 4
+      }
+    },
+    {
+      "id": "d",
+      "text": "Left foot on the brake, right foot on the gas, to be fast on both",
+      "correct": false,
+      "result": "There is no clutch in this car, so the left foot has nothing to do here. Two feet on two pedals is how a stop becomes a lurch — the Encore has two pedals and one foot that works them.",
+      "state_delta": {
+        "noise": 2,
+        "yaw": 1,
+        "time_cost": 4
+      }
+    }
+  ],
+  "debrief": "Two pedals. One foot. Off the gas, heel down, the ball of the foot hovering over the brake — ready to press, not pressing. The stop you're waiting for is already started by the time the light says so.",
+  "source": {
+    "psdp_skill": "Skill ten: city driving – part one",
+    "dol_section": "4.11 Traffic light signals",
+    "teaching_target": "4.11 Solid Yellow: \"Slow down … When you see a yellow light, slow down and prepare to stop.\" Cover the brake before the change — hover, do not ride it."
+  },
+  "cast": [
+    "ali",
+    "yuna"
+  ],
+  "antagonist": "none",
+  "callback_of": null,
+  "schedules_callback": false,
+  "image_brief": {
+    "camera": "POV_OBJECT",
+    "camera_pose": "Camera is low in the left-hand-drive driver footwell of Encore, near the empty floor left of the brake, looking down and slightly forward at the pedal box. EXACTLY TWO pedals occupy the lower-middle of the FRAME, matching the locked Encore cockpit plate (ref_encore_cockpit.png), which carries the same two-pedal box: wide diamond-treadplate BRAKE on the left of the pair, narrow ribbed ACCELERATOR on the right. Empty painted floor to the LEFT of the brake — no clutch, no third pedal. The brake pedal is the center of the FRAME. Intact windshield with rain-on-glass and overcast wiper-path lighting occupy only the top fifth of the FRAME, soft and out of focus. Analog cluster and one guarded red switch match the Y4 take 1 cockpit lock for cabin language only. The cockpit plate is the only pedal reference the repo has — there is no separate footwell plate — so do not add a clutch or a third pedal to match one. No faces.",
+    "subject": "ONE ready-to-press motion of a right leg in a black high-top over the BRAKE — not two separate constraints. Knee bent. Thigh angled down from the seat. Shin dropping about 45 degrees toward the painted floor. Heel planted on the painted floor directly below the brake pad's lower edge. Ankle flexed so the ball of the foot hovers over the wide diamond-treadplate with visible daylight between sole and pad — ready to press, not touching. The sole does not rest on the pad. The foot does not cover or press the pad. The shin is not horizontal. The leg is not straight. Empty painted floor left of the brake stays empty. Gas right of the brake is empty.",
+    "foreground": "exactly two worn pedals from the locked plate — wide diamond-treadplate brake, narrow ribbed accelerator; painted dark Encore floor; the planted heel sitting on the floor under the hanging brake pad; a roll-cage tube at the left edge of the FRAME. No floor mat. No Menace pink mat.",
+    "midground": "the bent knee, the 45-degree shin, the flexed ankle, a sliver of black track pant; the hovering ball of the foot with a clear slit of daylight between rubber sole and diamond treadplate; empty floor left of the brake; empty gas",
+    "background": "soft rain-dotted intact windshield and the locked analog dash from Y4 take 1; overcast wiper-path light through glass; a distant traffic light, no readable sign legend",
+    "read": "two pedals in frame; empty floor left of the brake; knee bent and shin dropping about 45 degrees; heel planted on the floor directly below the brake pad's lower edge; ball of the foot hovers over the wide treadplate with visible daylight between sole and pad — ready to press, not touching; gas empty",
+    "continuity": [
+      "encore_cockpit"
+    ],
+    "aspect": "2:3",
+    "extra_negatives": [
+      "No magenta posterization, no color banding, no purple or magenta cast in the lower third",
+      "No heel off the floor, no floating foot, no foot suspended in mid-air, no shoe hanging in empty space, no heel planted far forward of the pad, no heel on the pedal itself",
+      "No foot resting flat on the brake pad, no sole contacting the treadplate, no covering by pressing, no riding the pedal, no pumping",
+      "No horizontal shin, no straight locked leg, no ankle that cannot pivot, no toe pointed down into the pad",
+      "No foot between the pedals, no foot over empty floor, no foot on the gas, no foot well to the right of the pedal box",
+      "No mat riding toward the pedal box, no bunched mat, no large distressed mat filling the lower third, no pink Menace floor mat",
+      "No clutch, no third pedal, no three-pedal footwell — pedal_count is 2 only",
+      "No Volkswagen Beetle interior, no faded pink dashboard, no pink floor",
+      "No open cabin, no missing windshield, no PA horns inside the cabin"
+    ]
+  },
+  "variation": {
+    "location_type": "arterial",
+    "weather": "rain",
+    "time_of_day": "afternoon",
+    "tone": "procedural",
+    "failure_mode": "none"
+  }
+}

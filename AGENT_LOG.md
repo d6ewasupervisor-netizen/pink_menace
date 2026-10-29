@@ -810,5 +810,62 @@ the audit's own §10.3 problem statement, which stays as the historical record
 **Verified**: 197/197 vitest, `validate-citations.js` ok, `test-manifest.js` ok.
 
 
+## 2026-10-29 — IV-001 is a live card (Cover the brake)
+
+The third author call. `cards/IV-001-brake.json` was a named-spot brief, not a
+card: `card_type: "ride-along-still"` (not in the schema's enum), no `source`, no
+`decision`, no options, and a `card_id` the seed's file filter
+(`^(I|…|VII)-\d{3}\.json$`) never matched — so it had never been seeded, and
+IV-002's "Yuna's car had two pedals" had nothing on the other side of the
+comparison. P11's old closure ("nothing rejects the suffix") was wrong twice over:
+the seed filter rejects it and `pack/04_card.schema.json`'s `card_id` pattern
+rejects it, while the client's ride plate was already addressed at
+`public/game/ride/IV-001/brake.webp` (`app.js:977` builds `/ride/<card_id>/…`).
+
+It is `cards/IV-001.json` now: act IV / The Core / yuna, `card_type: "scene"`,
+title and hook unchanged, a 530-char scene that sets the Encore up as a two-pedal
+car with Ali on the welded rear bench, one decision ("The light is still green…
+what does your right foot do?") and four options with exactly one correct
+(`a`: cover the brake — off the gas, heel down, ball hovering; the failures are
+"wait for yellow", "rest on the brake", "left foot on the brake"). Citation is
+traceable: `Skill ten: city driving – part one` + `4.11 Traffic light signals`
+(the `teaching_target` quotes the guide's Solid Yellow rule — "slow down and
+prepare to stop"). `seq` is not stored: `scripts/card-seq.js` derives 4001, which
+is what the schema wants (it forbids extra keys).
+
+Assets confirmed on disk: master `cards/IV-001.png` (renamed from
+`cards/IV-001-brake.png`, same bytes — it is a JPEG under a .png name, which
+`encode-still.py` opens by content) and the ride plate
+`public/game/ride/IV-001/brake.webp`. `cards/IV-001-brake.compile.txt` is
+`cards/IV-001.compile.txt` with its header corrected.
+
+Two brief corrections this needed: `variation.time_of_day` was `"overcast"`
+(weather, not a time — schema enum), now `"afternoon"`; and `continuity` carried
+`encore_footwell`, which is not a lock in `pack/09_REF_MAP.json` and has no file
+in `refs/` (the compile aborted on it). The pedal box is documented by
+`ref_encore_cockpit.png` itself ("two pedals (wide brake + narrow accel), empty
+floor left of brake, no clutch", `refs/LOCKS.md:22`), so `continuity` is
+`encore_cockpit` only and the camera_pose points there. `compile-images.js --card
+IV-001` now compiles (attachments: `ref_encore_cockpit.png`).
+`image_brief.camera_pose` stays: it is outside pack/04's `additionalProperties`
+but `scripts/compile-prompt.js:188` reads it as the framing, and 7 seeded cards
+carry it.
+
+The deck bundle is re-exported for the entry (card_id IV-001, image
+`/api/drive/image/IV-001`, options as id+text only). `drive/test/coverage.test.ts`
+now expects `IV-001` and not `IV-001-brake`; new `drive/test/cards.test.ts` (6)
+holds the seed name, the schema shape, one correct option, the citations, both
+stills, and IV-002's two-pedal setup. Docs updated: `AUDIT.md` §2 Act IV + P11,
+`PLAYTHROUGH.md:70`, `PLAYTEST.md:49`, `STORY_BIBLE.md`'s callback row.
+
+No seed ran and nothing was deployed.
+
+**Verified**: 203/203 vitest across 22 files, `tsc --noEmit` exit 0,
+`validate-citations.js` now counts 121 cards (it used to skip the file), `node
+scripts/compile-images.js --card IV-001` compiles; the full compile still aborts
+on the pre-existing II-011 / IV-007 / V-006 / V-008 / V-013 findings, unchanged.
+
+
+
 
 

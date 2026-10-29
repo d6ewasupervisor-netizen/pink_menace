@@ -46,7 +46,7 @@ Play order is `seq`. Gaps are unsown, not broken.
 | IV-029 | When Not To Be Loud | dossier | take-16 · #135 | MATCH |
 | IV-030 | The Door to the Pass | dossier | take-65 · #106 | MATCH |
 
-Unfinished / unseeded: IV-001 (ride assets only), IV-014, IV-019–025.
+Unfinished / unseeded: IV-014, IV-019–025. (IV-001 is live — `cards/IV-001.json`.)
 
 ## Act V — The Ribbon (13 live cards, complete)
 

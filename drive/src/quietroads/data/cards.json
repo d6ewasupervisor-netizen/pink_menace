@@ -3238,18 +3238,49 @@
   "act": "IV",
   "zone": "The Core",
   "driver": "yuna",
-  "card_type": "ride-along-still",
+  "card_type": "scene",
   "title": "Cover the brake",
   "hook": "Foot off the gas. Heel down under the pad. Ball hovering over the brake, ready to press.",
-  "scene": "Encore ride-along. Yuna drives. Ali sits the welded rear bench, out of this frame. Cover the brake before the light even thinks about yellow. Foot off the gas. Held. Not riding it.",
+  "scene": "Encore ride-along. Yuna drives. Ali sits the welded rear bench, out of this frame — this is the driver's footwell, and the Encore has exactly two pedals: brake on the left of the pair, gas on the right, no clutch, empty painted floor to the left. The light ahead is still green. Yuna's foot comes off the gas and her heel drops to the floor under the brake pad, ball hovering with daylight under it, ready to press. The yellow hasn't happened yet. She isn't riding the pedal. She's waiting for the stop she can already see coming.",
+  "decision": "The light is still green. You're the one driving next — what does your right foot do?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Cover the brake — off the gas, heel down, ball hovering over the pad"
+   },
+   {
+    "id": "b",
+    "text": "Stay on the gas until it goes yellow, then move"
+   },
+   {
+    "id": "c",
+    "text": "Rest your foot on the brake so you're already on it"
+   },
+   {
+    "id": "d",
+    "text": "Left foot on the brake, right foot on the gas, to be fast on both"
+   }
+  ],
+  "debrief": "Two pedals. One foot. Off the gas, heel down, the ball of the foot hovering over the brake — ready to press, not pressing. The stop you're waiting for is already started by the time the light says so.",
+  "source": {
+   "psdp_skill": "Skill ten: city driving – part one",
+   "dol_section": "4.11 Traffic light signals",
+   "teaching_target": "4.11 Solid Yellow: \"Slow down … When you see a yellow light, slow down and prepare to stop.\" Cover the brake before the change — hover, do not ride it."
+  },
+  "cast": [
+   "ali",
+   "yuna"
+  ],
+  "antagonist": "none",
   "variation": {
    "location_type": "arterial",
    "weather": "rain",
-   "time_of_day": "overcast",
-   "tone": "procedural"
+   "time_of_day": "afternoon",
+   "tone": "procedural",
+   "failure_mode": "none"
   },
-  "card_id": "IV-001-brake",
-  "image": "/api/drive/image/IV-001-brake"
+  "card_id": "IV-001",
+  "image": "/api/drive/image/IV-001"
  },
  {
   "act": "IV",

@@ -91,9 +91,10 @@ describe("every card opens in-scene (Definition of Done)", () => {
 
   it("does not silently drop a build artifact as a card", () => {
     expect(real.some((c) => c.card_id === "art-review-state")).toBe(false);
-    // IV-001-brake is a ride-along still, not an in-scene drive card; it may
-    // stay read-only, but it must exist in the deck.
-    expect(real.some((c) => c.card_id === "IV-001-brake")).toBe(true);
+    // IV-001 is a live card now (it used to be the named-spot "IV-001-brake"):
+    // its setup is what IV-002's "Yuna's car had two pedals" line compares to.
+    expect(real.some((c) => c.card_id === "IV-001")).toBe(true);
+    expect(real.some((c) => c.card_id === "IV-001-brake")).toBe(false);
   });
 
   it("Act IV has IV-018 opening inside the drive (exam scene), rest are gate stills", () => {
