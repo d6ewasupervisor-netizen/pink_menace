@@ -7,11 +7,11 @@
   "title": "The Voucher",
   "hook": "The desk wants the receipt for the chains.",
   "scene": "Ritzville. Grain elevators against a gray sky, a gate, a desk, a lamp, and a man who has been awake longer than you have. He asks for the voucher, and then, without looking up, for the chain receipt — the pass does not care what you believed about the sign, it cares what is in the trunk. You have it, or you have the story of the morning you went back down and earned it.",
-  "debrief": "A chain-required road is billed at the gate: the receipt is the equipment. The story only helps if it ends with chains in the trunk — otherwise you lost that argument at the gate.",
+  "debrief": "The desk doesn't need the story. A chain-required road asks one thing: chains when it's required, on the wheels that drive the car. Keep them on and keep the story.",
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "5.6 Road and driving conditions (Slippery roads)",
-    "teaching_target": "Ledger callback of VII-002: the chain sign is paid at the gate. 5.6: chains when required. No question — continue only."
+    "teaching_target": "Ledger callback of VII-002. 5.6: 'Use snow tires or chains when it's required.' The device goes on the drive wheels — the Menace's rear pair. No question — continue only."
   },
   "cast": [
     "ali",
