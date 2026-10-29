@@ -1118,6 +1118,19 @@ night") and Hank's line.
 `validate-citations.js` ok (131), `validate-act-vii.js` ok, `test-manifest.js` ok.
 
 
+## 2026-10-29 — 8.2 gm4: she didn't know Grandma was there
+
+One line, author's call: `8.2.gm4` was "Nobody told me." and is now "Mom didn't
+say you'd be here." `8.2.gm5` ("I told you. Come home slow.") is untouched, so the
+beat still turns on Grandma having told her, not on nobody having mentioned it —
+Ali is surprised by the *arrival*, not by the woman. Everything else in the beat
+(gm1–gm3, gm6, the blanket, the end) is unchanged.
+
+**Verified**: 215/215 vitest, `tsc --noEmit` exit 0, `validate-citations.js` ok,
+`validate-act-vii.js` ok.
+
+
+
 
 
 
