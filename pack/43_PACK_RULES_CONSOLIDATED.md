@@ -237,7 +237,7 @@ Do not: describe only the object of attention and leave position implied by habi
 What that changes here:
 
 - **Allowed:** `cards/VII-*.json` — one card per teachable beat, `pack/04_card.schema.json` shape, citations from `pack/07_DOL_SECTIONS.json` / `pack/08_PSDP_SKILLS.json` only. Validate with `node scripts/validate-act-vii.js`.
-- **Not allowed:** VII stills, VII zone plates, VII seeds. Every VII card carries `variation.forced: "Act VII scaffold — no still; do not seed"`. `docs/STORY_BIBLE.md` §2 lists the deck; `pack/40_ACT_VI.md` is the shape this follows.
+- **Not allowed:** VII stills, VII zone plates. Every VII card carries `variation.forced: "Act VII scaffold — no still; do not seed"`. The seeder writes the text with a null image so `/drive` can grade it. The card game does not deal that sentence. `docs/STORY_BIBLE.md` §2 lists the deck; `pack/40_ACT_VI.md` is the shape this follows.
 - **Unchanged:** the herd's art law (`pack/26_THE_QUIET.md`) — posture and stillness, never gore, never filling the frame. A VII card may describe figures standing in drifts; it may not describe what they are doing to anybody.
 - **Unchanged:** Act V's own locks still forbid VII material *on a Ribbon teaching card* (`scripts/validate-act-v.js`). Opening VII does not loosen Act V.
 

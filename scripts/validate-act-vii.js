@@ -4,7 +4,8 @@
 //
 // Cards only: every VII card ships a brief and must carry
 // `variation.forced: "Act VII scaffold — no still; do not seed"`. No VII still
-// exists, none is compiled from this deck, and nothing here is seeded.
+// exists. The seeder writes the text with a null image so /drive can grade it.
+// The card game does not deal that sentence.
 //
 // Modeled on validate-act-v.js / validate-act-iii.js, minus the Act V ban on
 // VII material (VII is where that material lives now). It adds three checks:

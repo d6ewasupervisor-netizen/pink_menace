@@ -92,6 +92,8 @@ deliberately empty rather than filled with a guess.
   against production through the Railway public proxy: IV-001 live (seq 4001,
   image + four options), 121 cards seeded, one `skipped (no still; do not seed)`
   line for VII-001…VII-010, and six still audits with 0 mismatches.
+  **2026-10-30:** those ten rows are seeded with a null image so `/drive` can
+  grade them. The card game still does not deal that scaffold sentence.
 - **Not open in code.** Left for hardware and the art pipeline: a headed
   `?profileDrive` browser pass, a full-campaign playthrough on a device
   (5.1 → 8.3 has never run on hardware; note pacing drags between 6.2 and 7.1),
@@ -232,12 +234,12 @@ deliberately empty rather than filled with a guess.
 ## Known risks / deliberately out of scope
 
 - Act VII is **open** (author-approved 2026-10-29): the 2026-10-28 overhaul opened
-  scenes 5.1–8.3 (`48b0c49`), and VII cards now exist under the no-still /
-  do-not-seed convention — no VII stills, no VII zone plates, no VII seed. The
-  seeder enforces it: `scripts/seed-cards.js` skips any card whose
-  `variation.forced` says no still AND do not seed, and `drive/test/seed.test.ts`
-  pins the ten skips and IV-001's seed. Backend, auth, parent dashboard,
-  DRIVE_ENABLED untouched (Rule 2).
+  scenes 5.1–8.3 (`48b0c49`), and VII cards now exist under the no-still
+  convention — no VII stills, no VII zone plates. The seeder writes those ten
+  rows with a null image so `/drive` can grade them. The card game hides the
+  same `variation.forced` sentence and does not deal them.
+  `drive/test/seed.test.ts` still pins the ten as that shape, and IV-001 stays
+  seedable. Backend, auth, parent dashboard, DRIVE_ENABLED untouched (Rule 2).
 - BD-1 is **signed off** (owner, 2026-10-05): `FOLLOW.rule` stays `seconds`
   (3 s dry / 4 s truck), the grader does not switch to `vehicle_lengths`, and the
   guide-led teaching copy stays as it is. BD-2 is resolved (§4.14 citations).

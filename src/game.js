@@ -27,6 +27,7 @@ async function nextUnansweredCard(runId) {
     `SELECT c.card_id, c.seq, c.callback_of
        FROM cards c
       WHERE c.callback_of IS NULL
+        AND ${deckWhere("c")}
         AND NOT EXISTS (
               SELECT 1 FROM run_answers a
                WHERE a.run_id = $1 AND a.card_id = c.card_id
@@ -40,6 +41,15 @@ async function nextUnansweredCard(runId) {
 
 const CALLBACK_GAP = 2;
 
+// Same sentence scripts/seed-cards.js flags. Those rows exist so /drive can
+// grade them. This deck does not deal them.
+const SCAFFOLD = String.raw`no still[^.]*do not seed`;
+
+function deckWhere(alias) {
+  const col = alias ? `${alias}.extra` : "extra";
+  return `COALESCE(${col} #>> '{variation,forced}', '') !~* '${SCAFFOLD}'`;
+}
+
 function asDebts(raw) {
   return Array.isArray(raw) ? raw.map((d) => ({ ...d })) : [];
 }
@@ -49,6 +59,7 @@ async function ledgerForOrigin(client, runId, fromCard) {
     `SELECT c.card_id
        FROM cards c
       WHERE c.callback_of = $1
+        AND ${deckWhere("c")}
         AND NOT EXISTS (
               SELECT 1 FROM run_answers a
                WHERE a.run_id = $2 AND a.card_id = c.card_id
@@ -99,7 +110,7 @@ async function actBoundForRun(client, run, hintAct) {
     );
     if (rows[0] && rows[0].act) return rows[0].act;
   }
-  const { rows: seeded } = await client.query(`SELECT DISTINCT act FROM cards`);
+  const { rows: seeded } = await client.query(`SELECT DISTINCT act FROM cards WHERE ${deckWhere()}`);
   const have = new Set(seeded.map((r) => r.act));
   for (const z of ACT_ZONES) {
     if (have.has(z.act)) return z.act;
@@ -128,6 +139,7 @@ async function pickNextCard(client, runId, debts, startSeq, act) {
     `SELECT c.card_id
        FROM cards c
       WHERE c.callback_of IS NULL
+        AND ${deckWhere("c")}
         AND c.seq > $2
         ${actClause}
         AND NOT EXISTS (
@@ -521,7 +533,7 @@ async function playAgainFrom(client, studentId, cardId) {
   const id = String(cardId || "");
   if (!id) return { error: 400, message: "Missing card." };
   const { rows: cardRows } = await client.query(
-    `SELECT card_id, seq, act, callback_of, card_type FROM cards WHERE card_id = $1`,
+    `SELECT card_id, seq, act, callback_of, card_type FROM cards WHERE card_id = $1 AND ${deckWhere()}`,
     [id]
   );
   const target = cardRows[0];
@@ -630,12 +642,12 @@ async function startActFrom(client, studentId, act) {
   const bound = String(act || "");
   if (!bound) return { error: 400, message: "Missing act." };
   const { rows: cards } = await client.query(
-    `SELECT card_id, seq, act FROM cards WHERE act = $1 ORDER BY seq ASC, card_id ASC`,
+    `SELECT card_id, seq, act FROM cards WHERE act = $1 AND ${deckWhere()} ORDER BY seq ASC, card_id ASC`,
     [bound]
   );
   if (!cards.length) return { error: 404, message: "Act not seeded." };
 
-  const { rows: catalog } = await client.query(`SELECT card_id, act FROM cards`);
+  const { rows: catalog } = await client.query(`SELECT card_id, act FROM cards WHERE ${deckWhere()}`);
   const { rows: ever } = await client.query(
     `SELECT DISTINCT a.card_id
        FROM run_answers a
@@ -1109,6 +1121,7 @@ async function progressFor(run) {
   const { rows: catalog } = await query(
     `SELECT card_id, act, zone, title, scene, seq, extra
        FROM cards
+      WHERE ${deckWhere()}
       ORDER BY seq ASC, card_id ASC`
   );
   const { rows: answers } = await query(
@@ -1254,7 +1267,7 @@ async function previousAnswered(runId, fromCardId) {
 
 async function answeredIdsForStudent(studentId) {
   const { rows: catalog } = await query(
-    `SELECT card_id FROM cards ORDER BY seq ASC, card_id ASC`
+    `SELECT card_id FROM cards WHERE ${deckWhere()} ORDER BY seq ASC, card_id ASC`
   );
   const { rows: answered } = await query(
     `SELECT DISTINCT a.card_id
@@ -1324,6 +1337,7 @@ function skillBand(distinctDates) {
 module.exports = {
   purgeExpiredPending,
   pendingForPhone,
+  deckWhere,
   nextUnansweredCard,
   publicCard,
   applySequenceTone,

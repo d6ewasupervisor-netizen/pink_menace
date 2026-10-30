@@ -801,9 +801,17 @@ then `npm run seed` — one log line `skipped (no still; do not seed)
 VII-001…VII-010`, 121 cards seeded (no VII), and six still audits with 0
 mismatches (I 12, II 30, III 30, IV 22, V 13, VI 13). The Act II audit's
 `in_db_not_repo: ["II-031"]` is expected: `cards/II-031.json` is a still-less
-card, so the still audit has nothing to compare. Live DB verified: 121 cards,
+card, so the still audit has nothing to compare. Live DB verified that day: 121 cards,
 zero `VII-%` rows, IV-001 at seq 4001 with a 48,184-byte image and four options
 (`a` correct).
+
+**2026-10-30.** The drive grade is `POST /api/drive/card-answers`, which 404s
+when the card row is missing, and the overlay calls that "Couldn't reach the
+ledger." The ten VII cards are now in `cards` / `card_options` with
+`image_bytes` null (seq 7001–7010, 28 options on the seven decision cards).
+`scripts/seed-cards.js` writes that scaffold instead of skipping it.
+`src/game.js` `deckWhere()` keeps the card game and the parent catalog from
+dealing the same sentence. Stills are still not produced.
 
 **Verified**: 251/251 vitest across 27 files (215 + `actvii-deck` 13 + `clock` 9
 + `licensing` +8 + `seed` 6), `tsc --noEmit` exit 0, `validate-citations.js` ok

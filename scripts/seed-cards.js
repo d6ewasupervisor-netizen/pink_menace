@@ -17,11 +17,12 @@ const ENCODE_STILL = path.join(__dirname, "encode-still.py");
  * ("take 95 FAIL do not seed" on IV-005, "do not seed takes 83/84/85/86/88" on
  * IV-028). Those are notes about rejected takes, not instructions about the
  * card. A scaffold says BOTH things about itself — no still AND do not seed —
- * and that is the only shape this seeder refuses.
+ * and that is the only shape with no image. The row is still written.
  *
- * Act VII carries `"Act VII scaffold — no still; do not seed"` on all ten cards
- * (pack/43_PACK_RULES_CONSOLIDATED.md: no VII card scaffold, no VII stills, no
- * VII seed). Nothing else in the deck does.
+ * Act VII carries `"Act VII scaffold — no still; do not seed"` on all ten cards.
+ * That sentence means no still: this seeder writes the row with a null image
+ * so /drive can grade it. The card game refuses the same sentence and does
+ * not deal the card. Nothing else in the deck matches.
  */
 const NO_STILL_NO_SEED = /no still[^.]*do not seed/i;
 
@@ -171,23 +172,10 @@ async function main() {
   }
   if (!files.length) throw new Error("no card json in cards/");
   const ids = [];
-  const skipped = [];
   for (const f of files) {
     const filePath = path.join(dir, f);
-    const raw = JSON.parse(fs.readFileSync(filePath, "utf8"));
-    if (isDoNotSeed(raw)) {
-      // An explicit `npm run seed VII-001` is a request to break the contract.
-      if (wanted.size) {
-        throw new Error(
-          `${raw.card_id || f}: variation.forced says no still / do not seed — refusing to seed it`
-        );
-      }
-      skipped.push(raw.card_id || f);
-      continue;
-    }
     ids.push(await seedFile(filePath, tables));
   }
-  if (skipped.length) console.log("skipped (no still; do not seed)", skipped.join(", "));
   console.log("seeded", ids.join(", "));
   await pool.end();
 

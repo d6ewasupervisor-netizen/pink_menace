@@ -6,7 +6,7 @@ const { appKind, gameUrl } = require("./host");
 const { normalizePhone, normalizeName, phoneHmac, last4, initials } = require("./phone");
 const auth = require("./auth");
 const { jsonError } = require("./routes-auth");
-const { purgeExpiredPending, skillBand } = require("./game");
+const { purgeExpiredPending, skillBand, deckWhere } = require("./game");
 
 function deviceLabel(ua) {
   const s = String(ua || "").slice(0, 180);
@@ -23,7 +23,7 @@ async function coverageFor(studentId) {
     [studentId]
   );
   const { rows: catalog } = await query(
-    `SELECT act, zone, dol_section, psdp_skill, card_id FROM cards`
+    `SELECT act, zone, dol_section, psdp_skill, card_id FROM cards WHERE ${deckWhere()}`
   );
 
   const acts = {};

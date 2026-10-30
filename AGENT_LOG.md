@@ -1342,3 +1342,16 @@ cards/II-017.json and went out with the Act II seed, so the function had
 nothing left to write. Deleted it. `railway functions list` now reports no
 functions in production. pink_menace and Postgres were not touched. This does
 not seed VII-001, so the drive grade 404 is unchanged.
+
+## 2026-10-30 — seed Act VII text so the drive can grade
+
+`POST /api/drive/card-answers` 404s when the card is missing, and the overlay
+calls any non-OK response "Couldn't reach the ledger." VII-001…VII-010 were
+absent on purpose. `scripts/seed-cards.js` now writes that scaffold with a
+null image. `deckWhere()` in `src/game.js` (and the parent catalog) keeps the
+card game from dealing the same `variation.forced` sentence.
+
+Seeded the ten against production. Live check: 10 rows, `image_bytes` null,
+28 options on the seven decision cards (VII-004, VII-009, VII-010 have none).
+Still audit for act VII: compared 0, `in_db_not_repo` is the ten ids, exit 0.
+`validate-act-vii.js` ok. `drive/test/seed.test.ts` 6/6. No stills.

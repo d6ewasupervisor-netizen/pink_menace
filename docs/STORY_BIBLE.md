@@ -1011,7 +1011,7 @@ traced on both paths and held with a test (`2954a6b`).
 | 400 and 500 collided as headlight distances | **`7aa8a69`**: 400 is the glow you must be able to stop inside; 500 (oncoming) and 300 (behind) are the dim marks. 6.2.night, VII-005's scene/debrief and exam `c5_010` now say that, with the guide quoted in `teaching_target`. `actvii-deck.test.ts` |
 | The permit rule was taught and then broken without comment | **`6a40749`**: 2.2 `super1`–`super5` — no permit, no licensed adult, alone, "the first thing I'd have failed you on"; Ali stays flat ("It was four miles."); the Authority courier provision (radio open, licensed driver on the net) is labelled the Authority's, not the state's, and 2.3a remains the in-car delivery. `licensing.test.ts` (13) |
 | Hank said "the mountain" in wheat country | **`2a888ae`**: "Authority calls this a convoy. The county calls it harvest." |
-| The seeder would have seeded the VII scaffold | **`4a9a46f`**: `scripts/seed-cards.js` skips a card that says no still AND do not seed (Act VII's ten), throws on an explicit request for one, still seeds IV-001, and does not mistake rejected-take notes on live cards for the contract. `seed.test.ts` |
+| The seeder would have seeded the VII scaffold | **Superseded 2026-10-30.** `4a9a46f` skipped them. The drive grade 404s without the row, so the seeder now writes the ten with a null image. The card game still hides that sentence. `seed.test.ts` |
 | The permit in 4.2 had no issuance — "You had seven" was invented | **this pass**: 2.2 `permit1`–`permit3` opens the drawer, stamps an **Authority courier permit** ("Not the state's instruction permit — that one wants six months and the test you didn't get to finish"), and starts the hours log. 4.2 `lic1` drops "You had seven"; `lic5` makes the Authority provision the six-month waiver ("You didn't have the six months. You had the Grid."). 1.3 stays the DOL knowledge test; 4.2.1 says "the license set, not the permit set." `licensing.test.ts` (17) |
 
 **CHANGED — deliberately different shape**
@@ -1089,7 +1089,9 @@ seven months, and the Authority provision at `lic5` is what waives the six. 1.3
 stays the permit test and 4.2 is the license set. Suite **255/255** across 27
 files (`licensing.test.ts` 17). The deck was then seeded live (2026-10-29):
 IV-001 first, then the full run — 121 cards, one skip line for VII-001…VII-010,
-six still audits at 0 mismatches, no `VII-%` row in the database.
+six still audits at 0 mismatches, no `VII-%` row in the database. **2026-10-30:**
+those ten rows are in production with a null image so `/drive` can grade them.
+The card game does not deal them. Stills are still not produced.
 
 
 ---

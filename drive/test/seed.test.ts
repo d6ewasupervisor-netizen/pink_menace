@@ -1,12 +1,13 @@
 /**
  * Seed readiness (2026-10-29).
  *
- * `npm run seed` must put IV-001 live and must not seed the Act VII scaffold.
+ * `npm run seed` must put IV-001 live. Act VII has no still, so the seeder
+ * writes those ten rows with a null image (the drive grades from that row).
  * The flag it reads is `variation.forced`, which is shared with art provenance:
  * live cards say things like "take 95 FAIL do not seed" about a rejected take.
  * The contract is the scaffold shape — no still AND do not seed — not the
- * substring. This walks the same file filter and decision `scripts/seed-cards.js`
- * uses, so the seeder cannot drift back to seeding a VII card.
+ * substring. The card game hides that shape. This walks the same file filter
+ * and decision `scripts/seed-cards.js` uses.
  *
  * Act VI is NOT a scaffold: its thirteen cards carry live stills and art notes,
  * so they remain seedable (the ROADMAP's card-coverage target counts them).
@@ -42,7 +43,7 @@ describe("the seeder's do-not-seed contract", () => {
     expect(isDoNotSeed({})).toBe(false);
   });
 
-  it("skips exactly the ten Act VII cards", () => {
+  it("flags exactly the ten Act VII cards as no-still", () => {
     expect(skipped).toEqual([
       "VII-001.json",
       "VII-002.json",
