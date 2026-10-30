@@ -1314,3 +1314,20 @@ compression). Suite remains 255/255, `tsc` 0.
 (nobody has driven the Act VII scenes on hardware). Watch pacing between 6.2 and
 7.1 — that stretch gained the most dialogue.
 
+
+
+## 2026-10-30 - deploy + launch save for the Act VII device run
+
+**Deploy.** Pushed 29 commits (9113d44..76e8ce9). Railway pink_menace
+deployment of 76e8ce9 reached SUCCESS. (card-updater shows CRASHED; untouched,
+not part of this change.)
+
+**Launch save.** Production drive_progress had one row ( 0942cdb-...) at
+2.3a / met_deac, no items. Backed up to drive_progress_backup_20261029
+(1 row), then set that row to scene_id 5.1, checkpoint chainup_reached,
+items ["chains"], lags.has_chains true, unner_state null. Reached the DB
+over the Postgres TCP proxy (no URL or credential printed); temp script deleted.
+No code change. To restore the old save: copy the row back from the backup table.
+
+**Next:** open /drive on the phone (no stale tab open), play 5.1 -> 8.3, note FPS
+and the 6.2 -> 7.1 pacing.
