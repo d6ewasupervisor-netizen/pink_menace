@@ -1319,15 +1319,26 @@ compression). Suite remains 255/255, `tsc` 0.
 ## 2026-10-30 - deploy + launch save for the Act VII device run
 
 **Deploy.** Pushed 29 commits (9113d44..76e8ce9). Railway pink_menace
-deployment of 76e8ce9 reached SUCCESS. (card-updater shows CRASHED; untouched,
-not part of this change.)
+deployment of 76e8ce9 reached SUCCESS. card-updater was already CRASHED and
+was left alone in this step.
 
-**Launch save.** Production drive_progress had one row ( 0942cdb-...) at
+**Launch save.** Production drive_progress had one row (00942cdb-...) at
 2.3a / met_deac, no items. Backed up to drive_progress_backup_20261029
 (1 row), then set that row to scene_id 5.1, checkpoint chainup_reached,
-items ["chains"], lags.has_chains true, unner_state null. Reached the DB
+items ["chains"], flags.has_chains true, runner_state null. Reached the DB
 over the Postgres TCP proxy (no URL or credential printed); temp script deleted.
 No code change. To restore the old save: copy the row back from the backup table.
 
 **Next:** open /drive on the phone (no stale tab open), play 5.1 -> 8.3, note FPS
 and the 6.2 -> 7.1 pacing.
+
+## 2026-10-30 — delete the crashed card-updater function
+
+The function crash-looped on deployment a263a95e since 2026-10-25.
+index.tsx line 1 was `import { Bun } from "bun"`, so Bun was undefined and
+line 3 threw on Bun.env before any SQL. The body was a one-shot UPDATE of
+II-017 (scene, decision, debrief, hook, option a). That text is already in
+cards/II-017.json and went out with the Act II seed, so the function had
+nothing left to write. Deleted it. `railway functions list` now reports no
+functions in production. pink_menace and Postgres were not touched. This does
+not seed VII-001, so the drive grade 404 is unchanged.
