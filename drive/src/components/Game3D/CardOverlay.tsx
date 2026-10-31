@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { CardDeck, type Card, type CardGrade } from '@/quietroads';
+import { cardStillStyle } from './cardStillStyle';
 
 type Grading = { state: 'idle' } | { state: 'busy'; optionId: string } | { state: 'graded'; grade: CardGrade } | { state: 'offline'; optionId: string };
 
@@ -52,7 +53,7 @@ export function CardOverlay() {
           src={card.image}
           alt=""
           onLoad={() => setImgReady(true)}
-          style={{ ...styles.backdrop, opacity: imgReady ? 1 : 0 }}
+          style={{ ...cardStillStyle, opacity: imgReady ? 1 : 0 }}
         />
       )}
       <div style={styles.scrimTop} />
@@ -119,8 +120,8 @@ export function CardOverlay() {
 
 const styles: Record<string, React.CSSProperties> = {
   wrap: { position: 'fixed', inset: 0, zIndex: 240, pointerEvents: 'auto', fontFamily: 'system-ui, sans-serif', color: '#e8e6e1' },
-  // The card's still, full-bleed but dimmed so the world behind stays present.
-  backdrop: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.6) saturate(0.85)', transition: 'opacity 300ms', pointerEvents: 'none' },
+  // The card's still is `cardStillStyle`: whole plate, letterboxed, dimmed. It used
+  // to be a full-bleed `cover` backdrop and cropped most of a 2:3 card away.
   scrimTop: { position: 'absolute', left: 0, right: 0, top: 0, height: '22%', background: 'linear-gradient(to bottom, rgba(7,8,12,0.75), rgba(7,8,12,0))', pointerEvents: 'none' },
   scrimBottom: { position: 'absolute', left: 0, right: 0, bottom: 0, height: '70%', background: 'linear-gradient(to top, rgba(7,8,12,0.94), rgba(7,8,12,0.35) 60%, rgba(7,8,12,0))', pointerEvents: 'none' },
   kicker: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', left: 14, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#F28DB2', background: 'rgba(0,0,0,0.55)', padding: '4px 8px', borderRadius: 4 },

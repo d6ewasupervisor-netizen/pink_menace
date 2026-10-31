@@ -36,7 +36,7 @@ deliberately empty rather than filled with a guess.
   `seconds`. Teaching copy leads with §5.2. (P1, BD-1, BD-2)
 - **[config] Teaching-rule file.** `drive/src/quietroads/config.ts` holds the
   follow rule. Vehicle feel stays in `VehicleController` on purpose.
-- **[tests] `vitest run` green** — 251 tests, 27 files (stop/gap/yield, follow-rule,
+- **[tests] `vitest run` green** — 260 tests, 28 files (stop/gap/yield, follow-rule,
   card cues on the sim bus, **act-boundary chain**, **Deac's drive script + the
   witness gate on his beats**, exam gate, retest week, alloc identity, CCD, quality
   tiers + the 30 Hz recovery, scene-pass draw calls, instancing, accessibility,
@@ -102,6 +102,18 @@ deliberately empty rather than filled with a guess.
   asset keys now that the scenes are daylight. VII stills are on disk for the
   drive (`cards/VII-001.jpg` … `VII-010.jpg`); the card game still does not
   deal them.
+- **Card stills are read whole again (2026-10-31).** The drive's cockpit card
+  painted its 2:3 still full-bleed with `object-fit: cover` (since `2c1b107`),
+  so II-019 "Green Light, Black Ice" lost 69% of its height on a landscape phone
+  — the traffic-light housing filled the frame. `cardStillStyle.ts` puts the
+  still back on `contain` (whole plate, letterboxed, world still visible behind
+  it) and `drive/test/cardStill.test.ts` pins the geometry. The `/` card game was
+  never cropped (`AUDIT.md` §17). Suite is **260/260** across 28 files.
+- **Next, from this fix.** If the still should read *above* the dock rather than
+  behind its scrim on a landscape phone, that is a layout decision for the
+  cockpit, not a fit change. No screenshot baseline exists yet — the headed
+  `?profileDrive` pass is what would add one.
+
 
 ## P0b — the campaign has to be able to change scenes
 

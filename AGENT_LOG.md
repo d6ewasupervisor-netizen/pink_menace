@@ -1371,3 +1371,55 @@ windshield mesh; VII-002's sky went warm; VII-008 is the door and mirror
 rather than a seat-height look into the glass. The Beetle, the pink dash,
 and Gracie in the carrier hold on the cockpit cards that kept the mesh
 (VII-005, VII-006, VII-007).
+
+## 2026-10-31 — the drive's card still was cropped to the viewport (II-019)
+
+**Report.** "Green Light, Black Ice" (II-019, THE GRID · HAZARD) rendered
+zoomed in until the traffic light filled the image box.
+
+**Diagnosis (nothing changed before this point).**
+
+1. *Data.* The master is `cards/II-019.png`, 1024x1536, 2,043,225 B, added
+   once in `888e05f` and never modified. Both surfaces read the same
+   `cards.image_bytes` row, encoded by `scripts/encode-still.py` to a
+   768x1152 WebP (43,712 B, md5 `42282cb2c9d2c1fa1b80757596ad9366`): the card
+   game via `/api/run/image/II-019?v=a88` (`src/game.js:236`), the drive via
+   `/api/drive/image/II-019` (bundled `cards.json:1359`). The 2026-10-29 live
+   seed's Act II still audit was `compared 30, match 30, mismatch 0` (II-031 has
+   no still), so the prod bytes are the repo encode. Not a crop, not a plate.
+2. *Card-game box* (`public/shared/app.css`). 390x844: `.shot-wrap`
+   360.8x541.2 (`aspect-ratio: 2/3`), `.shot` `object-fit: contain`,
+   `object-position: 50% 50%`, `.ken-object` push-in stops at `scale(1.10)`.
+   1280x800: box 366x336 (`max-height: 42dvh`), contain letterboxes to
+   224x336. Whole plate both times, checked on the real page (real `app.js` /
+   `feel.js`, stubbed API) in headless Chromium.
+3. *Presence.* `paintFear` only adds handprints/palm/vignette (opacity from
+   `--quiet-loud`); nothing scales `#shot`. The `ride-look-*` pans (≤1.7) need
+   `#run.riding` plus a ride-along card; II-019 has neither.
+4. *Drive overlay.* `drive/src/components/Game3D/CardOverlay.tsx` painted the
+   still `position:absolute; inset:0; objectFit:'cover'`. Measured: 390x844 →
+   painted 562.7x844, 30.7% of the width gone (69.3% of the plate on screen);
+   844x390 → painted 844x1266, 69.2% of the height gone (30.8% on screen);
+   1280x800 → 58.3% of the height gone. That is the reported frame, and
+   `THE GRID · HAZARD` is this overlay's kicker format.
+5. *Regression.* `git log -S "objectFit: 'cover'"` → `2c1b107` "Redesign drive
+   as a single immersive cockpit surface" (2026-09-26) replaced the
+   `objectFit: 'contain'` of `1ec6ca8` with the full-bleed backdrop. It sits
+   outside `9113d44..HEAD`, and nothing in that range touched the served card
+   game (`git diff --stat 9113d44..HEAD -- public/` is empty), the image
+   routes, or `cards/II-019.*`. The schema's new `beat` branch only relaxes
+   required fields, and the `cards.json` re-export kept every `image` path.
+
+**Fix.** New `drive/src/components/Game3D/cardStillStyle.ts` holds
+`CARD_STILL_FIT = 'contain'` and the still's style; `CardOverlay.tsx` renders
+that, and its `backdrop` entry is gone. The scrims and the dock stay — they
+dim, they do not crop. II-019 after: 390x844 → painted 390x585, 844x390 →
+260x390, 1280x800 → 533x800 — 100% of the plate at all three, letterboxed.
+
+**Tests.** `drive/test/cardStill.test.ts` (5): the style is `contain` with no
+transform/zoom, the whole plate at all three viewports, the `cover` numbers
+above pinned as the regression, the overlay uses the shared style with no
+inlined `objectFit: 'cover'`, and II-019 is the deck's Green Light, Black Ice
+on `/api/drive/image/II-019`. `260/260` vitest across 28 files (255 + 5),
+`tsc --noEmit` exit 0, `bench/baseline.json` restored. No seed, no deploy; the
+cockpit bundle is rebuilt from source at deploy time (`Dockerfile` stage 1).

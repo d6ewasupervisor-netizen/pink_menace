@@ -862,4 +862,46 @@ prose and the cards are daylight) — a plate decision for the art pass, not a
 clock contradiction.
 
 
+## 17. The card still is letterboxed, not cropped (2026-10-31)
+
+**Symptom.** II-019 "Green Light, Black Ice" (THE GRID · HAZARD) showed a
+traffic-light housing filling the frame — no green lens, no crosswalk, no porch.
+
+**Where it was.** Not the data and not the `/` card game:
+
+| Layer | File | Rule | Whole plate? |
+|---|---|---|---|
+| master | `cards/II-019.png` | 1024x1536, one commit (`888e05f`) | yes |
+| delivered | `scripts/encode-still.py` | 768x1152 WebP, same bytes for both surfaces | yes |
+| `/` card game | `public/shared/app.css` `.shot-wrap .shot` | `object-fit: contain`, `object-position: center`; box is `aspect-ratio: 2/3` (phone) or `max-height: 42dvh` (desktop) | yes |
+| `/drive` card | `drive/src/components/Game3D/CardOverlay.tsx` | `position:absolute; inset:0; object-fit: cover` | **no** |
+
+**The numbers (headless Chromium, II-019's still, `cover`).** 390x844 → painted
+562.7x844, 30.7% of the width cropped. 844x390 → painted 844x1266, 69.2% of the
+height cropped. 1280x800 → 58.3% of the height cropped. `contain` → 100% of the
+plate at all three (260x390, 390x585, 533x800).
+
+**Regression.** `2c1b107` "Redesign drive as a single immersive cockpit
+surface" (2026-09-26) swapped `contain` (from `1ec6ca8`) for the full-bleed
+`cover` backdrop. Nothing in `9113d44..HEAD` touched `public/` at all, and the
+image routes and `cards/II-019.*` are unchanged there; the schema's `beat`
+branch and the `cards.json` re-export carried no image geometry.
+
+**Fix.** `drive/src/components/Game3D/cardStillStyle.ts` —
+`CARD_STILL_FIT = 'contain'` + the still's style, rendered by `CardOverlay`.
+Scrims and dock stay (they dim; they do not crop). Quiet tiers are untouched:
+they are opacity/blend plates over `#shot`, and the `ride-look-*` pans only run
+on ride-along cards.
+
+**Guard.** `drive/test/cardStill.test.ts` (5) pins the fit, the whole-plate
+geometry at three viewports, the `cover` numbers as the regression, and that
+the overlay keeps using the shared style. `260/260` vitest, 28 files.
+
+**Still open** (unchanged by this): no headed `?profileDrive` run, so there is
+no screenshot baseline to diff against; the test is the guard. The dock is up
+to 68vh and its translucent scrim still sits over the plate's lower edge on a
+landscape phone — that is the cockpit design, but if the still should read
+above the dock, that is a layout change, not this one.
+
+
 <!-- CONTINUED -->
