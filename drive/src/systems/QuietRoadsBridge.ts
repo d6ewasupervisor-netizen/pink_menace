@@ -105,6 +105,7 @@ class Bridge {
       fire: (e, d) => this.fire(e, d),
       requestQuiz: (trigger, delayS) => { this.pendingQuiz = { trigger, at: this.clock + delayS }; },
       setObjective: (t) => useQRHud.getState().setTransient({ objective: t }),
+      setQte: (q) => useQRHud.getState().setTransient({ qte: q }),
       toast: (t) => this.toast(t),
       placeVehicle: (p, h) => { this.sim.zones.place(p); teleportVehicle(p.x, p.y, h); },
       setVar: (n, v) => useQRStore.getState().setVar(n, v),

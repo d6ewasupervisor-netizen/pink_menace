@@ -6,6 +6,7 @@
 import { create } from 'zustand';
 import type { ShownLine, DialogueNode, ChoiceOption, SimFrame } from '@/quietroads';
 import type { DebriefModel } from '@/quietroads/debrief';
+import type { ChainupPrompt } from '@/quietroads/sim/chainup';
 
 export interface TelemetryRow {
   ts: number;
@@ -23,6 +24,8 @@ interface HudState {
   horn: boolean;
   run: boolean;
   qteActive: boolean;
+  /** The cockpit QTE prompt (chain-up's hold-the-brake). Renders above every layer. */
+  qte: ChainupPrompt | null;
   card: { id: string; source: 'story' | 'world' } | null;
   /** The grade result panel (built by quietroads/debrief). Null when closed. */
   debrief: DebriefModel | null;
@@ -38,7 +41,7 @@ interface HudState {
 
 export const useQRHud = create<HudState>()((set, get) => ({
   line: null, direction: null, choices: null, objective: '', toast: '', frame: null,
-  horn: false, run: false, qteActive: false, card: null, debrief: null, scare: 'none', telemetry: [],
+  horn: false, run: false, qteActive: false, qte: null, card: null, debrief: null, scare: 'none', telemetry: [],
   setTransient: (partial) => set(partial),
   setHorn: (v) => set({ horn: v }),
   setRun: (v) => set({ run: v }),

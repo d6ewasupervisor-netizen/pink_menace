@@ -1423,3 +1423,56 @@ inlined `objectFit: 'cover'`, and II-019 is the deck's Green Light, Black Ice
 on `/api/drive/image/II-019`. `260/260` vitest across 28 files (255 + 5),
 `tsc --noEmit` exit 0, `bench/baseline.json` restored. No seed, no deploy; the
 cockpit bundle is rebuilt from source at deploy time (`Dockerfile` stage 1).
+
+## 2026-10-31 — 5.2's chain-up could not be finished (Bug 1)
+
+**Report.** The objective said to pick up the tensioner, nothing happened when
+the car got there, and there was no way to tell where "there" was.
+
+**The chain, as it was.** `5.2.entry` (branch: `has_item chains`) → `5.2.0`
+(direction) → `5.2.1` (Deac: "Chain-up. Pull in. I'll watch the grass.") →
+`5.2.card_VII-002` → `5.2.2` → `5.2.go` (`start_gameplay: chainup_qte`) →
+`Simulation.startMission("chainup_qte")` → `ChainupRun`. Everything else hung
+off two events that only `ChainupRun` emits:
+
+| Trigger | Emitted when (before) | Node waiting on it |
+|---|---|---|
+| `chainup.qte.drop` | inside the pad AND (`throttle > 0.75` \|\| `horn` \|\| `brake > 0.92`) | `5.2.drop` → `5.2.drop2` (leaf) |
+| `chainup.qte.success` | inside the pad AND `0.2 < brake < 0.85` AND `\|speed\| < 2` AND `throttle < 0.2` for 3.5 s | `5.2.3` → `5.2.end` → `5.3` |
+| `noise.yellow` | the noise system | `pool:noise_yellow` |
+| `mission.fail.swarm` | the Quiet | `5.2.swarm` → `5.1` |
+
+**Root cause.** The success window excluded the only brake a player can make.
+Keys and pads are binary and the pedal ramps to 1.0 in 0.6 s
+(`KENT_BRAKE_UP = 1.6/s`), so holding the brake sits at 1.0 — above the 0.85
+ceiling — and 1.0 is also above the 0.92 drop threshold, so stopping the car
+fired "the tensioner hits the ice" every 4 s (`dropCd`) and `hold` could never
+reach 3.5 s. Success was unreachable from a keyboard or a phone, and nothing on
+screen named the gesture: the objective was "Tighten. Don't drop it." and the
+only marker was the 6 m pink pad the car spawns on.
+
+**Geometry.** `grade.chainPad` is `{ x: 2286, y: 1028, w: 28, h: 44 }` and the
+pin (`markers.chainup`) is `(2300, 1050)`. `starts.chainup_pullout` is the pin,
+so the car starts *inside* the pad; the miss was the gesture, not the drive.
+Arrival was `rectHas(pad, pos)` only — no nose, no radius.
+
+**Fix.** `chainup.ts`: arrive = inside the pad **or** within `CHAIN_ARRIVE_M`
+(26 m) of the pin, no heading test; stopped = `|v| ≤ 1.5 m/s`; tighten =
+**any** brake (`≥ 0.12`) with no throttle, held `1.6 s`; drop = throttle > 0.6,
+horn, or a stab (`brake > 0.9` while still rolling above 3 m/s). Three stages
+drive → stop → tighten, each with its own objective line in Deac's voice, the
+distance while it matters, and a cockpit prompt while it bites:
+
+- drive: "Chain-up is <n> m up the grade. Pull in at the sign and stop."
+- stop: "You're in the pull-out. Stop it. Ease off — don't stab it."
+- tighten: "Brake down and hold. Drape, hook, tighten. Don't drop it." +
+  `CockpitQTE` ("HOLD THE BRAKE", progress bar, "HOLD ↓ / S · or pull the gas
+  stick back") at `z 246`, above dialogue and card.
+
+**Verified.** `drive/test/chainup.test.ts` (5) drives the real `Simulation`
+into a real `DialogueRunner`: arrival at 40 m → stop → brake 1.0 → `success` →
+`5.2.3` → `5.2.end` → `5.2->5.3` with `chains_mounted`; generous arrival (20 m,
+nose down-grade) also finishes; a stab at 8 m/s and a rev both drop and never
+succeed; no chains still routes `5.2->2.8` with `chainup_blocked`. `265/265`
+vitest across 29 files, `tsc --noEmit` 0, headed Chromium screenshot at
+390x844/844x390/1280x800 shows the prompt and the per-step objective.

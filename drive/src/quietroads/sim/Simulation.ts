@@ -11,7 +11,7 @@ import { LedgerRun } from "./ledger";
 import { RibbonRun } from "./ribbon";
 import { RuralRun } from "./rural";
 import { ConvoyRun, type ConvoyMission } from "./convoy";
-import { ChainupRun } from "./chainup";
+import { ChainupRun, type ChainupPrompt } from "./chainup";
 import { ClimbRun } from "./climb";
 import { EscortRun } from "./escort";
 import { SpokaneRun } from "./spokane";
@@ -50,6 +50,8 @@ export interface SimEvents {
   placeVehicle: (pos: Vec2, heading: number) => void;
   /** The park grade writes dialogue vars (park_gap_in). */
   setVar?: (name: string, value: number) => void;
+  /** The cockpit QTE prompt (chain-up). Null clears it. Renders above every layer. */
+  setQte?: (qte: ChainupPrompt | null) => void;
 }
 
 export interface SimFrame extends ObserverOut {
@@ -169,7 +171,11 @@ export class Simulation {
     this.ribbon = new RibbonRun(this.map.ribbon, { fire });
     this.convoy = new ConvoyRun(this.map.ribbon, this.map.markers.stall_point, this.map.markers.issaquah, { fire });
     this.rural = new RuralRun(this.map.rural, { fire, requestQuiz: (t) => this.ev.requestQuiz(t, 0) });
-    this.chainup = new ChainupRun(this.map.chainPad, { fire });
+    this.chainup = new ChainupRun(this.map.chainPad, {
+      fire,
+      setObjective: (t) => this.setObjective(t),
+      prompt: (p) => this.ev.setQte?.(p),
+    });
     this.climb = new ClimbRun(this.map.ice, this.map.markers.chainup, { fire });
     this.escort = new EscortRun({ fire });
     this.spokane = new SpokaneRun(this.map, { fire, setVar: (n, v) => this.ev.setVar?.(n, v) });
@@ -362,7 +368,9 @@ export class Simulation {
         this.missionStart = "chainup_pullout";
         this.tutorialForgiving = false; this.zones.quizzesEnabled = false;
         this.chainup.reset();
-        this.setObjective("Tighten. Don't drop it.");
+        // The chain-up's own step() owns this line from the first frame (it knows the
+        // distance and the stage); this is only what shows before the sim ticks.
+        this.setObjective("Chain-up. Pull in at the sign and stop.");
         this.resetWorld();
         this.speedLimitMph = 15;
         break;

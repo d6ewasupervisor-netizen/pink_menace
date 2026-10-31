@@ -904,4 +904,29 @@ landscape phone — that is the cockpit design, but if the still should read
 above the dock, that is a layout change, not this one.
 
 
+## 18. 5.2's chain-up could not be finished (2026-10-31)
+
+**Symptom (device).** The objective said to pick up the tensioner; reaching the
+pull-out did nothing, and "there" was not knowable.
+
+**Chain.** `5.2.go` (`start_gameplay: chainup_qte`) → `Simulation.startMission`
+→ `ChainupRun` → `chainup.qte.success` → `5.2.3` → `5.2.end` → `5.3`. The fail
+branch was `chainup.qte.drop` → `5.2.drop` → `5.2.drop2` (leaf).
+
+**Cause.** The success window was `0.2 < brake < 0.85`, and keys/pads are
+binary with a pedal that ramps to 1.0 in 0.6 s (`KENT_BRAKE_UP = 1.6/s`); the
+same 1.0 was above the `brake > 0.92` drop threshold. So the only brake a
+keyboard or phone can produce was outside the pass window and inside the fail
+window — stopping the car fired the failure every 4 s and success could never
+accrue. No prompt existed, and the objective named no place and no gesture.
+
+**Geometry.** `chainPad` = `{2286, 1028, 28, 44}`, pin `(2300, 1050)`, spawn =
+pin. Arrival was `rectHas` only. Now: rect or a 26 m disc (`CHAIN_ARRIVE_M`),
+no heading; stopped `≤ 1.5 m/s`; tighten = any brake `≥ 0.12` held `1.6 s`.
+
+**Fix.** `quietroads/sim/chainup.ts` (stages + objectives + drop rules),
+`Simulation.setQte`, `qrHud.qte`, `CockpitQTE.tsx` (z 246). `drive/test/chainup.test.ts`
+(5) proves the chain end to end and the no-chains route to 2.8. 265/265, tsc 0.
+
+
 <!-- CONTINUED -->

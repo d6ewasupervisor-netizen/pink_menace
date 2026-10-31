@@ -36,7 +36,7 @@ deliberately empty rather than filled with a guess.
   `seconds`. Teaching copy leads with §5.2. (P1, BD-1, BD-2)
 - **[config] Teaching-rule file.** `drive/src/quietroads/config.ts` holds the
   follow rule. Vehicle feel stays in `VehicleController` on purpose.
-- **[tests] `vitest run` green** — 260 tests, 28 files (stop/gap/yield, follow-rule,
+- **[tests] `vitest run` green** — 265 tests, 29 files (stop/gap/yield, follow-rule,
   card cues on the sim bus, **act-boundary chain**, **Deac's drive script + the
   witness gate on his beats**, exam gate, retest week, alloc identity, CCD, quality
   tiers + the 30 Hz recovery, scene-pass draw calls, instancing, accessibility,
@@ -113,6 +113,14 @@ deliberately empty rather than filled with a guess.
   behind its scrim on a landscape phone, that is a layout decision for the
   cockpit, not a fit change. No screenshot baseline exists yet — the headed
   `?profileDrive` pass is what would add one.
+- **5.2's chain-up is finishable (2026-10-31).** The QTE's pass window
+  (`0.2 < brake < 0.85`) excluded the only brake a key or pad makes (`1.0`), and
+  `brake > 0.92` fired the drop branch, so stopping the car fired the failure
+  every 4 s and success was unreachable. Now: arrive (26 m disc or the pad, no
+  heading), stop (≤ 1.5 m/s), hold any brake 1.6 s; three stage objectives in
+  Deac's voice with the distance, plus a `HOLD THE BRAKE` cockpit prompt.
+  `drive/test/chainup.test.ts` (5) drives the sim into the runner and lands on
+  `5.2->5.3`; no chains still routes `5.2->2.8`. Suite **265/265**, 29 files.
 
 
 ## P0b — the campaign has to be able to change scenes
