@@ -69,11 +69,17 @@ describe("the seeder's do-not-seed contract", () => {
     for (const f of six) expect(isDoNotSeed(read(`cards/${f}`)), f).toBe(false);
   });
 
-  it("never skips a card that has a still on disk", () => {
+  it("never treats a live still as a scaffold, except Act VII which the card game still hides", () => {
     for (const f of FILES) {
-      const png = f.replace(/\.json$/, ".png");
-      if (!fs.existsSync(url(`cards/${png}`))) continue;
-      expect(isDoNotSeed(read(`cards/${f}`)), `${f} has a still and must seed`).toBe(false);
+      const base = f.replace(/\.json$/, "");
+      const hasStill =
+        fs.existsSync(url(`cards/${base}.png`)) || fs.existsSync(url(`cards/${base}.jpg`));
+      if (!hasStill) continue;
+      if (base.startsWith("VII-")) {
+        expect(isDoNotSeed(read(`cards/${f}`)), `${f} stays out of the card game`).toBe(true);
+      } else {
+        expect(isDoNotSeed(read(`cards/${f}`)), `${f} has a still and must seed`).toBe(false);
+      }
     }
   });
 

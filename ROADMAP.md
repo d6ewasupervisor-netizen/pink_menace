@@ -99,8 +99,9 @@ deliberately empty rather than filled with a guess.
   (5.1 → 8.3 has never run on hardware; note pacing drags between 6.2 and 7.1),
   the II-009 / III-027 plate redraws (`AUDIT.md` §11), an afternoon-lot plate for
   I-009 if the 1.4 night placement wants one, the `7.3`/`8.1` `dusk`/`night`
-  asset keys now that the scenes are daylight, and VII stills (deliberately not
-  produced).
+  asset keys now that the scenes are daylight. VII stills are on disk for the
+  drive (`cards/VII-001.jpg` … `VII-010.jpg`); the card game still does not
+  deal them.
 
 ## P0b — the campaign has to be able to change scenes
 
@@ -234,10 +235,9 @@ deliberately empty rather than filled with a guess.
 ## Known risks / deliberately out of scope
 
 - Act VII is **open** (author-approved 2026-10-29): the 2026-10-28 overhaul opened
-  scenes 5.1–8.3 (`48b0c49`), and VII cards now exist under the no-still
-  convention — no VII stills, no VII zone plates. The seeder writes those ten
-  rows with a null image so `/drive` can grade them. The card game hides the
-  same `variation.forced` sentence and does not deal them.
+  scenes 5.1–8.3 (`48b0c49`). Drive stills are `cards/VII-001.jpg` …
+  `VII-010.jpg`, seeded as image bytes. No VII zone plates. The card game
+  hides the `variation.forced` sentence and does not deal them.
   `drive/test/seed.test.ts` still pins the ten as that shape, and IV-001 stays
   seedable. Backend, auth, parent dashboard, DRIVE_ENABLED untouched (Rule 2).
 - BD-1 is **signed off** (owner, 2026-10-05): `FOLLOW.rule` stays `seconds`

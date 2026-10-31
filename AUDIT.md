@@ -855,8 +855,8 @@ relabel at `4.2.1`, not a new run.
 ok, `test-manifest.js` ok; the rest of the §16 baselines are unchanged.
 
 **Still open**: the headed `?profileDrive` pass, a device playthrough, the
-II-009 / III-027 plates and the I-009 afternoon plate; VII stills are still
-deliberately unproduced. The `7.3` and `8.1` background/ambience keys keep their
+II-009 / III-027 plates and the I-009 afternoon plate. VII drive stills are
+`cards/VII-00N.jpg` (2026-10-31); the card game does not deal them. The `7.3` and `8.1` background/ambience keys keep their
 `dusk`/`night` asset names (no local asset is referenced by the drive; the
 prose and the cards are daylight) — a plate decision for the art pass, not a
 clock contradiction.

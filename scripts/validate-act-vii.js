@@ -3,13 +3,13 @@
 // Act VII — The Dark Hours: The Road Home (opened 2026-10-29).
 //
 // Cards only: every VII card ships a brief and must carry
-// `variation.forced: "Act VII scaffold — no still; do not seed"`. No VII still
-// exists. The seeder writes the text with a null image so /drive can grade it.
-// The card game does not deal that sentence.
+// `variation.forced: "Act VII scaffold — no still; do not seed"`. That sentence
+// keeps the card game from dealing the card. A still file (png or jpg) is
+// required so /drive can show it. The seeder writes that file's bytes.
 //
 // Modeled on validate-act-v.js / validate-act-iii.js, minus the Act V ban on
 // VII material (VII is where that material lives now). It adds three checks:
-//   - the no-still / do-not-seed contract (forced string, no winner, no PNG)
+//   - the card-game hide (forced string, no winner) and a drive still on disk
 //   - the herd's art law in the brief (no gore; figures do not fill the frame)
 //   - callback integrity (a scheduled miss must have a later card that bills it)
 
@@ -101,8 +101,10 @@ for (const c of cards) {
   if (!FORCED.test(String(c.variation.forced || ""))) err(id, "variation.forced must say 'no still'");
   if (!NO_SEED.test(String(c.variation.forced || ""))) err(id, "variation.forced must say 'do not seed'");
   if (c.variation.winner) err(id, "no winner — no VII still exists");
-  if (fs.existsSync(path.join(dir, id + ".png")) || fs.existsSync(path.join(dir, id + ".jpg"))) {
-    err(id, "a VII still exists on disk — VII stills are not produced");
+  const stillPng = path.join(dir, id + ".png");
+  const stillJpg = path.join(dir, id + ".jpg");
+  if (!fs.existsSync(stillPng) && !fs.existsSync(stillJpg)) {
+    err(id, "drive still missing (png or jpg)");
   }
   const cam = c.image_brief && c.image_brief.camera;
   if (!camEnum.includes(cam) || !LEGAL_CAMERAS.includes(cam)) err(id, "camera");

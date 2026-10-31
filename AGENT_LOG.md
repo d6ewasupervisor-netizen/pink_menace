@@ -1355,3 +1355,19 @@ Seeded the ten against production. Live check: 10 rows, `image_bytes` null,
 28 options on the seven decision cards (VII-004, VII-009, VII-010 have none).
 Still audit for act VII: compared 0, `in_db_not_repo` is the ten ids, exit 0.
 `validate-act-vii.js` ok. `drive/test/seed.test.ts` 6/6. No stills.
+
+## 2026-10-31 — Act VII drive stills
+
+Compiled each card with `assemblePrompt` and attached the locks from
+`resolve-refs` (cabin, Beetle exterior, Gracie, Mya, Quiet plates, Deac's
+clipboard ref). Generated `cards/VII-001.jpg` … `VII-010.jpg` and seeded
+them. Live rows are `image/jpeg`, byte lengths matching the files. The
+card-game hide stays: `variation.forced` still matches the scaffold sentence,
+so `/` does not deal them. `validate-act-vii.js` now requires the still file.
+`seed.test.ts` 6/6.
+
+Known misses, not regenerated again: VII-001 and VII-003 dropped the
+windshield mesh; VII-002's sky went warm; VII-008 is the door and mirror
+rather than a seat-height look into the glass. The Beetle, the pink dash,
+and Gracie in the carrier hold on the cockpit cards that kept the mesh
+(VII-005, VII-006, VII-007).
