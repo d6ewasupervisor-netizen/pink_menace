@@ -27,6 +27,13 @@ interface HudState {
   /** The cockpit QTE prompt (chain-up's hold-the-brake). Renders above every layer. */
   qte: ChainupPrompt | null;
   card: { id: string; source: 'story' | 'world' } | null;
+  /**
+   * A mission this scene started is running. Written in ONE place
+   * (QuietRoadsBridge.syncMission) and read by the cockpit's derived rule: while
+   * it is true and nothing compound is open, the driving HUD is the surface,
+   * whatever the phase flag happens to say.
+   */
+  missionActive: boolean;
   /** The grade result panel (built by quietroads/debrief). Null when closed. */
   debrief: DebriefModel | null;
   scare: 'none' | 'edge' | 'flood';
@@ -41,7 +48,7 @@ interface HudState {
 
 export const useQRHud = create<HudState>()((set, get) => ({
   line: null, direction: null, choices: null, objective: '', toast: '', frame: null,
-  horn: false, run: false, qteActive: false, qte: null, card: null, debrief: null, scare: 'none', telemetry: [],
+  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, scare: 'none', telemetry: [],
   setTransient: (partial) => set(partial),
   setHorn: (v) => set({ horn: v }),
   setRun: (v) => set({ run: v }),

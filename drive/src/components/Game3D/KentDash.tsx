@@ -9,7 +9,8 @@ import { liveDrive } from '@/systems/driveTelemetry';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useCompactHud } from '@/hooks/useCompactHud';
-import { useCockpitOrientation, type CockpitOrientation } from './cockpit/layout';
+import { readCockpitState, useCockpitOrientation, useDrivingHud, type CockpitOrientation } from './cockpit/layout';
+import { showDrivingHud } from '@/quietroads/cockpit';
 import {
   formatEta,
   formatManeuverDist,
@@ -66,7 +67,10 @@ function pose() {
 
 export function KentDash() {
   const worldMode = useGameStore((s) => s.worldMode);
-  const phase = useGameStore((s) => s.phase);
+  // Not `phase === 'driving'`: the dash is part of the driving HUD the cockpit
+  // rule owns (quietroads/cockpit.ts), so a stale phase cannot hide it while a
+  // mission is running.
+  const driving = useDrivingHud();
   const hp = useGameStore((s) => s.hp);
   const fuel = useGameStore((s) => s.fuel);
   const objective = useQRHud((s) => s.objective);
@@ -96,7 +100,9 @@ export function KentDash() {
       const gap = gapRef.current;
       const g = useGameStore.getState();
       const hud = useQRHud.getState();
-      if (g.worldMode !== 'kent' || (g.phase !== 'driving' && g.phase !== 'walking')) {
+      // The same rule the mount uses, so a stale phase cannot leave the dash on
+      // screen with a frozen map.
+      if (g.worldMode !== 'kent' || !showDrivingHud(readCockpitState())) {
         mapSig = '';
         raf = requestAnimationFrame(tick);
         return;
@@ -136,7 +142,7 @@ export function KentDash() {
   }, []);
 
   if (worldMode !== 'kent') return null;
-  if (phase !== 'driving' && phase !== 'walking') return null;
+  if (!driving) return null;
 
   const { plan } = readout;
   const speedColor = readout.over ? '#ff5c6a' : '#3ef0ff';

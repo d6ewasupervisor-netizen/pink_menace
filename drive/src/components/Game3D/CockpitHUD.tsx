@@ -7,13 +7,15 @@
  * every act, one cockpit, the act badge telling you where you are. Reacts to
  * orientation.
  */
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
+import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { KentDash } from './KentDash';
 import { QuietHUD } from './QuietHUD';
 import { tokens, useOrientation } from './cockpit/tokens';
-import { useCompoundCockpit } from './cockpit/layout';
+import { readCockpitState, useDrivingHud } from './cockpit/layout';
+import { staleCockpitFlag } from '@/quietroads/cockpit';
 import { actForScene, challengeForAct, type CardAct } from '@/quietroads';
 import { SCENE_ACCENT, specForAct } from './sceneSpec';
 
@@ -23,7 +25,32 @@ export function CockpitHUD() {
   const setPhase = useGameStore((s) => s.setPhase);
   const sceneId = useQRStore((s) => s.sceneId);
   const orientation = useOrientation();
-  const compound = useCompoundCockpit();
+  // The one derived rule: mission running + nothing compound open = the HUD is
+  // the surface. KentDash, the noise meter and the sticks all read it too.
+  const drivingHud = useDrivingHud();
+
+  // Safety net: a mission is running, nothing compound is open, and the car is
+  // nevertheless not the surface. Wait a beat so a normal transition is never
+  // fought, then name the stale flag out loud and hand the car back.
+  useEffect(() => {
+    const state = readCockpitState();
+    if (!drivingHud) return;
+    if (!state.missionActive) return;
+    if (state.cardOpen || state.choiceOpen || state.debriefOpen || state.quizOpen) return;
+    // A spoken line owns the screen (the scene hands the car back on idle), and
+    // pause / menu are the player's own.
+    if (state.storyOnScreen) return;
+    if (phase === 'driving' || phase === 'walking' || phase === 'paused' || phase === 'menu') return;
+    const t = window.setTimeout(() => {
+      const again = readCockpitState();
+      if (again.phase !== phase) return; // it moved on its own; nothing to repair
+      if (again.storyOnScreen) return; // a line arrived; leave it
+      const flag = staleCockpitFlag(again) ?? `phase="${again.phase}"`;
+      console.warn(`[cockpit] ${flag} never cleared after the mission started — restoring the driving HUD.`);
+      QuietRoads.restoreDrivingHud(flag);
+    }, 1000);
+    return () => window.clearTimeout(t);
+  }, [drivingHud, phase]);
 
   const handlePause = useCallback(() => setPhase('paused'), [setPhase]);
 
@@ -80,9 +107,10 @@ export function CockpitHUD() {
       )}
 
       {/* Nav cluster + world HUD carry their own placement and share these
-          tokens. The nav cluster is a driving surface: a card, a quiz or a
-          debrief stands it down so the still owns the body band. */}
-      {!compound && <KentDash />}
+          tokens. Both read the cockpit rule (quietroads/cockpit.ts): a card, a
+          quiz, a debrief or a choice stands the driving HUD down, and a running
+          mission brings it back regardless of the phase flag. */}
+      <KentDash />
       <QuietHUD />
     </div>
   );

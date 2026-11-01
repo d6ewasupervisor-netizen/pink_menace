@@ -3,6 +3,7 @@ export * from "./dialogue/host";
 export * from "./dialogue/voice";
 export { DialogueRunner } from "./dialogue/DialogueRunner";
 export * from "./config";
+export * from "./cockpit";
 export * from "./debrief";
 export * from "./actChallenges";
 export * from "./study";

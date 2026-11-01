@@ -22,6 +22,7 @@ import type { CSSProperties } from 'react';
 import { useEffect, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
+import { compoundOpen, showDrivingHud, type CockpitState } from '@/quietroads/cockpit';
 
 /** Three cockpit shapes. Desktop is its own frame: wide and shallow. */
 export type CockpitOrientation = 'portrait' | 'landscape' | 'desktop';
@@ -151,12 +152,53 @@ export function qteBand(frame: CockpitFrame): CSSProperties {
  * what keep them apart, not hiding.
  */
 export function useCompoundCockpit(): boolean {
-  const phase = useGameStore((s) => s.phase);
+  const quizActive = useGameStore((s) => s.quizActive);
   const card = useQRHud((s) => s.card);
   const debrief = useQRHud((s) => s.debrief);
   const choices = useQRHud((s) => s.choices);
-  if (phase === 'card' || phase === 'quiz') return true;
   // A choice is a decision moment like a card: the player needs the screen for
   // the options, so the driving HUD stands down. A spoken line does not.
-  return Boolean(card || debrief || choices);
+  return compoundOpen({
+    cardOpen: Boolean(card),
+    choiceOpen: Boolean(choices),
+    debriefOpen: Boolean(debrief),
+    quizOpen: Boolean(quizActive),
+  });
+}
+
+/** Everything the rule reads, straight from the stores. */
+export function readCockpitState(): CockpitState {
+  const g = useGameStore.getState();
+  const h = useQRHud.getState();
+  return {
+    phase: g.phase,
+    missionActive: h.missionActive,
+    cardOpen: Boolean(h.card),
+    choiceOpen: Boolean(h.choices),
+    debriefOpen: Boolean(h.debrief),
+    quizOpen: Boolean(g.quizActive),
+    storyOnScreen: Boolean(h.line || h.direction),
+  };
+}
+
+/**
+ * The driving cockpit's one derived answer: sticks, dash and noise meter are up
+ * whenever a mission owns the car and no card / quiz / debrief / choice is open —
+ * however the last card closed. See quietroads/cockpit.ts for the rule itself.
+ */
+export function useDrivingHud(): boolean {
+  const phase = useGameStore((s) => s.phase);
+  const quizActive = useGameStore((s) => s.quizActive);
+  const missionActive = useQRHud((s) => s.missionActive);
+  const card = useQRHud((s) => s.card);
+  const debrief = useQRHud((s) => s.debrief);
+  const choices = useQRHud((s) => s.choices);
+  return showDrivingHud({
+    phase,
+    missionActive,
+    cardOpen: Boolean(card),
+    choiceOpen: Boolean(choices),
+    debriefOpen: Boolean(debrief),
+    quizOpen: Boolean(quizActive),
+  });
 }

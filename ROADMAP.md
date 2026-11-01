@@ -128,6 +128,21 @@ deliberately empty rather than filled with a guess.
   would give the landscape middle its 100-odd pixels back (the driving body band
   there is only 19 px: 390 − 176 top − 195 bottom). The QTE prompt and the
   `HOLD THE BRAKE` copy should get a device read.
+- **Who owns the cockpit is one rule (2026-11-01).** `quietroads/cockpit.ts`
+  derives `showDrivingHud` from the surfaces that are open plus
+  `qrHud.missionActive` (one writer: `QuietRoadsBridge.syncMission()`), so a
+  phase left behind by a card can no longer hide the sticks and the dash — the
+  5.2 stuck report. The bridge reconciles it every frame and `CockpitHUD` keeps a
+  one-second watchdog. `drive/test/cockpit-hud.test.ts` (14) and
+  `drive/e2e/cockpit-restore.spec.ts` (10, headed 390x844) hold it; the twelve
+  layout screenshots are unchanged. Suite is **280/280** across 30 files.
+- **Next, from the rule:** the drive has no card timer at all
+  (`timeout_option_id`/`timeout_ms` are deck data the cockpit never reads), and a
+  hazard card that never got a grade shows no CONTINUE — so a card can still
+  trap a player on the card itself (AUDIT §20). That is the next bug in this
+  family, and the fix belongs in `CardOverlay`/`DialogueRunner`, not in the
+  cockpit. VII-008 in 8.1 also needs the parking gap driven before its card can
+  be reached in a test.
 - **5.2's chain-up is finishable (2026-10-31).** The QTE's pass window
   (`0.2 < brake < 0.85`) excluded the only brake a key or pad makes (`1.0`), and
   `brake > 0.92` fired the drop branch, so stopping the car fired the failure

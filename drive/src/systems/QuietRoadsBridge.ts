@@ -19,7 +19,7 @@ import {
   type DialogueHost, type DialogueFile, type VehicleSample, type SimFrame, type MissionId,
   type Question as CoreQuestion, type TimerHandle, VEHICLE, CHASSIS_DECEL, brakeDecel, type WalkerInput, type MasteryRecord,
   actForScene, actForMission, challengeForAct, type CardAct,
-  isGradeEvent, buildDebrief,
+  isGradeEvent, buildDebrief, cockpitPhaseFor, staleCockpitFlag,
 } from '@/quietroads';
 import { KnowledgeSeat, examVerdict } from '@/quietroads/study/seat';
 // P3: Act I only, eagerly. The rest of the acts are per-act dynamic imports.
@@ -167,6 +167,10 @@ class Bridge {
     this.runner.on('card_shown', (id) => this.showCard(id, 'story'));
     this.runner.on('scene_started', (id) => {
       useQRStore.setState({ sceneId: id });
+      // A new scene starts with no mission of its own. The mission flag follows
+      // start_gameplay, never the scene we just left.
+      this.missionScene = null;
+      this.syncMission();
       this.onSceneStarted(id);
       // Always freeze on scene start. For dialogue / radio / video scenes this
       // is the permanent state until the scene ends. For gameplay scenes the
@@ -242,9 +246,83 @@ class Bridge {
   resolveMarker() { if (this.started) this.sim.resolveMarker(); }
   get currentChallenge() { return challengeForAct(this.currentAct); }
 
-  private enterDialogue() { haltVehicle(); this.sim.freeze('dialogue'); useGameStore.getState().setPhase('dialogue'); }
-  private enterDriving() { this.sim.unfreeze('dialogue'); releaseDrive(); useGameStore.getState().setPhase('driving'); }
-  private enterWalking() { haltVehicle(); this.sim.unfreeze('dialogue'); useGameStore.getState().setPhase('walking'); }
+  private enterDialogue() { haltVehicle(); this.sim.freeze('dialogue'); useGameStore.getState().setPhase('dialogue'); this.syncMission(); }
+  private enterDriving() { this.sim.unfreeze('dialogue'); releaseDrive(); useGameStore.getState().setPhase('driving'); this.syncMission(); }
+  private enterWalking() { haltVehicle(); this.sim.unfreeze('dialogue'); useGameStore.getState().setPhase('walking'); this.syncMission(); }
+
+  // ------------------------------------------------------------ cockpit ownership
+  /** The scene the running mission was started in. Cleared when a scene starts. */
+  private missionScene: string | null = null;
+
+  /**
+   * The ONE writer of `qrHud.missionActive`: a mission is active while the sim is
+   * running one that this scene started. The cockpit's rule
+   * (quietroads/cockpit.ts) turns that into "the HUD is the surface" — no card,
+   * quiz, debrief or choice path has to clear anything by hand.
+   */
+  private syncMission() {
+    const sceneId = this.runner.scene?.id ?? null;
+    const active = this.started && this.sim.missionId !== '' && sceneId != null && sceneId === this.missionScene;
+    const hud = useQRHud.getState();
+    if (hud.missionActive !== active) hud.setTransient({ missionActive: active });
+  }
+
+  /**
+   * The rule, applied to the world once a frame: while a mission this scene
+   * started is running and no story surface is on screen, the car is the surface.
+   *
+   * This is what restores the sticks twice over. A phase left at 'card' / 'quiz'
+   * / 'dialogue' after the surface closed (a card that resolved into a
+   * `start_gameplay`, a quiz that closed without handing the car back) is named in
+   * a console warning and repaired here; a `freeze('card')` nobody released is
+   * dropped the same way. Nothing here invents state: the pause menu, a live card
+   * and a spoken line are all left alone.
+   */
+  private reconcileCockpit() {
+    const hud = useQRHud.getState();
+    const g = useGameStore.getState();
+    if (!hud.missionActive) return;
+    const state = {
+      phase: g.phase,
+      missionActive: hud.missionActive,
+      cardOpen: Boolean(hud.card),
+      choiceOpen: Boolean(hud.choices),
+      debriefOpen: Boolean(hud.debrief),
+      quizOpen: g.phase === 'quiz' || Boolean(g.quizActive) || Boolean(this.activeQuiz),
+      // A line owns the phase while it is up; cockpitPhaseFor leaves it alone.
+      storyOnScreen: Boolean(hud.line || hud.direction),
+    };
+    // A stale freeze is a stale flag too: the story paused the sim for a surface
+    // that is no longer there.
+    if (!state.cardOpen && this.sim.isFrozenBy('card')) this.releaseStale('freeze("card")');
+    if (!state.quizOpen && this.sim.isFrozenBy('quiz')) this.releaseStale('freeze("quiz")');
+    const want = cockpitPhaseFor(state, this.sim.mode === 'walker');
+    if (!want) return;
+    this.releaseStale(staleCockpitFlag(state) ?? `phase="${g.phase}"`);
+    if (want === 'walking') this.enterWalking(); else this.enterDriving();
+  }
+
+  /** Name the flag that was holding the cockpit down, then clear it. */
+  private releaseStale(flag: string) {
+    const held = this.sim.frozenBy;
+    const freezes = held.length ? ` (sim frozen by: ${held.join(', ')})` : '';
+    console.warn(
+      `[cockpit] ${flag} was still set with a mission running and nothing on screen${freezes} — the driving HUD and the sticks are restored.`,
+    );
+    this.sim.unfreeze('card');
+    this.sim.unfreeze('quiz');
+  }
+
+  /**
+   * Hand the car back from outside the tick loop — CockpitHUD's one-second
+   * watchdog calls this with the name of the flag it saw. Public on purpose: it
+   * is the safety net, not a story action.
+   */
+  restoreDrivingHud(flag: string) {
+    if (!this.started) return;
+    this.releaseStale(flag);
+    if (this.sim.mode === 'walker') this.enterWalking(); else this.enterDriving();
+  }
 
   /** World setup that the dialogue file implies but doesn't spell out. */
   private onSceneStarted(id: string) {
@@ -293,6 +371,8 @@ class Bridge {
           ? 'highway' : 'beetle';
       useGameStore.setState({ chassis });
       if (id === 'straight_night_drive') useGameStore.setState({ timeOfDay: 'night' });
+      // This is the scene the mission belongs to: the cockpit rule keys off it.
+      this.missionScene = this.runner.scene?.id ?? null;
       if (this.sim.mode === 'walker') this.enterWalking(); else this.enterDriving();
       return;
     }
@@ -399,6 +479,10 @@ class Bridge {
   private lastStoryWait: string | null = null;
   tick(dt: number) {
     if (!this.started) return;
+    // Cockpit ownership is reconciled before the phase gate below: the whole
+    // point is that a stale phase must not be able to keep the car off screen.
+    this.syncMission();
+    this.reconcileCockpit();
     const g = useGameStore.getState();
     // A question stops the clock too, so a timer that was about to fire
     // waits until the car is moving again.

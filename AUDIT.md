@@ -968,4 +968,55 @@ top band to the bottom edge instead. A landscape-compact nav cluster (map only,
 the squeeze by putting the dock beside the still instead of under it.
 
 
+## 20. The cockpit's one rule — who owns the screen (2026-11-01)
+
+**Symptom (device, portrait).** 5.2: the VII-002 card and the dialogue play,
+`start_gameplay: chainup_qte` runs, and the car is on screen with no sticks and
+no dashboard. Stuck.
+
+**Why the phase flag is the wrong owner.** `useCompoundCockpit()` treated
+`phase === 'card' | 'quiz'` as "a card is open", and every surface carried its
+own `phase` gate (`KentDash` driving|walking, `TouchOverlay` driving|walking,
+`QuietHUD` driving && !compound). A phase left behind by a surface that closed —
+the shape of the reported bug — hides all of them at once, and nothing on screen
+then says a mission is running. Pre-fix, with a mission live and `phase: 'card'`
+forced, `[data-layer="sticks"]` is not in the DOM at all.
+
+| Piece | Where | What it owns |
+|---|---|---|
+| `compoundOpen()` | `quietroads/cockpit.ts` | a card / quiz / debrief / dialogue choice is **open** (the surfaces, never the phase) |
+| `showDrivingHud()` | same | the one rule: `!compoundOpen && (missionActive ∥ phase driving ∥ phase walking)`, minus pause/menu/victory/gameover/pump |
+| `staleCockpitFlag()` | same | names the flag holding the HUD down (`phase="card"`, `qrHud.card`, `freeze("card")`, …) |
+| `cockpitPhaseFor()` | same | the phase a live mission wants (`driving`, or `walking` for the on-foot missions), null when a surface or the player owns the screen |
+| `useDrivingHud()` / `readCockpitState()` | `Game3D/cockpit/layout.ts` | the same rule over the stores, for React |
+| `qrHud.missionActive` | `stores/qrHud.ts` | written in ONE place: `QuietRoadsBridge.syncMission()` — sim mission id + the scene it was started in (`missionScene`), so 5.2's leftover `climb_snoqualmie` cannot force a later cutscene scene to drive |
+| `reconcileCockpit()` | `systems/QuietRoadsBridge.ts` | per frame, before the phase gate: a live mission + nothing on screen + a non-driving phase ⇒ warn with the flag name, drop a stale `freeze('card')`/`freeze('quiz')`, `enterDriving()`/`enterWalking()` |
+| watchdog | `Game3D/CockpitHUD.tsx` | one second, then `QuietRoads.restoreDrivingHud(flag)` — the belt to that brace |
+
+**Consumers.** `CockpitHUD` (host), `KentDash` (nav cluster, also inside its
+rAF readout), `QuietHUD` (noise meter + lights/horn rail) and `TouchOverlay`
+(sticks) all read the rule. The sticks and the meter only ever *gain* a state
+from it: a dialogue choice still keeps the sticks (as before) and still stands
+the meter down (as before), so the twelve stored `cockpit-layout` screenshots are
+byte-identical.
+
+**Still open.**
+
+- **The drive client has no card timer.** `timeout_option_id` / `timeout_ms` are
+  in the deck (VII-002 = `b` / 12 000) and the card game honours them; here
+  `CardOverlay.tsx` and `DialogueRunner` never read them. A hazard card left
+  alone stays open forever, and one that never got a grade renders no CONTINUE
+  (offline ⇒ "Couldn't reach the ledger. Try again" only), so it cannot be
+  dismissed. Needs an answer on this surface — a timer that resolves through
+  `finishCard` with the card's own `timeout_option_id`, and a CONTINUE for the
+  offline case — before VII-002's 12 s means anything in the cockpit.
+- `qrHud.qteActive` is still written by the walker QTE and read by nothing.
+- 8.1 is the one VII placement that is not card → `start_gameplay`: VII-008 sits
+  at the parking gap, after `8.1.go` starts `spokane_home`. Measured from the
+  mission side only; the card itself is never reached in the e2e (it needs the
+  parking gap driven).
+- 390x844 is still the only device shape measured for this class of bug; the
+  844x390 and 1280x800 baselines are the layout's, not a playthrough.
+
+
 <!-- CONTINUED -->

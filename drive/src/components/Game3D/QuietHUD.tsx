@@ -11,7 +11,7 @@ import { useCompactHud } from '@/hooks/useCompactHud';
 import { steerCorner } from '@/input/driveInput';
 import { actForScene } from '@/quietroads';
 import { specForAct } from './sceneSpec';
-import { frameFor, useCompoundCockpit, useCockpitOrientation } from './cockpit/layout';
+import { frameFor, useCompoundCockpit, useCockpitOrientation, useDrivingHud } from './cockpit/layout';
 
 const BAND = [
   { word: 'QUIET', color: '#39ff14', shape: '●' },
@@ -36,15 +36,21 @@ export function QuietHUD() {
   const hornOnLeft = compact && steerCorner(scheme) === 'left';
   const orientation = useCockpitOrientation();
   const compound = useCompoundCockpit();
+  const drivingHudVisible = useDrivingHud();
   const bands = frameFor(orientation, compound);
   // The lights/horn rail lives in the body band, at the right edge: never over the
   // dialogue/dock in the bottom band, never under the pause chip in landscape.
   const railTop = orientation === 'landscape' ? 52 : bands.top + 6;
 
   if (worldMode !== 'kent') return null;
-  const driving = phase === 'driving';
   const walking = phase === 'walking';
-  const drivingHud = driving && !compound;
+  // The meter and the lights/horn rail are a *driving* surface: down on foot and
+  // down under a compound surface, exactly as they were. The cockpit rule
+  // (quietroads/cockpit.ts) adds the one case that was broken — a mission running
+  // with the phase left behind by a card, where nothing else on screen still said
+  // the car was the surface.
+  const livePhase = phase === 'driving' || phase === 'walking';
+  const drivingHud = livePhase ? phase === 'driving' && !compound : drivingHudVisible;
   // The Quiet meter belongs on every playable act (owner decision, 2026-10-05);
   // the scene spec is what says so, one place for all of them.
   const meter = specForAct((sceneId ? actForScene(sceneId) : null) ?? 'I').quiet;

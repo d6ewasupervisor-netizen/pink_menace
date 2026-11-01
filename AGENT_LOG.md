@@ -1537,3 +1537,96 @@ window; the config also points at the Chromium on disk when the default lookup
 misses. Existing `mobile-layout.spec.ts` still passes (the nav cluster moved to
 104 px, under the act badge with air). `265/265` vitest, `tsc --noEmit` 0,
 `npm run build` 6.25 s / 3,993 kB (1,318 kB gzip).
+
+## 2026-11-01 — a card could leave the driving HUD down (stuck in 5.2)
+
+**Report (phone, portrait).** In 5.2 with the chains in the trunk the VII-002
+card and the 5.2 dialogue play, `start_gameplay: chainup_qte` runs, and the
+screen shows the car with no sticks and no dashboard. The player is stuck.
+
+**Diagnosis (headed Chromium, 390x844, two ways in).** Run from a direct resume
+into 5.2 *and* from the real arrival (`QuietRoads.startAct('5.1')` → climb →
+`waypoint.reach:chainup` → `5.1.end` → 5.2 — which still carries
+`missionId: climb_snoqualmie` and the climb objective at 5.2 entry until
+`5.2.go` replaces them). Steps, both runs: 5.2.0 (direction) → 5.2.1 (Deac) →
+`5.2.card_VII-002` → answer a / CONTINUE → 5.2.2 (Ali) → tap → `5.2.go`.
+
+| read after `5.2.go` | direct resume | 5.1 arrival |
+|---|---|---|
+| `phase` | driving | driving |
+| `missionId` | chainup_qte | chainup_qte |
+| `objective` | "Brake down and hold. Drape, hook, tighten. Don't drop it." | same |
+| `qte` | HOLD THE BRAKE, progress 0 | same |
+| `sim.frozen` | false | false |
+| layers | hud · pause · badge · nav · world-hud · lights · horn · sticks · qte | same |
+| throttle 2.5 s | z 1050 → 1053.96 | z 1050 → 1054.03 |
+
+So at HEAD the **answered** path is clean, and `start_gameplay` really does run
+`chainup_qte` with the cockpit up. Two things were still wrong:
+
+**(1) The hiding state is the phase flag itself.** `useCompoundCockpit()` read
+`phase === 'card' | 'quiz'` as "a card is open", and `KentDash`, `QuietHUD` and
+`TouchOverlay` each carried their own `phase` gate. A phase left at
+`card` / `quiz` / `dialogue` with nothing on screen is exactly the reported
+screen — the car, no sticks, no dash, no meter, no dialogue — because each
+surface asks the flag, and no surface asks whether a mission is running.
+Reproduced deterministically: force `phase: 'card'` on a live mission and the
+pre-fix build leaves `[data-layer="sticks"]` **not in the DOM at all** (Playwright:
+"element(s) not found"), and it never comes back. That is the bug's shape on
+every close path that can leave a flag behind, not only 5.2's.
+
+**(2) This client has no card timer.** `timeout_option_id` / `timeout_ms` live in
+the deck (VII-002 = `b` / 12 000) and the card game honours them, but
+`CardOverlay.tsx` and `DialogueRunner` never read them: left 12.5 s, VII-002 is
+still open with `phase: 'card'`, and a hazard card with no grade renders no
+CONTINUE, so there is no way to dismiss it at all. Recorded in AUDIT §20; not
+changed here (it is a card-surface question, not a cockpit one).
+
+**Sweep.** A script over every `dialogue_act*.json` finds 28 card → `start_gameplay`
+pairs in 13 scenes: `0.2` (I-002/I-003/I-004 → tutorial_carport), `1.2`
+(I-005 → minigame_park_dol), `1.3` (I-006 → chase_dol_gracie), `2.3a`, `2.3c`,
+`2.5` (III-002…III-006), `3.1b` (V-001…V-012 → mission_ribbon_merge), `5.1`,
+`5.2`, `6.1b` (VI-001…VI-012), `6.2`, `6.3`, `7.1`. **8.1 is not one of them**:
+its card (VII-008) sits at the parking gap *after* `8.1.go` has already started
+`spokane_home`, so it is measured from the mission side.
+
+**Fix — one rule, no flags to clear.** `quietroads/cockpit.ts`:
+`compoundOpen()` is the surfaces themselves (card / quiz / debrief / choice),
+never the phase; `showDrivingHud()` is that plus `missionActive`, plus the
+untouched free-roam/paused cases; `staleCockpitFlag()` names what is holding the
+HUD down; `cockpitPhaseFor()` says which phase a running mission wants.
+`qrHud.missionActive` has one writer, `QuietRoadsBridge.syncMission()`, keyed on
+the scene the mission was started in (`missionScene`), so a mission left over
+from the previous scene can never force a cutscene scene to drive. The bridge
+reconciles once a frame (`reconcileCockpit()`, before the phase gate): mission
+running + nothing on screen + a non-driving phase ⇒ `console.warn` naming the
+flag, stale `freeze('card')` / `freeze('quiz')` released, and `enterDriving()` /
+`enterWalking()`. `CockpitHUD` keeps a one-second watchdog that calls the same
+path if anything ever outlives the reconcile. `KentDash`, `QuietHUD`,
+`TouchOverlay` and `CockpitHUD` all read the rule. The sticks' rule only ever
+*adds* them (a dialogue choice still keeps them, as it always did), so the
+cockpit grid baselines did not move.
+
+**Tests.** `drive/test/cockpit-hud.test.ts` (15) — the rule on the real
+`qrHud` + `gameStore`: down while a card / quiz / debrief / choice / pause is
+open; up after answered, timed-out and continue-only closes each followed by
+`start_gameplay`; up with a stale `phase: 'card'` / `'dialogue'`, which is also
+what `staleCockpitFlag` names and what `cockpitPhaseFor` repairs (to `walking`
+for the walker missions). `drive/e2e/cockpit-restore.spec.ts` (10) — headed
+390x844, one test per sweep scene (5.1, 5.2, 6.2, 6.3, 3.1b, 6.1b, 1.2, plus
+5.2 timed out), 8.1 from the mission side, and the safety net: a forced stale
+phase on a live mission must leave sticks + nav on screen, the phase repaired
+and `[cockpit] phase="card" …` in the console. That safety-net test fails on the
+pre-fix tree ("element(s) not found" for the sticks) and passes here.
+
+**Verified.** `280/280` vitest across 30 files (265 + 15), `tsc --noEmit` exit 0,
+`npm run build` 5.25 s / 3,996 kB (1,319 kB gzip), playwright headed
+`cockpit-restore` 10/10, `cockpit-layout` 3/3 (all 12 stored screenshots
+unchanged), `mobile-layout` 1/1, `smoke` 1/1. `bench/baseline.json` restored. No
+seed, no deploy: the cockpit bundle is rebuilt from source at deploy time.
+
+**Affected scenes (the sweep).** Every card node that hands into `start_gameplay`
+— 28 pairs in 13 scenes (`0.2`, `1.2`, `1.3`, `2.3a`, `2.3c`, `2.5`, `3.1b`,
+`5.1`, `5.2`, `6.1b`, `6.2`, `6.3`, `7.1`) — because the failure is the phase
+flag, and all of them set it. Measured on 5.1, 5.2 (answered and timed out),
+6.2, 6.3, 3.1b, 6.1b and 1.2, plus 8.1 from the mission side.

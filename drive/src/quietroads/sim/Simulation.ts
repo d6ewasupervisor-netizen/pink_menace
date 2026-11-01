@@ -216,6 +216,10 @@ export class Simulation {
   get frozen() { return this.freezeReasons.size > 0; }
   freeze(reason: string) { this.freezeReasons.add(reason); }
   unfreeze(reason: string) { this.freezeReasons.delete(reason); }
+  /** Is this specific reason still holding the world? (the cockpit's stale-flag check) */
+  isFrozenBy(reason: string) { return this.freezeReasons.has(reason); }
+  /** Every reason currently holding the world — for the console warning. */
+  get frozenBy(): string[] { return [...this.freezeReasons]; }
 
   /** True if a point is inside a building or off the map. R3F should use this for the car too, or Rapier. */
   blocked(p: Vec2): boolean {

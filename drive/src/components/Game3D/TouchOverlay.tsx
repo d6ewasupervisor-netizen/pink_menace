@@ -11,6 +11,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useCompactHud } from '@/hooks/useCompactHud';
 import { flushDriveInput } from '@/hooks/useTouchControls';
+import { useDrivingHud } from './cockpit/layout';
 import {
   isSingleStick,
   setStickAxes,
@@ -171,6 +172,14 @@ export function TouchOverlay() {
   const scheme = useGameStore((s) => s.controlsScheme);
   const worldMode = useGameStore((s) => s.worldMode);
   const compact = useCompactHud();
+  // The sticks are half of the driving HUD. Two things put them up: the phase
+  // saying the car is live (the cockpit has always kept them up while a dialogue
+  // choice is open — a choice is words, not a different car), and the cockpit
+  // rule saying a mission owns the screen (quietroads/cockpit.ts), which is what
+  // brings them back when a flag a surface left behind is holding the phase.
+  // The rule only ever adds them; it never takes them away.
+  const drivingHud = useDrivingHud();
+  const livePhase = phase === 'driving' || phase === 'walking';
   const walking = phase === 'walking';
   const highway = worldMode === 'highway' && !walking;
 
@@ -205,7 +214,7 @@ export function TouchOverlay() {
   }, [phase, highway]);
 
   if (!compact) return null;
-  if (phase !== 'driving' && phase !== 'walking') return null;
+  if (!livePhase && !drivingHud) return null;
 
   const single = isSingleStick(scheme);
   const gasLabel = walking ? 'WALK' : 'GAS · REV';
