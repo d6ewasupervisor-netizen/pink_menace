@@ -9,7 +9,7 @@ import { liveDrive } from '@/systems/driveTelemetry';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useCompactHud } from '@/hooks/useCompactHud';
-import { phoneChrome } from './cockpit/tokens';
+import { useCockpitOrientation, type CockpitOrientation } from './cockpit/layout';
 import {
   formatEta,
   formatManeuverDist,
@@ -71,6 +71,7 @@ export function KentDash() {
   const fuel = useGameStore((s) => s.fuel);
   const objective = useQRHud((s) => s.objective);
   const compact = useCompactHud();
+  const orientation = useCockpitOrientation();
   const rootRef = useRef<HTMLDivElement>(null);
   const gapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -142,7 +143,7 @@ export function KentDash() {
   const digit = { w: 14, h: 26 };
 
   return (
-    <div ref={rootRef} style={place(compact)} aria-label="Navigation">
+    <div ref={rootRef} data-layer="nav" style={place(orientation)} aria-label="Navigation">
       <canvas ref={canvasRef} style={styles.canvas} aria-label="Street map" />
       <div style={styles.stack}>
         <div style={styles.row}>
@@ -343,7 +344,7 @@ function TurnGlyph({ kind, size }: { kind: ManeuverKind; size: number }) {
   );
 }
 
-function place(compact: boolean): React.CSSProperties {
+function place(o: CockpitOrientation): React.CSSProperties {
   return {
     position: 'fixed',
     zIndex: 215,
@@ -357,12 +358,23 @@ function place(compact: boolean): React.CSSProperties {
     boxShadow: '0 6px 18px rgba(0,0,0,0.16)',
     color: '#fff',
     fontFamily: 'system-ui, sans-serif',
-    width: 'min(400px, calc(100vw - 16px))',
-    top: compact
-      ? phoneChrome.dashTop
-      : 'calc(58px + env(safe-area-inset-top))',
-    left: '50%',
-    transform: 'translateX(-50%)',
+    // Inside the top band, under the meter row and the act badge. In landscape the
+    // cluster tucks to the left so the lights/horn rail keeps the right edge.
+    ...(o === 'landscape'
+      ? {
+          top: 'calc(64px + env(safe-area-inset-top))',
+          left: 12,
+          width: 'min(360px, 52vw)',
+          transform: 'none',
+        }
+      : {
+          // 104 = under the act badge (top 66, ~23 tall) with air, which is what
+          // e2e/mobile-layout asserts and what keeps the two from stacking.
+          top: 'calc(104px + env(safe-area-inset-top))',
+          left: '50%',
+          width: 'min(400px, calc(100vw - 16px))',
+          transform: 'translateX(-50%)',
+        }),
   };
 }
 

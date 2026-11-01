@@ -10,30 +10,30 @@
  */
 import { useQRHud } from '@/stores/qrHud';
 import { tokens } from './cockpit/tokens';
+import { frameFor, qteBand, useCockpitOrientation } from './cockpit/layout';
 
 export function CockpitQTE() {
   const qte = useQRHud((s) => s.qte);
+  const orientation = useCockpitOrientation();
   if (!qte) return null;
+  const bands = frameFor(orientation, false);
   const pct = Math.round(Math.max(0, Math.min(1, qte.progress)) * 100);
   return (
-    <div data-layer="qte" data-ui style={styles.wrap} role="status" aria-live="polite">
-      <div style={styles.label}>{qte.label}</div>
-      <div style={styles.track}>
-        <div style={{ ...styles.fill, width: `${pct}%` }} />
+    <div data-layer="qte" style={{ ...qteBand(bands), zIndex: 246 }}>
+      <div style={styles.wrap} role="status" aria-live="polite">
+        <div style={styles.label}>{qte.label}</div>
+        <div style={styles.track}>
+          <div style={{ ...styles.fill, width: `${pct}%` }} />
+        </div>
+        <div style={styles.hint}>{qte.hint}</div>
+        <div style={styles.keys}>HOLD ↓ / S · or pull the gas stick back</div>
       </div>
-      <div style={styles.hint}>{qte.hint}</div>
-      <div style={styles.keys}>HOLD ↓ / S · or pull the gas stick back</div>
     </div>
   );
 }
 
 const styles: Record<string, React.CSSProperties> = {
   wrap: {
-    position: 'fixed',
-    left: '50%',
-    top: '42%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: 246,
     width: 'min(360px, calc(100vw - 32px))',
     display: 'flex',
     flexDirection: 'column',

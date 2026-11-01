@@ -28,7 +28,7 @@ export function GracieQTE() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  wrap: { position: 'fixed', left: '50%', top: '38%', transform: 'translate(-50%, -50%)', zIndex: 230, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, pointerEvents: 'none' },
+  wrap: { position: 'fixed', left: '50%', top: '42%', transform: 'translate(-50%, -50%)', zIndex: 230, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, pointerEvents: 'none' },
   label: { color: '#ffd93d', fontSize: 14, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, textShadow: '0 2px 8px rgba(0,0,0,0.8)' },
   btn: { pointerEvents: 'auto', width: 120, height: 120, borderRadius: 60, border: '3px solid #F2A63B', background: 'rgba(120,70,20,0.75)', color: '#fff', fontSize: 28, fontWeight: 900, letterSpacing: '0.15em', touchAction: 'none', userSelect: 'none', boxShadow: '0 0 30px rgba(242,166,59,0.5)' },
   track: { width: 160, height: 6, background: 'rgba(255,255,255,0.15)', borderRadius: 3, overflow: 'hidden' },

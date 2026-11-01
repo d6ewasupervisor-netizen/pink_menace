@@ -10,9 +10,9 @@ import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { STILL_FOR_SCENE } from './stills';
-import { phoneChrome, tokens } from './cockpit/tokens';
+import { tokens } from './cockpit/tokens';
+import { dialogueMaxHeight, frameFor, useCockpitOrientation, useCompoundCockpit } from './cockpit/layout';
 import { useCompactHud } from '@/hooks/useCompactHud';
-import { steerCorner } from '@/input/driveInput';
 
 /**
  * Content-aware auto-dismiss delay.
@@ -31,9 +31,10 @@ export function DialogueBox() {
   const worldMode = useGameStore((s) => s.worldMode);
   const sceneId = useQRStore((s) => s.sceneId);
   const compact = useCompactHud();
-  const scheme = useGameStore((s) => s.controlsScheme);
+  const orientation = useCockpitOrientation();
+  const compound = useCompoundCockpit();
+  const bands = frameFor(orientation, compound);
   const drivingPhone = compact && (phase === 'driving' || phase === 'walking');
-  const hornOnLeft = drivingPhone && steerCorner(scheme) === 'left';
 
   // Fraction 1→0 shared by both the choice timeout bar and the auto-dismiss bar.
   const [barFraction, setBarFraction] = useState(1);
@@ -95,25 +96,28 @@ export function DialogueBox() {
   return (
     <div
       data-ui
+      data-layer="dialogue"
       style={{
         ...styles.wrap,
         pointerEvents: cutscene ? 'auto' : 'none',
-        ...(drivingPhone
-          ? {
-              ...styles.wrapAboveSticks,
-              justifyContent: hornOnLeft ? 'flex-end' : 'flex-start',
-              paddingLeft: hornOnLeft ? 12 : 78,
-              paddingRight: hornOnLeft ? 78 : 12,
-            }
-          : null),
+        // Bottom band. Portrait: above the touch sticks. Landscape: between the
+        // sticks, because there they sit at the bottom corners. Never in the top
+        // band, so the HUD, meter and nav cluster cannot land on it.
+        ...(orientation === 'landscape'
+          ? { padding: '0 168px calc(8px + env(safe-area-inset-bottom)) 168px' }
+          : { padding: `0 8px calc(${bands.sticks}px + env(safe-area-inset-bottom) + 8px) 8px` }),
       }}
       onClick={() => { if (!choices) QuietRoads.tap(); }}
     >
       {cutscene && <div style={styles.dim} />}
       {cutscene && sceneId && STILL_FOR_SCENE[sceneId] && (
-        <img src={STILL_FOR_SCENE[sceneId]} alt="" style={styles.still} />
+        <img
+          src={STILL_FOR_SCENE[sceneId]}
+          alt=""
+          style={{ ...styles.still, top: `calc(${bands.top}px + env(safe-area-inset-top) + 8px)` }}
+        />
       )}
-      <div data-ui onClick={(e) => { if (!cutscene && !choices) { e.stopPropagation(); QuietRoads.tap(); } }} style={{ ...styles.box, ...(drivingPhone ? styles.boxPhone : null), pointerEvents: 'auto', borderColor: loud ? '#ff4444' : radio ? '#5DADE2' : 'rgba(255,255,255,0.18)' }}>
+      <div data-ui onClick={(e) => { if (!cutscene && !choices) { e.stopPropagation(); QuietRoads.tap(); } }} style={{ ...styles.box, ...(drivingPhone ? styles.boxPhone : null), maxHeight: dialogueMaxHeight(bands, window.innerHeight, orientation), overflowY: 'auto', pointerEvents: 'auto', borderColor: loud ? '#ff4444' : radio ? '#5DADE2' : 'rgba(255,255,255,0.18)' }}>
         {line && (
           <>
             <div style={{ ...styles.speaker, color: speakerColor }}>
@@ -150,8 +154,7 @@ export function DialogueBox() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  wrap: { position: 'fixed', inset: 0, zIndex: 220, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: 'calc(24px + env(safe-area-inset-bottom))' },
-  wrapAboveSticks: { zIndex: 225, paddingBottom: phoneChrome.aboveSticks },
+  wrap: { position: 'fixed', inset: 0, zIndex: 228, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' },
   boxPhone: { width: '100%' },
   dim: { position: 'absolute', inset: 0, background: 'rgba(5,6,10,0.72)' },
   still: { position: 'absolute', left: '50%', top: 'calc(8% + env(safe-area-inset-top))', transform: 'translateX(-50%)', width: 'min(92vw, 520px)', aspectRatio: '606 / 361', objectFit: 'cover', borderRadius: 10, opacity: 0.92, boxShadow: '0 12px 40px rgba(0,0,0,0.7)', filter: 'saturate(0.85)' },

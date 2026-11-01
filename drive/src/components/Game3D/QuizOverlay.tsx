@@ -215,7 +215,7 @@ const styles: Record<string, React.CSSProperties> = {
   // In-cockpit decision sheet — the world stays visible behind it (same voice
   // as CardOverlay). Exams/study ride the same surface; Act IV's terminal is the scene.
   wrap: {
-    position: 'fixed', inset: 0, zIndex: 100,
+    position: 'fixed', inset: 0, zIndex: 232,
     background: 'rgba(7,8,12,0.78)',
     backdropFilter: 'blur(4px)',
     pointerEvents: 'auto',

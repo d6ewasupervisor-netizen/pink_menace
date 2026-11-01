@@ -13,6 +13,7 @@ import { useQRStore } from '@/stores/qrStore';
 import { KentDash } from './KentDash';
 import { QuietHUD } from './QuietHUD';
 import { tokens, useOrientation } from './cockpit/tokens';
+import { useCompoundCockpit } from './cockpit/layout';
 import { actForScene, challengeForAct, type CardAct } from '@/quietroads';
 import { SCENE_ACCENT, specForAct } from './sceneSpec';
 
@@ -22,6 +23,7 @@ export function CockpitHUD() {
   const setPhase = useGameStore((s) => s.setPhase);
   const sceneId = useQRStore((s) => s.sceneId);
   const orientation = useOrientation();
+  const compound = useCompoundCockpit();
 
   const handlePause = useCallback(() => setPhase('paused'), [setPhase]);
 
@@ -37,7 +39,7 @@ export function CockpitHUD() {
   const ego = challengeForAct(act).vehicle.split(' — ')[0] ?? 'the Menace';
 
   return (
-    <div style={styles.root}>
+    <div data-layer="hud" style={styles.root}>
       {/* Accent vignette — the one accent on every act (SCENE_ACCENT) */}
       {phase === 'driving' && (
         <div
@@ -53,6 +55,7 @@ export function CockpitHUD() {
       {showPause && (
         <button
           data-ui
+          data-layer="pause"
           onClick={handlePause}
           aria-label="Pause"
           style={{ ...styles.pauseBtn, ...(orientation === 'landscape' ? styles.pauseLandscape : null) }}
@@ -63,7 +66,7 @@ export function CockpitHUD() {
 
       {/* Act badge — which scene you're in, in the one accent */}
       {(phase === 'driving' || phase === 'walking') && (
-        <div style={{ ...styles.badge, ...(orientation === 'landscape' ? styles.badgeLandscape : null) }}>
+        <div data-layer="badge" style={{ ...styles.badge, ...(orientation === 'landscape' ? styles.badgeLandscape : null) }}>
           <span style={{ color: SCENE_ACCENT, fontWeight: 800, letterSpacing: '0.16em' }}>
             ACT {act}
           </span>
@@ -76,9 +79,10 @@ export function CockpitHUD() {
         </div>
       )}
 
-      {/* Nav cluster + world HUD carry their own placement; they gate on
-          worldMode/phase themselves and share these tokens. */}
-      <KentDash />
+      {/* Nav cluster + world HUD carry their own placement and share these
+          tokens. The nav cluster is a driving surface: a card, a quiz or a
+          debrief stands it down so the still owns the body band. */}
+      {!compound && <KentDash />}
       <QuietHUD />
     </div>
   );
@@ -125,9 +129,11 @@ const styles: Record<string, React.CSSProperties> = {
     whiteSpace: 'nowrap',
   },
   badgeLandscape: {
-    top: 'calc(12px + env(safe-area-inset-top))',
-    left: 'auto',
+    // Landscape keeps the badge in the left column (the pause chip owns the right
+    // edge). `left: auto` plus a -50% translate used to push half of it off screen.
+    top: 'calc(10px + env(safe-area-inset-top))',
+    left: 12,
     right: 'auto',
-    transform: 'translateX(-50%)',
+    transform: 'none',
   },
 };

@@ -929,4 +929,43 @@ no heading; stopped `≤ 1.5 m/s`; tighten = any brake `≥ 0.12` held `1.6 s`.
 (5) proves the chain end to end and the no-chains route to 2.8. 265/265, tsc 0.
 
 
+## 19. The cockpit grid — named bands, no overlapping layers (2026-10-31)
+
+**Symptom (device).** Overlays sat on each other; the screen was unusable.
+
+**Layer stack before (z-index is not the problem — geometry was).** hud 50 ·
+scare 205 · world-hud 210 · nav 215 · sticks 220 · dialogue 220 · qte 230 ·
+card 240 · debrief 245 · pause 250 · menu 300.
+
+| Pair | 390x844 | 844x390 | 1280x800 | After |
+|---|---|---|---|---|
+| horn ∩ dialogue box | (310,684 64x64) over (16,567 359x253) | (310,684) over (62,160 720x206) | — | none — the horn is on a body-band rail |
+| horn ∩ first option | (310,684) over (33,705 325x48) | (310,684) over (79,251 686x48) | — | none |
+| card still ∩ dock | still = whole 390x844 | still = whole 844x390 | still = whole 1280x800 | still 374x330 above 422 / 381x298 beside x416 / 1264x340 above 432 |
+| qte (SHH) ∩ nav | — | (293,66 257x165) over the dash | — | none — prompt centred in its own band |
+| quiz ∩ HUD | quiz z 100 under world-hud 210 | same | same | quiz z 232 |
+
+**Fix.** `cockpit/layout.ts`: `top` / `body` / `bottom` bands per shape
+(portrait 224 · 0.52 · 176 sticks; landscape 176 · 0.50 · 176; desktop 224 ·
+0.44 · 176), a `compound` frame (76 px top) for card/quiz/debrief/**choice**,
+`qteBand()`, `dialogueMaxHeight()` and `useCompoundCockpit()`. Every surface
+carries `data-layer` and lives in one band: horn/lights rail in the body band,
+dialogue in the bottom band (between the landscape sticks), card = still band +
+dock band (stacked portrait / side by side landscape), QTE centred z 246,
+quiz z 232. Safe-area insets are on the bands.
+
+**Verified.** `drive/e2e/cockpit-layout.spec.ts` — 3 viewports × 4 states:
+0 overlapping interactive pairs, the still clear of the dock, the plate decoded,
+and 12 stored screenshots (`drive/e2e/cockpit-layout.spec.ts-snapshots/`, headed
+Chromium with the canvas hidden). Also fixed: a cached still never fired
+`onLoad`, leaving the plate invisible. 265/265 vitest, tsc 0, build 6.25 s.
+
+**Still open.** In landscape the top band is 176 px (meter, badge, nav
+cluster) and the bottom band is 195 px, so the *driving* body band is only 19 px
+— fine for the 3D view behind it, and the QTE band deliberately runs from the
+top band to the bottom edge instead. A landscape-compact nav cluster (map only,
+~96 px) would give the still and the prompt real room; the card already avoids
+the squeeze by putting the dock beside the still instead of under it.
+
+
 <!-- CONTINUED -->

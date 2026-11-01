@@ -1476,3 +1476,64 @@ nose down-grade) also finishes; a stab at 8 m/s and a rev both drop and never
 succeed; no chains still routes `5.2->2.8` with `chainup_blocked`. `265/265`
 vitest across 29 files, `tsc --noEmit` 0, headed Chromium screenshot at
 390x844/844x390/1280x800 shows the prompt and the per-step objective.
+
+## 2026-10-31 — the cockpit bands: no overlay sits on another (Bug 2)
+
+**Report.** On a device the cockpit overlapped itself and was unusable.
+
+**Diagnosis (headed Chromium, 390x844 / 844x390 / 1280x800, four states).**
+Every surface placed itself with its own magic number, so the overlaps were
+geometry, not z-order:
+
+| pair | where | before |
+|---|---|---|
+| horn button ∩ dialogue box | 390x844, 844x390 | (310,684 64x64) over (16,567 359x253) |
+| horn button ∩ first dialogue option | 390x844, 844x390 | (310,684) over "Chains on, then up. Slowly." |
+| card still ∩ dock | all three | still box = the whole viewport (390x844 / 844x390 / 1280x800), painted full-bleed at `brightness(0.6)`, with the card's answers under the dock's scroll (D at y=898 on an 844-tall screen) |
+| GracieQTE ∩ nav cluster | 844x390 | prompt (293,66 257x165) over the dash |
+| quiz overlay ∩ HUD | all | quiz root z 100 < world HUD z 210 — the meter could paint over a quiz |
+
+Layer stack before: hud 50 · scare 205 · world-hud 210 · nav 215 · sticks 220 ·
+dialogue 220 · qte 230 · card 240 · debrief 245 · pause 250 · menu 300.
+
+**Fix.** `cockpit/layout.ts` — three named bands (`top` HUD/objective, `body`
+3D + still + QTE, `bottom` dialogue/dock/sticks), per shape (portrait 224 /
+0.52 / 176 sticks; landscape 176 / 0.50 / 176; desktop 224 / 0.44 / 176) and a
+`compound` frame (76 px top) for cards, quizzes, debriefs **and choices**, where
+the driving HUD stands down. Then every surface moved onto a band and named
+itself with `data-layer`:
+
+- horn/lights → a right/left rail inside the body band (never the bottom band).
+- dialogue → bottom band; above the sticks in portrait, between them in
+  landscape (`padding: 0 168px`), `overflow-y: auto` with a band-derived max
+  height.
+- card → `still` band + `dock` band, stacked in portrait and side by side in
+  landscape; the still keeps its own box (`contain`), the dock scrolls.
+- QTE prompt → centred in the QTE band (top band → bottom edge), z 246.
+- quiz root z 100 → 232 (above every HUD layer).
+- safe-area insets on all three bands.
+
+**Overlaps after: 0 in all twelve viewport×state combinations** (the spec below
+fails on any pair). Card still is fully above/beside the dock at all three
+shapes: 374x330 above 422 in portrait, 381x298 beside x416 in landscape,
+1264x340 above 432 on desktop.
+
+**Also from the same pass.** In landscape the act badge kept 	ranslateX(-50%) with
+left: auto, which pushed half of it off screen, and the TP chip had been moved onto
+the same corner — badge to the left column at 10 px, TP to the right of it at
+right: 60, next to the pause chip.
+
+**Found while verifying.** A cached still never fired `onLoad`, so `imgReady`
+stayed false and the plate rendered at `opacity: 0` — an empty band on any
+second viewing of the same card. The still no longer has an opacity gate.
+
+**Tests.** `drive/e2e/cockpit-layout.spec.ts` — three tests (one per shape), four
+states each: asserts no two interactive layers' boxes intersect, asserts the
+card's still sits clear of the dock and that the plate actually decoded, and
+stores 12 screenshots in `drive/e2e/cockpit-layout.spec.ts-snapshots/` (headed
+Chromium, WebGL canvas hidden so the baseline is the layout, not the GPU).
+`PW_HEADED=1` in `playwright.config.ts` runs the rest of the e2e suite with a
+window; the config also points at the Chromium on disk when the default lookup
+misses. Existing `mobile-layout.spec.ts` still passes (the nav cluster moved to
+104 px, under the act badge with air). `265/265` vitest, `tsc --noEmit` 0,
+`npm run build` 6.25 s / 3,993 kB (1,318 kB gzip).

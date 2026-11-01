@@ -11,6 +11,7 @@ import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { CardDeck, type Card, type CardGrade } from '@/quietroads';
 import { cardStillStyle } from './cardStillStyle';
+import { frameFor, useCockpitOrientation } from './cockpit/layout';
 
 type Grading = { state: 'idle' } | { state: 'busy'; optionId: string } | { state: 'graded'; grade: CardGrade } | { state: 'offline'; optionId: string };
 
@@ -18,9 +19,11 @@ export function CardOverlay() {
   const active = useQRHud((s) => s.card);
   const card: Card | undefined = useMemo(() => (active ? QuietRoads.deck.get(active.id) : undefined), [active]);
   const [grading, setGrading] = useState<Grading>({ state: 'idle' });
-  const [imgReady, setImgReady] = useState(false);
+  const orientation = useCockpitOrientation();
+  const frame = frameFor(orientation, true);
+  const landscape = orientation === 'landscape';
 
-  useEffect(() => { setGrading({ state: 'idle' }); setImgReady(false); }, [active?.id]);
+  useEffect(() => { setGrading({ state: 'idle' }); }, [active?.id]);
 
   if (!active || !card) return null;
   const graded = CardDeck.isGraded(card);
@@ -46,23 +49,61 @@ export function CardOverlay() {
   };
 
   return (
-    <div data-ui style={styles.wrap}>
-      {/* The still is the windshield: picture and question share one moment. */}
-      {card.image && (
-        <img
-          src={card.image}
-          alt=""
-          onLoad={() => setImgReady(true)}
-          style={{ ...cardStillStyle, opacity: imgReady ? 1 : 0 }}
-        />
-      )}
-      <div style={styles.scrimTop} />
-      <div style={styles.scrimBottom} />
+    <div data-ui data-layer="card" style={styles.wrap}>
+      {/* Two halves of the body: the still, then the dock. The still is never
+          behind the words. Landscape puts them side by side, because a phone on
+          its side has no vertical room for a 2:3 plate above a card body. */}
+      <div
+        style={{
+          position: 'fixed',
+          top: `calc(${frame.top}px + env(safe-area-inset-top))`,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          flexDirection: landscape ? 'row' : 'column',
+        }}
+      >
+        <div
+          data-layer="still"
+          style={{
+            position: 'relative',
+            flex: landscape ? '1 1 46%' : '1 1 auto',
+            minHeight: 0,
+            minWidth: 0,
+            margin: 8,
+          }}
+        >
+          {card.image && (
+            <img
+              src={card.image}
+              alt=""
+              // No opacity gate: a cached still is already complete at mount, so an
+              // `onLoad`-driven fade can leave the plate invisible. It is the read.
+              style={cardStillStyle}
+            />
+          )}
+          <div data-layer="kicker" style={styles.kicker}>{card.zone ?? card.act} · {card.card_type.replace(/-/g, ' ')}</div>
+        </div>
 
-      <div style={styles.kicker}>{card.zone ?? card.act} · {card.card_type.replace(/-/g, ' ')}</div>
-
-      <div style={styles.dock}>
-        <div style={styles.dockScroll}>
+        <div
+          data-layer="dock"
+          style={{
+            flex: landscape ? '1 1 54%' : '0 1 auto',
+            minHeight: 0,
+            maxHeight: landscape ? '100%' : `${Math.round(frame.bottom * 100)}dvh`,
+            overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            background: 'rgba(7,8,12,0.78)',
+            backdropFilter: 'blur(3px)',
+            borderTop: '1px solid rgba(255,255,255,0.10)',
+            borderTopLeftRadius: landscape ? 0 : 18,
+            borderTopRightRadius: landscape ? 0 : 18,
+            borderLeft: landscape ? '1px solid rgba(255,255,255,0.10)' : 'none',
+            padding: '18px 18px calc(20px + env(safe-area-inset-bottom))',
+            pointerEvents: 'auto',
+          }}
+        >
           <h2 style={styles.title}>{card.title}</h2>
           {card.hook && <p style={styles.hook}>{card.hook}</p>}
           {card.scene && <p style={styles.scene}>{card.scene}</p>}
@@ -117,22 +158,12 @@ export function CardOverlay() {
     </div>
   );
 }
-
 const styles: Record<string, React.CSSProperties> = {
   wrap: { position: 'fixed', inset: 0, zIndex: 240, pointerEvents: 'auto', fontFamily: 'system-ui, sans-serif', color: '#e8e6e1' },
-  // The card's still is `cardStillStyle`: whole plate, letterboxed, dimmed. It used
-  // to be a full-bleed `cover` backdrop and cropped most of a 2:3 card away.
-  scrimTop: { position: 'absolute', left: 0, right: 0, top: 0, height: '22%', background: 'linear-gradient(to bottom, rgba(7,8,12,0.75), rgba(7,8,12,0))', pointerEvents: 'none' },
-  scrimBottom: { position: 'absolute', left: 0, right: 0, bottom: 0, height: '70%', background: 'linear-gradient(to top, rgba(7,8,12,0.94), rgba(7,8,12,0.35) 60%, rgba(7,8,12,0))', pointerEvents: 'none' },
-  kicker: { position: 'absolute', top: 'calc(10px + env(safe-area-inset-top))', left: 14, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#F28DB2', background: 'rgba(0,0,0,0.55)', padding: '4px 8px', borderRadius: 4 },
-  dock: { position: 'absolute', left: 0, right: 0, bottom: 0, maxHeight: '68vh', display: 'flex', alignItems: 'flex-end' },
-  dockScroll: {
-    width: '100%', maxHeight: '68vh', overflowY: 'auto', WebkitOverflowScrolling: 'touch',
-    padding: '18px 18px calc(24px + env(safe-area-inset-bottom))',
-    background: 'rgba(7,8,12,0.55)', backdropFilter: 'blur(2px)',
-    borderTop: '1px solid rgba(255,255,255,0.10)',
-    borderTopLeftRadius: 18, borderTopRightRadius: 18,
-  },
+  // The card's still is `cardStillStyle`: whole plate, letterboxed, in its own
+  // band above the dock. It used to be a full-bleed `cover` backdrop behind the
+  // card's text, which cropped most of a 2:3 card away.
+  kicker: { position: 'absolute', top: 8, left: 8, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#F28DB2', background: 'rgba(0,0,0,0.55)', padding: '4px 8px', borderRadius: 4 },
   // P12: text size scales the card type only; the still is never scaled.
   title: { fontSize: 'calc(22px * var(--qr-text-scale, 1))', margin: '0 0 4px', fontWeight: 800, letterSpacing: '-0.01em' },
   hook: { fontSize: 'calc(15px * var(--qr-text-scale, 1))', color: '#F28DB2', margin: '0 0 10px', fontStyle: 'italic' },

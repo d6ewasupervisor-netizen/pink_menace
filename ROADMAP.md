@@ -113,6 +113,21 @@ deliberately empty rather than filled with a guess.
   behind its scrim on a landscape phone, that is a layout decision for the
   cockpit, not a fit change. No screenshot baseline exists yet — the headed
   `?profileDrive` pass is what would add one.
+- **The cockpit is a three-band grid (2026-10-31).** `cockpit/layout.ts` owns
+  `top` (HUD/objective), `body` (3D + still + QTE) and `bottom`
+  (dialogue/dock/sticks) per shape, plus a `compound` frame that stands the
+  driving HUD down for cards, quizzes, debriefs and choices. The horn/lights rail
+  moved out of the bottom band, the card's still got its own band above (or
+  beside) the dock, the QTE prompt is centred in the body band at z 246, and the
+  quiz root went from z 100 to 232. Overlaps: 3 → 0 at 390x844 and 844x390
+  (headed Chromium, four states). 12 stored screenshots in
+  `drive/e2e/cockpit-layout.spec.ts-snapshots/`, guarded by
+  `drive/e2e/cockpit-layout.spec.ts` (no two interactive layer boxes may
+  intersect; the still must sit clear of the dock and decode).
+- **Next, from the grid.** A landscape-compact nav cluster (map only, ~96 px)
+  would give the landscape middle its 100-odd pixels back (the driving body band
+  there is only 19 px: 390 − 176 top − 195 bottom). The QTE prompt and the
+  `HOLD THE BRAKE` copy should get a device read.
 - **5.2's chain-up is finishable (2026-10-31).** The QTE's pass window
   (`0.2 < brake < 0.85`) excluded the only brake a key or pad makes (`1.0`), and
   `brake > 0.92` fired the drop branch, so stopping the car fired the failure

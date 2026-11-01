@@ -33,7 +33,11 @@ export const cardStillStyle: CSSProperties = {
   height: '100%',
   objectFit: CARD_STILL_FIT,
   objectPosition: 'center',
-  filter: 'brightness(0.6) saturate(0.85)',
+  // No CSS filter: it promotes the img to its own compositing layer, and the
+  // browser's screenshot path then captures the band without the plate in it
+  // (measured: page.screenshot shows the still, toHaveScreenshot does not).
+  // It also used to carry brightness(0.6) when the still sat under the card text.
+  filter: 'none',
   transition: 'opacity 300ms',
   pointerEvents: 'none',
 };

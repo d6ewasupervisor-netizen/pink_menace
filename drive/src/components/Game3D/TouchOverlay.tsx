@@ -211,7 +211,7 @@ export function TouchOverlay() {
   const gasLabel = walking ? 'WALK' : 'GAS · REV';
 
   return (
-    <div style={styles.root} aria-hidden>
+    <div style={styles.root} aria-hidden data-layer="sticks">
       {single ? (
         <ThumbStick
           key={scheme}

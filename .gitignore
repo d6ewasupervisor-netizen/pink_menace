@@ -14,3 +14,4 @@ _audit_patch/
 *.zip
 drive/node_modules/
 public/game/drive/
+drive/test-results/
