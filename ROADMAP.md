@@ -156,6 +156,20 @@ deliberately empty rather than filled with a guess.
   screen — a device read decides whether the grace belongs in the cockpit
   (AUDIT §21). VII-008 in 8.1 still needs the parking gap driven before its card
   can be reached in a test.
+- **The clock is the card game's clock, not the drive's (2026-11-01).** The grace
+  and the gate AUDIT §21 left open are in: `CARD_GRACE_MS` 1 750 + `CARD_WIND_MS`
+  800 (the card game's `armHazardWindow`), the bar hidden through the grace and
+  full through the wind-up, and `CardCountdown.visible` holding the decision while
+  the dock is scrolled away from the answers (`optionsInView`, the card game's
+  `choiceDockInView`). `useCardCountdown` measures the answers against the dock on
+  every tick, so a scroll costs nothing and a paused/hidden clock still spends
+  nothing. `drive/test/cardTimeout.test.ts` (26) and `cockpit-restore`'s 5.2
+  expiry (grace measured from the card opening, in the page) plus a new
+  scrolled-out-of-view case hold it. Suite is **306/306** across 31 files.
+- **Next, from the grace:** a beat card with a timeout id (`cards/*.json` carries
+  none today) would arm a clock with no decision to answer — the overlay only runs
+  the clock for graded cards, so that combination is untested by data. VII-008 in
+  8.1 still needs the parking gap driven before its card can be reached in a test.
 - **5.2's chain-up is finishable (2026-10-31).** The QTE's pass window
   (`0.2 < brake < 0.85`) excluded the only brake a key or pad makes (`1.0`), and
   `brake > 0.92` fired the drop branch, so stopping the car fired the failure

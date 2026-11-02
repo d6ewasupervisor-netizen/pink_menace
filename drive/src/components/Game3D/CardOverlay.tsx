@@ -7,12 +7,16 @@
  * the answer key. Dossiers and beats have no decision — read and continue.
  *
  * A card can also name the decision time makes for you (`timeout_option_id` /
- * `timeout_ms`). The dock runs that clock; when it reaches zero it calls the same
- * `pick()` an option button does, so the player gets that option's verdict and
- * debrief and a CONTINUE. The clock pauses with the cockpit and with the tab
- * (`useCardCountdown`); a card without a timeout id has no clock at all.
+ * `timeout_ms`). The dock runs that clock on the card game's own timing: 1 750 ms
+ * of grace with no clock on screen, 800 ms with it on screen and full, and only
+ * then does it count — and only while the answers are actually on screen
+ * (`useCardCountdown` + `cardTimeout.ts`, `public/game/app.js:711-778`). When it
+ * reaches zero it calls the same `pick()` an option button does, so the player gets
+ * that option's verdict and debrief and a CONTINUE. The clock pauses with the
+ * cockpit, with the tab, and while the dock is scrolled away from the answers; a
+ * card without a timeout id has no clock at all.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQRHud } from '@/stores/qrHud';
 import { useGameStore } from '@/stores/gameStore';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
@@ -37,6 +41,11 @@ export function CardOverlay() {
   // The clock this card carries, if any: hazard/beat cards with a timeout id.
   const clock = useMemo(() => cardClock(card), [card]);
   const [clockExpired, setClockExpired] = useState(false);
+  // The dock scrolls, and on a phone the answers sit below the fold until the
+  // player scrolls to them. The clock holds until they are on screen — the card
+  // game's `choiceDockInView()`.
+  const dockRef = useRef<HTMLDivElement>(null);
+  const optionsRef = useRef<HTMLDivElement>(null);
 
   /**
    * The one grading path. An option button and the card's clock both land here,
@@ -55,13 +64,14 @@ export function CardOverlay() {
     clock ? `${card?.card_id}:${clock.ms}` : null,
     clock?.ms ?? null,
     // Running only while the card owns an unanswered screen; a paused cockpit
-    // (`phase`) or a hidden tab (inside the hook) freezes it instead.
+    // (`phase`), a hidden tab and answers scrolled out of the dock all freeze it.
     phase === 'card' && grading.state === 'idle' && !clockExpired,
     () => {
       if (!clock) return;
       setClockExpired(true);
       void pick(clock.optionId);
     },
+    { options: optionsRef, viewport: dockRef },
   );
 
   if (!active || !card) return null;
@@ -126,6 +136,7 @@ export function CardOverlay() {
 
         <div
           data-layer="dock"
+          ref={dockRef}
           style={{
             flex: landscape ? '1 1 54%' : '0 1 auto',
             minHeight: 0,
@@ -148,8 +159,9 @@ export function CardOverlay() {
 
           {/* The card's own clock, when it carries one: the same bar the card
               game shows (hazard-window), shrinking to zero and then answering for
-              you. Gone the moment the card resolves. */}
-          {clock && graded && !grade && grading.state !== 'busy' && (
+              you. It appears after the card game's grace and is gone the moment the
+              card resolves. */}
+          {clock && graded && !grade && grading.state !== 'busy' && countdown.shown && (
             <div data-layer="card-clock" data-timeout-option={clock.optionId} style={styles.clock} role="timer"
               aria-label={`${countdown.secondsLeft} seconds left`}>
               <div style={styles.clockRow}>
@@ -166,7 +178,7 @@ export function CardOverlay() {
           {graded && !grade && (
             <>
               {card.decision && <p style={styles.decision}>{card.decision}</p>}
-              <div style={styles.options}>
+              <div data-layer="options" ref={optionsRef} style={styles.options}>
                 {options.map((o) => {
                   const busy = grading.state === 'busy';
                   const mine = (grading.state === 'busy' || grading.state === 'offline') && grading.optionId === o.id;

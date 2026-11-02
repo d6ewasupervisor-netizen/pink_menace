@@ -110,6 +110,12 @@ async function show(page: Page, state: State) {
     useGameStore.setState({ phase: (p.phase as never) ?? 'driving' });
   }, PAYLOAD[state]);
   await page.waitForTimeout(350);
+  // The card's clock appears only after the card game's 1 750 ms grace, and the
+  // card frame is the state the bar lives in — wait for it instead of photographing
+  // its absence.
+  if (state === 'card') {
+    await page.locator('[data-layer="card-clock"]').first().waitFor({ state: 'visible', timeout: 8000 });
+  }
 }
 
 interface Box { x: number; y: number; w: number; h: number }

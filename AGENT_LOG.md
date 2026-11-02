@@ -1688,3 +1688,55 @@ the dock, plate decoded) pass unchanged at all three shapes.
 `npm run build` 5.33 s / 4,000 kB (1,320 kB gzip), playwright **headless**
 20/20 (cockpit-layout 3/3, cockpit-restore 11/11 — the real 12 s expiry and the
 paused/hidden clock, mobile-layout 2/2, smoke 2/2). No seed, no deploy.
+
+## 2026-11-01 — the card clock runs the card game's timing (AUDIT §22)
+
+**The card game's grace, with line numbers** (`public/game/app.js`): `armHazardWindow`
+(`:711-747`) arms only for `hazard`/`beat` cards that name a `timeout_option_id`
+(`:552-560`), sets `const grace = 1750` (`:720`) and `const wind = 800` (`:721`),
+hides the clock for the grace (`:726-729`), shows it full at 1 750 ms (`:731-739`),
+and calls `startHazardWindow` at 2 550 ms (`:740-746`). `startHazardWindow`
+(`:749-777`) spends time **only** while `choiceDockInView()` (`:765`), and
+`choiceDockInView` (`:592-598`) is `box.top < runBox.bottom - 8 && box.bottom >
+runBox.top + 8`. So: 2 550 ms before the decision starts, and never while the
+answers are off screen.
+
+**What changed in the drive.**
+- `quietroads/cardTimeout.ts` — still pure, no DOM. `CARD_GRACE_MS` 1 750,
+  `CARD_WIND_MS` 800, `CARD_ARM_MS` 2 550; `CardCountdown` gained `phase`
+  (`grace` → `wind` → `running` → `done`), `shown` (false through the grace, so
+  the bar is not on screen — the card game's `hidden` class) and `visible` (the
+  decision is spent only while true; the grace and wind-up elapse regardless,
+  because they are `setTimeout`s in the card game). `advance()` spends the delay
+  first and only the overflow against the decision, so a 100 ms tick straddling
+  2 550 ms charges the 50 ms past it. `optionsInView(options, viewport, slack = 8)`
+  is `choiceDockInView()` as a pure box test; an unmeasurable box counts as
+  visible, because a held clock with no answers on screen would strand the card.
+- `Game3D/useCardCountdown.ts` — the wiring: measures the answers' box against the
+  dock's box on every tick and sets `visible`; exposes `shown`/`armed`. The old
+  pauses are untouched (`phase !== 'card'`, tab hidden).
+- `Game3D/CardOverlay.tsx` — `dockRef` + `optionsRef` (the answers' block is now
+  `data-layer="options"`), the gate passed to the hook, and the bar rendered only
+  when `countdown.shown`.
+
+**Tests.** `drive/test/cardTimeout.test.ts` 15 → **26**: the three phases and the
+bar's visibility, nothing spent before the wind-up, expiry at grace + wind + ms, a
+paused clock that does not spend the grace either, the `optionsInView` geometry
+(inside / above / below / 8 px slack / unmeasurable), off-screen answers spending
+nothing and resuming where they were, and a mid-decision scroll costing nothing.
+`drive/e2e/cockpit-restore.spec.ts`: the 5.2 expiry now measures the grace from the
+card opening with an in-page recorder (the walk's 600 ms poll is coarser than
+1 750 ms), asserts `>= 1600 ms` and a full bar on arrival, and the spec gained a
+scrolled-out-of-view case at 390x560 (hold 3.5 s off screen, count once scrolled to,
+hold again back at the scene). `cockpit-layout`'s card state waits for the bar, so
+the three card frames stay byte-identical.
+
+**Verified.** `306/306` vitest across 31 files (295 + 11), `tsc --noEmit` exit 0,
+`npm run build` 6.20 s / 4,001 kB (1,320 kB gzip), playwright **headless**
+**21/21** (20 + the new gate case): `cockpit-layout` 3/3 with no screenshot diff,
+`cockpit-restore` 12/12 (5.1, 5.2 answered, 6.2, 6.3, 3.1b, 6.1b, 1.2, 5.2 timed
+out with the grace measured, 8.1, stale phase, paused/hidden, scrolled out of
+view), `mobile-layout` 2/2, `smoke` 4/4 — run one batch at a time, because this
+runner kills a command at 30 s. `bench/baseline.json` restored after the suite. No
+seed, no deploy.
+

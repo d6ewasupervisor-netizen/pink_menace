@@ -6,12 +6,23 @@
  * || 24000`, then `submitAnswer(card.timeout_option_id)`), and the drive ignored
  * both fields, so a hazard card left alone stayed open forever (AUDIT §20).
  *
- * These tests pin the rule the cockpit now runs: the deck carries the clocks, an
- * expiry resolves the card through the option the card named, a paused clock does
- * not move, and a card without a timeout id never fires at all.
+ * These tests pin the rule the cockpit now runs, on the card game's own timing:
+ * `armHazardWindow` waits `grace = 1750` ms with no clock on screen, then
+ * `wind = 800` ms with the clock on screen and still full, and `startHazardWindow`
+ * only spends the decision while `choiceDockInView()` — the answers on screen. The
+ * deck carries the clocks, an expiry resolves the card through the option the card
+ * named, a paused clock does not move, and a card without a timeout id never fires.
  */
 import { describe, expect, it } from 'vitest';
-import { CardCountdown, CARD_TIMEOUT_DEFAULT_MS, cardClock } from '../src/quietroads/cardTimeout';
+import {
+  CardCountdown,
+  CARD_ARM_MS,
+  CARD_GRACE_MS,
+  CARD_TIMEOUT_DEFAULT_MS,
+  CARD_WIND_MS,
+  cardClock,
+  optionsInView,
+} from '../src/quietroads/cardTimeout';
 import cardsJson from '../src/quietroads/data/cards.json';
 import type { Card } from '../src/quietroads/study/cards';
 
@@ -70,11 +81,133 @@ describe('cardClock — on the shipped deck', () => {
   });
 });
 
+describe('the grace the card game waits', () => {
+  it('is the card game\'s own 1 750 ms + 800 ms', () => {
+    // `armHazardWindow`: `const grace = 1750;` … `const wind = 800;`
+    expect(CARD_GRACE_MS).toBe(1750);
+    expect(CARD_WIND_MS).toBe(800);
+    expect(CARD_ARM_MS).toBe(2550);
+  });
+
+  it('shows the bar only after the grace, and counts only after the wind-up', () => {
+    const cd = new CardCountdown(12000);
+    expect(cd.phase).toBe('grace');
+    expect(cd.shown).toBe(false); // nothing on screen yet
+    expect(cd.armed).toBe(false);
+
+    cd.advance(CARD_GRACE_MS - 1);
+    expect(cd.phase).toBe('grace');
+    expect(cd.shown).toBe(false);
+
+    cd.advance(1); // 1 750 ms: the card game reveals the clock, full
+    expect(cd.phase).toBe('wind');
+    expect(cd.shown).toBe(true);
+    expect(cd.armed).toBe(false);
+    expect(cd.fraction).toBe(1);
+    expect(cd.secondsLeft).toBe(12);
+
+    cd.advance(CARD_WIND_MS - 1);
+    expect(cd.phase).toBe('wind');
+    expect(cd.armed).toBe(false);
+    expect(cd.remainingMs).toBe(12000);
+
+    cd.advance(1); // 2 550 ms: counting
+    expect(cd.phase).toBe('running');
+    expect(cd.armed).toBe(true);
+    expect(cd.remainingMs).toBe(12000);
+    cd.advance(100);
+    expect(cd.remainingMs).toBe(11900);
+  });
+
+  it('spends nothing before the wind-up is over, however the ticks land', () => {
+    const cd = new CardCountdown(12000);
+    for (let i = 0; i < 25; i++) cd.advance(100); // 2 500 ms in 100 ms ticks
+    expect(cd.remainingMs).toBe(12000);
+    expect(cd.armed).toBe(false);
+    cd.advance(100); // the 26th tick crosses 2 550 ms
+    expect(cd.armed).toBe(true);
+    // Only the 50 ms past the arm point is spent, not the whole tick.
+    expect(cd.remainingMs).toBe(11950);
+  });
+
+  it('expires at grace + wind + ms, not at ms', () => {
+    const cd = new CardCountdown(12000);
+    expect(cd.advance(CARD_ARM_MS + 12000 - 1)).toBe(false);
+    expect(cd.remainingMs).toBe(1);
+    expect(cd.advance(1)).toBe(true);
+  });
+
+  it('a paused clock does not spend the grace either', () => {
+    const cd = new CardCountdown(12000);
+    cd.paused = true;
+    cd.advance(60_000);
+    expect(cd.phase).toBe('grace');
+    expect(cd.remainingMs).toBe(12000);
+    cd.paused = false;
+    cd.advance(CARD_ARM_MS);
+    expect(cd.phase).toBe('running');
+    expect(cd.remainingMs).toBe(12000);
+  });
+});
+
+describe('the answers in view (the card game\'s choiceDockInView)', () => {
+  const dock = { top: 400, bottom: 800 };
+
+  it('the answers count as on screen while their box overlaps the dock', () => {
+    expect(optionsInView({ top: 420, bottom: 700 }, dock)).toBe(true);
+    expect(optionsInView({ top: 300, bottom: 500 }, dock)).toBe(true);
+    expect(optionsInView({ top: 100, bottom: 1100 }, dock)).toBe(true); // taller than the dock
+  });
+
+  it('scrolled below the fold, or above it, is not on screen', () => {
+    expect(optionsInView({ top: 900, bottom: 1100 }, dock)).toBe(false);
+    expect(optionsInView({ top: 100, bottom: 380 }, dock)).toBe(false);
+  });
+
+  it('keeps the card game\'s 8 px slack', () => {
+    expect(optionsInView({ top: 100, bottom: 404 }, dock)).toBe(false); // 4 px in
+    expect(optionsInView({ top: 100, bottom: 410 }, dock)).toBe(true); // 10 px in
+  });
+
+  it('a box that cannot be measured does not hold the clock', () => {
+    // Holding a clock the player cannot see the answers for would strand the card.
+    expect(optionsInView(null, dock)).toBe(true);
+    expect(optionsInView({ top: 0, bottom: 10 }, null)).toBe(true);
+  });
+
+  it('off-screen answers spend nothing, and the clock resumes where it was', () => {
+    const cd = new CardCountdown(12000);
+    cd.visible = false;
+    cd.advance(30_000);
+    expect(cd.remainingMs).toBe(12000);
+    expect(cd.expired).toBe(false);
+    // ...but the grace and the wind-up ran, exactly as the card game's timeouts do.
+    expect(cd.phase).toBe('running');
+    expect(cd.armed).toBe(true);
+
+    cd.visible = true;
+    expect(cd.advance(11_999)).toBe(false);
+    expect(cd.advance(1)).toBe(true);
+  });
+
+  it('a scroll in the middle of the decision costs nothing', () => {
+    const cd = new CardCountdown(12000);
+    cd.advance(CARD_ARM_MS + 2000);
+    expect(cd.remainingMs).toBe(10000);
+    cd.visible = false; // the player scrolls back to the scene
+    cd.advance(20_000);
+    expect(cd.remainingMs).toBe(10000);
+    cd.visible = true;
+    cd.advance(1000);
+    expect(cd.remainingMs).toBe(9000);
+  });
+});
+
 describe('CardCountdown — expiry', () => {
   it('fires once, on the tick the clock reaches zero', () => {
     const cd = new CardCountdown(12000);
     expect(cd.expired).toBe(false);
-    expect(cd.advance(11900)).toBe(false);
+    expect(cd.advance(CARD_ARM_MS + 11900)).toBe(false);
     expect(cd.remainingMs).toBe(100);
     expect(cd.expired).toBe(false);
     expect(cd.advance(100)).toBe(true);
@@ -96,7 +229,7 @@ describe('CardCountdown — expiry', () => {
     const cd = new CardCountdown(12000);
     expect(cd.fraction).toBe(1);
     expect(cd.secondsLeft).toBe(12);
-    cd.advance(6000);
+    cd.advance(CARD_ARM_MS + 6000);
     expect(cd.fraction).toBe(0.5);
     expect(cd.secondsLeft).toBe(6);
     cd.advance(5500);
@@ -105,7 +238,10 @@ describe('CardCountdown — expiry', () => {
 });
 
 describe('the expiry picks the timeout option', () => {
-  /** What the overlay does: advance the clock, and pick on the tick it fires. */
+  /**
+   * What the overlay does: advance the clock in 100 ms ticks (grace, wind-up and
+   * all) and pick on the tick it fires.
+   */
   function run(card: Card, opts: { pauseAtMs?: number; pauseForMs?: number } = {}) {
     const clock = cardClock(card);
     if (!clock) return { picked: [] as string[], expired: false };
@@ -140,7 +276,7 @@ describe('the expiry picks the timeout option', () => {
     expect(paused.expired).toBe(plain.expired);
     // The 30 s away did not spend the decision: the clock still ran its full 12 s.
     const cd = new CardCountdown(12000);
-    cd.advance(6000);
+    cd.advance(CARD_ARM_MS + 6000);
     cd.paused = true;
     cd.advance(30_000);
     cd.paused = false;
@@ -157,7 +293,7 @@ describe('the expiry picks the timeout option', () => {
 describe('CardCountdown — pause', () => {
   it('a paused clock does not move, and does not fire', () => {
     const cd = new CardCountdown(12000);
-    cd.advance(2000);
+    cd.advance(CARD_ARM_MS + 2000);
     expect(cd.remainingMs).toBe(10000);
     cd.paused = true; // the pause menu, or a backgrounded tab
     expect(cd.advance(60_000)).toBe(false);

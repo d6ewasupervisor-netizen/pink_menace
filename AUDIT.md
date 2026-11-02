@@ -1061,12 +1061,80 @@ that state). The geometry assertions are untouched.
   (`grace`) + 800 ms (`wind`) first and only counts while the options are in view.
   The cockpit has no equivalent "options in view" gate — the dock scrolls, and a
   player reading the scene is spending time. If that reads unfair on a device,
-  the grace belongs in `useCardCountdown`, not in the card data.
+  the grace belongs in `useCardCountdown`, not in the card data. **Closed in §22.**
 - `qrHud.qteActive` is still written by the walker QTE and read by nothing.
 - 8.1's card (VII-008) still needs the parking gap driven before it can be reached
   in a test; 8.1 is measured from the mission side only.
 - Only 390x844 has a playthrough; `cockpit-layout` covers the other two shapes as
   layout, not as play.
+
+
+## 22. The clock the card game runs, not the one the cockpit invented (2026-11-01)
+
+**Why.** §21 closed the expiry but left the timing wrong in two ways: the drive
+started spending the decision the instant the card opened, and it kept spending it
+while the answers were scrolled out of the dock. The card game does neither.
+
+**The card game's rule, with line numbers** (`public/game/app.js`):
+
+| Line | Code | Meaning |
+|---|---|---|
+| 552-560 | `if (!opts.review && !opts.pending && (card.card_type === "hazard" \|\| card.card_type === "beat") && card.timeout_option_id && n) armHazardWindow(card);` | which cards arm a clock |
+| 720 | `const grace = 1750;` | the clock is *not on screen* for 1 750 ms |
+| 721 | `const wind = 800;` | then on screen, full, for 800 ms |
+| 731-746 | `advanceTimer = setTimeout(…, grace)` → `clock.classList.remove("hidden")` … nested `setTimeout(…, wind)` → `startHazardWindow(card)` | the two halves; `fill` is `scaleX(1)` throughout |
+| 765 | `if (choiceDockInView() && !runPointerDown) elapsed += now - last;` | **the decision is only spent while the answers are on screen** |
+| 592-598 | `choiceDockInView()` → `box.top < runBox.bottom - 8 && box.bottom > runBox.top + 8` | the gate, with 8 px of slack |
+| 749-777 | `startHazardWindow` — 50 ms interval, `Number(card.timeout_ms) \|\| 24000`, `submitAnswer(card.timeout_option_id)` at zero | the expiry |
+
+So a card's decision starts being spent 2 550 ms after it opens, and only ever
+while its answers are visible.
+
+**What the cockpit does now.** `quietroads/cardTimeout.ts` keeps the whole rule,
+still with no DOM:
+
+| Piece | What it owns |
+|---|---|
+| `CARD_GRACE_MS` 1 750, `CARD_WIND_MS` 800, `CARD_ARM_MS` 2 550 | the card game's `grace`/`wind`, by name |
+| `CardCountdown.phase` | `grace` → `wind` → `running` → `done` |
+| `CardCountdown.shown` | false through the grace — the bar is not on screen, exactly as `clock.classList.add("hidden")` |
+| `CardCountdown.visible` | the decision is spent only while true; grace and wind-up elapse regardless (they are `setTimeout`s in the card game) |
+| `optionsInView(options, viewport, slack = 8)` | `choiceDockInView()` as a pure box test. A box that cannot be measured counts as *visible*: a held clock with no answers on screen would strand the card (§20's dead end) |
+
+`useCardCountdown` is the only DOM wiring: it measures the answers' box against the
+dock's box on every 100 ms tick and sets `visible`, so a scroll is picked up within
+a tick and costs nothing while it lasts. The existing pauses are untouched — the
+tick does not exist while `phase !== 'card'` or while the tab is hidden.
+`CardOverlay` renders the bar only when `countdown.shown`, and the answers' block
+carries `data-layer="options"` so the gate has something to measure.
+
+**Measured.** `drive/test/cardTimeout.test.ts` 15 → 26: the grace's three phases,
+nothing spent before the wind-up (including a 100 ms tick straddling 2 550 ms
+spending only the 50 ms past it), expiry at grace + wind + ms, a paused clock that
+does not spend the grace either, the `optionsInView` geometry (inside / above /
+below / the 8 px slack / an unmeasurable box), and off-screen answers spending
+nothing and resuming where they were.
+
+`drive/e2e/cockpit-restore.spec.ts`: the 5.2 case now measures the grace **from the
+card opening**, stamped in the page (a `setInterval` recorder watching for
+`[data-layer="card"]` and then `[data-layer="card-clock"]`) because the walk's own
+600 ms poll is coarser than 1 750 ms. The assertion is `>= 1600 ms` — one-sided, so
+it fails on "the clock starts at once" (~0-100 ms) and tolerates the recorder's
+20 ms poll; the bar must also read its full seconds the instant it appears. A new
+case at 390x560 (a dock short enough to put the answers below the fold) holds the
+clock for 3.5 s with the answers off screen, sees it count once they are scrolled
+to, and holds again when the dock is scrolled back to the scene.
+`cockpit-layout`'s card state waits for the bar before photographing it, so the
+three card frames are unchanged (byte-identical).
+
+**Still open.**
+- A beat card that names a `timeout_option_id` would arm a clock with no decision
+  to answer; no card in `cards/*.json` does, and the overlay only runs the clock
+  for graded cards, so that combination has no data behind it.
+- The wind-up has no visual (the card game adds an `arming` class); the bar simply
+  sits full for 800 ms.
+- `qrHud.qteActive`, VII-008 in 8.1, and the single-shape playthrough are unchanged
+  from §21.
 
 
 <!-- CONTINUED -->

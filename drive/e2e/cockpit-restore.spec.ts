@@ -161,9 +161,11 @@ async function tap(page: Page) {
  * Options are the dock's buttons that carry an option-id span; CONTINUE carries
  * none, so a dossier card is not mistaken for a decision.
  *
- * `timeout` waits for the card's own clock to finish: VII-002 is 12 s, and the
- * point of the case is that the expiry answers through the same grading path and
- * still leaves a CONTINUE behind.
+ * `timeout` waits for the card's own clock to finish. That clock is the card
+ * game's (`public/game/app.js:711-778`): 1 750 ms of grace with no bar on screen,
+ * 800 ms with the bar on screen and full, and only then does it count — and it
+ * only counts while the answers are on screen (`choiceDockInView`), which on this
+ * phone means after the player scrolls the dock down to them.
  */
 async function resolveCard(page: Page, id: string, closes: Sweep['closes']) {
   const options = page.locator('[data-layer="dock"] button:has(span)');
@@ -181,20 +183,97 @@ async function resolveCard(page: Page, id: string, closes: Sweep['closes']) {
   await cont.first().click({ timeout: 15_000 });
 }
 
-/** The card's clock, not a tap: wait it out, then dismiss what it decided. */
-async function expireCard(page: Page, id: string) {
-  const bar = page.locator('[data-layer="card-clock"]');
-  await expect(bar, `${id}: the card has a clock`).toBeVisible({ timeout: 5000 });
-  const optionId = await bar.getAttribute('data-timeout-option');
-  expect(optionId, `${id}: the clock names the option it will pick`).toBeTruthy();
-  const width = () => page.evaluate(() => {
+/** The clock's whole seconds, off the bar's label. */
+const secondsLeft = (page: Page) =>
+  page.locator('[data-clock-seconds]').innerText().then((t) => Number(t.replace(/[^0-9]/g, '')));
+
+/** The bar's fill width in px. */
+const barWidth = (page: Page) =>
+  page.evaluate(() => {
     const el = document.querySelector('[data-clock-fill]') as HTMLElement | null;
     return el ? Math.round(el.getBoundingClientRect().width) : -1;
   });
-  const before = await width();
-  // It runs: the bar shrinks while the decision is still open.
-  await expect.poll(width, { timeout: 6000, message: `${id}: the clock moved` }).toBeLessThan(Math.max(1, before));
-  // ...and at zero the card answers for the player, with that option's verdict.
+
+/**
+ * The answers have to be on screen for the clock to spend anything (the card
+ * game's `choiceDockInView`). On the phone the dock scrolls and a long scene puts
+ * them below the fold, so scrolling to them is a player action, not a test trick.
+ */
+async function scrollToAnswers(page: Page) {
+  await page.evaluate(() => {
+    const opts = document.querySelector('[data-layer="options"]');
+    if (opts) opts.scrollIntoView({ block: 'center' });
+  });
+}
+
+/** The rule the clock uses, measured in the page: the answers overlap the dock. */
+async function answersInView(page: Page): Promise<boolean> {
+  return page.evaluate(() => {
+    const dock = document.querySelector('[data-layer="dock"]')?.getBoundingClientRect();
+    const opts = document.querySelector('[data-layer="options"]')?.getBoundingClientRect();
+    if (!dock || !opts) return false;
+    return opts.top < dock.bottom - 8 && opts.bottom > dock.top + 8;
+  });
+}
+
+/**
+ * The card game's clock starts when the card opens, and the walk's own polling is
+ * coarser than the 1 750 ms grace — so the opening is stamped in the page. The
+ * recorder also records whether the bar existed at that instant (it must not) and
+ * what it read the moment it appeared (it must be full).
+ */
+const START_CLOCK_RECORDER = `(() => {
+  const w = window;
+  w.__clock = { openedAt: null, barAtOpen: null, shownAt: null, seconds: null };
+  const t = setInterval(() => {
+    const r = w.__clock;
+    if (r.shownAt != null) { clearInterval(t); return; }
+    if (r.openedAt == null && document.querySelector('[data-layer="card"]')) {
+      r.openedAt = performance.now();
+      r.barAtOpen = Boolean(document.querySelector('[data-layer="card-clock"]'));
+    }
+    if (r.openedAt != null && document.querySelector('[data-layer="card-clock"]')) {
+      r.shownAt = performance.now();
+      r.seconds = document.querySelector('[data-clock-seconds]')?.textContent ?? null;
+      clearInterval(t);
+    }
+  }, 20);
+})()`;
+
+interface ClockRecording {
+  openedAt: number | null;
+  barAtOpen: boolean | null;
+  shownAt: number | null;
+  seconds: string | null;
+}
+
+/** The card's clock, not a tap: wait it out, then dismiss what it decided. */
+async function expireCard(page: Page, id: string) {
+  // 1) The clock the card game runs: nothing on screen at the moment the card
+  //    opens, the bar arriving only after the 1 750 ms grace, at full.
+  const bar = page.locator('[data-layer="card-clock"]');
+  await expect(bar, `${id}: the card has a clock`).toBeVisible({ timeout: 8000 });
+  const optionId = await bar.getAttribute('data-timeout-option');
+  expect(optionId, `${id}: the clock names the option it will pick`).toBeTruthy();
+  const opening = (await page.evaluate(() => (window as unknown as { __clock: ClockRecording }).__clock)) ?? null;
+  expect(opening, `${id}: the clock recorder was armed`).not.toBeNull();
+  expect(opening.openedAt, `${id}: the card opened while the recorder watched`).not.toBeNull();
+  expect(opening.barAtOpen, `${id}: no clock at the moment the card opens`).toBe(false);
+  expect(opening.shownAt, `${id}: the clock bar appeared`).not.toBeNull();
+  const graceMs = Math.round(opening.shownAt! - opening.openedAt!);
+  expect(graceMs, `${id}: the bar waits the grace before it appears (${graceMs} ms)`).toBeGreaterThanOrEqual(1600);
+  expect(Number((opening.seconds ?? '').replace(/[^0-9]/g, '')), `${id}: the bar starts full`).toBeGreaterThan(0);
+
+  // 2) Nothing is spent before the wind-up ends, and the decision starts full: the
+  //    answers have to be on screen for it to count at all (the gate has its own
+  //    case below, on a screen short enough to push them off).
+  expect(await secondsLeft(page), `${id}: the decision starts whole`).toBe(Number((opening.seconds ?? '').replace(/[^0-9]/g, '')));
+  if (!(await answersInView(page))) await scrollToAnswers(page);
+  await expect.poll(() => answersInView(page), { timeout: 4000 }).toBe(true);
+  const before = await barWidth(page);
+  await expect.poll(() => barWidth(page), { timeout: 6000, message: `${id}: the clock moved` }).toBeLessThan(Math.max(1, before));
+
+  // 4) ...and at zero the card answers for the player, with that option's verdict.
   const cont = page.getByRole('button', { name: 'CONTINUE' });
   await expect(cont, `${id}: CONTINUE after the clock ran out`).toBeVisible({ timeout: 25_000 });
   const dock = page.locator('[data-layer="dock"]');
@@ -202,7 +281,7 @@ async function expireCard(page: Page, id: string) {
   await expect(dock).toContainText('The clock took the decision');
   await expect(dock).toContainText('A hazard card times out onto its own answer');
   // The clock is gone once it has resolved.
-  await expect(bar).toHaveCount(0);
+  await expect(page.locator('[data-layer="card-clock"]')).toHaveCount(0);
   await cont.click();
   await page.waitForTimeout(600);
   // The pick the clock made is the pick the story recorded — the same grading
@@ -218,6 +297,9 @@ async function expireCard(page: Page, id: string) {
 async function walkToMission(page: Page, s: Sweep) {
   const before = await read(page);
   expect(before.scene, `${s.scene} started`).toBe(s.scene);
+  // The clock is measured from the card opening, so the page watches for it from
+  // here rather than from the (coarser) poll below.
+  await page.evaluate(START_CLOCK_RECORDER);
   let sawCard = false;
   for (let step = 0; step < 40; step++) {
     const st = await read(page);
@@ -413,24 +495,26 @@ test('the card clock waits while the cockpit is paused or the tab is hidden', as
     await tap(page);
     await page.waitForTimeout(600);
   }
-  await expect(page.locator('[data-layer="card-clock"]')).toBeVisible({ timeout: 5000 });
-  const seconds = async () => Number((await page.locator('[data-clock-seconds]').innerText()).replace(/[^0-9]/g, ''));
+  // Past the grace, and with the answers on screen, so the clock is counting.
+  await expect(page.locator('[data-layer="card-clock"]')).toBeVisible({ timeout: 8000 });
+  await scrollToAnswers(page);
+  await expect.poll(() => answersInView(page), { timeout: 4000 }).toBe(true);
   const setPhase = (phase: string) => page.evaluate(async (p) => {
     const { useGameStore } = await import('/drive/src/stores/gameStore.ts');
     useGameStore.setState({ phase: p as never });
   }, phase);
 
   // It runs.
-  const opened = await seconds();
+  const opened = await secondsLeft(page);
   await page.waitForTimeout(2500);
-  const ran = await seconds();
+  const ran = await secondsLeft(page);
   expect(ran, `clock ran: ${opened} -> ${ran}`).toBeLessThan(opened);
 
   // Paused cockpit: the number holds.
   await setPhase('paused');
-  const pausedAt = await seconds();
+  const pausedAt = await secondsLeft(page);
   await page.waitForTimeout(4000);
-  expect(await seconds(), 'paused cockpit').toBe(pausedAt);
+  expect(await secondsLeft(page), 'paused cockpit').toBe(pausedAt);
 
   // Backgrounded tab: the number holds too.
   await setPhase('card');
@@ -438,9 +522,9 @@ test('the card clock waits while the cockpit is paused or the tab is hidden', as
     Object.defineProperty(document, 'hidden', { configurable: true, get: () => true });
     document.dispatchEvent(new Event('visibilitychange'));
   });
-  const hiddenAt = await seconds();
+  const hiddenAt = await secondsLeft(page);
   await page.waitForTimeout(4000);
-  expect(await seconds(), 'hidden tab').toBe(hiddenAt);
+  expect(await secondsLeft(page), 'hidden tab').toBe(hiddenAt);
 
   // Back in view and running: it carries on from where it was.
   await page.evaluate(() => {
@@ -448,5 +532,59 @@ test('the card clock waits while the cockpit is paused or the tab is hidden', as
     document.dispatchEvent(new Event('visibilitychange'));
   });
   await page.waitForTimeout(2500);
-  expect(await seconds(), 'resumed').toBeLessThan(hiddenAt);
+  expect(await secondsLeft(page), 'resumed').toBeLessThan(hiddenAt);
+});
+
+/**
+ * The answers-in-view gate, on its own: the dock scrolls, and a player reading a
+ * long scene must not be charged for the reading. The card game only spends the
+ * decision while its choice dock is on screen (`choiceDockInView`), and the
+ * cockpit now does the same — so scrolling away from the answers stops the clock
+ * dead, and scrolling back resumes it where it was.
+ *
+ * A shorter screen than the reported phone is deliberate: the point is a dock
+ * where the answers start below the fold, which is what the gate is for.
+ */
+test('the card clock holds while the answers are scrolled out of view', async ({ page }) => {
+  test.setTimeout(180_000);
+  test.skip(test.info().project.name !== 'desktop', 'viewport is set inside the test');
+  await page.setViewportSize({ width: 390, height: 560 });
+  await mockStudent(page);
+  await page.goto('/drive/');
+  await page.locator('canvas').first().waitFor({ state: 'visible', timeout: 45_000 });
+  await page.waitForTimeout(1200);
+
+  await startScene(page, '5.2', ['chains']);
+  await page.waitForTimeout(2500);
+  for (let i = 0; i < 20; i++) {
+    const st = await read(page);
+    if (st.card) break;
+    await tap(page);
+    await page.waitForTimeout(600);
+  }
+  // Past the grace, bar up, and the answers still below the fold.
+  await expect(page.locator('[data-layer="card-clock"]')).toBeVisible({ timeout: 8000 });
+  expect(await answersInView(page), 'the answers start below the fold').toBe(false);
+  const offScreenAt = await secondsLeft(page);
+  await page.waitForTimeout(3500);
+  expect(await secondsLeft(page), 'the clock holds while the answers are off screen').toBe(offScreenAt);
+
+  // Scrolled to them: it counts.
+  await scrollToAnswers(page);
+  await expect.poll(() => answersInView(page), { timeout: 4000 }).toBe(true);
+  const onScreenAt = await secondsLeft(page);
+  expect(onScreenAt, 'nothing was spent off screen').toBe(offScreenAt);
+  await page.waitForTimeout(2500);
+  const ran = await secondsLeft(page);
+  expect(ran, `clock ran with the answers on screen: ${onScreenAt} -> ${ran}`).toBeLessThan(onScreenAt);
+
+  // Back up to the scene: the answers leave the dock, and it holds again.
+  await page.evaluate(() => {
+    const dock = document.querySelector('[data-layer="dock"]') as HTMLElement | null;
+    if (dock) dock.scrollTop = 0;
+  });
+  await expect.poll(() => answersInView(page), { timeout: 4000 }).toBe(false);
+  const heldAt = await secondsLeft(page);
+  await page.waitForTimeout(3500);
+  expect(await secondsLeft(page), 'the clock holds again').toBe(heldAt);
 });
