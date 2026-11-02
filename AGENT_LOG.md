@@ -1740,3 +1740,50 @@ view), `mobile-layout` 2/2, `smoke` 4/4 — run one batch at a time, because thi
 runner kills a command at 30 s. `bench/baseline.json` restored after the suite. No
 seed, no deploy.
 
+## 2026-11-01 — the deck copy cannot drift again (AUDIT §23)
+
+**There was no export script.** `docs/DRIVE.md` said "re-export it when cards
+change" and the bundle was maintained by hand — which is how it lost the 17 cards'
+clocks (§21) and never carried `callback_of`/`schedules_callback` at all.
+
+**One field list, one place.** `scripts/drive-card-fields.js` holds `CARD_FIELDS`
+(20, in the bundle's own order), `OPTION_FIELDS` (`id`, `text` — the answer key
+never ships), `SOURCE_FIELDS` (all four citation fields) and `imagePathFor`
+(`/api/drive/image/<id>`, the rule `src/routes-drive.js:187` applies), plus
+`bundleCard(raw, { hasStill })`. `scripts/export-drive-cards.js`
+(`npm run export-drive-cards`) reads `cards/` with the seed's file filter, sorts by
+file, refuses a missing/mismatched/duplicate `card_id`, and writes the bundle
+1-space indented, CRLF, no trailing newline — the shape it already had, so a
+re-export diffs only what changed.
+
+**The guard.** `drive/test/deck-parity.test.ts` (5) loads all 131 `cards/*.json` and
+the bundle: same cards and order, then every field the drive reads (`id`, `title`,
+`scene`, `decision`, `options` id+text, `debrief`, `timeout_option_id`,
+`timeout_ms`, `card_type`, `callback_of`, `schedules_callback`, `source`, image
+path) with a failure that names the card and the field; the exact key shape, so a
+hand-added field cannot survive; the image path against the stills on disk; and the
+absence of the answer key (an option's keys must be exactly `id` + `text`).
+`correct`/`result` are compared in the safe direction only — the deck has them, the
+bundle must not.
+
+**Drift it found on the bundle as it stood.** `schedules_callback` on all 131 cards
+(`true`/`false` → absent) and `callback_of` on 8 (II-010 → II-007, II-031 → I-003,
+III-010 → III-005, III-020 → III-016, IV-012 → IV-005, VI-011 → VI-004, VII-007 →
+V-006, VII-010 → VII-002). Nothing else — title, scene, decision, option ids and
+texts in order, debrief, card_type, both clock fields, `source` and every image path
+already matched. The re-export is **262 added lines, no deletions, no id touched**
+(131 + 131), and a second run changes nothing.
+
+**The other path.** The card game reads Postgres only (`public/game/app.js` →
+`/api/run/*` → `src/game.js` SELECTs `cards`/`card_options`), and
+`scripts/seed-cards.js` carries all 25 top-level fields, all 5 option fields and the
+whole `source` object inside `extra` (which is how `stat_cited`, not a column,
+survives). Checked mechanically: no field is dropped, so no drift there.
+
+**Verified.** `311/311` vitest across 32 files (306 + 5), `tsc --noEmit` exit 0,
+`npm run build` 4.74 s / 4,006 kB (1,321 kB gzip), playwright **headless** 21/21
+re-run after the data change (`cockpit-layout` 3/3, `cockpit-restore` 12/12,
+`mobile-layout` 2/2, `smoke` 4/4). `bench/baseline.json` restored. No seed, no
+deploy.
+
+

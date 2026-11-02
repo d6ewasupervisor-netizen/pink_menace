@@ -1137,4 +1137,79 @@ three card frames are unchanged (byte-identical).
   from §21.
 
 
+## 23. The drive's deck copy cannot drift again (2026-11-01)
+
+**Why.** `drive/src/quietroads/data/cards.json` is a projection of `cards/*.json`,
+and it was maintained by hand. It drifted twice: it carried none of the 17 cards'
+`timeout_option_id`/`timeout_ms` (§21 — the cockpit ran without a clock for a
+release), and it had never carried `callback_of` or `schedules_callback` at all.
+There was no export script in the repo — `docs/DRIVE.md` said "re-export it when
+cards change" and the copy was edited by hand. A 131-card deck copied by hand will
+always drift again.
+
+**One list, one place.** `scripts/drive-card-fields.js` is the field list and the
+projection:
+
+| Export | What it is |
+|---|---|
+| `CARD_FIELDS` (20, in the bundle's own order) | act, zone, driver, card_type, title, hook, scene, decision, options, debrief, source, cast, antagonist, callback_of, schedules_callback, variation, card_id, timeout_option_id, timeout_ms, image |
+| `OPTION_FIELDS` (`id`, `text`) | an option ships as its id and its text; `correct`/`result`/`state_delta` never do (grading is server-side, `src/routes-drive.js`) |
+| `SOURCE_FIELDS` (`psdp_skill`, `dol_section`, `teaching_target`, `stat_cited`) | the card's citation, all of it |
+| `imagePathFor(id)` | `/api/drive/image/<id>` — the same rule `src/routes-drive.js:187` applies to a row's `image_url` |
+| `bundleCard(raw, { hasStill })` | one card as the bundle carries it; `image` is null when `cards/<id>.png|jpg` is absent (II-031) |
+
+`decision`/`options` are absent on dossiers and beats, and the two clock fields are
+written only for a card that names a timeout id ("no id, no clock" is
+`cardTimeout.ts`'s rule). Everything else is copied unconditionally, including
+`callback_of: null`.
+
+`scripts/export-drive-cards.js` (`npm run export-drive-cards`) reads `cards/`
+with the seed's own file filter (`^(I|II|III|IV|V|VI|VII)-\d{3}\.json$`), sorts by
+file name, refuses a missing/mismatched/duplicate `card_id`, and writes the bundle
+1-space indented, CRLF, no trailing newline — the shape it already had, so a
+re-export diffs only what actually changed.
+
+**The guard.** `drive/test/deck-parity.test.ts` (5) loads all 131 `cards/*.json`
+and the bundle and fails on any difference in `id`, `title`, `scene`, `decision`,
+`options` (`id`, `text`), `debrief`, `timeout_option_id`, `timeout_ms`,
+`card_type`, `callback_of`, `schedules_callback`, `source`, and the image path —
+naming the card and the field (`II-010: callback_of — deck "II-007", bundle
+null`). It also pins the card order and count, the exact key shape (so a
+hand-added field cannot survive), the image path against the files on disk, and the
+absence of the answer key: an option's keys must be exactly `id` + `text`.
+
+`correct`/`result` are the one field pair the guard compares in the *safe*
+direction only — the deck has them and the bundle must not. Comparing them for
+equality would mean shipping the key.
+
+**The drift it found, on the bundle as it stood (`bf360d2`):**
+
+| Field | Cards | Deck → bundle |
+|---|---|---|
+| `schedules_callback` | all 131 | `true`/`false` → absent |
+| `callback_of` | II-010 → II-007, II-031 → I-003, III-010 → III-005, III-020 → III-016, IV-012 → IV-005, VI-011 → VI-004, VII-007 → V-006, VII-010 → VII-002 | the id → absent |
+
+Nothing else: title, scene, decision, options (ids and texts, in order), debrief,
+card_type, both clock fields, `source` (all four sub-fields) and every image path
+already matched. The re-export is **262 added lines, no deletions, no id touched**
+(131 `schedules_callback` + 131 `callback_of`), and running it twice changes
+nothing.
+
+**The other card path.** The card game reads cards from Postgres only —
+`public/game/app.js` fetches `/api/run/*`, `src/game.js` SELECTs `cards` and
+`card_options`. The JSON → Postgres path is `scripts/seed-cards.js`, and it carries
+all 25 top-level fields, all 5 option fields, and the whole `source` object (inside
+`extra`, which is how `stat_cited` — not a column — survives), so there is no
+drift there. The drive's bundle was the only second copy of the deck.
+
+**Still open.**
+- The build does not regenerate the bundle; a stale copy is caught by the test, not
+  prevented. Wiring the export into `npm run build` would make a dirty bundle fail
+  the build instead, at the cost of a write during build.
+- The drive does not read `callback_of`/`schedules_callback` today — they are
+  carried for parity, not for a feature. When one is used, it is already there.
+- `OPTION_FIELDS` is the one place to change if an option ever gains a field the
+  client needs (a label, an icon); the guard will fail until the export writes it.
+
+
 <!-- CONTINUED -->

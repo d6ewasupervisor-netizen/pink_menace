@@ -8,6 +8,7 @@
     "start": "node server.js",
     "dev": "node server.js",
     "seed": "node scripts/seed-cards.js",
+    "export-drive-cards": "node scripts/export-drive-cards.js",
     "audit-stills": "node scripts/audit-stills.js",
     "playtest-prep": "node scripts/playtest-prep.js",
     "validate-cards": "node scripts/validate-citations.js && node scripts/validate-act-ii.js && node scripts/validate-act-iii.js && node scripts/validate-act-v.js && node scripts/validate-act-vii.js && node scripts/compile-images.js",

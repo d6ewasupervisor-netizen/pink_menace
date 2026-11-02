@@ -170,6 +170,19 @@ deliberately empty rather than filled with a guess.
   none today) would arm a clock with no decision to answer — the overlay only runs
   the clock for graded cards, so that combination is untested by data. VII-008 in
   8.1 still needs the parking gap driven before its card can be reached in a test.
+- **The deck copy cannot drift (2026-11-01).** `drive/src/quietroads/data/cards.json`
+  is written by `scripts/export-drive-cards.js` from one field list
+  (`scripts/drive-card-fields.js`) and checked against all 131 `cards/*.json` by
+  `drive/test/deck-parity.test.ts` (5), which names the card and the field. The
+  first run found `schedules_callback` missing on all 131 cards and `callback_of`
+  missing on 8 (II-010, II-031, III-010, III-020, IV-012, VI-011, VII-007,
+  VII-010); the re-export is 262 added lines, no deletions, no id touched. The
+  JSON → Postgres path (`scripts/seed-cards.js`, what the card game actually reads)
+  was checked the same way and carries every field. Suite is **311/311** across 32
+  files.
+- **Next, from the deck:** the build does not regenerate the bundle (the test
+  catches a stale one; the build does not). `callback_of`/`schedules_callback` are
+  now in the drive's copy and read by nothing yet.
 - **5.2's chain-up is finishable (2026-10-31).** The QTE's pass window
   (`0.2 < brake < 0.85`) excluded the only brake a key or pad makes (`1.0`), and
   `brake > 0.92` fired the drop branch, so stopping the car fired the failure

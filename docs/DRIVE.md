@@ -37,8 +37,12 @@ With `COOKIE_SECURE=0` the cookie is `pm_session` and works over http.
 `drive/public/` ships the Beetle GLB (11 MB), the highway models, the Quiet cutout atlas and
 overlays, and 60 stills: ~20 MB served with a 7-day cache. Card images are not shipped; the
 client uses `/api/drive/image/:id`. Card text is bundled from `cards/*.json` at
-`drive/src/quietroads/data/cards.json`; re-export it when cards change — options ship as
-id + text only, and grading happens server-side (never re-add correct/result/state_delta).
+`drive/src/quietroads/data/cards.json` by `scripts/export-drive-cards.js`
+(`npm run export-drive-cards`) — **never hand-edit the bundle**. The field list lives in
+`scripts/drive-card-fields.js` (one list, read by the exporter and by
+`drive/test/deck-parity.test.ts`, which fails on any difference and names the card and the
+field). Options ship as id + text only, and grading happens server-side (never re-add
+correct/result/state_delta).
 
 ## Home tile
 `public/game/app.js` `renderDriveTile()` appends "Quiet Roads · Kent" after the act rows when
