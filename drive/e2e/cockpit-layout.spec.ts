@@ -27,10 +27,10 @@ const VIEWPORTS = [
 const STATES = ['hud', 'dialogue', 'card', 'qte'] as const;
 type State = (typeof STATES)[number];
 
-// Headed on purpose: these are the device screenshots, and the stored baselines
-// are headed Chromium. Software rendering resamples the card still differently
-// enough to trip a 2% diff, which says nothing about the layout.
-test.use({ headless: false, hasTouch: true });
+// Headless: the layout is geometry, not pixels. A window would only add a GPU
+// and a desktop session to the run; the stored baselines are the same 390x844 /
+// 844x390 / 1280x800 frames either way.
+test.use({ headless: true, hasTouch: true });
 
 async function mockStudent(page: Page) {
   // Last route registered wins in Playwright, so the catch-all goes first and the

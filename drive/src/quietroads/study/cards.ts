@@ -26,6 +26,13 @@ export interface Card {
   scene?: string;
   decision?: string;
   options?: CardOption[];
+  /**
+   * The card's clock, as the card game carries it: when the decision runs out,
+   * this option is picked for you. `timeout_ms` missing means the table's default
+   * (`cardTimeout.ts`, 24 s — `src/game.js`). Cards without an id have no clock.
+   */
+  timeout_option_id?: string | null;
+  timeout_ms?: number | null;
   debrief?: string;
   source?: { psdp_skill?: string; dol_section?: string; teaching_target?: string };
   cast?: string[];

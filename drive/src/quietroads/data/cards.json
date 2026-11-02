@@ -299,6 +299,8 @@
    "failure_mode": "none"
   },
   "card_id": "I-007",
+  "timeout_option_id": "c",
+  "timeout_ms": 8000,
   "image": "/api/drive/image/I-007"
  },
  {
@@ -704,6 +706,8 @@
    "failure_mode": "distraction"
   },
   "card_id": "II-005",
+  "timeout_option_id": "a",
+  "timeout_ms": 24000,
   "image": "/api/drive/image/II-005"
  },
  {
@@ -1119,6 +1123,8 @@
    "failure_mode": "speed"
   },
   "card_id": "II-014",
+  "timeout_option_id": "b",
+  "timeout_ms": 21000,
   "image": "/api/drive/image/II-014"
  },
  {
@@ -1356,6 +1362,8 @@
    "failure_mode": "weather"
   },
   "card_id": "II-019",
+  "timeout_option_id": "a",
+  "timeout_ms": 27000,
   "image": "/api/drive/image/II-019"
  },
  {
@@ -1668,6 +1676,8 @@
    "failure_mode": "distraction"
   },
   "card_id": "II-026",
+  "timeout_option_id": "b",
+  "timeout_ms": 21000,
   "image": "/api/drive/image/II-026"
  },
  {
@@ -1856,6 +1866,8 @@
    "failure_mode": "inexperience"
   },
   "card_id": "II-030",
+  "timeout_option_id": "c",
+  "timeout_ms": 24000,
   "image": "/api/drive/image/II-030"
  },
  {
@@ -2103,6 +2115,8 @@
    "failure_mode": "inexperience"
   },
   "card_id": "III-005",
+  "timeout_option_id": "c",
+  "timeout_ms": 8000,
   "image": "/api/drive/image/III-005"
  },
  {
@@ -2292,6 +2306,8 @@
    "failure_mode": "speed"
   },
   "card_id": "III-009",
+  "timeout_option_id": "d",
+  "timeout_ms": 10000,
   "image": "/api/drive/image/III-009"
  },
  {
@@ -2604,6 +2620,8 @@
    "failure_mode": "fatigue"
   },
   "card_id": "III-016",
+  "timeout_option_id": "a",
+  "timeout_ms": 7000,
   "image": "/api/drive/image/III-016"
  },
  {
@@ -2892,6 +2910,8 @@
    "failure_mode": "distraction"
   },
   "card_id": "III-022",
+  "timeout_option_id": "d",
+  "timeout_ms": 8000,
   "image": "/api/drive/image/III-022"
  },
  {
@@ -3108,6 +3128,8 @@
    "failure_mode": "distraction"
   },
   "card_id": "III-027",
+  "timeout_option_id": "a",
+  "timeout_ms": 6000,
   "image": "/api/drive/image/III-027"
  },
  {
@@ -3474,6 +3496,8 @@
    "forced": "live still cards/takes/IV-005-take-97.png (Claude PASS a8a5ebe4; take 95 FAIL do not seed)"
   },
   "card_id": "IV-005",
+  "timeout_option_id": "d",
+  "timeout_ms": 8000,
   "image": "/api/drive/image/IV-005"
  },
  {
@@ -4471,6 +4495,8 @@
    "forced": "live still cards/takes/V-006-take-3.png (Claude PASS muted-read + Brad promote 2026-09-12). Master cards/V-006.png. Runner take-1 banked. Lesson copy EXACT from Claude Skill 11 JSON (PR #199). cargo_rough mapped to passenger_stress (a1/b0/c1). image_brief locked on semi_alongside_ribbon. Replaces playtest take-47."
   },
   "card_id": "V-006",
+  "timeout_option_id": "a",
+  "timeout_ms": 12000,
   "image": "/api/drive/image/V-006"
  },
  {
@@ -4717,6 +4743,8 @@
    "forced": "live still cards/takes/V-011-take-7.png (Claude PASS muted-read 794631a4; take 6 runner-up do not seed)"
   },
   "card_id": "V-011",
+  "timeout_option_id": "b",
+  "timeout_ms": 10000,
   "image": "/api/drive/image/V-011"
  },
  {
@@ -4993,6 +5021,8 @@
    "forced": "live still cards/takes/VI-004-take-5.png (Claude PASS cockpit). take-11 not seeded."
   },
   "card_id": "VI-004",
+  "timeout_option_id": "d",
+  "timeout_ms": 10000,
   "image": "/api/drive/image/VI-004"
  },
  {
@@ -5245,6 +5275,8 @@
    "forced": "live still cards/takes/VI-009-take-2.png (Claude PASS). take-1 not seeded."
   },
   "card_id": "VI-009",
+  "timeout_option_id": "d",
+  "timeout_ms": 8000,
   "image": "/api/drive/image/VI-009"
  },
  {
@@ -5525,6 +5557,8 @@
    "forced": "Act VII scaffold — no still; do not seed"
   },
   "card_id": "VII-002",
+  "timeout_option_id": "b",
+  "timeout_ms": 12000,
   "image": "/api/drive/image/VII-002"
  },
  {

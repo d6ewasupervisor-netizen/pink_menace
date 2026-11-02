@@ -1630,3 +1630,61 @@ seed, no deploy: the cockpit bundle is rebuilt from source at deploy time.
 `5.1`, `5.2`, `6.1b`, `6.2`, `6.3`, `7.1`) — because the failure is the phase
 flag, and all of them set it. Measured on 5.1, 5.2 (answered and timed out),
 6.2, 6.3, 3.1b, 6.1b and 1.2, plus 8.1 from the mission side.
+
+## 2026-11-01 — the drive's cards run the card game's clock (AUDIT §20)
+
+**Report.** `CardOverlay` ignored `timeout_option_id` / `timeout_ms`, so a hazard
+card left alone never resolved: VII-002's 12 s meant nothing, and a card that
+never reached the ledger showed no CONTINUE at all.
+
+**What was missing underneath.** The drive's deck copy
+(`drive/src/quietroads/data/cards.json`) didn't carry the two fields: 17 of the
+131 cards declare a clock in `cards/*.json` (I-007, II-005/014/019/026/030,
+III-005/009/016/022/027, IV-005, V-006/011, VI-004/009, VII-002 — all 17 already
+in the drive deck), and the bundle copy had none of them. The deck is now
+carried with them: **34 added lines, no deletions** (both fields under each of
+the 17 `card_id`s), so the client's data matches the card game's.
+
+**Fix.** `quietroads/cardTimeout.ts` is the whole rule, no DOM: `cardClock(card)`
+returns `{optionId, ms}` or null (`Number(card.timeout_ms) || 24000`, the card
+game's default; an id the card cannot offer is *not* a clock), and
+`CardCountdown` is a pure clock — it only moves when `advance()` is given running
+time, so a paused clock simply isn't advanced and nothing fires twice.
+`components/Game3D/useCardCountdown.ts` is the wiring: a 100 ms tick that pauses
+when the cockpit is paused (`phase !== 'card'`) or the tab is hidden
+(`visibilitychange`), and calls `onExpire` on the tick the clock hits zero.
+`CardOverlay` runs it for graded cards only, draws the countdown bar in the dock
+(`data-layer="card-clock"`, the option it will pick, whole seconds, the bar
+1 → 0), and on expiry calls the **same** `pick(timeout_option_id)` the option
+buttons call — so the grade, the verdict, the debrief and `finishCard` are
+identical to a tap, and the story logs `card:VII-002:b`. Beat/continue-only
+cards and cards with no timeout id have no clock at all. CONTINUE now renders
+whenever the card is resolved *or* unreachable (`grade || !graded || offline`), so
+a card can always be dismissed; the cockpit rule from `e88d78b` restores the HUD
+afterwards because nothing about the close path changed.
+
+**Tests.** `drive/test/cardTimeout.test.ts` (15): the clock the deck carries
+(17 cards, VII-002 = b / 12 000), the 24 s fallback, "no timeout id, no clock",
+the expiry picking the timeout option and it being a real gradable option, one
+fire only, overshoot clamped, the bar 1 → 0 and the label, and a paused clock
+that neither moves nor fires (a 30 s pause does not spend the decision).
+`drive/e2e/cockpit-restore.spec.ts` — the 5.2 case is now the real clock, not an
+emulation: it waits VII-002 out, checks the bar shrank, that the timed option's
+own verdict and debrief are on screen, that CONTINUE is there and dismisses it,
+that the record says `card:VII-002:b`, and that the chain-up mission starts with
+the sticks and dash up. A second test holds the clock still while the cockpit is
+paused and while the tab is hidden (`document.hidden` + `visibilitychange`), then
+sees it resume — the pause only means anything if it is measured.
+
+**Everything headless.** `cockpit-layout` and `cockpit-restore` no longer open a
+window (`test.use({ headless: true })`). The layout baselines were headed
+Chromium; the three **card** frames were re-recorded headless — the card state is
+the only one whose pixels depend on the renderer (the still's resampling) and it
+also now carries the clock bar. `hud`, `dialogue` and `qte` are byte-identical,
+and the geometry assertions (no two interactive layers intersect, still clear of
+the dock, plate decoded) pass unchanged at all three shapes.
+
+**Verified.** `295/295` vitest across 31 files (280 + 15), `tsc --noEmit` exit 0,
+`npm run build` 5.33 s / 4,000 kB (1,320 kB gzip), playwright **headless**
+20/20 (cockpit-layout 3/3, cockpit-restore 11/11 — the real 12 s expiry and the
+paused/hidden clock, mobile-layout 2/2, smoke 2/2). No seed, no deploy.

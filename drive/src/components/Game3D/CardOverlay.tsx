@@ -5,13 +5,21 @@
  * sit in a bottom dock over the (still-visible) driving world. Grading goes to
  * the server; the verdict, result, and debrief come back. The bundle never holds
  * the answer key. Dossiers and beats have no decision — read and continue.
+ *
+ * A card can also name the decision time makes for you (`timeout_option_id` /
+ * `timeout_ms`). The dock runs that clock; when it reaches zero it calls the same
+ * `pick()` an option button does, so the player gets that option's verdict and
+ * debrief and a CONTINUE. The clock pauses with the cockpit and with the tab
+ * (`useCardCountdown`); a card without a timeout id has no clock at all.
  */
 import { useEffect, useMemo, useState } from 'react';
 import { useQRHud } from '@/stores/qrHud';
+import { useGameStore } from '@/stores/gameStore';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
-import { CardDeck, type Card, type CardGrade } from '@/quietroads';
+import { CardDeck, cardClock, type Card, type CardGrade } from '@/quietroads';
 import { cardStillStyle } from './cardStillStyle';
 import { frameFor, useCockpitOrientation } from './cockpit/layout';
+import { useCardCountdown } from './useCardCountdown';
 
 type Grading = { state: 'idle' } | { state: 'busy'; optionId: string } | { state: 'graded'; grade: CardGrade } | { state: 'offline'; optionId: string };
 
@@ -19,30 +27,60 @@ export function CardOverlay() {
   const active = useQRHud((s) => s.card);
   const card: Card | undefined = useMemo(() => (active ? QuietRoads.deck.get(active.id) : undefined), [active]);
   const [grading, setGrading] = useState<Grading>({ state: 'idle' });
+  const phase = useGameStore((s) => s.phase);
   const orientation = useCockpitOrientation();
   const frame = frameFor(orientation, true);
   const landscape = orientation === 'landscape';
 
-  useEffect(() => { setGrading({ state: 'idle' }); }, [active?.id]);
+  useEffect(() => { setGrading({ state: 'idle' }); setClockExpired(false); }, [active?.id]);
+
+  // The clock this card carries, if any: hazard/beat cards with a timeout id.
+  const clock = useMemo(() => cardClock(card), [card]);
+  const [clockExpired, setClockExpired] = useState(false);
+
+  /**
+   * The one grading path. An option button and the card's clock both land here,
+   * so a timeout is graded, shown and recorded exactly like a tap.
+   */
+  const pick = async (optionId: string) => {
+    const c = card;
+    if (!c) return;
+    setGrading((g) => (g.state === 'busy' ? g : { state: 'busy', optionId }));
+    const g = await QuietRoads.gradeCard(c.card_id, optionId);
+    if (g === 'offline' || g === null) setGrading({ state: 'offline', optionId });
+    else setGrading({ state: 'graded', grade: g });
+  };
+
+  const countdown = useCardCountdown(
+    clock ? `${card?.card_id}:${clock.ms}` : null,
+    clock?.ms ?? null,
+    // Running only while the card owns an unanswered screen; a paused cockpit
+    // (`phase`) or a hidden tab (inside the hook) freezes it instead.
+    phase === 'card' && grading.state === 'idle' && !clockExpired,
+    () => {
+      if (!clock) return;
+      setClockExpired(true);
+      void pick(clock.optionId);
+    },
+  );
 
   if (!active || !card) return null;
   const graded = CardDeck.isGraded(card);
   const options = card.options ?? [];
   const grade = grading.state === 'graded' ? grading.grade : null;
-
-  const pick = async (optionId: string) => {
-    setGrading({ state: 'busy', optionId });
-    const g = await QuietRoads.gradeCard(card.card_id, optionId);
-    if (g === 'offline' || g === null) setGrading({ state: 'offline', optionId });
-    else setGrading({ state: 'graded', grade: g });
-  };
+  // Every resolved card must be leavable: a verdict (answered or timed out) gives
+  // CONTINUE, a dossier never had one, and a card that never reached the ledger
+  // still has to close (AUDIT §20).
+  const canContinue = Boolean(grade) || !graded || grading.state === 'offline';
 
   const finish = async () => {
     if (!graded) await QuietRoads.gradeCard(card.card_id, null); // dossier: record as seen
     QuietRoads.finishCard({
       card: card.card_id,
       option: grade?.option_id ?? null,
-      correct: graded ? (grade?.was_correct ?? false) : null,
+      // No verdict (a card that never reached the ledger) is "seen", not "wrong":
+      // the runner treats null as seen and leaves Respect alone.
+      correct: graded ? (grade?.was_correct ?? null) : null,
       noise: grade?.state_delta?.noise,
       time_cost: grade?.state_delta?.time_cost,
     });
@@ -108,6 +146,23 @@ export function CardOverlay() {
           {card.hook && <p style={styles.hook}>{card.hook}</p>}
           {card.scene && <p style={styles.scene}>{card.scene}</p>}
 
+          {/* The card's own clock, when it carries one: the same bar the card
+              game shows (hazard-window), shrinking to zero and then answering for
+              you. Gone the moment the card resolves. */}
+          {clock && graded && !grade && grading.state !== 'busy' && (
+            <div data-layer="card-clock" data-timeout-option={clock.optionId} style={styles.clock} role="timer"
+              aria-label={`${countdown.secondsLeft} seconds left`}>
+              <div style={styles.clockRow}>
+                <span style={styles.clockLabel}>{clockExpired ? 'TIME' : 'TIME LEFT'}</span>
+                <span data-clock-seconds style={styles.clockSeconds}>{Math.max(0, countdown.secondsLeft)}s</span>
+              </div>
+              <div style={styles.clockTrack}>
+                <div data-clock-fill style={{ ...styles.clockFill, width: `${Math.max(0, Math.min(1, clockExpired ? 0 : countdown.fraction)) * 100}%` }} />
+              </div>
+              {clockExpired && <div style={styles.clockNote}>The clock answered for you.</div>}
+            </div>
+          )}
+
           {graded && !grade && (
             <>
               {card.decision && <p style={styles.decision}>{card.decision}</p>}
@@ -152,7 +207,7 @@ export function CardOverlay() {
             </div>
           )}
 
-          {(grade || !graded) && <button data-ui style={styles.continue} onClick={finish}>CONTINUE</button>}
+          {canContinue && <button data-ui style={styles.continue} onClick={finish}>CONTINUE</button>}
         </div>
       </div>
     </div>
@@ -173,6 +228,15 @@ const styles: Record<string, React.CSSProperties> = {
   option: { display: 'flex', gap: 10, alignItems: 'flex-start', textAlign: 'left', background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid', borderRadius: 10, padding: '12px 12px', fontSize: 'calc(15px * var(--qr-text-scale, 1))', lineHeight: 1.35, cursor: 'pointer', minHeight: 52 },
   optionId: { flex: '0 0 auto', width: 22, height: 22, borderRadius: 11, background: 'rgba(242,141,178,0.25)', color: '#F28DB2', fontSize: 12, fontWeight: 800, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginTop: 1 },
   note: { fontSize: 13, color: '#9a9186', margin: '0 0 12px' },
+  // The card's clock: a thin bar under the scene, in the deck's pink, with the
+  // whole seconds left beside it so it reads without motion.
+  clock: { margin: '0 0 14px' },
+  clockRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 },
+  clockLabel: { fontSize: 'calc(10px * var(--qr-text-scale, 1))', letterSpacing: '0.2em', color: '#F28DB2' },
+  clockSeconds: { fontSize: 'calc(12px * var(--qr-text-scale, 1))', fontWeight: 700, color: '#e8e6e1', fontVariantNumeric: 'tabular-nums' },
+  clockTrack: { height: 6, borderRadius: 3, background: 'rgba(255,255,255,0.14)', overflow: 'hidden' },
+  clockFill: { height: '100%', background: '#F28DB2', transition: 'width 100ms linear' },
+  clockNote: { marginTop: 4, fontSize: 'calc(11px * var(--qr-text-scale, 1))', color: '#9a9186' },
   retry: { background: 'none', border: '1px solid #ff9a9a', color: '#ff9a9a', borderRadius: 6, padding: '4px 10px', marginLeft: 8, cursor: 'pointer', fontSize: 13 },
   result: { border: '1px solid', borderRadius: 10, padding: '10px 12px', marginBottom: 12, background: 'rgba(255,255,255,0.03)' },
   verdict: { fontSize: 'calc(12px * var(--qr-text-scale, 1))', letterSpacing: '0.2em', fontWeight: 800, marginBottom: 6 },

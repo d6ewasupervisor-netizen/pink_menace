@@ -143,6 +143,19 @@ deliberately empty rather than filled with a guess.
   family, and the fix belongs in `CardOverlay`/`DialogueRunner`, not in the
   cockpit. VII-008 in 8.1 also needs the parking gap driven before its card can
   be reached in a test.
+- **The card clock is in the cockpit (2026-11-01).** The drive's deck copy now
+  carries the 17 clocks (`cards.json`, 34 lines, no deletions), and
+  `quietroads/cardTimeout.ts` + `useCardCountdown` + `CardOverlay` run them: the
+  bar in the dock, the pause with the cockpit and the tab, the expiry picking
+  `timeout_option_id` through the same `pick()` a tap takes, and CONTINUE after
+  any resolution (including a card that never reached the ledger). 295/295
+  vitest, tsc 0, playwright 20/20 **headless** (the three card frames of the
+  layout baseline re-recorded headless). Suite is **295/295** across 31 files.
+- **Next, from the clock:** the drive starts the clock when the card opens, where
+  the card game waits 1 750 ms + 800 ms and pauses while the options are off
+  screen — a device read decides whether the grace belongs in the cockpit
+  (AUDIT §21). VII-008 in 8.1 still needs the parking gap driven before its card
+  can be reached in a test.
 - **5.2's chain-up is finishable (2026-10-31).** The QTE's pass window
   (`0.2 < brake < 0.85`) excluded the only brake a key or pad makes (`1.0`), and
   `brake > 0.92` fired the drop branch, so stopping the car fired the failure

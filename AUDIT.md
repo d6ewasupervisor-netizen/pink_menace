@@ -1010,6 +1010,8 @@ byte-identical.
   dismissed. Needs an answer on this surface — a timer that resolves through
   `finishCard` with the card's own `timeout_option_id`, and a CONTINUE for the
   offline case — before VII-002's 12 s means anything in the cockpit.
+  **Closed in §21** (same day): the clock, the bar, the pause and the offline
+  CONTINUE are in `quietroads/cardTimeout.ts` + `CardOverlay`.
 - `qrHud.qteActive` is still written by the walker QTE and read by nothing.
 - 8.1 is the one VII placement that is not card → `start_gameplay`: VII-008 sits
   at the parking gap, after `8.1.go` starts `spokane_home`. Measured from the
@@ -1017,6 +1019,54 @@ byte-identical.
   parking gap driven).
 - 390x844 is still the only device shape measured for this class of bug; the
   844x390 and 1280x800 baselines are the layout's, not a playthrough.
+
+
+## 21. The card's clock, on the drive's cards (2026-11-01)
+
+**Why.** §20 closed with the drive ignoring a card's clock. The card game has
+run one since it shipped (`public/game/app.js` → `armHazardWindow` →
+`startHazardWindow` → `submitAnswer(card.timeout_option_id)`, with
+`Number(card.timeout_ms) || 24000`), so a hazard card in the cockpit was the one
+place a player could sit forever.
+
+**The data gap, first.** The drive's bundle copy of the deck
+(`drive/src/quietroads/data/cards.json`) carried a trimmed field set and had
+**none** of the clocks: 17 of the 131 cards declare `timeout_option_id` in
+`cards/*.json` (I-007, II-005/014/019/026/030, III-005/009/016/022/027, IV-005,
+V-006/011, VI-004/009, VII-002) and all 17 are in the drive deck. The copy now
+carries both fields under each of those `card_id`s — 34 added lines, no
+deletions, no id touched, no seed.
+
+| Piece | Where | What it owns |
+|---|---|---|
+| `cardClock(card)` | `quietroads/cardTimeout.ts` | the clock a card runs: `{optionId, ms}`, or null when there is no timeout id (beat/dossier/ordinary cards) or the id is not one of the card's options |
+| `CARD_TIMEOUT_DEFAULT_MS` | same | 24 000, the card game's `Number(timeout_ms) \|\| 24000` |
+| `CardCountdown` | same | a pure clock: `advance(elapsedMs)` moves it only with running time, fires exactly once, clamps overshoot, exposes `fraction` / `secondsLeft` |
+| `useCardCountdown` | `Game3D/useCardCountdown.ts` | the wiring: 100 ms tick, paused while `phase !== 'card'`, paused while the tab is hidden (`visibilitychange`), one `onExpire` |
+| the dock bar | `Game3D/CardOverlay.tsx` | `data-layer="card-clock"` — the option it will pick, whole seconds, the bar 1 → 0, "The clock answered for you." after it fires |
+| the pick | same | expiry calls the **same** `pick(timeout_option_id)` the option buttons call, so grading, verdict, debrief and `finishCard` are a tap's |
+
+**Dismissible after every resolution.** CONTINUE renders when there is a verdict,
+when the card never had a decision, or when the grade could not be reached
+(`offline`) — the §20 dead end. An unreachable graded card now closes as *seen*
+(`correct: null`) rather than as wrong.
+
+**Headless.** Both cockpit specs run with `headless: true` now; the three
+**card** frames of `cockpit-layout.spec.ts-snapshots` were re-recorded headless
+(the only frames whose pixels depend on the renderer, and the clock bar lives in
+that state). The geometry assertions are untouched.
+
+**Still open.**
+- The drive's clock starts the moment the card opens; the card game waits 1 750 ms
+  (`grace`) + 800 ms (`wind`) first and only counts while the options are in view.
+  The cockpit has no equivalent "options in view" gate — the dock scrolls, and a
+  player reading the scene is spending time. If that reads unfair on a device,
+  the grace belongs in `useCardCountdown`, not in the card data.
+- `qrHud.qteActive` is still written by the walker QTE and read by nothing.
+- 8.1's card (VII-008) still needs the parking gap driven before it can be reached
+  in a test; 8.1 is measured from the mission side only.
+- Only 390x844 has a playthrough; `cockpit-layout` covers the other two shapes as
+  layout, not as play.
 
 
 <!-- CONTINUED -->
