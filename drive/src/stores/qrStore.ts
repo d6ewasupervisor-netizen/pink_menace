@@ -5,6 +5,7 @@
  */
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
+import { withCanonPlaceholders } from '@/quietroads/placeholders';
 import type { MasteryRecord } from '@/quietroads';
 
 interface Persisted {
@@ -44,7 +45,7 @@ export type QRState = Persisted & Actions;
 const emptyPersisted: Persisted = {
   vars: {}, flags: {}, items: [], unlocks: [], ledger: [], mastery: {}, attempts: [], choiceLog: [],
   checkpoint: null, sceneId: null, runnerState: null, examMissedIds: [],
-  placeholders: { MOM: 'Mom', RAY: 'Ray', GRANDMA: 'Grandma', GRANDMA_NAME: 'Grandma', GRANDMA_INITIALS: '— G.', PLAYER: 'Ali', PLAYER_FULL: 'Alison' },
+  placeholders: withCanonPlaceholders(null),
 };
 
 export const useQRStore = create<QRState>()(
@@ -65,14 +66,27 @@ export const useQRStore = create<QRState>()(
         setCheckpoint: (label, sceneId, runnerState) => set({ checkpoint: label, sceneId, runnerState }),
         setPlaceholder: (k, v) => set((s) => ({ placeholders: { ...s.placeholders, [k]: v } })),
         setExamMissedIds: (ids) => set({ examMissedIds: ids }),
-        resetQuietRoads: () => set({ ...emptyPersisted, placeholders: get().placeholders }),
+        resetQuietRoads: () => set({ ...emptyPersisted, placeholders: withCanonPlaceholders(get().placeholders) }),
       }),
       {
         name: 'quiet-roads-save',
+        // v2: the canon names stopped being saved state. An older save's
+        // placeholders (G.J. / June) are merged under the current defaults so a
+        // returning player sees the corrected note.
+        version: 2,
+        migrate: (persisted) => persisted as Persisted,
+        merge: (persisted, current) => {
+          const saved = (persisted ?? {}) as Partial<Persisted>;
+          return {
+            ...current,
+            ...saved,
+            placeholders: withCanonPlaceholders(saved.placeholders),
+          } as QRState;
+        },
         partialize: (s) => ({
           vars: s.vars, flags: s.flags, items: s.items, unlocks: s.unlocks, ledger: s.ledger,
           mastery: s.mastery, attempts: s.attempts, choiceLog: s.choiceLog,
-          checkpoint: s.checkpoint, sceneId: s.sceneId, runnerState: s.runnerState, placeholders: s.placeholders,
+          checkpoint: s.checkpoint, sceneId: s.sceneId, runnerState: s.runnerState,
           examMissedIds: s.examMissedIds,
         }),
       }

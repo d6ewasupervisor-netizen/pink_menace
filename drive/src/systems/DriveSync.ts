@@ -6,6 +6,7 @@
  * Everything is best-effort; the local save is always the working copy.
  */
 import { useQRStore } from '@/stores/qrStore';
+import { withCanonPlaceholders } from '@/quietroads/placeholders';
 import { useQRHud } from '@/stores/qrHud';
 import type { CardGrade } from '@/quietroads';
 
@@ -50,7 +51,8 @@ class Sync {
         unlocks: progress.unlocks ?? [],
         mastery: progress.mastery ?? {},
         runnerState: progress.runnerState ?? null,
-        placeholders: { ...useQRStore.getState().placeholders, ...(progress.placeholders ?? {}) },
+        // Canon names win: an older save's placeholders must not override them.
+        placeholders: withCanonPlaceholders({ ...useQRStore.getState().placeholders, ...(progress.placeholders ?? {}) }),
       });
       localStorage.setItem(LAST_SAVED_KEY, String(progress.clientUpdatedAt ?? Date.now()));
     } catch { /* offline: play from local */ }
@@ -84,7 +86,7 @@ class Sync {
     if (!this.dirty) return;
     const s = useQRStore.getState();
     const clientUpdatedAt = Date.now();
-    const body = { sceneId: s.sceneId, checkpoint: s.checkpoint, vars: s.vars, flags: s.flags, items: s.items, unlocks: s.unlocks, mastery: s.mastery, runnerState: s.runnerState, placeholders: s.placeholders, clientUpdatedAt };
+    const body = { sceneId: s.sceneId, checkpoint: s.checkpoint, vars: s.vars, flags: s.flags, items: s.items, unlocks: s.unlocks, mastery: s.mastery, runnerState: s.runnerState, clientUpdatedAt };
     try {
       const r = await fetch('/api/drive/progress', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), keepalive });
       if (r.ok) { this.dirty = false; localStorage.setItem(LAST_SAVED_KEY, String(clientUpdatedAt)); }
