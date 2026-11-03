@@ -51,6 +51,13 @@ app.use("/drive", (req, res, next) => {
   if (!driveEnabled()) return next();
   express.static(driveDir, { index: false, maxAge: "7d" })(req, res, next); // models, audio, stills, quiet
 });
+// A missing model/asset is a 404, not the SPA's index.html. The drive's GLBs load
+// `Textures/colormap.png` relative to themselves, and the fallback used to answer
+// a missing texture with HTML and a 200 — invisible in the network tab while the
+// world rendered untextured.
+app.use(["/drive/models", "/drive/assets"], (_req, res) => {
+  res.status(404).type("text/plain").send("Not found.");
+});
 app.get(["/drive", "/drive/*"], (req, res) => {
   if (!driveEnabled()) return res.redirect("/");
   if (appKind(req) === "parents") return res.redirect(parentsUrl());
