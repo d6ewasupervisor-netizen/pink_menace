@@ -1787,3 +1787,86 @@ re-run after the data change (`cockpit-layout` 3/3, `cockpit-restore` 12/12,
 deploy.
 
 
+
+## 2026-11-03 — the summit deadlock, the missing texture, the saved names
+
+Reported from a phone HAR: a save at scene 5.3 (`checkpoint: chains_on`,
+`chains_mounted: true`) parked after the VII-003 card and ignored every control.
+The chain-up was fine; the scene one later was not.
+
+### 1. 5.3 could not be finished (`1f168d6`)
+
+5.3 is a cutscene: `5.3.pre` (direction) → `5.3.card_VII-003` → `5.3.hold`
+(`wait_for: "cutscene.summit_clear"`) → … → `5.3.end` → 6.1. Nothing emitted
+`cutscene.summit_clear`, so the runner waited forever; no mission was running, so
+the cockpit rule correctly hid the dashboard, and the save resumed into the same
+trap every reload. 3.4's `cutscene.gracie_yell` was an orphan of the same shape.
+
+- `quietroads/waitWatch.ts`: a `cutscene.*` wait with no mission this scene
+  started and no card/quiz/debrief/choice open resolves after `CUTSCENE_WAIT_S`
+  (2.5 s); any other wait that stands `STRANDED_WAIT_S` (8 s) logs
+  scene/node/event and raises `qrHud.stranded`. The clock holds while paused or
+  hidden. Spokane's 8.2 marks keep their gate: `Simulation.onStoryWait` answers
+  them while `spokane_home` runs, and the rule requires `missionActive === false`.
+- `StrandedContinue.tsx` (mounted beside `DialogueBox`, z 234 over the dialogue
+  tap-catcher at 228) puts a Continue chip in the compound frame's body band;
+  `QuietRoads.continueStranded()` fires the awaited event on the game bus.
+- `test/deadlock.test.ts`: every `wait_for` and `triggers[].event` must name an
+  event the source really emits. `test/emitInventory.ts` measures the emitter set
+  from `drive/src` (event-shaped string literals, template prefixes cut at `${`,
+  `SpokaneRun.onStoryWait`'s Set, the cutscene prefix). `test/fullchain.test.ts`
+  now uses the same inventory and refuses to fire an event the game cannot emit —
+  proof it catches the bug: with the cutscene prefix disabled it fails naming
+  `5.3/5.3.hold -> cutscene.summit_clear` and `3.4/3.4.wait_yell -> cutscene.gracie_yell`.
+- Orphans found and wired: `cruise.idle.night` (6.2, `BeatRun.straight`),
+  `nozone.exit` (7.1, `EscortRun`), `mission.complete.quiet/loud` (4.3,
+  `Simulation` at `week.elapsed`), `stall.pullup.quiet/squeal` (3.3,
+  `ConvoyRun.afterStall`), and `shop.close` (an idle shop scene is treated as a
+  wait on it, so 2.6/2.7/2.8/7.2 can hand off — a tap or the Continue chip closes
+  the counter). `bridge.wait:*` (6.3) was a false negative (template literal).
+  Still unported and allow-listed with a reason in `UNWIRED`: `shop.buy:*`,
+  `shop.cant_afford` (the counter UI) and `qte.strap.*` (the tow-strap gesture).
+
+### 2. The world's texture (`37f104f`)
+
+Every Kenney GLB references `Textures/colormap.png`; the file never existed in the
+repo or the build, so each load asked for it and the SPA fallback answered
+`index.html` with a 200. `drive/scripts/build-model-colormaps.mjs`
+(`npm run build:colormaps`) generates a deterministic 512×512 atlas from each
+GLB's own TEXCOORD_0 bounds (zlib only) with per-model palettes, committed beside
+the models; `test/model-textures.test.ts` fails on a missing/non-PNG reference;
+`server.js` returns a real 404 under `/drive/models` and `/drive/assets`.
+
+### 3. The canon names (`3746db3`)
+
+The save carried `GRANDMA_INITIALS: "G.J."` / `GRANDMA_NAME: "June"`, and the
+bridge applied the save over the defaults, so the corrected `— G.` never reached
+an old save and Grandma's spoken name collided with June, the Act II neighbour.
+`quietroads/placeholders.ts` owns the canon set; `qrStore` stops persisting
+placeholders (version 2 + a canon-first `merge`); `DriveSync` stops sending them
+and merges canon over the server copy. `GRANDMA_NAME` appears in
+`dialogue_act2.json` ×5 and `dialogue_act4.json` ×1.
+
+### 4. E2E (`8be4777`)
+
+`drive/e2e/summit.spec.ts` (headless 390×844): a seeded save at 5.3 resumes, VII-003
+answers, the story reaches 6.1 with no stranded state (11.4 s); a second case
+renames 5.3.hold's event to `story.orphan_check`, waits out the 8 s net, sees the
+Continue chip (`data-stranded-scene` 5.3, `data-stranded-event`), and the click
+releases the wait (13.8 s).
+
+### Verified
+
+`332/332` vitest across 35 files (311 + 21: `waitWatch` 9, `deadlock` 10,
+`model-textures` 2), `tsc --noEmit` 0, `npm run build` 5.76 s / 4,009.85 kB
+(1,321.61 kB gzip), playwright **headless** 23/23 (`--workers=1`: summit 2/2,
+cockpit-restore 12/12, cockpit-layout 3/3, mobile-layout 2/2, smoke 4/4).
+`bench/baseline.json` restored after the suite. No seed, no deploy.
+
+### Still open
+
+- Act II's shop counter and 7.2's purchases are not ported; the scenes can be
+  left, the buy branches cannot be reached (`UNWIRED`).
+- The 3.3 tow-strap QTE is not ported (three allow-listed triggers).
+- Unchanged: the 11 MB Beetle download, the deck bundle not regenerated at build.
+

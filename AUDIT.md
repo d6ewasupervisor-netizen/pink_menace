@@ -1212,4 +1212,118 @@ drift there. The drive's bundle was the only second copy of the deck.
   client needs (a label, an icon); the guard will fail until the export writes it.
 
 
+## 24. The summit deadlock — a wait nothing answers (2026-11-03)
+
+**Symptom (phone, HAR).** A save at scene 5.3 (`checkpoint: chains_on`). The
+VII-003 card plays, then the story waits on `cutscene.summit_clear` — an event
+nothing in the game emitted. With no mission running the cockpit rule correctly
+hid the dashboard, so the screen was a parked car in a placeholder world with no
+controls. Every reload resumed into the same state because the save pointed at
+5.3. The chain-up itself was fine (`chains_mounted: true`).
+
+**Why it was never seen.** `drive/test/fullchain.test.ts` walked the campaign by
+firing each wait's own `wait_for` — it was answering the wait for the game, so a
+deadlock could never fail the walk. 5.3 has been broken since it was written;
+nobody reached it until the chain-up started working.
+
+**The fix, one rule.** `quietroads/waitWatch.ts` owns two clocks:
+
+| Rule | When | Result |
+|---|---|---|
+| cutscene | `cutscene.*`, no mission this scene started, no card/quiz/debrief/choice open, ≥ 2.5 s | the mark fires (the direction line is the beat) |
+| stranded | any wait, same gating, ≥ 8 s | `console.warn` naming scene/node/event + a Continue control |
+
+The clock holds while paused or the tab is hidden, and restarts when the wait
+changes. The Spokane 8.2 marks keep their gate: `Simulation.onStoryWait` answers
+them while `spokane_home` is running, and the cutscene rule requires
+`missionActive === false`. 3.4's `cutscene.gracie_yell` was an orphan too; the
+same rule fixes it.
+
+**The safety net.** `qrHud.stranded` carries `{ scene, node, event }`.
+`StrandedContinue.tsx` (mounted beside `DialogueBox`, not inside `CockpitHUD`: the
+cutscene tap-catcher is a full-screen layer at z 228 and a chip inside the HUD's
+stacking context would sit under it) renders a Continue chip in the compound
+frame's body band (`qteBand(frameFor(orientation, true))`, z 234),
+`data-layer="stranded"`, which calls `QuietRoads.continueStranded()` → the awaited
+event on the same bus the sim uses. A player can never be stuck on a blank frame
+again.
+
+**No new orphans.** `drive/test/deadlock.test.ts` measures the emitter set from
+`drive/src` (event-shaped string literals, template prefixes cut at `${`, plus
+`SpokaneRun.onStoryWait`'s owned Set and the cutscene prefix) and fails with
+scene/node/event for any `wait_for` or `triggers[].event` nothing emits. The walk
+now consults the same inventory, so it can only advance through events the game
+can really emit — verified failing on the pre-fix code naming 5.3/5.3.hold and
+3.4/3.4.wait_yell.
+
+**Orphans the guard found and what happened to them.**
+
+| Event(s) | Scene(s) | Gap | Fix |
+|---|---|---|---|
+| `cutscene.summit_clear` | 5.3 | no emitter | cutscene rule |
+| `cutscene.gracie_yell` | 3.4 | no emitter | cutscene rule |
+| `bridge.wait:15/30/45/60` | 6.3 | emitted by `BeatRun.engineOff` via a template | inventory prefix match (no code change) |
+| `cruise.idle.night` | 6.2 | only `cruise.idle` / `.escort` existed | `BeatRun.straight` emits it after 3 s stopped |
+| `nozone.exit` | 7.1 | only the four `nozone.enter:*` existed | `EscortRun` emits it once clear of the blind spot |
+| `mission.complete.quiet/loud` | 4.3 | none | `Simulation` fires the verdict at `week.elapsed` (pass → quiet) |
+| `stall.pullup.quiet/squeal` | 3.3 | none | `ConvoyRun.afterStall` fires on the roll-up (brake > 0.6 → squeal) |
+| `shop.close` | 2.6/2.7/2.8/7.2 | the shop counter is not ported | `QuietRoadsBridge.shopExitEvent()` treats an idle shop scene as a wait on `shop.close`; the safety net (or a tap) closes it, and every shop end hands off |
+| `shop.buy:*`, `shop.cant_afford` | 2.6/2.7/2.8/7.2 | the shop counter is not ported | allow-listed in `test/emitInventory.ts` (`UNWIRED`), pinned by the guard |
+| `qte.strap.start/success/fail` | 3.3 | the strap gesture is not ported; the tow path does not wait on it | allow-listed (`UNWIRED`) |
+
+**Verified.** 332/332 vitest across 35 files (311 + 21: `waitWatch` 9,
+`deadlock` 10, `model-textures` 2), `tsc --noEmit` 0, `npm run build` 6.49 s,
+playwright headless 23/23 including the two new `e2e/summit.spec.ts` cases
+(resume at 5.3 → VII-003 → 6.1 with no stranded state; an orphaned wait shows
+Continue and the control releases it).
+
+**Still open.**
+- Act II's shop counter (2.6/2.7/2.8) and 7.2's purchases are not ported. The
+  scenes can now be left (tap/Continue → `shop.close`), but the buy branches are
+  unreachable; the guard's `UNWIRED` list is where that shows.
+- The 3.3 tow-strap QTE is not ported; its three triggers are allow-listed.
+
+
+## 25. The world's missing texture, and stale saved names (2026-11-03)
+
+**Textures.** Every Kenney GLB under `public/game/drive/models` references
+`Textures/colormap.png` beside itself. That file has never existed in the repo or
+the build (no `colormap*` file in git history, none in either tree), so each load
+asked the server for it, the SPA fallback answered `index.html` with a 200, and
+the image could never decode. The road and buildings hid it because
+`proceduralKenneyTextures.ts` repaints their materials; NPC cars, cones, signs and
+lamps had nothing and rendered flat.
+
+- `drive/scripts/build-model-colormaps.mjs` (`npm run build:colormaps`) reads each
+  GLB's own TEXCOORD_0 bounds and writes a deterministic 512×512 RGBA atlas
+  (zlib only, no dependency) so every UV lands on a painted pixel. Per-model
+  palettes: asphalt + markings for `road-straight`, orange/white cones, green
+  signs, warm lamps, red/white barriers, facades for buildings, a light neutral
+  for cars (the NPC tint multiplies it).
+- Committed in `drive/public/models/*/Textures/` and in the build output (Vite
+  copies `public/`); `drive/test/model-textures.test.ts` fails if any GLB
+  references a file that is missing or is not a real PNG, in either tree.
+- `server.js` now returns a real 404 for a missing file under `/drive/models` and
+  `/drive/assets` instead of the SPA's `index.html`, so this cannot hide again.
+
+**Stale names.** The save carried a `placeholders` object and the bridge applied
+it at boot, so `GRANDMA_INITIALS: "G.J."` beat the corrected `— G.` and
+`GRANDMA_NAME: "June"` beat `Grandma` (June is the Act II insulin neighbour, so
+the collision was confusing as well as wrong). Fixes:
+
+- `quietroads/placeholders.ts` holds `CANON_PLACEHOLDERS` and
+  `withCanonPlaceholders()`; the canon names always win.
+- `qrStore` no longer persists `placeholders` (persist `version: 2`, with a
+  `merge` that folds an old save's values under the canon ones); `resetQuietRoads`
+  keeps the canon set; `DriveSync` stops sending them and merges canon over any
+  server copy.
+- `GRANDMA_NAME` is used in `dialogue_act2.json` ×5 (II lines) and
+  `dialogue_act4.json` ×1 (the exam-result line); it is defined in
+  `dialogue_act8.json` and `qrStore`. `GRANDMA_INITIALS` signs the note in
+  `dialogue_act0-1.json`. None of them is the neighbour's name now.
+
+**Still open.** The 11 MB `vw_beetle.glb` still downloads on every load (existing
+performance item, untouched here).
+
+
 <!-- CONTINUED -->
