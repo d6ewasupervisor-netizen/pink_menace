@@ -36,6 +36,11 @@ interface HudState {
   missionActive: boolean;
   /** The grade result panel (built by quietroads/debrief). Null when closed. */
   debrief: DebriefModel | null;
+  /**
+   * A wait nothing is going to answer: the bridge names the scene/node/event
+   * after 8 s and offers a Continue control that releases it. Null otherwise.
+   */
+  stranded: { scene: string; node: string; event: string } | null;
   scare: 'none' | 'edge' | 'flood';
   /** Outbound telemetry, in memory only; DriveSync drains it every 10 s. */
   telemetry: TelemetryRow[];
@@ -48,7 +53,7 @@ interface HudState {
 
 export const useQRHud = create<HudState>()((set, get) => ({
   line: null, direction: null, choices: null, objective: '', toast: '', frame: null,
-  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, scare: 'none', telemetry: [],
+  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, scare: 'none', telemetry: [],
   setTransient: (partial) => set(partial),
   setHorn: (v) => set({ horn: v }),
   setRun: (v) => set({ run: v }),

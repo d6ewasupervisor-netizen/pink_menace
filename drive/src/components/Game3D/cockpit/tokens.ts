@@ -29,7 +29,7 @@ export const tokens = {
     mono: 'ui-monospace, "SF Mono", Menlo, Consolas, monospace',
   },
   radius: { sm: 6, md: 10, lg: 14, xl: 18 },
-  z: { hud: 50, prompt: 210, card: 240, pause: 250, menu: 300 },
+  z: { hud: 50, prompt: 210, dialogue: 228, quiz: 232, stranded: 234, card: 240, pause: 250, menu: 300 },
 } as const;
 
 /**

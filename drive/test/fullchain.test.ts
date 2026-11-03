@@ -26,6 +26,7 @@
  */
 import { describe, expect, it } from "vitest";
 import { DialogueRunner } from "../src/quietroads/dialogue/DialogueRunner";
+import { emitterFor } from "./emitInventory";
 import act01 from "../src/quietroads/data/dialogue_act0-1.json";
 import act2 from "../src/quietroads/data/dialogue_act2.json";
 import act2c from "../src/quietroads/data/dialogue_act2_central.json";
@@ -175,7 +176,20 @@ function runScene(h: Harness, sceneId: string, opts: Opts) {
     if (cur) {
       if (cur.type === "wait") {
         if (process.env.DBG) console.log("WAIT", sceneId, cur.wait_for);
-        h.runner.onEvent(cur.wait_for);
+        // The walk may only advance through events the game really emits. It used
+        // to fire every wait's own `wait_for`, which is how it sailed through 5.3
+        // while a phone sat there: firing the event the scene is waiting for is
+        // exactly what no one does in play.
+        const event = cur.wait_for as string;
+        const emitter = emitterFor(event);
+        if (!emitter) {
+          throw new Error(
+            `${sceneId}/${h.runner.currentId} waits for "${event}" and nothing in the game emits it ` +
+            "(no sim/bridge emitter, no onStoryWait entry, not a cutscene.* mark)",
+          );
+        }
+        if (process.env.DBG) console.log("  answered by", emitter);
+        h.runner.onEvent(event);
         continue;
       }
       if (cur.type === "choice") {
@@ -219,6 +233,11 @@ function runScene(h: Harness, sceneId: string, opts: Opts) {
         // Retry/atmosphere events re-enter the scene instead of advancing it.
         if (/^(noise\.|mission\.fail\.|mission\.complete\.|shop\.cant_afford$)/.test(t.event)) continue;
         if (!leadsForward(scene, t.node)) continue;
+        // A trigger is still an event: if nothing emits it, firing it here would
+        // be the walk pretending the game did something it cannot.
+        if (!emitterFor(t.event)) {
+          throw new Error(`${sceneId}/${t.node} can only advance on "${t.event}", and nothing in the game emits it`);
+        }
         event = t.event;
         break;
       }

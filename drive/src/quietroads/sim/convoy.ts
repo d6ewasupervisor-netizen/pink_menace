@@ -35,6 +35,7 @@ export class ConvoyRun {
   private stallFired = false;
   private arriveFired = false;
   private towStarted = false;
+  private pullFired = false;
   private idleS = 0;
   private idleFired = false;
   private jerkCd = 0;
@@ -57,6 +58,7 @@ export class ConvoyRun {
     this.greenS = 0;
     this.stallFired = this.arriveFired = false;
     this.towStarted = false;
+    this.pullFired = false;
     this.idleS = 0;
     this.idleFired = false;
     this.jerkCd = 0;
@@ -155,6 +157,12 @@ export class ConvoyRun {
   }
 
   private afterStall(dt: number, s: VehicleSample) {
+    // Rolling up behind Jonah's van. Gentle pedal and a long roll is the quiet
+    // pull-up the scene praises; a stomp on the brake is the squeal it punishes.
+    if (!this.pullFired && Math.abs(s.speedMs) < 3 && dist(s.pos, this.stall) < 14) {
+      this.pullFired = true;
+      this.ev.fire(s.brake > 0.6 ? "stall.pullup.squeal" : "stall.pullup.quiet");
+    }
     if (this.mission === "convoy_tow_jonah" && !this.towStarted && Math.abs(s.speedMs) > 1.2) {
       this.towStarted = true;
       this.ev.fire("tow.start");

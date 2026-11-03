@@ -26,6 +26,7 @@ export class BeatRun {
   private creep = 0;
   private passedRest = 0;
   private restPing = 0;
+  private idle = 0;
 
   constructor(
     private rest: Rect,
@@ -36,7 +37,7 @@ export class BeatRun {
 
   reset(id: BeatMission) {
     this.mission = id;
-    this.t = this.park = this.steerHold = this.creep = this.passedRest = this.restPing = 0;
+    this.t = this.park = this.steerHold = this.creep = this.passedRest = this.restPing = this.idle = 0;
     this.flags.clear();
   }
 
@@ -90,6 +91,10 @@ export class BeatRun {
 
   private straight(dt: number, s: VehicleSample) {
     if (this.t > 1) this.once("night.fall");
+    // 6.2's hush bark: the night straight, stopped with nothing coming. The scene
+    // listens for `cruise.idle.night`; the eastbound convoy owns plain `cruise.idle`.
+    this.idle = Math.abs(s.speedMs) < 1 ? this.idle + dt : 0;
+    if (this.idle > 3) this.once("cruise.idle.night");
     if (s.beams === "high") this.once("headlight.highbeam.on");
     const mph = Math.abs(s.speedMs) / MPH;
     if (mph > 70) this.once("shadow.exceeds_lights");

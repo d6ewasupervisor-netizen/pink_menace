@@ -646,6 +646,11 @@ export class Simulation {
           // as data, so the debrief reads the same verdict that ended the week
           // instead of listening for a `week.grade.*` nothing emits.
           this.emit("week.elapsed", { grade: this.retest.result });
+          // 4.3's closing radio line is the run's own verdict: a clean week is
+          // "Nobody heard you"; a missed rule is "So's everyone else".
+          this.emit(this.retest.result === "pass" ? "mission.complete.quiet" : "mission.complete.loud", {
+            grade: this.retest.result,
+          });
         }
       }
       this.emitCues(this.cues.step(this.cueProbe(s, dt)));

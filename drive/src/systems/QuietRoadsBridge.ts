@@ -20,6 +20,7 @@ import {
   type Question as CoreQuestion, type TimerHandle, VEHICLE, CHASSIS_DECEL, brakeDecel, type WalkerInput, type MasteryRecord,
   actForScene, actForMission, challengeForAct, type CardAct,
   isGradeEvent, buildDebrief, cockpitPhaseFor, staleCockpitFlag,
+  WaitWatch, STRANDED_WAIT_S, withCanonPlaceholders,
 } from '@/quietroads';
 import { KnowledgeSeat, examVerdict } from '@/quietroads/study/seat';
 // P3: Act I only, eagerly. The rest of the acts are per-act dynamic imports.
@@ -220,7 +221,7 @@ class Bridge {
       this.cardQuietUntil = 0;
       this.sim.resetCardCues();
     }
-    for (const [k, v] of Object.entries(useQRStore.getState().placeholders)) this.runner.setPlaceholder(k, v);
+    for (const [k, v] of Object.entries(withCanonPlaceholders(useQRStore.getState().placeholders))) this.runner.setPlaceholder(k, v);
     const st = useQRStore.getState();
     if (resume && st.runnerState) this.runner.restore(st.runnerState);
 
@@ -386,6 +387,45 @@ class Bridge {
     window.setTimeout(() => useQRHud.getState().setTransient({ toast: '' }), 3800);
   }
 
+  /**
+   * A wait nobody is going to answer. Name it out loud (scene/node/event) and put
+   * a Continue control on screen; the player must never be stuck on a blank
+   * frame because an event was never wired.
+   */
+  private showStranded(event: string) {
+    const scene = this.runner.scene?.id ?? '?';
+    const node = this.runner.currentId || (this.runner.isWaiting ? '?' : 'shop.idle');
+    console.warn(
+      `[story] ${scene}/${node} has waited ${STRANDED_WAIT_S}s for "${event}" with no mission running ` +
+      'and nothing to do — showing Continue so the wait can be released.',
+    );
+    useQRHud.getState().addTelemetry({ ts: Date.now(), event: 'story.stranded', data: { scene, node, event } });
+    useQRHud.getState().setTransient({ stranded: { scene, node, event } });
+  }
+
+  /** The Continue control under the cockpit: fire the wait's own event. */
+  continueStranded() {
+    const s = useQRHud.getState().stranded;
+    if (!s) return;
+    useQRHud.getState().setTransient({ stranded: null });
+    this.waitWatch.reset();
+    this.fire(s.event);
+  }
+
+  /**
+   * The event a shop scene is implicitly waiting on once its dialogue runs out.
+   * The shop counter itself is not part of the web build (AUDIT §25), so without
+   * this the scene sits on a blank frame after its greet line; every shop end
+   * hands off, so firing this closes the counter and the campaign moves on.
+   */
+  private shopExitEvent(): string | null {
+    const scene = this.runner.scene;
+    if (!scene || scene.type !== 'shop' || this.runner.current) return null;
+    const h = useQRHud.getState();
+    if (h.card || h.choices || h.debrief) return null;
+    return 'shop.close';
+  }
+
   private fire(event: string, data?: Record<string, unknown>) {
     this.stepEvents.dispatch({ name: event, data }, this.deliverEvent);
   }
@@ -477,6 +517,8 @@ class Bridge {
   private lastQte = false;
   private lastHudAt = 0;
   private lastStoryWait: string | null = null;
+  /** The cutscene / stranded clocks. See quietroads/waitWatch.ts. */
+  private readonly waitWatch = new WaitWatch();
   tick(dt: number) {
     if (!this.started) return;
     // Cockpit ownership is reconciled before the phase gate below: the whole
@@ -492,10 +534,31 @@ class Bridge {
     // scene whose cutscene marks have no video player in the web build, so the
     // active mission supplies them when the runner reaches the wait.
     const waitNode = this.runner.isWaiting ? this.runner.current : null;
-    const waitKey = waitNode?.wait_for ?? null;
-    if (!waitKey) this.lastStoryWait = null;
-    else if (waitKey !== this.lastStoryWait && this.sim.onStoryWait(waitKey)) {
-      this.lastStoryWait = waitKey;
+    // A shop scene's counter is not ported: when its dialogue has run out and
+    // nothing is on screen, the only way out is `shop.close`. Treat that as the
+    // wait it is, so the stranded net offers the control instead of a dead scene.
+    const waitKey = waitNode?.wait_for ?? this.shopExitEvent();
+    if (!waitKey) {
+      this.lastStoryWait = null;
+      this.waitWatch.reset();
+      if (useQRHud.getState().stranded) useQRHud.getState().setTransient({ stranded: null });
+    } else {
+      if (waitKey !== this.lastStoryWait && this.sim.onStoryWait(waitKey)) this.lastStoryWait = waitKey;
+      const hud = useQRHud.getState();
+      const signal = this.waitWatch.tick(dt, {
+        waitFor: waitKey,
+        missionActive: hud.missionActive,
+        compoundOpen: Boolean(hud.card || hud.choices || hud.debrief),
+        paused: g.phase === 'paused' || g.phase === 'menu' || g.phase === 'victory' || g.phase === 'gameover'
+          || (typeof document !== 'undefined' && document.hidden),
+      });
+      if (signal?.kind === 'cutscene') {
+        // A direction beat, not a mission mark: no mission owns this wait, so the
+        // line is the beat. Fired through the same bus the sim uses.
+        this.fire(signal.event);
+      } else if (signal?.kind === 'stranded') {
+        this.showStranded(signal.event);
+      }
     }
     // Only simulate while driving/walking; dialogue/quiz/pause freeze the world.
     if (g.phase !== 'driving' && g.phase !== 'walking') return;
@@ -777,7 +840,12 @@ class Bridge {
 
   // ---------------------------------------------------------------- UI actions
   shh() { this.sim.interior.answerQte(); }
-  tap() { this.runner.advanceFromUi(); }
+  tap() {
+    // A shop with no counter: a tap on the blank frame closes it (the same event
+    // the Continue control fires), so the scene can hand off.
+    if (!this.runner.current && this.shopExitEvent()) { this.fire('shop.close'); return; }
+    this.runner.advanceFromUi();
+  }
   choose(id: string) { this.runner.chooseById(id); }
   restartFromCheckpoint() {
     const st = useQRStore.getState();

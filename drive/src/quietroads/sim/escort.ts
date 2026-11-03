@@ -64,6 +64,12 @@ export class EscortRun {
       this.ev.fire(s.pos.y > this.leadPos.y ? "nozone.enter:right" : "nozone.enter:left");
     }
 
+    // Out the other side: once the car is back at a full gap behind Hank, the
+    // blind spot is behind her and 7.1's Hank bark may play.
+    const enteredBlindSpot = [...this.flags].some((f) => f.startsWith("nozone.enter:"));
+    const clearOfBlindSpot = gap < -2 ? -gap >= need : gap >= 8;
+    if (enteredBlindSpot && clearOfBlindSpot) this.once("nozone.exit");
+
     if (behind && -gap >= need * 0.75 && -gap <= need * 1.35 && Math.abs(s.speedMs) > 4) {
       this.green += dt;
       if (this.green > 1.5) this.once("follow.green.truck");
