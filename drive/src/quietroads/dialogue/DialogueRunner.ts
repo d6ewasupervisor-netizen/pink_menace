@@ -57,7 +57,9 @@ export class DialogueRunner {
     if (Object.keys(this.data.scenes).length === 0 && !this.data.meta.schema_version) {
       this.data = {
         ...file,
-        meta: { ...file.meta, placeholders: { ...(file.meta.placeholders ?? {}) } },
+        // A placeholder the host already set (the canon names) survives the first
+        // load; the file's values are the defaults underneath it.
+        meta: { ...file.meta, placeholders: { ...(file.meta.placeholders ?? {}), ...(this.data.meta.placeholders ?? {}) } },
         pools: { ...(file.pools ?? {}) },
       };
     } else {
@@ -67,7 +69,12 @@ export class DialogueRunner {
       this.data.variables = { ...(this.data.variables ?? {}), ...(file.variables ?? {}) };
       this.data.flags = { ...(this.data.flags ?? {}), ...(file.flags ?? {}) };
       this.data.meta.acts = [...new Set([...this.data.meta.acts, ...file.meta.acts])];
-      this.data.meta.placeholders = { ...(this.data.meta.placeholders ?? {}), ...(file.meta.placeholders ?? {}) };
+      // Same rule as vars and flags below: a file only seeds a placeholder the
+      // host does not already hold. An act file's `meta.placeholders` is a
+      // default, and several carried `GRANDMA_INITIALS: "Grandma"` from before
+      // the signature was corrected — merging a file over the host let that
+      // stale value win over the canon set for every scene in the act.
+      this.data.meta.placeholders = { ...(file.meta.placeholders ?? {}), ...(this.data.meta.placeholders ?? {}) };
     }
     // Seed defaults only where the host doesn't already hold a value.
     for (const [k, def] of Object.entries(file.variables ?? {})) {
