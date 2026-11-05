@@ -128,8 +128,31 @@ describe('plow.used is one report per contact episode', () => {
   });
 });
 
+describe('the engine-off wait hands the car back after the minute', () => {
+  const parked = { pos: { x: bridge.mid.x, y: bridge.mid.y }, speedMs: 0 };
+
+  it('keeps the restart path for a car that does start early', () => {
+    const { sim, count } = makeSim('bridge_engine_off_wait');
+    step(sim, 5, parked);
+    // A thumb on the throttle five seconds in is the mistake the scene answers.
+    step(sim, 0.2, { ...parked, throttle: 0.8, speedMs: 4 });
+    expect(count('engine.start_early')).toBe(1);
+  });
+
+  it('a throttle press after the minute is "Okay. Key. Gentle. Go.", not a restart', () => {
+    const { sim, count } = makeSim('bridge_engine_off_wait');
+    step(sim, 61, parked);
+    expect(count('bridge.wait:60')).toBe(1);
+    expect(sim.waitElapsedS).toBeGreaterThanOrEqual(60);
+    step(sim, 3, { ...parked, throttle: 0.8, speedMs: 6 });
+    // Before the guard this fired `engine.start_early` → 6.3.restart → "Sixty.
+    // From the top.", which is why her HAR shows the mission starting four times.
+    expect(count('engine.start_early')).toBe(0);
+  });
+});
+
 describe('the engine-off wait clock', () => {
-  it('is the sim\'s own, and it holds while the world is frozen', () => {
+  it("is the sim's own, and it holds while the world is frozen", () => {
     const { sim, count } = makeSim('bridge_engine_off_wait');
     // Parked at the mid start: still and off the throttle.
     step(sim, 14, { pos: { x: bridge.mid.x, y: bridge.mid.y } });

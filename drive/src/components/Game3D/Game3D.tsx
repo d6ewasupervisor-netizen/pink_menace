@@ -53,6 +53,7 @@ import { DialogueBox } from './DialogueBox';
 import { SceneDirector } from './SceneDirector';
 import { GracieQTE } from './GracieQTE';
 import { CockpitQTE } from './CockpitQTE';
+import { HandsOffOverlay } from './HandsOffOverlay';
 import { CardOverlay } from './CardOverlay';
 import { GradeDebrief } from './GradeDebrief';
 import { ScareOverlay } from './ScareOverlay';
@@ -357,6 +358,7 @@ export function Game3D({ onExit }: Game3DProps) {
         <ShopCounter />
         <StrandedContinue />
         <CockpitQTE />
+        <HandsOffOverlay />
         <ScareOverlay />
         <CardOverlay />
         <GradeDebrief />

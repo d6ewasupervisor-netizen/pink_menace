@@ -1,6 +1,7 @@
 import type { Rect, Vec2 } from "./math";
 import { dist, rectHas } from "./math";
 import type { VehicleSample } from "./vehicleObserver";
+import { BRIDGE_WAIT_S } from "../handsoff";
 
 const MPH = 0.44704;
 
@@ -58,7 +59,7 @@ export class BeatRun {
 
   /** Sit-still on the span. The pin should not tell her to drive until this is over. */
   waitingOutTheBridge(): boolean {
-    return this.mission === "bridge_engine_off_wait" && this.park < 60;
+    return this.mission === "bridge_engine_off_wait" && this.park < BRIDGE_WAIT_S;
   }
 
   /**
@@ -85,7 +86,7 @@ export class BeatRun {
           ? "Far side."
           : "Keep rolling, above 18 mph. Don't creep.";
       case "bridge_engine_off_wait": {
-        const left = Math.max(0, Math.ceil(60 - this.park));
+        const left = Math.max(0, Math.ceil(BRIDGE_WAIT_S - this.park));
         return left > 0
           ? `Engine off. Sit still. ${left}s, then the far side.`
           : "Drive to the far side.";
@@ -195,13 +196,21 @@ export class BeatRun {
   }
 
   private engineOff(dt: number, s: VehicleSample) {
+    // The minute is served: she drives to the far side. The engine coming back
+    // on is the scene's own "Okay. Key. Gentle. Go." (6.3.13) — not a restart.
+    // Before this guard, the first throttle press after the wait fired
+    // `engine.start_early` and threw her back to "Sixty. From the top."
+    if (this.park >= BRIDGE_WAIT_S) {
+      if (dist(s.pos, this.bridge.end) < 8) this.once("waypoint.reach:bridge_end");
+      return;
+    }
     if (s.throttle > 0.3 || Math.abs(s.speedMs) > 1.5) {
       if (this.park > 2) this.ev.fire("engine.start_early");
       this.park = 0;
       return;
     }
     this.park += dt;
-    for (const mark of [15, 30, 45, 60]) {
+    for (const mark of [15, 30, 45, BRIDGE_WAIT_S]) {
       if (this.park >= mark) this.once(`bridge.wait:${mark}`);
     }
     if (dist(s.pos, this.bridge.end) < 8) this.once("waypoint.reach:bridge_end");

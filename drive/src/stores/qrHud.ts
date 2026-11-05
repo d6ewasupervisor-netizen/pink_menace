@@ -8,6 +8,9 @@ import type { ShownLine, DialogueNode, ChoiceOption, SimFrame } from '@/quietroa
 import type { DebriefModel } from '@/quietroads/debrief';
 import type { ChainupPrompt } from '@/quietroads/sim/chainup';
 import type { Shop } from '@/quietroads/shop';
+import type { HandsOffState } from '@/quietroads/handsoff';
+
+export type { HandsOffState };
 
 export interface TelemetryRow {
   ts: number;
@@ -54,6 +57,13 @@ interface HudState {
    * panel over whatever was underneath, not a phase.
    */
   credits: boolean;
+  /**
+   * A hands-off wait is up (6.3's engine-off sixty seconds). Written in ONE place
+   * — `QuietRoadsBridge.syncHandsOff` — and read by three surfaces: the overlay
+   * that draws it, DialogueBox (which stands down, the overlay carries the line),
+   * and TouchOverlay (the sticks go away). See quietroads/handsoff.ts.
+   */
+  handsOff: HandsOffState | null;
   scare: 'none' | 'edge' | 'flood';
   /**
    * Outbound telemetry does NOT live in this store. It used to: every sim event
@@ -70,7 +80,7 @@ interface HudState {
 
 export const useQRHud = create<HudState>()((set) => ({
   line: null, direction: null, choices: null, objective: '', toast: '', frame: null,
-  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, shop: null, credits: false, scare: 'none',
+  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, shop: null, credits: false, handsOff: null, scare: 'none',
   setTransient: (partial) => set(partial),
   setHorn: (v) => set({ horn: v }),
   setRun: (v) => set({ run: v }),

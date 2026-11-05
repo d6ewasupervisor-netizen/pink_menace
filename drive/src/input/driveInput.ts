@@ -82,11 +82,30 @@ const liveStick: StickAxes = { steer: 0, throttle: 0, brake: 0, active: false };
 export const liveKeys = new Set<string>();
 export let livePad: PadAxes | null = null;
 
+/**
+ * Hands-off lock (quietroads/handsoff.ts). While a wait is up the car must not
+ * take a single input from anywhere — sticks, keys or pad — because on 6.3's
+ * engine-off minute a resting thumb was `engine.start_early` and a restart of
+ * the whole mission. `mergeDriveInput` answers zeros and `setStickAxes` refuses
+ * new axes, so a pointer event mid-wait cannot sneak past either.
+ */
+let inputLocked = false;
+
+export function setDriveInputLocked(locked: boolean): void {
+  inputLocked = locked;
+  if (locked) clearStickAxes();
+}
+
+export function driveInputLocked(): boolean {
+  return inputLocked;
+}
+
 export function getStickAxes(): StickAxes {
   return liveStick;
 }
 
 export function setStickAxes(next: Partial<StickAxes>): void {
+  if (inputLocked) return;
   Object.assign(liveStick, next);
 }
 
@@ -205,6 +224,9 @@ export function mergeDriveInput(sensitivity: number, binds: BindMap = DEFAULT_BI
   brake: number;
   emergencyBrake: boolean;
 } {
+  // A hands-off wait owns the car: every source merges to nothing, including a
+  // key held down before the wait began and a horn/space press during it.
+  if (inputLocked) return { steering: 0, throttle: 0, brake: 0, emergencyBrake: false };
   const left = bindHeld('steerLeft', binds);
   const right = bindHeld('steerRight', binds);
   const fwd = bindHeld('throttle', binds);

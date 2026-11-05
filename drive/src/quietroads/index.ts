@@ -5,6 +5,7 @@ export { DialogueRunner } from "./dialogue/DialogueRunner";
 export * from "./config";
 export * from "./cockpit";
 export * from "./waitWatch";
+export * from "./handsoff";
 export * from "./placeholders";
 export * from "./shop";
 export * from "./debt";

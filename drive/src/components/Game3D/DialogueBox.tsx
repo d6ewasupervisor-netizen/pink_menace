@@ -27,6 +27,10 @@ export function DialogueBox() {
   const line = useQRHud((s) => s.line);
   const direction = useQRHud((s) => s.direction);
   const choices = useQRHud((s) => s.choices);
+  // The hands-off overlay carries the scene's lines itself, so the box stands
+  // down while it is up. Its auto-dismiss clock keeps running (the effect above
+  // does not read this), exactly as it did before the overlay existed.
+  const handsOff = useQRHud((s) => s.handsOff);
   const phase = useGameStore((s) => s.phase);
   const worldMode = useGameStore((s) => s.worldMode);
   const sceneId = useQRStore((s) => s.sceneId);
@@ -79,6 +83,7 @@ export function DialogueBox() {
   }, [line, direction, choices, isCutscene, holdForSteer]);
 
   if (worldMode !== 'kent' || phase === 'quiz' || phase === 'paused' || phase === 'menu' || phase === 'card') return null;
+  if (handsOff) return null;
   if (!line && !direction && !choices) return null;
   const cutscene = phase === 'dialogue';
 

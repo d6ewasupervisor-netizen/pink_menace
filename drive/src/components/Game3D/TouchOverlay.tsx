@@ -9,6 +9,7 @@
  */
 import { useCallback, useEffect, useRef } from 'react';
 import { useGameStore } from '@/stores/gameStore';
+import { useQRHud } from '@/stores/qrHud';
 import { useCompactHud } from '@/hooks/useCompactHud';
 import { flushDriveInput } from '@/hooks/useTouchControls';
 import { useDrivingHud } from './cockpit/layout';
@@ -171,6 +172,9 @@ export function TouchOverlay() {
   const phase = useGameStore((s) => s.phase);
   const scheme = useGameStore((s) => s.controlsScheme);
   const worldMode = useGameStore((s) => s.worldMode);
+  // A hands-off wait takes the sticks away entirely: the scene is telling her not
+  // to touch anything, and a resting thumb on a stick is `engine.start_early`.
+  const handsOff = useQRHud((s) => s.handsOff);
   const compact = useCompactHud();
   // The sticks are half of the driving HUD. Two things put them up: the phase
   // saying the car is live (the cockpit has always kept them up while a dialogue
@@ -214,6 +218,7 @@ export function TouchOverlay() {
   }, [phase, highway]);
 
   if (!compact) return null;
+  if (handsOff) return null;
   if (!livePhase && !drivingHud) return null;
 
   const single = isSingleStick(scheme);

@@ -37,6 +37,8 @@ import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import type { Question, Category } from '@/types/quiz';
 import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, holdDrive, releaseDrive, setDriveBrakeDecel } from '@/systems/VehicleController';
+import { setDriveInputLocked } from '@/input/driveInput';
+import { handsOffFor, handsOffView } from '@/quietroads/handsoff';
 import { DriveSync } from '@/systems/DriveSync';
 import { StepEventQueue } from '@/systems/StepEventQueue';
 
@@ -265,6 +267,10 @@ class Bridge {
   // ------------------------------------------------------------ cockpit ownership
   /** The scene the running mission was started in. Cleared when a scene starts. */
   private missionScene: string | null = null;
+  /** The hands-off wait the overlay is showing, if any (see syncHandsOff). */
+  private handsOffMission: string | null = null;
+  /** The overlay's ring is spent and the car has been handed back. */
+  private handsOffReleased = false;
 
   /**
    * The ONE writer of `qrHud.missionActive`: a mission is active while the sim is
@@ -312,6 +318,53 @@ class Bridge {
     if (!want) return;
     this.releaseStale(staleCockpitFlag(state) ?? `phase="${g.phase}"`);
     if (want === 'walking') this.enterWalking(); else this.enterDriving();
+  }
+
+  /**
+   * The hands-off overlay's ONE writer.
+   *
+   * A wait the player cannot act on (6.3's engine-off minute) gets a panel, a
+   * countdown ring and no sticks, and every driving input is ignored while it is
+   * up — so `engine.start_early` cannot be fired by a thumb resting on a stick.
+   * The restart path itself stays in the scene data (it is the story's answer to
+   * a car that starts early); this is what makes it unreachable during the wait.
+   *
+   * The clock is `Simulation.waitElapsedS`, which only moves while the world is
+   * running: a paused game or a locked phone holds the ring where it was.
+   */
+  private syncHandsOff() {
+    const hud = useQRHud.getState();
+    const wait = handsOffFor(this.sim.missionId);
+    if (!wait) {
+      if (this.handsOffMission === null) return;
+      this.handsOffMission = null;
+      this.handsOffReleased = false;
+      setDriveInputLocked(false);
+      if (hud.handsOff) hud.setTransient({ handsOff: null });
+      return;
+    }
+    if (this.handsOffMission !== wait.mission) {
+      this.handsOffMission = wait.mission;
+      this.handsOffReleased = false;
+      // Hands off means hands off: the engine is off and the car is still.
+      haltVehicle();
+      setDriveInputLocked(true);
+      useGameStore.getState().setControls({ steering: 0, throttle: 0, brake: 0, emergencyBrake: false });
+    }
+    const elapsedS = this.sim.waitElapsedS;
+    if (this.handsOffReleased) return;
+    if (handsOffView(wait, elapsedS).released) {
+      // The ring is spent and the release beat has played: the car is hers again
+      // while the mission still runs, so she can roll to the far side.
+      this.handsOffReleased = true;
+      setDriveInputLocked(false);
+      hud.setTransient({ handsOff: null });
+      return;
+    }
+    const cur = hud.handsOff;
+    if (!cur || cur.mission !== wait.mission || Math.abs(cur.elapsedS - elapsedS) >= 0.05) {
+      hud.setTransient({ handsOff: { mission: wait.mission, totalS: wait.totalS, elapsedS } });
+    }
   }
 
   /** Name the flag that was holding the cockpit down, then clear it. */
@@ -613,6 +666,7 @@ class Bridge {
     // point is that a stale phase must not be able to keep the car off screen.
     this.syncMission();
     this.reconcileCockpit();
+    this.syncHandsOff();
     const g = useGameStore.getState();
     // A question stops the clock too, so a timer that was about to fire
     // waits until the car is moving again.
