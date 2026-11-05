@@ -44,7 +44,30 @@ deliberately empty rather than filled with a guess.
   **Act VII deck's citations and numbers**, the **road-home clock**, the **4.2/2.2
   licensing thread** and the **seed's do-not-seed contract**).
 
-## Current pass — the shop counter, the real atlases, the measured skips (2026-11-04)
+## Current pass — the tab, the credits, the line endings (2026-11-04)
+
+- **Tuna's front is a debt.** The soft-lock exit was cheaper than buying: no
+  points, same chains. `quietroads/debt.ts` (pure `settleDebt`) plus one call
+  site in `qrStore.addVar` — the only writer of a Trade Point — takes
+  `min(award, debt)` out of the next pay and clears the tab. `2.8.front_chains`
+  writes `tuna_debt = 150` and Tuna adds "You'll owe me. Deac'll know.";
+  `5.2.debt_line` has Deac name it at the pay that settles it, reached by a
+  branch on `tuna_debt_paid` (never by an event — a tick-fired trigger is
+  dropped behind a line or interrupts one). The broke player still leaves with
+  the chains. `test/shop.test.ts` 9 → 17, `e2e/shop.spec.ts` +1.
+- **The CC-BY models are credited on screen.** `quietroads/credits.ts` +
+  `CreditsScreen.tsx`, opened by the `credits` unlock at `8.3.end` (an unlock
+  nothing showed until now) and from the end-of-run screen: VW Beetle /
+  LucasPresoto and Low Poly Cactus / akaN0ob with title, author, source and the
+  CC-BY-4.0 deed, plus a Kenney line. `test/credits.test.ts` (4) pins the screen
+  to `CREDITS.md`; `e2e/credits.spec.ts` reads the DOM against that file.
+- **One line ending per type.** `.gitattributes` names the measured majority
+  (json/md/txt/html/mts/mjs CRLF; ts/tsx/js/css/py/sql/svg LF; png/glb/webp/jpg/
+  gif/ico/pdf binary), then `git add --renormalize .` in its own commit: 73
+  files, all of it CRs, `--ignore-cr-at-eol` empty. `git ls-files --eol` is
+  `i/lf` everywhere and `w/` follows the rules.
+
+## Previous pass — the shop counter, the real atlases, the measured skips (2026-11-04)
 
 - **The shop counter is ported** (`quietroads/shop.ts` + `ShopCounter.tsx`). The
   deadlock guard had allow-listed `shop.buy:*` / `shop.cant_afford` as "not on

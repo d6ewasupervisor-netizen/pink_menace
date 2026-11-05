@@ -1499,4 +1499,125 @@ one. The 12 stored baselines are unchanged.
 `--workers=1` **48 tests in 6 files: 31 passed / 17 skipped / 0 failed** in
 5.8 min. `bench/baseline.json` restored after the suite. No seed, no deploy.
 
+## 28. The debt, the credits, the line endings (2026-11-04)
+
+### 28.1 Tuna's front is a debt, not a gift
+
+§27 gave the broke player an exit from the chain-up loop by having Tuna front the
+chains. It made that exit **cheaper than buying**: no Trade Points at all, the
+same chains, and the one person in the story nobody owes anything to was the one
+handing over 150 TP of stock. A gift is not a decision; a tab is.
+
+| Rule | Where |
+|---|---|
+| `settleDebt(award, debt)` — take `min(award, debt)` out of one award, clear the balance either way | `quietroads/debt.ts` (pure) |
+| The one call site: every positive `addVar("trade_points", n)` | `stores/qrStore.ts` |
+| The tab is written when the set is fronted | `2.8.front_chains` → `set_vars.tuna_debt = 150` |
+| Tuna says what it is | `2.8.front_chains_owe` — "You'll owe me. Deac'll know." |
+| Deac says where it went | `5.2.debt_line`, reached from `5.2.3` through `5.2.debt_branch` |
+
+`qrStore.addVar` is the **one** writer of a Trade Point — dialogue `tp` effects,
+quiz answers and the Ritzville discount all go through it — so the tab cannot be
+dodged by earning somewhere the story did not expect. A spend (negative) and
+every other var are untouched.
+
+**Amounts.** A short pay is eaten whole and closes the tab: the loop's own award
+is `5.2.3`'s 30 TP against a 150 tab, so the player gets 0 and
+`tuna_debt_paid = 30` records what came out. A long pay keeps the rest:
+`settleDebt(500, 150)` → 350 to the player, 150 to Tuna. Neither leaves a
+balance behind — "the next pay" means the next pay, not a payment plan.
+
+**Why `5.2` and not the exact award node.** The loop's guaranteed pay is
+`5.2.3` (the chain-up success), but `5.1.gentle` and `5.1.7` can land a smaller
+award during the return climb. So the settlement is generic (it happens on
+whichever award comes first) and Deac's line is reached by a **branch on
+`tuna_debt_paid`** off `5.2.3` rather than by an event: a trigger fired from the
+tick would either be dropped while a line was on screen or interrupt `5.2.3`
+mid-sentence. The line clears `tuna_debt_paid` after it plays, so a swarm retry
+cannot replay it. Both vars are seeded in the act files' `variables`
+(`tuna_debt` in act 2, both in act 5) so the branch can never be read as `NaN` —
+`NaN < 1` is false, which would have shown the line to a player with no tab.
+
+**The soft-lock fix is intact.** The front still grants the `chains` item and
+`has_chains` at 0 TP; the debt only ever costs points. `canFrontChains` is
+unchanged.
+
+**Guards.** `test/shop.test.ts` 9 → 17: the front's `set_vars.tuna_debt` equals
+the catalogue's chains price; the owe line is on its forward path with the exact
+text; `settleDebt`'s six cases; the front still hands over the chains at 0 TP;
+5.2 shows `5.2.debt_line` between `5.2.3` and the brief only when the tab was
+paid, and clears the marker; and the store's four cases (short pay eaten whole,
+long pay's remainder kept, the next award in full once closed, spends and other
+vars untouched). `e2e/shop.spec.ts` +1 walks a broke player from Tuna's counter
+through the front, the owe line, 5.1, the chain-up and the summit, asserting
+`tuna_debt` 0 and `5.2.debt_line` recorded after `5.2.3`. Negative control: with
+the settlement disabled the two store cases fail.
+
+### 28.2 The CC-BY models are credited on screen
+
+`drive/public/models` is Kenney CC0 except two models, and both are
+**CC-BY-4.0**: `cars/vw_beetle.glb` (VW Beetle, LucasPresoto) and
+`nature/low_poly_cactus.glb` (Low Poly Cactus, akaN0ob). CC-BY is an attribution
+licence — title, author, source and licence have to reach whoever receives the
+work — and a `CREDITS.md` beside the GLBs reaches nobody. Separately, the
+campaign ended on an unlock nothing showed: `8.3.end` unlocks `credits` and no
+screen in the build read it.
+
+- `quietroads/credits.ts` is the one source of truth: each CC-BY work with its
+  `extras.title`, `extras.author`, Sketchfab source, licence name and the
+  Creative Commons deed, plus one Kenney line (CC0 requires nothing; their
+  `License.txt` asks for a credit as a courtesy, so it gets one).
+- `components/Game3D/CreditsScreen.tsx` renders it as a **panel**, not a phase,
+  so nothing has to hand the car back; `data-credit-file` / `-title` / `-author`
+  / `-source` / `-license` / `-kenney` hooks carry every field.
+- It opens when the bridge sees the `credits` unlock (the host's `unlock`, so
+  `8.3.end` is the real path) and from a Credits button on the end-of-run
+  screen.
+- `CREDITS.md`'s "Not Kenney" table now has **Title** and **Source** columns, so
+  the exact text is readable and parseable in one place.
+
+**Guards.** `test/credits.test.ts` (4) pins the table to the screen's data field
+for field and checks the component source draws every field.
+`e2e/credits.spec.ts` walks the real ending from a save at 8.3 to the unlock and
+reads the **DOM** against `CREDITS.md` itself — three copies that must agree.
+Negative control: a one-character change to the Beetle's title fails with
+`cars/vw_beetle.glb title: expected 'VW Beetle ' to be 'VW Beetle'`.
+
+### 28.3 One line ending per type
+
+The repo grew mixed endings: `dialogue_act2.json` CRLF while
+`dialogue_act7.json` LF; `drive/e2e/*.spec.ts` CRLF while most of `drive/src` LF;
+`.css` one CRLF file against two LF ones (1 658 lines against 436). Git stored
+whatever bytes arrived, so a one-line edit could rewrite a whole file.
+
+`.gitattributes` names the **majority that was already there**, measured with
+`git ls-files` plus a byte scan of every tracked file (files CRLF / files LF):
+
+| CRLF | | LF | |
+|---|---|---|---|
+| `*.json` | 90 / 76 | `*.ts` | 74 / 62 |
+| `*.md` | 46 / 25 | `*.tsx` | 35 / 9 |
+| `*.txt` | 40 / 22 | `*.js` | 33 / 25 |
+| `*.html` | 2 / 2 (247 vs 89 lines) | `*.css` | 2 / 1 (1 658 vs 436 lines) |
+| `*.mts` | 12 / 0 | `*.py` | 5 / 0 |
+| `*.mjs` | 1 / 0 | `*.sql`, `*.svg`, dotfiles | LF |
+
+`text=auto` is the floor for anything unnamed; `png`, `glb`, `webp`, `jpg`,
+`jpeg`, `gif`, `ico` and `pdf` are `binary`. `text eol=crlf` keeps **one LF blob**
+in the repository and writes CRLF on checkout, so a CRLF type is a convention
+rather than 90 files of stored CRLF.
+
+The renormalisation is its own commit: 73 files, 30 311 insertions and 30 311
+deletions, and `git diff --ignore-cr-at-eol` over that commit is **empty** —
+every changed byte is a CR or the lack of one. `git ls-files --eol` now reports
+`i/lf` for every text file, `w/crlf` for the CRLF types, `w/lf` for the LF ones
+and `i/-text w/-text` for the binaries.
+
+**Verified (this pass).** `372/372` vitest across 38 files, `tsc --noEmit` 0,
+`npm run build` 4.54 s / 4,020.27 kB (1,324.59 kB gzip), playwright **headless**
+`--workers=1` **52 tests in 7 files: 33 passed / 19 skipped / 0 failed** in
+6.1 min (the 19 are the measured `mobile-portrait` duplicates: cockpit-restore
+12, shop 4, summit 2, credits 1). `bench/baseline.json` restored. No seed, no
+deploy.
+
 <!-- CONTINUED -->
