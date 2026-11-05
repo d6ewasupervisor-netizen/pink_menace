@@ -54,13 +54,19 @@ deliberately empty rather than filled with a guess.
   Continue control. `test/deadlock.test.ts` measures every emitter from the source
   and fails on an orphan wait/trigger; `test/fullchain.test.ts` may now only walk
   through events the game really emits. 3.4's `cutscene.gracie_yell` and 7.2's
-  shop exit were orphans on the same walk. 332/332 vitest, 23/23 headless.
+  shop exit were orphans on the same walk. 345/345 vitest, 23/23 headless.
 - **The world's texture** — the Kenney GLBs reference `Textures/colormap.png` that
   was never bundled, and the SPA fallback answered it with `index.html`. The atlas
   is generated from each GLB's own UVs (`npm run build:colormaps`) and checked by
-  `test/model-textures.test.ts`; `/drive/models` and `/drive/assets` now 404.
+  `test/model-textures.test.ts`; `/drive/models` and `/drive/assets` now 404, and
+  the 404's order relative to the SPA fallback is pinned by the same test.
 - **Saved names** — `placeholders` are canon code now, never saved state, so
   Grandma's note signs `— G.` and `GRANDMA_NAME` is `Grandma` on an old save too.
+  Follow pass: the act files' own `meta.placeholders` could still override canon
+  because `DialogueRunner.load` merged a file over the host, and four of them
+  said `GRANDMA_INITIALS: "Grandma"`. `load()` now only seeds a name the host
+  does not hold, the four files are corrected, and
+  `test/placeholders.test.ts` (12) holds the inventory and the precedence.
 
 ## Next (in order)
 

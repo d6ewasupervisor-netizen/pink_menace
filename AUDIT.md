@@ -1317,13 +1317,57 @@ the collision was confusing as well as wrong). Fixes:
   `merge` that folds an old save's values under the canon ones); `resetQuietRoads`
   keeps the canon set; `DriveSync` stops sending them and merges canon over any
   server copy.
-- `GRANDMA_NAME` is used in `dialogue_act2.json` ×5 (II lines) and
-  `dialogue_act4.json` ×1 (the exam-result line); it is defined in
-  `dialogue_act8.json` and `qrStore`. `GRANDMA_INITIALS` signs the note in
-  `dialogue_act0-1.json`. None of them is the neighbour's name now.
+- `GRANDMA_NAME` is used in `dialogue_act2.json` ×4 (II lines: 136, 879, 1694,
+  1751) and `dialogue_act4.json` ×1 (the exam-result line); it is defined in the
+  act files' `meta.placeholders` and `qrStore`. `GRANDMA_INITIALS` signs the note
+  in `dialogue_act0-1.json` ×1. None of them is the neighbour's name now.
 
 **Still open.** The 11 MB `vw_beetle.glb` still downloads on every load (existing
 performance item, untouched here).
+
+
+## 26. The canon names had a second way back in (2026-11-03, follow pass)
+
+**What §25 missed.** The save was folded under canon, but the act files carry
+their own `meta.placeholders` defaults and **four of them still said
+`GRANDMA_INITIALS: "Grandma"`** (`dialogue_act2`, `act2_central`,
+`act5_ribbon`, `act6_backcountry`). `DialogueRunner.load` merged a file *over*
+the host's map, and the bridge sets canon **before** the scene's act is fetched
+(`open()` → `setPlaceholder` → `prepareScene` → `load`), so loading any of those
+four acts put "Grandma" back on top of "— G." for every scene in it. Nothing
+visible used the token in those four files, so the note still read right today —
+but the next note line written in Act II would have signed itself "Grandma".
+
+**The fix.** `load()` now seeds a placeholder only where the host holds none —
+the rule it already applied to variables and flags two blocks below ("seed
+defaults only where the host doesn't already hold a value"). A `setPlaceholder`
+therefore survives either order, and the four act files were corrected to
+`"— G."` so the data agrees with the canon set.
+
+**The guard.** `drive/test/placeholders.test.ts` (12): the canon values; the
+note's signature; `withCanonPlaceholders` over a `G.J.`/`June` save (and a
+non-canon name kept); **every act file's `meta.placeholders` against canon**;
+the `GRANDMA_NAME` inventory pinned (`act2 ×4`, `act4 ×1`) and the note's act;
+the runner keeping a canon name set before *and* after a load (this one fails on
+the pre-fix `load()`); and `qrStore` hydrating a version-1 save — canon folded
+in, no `placeholders` key written back, canon kept through `resetQuietRoads`.
+
+**The 404's order.** `server.js` answers a missing file under `/drive/models`
+and `/drive/assets` with a real 404 before the SPA fallback, but nothing held
+that order. `model-textures.test.ts` +1 now reads `server.js` and asserts the
+two prefixes share one handler that sends `status(404)`, registered before
+`app.get(["/drive", "/drive/*"])`.
+
+**Verified (this pass).** `345/345` vitest across 36 files (332 + 13:
+`placeholders` 12, `model-textures` +1), `tsc --noEmit` 0, `npm run build`
+5.25 s / 4,009.89 kB (1,321.62 kB gzip), playwright **headless** `--workers=1`
+**23 passed / 17 self-skipped / 0 failed** in 4.7 min, both `summit.spec.ts`
+cases green on the changed runner (5.3 → 6.1 in 10.4 s; the orphaned wait's
+Continue in 13.9 s). One earlier run of this suite was invalid: it was started,
+then the dialogue JSON was rewritten under the dev server, which hot-reloaded the
+page mid-test (6 failures, all `waiting for …` after a reload). Re-run untouched;
+that is the same collision class as the `.playwright-artifacts` ENOENTs.
+
 
 
 <!-- CONTINUED -->
