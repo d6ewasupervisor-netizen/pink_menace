@@ -27,17 +27,30 @@ export class BeatRun {
   private passedRest = 0;
   private restPing = 0;
   private idle = 0;
+  /**
+   * Edge-trigger state for the two level-triggered bridges faults. On her 6.3
+   * drive `speed.over:45` fired on every frame she was over (1,693 rows in 23 s)
+   * and `steer.overcorrect` fired on every frame the stick was pushed past 0.7 —
+   * one event per frame is not a report, it is a flood, and the uploader used to
+   * answer each one with a POST.
+   */
+  private overLimit = false;
+  private hardSteer = 0;
+  private overSteerCd = 0;
 
   constructor(
     private rest: Rect,
     private restPin: Vec2,
     private bridge: { mid: Vec2; end: Vec2 },
-    private ev: { fire: (e: string) => void },
+    private ev: { fire: (e: string, d?: Record<string, unknown>) => void },
   ) {}
 
   reset(id: BeatMission) {
     this.mission = id;
     this.t = this.park = this.steerHold = this.creep = this.passedRest = this.restPing = this.idle = 0;
+    this.overLimit = false;
+    this.hardSteer = 0;
+    this.overSteerCd = 0;
     this.flags.clear();
   }
 
@@ -46,6 +59,16 @@ export class BeatRun {
   /** Sit-still on the span. The pin should not tell her to drive until this is over. */
   waitingOutTheBridge(): boolean {
     return this.mission === "bridge_engine_off_wait" && this.park < 60;
+  }
+
+  /**
+   * How long the engine-off wait has been standing still, in seconds. The overlay's
+   * countdown reads this instead of running its own clock: the sim only steps while
+   * the car is the surface, so a paused game or a locked phone holds the number
+   * where it was and the 15/30/45/60 marks stay in step with the ring.
+   */
+  get waitElapsedS(): number {
+    return this.park;
   }
 
   /** What the dash should say for the bridge. Null on the other beats. */
@@ -133,11 +156,26 @@ export class BeatRun {
   private bridgeCross(dt: number, s: VehicleSample) {
     if (Math.floor(this.t / 8) !== Math.floor((this.t - dt) / 8) && this.t > 1) this.ev.fire("wind.gust");
     const mph = Math.abs(s.speedMs) / MPH;
-    if (mph > 45) this.ev.fire("speed.over:45");
+    // One report per crossing, not one per frame. Re-armed 2 mph below the limit
+    // so a needle sitting on 44–46 cannot chatter the trigger.
+    if (!this.overLimit && mph > 45) {
+      this.overLimit = true;
+      this.ev.fire("speed.over:45", { mph: Math.round(mph) });
+    } else if (this.overLimit && mph <= 43) {
+      this.overLimit = false;
+    }
     if (s.steer > 0.12 && s.steer < 0.45) this.steerHold += dt;
     else this.steerHold = 0;
     if (this.steerHold > 0.8) this.once("steer.into_wind");
-    if (Math.abs(s.steer) > 0.7) this.ev.fire("steer.overcorrect");
+    // A yank is a gesture, not a level: it has to be held, and it is reported once
+    // per 2 s. At 60 Hz the old line emitted this 60 times a second while the
+    // stick was pinned, which is what buried the bridge under telemetry.
+    this.overSteerCd = Math.max(0, this.overSteerCd - dt);
+    this.hardSteer = Math.abs(s.steer) > 0.7 ? this.hardSteer + dt : 0;
+    if (this.hardSteer > 0.35 && this.overSteerCd <= 0) {
+      this.overSteerCd = 2;
+      this.ev.fire("steer.overcorrect", { steer: +s.steer.toFixed(2) });
+    }
     if (dist(s.pos, this.bridge.mid) < 8) this.once("waypoint.reach:bridge_mid");
     if (dist(s.pos, this.bridge.end) < 8) this.once("waypoint.reach:bridge_end");
   }

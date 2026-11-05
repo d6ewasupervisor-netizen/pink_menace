@@ -40,6 +40,13 @@ export type MissionId =
 
 export type PlayerMode = "vehicle" | "walker";
 
+/**
+ * Seconds of clear road after a plow before `plow.used` may report again. One
+ * contact with one Quiet is one mistake; at 60 Hz the old line reported it 60
+ * times a second (17 in one instant on the 6.3 HAR).
+ */
+export const PLOW_REARM_S = 1.5;
+
 export interface SimEvents {
   /** Game events for the DialogueRunner (dlg.onEvent) and telemetry. */
   fire: (event: string, data?: Record<string, unknown>) => void;
@@ -110,6 +117,14 @@ export class Simulation {
   private deliverySmoothFired = false;
   /** Pressure throttle — see PRESSURE.CD_S. Drains in step()/stepWalker(). */
   private missCd = 0;
+  /**
+   * `plow.used` is a contact episode, not a frame. On the 6.3 HAR it fired 17
+   * times in one instant — one per step while the car stayed on top of a Quiet —
+   * which is 17 telemetry rows for one mistake. One episode reports once; the
+   * next report needs `PLOW_REARM_S` of clear road first.
+   */
+  private plowContact = false;
+  private plowClearFor = 0;
   private lastVehicleHeading = 0;
   /** On-foot handoff. Pharmacy is June's clipboard; Bea is the sanctuary door. */
   private footDropoff: "" | "pharmacy" | "bea" = "";
@@ -214,6 +229,12 @@ export class Simulation {
   }
 
   get frozen() { return this.freezeReasons.size > 0; }
+  /**
+   * The hands-off wait's clock (6.3's sixty seconds), straight from the beat that
+   * owns it. Frozen with the world, so a paused game or a locked phone holds the
+   * countdown where it was instead of spending it.
+   */
+  get waitElapsedS() { return this.beats.waitElapsedS; }
   freeze(reason: string) { this.freezeReasons.add(reason); }
   unfreeze(reason: string) { this.freezeReasons.delete(reason); }
   /** Is this specific reason still holding the world? (the cockpit's stale-flag check) */
@@ -607,8 +628,19 @@ export class Simulation {
       // P9: a contact is the one thing that legitimately eats displacement, so
       // tell the CCD check to stand down for this step.
       if (hit) this.vehicle.noteContact();
-      if (hit === "plow") { this.noise.emitKind("collision_plow", s.pos); this.emit("plow.used"); }
-      else if (hit === "soft") this.noise.emitKind("collision_soft", s.pos);
+      if (hit === "plow") {
+        this.noise.emitKind("collision_plow", s.pos);
+        this.plowClearFor = 0;
+        if (!this.plowContact) {
+          this.plowContact = true;
+          this.emit("plow.used", { mph: Math.round(Math.abs(s.speedMs) / MPH) });
+        }
+      } else if (hit === "soft") this.noise.emitKind("collision_soft", s.pos);
+      else if (this.plowContact) {
+        // Clear road for long enough ends the episode, so the next hit reports.
+        this.plowClearFor += dt;
+        if (this.plowClearFor >= PLOW_REARM_S) { this.plowContact = false; this.plowClearFor = 0; }
+      }
       if (this.missionId === "tutorial_carport") this.tutorialTick(dt, s);
       if (this.missionId === "minigame_park_dol") this.parking.step(dt, s);
       if (this.missionId === "mission_delivery_1_insulin") this.deliveryTick(s);

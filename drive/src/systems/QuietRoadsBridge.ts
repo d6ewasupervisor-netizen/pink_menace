@@ -143,7 +143,7 @@ class Bridge {
       checkpoint: (label) => S().setCheckpoint(label, this.runner.scene?.id ?? null, this.runner.serialize()),
       ledger: (delta, reason) => S().addLedger(delta, reason),
       logEvent: (name) => {
-        useQRHud.getState().addTelemetry({ ts: Date.now(), event: name });
+        DriveSync.noteEvent({ ts: Date.now(), event: name });
         if (name === 'choice.dol:honk') this.sim.escapeForgiving = true;   // the script says she gets out
       },
       logChoice: (scene, node, option) => S().addChoice({ ts: Date.now(), scene, node, option }),
@@ -414,7 +414,7 @@ class Bridge {
       `[story] ${scene}/${node} has waited ${STRANDED_WAIT_S}s for "${event}" with no mission running ` +
       'and nothing to do — showing Continue so the wait can be released.',
     );
-    useQRHud.getState().addTelemetry({ ts: Date.now(), event: 'story.stranded', data: { scene, node, event } });
+    DriveSync.noteEvent({ ts: Date.now(), event: 'story.stranded', data: { scene, node, event } });
     useQRHud.getState().setTransient({ stranded: { scene, node, event } });
   }
 
@@ -517,7 +517,9 @@ class Bridge {
   }
 
   private deliver(event: string, data?: Record<string, unknown>) {
-    useQRHud.getState().addTelemetry({ ts: Date.now(), event, data });
+    // A row per event, no fetch per event: the batch in DriveSync collapses
+    // repeats and posts once per interval (6.3's `speed.over:45` flood).
+    DriveSync.noteEvent({ ts: Date.now(), event, data });
     if (event === 'waypoint.reach:dol_lot_exit') this.sim.escapeForgiving = false;
     if (event === 'mission.fail.swarm') {
       // The windshield fills. Then it clears and she's back at the start.

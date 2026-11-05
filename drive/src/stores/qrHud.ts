@@ -55,21 +55,23 @@ interface HudState {
    */
   credits: boolean;
   scare: 'none' | 'edge' | 'flood';
-  /** Outbound telemetry, in memory only; DriveSync drains it every 10 s. */
-  telemetry: TelemetryRow[];
-  setTransient: (partial: Partial<Omit<HudState, 'setTransient' | 'setHorn' | 'setRun' | 'addTelemetry' | 'drainTelemetry'>>) => void;
+  /**
+   * Outbound telemetry does NOT live in this store. It used to: every sim event
+   * did `set({ telemetry: [...rows, row] })`, which copies the whole array on
+   * every emission — at 73 events/s during the 6.3 bridge flood (1,693 rows in
+   * 23 s) that is the main thread spending its frame copying a 2,000-element
+   * list. Rows now go straight into `DriveSync`'s deduping batch
+   * (systems/telemetryBatch.ts): one Map update per event, one POST per interval.
+   */
+  setTransient: (partial: Partial<Omit<HudState, 'setTransient' | 'setHorn' | 'setRun'>>) => void;
   setHorn: (v: boolean) => void;
   setRun: (v: boolean) => void;
-  addTelemetry: (row: TelemetryRow) => void;
-  drainTelemetry: () => TelemetryRow[];
 }
 
-export const useQRHud = create<HudState>()((set, get) => ({
+export const useQRHud = create<HudState>()((set) => ({
   line: null, direction: null, choices: null, objective: '', toast: '', frame: null,
-  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, shop: null, credits: false, scare: 'none', telemetry: [],
+  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, shop: null, credits: false, scare: 'none',
   setTransient: (partial) => set(partial),
   setHorn: (v) => set({ horn: v }),
   setRun: (v) => set({ run: v }),
-  addTelemetry: (row) => set((s) => ({ telemetry: s.telemetry.length >= 2000 ? [...s.telemetry.slice(-1500), row] : [...s.telemetry, row] })),
-  drainTelemetry: () => { const rows = get().telemetry; set({ telemetry: [] }); return rows; },
 }));

@@ -20,6 +20,7 @@ import { isLowEndDevice, recordDelta, stepQuality, initialQualityState, dprForTi
 import { bindHeld } from '@/input/driveInput';
 import { textScaleStyle } from '@/input/textSize';
 import { onContextLost, onContextRestored } from '@/systems/glContext';
+import { DriveSync } from '@/systems/DriveSync';
 
 import { Lighting } from './Lighting';
 import { Skybox } from './Skybox';
@@ -100,7 +101,7 @@ function GLContextGuard({ dpr }: { dpr: number }) {
     const el = gl.domElement;
     const onLost = (e: Event) => {
       e.preventDefault(); // allow the browser to offer a restore, don't kill the canvas
-      useQRHud.getState().addTelemetry({ ts: Date.now(), event: 'webgl.context_lost' });
+      DriveSync.noteEvent({ ts: Date.now(), event: 'webgl.context_lost' });
       const s = useGameStore.getState();
       const decision = onContextLost({
         phase: s.phase,
@@ -114,7 +115,7 @@ function GLContextGuard({ dpr }: { dpr: number }) {
       useQRHud.getState().setTransient({ toast: 'Graphics paused. Tap Resume to continue.' });
     };
     const onRestored = () => {
-      useQRHud.getState().addTelemetry({ ts: Date.now(), event: 'webgl.context_restored' });
+      DriveSync.noteEvent({ ts: Date.now(), event: 'webgl.context_restored' });
       const decision = onContextRestored(dpr);
       // The browser resets the pixel ratio when the context is recreated, so the
       // tier (the single DPR owner) has to write it again — once, with its own

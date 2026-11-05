@@ -4,14 +4,19 @@
  *   begin():   debounced PUT of the save on change, telemetry batches every 10 s,
  *              attempts as they happen, and a final flush on pagehide.
  * Everything is best-effort; the local save is always the working copy.
+ *
+ * Telemetry is a *pull* of nothing and a push of everything: `noteEvent()` accepts
+ * rows at any rate (a sim flood included) and `sendTelemetry()` is the only thing
+ * that opens a connection — one POST per `TELEMETRY.intervalMs`, deduped into
+ * repeat counts, capped per batch. See systems/telemetryBatch.ts for why.
  */
 import { useQRStore } from '@/stores/qrStore';
 import { withCanonPlaceholders } from '@/quietroads/placeholders';
-import { useQRHud } from '@/stores/qrHud';
 import type { CardGrade } from '@/quietroads';
+import { TELEMETRY, TelemetryBatch, TelemetryUploader, type TelemetryRow } from '@/systems/telemetryBatch';
 
 const SAVE_DEBOUNCE_MS = 12_000;
-const TELEMETRY_INTERVAL_MS = 10_000;
+const TELEMETRY_INTERVAL_MS = TELEMETRY.intervalMs;
 const BATCH = 50;
 const LAST_SAVED_KEY = 'quiet-roads-last-saved';
 
@@ -32,6 +37,25 @@ class Sync {
   private lastAttemptCount = 0;
   private unsub: (() => void) | null = null;
   private started = false;
+  /** Every outbound event row, deduped and capped. See noteEvent(). */
+  private readonly telemetry = new TelemetryBatch();
+  private readonly uploader = new TelemetryUploader(
+    (rows, opts) => post('/api/drive/events', { events: rows }, opts.urgent),
+  );
+  private lastAttemptPostAt = 0;
+
+  /**
+   * One telemetry row. Called from the sim's event funnel, the crash reporter and
+   * the WebGL guard — as often as those fire. No fetch happens here.
+   */
+  noteEvent(row: TelemetryRow): void {
+    this.telemetry.push(row);
+  }
+
+  /** How many events are waiting (a flood reads as its count, not its rate). */
+  get pendingEvents(): number {
+    return this.telemetry.counted;
+  }
 
   /** Server → local, only if the server copy is newer than what this device last saved. */
   async hydrate(): Promise<void> {
@@ -93,21 +117,23 @@ class Sync {
     } catch { /* retry on next change */ }
   }
 
+  /**
+   * The one place a telemetry POST happens. Safe to call as often as you like:
+   * the uploader refuses anything inside its interval (or its urgent floor) and
+   * the batch carries at most `maxRows` deduped rows per POST.
+   */
   async sendTelemetry(keepalive = false): Promise<void> {
-    while (useQRHud.getState().telemetry.length) {
-      const rows = useQRHud.getState().drainTelemetry();
-      for (let i = 0; i < rows.length; i += BATCH) {
-        const chunk = rows.slice(i, i + BATCH);
-        const ok = await post('/api/drive/events', { events: chunk }, keepalive);
-        if (!ok) { for (const row of chunk) useQRHud.getState().addTelemetry(row); return; } // put back, try later
-      }
-      if (keepalive) break;
-    }
-    while (this.attemptsQueue.length) {
-      const chunk = this.attemptsQueue.splice(0, BATCH);
-      const ok = await post('/api/drive/attempts', { attempts: chunk }, keepalive);
-      if (!ok) { this.attemptsQueue.unshift(...chunk); return; }
-    }
+    await this.uploader.send(this.telemetry, { urgent: keepalive });
+    // Attempts are their own table and ride the same cadence: one POST per
+    // interval, one chunk of 50. They used to loop until the queue was empty,
+    // which is another way to make many POSTs in one burst.
+    if (!this.attemptsQueue.length) return;
+    const now = Date.now();
+    if (this.lastAttemptPostAt !== 0 && now - this.lastAttemptPostAt < TELEMETRY_INTERVAL_MS) return;
+    this.lastAttemptPostAt = now;
+    const chunk = this.attemptsQueue.splice(0, BATCH);
+    const ok = await post('/api/drive/attempts', { attempts: chunk }, keepalive);
+    if (!ok) this.attemptsQueue.unshift(...chunk);
   }
 
   /**
