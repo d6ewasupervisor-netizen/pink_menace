@@ -15,10 +15,11 @@
  * campaign must be satisfiable by something the game actually gives. The
  * browser half is `e2e/shop.spec.ts`.
  */
-import { describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { DialogueRunner } from "../src/quietroads/dialogue/DialogueRunner";
 import type { DialogueFile, DialogueHost } from "../src/quietroads/dialogue/types";
 import { SHOPS, canFrontChains, shopForGameplay, shopForScene } from "../src/quietroads/shop";
+import { settleDebt } from "../src/quietroads/debt";
 import act01 from "../src/quietroads/data/dialogue_act0-1.json";
 import act2 from "../src/quietroads/data/dialogue_act2.json";
 import act2c from "../src/quietroads/data/dialogue_act2_central.json";
@@ -79,6 +80,8 @@ type Harness = {
   items: Set<string>;
   vars: Record<string, number>;
   finished: string[];
+  /** Node ids in the order the runner showed them. */
+  shown: string[];
 };
 
 function boot(...files: unknown[]): Harness {
@@ -86,6 +89,7 @@ function boot(...files: unknown[]): Harness {
   const items = new Set<string>();
   const vars: Record<string, number> = {};
   const finished: string[] = [];
+  const shown: string[] = [];
   const host: DialogueHost = {
     getVar: (n) => vars[n] ?? NaN,
     setVar: (n, v) => { vars[n] = v; },
@@ -111,7 +115,8 @@ function boot(...files: unknown[]): Harness {
   const runner = new DialogueRunner(host);
   for (const f of files) runner.load(structuredClone(f) as unknown as DialogueFile);
   runner.on("scene_finished", (id, next) => finished.push(`${id}->${next}`));
-  return { runner, flags, items, vars, finished };
+  runner.on("line_shown", (l) => shown.push(l.node_id));
+  return { runner, flags, items, vars, finished, shown };
 }
 
 /** Tap through whatever is on screen until the runner goes idle. */
@@ -254,5 +259,128 @@ describe("the chain-up loop closes through the counter", () => {
     h.runner.onEvent("shop.close");
     expect(h.finished.slice(-1)).toEqual(["2.8->5.1"]);
     expect(h.flags.chainup_return).toBeFalsy();
+  });
+});
+
+describe("Tuna's front is a debt, not a gift", () => {
+  const tuna = shopForScene("2.8")!;
+  const chainsPrice = tuna.items.find((i) => i.id === "chains")!.price;
+
+  it("records the set's price as a debt, and says so out loud", () => {
+    const front = sceneOf("2.8").nodes["2.8.front_chains"];
+    expect(front.effects?.set_vars?.tuna_debt, "the tab is the catalogue's price").toBe(chainsPrice);
+    expect(front.next, "the owe line follows the front").toBe("2.8.front_chains_owe");
+    const owe = sceneOf("2.8").nodes["2.8.front_chains_owe"];
+    expect(owe.speaker).toBe("TUNA");
+    expect(owe.text).toBe("You'll owe me. Deac'll know.");
+  });
+
+  it("takes the debt out of one award and clears it", () => {
+    // A short pay clears the tab (the set is worth more than the pay) and a
+    // long one leaves the rest of the pay alone. Neither carries a balance.
+    expect(settleDebt(30, 150)).toEqual({ award: 30, net: 0, paid: 30, settled: true });
+    expect(settleDebt(150, 150)).toEqual({ award: 150, net: 0, paid: 150, settled: true });
+    expect(settleDebt(500, 150)).toEqual({ award: 500, net: 350, paid: 150, settled: true });
+    expect(settleDebt(30, 0), "nothing owed").toEqual({ award: 30, net: 30, paid: 0, settled: false });
+    expect(settleDebt(0, 150), "a zero award is not a pay").toEqual({ award: 0, net: 0, paid: 0, settled: false });
+    expect(settleDebt(-150, 150), "a spend is not a pay").toEqual({ award: -150, net: -150, paid: 0, settled: false });
+  });
+
+  it("still hands over the chains, so the soft-lock fix survives the debt", () => {
+    const h = boot(act2, act5);
+    h.runner.startScene("2.8");
+    tapThrough(h.runner);
+    h.runner.onEvent("shop.front:chains");
+    tapThrough(h.runner);
+    expect(h.items.has("chains"), "she leaves with the set").toBe(true);
+    expect(h.flags.has_chains).toBe(true);
+    expect(h.vars.tuna_debt, "and with the tab").toBe(chainsPrice);
+    expect(h.shown, "both Tuna lines played").toContain("2.8.front_chains_owe");
+  });
+
+  it("Deac names it at the pay that settles it, and only when there is one", () => {
+    // Settled: 5.2.3 pays, then Deac says where it went.
+    const paid = boot(act2, act5);
+    paid.runner.startScene("5.2");
+    tapThrough(paid.runner);
+    paid.vars.tuna_debt_paid = 150;
+    paid.runner.onEvent("chainup.qte.success");
+    tapThrough(paid.runner);
+    expect(paid.shown, "the dispatch line is on the path").toContain("5.2.debt_line");
+    expect(paid.shown.indexOf("5.2.debt_line"), "after the pay").toBeGreaterThan(paid.shown.indexOf("5.2.3"));
+    expect(paid.vars.tuna_debt_paid, "cleared after he has said it").toBe(0);
+    expect(paid.finished.slice(-1)).toEqual(["5.2->5.3"]);
+
+    // Nothing owed: the same walk goes straight from the pay to the brief.
+    const clean = boot(act2, act5);
+    clean.runner.startScene("5.2");
+    tapThrough(clean.runner);
+    clean.runner.onEvent("chainup.qte.success");
+    tapThrough(clean.runner);
+    expect(clean.shown, "no debt, no line").not.toContain("5.2.debt_line");
+    expect(clean.finished.slice(-1)).toEqual(["5.2->5.3"]);
+  });
+});
+
+/**
+ * The store is the one writer of a Trade Point, so it is the one place the tab
+ * can be taken. `qrStore` is imported after a localStorage shim because
+ * zustand/persist reads `window.localStorage` when the module initialises.
+ */
+describe("the store takes the tab out of the next pay", () => {
+  let store: typeof import("../src/stores/qrStore").useQRStore;
+
+  beforeAll(async () => {
+    const shim = {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {},
+      clear: () => {},
+      key: () => null,
+      length: 0,
+    } as unknown as Storage;
+    vi.stubGlobal("localStorage", shim);
+    vi.stubGlobal("window", { localStorage: shim });
+    store = (await import("../src/stores/qrStore")).useQRStore;
+  });
+
+  afterAll(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const seed = (vars: Record<string, number>) => store.setState({ vars });
+
+  it("eats a short pay whole and clears the debt", () => {
+    seed({ trade_points: 100, tuna_debt: 150, tuna_debt_paid: 0 });
+    store.getState().addVar("trade_points", 30);
+    const v = store.getState().vars;
+    expect(v.trade_points, "the 30 went to Tuna").toBe(100);
+    expect(v.tuna_debt, "the tab is closed").toBe(0);
+    expect(v.tuna_debt_paid, "what came out is on the record").toBe(30);
+  });
+
+  it("leaves the rest of a long pay alone", () => {
+    seed({ trade_points: 0, tuna_debt: 150, tuna_debt_paid: 0 });
+    store.getState().addVar("trade_points", 500);
+    const v = store.getState().vars;
+    expect(v.trade_points).toBe(350);
+    expect(v.tuna_debt).toBe(0);
+    expect(v.tuna_debt_paid).toBe(150);
+  });
+
+  it("pays the next award in full once the tab is closed", () => {
+    seed({ trade_points: 0, tuna_debt: 0, tuna_debt_paid: 150 });
+    store.getState().addVar("trade_points", 30);
+    expect(store.getState().vars.trade_points).toBe(30);
+  });
+
+  it("never touches a spend, or a different var", () => {
+    seed({ trade_points: 100, tuna_debt: 150, respect: 0 });
+    store.getState().addVar("trade_points", -150);
+    expect(store.getState().vars).toMatchObject({ trade_points: -50, tuna_debt: 150 });
+    store.getState().addVar("respect", 3);
+    const v = store.getState().vars;
+    expect(v).toMatchObject({ respect: 3, tuna_debt: 150 });
+    expect("tuna_debt_paid" in v, "no settlement was recorded").toBe(false);
   });
 });

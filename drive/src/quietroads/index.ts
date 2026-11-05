@@ -7,6 +7,7 @@ export * from "./cockpit";
 export * from "./waitWatch";
 export * from "./placeholders";
 export * from "./shop";
+export * from "./debt";
 export * from "./cardTimeout";
 export * from "./debrief";
 export * from "./actChallenges";

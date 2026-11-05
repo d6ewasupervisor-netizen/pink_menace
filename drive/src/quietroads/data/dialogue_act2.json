@@ -34,6 +34,12 @@
       "type": "int",
       "default": 0,
       "min": 0
+    },
+    "tuna_debt": {
+      "type": "int",
+      "default": 0,
+      "min": 0,
+      "hidden": true
     }
   },
   "flags": {
@@ -2638,12 +2644,25 @@
               "has_chains": true,
               "tuna_fronted_chains": true
             },
+            "set_vars": {
+              "tuna_debt": 150
+            },
             "give_items": [
               "chains"
             ],
             "respect": -1,
             "log": "shop.front:chains"
-          }
+          },
+          "next": "2.8.front_chains_owe"
+        },
+        "2.8.front_chains_owe": {
+          "type": "line",
+          "speaker": "TUNA",
+          "delivery": "S",
+          "emotion": "deadpan",
+          "volume": "low",
+          "auto_ms": 2600,
+          "text": "You'll owe me. Deac'll know."
         },
         "2.8.buy_any": {
           "type": "line",

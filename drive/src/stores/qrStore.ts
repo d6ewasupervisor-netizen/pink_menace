@@ -6,6 +6,7 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { withCanonPlaceholders } from '@/quietroads/placeholders';
+import { settleDebt, TUNA_DEBT_PAID_VAR, TUNA_DEBT_VAR } from '@/quietroads/debt';
 import type { MasteryRecord } from '@/quietroads';
 
 interface Persisted {
@@ -55,7 +56,25 @@ export const useQRStore = create<QRState>()(
         ...emptyPersisted,
 
         setVar: (k, v) => set((s) => ({ vars: { ...s.vars, [k]: v } })),
-        addVar: (k, d) => set((s) => ({ vars: { ...s.vars, [k]: (s.vars[k] ?? 0) + d } })),
+        // The one writer of every Trade Point. Tuna's tab comes out of the next
+        // pay wherever it lands — see quietroads/debt.ts.
+        addVar: (k, d) =>
+          set((s) => {
+            if (k === 'trade_points' && d > 0) {
+              const r = settleDebt(d, s.vars[TUNA_DEBT_VAR] ?? 0);
+              if (r.settled) {
+                return {
+                  vars: {
+                    ...s.vars,
+                    trade_points: (s.vars.trade_points ?? 0) + r.net,
+                    [TUNA_DEBT_VAR]: 0,
+                    [TUNA_DEBT_PAID_VAR]: r.paid,
+                  },
+                };
+              }
+            }
+            return { vars: { ...s.vars, [k]: (s.vars[k] ?? 0) + d } };
+          }),
         setFlag: (k, v) => set((s) => ({ flags: { ...s.flags, [k]: v } })),
         giveItem: (id) => set((s) => (s.items.includes(id) ? s : { items: [...s.items, id] })),
         unlock: (id) => set((s) => (s.unlocks.includes(id) ? s : { unlocks: [...s.unlocks, id] })),

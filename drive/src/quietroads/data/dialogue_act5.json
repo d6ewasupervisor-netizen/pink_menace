@@ -38,6 +38,18 @@
       "type": "int",
       "default": 0,
       "min": 0
+    },
+    "tuna_debt": {
+      "type": "int",
+      "default": 0,
+      "min": 0,
+      "hidden": true
+    },
+    "tuna_debt_paid": {
+      "type": "int",
+      "default": 0,
+      "min": 0,
+      "hidden": true
     }
   },
   "flags": {
@@ -655,6 +667,36 @@
               "chains_mounted": true
             },
             "log": "chainup.qte.success"
+          },
+          "next": "5.2.debt_branch"
+        },
+        "5.2.debt_branch": {
+          "type": "branch",
+          "branches": [
+            {
+              "condition": {
+                "var": "tuna_debt_paid",
+                "gte": 1
+              },
+              "next": "5.2.debt_line"
+            },
+            {
+              "next": "5.2.brief"
+            }
+          ]
+        },
+        "5.2.debt_line": {
+          "type": "line",
+          "speaker": "DEAC",
+          "delivery": "R",
+          "emotion": "deadpan",
+          "volume": "low",
+          "text": "Pay's in. Tuna's set came out of it. You're square with her. Don't make a habit of it.",
+          "effects": {
+            "set_vars": {
+              "tuna_debt_paid": 0
+            },
+            "log": "debt.settled"
           },
           "next": "5.2.brief"
         },

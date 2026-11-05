@@ -67,12 +67,34 @@ const NO_CHAINS_SAVE = {
   version: 2,
 };
 
-async function seed(page: Page) {
-  await page.addInitScript((save) => {
-    localStorage.setItem("quiet-roads-save", JSON.stringify(save));
+async function seed(page: Page, save: unknown = NO_CHAINS_SAVE) {
+  await page.addInitScript((s) => {
+    localStorage.setItem("quiet-roads-save", JSON.stringify(s));
     localStorage.setItem("quiet-roads-last-saved", String(Date.now()));
-  }, NO_CHAINS_SAVE);
+  }, save);
 }
+
+/**
+ * The player who cannot pay: the chain-up loop is open, the trunk is empty and
+ * there are no Trade Points. This is the save the front exists for.
+ */
+const BROKE_AT_TUNAS_SAVE = {
+  state: {
+    vars: { trade_points: 0 },
+    flags: { chainup_blocked: true },
+    items: [],
+    unlocks: [],
+    ledger: [],
+    mastery: {},
+    attempts: [],
+    choiceLog: [],
+    examMissedIds: [],
+    checkpoint: "chainup_blocked",
+    sceneId: "2.8",
+    runnerState: null,
+  },
+  version: 2,
+};
 
 const STATE = `(async () => {
   const { QuietRoads } = await import('/drive/src/systems/QuietRoadsBridge.ts');
@@ -92,6 +114,7 @@ const STATE = `(async () => {
     missionId: QuietRoads.sim.missionId,
     phase: useGameStore.getState().phase,
     tradePoints: qr.vars.trade_points ?? 0,
+    vars: qr.vars,
     items: qr.items,
     flags: qr.flags,
   };
@@ -108,6 +131,7 @@ type State = {
   missionId: string;
   phase: string;
   tradePoints: number;
+  vars: Record<string, number>;
   items: string[];
   flags: Record<string, boolean>;
 };
@@ -141,6 +165,35 @@ async function walk(page: Page, done: (s: State) => boolean, steps = 80) {
     await page.waitForTimeout(400);
   }
   return read(page);
+}
+
+/**
+ * 5.1's return climb → 5.2's chain-up → the hand-off to the summit.
+ *
+ * The drive up the grade is not what these cases measure, so the car is put on
+ * the sim's own `chainup_pullout` start and the climb's own arrival rule fires;
+ * the chain-up gesture itself is the real brake, held on the real key.
+ */
+async function climbAndChainUp(page: Page) {
+  const climbing = await walk(page, (s) => s.missionId === "climb_snoqualmie_from_below_chainup");
+  expect(climbing.missionId, "the return climb is running").toBe("climb_snoqualmie_from_below_chainup");
+
+  await page.evaluate(async () => {
+    const { QuietRoads } = await import("/drive/src/systems/QuietRoadsBridge.ts");
+    const { teleportVehicle } = await import("/drive/src/systems/VehicleController.ts");
+    const start = QuietRoads.sim.map.starts.chainup_pullout;
+    teleportVehicle(start.pos.x, start.pos.y, start.heading);
+  });
+  const atChainup = await walk(page, (s) => s.scene === "5.2");
+  expect(atChainup.scene, "waypoint.reach:chainup handed off to 5.2").toBe("5.2");
+
+  const qte = await walk(page, (s) => s.missionId === "chainup_qte");
+  expect(qte.missionId, "the chain-up gesture is live").toBe("chainup_qte");
+
+  await page.keyboard.down("ArrowDown");
+  const summit = await walk(page, (s) => s.scene === "5.3", 40);
+  await page.keyboard.up("ArrowDown");
+  return summit;
 }
 
 test("5.2 with no chains buys the set at Tuna's and the climb reaches 5.3", async ({ page }) => {
@@ -191,32 +244,81 @@ test("5.2 with no chains buys the set at Tuna's and the climb reaches 5.3", asyn
   expect(back.flags.chainup_blocked, "the block is cleared").toBe(false);
 
   // 5. 5.1 reads chainup_return and starts the climb from below the pull-out.
-  const climbing = await walk(page, (s) => s.missionId === "climb_snoqualmie_from_below_chainup");
-  expect(climbing.missionId, "the return climb is running").toBe("climb_snoqualmie_from_below_chainup");
-
-  // The drive up the grade is not what this test measures: put the car on the
-  // sim's own pull-out start and let the climb's own arrival rule fire.
-  await page.evaluate(async () => {
-    const { QuietRoads } = await import("/drive/src/systems/QuietRoadsBridge.ts");
-    const { teleportVehicle } = await import("/drive/src/systems/VehicleController.ts");
-    const start = QuietRoads.sim.map.starts.chainup_pullout;
-    teleportVehicle(start.pos.x, start.pos.y, start.heading);
-  });
-  const atChainup = await walk(page, (s) => s.scene === "5.2");
-  expect(atChainup.scene, "waypoint.reach:chainup handed off to 5.2").toBe("5.2");
-
-  // 6. 5.2 takes the chain-up path (the card, then the QTE).
-  const qte = await walk(page, (s) => s.missionId === "chainup_qte");
-  expect(qte.missionId, "the chain-up gesture is live").toBe("chainup_qte");
-
-  // The gesture is the brake: hold it, stopped, in the pull-out.
-  await page.keyboard.down("ArrowDown");
-  const summit = await walk(page, (s) => s.scene === "5.3", 40);
-  await page.keyboard.up("ArrowDown");
+  const summit = await climbAndChainUp(page);
   expect(summit.scene, "the chain-up handed off to the summit").toBe("5.3");
   expect(summit.flags.chains_mounted, "the chains are on the car").toBe(true);
   expect(summit.stranded, "no stranded state on the way").toBeNull();
   await expect(page.locator('[data-layer="stranded"]')).toHaveCount(0);
+});
+
+/**
+ * The soft-lock fix and the debt together: the player who cannot pay still
+ * leaves Tuna's with the set, and the next pay settles the tab — with Deac
+ * naming it, in scene 5.2, at the award that settles it.
+ */
+test("a broke player leaves Tuna's with the set on the tab, and the next pay settles it", async ({ page }) => {
+  test.setTimeout(240_000);
+  test.skip(test.info().project.name !== "desktop", "viewport is set inside the test");
+  await mockStudent(page);
+  await seed(page, BROKE_AT_TUNAS_SAVE);
+  await page.goto("/drive/");
+  await page.locator("canvas").first().waitFor({ state: "visible", timeout: 45_000 });
+  await page.waitForTimeout(2000);
+
+  const booted = await read(page);
+  expect(booted.scene, "resumed at Tuna's").toBe("2.8");
+  expect(booted.tradePoints, "not a point to her name").toBe(0);
+
+  // Every line the runner shows, in order — the walk polls too coarsely to be
+  // sure it caught Deac's dispatch beat.
+  await page.evaluate(async () => {
+    const { useQRHud } = await import("/drive/src/stores/qrHud.ts");
+    const w = window as unknown as { __qrLines: string[] };
+    w.__qrLines = [];
+    useQRHud.subscribe((s) => {
+      const id = s.line?.node_id;
+      if (id && w.__qrLines[w.__qrLines.length - 1] !== id) w.__qrLines.push(id);
+    });
+  });
+
+  const counter = page.locator('[data-layer="shop"]');
+  await expect(counter, "the counter is up").toBeVisible({ timeout: 20_000 });
+  const chains = counter.locator('[data-shop-item="chains"]');
+  await expect(chains).toHaveAttribute("data-shop-affordable", "false");
+  const front = counter.locator('[data-shop-item="front_chains"]');
+  await expect(front, "Tuna fronts the set when it is out of reach").toBeVisible();
+
+  // 1. The front: the set changes hands and the tab is written down.
+  await front.click();
+  await expect.poll(async () => (await read(page)).vars.tuna_debt, { timeout: 10_000 }).toBe(150);
+  const fronted = await read(page);
+  expect(fronted.items, "she leaves with the set").toContain("chains");
+  expect(fronted.flags.has_chains).toBe(true);
+  expect(fronted.tradePoints, "nothing was spent, because there was nothing").toBe(0);
+  expect(fronted.line, "Tuna's first line").toBe("2.8.front_chains");
+
+  // 2. She says what it is.
+  await expect.poll(async () => (await read(page)).line, { timeout: 15_000 }).toBe("2.8.front_chains_owe");
+  expect((await read(page)).vars.tuna_debt, "the tab stands").toBe(150);
+
+  // 3. Leave: the close branch sees the set and returns to the pass.
+  await expect(counter, "the counter comes back after the line").toBeVisible({ timeout: 20_000 });
+  await counter.locator("[data-shop-leave]").click();
+  const back = await walk(page, (s) => s.scene === "5.1");
+  expect(back.scene, "2.8.end_return handed off to 5.1").toBe("5.1");
+  expect(back.flags.chainup_return, "the trunk line is armed").toBe(true);
+
+  // 4. Up the grade and through the chain-up. 5.2.3 pays 30; the tab takes it.
+  const summit = await climbAndChainUp(page);
+  expect(summit.scene, "the chain-up handed off to the summit").toBe("5.3");
+  expect(summit.flags.chains_mounted, "the chains are on the car").toBe(true);
+  expect(summit.vars.tuna_debt, "the tab is closed").toBe(0);
+  expect(summit.tradePoints, "the pay that landed went to Tuna").toBe(0);
+
+  const lines = await page.evaluate(() => (window as unknown as { __qrLines: string[] }).__qrLines);
+  expect(lines, "Deac names it at the pay").toContain("5.2.debt_line");
+  expect(lines.indexOf("5.2.debt_line"), "after the chain-up line").toBeGreaterThan(lines.indexOf("5.2.3"));
+  expect(summit.vars.tuna_debt_paid, "cleared once he has said it").toBe(0);
 });
 
 /** Resume into a scene with a given save, the way the campaign enters it. */
