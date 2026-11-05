@@ -12,6 +12,7 @@
  */
 import { describe, expect, it } from 'vitest';
 import { PLOW_REARM_S, Simulation, type VehicleSample } from '../src/quietroads';
+import { BRIDGE_HANDS_OFF, handsOffView } from '../src/quietroads/handsoff';
 import { bridge } from '../src/quietroads/sim/corridors';
 
 const HM = 0.44704; // mph → m/s
@@ -148,6 +149,15 @@ describe('the engine-off wait hands the car back after the minute', () => {
     // Before the guard this fired `engine.start_early` → 6.3.restart → "Sixty.
     // From the top.", which is why her HAR shows the mission starting four times.
     expect(count('engine.start_early')).toBe(0);
+  });
+
+  it('the clock keeps running past the minute, so the overlay can let go', () => {
+    const { sim } = makeSim('bridge_engine_off_wait');
+    step(sim, 70, parked);
+    // The overlay releases at 60 + its 4 s tail (quietroads/handsoff.ts). A clock
+    // that stopped dead on 60 held the panel — and the input lock — for ever.
+    expect(sim.waitElapsedS).toBeGreaterThan(64);
+    expect(handsOffView(BRIDGE_HANDS_OFF, sim.waitElapsedS).released).toBe(true);
   });
 });
 

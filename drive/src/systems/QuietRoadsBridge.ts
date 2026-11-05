@@ -475,6 +475,11 @@ class Bridge {
       return;
     }
     if (this.sim.startMission(id as MissionId)) {
+      // A mission (re)starting is a fresh hands-off slate: the bridge's overlay
+      // only opens on the transition, and a bridge retry starts this mission
+      // again, so a released flag left over from the last run must not hide it.
+      this.handsOffMission = null;
+      this.handsOffReleased = false;
       const chassis = id === 'mission_central_ledger' ? 'truck'
         : id === 'mission_ribbon_merge' || id.startsWith('convoy_') || id.startsWith('mission_convoy') || id.startsWith('climb_')
           ? 'highway' : 'beetle';

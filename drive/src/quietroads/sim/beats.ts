@@ -218,6 +218,9 @@ export class BeatRun {
     // Before this guard, the first throttle press after the wait fired
     // `engine.start_early` and threw her back to "Sixty. From the top."
     if (this.park >= BRIDGE_WAIT_S) {
+      // The clock keeps running so the overlay can hold its release beat and let
+      // go; nothing else reads it (the marks are `once`, the goal is past).
+      this.park += dt;
       if (dist(s.pos, this.bridge.end) < 8) this.once("waypoint.reach:bridge_end");
       return;
     }
