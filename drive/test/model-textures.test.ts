@@ -80,3 +80,20 @@ describe("every GLB texture exists", () => {
     });
   }
 });
+
+
+describe("a missing texture is a 404, not the SPA", () => {
+  it("registers the /drive/models + /drive/assets 404 before the SPA fallback", () => {
+    // The network tab looked fine while the world rendered flat: the SPA fallback
+    // answered a missing `Textures/colormap.png` with index.html and a 200. Order
+    // is the whole fix — a 404 registered after the fallback never runs.
+    const server = fs.readFileSync(path.resolve(DRIVE, "..", "server.js"), "utf8");
+    const notFound = server.search(/app\.use\(\s*\[[^\]]*"\/drive\/models"[^\]]*"\/drive\/assets"[^\]]*\]/);
+    expect(notFound, "server.js must 404 a missing model/asset").toBeGreaterThan(-1);
+    expect(server.slice(notFound, notFound + 260)).toMatch(/status\(404\)/);
+
+    const spaFallback = server.search(/app\.get\(\s*\[\s*"\/drive"/);
+    expect(spaFallback, "server.js must still serve the drive's index.html").toBeGreaterThan(-1);
+    expect(notFound, "the 404 must be registered before the SPA fallback").toBeLessThan(spaFallback);
+  });
+});
