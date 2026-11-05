@@ -44,7 +44,45 @@ deliberately empty rather than filled with a guess.
   **Act VII deck's citations and numbers**, the **road-home clock**, the **4.2/2.2
   licensing thread** and the **seed's do-not-seed contract**).
 
-## Current pass — the tab, the credits, the line endings (2026-11-04)
+## Current pass — the flood, the minute, the thumb (2026-11-05)
+
+From a HAR of scene 6.3 on an iPhone (440x956).
+
+- **The bridge reports crossings, not frames.** `speed.over:45` fired every frame
+  over the limit (1,693 rows in 23 s) and `steer.overcorrect` fired every frame
+  the stick was pinned; both are edge-triggered now (speed re-arms 2 mph under,
+  the yank has to be held and reports once per 2 s), `plow.used` is one row per
+  contact episode, and the client cannot POST per row: `systems/telemetryBatch.ts`
+  dedupes into `data.repeats`, caps a batch at 50 rows, and lets one POST through
+  per 10 s (urgent flushes at most one per 5 s). Telemetry left `qrHud`, so a
+  flood is one `Map` update per event. `client.stall` records the page's
+  visibility, so a locked phone no longer reads as a freeze.
+  `test/telemetry.test.ts` (10), `test/bridge-telemetry.test.ts` (11).
+- **The engine-off minute is a screen you cannot touch.**
+  `quietroads/handsoff.ts` + `HandsOffOverlay.tsx`: ENGINE OFF · HANDS OFF, a
+  60 s ring, the 15/30/45/60 marks and the scene's own line, in the cockpit body
+  band; every driving input is locked (`setDriveInputLocked`), the sticks are
+  hidden, the dialogue box stands down, and `ScreenWakeKeeper` holds the screen
+  awake (release on exit, re-request on `visibilitychange`, silent where the API
+  is missing). The countdown is the sim's own clock, so a pause or a locked phone
+  holds it. Swept: every other `wait_for` is a wait the player acts on or
+  self-resolves in 2.5 s, so only the bridge is converted.
+  `test/handsoff.test.ts` (16).
+- **Wind assist for a thumb.** `quietroads/assist.ts`, on touch and keyboard
+  only: the car holds 40 mph by itself (brake wins, throttle cannot push past),
+  steering is 0.55 of the stick with a 0.04 dead zone, both grading windows are
+  reachable by a thumb, a gust warns 0.9 s early with its side, and the HUD says
+  `WIND ASSIST · 40`. Measured: there is no lateral gust force in the sim, so
+  the "50–60 % force" item had nothing to reduce. The pedal is a curve
+  everywhere now (`^1.6` instead of `^0.95`): 25/50/75/100 % travel is
+  7/29/60/100 % throttle. `test/windassist.test.ts` (11).
+- **`e2e/bridge.spec.ts`:** 6.3 from VII-006 to 7.1 on the real touch stick, a
+  20 s POST budget (≤ 3, measured 2), and the panel at 440x956. It found a soft
+  lock: the wait clock stopped at 60 s so the panel never released. The
+  Playwright test clock was measured at 90,073 ms for 66 s of game — the wait is
+  real time.
+
+## Previous pass — the tab, the credits, the line endings (2026-11-04)
 
 - **Tuna's front is a debt.** The soft-lock exit was cheaper than buying: no
   points, same chains. `quietroads/debt.ts` (pure `settleDebt`) plus one call

@@ -1621,3 +1621,186 @@ and `i/-text w/-text` for the binaries.
 deploy.
 
 <!-- CONTINUED -->
+## 29. The bridge, from her HAR: the flood, the minute, the thumb (2026-11-05)
+
+A HAR from scene 6.3 (Vantage Bridge) on an iPhone (iOS 18.5, Safari, 440x956)
+named four things. None of them was the story.
+
+| What the HAR showed | What it was |
+|---|---|
+| `speed.over:45` 1,693 times in 23 s; 466 POSTs to `/api/drive/events` in the same 23 s (one per ~50 ms) vs the normal one batch per 10 s | level-triggered emitters + an uploader that posted whenever it was called |
+| `plow.used` 17 times in one instant | the same fault on the contact emitter |
+| mission started 4×, `engine.start_early` 6×, `bridge_wait_restarts` 3, during "Engine off. Hands off. … Sixty seconds." | a phone has no engine switch; a resting thumb on a stick *is* the throttle |
+| `client.stall` 83,910 ms | the phone auto-locked during a minute of not touching it |
+| 60–67 in a 25 afterwards, a skid | the touch throttle had no usable middle |
+
+### 29.1 The flood
+
+**Emitters, audited one by one** (`sim/*.ts`, every `fire`/`emit` that can run
+per frame):
+
+| Emitter | Before | Now |
+|---|---|---|
+| `speed.over:45` (`beats.bridgeCross`) | every frame over 45 | once per crossing, re-armed 2 mph below (`>45` fires, `≤43` re-arms) |
+| `steer.overcorrect` (`beats.bridgeCross`) | every frame while `|steer| > 0.7` | a held yank (0.35 s, 0.4 s with the assist) then one report per 2 s |
+| `plow.used` (`Simulation.step`) | every step in contact (17 in one instant) | one per contact episode; `PLOW_REARM_S` (1.5 s) of clear road ends it |
+| `noise.*` (`sim/noise.ts`) | already edge-triggered on band change | unchanged |
+| `input.hard_accel/brake` (`vehicleObserver`) | already edge-triggered, 1.5 s cooldown | unchanged |
+| `shadow.*`, `fatigue.*`, `skid.*`, `ice.enter`, `gracie.*`, `waypoint.reach:*` | already `once` / cooldown | unchanged |
+| `waypoint.reach:rest_area` (`beats.straight`) | re-pings every 0.75 s by design ("keep offering the pin") | unchanged on purpose; the uploader collapses the repeats |
+| `wind.gust` | one per 8 s by a `Math.floor(t/8)` test a long frame could drop | one per 8 s from `gustsCrossed()`, which cannot drop one |
+
+**The uploader.** `systems/telemetryBatch.ts` is now the only thing that decides
+when a POST happens; `crashReport`, the bridge and the WebGL guard only *queue*:
+
+- one POST per `intervalMs` (10 s), however often it is asked — a caller that
+  asks on every row gets one POST;
+- an urgent flush (a crash row, `pagehide`) may jump the interval but not the
+  `minGapMs` floor (5 s);
+- identical `(event, data)` rows collapse into one row carrying `data.repeats`,
+  so a flood is one line with a count;
+- one POST carries at most 50 distinct rows (the server slices at 50 anyway) and
+  at most 60 events are counted into a batch; the rest wait for the next one.
+
+Rows also left `qrHud` entirely: `addTelemetry` did
+`set({ telemetry: [...rows, row] })` — a full array copy per event, so at 73
+events/s the main thread copied a 2,000-element list every frame. It is one
+`Map` update per event now.
+
+**`client.stall`.** The long-task watchdog records `visibility`, `hidden` and
+`while_hidden`, so an 84 s gap with the page hidden reads as a locked phone
+instead of a freeze. It still reports; it just says what it is.
+
+Measured — `test/telemetry.test.ts` (10): 2,000 emits inside one second produce
+exactly one POST carrying `repeats: 2000`; the timer's cadence; the urgent floor;
+a failed POST puts its rows back. `test/bridge-telemetry.test.ts`: 1,380 frames
+over the limit is one `speed.over:45`; a pinned stick reports once per 2 s; 17
+frames of plow contact is one row.
+
+### 29.2 The hands-off minute
+
+`quietroads/handsoff.ts` is the rule: one wait in the catalogue
+(`bridge_engine_off_wait`), its 60 s taken from `BRIDGE_WAIT_S` (which
+`sim/beats.ts` also reads, so ring and story cannot drift), its 15/30/45/60
+marks read from the act file by the test, and a 4 s `tailS` so `6.3.clear` plays
+*inside* the panel.
+
+- `HandsOffOverlay.tsx`: `ENGINE OFF · HANDS OFF`, a countdown ring, the four
+  marks, and the scene's own line — in the cockpit body band and translucent, so
+  the Quiet drifting away behind it still reads.
+- `setDriveInputLocked` (`input/driveInput.ts`): `mergeDriveInput` answers zeros
+  and `setStickAxes` refuses new axes, so sticks, keys, pad, handbrake and a
+  pointer event mid-wait all reach nothing. `TouchOverlay` hides the sticks;
+  `DialogueBox` stands down (its auto-dismiss clock keeps running, so nothing can
+  hang behind the panel).
+- The countdown is `Simulation.waitElapsedS` — the sim's own clock. Paused game
+  or hidden tab ⇒ the sim does not step ⇒ the ring holds where it was and
+  resumes there: `bridge.wait:15` fired exactly once across a pause in the test.
+- `ScreenWakeKeeper` (`systems/screenWakeLock.ts`) holds
+  `navigator.wakeLock.request('screen')` for the wait, releases it on exit,
+  re-requests on `visibilitychange` while it is still wanted, and fails silently
+  where the API does not exist.
+- `engine.start_early` stays in the data (the story's answer to a car that starts
+  early) and is unreachable while the panel is up, because nothing can press
+  anything.
+
+**The sweep.** Every `wait_for` in the act files, and why only one is converted:
+`park.clean` (×2), `quiet.settle`, `gracie.toy`, `gracie.moth`,
+`microsleep.drift`, `rumble.strip`, `merge.gap_open`, `ramp.enter`, `tow.start`,
+`waypoint.reach:*` and `week.elapsed` are waits the player *acts* on;
+`cutscene.*` self-resolve after 2.5 s (`waitWatch`) and covering the screen for
+2.5 s would be worse than the wait; `quiet.reason_passed` is answered by the
+mission on the spot. 6.2's nap is dialogue, not a timer.
+
+**A real soft lock, found by the e2e.** The wait clock stopped dead at 60 s (the
+served guard returned before accruing), so `elapsed` never reached
+`60 + tailS`, so the panel — with the input lock and the held wake lock — never
+let go. The clock now runs past the minute and the panel releases at 64 s;
+`bridge-telemetry.test.ts` pins it (`waitElapsedS > 64` at 70 s, `released`).
+
+### 29.3 Wind on touch
+
+`quietroads/assist.ts`, applied on touch **and keyboard**, never on an analog pad
+(`driveInputFamily()`; `setPadPresent` from the gamepad poll):
+
+| Rule | Value |
+|---|---|
+| Speed hold | 40 mph (posted 45), `cruiseAccelMps2` 1.1, brake always wins, throttle cannot push past (`cruiseSpeedMps`, called from `tickVehicle`) |
+| Steering gain | 0.55 of the stick, dead zone 0.04 (`steerWithAssist` in `mergeDriveInput`) |
+| `steer.into_wind` | 0.05–0.40 held 0.45 s (was 0.12–0.45 held 0.8 s) |
+| `steer.overcorrect` | 0.5 held 0.4 s, one report per 2 s (was 0.7, every frame) |
+| Gust cue | `wind.gust.warn` 0.9 s before the gust, with the side; the HUD draws an arrow on that side and keeps it through the gust |
+| HUD | `WIND ASSIST · 40` (`WindAssistHUD`) |
+
+Both grades are reachable by a thumb now: a pinned stick is 0.55 (an
+overcorrection) and two thirds of the stick is 0.22 (the pass). Before, full
+stick was 1.0 — every frame an overcorrection, and the pass line unreachable.
+
+**"Reduce the gust force to 50–60 % for touch": there is no gust force.**
+Measured 2026-11-05 — nothing in the drive applies a lateral force or impulse.
+`wind.gust` is a story cue fired every 8 s on the span; the only lateral motion
+the car has is the yaw the steering asks for. So the item had nothing to reduce,
+and inventing a force would change VII-006's lesson and the span's handling. What
+the assist reduces is the **yank** (gain + windows); what it adds is the **cue**.
+Recorded in `quietroads/assist.ts`, not silently dropped.
+
+**The throttle curve, measured.** The stick's y was
+`sign(v) · ((|v| − 0.08) / 0.92) ** 0.95` — effectively linear after an 8 % dead
+zone — on a ring whose travel is `min(142px, 36vw) · 0.38` (54 px at 390 wide),
+feeding Kent's 0.8/s pedal ramp: a thumb at the edge was full throttle in about a
+second and there was no usable middle.
+
+| Travel | Before (`^0.95`) | Now (`^1.6`) |
+|---|---|---|
+| 25 % | 0.18 | 0.07 |
+| 50 % | 0.46 | 0.29 |
+| 75 % | 0.77 | 0.60 |
+| 100 % | 1.00 | 1.00 |
+
+The curve lives in `driveInput.ts` (`shapeStickAxis`, `PEDAL_CURVE`) and applies
+everywhere, not just on the bridge. Steering keeps its own shape (`^1.05`).
+
+### 29.4 The tests added
+
+- `test/telemetry.test.ts` (10), `test/bridge-telemetry.test.ts` (11),
+  `test/handsoff.test.ts` (16), `test/windassist.test.ts` (11): the flood, the
+  lock, the wake lock, the ring against the act data, the hold, the gain, the
+  pedal curve, and the warning preceding the gust through the real `Simulation`.
+- `e2e/bridge.spec.ts`:
+  1. 6.3 from the card to 7.1 — crossing on the real touch stick (assist label,
+     40 mph), the sign, the moth, the panel with no sticks, a press and a held
+     key during it that do **not** restart the mission, the sixty seconds, the
+     release, the far side, 7.1 (`checkpoint: bridge_crossed`). 1.5 min.
+  2. 20 s of the span posts to `/api/drive/events` at most 3 times (measured 2).
+  3. the panel at 440x956: full width, inside the body band, ring, 4 marks, and a
+     countdown that actually moves.
+
+**The test clock was tried and measured.** `page.clock.install()` +
+`runFor(66_000)` took **90,073 ms** of wall time (4,125 mocked frames of WebGL,
+serialized) and then left the rAF loop paused, so the overlay never released:
+slower than the wait it replaces *and* wrong about it. The wait is real time
+(66 s), and that number is the reason.
+
+**Verified.** `420/420` vitest across 42 files (372 + 48), `tsc --noEmit` 0,
+`npm run build` 6.85 s / 4,034.08 kB (1,328.60 kB gzip), playwright **headless**
+`--workers=1` **37 passed / 21 skipped / 0 failed** in 8.8 min (52 → 58 tests;
+the 2 new skips are `bridge.spec.ts` cases 1–2 in `mobile-portrait`, the measured
+390x844 duplicate). `bench/baseline.json` restored. No seed, no deploy.
+
+### 29.5 Still open
+
+- The assist is on for `vantage_bridge_crossing` only. After the sign the span
+  still has the 25 limit with an analog pedal and no hold — measured as fine in
+  the e2e, but a device run would tell whether `bridge_after_sign_*` wants the
+  same hold at 20.
+- A gust has no physical push, so "steer into it" is graded from the steering
+  gesture alone. If it ever gets one, `WIND` is where its scale belongs.
+- `page.clock` does not drive this game's loop (29.4); a future "fast forward"
+  idea starts from that measurement.
+- The wake lock is only as good as the platform: iOS drops it when the page
+  hides, which is what the `visibilitychange` re-request is for, and it was not
+  exercised on a real iPhone in this pass.
+
+<!-- CONTINUED -->
+
+
