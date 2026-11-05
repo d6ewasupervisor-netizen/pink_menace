@@ -39,6 +39,54 @@ test('loads /drive and mounts the WebGL surface as a signed-in student', async (
   await expect(page.locator('#game-touch-area').first()).toBeVisible();
 });
 
+/**
+ * The texture the world renders with has to be a texture.
+ *
+ * The original bug was invisible in the network tab: every GLB asked for
+ * `Textures/colormap.png`, the file did not exist, the SPA fallback answered
+ * `index.html` with a 200, and the image quietly failed to decode. The guard in
+ * `test/model-textures.test.ts` holds the files; this holds the wire — a 200
+ * with HTML in it is not a texture, and a 404 is not a texture either.
+ */
+test('serves the kits own colormaps, never index.html', async ({ page }) => {
+  test.setTimeout(90_000);
+  await mockStudent(page);
+  const seen = new Map<string, { status: number; type: string; bytes: number }>();
+  page.on('response', (res) => {
+    const clean = res.url().split('?')[0];
+    if (!/\/models\/[^/]+\/Textures\/colormap\.png$/.test(clean)) return;
+    const headers = res.headers();
+    seen.set(clean, {
+      status: res.status(),
+      type: headers['content-type'] ?? '',
+      bytes: Number(headers['content-length'] ?? 0),
+    });
+  });
+
+  await page.goto('/drive/');
+  await expect(page.locator('canvas').first()).toBeVisible({ timeout: 45_000 });
+  // The road chunks preload the road + building GLBs the moment the world mounts.
+  await expect.poll(() => seen.size, { timeout: 30_000, message: 'the world asked for its colormaps' }).toBeGreaterThanOrEqual(2);
+
+  // A texture is a PNG with a PNG's length; the fallback was `text/html` at the
+  // length of index.html, which is why the network tab looked healthy.
+  const bad = [...seen.entries()]
+    .filter(([, r]) => r.status !== 200 || !r.type.includes('png') || r.bytes < 2000)
+    .map(([url, r]) => `${url} -> ${r.status} ${r.type} ${r.bytes} B`);
+  expect(bad, 'every colormap served is a real PNG').toEqual([]);
+
+  // ...and the bytes on the wire really are a PNG, read the way the decoder reads it.
+  const heads = await page.evaluate(async (urls) => {
+    const out: Record<string, string> = {};
+    for (const url of urls) {
+      const buf = new Uint8Array(await (await fetch(url)).arrayBuffer());
+      out[url] = [...buf.subarray(0, 8)].map((b) => b.toString(16).padStart(2, '0')).join('');
+    }
+    return out;
+  }, [...seen.keys()]);
+  expect(Object.values(heads).filter((h) => h !== '89504e470d0a1a0a'), 'every body is a PNG').toEqual([]);
+});
+
 test('profileDrive records first frame, fps, and 1% low', async ({ page }) => {
   test.setTimeout(90_000);
   await mockStudent(page);

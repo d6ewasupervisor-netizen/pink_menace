@@ -1,19 +1,27 @@
 /**
- * build-model-colormaps — regenerate the shared Kenney atlas the GLBs expect.
+ * build-model-colormaps — the FALLBACK atlas generator.
  *
  * Every Kenney GLB in the drive references `Textures/colormap.png` beside it.
- * That file was never in the repo or the build: the network asked for it on
- * every load and the SPA fallback answered `index.html`, so the image could
- * never decode and any surface the runtime does not repaint itself (NPC cars,
- * cones, signs, lamps) rendered flat. `proceduralKenneyTextures.ts` works around
- * it for the road and the buildings by drawing its own maps; cars had nothing.
+ * That file was never shipped: the network asked for it on every load and the
+ * SPA fallback answered `index.html`, so the image could never decode and any
+ * surface the runtime does not repaint itself (NPC cars, cones, signs, lamps)
+ * rendered flat. `proceduralKenneyTextures.ts` worked around it for the road and
+ * the buildings; cars had nothing.
  *
- * This script reads each GLB's own TEXCOORD_0 bounds, so every UV a model uses
- * lands on a painted pixel, and writes a deterministic 512×512 atlas next to the
- * model. Pure Node (zlib only) — no image dependency, no network.
+ * The real atlases are in the build now — one per kit, copied verbatim out of
+ * the packs each GLB came from (see `public/models/CREDITS.md`). This script is
+ * what to run when a texture is *missing*: it reads each GLB's own TEXCOORD_0
+ * bounds, so every UV a model uses lands on a painted pixel, and writes a
+ * deterministic 512×512 atlas next to the model. Pure Node (zlib only) — no
+ * image dependency, no network.
  *
- * Run: `npm run build:colormaps` (from `drive/`). `vite build` copies
- * `public/models` into `public/game/drive/models`, so the output gets it too.
+ * It will NOT overwrite an atlas that is already there, because overwriting the
+ * kit's own colormap with a stand-in is exactly the regression this was written
+ * to end. `--force` does it deliberately.
+ *
+ * Run: `npm run build:colormaps` (from `drive/`), or `… -- --force`.
+ * `vite build` copies `public/models` into `public/game/drive/models`, so the
+ * output gets it too.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -242,10 +250,18 @@ for (const glb of walk(MODELS)) {
   }
 }
 
+const FORCE = process.argv.includes("--force");
 let written = 0;
+let kept = 0;
 for (const [out, g] of groups) {
   if (g.entries.length === 0) {
     console.warn(`! ${path.relative(ROOT, out)}: no TEXCOORD_0 in ${g.sources.join(", ")} — skipped`);
+    continue;
+  }
+  // An atlas that is already there is the kit's own colormap. Leave it.
+  if (!FORCE && fs.existsSync(out)) {
+    kept++;
+    console.log(`= ${path.relative(ROOT, out)} (present, kept)`);
     continue;
   }
   fs.mkdirSync(path.dirname(out), { recursive: true });
@@ -254,5 +270,9 @@ for (const [out, g] of groups) {
   const styles = [...new Set(g.entries.map((e) => e.style))].join("+");
   console.log(`+ ${path.relative(ROOT, out)} (${styles}, ${g.entries.length} uv rects)`);
 }
-console.log(`\n${written} atlas${written === 1 ? "" : "es"} written from ${groups.size} referenced path${groups.size === 1 ? "" : "s"}.`);
+console.log(
+  `\n${written} atlas${written === 1 ? "" : "es"} written, ${kept} kept` +
+  ` — from ${groups.size} referenced path${groups.size === 1 ? "" : "s"}.` +
+  (FORCE ? "" : " (pass --force to overwrite a present atlas)"),
+);
 

@@ -27,10 +27,10 @@ useGLTF.preload(asset('/models/buildings/building-type-b.glb'));
 useGLTF.preload(asset('/models/buildings/building-type-c.glb'));
 useGLTF.preload(asset('/models/buildings/building-type-d.glb'));
 useGLTF.preload(asset('/models/buildings/building-type-e.glb'));
-useGLTF.preload(asset('/models/buildings/building-sample-tower-a.glb'));
-useGLTF.preload(asset('/models/buildings/building-sample-tower-b.glb'));
+useGLTF.preload(asset('/models/buildings-modular/building-sample-tower-a.glb'));
+useGLTF.preload(asset('/models/buildings-modular/building-sample-tower-b.glb'));
 useGLTF.preload(asset('/models/nature/low_poly_cactus.glb'));
-useGLTF.preload(asset('/models/buildings/building-sample-house-a.glb'));
+useGLTF.preload(asset('/models/buildings-modular/building-sample-house-a.glb'));
 useGLTF.preload(asset('/models/road/road-straight-barrier.glb'));
 
 // Kenney road-straight tile is 1×1 unit (X: -0.5→0.5, Z: -0.5→0.5, Y≈0.02 top).
@@ -40,7 +40,13 @@ const ROAD_TILE_SCALE_Z = 4;  // 1 * 4 = 4m per tile along Z
 const ROAD_TILE_LENGTH = 4;   // scaled tile covers 4 world-units along Z
 const TILES_PER_CHUNK = Math.ceil(CHUNK_LENGTH / ROAD_TILE_LENGTH); // 50 tiles
 
-// ─── Road surface using instanced GLB submeshes (bundled GLBs miss colormap.png).
+// ─── Road surface using instanced GLB submeshes.
+// The real Kenney atlas now ships beside every model (Textures/colormap.png), so
+// the props that keep their own material — cones, signs, lamps, barriers, NPC
+// cars — sample the kit's own colours. The road tiles and the building facades
+// still use the procedural maps on purpose: `getSharedRoadMaterial` is what
+// carries the lane markings the highway is read by, and it is the one material
+// the wet-surface pass drives (`setRoadSurfaceWetness`).
 function RoadSurface() {
   const { scene } = useGLTF(asset('/models/road/road-straight.glb'));
   const roadMaterial = useMemo(() => getSharedRoadMaterial(scene), [scene]);
@@ -90,16 +96,21 @@ function RoadSurface() {
   );
 }
 
-// ─── City decorations — Kenney suburban buildings + streetlights ──────────
+// ─── City decorations — Kenney buildings + streetlights ──────────
+// Two kits, two atlases: `buildings/` is City Kit (Suburban) 2.0 and
+// `buildings-modular/` is Modular Buildings 2.1. Each folder carries the
+// colormap its own pack shipped with; the facades are repainted procedurally
+// (`getBuildingColormapTexture`), so the atlas is what the unrepainted parts
+// (roofs, trims, doors) sample.
 const CITY_BUILDING_MODELS = [
   asset('/models/buildings/building-type-a.glb'),
   asset('/models/buildings/building-type-b.glb'),
   asset('/models/buildings/building-type-c.glb'),
   asset('/models/buildings/building-type-d.glb'),
   asset('/models/buildings/building-type-e.glb'),
-  asset('/models/buildings/building-sample-tower-a.glb'),
-  asset('/models/buildings/building-sample-tower-b.glb'),
-  asset('/models/buildings/building-sample-house-a.glb'),
+  asset('/models/buildings-modular/building-sample-tower-a.glb'),
+  asset('/models/buildings-modular/building-sample-tower-b.glb'),
+  asset('/models/buildings-modular/building-sample-house-a.glb'),
 ];
 
 // Seeded random for deterministic decoration variation

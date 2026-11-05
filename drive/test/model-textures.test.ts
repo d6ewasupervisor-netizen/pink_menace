@@ -11,6 +11,7 @@
  * It also checks the PNG signature, because "the file exists" is exactly the kind
  * of thing the old fallback made true while nothing usable was being served.
  */
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -81,6 +82,101 @@ describe("every GLB texture exists", () => {
   }
 });
 
+
+/**
+ * The atlases are the KITS' own colormaps, copied verbatim out of the packs the
+ * GLBs came from — not the generated stand-ins. The generator painted every UV
+ * rectangle a placeholder colour, which is why the world read as a texture-less
+ * kit bash; the moment a `npm run build:colormaps` overwrote one of these the
+ * look would quietly come back without a single test noticing.
+ *
+ * Each entry is the file, the SHA-256 of the pack's own `Textures/colormap.png`,
+ * and the pack + version it came from (the version is the one on the pack's own
+ * `License.txt`). `public/models/CREDITS.md` carries the same table and the
+ * download URLs.
+ */
+const PACKED_COLORMAPS = [
+  {
+    file: "cars/Textures/colormap.png",
+    sha256: "2AB4AAD26098BBF8258BE9A884527F9F61438F35F40ED9DBF1A195BAD9F793FE",
+    bytes: 11988,
+    pack: "Car Kit",
+    version: "3.0",
+  },
+  {
+    file: "road/Textures/colormap.png",
+    sha256: "EBBDAADF298F684EE534D0E63E2BDB223F7501DA9FC13EB7BCDC94489162ACA5",
+    bytes: 8658,
+    pack: "City Kit (Roads)",
+    version: "2.0",
+  },
+  {
+    file: "buildings/Textures/colormap.png",
+    sha256: "9B5DE86078C25EF02351A80D35FF3C978693A1044565B73EEDD9AE9B5B80665D",
+    bytes: 11784,
+    pack: "City Kit (Suburban)",
+    version: "2.0",
+  },
+  {
+    file: "buildings-modular/Textures/colormap.png",
+    sha256: "66FD49BE148F32E88F6C8CACE67120250D1943A7856601158AD0FF24651DB0B0",
+    bytes: 7529,
+    pack: "Modular Buildings",
+    version: "2.1",
+  },
+] as const;
+
+describe("the atlas beside each kit is the kit's own", () => {
+  const root = path.join(DRIVE, "public", "models");
+
+  for (const c of PACKED_COLORMAPS) {
+    it(`${c.file} is ${c.pack} ${c.version}`, () => {
+      const file = path.join(root, c.file);
+      expect(fs.existsSync(file), `${c.file} is missing`).toBe(true);
+      const bytes = fs.readFileSync(file);
+      expect(bytes.length, `${c.file} size`).toBe(c.bytes);
+      expect(crypto.createHash("sha256").update(bytes).digest("hex").toUpperCase()).toBe(c.sha256);
+    });
+  }
+
+  /**
+   * The split exists because two packs ship two different colormaps and one
+   * folder can only carry one. A modular sample dropped back into `buildings/`
+   * would sample the suburban palette, so pin which GLB lives where.
+   */
+  it("keeps the two building kits in their own folders", () => {
+    const list = (dir: string) =>
+      fs.readdirSync(path.join(root, dir)).filter((f) => f.toLowerCase().endsWith(".glb")).sort();
+    expect(list("buildings")).toEqual([
+      "building-type-a.glb",
+      "building-type-b.glb",
+      "building-type-c.glb",
+      "building-type-d.glb",
+      "building-type-e.glb",
+    ]);
+    expect(list("buildings-modular")).toEqual([
+      "building-sample-house-a.glb",
+      "building-sample-tower-a.glb",
+      "building-sample-tower-b.glb",
+    ]);
+  });
+
+  it("no GLB sits in a folder that has no atlas beside it", () => {
+    const missing: string[] = [];
+    for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const dir = path.join(root, entry.name);
+      const glbs = fs.readdirSync(dir).filter((f) => f.toLowerCase().endsWith(".glb"));
+      if (glbs.length === 0) continue;
+      const refs = glbs.flatMap((g) => externalImages(path.join(dir, g)));
+      if (refs.length === 0) continue;
+      for (const uri of refs) {
+        if (!fs.existsSync(path.resolve(dir, uri))) missing.push(`${entry.name}/${uri}`);
+      }
+    }
+    expect(missing, "every referenced atlas is present").toEqual([]);
+  });
+});
 
 describe("a missing texture is a 404, not the SPA", () => {
   it("registers the /drive/models + /drive/assets 404 before the SPA fallback", () => {
