@@ -6,6 +6,7 @@ export * from "./config";
 export * from "./cockpit";
 export * from "./waitWatch";
 export * from "./handsoff";
+export * from "./assist";
 export * from "./placeholders";
 export * from "./shop";
 export * from "./debt";

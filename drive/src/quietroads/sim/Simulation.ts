@@ -230,6 +230,14 @@ export class Simulation {
 
   get frozen() { return this.freezeReasons.size > 0; }
   /**
+   * The wind assist for the running mission (quietroads/assist.ts). The bridge is
+   * the one writer: it sets this when the span starts on touch or keyboard, and
+   * clears it when the mission ends or a pad is driving. The graders read it for
+   * their steering windows; the speed hold itself lives in VehicleController.
+   */
+  set windAssist(on: boolean) { this.beats.assist = on; }
+  get windAssist() { return this.beats.assist; }
+  /**
    * The hands-off wait's clock (6.3's sixty seconds), straight from the beat that
    * owns it. Frozen with the world, so a paused game or a locked phone holds the
    * countdown where it was instead of spending it.

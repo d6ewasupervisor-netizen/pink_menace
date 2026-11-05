@@ -13,6 +13,7 @@ import {
   mergeDriveInput,
   setLivePad,
   bindHeld,
+  setPadPresent,
 } from '@/input/driveInput';
 
 const GAMEPAD_DEAD_ZONE = 0.12;
@@ -73,6 +74,7 @@ export function useTouchControls() {
       if (!pad) {
         startPressedRef.current = false;
         setLivePad(null);
+        setPadPresent(false);   // no analog stick: the wind assist applies
         if (liveKeys.size > 0 || getStickAxes().active) {
           flushDriveInput();
         } else {
@@ -87,6 +89,7 @@ export function useTouchControls() {
       }
 
       const stickX = applyDeadZone(pad.axes[0] ?? 0);
+      setPadPresent(true);      // an analog stick is driving: no wind assist
       let triggerThrottle = pad.buttons[7]?.value ?? 0;
       let triggerBrake = pad.buttons[6]?.value ?? 0;
       const aButton = pad.buttons[0]?.pressed ?? false;
@@ -136,6 +139,7 @@ export function useTouchControls() {
     const onGamepadDisconnected = () => {
       startPressedRef.current = false;
       setLivePad(null);
+      setPadPresent(false);
     };
 
     window.addEventListener('gamepadconnected', onGamepadConnected);

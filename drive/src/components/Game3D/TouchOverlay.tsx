@@ -17,6 +17,11 @@ import {
   isSingleStick,
   setStickAxes,
   setTouchHandbrake,
+  shapeStickAxis,
+  PEDAL_CURVE,
+  PEDAL_DEAD_ZONE,
+  STEER_CURVE,
+  STEER_DEAD_ZONE,
 } from '@/input/driveInput';
 
 type StickAxis = 'x' | 'y' | 'radial';
@@ -36,12 +41,6 @@ function flushDual() {
 
 function clamp(n: number, a: number, b: number) {
   return Math.max(a, Math.min(b, n));
-}
-
-function shapeAxis(raw: number, dead: number, curve: number) {
-  return Math.abs(raw) < dead
-    ? 0
-    : Math.sign(raw) * ((Math.abs(raw) - dead) / (1 - dead)) ** curve;
 }
 
 function ThumbStick({
@@ -86,8 +85,11 @@ function ThumbStick({
         dx = (dx / mag) * radius;
         dy = (dy / mag) * radius;
       }
-      const x = clamp(shapeAxis(dx / radius, 0.1, 1.05), -1, 1);
-      const y = clamp(shapeAxis(-dy / radius, 0.08, 0.95), -1, 1);
+      const x = clamp(shapeStickAxis(dx / radius, STEER_DEAD_ZONE, STEER_CURVE), -1, 1);
+      // The pedal is a curve, not a switch (see driveInput's PEDAL_CURVE note):
+      // half the travel is about a third of the throttle, so a 25 zone is
+      // drivable on a phone.
+      const y = clamp(shapeStickAxis(-dy / radius, PEDAL_DEAD_ZONE, PEDAL_CURVE), -1, 1);
       knob.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
       onChangeRef.current(x, y, true);
     };

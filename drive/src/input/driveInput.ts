@@ -120,6 +120,63 @@ export function setLivePad(pad: PadAxes | null): void {
   livePad = pad;
 }
 
+/**
+ * Is an analog pad plugged in? The wind assist (quietroads/assist.ts) only stands
+ * down for one: a pad's stick already has travel, so the assist's job — making a
+ * small correction possible on glass and on keys — does not apply to it.
+ */
+let padPresent = false;
+
+export function setPadPresent(present: boolean): void {
+  padPresent = present;
+}
+
+/** Which family is driving. Only the pad is exempt from the assist. */
+export function driveInputFamily(): 'gamepad' | 'touch' {
+  return padPresent ? 'gamepad' : 'touch';
+}
+
+// ─── The thumb's pedal ───────────────────────────────────────────────────────
+// Measured, 2026-11-05: the throttle stick's y was shaped
+//   sign(v) · ((|v| − 0.08) / 0.92) ** 0.95
+// — effectively linear after an 8 % dead zone — on a ring whose travel is
+// `min(142px, 36vw) * 0.38` (54 px at 390 wide). Kent's pedal then ramps at
+// 0.8/s, so a thumb anywhere near the edge is full throttle in about a second
+// and there is no usable middle: a 25 zone was not drivable on a phone.
+//
+// The pedal is a curve now, everywhere (not just on the bridge): half the travel
+// is about a third of the throttle.
+export const PEDAL_DEAD_ZONE = 0.08;
+export const PEDAL_CURVE = 1.6;
+/** Steering keeps its own shape; the assist's gain is what changes on the span. */
+export const STEER_DEAD_ZONE = 0.1;
+export const STEER_CURVE = 1.05;
+
+/** Dead zone + curve for one stick axis. Pure, so the mapping is a test. */
+export function shapeStickAxis(raw: number, dead: number, curve: number): number {
+  const clamped = Math.max(-1, Math.min(1, raw));
+  const mag = Math.abs(clamped);
+  if (mag < dead) return 0;
+  const shaped = ((mag - dead) / (1 - dead)) ** curve;
+  return Math.sign(clamped) * shaped;
+}
+
+/**
+ * The wind assist's steering gain, written by the bridge (quietroads/assist.ts).
+ * 1 / 0 is the untouched behaviour.
+ */
+let steerAssistGain = 1;
+let steerAssistDeadZone = 0;
+
+export function setSteerAssist(gain: number, deadZone = 0): void {
+  steerAssistGain = gain;
+  steerAssistDeadZone = deadZone;
+}
+
+export function steerAssist(): { gain: number; deadZone: number } {
+  return { gain: steerAssistGain, deadZone: steerAssistDeadZone };
+}
+
 // ─── P12: remappable keys ─────────────────────────────────────────────────────
 // The bind table IS the data. Defaults are exactly what mergeDriveInput read
 // before this existed — arrows and WASD for steer and pedals, Space handbrake,
@@ -258,11 +315,21 @@ export function mergeDriveInput(sensitivity: number, binds: BindMap = DEFAULT_BI
   );
 
   return {
-    steering: Math.max(-1, Math.min(1, steer * sensitivity)),
+    steering: steerWithGain(steer, sensitivity),
     throttle: Math.min(1, throttle),
     brake: Math.min(1, brake),
     emergencyBrake: eBrake,
   };
+}
+
+/**
+ * Steering as it leaves the input layer: sensitivity, then the wind assist's
+ * scale and dead zone (quietroads/assist.ts — 1 / 0 when no assist is on).
+ */
+function steerWithGain(steer: number, sensitivity: number): number {
+  const scaled = steer * sensitivity * steerAssistGain;
+  const out = Math.abs(scaled) < steerAssistDeadZone ? 0 : scaled;
+  return Math.max(-1, Math.min(1, out));
 }
 
 export function detectTouchDrive(): boolean {

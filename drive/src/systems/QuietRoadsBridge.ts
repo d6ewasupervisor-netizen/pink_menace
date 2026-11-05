@@ -36,9 +36,10 @@ import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import type { Question, Category } from '@/types/quiz';
-import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, holdDrive, releaseDrive, setDriveBrakeDecel } from '@/systems/VehicleController';
-import { setDriveInputLocked } from '@/input/driveInput';
+import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, holdDrive, releaseDrive, setDriveBrakeDecel, setCruiseTargetMph } from '@/systems/VehicleController';
+import { setDriveInputLocked, driveInputFamily, setSteerAssist } from '@/input/driveInput';
 import { handsOffFor, handsOffView } from '@/quietroads/handsoff';
+import { windAssistFor } from '@/quietroads/assist';
 import { DriveSync } from '@/systems/DriveSync';
 import { StepEventQueue } from '@/systems/StepEventQueue';
 
@@ -321,6 +322,45 @@ class Bridge {
   }
 
   /**
+   * The wind assist's ONE writer (quietroads/assist.ts). On Vantage Bridge, on
+   * touch or keyboard: the car holds 40 by itself, the steering is scaled so a
+   * thumb can make a small correction, and the HUD says `WIND ASSIST · 40`.
+   * A gamepad is exempt — its stick already has travel.
+   */
+  private windAssistOn = false;
+  private gustTimer: ReturnType<typeof window.setTimeout> | null = null;
+
+  private syncWindAssist() {
+    const hud = useQRHud.getState();
+    const assist = windAssistFor(this.sim.missionId, driveInputFamily());
+    if (!assist) {
+      if (!this.windAssistOn) return;
+      this.windAssistOn = false;
+      setCruiseTargetMph(null);
+      setSteerAssist(1, 0);
+      this.sim.windAssist = false;
+      hud.setTransient({ windAssist: null, gust: null });
+      return;
+    }
+    if (this.windAssistOn) return;
+    this.windAssistOn = true;
+    setCruiseTargetMph(assist.holdMph);
+    setSteerAssist(assist.steerGain, assist.deadZone);
+    this.sim.windAssist = true;
+    hud.setTransient({ windAssist: { label: assist.label, holdMph: assist.holdMph } });
+  }
+
+  /** The gust arrow: on the warning, off a beat after the gust itself. */
+  private showGust(side: 'left' | 'right', clearAfterMs: number) {
+    useQRHud.getState().setTransient({ gust: { side, atMs: Date.now() } });
+    if (this.gustTimer != null) window.clearTimeout(this.gustTimer);
+    this.gustTimer = window.setTimeout(() => {
+      this.gustTimer = null;
+      useQRHud.getState().setTransient({ gust: null });
+    }, clearAfterMs);
+  }
+
+  /**
    * The hands-off overlay's ONE writer.
    *
    * A wait the player cannot act on (6.3's engine-off minute) gets a panel, a
@@ -573,6 +613,13 @@ class Bridge {
     // A row per event, no fetch per event: the batch in DriveSync collapses
     // repeats and posts once per interval (6.3's `speed.over:45` flood).
     DriveSync.noteEvent({ ts: Date.now(), event, data });
+    if (event === 'wind.gust.warn') {
+      // The arrow, on the side the gust comes from, 0.9 s before it lands.
+      this.showGust(data?.side === 'right' ? 'right' : 'left', 1600);
+    } else if (event === 'wind.gust') {
+      // Keep the arrow through the gust, then let it go.
+      this.showGust(data?.side === 'right' ? 'right' : 'left', 1200);
+    }
     if (event === 'waypoint.reach:dol_lot_exit') this.sim.escapeForgiving = false;
     if (event === 'mission.fail.swarm') {
       // The windshield fills. Then it clears and she's back at the start.
@@ -667,6 +714,7 @@ class Bridge {
     this.syncMission();
     this.reconcileCockpit();
     this.syncHandsOff();
+    this.syncWindAssist();
     const g = useGameStore.getState();
     // A question stops the clock too, so a timer that was about to fire
     // waits until the car is moving again.

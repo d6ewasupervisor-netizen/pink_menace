@@ -2,6 +2,7 @@ import type { Rect, Vec2 } from "./math";
 import { dist, rectHas } from "./math";
 import type { VehicleSample } from "./vehicleObserver";
 import { BRIDGE_WAIT_S } from "../handsoff";
+import { gustSideAt, gustWarnings, gustsCrossed, steerWindows } from "../assist";
 
 const MPH = 0.44704;
 
@@ -38,6 +39,11 @@ export class BeatRun {
   private overLimit = false;
   private hardSteer = 0;
   private overSteerCd = 0;
+  /**
+   * The wind assist is on (touch/keyboard on the span, quietroads/assist.ts).
+   * Written by `Simulation.windAssist`, which the bridge sets once per mission.
+   */
+  assist = false;
 
   constructor(
     private rest: Rect,
@@ -155,7 +161,15 @@ export class BeatRun {
   }
 
   private bridgeCross(dt: number, s: VehicleSample) {
-    if (Math.floor(this.t / 8) !== Math.floor((this.t - dt) / 8) && this.t > 1) this.ev.fire("wind.gust");
+    // The gust, and the arrow that says which side it comes from 0.9 s early.
+    // Both are computed from the sim's own clock, so a long frame can drop
+    // neither (the old `Math.floor(t/8)` test could).
+    for (const atS of gustsCrossed(this.t - dt, this.t)) {
+      this.ev.fire("wind.gust", { side: gustSideAt(atS) });
+    }
+    for (const w of gustWarnings(this.t - dt, this.t)) {
+      this.ev.fire("wind.gust.warn", { side: w.side, inS: w.inS });
+    }
     const mph = Math.abs(s.speedMs) / MPH;
     // One report per crossing, not one per frame. Re-armed 2 mph below the limit
     // so a needle sitting on 44–46 cannot chatter the trigger.
@@ -165,15 +179,18 @@ export class BeatRun {
     } else if (this.overLimit && mph <= 43) {
       this.overLimit = false;
     }
-    if (s.steer > 0.12 && s.steer < 0.45) this.steerHold += dt;
+    // With the assist on, the windows are the thumb's (quietroads/assist.ts):
+    // a modest correction passes, a real yank is still the mistake.
+    const win = steerWindows(this.assist);
+    if (s.steer > win.intoWind.min && s.steer < win.intoWind.max) this.steerHold += dt;
     else this.steerHold = 0;
-    if (this.steerHold > 0.8) this.once("steer.into_wind");
+    if (this.steerHold > win.intoWind.holdS) this.once("steer.into_wind");
     // A yank is a gesture, not a level: it has to be held, and it is reported once
     // per 2 s. At 60 Hz the old line emitted this 60 times a second while the
     // stick was pinned, which is what buried the bridge under telemetry.
     this.overSteerCd = Math.max(0, this.overSteerCd - dt);
-    this.hardSteer = Math.abs(s.steer) > 0.7 ? this.hardSteer + dt : 0;
-    if (this.hardSteer > 0.35 && this.overSteerCd <= 0) {
+    this.hardSteer = Math.abs(s.steer) > win.overcorrect.threshold ? this.hardSteer + dt : 0;
+    if (this.hardSteer > win.overcorrect.holdS && this.overSteerCd <= 0) {
       this.overSteerCd = 2;
       this.ev.fire("steer.overcorrect", { steer: +s.steer.toFixed(2) });
     }

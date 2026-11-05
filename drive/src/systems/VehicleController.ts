@@ -12,6 +12,7 @@
 import { RapierRigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
+import { cruiseSpeedMps } from '@/quietroads/assist';
 import { headingFromRotation } from './vehicleHeading';
 import { noteLiveDrive, resetLiveDrive } from './driveTelemetry';
 
@@ -30,6 +31,21 @@ const DOWNSHIFT_RPM = 1800;
 
 const MAX_BRAKE_DECEL = 8.0;
 let driveBrakeDecel = MAX_BRAKE_DECEL;
+
+/**
+ * The wind assist's speed hold (quietroads/assist.ts): 40 mph on Vantage Bridge
+ * while the player is on touch or keyboard. Null everywhere else. The rule itself
+ * is pure (`cruiseSpeedMps`); this is the one variable it reads.
+ */
+let cruiseTargetMps: number | null = null;
+
+export function setCruiseTargetMph(mph: number | null): void {
+  cruiseTargetMps = mph == null ? null : Math.max(0, mph) * MPH_TO_MS;
+}
+
+export function getCruiseTargetMph(): number | null {
+  return cruiseTargetMps == null ? null : cruiseTargetMps / MPH_TO_MS;
+}
 
 /** The bridge sets this from chassis + surface so the pedal matches the stopping shadow. */
 export function setDriveBrakeDecel(mps2: number) { driveBrakeDecel = Math.max(0.5, mps2); }
@@ -632,6 +648,12 @@ export function tickVehicle(
 
   if (currentSpeed < -reverseSpeedMs) currentSpeed = -reverseSpeedMs;
 
+  // The wind assist's speed hold (6.3 on touch/keyboard): the car finds 40 mph
+  // by itself, the brake always wins, and the throttle cannot push past it.
+  if (cruiseTargetMps != null) {
+    currentSpeed = cruiseSpeedMps(currentSpeed, cruiseTargetMps, isBraking || brakePedal > 0.02 || emergencyBrake, dt);
+  }
+
   const steerInput = Math.abs(steering) < STEER_DEADZONE ? 0 : steering;
 
   _impactFlash = Math.max(0, _impactFlash - dt * 2.8);
@@ -773,6 +795,7 @@ export function resetVehicleController(): void {
   smoothedThrottle = 0;
   smoothedBrake = 0;
   smoothedAccel = 0;
+  cruiseTargetMps = null;      // a reset car does not hold a speed nobody asked for
   engine.rpm = IDLE_RPM;
   engine.gear = 1;
   engine.throttle = 0;

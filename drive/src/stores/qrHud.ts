@@ -64,6 +64,16 @@ interface HudState {
    * and TouchOverlay (the sticks go away). See quietroads/handsoff.ts.
    */
   handsOff: HandsOffState | null;
+  /**
+   * The wind assist is on for the running mission (`quietroads/assist.ts`). The
+   * HUD label says so on purpose: help that reads as help is not a bug report.
+   */
+  windAssist: { label: string; holdMph: number } | null;
+  /**
+   * The gust the story is about to take: which side it comes from and when the
+   * warning landed. Drawn as an arrow on that side for ~1.6 s.
+   */
+  gust: { side: 'left' | 'right'; atMs: number } | null;
   scare: 'none' | 'edge' | 'flood';
   /**
    * Outbound telemetry does NOT live in this store. It used to: every sim event
@@ -80,7 +90,7 @@ interface HudState {
 
 export const useQRHud = create<HudState>()((set) => ({
   line: null, direction: null, choices: null, objective: '', toast: '', frame: null,
-  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, shop: null, credits: false, handsOff: null, scare: 'none',
+  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, shop: null, credits: false, handsOff: null, windAssist: null, gust: null, scare: 'none',
   setTransient: (partial) => set(partial),
   setHorn: (v) => set({ horn: v }),
   setRun: (v) => set({ run: v }),
