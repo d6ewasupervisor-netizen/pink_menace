@@ -6,6 +6,7 @@ export * from "./config";
 export * from "./cockpit";
 export * from "./waitWatch";
 export * from "./placeholders";
+export * from "./shop";
 export * from "./cardTimeout";
 export * from "./debrief";
 export * from "./actChallenges";

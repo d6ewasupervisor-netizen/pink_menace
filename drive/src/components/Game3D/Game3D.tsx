@@ -30,6 +30,7 @@ import { GameCamera } from './GameCamera';
 import { LoadingScreen } from './LoadingScreen';
 import { CockpitHUD } from './CockpitHUD';
 import { StrandedContinue } from './StrandedContinue';
+import { ShopCounter } from './ShopCounter';
 import { QuizOverlay } from './QuizOverlay';
 import { TouchOverlay } from './TouchOverlay';
 import { PauseMenu, VictoryScreen, GameOverScreen } from './PauseMenu';
@@ -351,6 +352,7 @@ export function Game3D({ onExit }: Game3DProps) {
         <TouchOverlay />
         <GracieQTE />
         <DialogueBox />
+        <ShopCounter />
         <StrandedContinue />
         <CockpitQTE />
         <ScareOverlay />

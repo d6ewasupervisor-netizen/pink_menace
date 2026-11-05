@@ -7,6 +7,7 @@ import { create } from 'zustand';
 import type { ShownLine, DialogueNode, ChoiceOption, SimFrame } from '@/quietroads';
 import type { DebriefModel } from '@/quietroads/debrief';
 import type { ChainupPrompt } from '@/quietroads/sim/chainup';
+import type { Shop } from '@/quietroads/shop';
 
 export interface TelemetryRow {
   ts: number;
@@ -41,6 +42,12 @@ interface HudState {
    * after 8 s and offers a Continue control that releases it. Null otherwise.
    */
   stranded: { scene: string; node: string; event: string } | null;
+  /**
+   * The shop counter that is open, if any. Written by the bridge when a shop
+   * scene's greet node fires `start_gameplay: shop_*`; the counter renders this
+   * and calls back through `QuietRoads.buy` / `leaveShop`.
+   */
+  shop: Shop | null;
   scare: 'none' | 'edge' | 'flood';
   /** Outbound telemetry, in memory only; DriveSync drains it every 10 s. */
   telemetry: TelemetryRow[];
@@ -53,7 +60,7 @@ interface HudState {
 
 export const useQRHud = create<HudState>()((set, get) => ({
   line: null, direction: null, choices: null, objective: '', toast: '', frame: null,
-  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, scare: 'none', telemetry: [],
+  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, shop: null, scare: 'none', telemetry: [],
   setTransient: (partial) => set(partial),
   setHorn: (v) => set({ horn: v }),
   setRun: (v) => set({ run: v }),

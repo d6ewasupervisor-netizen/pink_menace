@@ -1438,6 +1438,9 @@
               "bought_led_lights": true,
               "bought_anything_ritzville": true
             },
+            "give_items": [
+              "led_lights"
+            ],
             "log": "shop.buy:led_lights"
           }
         },
@@ -1455,6 +1458,9 @@
               "bought_anything_ritzville": true,
               "muffler_from_ritzville": true
             },
+            "give_items": [
+              "muffler"
+            ],
             "log": "shop.buy:muffler"
           }
         },

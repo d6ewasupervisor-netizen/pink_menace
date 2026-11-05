@@ -146,13 +146,18 @@ export function orphans(emitters: Emitter[] = emittedEvents()): Orphan[] {
 /**
  * Events that are deliberately not wired, with the surface they belong to.
  *
- * These are hooks for UI the web drive does not have yet — the shop counter
- * (2.6/2.7/2.8/7.2) and the tow-strap gesture (3.3) — and none of them is on a
- * scene's forward path, so they cannot strand a player. They are listed here so
- * the guard fails on anything NEW and so the gap stays visible (AUDIT §25).
+ * The shop counter used to be here. It was not "off the forward path" as this
+ * list claimed: 5.2.block sends the player to 2.8, and with no way to buy the
+ * chains the only exit was 2.8.end_reblocked -> 5.1 -> 5.2.block again, forever.
+ * The counter is ported now (`quietroads/shop.ts` + `ShopCounter.tsx`), so
+ * `shop.buy:*`, `shop.cant_afford`, `shop.front:chains` and `shop.close` are
+ * emitted by the bridge and are no longer allow-listed.
+ *
+ * What is left is the tow-strap gesture (3.3), which really is off the path:
+ * 3.3's tow branch does not wait on it. Listed so the guard fails on anything
+ * NEW and so the gap stays visible (AUDIT §27).
  */
 export const UNWIRED: { pattern: string; reason: string }[] = [
-  { pattern: "shop.", reason: "the shop counter is not ported to the web drive; the scene's greet line ends the scene" },
   { pattern: "qte.strap.", reason: "the tow-strap gesture is not ported; 3.3's tow path does not wait on it" },
 ];
 

@@ -78,9 +78,10 @@ describe("every trigger can fire", () => {
       expect(covered.length, `allow-list entry "${u.pattern}" covers no orphan — delete it`).toBeGreaterThan(0);
     }
     const allowed = all.filter((o) => unwiredReason(o.event));
-    // Pinned: the shop counter's four scenes and 3.3's strap gesture, nothing else.
+    // Pinned: 3.3's strap gesture, nothing else. The shop counter used to be
+    // here and is ported (quietroads/shop.ts); its events are emitted now.
     expect(new Set(allowed.map((o) => o.event.split(":")[0]))).toEqual(
-      new Set(["shop.buy", "shop.cant_afford", "qte.strap.start", "qte.strap.success", "qte.strap.fail"]),
+      new Set(["qte.strap.start", "qte.strap.success", "qte.strap.fail"]),
     );
   });
 });

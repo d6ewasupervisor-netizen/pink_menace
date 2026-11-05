@@ -21,6 +21,7 @@ import {
   actForScene, actForMission, challengeForAct, type CardAct,
   isGradeEvent, buildDebrief, cockpitPhaseFor, staleCockpitFlag,
   WaitWatch, STRANDED_WAIT_S, withCanonPlaceholders,
+  shopForGameplay, canFrontChains, FRONT_CHAINS_EVENT, type Shop,
 } from '@/quietroads';
 import { KnowledgeSeat, examVerdict } from '@/quietroads/study/seat';
 // P3: Act I only, eagerly. The rest of the acts are per-act dynamic imports.
@@ -94,6 +95,8 @@ class Bridge {
   private quizCooldownUntil = 0;
   private timers = new Set<number>();
   private clock = 0;
+  /** The shop counter that is open, if any. See quietroads/shop.ts. */
+  private shop: Shop | null = null;
 
   constructor() {
     this.runner = new DialogueRunner(this.host());
@@ -167,6 +170,8 @@ class Bridge {
     });
     this.runner.on('card_shown', (id) => this.showCard(id, 'story'));
     this.runner.on('scene_started', (id) => {
+      // A counter belongs to the scene that opened it.
+      this.closeShop();
       useQRStore.setState({ sceneId: id });
       // A new scene starts with no mission of its own. The mission flag follows
       // start_gameplay, never the scene we just left.
@@ -186,6 +191,7 @@ class Bridge {
     // destination and WAIT for it before starting the scene — `startScene` throws
     // on a scene the runner has not been handed yet.
     this.runner.on('scene_finished', (_id, next) => {
+      this.closeShop();
       if (!next) return;
       void gotoScene(this.runner, next).then((started) => { if (!started) this.endCampaign(next); });
     });
@@ -355,6 +361,10 @@ class Bridge {
   }
 
   private startGameplay(id: string) {
+    // A shop is not a mission: its greet node fires `shop_*` and the counter is
+    // the surface. Without this the id fell through to "isn't built yet", the
+    // car was handed back, and the scene could only be left by `shop.close`.
+    if (id.startsWith('shop_')) { this.openShop(id); return; }
     const mAct = actForMission(id);
     if (mAct) this.currentAct = mAct;
     if (id === 'local_loop_week') {
@@ -412,15 +422,86 @@ class Bridge {
     this.fire(s.event);
   }
 
+  // ---------------------------------------------------------------- shop counter
   /**
-   * The event a shop scene is implicitly waiting on once its dialogue runs out.
-   * The shop counter itself is not part of the web build (AUDIT §25), so without
-   * this the scene sits on a blank frame after its greet line; every shop end
-   * hands off, so firing this closes the counter and the campaign moves on.
+   * Open the counter a shop scene's greet node asked for. The scene is already
+   * frozen (`enterDialogue` on `scene_started`), so the car stays put and the
+   * cockpit rule keeps the dashboard down while the counter is the surface.
+   */
+  private openShop(gameplay: string) {
+    const shop = shopForGameplay(gameplay);
+    if (!shop) {
+      // A `shop_*` id with no catalogue entry: say so and let the old
+      // implicit-close path take the scene out.
+      this.toast(`"${gameplay}" has no counter yet.`);
+      return;
+    }
+    this.shop = shop;
+    useQRHud.getState().setTransient({ shop });
+    this.enterDialogue();
+  }
+
+  /** Close the counter (scene change, or the player left). */
+  private closeShop() {
+    if (!this.shop) return;
+    this.shop = null;
+    useQRHud.getState().setTransient({ shop: null });
+  }
+
+  /**
+   * Buy one thing. The counter is the only caller. Affordability is checked
+   * here, the points are spent here, and the scene's own `shop.buy:<id>`
+   * trigger does the rest (its line, its flags, its items) — the same bus the
+   * sim fires on, so the buy is not a second implementation of the story.
+   */
+  buy(itemId: string) {
+    const shop = this.shop;
+    if (!shop) return;
+    const item = shop.items.find((i) => i.id === itemId);
+    if (!item) return;
+    const S = useQRStore.getState();
+    const tp = S.vars.trade_points ?? 0;
+    if (tp < item.price) { this.fire('shop.cant_afford'); return; }
+    S.addVar('trade_points', -item.price);
+    S.addLedger(-item.price, `shop:${shop.scene}:${item.id}`);
+    this.fire(`shop.buy:${item.id}`);
+  }
+
+  /**
+   * Tuna fronts the chains when the chain-up loop is open and the set is out of
+   * reach. Without it a player who spent their points on the other upgrades
+   * could never leave 5.2.block -> 2.8 -> 5.1 -> 5.2.block.
+   */
+  frontChains() {
+    const shop = this.shop;
+    if (!shop) return;
+    const S = useQRStore.getState();
+    const ok = canFrontChains({
+      shop,
+      tradePoints: S.vars.trade_points ?? 0,
+      ownsChains: S.items.includes('chains'),
+      chainupBlocked: S.flags.chainup_blocked === true,
+    });
+    if (!ok) return;
+    this.fire(FRONT_CHAINS_EVENT);
+  }
+
+  /** Leave the counter: the scene's `shop.close` trigger owns what happens next. */
+  leaveShop() {
+    if (!this.shop) return;
+    this.fire('shop.close');
+  }
+
+  /**
+   * The event a shop scene is implicitly waiting on once its dialogue runs out
+   * and no counter is open. With the counter ported this is the fallback for a
+   * `shop_*` id the catalogue does not know: every shop end hands off, so
+   * firing this closes the scene and the campaign moves on.
    */
   private shopExitEvent(): string | null {
     const scene = this.runner.scene;
     if (!scene || scene.type !== 'shop' || this.runner.current) return null;
+    if (this.shop) return null;   // the counter is the surface; it has its own Leave
     const h = useQRHud.getState();
     if (h.card || h.choices || h.debrief) return null;
     return 'shop.close';

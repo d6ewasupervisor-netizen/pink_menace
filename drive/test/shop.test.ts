@@ -1,0 +1,258 @@
+/**
+ * The shop counter — the surface the web drive never ported.
+ *
+ * The deadlock guard allow-listed `shop.buy:*` and `shop.cant_afford` as
+ * "not on any forward path". That was wrong. 5.2 without chains ends at
+ * `5.2.block`, whose `next_scene` is 2.8; with no counter the only exit from
+ * 2.8 was `2.8.end_reblocked` -> 5.1 -> 5.2.block, forever. 7.2's muffler and
+ * LED lights were unreachable too, so `8.1.lights_branch` could never take
+ * `lights_a`, `8.1.cluster` could never take `cluster_src`, and 7.2's own
+ * "you've already got both" branch was dead.
+ *
+ * These tests are the data half of the fix: the catalogue in
+ * `quietroads/shop.ts` must name a real trigger and a real node, the node must
+ * grant what the catalogue says it grants, and every `has_item` check in the
+ * campaign must be satisfiable by something the game actually gives. The
+ * browser half is `e2e/shop.spec.ts`.
+ */
+import { describe, expect, it } from "vitest";
+import { DialogueRunner } from "../src/quietroads/dialogue/DialogueRunner";
+import type { DialogueFile, DialogueHost } from "../src/quietroads/dialogue/types";
+import { SHOPS, canFrontChains, shopForGameplay, shopForScene } from "../src/quietroads/shop";
+import act01 from "../src/quietroads/data/dialogue_act0-1.json";
+import act2 from "../src/quietroads/data/dialogue_act2.json";
+import act2c from "../src/quietroads/data/dialogue_act2_central.json";
+import act3 from "../src/quietroads/data/dialogue_act3.json";
+import act4 from "../src/quietroads/data/dialogue_act4.json";
+import act5 from "../src/quietroads/data/dialogue_act5.json";
+import act5r from "../src/quietroads/data/dialogue_act5_ribbon.json";
+import act6 from "../src/quietroads/data/dialogue_act6.json";
+import act6b from "../src/quietroads/data/dialogue_act6_backcountry.json";
+import act7 from "../src/quietroads/data/dialogue_act7.json";
+import act8 from "../src/quietroads/data/dialogue_act8.json";
+
+const FILES = [act01, act2, act2c, act3, act4, act5, act5r, act6, act6b, act7, act8] as unknown as DialogueFile[];
+
+type Scene = DialogueFile["scenes"][string];
+
+function sceneOf(id: string): Scene {
+  for (const f of FILES) if (f.scenes[id]) return f.scenes[id];
+  throw new Error(`no scene ${id}`);
+}
+
+/** Every `has_item` value the campaign branches on. */
+function hasItemChecks(): { scene: string; node: string; item: string }[] {
+  const out: { scene: string; node: string; item: string }[] = [];
+  const walk = (scene: string, node: string, value: unknown) => {
+    if (Array.isArray(value)) { for (const v of value) walk(scene, node, v); return; }
+    if (!value || typeof value !== "object") return;
+    const rec = value as Record<string, unknown>;
+    if (typeof rec.has_item === "string") out.push({ scene, node, item: rec.has_item });
+    for (const v of Object.values(rec)) walk(scene, node, v);
+  };
+  for (const f of FILES) {
+    for (const [sid, sc] of Object.entries(f.scenes)) {
+      for (const [nid, node] of Object.entries(sc.nodes)) walk(sid, nid, node);
+      for (const t of sc.triggers ?? []) walk(sid, t.node, t.condition);
+    }
+  }
+  return out;
+}
+
+/** Every item the dialogue data grants. */
+function grantedItems(): Set<string> {
+  const out = new Set<string>();
+  for (const f of FILES) {
+    for (const sc of Object.values(f.scenes)) {
+      for (const node of Object.values(sc.nodes)) {
+        for (const i of node.effects?.give_items ?? []) out.add(i);
+        for (const c of node.choices ?? []) for (const i of c.effects?.give_items ?? []) out.add(i);
+      }
+    }
+  }
+  return out;
+}
+
+type Harness = {
+  runner: DialogueRunner;
+  flags: Record<string, boolean>;
+  items: Set<string>;
+  vars: Record<string, number>;
+  finished: string[];
+};
+
+function boot(...files: unknown[]): Harness {
+  const flags: Record<string, boolean> = {};
+  const items = new Set<string>();
+  const vars: Record<string, number> = {};
+  const finished: string[] = [];
+  const host: DialogueHost = {
+    getVar: (n) => vars[n] ?? NaN,
+    setVar: (n, v) => { vars[n] = v; },
+    addVar: (n, d) => { vars[n] = (vars[n] || 0) + d; },
+    getFlag: (n) => flags[n],
+    setFlag: (n, v) => { flags[n] = v; },
+    hasItem: (n) => items.has(n),
+    giveItem: (n) => { items.add(n); },
+    unlock: () => {},
+    emitNoise: () => {},
+    playSfx: () => {},
+    animCue: () => {},
+    checkpoint: () => {},
+    ledger: () => {},
+    logEvent: () => {},
+    logChoice: () => {},
+    startGameplay: () => {},
+    setTimer: () => 0,
+    clearTimer: () => {},
+    now: () => 0,
+    random: () => 0,
+  };
+  const runner = new DialogueRunner(host);
+  for (const f of files) runner.load(structuredClone(f) as unknown as DialogueFile);
+  runner.on("scene_finished", (id, next) => finished.push(`${id}->${next}`));
+  return { runner, flags, items, vars, finished };
+}
+
+/** Tap through whatever is on screen until the runner goes idle. */
+function tapThrough(runner: DialogueRunner) {
+  for (let i = 0; i < 200; i++) {
+    if (!runner.current) return;
+    if (runner.current.type === "wait" || runner.current.type === "card") return;
+    runner.advanceFromUi();
+  }
+  throw new Error("tapThrough did not settle");
+}
+
+describe("the shop catalogue is wired to the story", () => {
+  it("names a real trigger and a real node for every item", () => {
+    for (const shop of SHOPS) {
+      const scene = sceneOf(shop.scene);
+      expect(scene.type, `${shop.scene} is a shop scene`).toBe("shop");
+      for (const item of shop.items) {
+        const event = `shop.buy:${item.id}`;
+        const trigger = (scene.triggers ?? []).find((t) => t.event === event);
+        expect(trigger, `${shop.scene} listens for ${event}`).toBeTruthy();
+        expect(scene.nodes[trigger!.node], `${shop.scene}.${trigger!.node} exists`).toBeTruthy();
+      }
+    }
+  });
+
+  it("grants the item and sets the flag the catalogue promises", () => {
+    for (const shop of SHOPS) {
+      const scene = sceneOf(shop.scene);
+      for (const item of shop.items) {
+        const trigger = (scene.triggers ?? []).find((t) => t.event === `shop.buy:${item.id}`)!;
+        const node = scene.nodes[trigger.node];
+        if (item.item) {
+          expect(node.effects?.give_items ?? [], `${shop.scene}.${trigger.node} grants ${item.item}`).toContain(item.item);
+        }
+        if (item.flag) {
+          expect(node.effects?.set_flags?.[item.flag], `${shop.scene}.${trigger.node} sets ${item.flag}`).toBe(true);
+        }
+      }
+    }
+  });
+
+  it("every has_item branch in the campaign can be satisfied", () => {
+    // The bug this catches: 2.8.buy_muffler set `has_quiet_muffler` but never
+    // granted the `muffler` item, so 7.2.owned_branch and 8.1.cluster could
+    // never see it even with the counter ported.
+    const granted = grantedItems();
+    const missing = hasItemChecks().filter((c) => !granted.has(c.item));
+    expect(
+      missing.map((c) => `${c.scene}/${c.node} checks has_item "${c.item}" — nothing grants it`),
+      "every has_item check must be reachable",
+    ).toEqual([]);
+  });
+
+  it("the counter's prices agree with the 7.2 tier gate", () => {
+    const ritzville = shopForScene("7.2")!;
+    const total = ritzville.items.reduce((n, i) => n + i.price, 0);
+    // 7.2.tp_branch: >= 400 "you can do both", >= 180 "you can do one".
+    expect(total, "400 buys both").toBeLessThanOrEqual(400);
+    expect(Math.min(...ritzville.items.map((i) => i.price)), "180 buys one").toBeLessThanOrEqual(180);
+  });
+
+  it("looks a counter up by gameplay id and by scene", () => {
+    expect(shopForGameplay("shop_upgrades")?.scene).toBe("2.8");
+    expect(shopForScene("2.8")?.gameplay).toBe("shop_upgrades");
+    expect(shopForGameplay("climb_snoqualmie")).toBeNull();
+    expect(shopForScene("5.2")).toBeNull();
+  });
+});
+
+describe("Tuna fronts the chains when the loop would otherwise close on itself", () => {
+  const tuna = shopForScene("2.8")!;
+  const chains = tuna.items.find((i) => i.id === "chains")!;
+
+  it("offers the tab only in the blocked loop, only when short, only without the set", () => {
+    const base = { shop: tuna, tradePoints: chains.price - 1, ownsChains: false, chainupBlocked: true };
+    expect(canFrontChains(base)).toBe(true);
+    expect(canFrontChains({ ...base, tradePoints: chains.price }), "affordable: buy it").toBe(false);
+    expect(canFrontChains({ ...base, ownsChains: true }), "already has the set").toBe(false);
+    expect(canFrontChains({ ...base, chainupBlocked: false }), "not the chain-up loop").toBe(false);
+    expect(canFrontChains({ ...base, shop: shopForScene("2.6")! }), "only Tuna's bay").toBe(false);
+  });
+
+  it("the fronted set is the same set the climb reads", () => {
+    const h = boot(act2, act5);
+    h.runner.startScene("2.8");
+    tapThrough(h.runner);
+    h.runner.onEvent("shop.front:chains");
+    tapThrough(h.runner);
+    expect(h.items.has("chains"), "the item 5.2.entry branches on").toBe(true);
+    expect(h.flags.has_chains).toBe(true);
+    expect(h.flags.tuna_fronted_chains).toBe(true);
+  });
+});
+
+describe("the chain-up loop closes through the counter", () => {
+  it("5.2 without chains -> 2.8 -> buy -> 5.1 -> 5.2 -> 5.3", () => {
+    const h = boot(act2, act5);
+
+    // 1. The sign turns her around.
+    h.runner.startScene("5.2");
+    tapThrough(h.runner);
+    expect(h.finished.slice(-1)).toEqual(["5.2->2.8"]);
+    expect(h.flags.chainup_blocked).toBe(true);
+
+    // 2. Tuna's counter: the buy the counter fires.
+    h.runner.startScene("2.8");
+    tapThrough(h.runner);
+    h.runner.onEvent("shop.buy:chains");
+    tapThrough(h.runner);
+    expect(h.items.has("chains")).toBe(true);
+    expect(h.flags.has_chains).toBe(true);
+
+    // 3. Leave: the close branch sees the set and returns to the pass.
+    h.runner.onEvent("shop.close");
+    expect(h.finished.slice(-1)).toEqual(["2.8->5.1"]);
+    expect(h.flags.chainup_return).toBe(true);
+    expect(h.flags.chainup_blocked).toBe(false);
+
+    // 4. 5.1 reads chainup_return and starts the climb from below the pull-out.
+    h.runner.startScene("5.1");
+    tapThrough(h.runner);
+    h.runner.onEvent("waypoint.reach:chainup");
+    expect(h.finished.slice(-1)).toEqual(["5.1->5.2"]);
+
+    // 5. 5.2 now takes the chain-up path and the summit follows.
+    h.runner.startScene("5.2");
+    tapThrough(h.runner);
+    h.runner.onEvent("chainup.qte.success");
+    tapThrough(h.runner);
+    expect(h.finished.slice(-1)).toEqual(["5.2->5.3"]);
+  });
+
+  it("closing Tuna's empty-handed still returns to the pass, without the lie", () => {
+    const h = boot(act2, act5);
+    h.runner.startScene("5.2");
+    tapThrough(h.runner);
+    h.runner.startScene("2.8");
+    tapThrough(h.runner);
+    h.runner.onEvent("shop.close");
+    expect(h.finished.slice(-1)).toEqual(["2.8->5.1"]);
+    expect(h.flags.chainup_return).toBeFalsy();
+  });
+});

@@ -2272,6 +2272,9 @@
             "set_flags": {
               "has_gracie_toy": true
             },
+            "give_items": [
+              "gracie_toy"
+            ],
             "log": "shop.buy:gracie_toy"
           }
         },
@@ -2287,6 +2290,9 @@
             "set_flags": {
               "has_gracie_collar": true
             },
+            "give_items": [
+              "gracie_collar"
+            ],
             "log": "shop.buy:gracie_collar"
           }
         },
@@ -2299,6 +2305,9 @@
           "auto_ms": 2400,
           "text": "Oh, she'll get up for these. Briefly.",
           "effects": {
+            "give_items": [
+              "mya_snacks"
+            ],
             "log": "shop.buy:mya_snacks"
           }
         },
@@ -2393,6 +2402,9 @@
           "auto_ms": 2400,
           "text": "Jae! Good pull. Jae's underrated.",
           "effects": {
+            "give_items": [
+              "photocard_common"
+            ],
             "log": "shop.buy:photocard_common"
           }
         },
@@ -2408,6 +2420,9 @@
             "set_flags": {
               "has_sori_card": true
             },
+            "give_items": [
+              "photocard_sori"
+            ],
             "log": "shop.buy:photocard_sori"
           }
         },
@@ -2420,6 +2435,9 @@
           "auto_ms": 3200,
           "text": "That dash is going to look so good. Take a picture. Nobody takes pictures anymore.",
           "effects": {
+            "give_items": [
+              "radio_skin"
+            ],
             "log": "shop.buy:radio_skin"
           }
         },
@@ -2432,6 +2450,9 @@
           "auto_ms": 2800,
           "text": "Lumi's color. Keep it dim on the road — pretty is fine, bright is a problem.",
           "effects": {
+            "give_items": [
+              "lightbar"
+            ],
             "log": "shop.buy:lightbar"
           }
         },
@@ -2535,6 +2556,9 @@
             "set_flags": {
               "has_quiet_muffler": true
             },
+            "give_items": [
+              "muffler"
+            ],
             "log": "shop.buy:muffler"
           }
         },
@@ -2565,6 +2589,9 @@
           "auto_ms": 3000,
           "text": "Grip's the whole game. Nobody thinks about grip until they don't have it.",
           "effects": {
+            "give_items": [
+              "tires"
+            ],
             "log": "shop.buy:tires"
           }
         },
@@ -2577,6 +2604,9 @@
           "auto_ms": 3000,
           "text": "You'll see farther. Doesn't mean you can go faster. Means you can stop in time.",
           "effects": {
+            "give_items": [
+              "led_lights"
+            ],
             "log": "shop.buy:led_lights"
           }
         },
@@ -2589,7 +2619,30 @@
           "auto_ms": 2800,
           "text": "Wedge, not wall. Still loud. Still last resort. Say it back to me.",
           "effects": {
+            "give_items": [
+              "plow_tune"
+            ],
             "log": "shop.buy:plow_tune"
+          }
+        },
+        "2.8.front_chains": {
+          "type": "line",
+          "speaker": "TUNA",
+          "delivery": "S",
+          "emotion": "warm",
+          "volume": "low",
+          "auto_ms": 3600,
+          "text": "You're short. I know. Take the set anyway — you're good for it, and I've watched you work. That's the whole tab. Don't make it weird.",
+          "effects": {
+            "set_flags": {
+              "has_chains": true,
+              "tuna_fronted_chains": true
+            },
+            "give_items": [
+              "chains"
+            ],
+            "respect": -1,
+            "log": "shop.front:chains"
           }
         },
         "2.8.buy_any": {
@@ -2696,6 +2749,11 @@
           "event": "shop.buy:plow_tune",
           "node": "2.8.buy_plow",
           "priority": 5
+        },
+        {
+          "event": "shop.front:chains",
+          "node": "2.8.front_chains",
+          "priority": 10
         },
         {
           "event": "shop.buy:",
