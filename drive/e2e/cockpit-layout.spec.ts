@@ -177,11 +177,19 @@ function overlaps(rows: Array<{ layer: string; name: string; x: number; y: numbe
   return hits;
 }
 
+/**
+ * The pixel record is DPR-scaled, so it is written by the 1x project only. The
+ * overlap rule — the actual test — runs in every project: this spec sets its own
+ * three viewports, so the second project is the same CSS geometry under the
+ * phone's device profile (`isMobile`, DPR 2.75, an Android UA), which is where
+ * the bug was reported. Skipping the whole run there would have been a claim
+ * that the device profile does not matter; measuring it costs three more runs.
+ */
+const BASELINE_PROJECT = 'desktop';
+
 for (const [vpName, width, height] of VIEWPORTS) {
   test(`${vpName}: the cockpit bands keep interactive layers apart`, async ({ page }) => {
     test.setTimeout(180_000);
-    // This spec sets its own three viewports; one project is enough.
-    test.skip(test.info().project.name !== 'desktop', 'viewports are set inside the test');
     await page.setViewportSize({ width, height });
     await boot(page);
     // The 3D world animates; the layout does not. Freeze the canvas so the stored
@@ -211,12 +219,14 @@ for (const [vpName, width, height] of VIEWPORTS) {
         expect(sideBySide || above, `${vpName} still (${s.x},${s.y} ${s.w}x${s.h}) vs dock (${d.x},${d.y} ${d.w}x${d.h})`).toBe(true);
       }
 
-      await expect(page).toHaveScreenshot(`${vpName}-${state}.png`, {
-        animations: 'allow',
-        caret: 'hide',
-        // The overlap assertions above are the test; these are the visual record.
-        maxDiffPixelRatio: 0.02,
-      });
+      if (test.info().project.name === BASELINE_PROJECT) {
+        await expect(page).toHaveScreenshot(`${vpName}-${state}.png`, {
+          animations: 'allow',
+          caret: 'hide',
+          // The overlap assertions above are the test; these are the visual record.
+          maxDiffPixelRatio: 0.02,
+        });
+      }
     }
   });
 }

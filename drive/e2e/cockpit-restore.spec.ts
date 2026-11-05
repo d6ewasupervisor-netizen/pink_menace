@@ -16,6 +16,7 @@
  * continue-only (a beat/dossier card with no decision).
  */
 import { test, expect, type Page } from '@playwright/test';
+import { duplicateViewportReason } from './skipDuplicate';
 
 // The phone the bug was reported on. Headless: no window, no GPU, the same
 // 390x844 layout.
@@ -347,7 +348,9 @@ for (const s of SWEEP) {
   test(`${s.scene} · ${s.card} (${s.closes}) hands the car back`, async ({ page }) => {
     test.setTimeout(180_000);
     // This spec sets its own viewport (the phone); one project is enough.
-    test.skip(test.info().project.name !== 'desktop', 'viewport is set inside the test');
+    // Measured, not asserted: skip only when the project already drives 390x844.
+    const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+    test.skip(duplicate !== null, duplicate ?? '');
     await mockStudent(page);
     await page.goto('/drive/');
     await page.locator('canvas').first().waitFor({ state: 'visible', timeout: 45_000 });
@@ -395,7 +398,9 @@ async function expectCockpitUp(page: Page, label: string, st: Cockpit) {
 
 test('8.1 · spokane_home starts with the cockpit up (its card comes later)', async ({ page }) => {
   test.setTimeout(180_000);
-  test.skip(test.info().project.name !== 'desktop', 'viewport is set inside the test');
+  // Measured, not asserted: skip only when the project already drives 390x844.
+  const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+  test.skip(duplicate !== null, duplicate ?? '');
   await mockStudent(page);
   await page.goto('/drive/');
   await page.locator('canvas').first().waitFor({ state: 'visible', timeout: 45_000 });
@@ -425,7 +430,9 @@ test('8.1 · spokane_home starts with the cockpit up (its card comes later)', as
  */
 test('a phase left behind by a card cannot strand the cockpit', async ({ page }) => {
   test.setTimeout(180_000);
-  test.skip(test.info().project.name !== 'desktop', 'viewport is set inside the test');
+  // Measured, not asserted: skip only when the project already drives 390x844.
+  const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+  test.skip(duplicate !== null, duplicate ?? '');
   const warnings: string[] = [];
   page.on('console', (m) => { if (m.type() === 'warning' && m.text().includes('[cockpit]')) warnings.push(m.text()); });
   await mockStudent(page);
@@ -480,7 +487,9 @@ test('a phase left behind by a card cannot strand the cockpit', async ({ page })
  */
 test('the card clock waits while the cockpit is paused or the tab is hidden', async ({ page }) => {
   test.setTimeout(180_000);
-  test.skip(test.info().project.name !== 'desktop', 'viewport is set inside the test');
+  // Measured, not asserted: skip only when the project already drives 390x844.
+  const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+  test.skip(duplicate !== null, duplicate ?? '');
   await mockStudent(page);
   await page.goto('/drive/');
   await page.locator('canvas').first().waitFor({ state: 'visible', timeout: 45_000 });
@@ -547,7 +556,9 @@ test('the card clock waits while the cockpit is paused or the tab is hidden', as
  */
 test('the card clock holds while the answers are scrolled out of view', async ({ page }) => {
   test.setTimeout(180_000);
-  test.skip(test.info().project.name !== 'desktop', 'viewport is set inside the test');
+  // Measured, not asserted: skip only when the project already drives 390x844.
+  const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+  test.skip(duplicate !== null, duplicate ?? '');
   await page.setViewportSize({ width: 390, height: 560 });
   await mockStudent(page);
   await page.goto('/drive/');

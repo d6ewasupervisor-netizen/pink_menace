@@ -14,6 +14,7 @@
  * Headless only, the same 390x844 phone the summit bug was reported on.
  */
 import { test, expect, type Page } from "@playwright/test";
+import { duplicateViewportReason } from "./skipDuplicate";
 
 test.use({ headless: true, hasTouch: true, viewport: { width: 390, height: 844 } });
 
@@ -144,7 +145,9 @@ async function walk(page: Page, done: (s: State) => boolean, steps = 80) {
 
 test("5.2 with no chains buys the set at Tuna's and the climb reaches 5.3", async ({ page }) => {
   test.setTimeout(240_000);
-  test.skip(test.info().project.name !== "desktop", "viewport is set inside the test");
+  // Measured, not asserted: skip only when the project already drives 390x844.
+  const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+  test.skip(duplicate !== null, duplicate ?? '');
   await mockStudent(page);
   await seed(page);
   await page.goto("/drive/");
@@ -240,7 +243,9 @@ async function resumeInto(page: Page, scene: string, tradePoints: number) {
 
 test("7.2 Ritzville sells the muffler and the LED lights the later scenes read", async ({ page }) => {
   test.setTimeout(180_000);
-  test.skip(test.info().project.name !== "desktop", "viewport is set inside the test");
+  // Measured, not asserted: skip only when the project already drives 390x844.
+  const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+  test.skip(duplicate !== null, duplicate ?? '');
   await mockStudent(page);
   await page.goto("/drive/");
   await page.locator("canvas").first().waitFor({ state: "visible", timeout: 45_000 });
@@ -282,7 +287,9 @@ test("7.2 Ritzville sells the muffler and the LED lights the later scenes read",
 
 test("2.6 and 2.7 sell what their scenes' flags are read for", async ({ page }) => {
   test.setTimeout(180_000);
-  test.skip(test.info().project.name !== "desktop", "viewport is set inside the test");
+  // Measured, not asserted: skip only when the project already drives 390x844.
+  const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+  test.skip(duplicate !== null, duplicate ?? '');
   await mockStudent(page);
   await page.goto("/drive/");
   await page.locator("canvas").first().waitFor({ state: "visible", timeout: 45_000 });

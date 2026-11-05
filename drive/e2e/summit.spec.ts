@@ -15,6 +15,7 @@
  * Headless only, the same 390x844 phone the bug was reported on.
  */
 import { test, expect, type Page } from "@playwright/test";
+import { duplicateViewportReason } from "./skipDuplicate";
 
 test.use({ headless: true, hasTouch: true, viewport: { width: 390, height: 844 } });
 
@@ -117,7 +118,9 @@ async function answerCard(page: Page) {
 
 test("resume at 5.3: VII-003 answers and the summit reaches 6.1", async ({ page }) => {
   test.setTimeout(180_000);
-  test.skip(test.info().project.name !== "desktop", "viewport is set inside the test");
+  // Measured, not asserted: skip only when the project already drives 390x844.
+  const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+  test.skip(duplicate !== null, duplicate ?? '');
   await mockStudent(page);
   await seedSummit(page);
   await page.goto("/drive/");
@@ -151,7 +154,9 @@ test("resume at 5.3: VII-003 answers and the summit reaches 6.1", async ({ page 
 
 test("an orphaned wait surfaces Continue and the control releases it", async ({ page }) => {
   test.setTimeout(120_000);
-  test.skip(test.info().project.name !== "desktop", "viewport is set inside the test");
+  // Measured, not asserted: skip only when the project already drives 390x844.
+  const duplicate = duplicateViewportReason(test.info().project.use?.viewport, { width: 390, height: 844 });
+  test.skip(duplicate !== null, duplicate ?? '');
   await mockStudent(page);
   await seedSummit(page);
   await page.goto("/drive/");
