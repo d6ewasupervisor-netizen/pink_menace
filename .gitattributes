@@ -1,0 +1,59 @@
+# Line endings, fixed per type.
+#
+# The repo grew mixed endings: the same kind of file is CRLF in one folder and LF
+# in the next (drive/src/quietroads/data/dialogue_act2.json was CRLF while
+# dialogue_act7.json was LF; drive/e2e/*.spec.ts were CRLF while most of
+# drive/src is LF). Git stored whatever bytes were there, so every editor and
+# every diff had to guess.
+#
+# Each rule below is the CURRENT MAJORITY for that type, measured with
+# `git ls-files` + a byte scan on 2026-11-04 (files with CRLF vs files with LF):
+#
+#   *.json   90 / 76  -> crlf      *.md     46 / 25  -> crlf
+#   *.txt    40 / 22  -> crlf      *.html    2 /  2  -> crlf (247 vs 89 lines)
+#   *.mts    12 /  0  -> crlf      *.mjs     1 /  0  -> crlf
+#   *.ts     74 / 62  -> lf        *.tsx    35 /  9  -> lf
+#   *.js     33 / 25  -> lf        *.css     2 /  1  -> lf  (1 658 vs 436 lines)
+#   *.py      5 /  0  -> lf        *.sql     1 /  0  -> lf
+#   *.svg     1 /  0  -> lf        dotfiles          -> lf
+#
+# `text eol=crlf` means the REPOSITORY stores LF and a checkout writes CRLF, so
+# a CRLF type is still one canonical blob plus one platform convention; `eol=lf`
+# is LF everywhere. `text=auto` is the floor: anything not named here that git
+# decides is text gets LF in the repo, and anything it decides is binary is left
+# alone.
+
+* text=auto
+
+# ── CRLF in the working tree ────────────────────────────────────────────────
+*.json   text eol=crlf
+*.md     text eol=crlf
+*.txt    text eol=crlf
+*.html   text eol=crlf
+*.mts    text eol=crlf
+*.mjs    text eol=crlf
+
+# ── LF in the working tree ──────────────────────────────────────────────────
+*.ts     text eol=lf
+*.tsx    text eol=lf
+*.js     text eol=lf
+*.css    text eol=lf
+*.py     text eol=lf
+*.sql    text eol=lf
+*.svg    text eol=lf
+.gitattributes text eol=lf
+.clinerules   text eol=lf
+.dockerignore text eol=lf
+.example      text eol=lf
+.gitignore    text eol=lf
+*.mdc         text eol=lf
+
+# ── Binary: never touched, never diffed as text ─────────────────────────────
+*.png  binary
+*.glb  binary
+*.webp binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
