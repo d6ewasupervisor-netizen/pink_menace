@@ -1370,4 +1370,133 @@ that is the same collision class as the `.playwright-artifacts` ENOENTs.
 
 
 
+## 27. The shop counter, the real atlases, the measured skips (2026-11-04)
+
+### 27.1 The buys the guard called "off the path" were the chain-up loop
+
+`test/emitInventory.ts` allow-listed `shop.buy:*` and `shop.cant_afford` with the
+reason "the shop counter is not ported to the web drive; the scene's greet line
+ends the scene", and the comment above it claimed none of them "is on a scene's
+forward path, so they cannot strand a player". Measured against the flows:
+
+| Flow | What actually happened |
+|---|---|
+| 5.2 without chains | `5.2.entry` → `5.2.4` … → `5.2.block`, `next_scene: "2.8"`. The player arrives at Tuna's with `chainup_blocked: true`. |
+| 2.8 | `2.8.greet` fires `start_gameplay: shop_upgrades`; there is no such mission, so the bridge toasted "isn't built yet", handed the car back, and the scene sat on its greet line. The only exit was `shop.close` (tap or the 8 s stranded net) → `2.8.close_branch` → `2.8.end_reblocked` → `5.1` → `5.2` → `5.2.block` → 2.8. **A closed loop with no exit.** |
+| 7.2 | Same shape. `7.2.owned_branch` (`has_item led_lights` + `has_item muffler`) could never be true, `8.1.lights_branch` could never take `lights_a`, `8.1.cluster` could never take `cluster_src`, and `8.1.cluster_src`'s `muffler_from_ritzville` branch was dead. |
+| 2.6 / 2.7 | `has_gracie_toy` (read at `5.3.gracie_branch`, `6.3`, `8.3`), `has_gracie_collar`, `has_sori_card` (read at `6.2`, `8.3`) and the `photocard_common` / `radio_skin` / `lightbar` items (read at `7.2.sori_branch`) could not be set by anything. |
+
+**A second bug underneath it.** Even a ported counter would not have worked.
+`2.8.buy_muffler` set `has_quiet_muffler` but never granted the `muffler`
+**item**; `2.8.buy_leds`, `7.2.buy_leds`, `7.2.buy_muffler` and all four 2.7 buys
+granted no items at all. Every downstream check is `has_item`, not a flag, so
+the branches would have stayed false with the counter working perfectly.
+
+**The port.** `quietroads/shop.ts` is the catalogue — per scene, the items, the
+Trade Point price, and the flag/item each buy sets. `ShopCounter.tsx` renders it
+in the body band while the runner is idle (a line, a direction or a choice owns
+the screen first). `QuietRoadsBridge`:
+
+- `startGameplay('shop_*')` opens the counter instead of toasting;
+- `buy(id)` checks `trade_points`, spends them, writes the ledger, and fires the
+  scene's own `shop.buy:<id>` trigger on the same bus the sim uses — the buy
+  line, the flags and the items stay the story's, not the UI's;
+- `buy(id)` fires `shop.cant_afford` when short, so the keeper's refusal line
+  plays instead of a silent no-op;
+- `leaveShop()` fires `shop.close`; `shopExitEvent()` returns null while a
+  counter is open, so the stranded net cannot close the shop under the player.
+
+Prices are set against the campaign's own economy: `7.2.tp_branch` reads
+`trade_points >= 400` for "both" and `>= 180` for "one", so 7.2 sells 180 + 200.
+
+**Tuna fronts the chains.** The loop is reachable with too few points: the
+dialogue TP before 5.2 is 1 104, and the most a player can spend before it is
+970 (2.6 85 + 2.7 285 + 2.8's non-chain items 600), leaving 134 against a 150
+set. `2.8.front_chains` (`shop.front:chains`, gated on `chainup_blocked` +
+not owning the set + short) gives her the set on the tab, `respect -1`,
+`tuna_fronted_chains: true`. Without it the soft-lock survives for that player.
+
+**Guards.** `test/shop.test.ts` (9): the catalogue names a real trigger and a
+real node; every buy grants the item and sets the flag the catalogue promises;
+**every `has_item` check in the campaign is satisfiable by something the data
+grants** (this is the one that would have caught the missing `give_items`); the
+7.2 prices agree with its tier gate; `canFrontChains`'s truth table; the fronted
+set is the climb's set; and 5.2 → 2.8 → buy → 5.1 → 5.2 → 5.3 closes on a real
+`DialogueRunner`. `e2e/shop.spec.ts` (3, headless 390x844) walks the same loop in
+the browser (300 → 150 TP, `2.8.end_return` → 5.1, `chainup_return` set, the
+chain-up QTE → 5.3), 7.2 (muffler bought, LED lights refused at 100 TP → 7.3)
+and 2.6 + 2.7 (toy → 2.3c, Sori card → 2.3d). Negative control: with the
+`shop_*` interception disabled the chain-up case fails at "Tuna's counter is up"
+and the page shows the stranded Continue chip.
+
+`UNWIRED` is now the tow strap alone, and `deadlock.test.ts` pins that.
+
+### 27.2 The atlases are the kits' own
+
+The GLBs are byte-identical to the Kenney packs (SHA-256, five checked). The
+packs, from the `License.txt` in each:
+
+| Folder | Pack | Version | Licence |
+|---|---|---|---|
+| `cars/` | Car Kit | 3.0 (2026-01-23) | CC0 |
+| `road/` | City Kit (Roads) | 2.0 (2025-03-13) | CC0 |
+| `buildings/` | City Kit (Suburban) | 2.0 (2025-04-23) | CC0 |
+| `buildings-modular/` | Modular Buildings | 2.1 (2024-02-08) | CC0 |
+
+`building-sample-house-a`, `-tower-a` and `-tower-b` are **Modular Buildings**,
+not the suburban kit they were filed with. The two packs ship different 512×512
+atlases (three sampled pixels in four differ), so one shared
+`buildings/Textures/colormap.png` could never be right for both; the three
+samples moved to `buildings-modular/` with their own atlas and the six path
+references in `RoadChunks.tsx` follow them.
+
+The four atlases are the packs' files, replacing the 3 967 / 2 385 / 2 558 B
+stand-ins the generator had painted. `drive/public/models/CREDITS.md` records
+each pack, version, date, licence, download URL, atlas SHA-256 and byte length,
+plus the two non-Kenney models (VW Beetle, cactus — both CC-BY-4.0 on
+Sketchfab). `build-model-colormaps.mjs` is the fallback now and refuses to
+overwrite a present atlas unless `--force`.
+
+**Still procedural, on purpose.** The road tiles keep `getSharedRoadMaterial`
+(it carries the lane markings the highway is read by, and it is the one material
+`setRoadSurfaceWetness` drives) and the building facades keep
+`getBuildingColormapTexture`. The real atlas serves everything else: NPC cars,
+cones, signs, lamps, barriers, roofs, trims, doors.
+
+**Guards.** `test/model-textures.test.ts` +6: each atlas pinned by SHA-256 and
+byte length against its pack and version; the two building folders pinned to
+their exact GLB lists; every GLB that references an atlas must find one beside
+it. `e2e/smoke.spec.ts` +1 holds the wire — every
+`/models/*/Textures/colormap.png` response must be 200 + `image/png` + a body
+whose first eight bytes are the PNG signature, and all four are requested on
+boot. Negative control: with `road/Textures/colormap.png` renamed away the case
+fails with `200 text/html 657 B` — the original bug, reproduced.
+
+### 27.3 The 17 skips, measured
+
+The suite reported 23 passed / 17 skipped. All 17 were the `mobile-portrait` run
+of a spec that sets its own viewport, skipped with "viewport is set inside the
+test" — a claim, not a measurement. They sat in exactly the four areas this week
+touched, so the list had to be proved:
+
+| Spec | Skipped in | Why |
+|---|---|---|
+| `cockpit-restore.spec.ts` × 12 | mobile-portrait | the file sets `viewport: 390x844`; the project is 390x844 |
+| `summit.spec.ts` × 2 | mobile-portrait | same |
+| `shop.spec.ts` × 3 | mobile-portrait | same |
+| `cockpit-layout.spec.ts` × 3 | *(no longer skipped)* | it sets three viewports itself, so the second project is the same CSS geometry under the phone's device profile |
+
+`e2e/skipDuplicate.ts` compares the two numbers and returns the reason only when
+they are equal, so the report now reads "the project is already 390x844, which
+this spec sets itself" and the test **runs** the moment either number changes.
+`cockpit-layout.spec.ts` no longer skips at all: the overlap rule — the actual
+test — runs on the phone profile too, and only the `toHaveScreenshot` baseline
+stays in the 1x project, because a 2.75× capture cannot be compared with a 1×
+one. The 12 stored baselines are unchanged.
+
+**Verified (this pass).** `360/360` vitest across 37 files, `tsc --noEmit` 0,
+`npm run build` 5.68 s / 4,015.89 kB (1,323.34 kB gzip), playwright **headless**
+`--workers=1` **48 tests in 6 files: 31 passed / 17 skipped / 0 failed** in
+5.8 min. `bench/baseline.json` restored after the suite. No seed, no deploy.
+
 <!-- CONTINUED -->
