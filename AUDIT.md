@@ -1789,6 +1789,15 @@ the 2 new skips are `bridge.spec.ts` cases 1–2 in `mobile-portrait`, the measu
 
 ### 29.5 Still open
 
+- **The hold makes one line unreachable on touch.** With the assist on, the car
+  cannot exceed 45 on the span, so `speed.over:45` — and Ali's 6.3.fast, "Slower.
+  Wind hits harder the faster you give it something to hit." — cannot fire while
+  the assist is on. That is the hold doing its job, and the teaching is carried by
+  VII-006 (both its scene and its debrief) and by the crossing objective; a
+  gamepad player still gets the line. Recorded rather than papered over: if the
+  line matters more than the hold on touch, the number to change is
+  `WIND.holdMph`, and the honest alternative is a hold of 45 (the limit) so the
+  grade stays reachable.
 - The assist is on for `vantage_bridge_crossing` only. After the sign the span
   still has the 25 limit with an analog pedal and no hold — measured as fine in
   the e2e, but a device run would tell whether `bridge_after_sign_*` wants the
