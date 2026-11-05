@@ -1925,6 +1925,13 @@ collision class as the `.playwright-artifacts` ENOENTs, so the suite was re-run
 untouched and clean. `bench/baseline.json` restored after the suite. No seed, no
 deploy.
 
+**The seeded save is the reported save (`[e2e]`, after the docs commit).** The
+spec's seed carried `items: ["chains"]` and `flags.chains_mounted` but not
+`has_chains`, which the 2.8 purchase also sets — so the resumed save was one flag
+short of the phone's. Added (`has_chains: true`); 5.3 does not read it, so it is
+fidelity, not a behaviour change. `e2e/summit.spec.ts` alone, headless
+`--workers=1`: 2 passed (11.1 s / 13.5 s), exit 0.
+
 ### Still open
 
 - The shop counter (2.6/2.7/2.8/7.2 buys) and the 3.3 tow-strap QTE are still

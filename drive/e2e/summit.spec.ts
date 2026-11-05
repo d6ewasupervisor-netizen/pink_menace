@@ -36,7 +36,11 @@ async function mockStudent(page: Page) {
 const SUMMIT_SAVE = {
   state: {
     vars: {},
-    flags: { chains_mounted: true },
+    // A real save at 5.3 carries all three: the 2.8 purchase sets the `chains`
+    // item and `has_chains`, and 5.2's chain-up sets `chains_mounted`. The summit
+    // scene does not read `has_chains`, but the seeded save should be the shape
+    // the reported save had.
+    flags: { has_chains: true, chains_mounted: true },
     items: ["chains"],
     unlocks: [],
     ledger: [],
