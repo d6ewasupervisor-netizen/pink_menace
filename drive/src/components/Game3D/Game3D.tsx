@@ -31,6 +31,7 @@ import { LoadingScreen } from './LoadingScreen';
 import { CockpitHUD } from './CockpitHUD';
 import { StrandedContinue } from './StrandedContinue';
 import { ShopCounter } from './ShopCounter';
+import { CreditsScreen } from './CreditsScreen';
 import { QuizOverlay } from './QuizOverlay';
 import { TouchOverlay } from './TouchOverlay';
 import { PauseMenu, VictoryScreen, GameOverScreen } from './PauseMenu';
@@ -358,6 +359,7 @@ export function Game3D({ onExit }: Game3DProps) {
         <ScareOverlay />
         <CardOverlay />
         <GradeDebrief />
+        <CreditsScreen />
         <PauseMenu onExit={onExit} />
         <VictoryScreen onExit={onExit} />
         <GameOverScreen />

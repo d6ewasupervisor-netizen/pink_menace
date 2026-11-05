@@ -128,7 +128,12 @@ class Bridge {
       setFlag: (n, v) => S().setFlag(n, v),
       hasItem: (id) => S().items.includes(id),
       giveItem: (id) => S().giveItem(id),
-      unlock: (id) => S().unlock(id),
+      unlock: (id) => {
+        S().unlock(id);
+        // `8.3.end` unlocks `credits` and the campaign is over: that unlock was
+        // a promise of a screen nothing showed. It shows one now.
+        if (id === 'credits') this.openCredits();
+      },
       emitNoise: (db, marker) => {
         const pos = marker && this.sim.map.markers[marker] ? this.sim.map.markers[marker] : this.sim.playerPos;
         this.sim.noise.emit(db, pos, this.sim.playerZone);
@@ -921,6 +926,11 @@ class Bridge {
 
   // ---------------------------------------------------------------- UI actions
   shh() { this.sim.interior.answerQte(); }
+
+  /** Open the credits screen (the `credits` unlock, or the end-of-run screen). */
+  openCredits() { useQRHud.getState().setTransient({ credits: true }); }
+  closeCredits() { useQRHud.getState().setTransient({ credits: false }); }
+
   tap() {
     // A shop with no counter: a tap on the blank frame closes it (the same event
     // the Continue control fires), so the scene can hand off.

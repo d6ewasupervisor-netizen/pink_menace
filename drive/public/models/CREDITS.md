@@ -46,7 +46,20 @@ own colormap again.
 
 ## Not Kenney
 
-| File | Author | Licence |
-|---|---|---|
-| `cars/vw_beetle.glb` | LucasPresoto (Sketchfab) | CC-BY-4.0 — https://sketchfab.com/3d-models/vw-beetle-3d29ae085bc34e848fde037f42ef6d7b |
-| `nature/low_poly_cactus.glb` | akaN0ob (Sketchfab) | CC-BY-4.0 — https://sketchfab.com/3d-models/low-poly-cactus-33ce2bbbebf7413f8314602176b095eb |
+Two models are **not** Kenney and are **not** CC0. Both are CC-BY-4.0, which
+requires attribution: the title, the author, the source and the licence have to
+be shown to the player, not just kept in this file. They are shown on the
+in-game credits screen (`drive/src/quietroads/credits.ts` +
+`components/Game3D/CreditsScreen.tsx`), and `drive/test/credits.test.ts` parses
+this table and fails if any row is missing from that screen.
+
+| File | Title | Author | Licence | Source |
+|---|---|---|---|---|
+| `cars/vw_beetle.glb` | VW Beetle | LucasPresoto | CC-BY-4.0 | https://sketchfab.com/3d-models/vw-beetle-3d29ae085bc34e848fde037f42ef6d7b |
+| `nature/low_poly_cactus.glb` | Low Poly Cactus | akaN0ob | CC-BY-4.0 | https://sketchfab.com/3d-models/low-poly-cactus-33ce2bbbebf7413f8314602176b095eb |
+
+Titles are the `extras.title` each GLB carries; both GLBs also carry
+`extras.license` = `CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)`.
+The licence the credits screen shows is
+[creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/).
+

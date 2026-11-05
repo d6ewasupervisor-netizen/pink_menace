@@ -8,6 +8,7 @@ export * from "./waitWatch";
 export * from "./placeholders";
 export * from "./shop";
 export * from "./debt";
+export * from "./credits";
 export * from "./cardTimeout";
 export * from "./debrief";
 export * from "./actChallenges";

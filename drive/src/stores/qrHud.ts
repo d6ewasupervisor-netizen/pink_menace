@@ -48,6 +48,12 @@ interface HudState {
    * and calls back through `QuietRoads.buy` / `leaveShop`.
    */
   shop: Shop | null;
+  /**
+   * The credits screen is open. Set by the bridge when the story unlocks
+   * `credits` (8.3.end) or when the end-of-run screen asks for it. It is a
+   * panel over whatever was underneath, not a phase.
+   */
+  credits: boolean;
   scare: 'none' | 'edge' | 'flood';
   /** Outbound telemetry, in memory only; DriveSync drains it every 10 s. */
   telemetry: TelemetryRow[];
@@ -60,7 +66,7 @@ interface HudState {
 
 export const useQRHud = create<HudState>()((set, get) => ({
   line: null, direction: null, choices: null, objective: '', toast: '', frame: null,
-  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, shop: null, scare: 'none', telemetry: [],
+  horn: false, run: false, qteActive: false, qte: null, card: null, missionActive: false, debrief: null, stranded: null, shop: null, credits: false, scare: 'none', telemetry: [],
   setTransient: (partial) => set(partial),
   setHorn: (v) => set({ horn: v }),
   setRun: (v) => set({ run: v }),

@@ -261,6 +261,14 @@ export function VictoryScreen({ onExit }: { onExit?: () => void }) {
         >
           → Dashboard
         </button>
+        {/* The CC-BY models are credited where a player can actually read it. */}
+        <button
+          style={{ ...styles.btn, marginTop: '0.5rem' }}
+          onClick={() => QuietRoads.openCredits()}
+          data-victory-credits
+        >
+          Credits
+        </button>
       </div>
     </div>
   );
