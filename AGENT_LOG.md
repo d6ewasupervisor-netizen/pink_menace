@@ -2267,7 +2267,8 @@ unchanged). `bench/baseline.json` restored after the run. No seed, no deploy.
 
 Commits: `f67feda` (the force, the grade, the hold fix, `test/gust.test.ts`),
 `95ed3a2` (the cue, the chip's slot, the layout spec), `13ddbb6` (the crossing
-e2e), this docs commit.
+e2e), `30815e2` (docs), `d10db20` (the module's own comment numbers, corrected to
+what the runs measured).
 
 **Still open**: the assist covers `vantage_bridge_crossing` only;
 `bridge_after_sign_*` keeps the plain pedal at the 25 limit. The gust's push is
