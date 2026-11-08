@@ -17,6 +17,7 @@ checked against `docs/wa-driver-guide/`, and logged in `AGENT_LOG.md` + `INDEX.m
 | Cards opened in-scene | I 12/12 · II 31/31 · III 30/30 · V 13/13 · VI 13/13 · **VII 10/10**, measured | every card in every act |
 | Act-boundary handoffs | 26 covered, incl. `7.1.card_V-006` | every `next_scene` has a destination |
 | Cues on the skill, not a timer | 0 on a timer/coordinate | stays 0 |
+| Gust drift, no input, 40 mph (assist) | **0.000 m** (no force existed) | 1.0–1.5 m, and the correction cancels it |
 | Cards whose comment names a beat the code doesn't listen to | 1 found (III-013) | 0 |
 | Stop/gap/yield grade lock | already fires (baseline.json) | a scene passes only when its grade fired |
 
@@ -72,15 +73,37 @@ From a HAR of scene 6.3 on an iPhone (440x956).
   only: the car holds 40 mph by itself (brake wins, throttle cannot push past),
   steering is 0.55 of the stick with a 0.04 dead zone, both grading windows are
   reachable by a thumb, a gust warns 0.9 s early with its side, and the HUD says
-  `WIND ASSIST · 40`. Measured: there is no lateral gust force in the sim, so
-  the "50–60 % force" item had nothing to reduce. The pedal is a curve
-  everywhere now (`^1.6` instead of `^0.95`): 25/50/75/100 % travel is
-  7/29/60/100 % throttle. `test/windassist.test.ts` (11).
+  `WIND ASSIST · 40`. The pedal is a curve everywhere now (`^1.6` instead of
+  `^0.95`): 25/50/75/100 % travel is 7/29/60/100 % throttle.
+  `test/windassist.test.ts` (11). **The gust had no force** — closed in the next
+  entry.
 - **`e2e/bridge.spec.ts`:** 6.3 from VII-006 to 7.1 on the real touch stick, a
   20 s POST budget (≤ 3, measured 2), and the panel at 440x956. It found a soft
   lock: the wait clock stopped at 60 s so the panel never released. The
   Playwright test clock was measured at 90,073 ms for 66 s of game — the wait is
   real time.
+
+### The gust, 2026-11-08 — a force, a grade, a slot
+
+- **A gust that pushes.** `quietroads/wind.ts`: warn 0.9 s → ramp 0.3 → hold 1.2 →
+  ramp out 0.4, with `side` the side the wind comes FROM. `VehicleController`
+  applies it as lateral velocity on the body (after the tyres' damping, minus last
+  step's push), a heading offset that returns to zero, and a roll the camera leans
+  on. Measured at 40 mph: **0.000 m → −1.35 m** (assist) / **−1.84 m** (pad), the
+  heading back to 0.00°. Done.
+- **The grades read the car.** `steer.into_wind` = input into the wind, small, and
+  the drift inside ±0.5 m for 0.3 s; `steer.overcorrect` = the correction carrying
+  the car past centre toward the wind side. Doing nothing drifts and gets Ali's
+  gust line. Done.
+- **The cue names the action.** `GUST · steer left/right` on the side the wind
+  comes from, streaks that run while the push is on, a buzz where the platform has
+  one. Done.
+- **The chip has its own slot** at 390x844 / 440x956 / 844x390 / 1280x800, measured
+  by `e2e/cockpit-layout.spec.ts` against every other box. Done.
+- **The hold could not pull away from rest** (the don't-creep guard ate it every
+  step) **and a teleport dropped it**. Both fixed. Done.
+- Still open: the assist covers `vantage_bridge_crossing` only;
+  `bridge_after_sign_*` keeps the plain pedal at the 25 limit.
 
 ## Previous pass — the tab, the credits, the line endings (2026-11-04)
 

@@ -2186,3 +2186,91 @@ duplicate). `bench/baseline.json` restored. No seed, no deploy.
   the plain pedal at the 25 limit.
 - No physical gust exists; if one ever does, `WIND` is where its scale goes.
 
+
+## 2026-11-08 — The gust that did not push: a force, a grade, a slot
+
+**The bug, measured first.** 6.3 says "When the wind pushes, steer into it —
+small". On device nothing pushed. Headless, the real `VehicleController` on a stub
+Rapier body (that integrates its own pose) at 40 mph with no input drifted
+**0.000 m** and yawed **0.00°** across a gust. The cue and the physics were two
+systems: `sim/beats.ts` fired `wind.gust` every 8 s, `assist.gustWarnings` warned
+0.9 s earlier, `QuietRoadsBridge.showGust` drew the arrow — and the car was on
+rails. Both grades were stick positions (`steer > 0.05` held 0.45 s, either side,
+gust or not), so the lesson could be passed without ever feeling a gust, which is
+the same defect seen from the other end.
+
+**The force** (`drive/src/quietroads/wind.ts`, new): warn 0.9 s → ramp in 0.3 s →
+hold 1.2 s → ramp out 0.4 s (1.9 s). `side` is where the wind comes FROM and the
+push is the other way. Strength 0.97 m/s at full (a pad), × 0.68 on touch and
+keyboard. `VehicleController` applies it as **lateral velocity on the car body**,
+after the lateral damping, minus what it wrote last step (`gustLatPut`) so the
+damping can neither eat the push (the original symptom) nor stack it; the nose
+kick is a heading **offset** that returns to zero rather than a yaw rate, because
+a rate is exactly what the steering's auto-centre eats; the shell rolls and
+`GameCamera` leans on the same number (`getChassisPose().wind`). Measured, 40 mph,
+no input: **assist −1.35 m / pad −1.84 m**, heading back to 0.00°, speed still
+39.9 mph. A small correction (0.08 ≈ a fifth of the stick after the assist's 0.55
+gain) held 0.5 s leaves **−0.08 m**; that same input in still air drifts the car
+**1.9 m**; an oversized 0.5 held 1.2 s carries it past centre by **13 m**.
+
+**The grades are the physics** (`sim/beats.ts`): the gust marks the car and both
+events read the drift from that mark — `steer.into_wind` wants the input toward
+the wind side, small, and the car inside ±0.5 m for 0.3 s; `steer.overcorrect`
+fires when the correction carries the car past centre toward the wind side by more
+than the band (the old held yank stays, as the same mistake made at the stick).
+Doing nothing drifts the car and gets Ali's `pool:ali_gust` line — not a failure.
+
+**Two bugs the new e2e found**, both fixed:
+
+1. **The 40 mph hold could not pull away from rest.** The "don't creep" guard
+   (`|v| < 0.15 → 0`) zeroed the hold's 1.8 cm/s every step, and
+   `syncWindAssist` only asserted the hold on its own transition, so any teleport
+   (a scene start, a retry, the e2e's own placement) dropped it as well. The guard
+   now stands down while the hold is on, and the one writer re-asserts it every
+   frame. `test/gust.test.ts` pins the pull-away and the brake.
+2. **The WIND ASSIST chip had no slot.** Measured at 390x844 it sat at
+   (129,104 132x22) on the nav cluster's objective (8,104 374x157); at 844x390 and
+   1280x800 at (356,34 132x22) on the noise meter and its sub-label (338,6
+   168x46). It has its own now — portrait: the left rail under the pause chip,
+   label wrapped to two lines; landscape/desktop: the left rail between the act
+   badge and the nav cluster.
+
+**The cue**: the indicator sits on the side the wind comes FROM, with streaks that
+run at the car while the push is on (`qrHud.gust.push`, set from `wind.gust`;
+`prefers-reduced-motion` stops them) and the action in words — `GUST · steer left`
+/ `GUST · steer right` — instead of "steer into it". `navigator.vibrate` buzzes on
+the push where the platform has it (`buzzGust`; iOS has no API, and a refusal is
+not a crash).
+
+**Tests.** `drive/test/gust.test.ts` (12): the shape and the side convention, the
+buzz's three cases, the push measured on the real car — 1.0–1.5 m downwind with no
+input and a heading back to 0°, a small correction inside 0.4 m that fires
+`steer.into_wind`, the same input in still air clearly further, an oversized one
+past centre that fires `steer.overcorrect`, the pad's full strength — plus the
+hold's pull-away and brake, and the bridge's wiring (the cue and the force are one
+event). `e2e/cockpit-layout.spec.ts` now measures **four** shapes (390x844,
+440x956, 844x390, 1280x800) and includes the chip and the gust cue as boxes that
+may touch nothing (440x956 is overlap-only: its pixel baseline is not stored).
+`e2e/bridge.spec.ts` gains the crossing at 440x956: no throttle at all (the hold
+drives), the first gust measured bare (drift must be negative — downwind), every
+gust after it answered by a thumb on the side the indicator names, a lane-keeper
+that leads on the rate like a player's hand, then `bridge_mid` inside the lane.
+Measured on that run: offsets `0.00 … -1.17 … 0.10 … -1.48 … -0.17 … -1.76 …
+-0.45`, worst **1.76 m**, reached at x=800 in 1.0 min.
+
+**Verified**: **432/432** vitest across 43 files (420 + 12 in `test/gust.test.ts`),
+`tsc --noEmit -p drive/tsconfig.json` exit 0, `npm run build` 5.16 s /
+4,037.41 kB (1,329.78 kB gzip), playwright **headless** `--workers=1` **41 passed /
+21 skipped / 0 failed** in 10.6 min (was 37 / 21 / 0 in 8.8 min; +1 bridge case in
+both projects and +1 cockpit-layout shape in both = 58 → 62 tests, 21 skips
+unchanged). `bench/baseline.json` restored after the run. No seed, no deploy.
+
+Commits: `f67feda` (the force, the grade, the hold fix, `test/gust.test.ts`),
+`95ed3a2` (the cue, the chip's slot, the layout spec), `13ddbb6` (the crossing
+e2e), this docs commit.
+
+**Still open**: the assist covers `vantage_bridge_crossing` only;
+`bridge_after_sign_*` keeps the plain pedal at the 25 limit. The gust's push is
+speed-independent (a 1.35 m drift whether the car is at 25 or 40), which is
+deliberate — the steering's *authority* grows with speed, so the correction window
+is widest near the hold.
