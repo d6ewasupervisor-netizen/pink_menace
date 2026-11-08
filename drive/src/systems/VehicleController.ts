@@ -13,6 +13,13 @@ import { RapierRigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
 import { cruiseSpeedMps } from '@/quietroads/assist';
+import {
+  GUST_TOTAL_S,
+  gustLatMps,
+  gustRollRad,
+  gustYawRad,
+  type GustSide,
+} from '@/quietroads/wind';
 import { headingFromRotation } from './vehicleHeading';
 import { noteLiveDrive, resetLiveDrive } from './driveTelemetry';
 
@@ -113,10 +120,63 @@ let chassisRoll = 0;
 let _damage01 = 0;
 let _impactFlash = 0;
 let _damageCut = 0;
+
+// ─── The Vantage Bridge crosswind (quietroads/wind.ts) ───────────────────────
+/**
+ * One gust at a time: which side it comes FROM, how long it has been pushing,
+ * and what we already put on the body so we can take it back out next step
+ * instead of letting the tyres' damping stack it up.
+ *
+ * The bridge is the one writer (`startGust` on the story's `wind.gust`, with the
+ * assist's strength when the assist is on), exactly as it is for the 40 mph hold.
+ */
+let gustSide: GustSide | null = null;
+let gustT = 0;
+let gustAssist = true;
+/** The lateral speed the gust put on the body last step (m/s, to the right +). */
+let gustLatPut = 0;
+/** The heading offset already applied to the body (radians). */
+let gustYawPut = 0;
+/** The roll the wind is leaning the shell by right now (radians). */
+let gustRoll = 0;
+
+/**
+ * The gust lands: `side` is the side the wind comes FROM. `assist` is the
+ * touch/keyboard profile, which takes a third off the push (and is the same help
+ * that makes a thumb's correction possible). Called by QuietRoadsBridge on the
+ * story's `wind.gust`, one per 8 s on the span.
+ */
+export function startGust(side: GustSide, opts: { assist?: boolean } = {}): void {
+  gustSide = side;
+  gustT = 0;
+  gustAssist = opts.assist ?? true;
+  gustLatPut = 0;
+  gustYawPut = 0;
+  gustRoll = 0;
+}
+
+/** The gust is over / the mission ended: no push, no lean, no stale heading. */
+export function clearGust(): void {
+  gustSide = null;
+  gustT = 0;
+  gustLatPut = 0;
+  gustYawPut = 0;
+  gustRoll = 0;
+}
+
+/** The gust the body is inside right now, or null. Read by tests and the HUD. */
+export function gustNow(): { side: GustSide; atS: number; assist: boolean } | null {
+  return gustSide == null ? null : { side: gustSide, atS: gustT, assist: gustAssist };
+}
+
 const _car = { fx: 0, fz: -1, rx: 1, rz: 0 };
 const _quat = new THREE.Quaternion();
 const _forward = new THREE.Vector3();
 const _right = new THREE.Vector3();
+/** The gust's heading offset: world up, and the body quaternion it lands on. */
+const _upAxis = new THREE.Vector3(0, 1, 0);
+const _gustQ = new THREE.Quaternion();
+const _gustBody = new THREE.Quaternion();
 
 export function getSlipState() {
   return {
@@ -135,6 +195,11 @@ export function getChassisPose() {
     handbrake: handbrakeAmount,
     damage: _damage01,
     impact: _impactFlash,
+    /**
+     * The crosswind's own roll (quietroads/wind.ts), separate from the body's:
+     * the camera leans on this one, the Beetle's shell on `roll` + this.
+     */
+    wind: gustRoll,
   };
 }
 
@@ -642,7 +707,11 @@ export function tickVehicle(
   // Emergency brake holds the car at a complete stop — never lets it roll backward.
   if (emergencyBrake && currentSpeed < 0) currentSpeed = 0;
 
-  if (!isAccelerating && !isReversing && Math.abs(currentSpeed) < 0.15) {
+  // "Don't creep" — but the assist's hold *is* the pedal when nobody is pressing
+  // anything, and it has to be able to pull the car away from rest. Without this
+  // exemption the guard zeroed the hold's 1.8 cm/s every step and the car never
+  // left the line (found by the 440x956 crossing e2e, which uses no throttle).
+  if (cruiseTargetMps == null && !isAccelerating && !isReversing && Math.abs(currentSpeed) < 0.15) {
     currentSpeed = 0;
   }
 
@@ -675,17 +744,31 @@ export function tickVehicle(
     handbrakeAmount = 0;
     const goingStraight = steerInput === 0;
 
+    // ── The crosswind (quietroads/wind.ts) ─────────────────────────────────
+    // A gust is a lateral push the tyres cannot refuse, so it goes on the body
+    // as lateral velocity, *after* the damping below (which is what keeps the
+    // car's own slip in check). What we wrote there last step is taken back out
+    // first: otherwise the damping would stack every step's push on the last one.
+    if (gustSide) {
+      gustT += dt;
+      if (gustT >= GUST_TOTAL_S) clearGust();
+    }
+    const gustLat = gustSide ? gustLatMps(gustT, gustSide, gustAssist) : 0;
+    const gustYaw = gustSide ? gustYawRad(gustT, gustSide) : 0;
+    gustRoll = gustSide ? gustRollRad(gustT, gustSide) : 0;
+
     // ── Set velocity via Rapier so the collision solver works properly ─────
     const lateralRate = goingStraight ? LATERAL_DAMP_STRAIGHT : LATERAL_DAMP_RATE;
     const lateralDamp = Math.max(0, 1 - lateralRate * dt);
-    const dampedLateralX = right.x * lateralSpeed * lateralDamp;
-    const dampedLateralZ = right.z * lateralSpeed * lateralDamp;
+    const ownLateral = lateralSpeed - gustLatPut;
+    const outLateral = ownLateral * lateralDamp + gustLat;
+    gustLatPut = gustLat;
 
     body.setLinvel(
       {
-        x: forward.x * currentSpeed + dampedLateralX,
+        x: forward.x * currentSpeed + right.x * outLateral,
         y: linvel.y,
-        z: forward.z * currentSpeed + dampedLateralZ,
+        z: forward.z * currentSpeed + right.z * outLateral,
       },
       true,
     );
@@ -707,8 +790,28 @@ export function tickVehicle(
       body.setAngvel({ x: 0, y: 0, z: 0 }, true);
     }
 
+    // ── The gust's nose kick ───────────────────────────────────────────────
+    // A heading *offset* that follows the push and returns to zero on the way
+    // out, applied as the delta since the last step. It is not the force (the
+    // offset would be undone by the steering's auto-centre); it is what the
+    // driver sees through the glass while the force is on.
+    if (gustYaw !== gustYawPut) {
+      const rot0 = body.rotation();
+      _gustQ.setFromAxisAngle(_upAxis, gustYaw - gustYawPut);
+      _gustBody.set(rot0.x, rot0.y, rot0.z, rot0.w).premultiply(_gustQ);
+      body.setRotation({ x: _gustBody.x, y: _gustBody.y, z: _gustBody.z, w: _gustBody.w }, true);
+      gustYawPut = gustYaw;
+    }
+
+    // The Beetle leans on the gust: the shell rolls away from the push, and the
+    // camera leans on the same number (getChassisPose().wind).
+    const windRoll = gustRoll;
     const targetPitch = THREE.MathUtils.clamp(-smoothedAccel * 0.006, -0.04, 0.05);
-    const targetRoll = THREE.MathUtils.clamp(-steerInput * Math.min(absSpd / 12, 1) * 0.05, -0.06, 0.06);
+    const targetRoll = THREE.MathUtils.clamp(
+      -steerInput * Math.min(absSpd / 12, 1) * 0.05 + windRoll,
+      -0.1,
+      0.1,
+    );
     chassisPitch += (targetPitch - chassisPitch) * Math.min(1, 5 * dt);
     chassisRoll += (targetRoll - chassisRoll) * Math.min(1, 6 * dt);
   }
@@ -796,6 +899,7 @@ export function resetVehicleController(): void {
   smoothedBrake = 0;
   smoothedAccel = 0;
   cruiseTargetMps = null;      // a reset car does not hold a speed nobody asked for
+  clearGust();                 // ...and it is not mid-gust either
   engine.rpm = IDLE_RPM;
   engine.gear = 1;
   engine.throttle = 0;

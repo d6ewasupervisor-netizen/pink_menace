@@ -70,10 +70,11 @@ interface HudState {
    */
   windAssist: { label: string; holdMph: number } | null;
   /**
-   * The gust the story is about to take: which side it comes from and when the
-   * warning landed. Drawn as an arrow on that side for ~1.6 s.
+   * The gust the story is taking: which side it comes FROM and when the warning
+   * landed. Drawn as an arrow on that side; `push` is true while the force is
+   * actually on the car (quietroads/wind.ts), which is when the streaks run.
    */
-  gust: { side: 'left' | 'right'; atMs: number } | null;
+  gust: { side: 'left' | 'right'; atMs: number; push: boolean } | null;
   scare: 'none' | 'edge' | 'flood';
   /**
    * Outbound telemetry does NOT live in this store. It used to: every sim event

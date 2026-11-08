@@ -24,13 +24,11 @@
  *
  * The HUD says `WIND ASSIST · 40` while it is on. It is help, and it says so.
  *
- * What is NOT here: a lateral gust force. Measured, 2026-11-05: nothing in the
- * drive applies one. `wind.gust` is a story cue (`sim/beats.ts` fires it every
- * 8 s on the span); the only lateral motion the car has is the yaw the steering
- * asks for. So "reduce the gust force to 50–60 % for touch" had nothing to
- * reduce, and inventing one here would change VII-006's lesson and the span's
- * handling. The assist reduces the *yank* (steering gain + windows) and adds the
- * cue; the report says so rather than pretending a force exists.
+ * The force itself is not here: `quietroads/wind.ts` owns the gust's shape and
+ * the push it puts on the car body, and the vehicle controller applies it. This
+ * module owns what the assist *does about it*: the hold, the steering gain, the
+ * grading windows, the warning, and taking a third off the push (`GUST.assistScale`)
+ * while a thumb is what is steering.
  */
 export const WIND = {
   /** What the car holds on the span (posted 45). */

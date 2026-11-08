@@ -36,10 +36,11 @@ import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import type { Question, Category } from '@/types/quiz';
-import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, holdDrive, releaseDrive, setDriveBrakeDecel, setCruiseTargetMph } from '@/systems/VehicleController';
+import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, scaleCurrentSpeed, haltVehicle, holdDrive, releaseDrive, setDriveBrakeDecel, setCruiseTargetMph, getCruiseTargetMph, startGust, clearGust } from '@/systems/VehicleController';
 import { setDriveInputLocked, driveInputFamily, setSteerAssist } from '@/input/driveInput';
 import { handsOffFor, handsOffView } from '@/quietroads/handsoff';
 import { windAssistFor } from '@/quietroads/assist';
+import { GUST_TOTAL_S, buzzGust } from '@/quietroads/wind';
 import { DriveSync } from '@/systems/DriveSync';
 import { StepEventQueue } from '@/systems/StepEventQueue';
 
@@ -339,10 +340,18 @@ class Bridge {
       setCruiseTargetMph(null);
       setSteerAssist(1, 0);
       this.sim.windAssist = false;
+      clearGust();                    // the span's push ends with the span
       hud.setTransient({ windAssist: null, gust: null });
       return;
     }
-    if (this.windAssistOn) return;
+    if (this.windAssistOn) {
+      // The assist is on, and the hold is a property of the assist rather than of
+      // the moment it started: a teleport (a scene start, a retry, the e2e's own
+      // placement) resets the car, and a reset car does not hold a speed nobody
+      // asked for — so the one writer re-asserts it every frame until it is gone.
+      if (getCruiseTargetMph() !== assist.holdMph) setCruiseTargetMph(assist.holdMph);
+      return;
+    }
     this.windAssistOn = true;
     setCruiseTargetMph(assist.holdMph);
     setSteerAssist(assist.steerGain, assist.deadZone);
@@ -351,8 +360,8 @@ class Bridge {
   }
 
   /** The gust arrow: on the warning, off a beat after the gust itself. */
-  private showGust(side: 'left' | 'right', clearAfterMs: number) {
-    useQRHud.getState().setTransient({ gust: { side, atMs: Date.now() } });
+  private showGust(side: 'left' | 'right', clearAfterMs: number, push = false) {
+    useQRHud.getState().setTransient({ gust: { side, atMs: Date.now(), push } });
     if (this.gustTimer != null) window.clearTimeout(this.gustTimer);
     this.gustTimer = window.setTimeout(() => {
       this.gustTimer = null;
@@ -622,8 +631,14 @@ class Bridge {
       // The arrow, on the side the gust comes from, 0.9 s before it lands.
       this.showGust(data?.side === 'right' ? 'right' : 'left', 1600);
     } else if (event === 'wind.gust') {
-      // Keep the arrow through the gust, then let it go.
-      this.showGust(data?.side === 'right' ? 'right' : 'left', 1200);
+      // The push. The car gets a lateral force it has to steer into
+      // (quietroads/wind.ts, applied by the vehicle controller — the assist takes
+      // a third off it for a thumb), the indicator stays up through the push, and
+      // the phone buzzes where the platform does vibration.
+      const side = data?.side === 'right' ? 'right' : 'left';
+      startGust(side, { assist: this.windAssistOn });
+      this.showGust(side, Math.round(GUST_TOTAL_S * 1000) + 200, true);
+      buzzGust(typeof navigator === 'undefined' ? null : navigator);
     }
     if (event === 'waypoint.reach:dol_lot_exit') this.sim.escapeForgiving = false;
     if (event === 'mission.fail.swarm') {

@@ -3,6 +3,7 @@ import { dist, rectHas } from "./math";
 import type { VehicleSample } from "./vehicleObserver";
 import { BRIDGE_WAIT_S } from "../handsoff";
 import { gustSideAt, gustWarnings, gustsCrossed, steerWindows } from "../assist";
+import { GUST, GUST_TOTAL_S, gustPushDir } from "../wind";
 
 const MPH = 0.44704;
 
@@ -40,6 +41,18 @@ export class BeatRun {
   private hardSteer = 0;
   private overSteerCd = 0;
   /**
+   * The gust that is pushing right now — the side it comes FROM, when it landed,
+   * and where the car was when it did. The push is physical (quietroads/wind.ts,
+   * applied by the vehicle controller), so the two grades read the physics: how
+   * far the car moved from that mark, and which way the correction points.
+   */
+  private gustSide: "left" | "right" | null = null;
+  private gustAtT = 0;
+  private gustCentreY = 0;
+  private intoHold = 0;
+  /** The correction has carried the car past the band toward the wind side. */
+  private pastCentre = false;
+  /**
    * The wind assist is on (touch/keyboard on the span, quietroads/assist.ts).
    * Written by `Simulation.windAssist`, which the bridge sets once per mission.
    */
@@ -58,6 +71,9 @@ export class BeatRun {
     this.overLimit = false;
     this.hardSteer = 0;
     this.overSteerCd = 0;
+    this.gustSide = null;
+    this.gustAtT = this.gustCentreY = this.intoHold = 0;
+    this.pastCentre = false;
     this.flags.clear();
   }
 
@@ -163,9 +179,16 @@ export class BeatRun {
   private bridgeCross(dt: number, s: VehicleSample) {
     // The gust, and the arrow that says which side it comes from 0.9 s early.
     // Both are computed from the sim's own clock, so a long frame can drop
-    // neither (the old `Math.floor(t/8)` test could).
+    // neither (the old `Math.floor(t/8)` test could). The gust also *marks the
+    // car*: the grade below is measured from where it caught her.
     for (const atS of gustsCrossed(this.t - dt, this.t)) {
-      this.ev.fire("wind.gust", { side: gustSideAt(atS) });
+      const side = gustSideAt(atS);
+      this.ev.fire("wind.gust", { side });
+      this.gustSide = side;
+      this.gustAtT = this.t;
+      this.gustCentreY = s.pos.y;
+      this.intoHold = 0;
+      this.pastCentre = false;
     }
     for (const w of gustWarnings(this.t - dt, this.t)) {
       this.ev.fire("wind.gust.warn", { side: w.side, inS: w.inS });
@@ -179,19 +202,47 @@ export class BeatRun {
     } else if (this.overLimit && mph <= 43) {
       this.overLimit = false;
     }
-    // With the assist on, the windows are the thumb's (quietroads/assist.ts):
-    // a modest correction passes, a real yank is still the mistake.
+
+    // ── Steering into the wind, graded on the physics ──────────────────────
+    // The gust pushes the car sideways (quietroads/wind.ts → the vehicle
+    // controller), so "small" is a measurement, not a stick position: steer
+    // toward the side the wind comes from, and keep the car inside the band.
     const win = steerWindows(this.assist);
-    if (s.steer > win.intoWind.min && s.steer < win.intoWind.max) this.steerHold += dt;
-    else this.steerHold = 0;
-    if (this.steerHold > win.intoWind.holdS) this.once("steer.into_wind");
+    const pushS = this.gustSide == null ? Infinity : this.t - this.gustAtT;
+    const pushing = this.gustSide != null && pushS <= GUST_TOTAL_S;
+    if (pushing && this.gustSide) {
+      // +1 when the gust pushes the car to its right (it came from the left).
+      const pushDir = gustPushDir(this.gustSide);
+      // The span runs east, so +y is the car's right. `downwind` is positive when
+      // the gust has taken the car where it was pushing it.
+      const downwindM = (s.pos.y - this.gustCentreY) * pushDir;
+      // Steer toward the side it comes from: the opposite sign to the push, and
+      // small — a correction, not a yank (the upper bound is the window's own).
+      const intoWind =
+        s.steer * -pushDir > 0 &&
+        Math.abs(s.steer) >= GUST.minSteer &&
+        Math.abs(s.steer) <= win.intoWind.max;
+      if (intoWind && Math.abs(downwindM) <= GUST.bandM) this.intoHold += dt;
+      else this.intoHold = 0;
+      if (this.intoHold > GUST.intoWindHoldS) this.once("steer.into_wind");
+      // The other mistake, the physical one: fighting it harder than it pushed.
+      if (downwindM < -GUST.bandM) this.pastCentre = true;
+    } else {
+      // No gust is pushing: a modest correction, either way, held briefly. This is
+      // the pre-gust gesture the scene has always accepted (6.3.into).
+      if (Math.abs(s.steer) > win.intoWind.min && Math.abs(s.steer) < win.intoWind.max) this.steerHold += dt;
+      else this.steerHold = 0;
+      if (this.steerHold > win.intoWind.holdS) this.once("steer.into_wind");
+    }
     // A yank is a gesture, not a level: it has to be held, and it is reported once
     // per 2 s. At 60 Hz the old line emitted this 60 times a second while the
     // stick was pinned, which is what buried the bridge under telemetry.
     this.overSteerCd = Math.max(0, this.overSteerCd - dt);
     this.hardSteer = Math.abs(s.steer) > win.overcorrect.threshold ? this.hardSteer + dt : 0;
-    if (this.hardSteer > win.overcorrect.holdS && this.overSteerCd <= 0) {
+    const overcorrected = this.hardSteer > win.overcorrect.holdS || this.pastCentre;
+    if (overcorrected && this.overSteerCd <= 0) {
       this.overSteerCd = 2;
+      this.pastCentre = false;
       this.ev.fire("steer.overcorrect", { steer: +s.steer.toFixed(2) });
     }
     if (dist(s.pos, this.bridge.mid) < 8) this.once("waypoint.reach:bridge_mid");
