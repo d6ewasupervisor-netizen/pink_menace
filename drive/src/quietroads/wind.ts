@@ -37,17 +37,17 @@ export const GUST = {
   holdS: 1.2,
   rampOutS: 0.4,
   /**
-   * Lateral speed the gust puts on the body at full strength, m/s. The visible
-   * drift is this × the envelope's area (1.55 s) plus the nose kick's share, so
-   * 0.88 m/s is 1.7 m over the gust — a lane's worth of push on a pad, and it
-   * recovers when it passes.
+   * Lateral speed the gust puts on the body at full strength, m/s. The push is
+   * this × the envelope's area (1.55 s) = 1.50 m; with the nose kick it measures
+   * 1.84 m on a pad — a lane's worth of push, and it recovers when it passes.
    */
   peakLatMps: 0.97,
   /**
    * What the touch/keyboard assist takes off the push: 0.68 of full strength is
-   * 0.60 m/s, i.e. ~1.25 m of drift with no input — visible, and never a crash on
-   * its own. (The assist's job on this bridge is to make a thumb's correction
-   * possible; it also takes the gust down a third, which is the same help.)
+   * 0.66 m/s, 1.02 m of push and **1.35 m measured** with no input — visible, and
+   * never a crash on its own. (The assist's job on this bridge is to make a
+   * thumb's correction possible; it also takes the gust down a third, which is
+   * the same help.)
    */
   assistScale: 0.68,
   /**
@@ -116,8 +116,10 @@ export function gustRollRad(atS: number, side: GustSide): number {
 }
 
 /**
- * Lateral displacement over one whole gust with no input, metres: the peak speed
- * times the envelope's area. This is the number the sim test measures.
+ * Lateral displacement the push alone makes over one gust, metres: the peak speed
+ * times the envelope's area (1.50 m at full strength, 1.02 m with the assist).
+ * The sim test measures the push *and* the nose kick (1.84 m / 1.35 m), which is
+ * what the car actually does.
  */
 export function gustDriftM(assist: boolean): number {
   const area = GUST.rampInS / 2 + GUST.holdS + GUST.rampOutS / 2;
