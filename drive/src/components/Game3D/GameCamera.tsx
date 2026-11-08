@@ -188,6 +188,12 @@ export function GameCamera() {
       (state.cameraMode === 'chase' || state.cameraMode === 'cockpit');
     if (rolls) camera.rotateZ(pose.roll * (state.cameraMode === 'cockpit' ? 1 : 0.75));
 
+    // A crosswind leans the cabin even in the Quiet Roads chassis: the Quiet's
+    // camera never reads chassis roll, so a gust would push the car with a still
+    // camera and read as a bug. `pose.wind` is the gust's own roll
+    // (quietroads/wind.ts), zero whenever no gust is on the car.
+    if (!walking && pose.wind !== 0) camera.rotateZ(pose.wind * 0.9);
+
     if (camera instanceof THREE.PerspectiveCamera) {
       const punch = state.worldMode === 'highway' && (state.cameraMode === 'chase' || state.cameraMode === 'cockpit');
       const fovBoost = punch ? speedNorm * MAX_FOV_BOOST : speedNorm * 3;

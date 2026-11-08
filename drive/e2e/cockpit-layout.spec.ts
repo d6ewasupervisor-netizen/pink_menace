@@ -20,9 +20,17 @@ const STILL = path.resolve(process.cwd(), '..', 'cards', 'II-019.png');
 
 const VIEWPORTS = [
   ['portrait-390x844', 390, 844],
+  ['portrait-440x956', 440, 956],
   ['landscape-844x390', 844, 390],
   ['desktop-1280x800', 1280, 800],
 ] as const;
+
+/**
+ * The pixel record is DPR-scaled and has three baselines; the 440x956 shape is
+ * measured for overlaps only (it is the phone the bridge bug was reported on,
+ * and its geometry is the overlap rule's business, not the painter's).
+ */
+const BASELINE_VIEWPORTS = new Set(['portrait-390x844', 'landscape-844x390', 'desktop-1280x800']);
 
 const STATES = ['hud', 'dialogue', 'card', 'qte'] as const;
 type State = (typeof STATES)[number];
@@ -73,7 +81,13 @@ async function boot(page: Page) {
 }
 
 const PAYLOAD: Record<State, Record<string, unknown>> = {
-  hud: { phase: 'driving' },
+  // The bridge's own top band: the assist chip and the gust indicator are on
+  // screen in the state a player is actually in when they matter.
+  hud: {
+    phase: 'driving',
+    windAssist: { label: 'WIND ASSIST · 40', holdMph: 40 },
+    gust: { side: 'right', atMs: Date.now(), push: true },
+  },
   dialogue: {
     phase: 'driving',
     line: {
@@ -105,6 +119,7 @@ async function show(page: Page, state: State) {
     const { useGameStore } = await import('/drive/src/stores/gameStore.ts');
     useQRHud.getState().setTransient({
       line: null, direction: null, choices: null, card: null, qte: null, qteActive: false, debrief: null,
+      windAssist: null, gust: null,
       ...p,
     });
     useGameStore.setState({ phase: (p.phase as never) ?? 'driving' });
@@ -152,6 +167,22 @@ async function interactiveLayers(page: Page) {
       const el = document.querySelector(`[data-layer="${n}"]`);
       return el && visible(el) ? box(el) : null;
     };
+    // The surfaces that are not hit targets but still share the top band with the
+    // hit targets: the act badge, the noise meter and its sub-label, the nav
+    // cluster, and the bridge's own two (the assist chip and the gust cue). They
+    // are returned with their own layer name so nothing is skipped as "same
+    // layer" when the rule compares them.
+    const named = (name: string, el: Element | null) => {
+      if (!el || !visible(el)) return;
+      rows.push({ layer: `band:${name}`, name, ...box(el) });
+    };
+    named('act-badge', document.querySelector('[data-layer="badge"]'));
+    // The sub-label lives inside the meter box, so comparing against the meter
+    // covers it (comparing both would be the meter overlapping itself).
+    named('noise-meter', document.querySelector('[data-noise-meter]'));
+    named('nav-cluster', document.querySelector('[data-layer="nav"]'));
+    named('wind-assist', document.querySelector('[data-wind-assist-label]'));
+    named('gust-indicator', document.querySelector('[data-gust-side]'));
     return {
       rows,
       still: at('still'),
@@ -160,6 +191,28 @@ async function interactiveLayers(page: Page) {
       dialogue: at('dialogue'),
     };
   });
+}
+
+/**
+ * Every box that collides with one of `targets`. The two surfaces this pass added
+ * to the top band (`wind-assist`, `gust-indicator`) are checked against
+ * everything on screen; the rest of the band is checked by `overlaps` above.
+ */
+function collisionsWith(
+  rows: Array<{ layer: string; name: string; x: number; y: number; w: number; h: number }>,
+  targets: string[],
+) {
+  const hits: string[] = [];
+  for (const a of rows) {
+    if (!targets.includes(a.name)) continue;
+    for (const b of rows) {
+      if (a === b) continue;
+      if (a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y) {
+        hits.push(`${a.name} (${a.x},${a.y} ${a.w}x${a.h}) ∩ ${b.layer}:${b.name} (${b.x},${b.y} ${b.w}x${b.h})`);
+      }
+    }
+  }
+  return [...new Set(hits)];
 }
 
 function overlaps(rows: Array<{ layer: string; name: string; x: number; y: number; w: number; h: number }>) {
@@ -201,6 +254,16 @@ for (const [vpName, width, height] of VIEWPORTS) {
       const layers = await interactiveLayers(page);
       expect(overlaps(layers.rows), `${vpName} / ${state}`).toEqual([]);
 
+      // The bridge's two new surfaces own their slots: the assist chip and the
+      // gust indicator may not touch anything else in the top band, at any of the
+      // four shapes — the chip used to sit on the noise meter's sub-label in
+      // landscape and on the nav cluster's objective in portrait.
+      if (state === 'hud') {
+        expect(layers.rows.some((r) => r.name === 'wind-assist'), `${vpName}: the assist chip is on screen`).toBe(true);
+        expect(layers.rows.some((r) => r.name === 'gust-indicator'), `${vpName}: the gust cue is on screen`).toBe(true);
+        expect(collisionsWith(layers.rows, ['wind-assist', 'gust-indicator']), `${vpName} / top band slots`).toEqual([]);
+      }
+
       if (state === 'card') {
         // The still is fully above the dock, and the dock owns the answers.
         expect(layers.still, `${vpName} still band`).not.toBeNull();
@@ -219,7 +282,7 @@ for (const [vpName, width, height] of VIEWPORTS) {
         expect(sideBySide || above, `${vpName} still (${s.x},${s.y} ${s.w}x${s.h}) vs dock (${d.x},${d.y} ${d.w}x${d.h})`).toBe(true);
       }
 
-      if (test.info().project.name === BASELINE_PROJECT) {
+      if (test.info().project.name === BASELINE_PROJECT && BASELINE_VIEWPORTS.has(vpName)) {
         await expect(page).toHaveScreenshot(`${vpName}-${state}.png`, {
           animations: 'allow',
           caret: 'hide',

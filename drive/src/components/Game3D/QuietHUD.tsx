@@ -64,7 +64,7 @@ export function QuietHUD() {
     <div data-layer="world-hud" style={styles.root}>
       {/* Noise meter — top centre, inside the HUD band */}
       {drivingHud && meter && (
-        <div style={{ ...styles.meterWrap, ...(compact ? styles.meterWrapCompact : null) }}>
+        <div data-noise-meter style={{ ...styles.meterWrap, ...(compact ? styles.meterWrapCompact : null) }}>
           <div style={styles.meterLabel}>
             <span style={{ color: band.color, fontWeight: 800 }}>{band.shape} {band.word}</span>
             <span style={{ color: '#777' }}>{Math.round(db)} dB</span>
@@ -74,7 +74,7 @@ export function QuietHUD() {
             <div style={{ ...styles.meterMark, left: `${((55 - 20) / 80) * 100}%` }} />
             <div style={{ ...styles.meterMark, left: `${((75 - 20) / 80) * 100}%` }} />
           </div>
-          <div style={styles.awake}>
+          <div data-noise-sub-label style={styles.awake}>
             {awake === 0 ? 'nobody\u2019s looking' : `${awake} looking${counts.swarm ? ` · ${counts.swarm} coming` : ''}`}
           </div>
         </div>
