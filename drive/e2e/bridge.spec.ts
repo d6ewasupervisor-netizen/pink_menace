@@ -107,6 +107,9 @@ const STATE = `(async () => {
     flags: useQRStore.getState().flags,
     checkpoint: useQRStore.getState().checkpoint,
     locked: driveInputLocked(),
+    line: hud.line ? hud.line.text : null,
+    direction: hud.direction ? hud.direction.text : null,
+    choices: Boolean(hud.choices),
   };
 })()`;
 
@@ -117,7 +120,7 @@ type State = {
   card: string | null;
   handsOff: { mission: string; totalS: number; elapsedS: number } | null;
   assist: { label: string; holdMph: number } | null;
-  gust: { side: 'left' | 'right'; atMs: number } | null;
+  gust: { side: 'left' | 'right'; atMs: number; push: boolean } | null;
   stranded: unknown;
   missionId: string;
   waitElapsedS: number;
@@ -128,6 +131,9 @@ type State = {
   flags: Record<string, boolean>;
   checkpoint: string | null;
   locked: boolean;
+  line: string | null;
+  direction: string | null;
+  choices: boolean;
 };
 
 const read = (page: Page) => page.evaluate(STATE as unknown as () => Promise<State>) as Promise<State>;
@@ -203,6 +209,33 @@ async function placeAt(page: Page, start: 'bridge_mid_start' | 'bridge_west') {
     const s = QuietRoads.sim.map.starts[which];
     teleportVehicle(s.pos.x, s.pos.y, s.heading);
   }, start);
+}
+
+/**
+ * A thumb on the STEER ring, moved off centre by a fraction of its travel. The
+ * assist then scales it (0.55, with a 4 % dead zone), so 0.25 of the ring is a
+ * correction, not a lane change — the same gesture the scene asks for.
+ */
+async function steerStick(page: Page) {
+  const ring = page.locator('[data-layer="sticks"] div[data-ui]').first();
+  const box = await ring.boundingBox();
+  if (!box) throw new Error("no steer ring on screen");
+  return { page, cx: box.x + box.width / 2, cy: box.y + box.height / 2, radius: box.width * 0.38 };
+}
+
+/** Hold the wheel toward `side` (the side the wind comes from) for `ms`. */
+async function steerInto(page: Page, side: 'left' | 'right', ms: number) {
+  const s = await steerStick(page);
+  // 0.18 of the ring is ~0.15 at the input layer, and the assist's 0.55 gain
+  // makes that ~0.08 at the wheel — the correction the physics test shows cancels
+  // the push. Anything more is the overcorrection the scene warns about.
+  const dx = s.radius * 0.18 * (side === 'right' ? 1 : -1);
+  await page.mouse.move(s.cx, s.cy);
+  await page.mouse.down();
+  await page.mouse.move(s.cx + dx, s.cy, { steps: 3 });
+  await page.waitForTimeout(ms);
+  await page.mouse.move(s.cx, s.cy, { steps: 3 });
+  await page.mouse.up();
 }
 
 test("6.3 from the card to 7.1: the crossing, the sign, the moth, and the hands-off minute", async ({ page }) => {
@@ -379,3 +412,118 @@ test("the overlay fits a 440x956 phone: title, ring, marks, and no sticks", asyn
   const second = Number(await overlay.getAttribute("data-hands-off-remaining"));
   expect(second, "the ring is counting down").toBeLessThan(first);
 });
+
+/**
+ * The lesson, on a phone, in one run: the gust pushes, the arrow names the side,
+ * and a thumb that answers it stays in the lane all the way to `bridge_mid`.
+ *
+ * 440x956 is the phone this was reported on. The car is left to the assist's own
+ * 40 mph hold (no gas at all: that is the hold doing its job), and the first gust
+ * is measured bare so the push is a number, not a claim. Every gust after it gets
+ * the correction the indicator asks for, on the side it names.
+ */
+test("440x956: the gust pushes, the thumb answers, and she reaches bridge_mid in her lane", async ({ page }) => {
+  test.setTimeout(420_000);
+  await page.setViewportSize({ width: 440, height: 956 });
+  await mockStudent(page);
+  await seedBridge(page);
+  await page.goto("/drive/");
+  await page.locator("canvas").first().waitFor({ state: "visible", timeout: 45_000 });
+  await page.waitForTimeout(2000);
+
+  const crossing = await walk(page, (s) => s.missionId === "vantage_bridge_crossing");
+  expect(crossing.missionId, "the crossing is live").toBe("vantage_bridge_crossing");
+  await expect(page.locator("[data-wind-assist-label]"), "the assist says what it is").toHaveText("WIND ASSIST · 40");
+
+  await placeAt(page, "bridge_west");
+  const CENTRE_Y = 1140;                       // the span runs east along y = 1140
+  const gusts: { side: "left" | "right"; label: string; drift: number; off: number }[] = [];
+  const warnings: { side: "left" | "right"; label: string }[] = [];
+  let worstOffsetM = 0;
+  let warned = -1;
+  let answered = -1;
+  let reachedMid = false;
+  let after = "";
+  let lastX = 0;
+  let lastOff = 0;
+  const offsets: number[] = [];
+
+  for (let i = 0; i < 300; i++) {
+    const st = await read(page);
+    worstOffsetM = Math.max(worstOffsetM, Math.abs(st.pos[2] - CENTRE_Y));
+    if (i % 5 === 0) offsets.push(st.pos[2] - CENTRE_Y);
+    lastX = st.pos[0];
+    if (st.missionId !== "vantage_bridge_crossing") {
+      reachedMid = true;
+      after = st.missionId;
+      break;
+    }
+    // Story surfaces advance with a thumb, the way a player's would.
+    if (st.card) await answerCard(page);
+    else if (st.line || st.direction || st.choices) await tap(page);
+
+    const label = async () =>
+      ((await page.locator("[data-gust-side]").innerText()) ?? "").replace(/\s+/g, " ").trim();
+
+    // The warning: the arrow, on the side the wind comes from, before it lands.
+    if (st.gust && !st.gust.push && st.gust.atMs !== warned) {
+      warned = st.gust.atMs;
+      warnings.push({ side: st.gust.side, label: await label() });
+    }
+    // The push itself: measure it (the first one bare, so the drift is a number),
+    // and answer every one after it the way the indicator says.
+    if (st.gust && st.gust.push && st.gust.atMs !== answered) {
+      answered = st.gust.atMs;
+      const side = st.gust.side;
+      const text = await label();
+      const from = st.pos[2];
+      if (gusts.length >= 1) await steerInto(page, side, 480);
+      await page.waitForTimeout(1500);
+      const to = (await read(page)).pos[2];
+      gusts.push({ side, label: text, drift: to - from, off: from - CENTRE_Y });
+    } else if (!st.gust) {
+      // Between gusts a thumb holds the line, the way a player's does. The car
+      // keeps every heading it is given (the arcade chassis has no self-centring
+      // *heading*, only a centring yaw rate), so position alone is not enough to
+      // steer by: the demand leads on the rate the offset is closing. Without the
+      // lead the correction overshoots and the offset grows run to run.
+      const off = st.pos[2] - CENTRE_Y;
+      const rate = (off - lastOff) / 0.25;                 // m/s, + = to the right
+      lastOff = off;
+      const demand = off + 0.6 * rate;
+      if (Math.abs(off) > 0.4 || Math.abs(rate) > 0.25) {
+        await steerInto(page, demand < 0 ? "right" : "left", 180);
+      }
+    }
+    await page.waitForTimeout(220);
+  }
+  console.log(`[e2e] offsets: ${offsets.map((o) => o.toFixed(2)).join(" ")}`);
+  console.log(`[e2e] worst ${worstOffsetM.toFixed(2)} m, reached ${reachedMid} at x=${lastX.toFixed(0)}`);
+
+  // The warning came first, on the same side as the push, and said what to do.
+  expect(warnings.length, `warnings seen: ${warnings.length} / gusts ${gusts.length}`).toBeGreaterThanOrEqual(1);
+  for (const g of gusts) {
+    expect(warnings.some((w) => w.side === g.side), `a warning for the ${g.side} gust`).toBe(true);
+  }
+  expect(warnings[0].label, "the warning names the action").toContain(`GUST · steer ${warnings[0].side}`);
+
+  // The indicator named the side the wind came from, with the action in words —
+  // and the wind alternates, first gust from the right.
+  expect(gusts.length, `gusts: ${gusts.map((g) => `${g.side}@${g.off.toFixed(2)}`).join(" ")}`).toBeGreaterThanOrEqual(2);
+  expect(gusts[0].side, "the first gust comes from the right").toBe("right");
+  for (let i = 0; i < gusts.length; i++) {
+    expect(gusts[i].label, `gust ${i} says which way to steer`).toContain(`GUST · steer ${gusts[i].side}`);
+    if (i > 0) expect(gusts[i].side, "the wind alternates").not.toBe(gusts[i - 1].side);
+  }
+
+  // A gust with no input moves the car downwind — the far side from the wind.
+  // From the right, that is the car's left: negative on the span's y axis.
+  expect(gusts[0].drift, `drifts: ${gusts.map((g) => `${g.side} ${g.drift.toFixed(2)} m`).join(", ")}`).toBeLessThan(-0.4);
+
+  // She crossed: the sign scene is what `waypoint.reach:bridge_mid` starts.
+  expect(reachedMid, `the car reached bridge_mid (last x ${lastX.toFixed(0)} of 800)`).toBe(true);
+  expect(after).toMatch(/^bridge_after_sign_/);
+  // ...and never left the lane doing it (a lane is 4 m either side of the mark).
+  expect(worstOffsetM, `worst offset from the centreline ${worstOffsetM.toFixed(2)} m`).toBeLessThan(4);
+});
+
