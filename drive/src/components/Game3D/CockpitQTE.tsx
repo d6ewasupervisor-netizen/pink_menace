@@ -10,16 +10,15 @@
  */
 import { useQRHud } from '@/stores/qrHud';
 import { tokens } from './cockpit/tokens';
-import { frameFor, qteBand, useCockpitOrientation } from './cockpit/layout';
+import { useCockpitSpec, worldBandStyle } from './cockpit/layout';
 
 export function CockpitQTE() {
   const qte = useQRHud((s) => s.qte);
-  const orientation = useCockpitOrientation();
+  const spec = useCockpitSpec();
   if (!qte) return null;
-  const bands = frameFor(orientation, false);
   const pct = Math.round(Math.max(0, Math.min(1, qte.progress)) * 100);
   return (
-    <div data-layer="qte" style={{ ...qteBand(bands), zIndex: 246 }}>
+    <div data-layer="qte" style={{ ...worldBandStyle(spec), zIndex: 246 }}>
       <div style={styles.wrap} role="status" aria-live="polite">
         <div style={styles.label}>{qte.label}</div>
         <div style={styles.track}>

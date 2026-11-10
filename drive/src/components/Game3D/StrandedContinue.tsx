@@ -12,13 +12,13 @@
 import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
-import { frameFor, qteBand, useCockpitOrientation } from './cockpit/layout';
+import { useCockpitSpec, worldBandStyle } from './cockpit/layout';
 import { tokens } from './cockpit/tokens';
 
 export function StrandedContinue() {
   const stranded = useQRHud((s) => s.stranded);
   const worldMode = useGameStore((s) => s.worldMode);
-  const orientation = useCockpitOrientation();
+  const spec = useCockpitSpec();
   if (worldMode !== 'kent' || !stranded) return null;
 
   return (
@@ -27,7 +27,7 @@ export function StrandedContinue() {
       data-stranded-scene={stranded.scene}
       data-stranded-node={stranded.node}
       data-stranded-event={stranded.event}
-      style={{ ...qteBand(frameFor(orientation, true)), zIndex: tokens.z.stranded }}
+      style={{ ...worldBandStyle(spec), zIndex: tokens.z.stranded }}
     >
       <button data-ui data-layer="continue" onClick={() => QuietRoads.continueStranded()} style={styles.button}>
         Continue

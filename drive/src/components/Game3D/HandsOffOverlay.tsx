@@ -23,8 +23,8 @@ import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
 import { handsOffFor, handsOffView } from '@/quietroads/handsoff';
 import { screenWake } from '@/systems/screenWakeLock';
-import { tokens, useOrientation } from './cockpit/tokens';
-import { frameFor } from './cockpit/layout';
+import { tokens } from './cockpit/tokens';
+import { useCockpitSpec } from './cockpit/layout';
 
 /**
  * Hold the screen awake while `active`. Feature-detected inside the keeper and
@@ -52,14 +52,13 @@ export function HandsOffOverlay() {
   const line = useQRHud((s) => s.line);
   const direction = useQRHud((s) => s.direction);
   const phase = useGameStore((s) => s.phase);
-  const orientation = useOrientation();
+  const spec = useCockpitSpec();
   useScreenWake(Boolean(handsOff));
 
   if (!handsOff) return null;
   const wait = handsOffFor(handsOff.mission);
   if (!wait) return null;
   const view = handsOffView(wait, handsOff.elapsedS);
-  const bands = frameFor(orientation);
   const paused = phase === 'paused';
   const spoken = line?.text ?? direction?.node.text ?? '';
   const speaker = line ? line.speaker_def?.name ?? line.speaker : '';
@@ -78,7 +77,10 @@ export function HandsOffOverlay() {
       aria-label={wait.title}
       style={{
         ...styles.band,
-        top: `calc(${bands.top}px + env(safe-area-inset-top, 0px))`,
+        // ITEM 3.7: the wait owns the world band, from the same spec every other
+        // surface reads — it is not lifted 224 px down a hand-tuned top band.
+        top: spec.world.y,
+        height: spec.world.height,
       }}
     >
       <div style={styles.title}>{wait.title}</div>

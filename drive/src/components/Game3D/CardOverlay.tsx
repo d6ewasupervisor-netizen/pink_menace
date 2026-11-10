@@ -23,6 +23,7 @@ import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { CardDeck, cardClock, type Card, type CardGrade } from '@/quietroads';
 import { cardStillStyle } from './cardStillStyle';
 import { frameFor, useCockpitOrientation } from './cockpit/layout';
+import { tokens } from './cockpit/tokens';
 import { useCardCountdown } from './useCardCountdown';
 
 type Grading = { state: 'idle' } | { state: 'busy'; optionId: string } | { state: 'graded'; grade: CardGrade } | { state: 'offline'; optionId: string };
@@ -143,7 +144,7 @@ export function CardOverlay() {
             maxHeight: landscape ? '100%' : `${Math.round(frame.bottom * 100)}dvh`,
             overflowY: 'auto',
             WebkitOverflowScrolling: 'touch',
-            background: 'rgba(7,8,12,0.78)',
+            background: 'var(--qr-glass)',
             backdropFilter: 'blur(3px)',
             borderTop: '1px solid rgba(255,255,255,0.10)',
             borderTopLeftRadius: landscape ? 0 : 18,
@@ -183,7 +184,7 @@ export function CardOverlay() {
                   const busy = grading.state === 'busy';
                   const mine = (grading.state === 'busy' || grading.state === 'offline') && grading.optionId === o.id;
                   return (
-                    <button key={o.id} data-ui disabled={busy} style={{ ...styles.option, opacity: busy && !mine ? 0.5 : 1, borderColor: mine ? '#F28DB2' : 'rgba(255,255,255,0.22)' }} onClick={() => pick(o.id)}>
+                    <button key={o.id} data-ui disabled={busy} style={{ ...styles.option, opacity: busy && !mine ? 0.5 : 1, borderColor: mine ? tokens.colors.accent : tokens.colors.strokeSoft }} onClick={() => pick(o.id)}>
                       <span style={styles.optionId}>{o.id.toUpperCase()}</span>
                       <span>{o.text}</span>
                     </button>
@@ -230,24 +231,24 @@ const styles: Record<string, React.CSSProperties> = {
   // The card's still is `cardStillStyle`: whole plate, letterboxed, in its own
   // band above the dock. It used to be a full-bleed `cover` backdrop behind the
   // card's text, which cropped most of a 2:3 card away.
-  kicker: { position: 'absolute', top: 8, left: 8, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#F28DB2', background: 'rgba(0,0,0,0.55)', padding: '4px 8px', borderRadius: 4 },
+  kicker: { position: 'absolute', top: 8, left: 8, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: tokens.colors.accent, background: 'rgba(0,0,0,0.55)', padding: '4px 8px', borderRadius: 4 },
   // P12: text size scales the card type only; the still is never scaled.
   title: { fontSize: 'calc(22px * var(--qr-text-scale, 1))', margin: '0 0 4px', fontWeight: 800, letterSpacing: '-0.01em' },
-  hook: { fontSize: 'calc(15px * var(--qr-text-scale, 1))', color: '#F28DB2', margin: '0 0 10px', fontStyle: 'italic' },
+  hook: { fontSize: 'calc(15px * var(--qr-text-scale, 1))', color: tokens.colors.accent, margin: '0 0 10px', fontStyle: 'italic' },
   scene: { fontSize: 'calc(15.5px * var(--qr-text-scale, 1))', lineHeight: 1.5, margin: '0 0 14px', color: '#d6d3cc' },
   decision: { fontSize: 'calc(16px * var(--qr-text-scale, 1))', fontWeight: 700, margin: '0 0 10px', color: '#fff' },
   options: { display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 },
   option: { display: 'flex', gap: 10, alignItems: 'flex-start', textAlign: 'left', background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid', borderRadius: 10, padding: '12px 12px', fontSize: 'calc(15px * var(--qr-text-scale, 1))', lineHeight: 1.35, cursor: 'pointer', minHeight: 52 },
-  optionId: { flex: '0 0 auto', width: 22, height: 22, borderRadius: 11, background: 'rgba(242,141,178,0.25)', color: '#F28DB2', fontSize: 12, fontWeight: 800, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginTop: 1 },
+  optionId: { flex: '0 0 auto', width: 22, height: 22, borderRadius: 11, background: 'rgba(242,141,178,0.25)', color: tokens.colors.accent, fontSize: 12, fontWeight: 800, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginTop: 1 },
   note: { fontSize: 13, color: '#9a9186', margin: '0 0 12px' },
   // The card's clock: a thin bar under the scene, in the deck's pink, with the
   // whole seconds left beside it so it reads without motion.
   clock: { margin: '0 0 14px' },
   clockRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 },
-  clockLabel: { fontSize: 'calc(10px * var(--qr-text-scale, 1))', letterSpacing: '0.2em', color: '#F28DB2' },
+  clockLabel: { fontSize: 'calc(10px * var(--qr-text-scale, 1))', letterSpacing: '0.2em', color: tokens.colors.accent },
   clockSeconds: { fontSize: 'calc(12px * var(--qr-text-scale, 1))', fontWeight: 700, color: '#e8e6e1', fontVariantNumeric: 'tabular-nums' },
   clockTrack: { height: 6, borderRadius: 3, background: 'rgba(255,255,255,0.14)', overflow: 'hidden' },
-  clockFill: { height: '100%', background: '#F28DB2', transition: 'width 100ms linear' },
+  clockFill: { height: '100%', background: tokens.colors.accent, transition: 'width 100ms linear' },
   clockNote: { marginTop: 4, fontSize: 'calc(11px * var(--qr-text-scale, 1))', color: '#9a9186' },
   retry: { background: 'none', border: '1px solid #ff9a9a', color: '#ff9a9a', borderRadius: 6, padding: '4px 10px', marginLeft: 8, cursor: 'pointer', fontSize: 13 },
   result: { border: '1px solid', borderRadius: 10, padding: '10px 12px', marginBottom: 12, background: 'rgba(255,255,255,0.03)' },
@@ -255,8 +256,8 @@ const styles: Record<string, React.CSSProperties> = {
   noiseTag: { color: '#ffd93d', letterSpacing: 0, fontWeight: 600 },
   resultText: { margin: 0, fontSize: 'calc(15px * var(--qr-text-scale, 1))', lineHeight: 1.45 },
   debrief: { borderLeft: '3px solid #F28DB2', padding: '6px 12px', marginBottom: 16 },
-  debriefLabel: { fontSize: 'calc(10px * var(--qr-text-scale, 1))', letterSpacing: '0.2em', color: '#F28DB2', marginBottom: 4 },
+  debriefLabel: { fontSize: 'calc(10px * var(--qr-text-scale, 1))', letterSpacing: '0.2em', color: tokens.colors.accent, marginBottom: 4 },
   debriefText: { margin: 0, fontSize: 'calc(15px * var(--qr-text-scale, 1))', lineHeight: 1.45 },
   source: { marginTop: 6, fontSize: 'calc(11px * var(--qr-text-scale, 1))', color: '#8a8f99' },
-  continue: { width: '100%', padding: '16px', fontSize: 'calc(15px * var(--qr-text-scale, 1))', fontWeight: 800, letterSpacing: '0.15em', background: '#F28DB2', color: '#1a0a12', border: 'none', borderRadius: 10, cursor: 'pointer' },
+  continue: { width: '100%', padding: '16px', fontSize: 'calc(15px * var(--qr-text-scale, 1))', fontWeight: 800, letterSpacing: '0.15em', background: tokens.colors.accent, color: '#1a0a12', border: 'none', borderRadius: 10, cursor: 'pointer' },
 };

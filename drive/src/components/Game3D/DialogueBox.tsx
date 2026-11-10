@@ -3,6 +3,14 @@
  * tap-to-advance (unless auto_ms); choices render as buttons. Timed choices
  * show a shrinking bar. Whisper is the default volume in this world, so the
  * box is small and quiet; a "shout" line gets a red edge because it cost her.
+ *
+ * ITEM 3.5 — TWO LINES, GLASS, AT THE FOOT OF THE WORLD BAND. The old box was a
+ * `min(720px, 92vw)` panel with `dialogueMaxHeight()` (up to 40 % of the viewport)
+ * that could run to four or five lines of 17 px text, and it floated above the
+ * sticks rather than in its own band. It is now the spec's dialogue band: the width
+ * of the cockpit column, sitting exactly on `spec.dialogue.bottom` (the top of the
+ * controls), glass over the road, the speaker in the micro type, and the words
+ * clamped to two lines. Anything longer is a card or a cutscene, not a line.
  */
 import { useEffect, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
@@ -11,8 +19,7 @@ import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { STILL_FOR_SCENE } from './stills';
 import { tokens } from './cockpit/tokens';
-import { dialogueMaxHeight, frameFor, useCockpitOrientation, useCompoundCockpit } from './cockpit/layout';
-import { useCompactHud } from '@/hooks/useCompactHud';
+import { useCockpitSpec } from './cockpit/layout';
 
 /**
  * Content-aware auto-dismiss delay.
@@ -34,11 +41,7 @@ export function DialogueBox() {
   const phase = useGameStore((s) => s.phase);
   const worldMode = useGameStore((s) => s.worldMode);
   const sceneId = useQRStore((s) => s.sceneId);
-  const compact = useCompactHud();
-  const orientation = useCockpitOrientation();
-  const compound = useCompoundCockpit();
-  const bands = frameFor(orientation, compound);
-  const drivingPhone = compact && (phase === 'driving' || phase === 'walking');
+  const spec = useCockpitSpec();
 
   // Fraction 1→0 shared by both the choice timeout bar and the auto-dismiss bar.
   const [barFraction, setBarFraction] = useState(1);
@@ -98,6 +101,13 @@ export function DialogueBox() {
     (line && line.auto_ms == null) || (direction && !line && direction.node.auto_ms == null)
   );
 
+  // The dialogue band is the foot of the world band: `spec.dialogue.bottom` is the
+  // top of the controls, so the box sits exactly on it at every shape. A choice list
+  // is allowed to grow into the world band (it is a decision, not a line); a line is
+  // clamped to two.
+  const bandBottom = Math.max(tokens.space.sm, spec.height - spec.dialogue.bottom);
+  const boxWidth = Math.max(200, Math.min(spec.column.width - tokens.space.md * 2, 640));
+
   return (
     <div
       data-ui
@@ -105,12 +115,7 @@ export function DialogueBox() {
       style={{
         ...styles.wrap,
         pointerEvents: cutscene ? 'auto' : 'none',
-        // Bottom band. Portrait: above the touch sticks. Landscape: between the
-        // sticks, because there they sit at the bottom corners. Never in the top
-        // band, so the HUD, meter and nav cluster cannot land on it.
-        ...(orientation === 'landscape'
-          ? { padding: '0 168px calc(8px + env(safe-area-inset-bottom)) 168px' }
-          : { padding: `0 8px calc(${bands.sticks}px + env(safe-area-inset-bottom) + 8px) 8px` }),
+        padding: `0 ${tokens.space.sm}px ${bandBottom}px ${tokens.space.sm}px`,
       }}
       onClick={() => { if (!choices) QuietRoads.tap(); }}
     >
@@ -119,10 +124,21 @@ export function DialogueBox() {
         <img
           src={STILL_FOR_SCENE[sceneId]}
           alt=""
-          style={{ ...styles.still, top: `calc(${bands.top}px + env(safe-area-inset-top) + 8px)` }}
+          style={{ ...styles.still, top: spec.rail.y + tokens.space.sm }}
         />
       )}
-      <div data-ui onClick={(e) => { if (!cutscene && !choices) { e.stopPropagation(); QuietRoads.tap(); } }} style={{ ...styles.box, ...(drivingPhone ? styles.boxPhone : null), maxHeight: dialogueMaxHeight(bands, window.innerHeight, orientation), overflowY: 'auto', pointerEvents: 'auto', borderColor: loud ? '#ff4444' : radio ? '#5DADE2' : 'rgba(255,255,255,0.18)' }}>
+      <div
+        data-ui
+        onClick={(e) => { if (!cutscene && !choices) { e.stopPropagation(); QuietRoads.tap(); } }}
+        style={{
+          ...styles.box,
+          width: boxWidth,
+          maxHeight: choices ? Math.max(180, Math.round(spec.world.height * 0.7)) : undefined,
+          overflowY: choices ? 'auto' : 'hidden',
+          pointerEvents: 'auto',
+          borderColor: loud ? tokens.colors.wrong : radio ? '#5DADE2' : tokens.colors.strokeSoft,
+        }}
+      >
         {line && (
           <>
             <div style={{ ...styles.speaker, color: speakerColor }}>
@@ -159,18 +175,49 @@ export function DialogueBox() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  wrap: { position: 'fixed', inset: 0, zIndex: 228, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' },
-  boxPhone: { width: '100%' },
+  wrap: { position: 'fixed', inset: 0, zIndex: 228, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', boxSizing: 'border-box' },
   dim: { position: 'absolute', inset: 0, background: 'rgba(5,6,10,0.72)' },
-  still: { position: 'absolute', left: '50%', top: 'calc(8% + env(safe-area-inset-top))', transform: 'translateX(-50%)', width: 'min(92vw, 520px)', aspectRatio: '606 / 361', objectFit: 'cover', borderRadius: 10, opacity: 0.92, boxShadow: '0 12px 40px rgba(0,0,0,0.7)', filter: 'saturate(0.85)' },
-  box: { position: 'relative', width: 'min(720px, 92vw)', background: tokens.colors.panel, border: '1px solid', borderRadius: tokens.radius.lg, padding: '12px 16px 10px 16px', color: tokens.colors.ink, fontFamily: tokens.fonts.ui, boxShadow: '0 8px 32px rgba(0,0,0,0.5)' },
+  still: { position: 'absolute', left: '50%', transform: 'translateX(-50%)', width: 'min(92vw, 520px)', aspectRatio: '606 / 361', objectFit: 'cover', borderRadius: tokens.radius.lg, opacity: 0.92, boxShadow: '0 12px 40px rgba(0,0,0,0.7)', filter: 'saturate(0.85)' },
+  // Glass over the road, one radius, one blur: the same panel language as the rail
+  // and the nav strip. Nothing here is an opaque card.
+  box: {
+    position: 'relative',
+    boxSizing: 'border-box',
+    background: 'var(--qr-glass)',
+    backdropFilter: 'var(--qr-blur)',
+    WebkitBackdropFilter: 'var(--qr-blur)',
+    border: '1px solid',
+    borderRadius: tokens.radius.lg,
+    padding: `${tokens.space.sm}px ${tokens.space.md}px`,
+    color: tokens.colors.ink,
+    fontFamily: tokens.fonts.ui,
+    boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+  },
   // P12: text size scales the dialogue type only (the var is set on the overlay root).
-  speaker: { fontSize: 'calc(12px * var(--qr-text-scale, 1))', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 },
+  speaker: { fontSize: 'var(--qr-type-micro)', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 2 },
   sys: { color: tokens.colors.faint, fontWeight: 400, textTransform: 'none', letterSpacing: 0 },
-  text: { fontSize: 'calc(17px * var(--qr-text-scale, 1))', lineHeight: 1.4, marginBottom: 8 },
-  direction: { fontSize: 'calc(15px * var(--qr-text-scale, 1))', lineHeight: 1.4, color: '#b8bcc6', fontStyle: 'italic', marginBottom: 8 },
-  choices: { display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 },
-  choice: { background: 'rgba(255,255,255,0.06)', color: '#fff', border: `1px solid ${tokens.colors.strokeSoft}`, borderRadius: tokens.radius.md, padding: '12px 14px', fontSize: 'calc(15px * var(--qr-text-scale, 1))', textAlign: 'left', cursor: 'pointer', minHeight: 48 },
-  timerTrack: { height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden', marginTop: 4 },
+  // TWO LINES. A third line is a card or a cutscene; the box is not a wall of text
+  // on top of the road it is describing.
+  text: {
+    fontSize: 'calc(var(--qr-type-body) * var(--qr-text-scale, 1))',
+    lineHeight: 1.3,
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+  },
+  direction: {
+    fontSize: 'calc(var(--qr-type-body) * var(--qr-text-scale, 1))',
+    lineHeight: 1.3,
+    color: tokens.colors.body,
+    fontStyle: 'italic',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+  },
+  choices: { display: 'flex', flexDirection: 'column', gap: tokens.space.sm, marginTop: tokens.space.sm },
+  choice: { background: 'rgba(255,255,255,0.06)', color: tokens.colors.ink, border: `1px solid ${tokens.colors.strokeSoft}`, borderRadius: tokens.radius.md, padding: '12px 14px', fontSize: 'calc(var(--qr-type-body) * var(--qr-text-scale, 1))', textAlign: 'left', cursor: 'pointer', minHeight: 48 },
+  timerTrack: { height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden', marginTop: tokens.space.xs },
   timerFill: { height: '100%', background: tokens.colors.warn, transition: 'width 50ms linear' },
 };

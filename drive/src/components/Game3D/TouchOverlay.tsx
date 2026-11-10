@@ -6,13 +6,21 @@
  *
  * Rings capture the pointer. Wrappers do not, so the rest of the screen
  * stays free for horn / pause / cards.
+ *
+ * ITEM 3.6 — THE STICKS ARE THE SPEC'S. They were `min(142px, 36vw)` rings pinned
+ * to `bottom: 14px`, which at 390x844 is a 140 px circle in each corner: 28 % of the
+ * screen's height owned by two rings, and the bottom band was the sticks rather than
+ * the road. They are now `spec.stick` (110–120 px) at `stickOrigin()`, and the gas
+ * stick HIDES while the assist is holding speed: on the bridge the car finds 40 by
+ * itself, so a throttle you must not push is furniture.
  */
 import { useCallback, useEffect, useRef } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
 import { useCompactHud } from '@/hooks/useCompactHud';
 import { flushDriveInput } from '@/hooks/useTouchControls';
-import { useDrivingHud } from './cockpit/layout';
+import { useCockpitSpec, useDrivingHud } from './cockpit/layout';
+import { stickOrigin } from './cockpit/spec';
 import {
   isSingleStick,
   setStickAxes,
@@ -25,7 +33,6 @@ import {
 } from '@/input/driveInput';
 
 type StickAxis = 'x' | 'y' | 'radial';
-type StickSide = 'left' | 'right' | 'center';
 
 const dualHeld = { steer: 0, throttle: 0, brake: 0, steerOn: false, gasOn: false };
 
@@ -45,15 +52,21 @@ function clamp(n: number, a: number, b: number) {
 
 function ThumbStick({
   axis,
-  side,
   label,
   kind,
+  x,
+  y,
+  size,
   onChange,
 }: {
   axis: StickAxis;
-  side: StickSide;
   label: string;
   kind: 'steer' | 'throttle' | 'single';
+  /** Top-left of the ring, in px, from `stickOrigin()`. */
+  x: number;
+  y: number;
+  /** The ring's diameter: `spec.stick`, 110–120 px. */
+  size: number;
   onChange: (x: number, y: number, active: boolean) => void;
 }) {
   const ringRef = useRef<HTMLDivElement>(null);
@@ -140,8 +153,17 @@ function ThumbStick({
   return (
     <div
       style={{
-        ...styles.thumb,
-        ...(side === 'left' ? styles.sideLeft : side === 'right' ? styles.sideRight : styles.sideCenter),
+        position: 'fixed',
+        left: x,
+        top: y,
+        width: size,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 4,
+        pointerEvents: 'none',
+        userSelect: 'none',
+        zIndex: 220,
       }}
     >
       <div
@@ -149,9 +171,10 @@ function ThumbStick({
         data-ui
         style={{
           ...styles.ring,
+          width: size,
+          height: size,
           ...(kind === 'throttle' ? styles.ringThrottle : null),
           ...(kind === 'single' ? styles.ringSingle : null),
-          ...(side === 'center' && kind === 'single' ? styles.ringSingleCenter : null),
         }}
       >
         <div style={kind === 'steer' ? styles.crossH : styles.crossV} />
@@ -185,6 +208,12 @@ export function TouchOverlay() {
   // brings them back when a flag a surface left behind is holding the phase.
   // The rule only ever adds them; it never takes them away.
   const drivingHud = useDrivingHud();
+  const spec = useCockpitSpec();
+  // Item 3.6: while the assist is holding the speed there is no throttle to press.
+  // The car finds 40 itself, so the gas ring goes away and the road gets the corner.
+  const assist = useQRHud((s) => s.windAssist);
+  const left = stickOrigin(spec, 'left');
+  const right = stickOrigin(spec, 'right');
   const livePhase = phase === 'driving' || phase === 'walking';
   const walking = phase === 'walking';
   const highway = worldMode === 'highway' && !walking;
@@ -225,6 +254,9 @@ export function TouchOverlay() {
 
   const single = isSingleStick(scheme);
   const gasLabel = walking ? 'WALK' : 'GAS · REV';
+  const centreX = Math.round(spec.column.x + (spec.column.width - spec.stick) / 2);
+  const steerRight = scheme === 'dual-steer-right';
+  const showGas = !assist;
 
   return (
     <div style={styles.root} aria-hidden data-layer="sticks">
@@ -233,7 +265,9 @@ export function TouchOverlay() {
           key={scheme}
           axis="radial"
           kind="single"
-          side={scheme === 'single-right' ? 'right' : scheme === 'single-center' ? 'center' : 'left'}
+          x={centreX}
+          y={left.y}
+          size={spec.stick}
           label={walking ? 'STEER · WALK' : 'STEER · GAS'}
           onChange={onSingle}
         />
@@ -243,18 +277,24 @@ export function TouchOverlay() {
             key={`steer-${scheme}`}
             axis="x"
             kind="steer"
-            side={scheme === 'dual-steer-right' ? 'right' : 'left'}
+            x={steerRight ? right.x : left.x}
+            y={left.y}
+            size={spec.stick}
             label="STEER"
             onChange={onSteer}
           />
-          <ThumbStick
-            key={`gas-${scheme}`}
-            axis="y"
-            kind="throttle"
-            side={scheme === 'dual-steer-right' ? 'left' : 'right'}
-            label={gasLabel}
-            onChange={onThrottle}
-          />
+          {showGas && (
+            <ThumbStick
+              key={`gas-${scheme}`}
+              axis="y"
+              kind="throttle"
+              x={steerRight ? left.x : right.x}
+              y={left.y}
+              size={spec.stick}
+              label={gasLabel}
+              onChange={onThrottle}
+            />
+          )}
         </>
       )}
       {highway && (
@@ -293,33 +333,8 @@ const styles: Record<string, React.CSSProperties> = {
     pointerEvents: 'none',
     zIndex: 220,
   },
-  thumb: {
-    position: 'absolute',
-    bottom: 'calc(14px + env(safe-area-inset-bottom))',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 4,
-    pointerEvents: 'none',
-    userSelect: 'none',
-  },
-  sideLeft: {
-    left: 'max(10px, env(safe-area-inset-left))',
-    right: 'auto',
-  },
-  sideRight: {
-    right: 'max(10px, env(safe-area-inset-right))',
-    left: 'auto',
-  },
-  sideCenter: {
-    left: '50%',
-    right: 'auto',
-    transform: 'translateX(-50%)',
-  },
   ring: {
     position: 'relative',
-    width: 'min(142px, 36vw)',
-    height: 'min(142px, 36vw)',
     borderRadius: '50%',
     border: '2px solid rgba(255,79,176,0.48)',
     background: 'radial-gradient(circle at 40% 35%, rgba(50,31,82,0.55), rgba(8,5,16,0.72))',
@@ -333,10 +348,6 @@ const styles: Record<string, React.CSSProperties> = {
   },
   ringSingle: {
     borderColor: 'rgba(255,140,200,0.55)',
-  },
-  ringSingleCenter: {
-    width: 'min(158px, 40vw)',
-    height: 'min(158px, 40vw)',
   },
   crossH: {
     position: 'absolute',

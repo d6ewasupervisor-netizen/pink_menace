@@ -18,7 +18,10 @@ measurement that condemned them, and where their information went.
 | **Standalone `WIND ASSIST · 40` chip** | 88×31 at (12,54), **on the act badge**, and at 844x390 it sat at (356,34) on the noise meter's sub-label | The nav strip's assist tag: `AUTO 40` beside the speed. Same fact, its own slot, and the gas stick hides while it is true (3.6). |
 | **The gust indicator's own absolute position** | 130×70 at (250,388) — centred on nothing in particular | A world-band cue: mid-height, on the side the wind comes from, in the cue stack (3.4). |
 | **The body-band lights/horn rail** (`bottom: 312px`, left edge in portrait) | 52×52 at (12,230) for LOW, (12,290) for HORN — under the nav panel, on the far side from the right thumb | 44 px buttons inside the control band, above the right stick (3.6). |
-| **`GameHUD` / `EngineHUD` / `Speedometer`** | not mounted in quiet roads, but still in the tree | Kept in the codebase for the legacy highway world, **not mounted** in a Quiet Roads drive. Listed here so the next audit does not have to rediscover that they are dead weight on this surface. |
+| **`GameHUD` / `EngineHUD` / `Speedometer`** | not mounted in quiet roads, and nothing imported them (the highway world mounts `CockpitHUD`/`QuietHUD`/`TouchOverlay` too, and `CockpitHUD` returns null outside `kent`) | **Deleted** in 3.8, not disabled: `src/components/Game3D/{GameHUD,EngineHUD,Speedometer}.tsx` are gone. A component nothing mounts is not a feature; it is a future bug with a stylesheet. |
+| **The noise meter's label row** (`● QUIET   22 dB` + a `nobody's looking` sub-label) | 46 px tall under the act badge | The 6 px bar keeps the value; the words fade in for 2.5 s after a change and leave. `<div data-noise-sub-label>` still exists for the tests and for a screen reader. |
+| **The act chip's ego line** (`· the Menace` in 10 px under the act) | inside the 143 px nav cluster | The ego is the act's own card, not always-on furniture. The rail is `ACT VII · The Dark Hours` and TP. |
+| **The 36 px pause chip's absolute corner** | `top:10; left:12` in portrait, `right:12` in landscape | Inside the rail as a flex child, same 36 px target, one place that owns the row. |
 
 ## What stays, and is not negotiable
 

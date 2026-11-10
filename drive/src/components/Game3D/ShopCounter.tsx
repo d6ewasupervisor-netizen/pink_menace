@@ -24,7 +24,7 @@ import { useQRHud } from '@/stores/qrHud';
 import { useGameStore } from '@/stores/gameStore';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { canFrontChains } from '@/quietroads/shop';
-import { frameFor, qteBand, useCockpitOrientation } from './cockpit/layout';
+import { useCockpitSpec, worldBandStyle } from './cockpit/layout';
 import { tokens } from './cockpit/tokens';
 
 export function ShopCounter() {
@@ -39,7 +39,7 @@ export function ShopCounter() {
   const tradePoints = useQRStore((s) => s.vars.trade_points ?? 0);
   const items = useQRStore((s) => s.items);
   const flags = useQRStore((s) => s.flags);
-  const orientation = useCockpitOrientation();
+  const spec = useCockpitSpec();
 
   if (worldMode !== 'kent' || !shop) return null;
   if (phase === 'quiz' || phase === 'paused' || phase === 'menu' || phase === 'card') return null;
@@ -64,7 +64,7 @@ export function ShopCounter() {
       data-layer="shop"
       data-shop-scene={shop.scene}
       data-shop-trade-points={tradePoints}
-      style={{ ...qteBand(frameFor(orientation, true)), zIndex: tokens.z.stranded, pointerEvents: 'auto' }}
+      style={{ ...worldBandStyle(spec), zIndex: tokens.z.stranded, pointerEvents: 'auto' }}
     >
       <div style={styles.panel}>
         <div style={styles.head}>

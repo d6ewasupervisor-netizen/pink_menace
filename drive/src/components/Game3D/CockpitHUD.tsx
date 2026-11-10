@@ -121,6 +121,29 @@ export function CockpitHUD() {
         </div>
       )}
 
+      {/*
+        THE WORLD BAND, as a measured contract. Zero content, zero events — a box
+        the e2e can read instead of inferring the road from the furniture around it.
+        `worldFraction()` in cockpit/spec.ts is the promise (≥ 55 % of a portrait
+        viewport); this element is what `e2e/cockpit-bands.spec.ts` measures against
+        the real DOM, so the promise is checked where the player actually is.
+      */}
+      {rail && (
+        <div
+          data-band="world"
+          aria-hidden
+          style={{
+            position: 'fixed',
+            top: spec.world.y,
+            left: spec.world.x,
+            width: spec.world.width,
+            height: spec.world.height,
+            pointerEvents: 'none',
+            visibility: 'hidden',
+          }}
+        />
+      )}
+
       {/* Nav strip + noise bar carry their own placement from the same spec and
           read the cockpit rule (quietroads/cockpit.ts): a card, a quiz, a debrief
           or a choice stands the driving HUD down, and a running mission brings it

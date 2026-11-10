@@ -105,11 +105,13 @@ async function measure(page: Page) {
       return b.width > 1 && b.height > 1 && s.visibility !== 'hidden' && s.display !== 'none' && Number(s.opacity) > 0.05;
     };
     const layerOf = (el: Element) => el.closest('[data-layer]')?.getAttribute('data-layer') ?? 'none';
+    // ITEM 3.3: the standalone WIND ASSIST chip is gone; the fact is the nav strip's
+    // `data-assist="wind"` tag now, so this measuring tool follows it there.
     const SELECTOR = [
       '[data-layer]',
       '[data-ui]',
       '[data-noise-meter]',
-      '[data-wind-assist-label]',
+      '[data-assist="wind"]',
       '[data-wind-assist]',
       '[data-gust-side]',
       'button',
@@ -132,9 +134,11 @@ async function measure(page: Page) {
           ? 'noise-meter'
           : el.hasAttribute('data-gust-side')
             ? 'gust-indicator'
-            : el.hasAttribute('data-wind-assist')
-              ? 'wind-assist'
-              : (el.textContent ?? '').trim().slice(0, 24));
+            : el.getAttribute('data-assist') === 'wind'
+              ? 'assist-tag'
+              : el.hasAttribute('data-wind-assist')
+                ? 'wind-assist'
+                : (el.textContent ?? '').trim().slice(0, 24));
       const box = rectOf(el);
       rows.push({
         key: `${layer}:${named}`,

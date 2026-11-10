@@ -147,50 +147,24 @@ export function frameFor(orientation: CockpitOrientation, compound = false): Coc
 }
 
 const SAFE_TOP = 'env(safe-area-inset-top, 0px)';
-const SAFE_BOTTOM = 'env(safe-area-inset-bottom, 0px)';
 
-/** The top band: everything the HUD clusters into. */
-export function zoneTop(frame: CockpitFrame): CSSProperties {
+/**
+ * The world band as a fixed style — where a gesture prompt, the stranded Continue
+ * and the shop counter live. It is the same box the gust cue is placed inside
+ * (`spec.world`), so nothing in a drive floats over a band that is not its own.
+ */
+export function worldBandStyle(spec: CockpitSpec): CSSProperties {
   return {
     position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: `calc(${frame.top}px + ${SAFE_TOP})`,
-    paddingTop: SAFE_TOP,
+    left: spec.world.x,
+    top: spec.world.y,
+    width: spec.world.width,
+    height: spec.world.height,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    pointerEvents: 'none',
   };
-}
-
-/** The bottom band: dialogue, dock, sticks. Anchored to the foot of the screen. */
-export function zoneBottom(frame: CockpitFrame): CSSProperties {
-  return {
-    position: 'fixed',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: `calc(${Math.round(frame.bottom * 100)}dvh + ${SAFE_BOTTOM})`,
-    paddingBottom: SAFE_BOTTOM,
-  };
-}
-
-/** The middle: the 3D view, the card still, a QTE prompt. */
-export function zoneBody(frame: CockpitFrame): CSSProperties {
-  return {
-    position: 'fixed',
-    left: 0,
-    right: 0,
-    top: `calc(${frame.top}px + ${SAFE_TOP})`,
-    bottom: `calc(${Math.round(frame.bottom * 100)}dvh + ${SAFE_BOTTOM})`,
-  };
-}
-
-/** The highest the dialogue box may grow. Portrait sits above the sticks; in
- *  landscape the box runs from the top band down (the sticks are beside it). */
-export function dialogueMaxHeight(frame: CockpitFrame, viewportHeight: number, orientation: CockpitOrientation): number {
-  const h = orientation === 'landscape'
-    ? viewportHeight - frame.top - 16
-    : Math.round(viewportHeight * frame.bottom) - frame.sticks - 16;
-  return Math.max(120, h);
 }
 
 /**
