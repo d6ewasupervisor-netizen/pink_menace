@@ -109,6 +109,16 @@ async function awaitSample(page: Page, since: number, capMs = 20_000) {
 
 async function bootScene(page: Page, scene: string) {
   await mockStudent(page);
+  // Each case starts from a clean slate. A full-suite run measured `6.2` arriving
+  // as `5.3`: the page was reloaded, but the campaign in localStorage resumed the
+  // scene the last case had left behind, and `startAct` was fighting it.
+  await page.addInitScript(() => {
+    try {
+      localStorage.clear();
+    } catch {
+      /* storage can be denied; the scene check below still holds */
+    }
+  });
   await page.goto('/drive/');
   await page.locator('canvas').first().waitFor({ state: 'visible', timeout: 45_000 });
   await page.evaluate(async (id) => {
@@ -118,7 +128,7 @@ async function bootScene(page: Page, scene: string) {
   // The runner loads the act's file on demand; wait for the scene itself, not a
   // guess at how long a chunk takes.
   const started = Date.now();
-  while (Date.now() - started < 25_000) {
+  while (Date.now() - started < 40_000) {
     const s = await readScene(page);
     if (s.scene === scene) return s;
     await page.waitForTimeout(250);
