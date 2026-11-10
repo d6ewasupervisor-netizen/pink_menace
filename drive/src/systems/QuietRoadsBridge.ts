@@ -40,6 +40,7 @@ import { getCurrentSpeedMs, getSmoothedPedals, getLateralSlip, teleportVehicle, 
 import { setDriveInputLocked, driveInputFamily, setSteerAssist } from '@/input/driveInput';
 import { handsOffFor, handsOffView } from '@/quietroads/handsoff';
 import { windAssistFor } from '@/quietroads/assist';
+import { timeOfDayForScene } from '@/quietroads/sceneLight';
 import { GUST_TOTAL_S, buzzGust } from '@/quietroads/wind';
 import { DriveSync } from '@/systems/DriveSync';
 import { StepEventQueue } from '@/systems/StepEventQueue';
@@ -449,18 +450,19 @@ class Bridge {
       this.currentAct = act;
     }
     if (act) this.fire('act.enter', { act });
+    // The scene's own hour (see quietroads/sceneLight.ts). Entering 6.2 or 6.3
+    // from the act select used to leave the store at 'day', so the headlights,
+    // the beam and the night sky were all gated off on a predawn bridge.
+    const wanted = timeOfDayForScene(id, g.timeOfDay);
+    if (wanted !== g.timeOfDay) useGameStore.setState({ timeOfDay: wanted });
     switch (id) {
       case '1.4':   // aftermath — Grandma's carport, night, engine off
         this.sim.zones.place(this.sim.map.starts.carport.pos);
         teleportVehicle(this.sim.map.starts.carport.pos.x, this.sim.map.starts.carport.pos.y, this.sim.map.starts.carport.heading);
         this.sim.enterVehicle();
-        useGameStore.setState({ timeOfDay: 'night' });
         break;
       case '1.4b':  // rumor board, next morning
-        useGameStore.setState({ timeOfDay: 'day' });
-        break;
       case '2.1':
-        useGameStore.setState({ timeOfDay: 'day' });
         break;
       default:
         if (g.timeOfDay !== 'day' && id.startsWith('0.')) useGameStore.setState({ timeOfDay: 'day' });

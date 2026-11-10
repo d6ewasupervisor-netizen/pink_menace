@@ -27,7 +27,6 @@ import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
 import { liveDrive } from '@/systems/driveTelemetry';
 import { getWeather } from './Skybox';
-import { HeadlightFlares } from './HeadlightFlares';
 import { TIER_EFFECTS, type QualityTier } from '@/utils/performance';
 
 export function PostProcessing({ tier = 'high' }: { tier?: QualityTier }) {
@@ -155,9 +154,12 @@ export function PostProcessing({ tier = 'high' }: { tier?: QualityTier }) {
   if (mounted.has('noise')) {
     effects.push(<Noise key="ns" ref={noiseRef} opacity={0} blendFunction={BlendFunction.OVERLAY} />);
   }
-  if (mounted.has('headlightFlares')) {
-    effects.push(<HeadlightFlares key="fl" />);
-  }
+  // The headlight flares used to be mounted here as postprocessing's LensFlare.
+  // Its shader does not compile against this three.js (`EffectMaterial`,
+  // `'vTexCoord' : redefinition`), and because EffectMaterial *is* the composer's
+  // material, that failure blacked out the whole post pass on a night drive. The
+  // glow is four additive sprites in the scene now (`HeadlightFlares`, mounted by
+  // `Game3D`), so no tier can mount a pass that cannot compile.
 
   return <EffectComposer multisampling={multisampling}>{effects}</EffectComposer>;
 }

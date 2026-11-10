@@ -168,7 +168,8 @@ export const TIER_EFFECTS: Record<QualityTier, TierEffect[]> = {
     { id: 'vignette', animated: true },
     { id: 'chromaticAberration', animated: true },
     { id: 'noise', animated: true },
-    { id: 'headlightFlares', animated: false },
+    // 'headlightFlares' left this table: the glow is in-scene sprites now, not a
+    // post effect, because its shader could not compile (see PostProcessing).
   ],
   mid: [
     { id: 'brightnessContrast', animated: true },

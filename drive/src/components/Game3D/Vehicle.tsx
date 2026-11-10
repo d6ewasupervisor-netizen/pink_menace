@@ -328,11 +328,17 @@ function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
     }
 
     // ── Headlights follow the stalk, not the clock ───────────────────────────
+    // Two spots on the nose. `visible` is part of the answer: an OFF beam used to
+    // keep a live light in the scene (intensity 0 with a 60 m distance), which is
+    // one more thing that can put light on a road the player did not ask for —
+    // and the 6.3 report was that LOW changed nothing at all. LOW and HIGH now
+    // differ in intensity, distance and angle, so the button changes the frame.
     const night = timeOfDay === 'night' || timeOfDay === 'sunset';
     const beam = useGameStore.getState().headlights;
     const spot = headlightSpot(beam, night);
     for (const light of [leftLightRef.current, rightLightRef.current]) {
       if (!light) continue;
+      light.visible = night && beam !== 'off';
       light.intensity = spot.intensity;
       light.distance = spot.distance;
       light.decay = spot.decay;
