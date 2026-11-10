@@ -202,5 +202,6 @@ rounded up: the branch is merged only when a full run is green.
 | vitest | 432/432, 43 files | **458/458, 45 files** |
 | tsc | 0 | **0** |
 | build | 4,037.41 kB / 1,329.78 kB gzip | **4,021.58 kB / 1,325.18 kB gzip** |
-| playwright | 41 passed / 21 skipped / 0 failed | filled in below when the run ends |
+| playwright | 41 passed / 21 skipped / 0 failed | **45 passed / 25 skipped / 0 failed** (13.6 min, run 4) |
+| branch | — | `drive/portrait-rebuild` @ `f633ee6` (Phase 1 + 2.1 + docs), pushed; `main` @ `0c018ef` = `origin/main` |
 
