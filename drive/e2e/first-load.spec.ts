@@ -48,9 +48,9 @@ const SLOW_4G = {
 const CPU_SLOWDOWN = 4;
 
 /**
- * The budget: **10 s**, from five measurements, and the story of why it is not 8.
+ * The budget: **10 s**, and 8 s was measured against it and missed — here is the table.
  *
- * The 13.9 s it started at was almost entirely one mistake — the car's GLB shared a
+ * The 13.9 s this started at was almost entirely one mistake: the car's GLB shared a
  * Suspense boundary with the whole scene, so the frame loop itself waited for a 1 MB
  * model. The breakdown on a built, gzipped serve under Slow 4G + 4x CPU:
  *
@@ -59,19 +59,27 @@ const CPU_SLOWDOWN = 4;
  *   first frame                @7,557 ms         (412 ms after the last JS byte)
  *   mobile Beetle  1,031 kB  after the frame     (the car arrives into a drawn world)
  *
- * 6.9 s of that 7.56 s is 1.27 MB of JS over a 1.6 Mbit pipe. An 8 s budget was tried
- * first: it passed at 7.556 / 7.577 / 7.708 s in the desktop project and missed at
- * 8.9 s in the mobile-portrait project **of the same run** — the second project on the
- * same machine, with the first one's Chromium still winding down. So 8 s measured the
- * harness, not the game. 10 s is the smallest number that holds for both projects on
- * this machine and still catches the regression this test exists for: putting the car
- * back in the scene's Suspense boundary doubles the number, fetching the 10.55 MB
- * original adds ~55 s, and a leaked later-act or highway chunk fails the by-name
- * assertions instead of the clock.
+ * 6.9 s of that 7.56 s is 1.27 MB of JS over a 1.6 Mbit pipe. Every first-frame
+ * measurement of this build, by project and by what the machine was doing:
  *
- * The lever for a real improvement is fewer bytes before the first frame — the shell
- * still carries cards.json + three question banks (413 kB of JSON, ~110 kB gzipped)
- * that the first frame does not need. That is a story-bridge refactor, not a budget.
+ *   desktop, quiet machine      7.556 / 7.577 / 7.708 s
+ *   mobile-portrait, same run   8.166 / 8.900 s
+ *   mobile-portrait, alone      8.389 s
+ *   desktop, loaded machine     8.889 s   (the machine this rewrite ran on, mid-day)
+ *
+ * An 8 s budget was tried and it is not reachable: the spread between a quiet and a
+ * loaded machine is over a second, which is larger than any byte the game can still
+ * give up cheaply. 10 s is the smallest number that holds across that spread and still
+ * catches the regression this test exists for — putting the car back in the scene's
+ * Suspense boundary doubles the number, fetching the 10.55 MB original adds ~55 s, and
+ * a leaked later-act or highway chunk fails the by-name assertions instead of the
+ * clock. The 8 s target and the gap are recorded in RUNLOG.md under DECISIONS.
+ *
+ * THE REAL LEVER, if 8 s is ever required: the shell still carries cards.json + three
+ * question banks (413 kB of JSON, ~110 kB gzipped) that the first frame never needs.
+ * Moving them behind the first card is worth ~0.5 s of download and ~0.2 s of parse on
+ * this profile. It is a story-bridge refactor (the deck and bank are built in the
+ * bridge's constructor), and it is recorded in RUNLOG.md, not faked with a budget.
  */
 const FIRST_FRAME_BUDGET_MS = 10_000;
 
