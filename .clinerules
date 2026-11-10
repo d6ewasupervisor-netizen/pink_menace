@@ -6,6 +6,9 @@ At the start of a session, before answering about the work or editing it, read a
 
 After every task, append a dated entry to `AGENT_LOG.md` and leave older entries in place. Update `ROADMAP.md` when the next work changes. Update `AUDIT.md` when the structure or an open problem changes. Use these file names. Do not add `MEMORY.md` or `agent_log.md`.
 
+# Waiting on long-running commands
+Long-running commands: run Playwright in the FOREGROUND (`npx playwright test --workers=1 2>&1 | Tee-Object <log>`) and read the result when it returns. If a run must be backgrounded, wait with ONE call to `pwsh -NoProfile -File drive/scripts/wait-log.ps1 -Log <log>` (optionally one retry with a different `-CapSec`). Never wait with repeated `Start-Sleep` + check commands; Cline stops the task after 5 identical calls.
+
 # Critical Execution Rules
 - NEVER stop a task or declare it finished just because you completed a sub-task or milestone.
 - You do not have permission to ask "Would you like me to proceed?" or state "This is a good place to stop."
