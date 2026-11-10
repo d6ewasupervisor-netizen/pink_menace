@@ -2481,3 +2481,116 @@ lazy chunk resolves. And the vitest run rewrites `drive/bench/baseline.json`; a 
 run committed this machine's timings (p50 171.6 µs against the committed 67.7 µs), so
 the file is restored and the gate keeps restoring it.
 
+## 2026-11-10 — Phase 3: five bands, and a test that measures the road
+
+The BEFORE numbers this phase exists to fix: at 390×844 the **world band was 216 px
+(26 %)**, the nav cluster was a **374×143** panel, the sticks were **140 px** rings,
+and the WIND ASSIST chip sat **on** the act badge — measured and written down in
+`docs/cockpit/BEFORE.md`. The target was a 48 px rail, a 6 px noise bar, a 56 px nav
+strip, a 40 px objective that hides, a world band ≥ 55 %, 110–120 px sticks and 44 px
+lights/horn.
+
+### [3.1/3.2] One design language, one grid
+
+`cockpit/tokens.ts` is the language: a 12/14/16/20/28 type scale, **one** radius (12,
+the old sm/md/lg/xl kept as aliases so unmigrated surfaces do not change shape in the
+same commit), one blur, a 4/8/12/16 rhythm — as TS values **and** as CSS custom
+properties (`--qr-type-*`, `--qr-glass`, `--qr-blur`), with one
+`prefers-reduced-motion` switch for every `.qr-anim`.
+
+`cockpit/spec.ts` is the geometry, and it is pure — no React, no DOM: rail 48, noise
+6, nav 56, objective 40, controls ≥ 150 (22 %), sticks 110–120, buttons 44, desktop
+column 520, dialogue 2 lines. `readSafeInsets()` measures `env(safe-area-inset-*)`
+through a throwaway probe; `useCockpitSpec()` is what every component reads. The old
+`COCKPIT_FRAME` table (224/0.52/176 hand-tuned numbers) survives only for the card's
+still/dock split.
+
+**`test/cockpit-spec.test.ts` (20)** pins the arithmetic at the five shipped shapes and
+proves the promises in numbers rather than in a screenshot: the bands tile the viewport
+exactly, the world band is ≥ 55 % in portrait, the stick origins are inside their
+corners, the lights/horn pair is 44 px and inside the control band, and the safe-area
+insets shrink the world by exactly the insets.
+
+### [3.3] The rail, the bar, the strip, the objective
+
+The top band used to be six things that each owned a `top:` — pause chip, act badge,
+noise meter, TP, nav cluster, WIND ASSIST chip — and at 390×844 the meter sat *under*
+the badge. It is now one 48 px row: **pause · act chip · TP**, and nothing else.
+
+- the meter became the spec's **6 px bar**, and its words ("● QUIET · 22 dB · 3
+  looking") appear for **2.5 s after a change** and leave. A bar that is always
+  labelled is a bar you stop reading;
+- the nav cluster became the **56 px strip**: turn glyph · `0.4 mi · Vantage Bridge` ·
+  `28/45` · the assist as an `AUTO 40` tag. The map canvas, the 7-segment speedometer,
+  the clock, the LIMIT sign and both HP/FUEL bars are gone (`docs/cockpit/REMOVED.md`);
+- the **40 px objective** shows when it changes, when the player taps the strip, and
+  while a mission is asking for an action — then it leaves and the world gets the
+  40 px back. The rules are pure (`cockpit/objective.ts`, 10 tests): a 6 s hold, a tap
+  window, a sub-step pin, and an HP/FUEL tag that only appears under 30 % or for 4 s
+  after a change.
+
+### [3.4] The world band
+
+The gust cue is the only thing over the road: `◀`/`▶`, three streaks (still before the
+push, running at the car during it) and `GUST · steer left`, placed from `spec.world`
+at 34 % of its height on the side the wind comes FROM, pointer-transparent. The
+standalone `WIND ASSIST · 40` chip is deleted; `windassist.test.ts` now asserts it is
+*absent* and that the tag lives in the strip.
+
+### [3.5/3.6] The dialogue box and the controls
+
+The box was a `min(720px, 92vw)` panel that could run five lines of 17 px text and
+floated above the sticks. It is now the cockpit column's width, sitting **exactly on
+the top of the controls** (`spec.dialogue.bottom`), glass over the road, the speaker in
+the micro type, and **two lines, clamped** — a third line is a card or a cutscene, not
+a line. A choice list may grow into the world band: it is a decision, not a line.
+
+The sticks were `min(142px, 36vw)` rings (140 px) pinned to `bottom: 14px`: 28 % of a
+390×844 screen's height in two circles, and the bottom band was the sticks rather than
+the road. They are `spec.stick` (**110–120 px**) at `stickOrigin()`, and **the gas ring
+hides while the assist holds speed** — on the bridge the car finds 40 by itself, so a
+throttle you must not push is furniture.
+
+### [3.7/3.8] The compound surfaces, and what was deleted
+
+One `worldBandStyle(spec)` now owns the box the QTE prompt, the stranded Continue, the
+shop counter and the hands-off wait sit in, instead of each one lifting itself 224 px
+down a hand-tuned band. `CardOverlay` reads `tokens` and `var(--qr-glass)` where it had
+three hard-coded `#F28DB2`s and two bespoke rgba panels.
+
+`GameHUD.tsx`, `EngineHUD.tsx` and `Speedometer.tsx` are **deleted, not disabled**:
+nothing imported them (the highway world mounts `CockpitHUD`/`QuietHUD`/`TouchOverlay`,
+and those return null outside `kent`), so they were a future bug with a stylesheet.
+The dead `zoneTop`/`zoneBottom`/`zoneBody`/`dialogueMaxHeight`/`phoneChrome` helpers go
+with them. `docs/cockpit/REMOVED.md` is the ticket for every row.
+
+### [3.9] The test that measures the road
+
+`e2e/cockpit-bands.spec.ts` **replaces** `e2e/cockpit-layout.spec.ts`, and the old
+12 baselines are retired with it — the surfaces they photographed (the 143 px cluster,
+the 46 px meter, the chip) no longer exist, so keeping them would have been a museum of
+a UI nobody can see.
+
+The new spec walks **5 viewports** (390×844, 412×915, 440×956, 844×390, 1280×800) ×
+**6 states** (driving, dialogue, gust, chain-up prompt, card, hands-off) and asserts:
+
+1. **no two interactive layers overlap** at any shape in any state (the old rule);
+2. `[data-band="world"]` — an element `CockpitHUD` writes from `spec.world` — is
+   **≥ 55 % of a portrait viewport**. 26 % before. This is the number the phase exists
+   for, and it is now a test, not a paragraph;
+3. **LOW and HORN are inside the viewport and uncovered** (`elementFromPoint`), so
+   "the lights are under the nav panel" cannot come back quietly;
+4. the card's still stays clear of the dock.
+
+The canvas stays **visible** for all of that (the old spec hid it, which hid the road).
+The 12 baselines at 390×844 and 844×390 are captured with the canvas hidden **for the
+length of the exposure only**: a picture of a moving 3D scene is not a baseline. Ran
+twice, 5/5 both times.
+
+### Verified
+
+vitest **510/510** across 50 files, `tsc --noEmit` 0, `npm run build` **4.38 s**
+(shell 1,085.47 kB / 317.50 kB gzip + 3D chunk 2,843.68 / 986.74 — three files
+smaller), `e2e/cockpit-bands.spec.ts` **5/5 twice**, and the full Playwright gate
+recorded in `RUNLOG.md`.
+

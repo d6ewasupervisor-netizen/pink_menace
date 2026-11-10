@@ -2164,6 +2164,85 @@ should fail the test rather than slide under it.
   structure — but "does it look like Grandma's car at arm's length" is a human
   question, and it is on the art list.
 
+## 33. Phase 3 — the cockpit is five bands, and the test measures the road (2026-11-10)
+
+Commits on `drive/portrait-rebuild`: `[3.1/3.2/3.3]` `90bad7e`, `[3.3/3.4]` `dfdfb7e`,
+`[3.5-3.9]` `350882e`.
+
+### 33.1 The problem, in the record
+
+`docs/cockpit/BEFORE.md` measured, in a headed browser at 390×844:
+
+| Surface | Measured |
+|---|---|
+| world band (road you can see) | **216 px = 26 %** |
+| nav cluster (map + speedo + clock + LIMIT + HP/FUEL + objective) | **374×143** at (8,104) |
+| noise meter | 168×46 at (111,6), *under* the act badge at (102,66) |
+| sticks | **140×140** rings at y = 674 |
+| LOW / HORN | **52×52** at (12,230) and (12,290) — under the nav panel |
+| WIND ASSIST chip | 88×31 at (12,54), **on** the act badge |
+
+Every component owned its own `top:`. Nothing owned the sum, so the sum was wrong.
+
+### 33.2 The rule now
+
+`cockpit/spec.ts` owns the sum and answers one question — *where is each band, given a
+viewport and the safe-area insets* — in pure arithmetic (no React, no DOM):
+
+| Band | Budget | Owner |
+|---|---|---|
+| rail | 48 | pause · act chip · TP |
+| noise | 6 | the bar; the words fade in for 2.5 s after a change |
+| nav | 56 | turn glyph · distance · street · speed/limit · `AUTO 40` |
+| objective | 40 | shows on change / tap / sub-step; hides after 6 s |
+| controls | ≥ 150 (22 %) | sticks 110–120 px, lights/horn 44 px |
+| world | the rest | ≥ **55 %** of a portrait viewport |
+
+`readSafeInsets()` measures the four `env(safe-area-inset-*)` values through a
+throwaway probe (a computed style is the only way to read them); `useCockpitSpec()` is
+what every component reads. `test/cockpit-spec.test.ts` (20) pins the arithmetic; the
+components carry no absolute coordinate of their own.
+
+### 33.3 What each surface became
+
+- **`CockpitHUD`** — the rail, and it writes `[data-band="world"]` so the promise is a
+  DOM contract rather than a paragraph. The act chip lost its third line (the ego).
+- **`QuietHUD`** — the 6 px bar plus the 44 px lights/horn pair in the control band;
+  the labelled 46 px meter, the TP chip and the far-side 52 px rail are gone.
+- **`KentDash`** — the 56 px strip (`AUTO 40` tag) and the 40 px objective. The map
+  canvas, the 7-seg speedometer, the clock, the LIMIT sign and both resource bars are
+  deleted, not hidden.
+- **`DialogueBox`** — the column's width on `spec.dialogue.bottom`, glass, two lines
+  clamped, micro speaker.
+- **`TouchOverlay`** — `spec.stick` at `stickOrigin()`; the gas ring hides while the
+  assist holds speed.
+- **`WindAssistHUD`** — the chip removed; the gust cue is the only world-band element.
+- **compound surfaces** — `worldBandStyle(spec)` is the one box for the QTE prompt, the
+  stranded Continue, the shop counter and the hands-off wait; `CardOverlay` reads the
+  tokens.
+- **deleted** — `GameHUD.tsx`, `EngineHUD.tsx`, `Speedometer.tsx` (nothing imported
+  them) and the dead `zoneTop`/`zoneBottom`/`zoneBody`/`dialogueMaxHeight`/`phoneChrome`
+  helpers. `docs/cockpit/REMOVED.md` is the ticket per row.
+
+### 33.4 The test that keeps it
+
+`e2e/cockpit-bands.spec.ts` replaces `e2e/cockpit-layout.spec.ts` and its 12 baselines.
+5 viewports × 6 states, canvas **visible**, asserting no interactive overlap, the world
+band ≥ 55 % in portrait, LOW/HORN inside the viewport and uncovered, and the card still
+clear of the dock. 12 new baselines at 390×844 and 844×390, captured with the canvas
+hidden for the exposure only.
+
+### 33.5 Still open
+
+- **The safe area is measured, never seen.** `env(safe-area-inset-*)` is read through a
+  probe and the arithmetic is unit-tested, but no test runs on a device with a real
+  notch. A 47/34 px inset is simulated in `test/cockpit-spec.test.ts` only.
+- **Landscape's world band is 47.7 %**, not 55: 390 − 48 (rail) − 6 (noise) − 150
+  (controls) = 186 px. The 55 % promise is a portrait promise on purpose; landscape was
+  not the reported shape.
+- **The baselines are Windows-only** (`-win32.png`), as the old ones were. A CI on
+  Linux would regenerate them once.
+
 
 
 <!-- CONTINUED -->
