@@ -252,8 +252,8 @@ test("6.3 from the card to 7.1: the crossing, the sign, the moth, and the hands-
   expect(crossing.missionId, "the crossing is live").toBe("vantage_bridge_crossing");
   await expect(page.locator('[data-layer="sticks"]'), "the sticks are up for the crossing").toHaveCount(1);
 
-  // 2. The assist says what it is doing.
-  await expect(page.locator("[data-wind-assist-label]")).toHaveText("WIND ASSIST · 40", { timeout: 10_000 });
+  // 2. The assist says what it is doing — as the nav strip's tag, not a chip.
+  await expect(page.locator('[data-assist="wind"]')).toHaveText("AUTO 40", { timeout: 10_000 });
 
   // 3. Drive it with a thumb. The hold finds 40 on its own and cannot be pushed
   //    past it, which is the whole point of the assist.
@@ -433,7 +433,7 @@ test("440x956: the gust pushes, the thumb answers, and she reaches bridge_mid in
 
   const crossing = await walk(page, (s) => s.missionId === "vantage_bridge_crossing");
   expect(crossing.missionId, "the crossing is live").toBe("vantage_bridge_crossing");
-  await expect(page.locator("[data-wind-assist-label]"), "the assist says what it is").toHaveText("WIND ASSIST · 40");
+  await expect(page.locator('[data-assist="wind"]'), "the assist says what it is").toHaveText("AUTO 40");
 
   await placeAt(page, "bridge_west");
   const CENTRE_Y = 1140;                       // the span runs east along y = 1140

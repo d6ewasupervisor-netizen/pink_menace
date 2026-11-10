@@ -1,11 +1,21 @@
 /**
  * CockpitHUD — the one mount point for the Quiet Roads in-cockpit display.
  * Replaces the old stack of GameHUD + KentDash + EngineHUD + QuietHUD. It owns
- * the pause control, hosts the nav cluster (KentDash) and the world HUD
- * (noise / horn / trade-points, QuietHUD), and frames the drive in one shared
+ * the pause control, hosts the nav strip (KentDash) and the world HUD
+ * (noise bar / lights / horn, QuietHUD), and frames the drive in one shared
  * visual language (owner decision, 2026-10-05): one accent (`SCENE_ACCENT`) on
- * every act, one cockpit, the act badge telling you where you are. Reacts to
- * orientation.
+ * every act, one cockpit, the act chip telling you where you are.
+ *
+ * ITEM 3.3 — the top rail. Before this the pause chip, the act badge, the noise
+ * meter, the trade-points chip and the bridge's WIND ASSIST chip each carried its
+ * own `top:` and its own idea of the top band, and the meter sat *under* the badge
+ * at 390x844. The rail is now one 48 px row — pause · act chip · TP — and nothing
+ * else. Its geometry comes from `cockpit/spec.ts` like every other band, so the
+ * component owns no absolute coordinate at all.
+ *
+ * The rail is the driving HUD's top edge and stands down with the rest of it when
+ * a card, quiz, choice or debrief is open (the compound surfaces keep their own
+ * full-height frame).
  */
 import { useCallback, useEffect } from 'react';
 import { useGameStore } from '@/stores/gameStore';
@@ -13,20 +23,22 @@ import { useQRStore } from '@/stores/qrStore';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { KentDash } from './KentDash';
 import { QuietHUD } from './QuietHUD';
-import { tokens, useOrientation } from './cockpit/tokens';
-import { readCockpitState, useDrivingHud } from './cockpit/layout';
+import { tokens } from './cockpit/tokens';
+import { readCockpitState, useCockpitSpec, useDrivingHud } from './cockpit/layout';
 import { staleCockpitFlag } from '@/quietroads/cockpit';
-import { actForScene, challengeForAct, type CardAct } from '@/quietroads';
+import { actForScene, type CardAct } from '@/quietroads';
 import { SCENE_ACCENT, specForAct } from './sceneSpec';
+import type { CockpitSpec } from './cockpit/spec';
 
 export function CockpitHUD() {
   const worldMode = useGameStore((s) => s.worldMode);
   const phase = useGameStore((s) => s.phase);
   const setPhase = useGameStore((s) => s.setPhase);
   const sceneId = useQRStore((s) => s.sceneId);
-  const orientation = useOrientation();
+  const tp = useQRStore((s) => s.vars.trade_points ?? 0);
+  const spec = useCockpitSpec();
   // The one derived rule: mission running + nothing compound open = the HUD is
-  // the surface. KentDash, the noise meter and the sticks all read it too.
+  // the surface. KentDash, the noise bar and the sticks all read it too.
   const drivingHud = useDrivingHud();
 
   // Safety net: a mission is running, nothing compound is open, and the car is
@@ -56,18 +68,20 @@ export function CockpitHUD() {
 
   if (worldMode !== 'kent') return null;
 
-  // Pause is reachable during the live world (driving / walking). Quiet roads
-  // hide it in dialogue, card, quiz and pause so those surfaces stay clean.
-  const showPause = phase === 'driving' || phase === 'walking';
+  // The rail is part of the driving HUD. A card, a quiz, a choice or a debrief
+  // stands it down with the rest of the cockpit; so does pause and the menu.
+  const rail = drivingHud && (phase === 'driving' || phase === 'walking');
 
-  // Per-act scene identity: the act, its zone, and its ego vehicle.
+  // The act chip's words: "ACT VII · The Dark Hours". The ego vehicle used to trail
+  // the chip in its own 10 px line; the spec's rail is three things and no more, so
+  // the ego lives in the act's own card, not in the always-on furniture.
   const act: CardAct = (sceneId ? actForScene(sceneId) : null) ?? 'I';
-  const spec = specForAct(act);
-  const ego = challengeForAct(act).vehicle.split(' — ')[0] ?? 'the Menace';
+  const zone = specForAct(act).zone;
 
   return (
     <div data-layer="hud" style={styles.root}>
-      {/* Accent vignette — the one accent on every act (SCENE_ACCENT) */}
+      {/* Accent vignette — the one accent on every act (SCENE_ACCENT). A paint
+          treatment, not furniture: it owns no space and no hit target. */}
       {phase === 'driving' && (
         <div
           style={{
@@ -79,49 +93,80 @@ export function CockpitHUD() {
         />
       )}
 
-      {showPause && (
-        <button
-          data-ui
-          data-layer="pause"
-          onClick={handlePause}
-          aria-label="Pause"
-          style={{ ...styles.pauseBtn, ...(orientation === 'landscape' ? styles.pauseLandscape : null) }}
-        >
-          ⏸
-        </button>
-      )}
+      {/* The top rail: pause · act chip · TP. Nothing else, and nothing above it. */}
+      {rail && (
+        <div data-layer="rail" style={railStyle(spec)}>
+          <button
+            data-ui
+            data-layer="pause"
+            onClick={handlePause}
+            aria-label="Pause"
+            style={styles.pauseBtn}
+          >
+            ⏸
+          </button>
 
-      {/* Act badge — which scene you're in, in the one accent */}
-      {(phase === 'driving' || phase === 'walking') && (
-        <div data-layer="badge" style={{ ...styles.badge, ...(orientation === 'landscape' ? styles.badgeLandscape : null) }}>
-          <span style={{ color: SCENE_ACCENT, fontWeight: 800, letterSpacing: '0.16em' }}>
-            ACT {act}
-          </span>
-          <span style={{ color: tokens.colors.ink, letterSpacing: '0.1em' }}>
-            · {spec.zone.toUpperCase()}
-          </span>
-          <span style={{ color: tokens.colors.muted, fontSize: 'calc(10px * var(--qr-text-scale, 1))', letterSpacing: '0.06em' }}>
-            {ego}
-          </span>
+          <div data-layer="badge" style={styles.badge}>
+            <span style={{ color: SCENE_ACCENT, fontWeight: 800, letterSpacing: '0.16em' }}>
+              ACT {act}
+            </span>
+            <span style={{ color: tokens.colors.ink, letterSpacing: '0.1em' }}>
+              · {zone}
+            </span>
+          </div>
+
+          <div data-layer="tp" style={styles.tp}>
+            TP {tp}
+          </div>
         </div>
       )}
 
-      {/* Nav cluster + world HUD carry their own placement and share these
-          tokens. Both read the cockpit rule (quietroads/cockpit.ts): a card, a
-          quiz, a debrief or a choice stands the driving HUD down, and a running
-          mission brings it back regardless of the phase flag. */}
+      {/* Nav strip + noise bar carry their own placement from the same spec and
+          read the cockpit rule (quietroads/cockpit.ts): a card, a quiz, a debrief
+          or a choice stands the driving HUD down, and a running mission brings it
+          back regardless of the phase flag. */}
       <KentDash />
       <QuietHUD />
     </div>
   );
 }
 
+/**
+ * The rail's geometry, straight from the spec: a 48 px row at the top of the
+ * viewport, safe area already added. Landscape merges the rail and the nav strip
+ * into this one row, so the height is the spec's `rail.height` either way.
+ */
+function railStyle(spec: CockpitSpec): React.CSSProperties {
+  return {
+    position: 'fixed',
+    top: spec.rail.y,
+    left: spec.rail.x,
+    width: spec.rail.width,
+    height: spec.rail.height,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: tokens.space.sm,
+    padding: `0 ${tokens.space.md}px`,
+    boxSizing: 'border-box',
+    background: 'var(--qr-glass)',
+    backdropFilter: 'var(--qr-blur)',
+    WebkitBackdropFilter: 'var(--qr-blur)',
+    borderBottom: `1px solid ${tokens.colors.stroke}`,
+    color: tokens.colors.ink,
+    fontFamily: tokens.fonts.ui,
+    pointerEvents: 'none',
+    zIndex: tokens.z.hud,
+  };
+}
+
 const styles: Record<string, React.CSSProperties> = {
   root: { position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: tokens.z.hud },
+  // Inside the rail the pause control is a flex child, not an absolutely placed
+  // chip: the rail owns the geometry and this owns the 36 px target.
   pauseBtn: {
-    position: 'absolute',
-    top: 'calc(10px + env(safe-area-inset-top))',
-    left: 12,
+    position: 'relative',
+    flex: '0 0 auto',
     background: 'rgba(0,0,0,0.5)',
     border: `1px solid ${tokens.colors.strokeSoft}`,
     borderRadius: tokens.radius.sm,
@@ -136,32 +181,29 @@ const styles: Record<string, React.CSSProperties> = {
     pointerEvents: 'auto',
     touchAction: 'manipulation',
   },
-  pauseLandscape: {
-    top: 'calc(10px + env(safe-area-inset-top))',
-    left: 'auto',
-    right: 12,
-  },
   badge: {
-    position: 'absolute',
-    top: 'calc(66px + env(safe-area-inset-top))',
-    left: '50%',
-    transform: 'translateX(-50%)',
+    position: 'relative',
+    flex: '1 1 auto',
+    minWidth: 0,
     display: 'flex',
     alignItems: 'baseline',
+    justifyContent: 'center',
     gap: 6,
-    fontSize: 'calc(11px * var(--qr-text-scale, 1))',
-    padding: '3px 10px',
-    borderRadius: tokens.radius.sm,
-    background: 'rgba(0,0,0,0.45)',
-    border: `1px solid ${tokens.colors.stroke}`,
+    fontSize: 'var(--qr-type-micro)',
+    letterSpacing: '0.06em',
+    overflow: 'hidden',
     whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
-  badgeLandscape: {
-    // Landscape keeps the badge in the left column (the pause chip owns the right
-    // edge). `left: auto` plus a -50% translate used to push half of it off screen.
-    top: 'calc(10px + env(safe-area-inset-top))',
-    left: 12,
-    right: 'auto',
-    transform: 'none',
+  // TP is a readout, not a target: it sits at the rail's right edge in the one
+  // warm colour the cockpit uses for the purse.
+  tp: {
+    flex: '0 0 auto',
+    color: tokens.colors.warn,
+    fontWeight: 800,
+    fontSize: 'var(--qr-type-micro)',
+    letterSpacing: '0.08em',
+    fontVariantNumeric: 'tabular-nums',
+    whiteSpace: 'nowrap',
   },
 };

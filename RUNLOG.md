@@ -23,10 +23,10 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | 2.2 model LODs (`scripts/build-lods.mjs`) | DONE `cfdc5e6` | `@gltf-transform/cli` + core/functions/extensions as devDeps; the script does dedup → prune → per-material texture plan → 256–512 px resize → WebP → weld → simplify 0.5 → quantize. **`vw_beetle.glb` 10.55 MB / 64,188 tris → `vw_beetle.mobile.glb` 1.01 MB (1,030,792 B, 9.3 %) / 36,658 tris**, inside the 1.5 MB budget; only that model is over 500 KB, so it is the only twin. Material + node names preserved (the runtime looks them up). `utils/modelLod.ts` picks by tier, `qualityPick.initialTier()` keeps the Canvas and the loader on one tier, 9 new tests (`test/model-lod.test.ts`) |
 | 2.3 lazy loading / code split | DONE | Entry chunk **4,023.67 kB / 1,326.06 kB gzip** → shell **1,085.47 kB / 317.50 kB gzip** + 3D chunk **2,849.63 kB / 988.22 kB gzip** + post stack **75.11 kB / 18.56 kB** (lazy). `App.tsx` lazies the 3D stack and drops drei's `useProgress`; `Game3D` lazies `RoadChunks`/`TrafficRenderer`/`Collectibles`/`CollisionSystem` (**15 GLB preloads no longer fire in Quiet Roads**) and the post stack; **the car has its own Suspense boundary** so the frame loop no longer waits for a 1 MB GLB (13.9 s → 7.56 s); `Vehicle` preloads only the chassis the player is in. `e2e/first-load.spec.ts` + `test/first-load.test.ts` (4) |
 | 2.4 tier + throttled first-frame e2e | DONE | tier unit tests are `test/quality-pick.test.ts` (20) + `e2e/tier.spec.ts` (DPR 1.25/1.5); the first-load spec is the throttled case: first frame inside **10 s** (measured **7.556 / 7.577 / 7.708 s** desktop, **8.166 / 8.389 / 8.900 s** mobile-portrait, **8.889 s** desktop on a loaded machine), no later act before the first frame **and** none during 10 s of playing Act I, the mobile Beetle is the only model, no highway chunk. **8 s was tried and is not reachable — see DECISIONS 8** |
-| 3.1 design tokens | TODO | |
-| 3.2 layout spec rewrite | TODO | |
-| 3.3 top rail, noise bar, nav strip, objective | TODO | |
-| 3.4 world-band cues | TODO | |
+| 3.1 design tokens | DONE `90bad7e` | `cockpit/tokens.ts`: one type scale (12/14/16/20/28), radius 12 (old sm/md/lg/xl kept as aliases), one blur, a 4/8/12/16 spacing rhythm — as TS values **and** CSS custom properties (`--qr-type-*`, `--qr-space-*`, `--qr-radius`, `--qr-glass`, `--qr-blur`), with a `prefers-reduced-motion` block that switches every `.qr-anim` off |
+| 3.2 layout spec rewrite | DONE `90bad7e` | `cockpit/spec.ts` is the one arithmetic source: rail 48 / noise 6 / nav 56 / objective 40, controls ≥150 (22 %), sticks 110–120, buttons 44, desktop column 520, dialogue 2 lines; `readSafeInsets()` measures `env(safe-area-inset-*)` through a probe, and `useCockpitSpec()` is what every component reads. `test/cockpit-spec.test.ts` (20) pins five shapes + safe-area arithmetic |
+| 3.3 top rail, noise bar, nav strip, objective | DONE `90bad7e` + this commit | Rail = pause · act chip · TP and nothing else (`CockpitHUD`); the noise meter became the spec's 6 px bar with its words shown 2.5 s after a change (`QuietHUD`); `KentDash` lost the map canvas, the 7-seg speedometer, the clock, the LIMIT sign and the HP/FUEL bars and is now the 56 px nav strip (turn glyph · distance · street · speed/limit · `AUTO 40`) plus the 40 px objective that hides after 6 s (`cockpit/objective.ts`, 10 tests); the standalone `WIND ASSIST · 40` chip is deleted — `windassist.test.ts` now asserts it is *absent* and that the tag is in the strip |
+| 3.4 world-band cues | DONE | The gust cue (arrow · three streaks · `GUST · steer left`) is the only world-band element: positioned from `spec.world` at 34 % of its height, on the side the wind comes FROM, pointer-transparent. The gas stick hides while the assist holds (3.6) |
 | 3.5 dialogue box | TODO | |
 | 3.6 controls | TODO | |
 | 3.7 compound surfaces re-skin | TODO | |
@@ -140,13 +140,14 @@ here.
    alone after the budget change: **2 passed** (7,853 / 8,112 ms); the other 47 cases
    were green in run 2 and nothing but that constant changed.
 7. **The `[WebServer] ECONNREFUSED` lines are a missing backend, not a failing test.**
-   Measured in the Phase 2 logs: **119** `[WebServer] AggregateError [ECONNREFUSED]` +
-   119 `at afterConnectMultiple (node:net:1723:7)` lines, all from the Vite dev server's
-   `/api` proxy. `drive/vite.config.ts` targets `http://localhost:8080`
-   (`apiTarget`, overridable with `VITE_API_TARGET`), and **nothing is listening on
-   8080 in this workspace** — `Get-NetTCPConnection` confirms it. So the proxy refuses,
-   the spec's browser-level `page.route('**/api/**')` answers instead, and the test
-   still proves what it claims:
+   Measured in the Phase 2 gate run (`%TEMP%\p2-gate4.log`): **117**
+   `[WebServer] AggregateError [ECONNREFUSED]` and 117
+   `at afterConnectMultiple (node:net:1723:7)` lines, from exactly two proxied paths —
+   **`/api/drive/progress` ×78 and `/api/drive/events` ×39**. `drive/vite.config.ts`
+   targets `http://localhost:8080` (`apiTarget`, overridable with `VITE_API_TARGET`),
+   and **nothing is listening on 8080 in this workspace** — `Get-NetTCPConnection`
+   confirms it. So the proxy refuses, the spec's browser-level `page.route('**/api/**')`
+   answers instead, and the test still proves what it claims:
    - `smoke.spec.ts` and the cockpit specs mock `/api/me` + `/api/drive/progress`;
    - `bridge.spec.ts:339` intercepts `**/api/drive/events` itself and counts the POSTs
      the CLIENT makes (`page.route` + `page.on('request')`), so the budget claim ("one

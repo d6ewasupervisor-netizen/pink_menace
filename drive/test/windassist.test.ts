@@ -52,11 +52,27 @@ describe('who gets the assist', () => {
     expect(windAssistFor('', 'touch')).toBeNull();
   });
 
-  it('the label is on the HUD, in the cockpit, with the hold in it', () => {
+  /**
+   * ITEM 3.3 MOVED THE ASSIST OUT OF THE TOP BAND. The chip this used to assert
+   * (`data-wind-assist-label`, `WIND ASSIST · 40`) measured 88x31 at (12,54) at
+   * 390x844 — on the act badge — and at (356,34) at 844x390, on the noise meter's
+   * sub-label. It is the nav strip's tag now (`AUTO 40`, beside the speed), which
+   * is one fact in one slot instead of a third copy in the band that had no room.
+   *
+   * So the assertions flipped polarity on purpose: the chip must be *absent* from
+   * this file, and the tag must be present in the strip. The assist's own label
+   * still exists (`quietroads/assist.ts`), because the story and the tests use it.
+   */
+  it('the help is a tag in the nav strip, and the chip is gone', () => {
     const hud = fs.readFileSync(path.join(DRIVE, 'src', 'components', 'Game3D', 'WindAssistHUD.tsx'), 'utf8');
     expect(hud).toContain('data-layer="wind-assist"');
-    expect(hud).toContain('data-wind-assist-label');
     expect(hud).toContain('data-gust-side');
+    expect(hud, 'the standalone chip is gone from the top band').not.toContain('data-wind-assist-label');
+
+    const dash = fs.readFileSync(path.join(DRIVE, 'src', 'components', 'Game3D', 'KentDash.tsx'), 'utf8');
+    expect(dash, 'the nav strip carries the assist as its tag').toContain('data-assist="wind"');
+    expect(dash, 'and the tag is the hold the assist actually applies').toContain('AUTO ${assist.holdMph}');
+
     expect(WIND.label).toBe(`WIND ASSIST · ${WIND.holdMph}`);
   });
 });
