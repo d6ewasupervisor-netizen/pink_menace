@@ -2,7 +2,7 @@
  * Game3D — Root component: Canvas + Physics + all systems
  * Main 3D game scene built with React Three Fiber.
  */
-import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 
@@ -28,9 +28,7 @@ import { DriveSync } from '@/systems/DriveSync';
 
 import { Lighting } from './Lighting';
 import { Skybox } from './Skybox';
-import { RoadChunks } from './RoadChunks';
 import { Vehicle } from './Vehicle';
-import { TrafficRenderer } from './TrafficRenderer';
 import { GameCamera } from './GameCamera';
 import { LoadingScreen } from './LoadingScreen';
 import { CockpitHUD } from './CockpitHUD';
@@ -42,8 +40,6 @@ import { TouchOverlay } from './TouchOverlay';
 import { PauseMenu, VictoryScreen, GameOverScreen } from './PauseMenu';
 import { MainMenu } from './MainMenu';
 import { LovesStopScreen, OutOfGasScreen } from './LovesStopScreen';
-import { Collectibles } from './Collectibles';
-import { CollisionSystem } from './CollisionSystem';
 import { PostProcessing } from './PostProcessing';
 import { SkidMarks } from './SkidMarks';
 import { SceneEnvironment } from './SceneEnvironment';
@@ -63,6 +59,21 @@ import { WindAssistHUD } from './WindAssistHUD';
 import { CardOverlay } from './CardOverlay';
 import { GradeDebrief } from './GradeDebrief';
 import { ScareOverlay } from './ScareOverlay';
+
+/**
+ * The LEGACY highway world — the endless road, its traffic, coins and colliders —
+ * is not the world Quiet Roads drives in (`worldMode === 'kent'` is the only mode the
+ * product sets). It used to be imported eagerly, and importing it was not free: each
+ * of those four modules preloads its own Kenney GLBs at import time (15 models,
+ * ~1.5 MB), so a phone downloaded a highway it would never see before it drew a car.
+ *
+ * Lazy, they cost nothing until something actually renders them, which is exactly
+ * item 2.3's "only the world the player is in loads up front".
+ */
+const RoadChunks = lazy(() => import('./RoadChunks').then((m) => ({ default: m.RoadChunks })));
+const TrafficRenderer = lazy(() => import('./TrafficRenderer').then((m) => ({ default: m.TrafficRenderer })));
+const Collectibles = lazy(() => import('./Collectibles').then((m) => ({ default: m.Collectibles })));
+const CollisionSystem = lazy(() => import('./CollisionSystem').then((m) => ({ default: m.CollisionSystem })));
 
 // ─── Low-end detection (computed once) ───────────────────────────────────────
 const LOW_END = isLowEndDevice();

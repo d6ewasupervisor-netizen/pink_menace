@@ -17,6 +17,38 @@ const samples: Record<Metric, number[]> = {
 const profiling = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('profileDrive');
 let firstFrameMs: number | null = null;
 
+/**
+ * When the render loop first ran, in ms on the page's own clock (`performance.now()`
+ * counts from navigation start). Null before the first frame.
+ *
+ * Item 2.3 measures "time to first rendered frame" on a throttled Pixel 7 profile,
+ * and the honest definition of that moment inside the app is the first frame the
+ * render loop actually got to run — the same `recordDelta` call that starts the
+ * frame-time samples. `?profileDrive` prints it; the e2e reads it directly.
+ */
+export function firstFrameAt(): number | null {
+  return firstFrameMs;
+}
+
+/**
+ * The same number on `window`, because a *built* bundle has no `/src/...` module path
+ * for a test to import, and "how long until a frame" is worth being able to read from
+ * the page in a bug report as well. One assignment, on the first frame only.
+ */
+declare global {
+  interface Window {
+    __driveFirstFrameAt?: number | null;
+  }
+}
+
+function publishFirstFrame(ms: number): void {
+  try {
+    if (typeof window !== 'undefined') window.__driveFirstFrameAt = ms;
+  } catch {
+    /* a frozen window is not a failed frame */
+  }
+}
+
 export function recordPerformanceSample(metric: Metric, value: number): void {
   if (!profiling || !Number.isFinite(value)) return;
   const values = samples[metric];
@@ -46,7 +78,10 @@ if (profiling) Object.assign(window, { __drivePerf: getDrivePerformance });
  * Returns true if throttling is detected (avg delta > 50ms for 5+ seconds).
  */
 export function recordDelta(delta: number): boolean {
-  if (firstFrameMs == null && typeof performance !== 'undefined') firstFrameMs = performance.now();
+  if (firstFrameMs == null && typeof performance !== 'undefined') {
+    firstFrameMs = performance.now();
+    publishFirstFrame(firstFrameMs);
+  }
   recordPerformanceSample('frameMs', delta * 1000);
   deltas.push(delta);
   if (deltas.length > DELTA_WINDOW) deltas.shift();

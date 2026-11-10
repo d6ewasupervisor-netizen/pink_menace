@@ -81,9 +81,11 @@ const DOOR_X      = 0.80;
  */
 const BEETLE_URL = (tier: PickedTier) => lodUrl('/models/cars/vw_beetle.glb', tier);
 
+// The car the player is actually in is the only one fetched before it is needed. The
+// Beetle is the Act I (and most of the campaign's) chassis, so it preloads with the
+// module; the Ledger truck and the highway car are Act II's and belong to a chassis
+// the player has not chosen yet — `ChassisBody` starts their fetch when it is.
 useGLTF.preload(asset(BEETLE_URL(initialTier())));
-useGLTF.preload(asset('/models/cars/truck.glb'));
-useGLTF.preload(asset('/models/cars/suv.glb'));
 
 
 /** Ledger truck or the highway car. Kenney bodies face +Z; spin them to the Beetle's -Z nose. */
@@ -97,10 +99,22 @@ function KenneyChassis({ url, scale }: { url: string; scale: number }) {
   );
 }
 
+const CHASSIS_MODEL: Record<string, { url: string; scale: number }> = {
+  truck: { url: '/models/cars/truck.glb', scale: 1.35 },
+  highway: { url: '/models/cars/suv.glb', scale: 1.15 },
+};
+
 function ChassisBody({ plowAngle, tier }: { plowAngle: number; tier: PickedTier }) {
   const chassis = useGameStore((s) => s.chassis);
-  if (chassis === 'truck') return <KenneyChassis url={asset('/models/cars/truck.glb')} scale={1.35} />;
-  if (chassis === 'highway') return <KenneyChassis url={asset('/models/cars/suv.glb')} scale={1.15} />;
+  // Start the fetch the moment the chassis is chosen, not at import time: the truck
+  // and the highway car are 385 kB of models for a car an Act I player never drives.
+  useEffect(() => {
+    const model = CHASSIS_MODEL[chassis];
+    if (model) useGLTF.preload(asset(model.url));
+  }, [chassis]);
+
+  const model = CHASSIS_MODEL[chassis];
+  if (model) return <KenneyChassis url={asset(model.url)} scale={model.scale} />;
   return <VWBeetleModel plowAngle={plowAngle} tier={tier} />;
 }
 
