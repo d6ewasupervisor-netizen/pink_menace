@@ -2275,3 +2275,93 @@ what the runs measured).
 speed-independent (a 1.35 m drift whether the car is at 25 or 40), which is
 deliberate — the steering's *authority* grows with speed, so the correction window
 is widest near the hold.
+
+## 2026-11-10 — The black screen, in a console: a shader that could not compile, and a bridge that thought it was noon
+
+The report was 6.3 on an Android phone: the 3D view black, the HUD running, LOW
+changing nothing. Both halves reproduced headless, and neither was the phone.
+
+**The frame.** `HeadlightFlares` mounted postprocessing's `LensFlare` on the high
+tier, gated on `night && headlights !== 'off'`. Its shader redeclares `vTexCoord`
+against this three.js and fails:
+`THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false / Material Name:
+EffectMaterial / ... 'vTexCoord' : redefinition`. `EffectMaterial` is the
+composer's own material, so the failure takes the *whole post pass* out. The glow
+is now four additive sprites in the scene, mounted by `Game3D`, and the effect is
+gone from `TIER_EFFECTS` — nothing a tier mounts can fail to compile. The bundle
+lost 16 kB with it.
+
+**The button.** The new sweep reads `timeOfDay` at every scene start: 6.2
+(`i90_straight_dusk`) and 6.3 (`vantage_bridge_predawn_wind`) were entering as
+`day`, because `onSceneStarted` only ever set the hour for 1.4/1.4b/2.1. Every
+night gate — the spots, the beam, the flares, the sky — was therefore off, and
+pressing LOW did nothing because the world believed it was midday.
+`quietroads/sceneLight.ts` is the table now (6.2 sunset, 6.3 night), and
+`test/lighting.test.ts` reads the act files' own `background` keys to prove the two
+agree. Measured after: the road band responds to the beam switch (6.2 0.081 →
+0.071, 6.3 0.043 → 0.036; before, the two readbacks were equal to four decimals).
+
+**The diagnostics that found it.** `systems/diagnostics.ts`: `readGpuInfo` (GPU,
+WebGL version, texture ceiling, DPR, CSS/buffer size, tier, memory, cores, UA —
+one `client.gpu` per session), `meanLuminance` + `meanLuminanceRows` (16x16
+readback), `stepDarkFrame` (0.012 floor, 3 s hold, one `client.frame_dark` per
+episode, re-armed after 1 s of light) and `parseShaderError` (a program failure out
+of `console.error`, with the material and stage). `Game3D/FieldDiagnostics.tsx`
+wires them through `DriveSync.noteEvent` (the batched uploader: one POST per 10 s);
+`?diag=1` adds the live board. The GL guard now sends `client.context_lost` /
+`client.context_restored` with the scene id, shows "Restarting view…", parks R3F's
+frame loop and retries `forceContextRestore()` once at 5 s.
+
+Two defects the diagnostics found in themselves, both fixed: `readGpuInfo` read
+`domElement` (the renderer's property) from a WebGL context and the throw unmounted
+the Canvas; and the never-black assertion first measured the whole 16x16 frame,
+where a sunset sky swamps the road, so the readback now reports the bottom third
+too.
+
+
+
+**The rest of the lighting.** `scene.background` is a per-hour gradient texture —
+drawn before the scene, outside the post stack, impossible to cull — so a frame
+with no meshes still reads as a night sky. `systems/lightFloor.ts` lifts the three
+scene-wide lights to 0.14/0.10/0.06 (night + rain was 0.07/0.05/0.03) and leaves
+every brighter preset alone. `systems/visibility.ts` clamps `FogExp2` so the road
+at 80 m keeps 85 % of itself (measured: it already did; the ceiling protects future
+tuning). Spots are `visible` only when the stalk is on.
+
+**Cockpit BEFORE, measured** (`e2e/cockpit-inventory.spec.ts`,
+`docs/cockpit/BEFORE.md`, screenshots in `docs/cockpit/before/`): 390x844 world
+band **216 px (26 %)**, overlay coverage **39 %**, sticks **140×140** at y = 674,
+nav cluster **374×143** at y = 104, LOW/HIGH **52×52** at (12, 230). 412x915:
+252 px (28 %) / 35 %. 844x390: 183 px (47 %) / 37 %.
+
+**Verified.** 458/458 vitest across 45 files (+16 diagnostics, +10 lighting), `tsc
+--noEmit` 0, `npm run build` 4.76 s / **4,021.58 kB** (1,325.18 kB gzip; was
+4,037.41 / 1,329.78), playwright headless `--workers=1` **recorded in RUNLOG.md**.
+The new `e2e/never-black.spec.ts` runs nine gameplay scenes on Pixel 7 and iPhone 13
+profiles with the canvas visible: no black frame (0.360–0.910), no context loss,
+no shader row. Its forced-context-loss case is **BLOCKED** and marked `test.fixme`:
+the loss still unmounts the React tree with three reading a null context attribute.
+
+Commits: `[0.1]`, `[0.2]`, `[0.3]`, `[1.1]`, `[1.2]`, `[1.3]`, `[1.4]` on
+`drive/portrait-rebuild`. No seed, no deploy. Phases 2–6 of the portrait rebuild are
+
+**Follow-up the same run (gate work, two commits).** `[0.4]` `drive/scripts/wait-log.ps1`:
+one command waits on a run's log (10 s polls, 900 s cap) and prints the failures,
+the skips and the summary — repeating an identical short wait tripped the loop
+detector on the Phase 1 gate and killed the task while the run underneath was
+healthy. `[1.3]` follow-up: the spots no longer toggle `visible`. three keys its
+programs on the *visible light count*, so toggling a light rebuilds every material
+in the Kent scene mid-drive — seconds under a software rasteriser, a hitch on a
+phone. The stalk is carried by intensity/distance/decay/angle/penumbra, OFF is
+still dark (intensity 0), and the light count never changes.
+
+**The gate, in four full runs** (the honest version): run 1 43/25/**2** (both
+never-black sweeps, scene isolation — fixed by clearing storage per case and
+waiting 40 s); run 2 44/25/**1** and run 3 44/25/**1**, each time the long 440x956
+crossing case timing out at 420 s waiting for `[data-gust-side]` (desktop in one,
+mobile in the other; it passed in the other project in the same run and alone in
+1.1 min). Run 4, after the light fix: **45 passed / 25 skipped / 0 failed** in
+13.6 min — the Phase 1 gate. Final: vitest **458/458** (45 files), `tsc` 0, build
+**4,021.58 kB / 1,325.18 kB gzip**.
+
+untouched; `RUNLOG.md` carries the item table.

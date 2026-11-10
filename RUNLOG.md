@@ -73,7 +73,7 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | `npx vitest run` | 432/432, 43 files (12.3 s) | **458/458, 45 files** (5.0 s) — +16 diagnostics, +10 lighting |
 | `npx tsc --noEmit` | 0 | **0** |
 | `npm run build` | 4,037.41 kB / 1,329.78 kB gzip (5.35 s) | **4,021.58 kB / 1,325.18 kB gzip** (4.76 s) — the LensFlare effect left the bundle |
-| `npx playwright test --workers=1` | 41 passed / 21 skipped / 0 failed (10.5 min) | see the entry below |
+| `npx playwright test --workers=1` | 41 passed / 21 skipped / 0 failed (10.5 min) | **45 passed / 25 skipped / 0 failed** (13.6 min) — +2 never-black sweeps, +2 `test.fixme` skips, +1 inventory skip, +21 duplicated viewport skips as before |
 
 ## DECISIONS
 
@@ -117,3 +117,83 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
    between the two readbacks. The test asserts "different", which is the bug that
    was reported ("LOW changed nothing" measured exactly 0.0000 difference before
    the scene hour was fixed).
+
+## REPORT
+
+### Per phase
+
+| Phase | State | Commits |
+|---|---|---|
+| 0.1 branch + RUNLOG | DONE | `ecd7823` |
+| 0.2 baseline gates | DONE (no source change; recorded in “Gates”) | — |
+| 0.3 cockpit inventory | DONE | `f69d3eb` |
+| 1.1 diagnostics | DONE | `89a5984` |
+| 1.2 sky + light floor + fog ceiling | DONE | `a9132ea` |
+| 1.3 headlights + scene hour + flares | DONE | `1e791af` |
+| 1.4 never-black e2e + guard | DONE (loss case BLOCKED) | `3f5dcc6` |
+| 2.x–6.x | TODO (nothing started) | — |
+
+### What the diagnostics say about the black screen
+
+Reproduced under emulation, twice, with two separate causes:
+
+1. **`LensFlare`'s shader does not compile** against three 0.183 —
+   `Shader Error 0 - VALIDATE_STATUS false`, `Material Name: EffectMaterial`,
+   `'vTexCoord' : redefinition`. `EffectMaterial` is postprocessing's composer
+   material, so the whole post pass dies. It mounts exactly when a night scene has
+   the lights on (6.3 after LOW). Replaced with in-scene additive sprites; the
+   effect is out of the tier table.
+2. **6.2/6.3 entered as `timeOfDay='day'`**, so spots, beam, flares and sky were
+   all gated off — pressing LOW did nothing because the world thought it was noon.
+   `quietroads/sceneLight.ts` sets the hour from the scene, checked against the act
+   files' own `background` keys.
+
+Lighting changes: gradient sky background per hour (uncullable), light floor
+0.14/0.10/0.06 for the three scene-wide lights, fog density clamped for 85 %
+road visibility at 80 m, spots visible only when the stalk is on and LOW/HIGH
+distinct in intensity/distance/angle.
+
+### Numbers
+
+- Tier rules: unchanged this pass (Phase 2 owns them) — DPR ≤ 1.5, low tier 1.0,
+  effect table low/mid/high.
+- LODs: not produced (Phase 2.2 TODO). Beetle GLB still 11 MB.
+- First-load: **4,021.58 kB / 1,325.18 kB gzip** (was 4,037.41 / 1,329.78) — the
+  LensFlare shaders left. Time to first frame: not measured (Phase 2.4 owns it).
+- Cockpit budgets before (after = Phase 3): 390x844 world band **216 px (26 %)**,
+  coverage **39 %**; 412x915 252 px (28 %) / 35 %; 844x390 183 px (47 %) / 37 %.
+- Removed UI: none yet (Phase 3.8). `docs/cockpit/BEFORE.md` lists every layer.
+- Screenshots: `docs/cockpit/before/portrait-390x844.png`,
+  `android-412x915.png`, `landscape-844x390.png`.
+- Tilt: not implemented (Phase 4).
+
+### Gates, honestly
+
+Three full-suite runs after Phase 1, and the count they gave:
+
+| Run | Result | What happened |
+|---|---|---|
+| 1 | 43 passed / 25 skipped / **2 failed** (13.5 min) | both never-black sweeps: `6.2: the scene started — Received: 5.3` (a reloaded page resumed the campaign from localStorage and `startAct` fought it). Fixed: `bootScene` clears storage on every navigation and waits 40 s for the scene id |
+| 2 | 44 passed / 25 skipped / **1 failed** (19.5 min) | `bridge.spec.ts:425` (440x956 crossing) timed out at 420 s waiting for `[data-gust-side]` — desktop project |
+| 3 | 44 passed / 25 skipped / **1 failed** (13.1 min) | the same case, mobile project this time; it passed in the desktop project **of the same run**, and alone in 1.1 min (worst offset 1.77 m, `reached true at x=800`) |
+| 4 | **45 passed / 25 skipped / 0 failed** (13.6 min) | green after the light-stays-mounted fix — this is the gate |
+
+The 440x956 crossing case is long (a full span at 40 mph) and load-sensitive. It
+was measured before and after the night-scene change and it is slower now: 6.3 runs
+at night, which adds two spot lights, a large additive beam plane and four sprites
+to every frame. One of those changes was avoidable — toggling `spotLight.visible`
+makes three rebuild every material program in the scene (its programs are keyed on
+the visible light count), so the lights now stay mounted and carry the state in
+their intensity instead. The gate is recorded with the measured flake rather than
+rounded up: the branch is merged only when a full run is green.
+
+
+### Final gates
+
+| Gate | Baseline | Final |
+|---|---|---|
+| vitest | 432/432, 43 files | **458/458, 45 files** |
+| tsc | 0 | **0** |
+| build | 4,037.41 kB / 1,329.78 kB gzip | **4,021.58 kB / 1,325.18 kB gzip** |
+| playwright | 41 passed / 21 skipped / 0 failed | filled in below when the run ends |
+

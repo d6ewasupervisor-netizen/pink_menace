@@ -26,6 +26,32 @@ frame rate — it was the sample window's own 30 Hz clock. Those numbers are
 withdrawn. **No headed browser ran in this pass**, so the FPS rows above are
 deliberately empty rather than filled with a guess.
 
+## Current pass — the portrait rebuild, Phase 1 (2026-11-10)
+
+Branch `drive/portrait-rebuild`; `RUNLOG.md` is the item table. Phase 0 (baseline +
+measured cockpit inventory) and Phase 1 (never black) are done:
+
+- **The black 3D view in 6.3 had two causes, both reproduced headless.** The high
+  tier's `LensFlare` effect fails to compile against three 0.183 (`EffectMaterial`,
+  `'vTexCoord' : redefinition`) and takes the whole post pass with it — the glow is
+  in-scene sprites now. And 6.2/6.3 were entering with `timeOfDay = 'day'`, so every
+  night gate (spots, beam, flares, sky) was off: `quietroads/sceneLight.ts` sets the
+  hour from the scene, with the act files' `background` keys as the check.
+- **The phone can now say what it sees**: `client.gpu` once, `client.frame_dark`
+  once per dark episode (16x16 readback, 0.012 floor, 3 s hold), `client.shader_error`
+  with the material, `client.context_lost` / `_restored` with the scene id, and
+  `?diag=1` for the live board. All through the batched uploader.
+- **The sky cannot be culled** (gradient `scene.background` per hour), the scene-wide
+  lights have a floor, and the fog density is clamped so the road at 80 m survives.
+- **Measured cockpit BEFORE** (`docs/cockpit/BEFORE.md`): 390x844 world band 26 %,
+  overlay coverage 39 %, sticks 140 px, nav cluster 143 px tall. Phase 3's target is
+  a world band ≥ 55 % with 110–120 px sticks.
+
+**Still open here:** a forced WebGL context loss still unmounts the React tree
+(three reads a null context attribute); HIGH beams are a different frame from OFF
+but not measurably brighter in the readback. Both are in `RUNLOG.md` BLOCKED.
+
+
 ## P0 — Foundations (do first; they unblock everything else)
 
 - **[perf] HUD speed/RPM at 10 Hz.** Done. `liveDrive` stays at the physics

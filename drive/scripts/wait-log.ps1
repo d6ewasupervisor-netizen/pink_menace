@@ -13,4 +13,6 @@ param([string]$Log, [string]$Done = '^EXIT=', [int]$CapSec = 900, [int]$PollSec 
 $t = 0
 while (-not (Select-String -LiteralPath $Log -Pattern $Done -Quiet -ErrorAction SilentlyContinue) -and $t -lt $CapSec) { Start-Sleep $PollSec; $t += $PollSec }
 "waited=${t}s"
+$progress = (Select-String -LiteralPath $Log -Pattern '^  ok |^  x |^   - ' -ErrorAction SilentlyContinue | Measure-Object).Count
+"progress=${progress}"
 Select-String -LiteralPath $Log -Pattern '^\s+x |^\s+-  |passed|failed|skipped|^EXIT=' | Select-Object -ExpandProperty Line

@@ -1923,10 +1923,120 @@ offsets `0.00 … -1.17 … 0.10 … -1.48 … -0.17 … -1.76 … -0.45`, worst
 reached at x=800 in 1.0 min.
 
 **Still open:** the assist covers `vantage_bridge_crossing` only;
-`bridge_after_sign_*` keeps the plain pedal at the 25 limit. The push is
-speed-independent by design (1.35 m at 25 or 40 mph): it is the steering's
-*authority* that grows with speed, so the correction window is widest at the hold.
 
+## 31. The black screen had two causes, and neither was the phone (2026-11-10)
+
+The report: on Android, scene 6.3's 3D view was fully black while the HUD ran, and
+the LOW button changed nothing. Both halves turned out to be reproducible in a
+headless Chromium on a desk, which is the first useful thing this pass found.
+
+### 31.1 The bug report, in the console
+
+Mounted the high tier's post stack on a night drive and the console says:
+
+```
+THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false
+Material Name: EffectMaterial
+Program Info Log: Fragment shader is not compiled.
+ERROR: 0:668: 'vTexCoord' : redefinition
+```
+
+`EffectMaterial` is postprocessing's *own* composer material. `HeadlightFlares`
+mounted `LensFlare`, whose fragment shader redeclares `vTexCoord`, which this
+three.js (0.183) already declares — so the program fails, and because the failing
+program belongs to the composer, **the whole post pass renders nothing**. Every
+gate for that effect is `night && headlights !== 'off'`: exactly 6.3 after the
+player presses LOW. The 3D view goes black and the HUD keeps running, because the
+HUD is DOM.
+
+The fix is not a shader patch: the glow is four additive sprites in the scene
+(`HeadlightFlares.tsx`, rewritten), the effect is out of `TIER_EFFECTS`, and
+`PostProcessing` no longer mounts it. Nothing a tier can mount can fail to compile
+now, and the bundle lost 16 kB because postprocessing's LensFlare shaders and
+their uniforms left with it.
+
+### 31.2 The LOW button, in the store
+
+The sweep (`e2e/never-black.spec.ts`) measures `useGameStore.getState().timeOfDay`
+at every scene start and it read **`day`** for 6.2 (i90_straight_dusk) and 6.3
+(vantage_bridge_predawn_wind). `QuietRoadsBridge.onSceneStarted` only ever set the
+hour for `1.4`, `1.4b` and `2.1`, so a scene entered from the act select kept the
+store default. Every night behaviour is gated on that value — the two spot lights,
+the beam on the road, the flares, the sky — so LOW changed nothing because the
+world it was lighting believed it was midday.
+
+`quietroads/sceneLight.ts` now holds the scene → hour table, checked against the
+act files' own `background` keys by `test/lighting.test.ts` (the key is what the
+art was shot against, so the two cannot drift). 6.2 is `sunset`, 6.3 is `night`.
+Measured after the fix: the road band responds to the beam switch (6.2
+0.081 → 0.071, 6.3 0.043 → 0.036 — different frames; before the fix the two
+readbacks were identical to four decimals).
+
+7.3 and 8.1 keep their (wrong) dusk/night keys for now: re-pointing them is the
+AUDIT §16 item, and this table deliberately mirrors the data rather than guessing
+which of the two is wrong.
+
+### 31.3 The things that were missing, now in the build
+
+| Piece | Where | What it answers |
+|---|---|---|
+| `readGpuInfo` | `systems/diagnostics.ts` | unmasked vendor/renderer, WebGL version, max texture, DPR, CSS + buffer size, tier, deviceMemory, cores, UA — one `client.gpu` row per session |
+| `meanLuminance` / `meanLuminanceRows` | same | a 16x16 readback's mean, whole frame and bottom third (the road) |
+| `stepDarkFrame` | same | 0.012 floor, 3 s hold, sampled every 2 s, exactly one `client.frame_dark` per episode, re-armed after 1 s of light |
+| `parseShaderError` | same | a three.js program failure out of the console, with the material name and the stage |
+| `FieldDiagnostics` | `Game3D/` | the wiring; one row per finding, all through `DriveSync.noteEvent` (one POST per 10 s) |
+| `DiagPanel` | same | `?diag=1` only: GPU, tier, DPR, buffer, draw calls, triangles, frame time, luminance, context state, scene |
+| the guard | `Game3D.tsx` | `client.context_lost` / `client.context_restored` with the scene id, the "Restarting view…" chip, frame loop parked, a 5 s `forceContextRestore()` retry |
+| the sky | `Skybox.tsx` | `scene.background` is a per-hour gradient: drawn before the scene, outside the post stack, impossible to cull |
+| the floor | `systems/lightFloor.ts` | night + rain was ambient 0.07 / hemi 0.05 / sun 0.03; the floor is 0.14 / 0.10 / 0.06 and every brighter preset is untouched |
+| the fog | `systems/visibility.ts` | `FogExp2` transmittance is `exp(-(density·m)²)`; the density is clamped so the road at 80 m keeps 85 % of itself in every weather (measured: it already did — the ceiling protects future tuning) |
+
+A defect the diagnostics found in themselves: `readGpuInfo` read `domElement`,
+which is the *renderer's* property, not the context's, and the throw took the whole
+Canvas down on the first e2e run. It accepts either shape now, `FieldDiagnostics`
+cannot throw, and a unit test pins both.
+
+### 31.4 What the phones say (never-black sweep)
+
+Pixel 7 and iPhone 13 profiles, headless, nine scenes that start gameplay, three
+seconds each, canvas visible, mean luminance of the world (0.000 is a black
+frame):
+
+| Scene | Pixel 7 | iPhone 13 |
+|---|---|---|
+| 1.1 | 0.360 | 0.447 |
+| 2.4 | 0.360 | 0.422 |
+| 3.2 | 0.856 | 0.910 |
+| 5.1 | 0.361 | 0.415 |
+| 5.3 (video scene) | 0.360 | 0.414 |
+| 6.2 | 0.360, sunset | 0.414, sunset |
+| 6.3 | 0.360, night | 0.384, night |
+| 7.1 | 0.361 | 0.378 |
+| 8.1 | 0.360 | 0.368 |
+
+No context losses, no shader rows, no scene under the floor.
+
+### 31.5 Still open
+
+- **A forced context loss unmounts the React tree.** `WEBGL_lose_context` →
+  three throws `Cannot read properties of null (reading 'alpha')` from the render
+  loop and `#root` ends up empty (no HUD, no pause menu). The toast is set, so the
+  guard runs; parking R3F's frame loop is not enough. Next: an error boundary
+  around `<Canvas>` and a hunt for the component that reads context attributes on
+  a dead context. `e2e/never-black.spec.ts` keeps the case as `test.fixme`.
+- **HIGH is not measurably brighter than LOW in the road band** (it measures
+  darker: 6.2 0.081 → 0.071). The frames differ, the direction is unmeasured, and
+  the cone narrows at HIGH. Needs a stationary-car capture before the numbers mean
+  anything about brightness.
+- **The long 440x956 crossing case is load-sensitive.** It timed out once in each
+  of two full-suite runs (desktop in one, mobile in the other), always waiting for
+  `[data-gust-side]`, and passes alone in 1.1 min. 6.3 is now a night scene, which
+  is genuinely heavier to draw. One avoidable cost was removed — toggling a
+  light's `visible` makes three rebuild every material program in the scene, so the
+  spots stay mounted and carry the state in intensity — but the case still has less
+  headroom under a software rasteriser than it had in daylight.
+- The cockpit itself is untouched: the BEFORE numbers (world band 26 % at
+  390x844, overlay coverage 39 %, 140 px sticks) are Phase 3's to change.
 
 <!-- CONTINUED -->
 
