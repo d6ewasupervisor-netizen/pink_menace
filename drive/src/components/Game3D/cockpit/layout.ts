@@ -23,6 +23,75 @@ import { useEffect, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
 import { compoundOpen, showDrivingHud, type CockpitState } from '@/quietroads/cockpit';
+import { cockpitSpec, NO_INSETS, type CockpitSpec, type Insets } from './spec';
+
+/**
+ * The safe-area insets, measured.
+ *
+ * `env(safe-area-inset-*)` is only readable through a computed style, so this mounts
+ * a zero-size probe once, reads its four paddings, and takes it away again. Zeros are
+ * the honest answer where the browser has no notion of a notch.
+ */
+export function readSafeInsets(doc: Document | undefined = typeof document === 'undefined' ? undefined : document): Insets {
+  if (!doc) return NO_INSETS;
+  try {
+    const probe = doc.createElement('div');
+    probe.style.cssText =
+      'position:fixed;left:-9999px;top:0;width:0;height:0;pointer-events:none;' +
+      'padding-top:env(safe-area-inset-top,0px);padding-right:env(safe-area-inset-right,0px);' +
+      'padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);';
+    doc.body.appendChild(probe);
+    const cs = getComputedStyle(probe);
+    const px = (v: string) => {
+      const n = Number.parseFloat(v);
+      return Number.isFinite(n) ? n : 0;
+    };
+    const insets = {
+      top: px(cs.paddingTop),
+      right: px(cs.paddingRight),
+      bottom: px(cs.paddingBottom),
+      left: px(cs.paddingLeft),
+    };
+    probe.remove();
+    return insets;
+  } catch {
+    return NO_INSETS;
+  }
+}
+
+/**
+ * The cockpit's geometry for the viewport that is actually there — the spec, in px,
+ * with the safe area already added. Every HUD component positions itself from this;
+ * none of them owns an absolute coordinate of its own.
+ */
+export function useCockpitSpec(): CockpitSpec {
+  const read = () => ({
+    w: typeof window === 'undefined' ? 390 : window.innerWidth,
+    h: typeof window === 'undefined' ? 844 : window.innerHeight,
+    insets: readSafeInsets(),
+  });
+  const [state, setState] = useState(read);
+  useEffect(() => {
+    const check = () => {
+      const next = read();
+      setState((prev) =>
+        prev.w === next.w && prev.h === next.h &&
+        prev.insets.top === next.insets.top && prev.insets.bottom === next.insets.bottom &&
+        prev.insets.left === next.insets.left && prev.insets.right === next.insets.right
+          ? prev
+          : next,
+      );
+    };
+    check();
+    window.addEventListener('resize', check);
+    window.addEventListener('orientationchange', check);
+    return () => {
+      window.removeEventListener('resize', check);
+      window.removeEventListener('orientationchange', check);
+    };
+  }, []);
+  return cockpitSpec(state.w, state.h, state.insets);
+}
 
 /** Three cockpit shapes. Desktop is its own frame: wide and shallow. */
 export type CockpitOrientation = 'portrait' | 'landscape' | 'desktop';

@@ -1,61 +1,50 @@
 /**
- * KentDash — one navigation cluster for Quiet Roads.
- * The map is a view from above and behind the car: the chevron sits low,
- * the scale is pulled back, and the street ahead fills the glass.
+ * KentDash — the nav strip and the objective line, and nothing else.
+ *
+ * WHAT WAS HERE: a 374×143 cluster at 390×844 holding a top-down street map painted
+ * into a canvas, a 7-segment speedometer, a clock, a LIMIT sign, two resource bars and
+ * the objective. Measured, it was the single biggest thing between the player and the
+ * road: with it and the rest of the furniture the world band was 216 px (26 %). It also
+ * drew the road as a squiggle, which is a map of the street the player is looking at.
+ *
+ * WHAT IS HERE NOW (item 3.3):
+ *
+ *   nav strip 56 px   [↰] 0.4 mi · Vantage Bridge        28/45   AUTO 40
+ *   objective 40 px   "Cross the bridge. Under 45. Steer into the gust."
+ *
+ * The strip is the only always-on text in a drive. The objective shows when it
+ * changes, when the player taps the strip, and while the mission is asking for a
+ * specific action (`cockpit/objective.ts` owns those rules, with tests); otherwise it
+ * collapses and the world gets the 40 px back, plus the resource tag's line.
+ *
+ * Everything is positioned from `cockpit/spec.ts` — the component has no absolute
+ * coordinate of its own, which is the rule item 3.2 makes.
  */
 import { useEffect, useRef, useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { liveDrive } from '@/systems/driveTelemetry';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
-import { useCompactHud } from '@/hooks/useCompactHud';
-import { readCockpitState, useCockpitOrientation, useDrivingHud, type CockpitOrientation } from './cockpit/layout';
-import { showDrivingHud } from '@/quietroads/cockpit';
-import {
-  formatEta,
-  formatManeuverDist,
-  planNav,
-  type ManeuverKind,
-  type NavPlan,
-} from './kentNav';
+import { useCockpitSpec, useDrivingHud } from './cockpit/layout';
+import { objectiveVisible, resourceTagText, resourceTagVisible } from './cockpit/objective';
+import { formatManeuverDist, planNav, type ManeuverKind, type NavPlan } from './kentNav';
+import { tokens } from './cockpit/tokens';
+import type { CockpitSpec } from './cockpit/spec';
 
-const PX_PER_M = 0.95;
-const DIGIT_MASK: Record<string, number> = {
-  '0': 0x3f,
-  '1': 0x06,
-  '2': 0x5b,
-  '3': 0x4f,
-  '4': 0x66,
-  '5': 0x6d,
-  '6': 0x7d,
-  '7': 0x07,
-  '8': 0x7f,
-  '9': 0x6f,
-};
+/** The strip's text changes at a human rate; 2 Hz is generous and costs no frame time. */
+const TICK_MS = 500;
 
 interface Readout {
   mph: number;
   over: boolean;
-  clock: string;
   plan: NavPlan;
   limit: number;
-  driving: boolean;
-}
-
-function clockNow() {
-  const d = new Date();
-  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 }
 
 function pose() {
   const g = useGameStore.getState();
-  const walking = g.phase === 'walking';
-  if (walking) {
-    return {
-      x: g.walkerPosition[0],
-      y: g.walkerPosition[2],
-      heading: QuietRoads.sim.walker.facing,
-    };
+  if (g.phase === 'walking') {
+    return { x: g.walkerPosition[0], y: g.walkerPosition[2], heading: QuietRoads.sim.walker.facing };
   }
   const yaw = g.vehicleHeading;
   return {
@@ -67,723 +56,213 @@ function pose() {
 
 export function KentDash() {
   const worldMode = useGameStore((s) => s.worldMode);
-  // Not `phase === 'driving'`: the dash is part of the driving HUD the cockpit
-  // rule owns (quietroads/cockpit.ts), so a stale phase cannot hide it while a
-  // mission is running.
+  // Not `phase === 'driving'`: the strip is part of the driving HUD the cockpit rule
+  // owns (quietroads/cockpit.ts), so a stale phase cannot hide it mid-mission.
   const driving = useDrivingHud();
   const hp = useGameStore((s) => s.hp);
   const fuel = useGameStore((s) => s.fuel);
   const objective = useQRHud((s) => s.objective);
-  const compact = useCompactHud();
-  const orientation = useCockpitOrientation();
-  const rootRef = useRef<HTMLDivElement>(null);
-  const gapRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const qteActive = useQRHud((s) => s.qteActive);
+  const missionActive = useQRHud((s) => s.missionActive);
+  const assist = useQRHud((s) => s.windAssist);
+  const spec = useCockpitSpec();
+
   const [readout, setReadout] = useState<Readout>(() => ({
     mph: 0,
     over: false,
-    clock: clockNow(),
     plan: planNav({ x: 0, y: 0 }, 0, null),
     limit: 25,
-    driving: true,
   }));
 
+  // ── the objective's own clock, and its tap ──────────────────────────────
+  const changedAt = useRef(0);
+  const [tappedAt, setTappedAt] = useState<number | null>(null);
+  const [now, setNow] = useState(0);
   useEffect(() => {
-    let raf = 0;
-    let alive = true;
-    let sig = '';
-    let mapSig = '';
-    let plan: NavPlan = planNav({ x: 0, y: 0 }, 0, null);
+    changedAt.current = performance.now();
+    setTappedAt(null);
+  }, [objective]);
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(performance.now()), TICK_MS);
+    return () => window.clearInterval(id);
+  }, []);
+
+  // ── the strip's numbers, at 2 Hz ────────────────────────────────────────
+  useEffect(() => {
     const tick = () => {
-      const root = rootRef.current;
-      const canvas = canvasRef.current;
-      const gap = gapRef.current;
       const g = useGameStore.getState();
-      const hud = useQRHud.getState();
-      // The same rule the mount uses, so a stale phase cannot leave the dash on
-      // screen with a frozen map.
-      if (g.worldMode !== 'kent' || !showDrivingHud(readCockpitState())) {
-        mapSig = '';
-        raf = requestAnimationFrame(tick);
-        return;
-      }
+      if (g.worldMode !== 'kent') return;
       const here = pose();
       const dest = QuietRoads.sim.navTarget();
-      const nextMapSig = `${Math.round(here.x * 4)}|${Math.round(here.y * 4)}|${Math.round(here.heading * 60)}|${dest?.label ?? ''}|${dest?.pos.x ?? ''}|${dest?.pos.y ?? ''}|${root?.clientWidth ?? 0}|${root?.clientHeight ?? 0}|${gap?.clientWidth ?? 0}|${gap?.clientHeight ?? 0}`;
-      if (nextMapSig !== mapSig) {
-        mapSig = nextMapSig;
-        plan = planNav(here, here.heading, dest ? { x: dest.pos.x, y: dest.pos.y, label: dest.label } : null);
-        if (root && canvas) paintMap(canvas, root, gap, here, plan);
-      }
-      const limit = hud.frame?.speedLimitMph ?? 25;
+      const plan = planNav(here, here.heading, dest ? { x: dest.pos.x, y: dest.pos.y, label: dest.label } : null);
+      const limit = useQRHud.getState().frame?.speedLimitMph ?? 25;
       const mph = Math.round(Math.max(0, liveDrive.velocityMph));
-      const clock = clockNow();
-      const next = `${mph}|${clock}|${plan.kind}|${plan.street}|${Math.round(plan.distM)}|${plan.thenKind}|${Math.round(plan.totalM)}|${plan.hasDest}|${limit}|${g.phase}`;
-      if (next !== sig) {
-        sig = next;
-        if (alive) {
-          setReadout({
-            mph,
-            over: g.phase === 'driving' && mph > limit + 2,
-            clock,
-            plan,
-            limit,
-            driving: g.phase === 'driving',
-          });
-        }
-      }
-      raf = requestAnimationFrame(tick);
+      setReadout({ mph, over: mph > limit + 2, plan, limit });
     };
-    raf = requestAnimationFrame(tick);
-    return () => {
-      alive = false;
-      cancelAnimationFrame(raf);
-    };
+    tick();
+    const id = window.setInterval(tick, TICK_MS);
+    return () => window.clearInterval(id);
   }, []);
+
+  // ── the HP/FUEL tag: only when it has something to say ──────────────────
+  const changedResources = useRef(0);
+  const [seen, setSeen] = useState({ hp, fuel });
+  if (hp !== seen.hp || fuel !== seen.fuel) {
+    setSeen({ hp, fuel });
+    changedResources.current = performance.now();
+  }
 
   if (worldMode !== 'kent') return null;
   if (!driving) return null;
 
-  const { plan } = readout;
-  const speedColor = readout.over ? '#ff5c6a' : '#3ef0ff';
-  const digit = { w: 14, h: 26 };
+  const resources = { hp, fuel, maxHp: 100, maxFuel: 100, changedAt: changedResources.current, now };
+  const tag = resourceTagVisible(resources) ? resourceTagText(resources) : null;
+  const showObjective =
+    Boolean(objective) &&
+    objectiveVisible({ changedAt: changedAt.current, tappedAt, subStep: missionActive && qteActive, now });
+
+  const speedColor = readout.over ? tokens.colors.wrong : tokens.colors.cyan;
+  const assistTag = assist ? `AUTO ${assist.holdMph}` : null;
 
   return (
-    <div ref={rootRef} data-layer="nav" style={place(orientation)} aria-label="Navigation">
-      <canvas ref={canvasRef} style={styles.canvas} aria-label="Street map" />
-      <div style={styles.stack}>
-        <div style={styles.row}>
-          <NavCard plan={plan} mph={readout.mph} dense={compact} />
-          <div ref={gapRef} style={{ ...styles.gap, flexBasis: compact ? 48 : 64 }} />
-          <SpeedCard
-            readout={readout}
-            speedColor={speedColor}
-            digit={digit}
-            hp={hp}
-            fuel={fuel}
-            narrow={compact}
-          />
+    <>
+      <div
+        data-layer="nav"
+        data-band="nav"
+        role="button"
+        aria-label="Navigation"
+        onPointerDown={() => setTappedAt(performance.now())}
+        style={navStyle(spec)}
+      >
+        <TurnGlyph kind={readout.plan.kind} size={26} />
+        <div style={textStyle}>
+          <div style={{ ...distStyle, fontSize: 'var(--qr-type-title)' }}>
+            {readout.plan.hasDest ? formatManeuverDist(readout.plan.distM) : '—'}
+            <span style={{ color: tokens.colors.muted, fontWeight: 600 }}> · </span>
+            <span style={streetStyle}>{readout.plan.street || 'Kent'}</span>
+          </div>
+          <div style={{ ...subStyle, color: tag ? tokens.colors.warn : tokens.colors.muted }}>
+            {tag ?? ' '}
+          </div>
         </div>
-        {objective && (
-          <div style={styles.objective}>
-            <div style={styles.objTitle}>OBJECTIVE</div>
-            <div>{objective}</div>
+        <div style={speedStyle}>
+          <span style={{ color: speedColor, fontSize: 'var(--qr-type-readout)', fontWeight: 800, lineHeight: 1 }}>
+            {readout.mph}
+          </span>
+          <span style={{ color: tokens.colors.muted, fontSize: 'var(--qr-type-micro)', fontWeight: 700 }}>
+            /{readout.limit}
+          </span>
+        </div>
+        {assistTag && (
+          <div data-assist="wind" style={assistTagStyle}>
+            {assistTag}
           </div>
         )}
       </div>
-    </div>
-  );
-}
 
-function NavCard({ plan, mph, dense }: { plan: NavPlan; mph: number; dense: boolean }) {
-  return (
-    <div style={{ ...styles.nav, ...(dense ? styles.navDense : null) }}>
-      <div style={styles.navTop}>
-        <TurnGlyph kind={plan.kind} size={dense ? 22 : 28} />
-        <div style={styles.navText}>
-          {plan.hasDest && (
-            <div style={{ ...styles.dist, fontSize: dense ? 14 : 17 }}>
-              {formatManeuverDist(plan.distM)}
-            </div>
-          )}
-          <div style={{ ...styles.street, fontSize: dense ? 10 : 11 }}>{plan.street}</div>
-        </div>
-      </div>
-      {plan.hasDest && plan.thenKind && (
-        <div style={styles.thenRow}>
-          <span>Then</span>
-          <TurnGlyph kind={plan.thenKind} size={16} />
+      {showObjective && (
+        <div data-band="objective" style={objectiveStyle(spec)}>
+          {objective}
         </div>
       )}
-      {plan.hasDest && <div style={styles.eta}>{formatEta(plan.totalM, mph)}</div>}
-    </div>
+    </>
   );
 }
 
-function SpeedCard({
-  readout,
-  speedColor,
-  digit,
-  hp,
-  fuel,
-  narrow,
-}: {
-  readout: Readout;
-  speedColor: string;
-  digit: { w: number; h: number };
-  hp: number;
-  fuel: number;
-  narrow?: boolean;
-}) {
-  return (
-    <div style={{ ...styles.speed, width: narrow ? 96 : 118 }}>
-      <div style={styles.speedTop}>
-        <span style={{ ...styles.clock, color: speedColor, textShadow: `0 0 8px ${speedColor}` }}>{readout.clock}</span>
-      </div>
-      <div style={styles.speedMain}>
-        <Segments text={String(readout.mph)} w={digit.w} h={digit.h} color={speedColor} />
-        <span style={{ ...styles.mph, color: speedColor }}>MPH</span>
-      </div>
-      <div style={styles.speedFoot}>
-        {readout.driving && <LimitSign value={readout.limit} hot={readout.over} />}
-        <div style={styles.bars}>
-          <MiniBar label="HP" value={hp} color="#ff6b6b" />
-          <MiniBar label="FUEL" value={fuel} color={fuel < 25 ? '#ff4444' : '#39ff14'} />
-        </div>
-      </div>
-    </div>
-  );
+/** The strip: the nav band from the spec, glass, one row. */
+function navStyle(spec: CockpitSpec): React.CSSProperties {
+  return {
+    position: 'fixed',
+    top: spec.nav.y,
+    left: spec.nav.x,
+    width: spec.nav.width,
+    height: Math.max(44, spec.nav.height),
+    display: 'flex',
+    alignItems: 'center',
+    gap: tokens.space.sm,
+    padding: `0 ${tokens.space.md}px`,
+    boxSizing: 'border-box',
+    background: 'var(--qr-glass)',
+    backdropFilter: 'var(--qr-blur)',
+    WebkitBackdropFilter: 'var(--qr-blur)',
+    borderBottom: `1px solid ${tokens.colors.stroke}`,
+    color: tokens.colors.ink,
+    fontFamily: tokens.fonts.ui,
+    pointerEvents: 'auto',
+    zIndex: tokens.z.hud + 1,
+  };
 }
 
-function LimitSign({ value, hot }: { value: number; hot: boolean }) {
-  const ink = hot ? '#ff3333' : '#111';
-  return (
-    <div style={{ ...styles.limit, color: ink, borderColor: ink }}>
-      <div style={styles.limitTitle}>LIMIT</div>
-      <div style={styles.limitNum}>{value}</div>
-    </div>
-  );
+const textStyle: React.CSSProperties = { flex: '1 1 auto', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1 };
+const distStyle: React.CSSProperties = {
+  fontWeight: 800,
+  letterSpacing: '-0.01em',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+};
+const streetStyle: React.CSSProperties = { fontWeight: 600, color: tokens.colors.body };
+const subStyle: React.CSSProperties = {
+  fontSize: 'var(--qr-type-micro)',
+  fontWeight: 700,
+  letterSpacing: '0.08em',
+  minHeight: 14,
+};
+const speedStyle: React.CSSProperties = { display: 'flex', alignItems: 'baseline', gap: 2, flex: '0 0 auto' };
+const assistTagStyle: React.CSSProperties = {
+  flex: '0 0 auto',
+  padding: '2px 6px',
+  borderRadius: tokens.radius.sm,
+  border: `1px solid ${tokens.colors.cyan}66`,
+  color: tokens.colors.cyan,
+  fontSize: 'var(--qr-type-micro)',
+  fontWeight: 800,
+  letterSpacing: '0.1em',
+  whiteSpace: 'nowrap',
+};
+
+/** The objective: the band under the strip, glass, then gone again. */
+function objectiveStyle(spec: CockpitSpec): React.CSSProperties {
+  return {
+    position: 'fixed',
+    top: spec.objective.y,
+    left: spec.objective.x,
+    width: spec.objective.width,
+    height: Math.max(28, spec.objective.height),
+    display: 'flex',
+    alignItems: 'center',
+    padding: `0 ${tokens.space.md}px`,
+    boxSizing: 'border-box',
+    background: 'linear-gradient(180deg, rgba(8,10,16,0.72), rgba(8,10,16,0.28))',
+    backdropFilter: 'var(--qr-blur)',
+    WebkitBackdropFilter: 'var(--qr-blur)',
+    color: tokens.colors.ink,
+    fontFamily: tokens.fonts.ui,
+    fontSize: 'var(--qr-type-body)',
+    fontWeight: 600,
+    lineHeight: 1.25,
+    overflow: 'hidden',
+    pointerEvents: 'none',
+    zIndex: tokens.z.hud + 1,
+  };
 }
 
-function MiniBar({ label, value, color }: { label: string; value: number; color: string }) {
-  return (
-    <div>
-      <div style={styles.barLabel}>
-        <span>{label}</span>
-        <span style={{ color, fontWeight: 700 }}>{Math.round(value)}</span>
-      </div>
-      <div style={styles.barTrack}>
-        <div style={{ width: `${Math.max(0, Math.min(100, value))}%`, height: '100%', background: color }} />
-      </div>
-    </div>
-  );
-}
-
-function Segments({ text, w, h, color }: { text: string; w: number; h: number; color: string }) {
-  const gap = Math.max(2, Math.round(w * 0.18));
-  return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap }}>
-      {text.split('').map((ch, i) => (
-        <Digit key={i} mask={DIGIT_MASK[ch] ?? 0} w={w} h={h} color={color} />
-      ))}
-    </span>
-  );
-}
-
-function Digit({ mask, w, h, color }: { mask: number; w: number; h: number; color: string }) {
-  const t = Math.max(2, Math.round(w * 0.18));
-  const on = (bit: number) => (mask & bit) !== 0;
-  const seg = (bit: number, style: React.CSSProperties) => (
-    <span
-      style={{
-        position: 'absolute',
-        borderRadius: t,
-        background: on(bit) ? color : 'rgba(255,255,255,0.08)',
-        boxShadow: on(bit) ? `0 0 8px ${color}` : 'none',
-        ...style,
-      }}
-    />
-  );
-  const half = h / 2;
-  return (
-    <span style={{ position: 'relative', width: w, height: h, display: 'inline-block' }}>
-      {seg(0x01, { left: t, right: t, top: 0, height: t })}
-      {seg(0x02, { right: 0, top: t * 0.7, width: t, height: half - t * 1.3 })}
-      {seg(0x04, { right: 0, top: half + t * 0.45, width: t, height: half - t * 1.35 })}
-      {seg(0x08, { left: t, right: t, bottom: 0, height: t })}
-      {seg(0x10, { left: 0, top: half + t * 0.45, width: t, height: half - t * 1.35 })}
-      {seg(0x20, { left: 0, top: t * 0.7, width: t, height: half - t * 1.3 })}
-      {seg(0x40, { left: t, right: t, top: half - t / 2, height: t })}
-    </span>
-  );
-}
-
+/** One manoeuvre arrow: a turn is read in a glance or not at all. */
 function TurnGlyph({ kind, size }: { kind: ManeuverKind; size: number }) {
-  const sw = size < 22 ? 5 : 6.5;
+  const sw = 5;
   return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden style={{ flex: '0 0 auto' }}>
       <g stroke="#fff" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
-        {kind === 'straight' && (
-          <>
-            <path d="M24 42 V16" />
-            <path d="M13 26 L24 12 L35 26" />
-          </>
-        )}
-        {kind === 'right' && (
-          <>
-            <path d="M16 42 V24 H34" />
-            <path d="M24 14 L36 24 L24 34" />
-          </>
-        )}
-        {kind === 'left' && (
-          <>
-            <path d="M32 42 V24 H14" />
-            <path d="M24 14 L12 24 L24 34" />
-          </>
-        )}
-        {kind === 'slight-right' && (
-          <>
-            <path d="M18 42 L26 28 L36 16" />
-            <path d="M24 14 L38 14 L32 26" />
-          </>
-        )}
-        {kind === 'slight-left' && (
-          <>
-            <path d="M30 42 L22 28 L12 16" />
-            <path d="M24 14 L10 14 L16 26" />
-          </>
-        )}
-        {kind === 'uturn' && (
-          <>
-            <path d="M34 42 V26 A10 10 0 0 0 14 26 V34" />
-            <path d="M8 26 L14 38 L20 26" />
-          </>
-        )}
+        {kind === 'straight' && (<><path d="M24 42 V16" /><path d="M13 26 L24 12 L35 26" /></>)}
+        {kind === 'right' && (<><path d="M16 42 V24 H34" /><path d="M24 14 L36 24 L24 34" /></>)}
+        {kind === 'left' && (<><path d="M32 42 V24 H14" /><path d="M24 14 L12 24 L24 34" /></>)}
+        {kind === 'slight-right' && (<><path d="M18 42 L26 28 L36 16" /><path d="M24 14 L38 14 L32 26" /></>)}
+        {kind === 'slight-left' && (<><path d="M30 42 L22 28 L12 16" /><path d="M24 14 L10 14 L16 26" /></>)}
+        {kind === 'uturn' && (<><path d="M34 42 V26 A10 10 0 0 0 14 26 V34" /><path d="M8 26 L14 38 L20 26" /></>)}
       </g>
       {kind === 'arrive' && (
-        <path
-          fill="#fff"
-          d="M24 4c-6.2 0-11 4.7-11 10.6C13 23 24 42 24 42s11-19 11-27.4C35 8.7 30.2 4 24 4zm0 14.2a3.8 3.8 0 1 1 0-7.6 3.8 3.8 0 0 1 0 7.6z"
-        />
+        <path fill="#fff" d="M24 4c-6.2 0-11 4.7-11 10.6C13 23 24 42 24 42s11-19 11-27.4C35 8.7 30.2 4 24 4zm0 14.2a3.8 3.8 0 1 1 0-7.6 3.8 3.8 0 0 1 0 7.6z" />
       )}
     </svg>
   );
 }
-
-function place(o: CockpitOrientation): React.CSSProperties {
-  return {
-    position: 'fixed',
-    zIndex: 215,
-    pointerEvents: 'none',
-    borderRadius: 14,
-    overflow: 'hidden',
-    background: 'rgba(7, 12, 20, 0.16)',
-    backdropFilter: 'blur(6px) saturate(1.05)',
-    WebkitBackdropFilter: 'blur(6px) saturate(1.05)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    boxShadow: '0 6px 18px rgba(0,0,0,0.16)',
-    color: '#fff',
-    fontFamily: 'system-ui, sans-serif',
-    // Inside the top band, under the meter row and the act badge. In landscape the
-    // cluster tucks to the left so the lights/horn rail keeps the right edge.
-    ...(o === 'landscape'
-      ? {
-          top: 'calc(64px + env(safe-area-inset-top))',
-          left: 12,
-          width: 'min(360px, 52vw)',
-          transform: 'none',
-        }
-      : {
-          // 104 = under the act badge (top 66, ~23 tall) with air, which is what
-          // e2e/mobile-layout asserts and what keeps the two from stacking.
-          top: 'calc(104px + env(safe-area-inset-top))',
-          left: '50%',
-          width: 'min(400px, calc(100vw - 16px))',
-          transform: 'translateX(-50%)',
-        }),
-  };
-}
-
-function paintMap(
-  canvas: HTMLCanvasElement,
-  root: HTMLElement,
-  gap: HTMLElement | null,
-  here: { x: number; y: number; heading: number },
-  plan: NavPlan,
-) {
-  const cssW = root.clientWidth;
-  const cssH = root.clientHeight;
-  if (cssW < 2 || cssH < 2) return;
-  const dpr = Math.min(2, window.devicePixelRatio || 1);
-  const w = Math.max(1, Math.round(cssW * dpr));
-  const h = Math.max(1, Math.round(cssH * dpr));
-  if (canvas.width !== w || canvas.height !== h) {
-    canvas.width = w;
-    canvas.height = h;
-  }
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-
-  const scale = dpr * PX_PER_M;
-  let anchorX = w / 2;
-  let anchorY = h * 0.78;
-  if (gap && cssW > 0 && cssH > 0) {
-    const gr = gap.getBoundingClientRect();
-    const rr = root.getBoundingClientRect();
-    if (gr.width > 4 && gr.height > 4) {
-      anchorX = (gr.left + gr.width / 2 - rr.left) * (w / rr.width);
-      // The view sits above and behind the car. The chevron rides the
-      // bottom of the map so the street ahead fills the glass.
-      anchorY = (gr.bottom - 16 - rr.top) * (h / rr.height);
-    }
-  }
-
-  const cos = -Math.sin(here.heading);
-  const sin = -Math.cos(here.heading);
-  const to = (x: number, y: number) => {
-    const dx = x - here.x;
-    const dy = y - here.y;
-    return {
-      x: anchorX + (dx * cos - dy * sin) * scale,
-      y: anchorY + (dx * sin + dy * cos) * scale,
-    };
-  };
-
-  ctx.clearRect(0, 0, w, h);
-  const map = QuietRoads.sim.map;
-  const margin = 80 * dpr;
-
-  ctx.fillStyle = 'rgba(255,255,255,0.05)';
-  for (const building of map.buildings) {
-    if (!rectNear(building.rect, here, 420)) continue;
-    traceRect(ctx, building.rect, to);
-    ctx.fill();
-  }
-
-  if (map.schoolZone) {
-    ctx.fillStyle = 'rgba(255, 214, 80, 0.13)';
-    traceRect(ctx, map.schoolZone, to);
-    ctx.fill();
-  }
-
-  ctx.lineJoin = 'round';
-  ctx.lineCap = 'round';
-  ctx.fillStyle = 'rgba(198, 208, 222, 0.55)';
-  for (const road of map.roads) {
-    traceRect(ctx, road.rect, to);
-    ctx.fill();
-  }
-
-  ctx.strokeStyle = 'rgba(255,255,255,0.28)';
-  ctx.lineWidth = Math.max(1, dpr);
-  ctx.setLineDash([5 * dpr, 7 * dpr]);
-  ctx.beginPath();
-  for (const [a, c] of map.centerLines) {
-    const p = to(a.x, a.y);
-    const q = to(c.x, c.y);
-    if (!nearScreen(p, w, h, margin) && !nearScreen(q, w, h, margin)) continue;
-    ctx.moveTo(p.x, p.y);
-    ctx.lineTo(q.x, q.y);
-  }
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  if (map.rail) {
-    const a = to(map.rail.from.x, map.rail.from.y);
-    const b = to(map.rail.to.x, map.rail.to.y);
-    ctx.strokeStyle = 'rgba(214, 176, 64, 0.7)';
-    ctx.lineWidth = Math.max(1.5, 1.6 * dpr);
-    ctx.beginPath();
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
-    ctx.stroke();
-  }
-
-  if (plan.poly.length > 1) {
-    ctx.lineJoin = 'round';
-    ctx.lineCap = 'round';
-    ctx.beginPath();
-    plan.poly.forEach((p, i) => {
-      const s = to(p.x, p.y);
-      if (i === 0) ctx.moveTo(s.x, s.y);
-      else ctx.lineTo(s.x, s.y);
-    });
-    ctx.strokeStyle = 'rgba(70, 168, 255, 0.35)';
-    ctx.lineWidth = 9 * dpr;
-    ctx.stroke();
-    ctx.strokeStyle = 'rgba(90, 190, 255, 0.95)';
-    ctx.lineWidth = 4.5 * dpr;
-    ctx.stroke();
-  }
-
-  ctx.font = `700 ${Math.round(11 * dpr)}px system-ui, sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.lineWidth = 3 * dpr;
-  const seen = new Set<string>();
-  for (const road of map.roads) {
-    if (!road.name || /LOT|DRIVEWAY/.test(road.name) || seen.has(road.name)) continue;
-    const anchor = labelPoint(road.rect, here);
-    const s = to(anchor.x, anchor.y);
-    if (!nearScreen(s, w, h, 0)) continue;
-    const dx = s.x - anchorX;
-    const dy = s.y - anchorY;
-    if (dx * dx + dy * dy < (36 * dpr) * (36 * dpr)) continue;
-    seen.add(road.name);
-    ctx.strokeStyle = 'rgba(0,0,0,0.45)';
-    ctx.strokeText(road.name, s.x, s.y);
-    ctx.fillStyle = 'rgba(255,255,255,0.84)';
-    ctx.fillText(road.name, s.x, s.y);
-  }
-
-  if (plan.hasDest && plan.poly.length) {
-    const dest = plan.poly[plan.poly.length - 1];
-    const s = to(dest.x, dest.y);
-    if (nearScreen(s, w, h, margin)) drawPin(ctx, s.x, s.y, dpr);
-  }
-
-  drawDriver(ctx, anchorX, anchorY, dpr);
-}
-
-function traceRect(
-  ctx: CanvasRenderingContext2D,
-  rect: { x: number; y: number; w: number; h: number },
-  to: (x: number, y: number) => { x: number; y: number },
-) {
-  const a = to(rect.x, rect.y);
-  const b = to(rect.x + rect.w, rect.y);
-  const c = to(rect.x + rect.w, rect.y + rect.h);
-  const d = to(rect.x, rect.y + rect.h);
-  ctx.beginPath();
-  ctx.moveTo(a.x, a.y);
-  ctx.lineTo(b.x, b.y);
-  ctx.lineTo(c.x, c.y);
-  ctx.lineTo(d.x, d.y);
-  ctx.closePath();
-}
-
-function rectNear(
-  rect: { x: number; y: number; w: number; h: number },
-  p: { x: number; y: number },
-  reach: number,
-) {
-  const cx = Math.max(rect.x, Math.min(p.x, rect.x + rect.w));
-  const cy = Math.max(rect.y, Math.min(p.y, rect.y + rect.h));
-  return (p.x - cx) ** 2 + (p.y - cy) ** 2 < reach * reach;
-}
-
-function nearScreen(p: { x: number; y: number }, w: number, h: number, margin: number) {
-  return p.x >= -margin && p.y >= -margin && p.x <= w + margin && p.y <= h + margin;
-}
-
-function labelPoint(
-  rect: { x: number; y: number; w: number; h: number },
-  p: { x: number; y: number },
-) {
-  if (rect.w >= rect.h) {
-    return {
-      x: Math.max(rect.x, Math.min(p.x, rect.x + rect.w)),
-      y: rect.y + rect.h / 2,
-    };
-  }
-  return {
-    x: rect.x + rect.w / 2,
-    y: Math.max(rect.y, Math.min(p.y, rect.y + rect.h)),
-  };
-}
-
-function drawDriver(ctx: CanvasRenderingContext2D, x: number, y: number, dpr: number) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.fillStyle = 'rgba(90, 200, 255, 0.28)';
-  ctx.beginPath();
-  ctx.arc(0, 0, 14 * dpr, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = '#e7f8ff';
-  ctx.strokeStyle = '#083044';
-  ctx.lineWidth = 1.4 * dpr;
-  ctx.beginPath();
-  ctx.moveTo(0, -11 * dpr);
-  ctx.lineTo(7.5 * dpr, 8 * dpr);
-  ctx.lineTo(0, 3.5 * dpr);
-  ctx.lineTo(-7.5 * dpr, 8 * dpr);
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-  ctx.restore();
-}
-
-function drawPin(ctx: CanvasRenderingContext2D, x: number, y: number, dpr: number) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.scale(dpr, dpr);
-  ctx.fillStyle = '#ffd93d';
-  ctx.beginPath();
-  ctx.arc(0, -8, 5.5, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(-4.6, -6);
-  ctx.lineTo(0, 6);
-  ctx.lineTo(4.6, -6);
-  ctx.closePath();
-  ctx.fill();
-  ctx.fillStyle = '#1a1404';
-  ctx.beginPath();
-  ctx.arc(0, -8, 2.2, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
-const styles: Record<string, React.CSSProperties> = {
-  canvas: {
-    position: 'absolute',
-    inset: 0,
-    width: '100%',
-    height: '100%',
-    display: 'block',
-  },
-  stack: {
-    position: 'relative',
-    zIndex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 4,
-    padding: 6,
-  },
-  row: {
-    display: 'flex',
-    alignItems: 'stretch',
-    gap: 6,
-  },
-  gap: {
-    flex: '1 0 56px',
-    minHeight: 72,
-  },
-  nav: {
-    flex: '1 1 132px',
-    minWidth: 0,
-    maxWidth: 176,
-    background: 'rgba(6, 18, 16, 0.2)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: 10,
-    padding: '5px 7px 5px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  navDense: {
-    padding: '4px 6px',
-  },
-  navTop: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    minWidth: 0,
-  },
-  navText: {
-    minWidth: 0,
-  },
-  dist: {
-    fontWeight: 800,
-    letterSpacing: '-0.02em',
-    lineHeight: 1,
-  },
-  street: {
-    marginTop: 3,
-    fontWeight: 650,
-    letterSpacing: '0.04em',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  thenRow: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 4,
-    color: 'rgba(255,255,255,0.62)',
-    fontSize: 11,
-    fontWeight: 650,
-  },
-  eta: {
-    marginTop: 5,
-    paddingTop: 4,
-    borderTop: '1px solid rgba(255,255,255,0.12)',
-    fontSize: 11,
-    fontWeight: 700,
-    letterSpacing: '0.01em',
-  },
-  speed: {
-    flex: '0 0 auto',
-    background: 'rgba(8, 14, 32, 0.2)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: 10,
-    padding: '4px 6px 5px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 4,
-  },
-  speedTop: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    minHeight: 14,
-  },
-  clock: {
-    fontFamily: 'ui-monospace, monospace',
-    fontSize: 11,
-    fontWeight: 700,
-    letterSpacing: '0.12em',
-    lineHeight: 1,
-  },
-  speedMain: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
-    gap: 6,
-  },
-  mph: {
-    fontSize: 11,
-    fontWeight: 800,
-    letterSpacing: '0.12em',
-    marginTop: 2,
-  },
-  speedFoot: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 2,
-  },
-  bars: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 3,
-    minWidth: 0,
-  },
-  barLabel: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    color: 'rgba(255,255,255,0.55)',
-    fontSize: 8,
-    letterSpacing: '0.06em',
-  },
-  barTrack: {
-    height: 4,
-    background: 'rgba(255,255,255,0.12)',
-    borderRadius: 3,
-    overflow: 'hidden',
-  },
-  limit: {
-    width: 30,
-    flex: '0 0 auto',
-    background: '#fff',
-    border: '2px solid',
-    borderRadius: 3,
-    textAlign: 'center',
-    lineHeight: 1,
-    padding: '2px 0 2px',
-  },
-  limitTitle: {
-    fontSize: 6,
-    fontWeight: 800,
-    letterSpacing: '0.04em',
-  },
-  limitNum: {
-    fontSize: 12,
-    fontWeight: 800,
-    marginTop: 1,
-  },
-  objective: {
-    color: '#fff',
-    fontSize: 11,
-    lineHeight: 1.3,
-    padding: '2px 6px 2px',
-    textShadow: '0 1px 2px rgba(0,0,0,0.85)',
-  },
-  objTitle: {
-    fontSize: 8,
-    letterSpacing: '0.16em',
-    color: '#F28DB2',
-    marginBottom: 2,
-  },
-};
