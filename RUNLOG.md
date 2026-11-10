@@ -75,6 +75,29 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | `npm run build` | 4,037.41 kB / 1,329.78 kB gzip (5.35 s) | **4,021.58 kB / 1,325.18 kB gzip** (4.76 s) — the LensFlare effect left the bundle |
 | `npx playwright test --workers=1` | 41 passed / 21 skipped / 0 failed (10.5 min) | **45 passed / 25 skipped / 0 failed** (13.6 min) — +2 never-black sweeps, +2 `test.fixme` skips, +1 inventory skip, +21 duplicated viewport skips as before |
 
+## Gates (after Phase 2, measured on the branch)
+
+| Gate | Result |
+|---|---|
+| `npx vitest run` | **510/510** across 50 files (5.3 s) — +52 over Phase 1's 458 (20 tier, 9 LOD, 4 first-load bytes, 12 cockpit spec/objective, 7 more) |
+| `npx tsc --noEmit` | **0** |
+| `npm run build` | succeeds in **4.89 s**, **17 chunks / 4,244.56 kB / 1,388.94 kB gzip** total (was one bundle, 4,021.58 / 1,325.18). The total grew because the split's own chunks repeat shared module code; what the phone downloads is the split's first-load path — shell **1,085.47 kB / 317.50 kB gzip** + 3D chunk **2,849.63 / 988.22** (= **2,318 kB on the wire** with the mobile Beetle, measured by `first-load.spec.ts`); the post stack **75.11 / 18.56** and the act chunks are lazy |
+| `npx playwright test --workers=1` (run 3) | **48 passed / 27 skipped / 1 failed** in 20.1 min. The failure is `bridge.spec.ts:425` (440x956 crossing) hitting its own 420 s timeout on a loaded machine. **Alone: 2 passed in 1.2 min, worst offset 1.77 m, reached x=800** — the same numbers as the desktop project's pass in the same run. Re-run 4 recorded below. |
+| `npx playwright test --workers=1` (**run 4 — the phase's gate**) | **49 passed / 27 skipped / 0 failed** in **13.6 min**, `EXIT=0` (`%TEMP%\p2-gate4.log`). The 27 skips are the measured set already recorded in Phase 1/2: 2 `test.fixme` (the BLOCKED context-loss case, one per project), 2 cockpit-inventory opt-in skips, 2 tier cases that only run under `?tier=`, and 21 duplicated-viewport skips where a desktop-only case is repeated in the mobile project. No skip was added or widened for this run. |
+
+**The 440x956 crossing case is a load-sensitive pre-existing flake, not a Phase 2
+regression.** Evidence: it passed in the *desktop* project of the same 20.1-minute run
+(`worst 1.77 m, reached true at x=800`, 1.5 m), then failed in the mobile-portrait
+project at 7.2 minutes — the loop's 300 × (`page.evaluate` round-trip + 220 ms) costs
+about 1.2 s per iteration when the machine is busy, so the 420 s timeout arrives before
+the car crosses. Run alone it does the same crossing in 1.0 min. Phase 1's runs 2–3
+failed this exact case the same way (see the "6b" entry). Nothing in 2.2–2.4 touches the
+bridge, the gust, the steering or the sim tick; 2.3 only moved the car into its own
+Suspense boundary, and the crossing case still measures the same drift and the same
+centreline offsets. The fix belongs to the test's own cost (fewer, cheaper reads), not to
+a longer timeout, and it is recorded in ROADMAP as a test-cost item rather than loosened
+here.
+
 ## DECISIONS
 
 1. **The diagnostics ship off by default.** The GPU row, the dark-frame row and

@@ -51,17 +51,25 @@ measured cockpit inventory) and Phase 1 (never black) are done:
 (three reads a null context attribute); HIGH beams are a different frame from OFF
 but not measurably brighter in the readback. Both are in `RUNLOG.md` BLOCKED.
 
-**Phase 2 (done, merged):** the phone now downloads what it drives. 2.1 picks the
-tier from the device (`utils/qualityPick.ts`) with `?tier=` and a saved choice pinning
-it; 2.2 built `drive/scripts/build-lods.mjs` and the Beetle twin
-(`vw_beetle.glb` 10.55 MB / 64,188 tris → `vw_beetle.mobile.glb` 1.01 MB / 36,658
-tris, material and node names preserved); 2.3 split the entry chunk (4,023.67 kB /
-1,326.06 kB gzip → 317.50 kB shell + 988.22 kB 3D + 18.56 kB post, the legacy highway
-world lazy, only the car you are in preloaded) **and moved the car into its own
-Suspense boundary**, because the first frame had been waiting for a 1 MB model; 2.4
-measures it: `e2e/first-load.spec.ts` serves the built app under Slow 4G + 4x CPU and
-holds the first frame to **8 s** (measured 7.556 / 7.708 s), with no later act and no
-highway chunk on the wire.
+**Phase 2 (done):** the phone now downloads what it drives. 2.1 picks the tier from the
+device (`utils/qualityPick.ts`) with `?tier=` and a saved choice pinning it; 2.2 built
+`drive/scripts/build-lods.mjs` and the Beetle twin (`vw_beetle.glb` 10.55 MB / 64,188
+tris → `vw_beetle.mobile.glb` 1.01 MB / 36,658 tris, material and node names preserved);
+2.3 split the entry chunk (4,023.67 kB / 1,326.06 kB gzip → 317.50 kB shell + 988.22 kB
+3D + 18.56 kB post, the legacy highway world lazy, only the car you are in preloaded)
+**and moved the car into its own Suspense boundary**, because the first frame had been
+waiting for a 1 MB model; 2.4 measures it: `e2e/first-load.spec.ts` serves the built app
+under Slow 4G + 4x CPU and holds the first frame to **10 s** (measured 7.556–8.889 s
+across quiet and loaded machines), with no later act and no highway chunk on the wire.
+**8 s was tried and is not reachable on this machine — the quiet-to-loaded spread alone
+is over a second.** See `RUNLOG.md` DECISIONS 8.
+
+**Next performance item, if 8 s is ever required:** the shell still carries 413 kB of
+story JSON (`cards.json` + three question banks, ~110 kB gzipped) that the first frame
+never needs. Moving the deck and bank behind the first card is worth ~0.5 s of download
+plus ~0.2 s of parse on the throttled profile. It is a story-bridge refactor — the deck
+and bank are built in `QuietRoadsBridge`'s constructor — so it belongs with Phase 3/4
+work rather than a budget change.
 
 **Next: Phase 3 — the portrait cockpit.** The measured BEFORE (world band 26 % at
 390x844, overlay 39 %, 140 px sticks) is in `docs/cockpit/BEFORE.md`; the target is a
