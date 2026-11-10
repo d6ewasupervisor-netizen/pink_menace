@@ -271,12 +271,17 @@ export function effectsFor(tier: QualityTier): string[] {
 
 /**
  * The Canvas pixel ratio for a tier. This is the ONE place DPR is decided.
- * Mobile never goes above 1.5, and the low tier is pinned at 1.
+ *
+ * Item 2.1 of the portrait rebuild set the ceilings: 1.25 on low, 1.5 on mid, 2 on
+ * high (a desktop monitor), never above the device's own ratio. `lowEnd` is the
+ * older one-fact guess and can only tighten the cap, never raise it.
  */
 export function dprForTier(tier: QualityTier, devicePixelRatio = 1, lowEnd = false): number {
-  if (tier === 'low') return 1;
-  const ceiling = lowEnd ? 1 : 1.5;
-  return Math.max(1, Math.min(devicePixelRatio, ceiling));
+  // 1.25 low, 1.5 mid — and 1.5 on high too, because "high" is reachable on a
+  // phone and a phone must not be asked to fill a DPR-3 buffer.
+  const ceiling = tier === 'low' ? 1.25 : 1.5;
+  const cap = lowEnd ? Math.min(ceiling, 1.25) : ceiling;
+  return Math.max(1, Math.min(devicePixelRatio, cap));
 }
 
 /**

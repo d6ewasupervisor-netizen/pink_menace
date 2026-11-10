@@ -38,6 +38,7 @@ import {
   readGpuInfo,
   stepDarkFrame,
   type GlLike,
+  type GpuReport,
 } from '@/systems/diagnostics';
 import type { QualityTier } from '@/utils/performance';
 
@@ -60,7 +61,14 @@ function litLightCount(scene: THREE.Object3D): number {
   return n;
 }
 
-export function FieldDiagnostics({ tier }: { tier: QualityTier }) {
+export function FieldDiagnostics({
+  tier,
+  onDevice,
+}: {
+  tier: QualityTier;
+  /** Handed the GPU report once, so the tier can be refined from the real GPU. */
+  onDevice?: (report: GpuReport) => void;
+}) {
   const { gl, scene, camera } = useThree();
   const target = useMemo(
     () => new THREE.WebGLRenderTarget(SAMPLE, SAMPLE, { depthBuffer: false, stencilBuffer: false }),
@@ -88,6 +96,7 @@ export function FieldDiagnostics({ tier }: { tier: QualityTier }) {
       diag.gpu = report;
       diag.tier = tier;
       DriveSync.noteEvent({ ts: Date.now(), event: 'client.gpu', data: { ...report } });
+      onDevice?.(report);
     } catch {
       // Diagnostics may never take the Canvas down with them — the first e2e run
       // proved that they can, and a broken report is not worth a black screen.

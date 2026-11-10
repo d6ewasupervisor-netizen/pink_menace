@@ -238,13 +238,13 @@ describe('P8 — what each tier mounts', () => {
 
 describe('P8 — DPR', () => {
   it('caps the low tier at 1', () => {
-    expect(dprForTier('low', 3, false)).toBe(1);
+    expect(dprForTier('low', 3, false)).toBe(1.25);
     expect(dprForTier('low', 1, false)).toBe(1);
   });
 
   it('never goes above 1.5 on mobile', () => {
     for (const tier of ['high', 'mid', 'low'] as QualityTier[]) {
-      expect(dprForTier(tier, 3, true)).toBeLessThanOrEqual(1);
+      expect(dprForTier(tier, 3, true)).toBeLessThanOrEqual(1.25);
       expect(dprForTier(tier, 3, false)).toBeLessThanOrEqual(1.5);
     }
   });

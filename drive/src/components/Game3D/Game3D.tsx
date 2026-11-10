@@ -18,10 +18,11 @@ import { liveDrive } from '@/systems/driveTelemetry';
 import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
 import { getWeather } from './Skybox';
 import { isLowEndDevice, recordDelta, stepQuality, initialQualityState, dprForTier, type QualityState, type QualityTier } from '@/utils/performance';
+import { pickTier, readTierOverride, tierBelow } from '@/utils/qualityPick';
 import { bindHeld } from '@/input/driveInput';
 import { textScaleStyle } from '@/input/textSize';
 import { onContextLost, onContextRestored } from '@/systems/glContext';
-import { diagEnabled } from '@/systems/diagnostics';
+import { diagEnabled, type GpuReport } from '@/systems/diagnostics';
 import { FieldDiagnostics, DiagPanel } from './FieldDiagnostics';
 import { DriveSync } from '@/systems/DriveSync';
 
@@ -67,6 +68,25 @@ import { ScareOverlay } from './ScareOverlay';
 const LOW_END = isLowEndDevice();
 
 /**
+ * Which tier this device starts on (item 2.1).
+ *
+ * `?tier=` or a saved choice wins outright — that is what makes a bug report
+ * reproducible on a phone whose save says something else. Otherwise the tier comes
+ * from what the browser says before a context exists (cores, memory, DPR); the GPU
+ * string only exists once the context does, so `FieldDiagnostics` refines it once.
+ */
+const TIER_OVERRIDE = readTierOverride();
+const START_TIER: QualityTier =
+  TIER_OVERRIDE ??
+  pickTier({
+    gpu: '',
+    deviceMemory:
+      typeof navigator === 'undefined' ? null : (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? null,
+    hardwareConcurrency: typeof navigator === 'undefined' ? null : navigator.hardwareConcurrency ?? null,
+    dpr: typeof window === 'undefined' ? 1 : window.devicePixelRatio,
+  });
+
+/**
  * `?diag=1` — the live board: GPU, tier, DPR, buffer, draw calls, triangles,
  * frame time, mean luminance, context state, scene. Read once at module load, so
  * the panel cannot appear mid-session by accident. Off by default.
@@ -85,13 +105,32 @@ const DIAG = diagEnabled();
 // no-ops, and the frame time it measured is the `delta` PerfRecorder already
 // reads on the same frame. On a context restore GLContextGuard below writes the
 // tier's ratio once, which is the only other place DPR is touched.
-function PerfRecorder({ onTier }: { onTier: (t: QualityTier) => void }) {
+function PerfRecorder({
+  onTier,
+  onTierDown,
+}: {
+  onTier: (t: QualityTier) => void;
+  /** Called once, when a device that was not overridden cannot hold 50 ms. */
+  onTierDown: () => void;
+}) {
   const qualityRef = useRef<QualityState>(initialQualityState(LOW_END ? 'mid' : 'high'));
+  // Item 2.1's own guard: a phone that cannot hold 50 ms for three seconds gets
+  // one step down, once, and the client says so. `stepQuality` below keeps its
+  // own (slower) recovery rules; this is the cheap, early answer.
+  const slowS = useRef(0);
+  const stepped = useRef(false);
 
   useFrame((_, delta) => {
     // ?profileDrive frame-time counter.
     recordDelta(delta);
     // Draw calls / triangles come from the Kent scene pass — see KentPassProbe.
+
+    if (delta * 1000 > 50) slowS.current += delta;
+    else slowS.current = 0;
+    if (!stepped.current && slowS.current >= 3) {
+      stepped.current = true;
+      onTierDown();
+    }
 
     const before = qualityRef.current.tier;
     const next = stepQuality(qualityRef.current, delta * 1000, delta);
@@ -219,9 +258,12 @@ function AudioBridge() {
 }
 
 // ─── Inner scene (needs Canvas context) ──────────────────────────────────────
-function Scene({ lowEnd }: { lowEnd: boolean }) {
+function Scene({ tier }: { tier: QualityTier }) {
   const npcsRef = useRef<NpcState[]>([]);
   const worldMode = useGameStore((s) => s.worldMode);
+  // The cheap tier is cheap everywhere: one flag, read by the world pieces that
+  // know how to spend less (fewer props, fewer cars, no environment map).
+  const lowEnd = tier === 'low';
 
   const handleNpcsRef = useRef((ref: React.MutableRefObject<NpcState[]>) => {
     npcsRef.current = ref.current;
@@ -234,7 +276,7 @@ function Scene({ lowEnd }: { lowEnd: boolean }) {
       interpolate={true}
     >
       <Lighting />
-      <SceneEnvironment lowEnd={lowEnd} />
+      <SceneEnvironment lowEnd={tier !== 'high'} />
       <Skybox />
       {worldMode === 'kent' ? (
         <>
@@ -280,8 +322,39 @@ export function Game3D({ onExit }: Game3DProps) {
   const correctAnswers = useGameStore((s) => s.correctAnswers);
 
   // ── Quality tier (P8): the single owner of DPR and of the post stack ──────
-  const [tier, setTier] = useState<QualityTier>(LOW_END ? 'mid' : 'high');
-  const onTier = useCallback((t: QualityTier) => setTier(t), []);
+  const [tier, setTier] = useState<QualityTier>(START_TIER);
+  // An override PINS the tier: a bug report that asks for ?tier=high must run high,
+  // not quietly step down on the first slow frame. Everything below checks it.
+  const overrodeTier = useRef(TIER_OVERRIDE !== null);
+  const onTier = useCallback((t: QualityTier) => {
+    if (overrodeTier.current) return;
+    setTier(t);
+  }, []);
+  // A device that was measured (not overridden) can be re-measured once the GPU
+  // string is readable; an override is never second-guessed.
+  const onDevice = useCallback((report: GpuReport) => {
+    if (overrodeTier.current) return;
+    const picked = pickTier({
+      gpu: report.unmaskedRenderer ?? report.renderer,
+      deviceMemory: report.deviceMemory,
+      hardwareConcurrency: report.hardwareConcurrency,
+      dpr: report.dpr,
+    });
+    setTier((prev) => (prev === picked ? prev : picked));
+  }, []);
+  const onTierDown = useCallback(() => {
+    if (overrodeTier.current) return;
+    setTier((prev) => {
+      const next = tierBelow(prev);
+      if (next === prev) return prev;
+      DriveSync.noteEvent({
+        ts: Date.now(),
+        event: 'client.tier_down',
+        data: { from: prev, to: next, why: 'frame>50ms for 3s', override: overrodeTier.current },
+      });
+      return next;
+    });
+  }, []);
   const dpr = dprForTier(tier, typeof window === 'undefined' ? 1 : window.devicePixelRatio, LOW_END);
 
   // P12: text size. It is a CSS variable on the HTML overlay only — the 3D
@@ -388,19 +461,19 @@ export function Game3D({ onExit }: Game3DProps) {
       <Canvas
         frameloop="always"
         dpr={dpr}
-        shadows={LOW_END ? false : 'soft'}
+        shadows={tier === 'high' ? 'soft' : false}
         camera={{ fov: 75, near: 0.1, far: 1500 }}
-        gl={{ antialias: !LOW_END, powerPreference: 'high-performance' }}
+        gl={{ antialias: tier !== 'low', powerPreference: 'high-performance' }}
         style={{ position: 'absolute', inset: 0 }}
       >
         <Suspense fallback={null}>
-          <Scene lowEnd={LOW_END} />
+          <Scene tier={tier} />
           <PostProcessing tier={tier} />
           <AudioBridge />
           <GLContextGuard dpr={dpr} tier={tier} />
-          <FieldDiagnostics tier={tier} />
+          <FieldDiagnostics tier={tier} onDevice={onDevice} />
           <SceneDirector />
-          <PerfRecorder onTier={onTier} />
+          <PerfRecorder onTier={onTier} onTierDown={onTierDown} />
           {/*
             ONE pixel-ratio writer. The Canvas `dpr` prop above is the tier's only
             writer, and GLContextGuard re-applies that same tier ratio on a context
