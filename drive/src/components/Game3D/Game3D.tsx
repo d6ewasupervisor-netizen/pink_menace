@@ -18,7 +18,7 @@ import { liveDrive } from '@/systems/driveTelemetry';
 import { PHYSICS_STEP_SECONDS } from '@/systems/physicsStep';
 import { getWeather } from './Skybox';
 import { isLowEndDevice, recordDelta, stepQuality, initialQualityState, dprForTier, type QualityState, type QualityTier } from '@/utils/performance';
-import { pickTier, readTierOverride, tierBelow } from '@/utils/qualityPick';
+import { initialTier, pickTier, readTierOverride, tierBelow } from '@/utils/qualityPick';
 import { bindHeld } from '@/input/driveInput';
 import { textScaleStyle } from '@/input/textSize';
 import { onContextLost, onContextRestored } from '@/systems/glContext';
@@ -68,23 +68,12 @@ import { ScareOverlay } from './ScareOverlay';
 const LOW_END = isLowEndDevice();
 
 /**
- * Which tier this device starts on (item 2.1).
- *
- * `?tier=` or a saved choice wins outright — that is what makes a bug report
- * reproducible on a phone whose save says something else. Otherwise the tier comes
- * from what the browser says before a context exists (cores, memory, DPR); the GPU
- * string only exists once the context does, so `FieldDiagnostics` refines it once.
+ * Which tier this device starts on (item 2.1) — computed once, in `qualityPick`, so
+ * the model loader (`Vehicle.tsx`) starts on the same tier this Canvas does.
  */
+const START_TIER: QualityTier = initialTier();
+/** The explicit choice (`?tier=` or a save), if there is one — it pins the tier. */
 const TIER_OVERRIDE = readTierOverride();
-const START_TIER: QualityTier =
-  TIER_OVERRIDE ??
-  pickTier({
-    gpu: '',
-    deviceMemory:
-      typeof navigator === 'undefined' ? null : (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? null,
-    hardwareConcurrency: typeof navigator === 'undefined' ? null : navigator.hardwareConcurrency ?? null,
-    dpr: typeof window === 'undefined' ? 1 : window.devicePixelRatio,
-  });
 
 /**
  * `?diag=1` — the live board: GPU, tier, DPR, buffer, draw calls, triangles,
@@ -293,7 +282,7 @@ function Scene({ tier }: { tier: QualityTier }) {
           <CollisionSystem npcsRef={npcsRef} />
         </>
       )}
-      <Vehicle />
+      <Vehicle tier={tier} />
       <HeadlightBeam />
       <HeadlightFlares />
       <SkidMarks />

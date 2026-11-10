@@ -109,3 +109,27 @@ function safeStorage(): Storage | null {
 export function tierBelow(tier: PickedTier): PickedTier {
   return tier === 'high' ? 'mid' : 'low';
 }
+
+/**
+ * The tier this session starts on: the `?tier=` / saved override if there is one,
+ * otherwise the device's own facts. The GPU string only exists once a context does,
+ * so this is the best answer available before the first frame; `FieldDiagnostics`
+ * refines it once and `PerfRecorder` may step it down later.
+ *
+ * One function, two callers (the Canvas and the model loader), so the 3D world and
+ * the assets it draws cannot start on different tiers.
+ */
+export function initialTier(): PickedTier {
+  const override = readTierOverride();
+  if (override) return override;
+  return pickTier({
+    gpu: '',
+    deviceMemory:
+      typeof navigator === 'undefined'
+        ? null
+        : (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? null,
+    hardwareConcurrency: typeof navigator === 'undefined' ? null : navigator.hardwareConcurrency ?? null,
+    dpr: typeof window === 'undefined' ? 1 : window.devicePixelRatio,
+  });
+}
+

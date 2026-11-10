@@ -6,6 +6,13 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
+    // The client is browser code. Without this, every package under
+    // node_modules/@types is pulled in automatically — and the LOD toolchain
+    // (@gltf-transform/cli) brings @types/node, whose `setTimeout` shadows the DOM
+    // one and turns `ReturnType<typeof window.setTimeout>` into NodeJS.Timeout.
+    // `vite/client` is named in src/vite-env.d.ts; naming the list here keeps the
+    // build's own ambient types and nothing else.
+    "types": ["vite/client"],
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,

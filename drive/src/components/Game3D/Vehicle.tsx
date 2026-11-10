@@ -36,6 +36,9 @@ import {
 } from './wheelRig';
 import { getBeetlePaintTexture, getBeetleRoughnessTexture } from './proceduralBeetlePaint';
 import { asset } from '@/lib/asset';
+import { lodUrl } from '@/utils/modelLod';
+import { initialTier, type PickedTier } from '@/utils/qualityPick';
+
 
 // ─── Collider half-extents (scaled 0.75× for better road proportion) ─────────
 const VEHICLE_SCALE = 0.75;
@@ -71,9 +74,17 @@ const DOOR_Z_FROM = -0.72, DOOR_Z_TO = 0.56;   // door length only (was 1.9 → 
 const DOOR_Y_FROM = 0.20,  DOOR_Y_TO = 0.90;   // dropped ~8" to sit on the door panel, not the glass
 const DOOR_X      = 0.80;
 
-useGLTF.preload(asset('/models/cars/vw_beetle.glb'));
+/**
+ * The Beetle's own URL for a tier: `vw_beetle.glb` (10.55 MB) on high,
+ * `vw_beetle.mobile.glb` (1.01 MB) below it. Read once at import so the preload
+ * starts the right fetch before the first frame — the same tier the Canvas starts on.
+ */
+const BEETLE_URL = (tier: PickedTier) => lodUrl('/models/cars/vw_beetle.glb', tier);
+
+useGLTF.preload(asset(BEETLE_URL(initialTier())));
 useGLTF.preload(asset('/models/cars/truck.glb'));
 useGLTF.preload(asset('/models/cars/suv.glb'));
+
 
 /** Ledger truck or the highway car. Kenney bodies face +Z; spin them to the Beetle's -Z nose. */
 function KenneyChassis({ url, scale }: { url: string; scale: number }) {
@@ -86,12 +97,13 @@ function KenneyChassis({ url, scale }: { url: string; scale: number }) {
   );
 }
 
-function ChassisBody({ plowAngle }: { plowAngle: number }) {
+function ChassisBody({ plowAngle, tier }: { plowAngle: number; tier: PickedTier }) {
   const chassis = useGameStore((s) => s.chassis);
   if (chassis === 'truck') return <KenneyChassis url={asset('/models/cars/truck.glb')} scale={1.35} />;
   if (chassis === 'highway') return <KenneyChassis url={asset('/models/cars/suv.glb')} scale={1.15} />;
-  return <VWBeetleModel plowAngle={plowAngle} />;
+  return <VWBeetleModel plowAngle={plowAngle} tier={tier} />;
 }
+
 
 // ─── Material traversal helper ────────────────────────────────────────────────
 function applyToMaterial(
@@ -205,8 +217,9 @@ function DoorArmor() {
 }
 
 // ─── VW Beetle model with material overrides ──────────────────────────────────
-function VWBeetleModel({ plowAngle }: { plowAngle: number }) {
-  const { scene: rawScene } = useGLTF(asset('/models/cars/vw_beetle.glb'));
+function VWBeetleModel({ plowAngle, tier }: { plowAngle: number; tier: PickedTier }) {
+  const { scene: rawScene } = useGLTF(asset(BEETLE_URL(tier)));
+
   const brake = useGameStore((s) => s.brake);
   const throttle = useGameStore((s) => s.throttle);
   const steering = useGameStore((s) => s.steering);
@@ -498,7 +511,7 @@ function usePlowAngle() {
 // ─── Vehicle component ────────────────────────────────────────────────────────
 const _draw = new THREE.Vector3();
 
-export function Vehicle() {
+export function Vehicle({ tier }: { tier: PickedTier }) {
   const bodyRef = useRef<RapierRigidBody>(null);
   const drawRef = useRef<THREE.Group>(null);
   const { plowAngle, update: updatePlow } = usePlowAngle();
@@ -588,7 +601,7 @@ export function Vehicle() {
         restitution={0.2}
       />
       <group ref={drawRef} name="player-car">
-        <ChassisBody plowAngle={plowAngleDisplay.current} />
+        <ChassisBody plowAngle={plowAngleDisplay.current} tier={tier} />
       </group>
       <VehicleParticles />
     </RigidBody>
