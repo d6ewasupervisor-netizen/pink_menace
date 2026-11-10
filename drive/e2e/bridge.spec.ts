@@ -247,24 +247,41 @@ test("6.3 from the card to 7.1: the crossing, the sign, the moth, and the hands-
   const booted = await read(page);
   expect(booted.scene, "resumed onto the bridge approach").toBe("6.3");
 
-  // 1. The card, then the crossing: VII-006 → 6.3.go starts the mission.
-  const crossing = await walk(page, (s) => s.missionId === "vantage_bridge_crossing");
+  // 1. The card, then the crossing: VII-006 → 6.3.go starts the mission. The walk
+  //    keeps tapping until the scene's own words are off screen too: the assist tag
+  //    lives in the nav strip, and the strip stands down while a line or a choice is
+  //    open (the cockpit rule). The old chip was its own always-on layer, so this is
+  //    the one thing the tag changed for.
+  const crossing = await walk(
+    page,
+    (s) => s.missionId === "vantage_bridge_crossing" && !s.line && !s.direction && !s.choices,
+  );
   expect(crossing.missionId, "the crossing is live").toBe("vantage_bridge_crossing");
   await expect(page.locator('[data-layer="sticks"]'), "the sticks are up for the crossing").toHaveCount(1);
 
   // 2. The assist says what it is doing — as the nav strip's tag, not a chip.
   await expect(page.locator('[data-assist="wind"]')).toHaveText("AUTO 40", { timeout: 10_000 });
 
-  // 3. Drive it with a thumb. The hold finds 40 on its own and cannot be pushed
-  //    past it, which is the whole point of the assist.
-  const stick = await gasStick(page);
-  await holdGas(stick);
-  await page.waitForTimeout(9000);
+  // 3. The hold does the driving. ITEM 3.6 HIDES THE GAS RING WHILE THE ASSIST IS
+  //    ON — a throttle you must not push is furniture — so the proof is not "the
+  //    stick moved the car" any more, it is "the car moved with no throttle at all
+  //    and cannot pass 40". One ring is left in the corner: steering.
+  await expect(
+    page.locator('[data-layer="sticks"] div[data-ui]'),
+    "one ring while the assist holds: steering, no gas",
+  ).toHaveCount(1);
+  // The hold pulls away at `WIND.cruiseAccelMps2` (≈1 m/s²), so 40 mph is ~18 s of
+  // physics, not the 9 s the old full-throttle thumb needed: poll for the hold
+  // instead of photographing the middle of it. 30 s is twice the time it needs.
+  await expect
+    .poll(async () => Math.round((await read(page)).speedMph), {
+      timeout: 30_000,
+      message: "the hold finds 40 on its own",
+    })
+    .toBeGreaterThan(28);
   const driving = await read(page);
-  await releaseGas(page);
-  expect(driving.pos[0], "the car moved under the touch stick").toBeGreaterThan(120);
-  expect(driving.speedMph, "the hold is 40 mph, under the posted 45").toBeGreaterThan(28);
-  expect(driving.speedMph).toBeLessThan(41);
+  expect(driving.pos[0], "the car moved on the hold alone").toBeGreaterThan(60);
+  expect(driving.speedMph, "the hold is 40 mph, under the posted 45").toBeLessThan(41);
   expect(driving.vars.bridge_wait_restarts ?? 0, "no restart on the crossing").toBe(0);
 
   // 4. Halfway across: the sign. The span between here and the far side is not
