@@ -4,12 +4,13 @@
  * Uses drei's Sky (Preetham model) for physically-based sky rendering.
  * Adds procedural fog and rain particle effects.
  */
-import { useRef, useMemo, useState } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Sky } from '@react-three/drei';
 import * as THREE from 'three';
 import { useGameStore, TimeOfDay } from '@/stores/gameStore';
 import { setRoadSurfaceWetness } from './proceduralKenneyTextures';
+import { fogDensityFor } from '@/systems/visibility';
 
 // ─── Sun position presets ─────────────────────────────────────────────────────
 const SUN_POSITIONS: Record<TimeOfDay, [number, number, number]> = {
@@ -49,11 +50,47 @@ const FOG_COLORS: Record<TimeOfDay, Record<WeatherType, string>> = {
   night:  { clear: '#0a0a1a', overcast: '#080812', rain: '#060610' },
 };
 
-const FOG_DENSITY: Record<WeatherType, number> = {
-  clear: 0.0008,
-  overcast: 0.0020,
-  rain: 0.0035,
+// Fog densities live in `systems/visibility`: they are clamped so the road at
+// 80 m keeps at least 85 % of itself, whatever the weather preset asks for.
+
+// ─── The background that always draws ─────────────────────────────────────────
+/**
+ * drei's `Sky` is a Preetham *mesh*: a mesh can be clipped by the camera's far
+ * plane, filtered out by a cheap tier, or simply not mounted yet. `scene.background`
+ * cannot — it is what the renderer clears to, drawn before the scene and outside
+ * the post stack. So the background is a two-stop vertical gradient built once per
+ * time of day (a 4x256 canvas in an equirect mapping, which three reads as a
+ * full-sphere background) and the Preetham mesh adds the sun and horizon on top.
+ *
+ * This is the cheap guarantee behind "never black": even with every mesh gone and
+ * the post stack off, the frame is a night sky rather than #000.
+ */
+const SKY_GRADIENT: Record<TimeOfDay, [string, string, string]> = {
+  day: ['#cfe2f5', '#8fbdf0', '#5f93d6'],
+  sunset: ['#f6c07a', '#c96f4d', '#3d2b3f'],
+  night: ['#0d1424', '#070a14', '#03040a'],
 };
+
+function skyGradientTexture(tod: TimeOfDay): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const canvas = document.createElement('canvas');
+  canvas.width = 4;
+  canvas.height = 256;
+  const g = canvas.getContext('2d');
+  if (!g) return null;
+  // Equirect: the top of the image is the zenith.
+  const grad = g.createLinearGradient(0, 0, 0, 256);
+  const [top, mid, low] = SKY_GRADIENT[tod];
+  grad.addColorStop(0, top);
+  grad.addColorStop(0.55, mid);
+  grad.addColorStop(1, low);
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 4, 256);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.mapping = THREE.EquirectangularReflectionMapping;
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
 
 // ─── Rain particles ───────────────────────────────────────────────────────────
 const RAIN_COUNT = 800;
@@ -155,6 +192,16 @@ export function Skybox() {
   const wetnessRef = useRef(0);
   const skyRef = useRef<any>(null);
   const frameCount = useRef(0);
+  // One gradient texture per time of day, built on first use and disposed with
+  // the component (three keeps the GPU copy, so the CPU canvas can go).
+  const backgrounds = useRef<Partial<Record<TimeOfDay, THREE.Texture>>>({});
+  useEffect(
+    () => () => {
+      for (const tex of Object.values(backgrounds.current)) tex?.dispose();
+      backgrounds.current = {};
+    },
+    [],
+  );
 
   // Smooth interpolation targets
   const targetSun = useRef(new THREE.Vector3(...SUN_POSITIONS.day));
@@ -184,9 +231,9 @@ export function Skybox() {
     turbidityRef.current = THREE.MathUtils.lerp(turbidityRef.current, SKY_TURBIDITY[tod], 0.05);
     rayleighRef.current = THREE.MathUtils.lerp(rayleighRef.current, SKY_RAYLEIGH[tod], 0.05);
 
-    // Update fog
+    // Update fog — the density comes from the visibility ceiling, not the mood.
     const fogColor = FOG_COLORS[tod][currentWeather];
-    const fogDensity = FOG_DENSITY[currentWeather];
+    const fogDensity = fogDensityFor(currentWeather);
     if (!scene.fog) {
       scene.fog = new THREE.FogExp2(fogColor, fogDensity);
     } else {
@@ -198,11 +245,12 @@ export function Skybox() {
       );
     }
 
-    // Also set scene background to match fog for seamless blending
-    if (!scene.background || !(scene.background as THREE.Color).isColor) {
-      scene.background = new THREE.Color(fogColor);
-    } else {
-      (scene.background as THREE.Color).set(fogColor);
+    // The background is a gradient by time of day. It is what the renderer clears
+    // to, so no tier, cull or shader can take it away — and it is the reason a
+    // frame with no meshes still reads as a night sky instead of #000.
+    const bg = backgrounds.current[tod] ?? (backgrounds.current[tod] = skyGradientTexture(tod) ?? undefined);
+    if (!scene.background || bg === undefined || (scene.background as THREE.Texture).uuid !== bg.uuid) {
+      scene.background = bg ?? new THREE.Color(fogColor);
     }
   });
 

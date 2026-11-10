@@ -8,6 +8,7 @@ import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGameStore, TimeOfDay } from '@/stores/gameStore';
+import { withLightFloor } from '@/systems/lightFloor';
 
 // ─── Weather detection (same logic as Skybox) ─────────────────────────────────
 type WeatherType = 'clear' | 'overcast' | 'rain';
@@ -69,7 +70,14 @@ export function Lighting() {
 
     const tod = state.timeOfDay;
     const weather = getWeather(state.mileage);
-    const preset = PRESETS[tod][weather];
+    // The presets are a mood; the floor is a screen. Night + rain is ambient
+    // 0.07 / hemisphere 0.05, which is not "dark" on an OLED phone — it is the
+    // same black the 3D view reported in 6.3. `withLightFloor` lifts the three
+    // scene-wide lights to a minimum that still reads as night and leaves every
+    // brighter preset exactly as tuned.
+    const tuned = PRESETS[tod][weather];
+    const floor = withLightFloor({ ambient: tuned.ambient, hemi: tuned.hemiIntensity, sun: tuned.sun });
+    const preset = { ...tuned, ambient: floor.ambient, hemiIntensity: floor.hemi, sun: floor.sun };
     const t = 0.08; // smooth interpolation speed
 
     if (ambientRef.current) {
