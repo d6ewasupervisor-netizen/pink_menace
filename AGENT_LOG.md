@@ -2343,7 +2343,8 @@ no shader row. Its forced-context-loss case is **BLOCKED** and marked `test.fixm
 the loss still unmounts the React tree with three reading a null context attribute.
 
 Commits: `[0.1]`, `[0.2]`, `[0.3]`, `[1.1]`, `[1.2]`, `[1.3]`, `[1.4]` on
-`drive/portrait-rebuild`. No seed, no deploy. Phases 2–6 of the portrait rebuild are
+`drive/portrait-rebuild`. No seed, no deploy. Phases 3–6 of the portrait rebuild are
+untouched; `RUNLOG.md` carries the item table.
 
 **Follow-up the same run (gate work, two commits).** `[0.4]` `drive/scripts/wait-log.ps1`:
 one command waits on a run's log (10 s polls, 900 s cap) and prints the failures,
@@ -2362,6 +2363,19 @@ crossing case timing out at 420 s waiting for `[data-gust-side]` (desktop in one
 mobile in the other; it passed in the other project in the same run and alone in
 1.1 min). Run 4, after the light fix: **45 passed / 25 skipped / 0 failed** in
 13.6 min — the Phase 1 gate. Final: vitest **458/458** (45 files), `tsc` 0, build
-**4,021.58 kB / 1,325.18 kB gzip**.
+**4,021.58 kB / 1,325.18 kB gzip**. Phase 1 is merged to `main` (`0c018ef`) and
+pushed.
 
-untouched; `RUNLOG.md` carries the item table.
+**Phase 2.1, same run (branch only).** `[2.1]` `8961f9f`: `utils/qualityPick.ts`
+chooses the tier from the unmasked GPU string, `deviceMemory` and cores — the old
+rule was `hardwareConcurrency <= 4`, which called a four-core Adreno 6xx phone
+low-end — with `?tier=` and a saved choice pinning it (an override is not
+second-guessed by the adaptive step-down). DPR ceilings are 1.25 low / 1.5 mid and
+high; shadows mount only on high, env maps below high, antialias off on low; a
+device that cannot hold 50 ms for 3 s steps down once and sends `client.tier_down`.
+20 unit tests plus `e2e/tier.spec.ts`, which measures the canvas buffer ratio under
+`?tier=low` (1.25) and `?tier=high` (1.5). Measured: **467/467** vitest (46 files),
+`tsc` 0, build **4,023.33 kB / 1,325.92 kB gzip**, tier e2e 2/2. Not merged: Phase 2
+is incomplete — 2.2 (LODs; `vw_beetle.glb` is 10.55 MB, `@gltf-transform` is not
+installed but the registry answers), 2.3 (code split) and 2.4 (throttled first
+frame) are open, and they are listed in `RUNLOG.md`.

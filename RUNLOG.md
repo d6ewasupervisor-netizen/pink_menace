@@ -19,10 +19,10 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | 1.2 sky that always renders + floor lighting | DONE | gradient `scene.background` per time of day (never culled), `systems/lightFloor.ts` (night floor 0.14/0.10/0.06), fog density ceiling in `systems/visibility.ts` |
 | 1.3 headlights that light the road, fog vs camera | DONE | spots visible only when the stalk is on, LOW/HIGH differ in intensity/distance/angle; `quietroads/sceneLight.ts` fixes the real cause (6.2/6.3 entered as `day`) |
 | 1.4 never-black e2e + detector unit tests | DONE | `e2e/never-black.spec.ts` (Pixel 7 + iPhone 13, 9 scenes, luminance, context, shader) green; context-loss case BLOCKED (see below) |
-| 2.1 quality tier picker | TODO | not started this run |
-| 2.2 model LODs (`scripts/build-lods.mjs`) | TODO | not started |
-| 2.3 lazy loading / code split | TODO | not started |
-| 2.4 tier + throttled first-frame e2e | TODO | |
+| 2.1 quality tier picker | DONE (branch, not merged) | `8961f9f`: `utils/qualityPick.ts` (GPU + memory + cores, `?tier=` and a saved choice pin the tier), DPR 1.25/1.5/1.5, shadows only on high, env maps below high, auto step-down once (50 ms for 3 s) with `client.tier_down`; 20 unit tests + `e2e/tier.spec.ts` (buffer ratio 1.25 / 1.5). Pending the phase's full gate |
+| 2.2 model LODs (`scripts/build-lods.mjs`) | TODO | `@gltf-transform/*` is not installed; the registry answers (`npm ping` 171 ms), so this is a pipeline to build, not a blocker. Scope measured: only `vw_beetle.glb` is over 500 KB (**10.55 MB**); every other model is ≤ 0.2 MB |
+| 2.3 lazy loading / code split | TODO | Act I only up front; the preload machinery exists (`preloadNextScene`), the entry chunk split is untouched |
+| 2.4 tier + throttled first-frame e2e | TODO | the tier half is covered by `e2e/tier.spec.ts`; the throttled first-frame budget and the "no act 2+ chunk before act 1 ends" case are not written |
 | 3.1 design tokens | TODO | |
 | 3.2 layout spec rewrite | TODO | |
 | 3.3 top rail, noise bar, nav strip, objective | TODO | |
@@ -129,9 +129,12 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | 0.3 cockpit inventory | DONE | `f69d3eb` |
 | 1.1 diagnostics | DONE | `89a5984` |
 | 1.2 sky + light floor + fog ceiling | DONE | `a9132ea` |
-| 1.3 headlights + scene hour + flares | DONE | `1e791af` |
-| 1.4 never-black e2e + guard | DONE (loss case BLOCKED) | `3f5dcc6` |
-| 2.x–6.x | TODO (nothing started) | — |
+| 1.3 headlights + scene hour + flares | DONE | `1e791af`, `52c04b2` |
+| 1.4 never-black e2e + guard | DONE (loss case BLOCKED) | `3f5dcc6`, `8b95b3f` |
+| 0.4 wait-log script | DONE | `3fe030f` |
+| 2.1 quality tier picker | DONE on the branch (not merged — the phase is incomplete) | `8961f9f` |
+| 2.2 LODs / 2.3 code split / 2.4 throttled e2e | TODO (see the item table) | — |
+| 3.x–6.x | TODO (nothing started) | — |
 
 ### What the diagnostics say about the black screen
 
@@ -155,9 +158,13 @@ distinct in intensity/distance/angle.
 
 ### Numbers
 
-- Tier rules: unchanged this pass (Phase 2 owns them) — DPR ≤ 1.5, low tier 1.0,
-  effect table low/mid/high.
-- LODs: not produced (Phase 2.2 TODO). Beetle GLB still 11 MB.
+- Tier rules (2.1, branch): `pickTier(gpu, deviceMemory, hardwareConcurrency, dpr)` →
+  low/mid/high, with `?tier=` and a saved choice pinning it; DPR 1.25 low, 1.5 mid,
+  1.5 high (never above the device's own); post stack low = vignette, mid = grade +
+  vignette, high = the full stack; shadows only on high; env maps below high; one
+  automatic step-down when a frame stays over 50 ms for 3 s (`client.tier_down`).
+- LODs: not produced (2.2 TODO). Measured scope: `vw_beetle.glb` is **10.55 MB**,
+  every other model is ≤ 0.2 MB.
 - First-load: **4,021.58 kB / 1,325.18 kB gzip** (was 4,037.41 / 1,329.78) — the
   LensFlare shaders left. Time to first frame: not measured (Phase 2.4 owns it).
 - Cockpit budgets before (after = Phase 3): 390x844 world band **216 px (26 %)**,

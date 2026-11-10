@@ -51,6 +51,13 @@ measured cockpit inventory) and Phase 1 (never black) are done:
 (three reads a null context attribute); HIGH beams are a different frame from OFF
 but not measurably brighter in the readback. Both are in `RUNLOG.md` BLOCKED.
 
+**Phase 2 (branch):** 2.1 is done — the tier now comes from the device
+(`utils/qualityPick.ts`: unmasked GPU, memory, cores) with `?tier=` and a saved
+choice pinning it, DPR 1.25/1.5/1.5, shadows only on high, and one automatic
+step-down when a frame stays over 50 ms for 3 s (`client.tier_down`). 2.2 (LODs:
+`vw_beetle.glb` is 10.55 MB, the only model over 500 KB), 2.3 (act-1 entry chunk
+split) and 2.4 (throttled first-frame budget) are open.
+
 
 ## P0 — Foundations (do first; they unblock everything else)
 
