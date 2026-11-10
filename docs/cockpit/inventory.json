@@ -1,0 +1,584 @@
+[
+  {
+    "shape": "portrait-390x844",
+    "data": {
+      "viewport": {
+        "w": 390,
+        "h": 844,
+        "dpr": 1
+      },
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 844,
+        "buffer": "390x844",
+        "visible": true
+      },
+      "rows": [
+        {
+          "key": "hud:hud",
+          "layer": "hud",
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "z": 50,
+          "touch": false,
+          "text": "⏸ACT I· THE LOTthe MenaceTITUS ST07:20MP",
+          "container": true
+        },
+        {
+          "key": "pause:Pause",
+          "layer": "pause",
+          "x": 12,
+          "y": 10,
+          "w": 36,
+          "h": 36,
+          "z": 0,
+          "touch": true,
+          "text": "⏸",
+          "container": false
+        },
+        {
+          "key": "badge:badge",
+          "layer": "badge",
+          "x": 102,
+          "y": 66,
+          "w": 186,
+          "h": 23,
+          "z": 0,
+          "touch": false,
+          "text": "ACT I· THE LOTthe Menace",
+          "container": false
+        },
+        {
+          "key": "nav:Navigation",
+          "layer": "nav",
+          "x": 8,
+          "y": 104,
+          "w": 374,
+          "h": 143,
+          "z": 215,
+          "touch": false,
+          "text": "TITUS ST07:20MPHLIMIT25HP100FUEL100OBJEC",
+          "container": false
+        },
+        {
+          "key": "world-hud:world-hud",
+          "layer": "world-hud",
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "z": 210,
+          "touch": false,
+          "text": "● QUIET20 dBnobody’s lookingTP 0LOWHORN",
+          "container": true
+        },
+        {
+          "key": "world-hud:noise-meter",
+          "layer": "world-hud",
+          "x": 111,
+          "y": 6,
+          "w": 168,
+          "h": 46,
+          "z": 0,
+          "touch": false,
+          "text": "● QUIET20 dBnobody’s looking",
+          "container": false
+        },
+        {
+          "key": "lights:Headlights (L)",
+          "layer": "lights",
+          "x": 12,
+          "y": 230,
+          "w": 52,
+          "h": 52,
+          "z": 0,
+          "touch": true,
+          "text": "LOW",
+          "container": false
+        },
+        {
+          "key": "horn:Horn (H)",
+          "layer": "horn",
+          "x": 12,
+          "y": 290,
+          "w": 52,
+          "h": 52,
+          "z": 0,
+          "touch": true,
+          "text": "HORN",
+          "container": false
+        },
+        {
+          "key": "sticks:sticks",
+          "layer": "sticks",
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "z": 220,
+          "touch": false,
+          "text": "STEERGAS · REV",
+          "container": true
+        },
+        {
+          "key": "sticks:",
+          "layer": "sticks",
+          "x": 10,
+          "y": 674,
+          "w": 140,
+          "h": 140,
+          "z": 0,
+          "touch": true,
+          "text": "",
+          "container": false
+        },
+        {
+          "key": "sticks:",
+          "layer": "sticks",
+          "x": 240,
+          "y": 674,
+          "w": 140,
+          "h": 140,
+          "z": 0,
+          "touch": true,
+          "text": "",
+          "container": false
+        },
+        {
+          "key": "wind-assist:wind-assist",
+          "layer": "wind-assist",
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "z": 51,
+          "touch": false,
+          "text": "@keyframes qr-wind-in-left { from { tran",
+          "container": true
+        },
+        {
+          "key": "wind-assist:WIND ASSIST · 40",
+          "layer": "wind-assist",
+          "x": 12,
+          "y": 54,
+          "w": 88,
+          "h": 31,
+          "z": 0,
+          "touch": false,
+          "text": "WIND ASSIST · 40",
+          "container": false
+        },
+        {
+          "key": "wind-assist:gust-indicator",
+          "layer": "wind-assist",
+          "x": 250,
+          "y": 388,
+          "w": 130,
+          "h": 70,
+          "z": 0,
+          "touch": false,
+          "text": "▶GUST · steer right",
+          "container": false
+        }
+      ],
+      "coverage": 0.3852403520649966,
+      "worldBand": {
+        "top": 458,
+        "height": 216,
+        "fraction": 0.2559241706161137
+      }
+    }
+  },
+  {
+    "shape": "android-412x915",
+    "data": {
+      "viewport": {
+        "w": 412,
+        "h": 915,
+        "dpr": 1
+      },
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "w": 412,
+        "h": 915,
+        "buffer": "412x915",
+        "visible": true
+      },
+      "rows": [
+        {
+          "key": "hud:hud",
+          "layer": "hud",
+          "x": 0,
+          "y": 0,
+          "w": 412,
+          "h": 915,
+          "z": 50,
+          "touch": false,
+          "text": "⏸ACT I· THE LOTthe MenaceTITUS ST07:20MP",
+          "container": true
+        },
+        {
+          "key": "pause:Pause",
+          "layer": "pause",
+          "x": 12,
+          "y": 10,
+          "w": 36,
+          "h": 36,
+          "z": 0,
+          "touch": true,
+          "text": "⏸",
+          "container": false
+        },
+        {
+          "key": "badge:badge",
+          "layer": "badge",
+          "x": 113,
+          "y": 66,
+          "w": 186,
+          "h": 23,
+          "z": 0,
+          "touch": false,
+          "text": "ACT I· THE LOTthe Menace",
+          "container": false
+        },
+        {
+          "key": "nav:Navigation",
+          "layer": "nav",
+          "x": 8,
+          "y": 104,
+          "w": 396,
+          "h": 143,
+          "z": 215,
+          "touch": false,
+          "text": "TITUS ST07:20MPHLIMIT25HP100FUEL100OBJEC",
+          "container": false
+        },
+        {
+          "key": "world-hud:world-hud",
+          "layer": "world-hud",
+          "x": 0,
+          "y": 0,
+          "w": 412,
+          "h": 915,
+          "z": 210,
+          "touch": false,
+          "text": "● QUIET20 dBnobody’s lookingTP 0LOWHORN",
+          "container": true
+        },
+        {
+          "key": "world-hud:noise-meter",
+          "layer": "world-hud",
+          "x": 122,
+          "y": 6,
+          "w": 168,
+          "h": 46,
+          "z": 0,
+          "touch": false,
+          "text": "● QUIET20 dBnobody’s looking",
+          "container": false
+        },
+        {
+          "key": "lights:Headlights (L)",
+          "layer": "lights",
+          "x": 12,
+          "y": 230,
+          "w": 52,
+          "h": 52,
+          "z": 0,
+          "touch": true,
+          "text": "LOW",
+          "container": false
+        },
+        {
+          "key": "horn:Horn (H)",
+          "layer": "horn",
+          "x": 12,
+          "y": 290,
+          "w": 52,
+          "h": 52,
+          "z": 0,
+          "touch": true,
+          "text": "HORN",
+          "container": false
+        },
+        {
+          "key": "sticks:sticks",
+          "layer": "sticks",
+          "x": 0,
+          "y": 0,
+          "w": 412,
+          "h": 915,
+          "z": 220,
+          "touch": false,
+          "text": "STEERGAS · REV",
+          "container": true
+        },
+        {
+          "key": "sticks:",
+          "layer": "sticks",
+          "x": 10,
+          "y": 743,
+          "w": 142,
+          "h": 142,
+          "z": 0,
+          "touch": true,
+          "text": "",
+          "container": false
+        },
+        {
+          "key": "sticks:",
+          "layer": "sticks",
+          "x": 260,
+          "y": 743,
+          "w": 142,
+          "h": 142,
+          "z": 0,
+          "touch": true,
+          "text": "",
+          "container": false
+        },
+        {
+          "key": "wind-assist:wind-assist",
+          "layer": "wind-assist",
+          "x": 0,
+          "y": 0,
+          "w": 412,
+          "h": 915,
+          "z": 51,
+          "touch": false,
+          "text": "@keyframes qr-wind-in-left { from { tran",
+          "container": true
+        },
+        {
+          "key": "wind-assist:WIND ASSIST · 40",
+          "layer": "wind-assist",
+          "x": 12,
+          "y": 54,
+          "w": 88,
+          "h": 31,
+          "z": 0,
+          "touch": false,
+          "text": "WIND ASSIST · 40",
+          "container": false
+        },
+        {
+          "key": "wind-assist:gust-indicator",
+          "layer": "wind-assist",
+          "x": 272,
+          "y": 421,
+          "w": 130,
+          "h": 70,
+          "z": 0,
+          "touch": false,
+          "text": "▶GUST · steer right",
+          "container": false
+        }
+      ],
+      "coverage": 0.3499385254589392,
+      "worldBand": {
+        "top": 491,
+        "height": 252,
+        "fraction": 0.2754098360655738
+      }
+    }
+  },
+  {
+    "shape": "landscape-844x390",
+    "data": {
+      "viewport": {
+        "w": 844,
+        "h": 390,
+        "dpr": 1
+      },
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "w": 844,
+        "h": 390,
+        "buffer": "844x390",
+        "visible": true
+      },
+      "rows": [
+        {
+          "key": "hud:hud",
+          "layer": "hud",
+          "x": 0,
+          "y": 0,
+          "w": 844,
+          "h": 390,
+          "z": 50,
+          "touch": false,
+          "text": "⏸ACT I· THE LOTthe MenaceTITUS ST07:20MP",
+          "container": true
+        },
+        {
+          "key": "pause:Pause",
+          "layer": "pause",
+          "x": 796,
+          "y": 10,
+          "w": 36,
+          "h": 36,
+          "z": 0,
+          "touch": true,
+          "text": "⏸",
+          "container": false
+        },
+        {
+          "key": "badge:badge",
+          "layer": "badge",
+          "x": 12,
+          "y": 10,
+          "w": 186,
+          "h": 23,
+          "z": 0,
+          "touch": false,
+          "text": "ACT I· THE LOTthe Menace",
+          "container": false
+        },
+        {
+          "key": "nav:Navigation",
+          "layer": "nav",
+          "x": 12,
+          "y": 64,
+          "w": 360,
+          "h": 143,
+          "z": 215,
+          "touch": false,
+          "text": "TITUS ST07:20MPHLIMIT25HP100FUEL100OBJEC",
+          "container": false
+        },
+        {
+          "key": "world-hud:world-hud",
+          "layer": "world-hud",
+          "x": 0,
+          "y": 0,
+          "w": 844,
+          "h": 390,
+          "z": 210,
+          "touch": false,
+          "text": "● QUIET20 dBnobody’s lookingTP 0LOWHORN",
+          "container": true
+        },
+        {
+          "key": "world-hud:noise-meter",
+          "layer": "world-hud",
+          "x": 338,
+          "y": 6,
+          "w": 168,
+          "h": 46,
+          "z": 0,
+          "touch": false,
+          "text": "● QUIET20 dBnobody’s looking",
+          "container": false
+        },
+        {
+          "key": "lights:Headlights (L)",
+          "layer": "lights",
+          "x": 12,
+          "y": 52,
+          "w": 52,
+          "h": 52,
+          "z": 0,
+          "touch": true,
+          "text": "LOW",
+          "container": false
+        },
+        {
+          "key": "horn:Horn (H)",
+          "layer": "horn",
+          "x": 12,
+          "y": 112,
+          "w": 52,
+          "h": 52,
+          "z": 0,
+          "touch": true,
+          "text": "HORN",
+          "container": false
+        },
+        {
+          "key": "sticks:sticks",
+          "layer": "sticks",
+          "x": 0,
+          "y": 0,
+          "w": 844,
+          "h": 390,
+          "z": 220,
+          "touch": false,
+          "text": "STEERGAS · REV",
+          "container": true
+        },
+        {
+          "key": "sticks:",
+          "layer": "sticks",
+          "x": 10,
+          "y": 218,
+          "w": 142,
+          "h": 142,
+          "z": 0,
+          "touch": true,
+          "text": "",
+          "container": false
+        },
+        {
+          "key": "sticks:",
+          "layer": "sticks",
+          "x": 692,
+          "y": 218,
+          "w": 142,
+          "h": 142,
+          "z": 0,
+          "touch": true,
+          "text": "",
+          "container": false
+        },
+        {
+          "key": "wind-assist:wind-assist",
+          "layer": "wind-assist",
+          "x": 0,
+          "y": 0,
+          "w": 844,
+          "h": 390,
+          "z": 51,
+          "touch": false,
+          "text": "@keyframes qr-wind-in-left { from { tran",
+          "container": true
+        },
+        {
+          "key": "wind-assist:WIND ASSIST · 40",
+          "layer": "wind-assist",
+          "x": 12,
+          "y": 36,
+          "w": 132,
+          "h": 22,
+          "z": 0,
+          "touch": false,
+          "text": "WIND ASSIST · 40",
+          "container": false
+        },
+        {
+          "key": "wind-assist:gust-indicator",
+          "layer": "wind-assist",
+          "x": 704,
+          "y": 108,
+          "w": 130,
+          "h": 70,
+          "z": 0,
+          "touch": false,
+          "text": "▶GUST · steer right",
+          "container": false
+        }
+      ],
+      "coverage": 0.36618628494051647,
+      "worldBand": {
+        "top": 207,
+        "height": 183,
+        "fraction": 0.46923076923076923
+      }
+    }
+  }
+]
