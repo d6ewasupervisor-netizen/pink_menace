@@ -8,6 +8,7 @@ import { Physics } from '@react-three/rapier';
 
 import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
+import { useQRStore } from '@/stores/qrStore';
 import { useGameProgress } from '@/hooks/useGameProgress';
 import { useTouchControls } from '@/hooks/useTouchControls';
 import { useQuizManager } from '@/systems/QuizManager';
@@ -20,6 +21,8 @@ import { isLowEndDevice, recordDelta, stepQuality, initialQualityState, dprForTi
 import { bindHeld } from '@/input/driveInput';
 import { textScaleStyle } from '@/input/textSize';
 import { onContextLost, onContextRestored } from '@/systems/glContext';
+import { diagEnabled } from '@/systems/diagnostics';
+import { FieldDiagnostics, DiagPanel } from './FieldDiagnostics';
 import { DriveSync } from '@/systems/DriveSync';
 
 import { Lighting } from './Lighting';
@@ -49,6 +52,7 @@ import { ContinuousRoad } from './ContinuousRoad';
 import { QuietSwarm } from './QuietSwarm';
 import { StoppingShadow } from './StoppingShadow';
 import { HeadlightBeam } from './HeadlightBeam';
+import { HeadlightFlares } from './HeadlightFlares';
 import { DialogueBox } from './DialogueBox';
 import { SceneDirector } from './SceneDirector';
 import { GracieQTE } from './GracieQTE';
@@ -61,6 +65,13 @@ import { ScareOverlay } from './ScareOverlay';
 
 // ─── Low-end detection (computed once) ───────────────────────────────────────
 const LOW_END = isLowEndDevice();
+
+/**
+ * `?diag=1` — the live board: GPU, tier, DPR, buffer, draw calls, triangles,
+ * frame time, mean luminance, context state, scene. Read once at module load, so
+ * the panel cannot appear mid-session by accident. Off by default.
+ */
+const DIAG = diagEnabled();
 
 // ─── Quality tiers (P8) ──────────────────────────────────────────────────────
 // ONE system owns DPR: the tier. It is chosen from measured frame time via the
@@ -93,17 +104,44 @@ function PerfRecorder({ onTier }: { onTier: (t: QualityTier) => void }) {
 }
 
 // ─── WebGL context-loss guard (runs inside Canvas for gl.domElement) ────────
-function GLContextGuard({ dpr }: { dpr: number }) {
+function GLContextGuard({ dpr, tier }: { dpr: number; tier: QualityTier }) {
   const { gl } = useThree();
+  // The render loop keeps calling three while the context is gone, and three
+  // throws (`Cannot read properties of null (reading 'alpha')` — a lost context
+  // has no attributes to read). That throw unmounts the React tree: HUD, pause
+  // menu and all. Measured in a headless Chromium by `e2e/never-black.spec.ts`'s
+  // forced-loss case. Parking the loop for the duration is the whole fix.
+  const setFrameloop = useThree((s) => s.setFrameloop);
   // P3: a second loss must not overwrite prePausePhase. This ref is the flag
   // the pure rule reads; the decision itself lives in systems/glContext.
   const lostWhilePaused = useRef(false);
 
   useEffect(() => {
     const el = gl.domElement;
+    let askRestore: number | null = null;
+    const clearAsk = () => {
+      if (askRestore != null) {
+        window.clearTimeout(askRestore);
+        askRestore = null;
+      }
+    };
+
     const onLost = (e: Event) => {
       e.preventDefault(); // allow the browser to offer a restore, don't kill the canvas
-      DriveSync.noteEvent({ ts: Date.now(), event: 'webgl.context_lost' });
+      setFrameloop('never');
+      // The row carries what the phone could not say before: which scene, which
+      // tier, and how big the buffer was when the lights went out.
+      DriveSync.noteEvent({
+        ts: Date.now(),
+        event: 'client.context_lost',
+        data: {
+          scene: useQRStore.getState().sceneId,
+          tier,
+          dpr,
+          buffer: `${gl.domElement.width}x${gl.domElement.height}`,
+          phase: useGameStore.getState().phase,
+        },
+      });
       const s = useGameStore.getState();
       const decision = onContextLost({
         phase: s.phase,
@@ -114,10 +152,30 @@ function GLContextGuard({ dpr }: { dpr: number }) {
         lostWhilePaused.current = true;
         useGameStore.setState({ phase: decision.phase as typeof s.phase, prePausePhase: decision.prePausePhase as typeof s.prePausePhase });
       }
-      useQRHud.getState().setTransient({ toast: 'Graphics paused. Tap Resume to continue.' });
+      // Say it on screen while it is true: a black view with a live HUD and no
+      // words was the whole bug report.
+      useQRHud.getState().setTransient({ toast: 'Restarting view…' });
+      // If the browser does not hand a context back, ask it to — once. Without
+      // this the canvas stays black forever and nothing ever retries.
+      clearAsk();
+      askRestore = window.setTimeout(() => {
+        askRestore = null;
+        try {
+          gl.forceContextRestore();
+        } catch {
+          // A WebGL1 context without the extension has no way back; the chip
+          // stays up and the player can reload. Not a crash.
+        }
+      }, 5000);
     };
+
     const onRestored = () => {
-      DriveSync.noteEvent({ ts: Date.now(), event: 'webgl.context_restored' });
+      clearAsk();
+      DriveSync.noteEvent({
+        ts: Date.now(),
+        event: 'client.context_restored',
+        data: { scene: useQRStore.getState().sceneId, tier },
+      });
       const decision = onContextRestored(dpr);
       // The browser resets the pixel ratio when the context is recreated, so the
       // tier (the single DPR owner) has to write it again — once, with its own
@@ -125,14 +183,18 @@ function GLContextGuard({ dpr }: { dpr: number }) {
       gl.setPixelRatio(decision.pixelRatio);
       if (decision.clearToast) useQRHud.getState().setTransient({ toast: '' });
       // decision.autoResume is always false — the player resumes, not the browser.
+      lostWhilePaused.current = false;
+      // The loop was parked on the loss; it is safe to draw again.
+      setFrameloop('always');
     };
     el.addEventListener('webglcontextlost', onLost, false);
     el.addEventListener('webglcontextrestored', onRestored, false);
     return () => {
+      clearAsk();
       el.removeEventListener('webglcontextlost', onLost);
       el.removeEventListener('webglcontextrestored', onRestored);
     };
-  }, [gl, dpr]);
+  }, [gl, dpr, tier]);
   return null;
 }
 
@@ -191,6 +253,7 @@ function Scene({ lowEnd }: { lowEnd: boolean }) {
       )}
       <Vehicle />
       <HeadlightBeam />
+      <HeadlightFlares />
       <SkidMarks />
       <GameCamera />
     </Physics>
@@ -334,7 +397,8 @@ export function Game3D({ onExit }: Game3DProps) {
           <Scene lowEnd={LOW_END} />
           <PostProcessing tier={tier} />
           <AudioBridge />
-          <GLContextGuard dpr={dpr} />
+          <GLContextGuard dpr={dpr} tier={tier} />
+          <FieldDiagnostics tier={tier} />
           <SceneDirector />
           <PerfRecorder onTier={onTier} />
           {/*
@@ -371,6 +435,7 @@ export function Game3D({ onExit }: Game3DProps) {
         <MainMenu onExit={onExit} />
         <LovesStopScreen />
         <OutOfGasScreen />
+        {DIAG && <DiagPanel />}
       </div>
     </div>
   );
