@@ -28,6 +28,7 @@ import {
   nextTextSize,
   normalizeTextSize,
 } from '@/input/textSize';
+import { TILT, lastTiltReading, type TiltReading } from '@/input/tiltSteering';
 import { type HeadlightBeam, nextHeadlight } from '@/systems/headlights';
 
 export type GamePhase =
@@ -141,6 +142,14 @@ interface SettingsSlice {
   sfxVolume: number;    // 0–1
   musicVolume: number;  // 0–1
   reducedMotion: boolean; // suppresses camera shake + drift (a11y)
+  /**
+   * ITEM 4.2 — the phone's roll as the steering axis. Off by default: a sensor the
+   * player did not ask for must not move the car. The neutral is measured, not
+   * chosen — it is the reading at the moment the player pressed SET STRAIGHT.
+   */
+  tiltSteering: boolean;
+  tiltInvert: boolean;
+  tiltNeutral: TiltReading;
   /** P12: the remappable key table. Defaults are the shipped arrows/WASD set. */
   binds: BindMap;
   /** P12: 0 = standard, 1 = large, 2 = largest. Type only — never the 3D world. */
@@ -191,6 +200,12 @@ type GameState = ControlsSlice &
     setSfxVolume: (vol: number) => void;
     setMusicVolume: (vol: number) => void;
     setReducedMotion: (on: boolean) => void;
+    /** ITEM 4.2 — tilt steering's three writes. */
+    setSteeringSensitivity: (value: number) => void;
+    setTiltSteering: (on: boolean) => void;
+    setTiltInvert: (on: boolean) => void;
+    /** Measure "straight" from the last reading the sensor delivered. */
+    calibrateTilt: () => TiltReading | null;
     // ── P12 accessibility ──────────────────────────────────────────────────────
     setBinds: (binds: BindMap) => void;
     rebindAction: (action: DriveAction, key: string) => void;
@@ -257,6 +272,9 @@ export const useGameStore = create<GameState>()(
       sfxVolume: 0.7,
       musicVolume: 0.3,
       reducedMotion: false,
+      tiltSteering: false,
+      tiltInvert: false,
+      tiltNeutral: TILT.defaultNeutral,
       binds: defaultBinds(),
       textSize: 0 as TextSize,
       colorblindHud: false,
@@ -303,6 +321,22 @@ export const useGameStore = create<GameState>()(
       setSfxVolume: (vol) => set({ sfxVolume: Math.max(0, Math.min(1, vol)) }),
       setMusicVolume: (vol) => set({ musicVolume: Math.max(0, Math.min(1, vol)) }),
       setReducedMotion: (on) => set({ reducedMotion: on }),
+
+      // ── Tilt steering (item 4.2) ────────────────────────────────────────────
+      setSteeringSensitivity: (value) => set({ steeringSensitivity: Math.max(0.5, Math.min(2, value)) }),
+      setTiltSteering: (on) => set({ tiltSteering: on }),
+      setTiltInvert: (on) => set({ tiltInvert: on }),
+      /**
+       * The neutral is the reading the phone had when the player said "this is
+       * straight". No reading means nothing to calibrate — returning null rather
+       * than writing 0 keeps a guess out of the store (0 would claim the phone
+       * was flat when nothing was measured).
+       */
+      calibrateTilt: () => {
+        const reading = lastTiltReading();
+        if (reading) set({ tiltNeutral: reading });
+        return reading;
+      },
 
       // ── P12 accessibility ──────────────────────────────────────────────────
       setBinds: (binds) => set({ binds: normalizeBinds(binds) }),
@@ -445,7 +479,8 @@ export const useGameStore = create<GameState>()(
 
       // ── Reset ───────────────────────────────────────────────────────────────
       resetProgress: () => {
-        const { steeringSensitivity, controlsScheme, resetCounter, reducedMotion, binds, textSize, colorblindHud } = get();
+        const { steeringSensitivity, controlsScheme, resetCounter, reducedMotion, binds, textSize, colorblindHud,
+          tiltSteering, tiltInvert, tiltNeutral } = get();
         set({
           ...defaultGameState,
           steeringSensitivity,
@@ -454,6 +489,9 @@ export const useGameStore = create<GameState>()(
           binds,
           textSize,
           colorblindHud,
+          tiltSteering,
+          tiltInvert,
+          tiltNeutral,
           phase: 'menu',
           vehiclePosition: [0, 0.7, 0] as [number, number, number],
           vehicleHeading: 0,
@@ -495,6 +533,11 @@ export const useGameStore = create<GameState>()(
         sfxVolume: state.sfxVolume,
         musicVolume: state.musicVolume,
         reducedMotion: state.reducedMotion,
+        // A calibration is the player's hand, not the run's progress: it survives a
+        // restart with the rest of the settings.
+        tiltSteering: state.tiltSteering,
+        tiltInvert: state.tiltInvert,
+        tiltNeutral: state.tiltNeutral,
         binds: normalizeBinds(state.binds),
         textSize: normalizeTextSize(state.textSize),
         colorblindHud: state.colorblindHud,

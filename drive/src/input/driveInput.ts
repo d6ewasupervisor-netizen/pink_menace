@@ -83,6 +83,26 @@ export const liveKeys = new Set<string>();
 export let livePad: PadAxes | null = null;
 
 /**
+ * ITEM 4.2 — tilt steering's axis, or `null` when the phone is not being held as
+ * a wheel (see `input/tiltSteering.ts`).
+ *
+ * It is a separate source rather than a third field on `liveStick` because the
+ * merge has to tell "the phone says straight" (0, which should cancel nothing) from
+ * "there is no tilt opinion" (null, which should leave the sticks and keys in
+ * charge). The priority in `mergeDriveInput` is keys → pad → touch stick → tilt, so
+ * a thumb on the stick always wins and putting the phone down never fights it.
+ */
+let liveTilt: number | null = null;
+
+export function setLiveTilt(steer: number | null): void {
+  liveTilt = steer === null || !Number.isFinite(steer) ? null : Math.max(-1, Math.min(1, steer));
+}
+
+export function getLiveTilt(): number | null {
+  return liveTilt;
+}
+
+/**
  * Hands-off lock (quietroads/handsoff.ts). While a wait is up the car must not
  * take a single input from anywhere — sticks, keys or pad — because on 6.3's
  * engine-off minute a resting thumb was `engine.start_early` and a restart of
@@ -301,6 +321,10 @@ export function mergeDriveInput(sensitivity: number, binds: BindMap = DEFAULT_BI
     steer = pad.steer;
   } else if (liveStick.active && !left && !right && !(pad && Math.abs(pad.steer) > 0.02)) {
     steer = liveStick.steer;
+  } else if (liveTilt !== null && !left && !right) {
+    // Last in the chain on purpose: a thumb on the glass is a clearer intent than
+    // a wrist angle, and a phone laid down leaves the sticks and keys alone.
+    steer = liveTilt;
   }
 
   const throttle = Math.max(

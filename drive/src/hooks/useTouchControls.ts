@@ -9,6 +9,7 @@ import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
 import {
   getStickAxes,
+  getLiveTilt,
   liveKeys,
   mergeDriveInput,
   setLivePad,
@@ -75,7 +76,9 @@ export function useTouchControls() {
         startPressedRef.current = false;
         setLivePad(null);
         setPadPresent(false);   // no analog stick: the wind assist applies
-        if (liveKeys.size > 0 || getStickAxes().active) {
+        // ITEM 4.2: a phone held as a wheel is a live steering source too. Without
+        // this the 16 ms poll would zero the tilt's axis between readings.
+        if (liveKeys.size > 0 || getStickAxes().active || getLiveTilt() !== null) {
           flushDriveInput();
         } else {
           useGameStore.getState().setControls({
@@ -111,7 +114,7 @@ export function useTouchControls() {
         Math.abs(steering) > eps || throttle > eps || brake > eps || handbrake;
 
       setLivePad(hasPadMotion ? { steer: steering, throttle, brake, handbrake } : null);
-      if (hasPadMotion || liveKeys.size > 0 || getStickAxes().active) {
+      if (hasPadMotion || liveKeys.size > 0 || getStickAxes().active || getLiveTilt() !== null) {
         flushDriveInput();
       } else {
         useGameStore.getState().setControls({

@@ -11,6 +11,7 @@ import { useQRHud } from '@/stores/qrHud';
 import { useQRStore } from '@/stores/qrStore';
 import { useGameProgress } from '@/hooks/useGameProgress';
 import { useTouchControls } from '@/hooks/useTouchControls';
+import { useTiltSteering } from '@/hooks/useTiltSteering';
 import { useQuizManager } from '@/systems/QuizManager';
 import { AudioManager } from '@/systems/AudioManager';
 import { getSlipState } from '@/systems/VehicleController';
@@ -376,6 +377,9 @@ export function Game3D({ onExit }: Game3DProps) {
 
   // Register systems
   useTouchControls();
+  // ITEM 4.2: the phone's roll, when the player turned it on. It attaches one
+  // listener and merges as a steering source behind the keys, pad and stick.
+  useTiltSteering();
   useQuizManager();
 
   // ── Initialize audio on first user interaction ─────────────────────────────

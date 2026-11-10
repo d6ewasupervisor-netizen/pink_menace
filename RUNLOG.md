@@ -32,9 +32,9 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | 3.7 compound surfaces re-skin | DONE | `worldBandStyle(spec)` is the one world-band box, and the QTE prompt, the stranded Continue, the shop counter and the hands-off wait all sit in it instead of the old hand-tuned `frameFor().top`; `CardOverlay` reads `tokens.colors.accent/stroke/strokeSoft` and `var(--qr-glass)` instead of three hard-coded `#F28DB2`s and two bespoke rgba panels. `frameFor` remains only for the card's own still/dock split |
 | 3.8 dead UI removal + REMOVED.md | DONE | Deleted `GameHUD.tsx`, `EngineHUD.tsx`, `Speedometer.tsx` — nothing imported them (the highway world mounts `CockpitHUD`/`QuietHUD`/`TouchOverlay`, and those return null outside `kent`); removed the dead `zoneTop`/`zoneBottom`/`zoneBody`/`dialogueMaxHeight`/`phoneChrome` helpers; `docs/cockpit/REMOVED.md` gains the noise meter's label row, the act ego line, the pause chip's absolute corner, and says the three files are **deleted, not disabled** |
 | 3.9 cockpit overlap/budget tests + baselines | DONE | **`e2e/cockpit-bands.spec.ts` replaces `cockpit-layout.spec.ts`** (and its 12 baselines are retired): 5 viewports (390×844, 412×915, 440×956, 844×390, 1280×800) × **6 states** (driving, dialogue, gust, chain-up prompt, card, hands-off), with the canvas **visible**; asserts no two interactive layers overlap, `[data-band="world"]` ≥ **55 %** of a portrait viewport (26 % before), LOW/HORN inside the viewport and uncovered (`elementFromPoint`), and the card still clear of the dock. 12 new baselines at 390×844 and 844×390, captured with the canvas hidden for the length of the exposure only (a moving 3D scene is not a baseline). `interactiveLayers` + `overlaps` are the old helpers, kept |
-| 4.1 settings panel | TODO | |
-| 4.2 tilt steering | TODO | |
-| 4.3 tilt tests | TODO | |
+| 4.1 settings panel | DONE | `Game3D/SettingsPanel.tsx` is the one settings surface: SOUND (on/off + SFX and MUSIC sliders), STEERING (scheme, sensitivity 50–200 %, tilt on/off, tilt reverse, SET STRAIGHT), ACCESSIBILITY (steady cam, text size, colourblind HUD) and KEYS (the capture table). The pause menu keeps the run's facts and the three ways out and offers ⚙ SETTINGS one button away; its inline rows and eight dead styles are gone. Every row writes the store — `e2e/tilt.spec.ts` moves the sensitivity slider and reads 1.5 back, so a row that only looks wired fails |
+| 4.2 tilt steering | DONE | `input/tiltSteering.ts` is the maths: dead zone 2.5°, full lock at 30°, upright cone ±45° pitch, neutral measured at the green light. `hooks/useTiltSteering.ts` is the only DOM code — one listener while the setting is on, iOS 13+ permission asked from the settings click, and `null` (not 0) when the phone lies down so the sticks and keys stay in charge. `driveInput` merges it last: keys → pad → touch stick → tilt. `gameStore` gains `tiltSteering/tiltInvert/tiltNeutral` + three writes, persisted and preserved across a reset. A first version listed the neutral object in the effect's deps and tore the listener down between readings — the fix is one dependency, the on/off switch |
+| 4.3 tilt tests | DONE | `test/tilt-steering.test.ts` (25), `test/tilt-merge.test.ts` (9), `test/settings.test.ts` (8) and `e2e/tilt.spec.ts` (2, real browser: the panel writes the store, a synthetic `deviceorientation` steers the car, a flat phone steers nothing, the calibration reads straight, a key beats it). Every claim has its failure next to it, because the failure mode is "the car steers when the player did not ask" |
 | 5.1 haptics, shake, reduced motion | TODO | |
 | 5.2 7.3/8.1 daylight keys | TODO | |
 | 5.3 feel tests | TODO | |
@@ -97,6 +97,30 @@ Suspense boundary, and the crossing case still measures the same drift and the s
 centreline offsets. The fix belongs to the test's own cost (fewer, cheaper reads), not to
 a longer timeout, and it is recorded in ROADMAP as a test-cost item rather than loosened
 here.
+
+## Gates (after Phase 3, measured on the branch)
+
+| Gate | Result |
+|---|---|
+| `npx vitest run` | **536/536** across 51 files (6.4 s) — +26 over Phase 2's 510 (20 cockpit spec/objective, 6 more); Phase 4's tilt and settings tests take it to **553/553 across 53 files** (4.7 s) |
+| `npx tsc --noEmit` | **0** |
+| `npm run build` | **4.08 s**, shell **1,087.12 kB / 318.03 kB gzip** + 3D chunk **2,848.36 / 988.11** + post stack 75.11 / 18.56 lazy (the shell grew 1.6 kB for the settings panel and tilt) |
+| `npx playwright test --workers=1` (**the phase's gate**) | **51 passed / 27 skipped / 0 failed** in **13.9 min**, `EXIT=0` (`%TEMP%\p3-gate2.log`). Phase 2's run 4 was 49/27/0; this run is +2 because the two failures Phase 3 introduced were fixed rather than skipped. The 27 skips are the same measured set as Phase 2 (2 `test.fixme` for the BLOCKED context-loss case, 2 inventory opt-ins, 2 `?tier=`-only cases, 21 duplicated viewports); none was added or widened |
+| `npx playwright test e2e/tilt.spec.ts` | **2 passed** (7.8 s) — the settings panel writes the store, and a synthetic `deviceorientation` steers the car |
+
+**Two real Phase 3 failures, both found by the gate and fixed in place.** (1)
+`bridge.spec.ts:241` still held the gas ring for 9 s, but item 3.6 hides that ring
+while the assist holds — the test was pressing furniture. It now proves the hold
+instead: one steering ring, the car pulls away with no throttle and cannot pass 40
+mph. (2) `mobile-layout.spec.ts:115` counted **two** buttons under CONTINUE,
+because `answerQuiz` hands the phase back to `driving` and clears `quizActive`
+while the verdict panel is still up, so the cockpit rule saw a drive with no quiz
+in it and brought the rail, the noise bar and the lights/horn back underneath the
+panel. That is a real gap in the rule: `quizResultOpen` is now the store's one word
+for "a verdict is on screen", `compoundOpen`/`staleCockpitFlag` read it,
+`QuizOverlay` dismisses it when the verdict is read or the next question arrives,
+and `test/cockpit-hud.test.ts` pins both the gap and the handback. The two tests
+that had been failing are the two that now pass.
 
 ## DECISIONS
 
