@@ -211,6 +211,15 @@ test.describe('first load — Pixel 7, Slow 4G, 4x CPU', () => {
       // The car is the one model that must be there, and on a phone it is the twin.
       expect(models.some((u) => u.includes('vw_beetle.mobile.glb')), 'the mobile Beetle is what a phone downloads').toBe(true);
       expect(models.some((u) => /vw_beetle\.glb/i.test(u)), 'the 10.55 MB original stayed home').toBe(false);
+
+      // Item 2.4's second half: the boot is not the only window. Act II may be
+      // preloaded — but at the debrief of the scene that hands off to it, i.e. after
+      // Act I ends. Ten seconds of scene 1.1 is nowhere near that, so nothing may
+      // arrive in it. (The preload-at-debrief itself is pinned in
+      // test/bundle.test.ts: `preloadNextScene` off 1.4 loads Act II.)
+      await page.waitForTimeout(10_000);
+      const laterDuringActOne = requested.filter((u) => LATER_ACT.test(u));
+      expect(laterDuringActOne, 'no later act was fetched while Act I played').toEqual([]);
     } finally {
       await server.close();
     }
