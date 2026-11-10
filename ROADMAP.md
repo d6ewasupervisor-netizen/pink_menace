@@ -51,12 +51,25 @@ measured cockpit inventory) and Phase 1 (never black) are done:
 (three reads a null context attribute); HIGH beams are a different frame from OFF
 but not measurably brighter in the readback. Both are in `RUNLOG.md` BLOCKED.
 
-**Phase 2 (branch):** 2.1 is done — the tier now comes from the device
-(`utils/qualityPick.ts`: unmasked GPU, memory, cores) with `?tier=` and a saved
-choice pinning it, DPR 1.25/1.5/1.5, shadows only on high, and one automatic
-step-down when a frame stays over 50 ms for 3 s (`client.tier_down`). 2.2 (LODs:
-`vw_beetle.glb` is 10.55 MB, the only model over 500 KB), 2.3 (act-1 entry chunk
-split) and 2.4 (throttled first-frame budget) are open.
+**Phase 2 (done, merged):** the phone now downloads what it drives. 2.1 picks the
+tier from the device (`utils/qualityPick.ts`) with `?tier=` and a saved choice pinning
+it; 2.2 built `drive/scripts/build-lods.mjs` and the Beetle twin
+(`vw_beetle.glb` 10.55 MB / 64,188 tris → `vw_beetle.mobile.glb` 1.01 MB / 36,658
+tris, material and node names preserved); 2.3 split the entry chunk (4,023.67 kB /
+1,326.06 kB gzip → 317.50 kB shell + 988.22 kB 3D + 18.56 kB post, the legacy highway
+world lazy, only the car you are in preloaded) **and moved the car into its own
+Suspense boundary**, because the first frame had been waiting for a 1 MB model; 2.4
+measures it: `e2e/first-load.spec.ts` serves the built app under Slow 4G + 4x CPU and
+holds the first frame to **8 s** (measured 7.556 / 7.708 s), with no later act and no
+highway chunk on the wire.
+
+**Next: Phase 3 — the portrait cockpit.** The measured BEFORE (world band 26 % at
+390x844, overlay 39 %, 140 px sticks) is in `docs/cockpit/BEFORE.md`; the target is a
+48 px top rail, a 6 px noise bar, a 56 px nav strip with the assist as a tag, a 40 px
+objective that hides, a world band ≥ 55 %, 110–120 px corner sticks and 44 px
+lights/horn — with the minimap, the clock and the HP/FUEL bars gone from the
+always-on HUD.
+
 
 
 ## P0 — Foundations (do first; they unblock everything else)

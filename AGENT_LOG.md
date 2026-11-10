@@ -2379,3 +2379,95 @@ device that cannot hold 50 ms for 3 s steps down once and sends `client.tier_dow
 is incomplete — 2.2 (LODs; `vw_beetle.glb` is 10.55 MB, `@gltf-transform` is not
 installed but the registry answers), 2.3 (code split) and 2.4 (throttled first
 frame) are open, and they are listed in `RUNLOG.md`.
+
+## 2026-11-10 — Phase 2: the twin, the split, and the first frame that stopped waiting for the car
+
+Phase 1 shipped the diagnostics; this phase spends the budget they point at. The
+phone the plan is written for is a teenager's on a 4G connection, and the two
+numbers that mattered were "how many MB" and "how long until something moves".
+
+### [2.2] The car a phone downloads is the car it needs
+
+`vw_beetle.glb` was 10.55 MB — 17 1024×1024 PNGs (8.2 MB of it) and 64,188
+triangles, all of it fetched before the first frame of a drive.
+`drive/scripts/build-lods.mjs` is the pipeline, not a one-off: dedup → prune → a
+per-material texture plan → 256–512 px resize → WebP → weld → meshoptimizer
+`simplify` at 0.5 → `KHR_mesh_quantization`. **10.55 MB / 64,188 tris →
+`vw_beetle.mobile.glb` 1.01 MB / 36,658 tris (1,030,792 B, 9.3 %)**, budget 1.5 MB.
+
+The texture plan is the part that needed reading the code, not the asset:
+`Vehicle.tsx` overwrites `Chassi`'s base colour with the procedural paint atlas and
+forces `Details_02` to flat chrome, so those bytes were downloaded and never drawn —
+they are dropped; `Chassi`'s normal/AO stay at 512 (panel lines), the lamp lenses at
+256, the wheels at 512. Every **material name and node name survives**, because the
+paint job is found by material name and the four wheels by node name: a renamed LOD
+would lose both and still look fine in a screenshot. `test/model-lod.test.ts` (9)
+checks the budget, the ratio, the names, the extensions (only ones `GLTFLoader`
+reads) and that it is still the same car. `utils/modelLod.ts` picks the twin for
+low/mid; `qualityPick.initialTier()` means the Canvas and the loader cannot start on
+different tiers. The LOD toolchain brings `@types/node`, whose `setTimeout` shadowed
+the DOM one and broke `ReturnType<typeof window.setTimeout>` in two files; the
+client's tsconfig now names `vite/client` instead of accepting every `@types`.
+
+### [2.3] The shell paints first, and the world it draws is the world it drives
+
+Three splits, each measured:
+
+| What | Before | After |
+|---|---|---|
+| entry chunk | 4,023.67 kB / **1,326.06 kB gzip** (everything) | 1,085.47 kB / **317.50 kB gzip** (auth, store, story bridge) |
+| 3D stack | (in the entry) | 2,849.63 kB / **988.22 kB gzip**, its own chunk |
+| post stack | (in the entry) | 75.11 kB / 18.56 kB gzip, lazy |
+| models before the frame | Beetle + truck + suv + **15 Kenney highway GLBs** | the mobile Beetle only |
+
+`App.tsx` no longer imports drei's `useProgress` (three.js was in the entry chunk for
+a progress bar — the bar is a CSS sweep now) and lazies the 3D wrapper. `Game3D`
+lazies `RoadChunks`/`TrafficRenderer`/`Collectibles`/`CollisionSystem`: those four
+modules each preloaded their own GLBs *at import time*, so a Quiet Roads phone
+fetched a highway it would never see. `Vehicle` preloads only the chassis the player
+is in (the Ledger truck and the highway car start their fetch when they are chosen).
+
+**The bug the measurement found.** First frame on a throttled Pixel 7: 13.9 s. The
+scene, the frame loop and the car shared ONE Suspense boundary, and the car's GLB
+suspends — so a 1 MB model held the first drawn frame. The frame loop, the context
+guard, the diagnostics and the post stack now sit outside the boundary, and the car
+has its own inside the scene: the road, the sky and the cockpit draw, the Beetle
+arrives into it. **13.9 s → 7.56 s**, with the breakdown the spec prints itself:
+
+```
+shell JS    310 kB  @187 ms   +1,678 ms   (auth, stores, story bridge)
+3D chunk    965 kB  @2,071 ms +4,865 ms   (three, R3F, rapier, the Kent world)
+first frame         @7,557 ms             (412 ms after the last JS byte)
+Beetle    1,031 kB  after the frame       (the car arrives into a drawn world)
+```
+
+"Not black" is Phase 1's rule and it still holds — a dark frame fails `never-black`;
+*no car yet* is not a dark frame.
+
+### [2.4] The budget, and what it measures
+
+`e2e/first-load.spec.ts` serves the **built** output from an in-process http server
+with gzip (dev serves three.js as ~600 modules over one 150 ms-RTT connection; that
+measured 75 s and is a number about the dev server), then applies Lighthouse's mobile
+weather — Slow 4G (1.6 Mbit, 150 ms RTT) + a 4x CPU slowdown — on a Pixel 7 profile,
+and asserts the app's own first-frame mark (`window.__driveFirstFrameAt`, set by the
+render loop) inside **8 s**. Measured **7,556 / 7,708 ms**; 2,485 kB on the wire; one
+model request, `vw_beetle.mobile.glb`; no later act's chunk before the frame *or*
+during the ten seconds of Act I it then plays; no highway chunk ever. The same file
+logs the resource timeline above, so the next regression arrives with its breakdown.
+`test/first-load.test.ts` (4) holds the byte budgets on the build output.
+
+### Verified
+
+vitest **480/480** across 48 files, `tsc --noEmit` 0, `npm run build` **1,085.47 kB
+shell + 2,849.63 kB 3D chunk (317.50 + 988.22 kB gzip)**, playwright headless
+`--workers=1` **recorded in RUNLOG.md**.
+
+**Two things the gate caught, fixed in place.** The smoke case that guards the
+Kenney colormaps ("a 200 with HTML in it is not a texture") had been passing on the
+eager highway preload that 2.3 removed — it now mounts the highway world on purpose,
+which is the only world that uses those atlases, so it proves the wire *and* that the
+lazy chunk resolves. And the vitest run rewrites `drive/bench/baseline.json`; a gate
+run committed this machine's timings (p50 171.6 µs against the committed 67.7 µs), so
+the file is restored and the gate keeps restoring it.
+

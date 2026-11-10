@@ -2038,6 +2038,134 @@ No context losses, no shader rows, no scene under the floor.
 - The cockpit itself is untouched: the BEFORE numbers (world band 26 % at
   390x844, overlay coverage 39 %, 140 px sticks) are Phase 3's to change.
 
+## 32. Phase 2 — cheap and fast on phones: the twin, the split, the first frame (2026-11-10)
+
+Phase 1 made the failure visible. This phase spends what it measured. Commits on
+`drive/portrait-rebuild`: `[2.1]` `8961f9f`, `[2.2]` `cfdc5e6`, `[2.3]` `4be3765`,
+`[2.4]` `9ec9d51`.
+
+### 32.1 The car
+
+`vw_beetle.glb` was **10.55 MB and 64,188 triangles**, downloaded before the first
+frame of a drive: 17 1024×1024 PNGs were 8.2 MB of it. `drive/scripts/build-lods.mjs`
+is a committed pipeline (`node scripts/build-lods.mjs`), not a one-off conversion:
+
+| Step | What it does |
+|---|---|
+| `dedup`, `prune` | one copy of each texture; drop what nothing references |
+| texture plan | **per material**: what `Vehicle.tsx` overwrites at runtime is dropped |
+| resize | 1024 ceiling; Chassi normal/AO 512, lamp lenses 256, wheels 512 |
+| `textureCompress` (sharp) | WebP, quality 80 |
+| `weld` → `simplify` | meshoptimizer error-bounded collapse at 0.5 |
+| `quantize` | `KHR_mesh_quantization` (16-bit positions, 8-bit normals/UVs) |
+
+**Result: `vw_beetle.mobile.glb`, 1,030,792 B (9.3 % of the original), 36,658
+triangles** — inside the phase's 1.5 MB budget. It is the only model over 500 KB, so
+it is the only twin.
+
+The texture plan is the part that needed the source, not the asset. `Vehicle.tsx`
+replaces `Chassi`'s base colour with the procedural paint atlas and forces
+`Details_02` to flat chrome, so those two slots were downloaded and never drawn. What
+is kept is what the runtime does *not* overwrite: the body's normal/occlusion (panel
+lines), the two lamp-lens materials (the headlight and taillight shapes), and the
+wheel atlas.
+
+**Names are the contract.** The paint job is found by material name
+(`applyToMaterial(scene, 'Chassi', …)`) and the four wheels by node name
+(`buildWheelRigs`). A LOD that renamed either would lose the paint or the rolling
+wheels and still look fine in a screenshot — so `test/model-lod.test.ts` pins every
+material and node name, the 1.5 MB budget, the ≤ 40 % ratio, the two extensions
+(both readable by three's `GLTFLoader`) and that the triangle count fell without
+becoming a blob.
+
+Tier plumbing: `utils/modelLod.ts` (`lodUrl`) picks the twin below `high`;
+`qualityPick.initialTier()` is now the single source for "which tier starts", so the
+Canvas and the model loader cannot disagree. One consequence worth recording: the
+`@gltf-transform/cli` toolchain installs `@types/node`, whose `setTimeout` shadowed
+the DOM one and turned `ReturnType<typeof window.setTimeout>` into `NodeJS.Timeout`
+in `QuietRoadsBridge`; the client's `tsconfig` names `vite/client` explicitly instead
+of accepting every `@types` package that happens to be installed.
+
+### 32.2 The split
+
+| Chunk | Before | After |
+|---|---|---|
+| entry (`index`) | 4,023.67 kB / **1,326.06 kB gzip** — the whole game | 1,085.47 kB / **317.50 kB gzip** |
+| 3D stack (`ZombieRoadWarrior`) | (in the entry) | 2,849.63 kB / **988.22 kB gzip** |
+| post stack | (in the entry) | 75.11 kB / 18.56 kB gzip, lazy |
+| highway world (`RoadChunks`, `TrafficRenderer`, `Collectibles`, `CollisionSystem`) | eager, and they preloaded **15 GLBs (~1.5 MB)** at import | lazy; never fetched by Quiet Roads |
+| models before the frame | Beetle + truck + suv + those 15 | the mobile Beetle only |
+
+Three causes, each a real byte count:
+
+1. `App.tsx` imported drei's `useProgress` for a progress bar. drei imports three, so
+   **three.js was in the entry chunk to draw a bar**. The bar is a CSS sweep now, and
+   the 3D wrapper is `lazy()`.
+2. The four legacy-world modules called `useGLTF.preload` at module scope, so
+   importing them fetched their Kenney GLBs whether or not that world ever rendered.
+   `worldMode` is `'kent'` in this product; that world is never rendered.
+3. `Vehicle.tsx` preloaded the Beetle *and* the Ledger truck *and* the highway car at
+   import. Only the chassis the player is in is preloaded now; the other two start
+   their fetch when the chassis changes.
+
+### 32.3 The first frame was waiting for the car
+
+The measurement's own breakdown, on a built gzipped serve under Slow 4G + 4x CPU:
+
+```
+shell JS    310 kB  @187 ms   +1,678 ms
+3D chunk    965 kB  @2,071 ms +4,865 ms
+first frame         @13,906 ms      ← it waited for the model
+```
+
+One Suspense boundary held the scene, the frame loop (`PerfRecorder`), the context
+guard and the car — and the car's GLB suspends. So *nothing* could draw until 1 MB of
+Beetle arrived, and the model download was serialised behind the JS.
+
+Fix: the frame loop, the context guard, the diagnostics and the post stack moved
+outside the boundary, and the car got its own boundary inside the scene. The world
+draws, the Beetle arrives into it. **13,906 ms → 7,556 ms**, then 412 ms after the
+last JS byte.
+
+This does not weaken Phase 1's rule. A dark frame still fails `never-black`
+(luminance floor 0.012, nine scenes, two phone profiles); "the car has not arrived
+yet" is a car-shaped hole in a lit world, not a black screen.
+
+### 32.4 What is measured now
+
+`e2e/first-load.spec.ts` serves the **built** output from an http server inside the
+test process (gzip when asked; `npm run dev` cannot answer this question — it ships
+three.js as ~600 modules and measured 75 s, which is a fact about the dev server),
+applies Lighthouse's mobile weather (Slow 4G 1.6 Mbit / 150 ms RTT, 4x CPU), and
+asserts the app's own first-frame mark in **8 s**: measured **7,556 / 7,708 ms** over
+two runs, 2,485 kB on the wire, one model request (`vw_beetle.mobile.glb`), no later
+act's chunk before the frame or during the 10 s of Act I it then plays, and no
+highway chunk at all. `test/first-load.test.ts` holds the byte budgets against the
+build: entry ≤ 600 kB gzip, everything a first frame needs ≤ 1.5 MB gzip, the deferred
+chunks exist as files and are not statically imported by the entry.
+
+The 8 s budget has 0.3–0.4 s of headroom on this machine and that is on purpose: 6.9 s
+of the 7.6 is 1.27 MB of JS at 1.6 Mbit, so the next asset added to the first load
+should fail the test rather than slide under it.
+
+### 32.5 Still open
+
+- **The telemetry path is not proven end to end.** `[WebServer] ECONNREFUSED` on
+  `/api/*` is Vite proxying to `localhost:8080` with no backend in this workspace.
+  Every spec that reads an `/api` response mocks it in the browser, and the POST-budget
+  case counts requests the client makes — it does not prove a row reached Postgres.
+  That needs a real backend, and it is Phase 6's business to say so rather than to
+  pretend.
+- **The 3D chunk is 988 kB gzip** and is mostly three.js + R3F + rapier. It is the
+  floor of the first-frame budget now; the next step, if the budget ever needs to
+  shrink, is a lighter renderer path, not another lazy boundary.
+- **The mobile Beetle has not been seen on a phone.** The LOD keeps the panel lines
+  and the lamp shapes at 512/256 by design, and `test/model-lod.test.ts` proves the
+  structure — but "does it look like Grandma's car at arm's length" is a human
+  question, and it is on the art list.
+
+
+
 <!-- CONTINUED -->
 
 
