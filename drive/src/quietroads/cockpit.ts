@@ -37,6 +37,13 @@ export interface CockpitState {
   missionActive: boolean;
   cardOpen: boolean;
   quizOpen: boolean;
+  /**
+   * A quiz VERDICT is on screen with its CONTINUE. `answerQuiz` hands the phase back
+   * to `driving` so the road resumes while it is read, so `quizOpen` is already false
+   * by then — and the rail, the noise bar and the lights/horn came back underneath a
+   * panel that owns the screen. Item 3.7.
+   */
+  quizResultOpen?: boolean;
   debriefOpen: boolean;
   choiceOpen: boolean;
   /**
@@ -57,8 +64,10 @@ const NOT_DRIVING: readonly CockpitPhase[] = ['paused', 'menu', 'victory', 'game
  * with no card open is the bug, and reading it as "a card is open" would hide the
  * HUD exactly the way the bug did. The phase is what gets repaired, below.
  */
-export function compoundOpen(s: Pick<CockpitState, 'cardOpen' | 'quizOpen' | 'debriefOpen' | 'choiceOpen'>): boolean {
-  return s.cardOpen || s.quizOpen || s.debriefOpen || s.choiceOpen;
+export function compoundOpen(
+  s: Pick<CockpitState, 'cardOpen' | 'quizOpen' | 'debriefOpen' | 'choiceOpen' | 'quizResultOpen'>,
+): boolean {
+  return s.cardOpen || s.quizOpen || s.debriefOpen || s.choiceOpen || Boolean(s.quizResultOpen);
 }
 
 /**
@@ -80,6 +89,7 @@ export function showDrivingHud(s: CockpitState): boolean {
 export function staleCockpitFlag(s: CockpitState): string | null {
   if (!s.missionActive) return null;
   if (s.cardOpen) return 'qrHud.card';
+  if (s.quizResultOpen) return 'quiz result';
   if (s.choiceOpen) return 'qrHud.choices';
   if (s.debriefOpen) return 'qrHud.debrief';
   if (s.quizOpen) return 'quiz';

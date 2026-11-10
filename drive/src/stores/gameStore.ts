@@ -112,6 +112,15 @@ interface GameSlice {
 
 interface QuizSlice {
   quizActive: boolean;
+  /**
+   * ITEM 3.7 — THE RESULT IS A COMPOUND SURFACE TOO. `answerQuiz` puts the phase
+   * back to `driving` so the road resumes while the verdict is read, and the result
+   * panel lives in `QuizOverlay`'s own state — so `quizActive` is false and the
+   * cockpit rule saw a drive with no quiz in it, brought the rail, the noise bar and
+   * the lights/horn back, and they landed under the CONTINUE button. This flag is
+   * the store's one word for "a quiz result is on screen"; it is what the rule reads.
+   */
+  quizResultOpen: boolean;
   currentQuestion: Question | null;
   answeredIds: string[];
   questionsAnswered: number;
@@ -164,6 +173,8 @@ type GameState = ControlsSlice &
     refuel: () => void;
     triggerQuiz: (question: Question) => void;
     answerQuiz: (selectedAnswer: string) => { correct: boolean; coinsEarned: number };
+    /** The verdict has been read and CONTINUE was pressed (or the next question came). */
+    dismissQuizResult: () => void;
     takeDamage: (amount: number) => void;
     repairVehicle: () => void;
     addZCoins: (amount: number) => void;
@@ -204,6 +215,7 @@ const defaultGameState: GameSlice & QuizSlice & EconomySlice = {
   fuel: 100,
   timeOfDay: 'day',
   quizActive: false,
+  quizResultOpen: false,
   currentQuestion: null,
   answeredIds: [],
   questionsAnswered: 0,
@@ -369,7 +381,7 @@ export const useGameStore = create<GameState>()(
 
       // ── Quiz ────────────────────────────────────────────────────────────────
       triggerQuiz: (question) =>
-        set({ quizActive: true, currentQuestion: question, phase: 'quiz' }),
+        set({ quizActive: true, quizResultOpen: false, currentQuestion: question, phase: 'quiz' }),
 
       answerQuiz: (selectedAnswer) => {
         const s = get();
@@ -398,6 +410,9 @@ export const useGameStore = create<GameState>()(
           answeredIds: resetIds ? newAnsweredIds : newAnsweredIds,
           lastQuizMile: s.mileage,
           quizActive: false,
+          // The verdict is on screen from here until CONTINUE: the cockpit rule
+          // stands the driving HUD down for it (item 3.7).
+          quizResultOpen: true,
           // Kent (Quiet Roads) in-world prompts never cost HP — the design says wrong answers are free.
           hp: correct || s.worldMode === 'kent' ? s.hp : Math.max(0, s.hp - 10),
           phase: s.hp - 10 <= 0 && !correct && s.worldMode !== 'kent' ? 'gameover' : 'quiz',
@@ -405,6 +420,8 @@ export const useGameStore = create<GameState>()(
 
         return { correct, coinsEarned };
       },
+
+      dismissQuizResult: () => set({ quizResultOpen: false }),
 
       // ── HP ──────────────────────────────────────────────────────────────────
       takeDamage: (amount) => {

@@ -25,6 +25,7 @@ export function QuizOverlay() {
   const currentQuestion = useGameStore((s) => s.currentQuestion);
   const streak = useGameStore((s) => s.streak);
   const answerQuiz = useGameStore((s) => s.answerQuiz);
+  const dismissQuizResult = useGameStore((s) => s.dismissQuizResult);
   const setPhase = useGameStore((s) => s.setPhase);
   const { recordQuizAnswer } = useGameProgress();
   const compact = useCompactHud();
@@ -39,6 +40,9 @@ export function QuizOverlay() {
     if (!currentQuestion) return;
     setSelected(null);
     setResult(null);
+    // The previous verdict is gone with its question (item 3.7: an exam advances
+    // straight to the next question, and the cockpit must come back with it).
+    dismissQuizResult();
     setDismissed(false);
     setOptions(
       shuffleArray([currentQuestion.correctAnswer, ...currentQuestion.wrongAnswers])
@@ -99,7 +103,9 @@ export function QuizOverlay() {
     setDismissed(true);
     setSelected(null);
     setResult(null);
-  }, [currentQuestion]);
+    // The verdict is read: the cockpit rule may bring the driving HUD back.
+    dismissQuizResult();
+  }, [currentQuestion, dismissQuizResult]);
 
   if (dismissed || !currentQuestion) return null;
   if (phase !== 'quiz' && !(result && phase === 'driving')) return null;

@@ -196,16 +196,20 @@ export function qteBand(frame: CockpitFrame): CSSProperties {
  */
 export function useCompoundCockpit(): boolean {
   const quizActive = useGameStore((s) => s.quizActive);
+  const quizResultOpen = useGameStore((s) => s.quizResultOpen);
   const card = useQRHud((s) => s.card);
   const debrief = useQRHud((s) => s.debrief);
   const choices = useQRHud((s) => s.choices);
   // A choice is a decision moment like a card: the player needs the screen for
-  // the options, so the driving HUD stands down. A spoken line does not.
+  // the options, so the driving HUD stands down. A spoken line does not. A quiz
+  // *result* is one too (item 3.7): the phase is back to `driving` while the
+  // verdict is read, so `quizActive` alone missed it.
   return compoundOpen({
     cardOpen: Boolean(card),
     choiceOpen: Boolean(choices),
     debriefOpen: Boolean(debrief),
     quizOpen: Boolean(quizActive),
+    quizResultOpen: Boolean(quizResultOpen),
   });
 }
 
@@ -220,6 +224,7 @@ export function readCockpitState(): CockpitState {
     choiceOpen: Boolean(h.choices),
     debriefOpen: Boolean(h.debrief),
     quizOpen: Boolean(g.quizActive),
+    quizResultOpen: Boolean(g.quizResultOpen),
     storyOnScreen: Boolean(h.line || h.direction),
   };
 }
@@ -232,6 +237,7 @@ export function readCockpitState(): CockpitState {
 export function useDrivingHud(): boolean {
   const phase = useGameStore((s) => s.phase);
   const quizActive = useGameStore((s) => s.quizActive);
+  const quizResultOpen = useGameStore((s) => s.quizResultOpen);
   const missionActive = useQRHud((s) => s.missionActive);
   const card = useQRHud((s) => s.card);
   const debrief = useQRHud((s) => s.debrief);
@@ -243,5 +249,6 @@ export function useDrivingHud(): boolean {
     choiceOpen: Boolean(choices),
     debriefOpen: Boolean(debrief),
     quizOpen: Boolean(quizActive),
+    quizResultOpen: Boolean(quizResultOpen),
   });
 }

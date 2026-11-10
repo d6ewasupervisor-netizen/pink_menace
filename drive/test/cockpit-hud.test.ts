@@ -53,13 +53,14 @@ function snapshot(): CockpitState {
     choiceOpen: Boolean(h.choices),
     debriefOpen: Boolean(h.debrief),
     quizOpen: g.quizActive || g.phase === 'quiz',
+    quizResultOpen: g.quizResultOpen,
     storyOnScreen: Boolean(h.line || h.direction),
   };
 }
 
 function reset() {
   s.hud.setState({ card: null, choices: null, debrief: null, line: null, direction: null, missionActive: false });
-  s.game.setState({ phase: 'driving', quizActive: false, currentQuestion: null });
+  s.game.setState({ phase: 'driving', quizActive: false, quizResultOpen: false, currentQuestion: null });
 }
 
 /** QuietRoadsBridge.showCard: the card owns the screen. */
@@ -214,5 +215,29 @@ describe('showDrivingHud — free roam and cutscenes are unchanged', () => {
     s.game.setState({ phase: 'quiz', quizActive: true });
     expect(s.rule.showDrivingHud(snapshot())).toBe(false);
     expect(s.rule.compoundOpen(snapshot())).toBe(true);
+  });
+
+  /**
+   * ITEM 3.7 — the gap this closes. `answerQuiz` hands the phase back to `driving`
+   * and clears `quizActive`, but the verdict panel stays up until CONTINUE. The
+   * rule read only `quizOpen`, so the rail, the noise bar and the lights/horn came
+   * back underneath the CONTINUE button and `mobile-layout.spec.ts` caught two
+   * buttons overlapping it. The verdict is its own surface, and it stands the HUD
+   * down until it is read.
+   */
+  it('a quiz verdict owns the screen, even with the phase back on driving', () => {
+    reset();
+    s.hud.setState({ missionActive: true });
+    s.game.setState({ phase: 'driving', quizActive: false, quizResultOpen: true });
+    const st = snapshot();
+    expect(st.quizOpen, 'the phase is driving again').toBe(false);
+    expect(st.quizResultOpen).toBe(true);
+    expect(s.rule.compoundOpen(st)).toBe(true);
+    expect(s.rule.showDrivingHud(st)).toBe(false);
+    expect(s.rule.staleCockpitFlag(st)).toBe('quiz result');
+    // CONTINUE: the verdict is read and the car's HUD comes straight back.
+    s.game.getState().dismissQuizResult();
+    expect(s.rule.showDrivingHud(snapshot())).toBe(true);
+    expect(s.rule.staleCockpitFlag(snapshot())).toBeNull();
   });
 });

@@ -53,8 +53,14 @@ test('phone dash clears the act line and the quiz result clears the sticks', asy
       const badgeBox = badge?.getBoundingClientRect();
       return nav && badgeBox ? Math.round(nav.top - badgeBox.bottom) : null;
     });
+    // ITEM 3.3: the act chip lives *inside* the 48 px rail now, and the nav strip
+    // starts one noise bar below the rail, so the gap is the spec's 6 px by
+    // construction (rail bottom → noise → nav). The claim is the same one this
+    // assertion always made — the dash never sits on the act line — and the exact
+    // geometry is pinned by `cockpit-spec.test.ts` (unit) and
+    // `cockpit-bands.spec.ts` (DOM, 5 shapes).
     expect(gap, scheme).not.toBeNull();
-    expect(gap!, scheme).toBeGreaterThan(8);
+    expect(gap!, `${scheme}: the nav strip clears the act chip by the noise band`).toBeGreaterThanOrEqual(6);
 
     await page.evaluate(async () => {
       const { useGameStore } = await import('/drive/src/stores/gameStore.ts');
@@ -110,7 +116,10 @@ test('phone dash clears the act line and the quiz result clears the sticks', asy
     expect(overlap.line, scheme).toBe(0);
     await page.evaluate(async () => {
       const { useGameStore } = await import('/drive/src/stores/gameStore.ts');
-      useGameStore.setState({ currentQuestion: null, quizActive: false, phase: 'driving' });
+      // ITEM 3.7: the verdict is a surface too, and `showDrive()` for the next
+      // scheme asserts the nav strip is up — which the rule refuses while a result
+      // is open. Clear it with the question, the way CONTINUE does.
+      useGameStore.setState({ currentQuestion: null, quizActive: false, quizResultOpen: false, phase: 'driving' });
     });
   }
 });

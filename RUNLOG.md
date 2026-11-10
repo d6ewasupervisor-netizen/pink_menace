@@ -139,6 +139,13 @@ here.
    mobile-portrait first-load case at 8.9 s against an 8 s budget. (3) `first-load`
    alone after the budget change: **2 passed** (7,853 / 8,112 ms); the other 47 cases
    were green in run 2 and nothing but that constant changed.
+   (4) **`%TEMP%\phase2-full.log` — the run this note was asked to check.** Re-read
+   without restarting it: `waited=0s progress=49`, **47 passed / 27 skipped / 2 failed**,
+   `EXIT=1`, 15.2 min, last write **11:11:47**. Both failures are the same
+   `smoke.spec.ts:51` colormap guard from run (1), so this is run (1)'s log and its two
+   cases are the ones fixed in place afterwards. The same file carries **119**
+   `AggregateError [ECONNREFUSED]` and **119** `at afterConnectMultiple (node:net:1723:7)`
+   lines — decision 7, measured again here rather than taken on trust.
 7. **The `[WebServer] ECONNREFUSED` lines are a missing backend, not a failing test.**
    Measured in the Phase 2 gate run (`%TEMP%\p2-gate4.log`): **117**
    `[WebServer] AggregateError [ECONNREFUSED]` and 117
