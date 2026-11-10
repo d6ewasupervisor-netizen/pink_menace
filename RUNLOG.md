@@ -21,8 +21,8 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | 1.4 never-black e2e + detector unit tests | DONE | `e2e/never-black.spec.ts` (Pixel 7 + iPhone 13, 9 scenes, luminance, context, shader) green; context-loss case BLOCKED (see below) |
 | 2.1 quality tier picker | DONE (branch, not merged) | `8961f9f`: `utils/qualityPick.ts` (GPU + memory + cores, `?tier=` and a saved choice pin the tier), DPR 1.25/1.5/1.5, shadows only on high, env maps below high, auto step-down once (50 ms for 3 s) with `client.tier_down`; 20 unit tests + `e2e/tier.spec.ts` (buffer ratio 1.25 / 1.5). Pending the phase's full gate |
 | 2.2 model LODs (`scripts/build-lods.mjs`) | DONE `cfdc5e6` | `@gltf-transform/cli` + core/functions/extensions as devDeps; the script does dedup → prune → per-material texture plan → 256–512 px resize → WebP → weld → simplify 0.5 → quantize. **`vw_beetle.glb` 10.55 MB / 64,188 tris → `vw_beetle.mobile.glb` 1.01 MB (1,030,792 B, 9.3 %) / 36,658 tris**, inside the 1.5 MB budget; only that model is over 500 KB, so it is the only twin. Material + node names preserved (the runtime looks them up). `utils/modelLod.ts` picks by tier, `qualityPick.initialTier()` keeps the Canvas and the loader on one tier, 9 new tests (`test/model-lod.test.ts`) |
-| 2.3 lazy loading / code split | DONE | Entry chunk **4,023.67 kB / 1,326.06 kB gzip** → shell **1,085.47 kB / 317.50 kB gzip** + 3D chunk **2,924.30 kB / 1,006.50 kB gzip** (`App.tsx` lazies the 3D stack and drops drei's `useProgress`; `Game3D` lazies `RoadChunks`/`TrafficRenderer`/`Collectibles`/`CollisionSystem`, whose 15 GLB preloads no longer fire; `Vehicle` preloads only the car the player is in). Measured on a built, gzipped serve under Pixel 7 + Slow 4G + 4x CPU: **first frame 13.6 / 14.0 s, 2,485 kB on the wire, one model request (`vw_beetle.mobile.glb`)**. Act I is the only act up front (already true via `actDialogue`). `e2e/first-load.spec.ts` + `test/first-load.test.ts` (4) |
-| 2.4 tier + throttled first-frame e2e | DONE | tier unit tests are `test/quality-pick.test.ts` (20) + `e2e/tier.spec.ts` (DPR 1.25/1.5); the first-load spec is the throttled case: first frame inside **30 s** (measured 13.6 / 13.8 / 14.0 s over three runs), no later act before the first frame **and** none during 10 s of playing Act I, the mobile Beetle is the only model, no highway chunk |
+| 2.3 lazy loading / code split | DONE | Entry chunk **4,023.67 kB / 1,326.06 kB gzip** → shell **1,085.47 kB / 317.50 kB gzip** + 3D chunk **2,849.63 kB / 988.22 kB gzip** + post stack **75.11 kB / 18.56 kB** (lazy). `App.tsx` lazies the 3D stack and drops drei's `useProgress`; `Game3D` lazies `RoadChunks`/`TrafficRenderer`/`Collectibles`/`CollisionSystem` (**15 GLB preloads no longer fire in Quiet Roads**) and the post stack; **the car has its own Suspense boundary** so the frame loop no longer waits for a 1 MB GLB (13.9 s → 7.56 s); `Vehicle` preloads only the chassis the player is in. `e2e/first-load.spec.ts` + `test/first-load.test.ts` (4) |
+| 2.4 tier + throttled first-frame e2e | DONE | tier unit tests are `test/quality-pick.test.ts` (20) + `e2e/tier.spec.ts` (DPR 1.25/1.5); the first-load spec is the throttled case: first frame inside **8 s** (measured **7.556 / 7.708 s** over two runs), no later act before the first frame **and** none during 10 s of playing Act I, the mobile Beetle is the only model, no highway chunk |
 | 3.1 design tokens | TODO | |
 | 3.2 layout spec rewrite | TODO | |
 | 3.3 top rail, noise bar, nav strip, objective | TODO | |
@@ -90,6 +90,23 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 4. **The never-black sweep measures the app's own detector**, not a screenshot
    average: one readback path, so the test and the phone's own row cannot disagree
    about what "black" means.
+5. **The first frame must not wait for the car (2.3).** Measured 13.9 s on a throttled
+   Pixel 7: the scene, the frame loop and the car shared ONE Suspense boundary, so a
+   1 MB GLB held the first frame. The car has its own boundary now and the world draws
+   first — 7.56 s, and the breakdown (310 kB shell @187 ms, 965 kB 3D @2,071 ms +4,865
+   ms, first frame @7,557 ms, the Beetle after the frame) is in the spec's own log.
+   "No car yet" is not the black screen Phase 1 fixed; a dark frame is still a failure.
+6. **The first-frame budget is 8 s, measured 7.556 / 7.708 s.** It is bandwidth-bound:
+   1.27 MB of JS over a 1.6 Mbit pipe is 6.9 s of the 7.6. The margin is 0.3–0.4 s on
+   this machine and it is deliberate — the next asset added to the first load should
+   break the test rather than slide under it. If a slower box misses it, the fix is
+   fewer bytes before the first frame, not a bigger number.
+7. **The `[WebServer] ECONNREFUSED` lines are a missing backend, not a failing test.**
+   Vite proxies `/api/*` to `localhost:8080` and no server runs in this workspace. Every
+   spec that reads an `/api` response mocks it in the browser (`page.route`); the
+   telemetry budget case (`bridge.spec.ts:339`) counts requests the CLIENT makes
+   (`page.on('request')`), which is the claim it makes. What this environment cannot
+   prove is that a row reaches Postgres — no test claims it does.
 
 ## NEEDS_HUMAN
 

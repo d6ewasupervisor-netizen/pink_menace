@@ -40,7 +40,7 @@ import { TouchOverlay } from './TouchOverlay';
 import { PauseMenu, VictoryScreen, GameOverScreen } from './PauseMenu';
 import { MainMenu } from './MainMenu';
 import { LovesStopScreen, OutOfGasScreen } from './LovesStopScreen';
-import { PostProcessing } from './PostProcessing';
+// PostProcessing is loaded lazily, under the first-frame boundary (see PostProcessingLazy).
 import { SkidMarks } from './SkidMarks';
 import { SceneEnvironment } from './SceneEnvironment';
 import { NpcState } from '@/systems/TrafficManager';
@@ -74,6 +74,14 @@ const RoadChunks = lazy(() => import('./RoadChunks').then((m) => ({ default: m.R
 const TrafficRenderer = lazy(() => import('./TrafficRenderer').then((m) => ({ default: m.TrafficRenderer })));
 const Collectibles = lazy(() => import('./Collectibles').then((m) => ({ default: m.Collectibles })));
 const CollisionSystem = lazy(() => import('./CollisionSystem').then((m) => ({ default: m.CollisionSystem })));
+/**
+ * The post stack (postprocessing + @react-three/postprocessing) is a chunk of its own.
+ * The first frame is the road, the sky and the car; a bloom pass arriving 300 ms later
+ * is invisible, and `TIER_EFFECTS.low` is one vignette, so a phone on the cheap tier
+ * pays for the module only when it is already drawing.
+ */
+const PostProcessingLazy = lazy(() => import('./PostProcessing').then((m) => ({ default: m.PostProcessing })));
+
 
 // ─── Low-end detection (computed once) ───────────────────────────────────────
 const LOW_END = isLowEndDevice();
@@ -293,7 +301,10 @@ function Scene({ tier }: { tier: QualityTier }) {
           <CollisionSystem npcsRef={npcsRef} />
         </>
       )}
-      <Vehicle tier={tier} />
+      {/* The car has its own boundary: the GLB is 1 MB and the road does not need it. */}
+      <Suspense fallback={null}>
+        <Vehicle tier={tier} />
+      </Suspense>
       <HeadlightBeam />
       <HeadlightFlares />
       <SkidMarks />
@@ -466,23 +477,39 @@ export function Game3D({ onExit }: Game3DProps) {
         gl={{ antialias: tier !== 'low', powerPreference: 'high-performance' }}
         style={{ position: 'absolute', inset: 0 }}
       >
+        {/*
+          TWO Suspense BOUNDARIES, ON PURPOSE (item 2.3).
+
+          The world used to sit in one boundary with everything else, and the car's
+          GLB suspends: so the *whole* subtree — the frame loop included — waited for
+          a 1 MB model before the first frame could be drawn. Measured on a throttled
+          Pixel 7: 13.9 s, almost exactly the time to fetch the JS and then the car.
+
+          The frame loop, the context guard and the diagnostics never load an asset,
+          so they are OUTSIDE the boundary; and the car has its own boundary inside
+          the scene, so the road, the sky and the cockpit draw while the Beetle
+          arrives. A black screen is still a failure (Phase 1); *no car yet* is not.
+        */}
+        <AudioBridge />
+        <GLContextGuard dpr={dpr} tier={tier} />
+        <FieldDiagnostics tier={tier} onDevice={onDevice} />
+        <SceneDirector />
+        <PerfRecorder onTier={onTier} onTierDown={onTierDown} />
         <Suspense fallback={null}>
           <Scene tier={tier} />
-          <PostProcessing tier={tier} />
-          <AudioBridge />
-          <GLContextGuard dpr={dpr} tier={tier} />
-          <FieldDiagnostics tier={tier} onDevice={onDevice} />
-          <SceneDirector />
-          <PerfRecorder onTier={onTier} onTierDown={onTierDown} />
-          {/*
-            ONE pixel-ratio writer. The Canvas `dpr` prop above is the tier's only
-            writer, and GLContextGuard re-applies that same tier ratio on a context
-            restore. drei's <AdaptiveDpr> used to sit here as a second writer —
-            it calls R3F's setDpr() on its own schedule, so nothing owned the
-            value — and <PerformanceMonitor> was mounted with no-op handlers
-            alongside it. Both are gone.
-          */}
         </Suspense>
+        {/* The post stack is its own chunk: the first frame does not need a bloom. */}
+        <Suspense fallback={null}>
+          <PostProcessingLazy tier={tier} />
+        </Suspense>
+        {/*
+          ONE pixel-ratio writer. The Canvas `dpr` prop above is the tier's only
+          writer, and GLContextGuard re-applies that same tier ratio on a context
+          restore. drei's <AdaptiveDpr> used to sit here as a second writer — it
+          calls R3F's setDpr() on its own schedule, so nothing owned the value — and
+          <PerformanceMonitor> was mounted with no-op handlers alongside it. Both are
+          gone, which is why this boundary holds nothing.
+        */}
       </Canvas>
 
       {/* HTML overlay layer (outside Canvas) */}

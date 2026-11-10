@@ -48,15 +48,23 @@ const SLOW_4G = {
 const CPU_SLOWDOWN = 4;
 
 /**
- * The budget, measured before it was written: **14.0 s** on this machine (both
- * projects: 13,997 and 14,021 ms) with 2,485 kB on the wire — 318 kB of shell JS, 1,007
- * kB of 3D JS and the 1,031 kB mobile Beetle, all gzipped. 30 s is the 2x headroom a
- * slower CI box gets, and it is still tight enough to catch the regression this item
- * exists for: fetching the 10.55 MB original instead of the twin adds ~55 s on its own,
- * and pulling in a later act or the legacy highway world adds chunks this run forbids
- * by name.
+ * The budget: **8 s**, and it was measured down to 7.56 s before it was written.
+ *
+ * The 13.9 s it started at was almost entirely one mistake — the car's GLB shared a
+ * Suspense boundary with the whole scene, so the frame loop itself waited for a 1 MB
+ * model. The breakdown on a built, gzipped serve under Slow 4G + 4x CPU:
+ *
+ *   shell JS        310 kB  @187 ms  +1,678 ms   (auth, stores, story bridge)
+ *   3D chunk        965 kB  @2,071 ms +4,865 ms  (three, R3F, rapier, the Kent world)
+ *   first frame                @7,557 ms         (412 ms after the last JS byte)
+ *   mobile Beetle  1,031 kB  after the frame     (the car arrives into a drawn world)
+ *
+ * So 6.9 s of the 7.56 s is 1.27 MB of JS over a 1.6 Mbit pipe, and the rest is parse
+ * and the first scene build. The margin is thin on purpose: the next thing added to
+ * the first load should break this test, not slide under it. A slower box that misses
+ * the number needs fewer bytes before the first frame, not a bigger number here.
  */
-const FIRST_FRAME_BUDGET_MS = 30_000;
+const FIRST_FRAME_BUDGET_MS = 8_000;
 
 /** Anything that belongs to a later act, or to the world this game does not use. */
 const LATER_ACT = /dialogue_act(2|3|4|5|6|7|8)|act2_central|act5_ribbon|act6_backcountry/i;
@@ -200,6 +208,32 @@ test.describe('first load — Pixel 7, Slow 4G, 4x CPU', () => {
         `[first-load] first frame ${Math.round(measured)} ms (budget ${FIRST_FRAME_BUDGET_MS}); ` +
           `${(server.wireBytes() / 1024).toFixed(0)} kB on the wire; ${models.length} model request(s): ` +
           `${models.map((u) => u.split('/').slice(-1)[0]).join(', ') || 'none'}`,
+      );
+
+      // THE BREAKDOWN: what the 13.9 s (or whatever it is today) was made of. Every
+      // JS/model request's start and duration on the page's own clock, then the frame
+      // mark, so the gap between "the last byte arrived" and "a frame was drawn" is
+      // visible rather than guessed at.
+      const timeline = await page.evaluate(() =>
+        performance
+          .getEntriesByType('resource')
+          .filter((e) => /\.(js|glb|wasm)(\?|$)/.test(e.name))
+          .map((e) => {
+            const r = e as PerformanceResourceTiming;
+            return {
+              name: r.name.split('/').slice(-1)[0],
+              start: Math.round(r.startTime),
+              dur: Math.round(r.duration),
+              kb: Math.round((r.transferSize || 0) / 1024),
+            };
+          })
+          .sort((a, b) => a.start - b.start),
+      );
+      // eslint-disable-next-line no-console
+      console.log(
+        `[first-load] timeline — ${timeline
+          .map((t) => `${t.name} @${t.start}ms +${t.dur}ms ${t.kb}kB`)
+          .join(' | ')} | first frame @${Math.round(measured)}ms`,
       );
 
       expect(first, 'the render loop ran at all').not.toBeNull();

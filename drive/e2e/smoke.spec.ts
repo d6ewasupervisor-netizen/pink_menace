@@ -65,7 +65,15 @@ test('serves the kits own colormaps, never index.html', async ({ page }) => {
 
   await page.goto('/drive/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 45_000 });
-  // The road chunks preload the road + building GLBs the moment the world mounts.
+  // The highway world's modules are LAZY since item 2.3: nothing loads its 15 GLBs —
+  // or the colormaps they reference — until something renders that world, and Quiet
+  // Roads drives `kent`. So this asks for the highway world on purpose. It also proves
+  // the split resolves: a broken lazy boundary would request no model at all, and the
+  // poll below would time out instead of passing quietly.
+  await page.evaluate(async () => {
+    const { useGameStore } = await import('/drive/src/stores/gameStore.ts');
+    useGameStore.getState().setWorldMode('highway');
+  });
   await expect.poll(() => seen.size, { timeout: 30_000, message: 'the world asked for its colormaps' }).toBeGreaterThanOrEqual(2);
 
   // A texture is a PNG with a PNG's length; the fallback was `text/html` at the
