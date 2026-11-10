@@ -71,12 +71,32 @@ plus ~0.2 s of parse on the throttled profile. It is a story-bridge refactor —
 and bank are built in `QuietRoadsBridge`'s constructor — so it belongs with Phase 3/4
 work rather than a budget change.
 
-**Next: Phase 3 — the portrait cockpit.** The measured BEFORE (world band 26 % at
-390x844, overlay 39 %, 140 px sticks) is in `docs/cockpit/BEFORE.md`; the target is a
-48 px top rail, a 6 px noise bar, a 56 px nav strip with the assist as a tag, a 40 px
-objective that hides, a world band ≥ 55 %, 110–120 px corner sticks and 44 px
-lights/horn — with the minimap, the clock and the HP/FUEL bars gone from the
-always-on HUD.
+**Phase 3 (done): the portrait cockpit.** The measured BEFORE (world band 26 % at
+390x844, overlay 39 %, 140 px sticks) is in `docs/cockpit/BEFORE.md`; the delivered
+bands are a 48 px top rail, a 6 px noise bar, a 56 px nav strip with the assist as a
+tag, a 40 px objective that hides, a world band ≥ 55 %, 110–120 px corner sticks and
+44 px lights/horn — with the minimap, the clock and the HP/FUEL bars gone from the
+always-on HUD. `e2e/cockpit-bands.spec.ts` measures the road, not the frame.
+
+**Phase 4 (done): the settings are one panel, and the phone is a wheel.**
+`Game3D/SettingsPanel.tsx` is the one settings surface (SOUND, STEERING,
+ACCESSIBILITY, KEYS), one button from the pause menu; `quietroads/tiltSteering.ts`
+holds the roll maths and `hooks/useTiltSteering.ts` is the only DOM code. The merge
+order is keys → pad → touch stick → tilt, and a flat phone steers nothing (`null`,
+not `0`).
+
+**Next: Phase 5 — the car should be felt.** Haptics for the physical events (a wreck,
+the horn, the QTE, a verdict) through one pattern table in `quietroads/haptics.ts`;
+the screen-shake maths moved out of `GameCamera.tsx` into `quietroads/shake.ts` so
+steady cam's refusal is arithmetic; and the cockpit's `.qr-anim` switch made real —
+it has been declared in `cockpit/tokens.ts` since 3.1 and no surface joined it. Then
+5.2: 7.3's and 8.1's `background` keys say dusk and night while the story says
+morning and flat-white midday (AUDIT §16), so the keys and the scene hour are fixed
+together.
+
+**Then: Phase 6 — the sweep.** The full chain and its guards, a scene-by-scene e2e
+sweep, the performance numbers in one place, and the AFTER record (AFTER.md, AUDIT,
+AGENT_LOG, ROADMAP) before the final merge and push.
 
 
 

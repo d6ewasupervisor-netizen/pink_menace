@@ -122,6 +122,24 @@ for "a verdict is on screen", `compoundOpen`/`staleCockpitFlag` read it,
 and `test/cockpit-hud.test.ts` pins both the gap and the handback. The two tests
 that had been failing are the two that now pass.
 
+## Gates (after Phase 4, measured on the branch)
+
+| Gate | Result |
+|---|---|
+| `npx vitest run` | **553/553** across 53 files (5.31 s) — Phase 3's 536 + 17 (tilt-steering 25, tilt-merge 9, settings 8 minus the four that replaced older cases; the count is the run's, not the sum's) |
+| `npx tsc --noEmit` | **0** |
+| `npm run build` | **4.39 s**, shell **1,087.12 kB / 318.03 kB gzip** + 3D chunk **2,848.36 / 988.11** + post stack 75.11 / 18.56 lazy |
+| `npx playwright test --workers=1` (**the phase's gate**) | **55 passed / 27 skipped / 0 failed** in **14.2 min** (`%TEMP%\p4-gate.log`). Phase 3's gate was 51/27/0; this run is +4 — the two tilt cases and the two cockpit/quiz cases that Phase 3's fixes unlocked. The 27 skips are the same measured set as Phase 2/3 (2 `test.fixme` for the BLOCKED context-loss case, 2 inventory opt-ins, 2 `?tier=`-only cases, 21 duplicated viewports); none was added or widened |
+| `npx playwright test e2e/tilt.spec.ts` | **2 passed** (7.8 s) — the settings panel writes the store, a synthetic `deviceorientation` steers the car |
+
+**One caveat on this gate's exit marker.** The run's own summary is decisive —
+`27 skipped` then `55 passed (14.2m)` and no `failed` line, out of the 82 tests the
+runner announced — so the suite passed. The background child did not append its
+`EXIT=` marker: the `-Command` that owned the run ended before the marker line was
+written. The summary is the evidence here, and the next gate run in Phase 6 is
+foregrounded (`Tee-Object`, per the new `.clinerules` rule) so the marker lands with
+the run instead of after it.
+
 ## DECISIONS
 
 1. **The diagnostics ship off by default.** The GPU row, the dark-frame row and
