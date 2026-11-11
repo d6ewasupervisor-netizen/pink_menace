@@ -5,9 +5,9 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Gracie's Out",
-  "hook": "Gracie is in the open lot. So are you.",
-  "scene": "Gracie is out of the car and into the stalls, low and curious, ten feet off the open door. You are out after her. The Menace sits behind you, door hanging wide. Mya is still in the cab. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
-  "decision": "Gracie is in the open lot. How do you get her back?",
+  "hook": "Gracie is in the open lot. You are still in the doorway.",
+  "scene": "Gracie went out the propped doors before the rack finished falling. She is in the stalls now, low and curious, ten feet off the threshold. You are in the doorway. Mya's carrier is on the floor by the terminal behind you, latch shut. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
+  "decision": "Gracie got out of the building and into the open lot. How do you get her back?",
   "options": [
     {
       "id": "a",
@@ -27,16 +27,16 @@
     },
     {
       "id": "c",
-      "text": "Go back for the carrier and come out with food",
+      "text": "Go back to the terminal for her carrier, then go after her",
       "correct": false,
-      "result": "You go back to the car. The carrier is under the bench. By the time you have it and a bit of food, she is farther into the stalls than she was. The lot is still open. You spent the time you did not have.",
+      "result": "You go back in for the carrier. It is on the floor by the terminal, next to Mya's. By the time you have it and are back at the doors, she is farther into the stalls than she was. The lot is still open. You spent the time you did not have.",
       "state_delta": {}
     },
     {
       "id": "d",
-      "text": "Leave the car door open and wait — she'll come back on her own",
+      "text": "Hold the door and wait — she'll come back on her own",
       "correct": false,
-      "result": "You stay by the open door and wait. She does not come. The lot is not a place that waits with you. She gets farther into the painted stalls, and you are still standing where you started.",
+      "result": "You stay in the doorway and wait. She does not come. The lot is not a place that waits with you. She gets farther into the painted stalls, and you are still standing where you started.",
       "state_delta": {}
     }
   ],
@@ -58,7 +58,7 @@
     "camera": "POV_ROADSIDE",
     "subject": "an orange tabby in an empty wet parking lot at Ali's eye height, three filthy human figures about a hundred and twenty feet off, spread and not converging",
     "foreground": "wet asphalt and faded stall paint, Gracie the orange tabby low to the ground and turned away, ten feet into the open lot",
-    "midground": "empty painted stalls, the open car door behind camera out of frame, no other vehicles close",
+    "midground": "empty painted stalls, the propped office doors behind camera out of frame, no other vehicles close",
     "background": "three figures at far middle distance, spread apart, moving at different angles, filthy torn clothing, slack uneven gait, none looking toward camera, a low commercial building behind them, overcast gray",
     "read": "the cat is in the open and so is she, and the three figures are far off and not coming",
     "continuity": [

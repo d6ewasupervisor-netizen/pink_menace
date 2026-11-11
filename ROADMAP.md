@@ -290,6 +290,9 @@ From a HAR of scene 6.3 on an iPhone (440x956).
 
 ## Next (in order)
 
+0. **I-006 follow-ups (2026-11-11).** Seed I-006 so the card game shows the
+   building copy (`npm run seed -- I-006`), and move `gracieRunTarget` out the DOL
+   door so the chase puts Gracie in the lot the card describes (AUDIT §37).
 1. **The 3.3 tow-strap QTE.** `qte.strap.start/success/fail` are the last
    allow-listed hooks; the tow path does not wait on them, so it is a beat, not a
    gate. Porting it empties `UNWIRED` and lets the guard drop the allow-list.

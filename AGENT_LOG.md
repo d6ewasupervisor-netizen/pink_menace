@@ -2848,3 +2848,25 @@ proxy errors**, against two per navigation before. First-load on the rebuilt app
 **7,685 / 7,687 ms** against the 10,000 ms budget. AUDIT §36 has the numbers and both
 methods.
 
+
+## 2026-11-11 — I-006 is reworded for the building
+
+I-006 opens from `1.3.8`, when Ali is inside the DOL with both carriers set down
+and Gracie's latch has popped. The card was written for the car: "out of the car",
+"You are out after her", "Mya is still in the cab". Now Ali is in the doorway,
+Gracie is out the propped doors and in the lot, and Mya's carrier is on the floor
+by the terminal. The decision reads "Gracie got out of the building and into the
+open lot. How do you get her back?" Option c goes back to the terminal for Gracie's
+carrier, option d holds the door, and the hook and the still's midground note match.
+Ids, correct flags, `state_delta` and the debrief are untouched, so I-008's
+stop-line states still key correctly.
+
+`drive/src/quietroads/data/cards.json` was re-exported, which changed only I-006's
+five strings. **No seed ran**, so the `/` card game shows the old copy until
+`npm run seed -- I-006`. Still open: `gracieRunTarget` is inside the building, so
+the chase does not take her outside (AUDIT §37).
+
+### Verified
+
+vitest **580/580** in 56 files, deck-parity 5/5, fullchain 6/6, seed 6/6,
+`validate-citations` ok 131.

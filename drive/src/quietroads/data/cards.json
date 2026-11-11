@@ -224,9 +224,9 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Gracie's Out",
-  "hook": "Gracie is in the open lot. So are you.",
-  "scene": "Gracie is out of the car and into the stalls, low and curious, ten feet off the open door. You are out after her. The Menace sits behind you, door hanging wide. Mya is still in the cab. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
-  "decision": "Gracie is in the open lot. How do you get her back?",
+  "hook": "Gracie is in the open lot. You are still in the doorway.",
+  "scene": "Gracie went out the propped doors before the rack finished falling. She is in the stalls now, low and curious, ten feet off the threshold. You are in the doorway. Mya's carrier is on the floor by the terminal behind you, latch shut. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
+  "decision": "Gracie got out of the building and into the open lot. How do you get her back?",
   "options": [
    {
     "id": "a",
@@ -238,11 +238,11 @@
    },
    {
     "id": "c",
-    "text": "Go back for the carrier and come out with food"
+    "text": "Go back to the terminal for her carrier, then go after her"
    },
    {
     "id": "d",
-    "text": "Leave the car door open and wait — she'll come back on her own"
+    "text": "Hold the door and wait — she'll come back on her own"
    }
   ],
   "debrief": "The call works. She turns. That is why you did it. The quiet cut-off is the one that does not send sound across the lot. Neither of those facts ends this.",

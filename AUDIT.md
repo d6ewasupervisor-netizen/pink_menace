@@ -2581,6 +2581,28 @@ still the way to get a restore-in-place.
   starts, the HUD is up, the local save names the scene the player is in, and nothing
   becomes an uncaught exception — **22.1 s, green**.
 
+## 37. I-006 is written for the building, not the car (2026-11-11)
+
+- **What it was.** I-006 "Gracie's Out" opens from `1.3.8` in the drive, after Ali has
+  set both carriers down at the DOL terminal and the rack has gone over. The card said
+  Gracie was "out of the car", Ali was "out after her" by the Menace, and "Mya is still
+  in the cab". None of that is true at that node: Mya's carrier stays by the terminal
+  (`dol.ts` `beginChase`, `1.3.13` "She's by the terminal").
+- **Now.** Ali is in the doorway, Gracie is out the propped doors (I-005 already says
+  "The doors are propped"), and Mya's carrier is on the floor behind her. Option c goes
+  back to the terminal for Gracie's carrier, and option d holds the door. Option ids,
+  correct flags, `state_delta` and the debrief are unchanged, so I-008's three
+  stop-line states still key off a / b / c-d. The still needs no redraw: its door was
+  already behind camera and out of frame.
+- **Open — the sim keeps her inside.** `kentMap.ts` puts `gracieRunTarget` at
+  `{ x: 223, y: 401 }`, and the DOL floor is x 205.5–224.5, y 380.5–419.5. So in the
+  chase Gracie stops about 1.5 m inside the east wall, 15 m south of the door. The card
+  now says she is in the lot. Moving the target outside the door (x > 225) makes the
+  chase match the card.
+- **Open — the card game still has the old copy.** The `/` game reads Postgres. Run
+  `npm run seed -- I-006` against production before the card game shows the new text.
+  The drive reads the re-exported `cards.json` and needs nothing else.
+
 <!-- CONTINUED -->
 
 
