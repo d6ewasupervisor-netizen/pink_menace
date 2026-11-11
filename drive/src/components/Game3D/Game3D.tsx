@@ -151,6 +151,30 @@ function PerfRecorder({
   return null;
 }
 
+/**
+ * ITEM 1.5 — the reload fallback, and why its timer is not owned by the effect.
+ *
+ * A lost context is not always recoverable. When the render loop keeps throwing,
+ * three's throw unmounts the React tree, the effect's cleanup runs — so a timer
+ * owned by the effect would be cancelled by the very crash it exists to recover
+ * from. The give-up timer therefore lives beside the module; only
+ * `webglcontextrestored` clears it.
+ *
+ * The flag survives the reload in `sessionStorage`, so the page that comes back
+ * says "Restarting view…" instead of pretending nothing happened. The run itself
+ * needs no flag: the checkpoint is in the persisted store (`quiet-roads-save`),
+ * and `QuietRoads.start(false)` re-enters the scene it names.
+ */
+const RESTART_VIEW_FLAG = 'qr-restarting-view';
+let giveUpTimer: number | null = null;
+
+function clearGiveUp(): void {
+  if (giveUpTimer != null) {
+    window.clearTimeout(giveUpTimer);
+    giveUpTimer = null;
+  }
+}
+
 // ─── WebGL context-loss guard (runs inside Canvas for gl.domElement) ────────
 function GLContextGuard({ dpr, tier }: { dpr: number; tier: QualityTier }) {
   const { gl } = useThree();
@@ -203,22 +227,57 @@ function GLContextGuard({ dpr, tier }: { dpr: number; tier: QualityTier }) {
       // Say it on screen while it is true: a black view with a live HUD and no
       // words was the whole bug report.
       useQRHud.getState().setTransient({ toast: 'Restarting view…' });
-      // If the browser does not hand a context back, ask it to — once. Without
-      // this the canvas stays black forever and nothing ever retries.
+      // ITEM 1.5 — one cheap ask first: some browsers hand the context back on
+      // their own, and a restore costs the player nothing.
       clearAsk();
       askRestore = window.setTimeout(() => {
         askRestore = null;
         try {
           gl.forceContextRestore();
         } catch {
-          // A WebGL1 context without the extension has no way back; the chip
-          // stays up and the player can reload. Not a crash.
+          // No extension: the reload below is the fallback, not a crash.
         }
+      }, 1500);
+
+      // ...and if it is still gone at 5 s, stop trying to save the frame and save
+      // the run instead. The flush is keepalive, so the save leaves with the
+      // unload; the reload re-enters the scene from the persisted checkpoint.
+      clearGiveUp();
+      giveUpTimer = window.setTimeout(() => {
+        giveUpTimer = null;
+        // It came back between the last check and now — nothing to recover.
+        let stillLost = true;
+        try {
+          stillLost = gl.getContext().isContextLost();
+        } catch {
+          stillLost = true; // a dead context is exactly the case this is for
+        }
+        if (!stillLost) return;
+
+        try {
+          sessionStorage.setItem(RESTART_VIEW_FLAG, '1');
+        } catch {
+          /* denied storage is not a failed reload */
+        }
+        DriveSync.noteEvent({
+          ts: Date.now(),
+          event: 'client.context_reload',
+          data: { scene: useQRStore.getState().sceneId, tier },
+        });
+        const reload = () => window.location.reload();
+        // Never let a hung save hold the black screen: 1.5 s, then reload anyway.
+        const guard = window.setTimeout(reload, 1500);
+        void DriveSync.flush(true).finally(() => {
+          window.clearTimeout(guard);
+          reload();
+        });
       }, 5000);
     };
 
     const onRestored = () => {
       clearAsk();
+      // The view is alive: there is nothing left to give up on.
+      clearGiveUp();
       DriveSync.noteEvent({
         ts: Date.now(),
         event: 'client.context_restored',
@@ -241,6 +300,9 @@ function GLContextGuard({ dpr, tier }: { dpr: number; tier: QualityTier }) {
       clearAsk();
       el.removeEventListener('webglcontextlost', onLost);
       el.removeEventListener('webglcontextrestored', onRestored);
+      // `giveUpTimer` is deliberately NOT cleared here: this cleanup runs on the
+      // very unmount a lost context causes, and a fallback that a crash cancels is
+      // not a fallback. `webglcontextrestored` and the reload clear it instead.
     };
   }, [gl, dpr, tier]);
   return null;
@@ -391,6 +453,28 @@ export function Game3D({ onExit }: Game3DProps) {
       for (const name of Object.keys(style)) root.style.removeProperty(name);
     };
   }, [textSize]);
+
+  /**
+   * ITEM 1.5 — the other side of the reload. `GLContextGuard`'s give-up timer sets
+   * the flag just before it reloads; the page that comes back says "Restarting
+   * view…" for five seconds, then takes the chip down. Clearing the flag on read
+   * means a later, ordinary reload never inherits the words.
+   */
+  useEffect(() => {
+    let flagged = false;
+    try {
+      flagged = sessionStorage.getItem(RESTART_VIEW_FLAG) === '1';
+      if (flagged) sessionStorage.removeItem(RESTART_VIEW_FLAG);
+    } catch {
+      return;
+    }
+    if (!flagged) return;
+    useQRHud.getState().setTransient({ toast: 'Restarting view…' });
+    const clear = window.setTimeout(() => {
+      if (useQRHud.getState().toast === 'Restarting view…') useQRHud.getState().setTransient({ toast: '' });
+    }, 5000);
+    return () => window.clearTimeout(clear);
+  }, []);
 
   const { saveProgress } = useGameProgress();
 

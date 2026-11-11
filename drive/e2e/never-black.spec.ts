@@ -107,6 +107,18 @@ async function awaitSample(page: Page, since: number, capMs = 20_000) {
   return last;
 }
 
+/** Wait until the runner is on `scene` (the act file loads on demand). */
+async function waitScene(page: Page, scene: string, capMs = 40_000) {
+  const started = Date.now();
+  let last = await readScene(page);
+  while (Date.now() - started < capMs) {
+    if (last.scene === scene) return last;
+    await page.waitForTimeout(250);
+    last = await readScene(page);
+  }
+  return last;
+}
+
 async function bootScene(page: Page, scene: string) {
   await mockStudent(page);
   // Each case starts from a clean slate. A full-suite run measured `6.2` arriving
@@ -211,48 +223,69 @@ for (const [name, device] of PROFILES) {
   });
 }
 
-test('a forced context loss is survived, and the frame comes back', async ({ page }) => {
+/**
+ * ITEM 1.5 — the reload fallback, measured.
+ *
+ * A loss the browser does not hand back is not recoverable by trying harder: the
+ * render loop keeps throwing (`Cannot read properties of null (reading 'alpha')`)
+ * and takes the React tree with it, which is why this case was a `fixme` and the
+ * RUNLOG carried it as BLOCKED. It is recoverable by *restarting the page*: the run
+ * lives in a persisted checkpoint, so the guard gives the browser 1.5 s to restore,
+ * then at 5 s saves (keepalive) and reloads. This asserts what the player gets:
+ * the same scene, still on the checkpoint, with the cockpit up and a live frame —
+ * and the words "Restarting view…" on the way through, both before and after.
+ *
+ * It deliberately does NOT use `bootScene`: that helper clears `localStorage` on
+ * every navigation, which would erase the very checkpoint the reload is supposed
+ * to resume. A fresh browser context per test starts with empty storage anyway.
+ */
+test('a forced context loss reloads into the same scene, with the HUD up', async ({ page }) => {
   test.setTimeout(180_000);
   const skip = duplicateViewportReason(test.info().project.use?.viewport ?? null, { width: 390, height: 844 });
   test.skip(skip !== null, skip ?? '');
-  // BLOCKED, and marked rather than deleted. Measured: a forced loss sets the
-  // toast ("Restarting view…" is in the store) but the React tree unmounts —
-  // `#root` empty, no HUD, no pause menu — with three throwing
-  // `Cannot read properties of null (reading 'alpha')` from the render loop.
-  // Parking R3F's frameloop on the loss is not enough; the next step is an error
-  // boundary around the Canvas plus finding which component reads context
-  // attributes on a dead context. Recorded in RUNLOG.md under BLOCKED.
-  test.fixme(true, 'the loss unmounts the React tree: three reads a null context attribute — see RUNLOG BLOCKED');
 
-  const state = await bootScene(page, '6.3');
-  expect(state.scene).toBe('6.3');
+  await mockStudent(page);
+  await page.goto('/drive/');
+  await page.locator('canvas').first().waitFor({ state: 'visible', timeout: 45_000 });
+  await page.evaluate(async () => {
+    const { QuietRoads } = await import('/drive/src/systems/QuietRoadsBridge.ts');
+    QuietRoads.startAct('6.3');
+  });
+  const state = await waitScene(page, '6.3');
+  expect(state.scene, 'the scene started').toBe('6.3');
+  await expect(page.locator('[data-layer="hud"]'), 'the cockpit is up before the loss').toBeVisible();
   await awaitSample(page, Date.now() - 1);
+
+  // The reload the fallback will do, listened for before it can happen.
+  const reloaded = page.waitForEvent('load', { timeout: 90_000 });
 
   const lost = await page.evaluate(() => {
     const canvas = document.querySelector('canvas') as HTMLCanvasElement | null;
     const gl = (canvas?.getContext('webgl2') ?? canvas?.getContext('webgl')) as
       | (WebGLRenderingContext & { getExtension(name: string): unknown })
       | null;
-    const ext = gl?.getExtension('WEBGL_lose_context') as { loseContext(): void; restoreContext(): void } | undefined;
+    const ext = gl?.getExtension('WEBGL_lose_context') as { loseContext(): void } | undefined;
     if (!ext) return false;
     ext.loseContext();
     return true;
   });
   test.skip(!lost, 'this browser exposes no WEBGL_lose_context');
 
-  // The guard promises a chip while the view is gone, and never a silent black.
+  // Never a silent black: the chip is up while the view is gone.
   await expect(page.getByText(/Restarting view/i).first()).toBeVisible({ timeout: 10_000 });
 
-  await page.evaluate(() => {
-    const canvas = document.querySelector('canvas') as HTMLCanvasElement | null;
-    const gl = (canvas?.getContext('webgl2') ?? canvas?.getContext('webgl')) as
-      | (WebGLRenderingContext & { getExtension(name: string): unknown })
-      | null;
-    const ext = gl?.getExtension('WEBGL_lose_context') as { restoreContext(): void } | undefined;
-    ext?.restoreContext();
-  });
+  // 5 s later the page is replaced rather than left black.
+  await reloaded;
 
-  const back = await awaitSample(page, Date.now() - 1, 30_000);
-  expect(back.context, 'the context came back').not.toBe('lost');
-  expect(back.mean, `the frame is not black after the restore (${back.mean})`).toBeGreaterThan(0.01);
+  // ...and it comes back where it left off, from the checkpoint.
+  await page.locator('canvas').first().waitFor({ state: 'visible', timeout: 45_000 });
+  const back = await waitScene(page, '6.3', 60_000);
+  expect(back.scene, 'the reload resumed the scene the run was in').toBe('6.3');
+  expect(back.phase, 'the drive is the surface, not the menu').not.toBe('menu');
+  await expect(page.locator('[data-layer="hud"]'), 'the cockpit is back').toBeVisible();
+  await expect(page.getByText(/Restarting view/i).first(), 'the page says why it is back').toBeVisible({ timeout: 20_000 });
+
+  const frame = await awaitSample(page, Date.now() - 1);
+  expect(frame.context, 'the context is live after the reload').not.toBe('lost');
+  expect(frame.mean, `the frame is not black after the reload (${frame.mean})`).toBeGreaterThan(0.01);
 });
