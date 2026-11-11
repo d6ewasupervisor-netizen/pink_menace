@@ -2703,3 +2703,77 @@ regeneration was reverted (`git checkout -- drive/bench/baseline.json`) and the 
 still holds the last quiet-machine measurement. Phase 6.3 owns one clean run on an idle
 machine; until then the numbers in it are the truthful ones.
 
+## 2026-11-11 — the sweep, and the row that never reached the page
+
+### [6.1] The story was never the thing at risk, and it is still green
+
+`fullchain` and the fourteen guard files around it (coverage, bundle, chainup-loop,
+chainup, deadlock, deck-parity, ending, licensing, actvii-deck, cards, placeholders,
+waitWatch, exam, retest) are **134 tests in 4.4 s**, all green, run on their own so the
+phase's claim is a number rather than a subset of a bigger number. Four phases of
+deleting UI layers did not cost a beat, and no guard needed an exception.
+
+### [6.2] Thirty-nine scenes, opened on a phone
+
+`e2e/scene-sweep.spec.ts` walks every scene the campaign can enter — the 38 in the
+chain plus 4.3 — from empty storage, asserts the scene that started is the one asked
+for, that the drive is not the menu, that a surface the player can *read* is on screen,
+and that nothing threw. It records what each scene put on screen
+(`drive/test-results/scene-sweep.txt`): **37 open on a line, 3.2 on a card, 1.1 on the
+rail with its mission already running, and 0 of 39 threw.**
+
+The sweep caught itself once, which is the useful part. Its first version accepted
+`[data-layer="hud"]` — and the HUD root is mounted in every scene, so it would have
+passed a scene that rendered nothing at all. It now needs a story surface or the rail,
+and the record keeps which. It runs 34–49 s at 390×844 and the mobile project's copy is
+skipped by `skipDuplicate` (the spec sets that viewport itself), so the gate pays once.
+
+### [6.3] The numbers, including the one that had been lying
+
+Idle-machine sim bench: **68.4 / 68.6 / 63.2 / 62.1 µs p50** across the four missions —
+against the committed 67.4, i.e. Phase 5's "no physics change" was true, and the 184.3
+the Phase 5 gate wrote into `bench/baseline.json` was this machine under load, not the
+sim. `npm run build` **4.91 s**, shell **1,087.62 kB / 318.26 kB gzip**, 3D **2,851.43 /
+989.30**, post 75.11 / 18.56 lazy. First frame on a built, gzipped serve under Pixel 7 +
+Slow 4G + 4× CPU: **7,599 ms** (desktop project) and **8,365 ms** (mobile project)
+against the 10,000 ms budget, **2,487 kB** on the wire, one model request.
+
+And the cockpit, measured with the *same* function that wrote BEFORE, because two
+descriptions of one screen are worth nothing:
+`COCKPIT_INVENTORY=after` → `docs/cockpit/AFTER.md` + `after/*.png` +
+`inventory-after.json`. Portrait free world band **216 px (26 %) → 322 px (38 %)**,
+coverage **39 % → 22 %**; Android **28 % → 41 %** / 20 %; landscape **47 % → 75 %**.
+
+The two world-band numbers in this repo are not the same claim and both are now
+written down with their methods: the inventory measures the tallest *free* run of the
+centre column (the gust pill, 130×70 at y 323–393, is what caps portrait at 38 %),
+while the promise the rebuild was built to is the *declared* band — 508 px = **60 %** at
+390×844 — which `e2e/cockpit-bands.spec.ts` asserts at ≥ 55 % on all five shapes.
+
+### [open feel item] The text scale, and a red run that was the point
+
+AUDIT §34.5 said `--qr-text-scale` was "read everywhere and written nowhere". Half
+wrong, and the half matters: it *was* written — on the `.ui-layer` div since P12 — so
+every surface inside that subtree scaled and the row looked fine in a screenshot. It was
+never on the document, so anything mounted outside the layer (a portal, a dialog, the
+next HUD) stayed at 16 px, and the player's setting was a promise kept only by accident
+of where the reader was.
+
+Now there is one writer: `Game3D` sets `textScaleStyle(textSize)` on
+`document.documentElement` in an effect, beside `data-reduced-motion`, and the
+`.ui-layer` spread is gone. `e2e/text-scale.spec.ts` walks the real path — pause →
+SETTINGS → TEXT SIZE ×2 → the pause control's glyph goes **16 px → 20.8 px**, a probe on
+`<body>` goes to 20.8 px too, and cycling back returns 16. **Stashing the Game3D change
+makes it fail on exactly the probe (expected 20.8, received 16)** while the cockpit glyph
+still passes; that is the bug, measured, and it is why the spec earns its 4 s.
+
+### Verified
+
+vitest **580/580** across 56 files, `tsc --noEmit` 0, build **4.91 s** (shell 1,087.62 kB
+/ 318.26 kB gzip; 3D 2,851.43 / 989.30), the guard set **134/134** in 4.4 s, the scene
+sweep **39/39 scenes** (0 faults), `e2e/text-scale.spec.ts` 1/1 (and red without the
+fix), `e2e/first-load.spec.ts` 2/2 (7,599 / 8,365 ms against 10,000), and the full
+Playwright gate **64 passed / 28 skipped / 0 failed in 15.5 min**, `EXIT=0` — Phase 5's
+61/27/0 plus exactly the three new cases, and the one new skip is the sweep's measured
+viewport duplicate. All of it in `RUNLOG.md`.
+

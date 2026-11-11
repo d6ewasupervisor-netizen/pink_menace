@@ -369,9 +369,28 @@ export function Game3D({ onExit }: Game3DProps) {
   }, []);
   const dpr = dprForTier(tier, typeof window === 'undefined' ? 1 : window.devicePixelRatio, LOW_END);
 
-  // P12: text size. It is a CSS variable on the HTML overlay only — the 3D
-  // world is never scaled.
+  // P12: text size. It is a CSS variable — the 3D world is never scaled.
   const textSize = useGameStore((s) => s.textSize);
+
+  /**
+   * ITEM 6.1 — the player's text scale, written where it can be read.
+   *
+   * The variable was set as an inline style on the `.ui-layer` div, so it was true
+   * for the overlays inside that subtree and false for any surface mounted outside
+   * it (a portal, a dialog, the next HUD that forgets). `textScaleStyle` is the one
+   * mapping from the store's step to the value; this effect is its one writer, and
+   * it writes to the document root — the same place `data-reduced-motion` already
+   * lives (`Game3D`'s effect below), so both accessibility switches are one fact
+   * and `e2e/text-scale.spec.ts` can measure the row from anywhere in the page.
+   */
+  useEffect(() => {
+    const root = document.documentElement;
+    const style = textScaleStyle(textSize);
+    for (const [name, value] of Object.entries(style)) root.style.setProperty(name, value);
+    return () => {
+      for (const name of Object.keys(style)) root.style.removeProperty(name);
+    };
+  }, [textSize]);
 
   const { saveProgress } = useGameProgress();
 
@@ -535,7 +554,7 @@ export function Game3D({ onExit }: Game3DProps) {
       </Canvas>
 
       {/* HTML overlay layer (outside Canvas) */}
-      <div className="ui-layer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', ...textScaleStyle(textSize) }}>
+      <div className="ui-layer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
         <LoadingScreen />
         <CockpitHUD />
         <QuizOverlay />

@@ -2325,7 +2325,148 @@ baselines were re-captured with `--update-snapshots` and the run then passed 10/
   `e2e/feel.spec.ts`; the patterns are pinned, the hardware is not.
 - **The cockpit's 8 baselines remain Windows-only** (`-win32.png`), as they were.
 
+## 35. Phase 6 — the sweep, the numbers, and the row that never reached the page (2026-11-11)
 
+### 35.1 The campaign, re-walked (6.1)
+
+The rebuild removed *surfaces*, not scenes, so the story's own guard set is the one
+thing that proves the chrome work did not cost a beat. Fifteen files, **134 tests, 4.4 s**:
+
+`fullchain` (0.1 → `game_complete`, both forks at 1.3/3.3, and the exam fail → retest
+week 4.3 → pass path), `coverage` (every card in every act opens), `bundle` (every
+`next_scene` has a destination), `chainup-loop` + `chainup` (the loop closes), `deadlock`
+(no wait nothing answers), `deck-parity` (the drive's deck and the card game's cannot
+drift), `ending`, `licensing`, `actvii-deck`, `cards`, `placeholders`, `waitWatch`,
+`exam`, `retest`.
+
+Nothing needed an exception, and no assertion was widened: the guard set that was green
+before Phase 3 is the same code, still green, after four phases of UI deletion.
+
+### 35.2 Every scene, opened on a phone (6.2)
+
+`e2e/scene-sweep.spec.ts` — 39 scenes (the 38 in the chain plus 4.3, the retest week),
+one browser, empty `localStorage` per scene, `QuietRoads.startAct(id)`, then four
+questions per scene: is the scene the one asked for, is the drive not the menu, is a
+surface the player can *read* on screen, and did anything throw.
+
+The record is written by the pass itself (`drive/test-results/scene-sweep.txt`):
+
+| What the scene opened on | Scenes |
+|---|---|
+| a dialogue line (`[data-layer="dialogue"]`) | **37 of 39** |
+| a card (`3.2`) | 1 |
+| the rail, mission already running, no line (`1.1`) | 1 |
+| uncaught exceptions or shader errors | **0 of 39** |
+
+Two corrections the sweep made to itself, both worth writing down:
+
+- **The first assertion was weaker than it looked.** It accepted
+  `[data-layer="hud"]`, which is mounted in *every* scene — so a scene that rendered
+  nothing but the empty HUD root would have passed. It now requires a story surface
+  (dialogue, card, shop, stranded) **or** the rail, and the record stores which one, so
+  the claim can be re-read instead of re-trusted.
+- **The duplicate project is skipped by measurement, not by comment.** The spec sets
+  390×844 itself, so `skipDuplicate` skips the mobile project only while the config's
+  viewport is exactly that; the pair of numbers is in the skip title.
+
+Cost: 34–49 s for the desktop project (39 navigations), one skipped case.
+
+### 35.3 The numbers in one place (6.3)
+
+| Measure | Value | How |
+|---|---|---|
+| Sim step, p50 | **68.4 / 68.6 / 63.2 / 62.1 µs** | `npx vitest run bench`, idle machine, four missions × 1,200–2,000 steps |
+| Shell | **1,087.62 kB / 318.26 kB gzip** | `npm run build` (4.91 s) |
+| 3D chunk | **2,851.43 kB / 989.30 kB gzip** | " |
+| Post stack | **75.11 kB / 18.56 kB gzip**, lazy | " |
+| First frame, Pixel 7 @ Slow 4G + 4× CPU | **7,599 ms** (desktop project) / **8,365 ms** (mobile project), budget 10,000 | `e2e/first-load.spec.ts` against the built, gzipped output |
+| First load on the wire | **2,487 kB**, 1 model request | " |
+| Cockpit, free world band at 390×844 | **322 px (38 %)** in the gust state | `COCKPIT_INVENTORY=after` (see 35.4) |
+| Cockpit baselines | **10/10** | `e2e/cockpit-bands.spec.ts` |
+
+**On the sim baseline, which had been quietly lying.** `bench/sim-bench.test.ts` is a
+Vitest test, and it rewrites `bench/baseline.json` on every full run — so the Phase 5
+gate's own runs recorded **184.3 µs p50** for the delivery mission (3× the committed
+67.4) because the machine was busy building and driving a browser at the same time. The
+regeneration was reverted rather than committed, and the numbers above are from a run on
+an idle machine: 68.4 µs against the committed 67.4, i.e. no physics change, which is
+what Phase 5 claimed.
+
+**Not measured, and still not guessed:** headed FPS, draw calls, triangles, JS heap and
+input-to-response. No headed browser ran in this pass either, so §5's withdrawal of the
+2026-10-01 numbers stands. The `?profileDrive` instrumentation exists and is unexercised.
+
+### 35.4 The cockpit, measured twice with one ruler (6.4)
+
+`cockpit-inventory.spec.ts` wrote `BEFORE.md` in Phase 0, so it now also writes the AFTER
+record: `COCKPIT_INVENTORY=after` → `docs/cockpit/AFTER.md`, `after/*.png`,
+`inventory-after.json`, from **the same function**. One ruler, two measurements:
+
+| Shape | World band, free run | Overlay coverage |
+|---|---|---|
+| portrait-390x844 | **216 px (26 %) → 322 px (38 %)** | **39 % → 22 %** |
+| android-412x915 | **252 px (28 %) → 371 px (41 %)** | **35 % → 20 %** |
+| landscape-844x390 | **183 px (47 %) → 292 px (75 %)** | **37 % → 34 %** |
+
+What the rows say the rebuild did, in the same state (a mission running in 6.3, wind
+assist on, a gust pushing): the nav cluster went from **374×143** to **390×56**; the
+sticks from **140 px** to **117 px**; LOW/HORN from **52 px under the nav** to **44 px
+above the right stick**; and the meter, the clock, the LIMIT sign, the HP/FUEL bars and
+the map canvas are gone rather than moved.
+
+**Two numbers that are both true, and are not the same claim.** The inventory's "world
+band" is the tallest *free* run of the centre column — every box counts, including the
+gust pill (**130×70 at y 323–393** in this state), which is what caps the portrait run at
+322 px. The promise the rebuild was built to — `cockpit/spec.ts`'s declared band, written
+to the DOM as `[data-band="world"]` — is **508 px = 60 %** at 390×844, and
+`e2e/cockpit-bands.spec.ts` asserts it is **≥ 55 %** at every shape. So: the *declared*
+band is 60 % and tested; the *free run in the worst state* is 38 %; both are in this
+document with their methods, because the difference between them is the gust pill
+sitting in the road, and that is a design question, not a measurement error.
+
+### 35.5 The text scale finally reaches the page (§34.5's open item, closed)
+
+§34.5 said `--qr-text-scale` was "read everywhere and written nowhere". That sentence was
+literally true and practically misleading, and finding out which is the point of this
+item:
+
+- the value **was** applied — as an inline style on the `.ui-layer` div, since P12
+  (`5624665`), so the cockpit, the dialogue and the cards inside that subtree did scale;
+- the **document** never carried it, so any surface mounted outside `.ui-layer` (a portal,
+  a dialog, the next HUD someone writes) stayed at the base size, and the row's promise
+  was true only by accident of where the reader happened to be.
+
+The fix is one writer, not two: `Game3D` writes `textScaleStyle(textSize)` onto
+`document.documentElement` in an effect — next to where `data-reduced-motion` already
+lives — and the `.ui-layer` inline spread is gone. `textScaleStyle` remains the single
+mapping from the store's step to the value, so the unit test that pins it still pins
+something real.
+
+`e2e/text-scale.spec.ts` (3.9 s) measures the whole path through the player's own hands:
+pause → SETTINGS → TEXT SIZE ×2 → **16 px becomes 20.8 px** on the pause control, a
+probe appended to `<body>` measures 20.8 px too, and cycling back returns 16 px. Run
+against the *old* writer (the Game3D change stashed) the same spec fails on exactly the
+probe — expected 20.8, received 16 — while the cockpit glyph passes. That red run is why
+the test is worth keeping: it distinguishes "the cockpit scales" from "the player's
+choice reaches the document", which is the difference the audit could not see.
+
+### 35.6 Still open
+
+- **The cockpit's 8 baselines are still Windows-only** (`-win32.png`). A Linux/macOS CI
+  would fail them; there is no CI. (The BEFORE/AFTER screenshots are plain PNGs written
+  by the inventory pass, not compared to anything, so they do not share the problem.)
+- **No test runs on a phone with a real motor.** `navigator.vibrate` is stubbed in
+  `e2e/feel.spec.ts`.
+- **No headed browser perf run** — every FPS/draw-call/heap row is absent rather than
+  estimated.
+- **The scene sweep's 39 navigations are dev-server navigations.** It proves the scenes
+  mount and paint a surface against Vite; it does not re-prove the built bundle's routing
+  (that is `first-load.spec.ts` + `smoke.spec.ts`).
+- **`4.3` is swept by id, not reached by play.** The retest week is entered directly, the
+  way the act select would; the walk that *earns* it is `fullchain.test.ts`'s.
+- **The shell still carries ~413 kB of story JSON** (`cards.json` + three question banks)
+  that the first frame never needs; the Phase 2 note stands — worth ~0.5 s on Slow 4G and
+  it is a story-bridge refactor.
 
 <!-- CONTINUED -->
 

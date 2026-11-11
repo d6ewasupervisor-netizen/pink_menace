@@ -100,12 +100,31 @@ baselines were re-captured (AUDIT §34).
 so the name and the lighting are one fact; `test/lighting.test.ts` reads the JSON and
 fails if either ever drifts (AUDIT §16, §34).
 
-**Next: Phase 6 — the sweep.** The full chain and its guards, a scene-by-scene e2e
-sweep, the performance numbers in one place, and the AFTER record (AFTER.md, AUDIT,
-AGENT_LOG, ROADMAP) before the final merge and push. One open feel item rides with it:
-**`--qr-text-scale` is read everywhere and written nowhere** — the settings panel's
-text-size row writes a store value that no code applies to the document, so mounting
-the token sheet made the type *scale* real but not the player's *scale* (AUDIT §34.5).
+**Phase 6 (done): the sweep.** `fullchain` and its fourteen guard files are
+**134 tests in 4.4 s**, all green — four phases of deleting UI did not cost a beat.
+`e2e/scene-sweep.spec.ts` opens **every scene the campaign can enter (39)**, from empty
+storage, and records what each one put on screen: 37 a line, 3.2 a card, 1.1 the rail
+with its mission running, **0 of 39 threw**. The numbers are in one place
+(AUDIT §35.3): sim p50 **68.4 / 68.6 / 63.2 / 62.1 µs** on an idle machine (the 184.3
+the Phase 5 gate had written into `bench/baseline.json` was the machine, not the sim),
+build **4.91 s** / shell **1,087.62 kB (318.26 gzip)**, first frame **7,599 ms** desktop
+and **8,365 ms** mobile against the 10 s budget, **2,487 kB** on the wire. The cockpit
+was measured a second time with the function that wrote BEFORE
+(`COCKPIT_INVENTORY=after` → `docs/cockpit/AFTER.md`): free world band **26 % → 38 %** at
+390×844, coverage **39 % → 22 %**, and the declared band the e2e asserts is **60 %**
+(≥ 55 % at every shape) — the two numbers have different methods and both are written
+down.
+
+The open feel item is closed, and the audit's own sentence needed correcting:
+**`--qr-text-scale` was written — on the `.ui-layer` div, not the document.** Surfaces
+inside that subtree scaled; anything mounted outside it did not. There is one writer now
+(`Game3D`, on `document.documentElement`, beside `data-reduced-motion`) and
+`e2e/text-scale.spec.ts` proves the player's row moves the type 16 → 20.8 px, failing on
+exactly that probe when the fix is stashed (AUDIT §35.5).
+
+**Still open (not this pass):** headed FPS / draw calls / heap (no headed browser ran),
+a phone with a real motor, the Windows-only baselines, and the ~413 kB of story JSON the
+first frame never needs.
 
 
 

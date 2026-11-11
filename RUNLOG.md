@@ -38,11 +38,11 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | 5.1 haptics, shake, reduced motion | DONE | `quietroads/haptics.ts` is the one pattern table (`gust` 35/55/90 kept, `collision` 90/40/120, `horn` 60, `button` 12, `qte` 45/30/45, `verdict` 25/60/25) and the gate: the player's switch (`enabled`) and the device (`nav`) are **arguments**, so "no motor", "switch off" and "the browser refused" are three `false`s a unit test can ask for without a phone. `quietroads/shake.ts` holds the shake maths — `triggerScreenShake(intensity, duration, { reducedMotion })`, `shakeLevel(dt)`, `resetShake()` — and `GameCamera` now only picks the random direction; `CollisionSystem` imports from the module, not from the camera. Steady cam is a **refusal, not a lower intensity**, in both. Wiring: a wreck buzzes (`CollisionSystem`), the horn and the lights buzz (`QuietHUD`), the QTE window buzzes once per prompt (`CockpitQTE`), a verdict buzzes (`QuizOverlay`), the gust keeps its own name (`wind.ts buzzGust` → `buzz('gust')`); all read the `haptics` switch from the store, which is persisted and reset-preserved. Reduced motion now has **two doors** and both work: the OS `@media` and `[data-reduced-motion="true"] .qr-anim`, with `qr-anim` actually joined by the gust streaks, the boot sweep, the loading car, the scare palm/vignette/contact and the QTE bar. `SettingsPanel` grows a HAPTICS row (disabled "NO MOTOR" where `navigator.vibrate` is absent) |
 | 5.2 7.3/8.1 daylight keys | DONE | Both keys renamed to the hour the story states — 7.3 `ritzville_beetle_elevators_dusk.png` → `_morning.png` (its own `location` is `ritzville_lot_morning`) and 8.1 `i90_spokane_approach_night.png` → `_day.png` with its ambience `city_night_still` → `city_day_still` (the prose is "the gray sky going flat white … a city that is awake now"). Both scenes join `SCENE_TIME_OF_DAY` as `day`, so the lighting and the name are one fact; `test/lighting.test.ts` grows two cases (12 in the file) that read the JSON and fail if a key or a `location` ever names a different hour than the table. Nothing in the drive reads those strings, so the change is metadata + the scene hour, not a plate |
 | 5.3 feel tests | DONE | `test/haptics.test.ts` (8), `test/shake.test.ts` (7), `test/reduced-motion.test.ts` (6), `test/settings.test.ts` +4 haptics cases (12 in the file), `e2e/feel.spec.ts` (3 cases × 2 projects): the class door in a real browser, the horn's pattern then silence with the switch off, and a refused shake through the same store value the panel writes |
-| 6.1 full chain + guards | TODO | |
-| 6.2 scene sweep e2e | TODO | |
-| 6.3 performance numbers | TODO | |
-| 6.4 docs (AFTER.md, AUDIT, ROADMAP, AGENT_LOG) | TODO | |
-| 6.5 final merge, push, clean | TODO | |
+| 6.1 full chain + guards | DONE | `fullchain` + 14 guard files (coverage, bundle, chainup-loop, chainup, deadlock, deck-parity, ending, licensing, actvii-deck, cards, placeholders, waitWatch, exam, retest) run on their own: **134 tests, 15 files, 4.4 s, 0 failed**. No guard needed an exception and no assertion was widened — the story contract survived four phases of UI deletion |
+| 6.2 scene sweep e2e | DONE | `e2e/scene-sweep.spec.ts`: **39 scenes** (the 38 in the chain + 4.3), empty storage each, `startAct`, then the scene id, the phase, a readable surface and zero faults. Record: **37 open on a dialogue line, 3.2 on a card, 1.1 on the rail with its mission running, 0 of 39 threw** (`drive/test-results/scene-sweep.txt`). The first version accepted `[data-layer="hud"]`, which is mounted in every scene — tightened to a story surface or the rail. 34–49 s; the mobile project's copy is skipped by `skipDuplicate` because the spec sets 390×844 itself |
+| 6.3 performance numbers | DONE | Idle-machine sim bench **68.4 / 68.6 / 63.2 / 62.1 µs p50** (the committed baseline now holds this run, not the 184.3 the Phase 5 gate wrote under load). Build **4.91 s**, shell **1,087.62 kB / 318.26 kB gzip**, 3D **2,851.43 / 989.30**, post 75.11 / 18.56 lazy. `e2e/first-load.spec.ts` 2/2: first frame **7,599 ms** (desktop) / **8,365 ms** (mobile) against the 10,000 ms budget, **2,487 kB** on the wire, one model request. All of it in AUDIT §35.3 |
+| 6.4 docs (AFTER.md, AUDIT, ROADMAP, AGENT_LOG) | DONE | `cockpit-inventory.spec.ts` grew a second phase (`COCKPIT_INVENTORY=after`) so AFTER.md, `after/*.png` and `inventory-after.json` come from the *same function* as BEFORE: free world band **216 px (26 %) → 322 px (38 %)** at 390×844, coverage **39 % → 22 %**; Android 28 → 41 %, landscape 47 → 75 %. AUDIT §35 (six parts, including the §34.5 correction), AGENT_LOG entry, ROADMAP "Phase 6 (done)", these rows |
+| 6.5 final merge, push, clean | DONE | Phase 5 + 5.2 as `51f9993` (verified 580/580, tsc 0, build 4.77 s on its own tree before the merge), Phase 6 in the commit that carries this row; `main` fast-forwarded to it and pushed, `drive/portrait-rebuild` pushed, tree clean |
 
 ## Findings so far (they change the plan)
 
@@ -171,6 +171,25 @@ band's presence/absence against `cockpit/spec.ts` and then takes the band out of
 *exposure* with a style rule whose computed value it also asserts — the picture no
 longer races a clock. Both baselines were captured from a clean slate afterwards and
 the 10/10 verify run compares against exactly those files.
+
+## Gates (after Phase 6, measured on the branch)
+
+| Gate | Result |
+|---|---|
+| `npx vitest run` | **580/580** across 56 files — unchanged by Phase 6: the two new e2e specs and the sweep are Playwright, and the only unit-level change is `Game3D`'s document write (covered by `e2e/text-scale.spec.ts`, which is where a DOM write belongs) |
+| `npx tsc --noEmit` | **0** |
+| `npm run build` | **4.91 s**, shell **1,087.62 kB / 318.26 kB gzip** + 3D chunk **2,851.43 / 989.30** + post stack 75.11 / 18.56 lazy (+0.19 kB in the 3D chunk for the text-scale effect) |
+| `npx playwright test --workers=1` (**the phase's gate**) | **64 passed / 28 skipped / 0 failed** in **15.5 min**, `EXIT=0` (`%TEMP%\gate6.log`). Phase 5's gate was 61/27/0; this run is **+3 passed / +1 skipped**: `e2e/text-scale.spec.ts` (1 case × 2 projects) and `e2e/scene-sweep.spec.ts` (1 case, and its mobile-project copy is the one new *measured* skip — the spec sets 390×844 itself). The other 27 skips are the same set as Phases 2–5; none was added or widened |
+| `npx vitest run` on the guard set | **134/134** in 15 files (4.4 s) — `fullchain`, `coverage`, `bundle`, `chainup-loop`, `chainup`, `deadlock`, `deck-parity`, `ending`, `licensing`, `actvii-deck`, `cards`, `placeholders`, `waitWatch`, `exam`, `retest`, run on their own |
+| `npx playwright test e2e/scene-sweep.spec.ts` | **39/39 scenes**, 0 faults, 34–49 s (record in `drive/test-results/scene-sweep.txt`) |
+| `npx playwright test e2e/text-scale.spec.ts` | **1/1** (3.9 s), and **red on exactly the `<body>` probe** when the `Game3D` fix is stashed |
+| `npx playwright test e2e/first-load.spec.ts` | **2/2** — first frame **7,599 ms** (desktop) / **8,365 ms** (mobile) against the 10,000 ms budget, 2,487 kB on the wire, one model request |
+| `npx vitest run bench` | **1/1**; idle-machine p50 **68.4 / 68.6 / 63.2 / 62.1 µs** (`bench/baseline.json` committed from this run) |
+| `COCKPIT_INVENTORY=after npx playwright test e2e/cockpit-inventory.spec.ts` | **1/1** (7.7 s) → `docs/cockpit/AFTER.md`, `after/*.png`, `inventory-after.json` |
+
+**Nothing failed, and nothing new was skipped to make that true.** The one added skip
+is the measured duplicate (`duplicateViewportReason` prints both viewports in the skip
+title); the gate's total went 88 → 92 cases and 0 → 0 failures.
 
 ## DECISIONS
 
