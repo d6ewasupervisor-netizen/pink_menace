@@ -31,12 +31,28 @@ export default defineConfig({
     // The real client is heavy; give WebGL rendering time on CI-ish machines.
     navigationTimeout: 45_000,
   },
-  webServer: {
-    command: 'npm run dev -- --port 5173 --strictPort',
-    url: 'http://localhost:5173/drive/',
-    reuseExistingServer: true,
-    timeout: 60_000,
-  },
+  /**
+   * TWO SERVERS (item 6.6). The app is served by Vite; its `/api` proxy needs a
+   * target or every unproxied request logs
+   * `[vite] http proxy error: /api/drive/progress … ECONNREFUSED` — which is what
+   * the suite's log was full of. `e2e/stub-api.mjs` is that target: the smallest
+   * server that answers the drive's endpoints, so the proxy path is exercised
+   * instead of failing. A real backend on the same port wins (`reuseExistingServer`).
+   */
+  webServer: [
+    {
+      command: 'node e2e/stub-api.mjs',
+      url: 'http://127.0.0.1:8080/api/health',
+      reuseExistingServer: true,
+      timeout: 30_000,
+    },
+    {
+      command: 'npm run dev -- --port 5173 --strictPort',
+      url: 'http://localhost:5173/drive/',
+      reuseExistingServer: true,
+      timeout: 60_000,
+    },
+  ],
   projects: [
     {
       name: 'desktop',
