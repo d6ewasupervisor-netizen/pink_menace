@@ -47,9 +47,16 @@ measured cockpit inventory) and Phase 1 (never black) are done:
   overlay coverage 39 %, sticks 140 px, nav cluster 143 px tall. Phase 3's target is
   a world band ≥ 55 % with 110–120 px sticks.
 
-**Still open here:** a forced WebGL context loss still unmounts the React tree
-(three reads a null context attribute); HIGH beams are a different frame from OFF
-but not measurably brighter in the readback. Both are in `RUNLOG.md` BLOCKED.
+**Context loss (1.5):** a forced loss still unmounts the React tree (three reads a null
+context attribute), but it is no longer a dead end — the guard asks for a restore at
+1.5 s and, if the view is still gone at 5 s, saves (keepalive) and reloads into the
+persisted checkpoint with "Restarting view…". `e2e/never-black.spec.ts` asserts the
+same scene and the HUD after the reload; the `fixme` is gone. Restoring *in place*
+still needs an error boundary around `<Canvas>` — see `RUNLOG.md` BLOCKED, which now
+says exactly which half is closed.
+
+**Still open here:** HIGH beams are a different frame from OFF but not measurably
+brighter in the readback (`RUNLOG.md` BLOCKED).
 
 **Phase 2 (done):** the phone now downloads what it drives. 2.1 picks the tier from the
 device (`utils/qualityPick.ts`) with `?tier=` and a saved choice pinning it; 2.2 built

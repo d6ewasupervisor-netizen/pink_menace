@@ -2464,9 +2464,122 @@ choice reaches the document", which is the difference the audit could not see.
   (that is `first-load.spec.ts` + `smoke.spec.ts`).
 - **`4.3` is swept by id, not reached by play.** The retest week is entered directly, the
   way the act select would; the walk that *earns* it is `fullchain.test.ts`'s.
-- **The shell still carries ~413 kB of story JSON** (`cards.json` + three question banks)
-  that the first frame never needs; the Phase 2 note stands — worth ~0.5 s on Slow 4G and
-  it is a story-bridge refactor.
+## 36. The world band, the 8 s budget, the reload fallback, the dead backend (2026-11-11)
+
+### 36.1 The world band was never below 55 % — two different numbers had one name
+
+- **What the assertion measures.** `e2e/cockpit-bands.spec.ts` (lines 267–277) reads
+  `[data-band="world"]`'s bounding-box height and divides it by the viewport height:
+  `expect(fraction).toBeGreaterThanOrEqual(0.55)` in portrait, `> 0.3` in landscape and
+  desktop. Introduced by `350882e` (`[3.5-3.9]`), **never lowered**, and green in every
+  gate since.
+- **Measured at the shipped shapes** (`cockpit/spec.ts`, the same numbers
+  `[data-band="world"]` is laid out from): 390×844 **508 px = 60.2 %**; 412×915
+  **564 px = 61.6 %**; 440×956 **596 px = 62.3 %**; landscape 844×390 186 px = 47.7 %
+  (asserted > 0.3); desktop 1280×800 474 px = 59.3 %.
+- **The 38 % in `AFTER.md` is a different measurement.** `cockpit-inventory.spec.ts`
+  measures the tallest vertical run of the centre column (x 25–75 %) that no *box* covers,
+  and it only counts a box that is at least 25 % of the viewport wide (97.5 px at
+  390×844). In the inventory's fixed state (6.3, wind assist on, a gust pushing) the
+  130×70 gust pill at y 323–393 blocks the road, so the runs are 110–323 (213),
+  393–715 (322) and 832–844 (12): **322 px = 38 %**. In plain driving — no gust — nothing
+  wide enough sits between the nav strip and the sticks, and the same ruler reads
+  110–715 = **605 px = 71.7 %**.
+- **The levers named in the plan do not move that number.** The objective is a
+  `data-band`, not a `data-layer`, so it is not in the free-run measure at all (and it is
+  hidden ~6 s after a change); the dialogue is absent when no line is up; and a 110 px
+  stick is still ≥ 97.5 px, so it still ends the run. What caps 38 % is the **gust cue in
+  the centre column**. No `[3.10]` change was made: the assertion passes, and the gap
+  between "declared band 60.2 %" and "free run in the worst state 38 %" is a design
+  question about putting a 130 px cue in the road, not a layout one.
+- **Two caveats worth keeping.** On a notched phone the safe-area insets (47/34 in
+  `test/cockpit-spec.test.ts`'s case) shrink the band to 427 px = 50.6 %, and that test
+  asserts > 0.45 for it — the 55 % claim is a no-inset claim. And the inventory's
+  free-run number is the honest "road you can actually see"; the band is a container that
+  the dialogue and the gust cue are allowed to sit inside. Both numbers are now in this
+  document with their methods.
+
+### 36.2 The 8 s first frame: measured, and the cheap cut is not there
+
+Breakdown of the **8,365 ms** mobile-portrait measurement (the desktop project measured
+7,599 ms in the same run), from the run's own resource timing plus the app's
+`firstFrameAt()` mark:
+
+| Stage | ms | Source |
+|---|---|---|
+| HTML → shell request | 0–198 | resource timing |
+| shell download (311 kB) | 198 → 1,881 (**1,683**) | resource timing |
+| shell parse/execute + dynamic-import scheduling | 1,881 → 2,103 (222) | gap to the next request |
+| 3D chunk download (966 kB) | 2,103 → 6,973 (**4,870**) | resource timing |
+| parse/execute + scene build + first render | 6,973 → 8,365 (**1,392**) | `firstFrameAt()` |
+| Beetle model fetch + decode | **after** the frame | 1 request, `vw_beetle.mobile.glb` |
+
+Two downloads are 78 % of the time on a saturated 1.6 Mbit pipe (1,277 kB gzip ≈ 6.4 s),
+so the only lever that moves the number is **bytes**, not order. The app marks only the
+first frame, so the 1,392 ms tail is not split between JS parse and scene build in the
+instrumentation; adding those two marks is what the split needs if it is ever wanted.
+
+- **The `modulepreload` cut was built and measured, and it is a wash.** A build-time
+  plugin injected `<link rel="modulepreload" fetchpriority="low">` for the 3D chunk, so it
+  downloads during the parse instead of after the shell executes. Result: **8,031 ms
+  (desktop) / 7,958 ms (mobile)**, against 7,599 / 8,365 without it — and the shell's own
+  download went 1.68 s → 3.18 s, i.e. the boot screen got 1.3 s slower for a frame that
+  did not move. **Reverted.**
+- **The 8,000 ms budget was therefore not set.** The same app on the same machine
+  measured **7,599 / 8,365** in the Phase 6 gate, **8,031 / 7,958** with the preload,
+  and **7,685 / 7,687** after reverting it — a 0.7 s spread across three runs of one
+  build. 8,000 sits *inside* that spread: it would have failed the Phase 6 gate run and
+  passed the next one. A budget certified by which run happens to be quiet is not a
+  budget, so it stays at 10,000 ms until the bytes change.
+- **The one real cut is the story JSON.** The shell carries `cards.json` + three question
+  banks (~413 kB raw / ~110 kB gzip; `VI-001` and `c5_010` are both in `index-*.js`), all
+  built in `QuietRoadsBridge`'s constructor. That is ~0.55 s of the pipe and the refactor
+  Phase 2 recorded as *not* a budget change. No `[2.5]`: it is not a two-hour cut.
+
+### 36.3 The context loss is recoverable now (1.5)
+
+`GLContextGuard` used to set "Restarting view…", park the frame loop and call
+`forceContextRestore()` once at 5 s. If the browser did not hand the context back, three's
+throw kept unmounting the React tree and the player was left with a black page and no HUD
+— the RUNLOG BLOCKED case, and a `test.fixme`.
+
+Now: **1.5 s** one cheap restore ask → at **5 s, still lost** → a `sessionStorage` flag, a
+`client.context_reload` telemetry row, `DriveSync.flush(true)` (keepalive) and
+`location.reload()`, with a 1.5 s guard so a hung save cannot hold the black screen. The
+reload re-enters the checkpoint from `quiet-roads-save`, and the flag makes the returning
+page say "Restarting view…" for five seconds.
+
+The timer is **module-level on purpose**: the crash unmounts the effect that would own it,
+and a fallback a crash cancels is not a fallback. `webglcontextrestored` clears it.
+
+`e2e/never-black.spec.ts`'s `fixme` is gone. The case now forces the loss, sees the chip,
+waits for the reload, and asserts the same scene (6.3), the HUD up, the chip after the
+reload and a live frame — **22.5 s, green**. The three.js throw itself is unchanged: this
+makes the failure recoverable, not impossible. An error boundary around `<Canvas>` is
+still the way to get a restore-in-place.
+
+### 36.4 The e2e was running against a dead backend (6.6)
+
+- **What it was.** `vite.config.ts` proxies `/api` to `http://localhost:8080`; nothing was
+  listening. Every request a spec did not mock — and every request `page.route` cannot
+  intercept, such as the unload `keepalive` POST from `DriveSync.flush(true)` — reached
+  the proxy and became `[vite] http proxy error: /api/drive/progress … ECONNREFUSED`,
+  about twice per navigation.
+- **What the client does when it fails.** `saveProgress` catches and retries on the next
+  change; `hydrate()` returns silently on `!r.ok`; `post()` returns false and the
+  telemetry uploader keeps the rows; `gradeCard` returns `'offline'` and the card UI
+  offers a retry. No error dialog, no visible queue: **the local save is the working
+  copy.**
+- **No assertion depended on a round-trip.** Every spec that asserts a scene mocks
+  `/api/me` and `/api/drive/progress`; that is why the suite stayed green with the backend
+  dead, and why nobody noticed the noise.
+- **Fix.** `e2e/stub-api.mjs` is that proxy target as a second Playwright `webServer`
+  entry (progress GET/PUT, events, attempts, card-answers, and `/api/health` for
+  readiness); a real backend on 8080 still wins via `reuseExistingServer`.
+- **And the offline behaviour is an assertion now**, not an accident:
+  `e2e/offline.spec.ts` aborts every `/api/drive/**` and asserts that the scene still
+  starts, the HUD is up, the local save names the scene the player is in, and nothing
+  becomes an uncaught exception — **22.1 s, green**.
 
 <!-- CONTINUED -->
 

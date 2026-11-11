@@ -2777,3 +2777,74 @@ Playwright gate **64 passed / 28 skipped / 0 failed in 15.5 min**, `EXIT=0` — 
 61/27/0 plus exactly the three new cases, and the one new skip is the sweep's measured
 viewport duplicate. All of it in `RUNLOG.md`.
 
+## 2026-11-11 — two numbers that had the same name, one loss that is now recoverable, and the backend the suite never had
+
+### [1.5] The lost context has a way back
+
+`GLContextGuard` set "Restarting view…", parked the frame loop, and at 5 s called
+`forceContextRestore()` once. If the browser did not hand the context back, three's
+throw kept unmounting the tree and the player kept a black page — the case the RUNLOG
+carried as BLOCKED and `e2e/never-black.spec.ts` carried as a `fixme`.
+
+Now the 5 s decision is a fallback instead of a hope: **1.5 s** asks for a restore,
+**5 s** still lost sets a `sessionStorage` flag, writes a `client.context_reload` row,
+flushes the save with `keepalive`, and reloads — with a 1.5 s guard so a hung save
+cannot hold the black screen. The reload re-enters the checkpoint from
+`quiet-roads-save`, and the flag makes the returning page say "Restarting view…" for
+five seconds. The timer lives **beside the module, not in the effect**: the crash
+unmounts the effect that would own it, and a fallback a crash cancels is not a
+fallback.
+
+The `fixme` is gone. The case now forces the loss, sees the chip, waits for the
+reload, and asserts the same scene (6.3), the HUD up, the chip after the reload and a
+live frame — **22.5 s, green**. The throw itself is unchanged; this makes the failure
+recoverable, not impossible, and an error boundary is still the way to a restore in
+place.
+
+### [6.6] The e2e was testing a backend that was not there
+
+Every `[vite] http proxy error: /api/drive/progress … ECONNREFUSED` was the dev
+server proxying `/api` to `localhost:8080` with nothing on it. Two requests per
+navigation got through `page.route` — the unload `keepalive` POSTs from
+`DriveSync.flush(true)` are outside what a route can see — so the log filled up and
+nothing failed, because the client is offline-tolerant on purpose (`saveProgress`
+catches and retries; `hydrate` returns on `!ok`; `gradeCard` returns `'offline'`) and
+no assertion depended on a round-trip.
+
+Both halves are fixed: `e2e/stub-api.mjs` is the proxy's target as a second Playwright
+`webServer` (a real backend still wins), and `e2e/offline.spec.ts` refuses every
+`/api/drive/**` and asserts what a player would see — the scene starts, the cockpit is
+up, the local save names the scene, and nothing becomes an uncaught exception
+(**22.1 s, green**). The offline behaviour is a test now, not a happy accident.
+
+### [report] The world band and the 8 s budget: one was a misreading, one was measured away
+
+**The world band never failed.** The assertion (`e2e/cockpit-bands.spec.ts`, from
+`350882e`, never lowered) is `[data-band="world"]` height ÷ viewport ≥ **0.55** in
+portrait, and it reads **508 px = 60.2 %** at 390×844 — 61.6 % at 412×915, 62.3 % at
+440×956. The **38 %** in `AFTER.md` is the inventory's *different* measure: the tallest
+run of the centre column no box ≥ 25 % of the width covers. In the 6.3 state the
+130×70 gust pill at y 323–393 is what caps it at 322 px; in plain driving the same
+ruler reads **605 px = 71.7 %**. Hiding the objective and the dialogue does not move it
+(neither is in that measure), and 110 px sticks still break the run. So no `[3.10]`:
+the gap is the gust cue sitting in the road — a design call — not the layout.
+
+**The 8 s budget was not set, because the cut that was supposed to buy it does not.**
+The 8,365 ms breaks down as 1,683 ms of shell download + 222 ms + 4,870 ms of 3D
+download + 1,392 ms of parse/build/render, with the Beetle already after the frame. A
+build-time `modulepreload` for the 3D chunk was built and measured: **8,031 / 7,958 ms**
+(a wash) while the shell's own download went 1.68 → 3.18 s. Reverted. 78 % of the time
+is two downloads on a saturated 1.6 Mbit pipe, so only bytes help — and the one real
+byte cut (the ~110 kB gzip story JSON in the shell) is the documented bridge refactor.
+The budget stays 10,000 and the spread (7,599–8,365 on one machine) is why.
+
+### Verified
+
+vitest **580/580** in 56 files (6.7 s), `tsc --noEmit` **0**, build **4.67 s**, and the
+full Playwright gate **67 passed / 27 skipped / 0 failed in 15.6 min**, `EXIT=0` —
+Phase 6's 64/28/0 plus `offline` in both projects (+2) and the forced-loss case moving
+from skipped to passed (+1 / −1). **The gate log contains zero `ECONNREFUSED` and zero
+proxy errors**, against two per navigation before. First-load on the rebuilt app:
+**7,685 / 7,687 ms** against the 10,000 ms budget. AUDIT §36 has the numbers and both
+methods.
+

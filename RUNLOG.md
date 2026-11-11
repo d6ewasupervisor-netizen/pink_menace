@@ -43,6 +43,10 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | 6.3 performance numbers | DONE | Idle-machine sim bench **68.4 / 68.6 / 63.2 / 62.1 µs p50** (the committed baseline now holds this run, not the 184.3 the Phase 5 gate wrote under load). Build **4.91 s**, shell **1,087.62 kB / 318.26 kB gzip**, 3D **2,851.43 / 989.30**, post 75.11 / 18.56 lazy. `e2e/first-load.spec.ts` 2/2: first frame **7,599 ms** (desktop) / **8,365 ms** (mobile) against the 10,000 ms budget, **2,487 kB** on the wire, one model request. All of it in AUDIT §35.3 |
 | 6.4 docs (AFTER.md, AUDIT, ROADMAP, AGENT_LOG) | DONE | `cockpit-inventory.spec.ts` grew a second phase (`COCKPIT_INVENTORY=after`) so AFTER.md, `after/*.png` and `inventory-after.json` come from the *same function* as BEFORE: free world band **216 px (26 %) → 322 px (38 %)** at 390×844, coverage **39 % → 22 %**; Android 28 → 41 %, landscape 47 → 75 %. AUDIT §35 (six parts, including the §34.5 correction), AGENT_LOG entry, ROADMAP "Phase 6 (done)", these rows |
 | 6.5 final merge, push, clean | DONE | Phase 5 + 5.2 as `51f9993` (verified 580/580, tsc 0, build 4.77 s on its own tree before the merge), Phase 6 in the commit that carries this row; `main` fast-forwarded to it and pushed, `drive/portrait-rebuild` pushed, tree clean |
+| 1.5 context-loss reload fallback | DONE | `Game3D`'s guard: a 1.5 s `forceContextRestore()` ask, then at **5 s still lost** a `sessionStorage` flag + `client.context_reload` row + `DriveSync.flush(true)` (keepalive) + `location.reload()`, with a 1.5 s guard so a hung save cannot hold the black screen. The timer is **module-level** because the crash unmounts the effect that would own it. The reload resumes the persisted checkpoint and the flag makes the returning page say "Restarting view…" for 5 s. `e2e/never-black.spec.ts`'s `fixme` is gone: it now asserts the same scene, the HUD up, the chip after the reload and a live frame — **22.5 s, green**. The three.js throw itself is unchanged; this makes the failure recoverable, not impossible |
+| 2.5 first-frame preload | NOT TAKEN (measured) | A build-time `<link rel="modulepreload" fetchpriority="low">` for the 3D chunk was built and measured: **8,031 ms desktop / 7,958 ms mobile** against 7,599 / 8,365 without it — a wash, with the shell's own download 1.68 → 3.18 s (the boot screen 1.3 s slower). Reverted. The **8,000 ms budget was not set**: one machine spreads 7,599–8,365, so it would be certified by luck. 78 % of the time is two downloads on a saturated 1.6 Mbit pipe; the only real lever is the ~110 kB gzip story JSON in the shell (the bridge refactor, not a 2 h cut) — AUDIT §36.2 |
+| 3.10 world band | NOT TAKEN (measurement) | The assertion is and always was `[data-band="world"]` height ÷ viewport ≥ **0.55** in portrait (`350882e`, never lowered): **508 px = 60.2 %** at 390×844, 61.6 % at 412×915, 62.3 % at 440×956. `AFTER.md`'s 38 % is the *inventory's* different measure — the tallest centre-column run no ≥ 97.5 px box covers — and in that state the 130×70 gust pill (y 323–393) is what caps it; in plain driving the same ruler reads **605 px = 71.7 %**. Hiding the objective/dialogue does not move it (the objective is a `data-band`, not a `data-layer`; the dialogue is absent with no line) and 110 px sticks still break the run. Gap is the gust cue in the road, a design call — AUDIT §36.1 |
+| 6.6 e2e backend + offline | DONE | Root cause: Vite proxies `/api` to `localhost:8080` with nothing there, so every unmocked request — and every `keepalive` POST `page.route` cannot see — logged `[vite] http proxy error … ECONNREFUSED`. The client is offline-tolerant by design (silent retry, local save is the working copy, `gradeCard` returns `'offline'`) and **no assertion depended on a round-trip**. Fix: `e2e/stub-api.mjs` as a second Playwright `webServer` entry (a real proxy target; a real backend still wins), plus `e2e/offline.spec.ts`, which aborts every `/api/drive/**` and asserts the scene starts, the HUD is up, the local save names the scene and nothing is an uncaught exception — **22.1 s, green** |
 
 ## Findings so far (they change the plan)
 
@@ -191,6 +195,23 @@ the 10/10 verify run compares against exactly those files.
 is the measured duplicate (`duplicateViewportReason` prints both viewports in the skip
 title); the gate's total went 88 → 92 cases and 0 → 0 failures.
 
+## Gates (after 1.5 / 6.6 / the 2.5–3.10 measurements, on the branch)
+
+| Gate | Result |
+|---|---|
+| `npx vitest run` | **580/580** across 56 files (6.7 s) |
+| `npx tsc --noEmit` | **0** |
+| `npm run build` | **4.67 s**, shell **1,087.62 kB / 318.26 kB gzip** + 3D chunk **2,851.43 / 989.30** + post stack 75.11 / 18.56 lazy — unchanged by 1.5/6.6 (both are test/config work plus one guard) |
+| `npx playwright test --workers=1` (**the gate**) | **67 passed / 27 skipped / 0 failed in 15.6 min**, `EXIT=0` (`%TEMP%\gate7.log`). Phase 6's 64/28/0 **+2 passed** (`offline.spec.ts`, which runs in both projects) **+1 / −1** (the forced-loss case moved from skipped to passed). **Zero `ECONNREFUSED`, zero `[vite] http proxy error` lines** in the log, against ~2 per navigation before |
+| `npx playwright test e2e/never-black.spec.ts -g "forced context loss"` | **1/1** (22.5 s) — chip, reload, same scene, HUD up, live frame |
+| `npx playwright test e2e/offline.spec.ts` | **2/2** (22.1 s / 1.5 s warm) — aborted `/api/drive/**`, scene starts, local save names the scene, no uncaught error |
+| `npx playwright test e2e/first-load.spec.ts` | **2/2** — **7,685 ms** (desktop) / **7,687 ms** (mobile) on the rebuilt app, against 10,000; the same build measured 7,599 / 8,365 in the Phase 6 gate, so the spread straddles 8,000 |
+| `npx playwright test e2e/first-load.spec.ts` **with the modulepreload experiment** | **2/2** — 8,031 ms (desktop) / 7,958 ms (mobile); the shell's download went 1.68 → 3.18 s. Reverted |
+
+**The world band assertion never failed and was never lowered.** It is 0.55 in portrait
+(`350882e`), and reads 60.2 % at 390×844. The 38 % in `AFTER.md` is the inventory's
+different measure — see AUDIT §36.1, and no `[3.10]` was made.
+
 ## DECISIONS
 
 1. **The diagnostics ship off by default.** The GPU row, the dark-frame row and
@@ -301,20 +322,19 @@ green:
 
 ## BLOCKED
 
-1. **A forced WebGL context loss still unmounts the React tree.** Reproduced with
-   `WEBGL_lose_context.loseContext()` in headless Chromium, twice:
-   - `#root` is empty afterwards — no HUD, no pause menu, no canvas;
-   - the store *did* get the toast (`toast: "Restarting view…"`), so the guard ran;
-   - three throws `Cannot read properties of null (reading 'alpha')` from the
-     render loop, once per frame it manages to run.
-   What was tried: `e.preventDefault()` on the loss (already there), a
-   `client.context_lost` row with the scene id, the on-screen chip, parking R3F's
-   frame loop (`setFrameloop('never')`) for the duration, and a 5 s
-   `gl.forceContextRestore()` retry. The loop parking did not stop the throw — the
-   next step is an error boundary around `<Canvas>` (so the cockpit survives a 3D
-   failure) plus finding which component reads context attributes off a dead
-   context. `e2e/never-black.spec.ts` marks the case `test.fixme` with this text,
-   so the gate stays honest and the failure stays visible.
+1. **A forced WebGL context loss still unmounts the React tree** — recoverable now,
+   not fixed in place (item 1.5). Reproduced with `WEBGL_lose_context.loseContext()`
+   in headless Chromium: `#root` empty afterwards, no HUD, no pause menu, no canvas,
+   and three throwing `Cannot read properties of null (reading 'alpha')` once per
+   frame it manages to run. `preventDefault`, the `client.context_lost` row, the
+   chip and parking R3F's frame loop all ran; none of them stopped the throw.
+   **What changed:** after 1.5 s the guard asks for a restore, and at 5 s, still
+   lost, it saves (keepalive) and reloads into the persisted checkpoint with
+   "Restarting view…" — the player gets the same scene back, which is what the
+   `test.fixme` was about, so the case is now a real (green) test. **What is still
+   open:** the throw itself, and with it a restore *in place*. The next step is
+   unchanged — an error boundary around `<Canvas>` plus finding which component
+   reads context attributes off a dead context.
 2. **HIGH measures darker than OFF in the road band** (6.2 sunset: 0.081 → 0.071;
    6.3 night: 0.043 → 0.036) while being clearly a different frame. The cause is
    not measured: the cone narrows at HIGH (`angle` 0.62 → 0.40) and the car moves
