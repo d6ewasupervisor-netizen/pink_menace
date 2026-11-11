@@ -114,9 +114,9 @@ export class InteriorController {
     const d = this.map.dol;
     const inDoor = Math.abs(p.y - d.door.y) < d.doorWidth / 2 && p.x >= d.floor.x + d.floor.w - 0.6 && p.x <= d.door.x + 1.6;
     const inFloor = rectHas(d.floor, p, -WALKER.RADIUS_M);
-    if (!inFloor && !inDoor && this.phase !== "to_car" && this.phase !== "done") return false;
+    if (!inFloor && !inDoor && (this.phase === "stealth" || this.phase === "latch")) return false;
     if (inFloor) for (const b of d.blocked) if (rectHas(b, p, WALKER.RADIUS_M)) return false;
-    // outside (to_car): anything goes except buildings
+    // outside (chase, to_car): anything goes except buildings
     return true;
   }
 
@@ -178,12 +178,15 @@ export class InteriorController {
       this.ev.fire("waypoint.reach:terminal");
     }
 
-    // ---- chase: catch Gracie, then get to the car
+    // ---- chase: Gracie goes out the door to the car, Ali catches her, then gets to the car
     if (this.phase === "chase") {
       const g = this.gracie;
-      const d = dist(g.pos, this.map.dol.gracieRunTarget);
-      if (d > 0.2) g.pos = add(g.pos, mul(norm(sub(this.map.dol.gracieRunTarget, g.pos)), Math.min(4.5 * dt, d)));
-      if (dist(this.pos, g.pos) < WALKER.CATCH_RADIUS_M) {
+      const goal = this.gracieGoal();
+      const d = dist(g.pos, goal);
+      if (d > 0.2) g.pos = add(g.pos, mul(norm(sub(goal, g.pos)), Math.min(4.5 * dt, d)));
+      // She starts under Ali's hands; the catch only counts once she is out the door.
+      const out = !rectHas(this.map.dol.floor, g.pos, 1.2);
+      if (out && dist(this.pos, g.pos) < WALKER.CATCH_RADIUS_M) {
         g.loose = false; this.carriers.gracie = false; // she's under Ali's arm, not in the carrier
         this.phase = "to_car";
         this.ev.fire("chase.gracie_caught");
@@ -203,7 +206,7 @@ export class InteriorController {
     this.ev.fire("walker.bump");
   }
 
-  /** The dialogue's 1.3.chase end node fires start_gameplay "chase_dol_gracie" — call this then. */
+  /** The dialogue's 1.3.chase node fires start_gameplay "chase_dol_gracie" — call this then. */
   beginChase() {
     if (this.phase !== "latch") return;
     this.carriers.mya = false;               // her carrier stays by the terminal
@@ -211,6 +214,12 @@ export class InteriorController {
     this.phase = "chase";
     this.ev.fire("chase.start");
     this.ev.setObjective("Gracie's loose. Get her.");
+  }
+
+  /** Inside, she heads for the door; once through it, for the spot by the car. */
+  private gracieGoal(): Vec2 {
+    const d = this.map.dol;
+    return rectHas(d.floor, this.gracie.pos, 1.2) ? { x: d.door.x + 1.5, y: d.door.y } : d.gracieRunTarget;
   }
 
   /** Player tapped SHH. */

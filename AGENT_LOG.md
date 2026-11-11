@@ -2870,3 +2870,41 @@ the chase does not take her outside (AUDIT §37).
 
 vitest **580/580** in 56 files, deck-parity 5/5, fullchain 6/6, seed 6/6,
 `validate-citations` ok 131.
+
+## 2026-11-11 — the DOL lot in the right order, and the chase that never ran
+
+I-007 "The One You Didn't See" opened after Ali was already in the driver's seat,
+while its own scene is "You have Gracie" in the lot. The cause was in the sim:
+`beginChase` put Gracie on Ali's own position, the 1.1 m catch radius was checked on
+the first frame, and `chase.gracie_caught` fired at once. The only goal anyone saw
+was "Get to the Beetle". Her run target was also inside the building, and
+`walkable()` kept Ali indoors until `to_car`.
+
+**Drive.** Gracie runs out the door to a spot two stalls short of the Beetle
+(`gracieRunTarget` `{ x: 238.5, y: 409.5 }`). She cannot be caught until she is out
+of the building, and Ali can walk outdoors once the chase starts. The chase is now
+forgiving like the dash to the car, since a swarm there would reset the interior while
+the story waited on the catch. 1.3 is a chain of waits: I-006 → `1.3.find` (catch)
+→ I-007 → `1.3.to_car` (seat) → "Mya, where's —" → I-008 → `1.3.calm` /
+`1.3.tomorrow` → the doorway and `1.3.C`. The `chase.start`, catch and seat
+triggers are gone, and I-008 left the honk branch. In 1.4.4 the fireworks line moved
+to `1.3.calm`.
+
+**Cards.** I-006 has Ali at the terminal and Gracie in the stalls by the Menace,
+with options c and d reworded. I-007 is "two stalls short of the Menace", with
+"Put yourself between it and Gracie" and "Run for the car with Gracie". I-008 adds
+Mya's carrier by the terminal and the decision: Mya is the calm one, she will not
+make a sound, and Ali comes back tomorrow. All three debrief states say so too.
+Ids, correct flags, `state_delta` and the `calling is what started this` stop
+token are unchanged. `pack/30_THE_DOL_LOT.md` and `docs/STORY_BIBLE.md` (§ Act I
+and the flowchart) follow.
+
+**Live.** `npm run seed -- I-006 I-007 I-008` against production, through the
+public proxy: `seeded I-006, I-007, I-008`, still audit 12/12 match, and the rows
+read back with the new scene and option text.
+
+### Verified
+
+vitest **585/585** in 57 files, including `dol-chase.test.ts` (4, new) and the
+fullchain 1.3 order on both forks. `tsc` 0, the drive build passes, citations ok
+131, and act-gate, checkpoint and manifest are ok.

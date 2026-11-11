@@ -224,8 +224,8 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Gracie's Out",
-  "hook": "Gracie is in the open lot. You are still in the doorway.",
-  "scene": "Gracie went out the propped doors before the rack finished falling. She is in the stalls now, low and curious, ten feet off the threshold. You are in the doorway. Mya's carrier is on the floor by the terminal behind you, latch shut. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
+  "hook": "Gracie is out in the lot. You are still inside.",
+  "scene": "The rack is still settling. Gracie is already gone, out through the propped doors. Through the glass you can see her in the stalls, low and curious, ten feet off the Menace. You are at the terminal. Mya's carrier is on the floor beside you, latch shut. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
   "decision": "Gracie got out of the building and into the open lot. How do you get her back?",
   "options": [
    {
@@ -238,11 +238,11 @@
    },
    {
     "id": "c",
-    "text": "Go back to the terminal for her carrier, then go after her"
+    "text": "Grab her carrier first, then go after her"
    },
    {
     "id": "d",
-    "text": "Hold the door and wait — she'll come back on her own"
+    "text": "Stay put and wait — she'll come back on her own"
    }
   ],
   "debrief": "The call works. She turns. That is why you did it. The quiet cut-off is the one that does not send sound across the lot. Neither of those facts ends this.",
@@ -276,16 +276,16 @@
   "card_type": "beat",
   "title": "The One You Didn't See",
   "hook": "You were watching the wrong three.",
-  "scene": "You have Gracie. She's pulled tight against you, tense and low, ears back, head turned into your arm, orange and cream. Across the lot the three are still far off and still not looking. This one was never with them. It's already between the parked rows, coming mid-stride, head down, and you don't finish the thought before it stops short of you — short of her — and nothing touches either of you.",
+  "scene": "You have Gracie, two stalls short of the Menace. She's pulled tight against you, tense and low, ears back, head turned into your arm, orange and cream. Across the lot the three are still far off and still not looking. This one was never with them. It's already between the parked rows, coming mid-stride, head down, and you don't finish the thought before it stops short of you — short of her — and nothing touches either of you.",
   "decision": "It is coming. What do you do?",
   "options": [
    {
     "id": "a",
-    "text": "Put yourself between it and the cats"
+    "text": "Put yourself between it and Gracie"
    },
    {
     "id": "b",
-    "text": "Grab Gracie and run"
+    "text": "Run for the car with Gracie"
    },
    {
     "id": "c",
@@ -324,12 +324,12 @@
   "card_type": "dossier",
   "title": "One of Them Comes Back",
   "hook": "One cat, where there were two.",
-  "scene": "You are in the driver's seat. The door is shut. The engine is not started. Gracie is on your chest, shaking, orange and cream, both eyes open. The passenger seat is empty. You put the window down a little and say Mya's name, quietly, and then you stop, because calling is what started this. The lot behind the mesh is empty again. That is worse. You have Gracie. You are not hurt.",
-  "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. The passenger seat is empty.",
+  "scene": "You are in the driver's seat. The door is shut. The engine is not started. Gracie is on your chest, shaking, orange and cream, both eyes open. The passenger seat is empty. Mya's carrier is still on the floor by the terminal, latch shut. You put the window down a little and start to say her name, and then you stop, because calling is what started this. Mya is the calm one. She sleeps through fireworks. She will sit in that carrier and not make a sound, and nothing in there listens for a cat that stays quiet. You come back for her tomorrow. The lot behind the mesh is empty again. That is worse. You have Gracie. You are not hurt.",
+  "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. Mya is quiet in her carrier, and you come back for her tomorrow.",
   "source": {
    "psdp_skill": "n/a",
    "dol_section": "n/a",
-   "teaching_target": "Sound draws them; end on empty seat. dol n/a: story rule / lot closer; not 5.5 Focus attention."
+   "teaching_target": "Sound draws them; end on empty seat and the decision to come back tomorrow. dol n/a: story rule / lot closer; not 5.5 Focus attention."
   },
   "cast": [
    "ali",

@@ -342,6 +342,24 @@ describe("the whole campaign walks from 0.1 to game_complete", () => {
     ]);
   });
 
+  it("1.3 runs Gracie's escape in order: I-006, the catch (I-007), the car (I-008), then the lot", () => {
+    // I-007's own scene is "You have Gracie" in the lot; I-008's is the driver's
+    // seat with the passenger seat empty and the decision to come back tomorrow.
+    // So I-007 waits on the catch, I-008 on the seat, and neither may open early.
+    for (const fork of ["wait", "honk"]) {
+      const { h } = walkCampaign({ items: ["chains"], choices: { "1.3.C": fork } });
+      expect(h.cards.filter((c) => c.scene === "1.3").map((c) => [c.card, c.node]), fork).toEqual([
+        ["I-006", "1.3.card_I-006"],
+        ["I-007", "1.3.card_I-007"],
+        ["I-008", "1.3.card_I-008"],
+        ["I-010", fork === "wait" ? "1.3.card_I-010" : "1.3.card_I-010b"],
+      ]);
+    }
+    const nodes = (act01 as any).scenes["1.3"].nodes;
+    expect(nodes["1.3.find"]).toMatchObject({ type: "wait", wait_for: "chase.gracie_caught" });
+    expect(nodes["1.3.to_car"]).toMatchObject({ type: "wait", wait_for: "waypoint.reach:beetle_driver_seat" });
+  });
+
   it("I-009 opens in the 1.4 aftermath, after Mya is lost — not over the 1.2 park", () => {
     const { h } = walkCampaign({ items: ["chains"] });
     // I-009's own scene says "The passenger seat beside you is empty"

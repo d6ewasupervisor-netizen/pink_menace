@@ -25,7 +25,7 @@ export interface DolInterior {
   blocked: Rect[];         // counters, chair rows, the number board's stand
   terminal: Vec2;          // knowledge-test terminal, still lit
   terminalRadius: number;
-  gracieRunTarget: Vec2;   // where Gracie bolts to after the latch pops
+  gracieRunTarget: Vec2;   // where Gracie bolts to after the latch pops: out the door, near the car
   quietSpawns: Vec2[];     // the ones still waiting for their number
   labels: { pos: Vec2; text: string }[];
 }
@@ -198,7 +198,7 @@ export function buildKentMap(seed = 7): WorldMap {
     ],
     terminal: { x: 208, y: 415.5 },
     terminalRadius: 1.6,
-    gracieRunTarget: { x: 223, y: 401 },
+    gracieRunTarget: { x: 238.5, y: 409.5 },  // in the lot aisle, two stalls short of the parked Beetle
     quietSpawns: dolQuiet,
     labels: [{ pos: { x: 206.5, y: 382.5 }, text: "NOW SERVING 47" }],
   };

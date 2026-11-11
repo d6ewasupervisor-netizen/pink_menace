@@ -4,7 +4,9 @@ Locked 8 Sep 2026. Renamed 10 Sep 2026 to `I-005`–`I-008` when Act I compresse
 
 Stills: `cards/I-005.png` (was I-006 take 2), `I-006.png` (was I-007 take 1), `I-007.png` (was I-008 take 13), `I-008.png` (was I-009 take 2). The near arm on I-007 is Ali's: warm medium-brown skin, half African American, faded pink sleeve. Her face is not in that frame. Probe already returned: A4 and A5 pass. See `29_QUIET_RENDER_PROBE.md`. Do not re-run it for this sequence.
 
-She goes for the license. The building is empty. Gracie gets out. The call works. The one that was not in the wide shot comes. She gets Gracie. She is not hurt. The passenger seat is empty.
+She goes for the license. The building is empty. Gracie gets out the doors and into the lot by the car while Mya's carrier stays on the floor by the terminal. The call works. She gets to Gracie, and the one that was not in the wide shot comes. She is not hurt. She gets to the car, and the passenger seat is empty. Mya is the calm one and will not make a sound in that carrier, so she comes back for her tomorrow.
+
+Drive order (2026-11-11): I-006 at the rack crash, I-007 on the catch in the lot (`chase.gracie_caught`), I-008 in the driver's seat (`waypoint.reach:beetle_driver_seat`). The card game deals the same order.
 
 The sequence proceeds whether I-006 is correct or not. It does not save Mya. I-008 has three states, on the stop-line and the debrief, from the I-006 option: called (a), correct (b), slow (c/d).
 

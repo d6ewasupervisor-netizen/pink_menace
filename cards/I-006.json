@@ -5,15 +5,15 @@
   "driver": "ali",
   "card_type": "scene",
   "title": "Gracie's Out",
-  "hook": "Gracie is in the open lot. You are still in the doorway.",
-  "scene": "Gracie went out the propped doors before the rack finished falling. She is in the stalls now, low and curious, ten feet off the threshold. You are in the doorway. Mya's carrier is on the floor by the terminal behind you, latch shut. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
+  "hook": "Gracie is out in the lot. You are still inside.",
+  "scene": "The rack is still settling. Gracie is already gone, out through the propped doors. Through the glass you can see her in the stalls, low and curious, ten feet off the Menace. You are at the terminal. Mya's carrier is on the floor beside you, latch shut. Across the asphalt, about a hundred and twenty feet off, three figures are spread and moving at different angles. They are not coming toward you. None of them is looking at you.",
   "decision": "Gracie got out of the building and into the open lot. How do you get her back?",
   "options": [
     {
       "id": "a",
       "text": "Call her. Loudly. She knows your voice.",
       "correct": false,
-      "result": "You call her name across the stalls. She stops. She turns. She knows you. The sound goes out over wet asphalt farther than the word did. She is coming back. You do not look at anything except her.",
+      "result": "You call her name out the doors and across the stalls. She stops. She turns. She knows you. The sound goes out over wet asphalt farther than the word did. She is coming back. You do not look at anything except her.",
       "state_delta": {
         "noise": 2
       }
@@ -27,16 +27,16 @@
     },
     {
       "id": "c",
-      "text": "Go back to the terminal for her carrier, then go after her",
+      "text": "Grab her carrier first, then go after her",
       "correct": false,
-      "result": "You go back in for the carrier. It is on the floor by the terminal, next to Mya's. By the time you have it and are back at the doors, she is farther into the stalls than she was. The lot is still open. You spent the time you did not have.",
+      "result": "You stop for the carrier. It is on the floor by the terminal, next to Mya's. By the time you have it and are out the doors, she is farther into the stalls than she was. The lot is still open. You spent the time you did not have.",
       "state_delta": {}
     },
     {
       "id": "d",
-      "text": "Hold the door and wait — she'll come back on her own",
+      "text": "Stay put and wait — she'll come back on her own",
       "correct": false,
-      "result": "You stay in the doorway and wait. She does not come. The lot is not a place that waits with you. She gets farther into the painted stalls, and you are still standing where you started.",
+      "result": "You stay by the terminal and wait. She does not come. The lot is not a place that waits with you. She gets farther into the painted stalls, and you are still standing where you started.",
       "state_delta": {}
     }
   ],
@@ -58,7 +58,7 @@
     "camera": "POV_ROADSIDE",
     "subject": "an orange tabby in an empty wet parking lot at Ali's eye height, three filthy human figures about a hundred and twenty feet off, spread and not converging",
     "foreground": "wet asphalt and faded stall paint, Gracie the orange tabby low to the ground and turned away, ten feet into the open lot",
-    "midground": "empty painted stalls, the propped office doors behind camera out of frame, no other vehicles close",
+    "midground": "empty painted stalls, the Menace parked just out of frame, no other vehicles close",
     "background": "three figures at far middle distance, spread apart, moving at different angles, filthy torn clothing, slack uneven gait, none looking toward camera, a low commercial building behind them, overcast gray",
     "read": "the cat is in the open and so is she, and the three figures are far off and not coming",
     "continuity": [
@@ -80,7 +80,7 @@
     "geometry": {
       "ego_heading": "away_from_camera",
       "ego_lane_side": "standing in an empty parking aisle, not in a travel lane",
-      "ego_nose_in_frame": "the Menace is behind camera and not in frame",
+      "ego_nose_in_frame": "the Menace is just out of frame",
       "oncoming_position": "none in frame",
       "hazard_position": "ahead_same_direction",
       "ego_frame_side": "left"

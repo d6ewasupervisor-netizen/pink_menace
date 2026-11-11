@@ -2581,27 +2581,37 @@ still the way to get a restore-in-place.
   starts, the HUD is up, the local save names the scene the player is in, and nothing
   becomes an uncaught exception — **22.1 s, green**.
 
-## 37. I-006 is written for the building, not the car (2026-11-11)
+## 37. The DOL lot in the right order: I-006 inside, I-007 at the cat, I-008 at the car (2026-11-11)
 
 - **What it was.** I-006 "Gracie's Out" opens from `1.3.8` in the drive, after Ali has
   set both carriers down at the DOL terminal and the rack has gone over. The card said
   Gracie was "out of the car", Ali was "out after her" by the Menace, and "Mya is still
   in the cab". None of that is true at that node: Mya's carrier stays by the terminal
   (`dol.ts` `beginChase`, `1.3.13` "She's by the terminal").
-- **Now.** Ali is in the doorway, Gracie is out the propped doors (I-005 already says
-  "The doors are propped"), and Mya's carrier is on the floor behind her. Option c goes
-  back to the terminal for Gracie's carrier, and option d holds the door. Option ids,
+- **Now.** Ali is still at the terminal, Gracie is out the propped doors (I-005 already
+  says "The doors are propped") in the stalls by the Menace, and Mya's carrier is on the
+  floor beside Ali. Option c stops for Gracie's carrier, and option d stays put. Option ids,
   correct flags, `state_delta` and the debrief are unchanged, so I-008's three
   stop-line states still key off a / b / c-d. The still needs no redraw: its door was
   already behind camera and out of frame.
-- **Open — the sim keeps her inside.** `kentMap.ts` puts `gracieRunTarget` at
-  `{ x: 223, y: 401 }`, and the DOL floor is x 205.5–224.5, y 380.5–419.5. So in the
-  chase Gracie stops about 1.5 m inside the east wall, 15 m south of the door. The card
-  now says she is in the lot. Moving the target outside the door (x > 225) makes the
-  chase match the card.
-- **Open — the card game still has the old copy.** The `/` game reads Postgres. Run
-  `npm run seed -- I-006` against production before the card game shows the new text.
-  The drive reads the re-exported `cards.json` and needs nothing else.
+- **Closed same day — the chase never ran.** `beginChase` put Gracie on Ali's own
+  position and the 1.1 m catch radius was checked on the first frame, so
+  `chase.gracie_caught` fired at once and the only goal a player ever saw was "Get to
+  the Beetle". Her run target was also inside the building (`{ x: 223, y: 401 }`), and
+  `walkable()` kept Ali indoors until `to_car`. Now: she runs out the door to
+  `{ x: 238.5, y: 409.5 }`, two stalls short of the Beetle; she cannot be caught until
+  she is out of the building; Ali can walk outdoors in `chase`; and the chase is
+  forgiving like the dash to the car (a swarm there reset the interior while the story
+  waited on the catch). `drive/test/dol-chase.test.ts` (4).
+- **The 1.3 order is waits, not triggers.** `1.3.chase` is an `effects` node →
+  `1.3.find` waits on `chase.gracie_caught` → I-007 → `1.3.to_car` waits on
+  `waypoint.reach:beetle_driver_seat` → "Mya, where's —" → I-008 → `1.3.calm` /
+  `1.3.tomorrow` (Mya is the calm one; back tomorrow) → the doorway and `1.3.C`. The
+  three triggers that used to carry this (`chase.start`, the catch, the seat) are gone,
+  so no beat can open out of order. I-008 no longer sits on the honk branch.
+  `fullchain.test.ts` pins I-006 → I-007 → I-008 → I-010 on both forks.
+- **Live.** I-006, I-007 and I-008 are seeded to production (still audit 12/12 match);
+  the drive deploy carries the dialogue, the sim and the re-exported deck.
 
 <!-- CONTINUED -->
 

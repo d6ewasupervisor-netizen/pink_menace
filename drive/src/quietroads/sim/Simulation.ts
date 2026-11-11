@@ -161,10 +161,11 @@ export class Simulation {
       this.gradeMiss(e);
     };
     this.noise = new NoiseSystem(fire);
-    // Forgiving: the carport tutorial, and the scripted dash back to the car after the chase —
+    // Forgiving: the carport tutorial, and the scripted run out to Gracie and back to the car —
     // the script says she makes it; the doorway fills *after*.
     this.quiet = new QuietField({ fire, softFail: () => this.softFail() },
-      () => this.tutorialForgiving || this.escapeForgiving || (this.mode === "walker" && this.interior.phase === "to_car"));
+      () => this.tutorialForgiving || this.escapeForgiving
+        || (this.mode === "walker" && (this.interior.phase === "chase" || this.interior.phase === "to_car")));
     const r = rng(seed + 1);
     for (const p of this.map.quietSpawns) this.quiet.spawn(p, r);
     for (const p of this.map.dol.quietSpawns) this.quiet.spawn(p, r, "dol_interior");

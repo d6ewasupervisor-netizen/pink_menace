@@ -915,11 +915,12 @@
           "next": "1.3.card_I-006"
         },
         "1.3.chase": {
-          "type": "end",
+          "type": "effects",
           "effects": {
             "start_gameplay": "chase_dol_gracie",
             "calm": -20
-          }
+          },
+          "next": "1.3.9"
         },
         "1.3.9": {
           "type": "line",
@@ -928,7 +929,13 @@
           "emotion": "panicked",
           "volume": "low",
           "text": "Come here come here come here —",
-          "auto_ms": 1500
+          "auto_ms": 1500,
+          "next": "1.3.find"
+        },
+        "1.3.find": {
+          "type": "wait",
+          "wait_for": "chase.gracie_caught",
+          "next": "1.3.10"
         },
         "1.3.10": {
           "type": "line",
@@ -938,7 +945,13 @@
           "volume": "raised",
           "noise_db": 55,
           "text": "Got you. GOT you. Go go go —",
-          "auto_ms": 1500
+          "auto_ms": 1500,
+          "next": "1.3.card_I-007"
+        },
+        "1.3.to_car": {
+          "type": "wait",
+          "wait_for": "waypoint.reach:beetle_driver_seat",
+          "next": "1.3.11"
         },
         "1.3.11": {
           "type": "line",
@@ -966,7 +979,25 @@
           "emotion": "scared",
           "volume": "whisper",
           "text": "She's by the terminal. She's still —",
-          "next": "1.3.card_I-007"
+          "next": "1.3.card_I-008"
+        },
+        "1.3.calm": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "tense",
+          "volume": "whisper",
+          "text": "She's asleep. She sleeps through fireworks. She'll sit in that carrier and not make one sound.",
+          "next": "1.3.tomorrow"
+        },
+        "1.3.tomorrow": {
+          "type": "line",
+          "speaker": "ALI",
+          "delivery": "G",
+          "emotion": "sad",
+          "volume": "whisper",
+          "text": "Tomorrow. I come back for you tomorrow, Mya.",
+          "next": "1.3.doorway"
         },
         "1.3.doorway": {
           "type": "direction",
@@ -1091,7 +1122,7 @@
           "noise_db": 70,
           "text": "— okay that was a mistake, that was a big — GO GO GO —",
           "auto_ms": 2200,
-          "next": "1.3.card_I-008"
+          "next": "1.3.escape"
         },
         "1.3.escape": {
           "type": "wait",
@@ -1137,12 +1168,12 @@
         "1.3.card_I-007": {
           "type": "card",
           "card": "I-007",
-          "next": "1.3.doorway"
+          "next": "1.3.to_car"
         },
         "1.3.card_I-008": {
           "type": "card",
           "card": "I-008",
-          "next": "1.3.escape"
+          "next": "1.3.calm"
         },
         "1.3.card_I-010": {
           "type": "card",
@@ -1170,24 +1201,6 @@
         {
           "event": "waypoint.reach:terminal",
           "node": "1.3.5",
-          "once": true,
-          "priority": 10,
-          "interrupt": true
-        },
-        {
-          "event": "chase.start",
-          "node": "1.3.9",
-          "once": true
-        },
-        {
-          "event": "chase.gracie_caught",
-          "node": "1.3.10",
-          "once": true,
-          "priority": 5
-        },
-        {
-          "event": "waypoint.reach:beetle_driver_seat",
-          "node": "1.3.11",
           "once": true,
           "priority": 10,
           "interrupt": true
@@ -1238,7 +1251,7 @@
           "delivery": "S",
           "emotion": "tense",
           "volume": "whisper",
-          "text": "She's fine. She's — she sleeps through fireworks. She slept through the actual end of the world. She's asleep in that carrier right now, I promise you.",
+          "text": "She's fine. She slept through the actual end of the world. She's asleep in that carrier right now, I promise you.",
           "next": "1.4.5"
         },
         "1.4.5": {

@@ -6,21 +6,21 @@
   "card_type": "beat",
   "title": "The One You Didn't See",
   "hook": "You were watching the wrong three.",
-  "scene": "You have Gracie. She's pulled tight against you, tense and low, ears back, head turned into your arm, orange and cream. Across the lot the three are still far off and still not looking. This one was never with them. It's already between the parked rows, coming mid-stride, head down, and you don't finish the thought before it stops short of you — short of her — and nothing touches either of you.",
+  "scene": "You have Gracie, two stalls short of the Menace. She's pulled tight against you, tense and low, ears back, head turned into your arm, orange and cream. Across the lot the three are still far off and still not looking. This one was never with them. It's already between the parked rows, coming mid-stride, head down, and you don't finish the thought before it stops short of you — short of her — and nothing touches either of you.",
   "decision": "It is coming. What do you do?",
   "options": [
     {
       "id": "a",
-      "text": "Put yourself between it and the cats",
+      "text": "Put yourself between it and Gracie",
       "correct": true,
       "result": "You turn so it has you and not her. Gracie is under your arm. It stops short. Nothing touches you. Nothing touches her. Mya is not here. You moved. It does not change what the lot takes.",
       "state_delta": {}
     },
     {
       "id": "b",
-      "text": "Grab Gracie and run",
+      "text": "Run for the car with Gracie",
       "correct": true,
-      "result": "You take Gracie and you go. She's against you. It's still coming when the moment breaks. Nothing touches you. Nothing touches her. You moved. The one that mattered was already closer than the three you were watching.",
+      "result": "You take Gracie and run for the car. She's against you. It's still coming when the moment breaks. Nothing touches you. Nothing touches her. You moved. The one that mattered was already closer than the three you were watching.",
       "state_delta": {}
     },
     {

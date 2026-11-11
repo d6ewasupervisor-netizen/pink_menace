@@ -6,26 +6,26 @@
   "card_type": "dossier",
   "title": "One of Them Comes Back",
   "hook": "One cat, where there were two.",
-  "scene": "You are in the driver's seat. The door is shut. The engine is not started. Gracie is on your chest, shaking, orange and cream, both eyes open. The passenger seat is empty. You put the window down a little and say Mya's name, quietly, and then you stop, because calling is what started this. The lot behind the mesh is empty again. That is worse. You have Gracie. You are not hurt.",
-  "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. The passenger seat is empty.",
+  "scene": "You are in the driver's seat. The door is shut. The engine is not started. Gracie is on your chest, shaking, orange and cream, both eyes open. The passenger seat is empty. Mya's carrier is still on the floor by the terminal, latch shut. You put the window down a little and start to say her name, and then you stop, because calling is what started this. Mya is the calm one. She sleeps through fireworks. She will sit in that carrier and not make a sound, and nothing in there listens for a cat that stays quiet. You come back for her tomorrow. The lot behind the mesh is empty again. That is worse. You have Gracie. You are not hurt.",
+  "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. Mya is quiet in her carrier, and you come back for her tomorrow.",
   "lot_states": {
     "called": {
       "stop": "calling is what started this",
-      "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. The passenger seat is empty."
+      "debrief": "Sound draws them. You were loud because you were watching the wrong thing. Gracie is on your chest. Mya is quiet in her carrier, and you come back for her tomorrow."
     },
     "correct": {
       "stop": "sound is what fills a lot like this",
-      "debrief": "You did it right and it happened anyway. The one that mattered was never in the frame. Sound draws them. Gracie is on your chest. The passenger seat is empty."
+      "debrief": "You did it right and it happened anyway. The one that mattered was never in the frame. Sound draws them. Gracie is on your chest. Mya is quiet in her carrier, and you come back for her tomorrow."
     },
     "slow": {
       "stop": "there is nothing out there listening for it now",
-      "debrief": "You spent the time you had. Gracie is on your chest. The passenger seat is empty."
+      "debrief": "You spent the time you had. Gracie is on your chest. Mya is quiet in her carrier, and you come back for her tomorrow."
     }
   },
   "source": {
     "psdp_skill": "n/a",
     "dol_section": "n/a",
-    "teaching_target": "Sound draws them; end on empty seat. dol n/a: story rule / lot closer; not 5.5 Focus attention."
+    "teaching_target": "Sound draws them; end on empty seat and the decision to come back tomorrow. dol n/a: story rule / lot closer; not 5.5 Focus attention."
   },
   "cast": [
     "ali",

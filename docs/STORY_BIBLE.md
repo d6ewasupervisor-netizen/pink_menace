@@ -95,18 +95,24 @@ Card-canon beats are marked **[card]**. Drive citations give the node-key line i
    Kent** (doors propped, counter empty — "That is the end of the plan") and **I-009 Before
    the Wheels**; `minigame_park_dol` (clean / curb). — scene `1.2` (`act0-1.json:689-800`).
 8. **Inside** (`stealth_dol_interior`): emergency power still on; carriers down for "forty
-   questions"; Gracie's latch pops; the pamphlet rack crash (92 dB). Card **I-006 Gracie's
-   Out** — call her (loud) or cut her off (quiet). — `act0-1.json:809-922`; `cards/I-006.json:6`.
-9. **The chase** (`chase_dol_gracie`) → card **I-007 The One You Didn't See** (the fourth
+   questions"; Gracie's latch pops; the pamphlet rack crash (92 dB). Gracie is out the propped
+   doors and in the lot by the Menace while Ali is still at the terminal, Mya's carrier beside
+   her. Card **I-006 Gracie's Out** — call her (loud) or cut her off (quiet). —
+   `act0-1.json` `1.3`; `cards/I-006.json:6`.
+9. **The chase** (`chase_dol_gracie`): the goal is the cat, not the car. Gracie stops in the
+   lot two stalls short of the Beetle (`kentMap.ts` `gracieRunTarget`); the catch
+   (`1.3.find`, `chase.gracie_caught`) opens card **I-007 The One You Didn't See** (the fourth
    Quiet, mid-stride between rows; every option `was_correct: true`; "It does not change what
-   the lot takes"). She has Gracie — then Mya is gone. — `act0-1.json:929-976`;
-   `cards/I-007.json:9`; `pack/30_THE_DOL_LOT.md:7-15`.
-10. **The choice (1.3.C, 10 s):** "If I honk they'll all come. If I wait… they might not."
-    **wait** → creeping escape, card **I-010 Out of the Stall**, leave without her
-    (`mya_lost:true`, `dol_honked:false`). **honk** → 95 dB, the lot wakes ("the whole lot's
-    gone": `mya_lost`, `dol_honked`, `dol_lot_lost`). — `act0-1.json:990-1122`.
-11. **Card I-008 One of Them Comes Back** — Gracie shaking on her chest, passenger seat empty;
-    "calling is what started this." — `cards/I-008.json:6`.
+   the lot takes"). Then the goal is the car (`1.3.to_car`). — `cards/I-007.json:9`;
+   `pack/30_THE_DOL_LOT.md:7-15`; `drive/test/dol-chase.test.ts`.
+10. **Card I-008 One of Them Comes Back** — in the driver's seat, Gracie shaking on her chest,
+    passenger seat empty, Mya's carrier still by the terminal; "calling is what started this."
+    Mya is the calm one and will not make a sound, so Ali comes back for her tomorrow
+    (`1.3.calm`, `1.3.tomorrow`). — `cards/I-008.json:6`.
+11. **The choice (1.3.C, 10 s):** the doorway fills. "If I honk they'll all come. If I wait…
+    they might not." **wait** → creeping escape, card **I-010 Out of the Stall**, leave
+    without her (`mya_lost:true`, `dol_honked:false`). **honk** → 95 dB, the lot wakes ("the
+    whole lot's gone": `mya_lost`, `dol_honked`, `dol_lot_lost`). — `act0-1.json` `1.3.C`.
 12. **Aftermath (night):** "I'm going back for her. Tomorrow. With a plan." Mom: "Bad night?" —
     Ali doesn't pick up. Card **I-011 The Window**. — scene `1.4` (`act0-1.json:1210-1312`).
 13. **Rumor board** (pharmacy safehouse): "Anyone seen a girl in a pink Bug with a plow?
@@ -732,9 +738,9 @@ flowchart TD
   B --> C["0.3 Radio: Spokane relay + I-001"]
   C --> D["1.1 Drive to DOL (stop/school/rail beats)"]
   D --> E["1.2 Licensing lot + I-005/I-009 + park minigame"]
-  E --> F["1.3 Inside: Gracie escape + I-006/I-007"]
+  E --> F["1.3 Inside: Gracie escape + I-006, catch + I-007, car + I-008 (back tomorrow)"]
   F -->|"1.3.C wait"| G["I-010 → leave without Mya (mya_lost)"]
-  F -->|"1.3.C honk"| H["I-008 variant → lot lost (mya_lost+dol_honked+dol_lot_lost)"]
+  F -->|"1.3.C honk"| H["lot lost (mya_lost+dol_honked+dol_lot_lost)"]
   G --> I["1.4 Aftermath + I-011"]
   H --> I
   I --> J["1.4b Rumor board + I-012 → Plan B"]
