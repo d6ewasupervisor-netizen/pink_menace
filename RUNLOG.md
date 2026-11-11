@@ -283,7 +283,21 @@ title); the gate's total went 88 → 92 cases and 0 → 0 failures.
 
 ## NEEDS_HUMAN
 
-(none yet)
+Four things no test in this repo can answer, named so the handoff is honest rather than
+green:
+
+1. **A phone with a real motor.** `navigator.vibrate` is stubbed in `e2e/feel.spec.ts`;
+   the patterns are pinned and the switch is proven, the hardware is not. One press on
+   Android would close it.
+2. **A headed browser perf run.** FPS, draw calls, triangles, JS heap and
+   input-to-response are all *absent* from `AUDIT.md` §5 and §35.3 rather than estimated;
+   the `?profileDrive` instrumentation (`window.__drivePerf()`) is written and unexercised.
+3. **A non-Windows machine for the cockpit baselines.** The 8 `-win32.png` baselines fail
+   on Linux/macOS by construction; there is no CI, so `npm run test:e2e` on another OS
+   needs a `--update-snapshots` pass first.
+4. **A device playthrough of 5.1 → 8.3.** The scenes are swept one at a time and the
+   campaign is walked headless, but nothing has run the whole last act on hardware; the
+   pacing note between 6.2 and 7.1 from 2026-10-29 still stands.
 
 ## BLOCKED
 
@@ -322,9 +336,15 @@ title); the gate's total went 88 → 92 cases and 0 → 0 failures.
 | 1.3 headlights + scene hour + flares | DONE | `1e791af`, `52c04b2` |
 | 1.4 never-black e2e + guard | DONE (loss case BLOCKED) | `3f5dcc6`, `8b95b3f` |
 | 0.4 wait-log script | DONE | `3fe030f` |
-| 2.1 quality tier picker | DONE on the branch (not merged — the phase is incomplete) | `8961f9f` |
-| 2.2 LODs / 2.3 code split / 2.4 throttled e2e | TODO (see the item table) | — |
-| 3.x–6.x | TODO (nothing started) | — |
+| 2.1 quality tier picker | DONE (merged with the phase) | `8961f9f` |
+| 2.2 model LODs | DONE | `cfdc5e6` |
+| 2.3 code split / lazy loading | DONE | `ac22ce4`, `1178c58`, `4be3765` |
+| 2.4 tier + throttled first-frame e2e | DONE | `9ec9d51`, `9d69366`, `9c3afc0`, `e73467b` |
+| 3.1–3.9 the portrait cockpit | DONE | `90bad7e`, `dfdfb7e`, `350882e`, `b1168f9`, `8c470fd` |
+| 4.1–4.3 one settings panel, the phone as a wheel | DONE | `991fd14` |
+| 5.1–5.3 haptics, shake, reduced motion, feel tests | DONE | `ce80c5d` (WIP), `51f9993` |
+| 5.2 the daylight keys | DONE | `51f9993` |
+| 6.1–6.5 the sweep, the numbers, the AFTER record, merge | DONE | `24b1836` |
 
 ### What the diagnostics say about the black screen
 
