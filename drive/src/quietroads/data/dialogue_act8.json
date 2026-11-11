@@ -109,8 +109,8 @@
       "title": "Spokane",
       "type": "gameplay",
       "location": "i90_ritzville_to_spokane_division",
-      "background": "res://backgrounds/i90_spokane_approach_night.png",
-      "ambience": "res://audio/amb/city_night_still.ogg",
+      "background": "res://backgrounds/i90_spokane_approach_day.png",
+      "ambience": "res://audio/amb/city_day_still.ogg",
       "music": "res://audio/music/home_stretch.ogg",
       "guide_refs": [
         "Night Driving: Headlight Range and Speed",

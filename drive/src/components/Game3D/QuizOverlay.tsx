@@ -8,6 +8,7 @@ import { AudioManager } from '@/systems/AudioManager';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { discardDriveHold, releaseDrive } from '@/systems/VehicleController';
 import { useCompactHud } from '@/hooks/useCompactHud';
+import { buzz } from '@/quietroads/haptics';
 import { tokens } from './cockpit/tokens';
 
 function shuffleArray<T>(arr: T[]): T[] {
@@ -29,6 +30,9 @@ export function QuizOverlay() {
   const setPhase = useGameStore((s) => s.setPhase);
   const { recordQuizAnswer } = useGameProgress();
   const compact = useCompactHud();
+  // ITEM 5.1: a verdict is felt. Read as a value so the answer callback can be
+  // rebuilt when the switch moves, without a per-answer getState() read.
+  const haptics = useGameStore((s) => s.haptics);
 
   const [selected, setSelected] = useState<string | null>(null);
   const [result, setResult] = useState<{ correct: boolean; coinsEarned: number } | null>(null);
@@ -82,6 +86,9 @@ export function QuizOverlay() {
       } else {
         AudioManager.playQuizWrong();
       }
+      // ...and the hand's half. One pattern for either verdict: the pause between
+      // its two halves is the answer, and the screen is where "which" is read.
+      buzz('verdict', { enabled: haptics });
 
       // Record to backend (fire and forget)
       recordQuizAnswer(
@@ -92,7 +99,7 @@ export function QuizOverlay() {
         currentQuestion.correctAnswer
       );
     },
-    [selected, currentQuestion, answerQuiz, recordQuizAnswer]
+    [selected, currentQuestion, answerQuiz, recordQuizAnswer, haptics]
   );
 
   const handleContinue = useCallback(() => {

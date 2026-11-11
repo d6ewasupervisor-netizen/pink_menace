@@ -438,6 +438,24 @@ export function Game3D({ onExit }: Game3DProps) {
     return () => { if (mq.removeEventListener) mq.removeEventListener('change', apply); };
   }, []);
 
+  /**
+   * ITEM 5.1 — reduced motion's second door. The OS preference is a media query;
+   * the settings row is a store boolean. `cockpit/tokens.ts` declares `.qr-anim`
+   * as the one switch for every animated surface, and its CSS reads this
+   * attribute — so the in-game toggle stops the CSS too, not just the camera.
+   * Written only when the value changes: this runs on the store's bus, and the
+   * bus fires for the frame loop as well.
+   */
+  useEffect(() => {
+    const apply = (on: boolean) => {
+      document.documentElement.dataset.reducedMotion = on ? 'true' : 'false';
+    };
+    apply(useGameStore.getState().reducedMotion);
+    return useGameStore.subscribe((s, prev) => {
+      if (s.reducedMotion !== prev.reducedMotion) apply(s.reducedMotion);
+    });
+  }, []);
+
   // ── Load saved backend progress into store on first mount ────────────────
   const { savedProgress } = useGameProgress();
   const loadedRef = useRef(false);

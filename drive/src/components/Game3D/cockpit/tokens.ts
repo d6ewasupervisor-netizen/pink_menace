@@ -88,6 +88,14 @@ export const TOKEN_CSS = `
      vignette pulse. Reduced motion is a preference, not an absence of feedback. */
   .qr-anim{animation:none !important;transition:none !important}
 }
+[data-reduced-motion="true"] .qr-anim{
+  /* ITEM 5.1 — the second door. The settings row writes a store boolean, which is
+     not a media query: without this selector the in-game switch stops the camera
+     shaking and leaves every CSS animation running. Game3D mirrors the store
+     value onto <html data-reduced-motion>, so both doors lead to the same room. */
+  animation:none !important;
+  transition:none !important;
+}
 `;
 
 export type Orientation = 'portrait' | 'landscape';

@@ -12,7 +12,9 @@ export function LoadingScreen() {
   return (
     <div style={styles.overlay}>
       <div style={styles.inner}>
-        <div style={styles.car}>🚗</div>
+        {/* ITEM 5.1: the boot sweep is motion too. `qr-anim` is the class the
+            cockpit tokens file switches off for both reduced-motion doors. */}
+        <div className="qr-anim" style={styles.car}>🚗</div>
         <h2 style={styles.title}>LOADING...</h2>
         <div style={styles.barTrack}>
           <div style={{ ...styles.barFill, width: `${progress}%` }} />

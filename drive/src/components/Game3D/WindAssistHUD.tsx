@@ -51,7 +51,10 @@ export function WindAssistHUD() {
           {[0, 1, 2].map((i) => (
             <span
               key={i}
-              className="qr-wind-streak"
+              // ITEM 5.1: `qr-anim` is the second door. The media query above only
+              // hears the OS; the class also loses the animation when the game's own
+              // settings row is on, which is a store boolean, not a media query.
+              className="qr-wind-streak qr-anim"
               style={{
                 ...styles.streak,
                 // Before the push lands the lines are there but still; while the

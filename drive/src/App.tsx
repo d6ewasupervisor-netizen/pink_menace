@@ -94,10 +94,17 @@ function Center({ children }: { children: React.ReactNode }) {
  * that owns the model bytes now.
  */
 function BootProgress() {
+  // ITEM 5.1: the shell paints before the 3D chunk, so the cockpit's token sheet
+  // (which is where `.qr-anim` lives) is not in the document yet. The shell reads
+  // the store itself: the same switch, one door earlier.
+  const reducedMotion = useGameStore((s) => s.reducedMotion)
   return (
     <div style={bootStyles.wrap} data-boot-progress>
       <div style={bootStyles.track}>
-        <div className="boot-sweep" style={bootStyles.fill} />
+        <div
+          className="boot-sweep qr-anim"
+          style={reducedMotion ? { ...bootStyles.fill, animation: 'none', width: '100%', opacity: 0.6 } : bootStyles.fill}
+        />
       </div>
       <style>{`
         @keyframes boot-sweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(320%); } }

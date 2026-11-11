@@ -37,16 +37,19 @@ export function ScareOverlay() {
   const intensity = Math.min(1, near / 3);
   return (
     <div style={styles.root} aria-hidden>
+      {/* ITEM 5.1: the palm creeps, the vignette fades and the contact flickers —
+          three animations on a screen a steady-cam player asked to still. The
+          `qr-anim` class is switched off by the same CSS as the gust streaks. */}
       {edge && (
         <>
-          <img src={asset("/quiet/palm.webp")} alt="" style={{ ...styles.palm, opacity: 0.35 + intensity * 0.5, transform: `translate(${-8 + intensity * 10}%, 0) scale(${0.9 + intensity * 0.25})` }} />
-          <div style={{ ...styles.vignette, opacity: 0.25 + intensity * 0.5 }} />
+          <img className="qr-anim" src={asset("/quiet/palm.webp")} alt="" style={{ ...styles.palm, opacity: 0.35 + intensity * 0.5, transform: `translate(${-8 + intensity * 10}%, 0) scale(${0.9 + intensity * 0.25})` }} />
+          <div className="qr-anim" style={{ ...styles.vignette, opacity: 0.25 + intensity * 0.5 }} />
         </>
       )}
       {flood && (
         <>
           <img src={asset("/quiet/flood.webp")} alt="" style={styles.flood} />
-          <img src={asset("/quiet/contact.webp")} alt="" style={styles.contact} />
+          <img className="qr-anim" src={asset("/quiet/contact.webp")} alt="" style={styles.contact} />
         </>
       )}
     </div>

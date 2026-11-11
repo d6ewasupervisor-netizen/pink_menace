@@ -15,9 +15,16 @@
  *
  * Scope: only the scenes whose lighting matters to a mission have an entry. A
  * scene with no entry keeps whatever the store already had (which is how the
- * campaign's day-by-default scenes have always worked). Re-pointing the *keys* that
- * lie about their hour (7.3 and 8.1 say dusk/night and are morning/midday,
- * AUDIT §16) belongs to that item, not to this one.
+ * campaign's day-by-default scenes have always worked).
+ *
+ * ITEM 5.2 — the two keys that lied about their hour. 7.3's key said
+ * `ritzville_beetle_elevators_dusk.png` while its own `location` says
+ * `ritzville_lot_morning`, and 8.1's said `i90_spokane_approach_night.png` while its
+ * prose says "the gray sky going flat white … a city that is awake now" (AUDIT §16).
+ * Nothing in the drive reads those strings, so the lie cost nothing in code and
+ * everything in the audit: the scene hour and the art's name disagreed. Both keys are
+ * renamed to the hour the story states and both scenes are in this table, so the
+ * lighting and the name are the same fact.
  */
 export type SceneTimeOfDay = 'day' | 'sunset' | 'night';
 
@@ -27,6 +34,8 @@ export const SCENE_TIME_OF_DAY: Readonly<Record<string, SceneTimeOfDay>> = {
   '2.1': 'day',
   '6.2': 'sunset', // i90_straight_dusk
   '6.3': 'night', // vantage_bridge_predawn_wind
+  '7.3': 'day', // ritzville_lot_morning — the lot behind the trading post
+  '8.1': 'day', // "the gray sky going flat white" — flat-white midday, not night
 };
 
 /** The time a scene starts at, or the time the store already had. */

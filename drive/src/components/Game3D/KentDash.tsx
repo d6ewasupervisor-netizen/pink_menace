@@ -117,8 +117,14 @@ export function KentDash() {
 
   const resources = { hp, fuel, maxHp: 100, maxFuel: 100, changedAt: changedResources.current, now };
   const tag = resourceTagVisible(resources) ? resourceTagText(resources) : null;
+  // ITEM 5.1 — LANDSCAPE HAS NO OBJECTIVE BAND. The spec merges the rail and the
+  // nav strip into one 48 px row there and gives the objective `height: 0` ("the
+  // objective rides with the nav text"). A zero-height band still paints its words,
+  // so for the 6 s the instruction was up it was drawn *on* the nav row — found by
+  // the band spec on the one capture that straddled the 6 s clock. No band, no line.
   const showObjective =
     Boolean(objective) &&
+    spec.objective.height > 0 &&
     objectiveVisible({ changedAt: changedAt.current, tappedAt, subStep: missionActive && qteActive, now });
 
   const speedColor = readout.over ? tokens.colors.wrong : tokens.colors.cyan;

@@ -10,7 +10,8 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGameStore } from '@/stores/gameStore';
 import { AudioManager } from '@/systems/AudioManager';
-import { triggerScreenShake } from './GameCamera';
+import { triggerScreenShake } from '@/quietroads/shake';
+import { buzz } from '@/quietroads/haptics';
 import { getCollectibles } from './Collectibles';
 import { NpcState } from '@/systems/TrafficManager';
 import { applyWreckImpact, getCurrentSpeedMs } from '@/systems/VehicleController';
@@ -91,7 +92,13 @@ export function CollisionSystem({ npcsRef }: CollisionSystemProps) {
           store.takeDamage(3 + severity * 14);
           store.addTrafficHit();
           AudioManager.playCollision();
-          triggerScreenShake(0.25 + severity * 0.7, 0.22 + severity * 0.2);
+          // ITEM 5.1: a wreck is the one event a phone should feel even when the
+          // sound is off — and steady cam is a refusal the shake maths owns, not a
+          // smaller number here. Both switches are read where they live.
+          triggerScreenShake(0.25 + severity * 0.7, 0.22 + severity * 0.2, {
+            reducedMotion: store.reducedMotion,
+          });
+          buzz('collision', { enabled: store.haptics });
           applyWreckImpact(_normal.x, _normal.z, closing);
 
           const impulse = closing * 0.72;

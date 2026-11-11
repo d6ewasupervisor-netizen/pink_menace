@@ -228,6 +228,35 @@ for (const [vpName, width, height] of VIEWPORTS) {
     await boot(page);
     const portrait = height >= width;
 
+    // THE OBJECTIVE'S BAND, ASSERTED ONCE. `cockpit/objective.ts` shows the line for
+    // 6 s after it changes, and the spec gives it a real band in portrait and a
+    // zero-height one in landscape (where the instruction rides with the nav text).
+    // The band is a contract, so it is checked here — and then taken out of the
+    // *pixels*, because whether a capture lands at 5.9 s or 6.1 s is a race with a
+    // clock and not a property of the cockpit. That race is how the landscape
+    // `handsoff` baseline failed once.
+    // The spec owns which shapes get the band (portrait and desktop do; landscape
+    // merged the row), so ask it rather than guessing from the aspect ratio.
+    const objectiveBandH = await page.evaluate(async () => {
+      const { cockpitSpec } = await import('/drive/src/components/Game3D/cockpit/spec.ts');
+      return cockpitSpec(window.innerWidth, window.innerHeight).objective.height;
+    });
+    const objective = page.locator('[data-band="objective"]');
+    if (objectiveBandH > 0) {
+      await expect(objective, `${vpName}: the objective band is up after a change`).toHaveCount(1);
+    } else {
+      await expect(objective, `${vpName}: this shape has no objective band`).toHaveCount(0);
+    }
+    await page.addStyleTag({ content: '[data-band="objective"]{display:none !important}' });
+    // ...and prove the rule is what the capture sees, so the pictures below cannot
+    // depend on the objective's clock.
+    if (objectiveBandH > 0) {
+      expect(
+        await page.evaluate(() => getComputedStyle(document.querySelector('[data-band="objective"]')!).display),
+        `${vpName}: the objective is out of the exposure`,
+      ).toBe('none');
+    }
+
     for (const state of STATES) {
       await show(page, state);
       const layers = await interactiveLayers(page);

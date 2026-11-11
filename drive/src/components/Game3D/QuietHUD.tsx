@@ -22,6 +22,7 @@ import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { useCompactHud } from '@/hooks/useCompactHud';
 import { steerCorner } from '@/input/driveInput';
 import { actForScene } from '@/quietroads';
+import { buzz } from '@/quietroads/haptics';
 import { specForAct } from './sceneSpec';
 import { buttonOrigin, type CockpitSpec } from './cockpit/spec';
 import { useCockpitSpec, useCompoundCockpit, useDrivingHud } from './cockpit/layout';
@@ -45,6 +46,9 @@ export function QuietHUD() {
   const setHorn = useQRHud((s) => s.setHorn);
   const headlights = useGameStore((s) => s.headlights);
   const cycleHeadlights = useGameStore((s) => s.cycleHeadlights);
+  // ITEM 5.1: the player's HAPTICS switch. Read here, at the press, not in the
+  // haptics module — the module is pure and the switch is the panel's.
+  const haptics = useGameStore((s) => s.haptics);
   const run = useQRHud((s) => s.run);
   const setRun = useQRHud((s) => s.setRun);
   const scheme = useGameStore((s) => s.controlsScheme);
@@ -130,7 +134,7 @@ export function QuietHUD() {
                   ? styles.lightsHigh
                   : styles.lightsLow),
             }}
-            onPointerDown={(e) => { e.preventDefault(); cycleHeadlights(); }}
+            onPointerDown={(e) => { e.preventDefault(); buzz('button', { enabled: haptics }); cycleHeadlights(); }}
             aria-label="Headlights (L)"
           >
             {headlights === 'off' ? 'OFF' : headlights === 'high' ? 'HIGH' : 'LOW'}
@@ -148,7 +152,9 @@ export function QuietHUD() {
               background: 'rgba(120,20,20,0.55)',
               color: '#ff9a9a',
             }}
-            onPointerDown={(e) => { e.preventDefault(); setHorn(true); }}
+            // ITEM 5.1: a horn that is only a 44 px rectangle does not feel pressed.
+            // `setHorn` still does the sounding; the buzz is the hand's half of it.
+            onPointerDown={(e) => { e.preventDefault(); buzz('horn', { enabled: haptics }); setHorn(true); }}
             onPointerUp={() => setHorn(false)}
             onPointerLeave={() => setHorn(false)}
             onPointerCancel={() => setHorn(false)}

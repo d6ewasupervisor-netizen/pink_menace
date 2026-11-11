@@ -2594,3 +2594,112 @@ vitest **510/510** across 50 files, `tsc --noEmit` 0, `npm run build` **4.38 s**
 smaller), `e2e/cockpit-bands.spec.ts` **5/5 twice**, and the full Playwright gate
 recorded in `RUNLOG.md`.
 
+## 2026-11-10 — Phase 5: the car should be felt, and the sheet nobody mounted
+
+The phase's premise was "the drive is visible and readable; now it should be felt."
+Two of its three parts were already half-built and hollow:
+
+- one physical event in the whole drive buzzed — the gust, through `buzzGust` in
+  `quietroads/wind.ts`; a wreck, the horn, the QTE and a quiz verdict were silent;
+- the shake maths lived as two module-level variables inside `GameCamera.tsx`, so
+  "does steady cam stop the shake?" could only be asked by running WebGL;
+- `.qr-anim` had been declared in `cockpit/tokens.ts` since 3.1 and **no surface
+  joined it**.
+
+### [5.1] One pattern table, one refusal, and a sheet that was never in the document
+
+`quietroads/haptics.ts` is the pattern table and the gate, and nothing else:
+`gust [35,55,90]` (the old `GUST_VIBRATION`, value unchanged), `collision [90,40,120]`,
+`horn [60]`, `button [12]`, `qte [45,30,45]`, `verdict [25,60,25]`. `buzz(pattern, { enabled, nav })`
+takes the player's switch **and** the device as arguments. That is the whole design:
+"switch off", "no motor" and "the browser refused" are three different `false`s, and a
+unit test can be a phone without one. iOS Safari has no `navigator.vibrate`; that is
+normal, not an error. The store grows `haptics` + `setHaptics`, persisted and preserved
+by `resetProgress`, and it is deliberately **not** tied to `reducedMotion` — motion is
+vestibular, vibration is a different sense, and a player who steadies the camera may
+still want the wreck in their hand.
+
+`quietroads/shake.ts` takes the same shape: `triggerScreenShake(i, d, { reducedMotion })`
+returns `false` when steady cam refuses, `shakeLevel(dt)` decays and returns the level,
+`resetShake()` is the switch-off. `GameCamera` keeps only the frame's own job — the
+random direction and the offset — and `CollisionSystem` now imports the trigger from the
+module instead of from the camera. Steady cam is a **refusal, not a lower intensity** in
+both modules.
+
+The wiring, every one of it reading the store's switch at the call site: a wreck buzzes
+and shakes (`CollisionSystem`), HORN and LOW buzz (`QuietHUD`), a pass window buzzes once
+per prompt label (`CockpitQTE`), a verdict buzzes (`QuizOverlay`), and the gust keeps its
+own name (`wind.ts buzzGust` → `buzz('gust')`, so the bridge still reads as "the wind
+buzzes"). `SettingsPanel` grows a HAPTICS row that is disabled and says **NO MOTOR**
+where the API is absent, because a missing row reads as "this game has no haptics".
+
+**Then the e2e found the real gap.** `e2e/feel.spec.ts` set the store switch, watched
+`<html data-reduced-motion="true">` appear, and the `.qr-anim` element kept animating.
+The attribute was right; the stylesheet was not there. `TOKEN_CSS` — the whole
+`--qr-*` sheet, including the `.qr-anim` rules — has said "Mounted once by `CockpitHUD`
+on the HUD root" since 3.1 and **`CockpitHUD` never mounted it**. Every
+`var(--qr-…)` in the cockpit had been resolving to its fallback or to nothing: the
+rail's glass was transparent, `--qr-type-*` was inherited 16 px, and both
+reduced-motion doors had no CSS to open. Mounting `<style>{TOKEN_CSS}</style>` in
+`CockpitHUD` is the fix, and it is a visual change the baselines caught honestly.
+
+`qr-anim` is now joined by the gust streaks, the boot sweep (`App.BootProgress`, which
+reads the store directly because the shell paints before the 3D chunk), the loading
+car, the scare palm/vignette/contact, and the QTE bar fill.
+
+### [5.2] The two keys that lied about the hour
+
+AUDIT §16 left one loose end: 7.3's `background` said
+`ritzville_beetle_elevators_dusk.png` while its own `location` says
+`ritzville_lot_morning`, and 8.1's said `i90_spokane_approach_night.png` while its prose
+is "the gray sky going flat white … a city that is awake now". Nothing in the drive reads
+either string, so the lie cost no pixel — and the audit still carried it, because the
+name was the only record of the hour. Both are renamed to the hour the story states
+(`_morning.png`, `_day.png`) and 8.1's ambience moves with them (`city_night_still` →
+`city_day_still`); both scenes join `SCENE_TIME_OF_DAY` as `day`, so the table and the
+name cannot disagree. `test/lighting.test.ts` grows two cases: one pins the two keys,
+and one reads every table scene's `location` and fails if it names an hour the table
+does not. The suite is 580 across 56 files now.
+
+### [5.3] The tests, and the 8 baselines that moved
+
+- `test/haptics.test.ts` (8) — every pattern, the switch, the missing API, a refusing
+  API, and the "disabled is not the same as absent" distinction.
+- `test/shake.test.ts` (7) — the spike, the decay rate (a harder hit over the same time
+  decays faster), the refusal, the reset, a negative delta.
+- `test/reduced-motion.test.ts` (6) — the CSS contract (class + `!important` + both
+  doors) and the store value: default off, a switch both ways, preserved by
+  `resetProgress`.
+- `test/settings.test.ts` (12, +4) — haptics ships on, is its own switch, does **not**
+  follow reduced motion, survives a reset.
+- `e2e/feel.spec.ts` (3 × 2 projects) — the class door in a real browser with the
+  switch off → on → off, the horn's `[60]` then silence with the switch off, and a
+  refused shake through the same store value the settings row writes.
+
+Mounting the token sheet changed **8 cockpit baselines** (4–8 kB smaller each: the rail
+and nav strip are now the `--qr-glass` panel the tokens describe, and the objective line
+re-wraps at the token's type size). No geometry claim moved — world band still ≥ 55 %,
+no overlaps, LOW/HORN still uncovered — so the baselines were re-captured with
+`--update-snapshots` and the capture run itself passed **10/10**; the phase gate below
+compares against them again, which is the verification that counts.
+
+### Verified
+
+vitest **580/580** across 56 files, `tsc --noEmit` 0, `npm run build` **4.48 s**
+(shell **1,087.62 kB / 318.26 kB gzip** — +0.50 kB over Phase 4's 1,087.12 for both
+modules and all the wiring — 3D chunk 2,851.24 / 989.19), `e2e/feel.spec.ts` **6/6**,
+`e2e/cockpit-bands.spec.ts` **10/10**, and the full Playwright gate **61 passed /
+27 skipped / 0 failed** in **14.3 min**, `EXIT=0` (recorded in `RUNLOG.md` with the
+API-mock caveat from Phase 2 unchanged). The first gate attempt failed 37 tests on
+`ERR_CONNECTION_REFUSED`: it reused a dev server Playwright did not own and a
+concurrent `vite build` wrote into the directory that server serves. The rerun owned
+its server and was green — infrastructure, not code, and written down as such.
+
+One artifact was not committed with the phase: `bench/sim-bench.test.ts` is a Vitest
+test, so every full run rewrites `bench/baseline.json`, and the runs above happened on
+a machine that was also building and driving a browser — its sim p50 reads 184.3 ms
+against the committed 67.4 ms, roughly 3×. Phase 5 changed no physics, so the
+regeneration was reverted (`git checkout -- drive/bench/baseline.json`) and the file
+still holds the last quiet-machine measurement. Phase 6.3 owns one clean run on an idle
+machine; until then the numbers in it are the truthful ones.
+

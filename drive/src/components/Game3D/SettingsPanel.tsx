@@ -32,6 +32,7 @@ import {
 } from '@/input/driveInput';
 import { TEXT_SIZE_LABELS } from '@/input/textSize';
 import { requestTiltPermission } from '@/hooks/useTiltSteering';
+import { buzz, hapticAvailable } from '@/quietroads/haptics';
 
 const pct = (v: number) => Math.round(Math.max(0, Math.min(1, v)) * 100);
 const fromPct = (v: string) => Math.max(0, Math.min(1, Number(v) / 100));
@@ -58,6 +59,14 @@ export function SettingsPanel({ onDone }: { onDone?: () => void }) {
 
   const reducedMotion = useGameStore((s) => s.reducedMotion);
   const setReducedMotion = useGameStore((s) => s.setReducedMotion);
+  const haptics = useGameStore((s) => s.haptics);
+  const setHaptics = useGameStore((s) => s.setHaptics);
+  /**
+   * A device with no motor cannot buzz, so the row says so and is disabled —
+   * the same rule as tilt on a desktop build. Read once on mount: the API does
+   * not appear mid-session.
+   */
+  const [canBuzz] = useState(() => hapticAvailable());
   const textSize = useGameStore((s) => s.textSize);
   const cycleTextSize = useGameStore((s) => s.cycleTextSize);
   const colorblindHud = useGameStore((s) => s.colorblindHud);
@@ -169,6 +178,29 @@ export function SettingsPanel({ onDone }: { onDone?: () => void }) {
         <Row label="MOTION">
           <button style={styles.stepBtn} onClick={() => setReducedMotion(!reducedMotion)} aria-pressed={reducedMotion}>
             {reducedMotion ? 'STEADY CAM' : 'ON'}
+          </button>
+        </Row>
+        {/*
+          ITEM 5.1 — the phone's motor. A separate switch from MOTION on purpose:
+          vibration is a different sense from motion, and a player who steadies the
+          camera may still want the wreck in their hand. A device with no motor gets
+          a disabled row that says so, not a hidden one.
+        */}
+        <Row label="HAPTICS">
+          <button
+            style={{ ...styles.stepBtn, ...(canBuzz ? null : styles.stepBtnDisabled) }}
+            onClick={() => {
+              if (!canBuzz) return;
+              // Pressing ON should be felt: buzz the press itself, with the
+              // lightest pattern in the table.
+              if (!haptics) buzz('button', { enabled: true });
+              setHaptics(!haptics);
+            }}
+            aria-pressed={haptics && canBuzz}
+            disabled={!canBuzz}
+            title={canBuzz ? undefined : 'this device has no vibration motor'}
+          >
+            {canBuzz ? (haptics ? 'ON' : 'OFF') : 'NO MOTOR'}
           </button>
         </Row>
         <Row label="TEXT SIZE">
@@ -293,6 +325,10 @@ const styles: Record<string, React.CSSProperties> = {
   stepBtn: {
     background: '#241f1d', color: 'var(--qr-text, #ede7dc)', border: '1px solid var(--qr-stroke, #3a3230)',
     borderRadius: 6, padding: '8px 12px', fontSize: 12, fontWeight: 700, cursor: 'pointer', minHeight: 36,
+  },
+  // A row whose device cannot do the thing: visible, disabled, and honest about it.
+  stepBtnDisabled: {
+    opacity: 0.55, cursor: 'not-allowed', borderStyle: 'dashed',
   },
   wideBtn: {
     borderRadius: 8, padding: '0.7rem', fontWeight: 700, fontSize: 13, cursor: 'pointer',

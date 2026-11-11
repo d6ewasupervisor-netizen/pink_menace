@@ -35,9 +35,9 @@ Baseline at the start of this run (from `AGENT_LOG.md` 2026-11-08): vitest
 | 4.1 settings panel | DONE | `Game3D/SettingsPanel.tsx` is the one settings surface: SOUND (on/off + SFX and MUSIC sliders), STEERING (scheme, sensitivity 50–200 %, tilt on/off, tilt reverse, SET STRAIGHT), ACCESSIBILITY (steady cam, text size, colourblind HUD) and KEYS (the capture table). The pause menu keeps the run's facts and the three ways out and offers ⚙ SETTINGS one button away; its inline rows and eight dead styles are gone. Every row writes the store — `e2e/tilt.spec.ts` moves the sensitivity slider and reads 1.5 back, so a row that only looks wired fails |
 | 4.2 tilt steering | DONE | `input/tiltSteering.ts` is the maths: dead zone 2.5°, full lock at 30°, upright cone ±45° pitch, neutral measured at the green light. `hooks/useTiltSteering.ts` is the only DOM code — one listener while the setting is on, iOS 13+ permission asked from the settings click, and `null` (not 0) when the phone lies down so the sticks and keys stay in charge. `driveInput` merges it last: keys → pad → touch stick → tilt. `gameStore` gains `tiltSteering/tiltInvert/tiltNeutral` + three writes, persisted and preserved across a reset. A first version listed the neutral object in the effect's deps and tore the listener down between readings — the fix is one dependency, the on/off switch |
 | 4.3 tilt tests | DONE | `test/tilt-steering.test.ts` (25), `test/tilt-merge.test.ts` (9), `test/settings.test.ts` (8) and `e2e/tilt.spec.ts` (2, real browser: the panel writes the store, a synthetic `deviceorientation` steers the car, a flat phone steers nothing, the calibration reads straight, a key beats it). Every claim has its failure next to it, because the failure mode is "the car steers when the player did not ask" |
-| 5.1 haptics, shake, reduced motion | TODO | |
-| 5.2 7.3/8.1 daylight keys | TODO | |
-| 5.3 feel tests | TODO | |
+| 5.1 haptics, shake, reduced motion | DONE | `quietroads/haptics.ts` is the one pattern table (`gust` 35/55/90 kept, `collision` 90/40/120, `horn` 60, `button` 12, `qte` 45/30/45, `verdict` 25/60/25) and the gate: the player's switch (`enabled`) and the device (`nav`) are **arguments**, so "no motor", "switch off" and "the browser refused" are three `false`s a unit test can ask for without a phone. `quietroads/shake.ts` holds the shake maths — `triggerScreenShake(intensity, duration, { reducedMotion })`, `shakeLevel(dt)`, `resetShake()` — and `GameCamera` now only picks the random direction; `CollisionSystem` imports from the module, not from the camera. Steady cam is a **refusal, not a lower intensity**, in both. Wiring: a wreck buzzes (`CollisionSystem`), the horn and the lights buzz (`QuietHUD`), the QTE window buzzes once per prompt (`CockpitQTE`), a verdict buzzes (`QuizOverlay`), the gust keeps its own name (`wind.ts buzzGust` → `buzz('gust')`); all read the `haptics` switch from the store, which is persisted and reset-preserved. Reduced motion now has **two doors** and both work: the OS `@media` and `[data-reduced-motion="true"] .qr-anim`, with `qr-anim` actually joined by the gust streaks, the boot sweep, the loading car, the scare palm/vignette/contact and the QTE bar. `SettingsPanel` grows a HAPTICS row (disabled "NO MOTOR" where `navigator.vibrate` is absent) |
+| 5.2 7.3/8.1 daylight keys | DONE | Both keys renamed to the hour the story states — 7.3 `ritzville_beetle_elevators_dusk.png` → `_morning.png` (its own `location` is `ritzville_lot_morning`) and 8.1 `i90_spokane_approach_night.png` → `_day.png` with its ambience `city_night_still` → `city_day_still` (the prose is "the gray sky going flat white … a city that is awake now"). Both scenes join `SCENE_TIME_OF_DAY` as `day`, so the lighting and the name are one fact; `test/lighting.test.ts` grows two cases (12 in the file) that read the JSON and fail if a key or a `location` ever names a different hour than the table. Nothing in the drive reads those strings, so the change is metadata + the scene hour, not a plate |
+| 5.3 feel tests | DONE | `test/haptics.test.ts` (8), `test/shake.test.ts` (7), `test/reduced-motion.test.ts` (6), `test/settings.test.ts` +4 haptics cases (12 in the file), `e2e/feel.spec.ts` (3 cases × 2 projects): the class door in a real browser, the horn's pattern then silence with the switch off, and a refused shake through the same store value the panel writes |
 | 6.1 full chain + guards | TODO | |
 | 6.2 scene sweep e2e | TODO | |
 | 6.3 performance numbers | TODO | |
@@ -139,6 +139,38 @@ runner announced — so the suite passed. The background child did not append it
 written. The summary is the evidence here, and the next gate run in Phase 6 is
 foregrounded (`Tee-Object`, per the new `.clinerules` rule) so the marker lands with
 the run instead of after it.
+
+## Gates (after Phase 5 and 5.2, measured on the branch)
+
+| Gate | Result |
+|---|---|
+| `npx vitest run` | **580/580** across 56 files (6.6 s) — Phase 4's 553 + 27 (haptics 8, shake 7, reduced-motion 6, settings +4, lighting +2) |
+| `npx tsc --noEmit` | **0** |
+| `npm run build` | **4.48 s**, shell **1,087.62 kB / 318.26 kB gzip** + 3D chunk **2,851.24 / 989.19** + post stack 75.11 / 18.56 lazy (the shell grew 0.50 kB for the haptics/shake modules and the wiring) |
+| `npx playwright test --workers=1` (**the phase's gate**) | **61 passed / 27 skipped / 0 failed** in **14.3 min**, `EXIT=0` (`%TEMP%\p5-gate.log`). Phase 4's gate was 55/27/0; this run is +6 — `e2e/feel.spec.ts`'s 3 cases × 2 projects. The 27 skips are the same measured set as Phase 2/3/4 (2 `test.fixme` for the BLOCKED context-loss case, 2 inventory opt-ins, 2 `?tier=`-only cases, 21 duplicated viewports); none was added or widened |
+| `npx playwright test e2e/feel.spec.ts` | **6/6** (14.0 s) — the class door in a real browser with the switch off → on → off, the horn's `[60]` then silence with the switch off, and a refused shake through the same store value the settings row writes |
+| `npx playwright test e2e/cockpit-bands.spec.ts` | **10/10** against baselines re-captured from a clean slate (`%TEMP%\p5-bands-final.log`) |
+
+**The first Phase 5 gate run failed, and not on the code.** It reported 24 passed /
+27 skipped / 37 failed in 7.9 min with `EXIT=1` — every failure a
+`page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/drive/`. The dev
+server was already running when the run started (`reuseExistingServer: true`), so
+Playwright did not own it and could not restart it; it went down mid-run while a
+`vite build` was writing into the same `public/game/drive` directory the server
+serves. The rerun above started its own server on a free 5173 and did not share the
+machine with a build. That is an infrastructure failure recorded rather than hidden:
+the same 61 tests pass when the server owns the run.
+
+**Two real failures found by the gate and fixed in place.** (1) The first run of
+`e2e/cockpit-bands.spec.ts` after mounting `TOKEN_CSS` failed 2/10 on the `driving`
+pictures — the 8 baselines had been captured before the token sheet existed, so the
+rail was transparent and the type 16 px. They were re-captured and the run passed 10/10.
+(2) The landscape `handsoff` baseline then failed on the objective band: the objective
+is a 6 s transient and the capture straddled the boundary. The spec now asserts the
+band's presence/absence against `cockpit/spec.ts` and then takes the band out of the
+*exposure* with a style rule whose computed value it also asserts — the picture no
+longer races a clock. Both baselines were captured from a clean slate afterwards and
+the 10/10 verify run compares against exactly those files.
 
 ## DECISIONS
 

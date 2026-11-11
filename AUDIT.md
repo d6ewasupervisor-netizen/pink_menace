@@ -856,10 +856,17 @@ ok, `test-manifest.js` ok; the rest of the §16 baselines are unchanged.
 
 **Still open**: the headed `?profileDrive` pass, a device playthrough, the
 II-009 / III-027 plates and the I-009 afternoon plate. VII drive stills are
-`cards/VII-00N.jpg` (2026-10-31); the card game does not deal them. The `7.3` and `8.1` background/ambience keys keep their
-`dusk`/`night` asset names (no local asset is referenced by the drive; the
-prose and the cards are daylight) — a plate decision for the art pass, not a
-clock contradiction.
+`cards/VII-00N.jpg` (2026-10-31); the card game does not deal them.
+
+**Fixed in item 5.2 (2026-11-10)**: the `7.3` and `8.1` background/ambience keys
+used to keep their `dusk`/`night` asset names while the prose is daylight. Nothing in
+the drive reads those strings, so no plate was needed to fix the *name* — 7.3 is now
+`ritzville_beetle_elevators_morning.png` (its own `location` was already
+`ritzville_lot_morning`) and 8.1 is `i90_spokane_approach_day.png` with a
+`city_day_still` ambience. Both scenes also join `SCENE_TIME_OF_DAY` as `day`, and
+`test/lighting.test.ts` reads the JSON so a key or a `location` naming a different
+hour than the table is a failure, not a note. The art plates themselves (if the game
+ever draws them) remain the art pass's call.
 
 
 ## 17. The card still is letterboxed, not cropped (2026-10-31)
@@ -2242,6 +2249,81 @@ hidden for the exposure only.
   not the reported shape.
 - **The baselines are Windows-only** (`-win32.png`), as the old ones were. A CI on
   Linux would regenerate them once.
+
+## 34. Phase 5 — the car should be felt, and the sheet nobody mounted (2026-11-10)
+
+### 34.1 What was actually missing
+
+Three things were "done" and none of them reached a hand:
+
+1. **One physical event in the whole drive.** The gust buzzed (`buzzGust` in
+   `quietroads/wind.ts`); a wreck, the horn, the QTE and a quiz verdict were silent.
+2. **The shake maths lived in the camera.** `GameCamera.tsx` held `_shakeIntensity` /
+   `_shakeDecay` as module-level variables beside its `useFrame`, so the only way to
+   ask "does steady cam stop the shake?" was to run a WebGL context.
+3. **`.qr-anim` was declared and joined by nobody** — and behind that, the larger
+   finding: **`TOKEN_CSS` was never mounted at all.** `cockpit/tokens.ts` has said
+   "Mounted once by `CockpitHUD` on the HUD root" since 3.1, and `CockpitHUD` did not
+   mount it. So every `var(--qr-…)` in the cockpit resolved to its fallback
+   (`var(--qr-text-scale, 1)`) or to **nothing**: the rail's `background: var(--qr-glass)`
+   and `backdrop-filter: var(--qr-blur)` were transparent, `font-size: var(--qr-type-micro)`
+   was inherited 16 px, and the `@media (prefers-reduced-motion)` + `[data-reduced-motion]`
+   rules for `.qr-anim` had no stylesheet in the document to lose to. The CSS door of
+   the OS preference had never existed either; item 5.1's e2e is what found it.
+
+### 34.2 The two feelings, and where the refusal lives
+
+- **`quietroads/haptics.ts`** — one pattern table, one gate:
+  `gust [35,55,90]` (the old `GUST_VIBRATION`, value unchanged), `collision [90,40,120]`,
+  `horn [60]`, `button [12]`, `qte [45,30,45]`, `verdict [25,60,25]`. `buzz(pattern, { enabled, nav })`
+  takes the player's switch **and** the device as arguments, so the three `false`s
+  (switch off / no motor / the browser refused) are unit-testable without a phone, and
+  a missing `navigator.vibrate` (iOS) is not a crash. `haptics` is a store setting,
+  persisted and preserved by `resetProgress`, and it is deliberately **not** wired to
+  `reducedMotion`: motion is vestibular, vibration is a different sense.
+- **`quietroads/shake.ts`** — `triggerScreenShake(i, d, { reducedMotion })`,
+  `shakeLevel(dt)`, `resetShake()`. `GameCamera` now only picks the random direction
+  and applies the level; `CollisionSystem` imports the trigger from the module (it
+  used to import it from the camera, which is why the maths could not be tested).
+  Steady cam is a **refusal, not a lower intensity**, in both modules: `triggerScreenShake`
+  returns `false` and `buzz` returns `false`, and both are arithmetic a test can ask.
+
+### 34.3 Where the buzzes are wired
+
+| Surface | Event | Pattern |
+|---|---|---|
+| `CollisionSystem` | a wreck (closing ≥ 1.2 m/s) | `collision`, steady cam refused at the same call |
+| `QuietHUD` | HORN press / lights press | `horn` / `button` |
+| `CockpitQTE` | a pass window opens (once per prompt label) | `qte` |
+| `QuizOverlay` | a verdict | `verdict` |
+| `quietroads/wind.ts` | the gust | `gust` (the name `buzzGust` kept so the bridge still reads as "the wind buzzes") |
+
+Every call site reads the store's `haptics` switch where it lives; the module never
+reads the store, which is what keeps it pure.
+
+### 34.4 The `.qr-anim` surfaces, and what mounting the sheet changed
+
+`qr-anim` is now joined by the gust streaks (`WindAssistHUD`), the boot sweep
+(`App.BootProgress`), the loading car (`LoadingScreen`), the scare palm / vignette /
+contact (`ScareOverlay`) and the QTE bar fill (`CockpitQTE`). `CockpitHUD` mounts
+`<style>{TOKEN_CSS}</style>` as its own header said it did.
+
+Mounting it is a **visual change**, and the baselines caught it honestly: the 8
+cockpit baselines at 390×844 and 844×390 changed by 4–8 kB each, because the rail and
+the nav strip are now the `--qr-glass` panel the tokens describe and the type tokens
+apply (the objective line re-wraps). No geometry assertion moved: the world band is
+still ≥ 55 %, no interactive layer overlaps, LOW/HORN are still uncovered. The 8
+baselines were re-captured with `--update-snapshots` and the run then passed 10/10.
+
+### 34.5 Still open
+
+- **`--qr-text-scale` is read everywhere and written nowhere.** The settings panel has
+  a text-size row (`TEXT_SIZE_LABELS`) and the store has the value, but no code sets
+  the custom property on the document. Mounting the token sheet makes the *type scale*
+  real; the *player's scale* is still a promise. Phase 6 owns it (see ROADMAP).
+- **No test runs on a phone with a real motor.** `navigator.vibrate` is stubbed in
+  `e2e/feel.spec.ts`; the patterns are pinned, the hardware is not.
+- **The cockpit's 8 baselines remain Windows-only** (`-win32.png`), as they were.
 
 
 

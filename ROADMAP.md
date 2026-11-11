@@ -85,18 +85,27 @@ holds the roll maths and `hooks/useTiltSteering.ts` is the only DOM code. The me
 order is keys → pad → touch stick → tilt, and a flat phone steers nothing (`null`,
 not `0`).
 
-**Next: Phase 5 — the car should be felt.** Haptics for the physical events (a wreck,
-the horn, the QTE, a verdict) through one pattern table in `quietroads/haptics.ts`;
-the screen-shake maths moved out of `GameCamera.tsx` into `quietroads/shake.ts` so
-steady cam's refusal is arithmetic; and the cockpit's `.qr-anim` switch made real —
-it has been declared in `cockpit/tokens.ts` since 3.1 and no surface joined it. Then
-5.2: 7.3's and 8.1's `background` keys say dusk and night while the story says
-morning and flat-white midday (AUDIT §16), so the keys and the scene hour are fixed
-together.
+**Phase 5 (done): the car should be felt.** `quietroads/haptics.ts` is one pattern
+table and one gate (`gust`, `collision`, `horn`, `button`, `qte`, `verdict`), with the
+player's switch and the device as arguments so every refusal is testable without a
+phone; `quietroads/shake.ts` owns the shake maths and steady cam is a **refusal**;
+`qr-anim` is joined by the gust streaks, the boot sweep, the loading car, the scare
+palm and the QTE bar. The e2e that proves the CSS door also found the larger bug:
+`TOKEN_CSS` was never mounted, so the cockpit's glass, type scale and both
+reduced-motion doors had no stylesheet. `CockpitHUD` mounts it now, and the 8 cockpit
+baselines were re-captured (AUDIT §34).
 
-**Then: Phase 6 — the sweep.** The full chain and its guards, a scene-by-scene e2e
+**5.2 (done): the daylight keys.** 7.3's key now says `_morning.png` and 8.1's says
+`_day.png` (with a day ambience), and both scenes are in `SCENE_TIME_OF_DAY` as `day`,
+so the name and the lighting are one fact; `test/lighting.test.ts` reads the JSON and
+fails if either ever drifts (AUDIT §16, §34).
+
+**Next: Phase 6 — the sweep.** The full chain and its guards, a scene-by-scene e2e
 sweep, the performance numbers in one place, and the AFTER record (AFTER.md, AUDIT,
-AGENT_LOG, ROADMAP) before the final merge and push.
+AGENT_LOG, ROADMAP) before the final merge and push. One open feel item rides with it:
+**`--qr-text-scale` is read everywhere and written nowhere** — the settings panel's
+text-size row writes a store value that no code applies to the document, so mounting
+the token sheet made the type *scale* real but not the player's *scale* (AUDIT §34.5).
 
 
 

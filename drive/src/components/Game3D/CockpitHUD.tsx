@@ -23,7 +23,7 @@ import { useQRStore } from '@/stores/qrStore';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { KentDash } from './KentDash';
 import { QuietHUD } from './QuietHUD';
-import { tokens } from './cockpit/tokens';
+import { TOKEN_CSS, tokens } from './cockpit/tokens';
 import { readCockpitState, useCockpitSpec, useDrivingHud } from './cockpit/layout';
 import { staleCockpitFlag } from '@/quietroads/cockpit';
 import { actForScene, type CardAct } from '@/quietroads';
@@ -80,6 +80,13 @@ export function CockpitHUD() {
 
   return (
     <div data-layer="hud" style={styles.root}>
+      {/* ITEM 5.1 — the token sheet, mounted once, as its own header has always
+          said CockpitHUD does. It was never mounted: every `var(--qr-…)` in the
+          cockpit resolved to its fallback (or to nothing, for `--qr-glass`), and
+          the `.qr-anim` switch the reduced-motion test asserts had no stylesheet
+          in the document to lose to. The sheet is the second door's other half. */}
+      <style>{TOKEN_CSS}</style>
+
       {/* Accent vignette — the one accent on every act (SCENE_ACCENT). A paint
           treatment, not furniture: it owns no space and no hit target. */}
       {phase === 'driving' && (

@@ -1551,7 +1551,7 @@
       "title": "Radio, Ritzville",
       "type": "radio",
       "location": "ritzville_lot_morning",
-      "background": "res://backgrounds/ritzville_beetle_elevators_dusk.png",
+      "background": "res://backgrounds/ritzville_beetle_elevators_morning.png",
       "ambience": "res://audio/amb/radio_static_bed.ogg",
       "music": "res://audio/music/two_hours_out.ogg",
       "entry": "7.3.0",

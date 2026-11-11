@@ -105,6 +105,48 @@ describe('the scene hour matches the art the act files name', () => {
     expect(timeOfDayForScene('2.4', 'day')).toBe('day');
     expect(timeOfDayForScene('nowhere', 'sunset')).toBe('sunset');
   });
+
+  it('7.3 and 8.1 are daylight, and the key says so', () => {
+    // ITEM 5.2 (AUDIT §16). 7.3's key said `ritzville_beetle_elevators_dusk.png`
+    // while its own `location` says `ritzville_lot_morning`; 8.1's said
+    // `i90_spokane_approach_night.png` while its prose is "the gray sky going flat
+    // white … a city that is awake now". Nothing in the drive reads the key, so the
+    // name was the only record of the hour — and it contradicted the story. Both are
+    // day in the table and both names say so, so the two facts cannot drift again.
+    expect(timeOfDayForScene('7.3', 'night')).toBe('day');
+    expect(timeOfDayForScene('8.1', 'night')).toBe('day');
+    const bg = backgrounds();
+    expect(bg['7.3'], '7.3 is the morning lot').toMatch(/morning/i);
+    expect(bg['8.1'], '8.1 is the flat-white approach').toMatch(/day/i);
+    expect(bg['7.3'], '7.3 is not a dusk key').not.toMatch(/dusk|night|evening/i);
+    expect(bg['8.1'], '8.1 is not a night key').not.toMatch(/dusk|night|evening/i);
+  });
+
+  it('no location key contradicts the table either', () => {
+    // The `location` is the other half of the same metadata — `ritzville_lot_morning`
+    // is what exposed 7.3's dusk key. A location may say nothing about the hour
+    // (`i90_ellensburg_to_vantage`), but it may not name a different one.
+    const dir = path.resolve(__dirname, '..', 'src', 'quietroads', 'data');
+    const found: Record<string, string> = {};
+    for (const file of fs.readdirSync(dir).filter((f) => f.startsWith('dialogue_act') && f.endsWith('.json'))) {
+      const json = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8')) as {
+        scenes?: Record<string, { location?: string }>;
+      };
+      for (const [id, scene] of Object.entries(json.scenes ?? {})) {
+        if (scene.location) found[id] = scene.location;
+      }
+    }
+    const NIGHT = /night|predawn|dark/i;
+    const DUSK = /dusk|sunset|dawn/i;
+    const DAY = /morning|midday|afternoon|\bday\b/i;
+    for (const [id, time] of Object.entries(SCENE_TIME_OF_DAY)) {
+      const key = found[id];
+      if (!key) continue;
+      if (NIGHT.test(key)) expect(time, `${id} says night in its location`).toBe('night');
+      if (DUSK.test(key)) expect(time, `${id} says dusk in its location`).toBe('sunset');
+      if (DAY.test(key)) expect(time, `${id} says day in its location`).toBe('day');
+    }
+  });
 });
 
 describe('headlights', () => {

@@ -72,6 +72,34 @@ describe('the volume sliders', () => {
   });
 });
 
+describe('haptics: a switch, not a side effect of steady cam', () => {
+  it('ships on, so a phone that can buzz does', () => {
+    expect(g().haptics).toBe(true);
+  });
+
+  it('is its own switch in both directions', () => {
+    g().setHaptics(false);
+    expect(g().haptics).toBe(false);
+    g().setHaptics(true);
+    expect(g().haptics).toBe(true);
+  });
+
+  it('does not follow reduced motion: motion and vibration are different senses', () => {
+    g().setHaptics(true);
+    g().setReducedMotion(true);
+    expect(g().haptics, 'a steady camera still wants the wreck in the hand').toBe(true);
+    g().setReducedMotion(false);
+    g().setHaptics(true);
+  });
+
+  it('survives a reset, like the rest of the settings', () => {
+    g().setHaptics(false);
+    g().resetProgress();
+    expect(g().haptics).toBe(false);
+    g().setHaptics(true);
+  });
+});
+
 describe('tilt: the three writes and the calibration', () => {
   it('turns on, reverses and turns off', () => {
     g().setTiltSteering(true);

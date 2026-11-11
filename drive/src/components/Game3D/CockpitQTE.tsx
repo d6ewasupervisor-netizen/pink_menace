@@ -8,13 +8,23 @@
  * cockpit stack below the pause menu), and clears itself the moment the mission
  * hands the beat back.
  */
+import { useEffect } from 'react';
+import { useGameStore } from '@/stores/gameStore';
 import { useQRHud } from '@/stores/qrHud';
+import { buzz } from '@/quietroads/haptics';
 import { tokens } from './cockpit/tokens';
 import { useCockpitSpec, worldBandStyle } from './cockpit/layout';
 
 export function CockpitQTE() {
   const qte = useQRHud((s) => s.qte);
   const spec = useCockpitSpec();
+  // The prompt object is rebuilt as the bar fills, so the label — not the object —
+  // is the identity of one pass window. ITEM 5.1: the window opening is felt once.
+  const label = qte?.label ?? null;
+  useEffect(() => {
+    if (!label) return;
+    buzz('qte', { enabled: useGameStore.getState().haptics });
+  }, [label]);
   if (!qte) return null;
   const pct = Math.round(Math.max(0, Math.min(1, qte.progress)) * 100);
   return (
@@ -22,7 +32,8 @@ export function CockpitQTE() {
       <div style={styles.wrap} role="status" aria-live="polite">
         <div style={styles.label}>{qte.label}</div>
         <div style={styles.track}>
-          <div style={{ ...styles.fill, width: `${pct}%` }} />
+          {/* ITEM 5.1: the bar's own easing is motion; the class is the switch. */}
+          <div className="qr-anim" style={{ ...styles.fill, width: `${pct}%` }} />
         </div>
         <div style={styles.hint}>{qte.hint}</div>
         <div style={styles.keys}>HOLD ↓ / S · or pull the gas stick back</div>

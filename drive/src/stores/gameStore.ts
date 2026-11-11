@@ -143,6 +143,13 @@ interface SettingsSlice {
   musicVolume: number;  // 0–1
   reducedMotion: boolean; // suppresses camera shake + drift (a11y)
   /**
+   * ITEM 5.1 — the phone's motor. On by default (a car you can feel is the point),
+   * and deliberately NOT tied to `reducedMotion`: motion is a vestibular concern
+   * and vibration is a different sense, so a player who steadies the camera may
+   * still want the wreck in their hand. See `quietroads/haptics.ts`.
+   */
+  haptics: boolean;
+  /**
    * ITEM 4.2 — the phone's roll as the steering axis. Off by default: a sensor the
    * player did not ask for must not move the car. The neutral is measured, not
    * chosen — it is the reading at the moment the player pressed SET STRAIGHT.
@@ -200,6 +207,8 @@ type GameState = ControlsSlice &
     setSfxVolume: (vol: number) => void;
     setMusicVolume: (vol: number) => void;
     setReducedMotion: (on: boolean) => void;
+    /** ITEM 5.1 — the phone's motor. Off means no event reaches `navigator.vibrate`. */
+    setHaptics: (on: boolean) => void;
     /** ITEM 4.2 — tilt steering's three writes. */
     setSteeringSensitivity: (value: number) => void;
     setTiltSteering: (on: boolean) => void;
@@ -272,6 +281,7 @@ export const useGameStore = create<GameState>()(
       sfxVolume: 0.7,
       musicVolume: 0.3,
       reducedMotion: false,
+      haptics: true,
       tiltSteering: false,
       tiltInvert: false,
       tiltNeutral: TILT.defaultNeutral,
@@ -321,6 +331,7 @@ export const useGameStore = create<GameState>()(
       setSfxVolume: (vol) => set({ sfxVolume: Math.max(0, Math.min(1, vol)) }),
       setMusicVolume: (vol) => set({ musicVolume: Math.max(0, Math.min(1, vol)) }),
       setReducedMotion: (on) => set({ reducedMotion: on }),
+      setHaptics: (on) => set({ haptics: on }),
 
       // ── Tilt steering (item 4.2) ────────────────────────────────────────────
       setSteeringSensitivity: (value) => set({ steeringSensitivity: Math.max(0.5, Math.min(2, value)) }),
@@ -479,13 +490,14 @@ export const useGameStore = create<GameState>()(
 
       // ── Reset ───────────────────────────────────────────────────────────────
       resetProgress: () => {
-        const { steeringSensitivity, controlsScheme, resetCounter, reducedMotion, binds, textSize, colorblindHud,
+        const { steeringSensitivity, controlsScheme, resetCounter, reducedMotion, haptics, binds, textSize, colorblindHud,
           tiltSteering, tiltInvert, tiltNeutral } = get();
         set({
           ...defaultGameState,
           steeringSensitivity,
           controlsScheme,
           reducedMotion,
+          haptics,
           binds,
           textSize,
           colorblindHud,
@@ -533,6 +545,7 @@ export const useGameStore = create<GameState>()(
         sfxVolume: state.sfxVolume,
         musicVolume: state.musicVolume,
         reducedMotion: state.reducedMotion,
+        haptics: state.haptics,
         // A calibration is the player's hand, not the run's progress: it survives a
         // restart with the rest of the settings.
         tiltSteering: state.tiltSteering,

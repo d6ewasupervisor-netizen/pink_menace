@@ -12,6 +12,7 @@ import * as THREE from 'three';
 import { useGameStore, CameraMode } from '@/stores/gameStore';
 import { getChassisPose, getLateralSlip, getCurrentSpeedMs } from '@/systems/VehicleController';
 import { liveDrive } from '@/systems/driveTelemetry';
+import { resetShake, shakeLevel } from '@/quietroads/shake';
 
 // ─── Per-mode config ──────────────────────────────────────────────────────────
 interface ModeConfig {
@@ -72,17 +73,11 @@ const QUIET_LOOKAHEAD_PER_MPH = 0.16; // metres of extra aim per mph
 const WALK_OFFSET = new THREE.Vector3(0, 7.0, 6.0);
 const WALK_LOOKAT = new THREE.Vector3(0, 0.4, -3.5);
 
-// ─── Screen shake (module-level for easy triggering) ──────────────────────────
-let _shakeIntensity = 0;
-let _shakeDecay = 0;
-
-/** Trigger screen shake. intensity: 0-1, duration in seconds. */
-export function triggerScreenShake(intensity = 0.5, duration = 0.3) {
-  // Reduced motion (a11y): a collision should never throw the frame around.
-  if (useGameStore.getState().reducedMotion) return;
-  _shakeIntensity = Math.max(_shakeIntensity, intensity);
-  _shakeDecay = intensity / duration;
-}
+// ─── Screen shake ─────────────────────────────────────────────────────────────
+// ITEM 5.1: the maths lives in `quietroads/shake.ts`, so "does steady cam stop the
+// shake?" is arithmetic a unit test can ask instead of a WebGL context. The camera
+// keeps the frame's own job — the random direction and the offset — and asks the
+// module for the level. `CollisionSystem` calls `triggerScreenShake` there.
 
 // Reusable vectors
 const _targetPos = new THREE.Vector3();
@@ -124,7 +119,8 @@ export function GameCamera() {
       ? Math.min(1, Math.max(0, (getLateralSlip() - 0.15) * 3)) : 0;
     driftAmplitude.current += (driftTarget - driftAmplitude.current) * (1 - Math.exp(-7 * dt));
     if (state.reducedMotion) {
-      _shakeIntensity = 0;
+      // Steady cam: forget any shake that was running when the switch went on.
+      resetShake();
       driftAmplitude.current = 0;
     }
 
@@ -157,16 +153,17 @@ export function GameCamera() {
     }
 
     // ── Apply screen shake ────────────────────────────────────────────────
-    if (_shakeIntensity > 0.001) {
+    // ITEM 5.1: the level and its decay are `quietroads/shake.ts`; this frame only
+    // picks the direction. A steady camera refuses the trigger, so the level is 0
+    // and nothing below moves — the refusal is arithmetic, not a lower intensity.
+    const shake = shakeLevel(dt);
+    if (shake > 0.001) {
       _shakeOffset.set(
-        (Math.random() - 0.5) * 2 * _shakeIntensity,
-        (Math.random() - 0.5) * 1.5 * _shakeIntensity,
-        (Math.random() - 0.5) * 1.5 * _shakeIntensity,
+        (Math.random() - 0.5) * 2 * shake,
+        (Math.random() - 0.5) * 1.5 * shake,
+        (Math.random() - 0.5) * 1.5 * shake,
       );
       _targetPos.add(_shakeOffset);
-
-      // Decay shake
-      _shakeIntensity = Math.max(0, _shakeIntensity - _shakeDecay * dt);
     }
     if (driftAmplitude.current > 0.001) {
       const t = performance.now() * 0.001;

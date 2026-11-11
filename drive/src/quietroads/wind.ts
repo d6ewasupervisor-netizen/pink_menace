@@ -25,6 +25,8 @@
  * right pushes the car to its LEFT (`pushDir` −1), so the correction is a steer
  * to the right — which is what `steer.into_wind` grades.
  */
+import { HAPTIC_PATTERNS, buzz } from './haptics';
+
 export type GustSide = 'left' | 'right';
 
 export const GUST = {
@@ -137,18 +139,21 @@ export function gustActionLabel(side: GustSide): string {
 }
 
 /** What a phone should buzz for a gust. iOS has no `vibrate`; that is not an error. */
-export const GUST_VIBRATION = [35, 55, 90] as const;
+export const GUST_VIBRATION = HAPTIC_PATTERNS.gust;
 
 /**
- * Buzz, where the platform supports it. Returns whether the platform took it, so
- * the caller (and a test) can tell "no vibration API" from "vibrated".
+ * Buzz for the gust, where the platform supports it. Returns whether the platform
+ * took it, so the caller (and a test) can tell "no vibration API" from "vibrated".
+ *
+ * ITEM 5.1 moved the pattern table and the gate into `quietroads/haptics.ts` —
+ * one place for every physical event — but the gust keeps its own name here so
+ * the bridge's line still reads as "the wind buzzes". The `enabled` argument is
+ * the player's HAPTICS switch; it defaults to on so a caller that has not heard
+ * of the switch behaves exactly as before.
  */
-export function buzzGust(nav: Pick<Navigator, 'vibrate'> | null | undefined): boolean {
-  if (!nav || typeof nav.vibrate !== 'function') return false;
-  try {
-    nav.vibrate([...GUST_VIBRATION]);
-    return true;
-  } catch {
-    return false;   // a browser that has the method and refuses it is not a crash
-  }
+export function buzzGust(
+  nav: Pick<Navigator, 'vibrate'> | null | undefined,
+  enabled = true,
+): boolean {
+  return buzz('gust', { nav, enabled });
 }
