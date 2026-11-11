@@ -2908,3 +2908,24 @@ read back with the new scene and option text.
 vitest **585/585** in 57 files, including `dol-chase.test.ts` (4, new) and the
 fullchain 1.3 order on both forks. `tsc` 0, the drive build passes, citations ok
 131, and act-gate, checkpoint and manifest are ok.
+
+## 2026-11-11 — Space advances pop-ups on a PC
+
+On a keyboard there was no way to clear a dialogue line or take a card's CONTINUE
+without the mouse. Lines shown while driving are held on screen until dismissed, so
+this happened mid-drive. The handbrake key (Space by default) now advances the open
+pop-up: a card's CONTINUE first, then a quiz's CONTINUE, then a dialogue line or
+direction. One press advances one thing, holding the key advances nothing more, and
+choices and unanswered card options are never picked by it. The key follows the
+handbrake bind. The handbrake still reads the same key as held, so a tap is a
+moment of brake and nothing else.
+
+New: `drive/src/input/advanceKey.ts` and `drive/src/hooks/useAdvanceKey.ts`, wired into
+`DialogueBox`, `CardOverlay` and `QuizOverlay` (AUDIT §38).
+
+### Verified
+
+vitest **588/588** in 58 files (`advance-key.test.ts` 3 new), `tsc` 0.
+`e2e/advance-key.spec.ts` 2/2 headless. The 1.2 run covers cutscene lines, the I-005
+dossier, and a line held while driving, all advanced by Space. VII-006 ignores Space
+until it has a verdict. `cockpit-restore` + `smoke` 18 passed / 12 skipped / 0 failed.

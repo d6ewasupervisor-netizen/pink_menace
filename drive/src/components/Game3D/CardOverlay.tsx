@@ -25,6 +25,8 @@ import { cardStillStyle } from './cardStillStyle';
 import { frameFor, useCockpitOrientation } from './cockpit/layout';
 import { tokens } from './cockpit/tokens';
 import { useCardCountdown } from './useCardCountdown';
+import { useAdvanceKey } from '@/hooks/useAdvanceKey';
+import { ADVANCE_PRIORITY } from '@/input/advanceKey';
 
 type Grading = { state: 'idle' } | { state: 'busy'; optionId: string } | { state: 'graded'; grade: CardGrade } | { state: 'offline'; optionId: string };
 
@@ -75,6 +77,11 @@ export function CardOverlay() {
     { options: optionsRef, viewport: dockRef },
   );
 
+  const finishRef = useRef<() => void>(() => {});
+  const leavable = Boolean(card) && phase === 'card'
+    && (grading.state === 'graded' || grading.state === 'offline' || !CardDeck.isGraded(card!));
+  useAdvanceKey(ADVANCE_PRIORITY.card, leavable ? () => finishRef.current() : null);
+
   if (!active || !card) return null;
   const graded = CardDeck.isGraded(card);
   const options = card.options ?? [];
@@ -96,6 +103,7 @@ export function CardOverlay() {
       time_cost: grade?.state_delta?.time_cost,
     });
   };
+  finishRef.current = () => { void finish(); };
 
   return (
     <div data-ui data-layer="card" style={styles.wrap}>

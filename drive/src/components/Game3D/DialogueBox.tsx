@@ -17,6 +17,8 @@ import { useGameStore } from '@/stores/gameStore';
 import { useQRStore } from '@/stores/qrStore';
 import { useQRHud } from '@/stores/qrHud';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
+import { useAdvanceKey } from '@/hooks/useAdvanceKey';
+import { ADVANCE_PRIORITY } from '@/input/advanceKey';
 import { STILL_FOR_SCENE } from './stills';
 import { tokens } from './cockpit/tokens';
 import { useCockpitSpec } from './cockpit/layout';
@@ -85,7 +87,10 @@ export function DialogueBox() {
     };
   }, [line, direction, choices, isCutscene, holdForSteer]);
 
-  if (worldMode !== 'kent' || phase === 'quiz' || phase === 'paused' || phase === 'menu' || phase === 'card') return null;
+  const hidden = worldMode !== 'kent' || phase === 'quiz' || phase === 'paused' || phase === 'menu' || phase === 'card';
+  useAdvanceKey(ADVANCE_PRIORITY.dialogue, !hidden && !handsOff && !choices && (line || direction) ? () => QuietRoads.tap() : null);
+
+  if (hidden) return null;
   if (handsOff) return null;
   if (!line && !direction && !choices) return null;
   const cutscene = phase === 'dialogue';

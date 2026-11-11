@@ -2613,6 +2613,25 @@ still the way to get a restore-in-place.
 - **Live.** I-006, I-007 and I-008 are seeded to production (still audit 12/12 match);
   the drive deploy carries the dialogue, the sim and the re-exported deck.
 
+## 38. The handbrake key advances pop-ups on a keyboard (2026-11-11)
+
+- **Why.** A line shown while driving is held until dismissed (`holdForSteer` in
+  `DialogueBox`), and the card and quiz CONTINUE were buttons only. On a PC that meant
+  leaving the keys for the mouse mid-drive.
+- **How.** `input/advanceKey.ts` (pure: `isAdvanceKey`, `pickAdvance`,
+  `ADVANCE_PRIORITY`) and `hooks/useAdvanceKey.ts` (one window `keydown` listener and a
+  set of open surfaces). The key is whatever `handbrake` is bound to (Space by
+  default), so a rebind moves both. One press advances the highest open surface — card
+  CONTINUE (3), quiz CONTINUE (2), dialogue line/direction (1) — and auto-repeat is
+  ignored, so holding Space for a stop advances at most one thing. Choices and
+  unanswered card options are never taken by the key. A focused button is blurred on
+  the press so key-up cannot click it.
+- **Driving is untouched.** The handbrake still reads the key as held every frame.
+- **Tests.** `test/advance-key.test.ts` (3); `e2e/advance-key.spec.ts` (2, headless
+  1280x720): 1.2's cutscene lines, the I-005 dossier, and a line held while driving
+  are each advanced by Space; VII-006 ignores Space until it has a verdict, then
+  Space leaves it.
+
 <!-- CONTINUED -->
 
 

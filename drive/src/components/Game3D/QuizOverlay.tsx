@@ -8,6 +8,8 @@ import { AudioManager } from '@/systems/AudioManager';
 import { QuietRoads } from '@/systems/QuietRoadsBridge';
 import { discardDriveHold, releaseDrive } from '@/systems/VehicleController';
 import { useCompactHud } from '@/hooks/useCompactHud';
+import { useAdvanceKey } from '@/hooks/useAdvanceKey';
+import { ADVANCE_PRIORITY } from '@/input/advanceKey';
 import { buzz } from '@/quietroads/haptics';
 import { tokens } from './cockpit/tokens';
 
@@ -113,6 +115,11 @@ export function QuizOverlay() {
     // The verdict is read: the cockpit rule may bring the driving HUD back.
     dismissQuizResult();
   }, [currentQuestion, dismissQuizResult]);
+
+  useAdvanceKey(
+    ADVANCE_PRIORITY.quiz,
+    !dismissed && currentQuestion && result && (phase === 'quiz' || phase === 'driving') ? handleContinue : null,
+  );
 
   if (dismissed || !currentQuestion) return null;
   if (phase !== 'quiz' && !(result && phase === 'driving')) return null;
