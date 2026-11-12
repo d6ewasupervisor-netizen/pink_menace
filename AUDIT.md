@@ -2632,6 +2632,20 @@ still the way to get a restore-in-place.
   are each advanced by Space; VII-006 ignores Space until it has a verdict, then
   Space leaves it.
 
+## 39. The four-way is the card, and the card stops the car (2026-11-12)
+
+- **What it was.** `intersection.fourway.approach` opened Deac's line "Four-way stop.
+  Who goes?" while the car kept moving. Clicking that line opened II-024, which does
+  stop the car. Answering the card then opened `2.3a.Q1`, the same question as three
+  buttons, and the car was moving again. A second quiz (`2.3a.Q2`, the tie) followed.
+- **Now.** The approach opens `2.3a.card_II-024` directly. A card freezes the sim, so
+  the car stops at the intersection. The card's own decision is the question ("Who goes
+  through first?") and its four options are the answer. The card has no `next`, so
+  answering it hands the car back. The line and both button quizzes are gone. The tie
+  rule stays in II-024's debrief.
+- **Test.** `drive/test/fourway-card.test.ts`: after the 2.3a brief, the approach shows
+  II-024 and nothing else, and resolving it leaves no choice on screen.
+
 <!-- CONTINUED -->
 
 

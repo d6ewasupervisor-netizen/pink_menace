@@ -2929,3 +2929,11 @@ vitest **588/588** in 58 files (`advance-key.test.ts` 3 new), `tsc` 0.
 `e2e/advance-key.spec.ts` 2/2 headless. The 1.2 run covers cutscene lines, the I-005
 dossier, and a line held while driving, all advanced by Space. VII-006 ignores Space
 until it has a verdict. `cockpit-restore` + `smoke` 18 passed / 12 skipped / 0 failed.
+
+## 2026-11-12 — the four-way is the card
+
+On delivery 1 the four-way asked its question three times. The approach opened Deac's line while the car kept moving, clicking it opened II-024 (which does stop the car), and answering the card brought the same question back as a button overlay, still moving. The approach now opens II-024 directly. The card is the question and the answers, it freezes the sim, and answering it hands the car back. The line and both button quizzes are gone. The tie rule stays in the card's debrief (AUDIT §39).
+
+### Verified
+
+vitest **589/589** in 59 files (`fourway-card.test.ts` new), `tsc` 0. Fullchain and deadlock still pass.
