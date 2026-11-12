@@ -2646,6 +2646,26 @@ still the way to get a restore-in-place.
 - **Test.** `drive/test/fourway-card.test.ts`: after the 2.3a brief, the approach shows
   II-024 and nothing else, and resolving it leaves no choice on screen.
 
+## 40. Questions on the insulin run open where the road says they do (2026-11-12)
+
+- **Four-way.** `titus_fourway` was an 18 m square around (265, 0), so southbound on
+  Central the card opened on the straight, before Titus. It is now the crossing
+  itself: Central x 260–270 through Titus y -4–4. The plow reaching the cross street
+  is the trigger.
+- **Before the pharmacy.** Willis through Meeker is the unsigned crossing, and it is
+  the last one before the lot. It opened Deac's line and then a button quiz, and the
+  car kept moving. The crossing is the road overlap (x 196–204, y 106–114), the
+  trigger opens the question itself ("No sign. What do you do."), and a choice during
+  a drive freezes the sim until it is answered (`freeze('choice')`).
+- **The lot.** Starting the back-in at Bea's dock fired three cards: II-015 (a right
+  turn at a hedge), then II-005 and II-030 from quizzes 0.4 s and 24 s later. The
+  back-in now fires `backing.start` and the mirror line only. II-015 opens on
+  `waypoint.reach:pharmacy_turn`, the mouth of the pharmacy lot on Meeker, before
+  the arrival pin.
+- **Tests.** `fourway-card.test.ts` (the unsigned question has no lead-in line);
+  `teaching.test.ts` (the dock does not cue II-015; the pharmacy turn does, and
+  y = -10 on Central does not); coverage still sees II-015.
+
 <!-- CONTINUED -->
 
 
