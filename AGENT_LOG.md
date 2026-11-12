@@ -2937,3 +2937,13 @@ On delivery 1 the four-way asked its question three times. The approach opened D
 ### Verified
 
 vitest **589/589** in 59 files (`fourway-card.test.ts` new), `tsc` 0. Fullchain and deadlock still pass.
+
+## 2026-11-12 — the questions sit on the road they describe
+
+The four-way card opened on an 18 m square, so southbound on Central it fired before Titus. The unsigned crossing before the pharmacy then asked its question as a line and a button quiz while the car kept moving. Backing into the dock stacked three cards: the hedge turn, then Marisol, then the driveway, none of them the back-in.
+
+The four-way pad is the crossing (Central through Titus). The unsigned question opens at Willis through Meeker and stops the car until it is answered. The hedge card opens at the mouth of the pharmacy lot, before the arrival pin. The back-in keeps the mirror line and does not open those three cards (AUDIT §40).
+
+### Verified
+
+vitest **591/591** in 59 files, `tsc` 0. Coverage still sees II-015, from the pharmacy turn.

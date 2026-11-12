@@ -164,8 +164,14 @@ class Bridge {
     const T = (p: Parameters<ReturnType<typeof useQRHud.getState>['setTransient']>[0]) => useQRHud.getState().setTransient(p);
     this.runner.on('line_shown', (l) => T({ line: l, direction: null }));
     this.runner.on('direction_shown', (node, id) => T({ direction: { node, id }, line: null }));
-    this.runner.on('choice_shown', (node, options) => T({ choices: { node, options: options ?? [] } }));
-    this.runner.on('choice_hidden', () => T({ choices: null }));
+    this.runner.on('choice_shown', (node, options) => {
+      T({ choices: { node, options: options ?? [] }, line: null, direction: null });
+      this.holdForChoice();
+    });
+    this.runner.on('choice_hidden', () => {
+      T({ choices: null });
+      this.releaseChoice();
+    });
     this.runner.on('idle', () => {
       T({ line: null, direction: null, choices: null });
       if (this.padDialogue) {
@@ -317,6 +323,7 @@ class Bridge {
     // that is no longer there.
     if (!state.cardOpen && this.sim.isFrozenBy('card')) this.releaseStale('freeze("card")');
     if (!state.quizOpen && this.sim.isFrozenBy('quiz')) this.releaseStale('freeze("quiz")');
+    if (!state.choiceOpen && this.sim.isFrozenBy('choice')) this.releaseStale('freeze("choice")');
     const want = cockpitPhaseFor(state, this.sim.mode === 'walker');
     if (!want) return;
     this.releaseStale(staleCockpitFlag(state) ?? `phase="${g.phase}"`);
@@ -426,6 +433,8 @@ class Bridge {
     );
     this.sim.unfreeze('card');
     this.sim.unfreeze('quiz');
+    this.sim.unfreeze('choice');
+    this.choiceHeld = false;
   }
 
   /**
@@ -1051,6 +1060,22 @@ class Bridge {
   }
 
   // ---------------------------------------------------------------- UI actions
+  /** A button question during a drive stops the car until it is answered. */
+  private choiceHeld = false;
+  private holdForChoice() {
+    const phase = useGameStore.getState().phase;
+    if (phase !== 'driving' && phase !== 'walking') return;
+    this.choiceHeld = true;
+    if (phase === 'driving') holdDrive(); else haltVehicle();
+    this.sim.freeze('choice');
+  }
+  private releaseChoice() {
+    if (!this.choiceHeld) return;
+    this.choiceHeld = false;
+    this.sim.unfreeze('choice');
+    releaseDrive();
+  }
+
   shh() { this.sim.interior.answerQte(); }
 
   /** Open the credits screen (the `credits` unlock, or the end-of-run screen). */

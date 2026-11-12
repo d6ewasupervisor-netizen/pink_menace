@@ -156,6 +156,9 @@ export function DialogueBox() {
         {direction && !line && (
           <div style={styles.direction}>{direction.node.text}</div>
         )}
+        {choices && !line && choices.node.text && (
+          <div style={styles.text}>{choices.node.text}</div>
+        )}
         {choices && (
           <div style={styles.choices}>
             {choices.options.map((o) => (

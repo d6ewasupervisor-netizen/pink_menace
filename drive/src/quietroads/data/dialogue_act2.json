@@ -643,17 +643,10 @@
             "log": "mission.begin:delivery_1"
           }
         },
-        "2.3.9": {
-          "type": "line",
-          "speaker": "DEAC",
-          "delivery": "G",
-          "emotion": "neutral",
-          "volume": "low",
-          "text": "No sign. What do you do.",
-          "next": "2.3a.Q3"
-        },
         "2.3a.Q3": {
           "type": "choice",
+          "speaker": "DEAC",
+          "text": "No sign. What do you do.",
           "choices": [
             {
               "id": "slow_look_yield",
@@ -946,7 +939,7 @@
         },
         {
           "event": "intersection.uncontrolled.approach",
-          "node": "2.3.9",
+          "node": "2.3a.Q3",
           "once": true,
           "priority": 10,
           "interrupt": true

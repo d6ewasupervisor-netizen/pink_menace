@@ -92,8 +92,6 @@ export class GridRun {
       if (!this.backed) {
         this.backed = true;
         this.ev.fire("backing.start");
-        this.ev.requestQuiz("backing.mirror", 0.4);
-        this.ev.requestQuiz("driveway.turn", 24);
       }
       if (-s.speedMs > BACK_FAST_MS && this.backFastCd <= 0) {
         this.backFastCd = 6;

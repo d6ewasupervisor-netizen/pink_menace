@@ -54,7 +54,6 @@ export class CardCues {
   onEvent(mission: string, event: string): string[] {
     const out: string[] = [];
     if (GRID.has(mission)) {
-      if (event === "backing.start") this.take("II-015", out);
       if (event === "park.parallel.start") this.take("II-021", out);
       if (event === "lanechange.start") {
         this.take("II-016", out);
@@ -62,6 +61,11 @@ export class CardCues {
         this.take("II-022", out);
       }
       if (event === "input.hard_brake") this.take("II-031", out);
+    }
+    if (mission === "mission_delivery_1_insulin" && event === "waypoint.reach:pharmacy_turn") {
+      // II-015 "Right, After the Hedge": the right turn into the pharmacy lot,
+      // where the sidewalk is hidden. Not the reverse into the stall.
+      this.take("II-015", out);
     }
     if (mission === "mission_central_ledger") {
       // Every Act III card below opens on the beat that practices it. None of

@@ -65,4 +65,18 @@ describe("delivery 1 four-way", () => {
     expect(runner.current).toBeNull();
     expect(choices).toEqual([]);
   });
+
+  it("the unsigned crossing before the pharmacy is the question, with no lead-in line", () => {
+    const { runner, choices } = boot();
+    runner.startScene("2.3a");
+    for (let i = 0; i < 20 && runner.current; i++) {
+      const cur = runner.current;
+      if (cur.type === "card") runner.resolveCard({ card: cur.card ?? "", option: "d", correct: true });
+      else runner.advanceFromUi();
+    }
+    runner.onEvent("intersection.uncontrolled.approach");
+    expect(runner.current?.type).toBe("choice");
+    expect(runner.current?.text).toBe("No sign. What do you do.");
+    expect(choices).toEqual(["slow_look_yield,speed_up,stop_wait"]);
+  });
 });

@@ -70,6 +70,12 @@ export function observedCueIds(): ReadonlySet<string> {
   const add = (ids: Iterable<string>) => { for (const id of ids) all.add(id); };
 
   // ── Act II — the Grid ──────────────────────────────────────────────────────
+  add(drive('mission_delivery_1_insulin', [
+    (sim) => {
+      const turn = sim.map.zones.find((z) => z.id === 'pharmacy_turn')!;
+      return sample({ pos: { x: turn.rect.x + 2, y: turn.rect.y + 2 }, heading: Math.PI, speedMs: 6 });
+    },
+  ]));
   add(drive('mission_delivery_2_catfood', [
     (sim) => sample({ pos: rectCenter(sim.map.grid.beaStall), speedMs: -1 }),  // backing.start
     ...roll(2, sample({ pos: { x: 0, y: 0 }, speedMs: 12 })),                    // rolling

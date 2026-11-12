@@ -86,7 +86,7 @@ describe("in-scene card cues", () => {
     see(book.step(probe({ missionId: "mission_delivery_3_radio", dt: 9, inLanes: true, s: sample({ speedMs: 1 }) })));
     see(book.step(probe({ missionId: "mission_delivery_3_radio", dt: 2, inLanes: true, s: sample({ speedMs: 0 }) })));
     see(book.onEvent("mission_delivery_3_radio", "lanechange.start"));
-    see(book.onEvent("mission_delivery_2_catfood", "backing.start"));
+    see(book.onEvent("mission_delivery_1_insulin", "waypoint.reach:pharmacy_turn"));
     see(book.onEvent("mission_delivery_2_catfood", "input.hard_brake"));
     see(book.step(probe({ missionId: "mission_delivery_2_catfood", parkReady: true })));
     see(book.onEvent("mission_delivery_4_filters", "park.parallel.start"));
@@ -228,11 +228,22 @@ describe("P15 — II-006 and II-012 open on the Ledger drive", () => {
 });
 
 describe("grid cues go through the sim bus", () => {
-  it("opens the back-in card when Bea's dock starts", () => {
+  it("the back-in starts the dock, and does not open the hedge card", () => {
     const { sim, events } = simBus("mission_delivery_2_catfood");
     const stall = rectCenter(sim.map.grid.beaStall);
     sim.step(1 / 60, sample({ pos: stall, speedMs: -1 }));
     expect(events).toContain("backing.start");
+    expect(events).not.toContain("card.cue:II-015");
+    expect(events).not.toContain("card.cue:II-005");
+    expect(events).not.toContain("card.cue:II-030");
+  });
+
+  it("II-015 opens at the turn into the pharmacy lot, not on the straight", () => {
+    const { sim, events } = simBus("mission_delivery_1_insulin");
+    const turn = sim.map.zones.find((z) => z.id === "pharmacy_turn")!;
+    sim.step(1 / 60, sample({ pos: { x: 265, y: -10 }, heading: Math.PI / 2, speedMs: 8 }));
+    expect(events).not.toContain("intersection.fourway.approach");
+    sim.step(1 / 60, sample({ pos: { x: turn.rect.x + 2, y: turn.rect.y + 2 }, heading: Math.PI, speedMs: 6 }));
     expect(events).toContain("card.cue:II-015");
   });
 

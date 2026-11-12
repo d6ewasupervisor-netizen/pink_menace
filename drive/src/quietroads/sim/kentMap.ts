@@ -155,13 +155,20 @@ export function buildKentMap(seed = 7): WorldMap {
 
   const zones: ZoneDef[] = [
     { kind: "waypoint", id: "block_end", rect: stageSpot(blockEnd.x, blockEnd.y) },
-    { kind: "waypoint", id: "titus_fourway", rect: c(265, 0, 18, 18) },
+    // The crossing itself: Central (x 260–270) through Titus (y -4–4). An 18 m
+    // square opened the card on the straight, before the cross street.
+    { kind: "waypoint", id: "titus_fourway", rect: { x: 260, y: -4, w: 10, h: 8 } },
     { kind: "sign", id: "warning", rect: c(226, 0, 4, 8), quiz: "sign.prompt:warning" },
     // Eastbound Titus only. The sign faces east; the drive home does not stop.
     { kind: "stop", id: "titus_central", rect: c(250.5, 0, 17, 8), approach: 0, quiz: "sign.prompt:regulatory", quizDelayS: 0.4 },
     // Southbound Central. The sign faces south.
     { kind: "stop", id: "meeker", rect: c(265, 97, 10, 16), approach: Math.PI / 2, quiz: "stop.approach", quizDelayS: 0.4 },
-    { kind: "waypoint", id: "willis_uncontrolled", rect: c(200, 110, 12, 12) },
+    // Willis (x 196–204) through Meeker (y 106–114). Westbound, this is the
+    // last crossing before the pharmacy lot.
+    { kind: "waypoint", id: "willis_uncontrolled", rect: { x: 196, y: 106, w: 8, h: 8 } },
+    // Meeker, at the mouth of the pharmacy lot, before the pin. The right turn
+    // the hedge card is about — not the back-in.
+    { kind: "waypoint", id: "pharmacy_turn", rect: { x: 172, y: 106, w: 10, h: 8 } },
     { kind: "waypoint", id: "pharmacy", rect: stageSpot(pharmacyPin.x, pharmacyPin.y) },
     { kind: "waypoint", id: "priya_radio_shack", rect: stageSpot(priyaPin.x, priyaPin.y, 3.2, 6) },
     { kind: "waypoint", id: "warehouse", rect: stageSpot(dockPin.x, dockPin.y) },
